@@ -1,7 +1,5 @@
 // ui.site.js
-//
-// Makes ui components work (ONLY ui things that are NOT dependent
-// on the application).
+
 
 // Handle dropdowns, popups, popdowns and tabs
 
