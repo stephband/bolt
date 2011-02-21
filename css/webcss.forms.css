@@ -1,0 +1,410 @@
+/* forms.css
+ * 
+ * Stephen Band
+ *
+ * For just now, I'm only interested in Webkit and Mozilla.  IE can go jump.
+ *
+ */
+
+form {
+  /* Act as position parent */
+  position: relative;
+}
+
+fieldset    {
+  margin: 0 0 1.6667em 0;
+  /* Act as position parent */
+  position: relative;
+}
+
+legend      {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+label,
+.label {
+  display: block;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+label,
+.label,
+input,
+select,
+textarea {
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    box-sizing:         border-box;
+}
+
+label,
+.label,
+input[type='text'],
+input[type='file'],
+input[type='password'],
+input[type='number'],
+input[type='email'],
+input[type='url'],
+input[type='range'],
+input[type='search'],
+input[type='color'],
+input[type='tel'],
+input[type='date'],
+input[type='time'],
+input[type='week'],
+input[type='month'],
+input[type='datetime'],
+input[type='datetime-local'],
+textarea {
+    border: none;
+}
+
+input[type='search'] {
+    -webkit-border-radius: 2px;
+    -moz-border-radius:    2px;
+    border-radius:         2px;
+}
+
+input[type='text'],
+input[type='file'],
+input[type='password'],
+input[type='number'],
+input[type='email'],
+input[type='url'],
+input[type='range'],
+input[type='search'],
+input[type='color'],
+input[type='tel'],
+input[type='date'],
+input[type='time'],
+input[type='week'],
+input[type='month'],
+input[type='datetime'],
+input[type='datetime-local'],
+textarea {
+    width: 100%;
+}
+
+input[type='time'] {
+    max-width: 5em;
+}
+
+label,
+.label,
+input[type='text'],
+input[type='file'],
+input[type='password'],
+input[type='number'],
+input[type='email'],
+input[type='url'],
+input[type='range'],
+input[type='search'],
+input[type='color'],
+input[type='tel'],
+input[type='date'],
+input[type='time'],
+input[type='week'],
+input[type='month'],
+input[type='datetime'],
+input[type='datetime-local'],
+select {
+    height: 1.6667em;
+}
+
+input[type='text'],
+input[type='file'],
+input[type='password'],
+input[type='number'],
+input[type='email'],
+input[type='url'],
+input[type='search'],
+input[type='color'],
+input[type='tel'],
+textarea {
+    opacity: 0.88;
+    padding: 0 0.3333em;
+    /* Nudge up the baseline position in FF. Doesn't affect Webkit */
+    padding-bottom: 0.077em;
+}
+
+select {
+    opacity: 0.88;
+    /* Nudge down the baseline position in FF.  Doesn't affect Webkit.
+       Only needed when you're overriding the system-style select boxes.
+       You can override by doing almost any manipulation to the border, in FF */
+    /*padding: 0.117em 0.8333em;*/
+}
+
+input[type='text'],
+input[type='file'],
+input[type='password'],
+input[type='number'],
+input[type='email'],
+input[type='url'],
+input[type='search'],
+input[type='color'],
+input[type='tel'] {
+    /* Position text in the same place it is in labels in WebKit / Mozilla */
+    text-indent: -1px;
+}
+
+/* File inputs. Good luck. */
+input[type='file'] {
+  color: inherit;
+  background: none;
+  display: block;
+}
+
+/* File inputs are especially problematic in FF
+ * they require a wrapper to get rid of their system border */
+@-moz-document url-prefix() {
+    .ff-input-file-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ff-input-file-wrapper input[type='file'] {
+    position: relative;
+    top: -2px;
+    left: -1px;
+    margin-bottom: -3px;
+  }
+}
+
+input[type=button],
+input[type=submit] {
+    vertical-align: baseline;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* Clickable things get a pointer cursor */
+label[for],
+input[type='file'],
+input[type='button'],
+input[type='submit'],
+button {
+    cursor: pointer;
+}
+
+/* make buttons play nice in IE:    
+   www.viget.com/inspire/styling-the-button-element-in-internet-explorer/ */
+button {
+    width: auto;
+    overflow: visible;
+}
+
+textarea {
+    min-height: 6.6667em;
+    line-height: inherit;
+    /* Switch off resizing (Webkit) by default */
+    resize: none;
+}
+
+textarea.resizable {
+    resize: resize;
+    /* Make sure the bottom right corner doesn't clip the resize icon */
+    -webkit-border-bottom-right-radius: 2px !important;
+}
+
+label {
+    font-weight: bold;
+    /* Equalise FF's <label> baseline to its <input> baseline. Mostly. */
+    line-height: 1.077;
+    /* Has FF4 fixed this? We seem to have a problem now.
+    line-height: 1;*/
+    /* Only pad labels top and bottom */
+    padding: 0.3333em 0;
+}
+
+.label {
+    line-height: 1;
+    padding: 0.3333em 0;
+}
+
+label .required {
+    color: hsl( 18, 90%, 66% );
+}
+
+input[type=checkbox], input[type=radio],
+input.checkbox, input.radio {
+    /*position:relative; top: 0em;*/
+    margin: 0;
+    vertical-align: baseline;
+    /* You can't style radio and checkbox colors effectively */
+}
+
+label input[type=checkbox] {
+    /* handle nested checkboxes inside labels */
+    margin-right: 0.6em;
+}
+
+/* Focus and error styles */
+
+input[type='text']:focus,
+input[type='password']:focus,
+input[type='number']:focus,
+input[type='email']:focus,
+input[type='url']:focus,
+input[type='search']:focus,
+input[type='color']:focus,
+input[type='tel']:focus,
+select:focus,
+textarea:focus {
+    opacity: 1;
+    
+    /* In Webkit, outline doesn't fit the border curves, and in FF outline
+       is ugly. Lets recreate it with box-shadow */
+    outline: none;
+    
+    /* Old Safari doesn't do blur radius */
+    -webkit-box-shadow: 0 0 12px hsl( 72, 100%, 50% );
+    /* but Chrome does... */
+    -webkit-box-shadow: 0 0 4px 2px hsl( 72, 100%, 50% ), inset 0 0 4px hsl( 72, 100%, 50% );
+    /* Create webkit-like outlines for FF */
+    -moz-box-shadow:    0 0 4px 2px hsl( 72, 100%, 50% ), inset 0 0 4px hsl( 72, 100%, 50% );
+    box-shadow:         0 0 4px 2px hsl( 72, 100%, 50% ), inset 0 0 4px hsl( 72, 100%, 50% );
+}
+input[type='text'].error,
+input[type='password'].error,
+input[type='number'].error,
+input[type='email'].error,
+input[type='url'].error,
+input[type='search'].error,
+input[type='color'].error,
+input[type='tel'].error,
+select.error,
+textarea.error,
+.error input[type='text'],
+.error input[type='password'],
+.error input[type='number'],
+.error input[type='email'],
+.error input[type='url'],
+.error input[type='search'],
+.error input[type='color'],
+.error input[type='tel'],
+.error select,
+.error textarea {
+    opacity: 1;
+    -webkit-box-shadow: 0 0 12px hsl( 28, 100%, 50% );
+    -webkit-box-shadow: 0 0 4px 1px hsl( 28, 100%, 50% ), inset 0 0 4px hsl( 28, 100%, 50% );
+    -moz-box-shadow:    0 0 4px 1px hsl( 28, 100%, 50% ), inset 0 0 4px hsl( 28, 100%, 50% );
+    box-shadow:         0 0 4px 1px hsl( 28, 100%, 50% ), inset 0 0 4px hsl( 28, 100%, 50% );
+}
+input[type='text'].error:focus,
+input[type='password'].error:focus,
+input[type='number'].error:focus,
+input[type='email'].error:focus,
+input[type='url'].error:focus,
+input[type='search'].error:focus,
+input[type='color'].error:focus,
+input[type='tel'].error:focus,
+select.error:focus,
+textarea.error:focus,
+.error input[type='text']:focus,
+.error input[type='password']:focus,
+.error input[type='number']:focus,
+.error input[type='email']:focus,
+.error input[type='url']:focus,
+.error input[type='search'],
+.error input[type='color']:focus,
+.error input[type='tel']:focus,
+.error select:focus,
+.error textarea:focus {
+    -webkit-box-shadow: 0 0 12px hsl( 58, 100%, 50% );
+    -webkit-box-shadow: 0 0 4px 2px hsl( 58, 100%, 50% ), inset 0 0 4px hsl( 58, 100%, 50% );
+    -moz-box-shadow:    0 0 4px 2px hsl( 58, 100%, 50% ), inset 0 0 4px hsl( 58, 100%, 50% );
+    box-shadow:         0 0 4px 2px hsl( 58, 100%, 50% ), inset 0 0 4px hsl( 58, 100%, 50% );
+}
+
+select:focus {
+    /* In Webkit, select boxes don't accept box-shadow. Outline-style: auto
+       kills the outline in FF, which is ok, because we re-created it (better)
+       using a box-shadow (for non-system-style select boxes. FF ignores outline
+       declarations for system-style select boxes, and uses system blue (Mac). Hey-ho.) */
+    outline: hsl( 72, 100%, 50% ) auto 6px;
+    -moz-outline-color: hsl( 72, 100%, 50% ); 
+    outline-offset: -3px;
+}
+.error select {
+    outline: hsl( 13, 100%, 50% ) auto 6px;
+    -moz-outline-color: hsl( 13, 100%, 50% ); 
+    outline-offset: -3px;
+}
+
+.error select:focus {
+    outline: hsl( 72, 100%, 50% ) auto 6px;
+    -moz-outline-color: hsl( 72, 100%, 50% ); 
+    outline-offset: -3px;
+}
+
+.error_message {
+    line-height: 1.6667;
+    color: hsl( 13, 74%, 62% );
+}
+
+label.error_message {
+    line-height: 1;
+}
+
+input.default {
+    font-style: italic;
+    font-weight: normal; 
+}
+
+
+/* Simulate placeholder attribute with a label layered
+   over the top of the inputs. */
+
+input + .placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0;
+  font-weight: normal;
+  opacity: 0.5;
+}
+
+input + .placeholder,
+input.empty:focus + .placeholder {
+  display: none;
+}
+
+input.empty + .placeholder {
+  display: block;
+}
+
+
+/* Layout */
+
+/*input+label,
+textarea+label,
+input+input,
+textarea+input,
+input+textarea,
+textarea+textarea {
+    margin-top: 0.6667em;
+}*/
+
+/* .custom inputs must be followed by a styled label
+   that references them by for="id". */
+
+.custom {
+  /* We have to take it out of the flow and make it
+     invisible, rather than adding display: none,
+     because display: none stops keyboard from being
+     able to focus it */
+  opacity: 0;
+  position: absolute;
+  left: -10000px;
+}

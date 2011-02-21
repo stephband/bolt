@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<title>css .index</title>
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<style type="text/css" media="screen, projection">
+    
+    @import url('../css-reset/css/yui2-reset.css');
+    @import url('../css/test.css');
+    @import url('../../public/css/lib/layer.css');
+    
+    .center {
+        background-color: hsl(30, 50%, 70%);
+    }
+    
+    .center-cell {
+        background-color: hsla(200, 50%, 70%, 1);
+    }
+    .center-box {
+        width: 100%; height: 100%;
+        background: rgb(160, 160, 160);
+        background: rgba(160, 160, 160, 0.4);
+    }
+    
+    .big {
+        width: 600px;
+        height: 600px;
+    }
+    .thin {
+        width: 80px;
+    }
+    .wide {
+        width: 600px;
+    }
+    .tall {
+        height: 600px;
+    }
+    .short {
+        height: 80px;
+    }
+    h4 {
+        font-weight: bold;
+        width: 30%;
+        margin: 0 1em 1em 0;
+        float: left;
+    }
+    .test {
+        height: 100px;
+        width: 30%;
+        margin: 0 1em 1em 0;
+        float: left;
+        border: 1px dotted #666666;
+        position: relative;
+    }
+    .tall {
+        height: 200px;
+    }
+    h2 {
+        clear: both;
+    }
+    iframe { border: none; }
+    
+</style>
+
+</head>
+
+<body>
+
+<h1>.center</h1>
+
+<p>Centers content boxes of arbitrary height, both horizontally and vertically.</p>
+
+<dl>
+    <dt>.center</dt><dd>Sets up a table display.</dd>
+    <dt>.center-cell</dt><dd>Displays as a table-cell with vertical-align: center.</dd>
+    <dt>.center-box</dt><dd>Takes care of horizontal centering via margin: auto, and serves as a position parent for content.</dd>
+</dl>
+
+<h2><pre>div.center
+  div.center-cell
+    div.center-box
+      div</pre></h2>
+
+<div class="tall test" style="height: 400px; width: 22%;">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="thin center-box" style="height: auto; width: 80%;">
+                <div style="padding: 0.8em;">
+                    <h3>div</h3>
+                    <code><pre>.center-box {
+  width: 80%;
+}</pre></code>
+                    <p>Expands naturally to the height of its content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tall test" style="height: 400px; width: 22%;">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="thin center-box" style="height: 80%; width: 80%;">
+                <div style="padding: 0.8em;">
+                    <h3>div</h3>
+                    <code><pre>.center-box {
+  width: 80%;
+  height: 80%;
+}</pre></code>
+                    <p>Also takes a fixed height.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tall test" style="height: 400px; width: 22%;">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="thin center-box" style="height: 80%; width: 80%;">
+                <div style="padding: 0.8em;">
+                    <h3>div</h3>
+                    <code><pre>.center-box {
+  width: 80%;
+  height: 80%;
+}</pre></code>
+                    <p>Pushes the whole construct bigger when there is too much content.</p>
+                    <p>blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tall test" style="height: 400px; width: 22%;">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="thin center-box" style="height: 80%; width: 80%;">
+                <div class="center-content layer" style="padding: 0.8em;">
+                    <h3>div.layer</h3>
+                    <code><pre>.center-box {
+  width: 80%;
+  height: 80%;
+}</pre></code>
+                    <p>Which is fixable with class <code>layer</code>. Using <code>.layer</code> <em>requires</em> a height declaration on <code>.center-box</code>.</p>
+                    <p>blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tall test" style="height: 400px; width: 22%;">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="thin center-box" style="height: auto; width: 80%;">
+                <div style="background: white; padding: 4px 0.8em; position: absolute; height: 20px; top: -28px;">tab</div>
+                <div style="padding: 0.8em;">
+                    <h3>div</h3>
+                    <code><pre>.tab {
+  position: absolute;
+  height: 20px;
+  top: -20px;
+}</pre></code>
+                    <p>Things can easily be positioned outside of the .center-box with a little positioning.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2><pre>div.center
+  div.center-cell
+    div.center-box
+     iframe</pre></h2>
+
+<div class="tall test">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="thin short center-box">
+                <iframe src ="iframe_empty.html">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tall test">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="thin short center-box">
+                <iframe src ="iframe.html">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tall test">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="center-box">
+                <iframe src ="iframe.html">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>Tests</h1>
+<h2>div render test</h2>
+
+<h4>div</h4><h4>table-cell>div</h4><h4>table>table-cell>div</h4>
+
+<div class="test" style="height: 200px;">
+    <div class="thin short center-box">
+        <h3>div</h3>
+    </div>
+</div>
+
+<div class="test" style="height: 200px;">
+    <div class="center-cell layer">
+        <div class="thin short center-box">
+            <h3>div</h3>
+        </div>
+    </div>
+</div>
+
+<div class="test" style="height: 200px;">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="thin short center-box">
+                <h3>div</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="test" style="height: 200px;">
+    <div class="center-box">
+        <h3>div</h3>
+    </div>
+</div>
+
+<div class="test" style="height: 200px;">
+    <div class="center-cell layer">
+        <div class="center-box">
+            <h3>div</h3>
+        </div>
+    </div>
+</div>
+
+<div class="test" style="height: 200px;">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="center-box">
+                <h3>div</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="test">
+    <div class="center-box">
+        <h3>div</h3>
+    </div>
+</div>
+
+<div class="test">
+    <div class="center-cell layer">
+        <div class="center-box">
+            <h3>div</h3>
+        </div>
+    </div>
+</div>
+
+<div class="test">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="center-box">
+                <h3>div</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>iframe render test</h2>
+<p>This test shows that iframes render with a minimum height when placed inside a <code>table-cell</code>.</p>
+
+<h4>iframe on its own</h4><h4>table-cell>iframe</h4><h4>table>table-cell>iframe</h4>
+
+<div class="test" style="height: 200px;">
+    <iframe class="center-box grey" src ="iframe.html" width="100%" height="100%">
+        <p>I have a width: 100%; height: 100%; I don't seem to work in FF.</p>
+    </iframe>
+</div>
+
+<div class="test" style="height: 200px;">
+    <div class="center-cell layer">
+        <iframe class="center-box grey" src ="iframe.html" width="100%" height="100%">
+        </iframe>
+    </div>
+</div>
+
+<div class="test" style="height: 200px;">
+    <div class="center layer">
+        <div class="center-cell">
+            <iframe class="center-box" src ="iframe.html" width="100%" height="100%">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<div class="test">
+    <iframe class="center-box grey" src ="iframe.html" width="100%" height="100%">
+        <p>I have a width: 100%; height: 100%; I don't seem to work in FF.</p>
+    </iframe>
+</div>
+
+<div class="test">
+    <div class="center-cell">
+        <iframe class="center-box grey" src ="iframe.html" width="100%" height="100%">
+        </iframe>
+    </div>
+</div>
+
+<div class="test">
+    <div class="center layer">
+        <div class="center-cell">
+            <iframe class="center-box grey" src ="iframe.html" width="100%" height="100%">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<p style="margin-top: 430px;">Also, they don't respect margin: auto.</p>
+
+<div class="test" style="height: 200px;">
+    <iframe class="thin short center-box grey" src ="iframe.html" width="100%" height="100%">
+        <p>I have a width: 100%; height: 100%; I don't seem to work in FF.</p>
+    </iframe>
+</div>
+
+<div class="test" style="height: 200px;">
+    <div class="center-cell layer">
+        <iframe class="thin short center-box grey" src ="iframe.html" width="100%" height="100%">
+        </iframe>
+    </div>
+</div>
+
+<div class="test" style="height: 200px;">
+    <div class="center layer">
+        <div class="center-cell">
+            <iframe class="thin short center-box" src ="iframe.html" width="100%" height="100%">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<h2>wrapped iframe render test</h2>
+
+<p>To fix those problems the iframe can be wrapped in a div. It seems to get the message. The advantage is it gives an extra 'hook' to tackle IE with. The disadvantage is that the iframe always has to have width/height 100%, and the width height you want must be set on th wrapper div.</p>
+
+<h4>table-cell>div>iframe</h4><h4>table-cell>div>iframe</h4><h4>table>table-cell>div>iframe</h4>
+
+<div class="tall test" style="clear: left;">
+    <div class="center-cell layer">
+        <div class="center-box grey">
+            <iframe src ="iframe.html">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<div class="tall test">
+    <div class="center-cell layer">
+        <div class="center-box">
+            <iframe src ="iframe_empty.html">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<div class="tall test">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="center-box">
+                <iframe src ="iframe_empty.html">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="test" style="clear: left;">
+    <div class="center-cell layer">
+        <div class="center-box">
+            <iframe src ="iframe.html">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<div class="test">
+    <div class="center-cell layer">
+        <div class="center-box">
+            <iframe src ="iframe_empty.html">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<div class="test">
+    <div class="center layer">
+        <div class="center-cell layer">
+            <div class="center-box">
+                <iframe src ="iframe_empty.html">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tall test" style="clear: left;">
+    <div class="center-cell layer">
+        <div class="thin short center-box">
+            <iframe src ="iframe.html">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<div class="tall test">
+    <div class="center-cell layer">
+        <div class="thin short center-box">
+            <iframe src ="iframe_empty.html">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<div class="tall test">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="thin short center-box">
+                <iframe src ="iframe_empty.html">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>Finally, a quirk...</h2>
+
+<p><code>div</code>s do not respect % height declarations inside a <code>table-cell</code> when their content becomes higher than the cell: they push the table bigger. At least they behave the same way in WebKit and FireFox.</p>
+<p>It may actually be desired behaviour, but if not there is a fix. The <code>.center-box</code> div has position, so declare it's content as a layer ( <code>{ position: absolute; height: 100%; width: 100%; }</code> ). The caveat is that the height of .center-box must now be defined, because it will no longer self-adjust to its absolutely positioned content.</p>
+
+<div class="tall test" style="height: 400px;">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="thin center-box" style="height: 100%;">
+                <div>
+                    <h3>div</h3>
+                    <p>blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tall test" style="height: 400px;">
+    <div class="center layer">
+        <div class="center-cell">
+            <div class="thin center-box">
+                <div class="layer">
+                    <h3>div.layer</h3>
+                    <p>blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb blurb</p>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/jquery-1.4a2.js"></script>
+<script type="text/javascript" src="../../../app/javascripts/jquery.extensions.js"></script>
+<script type="text/javascript">
+
+function createStyle( cssString ){
+    jQuery('head').append('<style type="text/css">'+cssString+'</style>');
+}
+
+jQuery(function(){
+    createStyle('.push-scroll {'+
+            'padding-right: '+ jQuery.support.scrollbarWidth +'px;'+
+            'padding-bottom: '+ jQuery.support.scrollbarWidth +'px;'+
+        '}');
+});
+
+</script>
+
+</body>
+</html>

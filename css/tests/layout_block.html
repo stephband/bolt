@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<title>webcss</title>
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<style type="text/css" media="screen, projection">
+    
+    @import url('../reset.css');
+    @import url('../layout.css');
+    @import url('../index.css');
+    @import url('css/typography.css');
+    
+    body {
+      background-image: url('images/grid_8px.png');
+      padding:16px;
+    }
+    
+    .horizontal,
+    .vertical,
+    .central {
+      border: 1px solid #999999;
+      margin-bottom: 8px;
+    }
+    
+    .horizontal>div,
+    .vertical>div,
+    .central>div,
+    .horizontal>li,
+    .vertical>li,
+    .central>li {
+      background: #dedede;
+    }
+    
+</style>
+
+</head>
+
+<body>
+  
+  <h1>layout.css</h1>
+  <p>Tests the styles found in layout.css. First up...</p>
+  
+  <h3>.horizontal</h3>
+  <p>Lays children out horizontally, stretched vertically. Note that children must have no space between them in the html, as they are inline-blocks...</p>
+  
+  <div class="horizontal" style="height: 50px;">
+    <div>One</div
+   ><div>Two</div
+   ><div>Three</div
+   ><div style="width: 20%;">This child has <code>width: 20%;</code></div>
+  </div>
+  
+  <h3>.vertical</h3>
+  <p>Lays children out vertically, stretched horizontally</p>
+  
+  <div class="vertical" style="height: 160px;">
+    <div>One</div>
+    <div>Two</div>
+    <div>Three</div>
+    <div style="height: 60%;">This child has <code>height: 60%;</code></div>
+  </div>
+  
+  <h3>.central</h3>
+  <p>Centres children of unkown dimensions</p>
+  <div class="central" style="height: 160px;">
+    <div>
+      Hello.<br/>
+      Are you a mad ferret?
+    </div>
+    <div>
+      Hello.<br/>
+      Are you a mad ferret?
+    </div>
+  </div>
+  
+  <p class="fail">Opera: fails to support box-pack: center;</p>
+  <p class="fail">FF: Allows children to push the box wider than defined - in WebKit they simply overflow, allowing you to hide them and whatnot.  FireFox, frustratingly, breaks display: box; if you try applying overflow, positioning, float, and probably more. Use with caution.</p>
+  
+  <h3>.horizontal.index</h3>
+  
+  <ul class="horizontal index" style="height: 50px;">
+    <li>One</li
+   ><li>Two</li
+   ><li>Three</li
+   ><li>Four</li>
+  </ul>
+  
+  <h3>.horizontal.divided.index</h3>
+  
+  <ul class="horizontal divided index" style="height: 50px;">
+    <li>One</li
+   ><li>Two</li
+   ><li>Three</li
+   ><li>Four</li>
+  </ul>
+  
+  <h3>.vertical.index</h3>
+  
+  <ul class="vertical index">
+    <li>One</li>
+    <li>Two</li>
+    <li>Three</li>
+    <li>Four</li>
+  </ul>
+
+  <h3>.vertical.divided.index</h3>
+  
+  <ul class="vertical divided index">
+    <li>One</li>
+    <li>Two</li>
+    <li>Three</li>
+    <li>Four</li>
+  </ul>
+  
+  <h3>.horizontal - absolutely positioned</h3>
+  
+  <div class="horizontal" style="height: 50px; position: absolute;">
+    <div>One</div
+   ><div>Two</div
+   ><div>Three</div
+   ><div>Four</div>
+  </div>
+  
+  <h3 style="margin-top: 3em;">.horizontal - floated</h3>
+  
+  <div class="horizontal" style="height: 50px; float: left;">
+    <div>One</div
+   ><div>Two</div
+   ><div>Three</div
+   ><div>Four</div>
+  </div>
+  
+  <h3 style="clear: left;">.horizontal - nested layouts</h3>
+  
+  <div class="horizontal" style="height: 100px;">
+    <div class="vertical" style="margin-bottom: 0;">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+    </div
+   ><div>Two</div
+   ><div>Three</div
+   ><div>Four</div>
+  </div>
+  
+  <div class="horizontal" style="height: 50px;">
+    <div class="horizontal" style="margin-bottom: 0;">
+      <div>One</div
+     ><div>Two</div
+     ><div>Three</div
+     ><div>Four</div>
+    </div
+   ><div>Two</div
+   ><div>Three</div
+   ><div>Four</div>
+  </div>
+  
+</body>
+</html>

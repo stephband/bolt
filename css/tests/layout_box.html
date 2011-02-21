@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<title>webcss</title>
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<style type="text/css" media="screen, projection">
+    
+    @import url('../reset.css');
+    @import url('../layout_box.css');
+    @import url('../index.css');
+    @import url('css/typography.css');
+    
+    body {
+      background-image: url('images/grid_8px.png');
+      padding:16px;
+    }
+    
+    .horizontal,
+    .vertical {
+      border: 1px solid #999999;
+      margin-bottom: 8px;
+    }
+    
+    .horizontal>div,
+    .vertical>div,
+    .horizontal>li,
+    .vertical>li {
+      background: #dedede;
+    }
+    
+</style>
+
+</head>
+
+<body>
+  
+  <h1>layout.css</h1>
+  <p>Tests the styles found in layout.css. First up...</p>
+  
+  <p class="fail">This technique is not ready for use. FireFox has some major problems: it doesn't allow boxes to be positioned or floated, and they can't be laid out by nesting them in other, justified, boxes &mdash; or given flexible widths.</p>
+  
+  <h3>.horizontal</h3>
+  <p>Lays children out horizontally, stretched vertically</p>
+  
+  <div class="horizontal" style="height: 50px;">
+    <div>One</div>
+    <div>Two</div>
+    <div>Three</div>
+    <div style="width: 20%;">This child has <code>width: 20%;</code></div>
+  </div>
+  
+  <p class="fail">FF: FireFox does not respond to percentage widths on box children.</p>
+
+  <h3>.justify_horizontal .horizontal</h3>
+  
+  <div class="justify_horizontal horizontal" style="height: 50px;">
+    <div>One</div>
+    <div>Two</div>
+    <div>Three</div>
+    <div style="width: 20%;">This child has <code>width: 20%;</code></div>
+  </div>
+
+  <p class="fail">FF: FireFox does not justify children.</p>
+
+  <h3>.horizontal.index</h3>
+  
+  <ul class="horizontal index" style="height: 50px;">
+    <li>One</li>
+    <li>Two</li>
+    <li>Three</li>
+    <li>Four</li>
+  </ul>
+  
+  <h3>.horizontal.divided.index</h3>
+  
+  <ul class="horizontal divided index" style="height: 50px;">
+    <li>One</li>
+    <li>Two</li>
+    <li>Three</li>
+    <li>Four</li>
+  </ul>
+  
+  <h3>.vertical</h3>
+  <p>Lays children out vertically, stretched horizontally</p>
+  
+  <div class="vertical" style="height: 160px;">
+    <div>One</div>
+    <div>Two</div>
+    <div>Three</div>
+    <div style="height: 60%;">This child has <code>height: 60%;</code></div>
+  </div>
+  
+  <p class="fail">FF: FireFox does not respond to percentage heights on box children.</p>
+  
+  <h3>.vertical.index</h3>
+  
+  <ul class="vertical index">
+    <li>One</li>
+    <li>Two</li>
+    <li>Three</li>
+    <li>Four</li>
+  </ul>
+
+  <h3>.vertical.divided.index</h3>
+  
+  <ul class="vertical divided index">
+    <li>One</li>
+    <li>Two</li>
+    <li>Three</li>
+    <li>Four</li>
+  </ul>
+  
+  <h3>.horizontal - absolutely positioned</h3>
+  
+  <div class="horizontal" style="height: 50px; position: absolute;">
+    <div>One</div>
+    <div>Two</div>
+    <div>Three</div>
+    <div>Four</div>
+  </div>
+  
+  <p class="fail" style="margin-top: 7em;">FF: FireFox can't display: box; elements with position: absolute.  This is a major drawback.</p>
+  
+  <h3>.horizontal - floated</h3>
+  
+  <div class="horizontal" style="height: 50px; float: left;">
+    <div>One</div>
+    <div>Two</div>
+    <div>Three</div>
+    <div>Four</div>
+  </div>
+  
+  <p class="fail" style="margin-top: 7em;">FF: FireFox can't display: box; floated elements.  Do we have to wrap everything?</p>
+
+  <h3>.horizontal - nested layouts</h3>
+  
+  <div class="horizontal">
+    <div class="vertical" style="margin-bottom: 0;">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+    </div>
+    <div>Two</div>
+    <div>Three</div>
+    <div>Four</div>
+  </div>
+  
+  <div class="horizontal" style="height: 50px;">
+    <div class="horizontal" style="margin-bottom: 0; height: 80% !important;">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+    </div>
+    <div>Two</div>
+    <div>Three</div>
+    <div>Four</div>
+  </div>
+  
+</body>
+</html>

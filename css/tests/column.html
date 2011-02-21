@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<title>css | .column</title>
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<style type="text/css" media="screen, projection">
+    
+    @import url('../reset.css');
+    @import url('css/test.css');
+    @import url('../column.css');
+    
+    h2 {
+        white-space: pre;
+    }
+    
+    .test {
+        margin: 0 auto 1em;
+        border: 1px dotted #666666;
+        position: relative;
+        min-height: 40px;
+    }
+    
+    label {
+      background: #eeeeee;
+    }
+    input {
+      background: #dddddd;
+    }
+    
+    .column {
+        background: orange;
+    }
+    
+</style>
+
+</head>
+
+<body>
+
+<h1>column</h1>
+
+<h2>.column</h2>
+
+<p>Inline-block columns must have whitespace removed between tags.</p>
+
+<div class="test">
+    <div class="column one of_two">
+      <p>column 1</p>
+    </div
+    ><div class="column two of_two">
+      <p>column 2.</p>
+      <p>Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div.</p>
+    </div>
+</div>
+
+<div class="test">
+     <div class="column one of_three">column 1</div
+    ><div class="column two of_three">column 2</div
+    ><div class="column three of_three">column 3</div>
+</div>
+
+<div class="test">
+     <div class="column one of_four">column 1</div
+    ><div class="column two of_four">column 2</div
+    ><div class="column three of_four">column 3</div
+    ><div class="column four of_four">column 4</div>
+</div>
+
+<div class="test">
+     <div class="column one of_five">column 1</div
+    ><div class="column two of_five">column 2</div
+    ><div class="column three of_five">column 3</div
+    ><div class="column four of_five">column 4</div
+    ><div class="column five of_five">column 5</div>
+</div>
+
+<div class="test">
+     <div class="column one of_six">column 1</div
+    ><div class="column two of_six">column 2</div
+    ><div class="column three of_six">column 3</div
+    ><div class="column four of_six">column 4</div
+    ><div class="column five of_six">column 5</div
+    ><div class="column six of_six">column 6</div>
+</div>
+
+<div class="test">
+     <div class="column one of_seven">column 1</div
+    ><div class="column two of_seven">column 2</div
+    ><div class="column three of_seven">column 3</div
+    ><div class="column four of_seven">column 4</div
+    ><div class="column five of_seven">column 5</div
+    ><div class="column six of_seven">column 6</div
+    ><div class="column seven of_seven">column 7</div>
+</div>
+
+<div class="test">
+     <div class="column one of_eight">column 1</div
+    ><div class="column two of_eight">column 2</div
+    ><div class="column three of_eight">column 3</div
+    ><div class="column four of_eight">column 4</div
+    ><div class="column five of_eight">column 5</div
+    ><div class="column six of_eight">column 6</div
+    ><div class="column seven of_eight">column 7</div
+    ><div class="column eight of_eight">column 8</div>
+</div>
+
+<h2>.absolute_column</h2>
+
+<p>Absolute columns require some kind of height declaration on their container.</p>
+
+<div class="test clear">
+    <div class="column absolute_column one of_two">column 1</div>
+    <div class="column absolute_column two of_two"><p>column 2.</p>
+      <p>Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div.</p></div>
+</div>
+
+<div class="test clear">
+    <div class="column absolute_column one of_three">column 1</div>
+    <div class="column absolute_column two of_three">column 2</div>
+    <div class="column absolute_column three of_three">column 3</div>
+</div>
+
+<div class="test">
+    <div class="column absolute_column one of_four">column 1</div>
+    <div class="column absolute_column two of_four">column 2</div>
+    <div class="column absolute_column three of_four">column 3</div>
+    <div class="column absolute_column four of_four">column 4</div>
+</div>
+
+<div class="test">
+    <div class="column absolute_column one of_five">column 1</div>
+    <div class="column absolute_column two of_five">column 2</div>
+    <div class="column absolute_column three of_five">column 3</div>
+    <div class="column absolute_column four of_five">column 4</div>
+    <div class="column absolute_column five of_five">column 5</div>
+</div>
+
+<div class="test">
+    <div class="column absolute_column one of_six">column 1</div>
+    <div class="column absolute_column two of_six">column 2</div>
+    <div class="column absolute_column three of_six">column 3</div>
+    <div class="column absolute_column four of_six">column 4</div>
+    <div class="column absolute_column five of_six">column 5</div>
+    <div class="column absolute_column six of_six">column 6</div>
+</div>
+
+<h2>.double</h2>
+
+<p>Double columns span the normal size of two coumns.</p>
+
+<div class="test">
+     <div class="column double_column of_three">double_column column 1</div
+    ><div class="column three of_three">column 3</div>
+</div>
+
+<div class="test">
+     <div class="column double_column of_four">double_column column 1</div
+    ><div class="column three of_four">column 3</div
+    ><div class="column four of_four">column 4</div>
+</div>
+
+<div class="test">
+     <div class="column double_column of_five">double_column column 1</div
+    ><div class="column three of_five">column 3</div
+    ><div class="column four of_five">column 4</div
+    ><div class="column five of_five">column 5</div>
+</div>
+
+<div class="test">
+     <div class="column double_column of_six">double_column column 1</div
+    ><div class="column three of_six">column 3</div
+    ><div class="column four of_six">column 4</div
+    ><div class="column five of_six">column 5</div
+    ><div class="column six of_six">column 6</div>
+</div>
+
+<div class="test">
+     <div class="column double_column of_seven">double_column column 1</div
+    ><div class="column three of_seven">column 3</div
+    ><div class="column four of_seven">column 4</div
+    ><div class="column five of_seven">column 5</div
+    ><div class="column six of_seven">column 6</div
+    ><div class="column seven of_seven">column 7</div>
+</div>
+
+<div class="test">
+     <div class="column double_column of_eight">double_column column 1</div
+    ><div class="column three of_eight">column 3</div
+    ><div class="column four of_eight">column 4</div
+    ><div class="column five of_eight">column 5</div
+    ><div class="column six of_eight">column 6</div
+    ><div class="column seven of_eight">column 7</div
+    ><div class="column eight of_eight">column 8</div>
+</div>
+
+<h2>.triple</h2>
+
+<p>Triple columns span the normal size of three columns.</p>
+
+<div class="test">
+     <div class="column triple_column of_four">triple_column column 1</div
+    ><div class="column four of_four">column 4</div>
+</div>
+
+<div class="test">
+     <div class="column triple_column of_five">triple_column column 1</div
+    ><div class="column four of_five">column 4</div
+    ><div class="column five of_five">column 5</div>
+</div>
+
+<div class="test">
+     <div class="column triple_column of_six">triple_column column 1</div
+    ><div class="column four of_six">column 4</div
+    ><div class="column five of_six">column 5</div
+    ><div class="column six of_six">column 6</div>
+</div>
+
+<div class="test">
+     <div class="column triple_column of_seven">triple_column column 1</div
+    ><div class="column four of_seven">column 4</div
+    ><div class="column five of_seven">column 5</div
+    ><div class="column six of_seven">column 6</div
+    ><div class="column seven of_seven">column 7</div>
+</div>
+
+<div class="test">
+     <div class="column triple_column of_eight">triple_column column 1</div
+    ><div class="column four of_eight">column 4</div
+    ><div class="column five of_eight">column 5</div
+    ><div class="column six of_eight">column 6</div
+    ><div class="column seven of_eight">column 7</div
+    ><div class="column eight of_eight">column 8</div>
+</div>
+
+<h2>.quadruple</h2>
+
+<p>Quadruple columns span the normal size of four columns.</p>
+
+<div class="test">
+     <div class="column quadruple_column of_five">quadruple_column column 1</div
+    ><div class="column five of_five">column 5</div>
+</div>
+
+<div class="test">
+     <div class="column quadruple_column of_six">quadruple_column column 1</div
+    ><div class="column five of_six">column 5</div
+    ><div class="column six of_six">column 6</div>
+</div>
+
+<div class="test">
+     <div class="column quadruple_column of_seven">quadruple_column column 1</div
+    ><div class="column five of_seven">column 5</div
+    ><div class="column six of_seven">column 6</div
+    ><div class="column seven of_seven">column 7</div>
+</div>
+
+<div class="test">
+     <div class="column quadruple_column of_eight">quadruple_column column 1</div
+    ><div class="column five of_eight">column 5</div
+    ><div class="column six of_eight">column 6</div
+    ><div class="column seven of_eight">column 7</div
+    ><div class="column eight of_eight">column 8</div>
+</div>
+
+<h2>.quintuple</h2>
+
+<p>Quintuple columns span the normal size of five columns.</p>
+
+<div class="test">
+     <div class="column quintuple_column of_six">quintuple_column column 1</div
+    ><div class="column six of_six">column 6</div>
+</div>
+
+<div class="test">
+     <div class="column quintuple_column of_seven">quintuple_column column 1</div
+    ><div class="column six of_seven">column 6</div
+    ><div class="column seven of_seven">column 7</div>
+</div>
+
+<div class="test">
+     <div class="column quintuple_column of_eight">quintuple_column column 1</div
+    ><div class="column six of_eight">column 6</div
+    ><div class="column seven of_eight">column 7</div
+    ><div class="column eight of_eight">column 8</div>
+</div>
+
+<h2>.sextuple</h2>
+
+<p>Sextuple columns span the normal size of six columns.</p>
+
+<div class="test">
+     <div class="column sextuple_column of_seven">sextuple_column column 1</div
+    ><div class="column seven of_seven">column 7</div>
+</div>
+
+<div class="test">
+     <div class="column sextuple_column of_eight">sextuple_column column 1</div
+    ><div class="column seven of_eight">column 7</div
+    ><div class="column eight of_eight">column 8</div>
+</div>
+
+<h2>.septuple</h2>
+
+<p>Septuple columns span the normal size of seven columns.</p>
+
+<div class="test">
+     <div class="column septuple_column of_eight">sextuple_column column 1</div
+    ><div class="column eight of_eight">column 8</div>
+</div>
+
+</body>
+</html>

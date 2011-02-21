@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<title>css .index</title>
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<style type="text/css" media="screen, projection">
+    
+    @import url('../css-reset/css/yui2-reset.css');
+    @import url('../css/test.css');
+    @import url('../../layer.css');
+    
+    .content {
+        background: rgb(160, 160, 160);
+        background: rgba(160, 160, 160, 0.6);
+        padding: 2em;
+        width: 200px;
+    }
+    .big {
+        width: 600px;
+        height: 600px;
+    }
+    .wide {
+        width: 600px;
+    }
+    .tall {
+        height: 600px;
+    }
+    .full {
+        width: 100%;
+        height: 100%;
+    }
+    .layer {
+        background: rgb(200, 230, 216);
+        background: rgba(200, 230, 216, 0.6);
+    }
+    .test {
+        height: 300px;
+        margin: 0 auto 1em;
+        border: 1px dotted #666666;
+        position: relative;
+    }
+    .screen {
+        background-color: #666666;
+        display: block;
+        color: white;
+    }
+    
+</style>
+
+</head>
+
+<body>
+
+<h1>.layer</h1>
+
+<p>Overlays a layer that fills the dimensions of its container, including the container's padding. Takes the additional classes:</p>
+
+<dl>
+    <dt>.screen</dt><dd>For overlays and event catchers. Hidden by default.</dd>
+    <dt>.centering</dt><dd>Centers content vertically and horizontally.</dd>
+    <dt>.hide-scroll</dt><dd></dd>
+    <dt>.push-scroll</dt><dd></dd>
+    <dt>.show-scroll</dt><dd></dd>
+</dl>
+
+<h2><pre>div.screen.layer</pre></h2>
+
+<div class="test">
+    <div class="screen layer">
+        I am a .screen.layer. By default, I have display: none; so you wouldn't normally see me. Here, I've been redefined with display: block; .
+    </div>
+</div>
+
+<h2><pre>div.layer
+  {content}</pre></h2>
+
+<div class="test">
+    <div class="layer">
+        <div class="content">
+            Hello. I am some content in a layer.
+        </div>
+    </div>
+</div>
+
+<div class="test">
+    <div class="layer">
+        <div class="big content">
+            Hello. I am a box that overflows it's container by quite a wide margin due to the sheer quantity of text in this sentence and a little help from a large width styling.
+        </div>
+    </div>
+</div>
+
+<h2><pre>div.centering.layer
+  div
+    {content}</pre></h2>
+
+<div class="test">
+    <div class="centering layer">
+        <div>
+            <div class="content">
+                Hello. I am a central box.
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>A limitation of this construct is that contents will overflow the layer whatever you set overflow to, because display: table; disregards the overflow style.</p>
+
+<div class="test">
+    <div class="centering layer">
+        <div>
+            <div class="wide content">
+                Hello. I am a really wide, yet central, box.
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>To get round this problem we need to wrap the .centering.layer in another layer:</p>
+
+<h2><pre>div.layer
+  div.centering.layer
+    div
+      {content}</pre></h2>
+
+<div class="test">
+    <div class="layer">
+        <div class="centering layer">
+            <div>
+                <div class="wide content">
+                    Hello. I am a really wide, yet central, box.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>The question is: how the hell do we hide the srollbars and still allow scrolling?</p>
+
+<h2><pre>div.hide-scroll.layer
+  div.push-scroll.layer
+    div.show-scroll.layer
+      div.centering.layer
+        div
+          {content}</pre></h2>
+
+<p>It turns out to be harder than we thought. It involves a lot of nested layers. The trick is to make some layers ignore their container's padding and others to respect it.  We can do this with:</p>
+
+<pre>top: 0; right: 0; bottom: 0; left: 0;</pre>
+
+<p>to ignore padding, and</p>
+
+<pre>width: 100%; height: 100%;</pre>
+
+<p>to respect padding. Note that defining width/height will override top/right/bottom/left declarations, and display: table; will collapse anything that does not have width/height defined, making the whole thing a bit of a mindbender. See comments in html for details of what each nested div does.</p>
+
+<div class="test">
+    <!-- Outer layer hides overflow -->
+    <div class="hide-scroll layer">
+        <!-- Push layer adds a padding right and bottom at same width of scrollbars. Width/height defined so that padding is added. -->
+        <div class="push-scroll layer">
+            <!-- Show-scroll forces scrollbars to show always. A layer where width/height are not defined, so it inhabits padding of push layer -->
+            <div class="show-scroll layer">
+                <!-- Centering displays a table - like layer to allow vertical centering -->
+                <div class="centering layer">
+                    <!-- Acts as a table cell -->
+                    <div>
+                        <!-- Horizontal centering with auto margins-->
+                        <div class="tall content">
+                            <p>Hello. I am a really tall, yet central, box.</p>
+                            <p>I'm contained inside a construct that permits scrolling - but without showing the scrollbars.</p>
+                            <p>It takes a few extra divs to achieve this.</p>
+                            <p>It also requires that you know the width of the browser's scrollbars. There's an accompanying jQuery extension that gives us this in jQuery.support.scrollbarWidth.</p>
+                            <p>The result is worth it.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="test">
+    <!-- Outer layer hides overflow -->
+    <div class="hide-scroll layer">
+        <!-- Push layer adds a padding right and bottom at same width of scrollbars. Width/height defined so that padding is added. -->
+        <div class="push-scroll layer">
+            <!-- Show-scroll forces scrollbars to show always. A layer where width/height are not defined, so it inhabits padding of push layer -->
+            <div class="show-scroll layer">
+                <!-- Centering displays a table - like layer to allow vertical centering -->
+                <div class="centering layer">
+                    <!-- Acts as a table cell -->
+                    <div>
+                        <!-- Horizontal centering with auto margins-->
+                        <div class="wide content">
+                            <p>Hello. I am a wide, yet central, box.</p>
+                            <p>I'm contained inside a construct that permits scrolling - but without showing the scrollbars.</p>
+                            <p>It takes a few extra divs to achieve this.</p>
+                            <p>It also requires that you know the width of the browser's scrollbars. There's an accompanying jQuery extension that gives us this in jQuery.support.scrollbarWidth.</p>
+                            <p>The result is worth it.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="test">
+    <!-- Outer layer hides overflow -->
+    <div class="hide-scroll layer">
+        <!-- Push layer adds a padding right and bottom at same width of scrollbars. Width/height defined so that padding is added. -->
+        <div class="push-scroll layer">
+            <!-- A layer where width/height are not defined, so it inhabits padding of push layer. Also, scrollbars are forced. -->
+            <div class="show-scroll layer">
+                <!-- Centering displays a table - like layer to allow vertical centering -->
+                <div class="centering layer">
+                    <!-- Acts as a table cell -->
+                    <div>
+                        <!-- Horizontal centering with auto margins-->
+                        <div class="content">
+                            <p>Hello. I am normal box, inside a scrolling construct, but I should not cause scrolling to take place.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="test">
+    <!-- Outer layer hides overflow -->
+    <div class="hide-scroll layer">
+        <!-- Push layer adds a padding right and bottom at same width of scrollbars. Width/height defined so that padding is added. -->
+        <div class="push-scroll layer">
+            <!-- A layer where width/height are not defined, so it inhabits padding of push layer. Also, scrollbars are forced. -->
+            <div class="show-scroll layer">
+                <!-- Centering displays a table - like layer to allow vertical centering -->
+                <div class="centering layer">
+                    <!-- Acts as a table cell -->
+                    <div>
+                        <!-- Horizontal centering with auto margins-->
+                        <div class="full content">
+                            <p>I have a width: 100%; height: 100%; I don't seem to work in FF.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/jquery-1.4a2.js"></script>
+<script type="text/javascript" src="../../../app/javascripts/jquery.extensions.js"></script>
+<script type="text/javascript">
+
+function createStyle( cssString ){
+    jQuery('head').append('<style type="text/css">'+cssString+'</style>');
+}
+
+jQuery(function(){
+    createStyle('.push-scroll {'+
+            'padding-right: '+ jQuery.support.scrollbarWidth +'px;'+
+            'padding-bottom: '+ jQuery.support.scrollbarWidth +'px;'+
+        '}');
+});
+
+</script>
+
+</body>
+</html>

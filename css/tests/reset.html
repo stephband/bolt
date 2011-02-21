@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<title>css | forms</title>
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<style type="text/css" media="screen, projection">
+    
+    @import url('../reset.css');
+    @import url('css/typography.css');
+    
+    body {
+      background-image: url('images/grid_8px.png');
+      padding:16px;
+    }
+    
+    .box {
+      border-width: 8px;
+      padding: 8px;
+      
+      border-color: rgba(0,0,0,0.2);
+      border-style: solid;
+      
+      width: 128px;
+      margin-bottom: 16px;
+    }
+    
+    .min_box {
+      width: 0;
+      min-width: 128px;
+    }
+    
+    .max_box {
+      width: auto;
+      max-width: 128px;
+    }
+    
+    .absolute_box {
+      position: absolute;
+      left: 192px; top: 208px;
+      height: 128px;
+    }
+    
+    .min_abs_box {
+      left: 368px;
+      /* Height can't be auto for FF */
+      height: 0;
+      min-height: 128px;
+    }
+    
+    .max_abs_box {
+      left: 544px;
+      height: 300px;
+      max-height: 128px;
+    }
+    
+    /* IE8, and I guess, all the others, set min- and max- on the content-box */
+    .min_box {
+      min-width: 96px\9
+    }
+    .max_box {
+      max-width: 96px\9
+    }
+    .min_abs_box {
+      min-height: 96px\9
+    }
+    .max_abs_box {
+      max-height: 96px\9
+    }
+    
+    .h_guide,
+    .v_guide {
+      position: absolute;
+      background-color: orange;
+      background-color: rgba(200,180,140,0.8);
+    }
+    
+    .h_guide {
+      top: 192px;
+      width: 1px; height: 384px;
+    }
+    
+    .v_guide {
+      left: 168px;
+      width: 560px; height: 1px;
+    }
+    
+    .h_guide_0 {
+      left: 16px;
+    }
+    
+    .h_guide_1 {
+      left: 144px;
+    }
+    
+    .v_guide_0 {
+      top: 208px;
+    }
+    
+    .v_guide_1 {
+      top: 336px;
+    }
+    
+</style>
+
+</head>
+
+<body>
+  
+  <h1>Reset.css</h1>
+  <p>Tests the styles found in reset.css. First up...</p>
+  <h3>box-sizing: border-box;</h3>
+  <p>Changes the box model.  Could be a risky strategy... </p>
+  <br />
+  
+  <div class="h_guide h_guide_0"></div>
+  <div class="h_guide h_guide_1"></div>
+  <div class="v_guide v_guide_0"></div>
+  <div class="v_guide v_guide_1"></div>
+  
+  <div class="box">
+    This box is in the flow. It has a fixed width of 128px.
+  </div>
+  
+  <div class="box min_box">
+    This box is in the flow. It has a min-width of 128px applied.
+  </div>
+  
+  <div class="box max_box">
+    This box is in the flow. It has a max-width of 128px applied.
+  </div>
+  
+  <div class="box absolute_box">
+    This box is absolutely positioned.
+  </div>
+  
+  <div class="box absolute_box min_abs_box">
+    This box is absolutely positioned. It has min-height: 128px;
+  </div>
+  
+  <div class="box absolute_box max_abs_box">
+    This box is absolutely positioned. It has max-height: 128px; I'm going to try and push it bigger.
+  </div>
+  
+  <p>It says at <a href="http://www.quirksmode.org/css/contents.html">Quirksmode</a> that box-sizing doesn't work with min- or max-width or height. Here, it seems to work in all but IE8, with just a couple of gotchas in FF.</p>
+  
+  <p>FF: if width or height are 'auto', min-height and max-height are set on the content-box.</p>
+  <p>IE8: min- or max- width or height are always applied to the content-box.</p>
+  
+</body>
+</html>

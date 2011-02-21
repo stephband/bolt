@@ -1,0 +1,40 @@
+img { -ms-interpolation-mode: bicubic; }
+
+/* horizontal
+    
+   Simulate a bunch of blocks pushed against each other horizontally
+   by using in-flow layout to create a horizontal effect. Because
+   they're in the flow, children must have no space between them in
+   the html.
+   
+   Uses a technique for getting inline-block behaviour in IE, explained well here:
+   http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/
+   
+   Hacks:
+   
+   IE6 and IE7:
+   
+   property: value !ie; (the identifier !ie is invalid, so other browser don't see the rule.)
+*/
+
+.horizontal li {
+  /* IE does not apply inline-block to block elements, make them inline... */
+  display: inline;
+  /* ...and trigger hasLayout */
+  zoom: 1;
+}
+
+.horizontal>*:last-child,
+.horizontal>*.last {
+    margin-right: 0;
+}
+
+
+/* IE6-down buttons */
+/* Stephen Band, with thanks to electronlibre.ch */
+/* webdev.stephband.info/buttons */
+
+.disabled                                                   {filter: alpha(opacity=60%);}
+
+/* force inline-block behaviour */
+button, .button                                             {display: inline; vertical-align: middle; margin-bottom: 1px;}

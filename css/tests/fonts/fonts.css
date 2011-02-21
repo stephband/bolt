@@ -1,0 +1,67 @@
+/* Fonts - just a few to test for now */
+/* Hey! @import doesn't work for @font-face ... what gives?  Use link tags in editor.haml */
+
+/*@import url('/fonts/Aaargh-fontfacekit/stylesheet.css');
+@import url('/fonts/Adler-fontfacekit/stylesheet.css');
+@import url('/fonts/CalligraphyFLF-fontfacekit/stylesheet.css');
+@import url('/fonts/Colaborate-fontfacekit/stylesheet.css');
+@import url('/fonts/Creampuff-fontfacekit/stylesheet.css');
+@import url('/fonts/Droid-Sans-fontfacekit/stylesheet.css');
+@import url('/fonts/ElliotSix-fontfacekit/stylesheet.css');
+@import url('/fonts/GoodDog-fontfacekit/stylesheet.css');
+@import url('/fonts/Impact-Label-fontfacekit/stylesheet.css');
+@import url('/fonts/Inconsolata-fontfacekit/stylesheet.css');
+@import url('/fonts/JungleFever-fontfacekit/stylesheet.css');
+@import url('/fonts/Komika-Title-fontfacekit/stylesheet.css');
+@import url('/fonts/League-Gothic-fontfacekit/stylesheet.css');
+@import url('/fonts/MicroFLF-fontfacekit/stylesheet.css');
+@import url('/fonts/Mirisch-fontfacekit/stylesheet.css');
+@import url('/fonts/MomsTypewriter-fontfacekit/stylesheet.css');
+@import url('/fonts/MonospaceTypewriter-fontfacekit/stylesheet.css');
+@import url('/fonts/Playtime-With-Hot-Toddies-fontfacekit/stylesheet.css');
+@import url('/fonts/SF-Cartoonist-Hand-fontfacekit/stylesheet.css');
+@import url('/fonts/Shardee-fontfacekit/stylesheet.css');
+@import url('/fonts/Underwood-Champion-fontfacekit/stylesheet.css');*/
+/*
+.font-Helvetica-Arial           { font-family: Helvetica, Arial, sans-serif; }
+.font-Georgia                   { font-family: Georgia, serif; }
+.font-TimesNewRoman             { font-family: 'Times New Roman', serif; }
+.font-AndaleMono                { font-family: 'Andale Mono'; }
+.font-Courier                   { font-family: 'Courier'; }
+.font-CourierNew                { font-family: 'Courier New'; }
+.font-Aaargh                    { font-family: 'AaarghNormal'; }
+.font-Adler                     { font-family: 'AdlerRegular'; }
+.font-CalligraphyFLF            { font-family: 'CalligraphyFLFRegular'; }
+.font-Colaborate-Thin           { font-family: 'Colaborate-ThinRegular'; }
+.font-Colaborate-Light          { font-family: 'ColaborateLightRegular'; }
+.font-Colaborate-Regular        { font-family: 'Colaborate-RegularRegular'; }
+.font-Colaborate-Medium         { font-family: 'Colaborate-MediumRegular'; }
+.font-Colaborate-Bold           { font-family: 'Colaborate-BoldRegular'; }
+.font-Creampuff                 { font-family: 'CreampuffRegular'; }
+.font-Droid-Sans-Regular        { font-family: 'DroidSansRegular'; }
+.font-Droid-Sans-Bold           { font-family: 'DroidSansBold'; }
+.font-ElliotSix                 { font-family: 'ElliotSixRegular'; }
+.font-GoodDog                   { font-family: 'GoodDogRegular'; }
+.font-Impact-Label              { font-family: 'ImpactLabelRegular'; }
+.font-Impact-Label-Reversed     { font-family: 'ImpactLabelReversedRegular'; }
+.font-Inconsolata               { font-family: 'InconsolataMedium'; }
+.font-JungleFever               { font-family: 'JungleFeverRegular'; }
+.font-KomikaTitle-Regular       { font-family: 'KomikaTitleRegular'; }
+.font-KomikaTitle-PaintRegular  { font-family: 'KomikaTitle-PaintRegular'; }
+.font-KomikaTitle-WideRegular   { font-family: 'KomikaTitle-WideRegular'; }
+.font-KomikaTitle-AxisRegular   { font-family: 'KomikaTitle-AxisRegular'; }
+.font-KomikaTitle-KapsRegular   { font-family: 'KomikaTitle-KapsRegular'; }
+.font-League-Gothic             { font-family: 'LeagueGothicRegular'; }
+.font-Mirisch                   { font-family: 'MirischNormal'; }
+.font-MomsTypewriter            { font-family: 'MomRegular'; }
+.font-MonospaceTypewriter       { font-family: 'MonospaceTypewriterRegular'; }
+.font-PWHTRegular               { font-family: 'PlaytimeWithHotToddiesRegular', Helvetica, Arial, sans-serif;}
+.font-PWHTOblique               { font-family: 'PlaytimeWithHotToddiesObliqueRe', Helvetica, Arial, sans-serif;}
+.font-PWHT3D                    { font-family: 'PlaytimeWithHotToddies3DRegular', Helvetica, Arial, sans-serif;}
+.font-SFCartoonistHandRegular   { font-family: 'SFCartoonistHandRegular', Helvetica, Arial, sans-serif;}
+.font-SFCartoonistHandItalic    { font-family: 'SFCartoonistHandItalic', Helvetica, Arial, sans-serif;}
+.font-SFCartoonistHandBold      { font-family: 'SFCartoonistHandBold', Helvetica, Arial, sans-serif;}
+.font-SFCartoonistHandBoldItalic{ font-family: 'SFCartoonistHandBoldItalic', Helvetica, Arial, sans-serif;}
+.font-Shardee                   { font-family: 'ShardeeRegular'; }
+.font-Underwood-Champion        { font-family: 'UnderwoodChampionRegular'; }
+*/

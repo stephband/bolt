@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<title>css | forms</title>
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<style type="text/css" media="screen, projection">
+    
+    @import url('../reset.css');
+    @import url('../index.css');
+    
+    /**[draggable=true] {
+      -webkit-user-drag: element;
+    }*/
+    
+    #source {
+    	background: #dedede;
+    }
+    
+    #destination {
+    	background: #ffdfbf;
+    }
+    
+    li[draggable] {
+    	background: #eeeeee;
+    	margin-bottom: 3px;
+    }
+    
+    .ghost {
+    	opacity: 0.6;
+    }
+    
+    .hide {
+    	display: none;
+    }
+    
+    .highlight {
+    	background: red !important;
+    }
+
+    .itemsList {
+    	background: #999999;
+    	height: 128px;
+    	width: 50%;
+    }
+    
+    .index li {
+    	margin-right: 1px;
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Can I drag it?</h1>
+
+<ul class="itemsList index">
+	<li draggable="true">one</li
+	><li draggable="true">two</li
+	><li draggable="true">three</li
+	><li draggable="true">four</li
+	><li draggable="true">five</li>
+</ul>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript"> 
+  
+  jQuery(document).ready(function(){
+    
+    var items = jQuery('li[draggable]');
+    var itemsList = jQuery('ul.itemsList');
+    var divide = 0.55;
+    var dragTarget;
+    var startState;
+    
+    itemsList.delegate('li', 'dragstart', function(e){
+      //console.log('EVENT '+e.type, e);
+      
+      var eOrig = e.originalEvent,
+      		item = jQuery(e.target);
+      
+      dragTarget = item.addClass('ghost');
+      startState = itemsList.children();
+      
+      eOrig.dataTransfer.setData("Text", 'Page title');
+      eOrig.dataTransfer.setData("URL", window.location+' Add the page hash here!!!' );
+      eOrig.dataTransfer.setData("application/webdoc-page", "Put some JSON here");
+    	
+    	eOrig.dataTransfer.setDragImage(this, 0, 0);
+    })
+    .delegate('li', 'dragenter dragover', function(e){
+      //console.log('EVENT '+e.type, e);
+      
+      var item, mouse, width, height, offset;
+      
+      e.preventDefault();
+      e.originalEvent.dataTransfer.dropEffect = "move";
+      
+      if (!dragTarget) {
+      	// drag is coming from outside so create dragTarget for this DOM
+      	
+      	dragTarget = jQuery('<li/>', {'class': 'ghost', text: 'What? from another document? Are you nuts?'})
+      }
+      
+      if (dragTarget[0] === this) {
+      	// Don't react to drags over the original dragTarget
+      	
+      	//console.log('This is the bloody dragTarget, numb nuts.');
+      	return;
+      }
+      
+      // Interrogate position to find out how far down the item we are
+      // dragging and move the dragTarget into position accordingly.
+      // Obviously, it's going to depend on whether the list is horizontal
+      // or vertical as to whother you test width or height.
+      
+      item = jQuery(this),
+      mouse = {
+        top: e.pageY,
+        left: e.pageX
+      },
+      //height = item.outerHeight(),
+      width = item.outerWidth(),
+      offset = item.offset();
+      
+      //if ( (mouse.top - offset.top) < (divide * height) ) {
+      if ( (mouse.left - offset.left) < (divide * width) ) {
+      	item.before(dragTarget);
+      }
+      else {
+      	item.after(dragTarget);
+      }
+      
+      return false;
+    })
+    .bind('dragleave', function(e){
+    	//console.log('EVENT '+e.type, e);
+    	
+    	var container = jQuery(this),
+    			mouse, size;
+    	
+    	// In WebKit the dragleave event does not have a relatedTarget so
+    	// we need to detect by coordinates when elvis has left the building.
+    	// Note this is not going to work well when complex objects overhang
+    	// this container.
+    	
+    	mouse = {
+    	  left: e.pageX,
+    	  top: e.pageY
+    	};
+    	
+    	// In WebKit, dragleave is fired and mouse is reported as 0, 0 when
+    	// dragTarget is dropped on this container.  Mitigate.
+    	// (This might be better done by binding a drop on the container...)
+    	
+    	if ( this === e.target && (mouse.left + mouse.top) === 0 ) {
+    		return;
+    	} 
+    	
+    	size = container.offset();
+    	
+    	size.width = container.outerWidth();
+    	size.height = container.outerHeight();
+    	size.bottom = size.top + size.height;
+    	size.right = size.left + size.width;
+    	
+    	if ( mouse.left > size.left && mouse.left < size.right &&
+    	  	 mouse.top > size.top && mouse.top < size.bottom ) {
+    	  
+    	  // If we get here, we're still inside this container, so don't
+    	  // do anything.
+    	  
+    	  return;
+    	}
+    	
+    	//console.log('Elvis has left the building');
+    	
+    	if ( startState ) {
+    		// If the dragTarget came form here, put the list back to its
+    		// initial state.
+    		
+    		container.html( startState )
+    	}
+    	else {
+    		// Otherwise, remove it
+    		
+    		dragTarget.remove();
+    	}
+    })
+    .delegate('li', 'drop', function(e){
+    	//console.log('EVENT '+e.type, e);
+    	e.preventDefault();
+    })
+    .delegate('li', 'dragend', function(e){
+    	//console.log('EVENT '+e.type, e);
+    	
+    	dragTarget.removeClass('ghost');
+    	dragTarget = undefined;
+    	
+    	e.preventDefault();
+    });
+  });
+</script>
+
+</body>
+</html>

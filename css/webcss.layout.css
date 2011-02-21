@@ -1,0 +1,1071 @@
+/* .wrap */
+
+.wrap {
+  /* Set as position parent */
+  position: relative;
+  margin: 0 auto;
+}
+
+
+
+/* .layer */
+
+.layer {
+    overflow: auto;
+    position: absolute;
+    
+    /* Make layer occupy the whole of the area in the container. */
+    top: 0; right: 0; bottom: 0; left: 0;
+    /* Height and width override the top, right, bottom, left declaration.
+     * To use height and width we must change the box model to make sure padding
+     * and border do not make the layer bigger than its container.
+     * The technique above does not work for iframes and can break as soon as 
+     * height or width are declared, but the technique below will not work in IE7,
+     * where the box model can't be changed.
+     */
+    width: 100%; height: 100%;
+}
+
+.screen_layer {
+    background-color: rgba(0,0,0,0.6);
+}
+
+.pushscroll_layer {
+    /* These values, representing the thickness of a scrollbar,
+       should be overriden by feature testing with some js */
+    padding-right: 16px;
+    padding-bottom: 16px;
+    
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    
+    /* Make sure we're using the right box model for this technique */
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing:    content-box;
+    box-sizing:         content-box;
+}
+
+.scroll_layer {
+    overflow: scroll;
+}
+
+/* state.css
+ * 
+ * Takes care of state classes:
+ *
+ *   .loading      - State of items requested from a server
+ *   .active       - Implies polar (on/off) state
+ *   .current      - Current implies that one out of a number of items is the current one
+ *   .default      - Contains a pre-defined value
+ *   .error        - Used in forms to style children differently when input has errors
+ *   .xxx_state    - Implies multipolar (0/1/2/...) state
+ *   .xxx_view     - Applied to the body to control application views
+ *   .xxx_support  - Applied to the documentElement to flag CSS support
+ * 
+ * State classes must never have style applied directly, they are here to indicate state only.
+ * You can style specific nodes that happen to have state, or children of state nodes (for
+ * instance, showing / hiding a .loading_icon when its parent has .loading), but the state
+ * class (in this case .loading) must not have style applied.
+ */
+
+
+/* TODO: We should be able to merge the .gif technique with
+   the <canvas> technique, so that when canvas is not available
+   the gif displays - can we set the gif as background to the
+   canvas and still expect it to display? */
+
+/* Use a .gif as a loading icon */
+/*
+.loading_layer {
+    display: none;
+    background-position: 50% 50%;
+    background-image: url('../../images/loading-icon-16-white.gif');
+    background-color: transparent;
+    background-repeat: no-repeat;
+    
+    -webkit-transition: opacity 0.16s ease-in;
+       -moz-transition: opacity 0.16s ease-in;
+         -o-transition: opacity 0.16s ease-in;
+            transition: opacity 0.16s ease-in;
+    
+    opacity: 0;
+}
+
+.loading.loading_layer,
+.loading .loading_layer {
+    display: block;
+    opacity: 1;
+}
+
+.transition_support .loading_layer.transition,
+.transition_support .transition .loading_layer {
+  display: block;
+}*/
+
+/* Use a <canvas> as a loading icon */
+.loading_layer {
+	background-image: none;
+	background-color: rgba(38, 64, 89, 0.746094);
+	
+	-webkit-transition: opacity 0.16s ease-in;
+	   -moz-transition: opacity 0.16s ease-in;
+	     -o-transition: opacity 0.16s ease-in;
+	        transition: opacity 0.16s ease-in;
+	
+	opacity: 0;
+	z-index: 4;
+}
+
+.loading_layer > canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+}
+
+.loading .loading_layer {
+  opacity: 1;
+  overflow: hidden;
+}
+
+
+/* utilities */
+
+.hidden {
+  display: none;
+}
+
+.no_transition {
+  -webkit-transition: none !important;
+  -moz-transition:    none !important;
+  transition:         none !important;
+}
+
+
+
+/* .column
+   
+   Uses a technique for getting inline-block behaviour in IE, explained well here:
+   http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ */
+
+.column {
+  /* The inline-block method produces nice flow, but is susceptible to
+     rounding errors and requires spaceless html. */
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  
+  /* Stop content pushing column wider than it should be */
+  overflow: visible;
+  
+  min-height: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:    border-box;
+  box-sizing:         border-box;
+}
+
+/* column dimensions are calculated like this:
+ * 
+ * margin = x/n
+ * width  = (100 - (n-1) * margin)/n
+ * 
+ * where x is a base column margin factor and n is the number of columns
+ */
+
+/* x = 16 */
+
+/*.of_two   { width: 46%;       margin-right: 8%; }
+.of_three { width: 29.7778%;  margin-right: 5.3333%; }
+.of_four  { width: 22%;       margin-right: 4%; }
+.of_five  { width: 17.44%;    margin-right: 3.2%; }
+.of_six   { width: 14.4445%;  margin-right: 2.6667%; }
+.of_seven { width: 12.3265%;  margin-right: 2.2857%; }
+.of_eight { width: 10.75%;    margin-right: 2%; }*/
+
+/*
+.double.of_three    { width: 64%; } /* Should be 65.6667% Rounding errors in both FF and Webkit force this to be a less than ideal value
+.double.of_four     { width: 48%; }
+.triple.of_four     { width: 74%; }
+.double.of_five     { width: 38.2%; }
+.triple.of_five     { width: 58.6%; } /* Should be 58.8% Rounding errors in FF make it less
+.quadruple.of_five  { width: 79.4%; }
+.double.of_six      { width: 32%; }
+.triple.of_six      { width: 49%; }
+.quadruple.of_six   { width: 68%; }
+.quintuple.of_six   { width: 85%; }
+.double.of_eight    { width: 23%; }
+.triple.of_eight    { width: 35.5%; }
+.quadruple.of_eight { width: 48%; }
+.quintuple.of_eight { width: 60.5%; }
+.sextuple.of_eight  { width: 73%; }*/
+
+/* x = 12 */
+
+.of_two                     { width: 47%;       margin-right: 6%; }
+.of_three                   { width: 30.6667%;  margin-right: 4%; }
+.of_four                    { width: 22.75%;    margin-right: 3%; }
+.of_five                    { width: 18.08%;    margin-right: 2.4%; }
+.of_six                     { width: 15%;       margin-right: 2%; }
+.of_seven                   { width: 12.8163%;  margin-right: 1.7143%; }
+.of_eight                   { width: 11.1875%;  margin-right: 1.5%; }
+
+.double_column.of_three     { width: 65.3333%; }
+.double_column.of_four      { width: 48.5%; }
+.triple_column.of_four      { width: 74.25%; }
+.double_column.of_five      { width: 38.56%; }
+.triple_column.of_five      { width: 59.04%; }
+.quadruple_column.of_five   { width: 79.52%; }
+.double_column.of_six       { width: 32%; }
+.triple_column.of_six       { width: 49%; }
+.quadruple_column.of_six    { width: 66%; }
+.quintuple_column.of_six    { width: 83%; }
+.double_column.of_seven     { width: 27.3469%; }
+.triple_column.of_seven     { width: 41.8775%; }
+.quadruple_column.of_seven  { width: 56.4081%; }
+.quintuple_column.of_seven  { width: 70.9387%; }
+.sextuple_column.of_seven   { width: 85.4693%; }
+.double_column.of_eight     { width: 23.875%; }
+.triple_column.of_eight     { width: 36.5625%; }
+.quadruple_column.of_eight  { width: 49.25%; }
+.quintuple_column.of_eight  { width: 61.9375%; }
+.sextuple_column.of_eight   { width: 74.625%; }
+.septuple_column.of_eight   { width: 87.3125%; }
+
+.column:last-child,
+.column.last,
+.two.of_two,
+.three.of_three,
+.four.of_four,
+.five.of_five,
+.six.of_six,
+.seven.of_seven,
+.eight.of_eight             { margin-right: 0; }
+
+/* The absolute position method is not susceptible to rounding errors,
+ * and can be forced to fill 100% height, but clearly, being absolute,
+ * it causes problems with the overflow of the container.
+ */
+
+.absolute_column {
+    position: absolute;
+    top: 0;
+    
+    /* Stop content pushing column wider than it should be */
+    overflow: visible;
+    
+    min-height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    box-sizing:         border-box;
+}
+
+/* x = 16 */
+
+/*.absolute_column.one            { left: 0; }
+
+.absolute_column.two.of_two     { left: 54%; }
+
+.absolute_column.two.of_three   { left: 35.1111%; }
+.absolute_column.three.of_three { left: 70.2222%; }
+
+.absolute_column.two.of_four    { left: 26%; }
+.absolute_column.three.of_four  { left: 52%; }
+.absolute_column.four.of_four   { left: 78%; }
+
+.absolute_column.two.of_five    { left: 20.64%; }
+.absolute_column.three.of_five  { left: 41.28%; }
+.absolute_column.four.of_five   { left: 61.92%; }
+.absolute_column.five.of_five   { left: 82.56%; }
+
+.absolute_column.two.of_six     { left: 17.1111%; }
+.absolute_column.three.of_six   { left: 34.2222%; }
+.absolute_column.four.of_six    { left: 51.3333%; }
+.absolute_column.five.of_six    { left: 68.4444%; }
+.absolute_column.six.of_six     { left: 85.5555%; }
+
+.absolute_column.two.of_seven   { left: 14.6123%; }
+.absolute_column.three.of_seven { left: 29.2245%; }
+.absolute_column.four.of_seven  { left: 43.8368%; }
+.absolute_column.five.of_seven  { left: 58.4490%; }
+.absolute_column.six.of_seven   { left: 73.0613%; }
+.absolute_column.seven.of_seven { left: 87.6735%; }
+
+.absolute_column.two.of_eight   { left: 12.75%; }
+.absolute_column.three.of_eight { left: 25.5%; }
+.absolute_column.four.of_eight  { left: 38.25%; }
+.absolute_column.five.of_eight  { left: 51%; }
+.absolute_column.six.of_eight   { left: 63.75%; }
+.absolute_column.seven.of_eight { left: 76.5%; }
+.absolute_column.eight.of_eight { left: 89.25%; }*/
+
+/* x = 12 */
+
+.absolute_column.one            { left: 0; }
+
+.absolute_column.two.of_two     { left: 53%; }
+
+.absolute_column.two.of_three   { left: 34.6667%; }
+.absolute_column.three.of_three { left: 69.3333%; }
+
+.absolute_column.two.of_four    { left: 25.75%; }
+.absolute_column.three.of_four  { left: 51.5%; }
+.absolute_column.four.of_four   { left: 77.25%; }
+
+.absolute_column.two.of_five    { left: 20.48%; }
+.absolute_column.three.of_five  { left: 40.96%; }
+.absolute_column.four.of_five   { left: 61.44%; }
+.absolute_column.five.of_five   { left: 81.92%; }
+
+.absolute_column.two.of_six     { left: 17%; }
+.absolute_column.three.of_six   { left: 34%; }
+.absolute_column.four.of_six    { left: 51%; }
+.absolute_column.five.of_six    { left: 68%; }
+.absolute_column.six.of_six     { left: 85%; }
+
+.absolute_column.two.of_seven   { left: 14.5306%; }
+.absolute_column.three.of_seven { left: 29.0612%; }
+.absolute_column.four.of_seven  { left: 43.5918%; }
+.absolute_column.five.of_seven  { left: 58.1224%; }
+.absolute_column.six.of_seven   { left: 72.6531%; }
+.absolute_column.seven.of_seven { left: 87.1837%; }
+
+.absolute_column.two.of_eight   { left: 12.6875%; }
+.absolute_column.three.of_eight { left: 25.375%; }
+.absolute_column.four.of_eight  { left: 38.0625%; }
+.absolute_column.five.of_eight  { left: 50.75%; }
+.absolute_column.six.of_eight   { left: 63.4375%; }
+.absolute_column.seven.of_eight { left: 76.125%; }
+.absolute_column.eight.of_eight { left: 88.8125%; }
+
+
+
+/* .index
+   
+   Defines styles for lists of inline-blocks like buttons, thumbs or toolbars,
+   as well as lists with dividers. Horizontal by default. */
+
+.index {
+	/* Remove default styling from list items. */
+	list-style: none;
+	margin: 0;
+}
+
+.index > li {
+  /* Specifically remove default margin and padding from
+     list items in case some typography rules have added
+     these back in after the reset. */
+  margin: 0;
+  padding: 0;
+  /* Make list items act as position parents. */
+	position: relative;
+}
+
+.column_index.index > li {
+  position: static;
+}
+.buttons_index > li {
+  margin-right: 0.5em;
+  margin-bottom: 0.3333em;
+}
+
+.buttons_index > li .button {
+  vertical-align: bottom;
+}
+
+.dropdown_index {
+	padding: 0.5em 0;
+}
+
+.dropdown_index > li {
+	margin-right: 0;
+}
+
+.dropdown_index > li > a {
+  display: block;
+  white-space: nowrap;
+  width:100%;
+  padding-left:10px;
+  padding-right:10px;
+  font-size: 0.9167em;
+  font-weight: bold;
+}
+
+.tabs_index > li {
+  /* Stop content pushing column wider than it should be */
+  overflow: visible;
+  min-height: 100%;
+  margin-right: 2%;
+}
+
+.two_tabs_index > li   { width: 49%; }
+.three_tabs_index > li { width: 32%; }
+.four_tabs_index > li  { width: 23.5%; }
+.five_tabs_index > li  { width: 18.4%; }
+.six_tabs_index > li   { width: 15%; }
+.seven_tabs_index > li { width: 12.5714%; }
+.eight_tabs_index > li { width: 10.75%; }
+
+.tabs_index > li:last-child		{ margin-right: 0; }
+
+
+
+
+/* Items divided by lines */
+
+.divided_index li {
+    height: 1em;
+    line-height: 1em;
+    padding-right: 0.6em;
+    margin-right: 0.6em;
+    border-right: 1px solid #666666;
+}
+.divided_index li:last-child,
+.divided_index li.last {
+    padding-right: 0;
+    margin-right: 0;
+    border-right: 0;
+}
+.divided_index.thumbs li {
+    height: auto;
+    display: inline-block;
+}
+
+
+/* .horizontal
+    
+   Simulate a bunch of blocks pushed against each other horizontally
+   by using inline layout to create a horizontal effect. Because
+   they're in the flow, children must have no space between them in
+   the html.
+*/
+
+.horizontal {
+  /* To form grids with a horizontal index, line-height
+     needs to be smaller than the items in the index. */
+	line-height: 0;
+}
+
+.horizontal > * {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  /* Reset the line-height we zeroed on the parent. */
+  line-height: 1.6667;
+}
+
+.horizontal > input[type='radio'],
+.horizontal > input[type='checkbox'] {
+    height: auto;
+    width: auto;
+}
+
+.horizontal > *:last-child,
+.horizontal > *.last {
+    margin-right: 0;
+}
+
+.horizontal.index > dt,
+.horizontal.index > dd {
+    margin: 0;
+}
+.horizontal.index > dt,
+.horizontal.index > dd {
+    width: 160px;
+    line-height: 1.6em;
+}
+.horizontal.index > dt {
+    vertical-align: text-bottom;
+}
+.horizontal.index > dd {
+    vertical-align: text-top;
+    /* reset the margin that usually indents a dd */
+    margin-left: 0;
+    /* Move it down by one line-height */
+    margin-top: 1.6667em;
+    /* Move it left with a negative margin accounting for size, padding and margin of dt */
+    margin-left: -166px;
+    /* Space at the bottom for when the items wrap */
+    margin-bottom: 1.6667em;
+}
+
+
+/* .vertical */
+
+.vertical > * {
+  display: block;
+}
+
+.vertical > *:last-child,
+.vertical > *.last {
+  margin-bottom: 0;
+}
+
+.vertical > dt,
+.vertical > dd {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
+}
+
+.vertical > dt {
+  text-align: right;
+  /* The golden ratio */
+  width: 36.20%;
+  margin-right: 2%;
+}
+
+.vertical > dd {
+  /* The golden ratio */
+  width: 61.80%;
+  margin-right: 0;
+}
+
+
+/* .divided */
+
+.divided.horizontal > * {
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-left-color: #666666;
+}
+
+.divided.horizontal > *:first-child {
+  border-left-style: none;
+}
+
+.divided.vertical > * {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #666666;
+}
+
+.divided.vertical > *:first-child {
+  border-top-style: none;
+}
+
+/*
+.vertical.divided_index li {
+    padding-right: 0;
+    margin-right: 0;
+    border-right: none;
+    padding-bottom: 0.6em;
+    margin-right: 0.6em;
+    border-bottom: 1px solid #666666;
+}
+.vertical.divided_index li:last-child,
+.vertical.divided_index li.last {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+}
+.vertical.divided_index.thumbs li {
+    display: block;
+}
+
+.divided_index dt {
+    padding-bottom: 0.2em;
+    border-bottom: 1px solid #aaaaaa;
+}
+.divided_index dd {
+    margin-top: 1.9em;
+    padding-top: 0.2em;
+}*/
+
+/* spaced children */
+
+.horizontal > .spaced {
+  margin: 0 1.3333em;
+}
+
+.vertical > .spaced {
+  margin: 1.3333em 0;
+}
+
+/* Putting objects of unknown width/height in the centre */
+
+.central {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -o-box;
+	display: -ms-box;
+	display: box;
+
+	-webkit-box-align: center;
+	-moz-box-align:    center;
+	-o-box-align:      center;
+	box-align:         center;
+
+  -webkit-box-pack: center;
+  -moz-box-pack:    center;
+  -o-box-pack:      center;
+  box-pack:         center;
+  
+  /* FF shrinks the width of boxes with display: box;. Lets
+     force it to behave like the others. */
+  width: 100%;
+}
+
+
+/* Vertical centering builds on the technique described here:
+   http://www.jakpsatweb.cz/css/css-vertical-center-solution.html
+   TODO: Fix case in IE7 where centering has to scroll. V difficult. Possibly impossible. */
+
+.center {
+    display: table;
+    width: 100%;
+    height: 100%;
+    
+    /* Stops a mysterious gap at the bottom appearing when content
+       is too tall (except Opera, where there is still a small one) */
+    overflow: hidden;
+    
+    /* IE hacks */
+    position: relative !ie7;
+}
+
+.center_cell {
+    display: table-cell;
+    vertical-align: middle;
+    
+    /* Must have height, or you can't expect FF to know
+       how high to make its children */
+    height: 100%;
+    
+    /* In WebKit and FF iframes cause scrollbars because they
+       have a 'system' margin-bottom. In any case, it's useful
+       to be able to position stuff outside the cell */
+    overflow: visible;
+    
+    /* IE hacks */
+    position: absolute !ie7;
+    top: 50% !ie7;
+}
+
+.center_box {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: visible;
+    margin: 0 auto;
+    
+    /* Acts as position parent for its content */
+    position: relative;
+
+    /* IE hacks */
+    position: relative !ie7;
+    top: -50% !ie7;
+}
+
+.center_box>iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/* Ideally, all elements likely to be put in a centred layer should be
+   listed here */
+
+/*.center_box>div,
+.center_box>form,
+.center_box>img,
+.center_box>object,
+.center_box>embed,
+.center_box>video,
+.center_box>progress,
+.center_box>canvas,
+.center_box>.content {
+    height: 100%;
+}*/
+
+
+/* panel class */
+
+.panel {
+  position: absolute;
+  overflow: visible;
+}
+
+
+/* .content class */
+
+.content {
+	/* Doesn't necessarily have much style of it's own. It's more
+	   of a position parent with behaviours attached. */
+	position: relative;
+}
+
+.tab_content {
+	display: none;
+	opacity: 0;
+	z-index: 1;
+	
+	-webkit-transition: opacity 0.06s ease-in;
+	   -moz-transition: opacity 0.06s ease-in;
+	        transition: opacity 0.06s ease-in;
+}
+
+.tab_content.active {
+	display: block;
+	opacity: 1;
+	z-index: 2;
+	
+	-webkit-transition: opacity 0.06s ease-out;
+	   -moz-transition: opacity 0.06s ease-out;
+	        transition: opacity 0.06s ease-out;
+}
+
+.tab_content.transition {
+	display: block;
+}
+
+
+
+
+
+/* .popup, .popdown, .dropdown */
+
+.popdown,
+.dropdown {
+	display: none;
+	overflow: hidden;
+	
+	position: absolute;
+  top: 2em;
+  opacity: 0;
+  -webkit-transition: opacity 0.18s ease-out, top 0.18s ease-out;
+     -moz-transition: opacity 0.18s ease-out, top 0.18s ease-out;
+          transition: opacity 0.18s ease-out, top 0.18s ease-out;
+}
+
+.popdown.active,
+.dropdown.active {
+  display: block;
+  
+  top: 2.3333em;
+  opacity: 1;
+  -webkit-transition: opacity 0.06s ease-in, top 0.06s ease-in;
+     -moz-transition: opacity 0.06s ease-in, top 0.06s ease-in;
+          transition: opacity 0.06s ease-in, top 0.06s ease-in;
+}
+
+.popdown.transition,
+.dropdown.transition {
+	display: block;
+}
+
+
+/* Links as buttons, thumbnails,  classes */
+
+.button:hover,
+.button:focus {
+  text-decoration: none;
+}
+
+.button {
+  display: inline-block;
+  
+  height: 2em;
+  line-height: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  vertical-align: baseline;
+  
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+  text-decoration: none;
+  
+  color: rgb(96,96,96);
+  background-repeat: no-repeat;
+  border-width: 0;
+}
+
+.button:hover {
+  color: rgb(63,63,63);
+}
+
+.button.loading,
+.button.disabled {
+  opacity: 0.6;
+}
+
+.menu_button,
+.tab_button {
+  width: 100%;
+	padding-left: 0.8333em;
+	padding-right: 0.8333em;
+  text-align: left;
+  
+  /* Remove default border and shadow */
+  
+  -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+          box-shadow: none;
+  
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}
+
+
+/* .thumb */
+
+.thumb {
+  display: block;
+  overflow: hidden;
+  
+  /* Hide overflowing text. This technique is better
+     than using -ve text-indent because IE7 moves
+     the background image with the text-indent. */
+  padding-top: 64px;
+  height: 0;
+  width: 64px;
+  
+  background-size: 64px 64px;
+  
+  -webkit-background-size: cover;
+     -moz-background-size: cover;
+       -o-background-size: cover;
+          background-size: cover;
+
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  
+  text-decoration: none;
+  color: inherit;
+}
+
+.text_thumb,
+.text_thumbs .thumb {
+  /* Make the text show below the thumb. Text appears
+     outside of the box - ie, it overflows - so that
+     we dont see any more of the image than necessary. */
+  overflow: visible;
+  white-space: nowrap;
+  text-align: center;
+  margin-bottom: 1em;
+  line-height: 2.3333em;
+  
+  font-size: 0.9167em;
+  font-weight: bold;
+  color: rgb(100,100,100);
+}
+
+.text_thumb>span {
+  /* We can't use text-overflow because overflow is
+     visible, so if you want to truncate the text you
+     need to put a span inside the thumb. */
+  overflow: hidden;
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+  -ms-text-overflow: ellipsis;
+   -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+}
+
+/*
+
+.left_text_thumb {
+  height: 64px;
+  padding-top: 0;
+  padding-left: 104px;
+  background-position-x: 0;
+}
+
+.right_text_thumb {
+  height: 64px;
+  padding-top: 0;
+  padding-right: 104px;
+  background-position-x: 100%;
+}*/
+
+.logo_thumb {
+  margin-top: 6px;
+  margin-left: 0;
+  width: 112px;
+  padding-top: 24px;
+  background-size: 100% 100%;
+  background-image: url('../../images/thumbs/logo_thumb_white.png');
+}
+
+
+/* ---- */
+
+.card {
+  min-height: 5.8333em;
+  
+  padding-top:    0.8333em; 
+  padding-right:  0.8333em;
+  padding-bottom: 0;
+  padding-left:   70px;
+  
+  color: rgb(106,121,139);
+  background-color: rgb(255,255,255);
+  
+  /* Act as position parent */
+  position: relative;
+  
+  -webkit-border-radius: 0.3333em;
+     -moz-border-radius: 0.3333em;
+          border-radius: 0.3333em;
+  
+  -webkit-user-drag: element;
+}
+
+.card .thumb {
+  position: absolute;
+  top: 0.8333em;
+  left: 0.8333em;
+  width:  50px;
+  height: 50px;
+  padding-top: 50px;
+}
+
+.card a,
+.card img {
+  -webkit-user-drag: none;
+}
+
+.card .card_title {
+  font-weight: bold;
+  font-size: 1.08333em;
+  line-height: 1;
+  height: 1.1em;
+  margin-bottom: 0.25em;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card h6 {
+  font-size:1em;
+  font-weight: normal;
+}
+
+.card p {
+  line-height: 1.5;
+  margin-bottom: 0.75em;
+}
+.card p+p {
+  margin-top: 0;
+}
+
+.card ul.meta_index {
+	-webkit-column-count: 2;
+	  -webkit-column-gap: 2px;
+     -moz-column-count: 2;
+	     -moz-column-gap: 2px;
+	        column-count: 2;
+	          column-gap: 2px;
+}
+
+.card .meta_index>li {
+  font-size: 0.9167em;
+  height: 1em;
+  line-height: 1em;
+  margin-right: 0em;
+  margin-bottom: 0.5em;
+}
+
+.card .meta_index a:hover,
+.card .meta_index a:focus {
+	text-decoration: none;
+}
+
+.card_buttons_index {
+  position: absolute;
+  bottom: 0.8333em;
+  right: 0.8333em;
+}
+
+.card_buttons_index > li {
+  margin-bottom: 0;
+}
+
+/* hcard microformat (for reference)
+   http://microformats.org/wiki/hcard
+*/
+
+/*.vcard
+  
+  /* name - use .url for anything that is a link to this person's  */
+/*  .fn.n
+/*    .nickname
+/*    .given-name
+/*    .additional-name
+/*    .family-name
+  
+  /* name organisation - if the hcard is for an organisation .fn should also be set */
+/*  .org
+/*    .organization-name
+/*    .organization-unit
+  
+  /* email (usually a link) */
+/*  .email
+/*    .type /* home, office, work, blah, blah */
+  
+/*  .photo
+  
+  /* address */
+/*  .adr
+/*    .street-address
+/*    .locality
+/*    .region
+/*    .postal-code
+/*    .country-name
+  
+/*  .tel
+/*    .type /* home, work, etc. */
+
+  /* use url for display of addresses of resources about this person - including instant messenger */
+/*  .url */
+
+
+
+
+
+
+
+
+/* Media styles inlined to avoid additional http request
+   www.phpied.com/delay-loading-your-print-css/ */
+
+@media all and (orientation:portrait) {
+  /* Style for portrait mode */
+}
+
+@media all and (orientation:landscape) {
+  /* Style for landscape mode */
+}
+
+@media screen and (max-device-width: 480px) {
+  /* Grade-A mobile browsers */
+  /*html {
+    -webkit-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+  }*/
+}
+
+@media print {
+  html, body { background: transparent; text-shadow: none !important; }
+  a, a:visited { text-decoration: underline; }
+  a:after { content: " (" attr(href) ")"; font-size: 0.9167em; }
+  pre, blockquote { page-break-inside: avoid; }
+  
+  thead { display: table-header-group; } /* css-discuss.incutio.com/wiki/Printing_Tables */ 
+  
+  tr, img { page-break-inside: avoid; }
+  
+  @page { margin: 0.5cm; }
+  
+  p, h2, h3 { orphans: 3; widows: 3; }
+  
+  h2, h3{ page-break-after: avoid; }
+}
