@@ -4,3 +4,12 @@
 css/*
 !css/webcss.*
 !css/tests/*
+js/*
+!js/js.extensions.js
+!js/js.timer.js
+!js/jquery.extensions.js
+!js/jquery.loading.js
+!js/jquery.popup.js
+!js/jquery.transitions.js
+!js/jquery.validator.js
+!js/ui.site.js
