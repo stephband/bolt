@@ -1,6 +1,7 @@
 .DS_Store
 /*
 !/template.html
+!/README.*
 css/*
 !css/webcss.*
 !css/tests/*
