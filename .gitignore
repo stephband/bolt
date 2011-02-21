@@ -1,4 +1,6 @@
 .DS_Store
-css/site.*
 /*
 !/template.html
+css/*
+!css/webcss.*
+!css/tests/*
