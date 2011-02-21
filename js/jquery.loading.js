@@ -18,7 +18,7 @@
 	var // A constant that enables us to make circular
 			// quarter arcs from bezier curves.
 			k = 0.5522847498,
-			dot = Path([
+			dot = [
 				{ type: 'moveTo', data: [0,0] },
 				{ type: 'bezierCurveTo', data: [k,0,1,1-k,1,1] },
 				{ type: 'bezierCurveTo', data: [1,1,1,2,1,2] },
@@ -26,7 +26,7 @@
 				{ type: 'bezierCurveTo', data: [-k,3,-1,2+k,-1,2] },
 				{ type: 'bezierCurveTo', data: [-1,2,-1,1,-1,1] },
 				{ type: 'bezierCurveTo', data: [-1,1-k,-k,0,0,0] }
-			]);
+			];
 	
 	var d = {
 				width: 160,
