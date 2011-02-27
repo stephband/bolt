@@ -334,3 +334,25 @@
 		})());
 	}
 })(document);
+
+
+
+// Tweet this page
+
+jQuery(document)
+.delegate('.window', 'click', function(e) {
+	var width	 = 575,
+			height = 400,
+			win = $(window),
+			left	 = (win.width()	 - width)	 / 2,
+			top		 = (win.height() - height) / 2,
+			url		 = e.target.href,
+			opts	 = 'status=1' +
+							 ',width='	+ width	 +
+							 ',height=' + height +
+							 ',top='		+ top		 +
+							 ',left='		+ left;
+	
+	window.open(url, 'twitter', opts);
+	e.preventDefault();
+});
