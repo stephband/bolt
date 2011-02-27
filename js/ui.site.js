@@ -1,206 +1,198 @@
 // ui.site.js
 
 
-// Handle dropdowns, popups, popdowns and tabs
+// Handle dropdowns, popdowns and tabs
 
-(function(undefined){
+(function(jQuery, undefined){
 	
 	var debug = (window.console && console.log);
 	
 	var doc = jQuery(document),
-			
-			clickIndex = 0,
-			
-			// Store jQuery objects
-			objects = {},
-			
-			handlers = {
-				dropdown: openObject,
-				popdown: openObject,
-				tab: tabHandler
-			};
+			objects = {};
 	
-	// FUNCTIONS
-	
-	function closeObject( dropdown ){
-		dropdown.state = false;
-		dropdown.obj.removeTransitionClass("active");
-		dropdown.button.removeClass("active");
-	}
-	
-	function openObject( dropdown ){
-		dropdown.state = true;
-		dropdown.obj.addTransitionClass("active");
-		dropdown.button.addClass("active");
-		
-		clickIndex++;
-		
-		doc.bind( 'click.'+clickIndex, clickIndex, function(e){
-			var target = jQuery(e.target),
-					clickIndex = e.data;
-			
-			// If this is a popdown and the click is
-			// inside it, do nothing.
-			if (dropdown.type === 'popdown' &&
-			  	jQuery.contains( dropdown.obj[0], e.target )) {
-			  return;
-			}
-			
-			// If this is a dropdown, and we've clicked on a file
-			// input inside it, wait for the input to change. This
-			// is a fix for file inputs not firing change events
-			// when they're made invisible. Deserves further investigation.
-			if (dropdown.type === 'dropdown' &&
-					jQuery.contains( dropdown.obj[0], e.target ) &&
-					target.is('input[type="file"]') ) {
-				
-				target.bind('change', function(e){
-					closeObject( dropdown );
-					doc.unbind('.'+clickIndex);
-				});
-				
-				return;
-			}
-			
-			closeObject( dropdown );
-			doc.unbind('.'+clickIndex);
-		});
-		
-		dropdown.obj.bind( 'deactivate', function(e){
-			// Check that the event is coming form this node
-			if (e.target !== e.currentTarget) {
-				return;
-			}
-			
-			closeObject( dropdown );
-			doc.unbind('.'+clickIndex);
-		});
-	}
-	
-	function tabHandler( dropdown ){
-		var obj = dropdown.obj;
-		
-		obj.trigger('activate');
-	}
-	
-	function contentHandler( dropdown ){
-		var button = dropdown.button,
-				obj = dropdown.obj,
-				data = dropdown.data,
-				buttons, selector, all;
-		
-		if ( data ) {
-			// Ignore clicks on an already active button
-			if ( data.activeContent[0] === obj[0] ) { return; }
-			
-			if ( button.length ) { data.activeButton.removeClass('active'); }
-			data.activeContent.removeClass('active');
-		}
-		else {
-			data = {};
-			selector = obj.attr('data-tab-selector');
-			all = selector ? jQuery(selector) : obj.add( obj.siblings('.tab_content') );
-			
-			// Give data to all tabs in this tab index
-			all.each(function(i){
-				var elem = jQuery(this),
-						href = '#' + this.id;
-				
-				dropdown = objects[href];
-				
-				// Cache the obj against the selector
-				if ( dropdown === undefined ) {
-					storeObject( href, elem, 'tab' );
-					dropdown = objects[href];
-				}
-				
-				dropdown.data = data;
-				
-				dropdown.button.removeClass('active');
-				elem.removeClass('active');
-			});
-		}
-		
-		if ( button.length ) { data.activeButton = button; }
-		data.activeContent = obj;
-		
-		button.addClass('active');
-		obj.addClass('active');
-	};
-	
-	function storeObject( href, obj, typ ){
-		var object = obj || jQuery(href);
+	function store(selector, options, fn) {
+		var object;
 		
 		// Cache the obj against the selector, or false when
 		// there is no object. Buttons can have a many-to-one
 		// relationship to objects, so we search for them all.
 		
-		objects[href] = object.length ? {
-			button: jQuery('a[href='+href+']'),
-			state: false,
-			type: typ || ( object.hasClass('dropdown') ? 'dropdown' :
-				object.hasClass('tab_content') ? 'tab' :
-				object.hasClass('popdown') ? 'popdown' :
-				false
-			),
-			obj: object
-		} : false ;
+		if ( objects[selector] === undefined ) {
+			object = options.object || jQuery(selector);
+			
+			objects[selector] = object.length ? {
+				button: options.button || jQuery('a[href='+selector+']'),
+				object: object,
+				type: options.type || (
+					object.hasClass('dropdown') ? 'dropdown' :
+					object.hasClass('tab') ? 'tab' :
+					object.hasClass('popdown') ? 'popdown' :
+					object.hasClass('popup') ? 'popup' :
+					false
+				)
+			} : false ;
+		}
+		
+		if (objects[selector] && fn) {
+			fn(objects[selector].button, objects[selector].object, objects[selector].type);
+		}
 	}
 	
-	// RUN
+	// !Handlers
+	
+	var setup = {
+		tab: (function(){
+			// Keep data about tabs
+			var tabsdata = {};
+			
+			return function(selector, button, object, fn){
+				var data = tabsdata[selector],
+						contents = object.add(object.siblings('.tab'));
+				
+				if (data){
+					// Ignore clicks on an already active button
+					if (data.activeObject[0] === object[0]) { return; }
+					
+					data.activeObject.trigger('deactivate');
+				}
+				else {
+					data = {};
+				
+					// Give data to all tabs in this tab index
+					contents.each(function(i){
+						var elem = jQuery(this),
+								selector = '#' + this.id;
+						
+						tabsdata[selector] = data;
+						
+						store(selector, { object: elem }, function(button, object){
+							object.trigger('deactivate');
+							// Hmmm. deactivate has not yet been bound,
+							// so the above has no effect.
+							button.removeClass('active');
+							object.removeTransitionClass('active');
+							
+						});
+					});
+				}
+				
+				data.activeObject = object;
+				
+				fn && fn();
+			};
+		})(),
+		
+		popdown: function(selector, button, object, fn){
+			// For popdown and dropdown:
+			function click(e) {
+				var target = jQuery(e.target);
+				
+				// If the click is inside it, or is on it, do nothing.
+				if (object[0] === e.target || jQuery.contains(object[0], e.target)) {
+					return;
+				}
+				
+				object.trigger({ type: 'deactivate' });
+				doc.unbind('click', click);
+			}
+			
+			doc
+			.bind('click', click);
+			
+			fn && fn(function(){
+				doc.unbind('click', click);
+			});
+		},
+		
+		dropdown: function(selector, button, object, fn){
+			// For popdown and dropdown:
+			function click(e) {
+				var target = jQuery(e.target);
+				
+				// If we've clicked on a file input inside it, wait
+				// for the input to change. This is a fix for file
+				// inputs not firing change events when they're made
+				// invisible. Deserves further investigation.
+				if (jQuery.contains( object[0], e.target ) && target.is('input[type="file"]') ) {
+					target.bind('change', function(e){
+						object.trigger({ type: 'deactivate' });
+						doc.unbind('click', click);
+					});
+					
+					return;
+				}
+				
+				object.trigger({ type: 'deactivate' });
+				doc.unbind('click', click);
+			}
+			
+			doc
+			.bind('click', click);
+			
+			fn && fn(function(){
+				doc.unbind('click', click);
+			});
+		}
+	}
+	
+	function activate(e) {
+		var id = e.currentTarget.id,
+				selector = '#'+id;
+		
+		store(selector, { object: jQuery(e.currentTarget) }, function(button, object, type){
+			// Set up based on type
+			setup[type] && setup[type](selector, button, object, function(deactivateFn){
+				button
+				.addClass('active');
+				
+				object
+				.addTransitionClass('active')
+				.bind('deactivate', {button: button, object: object, fn: deactivateFn}, deactivate);
+			});
+		});
+	}
+	
+	function deactivate(e) {
+		// Check that the event is coming from this node
+		if (e.target !== e.currentTarget) { return; }
+		
+		e.data.button
+		.removeClass('active');
+		
+		e.data.object
+		.removeTransitionClass('active')
+		.unbind('deactivate', deactivate);
+		
+		e.data.fn && e.data.fn();
+	}
+	
+	var actions = {
+		'#close': function(button) {
+			var object = button.closest('.popup, .popdown, .dropdown, .tab');
+			
+			object.length && object.trigger('deactivate');
+		}
+	}
 	
 	doc
-	.delegate('a', 'click', function(e){
+	.delegate('.popup, .popdown, .dropdown, .tab', 'activate', activate)
+	.delegate('a', 'click', function(e) {
 		var button = jQuery( e.currentTarget ),
 				href = button.attr('href'),
-				hashRefFlag = /^#/.test( href ),
-				dropdown;
+				hashRefFlag = /^#/.test( href );
 		
 		// Don't even bother if the clicked link isn't a hash ref
-		if ( !hashRefFlag ) { return; }
+		if (!hashRefFlag) { return; }
+		
+		if (actions[href]) { return actions[href](button); }
 		
 		// Store the object if it is not already stored
-		if ( objects[href] === undefined ) {
-			storeObject( href );
-		}
-		
-		dropdown = objects[href];
-		
-		// Go no further when there is no object to open
-		if ( !dropdown || !dropdown.type ) { return; }
-		
-		// Open the object if is not already open
-		if ( !dropdown.state ) { handlers[ dropdown.type ]( dropdown ); }
-		
-		// Don't let the click do anything browsery.
-		e.preventDefault();
-	})
-	
-	.delegate('.tab_content, .popup, .popdown, .dropdown', 'activate', function(e){
-		var id = e.currentTarget.id,
-				href = '#'+id,
-				dropdown = objects[href];
-		
-		// Store the object if it is not already stored
-		if ( dropdown === undefined ) {
-			storeObject( href, jQuery( e.currentTarget ) );
-			dropdown = objects[href];
-		}
-		
-		contentHandler( dropdown );
-	})
-	
-	// Deactivate popups and popdowns when their close button
-	// is clicked.
-	
-	.delegate('a[href="#close"]', 'click', function(e){
-		var dropdown = jQuery(e.target).closest(".popdown, .popup");
-		
-		if (dropdown.length === 0) {
-			return;
-		}
-		
-		dropdown.trigger({ type: "deactivate" });
+		store(href, { button: button }, function(button, object){
+			object.trigger('activate');
+			
+			// Don't let the click do anything browsery.
+			e.preventDefault();
+		});
 	})
 	
 	// Activate the node that corresponds to the hashref
@@ -209,24 +201,14 @@
 	.ready(function(){
 		var href = window.location.hash;
 		
-		// Check if it's an alphanumeric id selector,
-		// not a hash bang.
-		if (href && (/^#[a-zA-Z0-9]/.exec(href)) ) {
-			// Store the object if it is not already stored
-			if ( objects[href] === undefined ) {
-				storeObject( href );
-			}
-			
-			dropdown = objects[href];
-			
-			// Go no further when there is no object to open
-			if ( !dropdown || !dropdown.type ) { return; }
-			
-			// Open the object if is not already open
-			if ( !dropdown.state ) { handlers[ dropdown.type ]( dropdown ); }
-		}
+		// Check if it's an alphanumeric id selector (not a hash bang).
+		if (!href || !(/^#[a-zA-Z0-9]/.exec(href))) { return; }
+		
+		store(href, {}, function(button, object){
+			object.trigger('activate');
+		});
 	});
-})();
+})( jQuery );
 
 
 
