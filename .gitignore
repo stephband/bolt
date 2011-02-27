@@ -1,6 +1,5 @@
 .DS_Store
 /*
-!test/*
 !/template.html
 !/README.*
 css/*
@@ -15,3 +14,4 @@ js/*
 !js/jquery.transitions.js
 !js/jquery.validator.js
 !js/ui.site.js
+!test/*
