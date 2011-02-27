@@ -698,27 +698,27 @@
 	position: relative;
 }
 
-.tab_content {
+.tab {
 	display: none;
 	opacity: 0;
 	z-index: 1;
 	
-	-webkit-transition: opacity 0.06s ease-in;
-	   -moz-transition: opacity 0.06s ease-in;
-	        transition: opacity 0.06s ease-in;
+	-webkit-transition: opacity 0.12s ease-in;
+	   -moz-transition: opacity 0.12s ease-in;
+	        transition: opacity 0.12s ease-in;
 }
 
-.tab_content.active {
+.tab.active {
 	display: block;
 	opacity: 1;
 	z-index: 2;
 	
-	-webkit-transition: opacity 0.06s ease-out;
-	   -moz-transition: opacity 0.06s ease-out;
-	        transition: opacity 0.06s ease-out;
+	-webkit-transition: opacity 0.12s ease-out;
+	   -moz-transition: opacity 0.12s ease-out;
+	        transition: opacity 0.12s ease-out;
 }
 
-.tab_content.transition {
+.tab.transition {
 	display: block;
 }
 
