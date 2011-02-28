@@ -50,7 +50,7 @@ if (!Function.prototype.bind)
 
 // Number.prototype
 //
-// Just a few helper methods
+// Just a few helper methods that I use a lot
 
 Number.prototype.deg = function() { return this * 57.295779513; }
 Number.prototype.rad = function() { return this / 57.295779513; }

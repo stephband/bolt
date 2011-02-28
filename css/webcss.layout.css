@@ -24,6 +24,11 @@
      * where the box model can't be changed.
      */
     width: 100%; height: 100%;
+    
+    /* Make the corners of layers the same as their parents. */
+    -webkit-border-radius: inherit;
+       -moz-border-radius: inherit;
+            border-radius: inherit;
 }
 
 .screen_layer {
