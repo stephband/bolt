@@ -52,10 +52,10 @@ if (!Function.prototype.bind)
 //
 // Just a few helper methods that I use a lot
 
-Number.prototype.deg = function() { return this * 57.295779513; }
-Number.prototype.rad = function() { return this / 57.295779513; }
-Number.prototype.limit = function(min, max) { return this > max ? max : this < min ? min : this ; }
-Number.prototype.wrap = function(min, max) { return (this < min ? max : min) + (this - min) % (max - min); }
+Number.prototype.toDegrees = function() { return this * 57.295779513; };
+Number.prototype.toRadians = function() { return this / 57.295779513; };
+Number.prototype.limit = function(min, max) { return this > max ? max : this < min ? min : this ; };
+Number.prototype.wrap = function(min, max) { return (this < min ? max : min) + (this - min) % (max - min); };
 
 
 // Math object
