@@ -274,41 +274,81 @@
 			};
 		})
 		
-		.ready((function(){
+		// TODO: bind DOMNodeInserted only at the end of the
+		// ready function, as we're not actually interested in
+		// processing dom nodes that get inserted before that.
+		// Also, find a way of emulating DOMNodeInserted in IE.
+		
+		.bind('ready DOMNodeInserted', (function(){
+			var ignore = false;
+			
 			function identify(node){
 				// Generate an id, apply it to the input node
 				// and return it.
 				return (node.id = 'input_' + parseInt(Math.random() * 100000000));
 			}
 			
-			return function(){
-				jQuery('textarea[placeholder], input[placeholder]').each(function(i){
+			return function(e){
+				var elem;
+				
+				//console.log('DOM node inserted', e.target);
+				
+				if (ignore) { return; }
+				
+				// Look for nodes with placeholder attributes.
+				elem = (
+					e.target.getAttribute && e.target.getAttribute('placeholder') ?
+						jQuery(e.target) :
+					e.target.childNodes.length ?
+						jQuery('textarea[placeholder], input[placeholder]', e.target) :
+						false
+				);
+				
+				if (!elem || !elem.length) { return; }
+				
+				console.log('DOM node inserted, needs placeholder', e.target);
+				
+				elem.each(function(i){
 					var input = jQuery(this),
-							id = this.id || identify(this),
-							value = input.val(),
-							height = input.outerHeight(),
-							position = input.position(),
-							text = input.attr('placeholder'),
-							placeholder = jQuery('<label/>', {
-								html: text,
-								'for': id, 
-								'class': 'placeholder',
-								
-								// It's not really my style to be setting CSS in
-								// JavaScript, but it seems to make sense here.
-								// Let's see how this plays out.
-								css: {
-									left: position.left,
-									height: height,
-									lineHeight: height + 'px',
-									paddingLeft: input.css('paddingLeft'),
-									paddingRight: input.css('paddingRight')
-								}
-							});
+							id, value, height, position, text, placeholder;
 					
-					input.after( placeholder );
+					// If placeholder already exists, do nothing.
+					if (input.data('placeholder')) { return; }
 					
-					if ( !value || !value.length ) {
+					id = this.id || identify(this);
+					value = input.val();
+					height = input.is('input') ? input.outerHeight() : input.css('lineHeight');
+					position = input.position();
+					text = input.attr('placeholder');
+					placeholder = jQuery('<label/>', {
+					  html: text,
+					  'for': id, 
+					  'class': 'placeholder',
+					  
+					  // It's not really my style to be setting CSS in
+					  // JavaScript, but it seems to make sense here.
+					  // Let's see how this plays out.
+					  css: {
+					  	top: position.top,
+					  	left: position.left,
+					  	height: height,
+					  	lineHeight: height + 'px',
+					  	paddingLeft: input.css('paddingLeft'),
+					  	paddingRight: input.css('paddingRight')
+					  }
+					});
+					
+					// Use ignore to signal that the inserted node is coming
+					// from this function!
+					ignore = true;
+					
+					input
+					.after(placeholder)
+					.data('placeholder', placeholder);
+					
+					ignore = false;
+					
+					if (!value || !value.length) {
 						input.addClass('empty');
 					};
 				});
