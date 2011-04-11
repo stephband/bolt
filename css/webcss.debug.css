@@ -1,0 +1,59 @@
+html {
+	background-color: white;
+}
+
+body {
+	background-color: rgba(0,0,0,0.06);
+}
+
+body * {
+	background-color: rgba(0,0,0,0.06);
+}
+
+/*header {
+	background-color: yellow;
+}*/
+
+body:after,
+div:after,
+section:after,
+header:after,
+footer:after,
+aside:after,
+nav:after,
+h1:after,
+h2:after,
+h3:after,
+h4:after,
+h5:after,
+h6:after,
+ul:after,
+li:after {
+	position: absolute;
+	top: 0.1em;
+	right: 0.4em;
+	font-family: 'Andale Mono', 'courier', monotype;
+	font-size: 10px;
+	color: rgba(0,0,0,0.4);
+}
+
+body:after		{ content: 'body'; }
+div:after			{ content: 'div'; }
+section:after	{ content: 'section'; }
+header:after	{ content: 'header'; }
+footer:after	{ content: 'footer'; }
+aside:after		{ content: 'aside'; }
+nav:after			{ content: 'nav'; }
+h1:after			{ content: 'h1'; }
+h2:after			{ content: 'h2'; }
+h3:after			{ content: 'h3'; }
+h4:after			{ content: 'h4'; }
+h5:after			{ content: 'h5'; }
+h6:after			{ content: 'h6'; }
+ul:after			{ content: 'ul'; }
+li:after			{ content: 'li'; }
+
+a[href=""] {
+	background-color: magenta !important;
+	color: black !important;
+}
