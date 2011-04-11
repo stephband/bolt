@@ -60,7 +60,7 @@ Number.prototype.wrap = function(min, max) { return (this < min ? max : min) + (
 
 // Math object
 
-(function(){
+(function(Math){
 	var pi = Math.PI,
 			pi2 = pi * 2;
 	
@@ -87,4 +87,4 @@ Number.prototype.wrap = function(min, max) { return (this < min ? max : min) + (
 		return [ Math.sin(a) * d, Math.cos(a) * d ];
 	};
 	
-})();
+})(Math);
