@@ -66,28 +66,7 @@
   
   jQuery.support.css = {};
   
-  function removeTest(){
-    clearTimeout(timer);
-    timer = null;
-    testElem.remove();
-  }
-  
-  function transitionEnd(e){
-    if (debug) { console.log('[jQuery.support.css] transitionend detected: ' + e.type); }
-    
-    removeTest();
-    
-    jQuery.support.css.transition = true;
-    jQuery.support.css.transitionEnd = e.type;
-    
-    // Add class to html tag to flag transition support
-    docElem.className = docElem.className + 'transition_support';
-    
-    jQuery(document).unbind('transitionend webkitTransitionEnd oTransitionEnd', transitionEnd);
-  }
-  
   jQuery(document).ready(function(){
-    
     // Test for box-sizing support and figure out whether
     // min-width or min-height fucks it or not.  Store in:
     // jQuery.support.css.borderBox
@@ -102,6 +81,8 @@
     });
     
     jQuery.support.css.borderBoxMinMax = ( testElem.outerWidth() === 100 && testElem.outerHeight() === 100 );
+    
+    testElem.remove();
   });
 })(jQuery);
 
