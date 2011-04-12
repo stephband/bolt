@@ -371,18 +371,6 @@
 	position: relative;
 }
 
-.column_index.index > li {
-  position: static;
-}
-.buttons_index > li {
-  margin-right: 0.5em;
-  margin-bottom: 0.3333em;
-}
-
-.buttons_index > li .button {
-  vertical-align: bottom;
-}
-
 .dropdown_index {
 	padding: 0.5em 0;
 }
