@@ -88,3 +88,79 @@ Number.prototype.wrap = function(min, max) { return (this < min ? max : min) + (
 	};
 	
 })(Math);
+
+// RegExp object
+
+// RegExp.template builds a new regex out of other regexes. See
+// post by Lea Verou, who had the initial idea, and comments
+// by me, here:
+// 
+// http://leaverou.me/2011/03/create-complex-regexps-more-easily/
+// 
+// Usage:
+// var r = RegExp.template(/regex{{id}}/gi, {id: /test/});
+// r is now /regex(?:test)/
+
+RegExp.template = (function(){
+  function replaceFn(obj) {
+    return function($0, $1, $2) {
+      // $1 exists where {{key}} is matched, while $2
+      // exists where ({{key}}) is matched.
+      var r = obj[($1 || $2)];
+      
+      if (!r) { throw("Exception: attempting to build RegExp but obj['"+($1 || $2)+"'] is undefined."); }
+      
+      // Strip out beginning and end matchers
+      r = r.source.replace(/^\^|\$$/g, '');
+      
+      // Return either a non-capturing group or a capturing
+      // group depending on the original match.
+      return [($1 ? '(?:' : '('), r, ')'].join('');
+    }
+  }
+  
+  return function(regex, obj) {
+    return RegExp(
+      regex.source.replace(/\{\{([a-zA-Z0-9]+)\}\}|\(\{\{([a-zA-Z0-9]+)\}\}\)/g, replaceFn(obj)),
+      (regex.global ? 'g' : '') +
+      (regex.ignoreCase ? 'i' : '') +
+      (regex.multiline ? 'm' : '')
+    );
+  };
+})();
+
+
+// Call a function based on the regex pattern matched.
+//
+// Usage:
+// 
+// var thing = regexFn({
+//   'abc': function(str, $1) { console.log(str, $1); },
+//   'def': function(str, $1) { console.log(str, $1); },
+//   'gh(i)': function(str, $1) { console.log(str, $1); }
+// });
+
+RegExp.patternFn = function(obj) {
+  var array = [],
+      key;
+  
+  for (key in obj) {
+    // Compile the regexes
+    obj[key].regex = RegExp(key);
+    
+    // Stick them in an array
+    array.unshift(obj[key]);
+  }
+  
+  return function(str) {
+    var k = array.length,
+        result;
+    
+    // Loop through array until we find a matching regex
+    while (k--) {
+      if (result = array[k].regex.exec(str)) {
+        return array[k].apply(this, result);
+      }
+    }
+  }
+};
