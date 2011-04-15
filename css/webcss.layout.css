@@ -880,6 +880,39 @@
   background-position-x: 100%;
 }*/
 
+.browser_thumb {
+  width: 64px;
+  padding-top: 74px;
+  height: 2em;
+  overflow: visible;
+  text-align: center;
+  font-weight: bold;
+  background-repeat: no-repeat;
+  background-size: auto;
+  white-space: nowrap;
+}
+
+.firefox_browser_thumb {
+  background-image: url('../images/logo_firefox.gif');
+  background-position: 0 0;
+}
+.safari_browser_thumb {
+  background-image: url('../images/logo_safari.gif');
+  background-position: 0 0;
+}
+.chrome_browser_thumb {
+  background-image: url('../images/logo_chrome.gif');
+  background-position: 0 0;
+}
+.opera_browser_thumb {
+  background-image: url('../images/logo_opera.gif');
+  background-position: 0 0;
+}
+.chromeframe_browser_thumb {
+  background-image: url('../images/logo_chromeframe.gif');
+  background-position: 0 0;
+}
+
 
 /* ---- */
 
