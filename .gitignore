@@ -17,6 +17,7 @@ js/*
 !js/jquery.validator.js
 !js/ui.site.js
 !test/*
+images/*
 !images/thumbs/logo_chrome.gif
 !images/thumbs/logo_chromeframe.gif
 !images/thumbs/logo_firefox.gif

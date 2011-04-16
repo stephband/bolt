@@ -36,7 +36,7 @@
 
 /* .index, .column */
 
-.index,
+.index > li,
 .column {
     /* IE does not apply inline-block to block elements, make them inline... */
     display: inline;
