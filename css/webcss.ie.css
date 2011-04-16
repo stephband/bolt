@@ -1,3 +1,39 @@
+/* .thumb */
+
+.browser_thumb {
+
+}
+
+.chrome_browser_thumb {
+  background-image: url('../images/thumbs/logo_chrome.gif');
+  background-position: 0 0;
+}
+
+.firefox_browser_thumb {
+  background-image: url('../images/thumbs/logo_firefox.gif');
+  background-position: 0 0;
+}
+
+.opera_browser_thumb {
+  background-image: url('../images/thumbs/logo_opera.gif');
+  background-position: 0 0;
+}
+
+.safari_browser_thumb {
+  background-image: url('../images/thumbs/logo_safari.gif');
+  background-position: 0 0;
+}
+
+.ie_browser_thumb {
+  background-image: url('../images/thumbs/logo_safari.gif');
+  background-position: 0 0;
+}
+
+.chromeframe_browser_thumb {
+  background-image: url('../images/thumbs/logo_chromeframe.gif');
+  background-position: 0 0;
+}
+
 /* .index, .column */
 
 .index,
