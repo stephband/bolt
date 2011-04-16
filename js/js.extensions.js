@@ -92,7 +92,7 @@ Number.prototype.wrap = function(min, max) { return (this < min ? max : min) + (
 
 // RegExp object
 
-(function( prototype ){
+(function(prototype){
 	
 	// regexp.render(obj) treats this regexp as a template, returning a new
 	// regexp object that fills template tags in this with properties obj.
