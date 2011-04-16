@@ -379,7 +379,7 @@ jQuery.fn.extend({
 	// context Object   - Context used as this for calling the callback
 	// returns Function - The actual event handler
 	
-	handleMimetype: function(obj, context) {
+	function handleMimetype(obj, context) {
 		// Curry handler using this scope
 		return function(e){
 			
