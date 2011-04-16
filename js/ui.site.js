@@ -1,5 +1,8 @@
 // ui.site.js
 
+// Run jQuery without aliasing it to $
+
+jQuery.noConflict();
 
 // Handle dropdowns, popdowns and tabs
 
@@ -261,7 +264,6 @@
 	if ( !jQuery.support.placeholder ) {
 		
 		doc
-		
 		.delegate('textarea[placeholder], input[placeholder]', 'change valuechange', function(){
 			var input = jQuery(this),
 					value = input.val();
@@ -358,23 +360,93 @@
 })(document);
 
 
+// Define event handlers
+
+(function(jQuery, undefined){
+
+	function prepareDragData(e){
+		var elem = jQuery( e.target ),
+		    data = elem.data('mimetypes'),
+		    mimetype;
+	
+		if (!data) { return; }
+	
+		for (mimetype in data){
+			ddd('[drag data] mimetype:', mimetype, 'data:', data[mimetype]);
+			e.originalEvent.dataTransfer.setData(mimetype, JSON.stringify(data[mimetype]));
+		}
+	};
+	
+	function prepareDragFeedback(e){
+		var elem = jQuery( e.target ),
+		    data = elem.data('feedback'),
+		    offset, dragOffset;
+
+		if (data && data.node){
+			ddd('[drag feedback] node:', data.node);
+			jQuery(document.body).append(data.node);
+			e.originalEvent.dataTransfer.setDragImage(data.node, data.width || 32, data.height || 32);
+		}
+		else {
+			offset = elem.offset();
+			dragOffset = {
+				offsetX: e.pageX - offset.left,
+				offsetY: e.pageY - offset.top
+			};
+
+			ddd('[drag feedback] offset:', dragOffset);
+			e.originalEvent.dataTransfer.setDragImage( e.target, dragOffset.left, dragOffset.top );
+			e.originalEvent.dataTransfer.setData( 'webdoc/offset', JSON.stringify(dragOffset) );
+		}
+	};
+	
+	jQuery.event.setupHandlers({
+		
+	});
+	
+})(jQuery);
+
 
 // Tweet this page
 
-jQuery(document)
-.delegate('.window', 'click', function(e) {
-	var width	 = 575,
-			height = 400,
-			win = $(window),
-			left	 = (win.width()	 - width)	 / 2,
-			top		 = (win.height() - height) / 2,
-			url		 = e.target.href,
-			opts	 = 'status=1' +
-							 ',width='	+ width	 +
-							 ',height=' + height +
-							 ',top='		+ top		 +
-							 ',left='		+ left;
-	
-	window.open(url, 'twitter', opts);
-	e.preventDefault();
+//jQuery(document)
+//.delegate('.window', 'click', function(e) {
+//	var width	 = 575,
+//			height = 400,
+//			win = $(window),
+//			left	 = (win.width()	 - width)	 / 2,
+//			top		 = (win.height() - height) / 2,
+//			url		 = e.target.href,
+//			opts	 = 'status=1' +
+//							 ',width='	+ width	 +
+//							 ',height=' + height +
+//							 ',top='		+ top		 +
+//							 ',left='		+ left;
+//	
+//	window.open(url, 'twitter', opts);
+//	e.preventDefault();
+//});
+
+
+//mbi: csrf injection
+jQuery(document.documentElement).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+        // Only send the token to relative URLs i.e. locally.
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
 });
