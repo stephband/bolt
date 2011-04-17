@@ -17,22 +17,23 @@ img { -ms-interpolation-mode: bicubic; }
    property: value !ie; (the identifier !ie is invalid, so other browser don't see the rule.)
 */
 
+.index li {
+	margin: 0;
+}
+
 .horizontal li {
   /* IE does not apply inline-block to block elements, make them inline... */
   display: inline;
-  /* ...and trigger hasLayout */
-  zoom: 1;
 }
 
-.horizontal>*:last-child,
-.horizontal>*.last {
-    margin-right: 0;
+.horizontal .last {
+  margin-right: 0;
 }
 
 
-/* IE6-down buttons */
-/* Stephen Band, with thanks to electronlibre.ch */
-/* webdev.stephband.info/buttons */
+/* IE6-down buttons
+   Stephen Band
+   webdev.stephband.info/buttons */
 
 .disabled                                                   {filter: alpha(opacity=60%);}
 

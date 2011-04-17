@@ -39,7 +39,7 @@
 .index > li,
 .column {
     /* IE does not apply inline-block to block elements, make them inline... */
-    display: inline;
+    /*display: inline;*/
     /* ...and trigger hasLayout */
     zoom: 1;
 }

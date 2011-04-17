@@ -9,24 +9,24 @@
    http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/
 */
 
-.horizontal {
-  /* IE does not apply inline-block to block elements, make them inline... */
-  display: inline;
-  /* ...and trigger hasLayout */
-  zoom: 1;
+.horizontal > li > a {
+	height: auto;
+	vertical-align: top;
 }
 
-.horizontal>*,
-.horizontal>*,
-.horizontal>* {
-    display: inline-block;
-    vertical-align: bottom;
-}
+.four_product_index > li 	      { width: 23.69%; }
+.three_product_index > li	      { width: 32.18%; }
+.two_product_index > li		      { width: 49.16%; }
+.four_product_index > li.last 	{ margin-right: 0; }
+.three_product_index > li.last	{ margin-right: 0; }
+.two_product_index > li.last		{ margin-right: 0; }
 
-.horizontal>*:last-child,
-.horizontal>*.last {
-    margin-right: 0;
-}
+
+
+
+
+
+
 
 
 /* Vertical centering builds on the technique described here:

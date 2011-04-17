@@ -18,16 +18,14 @@ img { -ms-interpolation-mode: bicubic; }
    property: value !ie; (the identifier !ie is invalid, so other browser don't see the rule.)
 */
 
-.horizontal li {
+.column,
+.horizontal > li {
   /* IE does not apply inline-block to block elements, make them inline... */
   display: inline;
-  /* ...and trigger hasLayout */
-  zoom: 1;
 }
 
-.horizontal>*:last-child,
-.horizontal>*.last {
-    margin-right: 0;
+.horizontal > li.last {
+  margin-right: 0;
 }
 
 

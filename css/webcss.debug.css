@@ -2,12 +2,52 @@ html {
 	background-color: white;
 }
 
+/* Color nodes based on their nested depth. */
+
 body {
-	background-color: rgba(0,0,0,0.06);
+	background-color: #f7f7f7;
+	/*background-color: rgba(0,0,0,0.06);*/
 }
 
 body * {
-	background-color: rgba(0,0,0,0.06);
+	background-color: #f0f0f0;
+	/*background-color: rgba(0,0,0,0.06);*/
+}
+
+body * * {
+	background-color: #e7e7e7;
+}
+
+body * * * {
+	background-color: #e0e0e0;
+}
+
+body * * * * {
+	background-color: #d7d7d7;
+}
+
+body * * * * * {
+	background-color: #d0d0d0;
+}
+
+body * * * * * * {
+	background-color: #c7c7c7;
+}
+
+body * * * * * * * {
+	background-color: #c0c0c0;
+}
+
+body * * * * * * * * {
+	background-color: #b7b7b7;
+}
+
+body * * * * * * * * * {
+	background-color: #b0b0b0;
+}
+
+body * * * * * * * * * * {
+	background-color: #a7a7a7;
 }
 
 /*header {
