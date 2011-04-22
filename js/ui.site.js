@@ -24,7 +24,7 @@ jQuery.noConflict();
 			object = options.object || jQuery(selector);
 			
 			objects[selector] = object.length ? {
-				button: options.button || jQuery('a[href='+selector+']'),
+				button: options.button || jQuery('a[href="'+selector+'"]'),
 				object: object,
 				type: options.type || (
 					object.hasClass('dropdown') ? 'dropdown' :
