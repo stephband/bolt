@@ -3,6 +3,8 @@
 // typeOf( obj )
 //
 // Helper function that distinguishes Objects from Arrays
+// and Null. From Crockford's site:
+//
 // http://javascript.crockford.com/remedial.html
 
 function typeOf(value) {
@@ -48,14 +50,16 @@ if (!Function.prototype.bind)
 };
 
 
-// Number.prototype
-//
-// Just a few helper methods that I use a lot
+// Number
 
-Number.prototype.toDegrees = function() { return this * 57.295779513; };
-Number.prototype.toRadians = function() { return this / 57.295779513; };
-Number.prototype.limit = function(min, max) { return this > max ? max : this < min ? min : this ; };
-Number.prototype.wrap = function(min, max) { return (this < min ? max : min) + (this - min) % (max - min); };
+(function(prototype){
+
+  prototype.toDegrees = function() { return this * 57.295779513; };
+  prototype.toRadians = function() { return this / 57.295779513; };
+  prototype.limit = function(min, max) { return this > max ? max : this < min ? min : this ; };
+  prototype.wrap = function(min, max) { return (this < min ? max : min) + (this - min) % (max - min); };
+
+})(Number.prototype);
 
 
 // Math object
