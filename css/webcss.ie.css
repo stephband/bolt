@@ -1,3 +1,12 @@
+/* Forms */
+
+/* make buttons play nice in IE:    
+   www.viget.com/inspire/styling-the-button-element-in-internet-explorer/ */
+button {
+  width: auto;
+  overflow: visible;
+}
+
 /* .thumb */
 
 .browser_thumb {

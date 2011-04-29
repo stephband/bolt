@@ -16,7 +16,7 @@ body {
 }
 
 .test {
-  margin: 0 auto 1em;
+  margin-bottom: 1em;
   background-color: white;
   background-image: url('../images/grid_8px.png');
   position: relative;
