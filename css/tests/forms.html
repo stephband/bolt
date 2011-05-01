@@ -1,384 +1,225 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html>
 
 <head>
-
-<meta charset="utf-8" />
-
-<title>css | forms</title>
-
-<link rel="icon" type="image/png" href="images/favicon.png" />
-
-<style type="text/css" media="screen, projection">
-    
-    @import url('../reset.css');
-    @import url('css/test.css');
-    @import url('../forms.css');
-    
-    h2 {
-        white-space: pre;
-    }
-    
+  <title>Forms</title>
+  <link href="../webcss.reset.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="../webcss.layout.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="../webcss.forms.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="../webcss.typography.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="css/test.css" type="text/css" media="all" rel="stylesheet"/>
+  <style>
     .test {
-        margin: 0 auto 1em;
-        border: 1px dotted #666666;
-        position: relative;
+      background-color: #eeeeee;
+      background-image: url('images/grid_20px.png');
     }
-    
-    label {
-      background: #eeeeee;
-    }
-    input {
-      background: #dddddd;
-    }
-    
-    .column {
-        background: orange;
-    }
-    
-</style>
-
+  </style>
 </head>
 
 <body>
+  <h1>Forms</h1>
+  <form class="column of_three test">
+    
+    <h2>html5 type</h2>
+    
+    <label for="text">text</label>
+    <input type="text" id="text" name="text" />
+    
+    <label for="search">search</label>
+    <input type="search" id="search" name="search" />
+    
+    <label for="tel">tel</label>
+    <input type="tel" id="tel" name="tel" />
+    
+    <label for="url">url</label>
+    <input type="url" id="url" name="url" />
+    
+    <label for="color">color</label>
+    <input type="color" id="color" name="color" />
+     
+    <label for="email">email</label>
+    <input type="email" id="email" name="email" />
+    
+    <label for="password">password</label>
+    <input type="password" id="password" name="password" />
+    
+    <label for="textarea">textarea</label>
+    <textarea id="textarea" name="textarea"></textarea>
+    
+    <label for="number">number</label>
+    <input type="number" id="number" name="number" />
+    
+    <label for="date">date</label>
+    <input type="date" id="date" name="date" />
+    
+    <label for="time">time</label>
+    <input type="time" id="time" name="time" />
+    
+    <label for="week">week</label>
+    <input type="week" id="week" name="week" />
+    
+    <label for="month">month</label>
+    <input type="month" id="month" name="month" />
 
-<h1>forms</h1>
+    <label for="datetime">datetime</label>
+    <input type="datetime" id="datetime" name="datetime" />
+     
+    <label for="datetime-local">datetime-local</label>
+    <input type="datetime-local" id="datetime-local" name="datetime-local" />
+    
+    <label for="range">range</label>
+    <input type="range" id="range" name="range" />
+    
+    <label for="radio">radio</label>
+    <input type="radio" id="radio" name="radio" />
+    
+    <label for="checkbox">checkbox</label>
+    <input type="checkbox" id="checkbox" name="checkbox" />
+    
+    <label for="file">file</label>
+    <input type="file" id="file" name="file" />
+    
+    <label for="hidden">hidden</label>
+    <input type="hidden" id="hidden" name="hidden" />
+    
+    <label for="image">image</label>
+    <input type="image" id="image" name="image" />
+    
+    <label for="button">button</label>
+    <input type="button" id="button" name="button" value="button" />
+    
+    <label for="reset">reset</label>
+    <input type="reset" id="reset" name="reset" />
+    
+    <label for="submit">submit</label>
+    <input type="submit" id="submit" name="submit" />
+  </form
+ ><form class="column of_three test">
+    
+    <h2>custom data-type</h2>
+    
+    <label for="csscolor">csscolor</label>
+    <input type="text" data-type="csscolor" id="csscolor" name="csscolor" />
+    
+    <label for="cssangle">cssangle</label>
+    <input type="text" data-type="cssangle" id="cssangle" name="cssangle" />
+    
+    <label for="cssvalue">cssvalue</label>
+    <input type="text" data-type="cssvalue" id="cssvalue" name="cssvalue" />
+    
+    <label for="imagefile">imagefile</label>
+    <input type="text" data-type="imagefile" id="imagefile" name="imagefile" />
 
-<form id="dummy" action="" method="post" class="test">
-  <fieldset>
-    <!--legend>Properties</legend-->
-    <div>
-      <label for="test-input-1">Text label</label><input type="text" id="test-input-1" name="test-input-1" value="Text" />
-    </div>
+    <label for="email">email</label>
+    <input type="email" data-type="email" id="email" name="email" />
     
-    <div>
-      <label for="test-input-2">Password label</label>
-      <input type="text" id="test-input-2" name="test-input-2" value="Password">
-    </div>
+    <label for="csscolorauto">csscolor [autocomplete=on]</label>
+    <input type="text" data-type="csscolor" id="csscolorauto" name="csscolorauto" autocomplete="on" />
     
-    <div>
-      <label for="test-input-3" class="disabled">Background Image</label>
-      <input type="text" id="test-input-3" name="test-input-3" value="Disabled text" disabled="disabled">
-    </div>
+    <label for="cssangleauto">cssangle [autocomplete=on]</label>
+    <input type="text" data-type="cssangle" id="cssangleauto" name="cssangleauto" autocomplete="on" />
     
-    <div>
-      <label for="dummy1">Width</label>
-      <input type="text" id="dummy1" name="dummy1" value="value">
-      <p>You can add a paragraph of text as an explanation of something in the form. It should align nicely with the input elements.</p>
-    </div>
+    <label for="cssvalueauto">cssvalue [autocomplete=on]</label>
+    <input type="text" data-type="cssvalue" id="cssvalueauto" name="cssvalueauto" autocomplete="on" />
     
-    <div>
-      <label>Checkboxes</label>
-      <input type="checkbox">
-    </div>
+    <input class="submit" type="submit" value="Submit"/>
+  </form
+ ><form class="column last of_three test">
     
-    <div>
-      <label>Radio buttons</label>
-      <input type="radio" name="example"><span class="label">Radio one</span>
-      <input type="radio" name="example"><span class="label">Radio two</span>
-      <input type="radio" name="example"><span class="label">Radio three</span>
-    </div>
-  </fieldset>
-</form>
-
-
-<div class="test">
-  <form id="dummy" action="" method="post">
-    <fieldset class="properties">
-      <!--legend>Properties</legend-->
-      <div>
-        <label>Property</label>
-        <input id="page_height_textbox" type='text' />
-      </div>
+    <h2>attribute</h2>
+    
+    <label for="minlength">text [minlength=2]</label>
+    <input type="text" id="minlength" name="minlength" minlength="2" />
+    
+    <label for="maxlength">text [maxlength=2]</label>
+    <input type="text" id="maxlength" name="maxlength" maxlength="2" />
+    
+    <label for="min">text [min=2]</label>
+    <input type="text" id="min" name="min" min="2" />
+    
+    <label for="max">text [max=10]</label>
+    <input type="text" id="max" name="max" max="10" />
+    
+    <label for="readonly">text [readonly=readonly]</label>
+    <input type="text" id="readonly" name="readonly" readonly="readonly" />
+    
+    <label for="treadonly">textarea [readonly=readonly]</label>
+    <textarea id="readonly" name="treadonly" readonly="readonly"></textarea>
+    
+    <label for="required">text [required]</label>
+    <input type="text" id="required" required="required" name="required" />
+    
+    <label for="autocomplete">text [autocomplete=on]</label>
+    <input type="text" id="autocomplete" name="autocomplete" autocomplete="on" />
+    
+    <input type="submit" id="submit" name="submit" />
+  </form>
+  
+  <!-- ************* -->
+  
+  <form class="column of_three test">
+    <h2>Fieldsets and legends</h2>
+    
+    <fieldset>
+      <label for="text2">text</label>
+      <input type="text" id="text2" name="text2" />
       
-      <div>
-        <label for="dummy1">Another-property</label>
-        <input type="text" id="dummy1" name="dummy1" value="value">
-      </div>
-      
-      <div>
-        <label for="dummy0" class="disabled">Background Image</label>
-        <input type="text" name="dummy0" id="dummy0" value="value" disabled="disabled">
-      </div>
-      
-      <div>
-        <label for="dummy1">Width</label>
-        <input type="text" id="dummy1" name="dummy1" value="value">
-        <p>You can add a paragraph of text as an explanation of something in the form. It should align nicely with the input elements.</p>
-      </div>
-      
-      <div>
-        <label>Checkboxes</label>
-        <input type="checkbox">
-      </div>
-      
-      <div>
-        <label>Radio buttons</label>
-        <input type="radio" name="example"><span class="label">Radio one</span>
-        <input type="radio" name="example"><span class="label">Radio two</span>
-        <input type="radio" name="example"><span class="label">Radio three</span>
-      </div>
+      <label for="text3">text</label>
+      <input type="text" id="text3" name="text3" />
     </fieldset>
-    <fieldset class="properties">
+    
+    <fieldset>
       <legend>Legend</legend>
-      <div>
-        <label>Property</label>
-        <input id="page_height_textbox" type='text' />
-      </div>
       
-      <div>
-        <label for="dummy1">Another-property</label>
-        <input type="text" id="dummy1" name="dummy1" value="value">
-      </div>
+      <label for="text4">text</label>
+      <input type="text" id="text4" name="text4" />
       
-      <div>
-        <label for="dummy0">Background Image</label>
-        <input type="text" name="dummy0" id="dummy0" value="value">
-      </div>
-      
-      <div>
-        <label for="dummy1">Width</label>
-        <input type="text" id="dummy1" name="dummy1" value="value">
-        <p>You can add a paragraph of text as an explanation of something in the form. It should align nicely with the input elements.</p>
-      </div>
-      
-      <div>
-        <label>Checkboxes</label>
-        <input type="checkbox">
-      </div>
-      
-      <div>
-        <label>Radio buttons</label>
-        <input type="radio" name="example"><span class="label">Radio one</span>
-        <input type="radio" name="example"><span class="label">Radio two</span>
-        <input type="radio" name="example"><span class="label">Radio three</span>
-      </div>
+      <label for="text5">text</label>
+      <input type="text" id="text5" name="text5" />
     </fieldset>
-    <fieldset class="properties">
-      <div>
-        <label>Property</label>
-        <input id="page_height_textbox" type='text' />
-      </div>
-      
-      <div>
-        <label for="dummy1">Another-property</label>
-        <input type="text" id="dummy1" name="dummy1" value="value">
-      </div>
-      
-      <div>
-        <label for="dummy0">Background Image</label>
-        <input type="text" name="dummy0" id="dummy0" value="value">
-      </div>
-      
-      <div>
-        <label for="dummy1">Width</label>
-        <input type="text" id="dummy1" name="dummy1" value="value">
-        <p>You can add a paragraph of text as an explanation of something in the form. It should align nicely with the input elements.</p>
-      </div>
-      
-      <div>
-        <label>Checkboxes</label>
-        <input type="checkbox">
-      </div>
-      
-      <div>
-        <label>Radio buttons</label>
-        <input type="radio" name="example"><span class="label">Radio one</span>
-        <input type="radio" name="example"><span class="label">Radio two</span>
-        <input type="radio" name="example"><span class="label">Radio three</span>
-      </div>
-    </fieldset>
-    <fieldset class="code-editor">
-      <legend>Code Editor</legend>
-      <div>
-        <label>CSS</label>
-        <textarea>.code {
-    font-size: enormous;
-    z-index: in-your-face;
-}</textarea>
-      </div>
-    </fieldset>
-  </form>
-</div>
-
-<div class="test">
-
-  <form id="dummy" action="" method="post">
-
+  </form
+ ><form class="column of_three test">
+    <h2>Range inputs</h2>
+    
     <fieldset>
-      <legend>Simple sample form</legend>
-      <p>
-        <label for="dummy0">Text input (title)</label><br>
-        <input type="text" class="title" name="dummy0" id="dummy0" value="Field with class .title">
-      </p>
-
-      <p>
-        <label for="dummy1">Background Image</label><br>
-        <input type="text" class="text" id="dummy1" name="dummy1" value="Field with class .text">
-      </p>
-
-      <p>
-        <label for="dummy2">Textarea</label><br>
-        <textarea name="dummy2" id="dummy2" rows="5" cols="20"></textarea>
-      </p>
-
-      <p>
-        <label for="dummy3">A password field</label><br>
-        <input type="password" class="text" id="dummy3" name="dummy3" value="Password field with class .text">
-      </p>
-
-      <p>
-        <input type="submit" value="Submit">
-        <input type="reset" value="Reset">
-      </p>
-
+      <label for="range2">range</label>
+      <input type="range" id="range2" name="range2" />
     </fieldset>
-  </form>
-</div>
-<div class="test">
-
-  <div class="error">
-    This is a &lt;div&gt; with the class <strong>.error</strong>. <a href="#">Link</a>.
-  </div>
-  <div class="notice">
-    This is a &lt;div&gt; with the class <strong>.notice</strong>. <a href="#">Link</a>.
-  </div>
-  <div class="success">
-    This is a &lt;div&gt; with the class <strong>.success</strong>. <a href="#">Link</a>.
-  </div>
-
-  <fieldset>
-    <legend>Select, checkboxes, lists</legend>
-
-    <p>
-      <label for="dummy3">Select field</label><br>
-      <select id="dummy3" name="dummy3">
-        <option value="1">Ottawa</option>
-        <option value="2">Calgary</option>
-        <option value="3">Moosejaw</option>
-      </select>
-    </p>
-
-    <p>
-      <label for="dummy4">Select with groups</label><br>
-      <select id="dummy4" name="dummy4">
-        <option>Favorite pet</option>
-        <optgroup label="mammals">
-          <option>dog</option>
-          <option>cat</option>
-          <option>rabbit</option>
-          <option>horse</option>
-        </optgroup>
-        <optgroup label="reptiles">
-          <option>iguana</option>
-          <option>snake</option>
-        </optgroup>
-      </select>
-    </p>
-
-    <p><label>Radio buttons</label><br>
-      <input type="radio" name="example"> Radio one<br>
-      <input type="radio" name="example"> Radio two<br>
-      <input type="radio" name="example"> Radio three<br>
-    </p>
-
-    <p><label>Checkboxes</label><br>
-      <input type="checkbox"> Check one<br>
-      <input type="checkbox"> Check two<br>
-      <input type="checkbox"> Check three<br>
-    </p>
-
-  </fieldset>
-
-</div>
-
-<div class="test">
-
-  <fieldset>
-    <legend>Alignment</legend>
-
-    <p>
-      <label for="dummy5">Select field</label>
-      <select id="dummy5" name="dummy5">
-        <option value="1">Ottawa</option>
-        <option value="2">Calgary</option>
-        <option value="3">Moosejaw</option>
-      </select>
-    </p>
-
-    <p>
-      <label for="dummy6">Text input (title)</label>
-      <input type="text" class="title" name="dummy6" id="dummy6" value="Field with class .title">
-    </p>
-
-    <p>
-      <label for="dummy7">Select field</label>
-      <select id="dummy7" name="dummy7">
-        <option value="1">Ottawa</option>
-        <option value="2">Calgary</option>
-        <option value="3">Moosejaw</option>
-      </select>
-      <label for="dummy8">Another field</label>
-      <input type="text" class="text" id="dummy8" name="dummy8" value="Field with class .text">
-    </p>
-
-  </fieldset>
-
-</div>
-
-<div class="test">
-  <form action="" method="post" class="inline">
+    
     <fieldset>
-      <legend>A form with class "inline"</legend>
-      <div class="span-3">
-        <label for="a">Label A:</label>
-        <select id="a" name="a" >
-          <option value="0">All</option>
-        </select>
-      </div>
-      <div class="span-2">
-        some text
-      </div>
-      <div class="span-3">
-        <input type="checkbox" id="o" name="o" value="true" checked="checked" class="checkbox">checkbox one
-      </div>
-      <div class="span-3">
-        <label for="b">Label B:</label>
-        <select id="b" name="b" >
-          <option value="0">All</option>
-        </select>
-      </div>
-      <div class="span-2">
-        <a href="">A Hyperlink</a>
-      </div>
-      <div class="span-8">
-        <input type="text" class="text" id="q" name="q" value="Field with class .text">
-      </div>
-      <div class="span-2 last">
-        <input type="submit" value="submit" class="button">
-      </div>
+      <label for="range4">vertical range</label>
+      <input type="range" id="range4" name="range4" class="y_range" />
     </fieldset>
-
+    
+    <fieldset>
+      <label for="range4">list of vertical ranges</label>
+      <ul class="horizontal range_index index">
+        <li><input class="y_range" type="range" id="range4" name="range4" /></li
+       ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+       ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+       ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+       ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+       ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+       ><li><input class="y_range" type="range" id="range4" name="range4" /></li>
+      </ul>
+    </fieldset>
+  </form
+ ><form class="column of_three test">
+    
   </form>
-
-</div>
-
-<script type="text/javascript" src="../js/jquery-1.4.js"></script>
-<script type="text/javascript" src="../../public/js/jquery.extensions.js"></script>
-<script type="text/javascript" src="../../public/js/jquery.panel.js"></script>
-<script type="text/javascript">
-
-jQuery(function(){
-    
-    jQuery('.panel').panel();
-    
-    jQuery('#page_inspector').show();
-    
-    jQuery('#page_height_textbox').val('Give me');
-    
-});
-
-</script>
-
+  
+  <script src="../../js/jquery-1.4.2.js" type="text/javascript"></script>
+  <script src="../../js/jquery.validator.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      
+      jQuery('form')
+      .validator()
+      .bind('submit', function(e){
+        e.preventDefault();
+        console.log('Submit prevented');
+      });
+    });
+  </script>
 </body>
-</html>
+</html> 

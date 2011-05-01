@@ -359,6 +359,7 @@
 	/* Remove default styling from list items. */
 	list-style: none;
 	margin: 0;
+	padding: 0;
 }
 
 .index > li {

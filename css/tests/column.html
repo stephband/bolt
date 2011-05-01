@@ -2,39 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-
 <meta charset="utf-8" />
-
 <title>css | .column</title>
-
-<link rel="icon" type="image/png" href="images/favicon.png" />
-
 <style type="text/css" media="screen, projection">
     
-    @import url('../reset.css');
+    @import url('../webcss.reset.css');
+    @import url('../webcss.layout.css');
     @import url('css/test.css');
-    @import url('../column.css');
     
     h2 {
         white-space: pre;
     }
     
-    .test {
-        margin: 0 auto 1em;
-        border: 1px dotted #666666;
-        position: relative;
-        min-height: 40px;
-    }
-    
-    label {
-      background: #eeeeee;
-    }
-    input {
-      background: #dddddd;
+    .column_test {
+      min-height: 40px;
     }
     
     .column {
-        background: orange;
+      background: #b2b3b5;
+      height: 100%;
     }
     
 </style>
@@ -43,7 +29,7 @@
 
 <body>
 
-<h1>column</h1>
+<h1>Columns</h1>
 
 <h2>.column</h2>
 
@@ -55,7 +41,7 @@
     </div
     ><div class="column two of_two">
       <p>column 2.</p>
-      <p>Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div.</p>
+      <p>Some screed that expands the div. Some screed that expands the div. Some screed that expands the div. Some screed that expands the div. Some screed that expands the div. Some screed that expands the div. Some screed that expands the div.</p>
     </div>
 </div>
 
@@ -114,26 +100,26 @@
 
 <p>Absolute columns require some kind of height declaration on their container.</p>
 
-<div class="test clear">
+<div class="column_test test">
     <div class="column absolute_column one of_two">column 1</div>
     <div class="column absolute_column two of_two"><p>column 2.</p>
-      <p>Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div. Some screed what expands the div.</p></div>
+      <p>Some screed that expands the div. Some screed that expands the div. Some screed that expands the div. Some screed that expands the div. Some screed that expands the div. Some screed that expands the div. Some screed that expands the div.</p></div>
 </div>
 
-<div class="test clear">
+<div class="column_test test">
     <div class="column absolute_column one of_three">column 1</div>
     <div class="column absolute_column two of_three">column 2</div>
     <div class="column absolute_column three of_three">column 3</div>
 </div>
 
-<div class="test">
+<div class="column_test test">
     <div class="column absolute_column one of_four">column 1</div>
     <div class="column absolute_column two of_four">column 2</div>
     <div class="column absolute_column three of_four">column 3</div>
     <div class="column absolute_column four of_four">column 4</div>
 </div>
 
-<div class="test">
+<div class="column_test test">
     <div class="column absolute_column one of_five">column 1</div>
     <div class="column absolute_column two of_five">column 2</div>
     <div class="column absolute_column three of_five">column 3</div>
@@ -141,7 +127,7 @@
     <div class="column absolute_column five of_five">column 5</div>
 </div>
 
-<div class="test">
+<div class="column_test test">
     <div class="column absolute_column one of_six">column 1</div>
     <div class="column absolute_column two of_six">column 2</div>
     <div class="column absolute_column three of_six">column 3</div>
@@ -150,7 +136,7 @@
     <div class="column absolute_column six of_six">column 6</div>
 </div>
 
-<h2>.double</h2>
+<h2>.double_column</h2>
 
 <p>Double columns span the normal size of two coumns.</p>
 
@@ -199,7 +185,7 @@
     ><div class="column eight of_eight">column 8</div>
 </div>
 
-<h2>.triple</h2>
+<h2>.triple_column</h2>
 
 <p>Triple columns span the normal size of three columns.</p>
 
@@ -238,7 +224,7 @@
     ><div class="column eight of_eight">column 8</div>
 </div>
 
-<h2>.quadruple</h2>
+<h2>.quadruple_column</h2>
 
 <p>Quadruple columns span the normal size of four columns.</p>
 
@@ -268,7 +254,7 @@
     ><div class="column eight of_eight">column 8</div>
 </div>
 
-<h2>.quintuple</h2>
+<h2>.quintuple_coulmn</h2>
 
 <p>Quintuple columns span the normal size of five columns.</p>
 
@@ -290,7 +276,7 @@
     ><div class="column eight of_eight">column 8</div>
 </div>
 
-<h2>.sextuple</h2>
+<h2>.sextuple_column</h2>
 
 <p>Sextuple columns span the normal size of six columns.</p>
 
@@ -305,7 +291,7 @@
     ><div class="column eight of_eight">column 8</div>
 </div>
 
-<h2>.septuple</h2>
+<h2>.septuple_column</h2>
 
 <p>Septuple columns span the normal size of seven columns.</p>
 
