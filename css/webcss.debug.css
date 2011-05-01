@@ -10,11 +10,11 @@ body {
 }
 
 body * {
-	background-color: #f0f0f0;
-	/*background-color: rgba(0,0,0,0.06);*/
+	/*background-color: #f0f0f0;*/
+	background-color: rgba(0,0,0,0.06);
 }
 
-body * * {
+/*body * * {
 	background-color: #e7e7e7;
 }
 
@@ -48,7 +48,7 @@ body * * * * * * * * * {
 
 body * * * * * * * * * * {
 	background-color: #a7a7a7;
-}
+}*/
 
 /*header {
 	background-color: yellow;
