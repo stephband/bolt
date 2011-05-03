@@ -151,6 +151,264 @@
 }
 
 
+/* .index
+   
+   Defines styles for lists of inline-blocks like buttons, thumbs or toolbars,
+   as well as lists with dividers. Horizontal by default. */
+
+.index {
+	/* Remove default styling from list items. */
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.index > li {
+  /* Specifically remove default margin and padding from
+     list items in case some typography rules have added
+     these back in after the reset. */
+  margin: 0;
+  padding: 0;
+  /* Make list items act as position parents. */
+	position: relative;
+}
+
+.dropdown_index {
+	padding: 0.5em 0;
+}
+
+.dropdown_index > li {
+	margin-right: 0;
+}
+
+.dropdown_index > li > a {
+  display: block;
+  white-space: nowrap;
+  width:100%;
+  padding-left:10px;
+  padding-right:10px;
+  font-size: 0.9167em;
+  font-weight: bold;
+}
+
+.tabs_index > li {
+  /* Stop content pushing column wider than it should be */
+  overflow: visible;
+  min-height: 100%;
+  margin-right: 2%;
+}
+
+.two_tabs_index > li   { width: 49%; }
+.three_tabs_index > li { width: 32%; }
+.four_tabs_index > li  { width: 23.5%; }
+.five_tabs_index > li  { width: 18.4%; }
+.six_tabs_index > li   { width: 15%; }
+.seven_tabs_index > li { width: 12.5714%; }
+.eight_tabs_index > li { width: 10.75%; }
+
+.tabs_index > li:last-child		{ margin-right: 0; }
+
+
+
+
+/* Items divided by lines */
+
+.divided_index li {
+    height: 1em;
+    line-height: 1em;
+    padding-right: 0.6em;
+    margin-right: 0.6em;
+    border-right: 1px solid #666666;
+}
+.divided_index li:last-child,
+.divided_index li.last {
+    padding-right: 0;
+    margin-right: 0;
+    border-right: 0;
+}
+.divided_index.thumbs li {
+    height: auto;
+    display: inline-block;
+}
+
+
+/* .horizontal
+    
+   Simulate a bunch of blocks pushed against each other horizontally
+   by using inline layout to create a horizontal effect. Because
+   they're in the flow, children must have no space between them in
+   the html.
+*/
+
+.horizontal {
+  /* To form grids with a horizontal index, line-height
+     needs to be smaller than the items in the index. */
+	line-height: 0;
+}
+
+.horizontal > * {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  /* Reset the line-height we zeroed on the parent. */
+  line-height: 1.6667;
+}
+
+.horizontal > input[type='radio'],
+.horizontal > input[type='checkbox'] {
+    /* Percentage heights on checkboxes can make them dissapear. */
+    height: auto;
+    width: auto;
+    margin-top: 0.25em;
+}
+
+.horizontal > *:last-child,
+.horizontal > *.last {
+    margin-right: 0;
+}
+
+.horizontal.index > dt,
+.horizontal.index > dd {
+    margin: 0;
+}
+.horizontal.index > dt,
+.horizontal.index > dd {
+    width: 160px;
+    line-height: 1.6em;
+}
+.horizontal.index > dt {
+    vertical-align: text-bottom;
+}
+.horizontal.index > dd {
+    vertical-align: text-top;
+    /* reset the margin that usually indents a dd */
+    margin-left: 0;
+    /* Move it down by one line-height */
+    margin-top: 1.6667em;
+    /* Move it left with a negative margin accounting for size, padding and margin of dt */
+    margin-left: -166px;
+    /* Space at the bottom for when the items wrap */
+    margin-bottom: 1.6667em;
+}
+
+
+/* .vertical */
+
+.vertical > * {
+  display: block;
+}
+
+.vertical > *:last-child,
+.vertical > *.last {
+  margin-bottom: 0;
+}
+
+.vertical > dt,
+.vertical > dd {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
+}
+
+.vertical > dt {
+  text-align: right;
+  /* The golden ratio */
+  width: 36.20%;
+  margin-right: 2%;
+}
+
+.vertical > dd {
+  /* The golden ratio */
+  width: 61.80%;
+  margin-right: 0;
+}
+
+
+/* .divided */
+
+.divided.horizontal > * {
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-left-color: #666666;
+}
+
+.divided.horizontal > *:first-child {
+  border-left-style: none;
+}
+
+.divided.vertical > * {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #666666;
+}
+
+.divided.vertical > *:first-child {
+  border-top-style: none;
+}
+
+/*
+.vertical.divided_index li {
+    padding-right: 0;
+    margin-right: 0;
+    border-right: none;
+    padding-bottom: 0.6em;
+    margin-right: 0.6em;
+    border-bottom: 1px solid #666666;
+}
+.vertical.divided_index li:last-child,
+.vertical.divided_index li.last {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+}
+.vertical.divided_index.thumbs li {
+    display: block;
+}
+
+.divided_index dt {
+    padding-bottom: 0.2em;
+    border-bottom: 1px solid #aaaaaa;
+}
+.divided_index dd {
+    margin-top: 1.9em;
+    padding-top: 0.2em;
+}*/
+
+/* spaced children */
+
+.horizontal > .spaced {
+  margin: 0 1.3333em;
+}
+
+.vertical > .spaced {
+  margin: 1.3333em 0;
+}
+
+/* Putting objects of unknown width/height in the centre */
+
+.central {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -o-box;
+	display: -ms-box;
+	display: box;
+
+	-webkit-box-align: center;
+	-moz-box-align:    center;
+	-o-box-align:      center;
+	box-align:         center;
+
+  -webkit-box-pack: center;
+  -moz-box-pack:    center;
+  -o-box-pack:      center;
+  box-pack:         center;
+  
+  /* FF shrinks the width of boxes with display: box;. Lets
+     force it to behave like the others. */
+  width: 100%;
+}
+
 
 /* .column
    
@@ -347,264 +605,6 @@
 .absolute_column.six.of_eight   { left: 63.4375%; }
 .absolute_column.seven.of_eight { left: 76.125%; }
 .absolute_column.eight.of_eight { left: 88.8125%; }
-
-
-
-/* .index
-   
-   Defines styles for lists of inline-blocks like buttons, thumbs or toolbars,
-   as well as lists with dividers. Horizontal by default. */
-
-.index {
-	/* Remove default styling from list items. */
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.index > li {
-  /* Specifically remove default margin and padding from
-     list items in case some typography rules have added
-     these back in after the reset. */
-  margin: 0;
-  padding: 0;
-  /* Make list items act as position parents. */
-	position: relative;
-}
-
-.dropdown_index {
-	padding: 0.5em 0;
-}
-
-.dropdown_index > li {
-	margin-right: 0;
-}
-
-.dropdown_index > li > a {
-  display: block;
-  white-space: nowrap;
-  width:100%;
-  padding-left:10px;
-  padding-right:10px;
-  font-size: 0.9167em;
-  font-weight: bold;
-}
-
-.tabs_index > li {
-  /* Stop content pushing column wider than it should be */
-  overflow: visible;
-  min-height: 100%;
-  margin-right: 2%;
-}
-
-.two_tabs_index > li   { width: 49%; }
-.three_tabs_index > li { width: 32%; }
-.four_tabs_index > li  { width: 23.5%; }
-.five_tabs_index > li  { width: 18.4%; }
-.six_tabs_index > li   { width: 15%; }
-.seven_tabs_index > li { width: 12.5714%; }
-.eight_tabs_index > li { width: 10.75%; }
-
-.tabs_index > li:last-child		{ margin-right: 0; }
-
-
-
-
-/* Items divided by lines */
-
-.divided_index li {
-    height: 1em;
-    line-height: 1em;
-    padding-right: 0.6em;
-    margin-right: 0.6em;
-    border-right: 1px solid #666666;
-}
-.divided_index li:last-child,
-.divided_index li.last {
-    padding-right: 0;
-    margin-right: 0;
-    border-right: 0;
-}
-.divided_index.thumbs li {
-    height: auto;
-    display: inline-block;
-}
-
-
-/* .horizontal
-    
-   Simulate a bunch of blocks pushed against each other horizontally
-   by using inline layout to create a horizontal effect. Because
-   they're in the flow, children must have no space between them in
-   the html.
-*/
-
-.horizontal {
-  /* To form grids with a horizontal index, line-height
-     needs to be smaller than the items in the index. */
-	line-height: 0;
-}
-
-.horizontal > * {
-  display: inline-block;
-  vertical-align: top;
-  height: 100%;
-  /* Reset the line-height we zeroed on the parent. */
-  line-height: 1.6667;
-}
-
-.horizontal > input[type='radio'],
-.horizontal > input[type='checkbox'] {
-    height: auto;
-    width: auto;
-}
-
-.horizontal > *:last-child,
-.horizontal > *.last {
-    margin-right: 0;
-}
-
-.horizontal.index > dt,
-.horizontal.index > dd {
-    margin: 0;
-}
-.horizontal.index > dt,
-.horizontal.index > dd {
-    width: 160px;
-    line-height: 1.6em;
-}
-.horizontal.index > dt {
-    vertical-align: text-bottom;
-}
-.horizontal.index > dd {
-    vertical-align: text-top;
-    /* reset the margin that usually indents a dd */
-    margin-left: 0;
-    /* Move it down by one line-height */
-    margin-top: 1.6667em;
-    /* Move it left with a negative margin accounting for size, padding and margin of dt */
-    margin-left: -166px;
-    /* Space at the bottom for when the items wrap */
-    margin-bottom: 1.6667em;
-}
-
-
-/* .vertical */
-
-.vertical > * {
-  display: block;
-}
-
-.vertical > *:last-child,
-.vertical > *.last {
-  margin-bottom: 0;
-}
-
-.vertical > dt,
-.vertical > dd {
-  display: inline-block;
-  vertical-align: top;
-  margin: 0;
-  padding: 0;
-}
-
-.vertical > dt {
-  text-align: right;
-  /* The golden ratio */
-  width: 36.20%;
-  margin-right: 2%;
-}
-
-.vertical > dd {
-  /* The golden ratio */
-  width: 61.80%;
-  margin-right: 0;
-}
-
-
-/* .divided */
-
-.divided.horizontal > * {
-  border-left-width: 1px;
-  border-left-style: solid;
-  border-left-color: #666666;
-}
-
-.divided.horizontal > *:first-child {
-  border-left-style: none;
-}
-
-.divided.vertical > * {
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #666666;
-}
-
-.divided.vertical > *:first-child {
-  border-top-style: none;
-}
-
-/*
-.vertical.divided_index li {
-    padding-right: 0;
-    margin-right: 0;
-    border-right: none;
-    padding-bottom: 0.6em;
-    margin-right: 0.6em;
-    border-bottom: 1px solid #666666;
-}
-.vertical.divided_index li:last-child,
-.vertical.divided_index li.last {
-    padding-bottom: 0;
-    margin-bottom: 0;
-    border-bottom: none;
-}
-.vertical.divided_index.thumbs li {
-    display: block;
-}
-
-.divided_index dt {
-    padding-bottom: 0.2em;
-    border-bottom: 1px solid #aaaaaa;
-}
-.divided_index dd {
-    margin-top: 1.9em;
-    padding-top: 0.2em;
-}*/
-
-/* spaced children */
-
-.horizontal > .spaced {
-  margin: 0 1.3333em;
-}
-
-.vertical > .spaced {
-  margin: 1.3333em 0;
-}
-
-/* Putting objects of unknown width/height in the centre */
-
-.central {
-	display: -webkit-box;
-	display: -moz-box;
-	display: -o-box;
-	display: -ms-box;
-	display: box;
-
-	-webkit-box-align: center;
-	-moz-box-align:    center;
-	-o-box-align:      center;
-	box-align:         center;
-
-  -webkit-box-pack: center;
-  -moz-box-pack:    center;
-  -o-box-pack:      center;
-  box-pack:         center;
-  
-  /* FF shrinks the width of boxes with display: box;. Lets
-     force it to behave like the others. */
-  width: 100%;
-}
 
 
 /* Vertical centering builds on the technique described here:
