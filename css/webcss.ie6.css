@@ -1,4 +1,12 @@
+/* Clearfix */
+
+.clear { zoom: 1; }
+
+
+/* Smooth resizing */
+
 img { -ms-interpolation-mode: bicubic; }
+
 
 /* horizontal
     
