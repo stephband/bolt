@@ -124,3 +124,60 @@ caption           { background: #eee; }
   background:rgba(27,117,186,0.8);
   color:rgb(255,255,255);
 }
+
+/* Manipulate text size keeping same line-height. */
+
+.xxxxxxxl_text {
+  font-size: 1.6667em;
+  line-height: 1.2em;
+}
+
+.xxxxxxl_text {
+  font-size: 1.5833em;
+  line-height: 1.2632em;
+}
+
+.xxxxxl_text {
+  font-size: 1.5em;
+  line-height: 1.3333em;
+}
+
+.xxxxl_text {
+  font-size: 1.4167em;
+  line-height: 1.4118em;
+}
+
+.xxxl_text {
+  font-size: 1.3333em;
+  line-height: 1.5em;
+}
+
+.xxl_text {
+  font-size: 1.25em;
+  line-height: 1.6em;
+}
+
+.xl_text {
+  font-size: 1.1667em;
+  line-height: 1.7143em;
+}
+
+.l_text {
+  font-size: 1.0833em;
+  line-height: 1.8462em;
+}
+
+.s_text {
+  font-size: 0.9167em;
+  line-height: 2.1818em;
+}
+
+.xs_text {
+  font-size: 0.8333em;
+  line-height: 2.4em;
+}
+
+.xxs_text {
+  font-size: 0.75em;
+  line-height: 2.6667em;
+}

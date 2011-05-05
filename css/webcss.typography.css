@@ -55,7 +55,7 @@ pre {
 
 /* Block elements */
 
-h1,h2,h3,h4,h5,h6 { font-weight: bold; margin: 0; word-spacing: -0.0833em; color:#919CA0;}
+h1,h2,h3,h4,h5,h6 { font-weight: bold; margin: 0; word-spacing: -0.0833em; }
 
 h1                { font-size: 1.5em;                        margin-bottom: 0.4167em; font-weight: normal; }
 h2                { font-size: 1em;     line-height: 1.5;    margin-bottom: 0.5em;		font-weight: normal;}
