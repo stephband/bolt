@@ -1,3 +1,16 @@
+/* IE png fix
+   http://www.twinhelix.com/css/iepngfix/
+   
+   List all selectors you want to apply the pngfix to. The path to
+   the .htc file must be relative to the html document, not this CSS.
+   */
+
+img,
+div,
+a,
+input { behavior: url(/iepngfix/iepngfix.htc) }
+
+
 /* Clearfix */
 
 .clear { zoom: 1; }
