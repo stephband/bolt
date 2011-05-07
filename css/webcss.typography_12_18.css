@@ -15,7 +15,7 @@ html {
 body {
     font-size: 75%; /* 12px */
     font-family: Helvetica, Arial, sans-serif;
-    line-height: 2; /* 24px */
+    line-height: 1.5; /* 24px */
 }
 
 pre, code {
@@ -30,15 +30,19 @@ a                 { color: rgb(90, 117, 143);  text-decoration: none; }
 
 h1,h2,h3,h4,h5,h6 { font-weight: normal; margin: 0; word-spacing: -0.0833em; }
 
-h1                { font-size: 1.5em;    line-height: 1.3333em; margin-bottom: 1.3333em; }
-h2                { font-size: 1.25em;   line-height: 1.6;    margin-bottom: 1.6em; }
-h3                { font-size: 1.1667em; line-height: 1.7143; margin-bottom: 0; }
+h1                { font-size: 1.5em;    line-height: 1em;      margin-bottom: 1em; }
+h2                { font-size: 1.25em;   line-height: 1.2em;    margin-bottom: 1.2em; }
+h3                { font-size: 1.1667em; line-height: 1.2857em; margin-bottom: 0; }
 h4                { font-size: 1em; }
 h5                { font-size: 1em; }
 h6                { font-size: 1em; }
 
-p                 { margin-bottom: 2em; }
-p:last-child      { margin-bottom: 0; }
+p                 { margin-bottom: 1.5em; }
+
+
+li                { margin-bottom: 0; }
+
+hr                { height: 0; border-width: 0; border-bottom: 1px solid black; margin-top: -1px; margin-bottom: 1.5em; }
 
 /* Make first letter different */
 /*p::first-letter   { font-size: 2em; float: left;  }
@@ -49,7 +53,8 @@ p+p::first-line   { font-weight: normal; }*/
 /* Start paragraphs with a character or symbol */
 /*p+p:before  { content: "\2767"; padding-right: 0.4em; }*/
 
-p img             { float: right; margin: 1em 0 1em 1.25em; padding: 0; }
+.left             { float: left; margin: 0.75em 1em 0.75em 0; padding: 0; }
+.right            { float: right; margin: 0.75em 0 0.75em 1em; padding: 0; }
 
 p,
 li,
@@ -64,12 +69,20 @@ dd                { margin: 0; }
 
 ul,
 ol,
+blockquote        { margin: 0 2em 1.5em 2em; }
+
+dl,
 pre,
-blockquote        { margin: 1em 2em; }
+address           { margin: 0 0 1.5em 0; }
 
-address           { margin: 1em 0; }
-
-li                { margin-bottom: 1em;}
+p:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+li:last-child,
+pre:last-child,
+address:last-child,
+blockquote:last-child { margin-bottom: 0; }
 
 dt                { float: left; clear: left; text-align: right; width: 22.75%; font-style: italic; font-weight: bold; }
 dd                { margin-left: 25.75%; }
@@ -81,8 +94,6 @@ blockquote        { padding: 0; font-style: italic; font-family: Georgia, serif;
 blockquote:before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
 pre               { white-space: pre; }
 
-time              { text-transform: uppercase; }
-
 /* Inline elements */
 
 strong,
@@ -92,12 +103,13 @@ dfn               { font-style: italic; }
 sup,
 sub               { line-height: 0; font-size: 0.8333em; }
 
+time              { text-transform: uppercase; }
+
 abbr              { letter-spacing: 0.1em; }
 pre,
 code,
 tt                { font: 1em 'andale mono', 'lucida console', monospace; }
 del               { opacity: 0.5; filter: alpha(opacity=50%); text-decoration: line-through; }
-
 /* Tables */
 
 table             { margin-bottom: 1.4em; width:100%; }
@@ -127,57 +139,14 @@ caption           { background: #eee; }
 
 /* Manipulate text size keeping same line-height. */
 
-.xxxxxxxl_text {
-  font-size: 1.6667em;
-  line-height: 1.2em;
-}
-
-.xxxxxxl_text {
-  font-size: 1.5833em;
-  line-height: 1.2632em;
-}
-
-.xxxxxl_text {
-  font-size: 1.5em;
-  line-height: 1.3333em;
-}
-
-.xxxxl_text {
-  font-size: 1.4167em;
-  line-height: 1.4118em;
-}
-
-.xxxl_text {
-  font-size: 1.3333em;
-  line-height: 1.5em;
-}
-
-.xxl_text {
-  font-size: 1.25em;
-  line-height: 1.6em;
-}
-
-.xl_text {
-  font-size: 1.1667em;
-  line-height: 1.7143em;
-}
-
-.l_text {
-  font-size: 1.0833em;
-  line-height: 1.8462em;
-}
-
-.s_text {
-  font-size: 0.9167em;
-  line-height: 2.1818em;
-}
-
-.xs_text {
-  font-size: 0.8333em;
-  line-height: 2.4em;
-}
-
-.xxs_text {
-  font-size: 0.75em;
-  line-height: 2.6667em;
-}
+.xxxxxxxl_text { font-size: 1.6667em; line-height: 0.9em; }
+.xxxxxxl_text  { font-size: 1.5833em; line-height: 0.9474em; }
+.xxxxxl_text   { font-size: 1.5em;    line-height: 1em; }
+.xxxxl_text    { font-size: 1.4167em; line-height: 1.0625em; }
+.xxxl_text     { font-size: 1.3333em; line-height: 1.125em; }
+.xxl_text      { font-size: 1.25em;   line-height: 1.2em; }
+.xl_text       { font-size: 1.1667em; line-height: 1.2857em; }
+.l_text        { font-size: 1.0833em; line-height: 1.3846em; }
+.s_text        { font-size: 0.9167em; line-height: 1.6363em; }
+.xs_text       { font-size: 0.8333em; line-height: 1.8em; }
+.xxs_text      { font-size: 0.75em;   line-height: 2em; }
