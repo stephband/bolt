@@ -86,12 +86,17 @@ blockquote:last-child { margin-bottom: 0; }
 
 dl:after {
 	/* Clearfix, because children of definition list are floated. */
+	content: " ";
 	visibility: hidden;
 	display: block;
-	font-size: 0;
-	content: " ";
 	clear: both;
+	font-size: 0;
 	height: 0;
+}
+
+dl {
+	/* Clearfix, because children of definition list are floated. */
+	zoom: 1;
 }
 
 dt                { float: left; clear: both; text-align: right; width: 22.75%; font-weight: bold; }
