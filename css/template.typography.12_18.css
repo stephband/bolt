@@ -1,4 +1,4 @@
-/* site.typography.css
+/* template.typography.12_18.css
  * 
  * Developed using ideas from:
  * www.blueprintcss.org
@@ -13,36 +13,21 @@ html {
 }
 
 body {
-    font-size: 75%; /* 12px */
-    font-family: Helvetica, Arial, sans-serif;
+    font-size: 75%;   /* 12px */
     line-height: 1.5; /* 24px */
 }
 
-pre, code {
-    font-family: 'Courier', 'Andale Mono', 'Lucida Console', monospace;
-}
-
-a:focus,
-a:hover           { color: rgb(151, 180, 206); text-decoration: none; }
-a                 { color: rgb(90, 117, 143);  text-decoration: none; }
-
 /* Block elements */
 
-h1,h2,h3,h4,h5,h6 { font-weight: normal; margin: 0; word-spacing: -0.0833em; }
-
-h1                { font-size: 1.5em;    line-height: 1em;      margin-bottom: 1em; }
-h2                { font-size: 1.25em;   line-height: 1.2em;    margin-bottom: 1.2em; }
-h3                { font-size: 1.1667em; line-height: 1.2857em; margin-bottom: 0; }
-h4                { font-size: 1em; }
-h5                { font-size: 1em; }
-h6                { font-size: 1em; }
-
-p                 { margin-bottom: 1.5em; }
-
-
-li                { margin-bottom: 0; }
-
-hr                { height: 0; border-width: 0; border-bottom: 1px solid black; margin-top: -1px; margin-bottom: 1.5em; }
+h1             { word-spacing: -0.0833em; font-size: 1.5em;    line-height: 1em;      margin-bottom: 1em; }
+h2             { word-spacing: -0.0833em; font-size: 1.25em;   line-height: 1.2em;    margin-bottom: 1.2em; }
+h3             { word-spacing: -0.0833em; font-size: 1.1667em; line-height: 1.2857em; margin-bottom: 0; }
+h4             { word-spacing: -0.0833em; font-size: 1em; }
+h5             { word-spacing: -0.0833em; font-size: 1em; }
+h6             { word-spacing: -0.0833em; font-size: 1em; }
+p              { margin-bottom: 1.5em; }
+li             { margin-bottom: 0; }
+hr             { margin-bottom: 1.5em; }
 
 /* Make first letter different */
 /*p::first-letter   { font-size: 2em; float: left;  }
@@ -53,27 +38,22 @@ p+p::first-line   { font-weight: normal; }*/
 /* Start paragraphs with a character or symbol */
 /*p+p:before  { content: "\2767"; padding-right: 0.4em; }*/
 
-.left             { float: left; margin: 0.75em 1em 0.75em 0; padding: 0; }
-.right            { float: right; margin: 0.75em 0 0.75em 1em; padding: 0; }
-
 p,
 li,
 dt,
 dd,
 blockquote,
-address           { word-spacing: 0.2em; }
+address        { word-spacing: 0.2em; }
 
-li ul,
-li ol,
-dd                { margin: 0; }
+dd             { margin: 0; }
 
 ul,
 ol,
-blockquote        { margin: 0 2em 1.5em 2em; }
+blockquote     { margin: 0 2em 1.5em 2em; }
 
 dl,
 pre,
-address           { margin: 0 0 1.5em 0; }
+address        { margin: 0 0 1.5em 0; }
 
 p:last-child,
 ul:last-child,
@@ -84,75 +64,29 @@ pre:last-child,
 address:last-child,
 blockquote:last-child { margin-bottom: 0; }
 
-dl:after {
-	/* Clearfix, because children of definition list are floated. */
-	content: " ";
-	visibility: hidden;
-	display: block;
-	clear: both;
-	font-size: 0;
-	height: 0;
-}
-
-dl {
-	/* Clearfix, because children of definition list are floated. */
-	zoom: 1;
-}
-
-dt                { float: left; clear: both; text-align: right; width: 22.75%; font-weight: bold; }
-dd                { float: right; text-align: left; width: 74.25%; }
-
-ul                { list-style-type: disc; }
-ol                { list-style-type: decimal; }
-
-blockquote        { padding: 0; font-style: italic; font-family: Georgia, serif; }
-blockquote:before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
-pre               { white-space: pre; }
+blockquote:before { font-size: 3em; margin-left: -0.6em; line-height: 0.92em; }
 
 /* Inline elements */
 
-strong,
-dfn               { font-weight: bold; }
-em,
-dfn               { font-style: italic; }
 sup,
-sub               { line-height: 0; font-size: 0.8333em; }
-
-time              { text-transform: uppercase; }
-
-abbr              { letter-spacing: 0.1em; }
+sub            { font-size: 0.8333em; }
+abbr           { letter-spacing: 0.1em; }
 pre,
 code,
-tt                { font: 1em 'andale mono', 'lucida console', monospace; }
-del               { opacity: 0.5; filter: alpha(opacity=50%); text-decoration: line-through; }
+tt             { font-size: 1em; }
+
 /* Tables */
 
-table             { margin-bottom: 1.4em; width:100%; }
-th                { font-weight: bold; }
+table          { margin-bottom: 1.4em; }
 th,
 td,
-caption           { padding: 4px 10px 4px 5px; }
-tfoot             { font-style: italic; }
-caption           { background: #eee; }
+caption        { padding: 4px 10px 4px 5px; }
 
-.note { font-size: 0.9167em; font-style: italic; line-height: 1.8181; color: rgb(180,100,20); }
+/* Classes */
 
-/* Selection */
-
-::selection {
-  background:rgba(27,117,186,0.8);
-  color:rgb(255,255,255);
-}
-::-moz-selection {
-  background:rgba(27,117,186,0.8);
-  color:rgb(255,255,255);
-}
-::-webkit-selection {
-  background:rgba(27,117,186,0.8);
-  color:rgb(255,255,255);
-}
-
-/* Manipulate text size keeping same line-height. */
+.left          { margin: 0.75em 1em 0.75em 0; }
+.right         { margin: 0.75em 0 0.75em 1em; }
+.note          { font-size: 0.9167em; line-height: 1.8181; }
 
 .xxxxxxxl_text { font-size: 1.6667em; line-height: 0.9em; }
 .xxxxxxl_text  { font-size: 1.5833em; line-height: 0.9474em; }

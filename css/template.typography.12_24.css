@@ -1,4 +1,4 @@
-/* site.typography.css
+/* template.typography.12_24.css
  * 
  * Developed using ideas from:
  * www.blueprintcss.org
@@ -14,31 +14,27 @@ html {
 
 body {
     font-size: 75%; /* 12px */
-    font-family: Helvetica, Arial, sans-serif;
     line-height: 2; /* 24px */
 }
 
-pre, code {
-    font-family: 'Courier', 'Andale Mono', 'Lucida Console', monospace;
-}
-
-a:focus,
-a:hover           { color: rgb(151, 180, 206); text-decoration: none; }
-a                 { color: rgb(90, 117, 143);  text-decoration: none; }
-
 /* Block elements */
 
-h1,h2,h3,h4,h5,h6 { font-weight: normal; margin: 0; word-spacing: -0.0833em; }
+h1             { word-spacing: -0.0833em; font-size: 1.5em;    line-height: 1.3333em; margin-bottom: 1.3333em; }
+h2             { word-spacing: -0.0833em; font-size: 1.25em;   line-height: 1.6;    margin-bottom: 1.6em; }
+h3             { word-spacing: -0.0833em; font-size: 1.1667em; line-height: 1.7143; margin-bottom: 0; }
+h4             { word-spacing: -0.0833em; font-size: 1em; }
+h5             { word-spacing: -0.0833em; font-size: 1em; }
+h6             { word-spacing: -0.0833em; font-size: 1em; }
 
-h1                { font-size: 1.5em;    line-height: 1.3333em; margin-bottom: 1.3333em; }
-h2                { font-size: 1.25em;   line-height: 1.6;    margin-bottom: 1.6em; }
-h3                { font-size: 1.1667em; line-height: 1.7143; margin-bottom: 0; }
-h4                { font-size: 1em; }
-h5                { font-size: 1em; }
-h6                { font-size: 1em; }
-
-p                 { margin-bottom: 2em; }
-p:last-child      { margin-bottom: 0; }
+p              { margin-bottom: 2em; }
+p:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+li:last-child,
+pre:last-child,
+address:last-child,
+blockquote:last-child { margin-bottom: 0; }
 
 /* Make first letter different */
 /*p::first-letter   { font-size: 2em; float: left;  }
@@ -49,135 +45,57 @@ p+p::first-line   { font-weight: normal; }*/
 /* Start paragraphs with a character or symbol */
 /*p+p:before  { content: "\2767"; padding-right: 0.4em; }*/
 
-p img             { float: right; margin: 1em 0 1em 1.25em; padding: 0; }
-
 p,
 li,
 dt,
 dd,
 blockquote,
-address           { word-spacing: 0.2em; }
+address        { word-spacing: 0.2em; }
 
-li ul,
-li ol,
-dd                { margin: 0; }
+dd             { margin: 0; }
 
 ul,
 ol,
 pre,
-blockquote        { margin: 1em 2em; }
+blockquote     { margin: 1em 2em; }
 
-address           { margin: 1em 0; }
+address        { margin: 1em 0; }
 
-li                { margin-bottom: 1em;}
+li             { margin-bottom: 1em;}
 
-dt                { float: left; clear: left; text-align: right; width: 22.75%; font-style: italic; font-weight: bold; }
-dd                { margin-left: 25.75%; }
-
-ul                { list-style-type: disc; }
-ol                { list-style-type: decimal; }
-
-blockquote        { padding: 0; font-style: italic; font-family: Georgia, serif; }
-blockquote:before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
-pre               { white-space: pre; }
-
-time              { text-transform: uppercase; }
+blockquote:before { font-size: 3em; margin-left: -0.6em; line-height: 0.92em; }
 
 /* Inline elements */
 
-strong,
-dfn               { font-weight: bold; }
-em,
-dfn               { font-style: italic; }
 sup,
-sub               { line-height: 0; font-size: 0.8333em; }
+sub            { font-size: 0.8333em; line-height: 0; }
 
-abbr              { letter-spacing: 0.1em; }
+abbr           { letter-spacing: 0.1em; }
 pre,
 code,
-tt                { font: 1em 'andale mono', 'lucida console', monospace; }
-del               { opacity: 0.5; filter: alpha(opacity=50%); text-decoration: line-through; }
+tt             { font-size: 1em; }
 
 /* Tables */
 
-table             { margin-bottom: 1.4em; width:100%; }
-th                { font-weight: bold; }
+table          { margin-bottom: 1.4em; }}
 th,
 td,
-caption           { padding: 4px 10px 4px 5px; }
-tfoot             { font-style: italic; }
-caption           { background: #eee; }
+caption        { padding: 4px 10px 4px 5px; }
 
-.note { font-size: 0.9167em; font-style: italic; line-height: 1.8181; color: rgb(180,100,20); }
+/* Classes */
 
-/* Selection */
+.left          { }
+.right         { }
+.note          { font-size: 0.9167em; line-height: 1.8181; }
 
-::selection {
-  background:rgba(27,117,186,0.8);
-  color:rgb(255,255,255);
-}
-::-moz-selection {
-  background:rgba(27,117,186,0.8);
-  color:rgb(255,255,255);
-}
-::-webkit-selection {
-  background:rgba(27,117,186,0.8);
-  color:rgb(255,255,255);
-}
-
-/* Manipulate text size keeping same line-height. */
-
-.xxxxxxxl_text {
-  font-size: 1.6667em;
-  line-height: 1.2em;
-}
-
-.xxxxxxl_text {
-  font-size: 1.5833em;
-  line-height: 1.2632em;
-}
-
-.xxxxxl_text {
-  font-size: 1.5em;
-  line-height: 1.3333em;
-}
-
-.xxxxl_text {
-  font-size: 1.4167em;
-  line-height: 1.4118em;
-}
-
-.xxxl_text {
-  font-size: 1.3333em;
-  line-height: 1.5em;
-}
-
-.xxl_text {
-  font-size: 1.25em;
-  line-height: 1.6em;
-}
-
-.xl_text {
-  font-size: 1.1667em;
-  line-height: 1.7143em;
-}
-
-.l_text {
-  font-size: 1.0833em;
-  line-height: 1.8462em;
-}
-
-.s_text {
-  font-size: 0.9167em;
-  line-height: 2.1818em;
-}
-
-.xs_text {
-  font-size: 0.8333em;
-  line-height: 2.4em;
-}
-
-.xxs_text {
-  font-size: 0.75em;
-  line-height: 2.6667em;
-}
+.xxxxxxxl_text { font-size: 1.6667em; line-height: 1.2em; }
+.xxxxxxl_text  { font-size: 1.5833em; line-height: 1.2632em; }
+.xxxxxl_text   { font-size: 1.5em;    line-height: 1.3333em; }
+.xxxxl_text    { font-size: 1.4167em; line-height: 1.4118em; }
+.xxxl_text     { font-size: 1.3333em; line-height: 1.5em; }
+.xxl_text      { font-size: 1.25em;   line-height: 1.6em; }
+.xl_text       { font-size: 1.1667em; line-height: 1.7143em; }
+.l_text        { font-size: 1.0833em; line-height: 1.8462em; }
+.s_text        { font-size: 0.9167em; line-height: 2.1818em; }
+.xs_text       { font-size: 0.8333em; line-height: 2.4em; }
+.xxs_text      { font-size: 0.75em;   line-height: 2.6667em; }
