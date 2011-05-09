@@ -50,9 +50,11 @@
 	
 	function hide( popup, fn, context ) {
 		popup
-		.removeTransitionClass('active', function(){
-			popup.remove();
-			fn && fn.call( context );
+		.removeTransitionClass('active', {
+			callback: function(){
+				popup.remove();
+				fn && fn.call( context );
+			}
 		});
 	}
 	
@@ -60,20 +62,33 @@
 	// a screen behind the popup, then appends it to the body.
 	
 	jQuery.fn[plugin] = function(o){
-		var options = jQuery.extend({
-		      context: this
-		    }, jQuery.fn[plugin].options, o),
-				layer = jQuery('<div/>', {
-					'class': options.layerClass
-				}),
-				wrap = jQuery('<div/>', {
-				  'class': options.popupClass
-				});
+		var options = jQuery.extend({ context: this }, jQuery.fn[plugin].options, o),
+				layer = jQuery('<div/>', { 'class': options.layerClass }),
+				wrap = jQuery('<div/>', { 'class': options.popupClass }),
+				css = {}, width, height;
+		
+		// A l'arrache
+		if (options.width) {
+			width = parseInt(options.width) + 20;
+			css.width = width;
+			css.marginLeft = -width/2;
+		}
+		
+		if (options.height) {
+			height = parseInt(options.height) + 20;
+			css.height = height;
+			css.marginTop = -height/2;
+		}
+		
+		if (options.width || options.height) {
+			console.log(css);
+			wrap.css(css);
+		}
 		
 		layer
 		.data('popup', options)
 		.html(
-			wrap.html( this )
+			wrap.html(this)
 		);
 		
 		show( layer, options.showCallback, this );

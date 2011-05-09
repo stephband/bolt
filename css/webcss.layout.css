@@ -699,12 +699,13 @@
 /* .content class */
 
 .content {
-	/* Doesn't necessarily have much style of it's own. It's more
-	   of a position parent with behaviours attached. Content class
-	   is used where typography needs to be redefined for, say, a
-	   region of the page that has html that come sfrom a CMS. */
-	position: relative;
+	/* Content class is used where typography needs to be redefined
+	   for, say, a region of the page that has html that comes from
+	   a CMS. */
 }
+
+
+
 
 .tab {
 	display: none;

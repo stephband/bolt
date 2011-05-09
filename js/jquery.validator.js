@@ -34,7 +34,7 @@
 				errorSelector: "input, textarea"
 			},
 			
-			debug = (window.console && window.console.log),// ? function(){ console.log.apply(window, arguments); } : function(){},
+			debug = (window.console && window.console.log),
 			
 			// Regex
 			regex = {
