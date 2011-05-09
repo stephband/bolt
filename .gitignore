@@ -3,7 +3,7 @@
 !/template.html
 !/README.*
 css/*
-!css/webcss.*
+!css/template.*
 !css/tests/*
 js/*
 !js/js.debug.js
