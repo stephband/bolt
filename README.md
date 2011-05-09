@@ -1,7 +1,5 @@
-<h2>
-	template
-</h2>
+<h2>template</h2>
 
-<p>
-	A personal base HTML/CSS/JS template for starting projects. All files are ignored unless specifically included in .gitignore, so it is safe to commit to <b>template</b> when the project has already added other files.
-</p>
+<p>A base HTML/CSS/JS template for starting projects.</p>
+<p>Major parts of this template are purloined from other sources. Credit is given in comments in the source.</p>
+<p>All files are ignored unless specifically included in .gitignore (making it is safe to commit to <b>template</b> when the project has already added other files).</p>

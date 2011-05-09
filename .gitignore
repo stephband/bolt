@@ -28,3 +28,5 @@ images/*
 !iepngfix/blank.gif
 !iepngfix/iepngfix.htc
 !iepngfix/iepngfix_tilebg.js
+layouts/*
+!layouts/layout_*
