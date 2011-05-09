@@ -1,6 +1,7 @@
 .DS_Store
 /*
 !/template.html
+!/template.django.html
 !/README.*
 css/*
 !css/template.*
