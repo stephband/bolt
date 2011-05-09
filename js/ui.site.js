@@ -221,7 +221,7 @@ jQuery.noConflict();
 	
 	    flashPlaceholder = jQuery('<div/>', {
 	    	id: 'flash_video',
-	    	html: django.trans.noFlashMessage
+	    	html: 'Flash not present message'
 	    }),
 	
 	    actions = {
