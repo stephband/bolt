@@ -242,15 +242,8 @@
 .sextuple_column.of_eight   { width: 74.625%; }
 .septuple_column.of_eight   { width: 87.3125%; }
 
-.column:last-child,
-.column.last,
-.two.of_two,
-.three.of_three,
-.four.of_four,
-.five.of_five,
-.six.of_six,
-.seven.of_seven,
-.eight.of_eight             { margin-right: 0; }
+.column:last-child          { margin-right: 0; }
+.column.last                { margin-right: 0; }
 
 /* The absolute position method is not susceptible to rounding errors,
  * and can be forced to fill 100% height, but clearly, being absolute,
@@ -406,8 +399,7 @@
 .eight_tabs_index > li { width: 10.75%; }
 
 .tabs_index > li:last-child		{ margin-right: 0; }
-
-
+.tabs_index > li.last         { margin-right: 0; }
 
 
 /* Items divided by lines */
@@ -419,17 +411,23 @@
     margin-right: 0.6em;
     border-right: 1px solid #666666;
 }
-.divided_index li:last-child,
+
+.divided_index li:last-child {
+    padding-right: 0;
+    margin-right: 0;
+    border-right: 0;
+}
+
 .divided_index li.last {
     padding-right: 0;
     margin-right: 0;
     border-right: 0;
 }
+
 .divided_index.thumbs li {
     height: auto;
     display: inline-block;
 }
-
 
 /* .horizontal
     
@@ -459,7 +457,10 @@
     width: auto;
 }
 
-.horizontal > *:last-child,
+.horizontal > *:last-child {
+    margin-right: 0;
+}
+
 .horizontal > *.last {
     margin-right: 0;
 }
@@ -495,7 +496,10 @@
   display: block;
 }
 
-.vertical > *:last-child,
+.vertical > *:last-child {
+  margin-bottom: 0;
+}
+
 .vertical > *.last {
   margin-bottom: 0;
 }
@@ -553,7 +557,11 @@
     margin-right: 0.6em;
     border-bottom: 1px solid #666666;
 }
-.vertical.divided_index li:last-child,
+.vertical.divided_index li:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+}
 .vertical.divided_index li.last {
     padding-bottom: 0;
     margin-bottom: 0;

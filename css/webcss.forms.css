@@ -84,9 +84,9 @@ textarea {
     width: 100%;
 }
 
-/*input[type='time'] {
+input[type='time'] {
     max-width: 5em;
-}*/
+}
 
 label,
 .label,
