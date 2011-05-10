@@ -372,49 +372,41 @@ jQuery.fn.extend({
 });
 
 
-// Extend jQuery.event with some helpful handler functions
-
 (function(jQuery, undefined){
 	var debug = this.console && console.log;
 	
 	// A helper to map multiple event handlers to DOM node bindings, based
 	// on the definitions in the object passed in, which looks like:
-	//
-	// {
-	//   selector: {              // Selector to bind to
-	//     eventType: function,   // Bind a function to fire on eventType
-	//     eventType: {           // Delegate from map
-	//       selector: function,  // Selector to delegate to on eventType
-	//       ...
-	//  	 }
-	//   },
-	//   ...
+	// 
+	// { 
+	//   eventType: function,   // Bind a function to fire on eventType
+	//   eventType: {           // Delegate from map
+	//     selector: function,  // Selector to delegate to on eventType
+	//     ...
+	//   }
 	// }
 	
-	function setupHandlers(obj){
-		var selector, elem, events, event, handler, deleSelector, deleHandler;
-
-		// Loop through handlers and bind them to their selectors
-		for (selector in obj){
-			elem = jQuery( selector === 'document' ? document : selector );
-			events = obj[selector];
-
-			for ( event in events ){
-				handler = events[event];
-
-				// Either bind the handler...
-				if ( typeof handler === 'function' ){
-					elem.bind( event, events[event] );
-				}
-				// ...or delegate the list of handlers
-				else {
-					for ( deleSelector in handler ){
-						deleHandler = handler[deleSelector];
-						elem.delegate( deleSelector, event, deleHandler );
-					}
+	jQuery.fn.handle = function(events) {
+		var elem = this,
+		    event, handler, deleSelector, deleHandler;
+		
+		for (event in events){
+			handler = events[event];
+			
+			// Either bind the handler...
+			if ( typeof handler === 'function' ){
+				elem.bind( event, events[event] );
+			}
+			// ...or delegate the list of handlers
+			else {
+				for ( deleSelector in handler ){
+					deleHandler = handler[deleSelector];
+					elem.delegate( deleSelector, event, deleHandler );
 				}
 			}
 		}
+		
+		return this;
 	};
 	
 	// Create a handler that calls a function from a key:fn
@@ -433,7 +425,7 @@ jQuery.fn.extend({
 	
 			// If the attribute matches an obj key
 			if (match && obj[match]) {
-				debug && console.log('jQuery.event.handleAttribute', attr, match);
+				debug && console.log('[Handle attribute]', attr, match);
 	
 				// Don't do anything browsery
 				e.preventDefault();
@@ -500,7 +492,8 @@ jQuery.fn.extend({
 		};
 	};
 	
-	jQuery.event.setupHandlers = setupHandlers;
+	// Extend jQuery.event with helpful handler functions
+	
 	jQuery.event.handleAttribute = handleAttribute;
 	jQuery.event.handleMimetype = handleMimetype;
 })(jQuery);

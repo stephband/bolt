@@ -558,7 +558,7 @@
 .septuple_column.of_eight   { width: 87.3125%; }
 
 .column:last-child          { margin-right: 0; }
-.column.last                { margin-right: 0; }
+.last                       { margin-right: 0; }
 
 /* The absolute position method is not susceptible to rounding errors,
  * and can be forced to fill 100% height, but clearly, being absolute,
