@@ -31,7 +31,7 @@ img { -ms-interpolation-mode: bicubic; }
   display: inline;
 }
 
-.horizontal > li.last {
+.horizontal > .last {
   margin-right: 0;
 }
 

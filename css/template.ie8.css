@@ -14,20 +14,6 @@
 	vertical-align: top;
 }
 
-.four_tariff_index > li 	      { width: 23.69%; }
-.three_tariff_index > li	      { width: 32.18%; }
-.two_tariff_index > li		      { width: 49.16%; }
-.four_tariff_index > li.last 	{ margin-right: 0; }
-.three_tariff_index > li.last	{ margin-right: 0; }
-.two_tariff_index > li.last		{ margin-right: 0; }
-
-
-
-
-
-
-
-
 
 /* Vertical centering builds on the technique described here:
    http://www.jakpsatweb.cz/css/css-vertical-center-solution.html

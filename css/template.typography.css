@@ -94,6 +94,7 @@ caption           { background-color: inherit; }
 
 /* Classes */
 
+.last             { margin-bottom: 0; }
 .left             { float: left; padding: 0 }
 .right            { float: right; padding: 0; }
 .note             { font-style: italic; }
