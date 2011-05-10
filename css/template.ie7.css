@@ -1,4 +1,12 @@
+/* Clearfix */
+
+.clear { zoom: 1; }
+
+
+/* Smooth resizing */
+
 img { -ms-interpolation-mode: bicubic; }
+
 
 /* horizontal
     
@@ -17,25 +25,23 @@ img { -ms-interpolation-mode: bicubic; }
    property: value !ie; (the identifier !ie is invalid, so other browser don't see the rule.)
 */
 
-.index li {
-	margin: 0;
-}
-
-.horizontal li {
+.column,
+.horizontal > li {
   /* IE does not apply inline-block to block elements, make them inline... */
   display: inline;
 }
 
-.horizontal .last {
+.horizontal > li.last {
   margin-right: 0;
 }
 
 
-/* IE6-down buttons
-   Stephen Band
-   webdev.stephband.info/buttons */
+/* IE7-down buttons */
+/* Stephen Band, with thanks to electronlibre.ch */
+/* webdev.stephband.info/buttons */
 
-.disabled                                                   {filter: alpha(opacity=60%);}
-
-/* force inline-block behaviour */
-button, .button                                             {display: inline; vertical-align: middle; margin-bottom: 1px;}
+/* input does not move left with -ve margin */
+.button span input {
+    left: -10px;                                            /* left: -(w + pl); */
+    padding: 0;                                             /* padding-right: w + pr - 10; padding-left: w + pl - 10; */
+}

@@ -1,3 +1,15 @@
+/* .clear */
+
+.clear:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+
 /* .wrap */
 
 .wrap {
@@ -5,7 +17,6 @@
   position: relative;
   margin: 0 auto;
 }
-
 
 
 /* .layer */
@@ -25,7 +36,7 @@
      */
     width: 100%; height: 100%;
     
-    /* Make the corners of layers the same as their parents. */
+    /* Make the corners of layers the same as their parents. Cheers, @maiis! */
     -webkit-border-radius: inherit;
        -moz-border-radius: inherit;
             border-radius: inherit;
@@ -55,24 +66,55 @@
     overflow: scroll;
 }
 
-/* state.css
- * 
- * Takes care of state classes:
- *
- *   .loading      - State of items requested from a server
- *   .active       - Implies polar (on/off) state
- *   .current      - Current implies that one out of a number of items is the current one
- *   .default      - Contains a pre-defined value
- *   .error        - Used in forms to style children differently when input has errors
- *   .xxx_state    - Implies multipolar (0/1/2/...) state
- *   .xxx_view     - Applied to the body to control application views
- *   .xxx_support  - Applied to the documentElement to flag CSS support
- * 
- * State classes must never have style applied directly, they are here to indicate state only.
- * You can style specific nodes that happen to have state, or children of state nodes (for
- * instance, showing / hiding a .loading_icon when its parent has .loading), but the state
- * class (in this case .loading) must not have style applied.
- */
+.popup_layer {
+	position: fixed;
+	
+	background-color: rgba(0,0,0,0.6);
+	
+	opacity: 0;
+	display: none;
+	
+	-webkit-transition: opacity 0.06s ease-in;
+	   -moz-transition: opacity 0.06s ease-in;
+	        transition: opacity 0.06s ease-in;
+}
+
+.popup_layer.active {
+	opacity: 1;
+	display: block;
+	
+	-webkit-transition: opacity 0.12s ease-in;
+	   -moz-transition: opacity 0.12s ease-in;
+	        transition: opacity 0.12s ease-in;
+}
+
+.popup_layer.transition {
+	display: block;
+}
+
+.popup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  
+  width: 854px;
+  height: 480px;
+  margin-left: -427px;
+  margin-top: -240px;
+  
+	padding: 0.8333em;
+  margin: 3.3333em auto 0 auto;
+  
+  background-color: white;
+  
+ 	-webkit-border-radius: 0.3333em;
+     -moz-border-radius: 0.3333em;
+          border-radius: 0.3333em;
+  
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+     -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+          box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
 
 
 /* TODO: We should be able to merge the .gif technique with
@@ -149,198 +191,6 @@
   -moz-transition:    none !important;
   transition:         none !important;
 }
-
-
-
-/* .column
-   
-   Uses a technique for getting inline-block behaviour in IE, explained well here:
-   http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ */
-
-.column {
-  /* The inline-block method produces nice flow, but is susceptible to
-     rounding errors and requires spaceless html. */
-  display: inline-block;
-  position: relative;
-  vertical-align: top;
-  
-  /* Stop content pushing column wider than it should be */
-  overflow: visible;
-  
-  min-height: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing:    border-box;
-  box-sizing:         border-box;
-}
-
-/* column dimensions are calculated like this:
- * 
- * margin = x/n
- * width  = (100 - (n-1) * margin)/n
- * 
- * where x is a base column margin factor and n is the number of columns
- */
-
-/* x = 16 */
-
-/*.of_two   { width: 46%;       margin-right: 8%; }
-.of_three { width: 29.7778%;  margin-right: 5.3333%; }
-.of_four  { width: 22%;       margin-right: 4%; }
-.of_five  { width: 17.44%;    margin-right: 3.2%; }
-.of_six   { width: 14.4445%;  margin-right: 2.6667%; }
-.of_seven { width: 12.3265%;  margin-right: 2.2857%; }
-.of_eight { width: 10.75%;    margin-right: 2%; }*/
-
-/*
-.double.of_three    { width: 64%; } /* Should be 65.6667% Rounding errors in both FF and Webkit force this to be a less than ideal value
-.double.of_four     { width: 48%; }
-.triple.of_four     { width: 74%; }
-.double.of_five     { width: 38.2%; }
-.triple.of_five     { width: 58.6%; } /* Should be 58.8% Rounding errors in FF make it less
-.quadruple.of_five  { width: 79.4%; }
-.double.of_six      { width: 32%; }
-.triple.of_six      { width: 49%; }
-.quadruple.of_six   { width: 68%; }
-.quintuple.of_six   { width: 85%; }
-.double.of_eight    { width: 23%; }
-.triple.of_eight    { width: 35.5%; }
-.quadruple.of_eight { width: 48%; }
-.quintuple.of_eight { width: 60.5%; }
-.sextuple.of_eight  { width: 73%; }*/
-
-/* x = 12 */
-
-.of_two                     { width: 46.6%;     margin-right: 6%; }  /* -0.4% because of rounding errors in Safari. */
-.of_three                   { width: 30.6667%;  margin-right: 4%; }
-.of_four                    { width: 22.75%;    margin-right: 3%; }
-.of_five                    { width: 18.08%;    margin-right: 2.4%; }
-.of_six                     { width: 15%;       margin-right: 2%; }
-.of_seven                   { width: 12.8163%;  margin-right: 1.7143%; }
-.of_eight                   { width: 11.1875%;  margin-right: 1.5%; }
-
-.of_two.last								{ position: relative; left: 0.4%; }
-
-.double_column.of_three     { width: 65.3333%; }
-.double_column.of_four      { width: 48.5%; }
-.triple_column.of_four      { width: 74.25%; }
-.double_column.of_five      { width: 38.56%; }
-.triple_column.of_five      { width: 59.04%; }
-.quadruple_column.of_five   { width: 79.52%; }
-.double_column.of_six       { width: 32%; }
-.triple_column.of_six       { width: 49%; }
-.quadruple_column.of_six    { width: 66%; }
-.quintuple_column.of_six    { width: 83%; }
-.double_column.of_seven     { width: 27.3469%; }
-.triple_column.of_seven     { width: 41.8775%; }
-.quadruple_column.of_seven  { width: 56.4081%; }
-.quintuple_column.of_seven  { width: 70.9387%; }
-.sextuple_column.of_seven   { width: 85.4693%; }
-.double_column.of_eight     { width: 23.875%; }
-.triple_column.of_eight     { width: 36.5625%; }
-.quadruple_column.of_eight  { width: 49.25%; }
-.quintuple_column.of_eight  { width: 61.9375%; }
-.sextuple_column.of_eight   { width: 74.625%; }
-.septuple_column.of_eight   { width: 87.3125%; }
-
-.column:last-child          { margin-right: 0; }
-.column.last                { margin-right: 0; }
-
-/* The absolute position method is not susceptible to rounding errors,
- * and can be forced to fill 100% height, but clearly, being absolute,
- * it causes problems with the overflow of the container.
- */
-
-.absolute_column {
-    position: absolute;
-    top: 0;
-    
-    /* Stop content pushing column wider than it should be */
-    overflow: visible;
-    
-    min-height: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing:    border-box;
-    box-sizing:         border-box;
-}
-
-/* x = 16 */
-
-/*.absolute_column.one            { left: 0; }
-
-.absolute_column.two.of_two     { left: 54%; }
-
-.absolute_column.two.of_three   { left: 35.1111%; }
-.absolute_column.three.of_three { left: 70.2222%; }
-
-.absolute_column.two.of_four    { left: 26%; }
-.absolute_column.three.of_four  { left: 52%; }
-.absolute_column.four.of_four   { left: 78%; }
-
-.absolute_column.two.of_five    { left: 20.64%; }
-.absolute_column.three.of_five  { left: 41.28%; }
-.absolute_column.four.of_five   { left: 61.92%; }
-.absolute_column.five.of_five   { left: 82.56%; }
-
-.absolute_column.two.of_six     { left: 17.1111%; }
-.absolute_column.three.of_six   { left: 34.2222%; }
-.absolute_column.four.of_six    { left: 51.3333%; }
-.absolute_column.five.of_six    { left: 68.4444%; }
-.absolute_column.six.of_six     { left: 85.5555%; }
-
-.absolute_column.two.of_seven   { left: 14.6123%; }
-.absolute_column.three.of_seven { left: 29.2245%; }
-.absolute_column.four.of_seven  { left: 43.8368%; }
-.absolute_column.five.of_seven  { left: 58.4490%; }
-.absolute_column.six.of_seven   { left: 73.0613%; }
-.absolute_column.seven.of_seven { left: 87.6735%; }
-
-.absolute_column.two.of_eight   { left: 12.75%; }
-.absolute_column.three.of_eight { left: 25.5%; }
-.absolute_column.four.of_eight  { left: 38.25%; }
-.absolute_column.five.of_eight  { left: 51%; }
-.absolute_column.six.of_eight   { left: 63.75%; }
-.absolute_column.seven.of_eight { left: 76.5%; }
-.absolute_column.eight.of_eight { left: 89.25%; }*/
-
-/* x = 12 */
-
-.absolute_column.one            { left: 0; }
-
-.absolute_column.two.of_two     { left: 53%; }
-
-.absolute_column.two.of_three   { left: 34.6667%; }
-.absolute_column.three.of_three { left: 69.3333%; }
-
-.absolute_column.two.of_four    { left: 25.75%; }
-.absolute_column.three.of_four  { left: 51.5%; }
-.absolute_column.four.of_four   { left: 77.25%; }
-
-.absolute_column.two.of_five    { left: 20.48%; }
-.absolute_column.three.of_five  { left: 40.96%; }
-.absolute_column.four.of_five   { left: 61.44%; }
-.absolute_column.five.of_five   { left: 81.92%; }
-
-.absolute_column.two.of_six     { left: 17%; }
-.absolute_column.three.of_six   { left: 34%; }
-.absolute_column.four.of_six    { left: 51%; }
-.absolute_column.five.of_six    { left: 68%; }
-.absolute_column.six.of_six     { left: 85%; }
-
-.absolute_column.two.of_seven   { left: 14.5306%; }
-.absolute_column.three.of_seven { left: 29.0612%; }
-.absolute_column.four.of_seven  { left: 43.5918%; }
-.absolute_column.five.of_seven  { left: 58.1224%; }
-.absolute_column.six.of_seven   { left: 72.6531%; }
-.absolute_column.seven.of_seven { left: 87.1837%; }
-
-.absolute_column.two.of_eight   { left: 12.6875%; }
-.absolute_column.three.of_eight { left: 25.375%; }
-.absolute_column.four.of_eight  { left: 38.0625%; }
-.absolute_column.five.of_eight  { left: 50.75%; }
-.absolute_column.six.of_eight   { left: 63.4375%; }
-.absolute_column.seven.of_eight { left: 76.125%; }
-.absolute_column.eight.of_eight { left: 88.8125%; }
-
 
 
 /* .index
@@ -453,8 +303,10 @@
 
 .horizontal > input[type='radio'],
 .horizontal > input[type='checkbox'] {
+    /* Percentage heights on checkboxes can make them dissapear. */
     height: auto;
     width: auto;
+    margin-top: 0.25em;
 }
 
 .horizontal > *:last-child {
@@ -615,6 +467,203 @@
 }
 
 
+/* .column
+   
+   Uses a technique for getting inline-block behaviour in IE, explained well here:
+   http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ */
+
+.column {
+  /* The inline-block method produces nice flow, but is susceptible to
+     rounding errors and requires spaceless html. */
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  
+  /* Stop content pushing column wider than it should be */
+  overflow: visible;
+  
+  min-height: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:    border-box;
+  box-sizing:         border-box;
+}
+
+/* column dimensions are calculated like this:
+ * 
+ * margin = x/n
+ * width  = (100 - (n-1) * margin)/n
+ * 
+ * where x is a base column margin factor and n is the number of columns
+ */
+
+/* x = 16 */
+
+/*.of_two   { width: 46%;       margin-right: 8%; }
+.of_three { width: 29.7778%;  margin-right: 5.3333%; }
+.of_four  { width: 22%;       margin-right: 4%; }
+.of_five  { width: 17.44%;    margin-right: 3.2%; }
+.of_six   { width: 14.4445%;  margin-right: 2.6667%; }
+.of_seven { width: 12.3265%;  margin-right: 2.2857%; }
+.of_eight { width: 10.75%;    margin-right: 2%; }*/
+
+/*
+.double.of_three    { width: 64%; } /* Should be 65.6667% Rounding errors in both FF and Webkit force this to be a less than ideal value
+.double.of_four     { width: 48%; }
+.triple.of_four     { width: 74%; }
+.double.of_five     { width: 38.2%; }
+.triple.of_five     { width: 58.6%; } /* Should be 58.8% Rounding errors in FF make it less
+.quadruple.of_five  { width: 79.4%; }
+.double.of_six      { width: 32%; }
+.triple.of_six      { width: 49%; }
+.quadruple.of_six   { width: 68%; }
+.quintuple.of_six   { width: 85%; }
+.double.of_eight    { width: 23%; }
+.triple.of_eight    { width: 35.5%; }
+.quadruple.of_eight { width: 48%; }
+.quintuple.of_eight { width: 60.5%; }
+.sextuple.of_eight  { width: 73%; }*/
+
+/* x = 12 */
+
+.of_two                     { width: 46.6%;     margin-right: 6%; }  /* -0.4% because of rounding errors in Safari. */
+.of_three                   { width: 30.6667%;  margin-right: 4%; }
+.of_four                    { width: 22.75%;    margin-right: 3%; }
+.of_five                    { width: 18.08%;    margin-right: 2.4%; }
+.of_six                     { width: 15%;       margin-right: 2%; }
+.of_seven                   { width: 12.8163%;  margin-right: 1.7143%; }
+.of_eight                   { width: 11.1875%;  margin-right: 1.5%; }
+
+.of_two.last								{ position: relative; left: 0.4%; }
+
+.double_column.of_three     { width: 65.3333%; }
+.double_column.of_four      { width: 48.5%; }
+.triple_column.of_four      { width: 74.25%; }
+.double_column.of_five      { width: 38.56%; }
+.triple_column.of_five      { width: 59.04%; }
+.quadruple_column.of_five   { width: 79.52%; }
+.double_column.of_six       { width: 32%; }
+.triple_column.of_six       { width: 49%; }
+.quadruple_column.of_six    { width: 66%; }
+.quintuple_column.of_six    { width: 83%; }
+.double_column.of_seven     { width: 27.3469%; }
+.triple_column.of_seven     { width: 41.8775%; }
+.quadruple_column.of_seven  { width: 56.4081%; }
+.quintuple_column.of_seven  { width: 70.9387%; }
+.sextuple_column.of_seven   { width: 85.4693%; }
+.double_column.of_eight     { width: 23.875%; }
+.triple_column.of_eight     { width: 36.5625%; }
+.quadruple_column.of_eight  { width: 49.25%; }
+.quintuple_column.of_eight  { width: 61.9375%; }
+.sextuple_column.of_eight   { width: 74.625%; }
+.septuple_column.of_eight   { width: 87.3125%; }
+
+.column:last-child,
+.column.last,
+.two.of_two,
+.three.of_three,
+.four.of_four,
+.five.of_five,
+.six.of_six,
+.seven.of_seven,
+.eight.of_eight             { margin-right: 0; }
+
+/* The absolute position method is not susceptible to rounding errors,
+ * and can be forced to fill 100% height, but clearly, being absolute,
+ * it causes problems with the overflow of the container.
+ */
+
+.absolute_column {
+    position: absolute;
+    top: 0;
+    
+    /* Stop content pushing column wider than it should be */
+    overflow: visible;
+    
+    min-height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    box-sizing:         border-box;
+}
+
+/* x = 16 */
+
+/*.absolute_column.one            { left: 0; }
+
+.absolute_column.two.of_two     { left: 54%; }
+
+.absolute_column.two.of_three   { left: 35.1111%; }
+.absolute_column.three.of_three { left: 70.2222%; }
+
+.absolute_column.two.of_four    { left: 26%; }
+.absolute_column.three.of_four  { left: 52%; }
+.absolute_column.four.of_four   { left: 78%; }
+
+.absolute_column.two.of_five    { left: 20.64%; }
+.absolute_column.three.of_five  { left: 41.28%; }
+.absolute_column.four.of_five   { left: 61.92%; }
+.absolute_column.five.of_five   { left: 82.56%; }
+
+.absolute_column.two.of_six     { left: 17.1111%; }
+.absolute_column.three.of_six   { left: 34.2222%; }
+.absolute_column.four.of_six    { left: 51.3333%; }
+.absolute_column.five.of_six    { left: 68.4444%; }
+.absolute_column.six.of_six     { left: 85.5555%; }
+
+.absolute_column.two.of_seven   { left: 14.6123%; }
+.absolute_column.three.of_seven { left: 29.2245%; }
+.absolute_column.four.of_seven  { left: 43.8368%; }
+.absolute_column.five.of_seven  { left: 58.4490%; }
+.absolute_column.six.of_seven   { left: 73.0613%; }
+.absolute_column.seven.of_seven { left: 87.6735%; }
+
+.absolute_column.two.of_eight   { left: 12.75%; }
+.absolute_column.three.of_eight { left: 25.5%; }
+.absolute_column.four.of_eight  { left: 38.25%; }
+.absolute_column.five.of_eight  { left: 51%; }
+.absolute_column.six.of_eight   { left: 63.75%; }
+.absolute_column.seven.of_eight { left: 76.5%; }
+.absolute_column.eight.of_eight { left: 89.25%; }*/
+
+/* x = 12 */
+
+.absolute_column.one            { left: 0; }
+
+.absolute_column.two.of_two     { left: 53%; }
+
+.absolute_column.two.of_three   { left: 34.6667%; }
+.absolute_column.three.of_three { left: 69.3333%; }
+
+.absolute_column.two.of_four    { left: 25.75%; }
+.absolute_column.three.of_four  { left: 51.5%; }
+.absolute_column.four.of_four   { left: 77.25%; }
+
+.absolute_column.two.of_five    { left: 20.48%; }
+.absolute_column.three.of_five  { left: 40.96%; }
+.absolute_column.four.of_five   { left: 61.44%; }
+.absolute_column.five.of_five   { left: 81.92%; }
+
+.absolute_column.two.of_six     { left: 17%; }
+.absolute_column.three.of_six   { left: 34%; }
+.absolute_column.four.of_six    { left: 51%; }
+.absolute_column.five.of_six    { left: 68%; }
+.absolute_column.six.of_six     { left: 85%; }
+
+.absolute_column.two.of_seven   { left: 14.5306%; }
+.absolute_column.three.of_seven { left: 29.0612%; }
+.absolute_column.four.of_seven  { left: 43.5918%; }
+.absolute_column.five.of_seven  { left: 58.1224%; }
+.absolute_column.six.of_seven   { left: 72.6531%; }
+.absolute_column.seven.of_seven { left: 87.1837%; }
+
+.absolute_column.two.of_eight   { left: 12.6875%; }
+.absolute_column.three.of_eight { left: 25.375%; }
+.absolute_column.four.of_eight  { left: 38.0625%; }
+.absolute_column.five.of_eight  { left: 50.75%; }
+.absolute_column.six.of_eight   { left: 63.4375%; }
+.absolute_column.seven.of_eight { left: 76.125%; }
+.absolute_column.eight.of_eight { left: 88.8125%; }
+
+
 /* Vertical centering builds on the technique described here:
    http://www.jakpsatweb.cz/css/css-vertical-center-solution.html
    TODO: Fix case in IE7 where centering has to scroll. V difficult. Possibly impossible. */
@@ -697,10 +746,13 @@
 /* .content class */
 
 .content {
-	/* Doesn't necessarily have much style of it's own. It's more
-	   of a position parent with behaviours attached. */
-	position: relative;
+	/* Content class is used where typography needs to be redefined
+	   for, say, a region of the page that has html that comes from
+	   a CMS. */
 }
+
+
+
 
 .tab {
 	display: none;
@@ -1045,12 +1097,6 @@
 
   /* use url for display of addresses of resources about this person - including instant messenger */
 /*  .url */
-
-
-
-
-
-
 
 
 /* Media styles inlined to avoid additional http request

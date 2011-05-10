@@ -214,6 +214,50 @@ jQuery.noConflict();
 })( jQuery );
 
 
+// Activate popup
+
+(function( jQuery, undefined ){
+	var doc = jQuery(document),
+	
+			flashPlaceholder = jQuery('<div/>', {
+				id: 'flash_video',
+				html: 'Flash not installed. Get it <a href="http://adobe.com/flashplayer">here</a>.'
+			}),
+	
+			actions = {
+				flash: function(media, fn) {
+					// Pass the media object in, just for the width and
+					// height properties.
+					flashPlaceholder.popup(media);
+					
+					swfobject.embedSWF(
+						django.mediaURL + "swf/player.swf",
+						'flash_video',
+						media.width,
+						media.height,
+						"9.0.45",
+						window.django.mediaURL + "swf/expressInstall.swf",
+						media.flashvars,
+						media.params,
+						{ align: "middle" }
+					);
+				}
+			};
+	
+	doc
+	.delegate('a[href="#popup"]', 'click', function(e) {
+		var link = jQuery(this),
+				media = link.data('json'),
+				placeholder;
+		
+		if (!media) { return; }
+		
+		actions[media.type](media);
+		
+		e.preventDefault();
+	});
+})( jQuery );
+
 
 // Handle form elements
 

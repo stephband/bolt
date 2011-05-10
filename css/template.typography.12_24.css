@@ -1,0 +1,101 @@
+/* template.typography.12_24.css
+ * 
+ * Developed using ideas from:
+ * www.blueprintcss.org
+ * www.webtypography.net
+ * 
+ * The default font-size is 1em == 12px.
+ *
+ */
+
+html {
+    font-size:100%;
+}
+
+body {
+    font-size: 75%; /* 12px */
+    line-height: 2; /* 24px */
+}
+
+/* Block elements */
+
+h1             { word-spacing: -0.0833em; font-size: 1.5em;    line-height: 1.3333em; margin-bottom: 1.3333em; }
+h2             { word-spacing: -0.0833em; font-size: 1.25em;   line-height: 1.6;    margin-bottom: 1.6em; }
+h3             { word-spacing: -0.0833em; font-size: 1.1667em; line-height: 1.7143; margin-bottom: 0; }
+h4             { word-spacing: -0.0833em; font-size: 1em; }
+h5             { word-spacing: -0.0833em; font-size: 1em; }
+h6             { word-spacing: -0.0833em; font-size: 1em; }
+
+p              { margin-bottom: 2em; }
+p:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+li:last-child,
+pre:last-child,
+address:last-child,
+blockquote:last-child { margin-bottom: 0; }
+
+/* Make first letter different */
+/*p::first-letter   { font-size: 2em; float: left;  }
+p+p::first-letter { font-size: 1em; line-height: 1.3333; font-style: normal; letter-spacing: 0em; }
+/* Make first line different */
+/*p::first-line     { font-weight: bold; }
+p+p::first-line   { font-weight: normal; }*/
+/* Start paragraphs with a character or symbol */
+/*p+p:before  { content: "\2767"; padding-right: 0.4em; }*/
+
+p,
+li,
+dt,
+dd,
+blockquote,
+address        { word-spacing: 0.2em; }
+
+dd             { margin: 0; }
+
+ul,
+ol,
+pre,
+blockquote     { margin: 1em 2em; }
+
+address        { margin: 1em 0; }
+
+li             { margin-bottom: 1em;}
+
+blockquote:before { font-size: 3em; margin-left: -0.6em; line-height: 0.92em; }
+
+/* Inline elements */
+
+sup,
+sub            { font-size: 0.8333em; line-height: 0; }
+
+abbr           { letter-spacing: 0.1em; }
+pre,
+code,
+tt             { font-size: 1em; }
+
+/* Tables */
+
+table          { margin-bottom: 1.4em; }}
+th,
+td,
+caption        { padding: 4px 10px 4px 5px; }
+
+/* Classes */
+
+.left          { }
+.right         { }
+.note          { font-size: 0.9167em; line-height: 1.8181; }
+
+.xxxxxxxl_text { font-size: 1.6667em; line-height: 1.2em; }
+.xxxxxxl_text  { font-size: 1.5833em; line-height: 1.2632em; }
+.xxxxxl_text   { font-size: 1.5em;    line-height: 1.3333em; }
+.xxxxl_text    { font-size: 1.4167em; line-height: 1.4118em; }
+.xxxl_text     { font-size: 1.3333em; line-height: 1.5em; }
+.xxl_text      { font-size: 1.25em;   line-height: 1.6em; }
+.xl_text       { font-size: 1.1667em; line-height: 1.7143em; }
+.l_text        { font-size: 1.0833em; line-height: 1.8462em; }
+.s_text        { font-size: 0.9167em; line-height: 2.1818em; }
+.xs_text       { font-size: 0.8333em; line-height: 2.4em; }
+.xxs_text      { font-size: 0.75em;   line-height: 2.6667em; }

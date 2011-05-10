@@ -21,22 +21,61 @@
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	
 	<link rel="stylesheet" type="text/css" href="css/template.reset.css" />
-	<link rel="stylesheet" type="text/css" href="css/template.typography.css" />
-	<link rel="stylesheet" type="text/css" href="css/template.typography.14_24.css" />
 	<link rel="stylesheet" type="text/css" href="css/template.forms.css" />
 	<link rel="stylesheet" type="text/css" href="css/template.classes.css" />
+	<link rel="stylesheet" type="text/css" href="../template.typography.css" />
+	<link rel="stylesheet" type="text/css" href="css/template.typography_12_24.css" />
+	<link rel="stylesheet" type="text/css" href="css/template.debug.css" />
 	<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="css/template.ie.css" /><![endif]-->
 	<!--[if IE 8]><link rel="stylesheet" type="text/css" href="css/template.ie8.css" /><![endif]-->
 	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="css/template.ie7.css" /><![endif]-->
 	<!--[if IE 6]><link rel="stylesheet" type="text/css" href="css/template.ie6.css" /><![endif]-->
 	<link rel="stylesheet" type="text/css" href="css/site.layout.css" />
 	<link rel="stylesheet" type="text/css" href="css/site.typography.css" />
+
+	<style>
+		/* Horizontal grid
+		   5 columns of width 19% and a margin-right of 1.25%, which is equivalent
+		   to 12px at a site width of 960px.
+		*/
+		
+		.content_column {
+			width: 79.75%;
+			margin-right: 1.25%
+		}
+		
+		.sidebar_column {
+			width: 19%;
+			margin-right: 0;
+		}
+	</style>
 </head>
 
-<body>
+<body class="site_wrap wrap">
+	<div class="title_wrap wrap">
+		Title block
+	</div>
 	
+	<div class="content_column column">
+		Content block
+	</div
 	
-	<!--[if IE 6]><script src="iepngfix/iepngfix_tilebg.js"></script><![endif]-->
+ ><aside class="sidebar_column column">
+		Sidebar block
+	</aside>
+	
+	<header class="site_header header">
+		Header block
+	</header>
+	
+	<nav class="site_nav nav">
+		Nav block
+	</nav>
+	
+	<footer class="site_footer footer">
+		Footer block
+	</footer>
+	
 	<script src="js/js.extensions.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/jquery-1.5.0.min.js"%3E%3C/script%3E'));</script>

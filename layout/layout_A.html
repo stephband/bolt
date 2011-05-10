@@ -21,22 +21,56 @@
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	
 	<link rel="stylesheet" type="text/css" href="css/template.reset.css" />
-	<link rel="stylesheet" type="text/css" href="css/template.typography.css" />
-	<link rel="stylesheet" type="text/css" href="css/template.typography.14_24.css" />
 	<link rel="stylesheet" type="text/css" href="css/template.forms.css" />
 	<link rel="stylesheet" type="text/css" href="css/template.classes.css" />
+	<link rel="stylesheet" type="text/css" href="../template.typography.css" />
+	<link rel="stylesheet" type="text/css" href="css/template.typography_12_24.css" />
+	<link rel="stylesheet" type="text/css" href="css/template.debug.css" />
 	<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="css/template.ie.css" /><![endif]-->
 	<!--[if IE 8]><link rel="stylesheet" type="text/css" href="css/template.ie8.css" /><![endif]-->
 	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="css/template.ie7.css" /><![endif]-->
 	<!--[if IE 6]><link rel="stylesheet" type="text/css" href="css/template.ie6.css" /><![endif]-->
 	<link rel="stylesheet" type="text/css" href="css/site.layout.css" />
 	<link rel="stylesheet" type="text/css" href="css/site.typography.css" />
+
+	<style>
+		.title_wrap,
+		.content_wrap {
+			margin-left: 20.25%;
+		}
+		
+		.content_wrap {
+			/* Make sure content_wrap is at least as high as .sub_nav. */
+			min-height: 12em;
+		}
+	</style>
 </head>
 
-<body>
+<body class="site_wrap wrap">
+	<div class="title_wrap wrap">
+		Title block
+	</div>
+
+	<div class="content_wrap wrap">
+		Content block
+	</div>
 	
+	<header class="site_header header">
+		Header block
+	</header>
 	
-	<!--[if IE 6]><script src="iepngfix/iepngfix_tilebg.js"></script><![endif]-->
+	<nav class="sub_nav nav">
+		Nav block
+	</nav>
+	
+	<nav class="site_nav nav">
+		Nav block
+	</nav>
+	
+	<footer class="site_footer footer">
+		Footer block
+	</footer>
+	
 	<script src="js/js.extensions.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/jquery-1.5.0.min.js"%3E%3C/script%3E'));</script>
