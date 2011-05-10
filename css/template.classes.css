@@ -1134,3 +1134,23 @@
   
   h2, h3{ page-break-after: avoid; }
 }
+
+
+/* state.css
+ * 
+ * Takes care of state classes:
+ *
+ *   .loading      - State of items requested from a server
+ *   .active       - Implies polar (on/off) state
+ *   .current      - Current implies that one out of a number of items is the current one
+ *   .default      - Contains a pre-defined value
+ *   .error        - Used in forms to style children differently when input has errors
+ *   .xxx_state    - Implies multipolar (0/1/2/...) state
+ *   .xxx_view     - Applied to the body to control application views
+ *   .xxx_support  - Applied to the documentElement to flag CSS support
+ * 
+ * State classes must never have style applied directly, they are here to indicate state only.
+ * You can style specific nodes that happen to have state, or children of state nodes (for
+ * instance, showing / hiding a .loading_icon when its parent has .loading), but the state
+ * class (in this case .loading) must not have style applied.
+ */
