@@ -6,9 +6,9 @@
    */
 
 img,
-div,
-a,
-input { behavior: url(/iepngfix/iepngfix.htc) }
+.button,
+.thumb,
+input { behavior: url(/res/iepngfix/iepngfix.htc) }
 
 
 /* Clearfix */
