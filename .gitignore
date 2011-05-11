@@ -25,9 +25,10 @@ images/*
 !images/thumbs/logo_opera.gif
 !images/thumbs/logo_safari.gif
 !images/thumbs/logos_browsers.png
-!iepngfix/.htaccess
-!iepngfix/blank.gif
-!iepngfix/iepngfix.htc
-!iepngfix/iepngfix_tilebg.js
+res/*
+!res/iepngfix/.htaccess
+!res/iepngfix/blank.gif
+!res/iepngfix/iepngfix.htc
+!res/iepngfix/iepngfix_tilebg.js
 layouts/*
 !layouts/layout_*
