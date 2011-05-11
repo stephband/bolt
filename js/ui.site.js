@@ -401,6 +401,103 @@ jQuery.noConflict();
 			};
 		})());
 	}
+
+// TODO:
+// This is the ExtJS version of the above placeholder function.
+// It has been tested to work x-browser. You need to back-port it
+// to jQuery.
+
+// (function( Ext, undefined ){
+// 	var store = {};
+// 	
+// 	function identify(fly){
+// 	  // Generate an id, apply it to the input node
+// 	  // and return it.
+// 	  var id = Ext.id();
+// 	  
+// 	  fly.set({ id: id });
+// 	  
+// 	  return id;
+// 	}
+// 	
+// 	function changeHandler(e) {
+// 		var input = e.target,
+// 		  	value = input.value,
+// 		  	placeholder = store[input.id];
+// 		
+// 		if ( !value || !value.length ) {
+// 		  placeholder.setStyle({ display: 'block' });
+// 		}
+// 		else {
+// 		  placeholder.setStyle({ display: 'none' });
+// 		};
+// 	}
+// 	
+// 	function focusHandler(e) {
+// 		var input = e.target,
+// 		  	placeholder = store[input.id];
+// 		
+// 		placeholder.setStyle({ display: 'none' });
+// 	}
+// 	
+// 	// Feature detect placeholder support, and when there is no
+// 	// support create placeholder labels to simulate placeholder
+// 	// attributes, and delegate event handlers.
+// 	
+// 	if (!('placeholder' in document.createElement('input'))) {
+// 		
+// 		// Delegate events coming from inputs and texareas with placeholders.
+// 		
+// 		Ext.get(document)
+// 		.on('change', changeHandler, this, { delegate: '[placeholder]' })
+// 		.on('focusout', changeHandler, this, { delegate: '[placeholder]' })
+// 		.on('focusin', focusHandler, this, { delegate: '[placeholder]' });
+// 		
+// 		// Create placeholder labels.
+// 		
+// 		Ext.onReady(function() {
+// 			var elem = Ext.select('textarea[placeholder], input[placeholder]');
+// 			
+// 			// Don't bother going any further if there are no inputs
+// 			// or textareas to process.
+// 			
+// 			if (!elem.elements.length) { return; }
+// 			
+// 			elem.each(function(i){
+// 				var input = this,
+// 				    id = input.id || identify(input),
+// 				    value = input.getAttribute('value'),
+// 				    height = input.is('input') ?
+// 				    	input.getHeight() : 20,
+// 				    text = input.getAttribute('placeholder'),
+// 				    placeholder = Ext.get(document.createElement('label'));
+// 				
+// 				placeholder
+// 				.set({
+// 					htmlFor: id,
+// 					className: 'placeholder'
+// 				})
+// 				.setStyle({
+// 					height: height + 'px',
+// 					lineHeight: height + 'px',
+// 					paddingLeft: input.getStyle('padding-left'),
+// 					paddingRight: input.getStyle('padding-right')
+// 				})
+// 				.update(text, false)
+// 				.insertAfter(input);
+// 				
+// 				// Store the placeholder in a hash table to associate it
+// 				// with its input.
+// 				store[id] = placeholder;
+// 				
+// 				if (!value || !value.length) {
+// 					placeholder.setStyle({ display: 'block' });
+// 				};
+// 			});
+// 		});
+// 	}
+// })( Ext );
+
 })(document);
 
 
