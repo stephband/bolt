@@ -440,7 +440,8 @@ input[type="range"].y_range::-webkit-slider-thumb {
    Simulate placeholder attribute with a label layered
    over the top of the inputs. */
 
-input + .placeholder {
+input + .placeholder,
+textarea + .placeholder {
   position: absolute;
   top: 0;
   left: 0;
@@ -450,11 +451,14 @@ input + .placeholder {
 }
 
 input + .placeholder,
-input.empty:focus + .placeholder {
+textarea + .placeholder,
+input.empty:focus + .placeholder,
+textarea.empty:focus + .placeholder {
   display: none;
 }
 
-input.empty + .placeholder {
+input.empty + .placeholder,
+textarea.empty + .placeholder {
   display: block;
 }
 
