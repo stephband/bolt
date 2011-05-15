@@ -541,10 +541,6 @@ jQuery.noConflict();
 		}
 	};
 	
-	jQuery.event.setupHandlers({
-		
-	});
-	
 })(jQuery);
 
 
