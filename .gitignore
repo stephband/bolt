@@ -10,6 +10,7 @@ js/*
 !js/js.debug.js
 !js/js.extensions.js
 !js/js.timer.js
+!js/jquery.js
 !js/jquery.debug.js
 !js/jquery.extensions.js
 !js/jquery.loading.js
