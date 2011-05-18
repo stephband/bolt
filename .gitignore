@@ -17,7 +17,8 @@ js/*
 !js/jquery.popup.js
 !js/jquery.transitions.js
 !js/jquery.validator.js
-!js/ui.site.js
+!js/template.ui.js
+!js/site.ui.js
 !test/*
 images/*
 !images/thumbs/logo_chrome.gif
@@ -25,6 +26,7 @@ images/*
 !images/thumbs/logo_firefox.gif
 !images/thumbs/logo_opera.gif
 !images/thumbs/logo_safari.gif
+!images/thumbs/logo_ie.gif
 !images/thumbs/logos_browsers.png
 res/*
 !res/iepngfix/.htaccess
