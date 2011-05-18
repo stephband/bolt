@@ -1,6 +1,6 @@
 // jquery.transitions.js
 // 
-// 1.3
+// 1.4
 // 
 // Feature detects CSS transitions and provides a means to manage
 // transitions that start or end with un-transitionable properties
@@ -26,7 +26,43 @@
 				transition: 'top 0.001s linear'
 			}),
 			transitionClass = 'transition',
-			timer;
+			timer,
+			settings = {
+				fallback: function(className, callback) {
+					var elem = this,
+							transition = this.css('transition') || this.css('-webkit-transition') || this.css('-moz-transition'),
+							css, options;
+					
+					elem.addClass(className);
+					
+					if (transition) {
+						console.log('Using transition', transition);
+						
+						css = {};
+						options = {
+						  complete: function() {
+						  	elem.addClass(className);
+						  	callback && callback.apply(this);
+						  },
+						  queue: false
+						};
+						
+						transition.replace(/([a-z\-]+)\s+([^\s]+)\s+([a-z\-]+)/g, function($match, $key, $duration, $easing) {
+							css[$key] = elem.css($key);
+							options.duration = parseFloat($duration) * 1000; // Convert seconds to milliseconds
+							//options.easing = $easing;
+						});
+						
+						elem
+						.removeClass(className)
+						.animate(css, options);
+					}
+					else {
+						console.log('Not using transition');
+						callback && callback.apply(this);
+					}
+				}
+			};
 	
 	function end(e){
 		var callback = e.data.callback;
@@ -70,32 +106,6 @@
 		return this;
 	}
 	
-	// Use addClass() and removeClass() methods by default
-	
-	jQuery.fn.addTransitionClass = function(classNames, options) {
-		var fallback = options && options.fallback,
-				callback = options && options.callback;
-		
-		this.addClass(classNames);
-		
-		if (fallback) { fallback.call(this, callback); }
-		else					{ callback && callback.call(this); }
-		
-		return this;
-	};
-	
-	jQuery.fn.removeTransitionClass = function( classNames, options ){
-		var fallback = options && options.fallback,
-				callback = options && options.callback;
-		
-		this.removeClass(classNames);
-		
-		if (fallback) { fallback.call(this, callback); }
-		else 					{ callback && callback.call(this); }
-		
-		return this;
-	};
-	
 	// Feature testing for transitionend event
 	
 	function removeTest(){
@@ -113,12 +123,38 @@
 		jQuery.support.cssTransitionEnd = e.type;
 		
 		// Redefine addTransitionClass and removeTransitionClass
-		jQuery.fn.addTransitionClass = addTransitionClass;
-		jQuery.fn.removeTransitionClass = removeTransitionClass;
+		//jQuery.fn.addTransitionClass = addTransitionClass;
+		//jQuery.fn.removeTransitionClass = removeTransitionClass;
 		
 		// Stop listening for transitionend
 		docElem.unbind('transitionend webkitTransitionEnd oTransitionEnd', transitionEnd);
 	}
+	
+	
+	// Use addClass() and removeClass() methods by default
+	
+	jQuery.fn.addTransitionClass = function(classNames, o) {
+		var options = jQuery.extend({}, o, settings),
+				fallback = options && options.fallback,
+				callback = options && options.callback;
+		
+		if (fallback) { fallback.call(this, classNames, callback); }
+		else					{ callback && callback.call(this); }
+		
+		return this;
+	};
+	
+	jQuery.fn.removeTransitionClass = function( classNames, options ){
+		var fallback = options && options.fallback,
+				callback = options && options.callback;
+		
+		this.removeClass(classNames);
+		
+		if (fallback) { fallback.call(this, callback); }
+		else 					{ callback && callback.call(this); }
+		
+		return this;
+	};
 	
 	docElem
 	.bind('transitionend webkitTransitionEnd oTransitionEnd', transitionEnd)
