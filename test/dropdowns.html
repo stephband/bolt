@@ -54,6 +54,10 @@
 			background: #666666;
 		}
 		
+		.stopdown {
+			background: #bbbbbb;
+		}
+		
 		.popdown .button {
 			color: white;
 		}
@@ -129,6 +133,30 @@
 	</section>
 	
 	<section>
+		<ul class="horizontal buttons_index index">
+			<li>
+				<a class="button" href="#stop1">Stopdown 1</a>
+				<ul class="stopdown stopdown_buttons_index buttons_index index" id="stop1">
+					<li><a class="menu_button button">Stopdown 1</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="button" href="#stop2">Stopdown 2</a>
+				<ul class="stopdown stopdown_buttons_index buttons_index index" id="stop2">
+					<li><a class="menu_button button">Stopdown 2</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="button" href="#stop3">Stopdown 3</a>
+				<ul class="stopdown stopdown_buttons_index buttons_index index" id="stop3">
+					<li><a class="menu_button button">Stopdown 3</a></li>
+					<li><a class="menu_button button" href="#close">Close</a></li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+	
+	<section>
 		<ul class="horizontal tab_buttons_index buttons_index index">
 			<li><a class="tab_button button" href="#tab1">Tab 1</a></li>
 			<li><a class="tab_button button" href="#tab2">Tab 2</a></li>
@@ -160,6 +188,6 @@
 	<script src="../js/jquery.transitions.js"></script>
 	<script src="../js/jquery.loading.js"></script>
 	<script src="../js/jquery.popup.js"></script>
-	<script src="../js/ui.site.js"></script>
+	<script src="../js/template.ui.js"></script>
 </body>
 </html>

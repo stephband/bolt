@@ -1,10 +1,19 @@
-// ui.site.js
+// template.ui.js
 
 // Run jQuery without aliasing it to $
 
 jQuery.noConflict();
 
 // Handle dropdowns, popdowns and tabs
+//
+// TODO: I've found some serious problems in here. It works, 
+// but not without really doubling some calls. If you click on an
+// opening link for a popdown/dropdown/stopdown, all is well, but
+// if you now click on it while the object is active, the object
+// first receives an activate event, then a deactivate event, because
+// the original click handler is first called. In fact the only reason
+// it works is if we can gaurantee that handlers that are bound later get
+// called later. Which is true, but we shouldn't rely on it.
 
 (function(jQuery, undefined){
 	
@@ -12,6 +21,15 @@ jQuery.noConflict();
 	
 	var doc = jQuery(document),
 			objects = {};
+	
+	function type(object) {
+		var type;
+		for (type in setup) {
+			if (object.hasClass(type)) {
+				return type;
+			}
+		}
+	}
 	
 	function store(selector, options, fn) {
 		var object;
@@ -26,13 +44,7 @@ jQuery.noConflict();
 			objects[selector] = object.length ? {
 				button: options.button || jQuery('a[href="'+selector+'"]'),
 				object: object,
-				type: options.type || (
-					object.hasClass('dropdown') ? 'dropdown' :
-					object.hasClass('tab') ? 'tab' :
-					object.hasClass('popdown') ? 'popdown' :
-					object.hasClass('popup') ? 'popup' :
-					false
-				)
+				type: type(object)
 			} : false ;
 		}
 		
@@ -96,13 +108,29 @@ jQuery.noConflict();
 				}
 				
 				object.trigger({ type: 'deactivate' });
-				doc.unbind('click', click);
 			}
 			
-			doc
-			.bind('click', click);
+			doc.bind('click', click);
 			
 			fn && fn(function(){
+				doc.unbind('click', click);
+			});
+		},
+		
+		stopdown: function(selector, button, object, fn){
+			function click(e) {
+				var l = button.length;
+				
+				while (l--) {
+					if (button[l] === jQuery(e.target).closest('a')[0]) {
+						object.trigger({ type: 'deactivate' });
+					}
+				}
+			}
+			
+			doc.bind('click', click);
+			
+			fn && fn(function() {
 				doc.unbind('click', click);
 			});
 		},
@@ -119,14 +147,12 @@ jQuery.noConflict();
 				if (jQuery.contains( object[0], e.target ) && target.is('input[type="file"]') ) {
 					target.bind('change', function(e){
 						object.trigger({ type: 'deactivate' });
-						doc.unbind('click', click);
 					});
 					
 					return;
 				}
 				
 				object.trigger({ type: 'deactivate' });
-				doc.unbind('click', click);
 			}
 			
 			doc
@@ -145,8 +171,7 @@ jQuery.noConflict();
 		store(selector, { object: jQuery(e.currentTarget) }, function(button, object, type){
 			// Set up based on type
 			setup[type] && setup[type](selector, button, object, function(deactivateFn){
-				button
-				.addClass('active');
+				button.addClass('active');
 				
 				object
 				.addTransitionClass('active')
@@ -159,8 +184,7 @@ jQuery.noConflict();
 		// Check that the event is coming from this node
 		if (e.target !== e.currentTarget) { return; }
 		
-		e.data.button
-		.removeClass('active');
+		e.data.button.removeClass('active');
 		
 		e.data.object
 		.removeTransitionClass('active')
@@ -171,14 +195,14 @@ jQuery.noConflict();
 	
 	var actions = {
 		'#close': function(button) {
-			var object = button.closest('.popup, .popdown, .dropdown, .tab');
+			var object = button.closest('.popup, .popdown, .dropdown, .stopdown, .tab');
 			
 			object.length && object.trigger('deactivate');
 		}
 	}
 	
 	doc
-	.delegate('.popup, .popdown, .dropdown, .tab', 'activate', activate)
+	.delegate('.popup, .popdown, .dropdown, .stopdown, .tab', 'activate', activate)
 	.delegate('a', 'click', function(e) {
 		var button = jQuery( e.currentTarget ),
 				href = button.attr('href'),
@@ -277,7 +301,7 @@ jQuery.noConflict();
 		
 		// TODO: bind DOMNodeInserted only at the end of the
 		// ready function, as we're not actually interested in
-		// processing dom nodes that get inserted before that.
+		// processing DOM nodes that get inserted before that.
 		// Also, find a way of emulating DOMNodeInserted in IE.
 		
 		.bind('ready DOMNodeInserted', (function(){

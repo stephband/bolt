@@ -775,7 +775,7 @@
 
 
 
-/* .popup, .popdown, .dropdown */
+/* .popup, .popdown, .dropdown, .stopdown */
 
 .popdown,
 .dropdown {
@@ -785,6 +785,7 @@
 	position: absolute;
   top: 2em;
   opacity: 0;
+  
   -webkit-transition: opacity 0.18s ease-out, top 0.18s ease-out;
      -moz-transition: opacity 0.18s ease-out, top 0.18s ease-out;
           transition: opacity 0.18s ease-out, top 0.18s ease-out;
@@ -796,13 +797,42 @@
   
   top: 2.3333em;
   opacity: 1;
+  
   -webkit-transition: opacity 0.06s ease-in, top 0.06s ease-in;
      -moz-transition: opacity 0.06s ease-in, top 0.06s ease-in;
           transition: opacity 0.06s ease-in, top 0.06s ease-in;
 }
 
+.stopdown {
+	display: none;
+	overflow: hidden;
+
+	height: 0;
+	margin-bottom: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+
+	-webkit-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
+	   -moz-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
+	        transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
+}
+
+.stopdown.active {
+  display: block;
+  
+  height: 10em;
+  margin-bottom: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  
+	-webkit-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
+	   -moz-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
+	        transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
+}
+
 .popdown.transition,
-.dropdown.transition {
+.dropdown.transition,
+.stopdown.transition {
 	display: block;
 }
 
