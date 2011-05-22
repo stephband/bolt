@@ -41,12 +41,70 @@
 			background-color: rgba(190,210,200,0.6);
 		}
 		
+		.third_column {
+			background-color: rgba(210,190,220,0.6);
+		}
+		
 		.last_column {
 			background-color: rgba(210,220,190,0.6);
 		}
 
-
-
+		.zero_test {
+			
+		}
+		
+		.zero_test .column {
+			position: relative;
+			width: 33.3333%;
+			margin-right: -33.3333%;
+		}
+		
+		.zero_test .first_column {
+			left: 0;
+		}
+		
+		.zero_test .second_column {
+			left: 33.3333%;
+		}
+		
+		.zero_test .last_column {
+			margin-left: -33.3333%;
+			right: -100%;
+		}
+		
+		
+		.quarter_test {
+			
+		}
+		
+		.quarter_test .column {
+			position: relative;
+			width: 25%;
+			margin-right: -25%;
+			padding: 1em;
+			border-right: 1px solid grey;
+		}
+		
+		.quarter_test .first_column {
+			left: 0;
+		}
+		
+		.quarter_test .second_column {
+			left: 25%;
+		}
+		
+		.quarter_test .third_column {
+			left: 50%;
+		}
+		
+		.quarter_test .last_column {
+			margin-left: -25%;
+			right: -100%;
+			border-right: 0;
+		}
+		
+		
+		
 		.first_test .first_column {
 			margin: 0 20%;
 			width: 60%;
@@ -203,6 +261,39 @@
 </head>
 
 <body>
+	
+	<h2>Flex | Flex | Flex</h2>
+	
+	<div class="zero_test test">
+		<div class="first_column column of_three">
+			First column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column of_three">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="last_column column of_three">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+	</div>
+	
+	<h2>Flex | Flex | Flex</h2>
+	
+	<div class="quarter_test test">
+		<div class="first_column column">
+			First column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="third_column column">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="last_column column">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+		
+	</div>
+	
 	
 	<h2>Flex | Flex | Flex</h2>
 	
