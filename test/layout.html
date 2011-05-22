@@ -22,7 +22,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="../css/template.reset.css" />
 	<link rel="stylesheet" type="text/css" href="../css/template.typography.css" />
-	<link rel="stylesheet" type="text/css" href="../css/template.typography.12_20.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.typography.14_24.css" />
 	<link rel="stylesheet" type="text/css" href="../css/template.forms.css" />
 	<link rel="stylesheet" type="text/css" href="../css/template.classes.css" />
 	<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="../css/template.ie.css" /><![endif]-->
@@ -33,34 +33,34 @@
 	<link rel="stylesheet" type="text/css" href="css/test.css" />
 	
 	<style>
-    .test {
-      zoom: 1;
-    }
-    
-		.first_column {
-			background: yellow;
+		.test {
+			/* The parent needs hasLayout. */
 			zoom: 1;
-			/* background-color: rgba(210,220,230,0.6);*/
+		}
+		
+		.test_wrap {
+			width: 80%;
+		}
+		
+		.first_column {
+			background-color: #333333;
 		}
 		
 		.second_column {
-			background-color: orange;
-			zoom: 1;
-			/*background-color: rgba(190,210,200,0.6);*/
+			background-color: #666666;
 		}
 		
 		.third_column {
-			background-color: rgba(210,190,220,0.6);
+			background-color: #999999;
 		}
 		
 		.last_column {
-			background-color: red;
-			zoom: 1;
-			/*background-color: rgba(210,220,190,0.6);*/
+			background-color: #cccccc;
 		}
-
+		
+		
 		.zero_test {
-			
+		
 		}
 		
 		.zero_test .column {
@@ -78,8 +78,7 @@
 		}
 		
 		.zero_test .last_column {
-			margin-left: -33.3333%;
-			right: -100%;
+			left: 66.6667%;
 		}
 		
 		
@@ -91,8 +90,6 @@
 			position: relative;
 			width: 25%;
 			margin-right: -25%;
-			padding: 1em;
-			border-right: 1px solid grey;
 		}
 		
 		.quarter_test .first_column {
@@ -109,8 +106,73 @@
 		
 		.quarter_test .last_column {
 			margin-left: -25%;
+			left: 100%;
+		}
+		
+		
+		
+		.quarter2_test {
+			
+		}
+		
+		.quarter2_test .column {
+			position: relative;
+			width: 25%;
+			margin-right: -25%;
+		}
+		
+		.quarter2_test .first_column {
+			left: 0;
+		}
+		
+		.quarter2_test .second_column {
+			left: 25%;
+		}
+		
+		.quarter2_test .third_column {
+			left: 50%;
+		}
+		
+		.quarter2_test .last_column {
+			margin-left: -25%;
+			margin-right: 0;
 			right: -100%;
-			border-right: 0;
+		}
+		
+		
+		
+		.quarter3_test {
+			margin-left: 10em;
+			margin-right:10em;
+		}
+		
+		.quarter3_test .column {
+			position: relative;
+			width: 50%;
+			margin-right: -50%;
+		}
+		
+		.quarter3_test .first_column {
+			width: 10em;
+			margin-right: -10em;
+			left: -10em;
+		}
+		
+		.quarter3_test .second_column {
+			left: 0;
+		}
+		
+		.quarter3_test .third_column {
+			margin-left: -50%;
+			margin-right: 0;
+			right: -100%;
+		}
+		
+		.quarter3_test .last_column {
+			width: 10em;
+			margin-left: 0;
+			margin-right: -10em;
+			left: 100%;
 		}
 		
 		
@@ -286,7 +348,7 @@
 		</div>
 	</div>
 	
-	<h2>Flex | Flex | Flex</h2>
+	<h2>Flex | Flex | Flex | Flex</h2>
 	
 	<div class="quarter_test test">
 		<div class="first_column column">
@@ -299,9 +361,46 @@
 			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
 		</div
 	 ><div class="last_column column">
-			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+			Fourth column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
 		</div>
 		
+	</div>
+	
+	<h2>Flex | Flex | Flex | Flex</h2>
+	
+	<div class="quarter2_test test">
+		<div class="last_column column">
+			First column. kjhThe quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="third_column column">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="first_column column">
+			Fourth column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+	</div>
+	
+	
+	<h2>Flex | Flex | Flex | Flex</h2>
+	
+	<div class="test_wrap wrap">
+	<div class="quarter3_test test">
+		<div class="first_column column">
+			First column. kjhThe quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="third_column column">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="last_column column">
+			Fourth column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+	</div>
 	</div>
 	
 	
