@@ -978,6 +978,7 @@
   white-space: nowrap;
   
   background-image: url('../../images/thumbs/browser_logos.png');
+  
   -moz-background-size: 342px 64px;
        background-size: 342px 64px;
 }
@@ -988,6 +989,13 @@
 .safari_browser_thumb   { background-position: -205px 0; }
 .ie_browser_thumb       { background-position: -272px 0; }
 
+.chromeframe_browser_thumb {
+  background-image: url('/images/thumbs/logo_chromeframe.gif');
+  background-position: 0 0;
+  
+  -moz-background-size: 64px 64px;
+       background-size: 64px 64px;
+}
 
 /* ---- */
 
