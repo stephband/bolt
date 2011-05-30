@@ -124,7 +124,6 @@
 				else {
 					return 1;
 				}
-				
 				return 0;
 			}
 			
@@ -137,6 +136,7 @@
 			var logElem = jQuery('<dl/>', {'class': 'css_log log'});
 			
 			jQuery('head').append('<style>'+
+				'.log:after {visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0;}' +
 				'.log dt {float:left; clear:both; width: 38%; text-align: right; margin: 0;} ' +
 				'.log dd {float:right; clear:right; width: 60%; margin: 0;} ' +
 				'.log .unfound {opacity: 0.6;} ' +
@@ -158,7 +158,7 @@
 					}
 					
 					for (file in files) {
-						html += '<dd>'+file+' ('+files[file]+')</dd>';
+						html += '<dd'+(!found.length ? ' class="unfound"' : '')+'>'+file+' ('+files[file]+')</dd>';
 					}
 					
 					return html;
@@ -168,7 +168,7 @@
 			jQuery('<hr style="clear:both;"/>').appendTo('body');
 			jQuery('<h1 style="width: 38%; text-align: right;">Classes</h1>').appendTo('body');
 			logElem.appendTo('body');
-			jQuery('<hr style="clear:both;"/>').appendTo('body');
+			jQuery('<div style="clear:both;"/>').appendTo('body');
 		}
 	};
 })(window);
