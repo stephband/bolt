@@ -53,7 +53,9 @@ button {
 /* .index, .column */
 
 .index > li,
-.column {
+.column,
+.col,
+.col_wrap {
     /* Trigger hasLayout */
     zoom: 1;
 }
