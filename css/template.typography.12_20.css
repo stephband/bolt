@@ -64,8 +64,7 @@ dd                { margin: 0; }
 ul,
 ol,
 dl                { margin: 1.25em 0 1.25em 0; }
-li,
-dd                { margin-bottom: 0.8333em;}
+li                { margin-bottom: 0.8333em;}
 
 blockquote        { margin: 0 0 1.25em 0; }
 blockquote:before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
@@ -93,8 +92,7 @@ caption           { padding: 4px 10px 4px 5px; }
 
 ul,
 ol,
-blockquote,
-dd                { margin-left: 2.5em; }
+blockquote        { margin-left: 2.5em; }
 
 /* Classes */
 

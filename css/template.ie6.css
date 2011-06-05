@@ -42,8 +42,12 @@ img { -ms-interpolation-mode: bicubic; }
 	margin: 0;
 }
 
+.col,
+.column,
 .horizontal li {
-  /* IE does not apply inline-block to block elements, make them inline... */
+  /* Uses a technique for getting inline-block behaviour in IE, explained well here:
+     http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ */
+  
   display: inline;
 }
 
