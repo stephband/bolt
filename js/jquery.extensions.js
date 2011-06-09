@@ -261,24 +261,7 @@
       }
       
       return obj;
-    },
-    
-    // Translates text to html and vice versa. Used when taking input
-    // from a textarea and putting it in a dom node as html.
-    
-    textToHTML: function( text ){
-      var dtc = /\b((?:[a-z][\w\-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/gi,
-          regexLink = /((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?)/gi,
-          html = text.replace( /\&/g, '&amp;' ).replace(/<3/g,"♥").replace( /</g, '&lt;' ).replace(dtc,'<a href="$1" target="_blank">$1</a>').replace( /\n/g, '<br/>' );
-      
-      return html;
-    },
-    
-    HTMLToText: function( html ){
-      var text = html.replace( /<br\/>/g, '\n' ).replace( /\&amp\;/g, '&' ).replace( /\&lt\;/g, '<' );
-      return text;
     }
-    
   });
 })(jQuery);
 
@@ -497,3 +480,48 @@ jQuery.fn.extend({
 	jQuery.event.handleAttribute = handleAttribute;
 	jQuery.event.handleMimetype = handleMimetype;
 })(jQuery);
+
+
+// Render {{variables}} in strings or in regexp, like this:
+// 
+// jQuery.render(template, object)
+// 
+// where template is a string 'hello {{name}}' or regex
+// /^name:\s({{name}})/ and object is a list of values with
+// keys that match the template variables { name: 'George' }.
+
+jQuery.render = (function(){
+  function replaceStringFn(obj) {
+  	return function($0, $1) {
+  		// $1 is the template key.
+  		return obj[$1];
+  	}
+  }
+  
+  function replaceRegexFn(obj) {
+  	return function($0, $1, $2) {
+  		// $1 is the template key in {{key}}, while $2 exists where
+  		// the template tag is followed by a repetition operator.
+  		var r = obj[$1];
+  		
+  		if (!r) { throw("Exception: attempting to build RegExp but obj['"+$1+"'] is undefined."); }
+  		
+  		// Strip out beginning and end matchers
+  		r = r.source.replace(/^\^|\$$/g, '');
+  		
+  		// Return a non-capturing group when $2 exists, or just the source.
+  		return $2 ? ['(?:', r, ')', $2].join('') : r ;
+  	}
+  }
+  
+  return function(template, obj) {
+  	return (template instanceof RegExp) ?
+  		RegExp(
+  			template.source.replace(/\{\{(\w+)\}\}(\{\d|\?|\*|\+)?/g, replaceRegexFn(obj)),
+  			(template.global ? 'g' : '') +
+  			(template.ignoreCase ? 'i' : '') +
+  			(template.multiline ? 'm' : '')
+  		) :
+  		string.replace(/\{\{(\w+)\}\}/g, replaceStringFn);
+  };
+})();
