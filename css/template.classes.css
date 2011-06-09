@@ -883,9 +883,16 @@
   opacity: 0.6;
 }
 
+.button input {
+	display: inline;
+	height: auto;
+	vertical-align: baseline;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+
 .menu_button,
 .tab_button {
-  width: 100%;
 	padding-left: 0.8333em;
 	padding-right: 0.8333em;
   text-align: left;
@@ -901,6 +908,9 @@
           border-radius: 0;
 }
 
+.menu_button {
+	width: 100%;
+}
 
 /* .thumb */
 
