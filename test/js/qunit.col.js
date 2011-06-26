@@ -9,8 +9,6 @@ jQuery(document).ready(function(){
 				top = colWrap.offset().top;
 		
 		test('Test top offsets', cols.length, function() {
-			var top;
-			
 			cols.each(function() {
 				var col = jQuery(this),
 				    offset = col.offset();
