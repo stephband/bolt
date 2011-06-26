@@ -1,5 +1,15 @@
 // JavaScript extensions
 
+// Nullify console.logs when console.log is not present
+
+if (!window.console) {
+	function noop() {}
+	
+	window.console = {
+		log: noop
+	};
+}
+
 // typeOf( obj )
 //
 // Helper function that distinguishes Objects from Arrays
