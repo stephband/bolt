@@ -8,6 +8,7 @@ css/*
 !css/template.*
 !css/tests/*
 js/*
+!js/template.*
 !js/js.debug.js
 !js/js.extensions.js
 !js/js.timer.js
@@ -18,10 +19,10 @@ js/*
 !js/jquery.popup.js
 !js/jquery.transitions.js
 !js/jquery.validator.js
-!js/template.ui.js
 !js/site.ui.js
 !test/*
 images/*
+!images/bg/*
 !images/thumbs/logo_chrome.gif
 !images/thumbs/logo_chromeframe.gif
 !images/thumbs/logo_firefox.gif
@@ -34,5 +35,3 @@ res/*
 !res/iepngfix/blank.gif
 !res/iepngfix/iepngfix.htc
 !res/iepngfix/iepngfix_tilebg.js
-layouts/*
-!layouts/layout_*
