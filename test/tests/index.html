@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<title>css .index</title>
+
+<link rel="stylesheet" type="text/css" href="../template.reset.css" />
+<link rel="stylesheet" type="text/css" href="../template.classes.css" />
+<link rel="stylesheet" type="text/css" href="../template.typography.css" />
+<link rel="stylesheet" type="text/css" href="../template.typography.12_18.css" />
+
+<style type="text/css" media="screen, projection">
+    
+    
+    @import url('../css/test.css');
+    @import url('../../index.css');
+    
+    .index {
+        margin-bottom: 1em;
+    }
+    
+    .thumb {
+        background-color: #cdcdcd;
+        background-image: url('images/tools.png');
+        color: #333739;
+    }
+    
+</style>
+
+</head>
+
+<body>
+
+  <h1>.index class</h1>
+  
+  <p>The .index class defines a list of inline-blocks. It can be extended to make divided_index menus, grids of thumbs or icons, or fancy definition lists.</p>
+  
+  <p>The .thumbs class can use background sprites or individual background images. If you opt for a sprites, the image file should be arranged vertically with sufficient transparent space between the icons to accommodate a line or two of text. For example: <a href="images/tools.png">tools.png</a></p>
+  
+  <!-- Horizontal -->
+  
+  <h2>ul.index</h2>
+  
+  <ul class="index">
+      <!-- List must be spaceless -->
+      <li><a href="#">First item</a> in a list</li><li><a href="#">Next item</a> in a list</li><li><a href="#">Penultimate</a> item in a list</li><li><a href="#">Last item</a> in a list</li><li><a href="#">Okay</a>, I lied</li>
+  </ul>
+  
+  <h2>ul.divided_index.index</h2>
+  
+  <ul class="divided_index index">
+      <!-- List must be spaceless -->
+      <li><a href="#">First item</a> in a list</li
+     ><li><a href="#">Next item</a> in a list</li
+     ><li><a href="#">Penultimate</a> item in a list</li
+     ><li><a href="#">Last item</a> in a list</li
+     ><li><a href="#">Okay</a>, I lied</li>
+  </ul>
+  
+  <h2>ul.thumbs.index</h2>
+  
+  <ul class="thumbs_index index">
+      <!-- List must be spaceless -->
+      <li><a class="thumb" href="#">First item</a></li><li><a href="#">Next item</a></li
+     ><li><a class="thumb" href="#">Penultimate</a></li><li><a href="#">Last item</a></li
+     ><li><a class="thumb" href="#">Okay</a></li>
+  </ul>
+  
+  <h2>ul.icons_only.thumbs.index</h2>
+  
+  <ul class="icons-only thumbs index">
+      <!-- List must be spaceless -->
+      <li><a href="#">First item</a></li><li><a href="#">Next item</a></li><li><a href="#">Penultimate</a></li><li><a href="#">Last item</a></li><li><a href="#">Okay</a></li>
+  </ul>
+  
+  <h2>ul.text_only.thumbs.index</h2>
+  
+  <ul class="text-only thumbs index">
+      <!-- List must be spaceless -->
+      <li><a href="#">First item</a></li><li><a href="#">Next item</a></li><li><a href="#">Penultimate</a></li><li><a href="#">Last item</a></li><li><a href="#">Okay</a></li>
+  </ul>
+  
+  <h2>ul.divided_index.thumbs.index</h2>
+  
+  <ul class="divided_index thumbs_index index">
+      <!-- List must be spaceless -->
+      <li><a class="thumb" href="#">First item</a></li
+     ><li><a class="thumb" href="#">Next item</a></li
+     ><li><a class="thumb" href="#">Penultimate</a></li
+     ><li><a class="thumb" href="#">Last item</a></li
+     ><li><a class="thumb" href="#">Okay</a></li>
+  </ul>
+  
+  <!-- Vertical -->
+  
+  <h2>ul.vertical.index</h2>
+  
+  <ul class="vertical index">
+      <li><a href="#">First item</a> in a list</li>
+      <li><a href="#">Next item</a> in a list</li>
+      <li><a href="#">Penultimate</a> item in a list</li>
+      <li><a href="#">Last item</a> in a list</li>
+      <li><a href="#">Okay</a>, I lied</li>
+  </ul>
+  
+  <h2>ul.divided_index.vertical.index</h2>
+  
+  <ul class="divided_index vertical index">
+      <li><a href="#">First item</a></li>
+      <li><a href="#">Next item</a></li>
+      <li><a href="#">Penultimate</a></li>
+      <li><a href="#">Last item</a></li>
+      <li><a href="#">Okay</a></li>
+  </ul>
+  
+  <h2>ul.vertical.thumbs.index</h2>
+  
+  <ul class="vertical thumbs index">
+      <li><a href="#">First item</a></li>
+      <li><a href="#">Next item</a></li>
+      <li><a href="#">Penultimate</a></li>
+      <li><a href="#">Last item</a></li>
+      <li><a href="#">Okay</a></li>
+  </ul>
+  
+  <h2>ul.icons_only.vertical.thumbs.index</h2>
+  
+  <ul class="vertical icons-only thumbs index">
+      <li><a href="#">First item</a></li>
+      <li><a href="#">Next item</a></li>
+      <li><a href="#">Penultimate</a></li>
+      <li><a href="#">Last item</a></li>
+      <li><a href="#">Okay</a></li>
+  </ul>
+  
+  <h2>ul.text_only.vertical.thumbs.index</h2>
+  
+  <ul class="vertical text-only thumbs index">
+      <li><a href="#">First item</a></li>
+      <li><a href="#">Next item</a></li>
+      <li><a href="#">Penultimate</a></li>
+      <li><a href="#">Last item</a></li>
+      <li><a href="#">Okay</a></li>
+  </ul>
+  
+  <h2>ul.divided_index.vertical.thumbs.index</h2>
+  
+  <ul class="divided_index vertical thumbs index">
+      <li><a href="#">First item</a></li>
+      <li><a href="#">Next item</a></li>
+      <li><a href="#">Penultimate</a></li>
+      <li><a href="#">Last item</a></li>
+      <li><a href="#">Okay</a></li>
+  </ul>
+  
+  <h2>dl.index</h2>
+  
+  <dl class="index">
+      <dt>First item</dt><dd>First description</dd>
+      <dt>Next item</dt><dd>Next description</dd>
+      <dt>Penultimate item with a longer title, so we can see what happens to a &lt;dt&gt;</dt><dd>Penultimate description</dd>
+      <dt>Last item</dt><dd>Last description, but this time a long one to demonstrate what happens to a &lt;dd&gt;</dd>
+      <dt>Okay</dt><dd>I lied</dd>
+  </dl>
+  
+  <h2>dl.divided_index.index</h2>
+  
+  <dl class="divided_index index">
+      <dt>First item</dt><dd>First description</dd>
+      <dt>Next item</dt><dd>Next description</dd>
+      <dt>Penultimate item with a longer title, so we can see what happens to a &lt;dt&gt;</dt><dd>Penultimate description</dd>
+      <dt>Last item</dt><dd>Last description, but this time a long one to demonstrate what happens to a &lt;dd&gt;</dd>
+      <dt>Okay</dt><dd>I lied</dd>
+  </dl>
+  
+  <script type="text/javascript" src="../js/jquery-1.4a2.js"></script>
+  <script type="text/javascript">
+  
+  jQuery(document).ready(function(){
+      
+      jQuery("#switch")
+      .toggle( function(e){
+          jQuery(".thumbs")
+          .addClass('icons-only');
+      }, function(e){
+          jQuery(".thumbs")
+          .removeClass('icons-only')
+          .addClass('text-only');
+      }, function(e){
+          jQuery(".thumbs")
+          .removeClass('text-only');
+      });
+  
+  });
+  
+  </script>
+
+</body>
+</html>
