@@ -1,4 +1,5 @@
 .DS_Store
+.testswarm
 /*
 !/template.html
 !/template.django.html

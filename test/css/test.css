@@ -22,6 +22,10 @@ body {
   position: relative;
 }
 
+.col {
+	background-color: rgba(64,64,64,0.5);
+}
+
 /* Code */
 
 code.block {
@@ -32,4 +36,10 @@ code.block {
     font-size: small;
     font-family: monospace;
     margin: 0.8em 0;
+}
+
+/* qunit */
+
+#qunit-tests > li {
+	margin-bottom: 0;
 }

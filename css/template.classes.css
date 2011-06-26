@@ -662,7 +662,7 @@
 .eight_col_wrap .fifth_col     { left: 50%; }
 .eight_col_wrap .sixth_col     { left: 62.5%; }
 .eight_col_wrap .seventh_col   { left: 75%; }
-.eight_col_wrap .eigth_col     { left: 100%; margin-right: 0; margin-left: -12.5%; }
+.eight_col_wrap .eighth_col    { left: 100%; margin-right: 0; margin-left: -12.5%; }
 
 .last_col { right: 0; margin-right: 0; }
 
