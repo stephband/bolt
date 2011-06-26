@@ -9,7 +9,7 @@ jQuery(document).ready(function(){
 				top = colWrap.offset().top,
 				left;
 		
-		test('Test top offsets', cols.length, function() {
+		test(cols.length+' cols: test top offsets', cols.length, function() {
 			cols.each(function() {
 				var col = jQuery(this),
 				    offset = col.offset();
@@ -19,7 +19,7 @@ jQuery(document).ready(function(){
 			});
 		});
 		
-		test('Test top offsets', cols.length-1, function() {
+		test(cols.length+' cols: test left offsets', cols.length-1, function() {
 			cols.each(function() {
 				var col = jQuery(this),
 				    offset = col.offset();
