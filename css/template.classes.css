@@ -667,6 +667,7 @@
 .last_col { right: 0; margin-right: 0; }
 
 
+
 /* Vertical centering builds on the technique described here:
    http://www.jakpsatweb.cz/css/css-vertical-center-solution.html
    TODO: Fix case in IE7 where centering has to scroll. V difficult. Possibly impossible. */
