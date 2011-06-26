@@ -6,15 +6,28 @@ jQuery(document).ready(function(){
 	colWraps.each(function() {
 		var colWrap = jQuery(this),
 				cols = colWrap.children('.col'),
-				top = colWrap.offset().top;
+				top = colWrap.offset().top,
+				left;
 		
 		test('Test top offsets', cols.length, function() {
 			cols.each(function() {
 				var col = jQuery(this),
 				    offset = col.offset();
 				
-				equal(top, offset.top, 'Same top offset as the previous col.');
+				ok(top === offset.top, '.col has the same top offset as the previous col.');
 				top = offset.top;
+			});
+		});
+		
+		test('Test top offsets', cols.length-1, function() {
+			cols.each(function() {
+				var col = jQuery(this),
+				    offset = col.offset();
+				
+				if (left !== undefined) {
+					ok(offset.left > left, '.col is to the left of the previous .col.');
+				}
+				left = offset.left;
 			});
 		});
 	});
