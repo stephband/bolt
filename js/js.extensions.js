@@ -1,3 +1,10 @@
+// Define some global symbols
+
+
+window.π = Math.PI;
+window.τ = 2 * π;
+
+
 // JavaScript extensions
 
 // typeOf( obj )
@@ -64,34 +71,178 @@ if (!Function.prototype.bind)
 
 // Math object
 
-(function(Math){
+(function(Math, undefined){
 	var pi = Math.PI,
 			pi2 = pi * 2;
 	
-	// Converts cartesian [x, y] to polar [distance, angle] coordinates,
-	// downward, anti-clockwise, angle in radians.
+	var Vector = Math.Vector = function(obj) {
+		// Don't require the new keyword
+		if (!(this instanceof Math.Vector)) {
+			return new Math.Vector(arguments);
+		}
+		
+		// Accept input arguments in any old form:
+		//
+		// x, y
+		// { x: x, y: y }
+		// { d: d, a: a }
+		// { left: x, top: y }
+		// [ x, y ]
+		// { width: x, height: y }
+		// 
+		// Anything else will create the vector { x: 0, y: 0 }.
+		
+		if (arguments.length === 0) {
+			this.x = 0;
+			this.y = 0;
+		}
+		else if (arguments.length > 1) {
+			this.x = arguments[0];
+			this.y = arguments[1];
+		}
+		else if (obj.x !== undefined && obj.y !== undefined) {
+			this.x = obj.x;
+			this.y = obj.y;
+		}
+		else if (obj.d !== undefined && obj.a !== undefined) {
+			this.d = obj.d;
+			this.a = obj.a;
+			addCartesian(this);
+		}
+		else if (obj.left !== undefined && obj.top !== undefined) {
+			this.x = obj.left;
+			this.y = obj.top;
+		}
+		else if (obj[0] !== undefined && obj[1] !== undefined) {
+			this.x = obj[0];
+			this.y = obj[1];
+		}
+		else if (obj.width !== undefined && obj.height !== undefined) {
+			this.x = obj.width;
+			this.y = obj.height;
+		}
+		else {
+			this.x = 0;
+			this.y = 0;
+		}
+	}
 	
-	Math.toPolar = function(cart) {
-		var x = cart[0],
-				y = cart[1];
+	Vector.prototype = {
+		add: function(vector) {
+			if (!(vector instanceof Vector)) {
+				vector = new Vector(vector);
+			}
+			
+			return new Vector(this.x + vector.x, this.y + vector.y);
+		},
+		
+		subtract: function(vector) {
+			if (!(vector instanceof Vector)) {
+				vector = new Math.Vector(vector);
+			}
+			
+			return new Vector(this.x - vector.x, this.y - vector.y);
+		},
+		
+		distance: function(val) {
+			var polar, cart;
+			
+			if (val !== undefined) {
+				// Set value
+				
+				if (this.a === undefined) { addPolar(this); }
+				return new Vector({ d: val, a: this.a });
+			}
+			
+			// Get value
+			if (this.d === undefined) { addPolar(this); }
+			return this.d;
+		},
+		
+		angle: function(val) {
+			var polar;
+			
+			if (val !== undefined) {
+				// Set value
+				
+				if (this.d === undefined) { addPolar(this); }
+				return new Vector({ d: this.d, a: val });
+			}
+			
+			// Get value
+			if (this.a === undefined) { addPolar(this); }
+			return this.a;
+		},
+		
+		toString: function() {
+			return [this.x, this.y].join(', ');
+		},
+		
+		toCartesianArray: function() {
+			return [this.x, this.y];
+		},
+		
+		toPolarArray: function() {
+			return [this.d, this.a];
+		}
+	};
+	
+	function addPolar(obj) {
+		var x = obj.x,
+		    y = obj.y;
 		
 		// Detect quadrant and work out vector
-		if (y === 0) 	{ return x === 0 ? [0, 0] : x > 0 ? [x, 0.5 * pi] : [-x, 1.5 * pi] ; }
-		if (y < 0) 		{ return x === 0 ? [-y, pi] : [Math.sqrt(x*x + y*y), Math.atan(x/y) + pi] ; }
-		if (y > 0) 		{ return x === 0 ? [y, 0] : [Math.sqrt(x*x + y*y), (x > 0) ? Math.atan(x/y) : pi2 + Math.atan(x/y)] ; }
+		if (y === 0) 	{
+			if (x === 0)    { obj.d = 0; obj.a = 0; }
+			else if (x > 0) { obj.d = x; obj.a = 0.5 * pi; }
+			else            { obj.d = -x; obj.a = 1.5 * pi; }
+		}
+		else if (y < 0) {
+			if (x === 0)    { obj.d = -y; obj.a = pi; }
+			else            { obj.d = Math.sqrt(x*x + y*y); obj.a = Math.atan(x/y) + pi; }
+		}
+		else if (y > 0) {
+			if (x === 0)    { obj.d = y; obj.a = 0; }
+			else            { obj.d = Math.sqrt(x*x + y*y); obj.a = (x > 0) ? Math.atan(x/y) : pi2 + Math.atan(x/y); }
+		}
+	};
+	
+	function addCartesian(obj) {
+		var d = obj.d,
+		    a = obj.a;
+		
+		obj.x = Math.sin(a) * d;
+		obj.y = Math.cos(a) * d;
+	};
+	
+	// Converts cartesian [x, y] to polar [distance, angle] coordinates,
+	// downward, anti-clockwise, angles in radians. Also accepts objects
+	// of the forms:
+	// 
+	// { left: x, top: y }
+	// { x: x, y: y }
+	
+	// Legacy methods for those old bits of code that don't use the
+	// Vector constructor.
+	
+	Math.toPolar = function(cart) {
+		var obj = new Vector(cart);
+		
+		addPolar(obj);
+		return [obj.d, obj.a];
 	};
 
 	// Converts [distance, angle] vector to cartesian [x, y] coordinates.
 	
-	Math.toCartesian = function(polar) {
-		var d = polar[0],
-				a = polar[1];
+	Math.toCartesian = function (polar) {
+		var obj = new Vector(polar[1] !== undefined ? { d: polar[0], a: polar[1] } : polar);
 		
-		// Work out cartesian coordinates
-		return [ Math.sin(a) * d, Math.cos(a) * d ];
+		return [obj.x, obj.y];
 	};
 	
 })(Math);
+
+console.log(Math.toCartesian([4, 1.2]));
 
 
 // RegExp object
