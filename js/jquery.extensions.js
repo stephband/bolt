@@ -4,6 +4,20 @@
 //
 // Feature detection, and helper methods for jQuery and jQuery.fn
 
+
+// Properties of native event objects to copy over to the jQuery
+// event object.
+
+// For dragstart
+
+jQuery.event.props.push("dataTransfer");
+
+// For the events touchstart, touchend, touchmove, touchenter,
+// touchleave, and touchcancel.
+
+jQuery.event.props.push("timestamp", "radiusX", "radiusY", "rotationAngle", "force", "touches", "targetTouches", "changedTouches");
+
+
 // Detect whether different types of html5 form elements have native UI implemented
 // and store boolean in jQuery.support.inputTypes[type]. For now, types not used in
 // webdoc are commented out.
