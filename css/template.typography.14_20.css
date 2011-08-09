@@ -29,6 +29,24 @@ p                 { margin-bottom: 0.8572em; }
 li                { margin-bottom: 0; }
 hr                { margin-bottom: 1.4286em; }
 
+p + h2,
+ul + h2,
+ol + h2,
+dl + h2,
+pre + h2,
+table + h2,
+address + h2,
+blockquote + h2   { margin-top: 1.6667em; }
+
+p + h3,
+ul + h3,
+ol + h3,
+dl + h3,
+pre + h3,
+table + h3,
+address + h3,
+blockquote + h3   { margin-top: 1.25em; }
+
 /* Make first letter different */
 /*p::first-letter   { font-size: 2em; float: left;  }
 p+p::first-letter { font-size: 1em; line-height: 1.3333; font-style: normal; letter-spacing: 0em; }
@@ -62,6 +80,7 @@ ol:last-child,
 dl:last-child,
 li:last-child,
 pre:last-child,
+table: last-child,
 address:last-child,
 blockquote:last-child { margin-bottom: 0; }
 
