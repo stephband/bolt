@@ -71,14 +71,14 @@ if (!Function.prototype.bind)
 
 // Math object
 
-(function(Math, undefined){
+(function(ns, undefined){
 	var pi = Math.PI,
 			pi2 = pi * 2;
 	
-	var Vector = Math.Vector = function(obj) {
+	var Vector = ns.Vector = function(obj) {
 		// Don't require the new keyword
-		if (!(this instanceof Math.Vector)) {
-			return new Math.Vector(arguments);
+		if (!(this instanceof Vector)) {
+			return new Vector(arguments);
 		}
 		
 		// Accept input arguments in any old form:
@@ -138,7 +138,7 @@ if (!Function.prototype.bind)
 		
 		subtract: function(vector) {
 			if (!(vector instanceof Vector)) {
-				vector = new Math.Vector(vector);
+				vector = new Vector(vector);
 			}
 			
 			return new Vector(this.x - vector.x, this.y - vector.y);
@@ -183,6 +183,7 @@ if (!Function.prototype.bind)
 		},
 		
 		toPolarArray: function() {
+		  if (this.d === undefined || this.a === undefined) { addPolar(this); }
 			return [this.d, this.a];
 		}
 	};
@@ -215,34 +216,25 @@ if (!Function.prototype.bind)
 		obj.y = Math.cos(a) * d;
 	};
 	
-	// Converts cartesian [x, y] to polar [distance, angle] coordinates,
-	// downward, anti-clockwise, angles in radians. Also accepts objects
-	// of the forms:
-	// 
-	// { left: x, top: y }
-	// { x: x, y: y }
-	
 	// Legacy methods for those old bits of code that don't use the
 	// Vector constructor.
 	
-	Math.toPolar = function(cart) {
+	// Convert cartesian [x, y] to polar [distance, angle] coordinates,
+	// downward, anti-clockwise, angles in radians.
+	
+	ns.toPolar = function(cart) {
 		var obj = new Vector(cart);
-		
-		addPolar(obj);
-		return [obj.d, obj.a];
+		return obj.toPolarArray();
 	};
 
-	// Converts [distance, angle] vector to cartesian [x, y] coordinates.
+	// Convert [distance, angle] vector to cartesian [x, y] coordinates.
 	
-	Math.toCartesian = function (polar) {
+	ns.toCartesian = function (polar) {
 		var obj = new Vector(polar[1] !== undefined ? { d: polar[0], a: polar[1] } : polar);
-		
-		return [obj.x, obj.y];
+		return obj.toCartesianArray();
 	};
 	
 })(Math);
-
-console.log(Math.toCartesian([4, 1.2]));
 
 
 // RegExp object

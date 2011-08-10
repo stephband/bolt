@@ -872,6 +872,19 @@
   color: rgb(96,96,96);
   background-repeat: no-repeat;
   border-width: 0;
+
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding-box;
+      -ms-background-clip: padding-box;
+       -o-background-clip: padding-box;
+          background-clip: padding-box;
+
+  -webkit-background-origin: padding-box;
+     -moz-background-origin: padding;
+     -moz-background-origin: padding-box;
+      -ms-background-origin: padding-box;
+       -o-background-origin: padding-box;
+          background-origin: padding-box;
 }
 
 .button:hover {
