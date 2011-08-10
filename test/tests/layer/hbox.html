@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<title>css forms</title>
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<style type="text/css" media="screen, projection">
+    
+    @import url('../../public/css/reset.css');
+    @import url('../css/test.css');
+    /*@import url('../../public/css/lib/forms.css');*/
+    
+/* hbox and vbox classes */
+ 
+.hbox {
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-align: stretch;
+ 
+	display: -moz-box;
+	-moz-box-orient: horizontal;
+	-moz-box-align: stretch;
+ 
+	display: box;
+	box-orient: horizontal;
+	box-align: stretch;
+}
+ 
+.hbox > * {
+	-webkit-box-flex: 0;
+	-moz-box-flex: 0;
+	box-flex: 0;
+	display: block;
+}
+ 
+.vbox {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-box-align: stretch;
+ 
+	display: -moz-box;
+	-moz-box-orient: vertical;
+	-moz-box-align: stretch;
+ 
+	display: box;
+	box-orient: vertical;
+	box-align: stretch;
+}
+ 
+.vbox > * {
+	-webkit-box-flex: 0;
+	-moz-box-flex: 0;
+	box-flex: 0;
+	display: block;
+}
+ 
+.spacer {
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	box-flex: 1;
+}
+ 
+.reverse {
+	-webkit-box-direction: reverse;
+	-moz-box-direction: reverse;
+	box-direction: reverse;
+}
+ 
+.boxFlex0 {
+	-webkit-box-flex: 0;
+	-moz-box-flex: 0;
+	box-flex: 0;
+}
+ 
+.boxFlex1, .boxFlex {
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	box-flex: 1;
+}
+ 
+.boxFlex2 {
+	-webkit-box-flex: 2;
+	-moz-box-flex: 2;
+	box-flex: 2;
+}
+ 
+.boxGroup1 {
+	-webkit-box-flex-group: 1;
+	-moz-box-flex-group: 1;
+	box-flex-group: 1;
+}
+ 
+.boxGroup2 {
+	-webkit-box-flex-group: 2;
+	-moz-box-flex-group: 2;
+	box-flex-group: 2;
+}
+ 
+.start {
+	-webkit-box-pack: start;
+	-moz-box-pack: start;
+	box-pack: start;
+}
+ 
+.end {
+	-webkit-box-pack: end;
+	-moz-box-pack: end;
+	box-pack: end;
+}
+ 
+.center {
+	-webkit-box-pack: center;
+	-moz-box-pack: center;
+	box-pack: center;
+}
+
+    
+</style>
+
+</head>
+
+<body >
+<div class="hbox center" style="height: 400px; padding: 40px 80px 0 0; margin-right: 80px; background: orange;">
+    <div class="vbox center" style="background: red; height: 100%; width: 100px;">
+        <div style="width: 100px;">one</div>
+        <div>two</div>
+    </div>
+    <div class="vbox center" style="background: green; height: 100%; width: 100px;">
+        <div style="width: 100px;">one</div>
+        <div>two</div>
+    </div>
+</div>
+</body>
+</html>

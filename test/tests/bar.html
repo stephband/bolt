@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<title>css .bar</title>
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<style type="text/css" media="screen, projection">
+    
+    @import url('../template.reset.css');
+    @import url('../template.classes.css');
+    @import url('../template.typography.css');
+    @import url('../template.typography.12_18.css');
+
+    .index {
+        margin-bottom: 1em;
+    }
+
+    .thumbs a {
+        background-color: #cdcdcd;
+        background-image: url('images/tools.png');
+        color: #333739;
+    }
+
+    .bar li,
+    .bar dt,
+    .bar dd {
+        margin-right: 0;
+        height: 2em;
+        line-height: 2;
+        padding: 0 1.6667em 0 1em;
+        background-image: url('../../public/images/bar-arrow-dark.png');
+        background-position: 100% 50%;
+        background-repeat: no-repeat;
+    }
+
+    .bar li:first-child,
+    .bar dt:first-child {
+        padding-left: 1.6667em;
+        -webkit-border-top-left-radius:     1.25em;
+        -moz-border-radius-topleft:         1.25em;
+        border-top-left-radius:             1.25em;
+        -webkit-border-bottom-left-radius:  1.25em;
+        -moz-border-radius-bottomleft:      1.25em;
+        border-bottom-left-radius:          1.25em;
+    }
+
+    .bar li:last-child,
+    .bar dt:last-child,
+    .bar dd:last-child {
+        padding-right: 1.6667em;
+        background-image: none;
+        -webkit-border-top-right-radius:    1.25em;
+        -moz-border-radius-topright:        1.25em;
+        border-top-right-radius:            1.25em;
+        -webkit-border-bottom-right-radius: 1.25em;
+        -moz-border-radius-bottomright:     1.25em;
+        border-bottom-right-radius:         1.25em;
+        
+    }
+
+    .label {
+        font-weight: bold;
+        color: hsl(208, 33%, 92%);
+        background-color: hsl(208, 25%, 36%);
+    }
+
+    .bar .input,
+    .bar input,
+    .bar dt {
+        background-image: url('../../public/images/bar-arrow-light.png');
+        background-color: hsl(208, 25%, 76%);
+    }
+
+    .bar .nonext {
+        background-image: none;
+        padding-right: 1em;
+    }
+    
+</style>
+
+</head>
+
+<body>
+
+<h1>.bar</h1>
+
+<p>The .index class defines a list of inline-blocks. It can be extended to make divided menus, grids of thumbs or icons, or fancy definition lists.</p>
+
+<ul class="bar index">
+    <!-- List must be spaceless -->
+    <li class="label" href="#">Firsin a list</li
+   ><li class="input nonext" href="#">Nextn a list</li
+   ><li class="label" href="#">Penu item in a list</li
+   ><li class="input" href="#">Lastn a list</li
+   ><li class="label" href="#">Okayd</li>
+</ul>
+<dl class="bar index">
+    <!-- List must be spaceless -->
+    <dt class="label" href="#">Firsin a list</dt
+   ><dd class="input nonext" href="#">Nextn a list</dd
+   ><dt class="label" href="#">Penu item in a list</dt
+   ><dd class="input" href="#">Lastn a list</dd
+   ><dt class="label" href="#">Okayd</dt>
+</dl>
+
+<script type="text/javascript" src="../js/jquery-1.4a2.js"></script>
+<script type="text/javascript">
+
+jQuery(document).ready(function(){
+    
+    jQuery("#switch")
+    .toggle( function(e){
+        jQuery(".thumbs")
+        .addClass('icons-only');
+    }, function(e){
+        jQuery(".thumbs")
+        .removeClass('icons-only')
+        .addClass('text-only');
+    }, function(e){
+        jQuery(".thumbs")
+        .removeClass('text-only');
+    });
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<title>css .panel</title>
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<style type="text/css" media="screen, projection">
+    
+    @import url('../reset.css');
+    @import url('css/test.css');
+    @import url('../panel.css');
+    @import url('../index.css');
+    
+    h2 {
+        white-space: pre;
+    }
+    
+    .test {
+        height: 300px;
+        margin: 0 auto 1em;
+        border: 1px dotted #666666;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* buttons.css */
+    /* Stephen Band */
+    /* webdev.stephband.info/buttons */
+    
+    /* Colours and backgrounds */
+    .button, .button span, .button input                    {background: url('../images/liquidbuttons_r14_bg.png'); border: none;}
+    .button                                                 {background-position: right top;}
+    .button span, .button input                             {background-position: left top; color: white;}
+    .button:hover                                           {background-position: right -50px;}
+    .button:hover span, .button:hover input                 {background-position: left -50px; color: white;}
+    .disabled {
+        opacity: 0.4;
+    }
+    
+    /* Layout */
+    /* w  = width of button ends            */
+    /* pl = padding inside left of button   */
+    /* pr = padding inside right of button  */
+    /* h  = button height                   */
+    
+    .button {
+        margin: 0 0 0 14px;                                 /* margin-left: w;                                  */
+        padding: 0 8px 0 0;                                 /* padding-right: pr;                               */
+        display: inline-block; line-height: 0; vertical-align: baseline; cursor: pointer;
+    }
+    .button span, .button input {
+        padding: 0 0 0 22px;                                /* padding-left: w + pl;                            */
+        left: -14px;                                        /* left: -w;                                        */
+        line-height: 28px;                                  /* line-height: height;                             */
+        height: 28px;                                       /* height: h; (FF ignores line-height on <input>s)  */
+        display: inline-block; position: relative; margin: 0;
+        white-space: nowrap; cursor: pointer;
+    }
+    .button span input {
+        margin: 0 -22px 0 -22px;                            /* margin-right: -(w + pr); margin-left: -(w + pl); */
+        padding: 0 22px 0 22px;                             /* padding-right: w + pr;   padding-left: w + pl;   */
+        left: 0; background: none;
+    }
+
+    #content {
+        width: auto;
+        margin-right: 80px;
+    }
+     
+    div.section {
+        margin: 0;
+        padding: 1em 0;
+        border-bottom: 1px solid #afafaf;
+        position: relative;
+    }
+    div.section h3 {
+        padding: 0.8em 0 0 0;
+        margin: 0 0 0.2em 0;
+        clear: both;
+    }
+    div.section p {
+        color: #666666;
+        margin: 0 0 1em 0;
+        font-size: 0.9em;
+        clear: both;
+    }
+     
+    ul.floatul_l {
+        float: left;
+    }
+    ul.floatul_r {
+        float: right;
+    }
+    #absolute {
+        position: absolute;
+        right: 2em;
+        top: 2em;
+    }
+    #relative {
+        position: relative;
+        left: 300px;
+        top: 0;
+    }
+    form {
+        width: 100%;
+    }
+    div.section ul {
+        margin: 0 0;
+    }
+    div.section ul li, form {
+        margin-bottom: 0.8em;
+    }
+    
+</style>
+
+</head>
+
+<body>
+
+<h1>.button</h1>
+ 
+<p>A technique for making CSS buttons that are quite hard to break (but probably not entirely unbreakable!) no matter what positioning you give them. The buttons are constructed with the 'sliding doors' technique, where left and right ends of a single image file are overlapped to give them a flexible widtht. This technique also keeps the number of non-semantic extra elements in the DOM to a minimum: 1 extra &lt;span&gt; for each button.</p> 
+<p>The CSS looks a bit hairy, but it's not as complex as it first seems.  The important thing to realise is that IE uses -ve relative positioning because it doesn't behave correctly when confronted with a -ve margin.</p> 
+<p>Also, in your button image, it's best to separate button shapes by at least 1px of transparent space.  In FF, at certain zoom levels, there is a 1px error that grows the button vertically, and without the transparent space 1px of the background of the next button can be seen.</p> 
+
+<div class="section clear"> 
+    <h3>ul li a.button span</h3> 
+    <ul> 
+        <li><a class="button" href="#"><span>link</span></a></li> 
+        <li><a class="button" href="#"><span>another link</span></a></li> 
+        <li><a class="button" href="#"><span>and... another</span></a> with some screed that follows it.</li> 
+    </ul> 
+    <h3>ul{float: left} li a.button span</h3> 
+    <ul class="floatul_l"> 
+        <li><a class="button" href="#"><span>link</span></a></li> 
+        <li><a class="button" href="#"><span>another link</span></a></li> 
+        <li><a class="button" href="#"><span>and... another</span></a> with some screed that follows it.</li> 
+    </ul> 
+    <h3>ul{float: right} li a.button span</h3> 
+    <ul class="floatul_r"> 
+        <li><a class="button" href="#"><span>link</span></a></li> 
+        <li><a class="button" href="#"><span>another link</span></a></li> 
+        <li><a class="button" href="#"><span>and... another</span></a> with some screed that follows it.</li> 
+    </ul> 
+    <h3>ul li{float: left} a.button span</h3> 
+    <ul class="float_l clear"> 
+        <li><a class="button" href="#"><span>link</span></a></li> 
+        <li><a class="button" href="#"><span>another link</span></a></li> 
+        <li class="last"><a class="button" href="#"><span>and... another</span></a> with some screed that follows it.</li> 
+    </ul> 
+ 
+    <h3>ul{float: right} li {float: left} a.button span</h3> 
+    <ul class="floatul_r float_l clear"> 
+        <li><a class="button" href="#"><span>link</span></a></li> 
+        <li><a class="button" href="#"><span>another link</span></a></li> 
+        <li class="last"><a class="button" href="#"><span>and... another</span></a> with some screed that follows it.</li> 
+    </ul> 
+</div> 
+ 
+<div class="section clear"> 
+    <h3>form span.button input</h3> 
+    <form> 
+        <span class="button"><input type="submit" value="PLEASE PRESS ME" /></span> some text that follows.
+    </form> 
+    <p>ALL BROWSERS: Hit zone does not include the far right-hand side of the button, because the button has to be 'wrapped' around the input rather than the other way around.</p> 
+    <p>To sort both these problems use the following construct:</p> 
+    
+    <h3>form span.button span input</h3> 
+    <form> 
+        <span class="button"><span><input type="submit" value="PLEASE PRESS ME TOO" /></span></span> some text that follows.
+    </form> 
+    <h3>form label.button span input</h3> 
+    <form> 
+        <label class="button"><span><input type="submit" value="PLEASE PRESS ME TOO" /></span></label> some text that follows.
+    </form> 
+ 
+    <p>IE6: does not respond to :hover on inputs, so the background-position of the graphic (and thus the colour) does not change. Could be fixed with a little javascript.</p> 
+</div> 
+ 
+<div class="section clear"> 
+    <h3>p a.button span</h3> 
+    <p>There follows some screed with a button in the middle. There follows some screed with a button in the middle. There follows some screed with a button in the middle. This is some screed with a <a href="http://" class="button"><span>button</span></a> in the middle. That was some screed with a button in the middle.   That was some screed with a button in the middle.  That was some screed with a button in the middle.  That was some screed with a button in the middle.</p> 
+</div> 
+ 
+<div class="section"> 
+    <h3>a.button{position: relative} span</h3> 
+    <a href="http://" id="relative" class="button"><span>relative button</span></a> 
+</div> 
+<div class="section" style="height: 4em;"> 
+    <h3>a.button{position: absolute} span</h3> 
+    <a href="http://" id="absolute" class="button"><span>absolute button</span></a> 
+</div> 
+<br /><br /> 
+ 
+<h3>The &lt;button&gt; tag</h3> 
+<p>Some tests were done using the &lt;button&gt; tag, as it would be an ideally semantic way to make buttons.  Unfortunately it has major problems, and it's largely FireFox at fault.  Firefox does not display button contents that have been shifted outside of the boundaries of button tag, whether -ve margined, relatively or absolutely positioned. It's as if overflow: hidden is always defined. Makes using this technique a bit difficult. IE6 just weirds out. Not sure what it's doing. For one thing, it doesn't respond to :hover, so the background colour does not change. Opera and Safari get it right.</p> 
+    <p>So the &lt;button&gt; tag is a no-no.  Read here about other problems with the button tag:</p> 
+    <ul> 
+        <li><a href="http://particletree.com/features/rediscovering-the-button-element/">particletree.com/features/rediscovering-the-button-element/</a></li> 
+        <li><a href="http://www.peterbe.com/plog/button-tag-in-IE">www.peterbe.com/plog/button-tag-in-IE</a></li> 
+        <li><a href="http://www.kopz.org/public/documents/css/multiple_buttons_ie_workaround.html">www.kopz.org/public/documents/css/multiple_buttons_ie_workaround.html</a></li> 
+    </ul> 
+
+<script type="text/javascript" src="../js/jquery-1.4.js"></script>
+<script type="text/javascript" src="../../public/js/jquery.extensions.js"></script>
+<script type="text/javascript" src="../../public/js/jquery.panel.js"></script>
+<script type="text/javascript">
+
+jQuery(function(){
+    
+    jQuery('.panel').panel();
+    
+});
+
+</script>
+
+</body>
+</html>
