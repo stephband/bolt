@@ -42,6 +42,19 @@ textarea {
     box-sizing:         border-box;
 }
 
+/* 
+  No worky in Chrome. It's a bug.
+*/
+::-webkit-input-placeholder {
+  line-height: 2em;
+  height: 2em;
+}
+
+input:-moz-placeholder {
+  line-height: 2em;
+  height: 2em;
+}
+
 label,
 .label,
 input,
@@ -105,14 +118,14 @@ input[type='search'],
 input[type='color'],
 input[type='tel'],
 textarea {
-    opacity: 0.88;
+    opacity: 0.92;
     padding: 0 0.3333em;
     /* Nudge up the baseline position in FF. Doesn't affect Webkit */
     padding-bottom: 0.077em;
 }
 
 select {
-  opacity: 0.88;
+  opacity: 0.92;
   /* Nudge down the baseline position in FF.  Doesn't affect Webkit.
      Only needed when you're overriding the system-style select boxes.
      You can override by doing almost any manipulation to the border, in FF */

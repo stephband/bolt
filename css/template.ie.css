@@ -50,6 +50,11 @@ button {
   background-position: 0 0;
 }
 
+.chromeframe_browser_thumb {
+  background-image: url('../images/thumbs/logo_chromeframe.gif');
+  background-position: 0 0;
+}
+
 /* .index, .column */
 
 .index > li,

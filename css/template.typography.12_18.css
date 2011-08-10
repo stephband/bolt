@@ -61,6 +61,7 @@ ol:last-child,
 dl:last-child,
 li:last-child,
 pre:last-child,
+form:last-child,
 address:last-child,
 blockquote:last-child { margin-bottom: 0; }
 

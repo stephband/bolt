@@ -69,6 +69,9 @@
 .popup_layer {
 	position: fixed;
 	
+	/* Center inline-block contents */
+	text-align: center;
+	
 	background-color: rgba(0,0,0,0.6);
 	
 	opacity: 0;
@@ -93,17 +96,16 @@
 }
 
 .popup {
-  position: absolute;
-  left: 50%;
-  top: 50%;
+	/* Use inline-block to make popup collapse
+	   to the width of its contents. */
+	display: inline-block;
   
-  width: 854px;
-  height: 480px;
-  margin-left: -427px;
-  margin-top: -240px;
+  /* Act as position parent */
+  position: relative;
   
 	padding: 0.8333em;
-  margin: 3.3333em auto 0 auto;
+  margin: 5em 0 3em 0;
+  max-width: 72%;
   
   background-color: white;
   
@@ -111,11 +113,30 @@
      -moz-border-radius: 0.3333em;
           border-radius: 0.3333em;
   
-  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-     -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-          box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+     -moz-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+          box-shadow: 0 2px 24px rgba(0,0,0,0.6);
 }
 
+.popup > img,
+.popup > canvas,
+.popup > object,
+.popup > embed {
+	max-width: 100%;
+	width: auto;
+	height: auto;
+	display: block;
+}
+
+.popup > .close_button {
+	position: absolute;
+	top: -0.8333em;
+	right: -0.8333em;
+	
+  -webkit-box-shadow: 0 0 24px rgba(0,0,0,0.6);
+     -moz-box-shadow: 0 0 24px rgba(0,0,0,0.6);
+          box-shadow: 0 0 24px rgba(0,0,0,0.6);
+}
 
 /* TODO: We should be able to merge the .gif technique with
    the <canvas> technique, so that when canvas is not available
@@ -907,6 +928,7 @@
 
 .menu_button,
 .tab_button {
+  width: 100%;
 	padding-left: 0.8333em;
 	padding-right: 0.8333em;
   text-align: left;
@@ -922,9 +944,6 @@
           border-radius: 0;
 }
 
-.menu_button {
-	width: 100%;
-}
 
 /* .thumb */
 
@@ -938,8 +957,6 @@
   padding-top: 64px;
   height: 0;
   width: 64px;
-  
-  background-size: 64px 64px;
   
   -webkit-background-size: cover;
      -moz-background-size: cover;
@@ -1012,7 +1029,6 @@
   white-space: nowrap;
   
   background-image: url('../../images/thumbs/browser_logos.png');
-  
   -moz-background-size: 342px 64px;
        background-size: 342px 64px;
 }
@@ -1034,6 +1050,7 @@
 /* ---- */
 
 .card {
+	display: block;
   min-height: 5.8333em;
   
   padding-top:    0.8333em; 
@@ -1041,8 +1058,7 @@
   padding-bottom: 0;
   padding-left:   70px;
   
-  color: rgb(106,121,139);
-  background-color: rgb(255,255,255);
+  background-repeat: no-repeat;
   
   /* Act as position parent */
   position: relative;
@@ -1058,9 +1074,6 @@
   position: absolute;
   top: 0.8333em;
   left: 0.8333em;
-  width:  50px;
-  height: 50px;
-  padding-top: 50px;
 }
 
 .card a,
@@ -1078,19 +1091,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.card h6 {
-  font-size:1em;
-  font-weight: normal;
-}
-
-.card p {
-  line-height: 1.5;
-  margin-bottom: 0.75em;
-}
-.card p+p {
-  margin-top: 0;
 }
 
 .card ul.meta_index {
@@ -1164,26 +1164,15 @@
 /*  .url */
 
 
-/* Media styles inlined to avoid additional http request
-   www.phpied.com/delay-loading-your-print-css/ */
-
-@media all and (orientation:portrait) {
-  /* Style for portrait mode */
-}
-
-@media all and (orientation:landscape) {
-  /* Style for landscape mode */
-}
-
 @media screen and (max-device-width: 480px) {
   /* Grade-A mobile browsers */
-  /*html {
+  html {
     -webkit-text-size-adjust: none;
     -ms-text-size-adjust: none;
-  }*/
+  }
 }
 
-@media print {
+/*@media print {
   html, body { background: transparent; text-shadow: none !important; }
   a, a:visited { text-decoration: underline; }
   a:after { content: " (" attr(href) ")"; font-size: 0.9167em; }
@@ -1197,7 +1186,7 @@
   
   p, h2, h3 { orphans: 3; widows: 3; }
   
-  h2, h3{ page-break-after: avoid; }
+  h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
 }
 
 
@@ -1219,3 +1208,12 @@
  * instance, showing / hiding a .loading_icon when its parent has .loading), but the state
  * class (in this case .loading) must not have style applied.
  */
+
+
+/* Positioning */
+ 
+.tl, .tr, .bl, .br { position: absolute; }
+.tl, .tr { top: 0; }
+.bl, .br { bottom: 0; }
+.tl, .bl { left: 0; }
+.tr, .br { right: 0; }
