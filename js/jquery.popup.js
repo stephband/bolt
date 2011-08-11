@@ -38,12 +38,27 @@
 			options = {
 				layerClass: 'popup_layer layer',
 				popupClass: 'popup'
-			};
+			},
+			
+			docElem = jQuery(document.documentElement);
 	
 	function show( popup, fn, context ) {
+		var scrollLeft = jQuery('html').scrollLeft(),
+		    scrollTop = jQuery('html').scrollTop();
+		
 		popup
 		.appendTo('body')
 		.addTransitionClass('active');
+		
+		// Remove scrollbars from the documentElement
+		docElem.css({ overflow: 'hidden' });
+		
+		// FF has a nasty habit of linking the scroll parameters
+		// of document with the documentElement, causing the page
+		// to jump when overflow is hidden on the documentElement.
+		// Reset the scroll position.
+		if (scrollTop) { docElem.scrollTop(scrollTop); }
+		if (scrollLeft) { docElem.scrollLeft(scrollLeft); }
 		
 		return fn && fn.call( context );
 	}
@@ -52,7 +67,17 @@
 		popup
 		.removeTransitionClass('active', {
 			callback: function(){
+				var scrollLeft = jQuery('html').scrollLeft(),
+				    scrollTop = jQuery('html').scrollTop();
+		    
 				popup.remove();
+				
+				docElem.css({ overflow: '' });
+				
+				// FF fix. Reset the scroll position.
+				if (scrollTop) { docElem.scrollTop(scrollTop); }
+				if (scrollLeft) { docElem.scrollLeft(scrollLeft); }
+				
 				fn && fn.call( context );
 			}
 		});
@@ -67,21 +92,7 @@
 				wrap = jQuery('<div/>', { 'class': options.popupClass }),
 				css = {}, width, height;
 		
-		// A l'arrache
-		if (options.width) {
-			width = parseInt(options.width) + 20;
-			css.width = width;
-			css.marginLeft = -width/2;
-		}
-		
-		if (options.height) {
-			height = parseInt(options.height) + 20;
-			css.height = height;
-			css.marginTop = -height/2;
-		}
-		
 		if (options.width || options.height) {
-			console.log(css);
 			wrap.css(css);
 		}
 		
@@ -94,6 +105,19 @@
 		show( layer, options.showCallback, this );
 		
 		return this;
+	};
+	
+	// .lightbox() automatically adds a close button to this 
+	// collection, then calls .popup() on it.
+	
+	jQuery.fn.lightbox = function(o){
+		// If we don't create the close button this way - if we write out the html
+		// and have the browser parse it, IE7 cocks up the href, adding the whole
+		// path in front of it first. Not what we want.
+		
+		return this
+		.add(jQuery('<a/>', { 'class': "close_button button", href: "#close", html: "Close" }))
+		.popup(o);
 	};
 	
 	// .alert() automatically adds an 'OK' button to this 

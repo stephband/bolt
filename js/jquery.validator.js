@@ -494,14 +494,6 @@
 				'float':		    /^(\-?\d+(?:\.\d+)?)$/
 			},
 			
-			urlBlacklist = [
-				'http://nytimes.com', 'http://www.nytimes.com',
-				'http://newyorktimes.com', 'http://www.newyorktimes.com',
-				'http://gmail.com', 'http://www.gmail.com',
-				'http://softpedia.com', 'http://www.softpedia.com',
-				'http://twitter.com', 'http://www.twitter.com'
-			],
-			
 			// Data types
 			dataTypes = {
 				
@@ -618,28 +610,8 @@
 						pass( obj );
 					}
 					catch (error) {
-						fail('That doesn\'t validate as JSON, matey.');
+						fail('That doesn\'t validate as JSON.');
 						if (debug) { console.log( '[validator] Fail error:', error ); }
-					}
-				},
-				
-				webdoc_iframe_url: function( value, pass, fail ) {
-					var pattern_has_protocole = /^(ftp|http|https):\/\/?(\w*)/;
-					var consolidateSrc = "";
-					
-					if (jQuery.fn.validator.regex.url.test(value)) {
-						if (value.match(pattern_has_protocole)) {
-							consolidateSrc = value;
-						}
-						else {
-							consolidateSrc = "http://" + value;
-						}
-						
-						test_url = 'http://' + consolidateSrc.split('://')[1].split('/')[0];
-										 
-						return (jQuery.inArray(test_url, urlBlacklist) === -1) ?
-									 pass() :
-									 fail('URL blacklisted due to the way the site uses frames') ;
 					}
 				}
 			};
