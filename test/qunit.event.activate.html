@@ -33,15 +33,6 @@
 	<!-- testing -->
 	<link rel="stylesheet" type="text/css" href="/qunit/qunit/qunit.css" media="screen">
 	<link rel="stylesheet" type="text/css" href="css/test.css" />
-	
-	<script>
-		// We want to test the reaction to location.hash, so reload
-		// the page with a testable hash.
-		if (!window.location.hash || window.location.hash !== '#test1') {
-			window.location.hash = '#test1';
-			window.location.reload();
-		}
-	</script>
 </head>
 
 <body>
@@ -55,13 +46,16 @@
 		<a href="#test3">Activate link 5</a>
 		<a href="#test3">Activate link 6</a>
 		
+		<a href="#test4">Activate link 5</a>
+		<a href="#test4">Activate link 6</a>
+		
 		<div id="test1"></div>
 		
-		<div id="test2" class="tab">
-			<div id="test3" class="tab">
-				
-			</div>
-		</div>
+		<div id="test2"></div>
+		
+		<div id="test3" class="dropdown"></div>
+		
+		<div id="test4" class="tab"></div>
 	</div>
 	
 	<h1 id="qunit-header">/template</h1>
@@ -70,11 +64,10 @@
 	<h2 id="qunit-userAgent"></h2>
 	<ol id="qunit-tests"></ol>
 	
-	<!--[if IE 6]><script src="iepngfix/iepngfix_tilebg.js"></script><![endif]-->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/jquery.js"%3E%3C/script%3E'));</script>
 	<script src="../js/jquery.event.activate.js"></script>
-	<script src="../js/jquery.transitions.js"></script>
+	<script src="../js/template.ui.js"></script>
 	
 	<!-- testing -->
 	<script src="/qunit/qunit/qunit.js"></script>
