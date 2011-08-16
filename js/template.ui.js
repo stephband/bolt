@@ -188,6 +188,24 @@ jQuery.noConflict();
 (function(document, undefined){
 	var doc = jQuery(document);
 	
+	function fieldData(target) {
+		var field = jQuery(target),
+		    name = field.attr('name'),
+		    data = field.data('field');
+		
+		if (!data){
+			data = {
+				field: field,
+				fields: jQuery('input[name="'+name+'"]'),
+				label: jQuery('label[for="'+field[0].id+'"]')
+			};
+			
+			field.data('field', data);
+		}
+		
+		return data;
+	}
+	
 	doc
 	
 	// Extend the events emitted by input[type='range']
@@ -224,6 +242,38 @@ jQuery.noConflict();
 		jQuery(this).validate({
 			fail: function(){ e.preventDefault(); }
 		});
+	})
+	
+	// Active classes for radio input labels
+	
+	.delegate('input[type="radio"]', 'change', function(e){
+		var data = fieldData(e.target);
+		
+		data.fields.trigger('statechange');
+	})
+	
+	.delegate('input[type="radio"]', 'statechange', function(e) {
+		var data = fieldData(e.target);
+		
+		if (data.field.prop('checked')) {
+			data.label.addClass('active');
+		}
+		else {
+			data.label.removeClass('active');
+		}
+	})
+	
+	// Active classes for checkbox input labels
+	
+	.delegate('input[type="checkbox"]', 'change', function(e) {
+		var data = fieldData(e.target);
+		
+		if (data.field.prop('checked')) {
+			data.label.addClass('active');
+		}
+		else {
+			data.label.removeClass('active');
+		}
 	});
 	
 	// Create placeholder labels when browser does not
