@@ -1,11 +1,12 @@
 /**
+ * Adds <details> support - includes stylesheet 
  * Note that this script is intended to be included at the *end* of the document, before </body>
+ * 
+ * https://gist.github.com/370590
  */ 
 (function (window, document) {
 if ('open' in document.createElement('details')) return; 
 
-
- 
 // made global by myself to be reused elsewhere
 var addEvent = (function () {
   if (document.addEventListener) {
@@ -99,7 +100,7 @@ function addStyle() {
       head = document.getElementsByTagName('head')[0],
       key = style.innerText === undefined ? 'textContent' : 'innerText';
       
-  var rules = ['details[open] summary:before {content: "\u25BC";} details summary:before {content: "\u25B6";} details{display: block;}','details > *{display: none;}','details.open > *{display: block;}','details[open] > *{display: block;}','details > summary:first-child{display: block;cursor: pointer;}','details[open]{display: block;}'];
+  var rules = ['details[open] summary:before {content: "\u25BC\240";} details summary:before {content: "\u25B6\240";} details{display: block;}','details > *{display: none;}','details.open > *{display: block;}','details[open] > *{display: block;}','details > summary:first-child{display: block;cursor: pointer;}','details[open]{display: block;}'];
       i = rules.length;
   
   style[key] = rules.join("\n");
@@ -123,10 +124,8 @@ while (i--) {
  
   if (first != null && first.nodeName.toUpperCase() == 'SUMMARY') {
     // we've found that there's a details label already
-    console.log("we've found that there's a details label already");
     
   } else {
-	  console.log("we've found that there's NO details label already");
     // first = label.cloneNode(true); // cloned nodes weren't picking up styles in IE - random
     first = document.createElement('summary');
     first.appendChild(document.createTextNode('Details'));
@@ -137,36 +136,15 @@ while (i--) {
     }
   }
   
-  // TODO: ADD DISCLOSURE WIDGET
-  
-  var widget = document.createElement("span");
-  widget.className = "widget";
-  var widget_fill = document.createTextNode("\240");
-  widget.appendChild(widget_fill);
-
  
   // this feels *really* nasty, but we can't target details :text in css :(
   j = details[i].childNodes.length;
   while (j--) {
-	  console.log("details[i].childNodes[j].nodeName = " + details[i].childNodes[j].nodeName);
-	  console.log("details[i].childNodes[j].nodeValue = " + details[i].childNodes[j].nodeValue);
     if (details[i].childNodes[j].nodeName === '#text' && (details[i].childNodes[j].nodeValue||'').replace(/\s/g, '').length) {
-		console.log("creating element text");
       wrapper = document.createElement('text');
       wrapper.appendChild(details[i].childNodes[j]);
       details[i].insertBefore(wrapper, details[i].childNodes[j]);
     }
-    
-    if(details[i].childNodes[j].nodeName === 'SUMMARY'){
-		
-		summary_child_count = details[i].childNodes[j].childNodes.length;
-		
-		if(summary_child_count === 1){
-			var inserted_widget = details[i].childNodes[j].insertBefore(widget, details[i].childNodes[j].childNodes[0]);
-		}
-		
-	}
-    
   }
   
   first.legend = true;
@@ -174,7 +152,7 @@ while (i--) {
 }
  
 // trigger details in case this being used on it's own
-// document.createElement('details'); // Useless in FF . ????
+document.createElement('details');
 addEvent(details, 'click', toggleDetails);
 addEvent(details, 'keypress', toggleDetails);
 addStyle();
