@@ -137,6 +137,8 @@ jQuery.cookie = function(name, value, options) {
     jQuery.support.css.boxSizing = (testElem.outerWidth() === 100 && testElem.outerHeight() === 100) ? 'border-box' : 'content-box';
     
     testElem.css({
+      height: 'auto',
+      width: 'auto',
       minWidth: 100,
       minHeight: 100
     });
@@ -144,7 +146,7 @@ jQuery.cookie = function(name, value, options) {
     jQuery.support.css.minWidth = testElem.outerWidth() === 100 ? 'border-box' : 'content-box' ;
     jQuery.support.css.minHeight = testElem.outerHeight() === 100 ? 'border-box' : 'content-box' ;
     
-    console.log(jQuery.support.css.minWidth, jQuery.support.css.minHeight)
+    console.log(testElem.css('minWidth'), testElem.outerWidth(), jQuery.support.css.minWidth, jQuery.support.css.minHeight)
     
     testElem.remove();
   //});
