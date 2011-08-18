@@ -11,8 +11,8 @@ jQuery.noConflict();
 	var support = jQuery.support,
 			classes = [];
 	
-	classes.push('min-height('+support.css.minHeight+')');
-	classes.push('min-width('+support.css.minWidth+')');
+	classes.push('min-height_'+support.css.minHeight);
+	classes.push('min-width_'+support.css.minWidth);
 	
 	jQuery(document.documentElement).addClass(classes.join(' '));
 })(jQuery);
