@@ -123,24 +123,31 @@ jQuery.cookie = function(name, value, options) {
   
   jQuery.support.css = {};
   
-  jQuery(document).ready(function(){
+  //jQuery(document).ready(function(){
     // Test for box-sizing support and figure out whether
     // min-width or min-height fucks it or not.  Store in:
     // jQuery.support.css.borderBox
     // jQuery.support.css.borderBoxMinMax
     document.body.appendChild( testElem[0] );
     
-    jQuery.support.css.borderBox = ( testElem.outerWidth() === 100 && testElem.outerHeight() === 100 );
+    /* Legacy */
+    jQuery.support.css.borderBox = (testElem.outerWidth() === 100 && testElem.outerHeight() === 100);
+    
+    /* New */
+    jQuery.support.css.boxSizing = (testElem.outerWidth() === 100 && testElem.outerHeight() === 100) ? 'border-box' : 'content-box';
     
     testElem.css({
       minWidth: 100,
       minHeight: 100
     });
     
-    jQuery.support.css.borderBoxMinMax = ( testElem.outerWidth() === 100 && testElem.outerHeight() === 100 );
+    jQuery.support.css.minWidth = testElem.outerWidth() === 100 ? 'border-box' : 'content-box' ;
+    jQuery.support.css.minHeight = testElem.outerHeight() === 100 ? 'border-box' : 'content-box' ;
+    
+    console.log(jQuery.support.css.minWidth, jQuery.support.css.minHeight)
     
     testElem.remove();
-  });
+  //});
 })(jQuery);
 
 // Stores browser scrollbar width as jQuery.support.scrollbarWidth
