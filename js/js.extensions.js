@@ -9,13 +9,15 @@ window.τ = 2 * π;
 
 // Nullify console.logs when console.log is not present
 
-if (!window.console) {
-	function noop() {}
-	
-	window.console = {
-		log: noop
-	};
-}
+(function(){
+	if (!window.console) {
+		var noop = jQuery ? jQuery.noop : function() {} ;
+		
+		window.console = {
+			log: noop
+		};
+	}
+})();
 
 // typeOf( obj )
 //
