@@ -43,8 +43,6 @@ jQuery.noConflict();
 	    	
 	    	'.popdown': {
 	    		activate: function(e) {
-	    			console.log('activate popdown');
-	    			
 	    			// We bind to document.body so that old popdowns are closed before new
 	    			// ones are opened. Otherwise the deactivate from the old popdown
 	    			// unbinds the mousedown function from the new popdown.
@@ -52,16 +50,12 @@ jQuery.noConflict();
 	    		},
 	    		
 	    		deactivate: function(e) {
-	    			console.log('deactivate popdown');
-	    			
 	    			jQuery.event.remove(document.body, 'mousedown touchstart', mousedown);
 	    		}
 	    	},
 	    	
 	    	'.dropdown': {
 	    		activate: function(e) {
-	    			console.log('activate dropdown');
-	    			
 	    			// We bind to document.body so that old dropdowns are closed before new
 	    			// ones are opened. Otherwise the deactivate from the old dropdown
 	    			// unbinds the mousedown function from the new dropdown.
@@ -70,8 +64,6 @@ jQuery.noConflict();
 	    		},
 	    		
 	    		deactivate: function(e) {
-	    			console.log('deactivate dropdown');
-	    			
 	    			jQuery.event.remove(document.body, 'mousedown touchstart', mousedown);
 	    			jQuery.event.remove(e.currentTarget, 'click', click);
 	    		}
