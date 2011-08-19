@@ -4,14 +4,13 @@
 
 jQuery.noConflict();
 
+
 // Handle dropdowns, popdowns and tabs
 
 (function( jQuery, undefined ){
 	var types = {
 	    	'.tab': {
 	    		activate: function(e) {
-	    			console.log('activate tab');
-	    			
 	    			var tab = jQuery(e.target),
 	    			    data = tab.data('tab'),
 	    			    selector, tabs, l;
@@ -23,27 +22,23 @@ jQuery.noConflict();
 	    					tabs = jQuery(selector);
 	    				}
 	    				else {
-	    					tabs = tab.siblings('.tab');
+	    					tabs = tab.siblings('.tab').add(e.target);
 	    				}
 	    				
 	    				// Attach the tabs object to each of the tabs
 	    				l = tabs.length;
 	    				while (l--) {
-	    					jQuery.data(tabs[l], 'tab', {
-	    						tabs: tabs
-	    					});
+	    					jQuery.data(tabs[l], 'tab', { tabs: tabs });
 	    				}
 	    			}
 	    			else {
 	    				tabs = data.tabs;
 	    			}
 	    			
-	    			tabs.filter('.active').trigger('deactivate');
+	    			tabs.trigger('deactivate');
 	    		},
 	    		
-	    		deactivate: function(e) {
-	    			console.log('deactivate tab');
-	    		}
+	    		deactivate: jQuery.noop
 	    	},
 	    	
 	    	'.popdown': {
@@ -187,7 +182,6 @@ jQuery.noConflict();
 	})
 	.delegate('a[href="#close"]', 'click', close)
 	.delegate('.tab', 'activate', types['.tab'].activate)
-	.delegate('.tab', 'deactivate', types['.tab'].deactivate)
 	.delegate('.popdown', 'activate', types['.popdown'].activate)
 	.delegate('.popdown', 'deactivate', types['.popdown'].deactivate)
 	.delegate('.dropdown', 'activate', types['.dropdown'].activate)
