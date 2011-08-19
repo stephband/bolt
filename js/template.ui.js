@@ -9,33 +9,40 @@ jQuery.noConflict();
 (function( jQuery, undefined ){
 	var types = {
 	    	'.tab': {
-	    		activate: activate,
+	    		activate: jQuery.noop,
 	    		deactivate: jQuery.noop
 	    	},
 	    	
 	    	'.popdown': {
-	    		activate: activate,
-	    		deactivate: deactivate
+	    		activate: function(e) {
+	    			// We bind to document.body so that old popdowns are closed before new
+	    			// ones are opened. Otherwise the deactivate from the old popdown
+	    			// unbinds the mousedown function from the new popdown.
+	    			jQuery.event.add(document.body, 'mousedown touchstart', mousedown, { target: e.target });
+	    		},
+	    		
+	    		deactivate: function(e) {
+	    			jQuery.event.remove(document.body, 'mousedown touchstart', mousedown);
+	    		}
 	    	},
 	    	
 	    	'.dropdown': {
-	    		activate: activate,
-	    		deactivate: deactivate
+	    		activate: function(e) {
+	    			// We bind to document.body so that old dropdowns are closed before new
+	    			// ones are opened. Otherwise the deactivate from the old dropdown
+	    			// unbinds the mousedown function from the new dropdown.
+	    			jQuery.event.add(document.body, 'mousedown touchstart', mousedown, { target: e.target });
+	    			jQuery.event.add(e.currentTarget, 'click', click);
+	    		},
+	    		
+	    		deactivate: function(e) {
+	    			jQuery.event.remove(document.body, 'mousedown touchstart', mousedown);
+	    			jQuery.event.remove(e.currentTarget, 'click', click);
+	    		}
 	    	}
 	    },
-	    
-	    selector = Object.keys(types).join(', '),
-	    
-	    actions = {
-				'#deactivate': function(e, link) {
-					var target = link.closest(selector);
-					
-					if (target.length) {
-						e.preventDefault();
-						target.trigger('deactivate');
-					}
-				}
-			};
+	
+	    selector = Object.keys(types).join(', ');
 	
 	function activate(elem) {
 		elem.trigger('activate');
@@ -45,15 +52,57 @@ jQuery.noConflict();
 		elem.trigger('deactivate');
 	}
 	
-	// Clicks on buttons toggle activate on their targets
-	jQuery(document).delegate('a[href^="#"]', 'click', function(e) {
+	function preventDefault(e) {
+		e.preventDefault();
+	}
+	
+	function mousedown(e) {
+		var target = e.data.target,
+		    data;
+		
+		// If event is in it or on it, do nothing.
+		if (target === e.target || jQuery.contains(target, e.target)) {
+			return;
+		}
+		
+		//data = jQuery.data(target, 'active');
+		
+		jQuery(target).trigger('deactivate');
+	}
+	
+	function click(e) {
+		// If we've clicked on a file input inside it, wait
+		// for the input to change. This is a fix for file
+		// inputs not firing change events when they're made
+		// invisible. Deserves further investigation.
+		if (e.target.nodeName.toLowerCase() === 'input' && document.getAttribute('type') === 'file') {
+			jQuery.event.add(e.target, 'change', function(e){
+				jQuery(target).trigger('deactivate');
+			});
+			
+			return;
+		}
+		
+		jQuery(e.currentTarget).trigger('deactivate');
+	}
+	
+	function close(e) {
+		var elem = jQuery(e.currentTarget).closest(selector);
+		
+		if (elem.length) {
+			e.preventDefault();
+			elem.trigger('deactivate');
+		}
+	}
+	
+	
+	jQuery(document)
+	
+	// Mousedown on buttons toggle activate on their targets
+	.delegate('a[href^="#"]', 'mousedown touchstart', function(e) {
 		var link = jQuery(e.currentTarget),
 				href = link.attr('href'),
-				elem, data, type;
-		
-		if (actions[href]) {
-			return actions[href](e, link);
-		}
+				elem, data, type, t;
 		
 		elem = jQuery(href);
 		
@@ -68,277 +117,39 @@ jQuery.noConflict();
 			type = data.type;
 		}
 		else {
-			for (type in types) {
-				if (elem.is(type)) { break; }
-				else { type = undefined; }
+			for (t in types) {
+				if (elem.is(t)) {
+					type = t;
+					break;
+				}
 			}
 		}
 		
-		// If it has no type, we have no business trying to activate it.
+		// If it has no type, we have no business trying to activate
+		// it on mousedown.
 		if (!type) { return; }
 		
-		// Call the setup or teardown for this type.
-		if (data) {
-			types[type][data.state ? 'deactivate' : 'activate'](elem);
+		e.preventDefault();
+		
+		link.bind('click', preventDefault);
+		
+		if ((data && data.state) || elem.hasClass('active')) {
+			
 		}
 		else {
-			types[type].activate(elem);
-			jQuery.data(elem[0], 'active').type = type;
+			elem.trigger('activate');
+			
+			if (!data) {
+			  jQuery.data(elem[0], 'active').type = type;
+			}
 		}
-		
-		e.preventDefault();
-	});
+	})
+	.delegate('a[href="#close"]', 'click', close)
+	.delegate('.popdown', 'activate', types['.popdown'].activate)
+	.delegate('.popdown', 'deactivate', types['.popdown'].deactivate)
+	.delegate('.dropdown', 'activate', types['.dropdown'].activate)
+	.delegate('.dropdown', 'deactivate', types['.dropdown'].deactivate);
 })( jQuery );
-
-
-
-
-
-
-
-
-
-
-//
-// TODO: I've found some serious problems in here. It works, 
-// but not without really doubling some calls. If you click on an
-// opening link for a popdown/dropdown/stopdown, all is well, but
-// if you now click on it while the object is active, the object
-// first receives an activate event, then a deactivate event, because
-// the original click handler is first called. In fact the only reason
-// it works is if we can gaurantee that handlers that are bound later get
-// called later. Which is true, but we shouldn't rely on it.
-
-//(function(jQuery, undefined){
-//	
-//	var debug = (window.console && console.log);
-//	
-//	var doc = jQuery(document),
-//			objects = {};
-//	
-//	function type(object) {
-//		var type;
-//		for (type in setup) {
-//			if (object.hasClass(type)) {
-//				return type;
-//			}
-//		}
-//	}
-//	
-//	function store(selector, options, fn) {
-//		var object;
-//		
-//		// Cache the obj against the selector, or false when
-//		// there is no object. Buttons can have a many-to-one
-//		// relationship to objects, so we search for them all.
-//		
-//		if ( objects[selector] === undefined ) {
-//			object = options.object || jQuery(selector);
-//			
-//			objects[selector] = object.length ? {
-//				button: options.button || jQuery('a[href="'+selector+'"]'),
-//				object: object,
-//				type: type(object)
-//			} : false ;
-//		}
-//		
-//		if (objects[selector] && fn) {
-//			fn(objects[selector].button, objects[selector].object, objects[selector].type);
-//		}
-//	}
-//	
-//	// !Handlers
-//	
-//	var setup = {
-//		tab: (function(){
-//			// Keep data about tabs
-//			var tabsdata = {};
-//			
-//			return function(selector, button, object, fn){
-//				var data = tabsdata[selector],
-//						contents = object.add(object.siblings('.tab'));
-//				
-//				if (data){
-//					// Ignore clicks on an already active button
-//					if (data.activeObject[0] === object[0]) { return; }
-//					
-//					data.activeObject.trigger('deactivate');
-//				}
-//				else {
-//					data = {};
-//				
-//					// Give data to all tabs in this tab index
-//					contents.each(function(i){
-//						var elem = jQuery(this),
-//								selector = '#' + this.id;
-//						
-//						tabsdata[selector] = data;
-//						
-//						store(selector, { object: elem }, function(button, object){
-//							object.trigger('deactivate');
-//							// Hmmm. deactivate has not yet been bound,
-//							// so the above has no effect.
-//							button.removeClass('active');
-//							object.removeTransitionClass('active');
-//							
-//						});
-//					});
-//				}
-//				
-//				data.activeObject = object;
-//				
-//				fn && fn();
-//			};
-//		})(),
-//		
-//		popdown: function(selector, button, object, fn){
-//			// For popdown and dropdown:
-//			function click(e) {
-//				var target = jQuery(e.target);
-//				
-//				// If the click is inside it, or is on it, do nothing.
-//				if (object[0] === e.target || jQuery.contains(object[0], e.target)) {
-//					return;
-//				}
-//				
-//				object.trigger({ type: 'deactivate' });
-//			}
-//			
-//			doc.bind('click', click);
-//			
-//			fn && fn(function(){
-//				doc.unbind('click', click);
-//			});
-//		},
-//		
-//		stopdown: function(selector, button, object, fn){
-//			function click(e) {
-//				var l = button.length;
-//				
-//				while (l--) {
-//					if (button[l] === jQuery(e.target).closest('a')[0]) {
-//						object.trigger({ type: 'deactivate' });
-//					}
-//				}
-//			}
-//			
-//			doc.bind('click', click);
-//			
-//			fn && fn(function() {
-//				doc.unbind('click', click);
-//			});
-//		},
-//		
-//		dropdown: function(selector, button, object, fn){
-//			// For popdown and dropdown:
-//			function click(e) {
-//				var target = jQuery(e.target);
-//				
-//				// If we've clicked on a file input inside it, wait
-//				// for the input to change. This is a fix for file
-//				// inputs not firing change events when they're made
-//				// invisible. Deserves further investigation.
-//				if (jQuery.contains( object[0], e.target ) && target.is('input[type="file"]') ) {
-//					target.bind('change', function(e){
-//						object.trigger({ type: 'deactivate' });
-//					});
-//					
-//					return;
-//				}
-//				
-//				object.trigger({ type: 'deactivate' });
-//			}
-//			
-//			doc
-//			.bind('click', click);
-//			
-//			fn && fn(function(){
-//				doc.unbind('click', click);
-//			});
-//		}
-//	}
-//	
-//	function activate(e) {
-//		var id = e.currentTarget.id,
-//				selector = '#'+id;
-//		
-//		store(selector, { object: jQuery(e.currentTarget) }, function(button, object, type){
-//			// Set up based on type
-//			setup[type] && setup[type](selector, button, object, function(deactivateFn){
-//				button.addClass('active');
-//				
-//				object
-//				.addTransitionClass('active')
-//				.bind('deactivate', {button: button, object: object, fn: deactivateFn}, deactivate);
-//			});
-//		});
-//	}
-//	
-//	function deactivate(e) {
-//		// Check that the event is coming from this node
-//		if (e.target !== e.currentTarget) { return; }
-//		
-//		e.data.button.removeClass('active');
-//		
-//		e.data.object
-//		.removeTransitionClass('active')
-//		.unbind('deactivate', deactivate);
-//		
-//		e.data.fn && e.data.fn();
-//	}
-//	
-//	var actions = {
-//		'#close': function(button) {
-//			var object = button.closest('.popup, .popdown, .dropdown, .stopdown, .tab');
-//			
-//			object.length && object.trigger('deactivate');
-//		}
-//	}
-//	
-//	doc
-//	.delegate('.popup, .popdown, .dropdown, .stopdown, .tab', 'activate', activate)
-//	.delegate('a', 'click', function(e) {
-//		var button = jQuery( e.currentTarget ),
-//				href = button.attr('href'),
-//				hashRefFlag = /^#/.test( href );
-//		
-//		// Don't even bother if the clicked link isn't a hash ref
-//		if (!hashRefFlag) { return; }
-//		
-//		if (actions[href]) { return actions[href](button); }
-//		
-//		// Store the object if it is not already stored
-//		store(href, { button: button }, function(button, object){
-//			object.trigger('activate');
-//			
-//			// Don't let the click do anything browsery.
-//			e.preventDefault();
-//		});
-//	})
-//	
-//	// Activate the node that corresponds to the hashref
-//	// in the location bar. 
-//	
-//	.ready(function(){
-//		var href = window.location.hash;
-//		
-//		// Check if it's an alphanumeric id selector (not a hash bang).
-//		if (!href || !(/^#[a-zA-Z0-9]/.exec(href))) { return; }
-//		
-//		store(href, {}, function(button, object){
-//			object.trigger('activate');
-//		});
-//	});
-//})( jQuery );
-
-
-
-
-
-
-
-
-
 
 
 
@@ -551,7 +362,7 @@ jQuery.noConflict();
 				    elem = jQuery(this),
 				    id = input.id || identify(input),
 				    value = input.value,
-				    height = input.tagName.toLowerCase() === 'input' ?
+				    height = input.nodeName.toLowerCase() === 'input' ?
 				    	elem.height() : 20,
 				    text = elem.attr('placeholder'),
 				    placeholder = jQuery('<label/>', {

@@ -169,6 +169,10 @@
 			jQuery('<h1 style="width: 38%; text-align: right;">Classes</h1>').appendTo('body');
 			logElem.appendTo('body');
 			jQuery('<div style="clear:both;"/>').appendTo('body');
+		},
+		
+		logEvents: function(e) {
+			console.log(e.type, e);
 		}
 	};
 })(window);

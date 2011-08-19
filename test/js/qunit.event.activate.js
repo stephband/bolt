@@ -42,9 +42,26 @@ jQuery(document).ready(function(){
 		ok( !jQuery('#test2').hasClass('active'), 'div has class .active' );
 	});
 	
-	test('Dropdowns should deactivate', 3, function() {
+	test('Dropdowns should deactivate on button click', 3, function() {
 		jQuery('#test3').trigger('activate');
-		jQuery('a[href="#test3"]').eq(0).trigger('click');
+		
+		jQuery('a[href="#test3"]').eq(0)
+		.trigger('mousedown')
+		.trigger('mouseup')
+		.trigger('click');
+		
+		ok( !jQuery('a[href="#test3"]').eq(0).hasClass('active'), 'Link has lost class .active');
+		ok( !jQuery('a[href="#test3"]').eq(1).hasClass('active'), 'Link has lost class .active');
+		ok( !jQuery('#test3').hasClass('active'), 'div has lost class .active' );
+	});
+	
+	test('Dropdowns deactivate on mousedown outside', 3, function() {
+		jQuery('#test3').trigger('activate');
+		
+		jQuery('#test1')
+		.trigger('mousedown')
+		.trigger('mouseup')
+		.trigger('click');
 		
 		ok( !jQuery('a[href="#test3"]').eq(0).hasClass('active'), 'Link has lost class .active');
 		ok( !jQuery('a[href="#test3"]').eq(1).hasClass('active'), 'Link has lost class .active');
@@ -53,7 +70,11 @@ jQuery(document).ready(function(){
 	
 	test('Tabs should not deactivate', 3, function() {
 		jQuery('#test4').trigger('activate');
-		jQuery('a[href="#test4"]').eq(0).trigger('click');
+		
+		jQuery('a[href="#test4"]').eq(0)
+		.trigger('mousedown')
+		.trigger('mouseup')
+		.trigger('click');
 		
 		ok( jQuery('a[href="#test4"]').eq(0).hasClass('active'), 'First Link still has class .active');
 		ok( jQuery('a[href="#test4"]').eq(1).hasClass('active'), 'Second Link still has class .active');
