@@ -9,12 +9,47 @@ jQuery.noConflict();
 (function( jQuery, undefined ){
 	var types = {
 	    	'.tab': {
-	    		activate: jQuery.noop,
-	    		deactivate: jQuery.noop
+	    		activate: function(e) {
+	    			console.log('activate tab');
+	    			
+	    			var tab = jQuery(e.target),
+	    			    data = tab.data('tab'),
+	    			    selector, tabs, l;
+	    			
+	    			if (!data) {
+	    				selector = tab.data('selector');
+	    				
+	    				if (selector) {
+	    					tabs = jQuery(selector);
+	    				}
+	    				else {
+	    					tabs = tab.siblings('.tab');
+	    				}
+	    				
+	    				// Attach the tabs object to each of the tabs
+	    				l = tabs.length;
+	    				while (l--) {
+	    					jQuery.data(tabs[l], 'tab', {
+	    						tabs: tabs
+	    					});
+	    				}
+	    			}
+	    			else {
+	    				tabs = data.tabs;
+	    			}
+	    			
+	    			tabs.filter('.active').trigger('deactivate');
+	    		},
+	    		
+	    		deactivate: function(e) {
+	    			console.log('deactivate tab');
+	    		}
 	    	},
 	    	
 	    	'.popdown': {
 	    		activate: function(e) {
+	    			console.log('activate popdown');
+	    			
 	    			// We bind to document.body so that old popdowns are closed before new
 	    			// ones are opened. Otherwise the deactivate from the old popdown
 	    			// unbinds the mousedown function from the new popdown.
@@ -22,12 +57,16 @@ jQuery.noConflict();
 	    		},
 	    		
 	    		deactivate: function(e) {
+	    			console.log('deactivate popdown');
+	    			
 	    			jQuery.event.remove(document.body, 'mousedown touchstart', mousedown);
 	    		}
 	    	},
 	    	
 	    	'.dropdown': {
 	    		activate: function(e) {
+	    			console.log('activate dropdown');
+	    			
 	    			// We bind to document.body so that old dropdowns are closed before new
 	    			// ones are opened. Otherwise the deactivate from the old dropdown
 	    			// unbinds the mousedown function from the new dropdown.
@@ -36,6 +75,8 @@ jQuery.noConflict();
 	    		},
 	    		
 	    		deactivate: function(e) {
+	    			console.log('deactivate dropdown');
+	    			
 	    			jQuery.event.remove(document.body, 'mousedown touchstart', mousedown);
 	    			jQuery.event.remove(e.currentTarget, 'click', click);
 	    		}
@@ -145,6 +186,8 @@ jQuery.noConflict();
 		}
 	})
 	.delegate('a[href="#close"]', 'click', close)
+	.delegate('.tab', 'activate', types['.tab'].activate)
+	.delegate('.tab', 'deactivate', types['.tab'].deactivate)
 	.delegate('.popdown', 'activate', types['.popdown'].activate)
 	.delegate('.popdown', 'deactivate', types['.popdown'].deactivate)
 	.delegate('.dropdown', 'activate', types['.dropdown'].activate)

@@ -1,6 +1,6 @@
 // jquery.transitions.js
 // 
-// 1.8
+// 1.6
 // 
 // Feature detects CSS transitions and provides a means to manage
 // transitions that start or end with un-transitionable properties
@@ -24,28 +24,14 @@
 				left: -9999,
 				width: 100,
 				height: 100,
-				WebkitTransition: 'top 0.01s linear',
-				MozTransition: 'top 0.01s linear',
-				OTransition: 'top 0.01s linear',
-				transition: 'top 0.01s linear'
+				WebkitTransition: 'top 0.001s linear',
+				MozTransition: 'top 0.001s linear',
+				OTransition: 'top 0.001s linear',
+				transition: 'top 0.001s linear'
 			}),
 			transitionClass = 'transition',
 			addOptions = { fallback: makeFallback(true) },
 			removeOptions = { fallback: makeFallback(false) },
-			autoProperties = {
-				'height': true,
-				'width': true,
-				'margin-left': true,
-				'margin-right': true
-			},
-			keywordProperties = {
-				'display': true,
-				'overflow': true
-			},
-			transitionStr,
-			transitionPropertyStr,
-			cssTransitionNone,
-			cssTransitionEmpty,
 			timer;
 	
 	function makeFallback(add) {
@@ -62,8 +48,14 @@
 				return;
 			}
 			
-			doClass.call(elem, className);
-			transition = this.css('transition') || (window.getComputedStyle && getComputedStyle(this[0], null).transition) ;
+			doClass.call(elem, className).addClass(transitionClass);
+			
+			transition = (
+				// For IE6, IE7, IE8
+				this.css('transition') ||
+				// For IE9
+				(window.getComputedStyle && getComputedStyle(this[0], null).transition)
+			);
 			
 			if (transition) {
 				// IE, even though it doesn't support CSS transitions, at least
@@ -89,10 +81,6 @@
 						callback && callback.apply(this);
 					}
 				};
-
-				// transitionClass must be added before anything is measured, else
-				// IE8 goes marching merrily off into compatibility mode.
-				elem.addClass(transitionClass);
 				
 				// Regex should be looser, to allow incompolete transition definitions...
 				transition.replace(/([a-z\-]+)\s+([^\s]+)\s+([a-z\-]+)/g, function($match, $key, $duration, $easing) {
@@ -123,165 +111,57 @@
 	}
 	
 	function end(e){
-		var elem = e.data.obj,
-				style = e.data.style,
-				callback = e.data.callback,
-				properties = e.data.properties,
-				property = e.originalEvent.propertyName;
+		var callback = e.data.callback;
 		
-		properties.splice(properties.indexOf(property), 1);
-		
-		// If properties are still animating, do nothing.
-		if (properties.length) { return; }
-		
-		elem.unbind(jQuery.support.cssTransitionEnd, end);
-		
-		// Reset the style attribute to how it was before
-		if (style) { elem.attr('style', style); }
-		else { elem.removeAttr('style'); }
-		
-		// Stop transitions and repaint
-		elem.css(cssTransitionNone).width();
-		
-		if (style) { elem.attr('style', style); }
-		else { elem.removeAttr('style'); }
-		
-		elem.data('preTransitionStyle', false);
-		
-		elem.removeClass(transitionClass);
+		e.data.obj
+		.unbind( jQuery.support.cssTransitionEnd, end )
+		.removeClass( transitionClass );
 		
 		callback && callback.call(e.data.obj);
 	}
 	
-	
 	// jQuery plugins
 	
-	function applyClass(elem, doMethod, undoMethod, classNames, options) {
-		var autoValues = {},
-		    cssStart = {},
-		    cssEnd = {},
-		    style, flag, properties, property, l;
-		
-		elem
-		.addClass(transitionClass)
+	function addTransitionClass( classNames, options ) {
+		// Add the transition class then force the
+		// browser to reflow by measuring something.
+		this
+		.addClass( transitionClass )
 		.width();
 		
-		// Measure the values of auto properties. We must do this before
-		// adding the class and testing for transition (unfortunately),
-		// because if they are transition properties, auto values collapse
-		// to 0. And that's what we're trying to avoid.
-		for (property in autoProperties) {
-			autoValues[property] = elem.css(property);
-		}
+		this
+		.unbind(jQuery.support.cssTransitionEnd, end)
+		.bind(jQuery.support.cssTransitionEnd, { obj: this, callback: options && options.callback }, end)
+		.addClass(classNames);
 		
-		doMethod.call(elem, classNames);
-		
-		// Make array out of transition properties.
-		properties = (elem.css(transitionPropertyStr) || elem.css('MozTransitionProperty')).split(/\s*,\s*/);
-		durations = (elem.css(transitionDurationStr) || elem.css('MozTransitionDuration')).split(/\s*,\s*/);
-		
-		if (durations.length > 1 || parseFloat(durations[0]) > 0) {
-		  if (debug) { console.log('[jquery.transitions]', properties, durations); }
-			
-			l = properties.length;
-			style = elem.data('preTransitionStyle', style);
-			
-			if (!style) {
-				style = elem.attr('style');
-				elem.data('preTransitionStyle', style);
-			}
-			
-		  while (l--) {
-				property = properties[l];
-				
-				if (autoProperties[property]) {
-					if (!flag) {
-						// Apply a stop to the transitions
-						elem.css(cssTransitionNone);
-						flag = true;
-					}
-					
-					// Store their pre-transition value
-					cssStart[property] = autoValues[property];
-					
-					// Measure their post-transition value
-					cssEnd[property] = elem.css(property);
-					
-					if (debug) { console.log('[jquery.transitions]', property+' start:', cssStart[property], 'end:', cssEnd[property]); }
-				}
-				
-				if (keywordProperties[property]) {
-					//console.log('keyword property', property, (parseFloat(jQuery.trim(elem.css(transitionStr+'Delay')).split(',')[l])) || (parseFloat(jQuery.trim(elem.css(transitionStr+'Duration')).split(',')[l])));
-					// This is ok because we're looping backwards through
-					// the properties array, so our index, l, still goes onto
-					// the 'next' entry.
-					properties.splice(l, 1);
-				}
-			}
-			
-			if (flag) {
-				// Apply the pre-transition values and force a repaint.
-				undoMethod.call(elem, classNames).css(cssStart).width();
-				
-				// Apply the post-transition values and re-enable transitions.
-				jQuery.extend(cssEnd, cssTransitionEmpty);
-				
-				doMethod.call(elem, classNames)
-				.css(cssEnd)
-				.unbind(jQuery.support.cssTransitionEnd, end)
-				.bind(jQuery.support.cssTransitionEnd, { obj: elem, callback: options && options.callback, properties: properties }, end);
-			}
-		}
-		else {
-			options.callback && options.callback.call(elem);
-		}
-	}
-	
-	function addTransitionClass(classNames, options) {
-		applyClass(this, jQuery.fn.addClass, jQuery.fn.removeClass, classNames, options);
 		return this;
 	}
 	
-	function removeTransitionClass(classNames, options) {
-		applyClass(this, jQuery.fn.removeClass, jQuery.fn.addClass, classNames, options);
+	function removeTransitionClass( classNames, options ) {
+		// Add the transition class then force the
+		// browser to reflow by measuring something.
+		this
+		.addClass( transitionClass )
+		.width();
+		
+		this
+		.unbind(jQuery.support.cssTransitionEnd, end)
+		.bind(jQuery.support.cssTransitionEnd, { obj: this, callback: options && options.callback }, end)
+		.removeClass( classNames );
+		
 		return this;
 	}
 	
 	// Feature testing for transitionend event
 	
-	function removeTest() {
+	function removeTest(){
 		clearTimeout(timer);
 		timer = null;
 		testElem.remove();
 	}
 	
-	var setVars = {
-		transitionend: function() {
-			// The standard, but could also be -moz-.
-			transitionStr = 'transition';
-			transitionPropertyStr = 'transitionProperty';
-			transitionDurationStr = 'transitionDuration';
-			cssTransitionNone = { transition: 'none', MozTransition: 'none' };
-			cssTransitionEmpty = { transition: '', MozTransition: '' };
-		},
-		webkitTransitionEnd: function() {
-			transitionStr = 'WebkitTransition';
-			transitionPropertyStr = 'WebkitTransitionProperty';
-			transitionDurationStr = 'WebkitTransitionDuration';
-			cssTransitionNone = { WebkitTransition: 'none' };
-			cssTransitionEmpty = { WebkitTransition: '' };
-		},
-		oTransitionEnd: function() {
-			transitionStr = 'OTransition';
-			transitionPropertyStr = 'OTransitionProperty';
-			transitionDurationStr = 'OTransitionDuration';
-			cssTransitionNone = { OTransition: 'none' };
-			cssTransitionEmpty = { OTransition: '' };
-		}
-	}
-	
-	function transitionEnd(e) {
-		if (debug) { console.log('[jquery.transitions] Transition feature test: PASS'); }
+	function transitionEnd(e){
+		if (debug) { console.log('[jquery.transitions] CSS transition support detected.'); }
 		
 		// Get rid of the test element
 		removeTest();
@@ -289,9 +169,6 @@
 		// Store flags in jQuery.support
 		jQuery.support.cssTransition = true;
 		jQuery.support.cssTransitionEnd = e.type;
-		
-		// Store local variables
-		setVars[e.type]();
 		
 		// Redefine addTransitionClass and removeTransitionClass
 		jQuery.fn.addTransitionClass = addTransitionClass;
@@ -304,7 +181,7 @@
 	
 	// Easing functions 'borrowed' from jQuery UI, renamed to meet
 	// the CSS spec. TODO: At some point, we should rewrite these
-	// to exactly match ths CSS spec, which is:
+	// to exactly match ths CSS spec:
 	//
 	// ease: cubic-bezier(0,0,1,1)
 	// ease-in: cubic-bezier(0.25,0.1,0.25,1)
@@ -347,33 +224,24 @@
 	docElem
 	.bind('transitionend webkitTransitionEnd oTransitionEnd', transitionEnd)
 	.ready(function(){
-		var wait = setTimeout(function() {
-			clearTimeout(wait);
-			wait = null;
+		// Put the test element in the body
+		testElem.appendTo('body');
+		
+		// Force the browser to reflow.
+		testElem.width();
+		
+		// Apply CSS to trigger a transition
+		testElem.css({ top: -300 });
+		
+		// Set a timeout for the transition test to finish, and if it does not,
+		// get rid of the test element. Opera requires a much greater delay
+		// than the time the transition should take, worryingly.
+		timer = setTimeout(function(){
+			removeTest();
 			
-			if (debug) { console.log('[jquery.transitions] Running transition feature test.'); }
-			
-			// Put the test element in the body
-			testElem.appendTo('body');
-			
-			// Force the browser to reflow.
-			testElem.width();
-			
-			// Apply CSS to trigger a transition
-			testElem.css({ top: -300 });
-			
-			// Set a timeout for the transition test to finish, and if it does not,
-			// get rid of the test element. Opera requires a much greater delay
-			// than the time the transition should take, worryingly.
-			timer = setTimeout(function(){
-				removeTest();
-				
-				if (debug) { console.log('[jquery.transitions] Transition feature test: FAIL'); }
-				
-				// Store flags in jQuery.support
-				jQuery.support.cssTransition = false;
-				jQuery.support.cssTransitionEnd = false;
-			}, 100);
-		}, 1);
+			// Store flags in jQuery.support
+			jQuery.support.cssTransition = false;
+			jQuery.support.cssTransitionEnd = false;
+		}, 100);
 	});
 })(jQuery);
