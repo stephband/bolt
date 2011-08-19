@@ -18,23 +18,10 @@ jQuery.noConflict();
 })(jQuery);
 
 
-// Add css support classes to html
-
-(function(jQuery, undefined){
-	var support = jQuery.support,
-			classes = [];
-	
-	classes.push('min-height_'+support.css.minHeight);
-	classes.push('min-width_'+support.css.minWidth);
-	
-	jQuery(document.documentElement).addClass(classes.join(' '));
-})(jQuery);
-
-
 // Handle dropdowns, popdowns and tabs
 
 (function( jQuery, undefined ){
-	var types = {
+	var classes = {
 	    	'.tab': {
 	    		activate: function(e) {
 	    			var tab = jQuery(e.target),
@@ -96,7 +83,7 @@ jQuery.noConflict();
 	    	}
 	    },
 	
-	    selector = Object.keys(types).join(', ');
+	    selector = Object.keys(classes).join(', ');
 	
 	function activate(elem) {
 		elem.trigger('activate');
@@ -171,7 +158,7 @@ jQuery.noConflict();
 			type = data.type;
 		}
 		else {
-			for (t in types) {
+			for (t in classes) {
 				if (elem.is(t)) {
 					type = t;
 					break;
@@ -199,11 +186,11 @@ jQuery.noConflict();
 		}
 	})
 	.delegate('a[href="#close"]', 'click', close)
-	.delegate('.tab', 'activate', types['.tab'].activate)
-	.delegate('.popdown', 'activate', types['.popdown'].activate)
-	.delegate('.popdown', 'deactivate', types['.popdown'].deactivate)
-	.delegate('.dropdown', 'activate', types['.dropdown'].activate)
-	.delegate('.dropdown', 'deactivate', types['.dropdown'].deactivate);
+	.delegate('.tab', 'activate', classes['.tab'].activate)
+	.delegate('.popdown', 'activate', classes['.popdown'].activate)
+	.delegate('.popdown', 'deactivate', classes['.popdown'].deactivate)
+	.delegate('.dropdown', 'activate', classes['.dropdown'].activate)
+	.delegate('.dropdown', 'deactivate', classes['.dropdown'].deactivate);
 })( jQuery );
 
 
