@@ -146,6 +146,8 @@ jQuery.cookie = function(name, value, options) {
     jQuery.support.css.minWidth = testElem.outerWidth() === 100 ? 'border-box' : 'content-box' ;
     jQuery.support.css.minHeight = testElem.outerHeight() === 100 ? 'border-box' : 'content-box' ;
     
+    console.log(jQuery.support.css.minWidth, jQuery.support.css.minHeight)
+    
     testElem.remove();
   //});
 })(jQuery);
