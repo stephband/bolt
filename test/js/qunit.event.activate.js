@@ -8,7 +8,7 @@ jQuery(document).ready(function(){
 		  window.location.hash = '#test1';
 		  window.location.reload();
 		}
-
+		
 		ok( jQuery('a[href="#test1"]').eq(0).hasClass('active'), 'First link has class .active');
 		ok( jQuery('a[href="#test1"]').eq(1).hasClass('active'), 'Second link has class .active');
 		ok( jQuery('#test1').hasClass('active'), 'div has class .active' );
@@ -58,13 +58,13 @@ jQuery(document).ready(function(){
 	test('Dropdowns deactivate on mousedown outside', 3, function() {
 		jQuery('#test3').trigger('activate');
 		
-		jQuery('#test1')
+		jQuery(document.body)
 		.trigger('mousedown')
 		.trigger('mouseup')
 		.trigger('click');
 		
-		ok( !jQuery('a[href="#test3"]').eq(0).hasClass('active'), 'Link has lost class .active');
-		ok( !jQuery('a[href="#test3"]').eq(1).hasClass('active'), 'Link has lost class .active');
+		ok( !jQuery('a[href="#test3"]').eq(0).hasClass('active'), 'First link has lost class .active');
+		ok( !jQuery('a[href="#test3"]').eq(1).hasClass('active'), 'Second link has lost class .active');
 		ok( !jQuery('#test3').hasClass('active'), 'div has lost class .active' );
 	});
 	
