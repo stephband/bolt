@@ -49,36 +49,48 @@ jQuery.noConflict();
 	    			}
 	    			
 	    			tabs.trigger('deactivate');
-	    		},
-	    		
-	    		deactivate: jQuery.noop
+	    		}
 	    	},
 	    	
 	    	'.popdown': {
 	    		activate: function(e) {
-	    			// We bind to document.body so that old popdowns are closed before new
-	    			// ones are opened. Otherwise the deactivate from the old popdown
-	    			// unbinds the mousedown function from the new popdown.
-	    			jQuery.event.add(document.body, 'mousedown touchstart', mousedown, { target: e.target });
-	    		},
-	    		
-	    		deactivate: function(e) {
-	    			jQuery.event.remove(document.body, 'mousedown touchstart', mousedown);
+	    			var target = e.currentTarget,
+	    			    mousedown = function(e) {
+						    	// If event is in it or on it, do nothing.
+						    	if (target === e.target || jQuery.contains(target, e.target)) { return; }
+						    	
+						    	jQuery(target).trigger('deactivate');
+	    			    },
+	    			    deactivate = function(e) {
+	    			    	if (target !== e.target) { return; }
+	    			    	jQuery.event.remove(document, 'mousedown touchstart', mousedown);
+	    			    	jQuery.event.remove(target, 'deactivate', deactivate);
+	    			    };
+	    			
+	    			jQuery.event.add(document, 'mousedown touchstart', mousedown);
+	    			jQuery.event.add(target, 'deactivate', deactivate);
 	    		}
 	    	},
 	    	
 	    	'.dropdown': {
 	    		activate: function(e) {
-	    			// We bind to document.body so that old dropdowns are closed before new
-	    			// ones are opened. Otherwise the deactivate from the old dropdown
-	    			// unbinds the mousedown function from the new dropdown.
-	    			jQuery.event.add(document.body, 'mousedown touchstart', mousedown, { target: e.target });
-	    			jQuery.event.add(e.currentTarget, 'click', click);
-	    		},
-	    		
-	    		deactivate: function(e) {
-	    			jQuery.event.remove(document.body, 'mousedown touchstart', mousedown);
-	    			jQuery.event.remove(e.currentTarget, 'click', click);
+	    			var target = e.currentTarget,
+	    			    mousedown = function(e) {
+						    	// If event is in it or on it, do nothing.
+						    	if (target === e.target || jQuery.contains(target, e.target)) { return; }
+						    	
+						    	jQuery(target).trigger('deactivate');
+	    			    },
+	    			    deactivate = function(e) {
+	    			    	if (target !== e.target) { return; }
+	    			    	jQuery.event.remove(document, 'mousedown touchstart', mousedown);
+	    			    	jQuery.event.remove(target, 'click', click);
+	    			    	jQuery.event.remove(target, 'deactivate', deactivate);
+	    			    };
+	    			
+	    			jQuery.event.add(document, 'mousedown touchstart', mousedown);
+	    			jQuery.event.add(target, 'click', click);
+	    			jQuery.event.add(target, 'deactivate', deactivate);
 	    		}
 	    	}
 	    },
@@ -95,20 +107,6 @@ jQuery.noConflict();
 	
 	function preventDefault(e) {
 		e.preventDefault();
-	}
-	
-	function mousedown(e) {
-		var target = e.data.target,
-		    data;
-		
-		// If event is in it or on it, do nothing.
-		if (target === e.target || jQuery.contains(target, e.target)) {
-			return;
-		}
-		
-		//data = jQuery.data(target, 'active');
-		
-		jQuery(target).trigger('deactivate');
 	}
 	
 	function click(e) {
@@ -188,12 +186,8 @@ jQuery.noConflict();
 	.delegate('a[href="#close"]', 'click', close)
 	.delegate('.tab', 'activate', classes['.tab'].activate)
 	.delegate('.popdown', 'activate', classes['.popdown'].activate)
-	.delegate('.popdown', 'deactivate', classes['.popdown'].deactivate)
-	.delegate('.dropdown', 'activate', classes['.dropdown'].activate)
-	.delegate('.dropdown', 'deactivate', classes['.dropdown'].deactivate);
+	.delegate('.dropdown', 'activate', classes['.dropdown'].activate);
 })( jQuery );
-
-
 
 
 // Handle form elements

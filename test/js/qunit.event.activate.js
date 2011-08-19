@@ -32,7 +32,7 @@ jQuery(document).ready(function(){
 		ok( !jQuery('#test2').hasClass('active'), 'div does not have class .active' );
 	});
 	
-	module('Activate by click');
+	module('Activate by mousedown');
 	
 	test('Untyped should not activate', 3, function() {
 		jQuery('a[href="#test2"]').eq(0).trigger('click');
