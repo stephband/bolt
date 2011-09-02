@@ -23,50 +23,46 @@ jQuery.noConflict();
 (function( jQuery, undefined ){
 	var classes = {
 	    	'.tab': {
-	    		activate: function(e) {
-	    			var tab = jQuery(e.target),
-	    			    data = tab.data('tab'),
-	    			    selector, tabs, l;
-	    			
-	    			if (!data) {
-	    				selector = tab.data('selector');
-	    				
-	    				if (selector) {
-	    					tabs = jQuery(selector);
-	    				}
-	    				else {
-	    					tabs = tab.siblings('.tab').add(e.target);
-	    				}
-	    				
-	    				// Attach the tabs object to each of the tabs
-	    				l = tabs.length;
-	    				while (l--) {
-	    					jQuery.data(tabs[l], 'tab', { tabs: tabs });
-	    				}
-	    			}
-	    			else {
-	    				tabs = data.tabs;
-	    			}
-	    			
-	    			tabs.trigger('deactivate');
-	    		}
+	    		activate: activatePane
+	    	},
+	    	
+	    	'.slide': {
+	    		activate: activatePane
 	    	},
 	    	
 	    	'.popdown': {
-	    		activate: function(e) {
-	    			var target = e.currentTarget,
-	    			    mousedown = function(e) {
-						    	// If event is in it or on it, do nothing.
-						    	if (target === e.target || jQuery.contains(target, e.target)) { return; }
-						    	
-						    	jQuery(target).trigger('deactivate');
-	    			    },
-	    			    deactivate = function(e) {
-	    			    	if (target !== e.target) { return; }
-	    			    	jQuery.event.remove(document, 'mousedown touchstart', mousedown);
-	    			    	jQuery.event.remove(target, 'deactivate', deactivate);
-	    			    };
+					activate: function(e) {
+	    			// Default is prevented indicates that this link has already
+	    			// been handled, possibly by an inner pane.
+	    			if (e.isDefaultPrevented()) { return; }
+					
+						var target = e.currentTarget,
+						    elem = jQuery(target);
+						
+						function mousedown(e) {
+							// If event is in it or on it, do nothing.
+							if (target === e.target || jQuery.contains(target, e.target)) { return; }
+							
+							jQuery(target).trigger('deactivate');
+	    			}
 	    			
+	    			function close(e) {
+	    				// A prevented default indicates that this link has already
+	    				// been handled, possibly by an inner pane.
+	    				if (e.isDefaultPrevented()) { return; }
+	    				
+	    				elem.trigger('deactivate');
+	    			}
+	    			
+	    			function deactivate(e) {
+	    				if (target !== e.target) { return; }
+	    				
+	    				elem.undelegate('a[href="#close"]', 'click', close);
+	    				jQuery.event.remove(document, 'mousedown touchstart', mousedown);
+	    				jQuery.event.remove(target, 'deactivate', deactivate);
+	    			}
+	    			
+	    			elem.delegate('a[href="#close"]', 'click', close);
 	    			jQuery.event.add(document, 'mousedown touchstart', mousedown);
 	    			jQuery.event.add(target, 'deactivate', deactivate);
 	    		}
@@ -74,19 +70,22 @@ jQuery.noConflict();
 	    	
 	    	'.dropdown': {
 	    		activate: function(e) {
-	    			var target = e.currentTarget,
-	    			    mousedown = function(e) {
-						    	// If event is in it or on it, do nothing.
-						    	if (target === e.target || jQuery.contains(target, e.target)) { return; }
-						    	
-						    	jQuery(target).trigger('deactivate');
-	    			    },
-	    			    deactivate = function(e) {
-	    			    	if (target !== e.target) { return; }
-	    			    	jQuery.event.remove(document, 'mousedown touchstart', mousedown);
-	    			    	jQuery.event.remove(target, 'click', click);
-	    			    	jQuery.event.remove(target, 'deactivate', deactivate);
-	    			    };
+	    			var target = e.currentTarget;
+	    			
+	    			function mousedown(e) {
+							// If event is in it or on it, do nothing.
+							if (target === e.target || jQuery.contains(target, e.target)) { return; }
+							
+							jQuery(target).trigger('deactivate');
+	    			}
+	    			
+	    			function deactivate(e) {
+	    				if (target !== e.target) { return; }
+	    			  
+	    				jQuery.event.remove(document, 'mousedown touchstart', mousedown);
+	    				jQuery.event.remove(target, 'click', click);
+	    				jQuery.event.remove(target, 'deactivate', deactivate);
+	    			}
 	    			
 	    			jQuery.event.add(document, 'mousedown touchstart', mousedown);
 	    			jQuery.event.add(target, 'click', click);
@@ -109,7 +108,76 @@ jQuery.noConflict();
 		e.preventDefault();
 	}
 	
+	function activatePane(e) {
+	  var pane = jQuery(e.target),
+	      data = pane.data('activePane'),
+		    selector, panes, l;
+	      
+		function prev(e) {
+			// A prevented default indicates that this link has already
+			// been handled, possibly by an inner pane.
+			if (e.isDefaultPrevented()) { return; }
+			
+			var i = panes.index(pane) - 1;
+			
+			if (i < 0) { i = panes.length - 1; }
+			
+			panes.eq(i).trigger('activate');
+			e.preventDefault();
+		}
+		
+		function next(e) {
+			// A prevented default indicates that this link has already
+			// been handled, possibly by an inner pane.
+			if (e.isDefaultPrevented()) { return; }
+			
+			var i = panes.index(pane) + 1;
+			
+			if (i >= panes.length) { i = 0; }
+			
+			panes.eq(i).trigger('activate');
+			e.preventDefault();
+		}
+		
+	  function deactivate(e) {
+			if (pane[0] !== e.target) { return; }
+			
+			pane.undelegate('a[href="#prev"]', 'click', prev);
+			pane.undelegate('a[href="#next"]', 'click', next);
+			jQuery.event.remove(e.target, 'deactivate', deactivate);
+		}
+	  
+	  if (!data) {
+	  	selector = pane.data('selector');
+	  	
+	  	if (selector) {
+	  		panes = jQuery(selector);
+	  	}
+	  	else {
+	  		// Choose all sibling panes of the same class
+	  		panes = pane.siblings(pane.hasClass('tab') ? '.tab' : '.slide').add(e.target);
+	  	}
+	  	
+	  	// Attach the panes object to each of the panes
+	  	l = panes.length;
+	  	while (l--) {
+	  		jQuery.data(panes[l], 'activePane', { panes: panes });
+	  	}
+	  }
+	  else {
+	  	panes = data.panes;
+	  }
+	  
+	  panes.trigger('deactivate');
+	  
+	  pane.delegate('a[href="#prev"]', 'click', prev);
+	  pane.delegate('a[href="#next"]', 'click', next);
+	  jQuery.event.add(pane[0], 'deactivate', deactivate);
+	}
+	
 	function click(e) {
+		var target = e.currentTarget;
+		
 		// If we've clicked on a file input inside it, wait
 		// for the input to change. This is a fix for file
 		// inputs not firing change events when they're made
@@ -125,24 +193,19 @@ jQuery.noConflict();
 		jQuery(e.currentTarget).trigger('deactivate');
 	}
 	
-	function close(e) {
-		var elem = jQuery(e.currentTarget).closest(selector);
-		
-		if (elem.length) {
-			e.preventDefault();
-			elem.trigger('deactivate');
-		}
-	}
-	
 	
 	jQuery(document)
 	
 	// Mousedown on buttons toggle activate on their targets
 	.delegate('a[href^="#"]', 'mousedown touchstart', function(e) {
-		var link = jQuery(e.currentTarget),
-				href = link.attr('href'),
-				elem, data, type, t;
+		var link, href, elem, data, type, t;
 		
+		// Default is prevented indicates that this link has already
+		// been handled. Save ourselves the overhead of further handling.
+		if (e.isDefaultPrevented()) { return; }
+		
+		link = jQuery(e.currentTarget);
+		href = link.attr('href');
 		elem = jQuery(href);
 		
 		if (elem.length === 0) { return; }
@@ -183,8 +246,8 @@ jQuery.noConflict();
 			}
 		}
 	})
-	.delegate('a[href="#close"]', 'click', close)
 	.delegate('.tab', 'activate', classes['.tab'].activate)
+	.delegate('.slide', 'activate', classes['.slide'].activate)
 	.delegate('.popdown', 'activate', classes['.popdown'].activate)
 	.delegate('.dropdown', 'activate', classes['.dropdown'].activate);
 })( jQuery );
