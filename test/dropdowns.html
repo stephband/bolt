@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" class="no_js">
+<head>
+	<meta charset="utf-8" />
+	<meta name="author" content="">
+	<meta name="description" content="">
+	
+	<title>template - dropdown, popdown and tabs test</title>
+	
+	<script>document.documentElement.className='';</script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<!-- Force latest IE rendering engine & Chrome Frame -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<!-- Make IE recognise HTML5 elements for styling - must stay in the head, before elements are used -->
+	<!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- Disable image toolbar in IE6 -->
+	<!--[if lte IE 6]><meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+	
+	<link rel="icon" type="image/png" href="../images/favicon.png" />
+	<link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+	
+	<link rel="stylesheet" type="text/css" href="../css/template.reset.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.typography.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.typography.14_24.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.forms.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.classes.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="../css/template.ie.css" /><![endif]-->
+	<!--[if IE 8]><link rel="stylesheet" type="text/css" href="../css/template.ie8.css" /><![endif]-->
+	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="../css/template.ie7.css" /><![endif]-->
+	<!--[if IE 6]><link rel="stylesheet" type="text/css" href="../css/template.ie6.css" /><![endif]-->
+	<link rel="stylesheet" type="text/css" href="../css/site.layout.css" />
+	<link rel="stylesheet" type="text/css" href="../css/site.typography.css" />
+
+	<style>
+		section {
+			padding: 1em 0 6em 0;
+			border-bottom: 1px solid #cccccc;
+			position: relative;
+		}
+		
+		.button.active {
+			background-color: #dddddd;
+		}
+		
+		.dropdown {
+			border: 1px solid #999999;
+			background: #eeeeee;
+		}
+		
+		.popdown {
+			color: white;
+			border: 1px solid black;
+			background: #666666;
+		}
+		
+		.stopdown {
+			background: #bbbbbb;
+		}
+		
+		.popdown .button {
+			color: white;
+		}
+		
+		.tabs {
+			position: relative;
+		}
+		
+		.tab {
+			background: #cccccc;
+			min-height: 4em;
+		}
+		
+		.tab.transition {
+			position: absolute;
+			width: 100%;
+			top: 0;
+			left: 0;
+		}
+		
+		.tab.active.transition {
+			position: relative;
+		}
+	</style>
+</head>
+
+<body>
+	<section>
+		<ul class="horizontal buttons_index index">
+			<li>
+				<a class="button" href="#drop1">Dropdown 1</a>
+				<ul class="dropdown dropdown_buttons_index buttons_index index" id="drop1">
+					<li><a class="menu_button button">Dropdown 1</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="button" href="#drop2">Dropdown 2</a>
+				<ul class="dropdown dropdown_buttons_index buttons_index index" id="drop2">
+					<li><a class="menu_button button">Dropdown 2</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="button" href="#drop3">Dropdown 3</a>
+				<ul class="dropdown dropdown_buttons_index buttons_index index" id="drop3">
+					<li><a class="menu_button button">Dropdown 3</a></li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+	
+	<section>
+		<ul class="horizontal buttons_index index">
+			<li>
+				<a class="button" href="#pop1">Popdown 1</a>
+				<ul class="popdown popdown_buttons_index buttons_index index" id="pop1">
+					<li><a class="menu_button button" href="#menu_button1">Popdown 1</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="button" href="#pop2">Popdown 2</a>
+				<ul class="popdown popdown_buttons_index buttons_index index" id="pop2">
+					<li><a class="menu_button button" href="#menu_button2">Popdown 2</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="button" href="#pop3">Popdown 3</a>
+				<ul class="popdown popdown_buttons_index buttons_index index" id="pop3">
+					<li><a class="menu_button button" href="#menu_button3">Popdown 3</a></li>
+					<li><a class="menu_button button" href="#close">Close</a></li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+	
+	<section>
+		<ul class="horizontal buttons_index index">
+			<li>
+				<a class="button" href="#stop1">Stopdown 1</a>
+				<ul class="stopdown stopdown_buttons_index buttons_index index" id="stop1">
+					<li><a class="menu_button button">Stopdown 1</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="button" href="#stop2">Stopdown 2</a>
+				<ul class="stopdown stopdown_buttons_index buttons_index index" id="stop2">
+					<li><a class="menu_button button">Stopdown 2</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="button" href="#stop3">Stopdown 3</a>
+				<ul class="stopdown stopdown_buttons_index buttons_index index" id="stop3">
+					<li><a class="menu_button button">Stopdown 3</a></li>
+					<li><a class="menu_button button" href="#close">Close</a></li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+	
+	<section>
+		<ul class="horizontal tab_buttons_index buttons_index index">
+			<li><a class="tab_button button" href="#tab1">Tab 1</a></li>
+			<li><a class="tab_button button" href="#tab2">Tab 2</a></li>
+			<li><a class="tab_button button" href="#tab3">Tab 3</a></li>
+		</ul>
+		<div class="tabs">
+			<div class="group1_tab tab" id="tab1" data-selector=".group1_tab">
+				<p>Tab 1</p>
+			</div>
+			<div class="group1_tab tab" id="tab2" data-selector=".group1_tab">
+				<p>Tab 2</p>
+			</div>
+			<div class="group1_tab tab" id="tab3" data-selector=".group1_tab">
+				<p>Tab 3</p>
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<ul class="horizontal tab_buttons_index buttons_index index">
+			<li><a class="tab_button button" href="#tab4">Tab 4</a></li>
+			<li><a class="tab_button button" href="#tab5">Tab 5</a></li>
+			<li><a class="tab_button button" href="#tab6">Tab 6</a></li>
+		</ul>
+		<div class="tabs">
+			<div class="tab" id="tab4">
+				<p>Tab 4</p>
+			</div>
+			<div class="tab" id="tab5">
+				<p>Tab 5</p>
+			</div>
+			<div class="tab" id="tab6">
+				<p>Tab 6</p>
+			</div>
+		</div>
+	</section>
+	
+	<p>Reload the page with <a href="test_dropdowns.html#drop1">dropdown1</a></p>
+	<p>Reload the page with <a href="test_dropdowns.html#pop2">popdown3</a></p>
+	<p>Reload the page with <a href="test_dropdowns.html#tab3">tab3</a></p>
+	
+	
+	<script src="../js/js.extensions.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/jquery.js"%3E%3C/script%3E'));</script>
+	<script src="../js/jquery.extensions.js"></script>
+	<script src="../js/jquery.event.activate.js"></script>
+	<script src="../js/jquery.transitions.js"></script>
+	<script src="../js/jquery.popup.js"></script>
+	<script src="../js/template.ui.js"></script>
+	
+	<script src="../js/js.debug.js"></script>
+</body>
+</html>

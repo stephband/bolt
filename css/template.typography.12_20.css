@@ -1,0 +1,101 @@
+/* template.typography.12_20.css
+ * 
+ * Developed using ideas from:
+ * www.blueprintcss.org
+ * www.webtypography.net
+ * www.html5boilerplate.com
+ * 
+ * The default font-size is 1em == 12px. to resize
+ * text, Use this table as a guide:
+ * 
+ * 8px  == 0.666em
+ * 9px  == 0.75em
+ * 10px == 0.833em
+ * 11px == 0.9167em
+ * 12px == 1em
+ * 14px == 1.1667em 
+ * 15px == 1.25em
+ * 16px == 1.3333em
+ * 18px == 1.5em 
+ * 20px == 1.6667em  
+ * 21px == 1.75em
+ * 24px == 2em
+ * 
+ */
+
+html {
+    font-size:100.01%;
+}
+
+body{
+    font-size: 75%;
+    line-height: 1.6667;
+}
+
+/* Block elements */
+
+h1                { word-spacing: -0.0833em; font-size: 1.5em;                        margin-bottom: 0.4167em; }
+h2                { word-spacing: -0.0833em; font-size: 1em;     line-height: 1.5;    margin-bottom: 0.5em; }
+h3                { word-spacing: -0.0833em; font-size: 2em;     line-height: 1.25;   margin-bottom: 0.625em; }
+h4                { word-spacing: -0.0833em; font-size: 1.17em;  line-height: 1.43; }
+h5                { word-spacing: -0.0833em; font-size: 1.08em;  line-height: 1.54; }
+h6                { word-spacing: -0.0833em; font-size: 1em; }
+
+p                 { margin-bottom: 0.8333em; }
+p:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+li:last-child,
+pre:last-child,
+address:last-child,
+blockquote:last-child { margin-bottom: 0; }
+
+/* Make first letter different */
+/*p::first-letter   { font-size: 1.3333em; line-height: 1em; font-style: italic; letter-spacing: 0.1333em; }
+p+p::first-letter { font-size: 1em; line-height: 1.3333; font-style: normal; letter-spacing: 0em; }*/
+/* Make first line different */
+/*p::first-line     {  }
+p+p::first-line   { font-weight: normal; }*/
+/* Start paragraphs with a character or symbol */
+/*p+p:before  { content: "\2767"; padding-right: 0.4em; }*/
+
+dd                { margin: 0; }
+ul,
+ol,
+dl                { margin: 1.25em 0 1.25em 0; }
+li                { margin-bottom: 0.8333em;}
+
+blockquote        { margin: 0 0 1.25em 0; }
+blockquote:before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
+pre,
+address           { margin: 1.25em 0; }
+
+/* Inline elements */
+
+sup,
+sub               { font-size: 0.625em; line-height: 0; }
+
+abbr              { letter-spacing: 0.1em; }
+pre,
+code,
+tt                { font-size: 1em; }
+
+/* Tables */
+
+table             { margin-bottom: 1.4em; }
+th,
+td,
+caption           { padding: 4px 10px 4px 5px; }
+
+/* Indentation */
+
+ul,
+ol,
+blockquote        { margin-left: 2.5em; }
+
+/* Classes */
+
+.left             { margin: 0.75em 1em 0.75em 0; }
+.right            { margin: 0.75em 0 0.75em 1em; }
+.note             { font-size: 0.9167em; line-height: 1.8181; }

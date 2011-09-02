@@ -1,0 +1,45 @@
+/* test.css 
+ *
+ * With chunks borrowed from Blueprint's typography.css
+ */
+
+/* Default font settings. 
+   The font-size percentage is of 16px. (0.75 * 16px = 12px) */
+html { font-size:100.01%; }
+
+body {
+  font-size: 75%;
+  color: #222;
+  background-color: #dddddd;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 1em;
+}
+
+.test {
+  margin-bottom: 1em;
+  background-color: white;
+  background-image: url('../images/grid_8px.png');
+  position: relative;
+}
+
+.col {
+	background-color: rgba(64,64,64,0.5);
+}
+
+/* Code */
+
+code.block {
+    display: block;
+    background: rgba(232, 232, 224, 0.8);
+    padding: 0.4em 0.8em;
+    overflow: auto;
+    font-size: small;
+    font-family: monospace;
+    margin: 0.8em 0;
+}
+
+/* qunit */
+
+#qunit-tests > li {
+	margin-bottom: 0;
+}

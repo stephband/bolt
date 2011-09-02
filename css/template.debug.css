@@ -1,0 +1,131 @@
+html {
+	background-color: white;
+}
+
+/* Color nodes based on their nested depth. */
+
+body {
+	background-color: #f7f7f7;
+	/*background-color: rgba(0,0,0,0.06);*/
+}
+
+body * {
+	/*background-color: #f0f0f0;*/
+	background-color: rgba(0,0,0,0.06);
+}
+
+/*body * * {
+	background-color: #e7e7e7;
+}
+
+body * * * {
+	background-color: #e0e0e0;
+}
+
+body * * * * {
+	background-color: #d7d7d7;
+}
+
+body * * * * * {
+	background-color: #d0d0d0;
+}
+
+body * * * * * * {
+	background-color: #c7c7c7;
+}
+
+body * * * * * * * {
+	background-color: #c0c0c0;
+}
+
+body * * * * * * * * {
+	background-color: #b7b7b7;
+}
+
+body * * * * * * * * * {
+	background-color: #b0b0b0;
+}
+
+body * * * * * * * * * * {
+	background-color: #a7a7a7;
+}*/
+
+/*header {
+	background-color: yellow;
+}*/
+
+body:after,
+div:after,
+section:after,
+header:after,
+footer:after,
+aside:after,
+nav:after,
+h1:after,
+h2:after,
+h3:after,
+h4:after,
+h5:after,
+h6:after,
+ul:after,
+li:after {
+	position: absolute;
+	top: 0.1em;
+	right: 0.4em;
+	font-family: 'Andale Mono', 'courier', monotype;
+	font-size: 10px;
+	color: rgba(0,0,0,0.4);
+}
+
+body:after		{ content: 'body'; }
+div:after			{ content: 'div'; }
+section:after	{ content: 'section'; }
+header:after	{ content: 'header'; }
+footer:after	{ content: 'footer'; }
+aside:after		{ content: 'aside'; }
+nav:after			{ content: 'nav'; }
+h1:after			{ content: 'h1'; }
+h2:after			{ content: 'h2'; }
+h3:after			{ content: 'h3'; }
+h4:after			{ content: 'h4'; }
+h5:after			{ content: 'h5'; }
+h6:after			{ content: 'h6'; }
+ul:after			{ content: 'ul'; }
+li:after			{ content: 'li'; }
+
+a[href=""] {
+	background-color: magenta !important;
+	color: black !important;
+}
+
+/* Media queries */
+
+@media screen and (max-width: 1024px) {
+	body {
+		background-color: rgba(255,200,60,0.2) !important;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	body {
+		background-color: rgba(255,200,60,0.4) !important;
+	}
+}
+
+@media screen and (max-width: 640px) {
+	body {
+		background-color: rgba(255,200,60,0.6) !important;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	body {
+		background-color: rgba(255,200,60,0.8) !important;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	body {
+		background-color: rgba(255,200,60,1) !important;
+	}
+}

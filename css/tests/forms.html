@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Forms</title>
+  <link href="../template.reset.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="../template.classes.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="../template.forms.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="../template.typography.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="../template.typography.12_18.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="css/test.css" type="text/css" media="all" rel="stylesheet"/>
+  <style>
+    .test {
+      background-color: #eeeeee;
+      background-image: url('images/grid_20px.png');
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Forms</h1>
+  <form class="column of_three test">
+    
+    <h2>html5 type</h2>
+    
+    <label for="text">text</label>
+    <input type="text" id="text" name="text" />
+    
+    <label for="search">search</label>
+    <input type="search" id="search" name="search" />
+    
+    <label for="tel">tel</label>
+    <input type="tel" id="tel" name="tel" />
+    
+    <label for="url">url</label>
+    <input type="url" id="url" name="url" />
+    
+    <label for="color">color</label>
+    <input type="color" id="color" name="color" />
+     
+    <label for="email">email</label>
+    <input type="email" id="email" name="email" />
+    
+    <label for="password">password</label>
+    <input type="password" id="password" name="password" />
+    
+    <label for="textarea">textarea</label>
+    <textarea id="textarea" name="textarea"></textarea>
+    
+    <label for="number">number</label>
+    <input type="number" id="number" name="number" />
+    
+    <label for="date">date</label>
+    <input type="date" id="date" name="date" />
+    
+    <label for="time">time</label>
+    <input type="time" id="time" name="time" />
+    
+    <label for="week">week</label>
+    <input type="week" id="week" name="week" />
+    
+    <label for="month">month</label>
+    <input type="month" id="month" name="month" />
+
+    <label for="datetime">datetime</label>
+    <input type="datetime" id="datetime" name="datetime" />
+     
+    <label for="datetime-local">datetime-local</label>
+    <input type="datetime-local" id="datetime-local" name="datetime-local" />
+    
+    <label for="range">range</label>
+    <input type="range" id="range" name="range" />
+    
+    <label for="radio">radio</label>
+    <input type="radio" id="radio" name="radio" />
+    
+    <label for="checkbox">checkbox</label>
+    <input type="checkbox" id="checkbox" name="checkbox" />
+    
+    <label for="file">file</label>
+    <input type="file" id="file" name="file" />
+    
+    <label for="hidden">hidden</label>
+    <input type="hidden" id="hidden" name="hidden" />
+    
+    <label for="image">image</label>
+    <input type="image" id="image" name="image" />
+    
+    <label for="button">button</label>
+    <input type="button" id="button" name="button" value="button" />
+    
+    <label for="reset">reset</label>
+    <input type="reset" id="reset" name="reset" />
+    
+    <label for="submit">submit</label>
+    <input type="submit" id="submit" name="submit" />
+  </form
+ ><form class="column of_three test">
+    
+    <h2>custom data-type</h2>
+    
+    <label for="csscolor">csscolor</label>
+    <input type="text" data-type="csscolor" id="csscolor" name="csscolor" />
+    
+    <label for="cssangle">cssangle</label>
+    <input type="text" data-type="cssangle" id="cssangle" name="cssangle" />
+    
+    <label for="cssvalue">cssvalue</label>
+    <input type="text" data-type="cssvalue" id="cssvalue" name="cssvalue" />
+    
+    <label for="imagefile">imagefile</label>
+    <input type="text" data-type="imagefile" id="imagefile" name="imagefile" />
+
+    <label for="email">email</label>
+    <input type="email" data-type="email" id="email" name="email" />
+    
+    <label for="csscolorauto">csscolor [autocomplete=on]</label>
+    <input type="text" data-type="csscolor" id="csscolorauto" name="csscolorauto" autocomplete="on" />
+    
+    <label for="cssangleauto">cssangle [autocomplete=on]</label>
+    <input type="text" data-type="cssangle" id="cssangleauto" name="cssangleauto" autocomplete="on" />
+    
+    <label for="cssvalueauto">cssvalue [autocomplete=on]</label>
+    <input type="text" data-type="cssvalue" id="cssvalueauto" name="cssvalueauto" autocomplete="on" />
+    
+    <input class="submit" type="submit" value="Submit"/>
+  </form
+ ><form class="column last of_three test">
+    
+    <h2>attribute</h2>
+    
+    <label for="minlength">text [minlength=2]</label>
+    <input type="text" id="minlength" name="minlength" minlength="2" />
+    
+    <label for="maxlength">text [maxlength=2]</label>
+    <input type="text" id="maxlength" name="maxlength" maxlength="2" />
+    
+    <label for="min">text [min=2]</label>
+    <input type="text" id="min" name="min" min="2" />
+    
+    <label for="max">text [max=10]</label>
+    <input type="text" id="max" name="max" max="10" />
+    
+    <label for="readonly">text [readonly=readonly]</label>
+    <input type="text" id="readonly" name="readonly" readonly="readonly" />
+    
+    <label for="treadonly">textarea [readonly=readonly]</label>
+    <textarea id="readonly" name="treadonly" readonly="readonly"></textarea>
+    
+    <label for="required">text [required]</label>
+    <input type="text" id="required" required="required" name="required" />
+    
+    <label for="autocomplete">text [autocomplete=on]</label>
+    <input type="text" id="autocomplete" name="autocomplete" autocomplete="on" />
+    
+    <input type="submit" id="submit" name="submit" />
+  </form>
+  
+  <!-- ************* -->
+  
+  <form class="column of_three test">
+    <h2>Fieldsets and legends</h2>
+    
+    <fieldset>
+      <label for="text2">text</label>
+      <input type="text" id="text2" name="text2" />
+      
+      <label for="text3">text</label>
+      <input type="text" id="text3" name="text3" />
+    </fieldset>
+    
+    <fieldset>
+      <legend>Legend</legend>
+      
+      <label for="text4">text</label>
+      <input type="text" id="text4" name="text4" />
+      
+      <label for="text5">text</label>
+      <input type="text" id="text5" name="text5" />
+    </fieldset>
+  </form
+ ><form class="column of_three test">
+    <h2>Range inputs</h2>
+    
+    <fieldset>
+      <label for="range2">range</label>
+      <input type="range" id="range2" name="range2" />
+    </fieldset>
+    
+    <fieldset>
+      <label for="range4">vertical range</label>
+      <input type="range" id="range4" name="range4" class="y_range" />
+    </fieldset>
+    
+    <fieldset>
+      <label for="range4">list of vertical ranges</label>
+      <ul class="horizontal range_index index">
+        <li><input class="y_range" type="range" id="range4" name="range4" /></li
+       ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+       ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+       ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+       ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+       ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+       ><li><input class="y_range" type="range" id="range4" name="range4" /></li>
+      </ul>
+    </fieldset>
+  </form
+ ><form class="column of_three test">
+    
+  </form>
+  
+  <script src="../../js/jquery-1.4.2.js" type="text/javascript"></script>
+  <script src="../../js/jquery.validator.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      
+      jQuery('form')
+      .validator()
+      .bind('submit', function(e){
+        e.preventDefault();
+        console.log('Submit prevented');
+      });
+    });
+  </script>
+</body>
+</html> 

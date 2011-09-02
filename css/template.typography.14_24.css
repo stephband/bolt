@@ -1,0 +1,85 @@
+/* template.typography.14_24.css
+ * 
+ * Developed using ideas from:
+ * www.blueprintcss.org
+ * www.webtypography.net
+ * 
+ * The default font-size is 1em == 14px.
+ *
+ */
+
+html {
+    font-size:100%;
+}
+
+body {
+    font-size: 87.5%;    /* 14px */
+    line-height: 1.7143; /* 24px */
+}
+
+/* Block elements */
+
+h1                { word-spacing: -0.0833em; font-size: 1.5em;   line-height: 1.1429; margin-bottom: 1.1429em; }
+h2                { word-spacing: -0.0833em; font-size: 1.2em;   line-height: 1.4286; margin-bottom: 1.4286em; }
+h3                { word-spacing: -0.0833em; font-size: 1.0714em;line-height: 1.6;    margin-bottom: 0; }
+h4                { word-spacing: -0.0833em; font-size: 1em; }
+h5                { word-spacing: -0.0833em; font-size: 1em; }
+h6                { word-spacing: -0.0833em; font-size: 1em; }
+
+p                 { margin-bottom: 0.8572em; }
+p:last-child      { margin-bottom: 0; }
+
+/* Make first letter different */
+/*p::first-letter   { font-size: 2em; float: left;  }
+p+p::first-letter { font-size: 1em; line-height: 1.3333; font-style: normal; letter-spacing: 0em; }
+/* Make first line different */
+/*p::first-line     { font-weight: bold; }
+p+p::first-line   { font-weight: normal; }*/
+/* Start paragraphs with a character or symbol */
+/*p+p:before  { content: "\2767"; padding-right: 0.4em; }*/
+
+p,
+li,
+dt,
+dd,
+blockquote,
+address           { word-spacing: 0.2em; }
+
+dd                { margin: 0; }
+
+ul,
+ol,
+pre,
+blockquote        { margin: 0.8572em 3.4286em; }
+
+address           { margin: 0.8572em 0; }
+
+li,
+dd                { margin-bottom: 0.8572em;}
+
+blockquote:before { font-size: 3em; line-height: 0.92em; margin-left: -0.6em; }
+
+time              { text-transform: uppercase; }
+
+/* Inline elements */
+
+sup,
+sub               { font-size: 0.7143em; line-height: 0; }
+
+abbr              { letter-spacing: 0.1em; }
+pre,
+code,
+tt                { font-size: 1em; }
+
+/* Tables */
+
+table             { margin-bottom: 1.4em; }
+th,
+td,
+caption           { padding: 4px 10px 4px 5px; }
+
+/* Classes */
+
+.left             { margin: 0 0 0 0; }
+.right            { margin: 0 0 0 0; }
+.note             { font-size: 0.9167em; line-height: 1.8181; }

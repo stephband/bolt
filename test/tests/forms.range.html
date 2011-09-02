@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Forms</title>
+  <link href="../template.reset.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="../template.classes.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="../template.forms.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="../template.typography.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="../template.typography.12_18.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="css/test.css" type="text/css" media="all" rel="stylesheet"/>
+  <style type="text/css">
+    .test {
+      background-color: #eeeeee;
+      background-image: url('images/grid_20px.png');
+    }
+    
+    /* Range inputs. Ooof.
+       
+       In WebKit, tracks and handles are styleable by setting
+       -webkit-appearance, however a value of slider-horizontal on the
+       input will overlay a default handle even when ::-webkit-slider-thumb
+       is set to none.
+       
+       Vertical sliders are considered to be an appearance of slider-vertical,
+       making them impossible to style non-natively (which requires
+       -webkit-appearance: none). Another approach would be to take a
+       horizontal slider and transform: rotate it. Opera correctly displays
+       a vertical slider when width < height. WebKit does not like % heights
+       on vertical range inputs.
+       
+       Opera styles range sliders completely differently from WebKit,
+       unfortunately. Where WebKit uses the input box as the track, and
+       you can style the track by styling the input, Opera renders the
+       track inside the input box. That would be fine, but Opera also has
+       an unchangeable overflow: hidden on the input box, so if you make it
+       small to style the WebKit track, it truncates the handle in Opera.
+       
+       The clever FF4 replacement technique for making range inputs, 
+       http://frankyan.com/labs/html5slider/, results in a similar rendering,
+       so I have come to regard it as the standard approach. Therefore,
+       to style the track in WebKit I use not the input box, but a
+       border-image or background-image inside the input box.
+       
+       In Opera, range inputs have a max-width of 160px when their width
+       is supplied by %, a limit you can't change. In fact percentages
+       other than 100% cause some odd behaviour, where the track is sized
+       but the input box remains at 100%. However, webcss sets inputs to
+       display: block, which resolves all these problems.
+       
+       Opera responds to :before and :after content on inputs where WebKit
+       and FF do not. So far I haven't found that useful. I just thought
+       it was worth mentioning.
+       
+       I think the overall moral of the story is: kill any designer who
+       suggests applying style to range inputs.
+    */
+    
+    input[type="range"] {
+      -webkit-appearance: none !important;
+      
+      cursor: pointer;
+      
+      background-color: transparent;
+      
+      /* Shows up in webkit, but not Opera */
+      -webkit-border-image: url('images/range2.png') 6 5 6 5 stretch stretch;
+              border-image: url('images/range2.png') 6 5 6 5 stretch stretch;
+      
+      /* I don't know why this doesn't show up in Opera,
+         but it doesn't. This is going to bite us in the future, though. */
+      border-left-width: 5px;
+      border-right-width: 5px;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none !important;
+      
+      cursor: pointer;
+      
+      background: -webkit-linear-gradient( rgb(247,247,247), rgb(140,140,140) );
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(247,247,247)), color-stop(100%,rgb(140,140,140)));
+      
+      width: 10px;
+      height: 10px;
+      
+      -webkit-border-radius: 0.6em;
+         -moz-border-radius: 0.6em;
+              border-radius: 0.6em;
+      
+      -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+         -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+           -o-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+              box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+    }
+    
+    .range_index {
+      height: 8em
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Forms</h1>
+  
+  <form class="column of_three test">
+    <h2>Range styles</h2>
+    
+    <fieldset>
+      <label for="range2">range</label>
+      <input type="range" id="range2" name="range2" />
+    </fieldset>
+    
+    <fieldset>
+      <label for="range4">vertical range</label>
+      <input type="range" id="range4" name="range4" class="y_range" />
+    </fieldset>
+    
+    <fieldset>
+      <label for="range4">list of vertical ranges</label>
+      <ul class="horizontal range_index index">
+        <li><input type="range" id="range4" name="range4" class="y_range" /></li
+       ><li><input type="range" id="range4" name="range4" class="y_range" /></li
+       ><li><input type="range" id="range4" name="range4" class="y_range" /></li
+       ><li><input type="range" id="range4" name="range4" class="y_range" /></li
+       ><li><input type="range" id="range4" name="range4" class="y_range" /></li
+       ><li><input type="range" id="range4" name="range4" class="y_range" /></li
+       ><li><input type="range" id="range4" name="range4" class="y_range" /></li>
+      </ul>
+    </fieldset>
+  </form>
+  
+  <script src="../../js/jquery-1.4.2.js" type="text/javascript"></script>
+  <script src="../../js/jquery.validator.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      jQuery('form')
+      .validator()
+      .bind('submit', function(e){
+        e.preventDefault();
+        console.log('Submit prevented');
+      });
+    });
+  </script>
+</body>
+</html>

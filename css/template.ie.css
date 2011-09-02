@@ -1,0 +1,66 @@
+/* Forms */
+
+/* make buttons play nice in IE:    
+   www.viget.com/inspire/styling-the-button-element-in-internet-explorer/ */
+button {
+  width: auto;
+  overflow: visible;
+}
+
+/* .layer */
+
+.popup_layer {
+  background-image: url('/images/bg/rgba_0_0_0_70.png');
+  background-repeat: repeat;
+}
+
+/* .thumb */
+
+.thumb img {
+  /* IE uses an img tag because background-images dont scale. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 64px;
+}
+
+.chrome_browser_thumb {
+  background-image: url('../images/thumbs/logo_chrome.gif');
+  background-position: 0 0;
+}
+
+.firefox_browser_thumb {
+  background-image: url('../images/thumbs/logo_firefox.gif');
+  background-position: 0 0;
+}
+
+.opera_browser_thumb {
+  background-image: url('../images/thumbs/logo_opera.gif');
+  background-position: 0 0;
+}
+
+.safari_browser_thumb {
+  background-image: url('../images/thumbs/logo_safari.gif');
+  background-position: 0 0;
+}
+
+.ie_browser_thumb {
+  background-image: url('../images/thumbs/logo_safari.gif');
+  background-position: 0 0;
+}
+
+.chromeframe_browser_thumb {
+  background-image: url('../images/thumbs/logo_chromeframe.gif');
+  background-position: 0 0;
+}
+
+/* .index, .column */
+
+.index > li,
+.column,
+.col,
+.col_wrap {
+    /* Trigger hasLayout */
+    zoom: 1;
+}

@@ -1,0 +1,159 @@
+/* reset.css
+ * 
+ * A quick note - webcss sets the box model to border-box. This
+ * might take you by surprise. Just remove lines 25-32 to put
+ * the box model back to the standard one.
+ * 
+ */
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, code,
+del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, textarea,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, dialog, figure, footer, header,
+hgroup, nav, section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-family: inherit;
+    vertical-align: baseline;
+    
+    /* Fortune favours the brave. Or the foolhardy, perhaps.
+       Box-sizing breaks in IE8 when min- or max- width or height
+       are defined, and in FF when min- or max- height are defined
+       but height is auto. */
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+            box-sizing: border-box;
+    
+    /* Set the dimensions of backgrounds to the limits of the
+       padding box. */
+    -webkit-background-origin: padding-box;
+       -moz-background-origin: padding;
+            background-origin: padding-box;
+    
+    /* Don't let the background color shine through the anti alias
+       of rounded border edges. */
+    /*-webkit-background-clip: padding-box;
+       -moz-background-clip: padding;
+        -ms-background-clip: padding-box;
+         -o-background-clip: padding-box;
+            background-clip: padding-box;*/
+}
+
+article, aside, dialog, figure, footer, header,
+hgroup, nav, section {
+    display:block;
+}
+
+/* Tables still need 'cellspacing="0"' in the markup. */
+table { border-collapse: separate; border-spacing: 0; }
+caption, th, td { text-align: left; font-weight: normal; }
+table, td, th { vertical-align: top; }
+
+/* Remove possible quote marks (") from <q>, <blockquote>. */
+blockquote:before, blockquote:after, q:before, q:after { content: ""; }
+blockquote, q { quotes: "" ""; }
+
+/* Remove annoying border on linked images. */
+/*a img { border: none; }*/
+
+/* Get rid of default focus outlines in FF */
+a:focus { outline: none; }
+
+/* Make draggable elements draggable in WebKit */
+*[draggable] {
+  -webkit-user-drag: element;
+  cursor: move;
+}
+*[draggable="false"] {
+  -webkit-user-drag: none;
+  cursor: auto;
+}
+
+
+/* .reset
+ * 
+ * Defines a default style to be applied to this and all descendants,
+ * acting as a kind of CSS firewall, for want of a better description.
+ *
+ */
+
+/*
+.reset,
+.reset div, .reset span, .reset object, .reset iframe,
+.reset h1, .reset h2, .reset h3, .reset h4, .reset h5, .reset h6,
+.reset p, .reset blockquote, .reset pre, .reset abbr, .reset address, .reset cite, .reset code,
+.reset del, .reset dfn, .reset em, .reset img, .reset ins, .reset kbd, .reset q, .reset samp,
+.reset small, .reset strong, .reset sub, .reset sup, .reset var, .reset b, .reset i,
+.reset dl, .reset dt, .reset dd, .reset ol, .reset ul, .reset li,
+.reset fieldset, .reset form, .reset label, .reset legend, .reset table,
+.reset caption, .reset tbody, .reset tfoot, .reset thead, .reset tr, .reset th, .reset td,
+.reset article, .reset aside, .reset dialog, .reset figure, .reset footer, .reset header,
+.reset hgroup, .reset menu, .reset nav, .reset section, .reset time, .reset mark,
+.reset audio, .reset video {
+    background: scroll transparent none 0% 0% repeat;
+    border: none;
+    border-radius: 0;
+    clear: none;
+    color: black;
+    content: normal;
+    cursor: auto;
+    display: inline;
+    float: none;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    height: auto;
+    letter-spacing: normal;
+    line-height: normal;
+    margin: 0;
+    max-height: none;
+    max-width: none;
+    min-height: 0;
+    min-width: 0;
+    opacity: 1;
+    outline: invert 0 none 1px;
+    overflow: visible;
+    padding: 0;
+    rotation: 0;
+    text-align: start;
+    text-decoration: none;
+    text-indent: 0;
+    text-transform: none;
+    vertical-align: baseline;
+    white-space: normal;
+    width: auto;
+    word-spacing: normal;
+    z-index: auto;
+    
+    position: static;
+    top: auto;
+    right: auto; 
+    left: auto;
+    bottom: auto;
+}
+
+.reset div, .reset object, .reset iframe,
+.reset h1, .reset h2, .reset h3, .reset h4, .reset h5, .reset h6,
+.reset p, .reset blockquote, .reset pre, .reset address,
+.reset dl, .reset dt, .reset dd, .reset ol, .reset ul, .reset li,
+.reset fieldset, .reset form, .reset label, .reset article,
+.reset aside, .reset dialog, .reset figure, .reset footer, .reset header,
+.reset hgroup, .reset nav, .reset section { 
+    display: block;
+}
+
+.reset ul,
+.reset ul li {
+    list-style: none;
+}
+
+*/

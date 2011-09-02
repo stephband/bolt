@@ -1,0 +1,102 @@
+/* template.typography.12_18.css
+ * 
+ * Developed using ideas from:
+ * www.blueprintcss.org
+ * www.webtypography.net
+ * 
+ * The default font-size is 1em == 12px.
+ *
+ */
+
+html {
+    font-size:100%;
+}
+
+body {
+    font-size: 75%;   /* 12px */
+    line-height: 1.5; /* 24px */
+}
+
+/* Block elements */
+
+h1             { word-spacing: -0.0833em; font-size: 1.5em;    line-height: 1em;      margin-bottom: 1em; }
+h2             { word-spacing: -0.0833em; font-size: 1.25em;   line-height: 1.2em;    margin-bottom: 1.2em; }
+h3             { word-spacing: -0.0833em; font-size: 1.1667em; line-height: 1.2857em; margin-bottom: 0; }
+h4             { word-spacing: -0.0833em; font-size: 1em; }
+h5             { word-spacing: -0.0833em; font-size: 1em; }
+h6             { word-spacing: -0.0833em; font-size: 1em; }
+p              { margin-bottom: 1.5em; }
+li             { margin-bottom: 0; }
+hr             { margin-bottom: 1.5em; }
+
+/* Make first letter different */
+/*p::first-letter   { font-size: 2em; float: left;  }
+p+p::first-letter { font-size: 1em; line-height: 1.3333; font-style: normal; letter-spacing: 0em; }
+/* Make first line different */
+/*p::first-line     { font-weight: bold; }
+p+p::first-line   { font-weight: normal; }*/
+/* Start paragraphs with a character or symbol */
+/*p+p:before  { content: "\2767"; padding-right: 0.4em; }*/
+
+p,
+li,
+dt,
+dd,
+blockquote,
+address        { word-spacing: 0.2em; }
+
+dd             { margin: 0; }
+
+ul,
+ol,
+blockquote     { margin: 0 2em 1.5em 2em; }
+
+dl,
+pre,
+address        { margin: 0 0 1.5em 0; }
+
+p:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+li:last-child,
+pre:last-child,
+form:last-child,
+address:last-child,
+blockquote:last-child { margin-bottom: 0; }
+
+blockquote:before { font-size: 3em; margin-left: -0.6em; line-height: 0.92em; }
+
+/* Inline elements */
+
+sup,
+sub            { font-size: 0.8333em; }
+abbr           { letter-spacing: 0.1em; }
+pre,
+code,
+tt             { font-size: 1em; }
+
+/* Tables */
+
+table          { margin-bottom: 1.4em; }
+th,
+td,
+caption        { padding: 4px 10px 4px 5px; }
+
+/* Classes */
+
+.left          { margin: 0.75em 1em 0.75em 0; }
+.right         { margin: 0.75em 0 0.75em 1em; }
+.note          { font-size: 0.9167em; line-height: 1.8181; }
+
+.xxxxxxxl_text { font-size: 1.6667em; line-height: 0.9em; }
+.xxxxxxl_text  { font-size: 1.5833em; line-height: 0.9474em; }
+.xxxxxl_text   { font-size: 1.5em;    line-height: 1em; }
+.xxxxl_text    { font-size: 1.4167em; line-height: 1.0625em; }
+.xxxl_text     { font-size: 1.3333em; line-height: 1.125em; }
+.xxl_text      { font-size: 1.25em;   line-height: 1.2em; }
+.xl_text       { font-size: 1.1667em; line-height: 1.2857em; }
+.l_text        { font-size: 1.0833em; line-height: 1.3846em; }
+.s_text        { font-size: 0.9167em; line-height: 1.6363em; }
+.xs_text       { font-size: 0.8333em; line-height: 1.8em; }
+.xxs_text      { font-size: 0.75em;   line-height: 2em; }

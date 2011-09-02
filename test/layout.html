@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="author" content="">
+	<meta name="description" content="">
+	
+	<title>Title</title>
+	
+	<script>document.documentElement.className = 'js';</script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<!-- Force latest IE rendering engine & Chrome Frame -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<!-- Make IE recognise HTML5 elements for styling (must stay in the head, before elements are used) -->
+	<!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- Disable image toolbar in IE6 -->
+	<!--[if lte IE 6]><meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+	
+	<link rel="icon" type="image/png" href="images/favicon.png" />
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	
+	<link rel="stylesheet" type="text/css" href="../css/template.reset.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.typography.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.typography.14_24.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.forms.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.classes.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="../css/template.ie.css" /><![endif]-->
+	<!--[if IE 8]><link rel="stylesheet" type="text/css" href="../css/template.ie8.css" /><![endif]-->
+	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="../css/template.ie7.css" /><![endif]-->
+	<!--[if IE 6]><link rel="stylesheet" type="text/css" href="../css/template.ie6.css" /><![endif]-->
+	
+	<link rel="stylesheet" type="text/css" href="css/test.css" />
+	
+	<style>
+		.test {
+			/* The parent needs hasLayout. */
+			zoom: 1;
+		}
+		
+		.test_wrap {
+			width: 80%;
+		}
+		
+		.first_column {
+			background-color: #333333;
+		}
+		
+		.second_column {
+			background-color: #666666;
+		}
+		
+		.third_column {
+			background-color: #999999;
+		}
+		
+		.last_column {
+			background-color: #cccccc;
+		}
+		
+		
+		.zero_test {
+		
+		}
+		
+		.zero_test .column {
+			position: relative;
+			width: 33.3333%;
+			margin-right: -33.3333%;
+		}
+		
+		.zero_test .first_column {
+			left: 0;
+		}
+		
+		.zero_test .second_column {
+			left: 33.3333%;
+		}
+		
+		.zero_test .last_column {
+			left: 66.6667%;
+		}
+		
+		
+		.quarter_test {
+			
+		}
+		
+		.quarter_test .column {
+			position: relative;
+			width: 25%;
+			margin-right: -25%;
+		}
+		
+		.quarter_test .first_column {
+			left: 0;
+		}
+		
+		.quarter_test .second_column {
+			left: 25%;
+		}
+		
+		.quarter_test .third_column {
+			left: 50%;
+		}
+		
+		.quarter_test .last_column {
+			margin-left: -25%;
+			left: 100%;
+		}
+		
+		
+		
+		.quarter2_test {
+			
+		}
+		
+		.quarter2_test .column {
+			position: relative;
+			width: 25%;
+			margin-right: -25%;
+		}
+		
+		.quarter2_test .first_column {
+			left: 0;
+		}
+		
+		.quarter2_test .second_column {
+			left: 25%;
+		}
+		
+		.quarter2_test .third_column {
+			left: 50%;
+		}
+		
+		.quarter2_test .last_column {
+			margin-left: -25%;
+			margin-right: 0;
+			right: -100%;
+		}
+		
+		
+		
+		.quarter3_test {
+			margin-left: 10em;
+			margin-right:10em;
+		}
+		
+		.quarter3_test .column {
+			position: relative;
+			width: 50%;
+			margin-right: -50%;
+		}
+		
+		.quarter3_test .first_column {
+			width: 10em;
+			margin-right: -10em;
+			left: -10em;
+		}
+		
+		.quarter3_test .second_column {
+			left: 0;
+		}
+		
+		.quarter3_test .third_column {
+			margin-left: -50%;
+			margin-right: 0;
+			right: -100%;
+		}
+		
+		.quarter3_test .last_column {
+			width: 10em;
+			margin-left: 0;
+			margin-right: -10em;
+			left: 100%;
+		}
+		
+		
+		
+		.first_test .first_column {
+			margin: 0 20%;
+			width: 60%;
+		}
+		
+		.first_test .second_column {
+			width: 20%;
+			margin-left: -100%;
+			margin-right: -20%;
+		}
+		
+		.first_test .last_column {
+			width: 20%;
+			margin-left: -20%;
+			left: 100%;
+		}
+		
+		
+		
+		.second_test {
+			padding: 0 0 0 10em;
+		}
+		
+		.second_test .first_column {
+			width: 50%;
+			/* Make it take up no horizontal space. */
+			margin-right: -50%;
+		}
+		
+		.second_test .second_column {
+			width: 10em;
+			/* Move it back over the left padding of the container. */
+			margin: 0 0 0 -10em;
+		}
+		
+		.second_test .last_column {
+			width: 50%;
+			margin-right: 0;
+			/* Move it to the right, over the right padding of the container. */
+			left: 50%;
+		}
+		
+		
+		
+		.second2_test {
+			/* padding-left makes space for the left column and its gutter, while
+			   padding-right accounts for the gutter between the middle and
+			   right columns. */
+			padding: 0 2em 0 12em;
+		}
+		
+		.second2_test .first_column {
+			width: 50%;
+			/* Make it take up no horizontal space. */
+			margin-right: -50%;
+		}
+		
+		.second2_test .second_column {
+			width: 10em;
+			/* Move it back over the left padding of the container. Use
+			   margin right to account for both gutters. */
+			margin: 0 4em 0 -12em;
+		}
+		
+		.second2_test .last_column {
+			width: 50%;
+			margin-right: 0;
+			/* Move it to the right. */
+			left: 50%;
+		}
+		
+		
+		
+		.second3_test {
+			/* padding-left makes space for the left column and its gutter, while
+			   padding-right accounts for the gutter between the middle and
+			   right columns. */
+			padding: 0 0 0 10em;
+		}
+		
+		.second3_test .first_column {
+			width: 46%;
+			/* Make it take up no horizontal space. */
+			margin-right: -46%;
+			left: 4%;
+		}
+		
+		.second3_test .second_column {
+			width: 10em;
+			/* Move it back over the left padding of the container. Use
+			   margin right to account for second gutters. */
+			margin: 0 0 0 -10em;
+		}
+		
+		.second3_test .last_column {
+			width: 46%;
+			margin-right: 0;
+			/* Move it to the right. */
+			left: 54%;
+		}
+		
+		
+		
+		.third_test {
+			padding: 0 10em;
+		}
+		
+		.third_test .first_column {
+			width: 100%;
+			/* Make it take up no horizontal space. */
+			margin-right: -100%;
+		}
+		
+		.third_test .second_column {
+			width: 10em;
+			/* Move it back over the left padding of the container. */
+			margin: 0 0 0 -10em;
+		}
+		
+		.third_test .last_column {
+			width: 10em;
+			/* Make it take up no width, so at small sizes it doesn't flow under. */
+			margin-right: -10em;
+			/* Move it to the right, over the right padding of the container. */
+			left: 100%;
+		}
+		
+		
+		.fourth_test {
+			padding: 0 12em;
+		}
+		
+		.fourth_test .first_column {
+			width: 100%;
+			/* Make it take up no horizontal space. */
+			margin-right: -100%;
+		}
+		
+		.fourth_test .second_column {
+			width: 10em;
+			/* Move it back over the left padding of the container. Use margin-right
+			   to accouunt for both gutters. */
+			margin: 0 4em 0 -12em;
+		}
+		
+		.fourth_test .last_column {
+			width: 10em;
+			/* Make it take up no width, so at small sizes it doesn't flow under. */
+			margin-right: -10em;
+			/* Move it to the right, over the right padding of the container. */
+			left: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	
+	
+	
+	<h2>Flex | Flex | Flex</h2>
+	
+	<div class="zero_test test">
+		<div class="first_column column of_three">
+			First column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column of_three">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="last_column column of_three">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+	</div>
+	
+	<h2>Flex | Flex | Flex | Flex</h2>
+	
+	<div class="quarter_test test">
+		<div class="first_column column">
+			First column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="third_column column">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="last_column column">
+			Fourth column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+		
+	</div>
+	
+	<h2>Flex | Flex | Flex | Flex</h2>
+	
+	<div class="quarter2_test test">
+		<div class="last_column column">
+			First column. kjhThe quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="third_column column">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="first_column column">
+			Fourth column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+	</div>
+	
+	
+	<h2>Flex | Flex | Flex | Flex</h2>
+	
+	<div class="test_wrap wrap">
+	<div class="quarter3_test test">
+		<div class="first_column column">
+			First column. kjhThe quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="third_column column">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="last_column column">
+			Fourth column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+	</div>
+	</div>
+	
+	
+	<h2>Flex | Flex | Flex</h2>
+	
+	<div class="first_test test">
+		<div class="first_column column of_three">
+			First column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column of_three">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="last_column column of_three">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+	</div>
+	
+	<h2>Fixed | Flex | Flex</h2>
+	
+	<div class="second_test test">
+		<div class="first_column column of_three">
+			First column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column of_three">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="last_column column of_three">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+	</div>
+	
+	<h2>Fixed | Flex | Flex with constant gutter</h2>
+	
+	<div class="second2_test test">
+		<div class="first_column column of_three">
+			First column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column of_three">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="last_column column of_three">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+	</div>
+	
+	<h2>Fixed | Flex | Flex with fluid gutter</h2>
+	
+	<div class="second3_test test">
+		<div class="first_column column of_three">
+			First column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column of_three">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="last_column column of_three">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+	</div>
+	
+	<h2>Fixed | Flex | Fixed</h2>
+	
+	<div class="third_test test">
+		<div class="first_column column of_three">
+			First column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column of_three">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="last_column column of_three">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+	</div>
+	
+	<h2>Fixed | Flex | Fixed - constant gutter</h2>
+	
+	<div class="fourth_test test">
+		<div class="first_column column of_three">
+			First column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="second_column column of_three">
+			Second column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div
+	 ><div class="last_column column of_three">
+			Third column. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+		</div>
+	</div>
+	
+	<!--[if IE 6]><script src="iepngfix/iepngfix_tilebg.js"></script><![endif]-->
+	<script src="js/js.extensions.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/jquery.js"%3E%3C/script%3E'));</script>
+	<script src="js/jquery.extensions.js"></script>
+	<script src="js/jquery.validator.js"></script>
+	<script src="js/jquery.transitions.js"></script>
+	<script src="js/jquery.loading.js"></script>
+	<script src="js/jquery.popup.js"></script>
+	<script src="js/ui.site.js"></script>
+	
+	<!-- debug -->
+	<script src="http://localhost:8001/vogue-client.js"></script>
+</body>
+</html>
