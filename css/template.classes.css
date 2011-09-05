@@ -1052,14 +1052,15 @@
 
 .card {
 	display: block;
-  min-height: 5.8333em;
+  min-height: 84px;
   
-  padding-top:    0.8333em; 
-  padding-right:  0.8333em;
+  padding-top:    10px; 
+  padding-right:  10px;
   padding-bottom: 0;
-  padding-left:   70px;
+  padding-left:   84px;
   
   background-repeat: no-repeat;
+  background-color: rgb(200,200,200);
   
   /* Act as position parent */
   position: relative;
