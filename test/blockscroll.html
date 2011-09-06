@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="author" content="">
+	<meta name="description" content="">
+	
+	<title>Title</title>
+	
+	<script>document.documentElement.className = 'js';</script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<!-- Force latest IE rendering engine & Chrome Frame -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<!-- Make IE recognise HTML5 elements for styling (must stay in the head, before elements are used) -->
+	<!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- Disable image toolbar in IE6 -->
+	<!--[if lte IE 6]><meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+	
+	<link rel="icon" type="image/png" href="images/favicon.png" />
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	
+	<link rel="stylesheet" type="text/css" href="../css/template.reset.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.typography.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.typography.14_24.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.forms.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.classes.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="../css/template.ie.css" /><![endif]-->
+	<!--[if IE 8]><link rel="stylesheet" type="text/css" href="../css/template.ie8.css" /><![endif]-->
+	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="../css/template.ie7.css" /><![endif]-->
+	<!--[if IE 6]><link rel="stylesheet" type="text/css" href="../css/template.ie6.css" /><![endif]-->
+	
+	<link rel="stylesheet" type="text/css" href="css/test.css" />
+	
+	<style>
+		.test {
+			display: block;
+			height: 6em;
+			margin-bottom: 1em;
+			background-image: url('images/grid_20px.png');
+		}
+	</style>
+</head>
+
+<body>
+	<h1>blockScroll</h1>
+	<p>Scroll inside the elements below. They, and their innards, should scroll quite happily. The document should not.</p>
+	<p>Supports vertical scrolling only.</p>
+	
+	<!-- Loads of <br>s to cause a scrollbar -->
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	
+	<div class="test" style="overflow: auto;">
+		<p>Let's get started</p>
+		
+		<!-- Loads of <br>s to cause a scrollbar -->
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		
+		<p>That's a bout enough, now.</p>
+	</div>
+	
+	<div class="test">
+		<section style="height: 100%; overflow: hidden;">
+			<div style="overflow: auto; height : 100%;">
+				<p>Let's get started</p>
+				
+				<!-- Loads of <br>s to cause a scrollbar -->
+				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+				
+				<p>That's a bout enough, now.</p>
+			</div>
+		</section>
+	</div>
+	
+	<iframe class="test2" src="blockscroll.iframe.html"></iframe>
+	
+	<img src="../images/thumbs/logo_chrome.gif" class="test" />
+	
+	<!-- Loads of <br>s to cause a scrollbar -->
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	
+	<p>That's a bout enough, now.</p>
+	
+	<!--[if IE 6]><script src="iepngfix/iepngfix_tilebg.js"></script><![endif]-->
+	<script src="../js/js.extensions.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/jquery.js"%3E%3C/script%3E'));</script>
+	<script src="../js/jquery.extensions.js"></script>
+	<script src="../js/jquery.validator.js"></script>
+	<script src="../js/jquery.transitions.js"></script>
+	<script src="../js/jquery.loading.js"></script>
+	<script src="../js/jquery.popup.js"></script>
+	
+	<script>
+		jQuery(document).ready(function(){
+			jQuery('.test').blockScroll();
+		});
+	</script>
+</body>
+</html>
