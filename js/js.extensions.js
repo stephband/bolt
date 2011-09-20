@@ -323,3 +323,16 @@ if (!Function.prototype.bind)
 //	  return this;
 //	};
 })(RegExp.prototype);
+
+
+// For those browsers that don’t yet implement Object.keys we can apply the following shim (thanks to @jdalton for reminding me to add type checking) :
+if (typeof Object.keys != 'function') {
+  Object.keys = function(obj) {
+     if (typeof obj != "object" && typeof obj != "function" || obj == null) {
+          throw TypeError("Object.keys called on non-object");
+     }
+     var keys = [];
+     for (var p in obj) obj.hasOwnProperty(p) &&keys.push(p);
+     return keys;
+  }
+}
