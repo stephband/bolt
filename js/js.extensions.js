@@ -1,5 +1,6 @@
 // Define some global symbols
-
+//
+// Yeah, they are UTF-8 symbols. What a laugh.
 
 window.π = Math.PI;
 window.τ = 2 * π;
@@ -14,6 +15,8 @@ window.τ = 2 * π;
 		var noop = jQuery ? jQuery.noop : function() {} ;
 		
 		window.console = {
+			group: noop,
+			groupEnd: noop,
 			log: noop
 		};
 	}
@@ -28,16 +31,12 @@ window.τ = 2 * π;
 
 function typeOf(value) {
 	var s = typeof value;
-	if (s === 'object') {
-		if (value) {
-			if (value instanceof Array) {
-				s = 'array';
-			}
-		} else {
-			s = 'null';
-		}
-	}
-	return s;
+	
+	return s === 'object' ? 
+		!value ? 'null' :
+		value instanceof Array ? 'array' :
+		s :
+		s ;
 }
 
 
