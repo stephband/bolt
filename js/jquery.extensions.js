@@ -658,3 +658,53 @@ jQuery.render = (function(){
   		string.replace(/\{\{(\w+)\}\}/g, replaceStringFn);
   };
 })();
+
+
+// jQuery.prefix(CSSProperty)
+// 
+// Prefixes CSS properties with -vendor- prefix specific to this
+// browser, if necessary. Returns unprefixed or prefixed property,
+// or undefined where the property is not at all supported.
+// 
+// TODO: Support for IE. Need to simply add the IE equivalent of
+// .cssText and .getPropertyValue...
+
+jQuery.prefix = (function(undefined){
+	var style = document.createElement('a').style,
+	    prefixes = ['-o-', '-ms-', '-moz-', '-webkit-', ''],
+	    cache = {},
+	    reduced = false,
+	    reducePrefixes;
+	
+	function reduce(i) {
+		if (i < (prefixes.length - 1)) {
+			// Reduce the number of tests to just this browser's
+			// prefix for next test run.
+			prefixes = [prefixes[i], ''];
+			reducePrefixes = undefined;
+		}
+	}
+	
+	reducePrefixes = reduce;
+	
+	return function(property) {
+		var i, prefixed;
+	
+		if (cache[property]) {
+			return cache[property];
+		}
+	
+		i = prefixes.length;
+		while (i--) {
+			prefixed = prefixes[i] + property;
+	
+			style.cssText = prefixed + ':inherit;';
+	
+			if (style.getPropertyValue(prefixed)) {
+				if (reducePrefixes) { reducePrefixes(i); }
+				cache[property] = prefixed;
+				return prefixed;
+			}
+		}
+	}
+})();
