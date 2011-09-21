@@ -29,7 +29,7 @@ window.τ = 2 * π;
 //
 // http://javascript.crockford.com/remedial.html
 
-function typeOf(value) {
+window.typeOf = function(value) {
 	var s = typeof value;
 	
 	return s === 'object' ? 
@@ -66,6 +66,28 @@ if (!Function.prototype.bind)
 		_function.prototype = new _dummy();
 		return _function;	 
 };
+
+
+// Object.keys
+// 
+// For those browsers that don’t yet implement Object.keys we can apply the
+// following shim (thanks to @jdalton for reminding me to add type checking):
+
+if (typeof Object.keys !== 'function') {
+	Object.keys = function(obj) {
+		var keys, p;
+		
+		if (typeof obj !== "object" && typeof obj !== "function" || obj === null) {
+			throw TypeError("Object.keys called on non-object");
+		}
+		
+		keys = [];
+		for (p in obj) {
+			obj.hasOwnProperty(p) && keys.push(p);
+		}
+		return keys;
+	}
+}
 
 
 // Number
@@ -322,16 +344,3 @@ if (!Function.prototype.bind)
 //	  return this;
 //	};
 })(RegExp.prototype);
-
-
-// For those browsers that don’t yet implement Object.keys we can apply the following shim (thanks to @jdalton for reminding me to add type checking) :
-if (typeof Object.keys != 'function') {
-  Object.keys = function(obj) {
-     if (typeof obj != "object" && typeof obj != "function" || obj == null) {
-          throw TypeError("Object.keys called on non-object");
-     }
-     var keys = [];
-     for (var p in obj) obj.hasOwnProperty(p) &&keys.push(p);
-     return keys;
-  }
-}
