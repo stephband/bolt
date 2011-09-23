@@ -11,9 +11,9 @@ window.τ = 2 * π;
 // Nullify console.logs when console.log is not present
 
 (function(){
+	function noop() {}
+	
 	if (!window.console) {
-		var noop = jQuery ? jQuery.noop : function() {} ;
-		
 		window.console = {
 			group: noop,
 			groupEnd: noop,
