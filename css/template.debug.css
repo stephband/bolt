@@ -54,6 +54,30 @@ body * * * * * * * * * * {
 	background-color: yellow;
 }*/
 
+html:after {
+  content: "";
+  position: absolute;
+  background: url('../test/images/grid_20px.png') 50% 0;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+* {
+  -webkit-user-modify: read-write;
+  word-wrap: break-word;
+  -webkit-nbsp-mode: space;
+  -webkit-line-break: after-white-space;
+}
+
+a {
+  -webkit-user-modify: initial;
+}
+
 body:after,
 div:after,
 section:after,
