@@ -103,6 +103,7 @@ function addStyle() {
   var rules = ['details[open] summary:before {content: "\u25BC\240";} details summary:before {content: "\u25B6\240";} details{display: block;}','details > *{display: none;}','details.open > *{display: block;}','details[open] > *{display: block;}','details > summary:first-child{display: block;cursor: pointer;}','details[open]{display: block;}'];
       i = rules.length;
   
+  // TODO: Bugged in IE
   style[key] = rules.join("\n");
   head.insertBefore(style, head.firstChild);
 }
