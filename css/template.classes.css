@@ -1021,7 +1021,8 @@
 /* .thumb */
 
 .thumb {
-  display: block;
+  display: inline-block;
+  vertical-align: baseline;
   overflow: hidden;
   
   /* Hide overflowing text. This technique is better
