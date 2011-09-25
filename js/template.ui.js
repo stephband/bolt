@@ -97,9 +97,7 @@ jQuery.noConflict();
 	    		activate: function(e) {
 	    			var target = jQuery(e.currentTarget);
 	    			
-	    			jQuery(target.html()).popup({
-	    				popupClass: target.attr("class").replace('hidden', '')
-	    			});
+	    			jQuery(target.html()).popup(target.data("popup"));
 	    			
 	    			e.preventDefault();
 	    		}
