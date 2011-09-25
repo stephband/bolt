@@ -91,6 +91,18 @@ jQuery.noConflict();
 	    			jQuery.event.add(target, 'click', click);
 	    			jQuery.event.add(target, 'deactivate', deactivate);
 	    		}
+	    	},
+	    	
+	    	'.popup': {
+	    		activate: function(e) {
+	    			var target = jQuery(e.currentTarget);
+	    			
+	    			jQuery(target.html()).popup({
+	    				popupClass: target.attr("class").replace('hidden', '')
+	    			});
+	    			
+	    			e.preventDefault();
+	    		}
 	    	}
 	    },
 	
@@ -248,6 +260,7 @@ jQuery.noConflict();
 	})
 	.delegate('.tab', 'activate', classes['.tab'].activate)
 	.delegate('.slide', 'activate', classes['.slide'].activate)
+	.delegate('.popup', 'activate', classes['.popup'].activate)
 	.delegate('.popdown', 'activate', classes['.popdown'].activate)
 	.delegate('.dropdown', 'activate', classes['.dropdown'].activate);
 })( jQuery );

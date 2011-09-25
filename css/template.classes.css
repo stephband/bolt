@@ -103,6 +103,7 @@
 	/* Use inline-block to make popup collapse
 	   to the width of its contents. */
 	display: inline-block;
+  text-align: left;
   
   /* Act as position parent */
   position: relative;
@@ -1042,6 +1043,11 @@
   
   text-decoration: none;
   color: inherit;
+}
+
+.banner_thumb {
+	display: block;
+	width: 100%;
 }
 
 .text_thumb,

@@ -98,6 +98,7 @@ body:after {
 	position: fixed;
 	top: 0;
 	right: 0;
+	color: black;
 	border-left: none;
 	border-right: 1px solid #bbbbbb;
 	background: none;
@@ -141,4 +142,8 @@ a[href=""]:before { content: 'href=""'; color: #ff5522 !important; }
 
 @media all and (min-width: 1024px) {
 	body:after { content: 'min-width 1024px'; }
+}
+
+@media all and (min-width: 1280px) {
+	body:after { content: 'min-width 1280px'; }
 }
