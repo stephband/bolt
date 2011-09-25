@@ -84,6 +84,10 @@
 	        transition: opacity 0.06s ease-in;
 }
 
+.popup_layer > * {
+	text-align: left;
+}
+
 .popup_layer.active {
 	opacity: 1;
 	display: block;
@@ -103,7 +107,6 @@
 	/* Use inline-block to make popup collapse
 	   to the width of its contents. */
 	display: inline-block;
-  text-align: left;
   
   /* Act as position parent */
   position: relative;
@@ -1047,7 +1050,7 @@
 
 .banner_thumb {
 	display: block;
-	width: 100%;
+	width: auto;
 }
 
 .text_thumb,
