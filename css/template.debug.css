@@ -63,6 +63,7 @@ html:after {
 body:before,
 body:after,
 div:before,
+article:before,
 section:before,
 header:before,
 footer:before,
@@ -107,6 +108,7 @@ body:after {
 
 body:before				{ content: 'body'; }
 div:before				{ content: 'div'; }
+article:before		{ content: 'article' }
 section:before		{ content: 'section'; }
 header:before			{ content: 'header'; }
 footer:before			{ content: 'footer'; }
