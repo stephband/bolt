@@ -146,6 +146,7 @@
           box-shadow: 0 0 24px rgba(0,0,0,0.6);
 }
 
+
 /* TODO: We should be able to merge the .gif technique with
    the <canvas> technique, so that when canvas is not available
    the gif displays - can we set the gif as background to the
@@ -207,6 +208,17 @@
 .loading .loading_layer {
   opacity: 1;
   overflow: hidden;
+}
+
+
+/* .tip */
+
+.js .tip {
+	display: none;
+}
+
+.js .tip.active {
+	display: block;
 }
 
 
