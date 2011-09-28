@@ -14,6 +14,13 @@ html {
 
 body {
     font-size: 87.5%;    /* 14px */
+}
+
+body,
+.horizontal > *,
+.tabs_index > li,
+.crumbs_index > li,
+.actions_index > li {
     line-height: 1.4286; /* 20px */
 }
 

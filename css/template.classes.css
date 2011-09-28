@@ -301,6 +301,15 @@
 	vertical-align: top;
 }
 
+.crumbs_index > li + li:before {
+	content: "▶";
+	font-size: 0.6667em;
+	display: inline-block;
+	vertical-align: baseline;
+	margin-left: 0.6em;
+	margin-right: 0.6em;
+}
+
 /* Items divided by lines */
 
 .divided_index li {
@@ -328,16 +337,18 @@
     display: inline-block;
 }
 
-/* .horizontal
+
+/* .index classes with horizontal layout.
     
    Simulate a bunch of blocks pushed against each other horizontally
-   by using inline layout to create a horizontal effect. Because
+   by using inline-block layout to create a horizontal effect. Because
    they're in the flow, children must have no space between them in
    the html.
 */
 
 .horizontal,
 .tabs_index,
+.crumbs_index,
 .actions_index {
   /* To form grids with a horizontal index, line-height
      needs to be smaller than the items in the index. */
@@ -346,6 +357,7 @@
 
 .horizontal > *,
 .tabs_index > li,
+.crumbs_index > li,
 .actions_index > li {
   display: inline-block;
   vertical-align: top;
@@ -353,12 +365,14 @@
 
 .horizontal > *:last-child,
 .tabs_index > li:last-child,
+.crumbs_index > li:last-child,
 .actions_index > li:last-child {
     margin-right: 0;
 }
 
 .horizontal > *.last,
 .tabs_index > li.last,
+.crumbs_index > li.last,
 .actions_index > li.last {
     margin-right: 0;
 }
