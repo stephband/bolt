@@ -321,7 +321,7 @@
 	margin-right: 0;
 }
 
-crumbs_index > li > .button {
+.crumbs_index > li > .button {
 	width: 100%;
 }
 
