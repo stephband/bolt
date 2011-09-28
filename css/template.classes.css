@@ -301,13 +301,28 @@
 	vertical-align: top;
 }
 
+.crumbs_index,
+.crumbs_index > li {
+	white-space: nowrap;
+}
+
+.crumbs_index > li + li {
+	padding-left: 1.5em;
+}
+
 .crumbs_index > li + li:before {
 	content: "▶";
-	font-size: 0.6667em;
+	font-size: 0.75em;
 	display: inline-block;
 	vertical-align: baseline;
-	margin-left: 0.6em;
-	margin-right: 0.6em;
+	width: 2em;
+	text-align: center;
+	margin-left: -2em;
+	margin-right: 0;
+}
+
+crumbs_index > li > .button {
+	width: 100%;
 }
 
 /* Items divided by lines */
