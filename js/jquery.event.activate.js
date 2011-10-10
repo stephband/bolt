@@ -18,7 +18,9 @@
 		if (!data) {
 			data = {
 			  elem: jQuery(target),
-			  buttons: jQuery('a[href="#'+id+'"]')
+			  
+			  // Don't store buttons if the id is falsy
+			  buttons: id && jQuery('a[href="#'+id+'"]')
 			}
 			
 			jQuery.data(target, 'active', data);
@@ -42,7 +44,7 @@
 			if (data.state) { return; }
 			
 			data.elem.addTransitionClass('active');
-			data.buttons.addClass('active');
+			data.buttons && data.buttons.addClass('active');
 			data.state = true;
 		}
 	};
@@ -62,7 +64,7 @@
 			if (debug) { console.log('[deactivate] default | target:', e.target.id); }
 			
 			data.elem.removeTransitionClass('active');
-			data.buttons.removeClass('active');
+			data.buttons && data.buttons.removeClass('active');
 			data.state = false;
 		}
 	};
