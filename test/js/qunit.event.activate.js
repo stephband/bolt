@@ -81,6 +81,16 @@ jQuery(document).ready(function(){
 		ok( jQuery('#test4').hasClass('active'), '.tab still has class .active' );
 	});
 	
+	module('Activate non-activatable things');
+	
+	test('Things without an id should not activate a[href="#"] links.', 2, function() {
+		jQuery('.test5').trigger('activate');
+		
+		ok( !jQuery('.link_test5').eq(0).hasClass('active'), 'First empty hash link has not got class active' );
+		ok( !jQuery('.link_test5').eq(1).hasClass('active'), 'Second empty hash link has not got class active' );
+	});
+	
+	
 //	module('Activate parents');
 //	
 //	test('Activate outer tabs first', 6, function() {
