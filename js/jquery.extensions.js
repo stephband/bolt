@@ -655,6 +655,6 @@ jQuery.render = (function(){
   			(template.ignoreCase ? 'i' : '') +
   			(template.multiline ? 'm' : '')
   		) :
-  		string.replace(/\{\{(\w+)\}\}/g, replaceStringFn);
+  		template.replace(/\{\{(\w+)\}\}/g, replaceStringFn);
   };
 })();
