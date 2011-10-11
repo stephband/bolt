@@ -17,11 +17,16 @@
 		
 		if (!data) {
 			data = {
+<<<<<<< HEAD
 			  elem: jQuery(target),
 			  
 			  // Don't store buttons if the id is falsy
 			  buttons: id && jQuery('a[href="#'+id+'"]')
 			}
+=======
+				elem: jQuery(target)
+			};
+>>>>>>> 256e23d... Removes caching of links that point to activate able nodes. Good for dynamic content. Bad for speed. Speed should not really be an issue unless we have hundreds and hundreds of links on a page.
 			
 			jQuery.data(target, 'active', data);
 		}
@@ -38,14 +43,19 @@
 		_default: function(e) {
 			var data = cacheData(e.target);
 			
-			if (debug) { console.log('[activate] default | target:', e.target.id); }
+			if (debug) { console.log('[activate] default | target:', e.target.id, 'active:', data.state); }
 			
 			// Don't do anything if elem is already active
 			if (data.state) { return; }
 			
+<<<<<<< HEAD
 			data.elem.addTransitionClass('active');
 			data.buttons && data.buttons.addClass('active');
+=======
+>>>>>>> 256e23d... Removes caching of links that point to activate able nodes. Good for dynamic content. Bad for speed. Speed should not really be an issue unless we have hundreds and hundreds of links on a page.
 			data.state = true;
+			data.elem.addTransitionClass('active');
+			jQuery('a[href="#'+e.target.id+'"]').addClass('active');
 		}
 	};
 	
@@ -58,14 +68,21 @@
 		_default: function(e) {
 			var data = cacheData(e.target);
 			
+			if (debug) { console.log('[deactivate] default | target:', e.target.id, 'active:', data.state); }
+			
 			// Don't do anything if elem is already inactive
 			if (!data.state) { return; }
 			
+<<<<<<< HEAD
 			if (debug) { console.log('[deactivate] default | target:', e.target.id); }
 			
 			data.elem.removeTransitionClass('active');
 			data.buttons && data.buttons.removeClass('active');
+=======
+>>>>>>> 256e23d... Removes caching of links that point to activate able nodes. Good for dynamic content. Bad for speed. Speed should not really be an issue unless we have hundreds and hundreds of links on a page.
 			data.state = false;
+			data.elem.removeTransitionClass('active');
+			jQuery('a[href="#'+e.target.id+'"]').removeClass('active');
 		}
 	};
 	
