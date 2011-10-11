@@ -79,7 +79,13 @@
 	
 	-webkit-transition: opacity 0.06s ease-in;
 	   -moz-transition: opacity 0.06s ease-in;
+	    -ms-transition: opacity 0.06s ease-in;
+	     -o-transition: opacity 0.06s ease-in;
 	        transition: opacity 0.06s ease-in;
+}
+
+.popup_layer > * {
+	text-align: left;
 }
 
 .popup_layer.active {
@@ -88,6 +94,8 @@
 	
 	-webkit-transition: opacity 0.12s ease-in;
 	   -moz-transition: opacity 0.12s ease-in;
+	    -ms-transition: opacity 0.12s ease-in;
+	     -o-transition: opacity 0.12s ease-in;
 	        transition: opacity 0.12s ease-in;
 }
 
@@ -138,6 +146,7 @@
           box-shadow: 0 0 24px rgba(0,0,0,0.6);
 }
 
+
 /* TODO: We should be able to merge the .gif technique with
    the <canvas> technique, so that when canvas is not available
    the gif displays - can we set the gif as background to the
@@ -178,6 +187,7 @@
 	
 	-webkit-transition: opacity 0.16s ease-in;
 	   -moz-transition: opacity 0.16s ease-in;
+	    -ms-transition: opacity 0.16s ease-in;
 	     -o-transition: opacity 0.16s ease-in;
 	        transition: opacity 0.16s ease-in;
 	
@@ -201,6 +211,17 @@
 }
 
 
+/* .tip */
+
+.js .tip {
+	display: none;
+}
+
+.js .tip.active {
+	display: block;
+}
+
+
 /* utilities */
 
 .hidden {
@@ -210,6 +231,8 @@
 .no_transition {
   -webkit-transition: none !important;
   -moz-transition:    none !important;
+  -ms-transition:     none !important;
+  -o-transition:      none !important;
   transition:         none !important;
 }
 
@@ -255,23 +278,52 @@
 }
 
 .tabs_index > li {
-  /* Stop content pushing column wider than it should be */
+  /* Stop content pushing li wider than it should be */
   overflow: visible;
   min-height: 100%;
-  margin-right: 2%;
+  margin-right: 0;
 }
 
-.two_tabs_index > li   { width: 49%; }
-.three_tabs_index > li { width: 32%; }
-.four_tabs_index > li  { width: 23.5%; }
-.five_tabs_index > li  { width: 18.4%; }
-.six_tabs_index > li   { width: 15%; }
-.seven_tabs_index > li { width: 12.5714%; }
-.eight_tabs_index > li { width: 10.75%; }
+.two_tabs_index > li   { width: 50%; }
+.three_tabs_index > li { width: 33.33%; }
+.four_tabs_index > li  { width: 25%; }
+.five_tabs_index > li  { width: 20%; }
+.six_tabs_index > li   { width: 16.66%; }
+.seven_tabs_index > li { width: 14.28%; }
+.eight_tabs_index > li { width: 12.5%; }
 
 .tabs_index > li:last-child		{ margin-right: 0; }
 .tabs_index > li.last         { margin-right: 0; }
 
+.tabs_index > li > .button {
+	/* Firefox leaves a gap below the baseline unless buttons
+	   are aligned to top. */
+	vertical-align: top;
+}
+
+.crumbs_index,
+.crumbs_index > li {
+	white-space: nowrap;
+}
+
+.crumbs_index > li + li {
+	padding-left: 1.5em;
+}
+
+.crumbs_index > li + li:before {
+	content: "▶";
+	font-size: 0.75em;
+	display: inline-block;
+	vertical-align: baseline;
+	width: 2em;
+	text-align: center;
+	margin-left: -2em;
+	margin-right: 0;
+}
+
+.crumbs_index > li > .button {
+	width: 100%;
+}
 
 /* Items divided by lines */
 
@@ -300,27 +352,46 @@
     display: inline-block;
 }
 
-/* .horizontal
+
+/* .index classes with horizontal layout.
     
    Simulate a bunch of blocks pushed against each other horizontally
-   by using inline layout to create a horizontal effect. Because
+   by using inline-block layout to create a horizontal effect. Because
    they're in the flow, children must have no space between them in
    the html.
 */
 
-.horizontal {
+.horizontal,
+.tabs_index,
+.crumbs_index,
+.actions_index {
   /* To form grids with a horizontal index, line-height
      needs to be smaller than the items in the index. */
 	line-height: 0;
 }
 
-.horizontal > * {
+.horizontal > *,
+.tabs_index > li,
+.crumbs_index > li,
+.actions_index > li {
   display: inline-block;
   vertical-align: top;
-  height: 100%;
-  /* Reset the line-height we zeroed on the parent. */
-  line-height: 1.6667;
 }
+
+.horizontal > *:last-child,
+.tabs_index > li:last-child,
+.crumbs_index > li:last-child,
+.actions_index > li:last-child {
+    margin-right: 0;
+}
+
+.horizontal > *.last,
+.tabs_index > li.last,
+.crumbs_index > li.last,
+.actions_index > li.last {
+    margin-right: 0;
+}
+
 
 .horizontal > input[type='radio'],
 .horizontal > input[type='checkbox'] {
@@ -328,14 +399,6 @@
     height: auto;
     width: auto;
     margin-top: 0.25em;
-}
-
-.horizontal > *:last-child {
-    margin-right: 0;
-}
-
-.horizontal > *.last {
-    margin-right: 0;
 }
 
 .horizontal.index > dt,
@@ -598,95 +661,95 @@
   margin-right: -100%;
 }
 
-.two_col_wrap .col   { width: 50%;      margin-right: -50%; }
-.three_col_wrap .col { width: 33.3333%; margin-right: -33.3333%; }
-.four_col_wrap .col  { width: 25%;      margin-right: -25%; }
-.five_col_wrap .col  { width: 20%;      margin-right: -20%; }
-.six_col_wrap .col   { width: 16.6667%; margin-right: -16.6667%; }
-.seven_col_wrap .col { width: 14.2857%; margin-right: -14.2857%; }
-.eight_col_wrap .col { width: 12.5%;    margin-right: -12.5%; }
-.nine_col_wrap .col  { width: 11.1111%; margin-right: -11.1111%; }
-.ten_col_wrap .col   { width: 10%;      margin-right: -10%; }
+.two_col_wrap > .col   { width: 50%;      margin-right: -50%; }
+.three_col_wrap > .col { width: 33.3333%; margin-right: -33.3333%; }
+.four_col_wrap > .col  { width: 25%;      margin-right: -25%; }
+.five_col_wrap > .col  { width: 20%;      margin-right: -20%; }
+.six_col_wrap > .col   { width: 16.6667%; margin-right: -16.6667%; }
+.seven_col_wrap > .col { width: 14.2857%; margin-right: -14.2857%; }
+.eight_col_wrap > .col { width: 12.5%;    margin-right: -12.5%; }
+.nine_col_wrap > .col  { width: 11.1111%; margin-right: -11.1111%; }
+.ten_col_wrap > .col   { width: 10%;      margin-right: -10%; }
 
-.two_col_wrap .double_col      { width: 100%; margin-right: -100%; }
+.two_col_wrap > .double_col      { width: 100%; margin-right: -100%; }
 
-.two_col_wrap .first_col       { left: 0; }
-.two_col_wrap .second_col      { left: 100%; margin-right: 0; margin-left: -50%; }
+.two_col_wrap > .first_col       { left: 0; }
+.two_col_wrap > .second_col      { left: 100%; margin-right: 0; margin-left: -50%; }
 
-.three_col_wrap .double_col    { width: 66.6667%; margin-right: -66.6667%; }
-.three_col_wrap .triple_col    { width: 100%; margin-right: -100%; }
+.three_col_wrap > .double_col    { width: 66.6667%; margin-right: -66.6667%; }
+.three_col_wrap > .triple_col    { width: 100%; margin-right: -100%; }
 
-.three_col_wrap .first_col     { left: 0; }
-.three_col_wrap .second_col    { left: 33.3333%; }
-.three_col_wrap .third_col     { left: 100%; margin-right: 0; margin-left: -33.3333%; }
+.three_col_wrap > .first_col     { left: 0; }
+.three_col_wrap > .second_col    { left: 33.3333%; }
+.three_col_wrap > .third_col     { left: 100%; margin-right: 0; margin-left: -33.3333%; }
 
-.four_col_wrap .double_col     { width: 40%; margin-right: -40%; }
-.four_col_wrap .triple_col     { width: 60%; margin-right: -60%; }
-.four_col_wrap .quadruple_col  { width: 100%; margin-right: -100%; }
+.four_col_wrap > .double_col     { width: 40%; margin-right: -40%; }
+.four_col_wrap > .triple_col     { width: 60%; margin-right: -60%; }
+.four_col_wrap > .quadruple_col  { width: 100%; margin-right: -100%; }
 
-.four_col_wrap .first_col      { left: 0; }
-.four_col_wrap .second_col     { left: 25%; }
-.four_col_wrap .third_col      { left: 50%; }
-.four_col_wrap .fourth_col     { left: 100%; margin-right: 0; margin-left: -25%; }
+.four_col_wrap > .first_col      { left: 0; }
+.four_col_wrap > .second_col     { left: 25%; }
+.four_col_wrap > .third_col      { left: 50%; }
+.four_col_wrap > .fourth_col     { left: 100%; margin-right: 0; margin-left: -25%; }
 
-.five_col_wrap .double_col     { width: 40%; margin-right: -40%; }
-.five_col_wrap .triple_col     { width: 60%; margin-right: -60%; }
-.five_col_wrap .quadruple_col  { width: 80%; margin-right: -80%; }
-.five_col_wrap .quintuple_col  { width: 100%; margin-right: -100%; }
+.five_col_wrap > .double_col     { width: 40%; margin-right: -40%; }
+.five_col_wrap > .triple_col     { width: 60%; margin-right: -60%; }
+.five_col_wrap > .quadruple_col  { width: 80%; margin-right: -80%; }
+.five_col_wrap > .quintuple_col  { width: 100%; margin-right: -100%; }
 
-.five_col_wrap .first_col      { left: 0; }
-.five_col_wrap .second_col     { left: 20%; }
-.five_col_wrap .third_col      { left: 40%; }
-.five_col_wrap .fourth_col     { left: 60%; }
-.five_col_wrap .fifth_col      { left: 100%; margin-right: 0; margin-left: -20%; }
+.five_col_wrap > .first_col      { left: 0; }
+.five_col_wrap > .second_col     { left: 20%; }
+.five_col_wrap > .third_col      { left: 40%; }
+.five_col_wrap > .fourth_col     { left: 60%; }
+.five_col_wrap > .fifth_col      { left: 100%; margin-right: 0; margin-left: -20%; }
 
-.six_col_wrap .double_col      { width: 28.5714%; margin-right: -28.5714%; }
-.six_col_wrap .triple_col      { width: 42.8571%; margin-right: -42.8571%; }
-.six_col_wrap .quadruple_col   { width: 57.1429%; margin-right: -57.1429%; }
-.six_col_wrap .quintuple_col   { width: 71.4286%; margin-right: -71.4286%; }
-.six_col_wrap .sextuple_col    { width: 100%; margin-right: -100%; }
+.six_col_wrap > .double_col      { width: 28.5714%; margin-right: -28.5714%; }
+.six_col_wrap > .triple_col      { width: 42.8571%; margin-right: -42.8571%; }
+.six_col_wrap > .quadruple_col   { width: 57.1429%; margin-right: -57.1429%; }
+.six_col_wrap > .quintuple_col   { width: 71.4286%; margin-right: -71.4286%; }
+.six_col_wrap > .sextuple_col    { width: 100%; margin-right: -100%; }
 
-.six_col_wrap .first_col       { left: 0; }
-.six_col_wrap .second_col      { left: 16.6667%; }
-.six_col_wrap .third_col       { left: 33.3333%; }
-.six_col_wrap .fourth_col      { left: 50%; }
-.six_col_wrap .fifth_col       { left: 66.6667%; }
-.six_col_wrap .sixth_col       { left: 100%; margin-right: 0; margin-left: -16.6667%; }
+.six_col_wrap > .first_col       { left: 0; }
+.six_col_wrap > .second_col      { left: 16.6667%; }
+.six_col_wrap > .third_col       { left: 33.3333%; }
+.six_col_wrap > .fourth_col      { left: 50%; }
+.six_col_wrap > .fifth_col       { left: 66.6667%; }
+.six_col_wrap > .sixth_col       { left: 100%; margin-right: 0; margin-left: -16.6667%; }
 
-.seven_col_wrap .double_col    { width: 28.5714%; margin-right: -28.5714%; }
-.seven_col_wrap .triple_col    { width: 42.8571%; margin-right: -42.8571%; }
-.seven_col_wrap .quadruple_col { width: 57.1429%; margin-right: -57.1429%; }
-.seven_col_wrap .quintuple_col { width: 71.4286%; margin-right: -71.4286%; }
-.seven_col_wrap .sextuple_col  { width: 85.7143%; margin-right: -85.7143%; }
-.seven_col_wrap .septuple_col  { width: 100%; margin-right: -100%; }
+.seven_col_wrap > .double_col    { width: 28.5714%; margin-right: -28.5714%; }
+.seven_col_wrap > .triple_col    { width: 42.8571%; margin-right: -42.8571%; }
+.seven_col_wrap > .quadruple_col { width: 57.1429%; margin-right: -57.1429%; }
+.seven_col_wrap > .quintuple_col { width: 71.4286%; margin-right: -71.4286%; }
+.seven_col_wrap > .sextuple_col  { width: 85.7143%; margin-right: -85.7143%; }
+.seven_col_wrap > .septuple_col  { width: 100%; margin-right: -100%; }
 
-.seven_col_wrap .first_col     { left: 0; }
-.seven_col_wrap .second_col    { left: 14.2857%; }
-.seven_col_wrap .third_col     { left: 28.5714%; }
-.seven_col_wrap .fourth_col    { left: 42.8571%; }
-.seven_col_wrap .fifth_col     { left: 57.1429%; }
-.seven_col_wrap .sixth_col     { left: 71.4286%; }
-.seven_col_wrap .seventh_col   { left: 100%; margin-right: 0; margin-left: -14.2857%; }
+.seven_col_wrap > .first_col     { left: 0; }
+.seven_col_wrap > .second_col    { left: 14.2857%; }
+.seven_col_wrap > .third_col     { left: 28.5714%; }
+.seven_col_wrap > .fourth_col    { left: 42.8571%; }
+.seven_col_wrap > .fifth_col     { left: 57.1429%; }
+.seven_col_wrap > .sixth_col     { left: 71.4286%; }
+.seven_col_wrap > .seventh_col   { left: 100%; margin-right: 0; margin-left: -14.2857%; }
 
-.eight_col_wrap .double_col    { width: 25%;   margin-right: -25%; }
-.eight_col_wrap .triple_col    { width: 37.5%; margin-right: -37.5%; }
-.eight_col_wrap .quadruple_col { width: 50%;   margin-right: -50%; }
-.eight_col_wrap .quintuple_col { width: 62.5%; margin-right: -62.5%; }
-.eight_col_wrap .sextuple_col  { width: 75%;   margin-right: -75%; }
-.eight_col_wrap .septuple_col  { width: 87.5%; margin-right: -87.5%; }
-.eight_col_wrap .octuple_col   { width: 100%; margin-right: -100%; }
+.eight_col_wrap > .double_col    { width: 25%;   margin-right: -25%; }
+.eight_col_wrap > .triple_col    { width: 37.5%; margin-right: -37.5%; }
+.eight_col_wrap > .quadruple_col { width: 50%;   margin-right: -50%; }
+.eight_col_wrap > .quintuple_col { width: 62.5%; margin-right: -62.5%; }
+.eight_col_wrap > .sextuple_col  { width: 75%;   margin-right: -75%; }
+.eight_col_wrap > .septuple_col  { width: 87.5%; margin-right: -87.5%; }
+.eight_col_wrap > .octuple_col   { width: 100%; margin-right: -100%; }
 
-.eight_col_wrap .first_col     { left: 0; }
-.eight_col_wrap .second_col    { left: 12.5%; }
-.eight_col_wrap .third_col     { left: 25%; }
-.eight_col_wrap .fourth_col    { left: 37.5%; }
-.eight_col_wrap .fifth_col     { left: 50%; }
-.eight_col_wrap .sixth_col     { left: 62.5%; }
-.eight_col_wrap .seventh_col   { left: 75%; }
-.eight_col_wrap .eighth_col    { left: 100%; margin-right: 0; margin-left: -12.5%; }
+.eight_col_wrap > .first_col     { left: 0; }
+.eight_col_wrap > .second_col    { left: 12.5%; }
+.eight_col_wrap > .third_col     { left: 25%; }
+.eight_col_wrap > .fourth_col    { left: 37.5%; }
+.eight_col_wrap > .fifth_col     { left: 50%; }
+.eight_col_wrap > .sixth_col     { left: 62.5%; }
+.eight_col_wrap > .seventh_col   { left: 75%; }
+.eight_col_wrap > .eighth_col    { left: 100%; margin-right: 0; margin-left: -12.5%; }
 
 .last_col,
-.col_wrap .last_col            { margin-right: 100%; }
+.col_wrap > .last_col            { margin-right: 100%; }
 
 
 /* Vertical centering builds on the technique described here:
@@ -778,33 +841,77 @@
 
 
 
-
 .tab {
 	display: none;
+	/* The inline-block technique overlays tabs on top of one another
+	   but still allows the height of the blocks to stay in the flow.
+	   It's better than using position: absolute. In short, it rocks. */
+	vertical-align: top;
+	position: relative;
+	width: 100%;
+	margin-right: -100%;
+	
 	opacity: 0;
 	z-index: 1;
 	
 	-webkit-transition: opacity 0.12s ease-in;
 	   -moz-transition: opacity 0.12s ease-in;
+	    -ms-transition: opacity 0.12s ease-in;
+	     -o-transition: opacity 0.12s ease-in;
 	        transition: opacity 0.12s ease-in;
 }
 
 .tab.active {
-	display: block;
+	display: inline-block;
 	opacity: 1;
 	z-index: 2;
 	
 	-webkit-transition: opacity 0.12s ease-out;
 	   -moz-transition: opacity 0.12s ease-out;
+	    -ms-transition: opacity 0.12s ease-out;
+	     -o-transition: opacity 0.12s ease-out;
 	        transition: opacity 0.12s ease-out;
 }
 
 .tab.transition {
-	display: block;
+	display: inline-block;
 }
 
 
+.slide {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	width: 100%;
+	left: -100%;
+	margin-right: -100%;
+	
+	/* Steps have no height by default to stop them influencing
+	   scrollbars when they are not the active step. */
+	height: 0;
+	overflow: hidden;
+	
+	-webkit-transition: left 0.33s ease-in;
+	   -moz-transition: left 0.33s ease-in;
+	    -ms-transition: left 0.33s ease-in;
+	     -o-transition: left 0.33s ease-in;
+	        transition: left 0.33s ease-in;
+}
 
+.slide.active {
+	left: 0;
+	height: auto;
+	overflow: visible;
+}
+
+.slide.transition {
+	height: auto;
+	overflow: visible;
+}
+
+.slide.active ~ .slide {
+	left: 100%;
+}
 
 
 /* .popup, .popdown, .dropdown, .stopdown */
@@ -820,6 +927,8 @@
   
   -webkit-transition: opacity 0.18s ease-out, top 0.18s ease-out;
      -moz-transition: opacity 0.18s ease-out, top 0.18s ease-out;
+      -ms-transition: opacity 0.18s ease-out, top 0.18s ease-out;
+       -o-transition: opacity 0.18s ease-out, top 0.18s ease-out;
           transition: opacity 0.18s ease-out, top 0.18s ease-out;
 }
 
@@ -832,6 +941,8 @@
   
   -webkit-transition: opacity 0.06s ease-in, top 0.06s ease-in;
      -moz-transition: opacity 0.06s ease-in, top 0.06s ease-in;
+      -ms-transition: opacity 0.06s ease-in, top 0.06s ease-in;
+       -o-transition: opacity 0.06s ease-in, top 0.06s ease-in;
           transition: opacity 0.06s ease-in, top 0.06s ease-in;
 }
 
@@ -846,6 +957,8 @@
 
 	-webkit-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
 	   -moz-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
+	    -ms-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
+	     -o-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
 	        transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
 }
 
@@ -859,6 +972,8 @@
   
 	-webkit-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
 	   -moz-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
+	    -ms-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
+	     -o-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
 	        transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
 }
 
@@ -878,6 +993,8 @@
 
 .button {
   display: inline-block;
+  
+  cursor: pointer;
   
   height: 2em;
   line-height: 2em;
@@ -929,10 +1046,9 @@
 
 .menu_button,
 .tab_button {
-  width: 100%;
+	width: 100%;
 	padding-left: 0.8333em;
 	padding-right: 0.8333em;
-  text-align: left;
   
   /* Remove default border and shadow */
   
@@ -945,11 +1061,15 @@
           border-radius: 0;
 }
 
+.menu_button {
+	text-align: left;
+}
 
 /* .thumb */
 
 .thumb {
-  display: block;
+  display: inline-block;
+  vertical-align: baseline;
   overflow: hidden;
   
   /* Hide overflowing text. This technique is better
@@ -969,6 +1089,11 @@
   
   text-decoration: none;
   color: inherit;
+}
+
+.banner_thumb {
+	display: block;
+	width: auto;
 }
 
 .text_thumb,
@@ -1064,10 +1189,6 @@
   
   /* Act as position parent */
   position: relative;
-  
-  -webkit-border-radius: 0.3333em;
-     -moz-border-radius: 0.3333em;
-          border-radius: 0.3333em;
   
   -webkit-user-drag: element;
 }

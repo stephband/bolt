@@ -167,7 +167,7 @@
 		hide( layer, options.hideCallback, options.context );
 		e.preventDefault();
 	})
-	.delegate(".popup a[href='#close']", "click.popup", function(e){
+	.delegate(".popup_layer a[href='#close']", "click.popup", function(e){
 		var layer = jQuery(this).closest('.popup_layer'),
 				options = layer.data('popup');
 		

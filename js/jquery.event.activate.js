@@ -5,7 +5,10 @@
 // can be enabled by adding the class 'active'.
 
 (function(jQuery, undefined){
-	var debug = (window.console && window.console.log);
+	var debug = (window.console && window.console.log),
+	    options = {
+	    	cache: true
+	    };
 	
 	function returnTrue() {
 		return true;
@@ -17,9 +20,9 @@
 		
 		if (!data) {
 			data = {
-			  elem: jQuery(target),
-			  buttons: jQuery('a[href="#'+id+'"]')
-			}
+				elem: jQuery(target),
+				buttons: options.cache && id && jQuery('a[href="#'+id+'"]')
+			};
 			
 			jQuery.data(target, 'active', data);
 		}
@@ -34,17 +37,25 @@
 		teardown: returnTrue,
 		
 		_default: function(e) {
-			var data = cacheData(e.target);
+			var data = cacheData(e.target),
+			    buttons;
 			
-			if (debug) { console.log('[activate] default | target:', e.target.id); }
+			if (debug) { console.log('[activate] default | target:', e.target.id, 'active:', data.state); }
 			
 			// Don't do anything if elem is already active
 			if (data.state) { return; }
 			
-			data.elem.addTransitionClass('active');
-			data.buttons.addClass('active');
 			data.state = true;
-		}
+			data.elem.addTransitionClass('active');
+			
+			buttons = ((options.cache && data.buttons) || (e.target.id && jQuery('a[href="#'+e.target.id+'"]')));
+			
+			if (buttons) {
+				buttons.addClass('active');
+			}
+		},
+		
+		options: options
 	};
 	
 	jQuery.event.special.deactivate = {
@@ -54,23 +65,31 @@
 		teardown: returnTrue,
 		
 		_default: function(e) {
-			var data = cacheData(e.target);
+			var data = cacheData(e.target),
+			    buttons;
+			
+			if (debug) { console.log('[deactivate] default | target:', e.target.id, 'active:', data.state); }
 			
 			// Don't do anything if elem is already inactive
 			if (!data.state) { return; }
 			
-			if (debug) { console.log('[deactivate] default | target:', e.target.id); }
-			
-			data.elem.removeTransitionClass('active');
-			data.buttons.removeClass('active');
 			data.state = false;
-		}
+			data.elem.removeTransitionClass('active');
+
+			buttons = ((options.cache && data.buttons) || (e.target.id && jQuery('a[href="#'+e.target.id+'"]')));
+			
+			if (buttons) {
+				buttons.removeClass('active');
+			}
+		},
+		
+		options: options
 	};
 	
 	jQuery(document).ready(function(){
 		var id = window.location.hash;
 		
-		// Setup all things that start should start out active
+		// Setup all things that should start out active
 		jQuery('.active').trigger('activate');
 		
 		// Activate the node that corresponds to the hashref

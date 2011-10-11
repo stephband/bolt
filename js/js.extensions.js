@@ -1,5 +1,6 @@
 // Define some global symbols
-
+//
+// Yeah, they are UTF-8 symbols. What a laugh.
 
 window.π = Math.PI;
 window.τ = 2 * π;
@@ -10,10 +11,12 @@ window.τ = 2 * π;
 // Nullify console.logs when console.log is not present
 
 (function(){
+	function noop() {}
+	
 	if (!window.console) {
-		var noop = jQuery ? jQuery.noop : function() {} ;
-		
 		window.console = {
+			group: noop,
+			groupEnd: noop,
 			log: noop
 		};
 	}
@@ -26,18 +29,14 @@ window.τ = 2 * π;
 //
 // http://javascript.crockford.com/remedial.html
 
-function typeOf(value) {
+window.typeOf = function(value) {
 	var s = typeof value;
-	if (s === 'object') {
-		if (value) {
-			if (value instanceof Array) {
-				s = 'array';
-			}
-		} else {
-			s = 'null';
-		}
-	}
-	return s;
+	
+	return s === 'object' ? 
+		!value ? 'null' :
+		value instanceof Array ? 'array' :
+		s :
+		s ;
 }
 
 
@@ -67,6 +66,28 @@ if (!Function.prototype.bind)
 		_function.prototype = new _dummy();
 		return _function;	 
 };
+
+
+// Object.keys
+// 
+// For those browsers that don’t yet implement Object.keys we can apply the
+// following shim (thanks to @jdalton for reminding me to add type checking):
+
+if (typeof Object.keys !== 'function') {
+	Object.keys = function(obj) {
+		var keys, p;
+		
+		if (typeof obj !== "object" && typeof obj !== "function" || obj === null) {
+			throw TypeError("Object.keys called on non-object");
+		}
+		
+		keys = [];
+		for (p in obj) {
+			obj.hasOwnProperty(p) && keys.push(p);
+		}
+		return keys;
+	}
+}
 
 
 // Number
@@ -247,79 +268,3 @@ if (!Function.prototype.bind)
 	};
 	
 })(Math);
-
-
-// RegExp object
-
-(function(prototype){
-	
-	// regexp.render(obj) treats this regexp as a template, returning a new
-	// regexp object that fills template tags in this with properties obj.
-	// Non capturing groups are inserted where tags are followed by regexp
-	// operators. See post by Lea Verou, who had the initial idea, and comments:
-	// 
-	// http://leaverou.me/2011/03/create-complex-regexps-more-easily/
-	// 
-	// Usage:
-	// /regex{{key}}/.render({ key: /template/ }); // Returns /regextemplate/
-	// /regex{{key}}*/.render({ key: /template/ }); // Returns /regex(?:template)*/
-	
-	prototype.render = (function(){
-		function replaceFn(obj) {
-			return function($0, $1, $2) {
-				// $1 is the template key in {{key}}, while $2 exists where
-				// the template tag is followed by a repetition operator.
-				var r = obj[$1];
-				
-				if (!r) { throw("Exception: attempting to build RegExp but obj['"+$1+"'] is undefined."); }
-				
-				// Strip out beginning and end matchers
-				r = r.source.replace(/^\^|\$$/g, '');
-				
-				// Return a non-capturing group when $2 exists, or just the source.
-				return $2 ? ['(?:', r, ')', $2].join('') : r ;
-			}
-		}
-		
-		return function(obj) {
-			return RegExp(
-				this.source.replace(/\{\{(\w+)\}\}(\{\d|\?|\*|\+)?/g, replaceFn(obj)),
-				(this.global ? 'g' : '') +
-				(this.ignoreCase ? 'i' : '') +
-				(this.multiline ? 'm' : '')
-			);
-		};
-	})();
-	
-	// regexp.run(string, fn) calls function fn with arguments
-	// [match, capture1, capture2 ... , index, string ] when regexp matches
-	// string. Effectively, it's the inverse of string.replace(regex, fn);
-	
-	prototype.run = function(string, fn) {
-		string.replace(this, fn);
-		return this;
-	};
-	
-//	// regexp.distribute(string, fn1, fn2 ...) fires the fn corresponding
-//	// to the matched capturing group. Useful for pattern based switching.
-//	//
-//	// Usage:
-//	// /(r)|(e)|(g)|(x)/.distribute('e', fn1, fn2, fn3, fn4) // Runs fn2()
-//	
-//	prototype.distribute = function(string) {
-//	  var fns = arguments;
-//	  
-//	  string.replace(this, function() {
-//	  	var l = arguments.length,
-//	  			m = 0;
-//	  	
-//	  	while (++m < l) {
-//	  		if (arguments[m] && fns[m]) {
-//	  			fns[m](arguments[m], arguments[l-2], string);
-//	  		}
-//	  	}
-//	  });
-//	  
-//	  return this;
-//	};
-})(RegExp.prototype);

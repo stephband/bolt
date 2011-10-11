@@ -91,6 +91,32 @@ jQuery.noConflict();
 	    			jQuery.event.add(target, 'click', click);
 	    			jQuery.event.add(target, 'deactivate', deactivate);
 	    		}
+	    	},
+	    	
+	    	'.popup': {
+	    		activate: function(e) {
+	    			var target = jQuery(e.currentTarget);
+	    			
+	    			jQuery(target.html()).popup(target.data("popup"));
+	    			
+	    			e.preventDefault();
+	    		}
+	    	},
+	    	
+	    	'.tip': {
+	    		activate: function(e) {
+	    			var target = jQuery(e.currentTarget);
+	    			
+	    			target.css({ display: 'block', top: 0, left: 0 });
+	    			
+	    			e.preventDefault();
+	    		},
+	    		
+	    		deactivate: function(e) {
+	    			var target = jQuery(e.currentTarget);
+	    			
+	    			e.preventDefault();
+	    		}
 	    	}
 	    },
 	
@@ -233,21 +259,78 @@ jQuery.noConflict();
 		
 		e.preventDefault();
 		
+		link.unbind('click', preventDefault);
 		link.bind('click', preventDefault);
 		
 		if ((data && data.state) || elem.hasClass('active')) {
-			
+			// Element is already active. Do nothing.
 		}
 		else {
-			elem.trigger('activate');
-			
 			if (!data) {
-			  jQuery.data(elem[0], 'active').type = type;
+				jQuery.data(elem[0], 'active', { type: type });
 			}
+			
+			elem.trigger('activate');
 		}
 	})
+
+	// Mousedown on buttons toggle activate on their targets
+	.delegate('a[href^="#"]', 'mouseenter', function(e) {
+		var link, href, elem, data, type, t;
+		
+		// Default is prevented indicates that this link has already
+		// been handled. Save ourselves the overhead of further handling.
+		if (e.isDefaultPrevented()) { return; }
+		
+		link = jQuery(e.currentTarget);
+		href = link.attr('href');
+		elem = jQuery(href);
+		
+		if (elem.length === 0) { return; }
+		
+		// Get the active data that may have been created by a previous
+		// activate event.
+		data = jQuery.data(elem[0], 'active');
+		
+		// Decide what type this object is.
+		if (data && data.type) {
+			type = data.type;
+		}
+		else {
+			for (t in classes) {
+				if (elem.is(t)) {
+					type = t;
+					break;
+				}
+			}
+		}
+		
+		// If it has no type, we have no business trying to activate
+		// it on mousedown.
+		if (!type || type !== '.tip') { return; }
+		
+		e.preventDefault();
+		
+		link.unbind('click', preventDefault);
+		link.bind('click', preventDefault);
+		
+		if ((data && data.state) || elem.hasClass('active')) {
+			// Element is already active. Do nothing.
+		}
+		else {
+			if (!data) {
+				jQuery.data(elem[0], 'active', { type: type });
+			}
+			
+			elem.trigger('activate');
+		}
+	})
+
 	.delegate('.tab', 'activate', classes['.tab'].activate)
 	.delegate('.slide', 'activate', classes['.slide'].activate)
+	.delegate('.tip', 'activate', classes['.tip'].activate)
+	.delegate('.tip', 'deactivate', classes['.tip'].deactivate)
+	.delegate('.popup', 'activate', classes['.popup'].activate)
 	.delegate('.popdown', 'activate', classes['.popdown'].activate)
 	.delegate('.dropdown', 'activate', classes['.dropdown'].activate);
 })( jQuery );
