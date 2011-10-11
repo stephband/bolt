@@ -321,15 +321,7 @@
 	margin-right: 0;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 .crumbs_index > li > .button {
-=======
-crumbs_index > li > .button {
->>>>>>> 9ee3d09... Adds truncate to crumb when it's text is too long.
-=======
-.crumbs_index > li > .button {
->>>>>>> b149329... Fixes missing class dot.
 	width: 100%;
 }
 
