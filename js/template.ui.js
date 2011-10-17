@@ -21,7 +21,8 @@ jQuery.noConflict();
 // Handle dropdowns, popdowns and tabs
 
 (function( jQuery, undefined ){
-	var classes = {
+	var debug = (window.console && window.console.log),
+	    classes = {
 	    	'.tab': {
 	    		activate: activatePane
 	    	},
@@ -96,6 +97,8 @@ jQuery.noConflict();
 	    	'.popup': {
 	    		activate: function(e) {
 	    			var target = jQuery(e.currentTarget);
+	    			
+	    			if (debug) { console.log('activating popup', target.html()); }
 	    			
 	    			jQuery(target.html()).popup(target.data("popup"));
 	    			
