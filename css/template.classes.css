@@ -69,7 +69,7 @@
 .popup_layer {
 	position: fixed;
 	
-	/* Center inline-block contents */
+	/* Center inline-block contents horizontally */
 	text-align: center;
 	
 	background-color: rgba(0,0,0,0.6);
@@ -82,6 +82,15 @@
 	    -ms-transition: opacity 0.06s ease-in;
 	     -o-transition: opacity 0.06s ease-in;
 	        transition: opacity 0.06s ease-in;
+}
+
+.popup_layer:after {
+  /* Center inline-block contents vertically */
+  display: inline-block;
+  content: '';
+  height: 100%;
+  width: 0;
+  vertical-align: middle;
 }
 
 .popup_layer > * {
@@ -108,11 +117,20 @@
 	   to the width of its contents. */
 	display: inline-block;
   
+  /* Center the popup vertically, working in tandem
+     with the :after rule of .popup_layer. */
+  vertical-align: middle;
+  
+  /* But let's make sure it doesn't touch the top or
+     bottom. */
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+  
   /* Act as position parent */
   position: relative;
   
 	padding: 0.8333em;
-  margin: 5em 0 3em 0;
+  margin: 0;
   max-width: 72%;
   
   background-color: white;
@@ -230,10 +248,10 @@
 
 .no_transition {
   -webkit-transition: none !important;
-  -moz-transition:    none !important;
-  -ms-transition:     none !important;
-  -o-transition:      none !important;
-  transition:         none !important;
+     -moz-transition: none !important;
+      -ms-transition: none !important;
+       -o-transition: none !important;
+          transition: none !important;
 }
 
 
@@ -752,78 +770,7 @@
 .col_wrap > .last_col            { margin-right: 100%; }
 
 
-/* Vertical centering builds on the technique described here:
-   http://www.jakpsatweb.cz/css/css-vertical-center-solution.html
-   TODO: Fix case in IE7 where centering has to scroll. V difficult. Possibly impossible. */
-
-.center {
-    display: table;
-    width: 100%;
-    height: 100%;
-    
-    /* Stops a mysterious gap at the bottom appearing when content
-       is too tall (except Opera, where there is still a small one) */
-    overflow: hidden;
-    
-    /* IE hacks */
-    position: relative !ie7;
-}
-
-.center_cell {
-    display: table-cell;
-    vertical-align: middle;
-    
-    /* Must have height, or you can't expect FF to know
-       how high to make its children */
-    height: 100%;
-    
-    /* In WebKit and FF iframes cause scrollbars because they
-       have a 'system' margin-bottom. In any case, it's useful
-       to be able to position stuff outside the cell */
-    overflow: visible;
-    
-    /* IE hacks */
-    position: absolute !ie7;
-    top: 50% !ie7;
-}
-
-.center_box {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    overflow: visible;
-    margin: 0 auto;
-    
-    /* Acts as position parent for its content */
-    position: relative;
-
-    /* IE hacks */
-    position: relative !ie7;
-    top: -50% !ie7;
-}
-
-.center_box>iframe {
-    width: 100%;
-    height: 100%;
-}
-
-/* Ideally, all elements likely to be put in a centred layer should be
-   listed here */
-
-/*.center_box>div,
-.center_box>form,
-.center_box>img,
-.center_box>object,
-.center_box>embed,
-.center_box>video,
-.center_box>progress,
-.center_box>canvas,
-.center_box>.content {
-    height: 100%;
-}*/
-
-
-/* panel class */
+/* .panel */
 
 .panel {
   position: absolute;
@@ -831,7 +778,7 @@
 }
 
 
-/* .content class */
+/* .content */
 
 .content {
 	/* Content class is used where typography needs to be redefined
@@ -840,16 +787,17 @@
 }
 
 
-
-.tab {
-	display: none;
-	/* The inline-block technique overlays tabs on top of one another
-	   but still allows the height of the blocks to stay in the flow.
-	   It's better than using position: absolute. In short, it rocks. */
+.tab,
+.slide {
+	display: inline-block;
 	vertical-align: top;
 	position: relative;
 	width: 100%;
 	margin-right: -100%;
+}
+
+.tab {
+	display: none;
 	
 	opacity: 0;
 	z-index: 1;
@@ -862,7 +810,11 @@
 }
 
 .tab.active {
+	/* The inline-block technique overlays tabs on top of one another
+	   but still allows the height of the blocks to stay in the flow.
+	   It's better than using position: absolute. It rocks. */
 	display: inline-block;
+
 	opacity: 1;
 	z-index: 2;
 	
@@ -877,14 +829,9 @@
 	display: inline-block;
 }
 
-
 .slide {
-	display: inline-block;
-	vertical-align: top;
-	position: relative;
-	width: 100%;
+	/* By default all slides are positioned off to the left. */ 
 	left: -100%;
-	margin-right: -100%;
 	
 	/* Steps have no height by default to stop them influencing
 	   scrollbars when they are not the active step. */
@@ -899,20 +846,22 @@
 }
 
 .slide.active {
+	/* The .active slide is positioned in the centre. */
 	left: 0;
 	height: auto;
 	overflow: visible;
+}
+
+.slide.active ~ .slide {
+	/* All slides after the .active slide are positioned off to
+	   the right. */
+	left: 100%;
 }
 
 .slide.transition {
 	height: auto;
 	overflow: visible;
 }
-
-.slide.active ~ .slide {
-	left: 100%;
-}
-
 
 /* .popup, .popdown, .dropdown, .stopdown */
 
