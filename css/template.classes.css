@@ -184,7 +184,7 @@
 		
 		-webkit-transition: opacity 0.16s ease-in;
 			 -moz-transition: opacity 0.16s ease-in;
-				 -o-transition: opacity 0.16s ease-in;
+		     -o-transition: opacity 0.16s ease-in;
 						transition: opacity 0.16s ease-in;
 		
 		opacity: 0;
@@ -207,9 +207,9 @@
 	background-color: rgba(38, 64, 89, 0.746094);
 	
 	-webkit-transition: opacity 0.16s ease-in;
-			-moz-transition: opacity 0.16s ease-in;
-			 -ms-transition: opacity 0.16s ease-in;
-				-o-transition: opacity 0.16s ease-in;
+	   -moz-transition: opacity 0.16s ease-in;
+	    -ms-transition: opacity 0.16s ease-in;
+	     -o-transition: opacity 0.16s ease-in;
 					 transition: opacity 0.16s ease-in;
 	
 	opacity: 0;
@@ -252,8 +252,8 @@
 .no_transition {
 	-webkit-transition: none !important;
 		 -moz-transition: none !important;
-			-ms-transition: none !important;
-			 -o-transition: none !important;
+	    -ms-transition: none !important;
+	     -o-transition: none !important;
 					transition: none !important;
 }
 
@@ -718,9 +718,9 @@
 	z-index: 1;
 	
 	-webkit-transition: opacity 0.12s ease-in;
-			-moz-transition: opacity 0.12s ease-in;
-			 -ms-transition: opacity 0.12s ease-in;
-				-o-transition: opacity 0.12s ease-in;
+	   -moz-transition: opacity 0.12s ease-in;
+	    -ms-transition: opacity 0.12s ease-in;
+	     -o-transition: opacity 0.12s ease-in;
 					 transition: opacity 0.12s ease-in;
 }
 
@@ -734,9 +734,9 @@
 	z-index: 2;
 	
 	-webkit-transition: opacity 0.12s ease-out;
-			-moz-transition: opacity 0.12s ease-out;
-			 -ms-transition: opacity 0.12s ease-out;
-				-o-transition: opacity 0.12s ease-out;
+	   -moz-transition: opacity 0.12s ease-out;
+	    -ms-transition: opacity 0.12s ease-out;
+	     -o-transition: opacity 0.12s ease-out;
 					 transition: opacity 0.12s ease-out;
 }
 
@@ -754,9 +754,9 @@
 	overflow: hidden;
 	
 	-webkit-transition: left 0.33s ease-in;
-			-moz-transition: left 0.33s ease-in;
-			 -ms-transition: left 0.33s ease-in;
-				-o-transition: left 0.33s ease-in;
+	   -moz-transition: left 0.33s ease-in;
+	    -ms-transition: left 0.33s ease-in;
+	     -o-transition: left 0.33s ease-in;
 					 transition: left 0.33s ease-in;
 }
 
@@ -791,9 +791,9 @@
 	
 	-webkit-transition: opacity 0.18s ease-out, top 0.18s ease-out;
 		 -moz-transition: opacity 0.18s ease-out, top 0.18s ease-out;
-			-ms-transition: opacity 0.18s ease-out, top 0.18s ease-out;
-			 -o-transition: opacity 0.18s ease-out, top 0.18s ease-out;
-					transition: opacity 0.18s ease-out, top 0.18s ease-out;
+	    -ms-transition: opacity 0.18s ease-out, top 0.18s ease-out;
+	     -o-transition: opacity 0.18s ease-out, top 0.18s ease-out;
+	        transition: opacity 0.18s ease-out, top 0.18s ease-out;
 }
 
 .popdown.active,
@@ -805,9 +805,9 @@
 	
 	-webkit-transition: opacity 0.06s ease-in, top 0.06s ease-in;
 		 -moz-transition: opacity 0.06s ease-in, top 0.06s ease-in;
-			-ms-transition: opacity 0.06s ease-in, top 0.06s ease-in;
-			 -o-transition: opacity 0.06s ease-in, top 0.06s ease-in;
-					transition: opacity 0.06s ease-in, top 0.06s ease-in;
+	    -ms-transition: opacity 0.06s ease-in, top 0.06s ease-in;
+	     -o-transition: opacity 0.06s ease-in, top 0.06s ease-in;
+	        transition: opacity 0.06s ease-in, top 0.06s ease-in;
 }
 
 .stopdown {
@@ -820,10 +820,10 @@
 	padding-bottom: 0;
 
 	-webkit-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
-			-moz-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
-			 -ms-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
-				-o-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
-					 transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
+	   -moz-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
+	    -ms-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
+	     -o-transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
+	        transition: height 0.18s ease-in, margin-bottom 0.18s ease-in, padding-top 0.18s ease-in, padding-bottom 0.18s ease-in;
 }
 
 .stopdown.active {
@@ -835,10 +835,10 @@
 	padding-bottom: 1em;
 	
 	-webkit-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
-			-moz-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
-			 -ms-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
-				-o-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
-					 transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
+	   -moz-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
+	    -ms-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
+	     -o-transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
+	        transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
 }
 
 .popdown.transition,
@@ -879,16 +879,16 @@
 
 	-webkit-background-clip: padding-box;
 		 -moz-background-clip: padding-box;
-			-ms-background-clip: padding-box;
-			 -o-background-clip: padding-box;
-					background-clip: padding-box;
+	    -ms-background-clip: padding-box;
+	     -o-background-clip: padding-box;
+	        background-clip: padding-box;
 
 	-webkit-background-origin: padding-box;
 		 -moz-background-origin: padding;
 		 -moz-background-origin: padding-box;
-			-ms-background-origin: padding-box;
-			 -o-background-origin: padding-box;
-					background-origin: padding-box;
+	    -ms-background-origin: padding-box;
+	     -o-background-origin: padding-box;
+	        background-origin: padding-box;
 }
 
 .button:hover {
@@ -945,7 +945,7 @@
 	
 	-webkit-background-size: cover;
 		 -moz-background-size: cover;
-			 -o-background-size: cover;
+	     -o-background-size: cover;
 					background-size: cover;
 
 	background-position: 0 0;
@@ -976,7 +976,7 @@
 	color: rgb(100,100,100);
 }
 
-.text_thumb>span {
+.text_thumb > span {
 	/* We can't use text-overflow because overflow is
 		 visible, so if you want to truncate the text you
 		 need to put a span inside the thumb. */
@@ -988,22 +988,6 @@
 	 -o-text-overflow: ellipsis;
 			text-overflow: ellipsis;
 }
-
-/*
-
-.left_text_thumb {
-	height: 64px;
-	padding-top: 0;
-	padding-left: 104px;
-	background-position-x: 0;
-}
-
-.right_text_thumb {
-	height: 64px;
-	padding-top: 0;
-	padding-right: 104px;
-	background-position-x: 100%;
-}*/
 
 .browser_thumb {
 	width: 64px;
