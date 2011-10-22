@@ -25,7 +25,17 @@ hgroup, nav, section {
     /* Fortune favours the brave. Or the foolhardy, perhaps.
        Box-sizing breaks in IE8 when min- or max- width or height
        are defined, and in FF when min- or max- height are defined
-       but height is auto. */
+       but height is auto.
+       
+       In template, these cases are feature detected and the classes
+       
+       min-width_border-box
+       min-width_content-box
+       min-height_border-box
+       min-height_content-box
+       
+       applied to the html element, allowing you to style to overcome
+       these problems. */
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
         -ms-box-sizing: border-box;
@@ -48,7 +58,7 @@ hgroup, nav, section {
 
 article, aside, dialog, figure, footer, header,
 hgroup, nav, section {
-    display:block;
+    display: block;
 }
 
 /* Tables still need 'cellspacing="0"' in the markup. */
@@ -74,6 +84,14 @@ a:focus { outline: none; }
 *[draggable="false"] {
   -webkit-user-drag: none;
   cursor: auto;
+}
+
+@media screen and (max-device-width: 480px) {
+  /* Grade-A mobile browsers */
+  html {
+    -webkit-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+  }
 }
 
 
