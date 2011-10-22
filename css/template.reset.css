@@ -78,20 +78,64 @@ a:focus { outline: none; }
 
 /* Make draggable elements draggable in WebKit */
 *[draggable] {
-  -webkit-user-drag: element;
-  cursor: move;
+	-webkit-user-drag: element;
+	cursor: move;
 }
 *[draggable="false"] {
-  -webkit-user-drag: none;
-  cursor: auto;
+	-webkit-user-drag: none;
+	cursor: auto;
 }
 
 @media screen and (max-device-width: 480px) {
-  /* Grade-A mobile browsers */
-  html {
-    -webkit-text-size-adjust: none;
-    -ms-text-size-adjust: none;
-  }
+	/* Grade-A mobile browsers */
+	html {
+	  -webkit-text-size-adjust: none;
+	      -ms-text-size-adjust: none;
+	}
+}
+
+@media print {
+	/* Default print styles. */
+	@page {
+		margin: 0.5cm;
+	}
+	
+	html,
+	body {
+		background: transparent;
+		text-shadow: none !important;
+	}
+	
+	a,
+	a:visited {
+		text-decoration: underline;
+	}
+	
+	a:after {
+		content: " (" attr(href) ")";
+		font-size: 0.9167em;
+	}
+	
+	pre,
+	blockquote,
+	tr,
+	img {
+		page-break-inside: avoid;
+	}
+	
+	h1, h2, h3, h4, h5, h6 {
+		page-break-after: avoid;
+	}
+	
+	/* css-discuss.incutio.com/wiki/Printing_Tables */
+	thead {
+		display: table-header-group;
+	}
+	
+	p, h2, h3 {
+		orphans: 3;
+		widows: 3;
+	}
 }
 
 

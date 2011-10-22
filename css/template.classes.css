@@ -117,15 +117,15 @@
 
 .popup {
 	/* Use inline-block to make popup collapse
-			to the width of its contents. */
+	   to the width of its contents. */
 	display: inline-block;
 	
 	/* Center the popup vertically, working in tandem
-		 with the :after rule of .popup_layer. */
+	   with the :after rule of .popup_layer. */
 	vertical-align: middle;
 	
 	/* But let's make sure it doesn't touch the top or
-		 bottom. */
+	   bottom. */
 	margin-top: 2.5em;
 	margin-bottom: 2.5em;
 	
@@ -140,11 +140,11 @@
 	
  	-webkit-border-radius: 0.3333em;
 		 -moz-border-radius: 0.3333em;
-					border-radius: 0.3333em;
+	        border-radius: 0.3333em;
 	
 	-webkit-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
-		 -moz-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
-					box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+	   -moz-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+	        box-shadow: 0 2px 24px rgba(0,0,0,0.6);
 }
 
 .popup > img,
@@ -169,9 +169,9 @@
 
 
 /* TODO: We should be able to merge the .gif technique with
-	 the <canvas> technique, so that when canvas is not available
-	 the gif displays - can we set the gif as background to the
-	 canvas and still expect it to display? */
+   the <canvas> technique, so that when canvas is not available
+   the gif displays - can we set the gif as background to the
+   canvas and still expect it to display? */
 
 /* Use a .gif as a loading icon */
 /*
@@ -210,7 +210,7 @@
 	   -moz-transition: opacity 0.16s ease-in;
 	    -ms-transition: opacity 0.16s ease-in;
 	     -o-transition: opacity 0.16s ease-in;
-					 transition: opacity 0.16s ease-in;
+	        transition: opacity 0.16s ease-in;
 	
 	opacity: 0;
 	z-index: 4;
@@ -251,19 +251,19 @@
 
 .no_transition {
 	-webkit-transition: none !important;
-		 -moz-transition: none !important;
+	   -moz-transition: none !important;
 	    -ms-transition: none !important;
 	     -o-transition: none !important;
-					transition: none !important;
+	        transition: none !important;
 }
 
 
 /* .index
-	 
-	 To be applied to <ul>, <ol> and <dl> elements, when you want them to
-	 be displayed in a non-default style. Defines styles for lists of
-	 inline-blocks like buttons, thumbs or toolbars, as well as lists
-	 with dividers. */
+   
+   To be applied to <ul>, <ol> and <dl> elements, when you want them to
+   be displayed in a non-default style. Defines styles for lists of
+   inline-blocks like buttons, thumbs or toolbars, as well as lists
+   with dividers. */
 
 .index {
 	/* Remove default styling from list items. */
@@ -274,8 +274,8 @@
 
 .index > li {
 	/* Specifically remove default margin and padding from
-		 list items in case some typography rules have added
-		 these back in after the reset. */
+	   list items in case some typography rules have added
+	   these back in after the reset. */
 	margin: 0;
 	padding: 0;
 	
@@ -321,7 +321,7 @@
 
 .tabs_index > li > .button {
 	/* Firefox leaves a gap below the baseline unless buttons
-			are aligned to top. */
+	   are aligned to top. */
 	vertical-align: top;
 }
 
@@ -390,7 +390,7 @@
 .crumbs_index,
 .actions_index {
 	/* To form grids with a horizontal index, line-height
-		 needs to be smaller than the items in the index. */
+	   needs to be smaller than the items in the index. */
 	line-height: 0;
 }
 
@@ -406,47 +406,47 @@
 .tabs_index > li:last-child,
 .crumbs_index > li:last-child,
 .actions_index > li:last-child {
-		margin-right: 0;
+	margin-right: 0;
 }
 
 .horizontal > *.last,
 .tabs_index > li.last,
 .crumbs_index > li.last,
 .actions_index > li.last {
-		margin-right: 0;
+	margin-right: 0;
 }
 
 
 .horizontal > input[type='radio'],
 .horizontal > input[type='checkbox'] {
-		/* Percentage heights on checkboxes can make them dissapear. */
-		height: auto;
-		width: auto;
-		margin-top: 0.25em;
+	/* Percentage heights on checkboxes can make them dissapear. */
+	height: auto;
+	width: auto;
+	margin-top: 0.25em;
 }
 
 .horizontal.index > dt,
 .horizontal.index > dd {
-		margin: 0;
+	margin: 0;
 }
 .horizontal.index > dt,
 .horizontal.index > dd {
-		width: 160px;
-		line-height: 1.6em;
+	width: 160px;
+	line-height: 1.6em;
 }
 .horizontal.index > dt {
-		vertical-align: text-bottom;
+	vertical-align: text-bottom;
 }
 .horizontal.index > dd {
-		vertical-align: text-top;
-		/* reset the margin that usually indents a dd */
-		margin-left: 0;
-		/* Move it down by one line-height */
-		margin-top: 1.6667em;
-		/* Move it left with a negative margin accounting for size, padding and margin of dt */
-		margin-left: -166px;
-		/* Space at the bottom for when the items wrap */
-		margin-bottom: 1.6667em;
+	vertical-align: text-top;
+	/* reset the margin that usually indents a dd */
+	margin-left: 0;
+	/* Move it down by one line-height */
+	margin-top: 1.6667em;
+	/* Move it left with a negative margin accounting for size, padding and margin of dt */
+	margin-left: -166px;
+	/* Space at the bottom for when the items wrap */
+	margin-bottom: 1.6667em;
 }
 
 
@@ -570,7 +570,7 @@
 	box-pack:					center;
 	
 	/* FF shrinks the width of boxes with display: box;. Lets
-		 force it to behave like the others. */
+	   force it to behave like the others. */
 	width: 100%;
 }
 
@@ -579,10 +579,10 @@
 
 .col {
 	/* This inline-block method produces nice flow, and with a bit of
-		 head scratching can be used for liquid columns with fixed gutters,
-		 or even mixed fixed and liquid columns, all with arbitrary content
-		 order. However, it is a little susceptible to rounding errors, and
-		 requires spaceless html. */
+	   head scratching can be used for liquid columns with fixed gutters,
+	   or even mixed fixed and liquid columns, all with arbitrary content
+	   order. However, it is a little susceptible to rounding errors, and
+	   requires spaceless html. */
 	display: inline-block;
 	vertical-align: top;
 	
@@ -697,8 +697,8 @@
 
 .content {
 	/* Content class is used where typography needs to be redefined
-			for, say, a region of the page that has html that comes from
-			a CMS. */
+	   for, say, a region of the page that has html that comes from
+	   a CMS. */
 }
 
 
@@ -726,8 +726,8 @@
 
 .tab.active {
 	/* The inline-block technique overlays tabs on top of one another
-			but still allows the height of the blocks to stay in the flow.
-			It's better than using position: absolute. It rocks. */
+	   but still allows the height of the blocks to stay in the flow.
+	   It's better than using position: absolute. It rocks. */
 	display: inline-block;
 
 	opacity: 1;
@@ -737,7 +737,7 @@
 	   -moz-transition: opacity 0.12s ease-out;
 	    -ms-transition: opacity 0.12s ease-out;
 	     -o-transition: opacity 0.12s ease-out;
-					 transition: opacity 0.12s ease-out;
+	        transition: opacity 0.12s ease-out;
 }
 
 .tab.transition {
@@ -749,7 +749,7 @@
 	left: -100%;
 	
 	/* Steps have no height by default to stop them influencing
-			scrollbars when they are not the active step. */
+	   scrollbars when they are not the active step. */
 	height: 0;
 	overflow: hidden;
 	
@@ -757,7 +757,7 @@
 	   -moz-transition: left 0.33s ease-in;
 	    -ms-transition: left 0.33s ease-in;
 	     -o-transition: left 0.33s ease-in;
-					 transition: left 0.33s ease-in;
+	        transition: left 0.33s ease-in;
 }
 
 .slide.active {
@@ -769,7 +769,7 @@
 
 .slide.active ~ .slide {
 	/* All slides after the .active slide are positioned off to
-			the right. */
+	   the right. */
 	left: 100%;
 }
 
@@ -937,8 +937,8 @@
 	overflow: hidden;
 	
 	/* Hide overflowing text. This technique is better
-		 than using -ve text-indent because IE7 moves
-		 the background image with the text-indent. */
+	   than using -ve text-indent because IE7 moves
+	   the background image with the text-indent. */
 	padding-top: 64px;
 	height: 0;
 	width: 64px;
@@ -978,8 +978,8 @@
 
 .text_thumb > span {
 	/* We can't use text-overflow because overflow is
-		 visible, so if you want to truncate the text you
-		 need to put a span inside the thumb. */
+	   visible, so if you want to truncate the text you
+	   need to put a span inside the thumb. */
 	overflow: hidden;
 	display: block;
 	text-align: center;
@@ -1135,42 +1135,21 @@
 /*	.url */
 
 
-/*@media print {
-	html, body { background: transparent; text-shadow: none !important; }
-	a, a:visited { text-decoration: underline; }
-	a:after { content: " (" attr(href) ")"; font-size: 0.9167em; }
-	pre, blockquote { page-break-inside: avoid; }
-	
-	thead { display: table-header-group; } /* css-discuss.incutio.com/wiki/Printing_Tables */ 
-	
-	tr, img { page-break-inside: avoid; }
-	
-	@page { margin: 0.5cm; }
-	
-	p, h2, h3 { orphans: 3; widows: 3; }
-	
-	h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
-}
-
-
-/* state.css
- * 
- * Takes care of state classes:
- *
- *	 .loading			 - State of items requested from a server
- *	 .active			 - Implies polar (on/off) state
- *	 .current			 - Current implies that one out of a number of items is the current one
- *	 .default			 - Contains a pre-defined value
- *	 .error				 - Used in forms to style children differently when input has errors
- *	 .xxx_state		 - Implies multipolar (0/1/2/...) state
- *	 .xxx_view		 - Applied to the body to control application views
- *	 .xxx_support	 - Applied to the documentElement to flag CSS support
- * 
- * State classes must never have style applied directly, they are here to indicate state only.
- * You can style specific nodes that happen to have state, or children of state nodes (for
- * instance, showing / hiding a .loading_icon when its parent has .loading), but the state
- * class itself must not have style applied.
- */
+/* State classes:
+   
+     .loading			 - State of items requested from a server
+     .active			 - Implies polar (on/off) state
+     .current			 - Current implies that one out of a number of items is the current one
+     .default			 - Contains a pre-defined value
+     .error				 - Used in forms to style children differently when input has errors
+     .xxx_state		 - Implies multipolar (0/1/2/...) state
+     .xxx_view		 - Applied to the body to control application views
+     .xxx_support	 - Applied to the documentElement to flag CSS support
+   
+   State classes must never have style applied directly, they are here to indicate state only.
+   You can style specific nodes that happen to have state, or children of state nodes (for
+   instance, showing / hiding a .loading_icon when its parent has .loading), but the state
+   class itself must not have style applied. */
  
  
 /* Utilities */
