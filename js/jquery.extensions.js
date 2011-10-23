@@ -314,7 +314,7 @@ jQuery.cookie = function(name, value, options) {
       }
       
       if (obj.query){
-        obj.query.replace( /(?:(([^:@]*)(?::([^:@]*))?)?@)?/g, function ( rien, key, value ) {
+        obj.query.replace( /(?:^|&)([^&=]*)=?([^&]*)/g, function ( rien, key, value ) {
           if (key) {
             queries[key] = value;
           }
