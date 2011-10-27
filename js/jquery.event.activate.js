@@ -43,7 +43,7 @@
 			// Don't do anything if elem is already active
 			if (data.state) { return; }
 			
-			if (debug) { console.log('[activate] default | target:', e.target.id, 'active:', data.state); }
+			if (debug) { console.log('[activate] default | target:', e.target.id, 'data:', data); }
 			
 			data.state = true;
 			data.elem.addTransitionClass('active');
