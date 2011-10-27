@@ -40,8 +40,8 @@
 		
 		// Don't bind the scroll handler if it is already bound by the
 		// other scroll event.
-		if ((events.scrolltop ? 1 : 0) +
-		    (events.scrollbottom ? 1 : 0) > 1) { return; }
+		if (((events.scrolltop ? 1 : 0) +
+		     (events.scrollbottom ? 1 : 0)) > 1) { return; }
 		
 		elem.bind('scroll', elem, scrollhandler);
 	}
@@ -52,10 +52,10 @@
 		
 		// Don't unbind the scroll handler if we still need it for the
 		// other scroll event.
-		if ((events.scrolltop ? 1 : 0) +
-		    (events.scrollbottom ? 1 : 0) > 1) { return; }
+		if (((events.scrolltop ? 1 : 0) +
+		     (events.scrollbottom ? 1 : 0)) > 1) { return; }
 		
-		jQuery(this).unbind('scroll', scrollhandler);
+		elem.unbind('scroll', scrollhandler);
 	}
 		
 	jQuery.event.special.scrolltop =
