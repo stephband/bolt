@@ -270,7 +270,10 @@ jQuery.noConflict();
 		}
 		else {
 			if (!data) {
-				jQuery.data(elem[0], 'active', { type: type });
+				jQuery.data(elem[0], 'active', {
+					elem: elem,
+					type: type
+				});
 			}
 			
 			elem.trigger('activate');
