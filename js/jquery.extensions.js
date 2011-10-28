@@ -536,7 +536,7 @@ jQuery.fn.extend({
 	function handleAttribute(attr, obj, context){
 		// Curry link handler using this scope
 		return function(e){
-			var link = jQuery(this),
+			var link = jQuery(e.currentTarget),
 			    match = link.attr(attr);
 	
 			// If the attribute matches an obj key
