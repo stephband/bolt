@@ -698,7 +698,8 @@
 .content {
 	/* Content class is used where typography needs to be redefined
 	   for, say, a region of the page that has html that comes from
-	   a CMS. */
+	   a CMS, or some other user generated content. */
+	position: relative;
 }
 
 
