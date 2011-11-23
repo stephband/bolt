@@ -702,7 +702,8 @@
 .content {
 	/* Content class is used where typography needs to be redefined
 	   for, say, a region of the page that has html that comes from
-	   a CMS. */
+	   a CMS, or some other user generated content. */
+	position: relative;
 }
 
 
@@ -876,8 +877,6 @@
 	text-align: center;
 	text-decoration: none;
 	
-	color: rgb(96,96,96);
-	background-color: rgb(196,198,200);
 	background-repeat: no-repeat;
 	border-width: 0;
 
