@@ -98,7 +98,7 @@ jQuery.noConflict();
 	    		activate: function(e) {
 	    			var target = jQuery(e.currentTarget);
 	    			
-	    			if (debug) { console.log('activating popup', target.html()); }
+	    			if (debug) { console.log('activating popup'); }
 	    			
 	    			jQuery(target.html()).popup(target.data("popup"));
 	    			
@@ -197,7 +197,7 @@ jQuery.noConflict();
 	  	panes = data.panes;
 	  }
 	  
-	  panes.trigger('deactivate');
+	  panes.not(e.target).trigger('deactivate');
 	  
 	  pane.delegate('a[href="#prev"]', 'click', prev);
 	  pane.delegate('a[href="#next"]', 'click', next);
@@ -270,7 +270,10 @@ jQuery.noConflict();
 		}
 		else {
 			if (!data) {
-				jQuery.data(elem[0], 'active', { type: type });
+				jQuery.data(elem[0], 'active', {
+					elem: elem,
+					type: type
+				});
 			}
 			
 			elem.trigger('activate');
@@ -363,6 +366,13 @@ jQuery.noConflict();
 	}
 	
 	doc
+	
+	// Readonly inputs have their text selected when you click
+	// on them.
+	
+	.delegate('input[readonly]', 'focus click', function(e) {
+		jQuery(e.currentTarget).select();
+	})
 	
 	// Extend the events emitted by input[type='range']
 	// nodes with changestart and changeend events.

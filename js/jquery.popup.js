@@ -1,9 +1,13 @@
 //	jquery.popup.js
-//	0.2
+//	0.3
 //	Stephen Band
 //	
 //	Adds a three plugins to the jQuery namespace, giving three
 //	flavours of popup dialogue.
+//  
+//  TODO: Needs a bit of a rethink. How does it integrate with
+//  activate / deactivate events? Does it really work as well as
+//  it could?
 //	
 //	popup( options )
 //	Displays this jQuery object in a popup.
@@ -34,21 +38,39 @@
 	var debug = (window.console && console.log);
 	
 	var plugin = 'popup',
+	    
+	    doc = jQuery(document),
+	    docElem = jQuery(document.documentElement),
+			
+			flag = false,
 			
 			options = {
 				layerClass: 'popup_layer layer',
 				popupClass: 'popup'
-			},
-			
-			docElem = jQuery(document.documentElement);
+			};
+	
+	function mousedown(e) {
+		var popup = e.data;
+		
+		if (jQuery.contains(popup[0], e.target)) { return; }
+		
+		doc.unbind('mousedown', mousedown);
+		popup.trigger('close');
+	}
 	
 	function show( popup, fn, context ) {
 		var scrollLeft = jQuery('html').scrollLeft(),
 		    scrollTop = jQuery('html').scrollTop();
 		
+		if (flag) {return;}
+		flag = true;
+		
 		popup
 		.appendTo('body')
 		.addTransitionClass('active');
+		
+		doc
+		.bind('mousedown', popup, mousedown);
 		
 		// Remove scrollbars from the documentElement
 		docElem.css({ overflow: 'hidden' });
@@ -64,6 +86,8 @@
 	}
 	
 	function hide( popup, fn, context ) {
+		flag = false;
+		
 		popup
 		.removeTransitionClass('active', {
 			callback: function(){
@@ -158,6 +182,7 @@
 		if ( e.currentTarget !== e.target ) { return };
 		 
 		hide( layer, options.hideCallback, options.context );
+		doc.unbind('mousedown', mousedown);
 		e.preventDefault();
 	})
 	.delegate(".popup_layer", "close.popup", function(e){
@@ -165,6 +190,7 @@
 				options = layer.data('popup');
 		
 		hide( layer, options.hideCallback, options.context );
+		doc.unbind('mousedown', mousedown);
 		e.preventDefault();
 	})
 	.delegate(".popup_layer a[href='#close']", "click.popup", function(e){
@@ -172,6 +198,7 @@
 				options = layer.data('popup');
 		
 		hide( layer, options.hideCallback, options.context );
+		doc.unbind('mousedown', mousedown);
 		e.preventDefault();
 	})
 	.delegate(".popup_layer", "confirm.popup", function(e){
@@ -180,6 +207,7 @@
 		
 		options && options.confirmCallback && options.confirmCallback.call( options.context );
 		hide( layer, options.hideCallback, options.context );
+		doc.unbind('mousedown', mousedown);
 		e.preventDefault();
 	})
 	.delegate(".popup a[href='#confirm']", "click.popup", function(e){
@@ -188,14 +216,17 @@
 		
 		options && options.confirmCallback && options.confirmCallback.call( options.context );
 		hide( layer, options.hideCallback, options.context );
+		doc.unbind('mousedown', mousedown);
 		e.preventDefault();
 	}).keypress(function(e){
     if(e.keyCode==27){
-      var layer   = jQuery(".popup_layer.layer.active"),
+      var layer   = jQuery(".popup_layer.active"),
 				  options = layer.data('popup');
-				if (layer.length !== 0) {
-		      hide( layer, options.hideCallback, options.context );
-		    }
+			
+			if (layer.length !== 0) {
+		    hide( layer, options.hideCallback, options.context );
+		    doc.unbind('mousedown', mousedown);
+		  }
     }
   });
   

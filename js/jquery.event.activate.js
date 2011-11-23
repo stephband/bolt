@@ -40,10 +40,10 @@
 			var data = cacheData(e.target),
 			    buttons;
 			
-			if (debug) { console.log('[activate] default | target:', e.target.id, 'active:', data.state); }
-			
 			// Don't do anything if elem is already active
 			if (data.state) { return; }
+			
+			if (debug) { console.log('[activate] default | target:', e.target.id, 'data:', data); }
 			
 			data.state = true;
 			data.elem.addTransitionClass('active');
@@ -68,10 +68,10 @@
 			var data = cacheData(e.target),
 			    buttons;
 			
-			if (debug) { console.log('[deactivate] default | target:', e.target.id, 'active:', data.state); }
-			
 			// Don't do anything if elem is already inactive
 			if (!data.state) { return; }
+			
+			if (debug) { console.log('[deactivate] default | target:', e.target.id, 'active:', data.state); }
 			
 			data.state = false;
 			data.elem.removeTransitionClass('active');

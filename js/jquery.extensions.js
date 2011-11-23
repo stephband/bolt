@@ -314,7 +314,7 @@ jQuery.cookie = function(name, value, options) {
       }
       
       if (obj.query){
-        obj.query.replace( /(?:(([^:@]*)(?::([^:@]*))?)?@)?/g, function ( rien, key, value ) {
+        obj.query.replace( /(?:^|&)([^&=]*)=?([^&]*)/g, function ( rien, key, value ) {
           if (key) {
             queries[key] = value;
           }
@@ -536,7 +536,7 @@ jQuery.fn.extend({
 	function handleAttribute(attr, obj, context){
 		// Curry link handler using this scope
 		return function(e){
-			var link = jQuery(this),
+			var link = jQuery(e.currentTarget),
 			    match = link.attr(attr);
 	
 			// If the attribute matches an obj key
@@ -655,7 +655,7 @@ jQuery.render = (function(){
   			(template.ignoreCase ? 'i' : '') +
   			(template.multiline ? 'm' : '')
   		) :
-  		template.replace(/\{\{(\w+)\}\}/g, replaceStringFn);
+  		template.replace(/\{\{(\w+)\}\}/g, replaceStringFn(obj));
   };
 })();
 
