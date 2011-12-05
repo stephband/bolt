@@ -104,39 +104,23 @@ jQuery.noConflict();
 	    			
 	    			e.preventDefault();
 	    		}
-	    	},
-	    	
-	    	'.tip': {
-	    		activate: function(e) {
-	    			var target = jQuery(e.currentTarget);
-	    			
-	    			target.css({ display: 'block', top: 0, left: 0 });
-	    			
-	    			e.preventDefault();
-	    		},
-	    		
-	    		deactivate: function(e) {
-	    			var target = jQuery(e.currentTarget);
-	    			
-	    			e.preventDefault();
-	    		}
 	    	}
 	    },
-	
+
 	    selector = Object.keys(classes).join(', ');
-	
+
 	function activate(elem) {
 		elem.trigger('activate');
 	}
-	
+
 	function deactivate(elem) {
 		elem.trigger('deactivate');
 	}
-	
+
 	function preventDefault(e) {
 		e.preventDefault();
 	}
-	
+
 	function activatePane(e) {
 	  var pane = jQuery(e.target),
 	      data = pane.data('activePane'),
@@ -204,6 +188,13 @@ jQuery.noConflict();
 	  jQuery.event.add(pane[0], 'deactivate', deactivate);
 	}
 	
+	function activateTip(e) {
+		var target = jQuery(e.currentTarget),
+		    relatedTarget = jQuery(e.relatedTarget);
+		
+		target.css(relatedTarget.offset());
+	}
+	
 	function click(e) {
 		var target = e.currentTarget;
 		
@@ -245,7 +236,9 @@ jQuery.noConflict();
 		
 		// Decide what type this object is.
 		if (data && data.type) {
-			type = data.type;
+			// Check if this type is in classes - if not, we don't want to
+			// be activating it on mousedown.
+			type = (classes[data.type] && data.type);
 		}
 		else {
 			for (t in classes) {
@@ -265,28 +258,21 @@ jQuery.noConflict();
 		link.unbind('click', preventDefault);
 		link.bind('click', preventDefault);
 		
-		if ((data && data.state) || elem.hasClass('active')) {
+		if ((data && data.state) || (!data && elem.hasClass('active'))) {
 			// Element is already active. Do nothing.
 		}
 		else {
 			if (!data) {
-				jQuery.data(elem[0], 'active', {
-					elem: elem,
-					type: type
-				});
+				jQuery.data(elem[0], 'active', { type: type, elem: elem });
 			}
 			
-			elem.trigger('activate');
+			elem.trigger({ type: 'activate', relatedTarget: e.currentTarget });
 		}
 	})
 
-	// Mousedown on buttons toggle activate on their targets
-	.delegate('a[href^="#"]', 'mouseenter', function(e) {
+	// Mouseover on links toggle activate on their targets
+	.delegate('a[href^="#"]', 'mouseover mouseout', function(e) {
 		var link, href, elem, data, type, t;
-		
-		// Default is prevented indicates that this link has already
-		// been handled. Save ourselves the overhead of further handling.
-		if (e.isDefaultPrevented()) { return; }
 		
 		link = jQuery(e.currentTarget);
 		href = link.attr('href');
@@ -303,39 +289,24 @@ jQuery.noConflict();
 			type = data.type;
 		}
 		else {
-			for (t in classes) {
-				if (elem.is(t)) {
-					type = t;
-					break;
-				}
+			if (elem.is('.tip')) {
+			  type = '.tip';
 			}
 		}
 		
 		// If it has no type, we have no business trying to activate
-		// it on mousedown.
-		if (!type || type !== '.tip') { return; }
+		// it on hover.
+		if (!type) { return; }
 		
-		e.preventDefault();
-		
-		link.unbind('click', preventDefault);
-		link.bind('click', preventDefault);
-		
-		if ((data && data.state) || elem.hasClass('active')) {
-			// Element is already active. Do nothing.
+		if (!data) {
+		  jQuery.data(elem[0], 'active', { type: type, elem: elem });
 		}
-		else {
-			if (!data) {
-				jQuery.data(elem[0], 'active', { type: type });
-			}
-			
-			elem.trigger('activate');
-		}
+		
+		elem.trigger(e.type === 'mouseover' ? { type: 'activate', relatedTarget: e.currentTarget } : 'deactivate');
 	})
-
+	.delegate('.tip', 'activate', activateTip)
 	.delegate('.tab', 'activate', classes['.tab'].activate)
 	.delegate('.slide', 'activate', classes['.slide'].activate)
-	.delegate('.tip', 'activate', classes['.tip'].activate)
-	.delegate('.tip', 'deactivate', classes['.tip'].deactivate)
 	.delegate('.popup', 'activate', classes['.popup'].activate)
 	.delegate('.popdown', 'activate', classes['.popdown'].activate)
 	.delegate('.dropdown', 'activate', classes['.dropdown'].activate);

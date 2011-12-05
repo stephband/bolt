@@ -234,18 +234,47 @@
 
 /* .tip */
 
+.js .tips {
+	display: block;
+	position: static;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 0;
+}
+
 .js .tip {
 	display: none;
+	position: absolute;
+	width: 20em;
+	margin-top: 2.5em;
+	
+	opacity: 0;
+	
+	-webkit-transition: opacity 80ms ease-in 0;
+	   -moz-transition: opacity 80ms ease-in 0;
+	    -ms-transition: opacity 80ms ease-in 0;
+	        transition: opacity 80ms ease-in 0;
+}
+
+.js .tip.active,
+.js .tip.transition {
+	display: block;
 }
 
 .js .tip.active {
-	display: block;
+	opacity: 1;
+	
+	-webkit-transition-delay: 320ms;
+	   -moz-transition-delay: 320ms;
+	    -ms-transition-delay: 320ms;
+	        transition-delay: 320ms;
 }
 
 
 /* utilities */
 
-.hidden {
+.js .hidden {
 	display: none;
 }
 
