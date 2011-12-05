@@ -271,11 +271,21 @@ jQuery.noConflict();
 	})
 
 	// Mouseover on links toggle activate on their targets
-	.delegate('a[href^="#"]', 'mouseover mouseout', function(e) {
+	.delegate('a[href^="#"], [data-tip]', 'mouseover mouseout', function(e) {
 		var link, href, elem, data, type, t;
 		
 		link = jQuery(e.currentTarget);
-		href = link.attr('href');
+		href = link.data('tip');
+		
+		if (href) {
+			if (!(/^#/.test(href))) {
+				console.log('This tip does not reference an id. It must be text. Template doesn\'t support this yet. It says:', href);
+			}
+		}
+		else {
+			href = link.attr('href');
+		}
+		
 		elem = jQuery(href);
 		
 		if (elem.length === 0) { return; }
