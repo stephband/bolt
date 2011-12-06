@@ -382,6 +382,11 @@
 	vertical-align: top;
 }
 
+.actions_index {
+	/* Send action buttons over to the right */
+	text-align: right;
+}
+
 /* Items divided by lines */
 
 .divided_index li {
