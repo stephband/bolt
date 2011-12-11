@@ -289,12 +289,13 @@ jQuery.noConflict();
 			href = link.attr('href');
 		}
 		
+		elem = jQuery(href);
+		
+		if (elem.length === 0) { return; }
+		
 		// Get the active data that may have been created by a previous
 		// activate event.
 		data = jQuery.data(elem[0], 'active');
-		elem = (data && data.elem) || jQuery(href);
-		
-		if (elem.length === 0) { return; }
 		
 		type = (data && data.type) || elem.is('.tip') ? '.tip' : undefined ;
 		
