@@ -98,6 +98,9 @@ jQuery.noConflict();
 	    		activate: function(e) {
 	    			var target = jQuery(e.currentTarget);
 	    			
+	    			// Only if activate was triggered on the popup
+	    			if (e.currentTarget !== e.target) { return; }
+	    			
 	    			if (debug) { console.log('activating popup'); }
 	    			
 	    			jQuery(target.html()).popup(target.data("popup"));
@@ -125,7 +128,7 @@ jQuery.noConflict();
 	  var pane = jQuery(e.target),
 	      data = pane.data('activePane'),
 		    selector, panes, l;
-	      
+	  
 		function prev(e) {
 			// A prevented default indicates that this link has already
 			// been handled, possibly by an inner pane.
@@ -286,27 +289,18 @@ jQuery.noConflict();
 			href = link.attr('href');
 		}
 		
-		elem = jQuery(href);
-		
-		if (elem.length === 0) { return; }
-		
 		// Get the active data that may have been created by a previous
 		// activate event.
 		data = jQuery.data(elem[0], 'active');
+		elem = (data && data.elem) || jQuery(href);
 		
-		// Decide what type this object is.
-		if (data && data.type) {
-			type = data.type;
-		}
-		else {
-			if (elem.is('.tip')) {
-			  type = '.tip';
-			}
-		}
+		if (elem.length === 0) { return; }
 		
-		// If it has no type, we have no business trying to activate
+		type = (data && data.type) || elem.is('.tip') ? '.tip' : undefined ;
+		
+		// If it has not type tip, we have no business trying to activate
 		// it on hover.
-		if (!type) { return; }
+		if (type !== '.tip') { return; }
 		
 		if (!data) {
 		  jQuery.data(elem[0], 'active', { type: type, elem: elem });

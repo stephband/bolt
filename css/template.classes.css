@@ -787,7 +787,7 @@
 	/* By default all slides are positioned off to the left. */ 
 	left: -100%;
 	
-	/* Steps have no height by default to stop them influencing
+	/* Slides have no height by default to stop them influencing
 	   scrollbars when they are not the active step. */
 	height: 0;
 	overflow: hidden;
@@ -816,6 +816,7 @@
 	height: auto;
 	overflow: visible;
 }
+
 
 /* .popup, .popdown, .dropdown, .stopdown */
 
