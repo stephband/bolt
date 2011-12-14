@@ -297,7 +297,7 @@ jQuery.noConflict();
 		// activate event.
 		data = jQuery.data(elem[0], 'active');
 		
-		type = (data && data.type) || elem.is('.tip') ? '.tip' : undefined ;
+		type = (data && data.type) || (elem.is('.tip') ? '.tip' : undefined);
 		
 		// If it has not type tip, we have no business trying to activate
 		// it on hover.
