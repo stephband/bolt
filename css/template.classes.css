@@ -751,36 +751,45 @@
 }
 
 .tab {
-	display: none;
+	display: inline-block;
 	
+	visibility: hidden;
 	opacity: 0;
 	z-index: 1;
 	
-	-webkit-transition: opacity 0.12s ease-in;
-	   -moz-transition: opacity 0.12s ease-in;
-	    -ms-transition: opacity 0.12s ease-in;
-	     -o-transition: opacity 0.12s ease-in;
-					 transition: opacity 0.12s ease-in;
+	-webkit-transition-property: opacity, visibility;
+	   -moz-transition-property: opacity, visibility;
+	    -ms-transition-property: opacity, visibility;
+	     -o-transition-property: opacity, visibility;
+	        transition-property: opacity, visibility;
+
+	-webkit-transition-duration: 120ms;
+	   -moz-transition-duration: 120ms;
+	    -ms-transition-duration: 120ms;
+	     -o-transition-duration: 120ms;
+	        transition-duration: 120ms;
+
+	-webkit-transition-timing-function: ease-in;
+	   -moz-transition-timing-function: ease-in;
+	    -ms-transition-timing-function: ease-in;
+	     -o-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
 }
 
 .tab.active {
 	/* The inline-block technique overlays tabs on top of one another
 	   but still allows the height of the blocks to stay in the flow.
 	   It's better than using position: absolute. It rocks. */
-	display: inline-block;
-
+	
+	visibility: visible;
 	opacity: 1;
 	z-index: 2;
 	
-	-webkit-transition: opacity 0.12s ease-out;
-	   -moz-transition: opacity 0.12s ease-out;
-	    -ms-transition: opacity 0.12s ease-out;
-	     -o-transition: opacity 0.12s ease-out;
-	        transition: opacity 0.12s ease-out;
-}
-
-.tab.transition {
-	display: inline-block;
+	-webkit-transition-timing-function: ease-out;
+	   -moz-transition-timing-function: ease-out;
+	    -ms-transition-timing-function: ease-out;
+	     -o-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
 }
 
 .slide {
@@ -822,32 +831,50 @@
 
 .popdown,
 .dropdown {
-	display: none;
+	display: block;
 	overflow: hidden;
 	
 	position: absolute;
 	top: 2em;
 	opacity: 0;
+	visibility: hidden;
 	
-	-webkit-transition: opacity 0.18s ease-out, top 0.18s ease-out;
-		 -moz-transition: opacity 0.18s ease-out, top 0.18s ease-out;
-	    -ms-transition: opacity 0.18s ease-out, top 0.18s ease-out;
-	     -o-transition: opacity 0.18s ease-out, top 0.18s ease-out;
-	        transition: opacity 0.18s ease-out, top 0.18s ease-out;
+	-webkit-transition-property: opacity, top, visibility;
+	   -moz-transition-property: opacity, top, visibility;
+	    -ms-transition-property: opacity, top, visibility;
+	     -o-transition-property: opacity, top, visibility;
+	        transition-property: opacity, top, visibility;
+
+	-webkit-transition-duration: 180ms;
+	   -moz-transition-duration: 180ms;
+	    -ms-transition-duration: 180ms;
+	     -o-transition-duration: 180ms;
+	        transition-duration: 180ms;
+
+	-webkit-transition-timing-function: ease-out;
+	   -moz-transition-timing-function: ease-out;
+	    -ms-transition-timing-function: ease-out;
+	     -o-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
 }
 
 .popdown.active,
 .dropdown.active {
-	display: block;
-	
 	top: 2.3333em;
 	opacity: 1;
+	visibility: visible;
 	
-	-webkit-transition: opacity 0.06s ease-in, top 0.06s ease-in;
-		 -moz-transition: opacity 0.06s ease-in, top 0.06s ease-in;
-	    -ms-transition: opacity 0.06s ease-in, top 0.06s ease-in;
-	     -o-transition: opacity 0.06s ease-in, top 0.06s ease-in;
-	        transition: opacity 0.06s ease-in, top 0.06s ease-in;
+	-webkit-transition-duration: 60ms;
+	   -moz-transition-duration: 60ms;
+	    -ms-transition-duration: 60ms;
+	     -o-transition-duration: 60ms;
+	        transition-duration: 60ms;
+
+	-webkit-transition-timing-function: ease-in;
+	   -moz-transition-timing-function: ease-in;
+	    -ms-transition-timing-function: ease-in;
+	     -o-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
 }
 
 .stopdown {
@@ -881,8 +908,6 @@
 	        transition: height 0.06s ease-in, margin-bottom 0.06s ease-in, padding-top 0.06s ease-in, padding-bottom 0.06s ease-in;
 }
 
-.popdown.transition,
-.dropdown.transition,
 .stopdown.transition {
 	display: block;
 }
