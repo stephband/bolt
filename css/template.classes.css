@@ -74,8 +74,6 @@
 	
 	/* Center inline-block contents horizontally */
 	text-align: center;
-	
-	background-color: rgba(0,0,0,0.6);
 }
 
 .popup_layer:after {
@@ -160,7 +158,8 @@
 }*/
 
 /* Use a <canvas> as a loading icon */
-.loading_layer {
+.loading_layer,
+.popup_layer {
 	background-image: none;
 	background-color: rgba(31, 32, 33, 0.746094);
 	z-index: 4;
@@ -189,31 +188,9 @@
 }
 
 .js .tip {
-	display: none;
 	position: absolute;
 	width: 20em;
 	margin-top: 2.5em;
-	
-	opacity: 0;
-	
-	-webkit-transition: opacity 80ms ease-in 0;
-	   -moz-transition: opacity 80ms ease-in 0;
-	    -ms-transition: opacity 80ms ease-in 0;
-	        transition: opacity 80ms ease-in 0;
-}
-
-.js .tip.active,
-.js .tip.transition {
-	display: block;
-}
-
-.js .tip.active {
-	opacity: 1;
-	
-	-webkit-transition-delay: 320ms;
-	   -moz-transition-delay: 320ms;
-	    -ms-transition-delay: 320ms;
-	        transition-delay: 320ms;
 }
 
 
@@ -701,11 +678,10 @@
 
 /* Show/hide transitions. */
 
-.tab,
-.popup_layer,
-.loading_layer {
-	display: inline-block;
-	
+.js .tab,
+.js .popup_layer,
+.js .loading_layer,
+.js .tip {
 	visibility: hidden;
 	opacity: 0;
 	z-index: 1;
@@ -729,9 +705,10 @@
 	        transition-timing-function: ease-in;
 }
 
-.tab.active,
-.popup_layer.active,
-.loading .loading_layer {
+.js .tab.active,
+.js .popup_layer.active,
+.js .loading .loading_layer,
+.js .tip.active {
 	/* The inline-block technique overlays tabs on top of one another
 	   but still allows the height of the blocks to stay in the flow.
 	   It's better than using position: absolute. It rocks. */
@@ -746,6 +723,15 @@
 	     -o-transition-timing-function: ease-out;
 	        transition-timing-function: ease-out;
 }
+
+.js .tip.active {
+	-webkit-transition-delay: 320ms;
+	   -moz-transition-delay: 320ms;
+	    -ms-transition-delay: 320ms;
+	        transition-delay: 320ms;
+}
+
+
 
 .slide {
 	/* By default all slides are positioned off to the left. */ 
