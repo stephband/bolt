@@ -1,0 +1,39 @@
+.button {
+	-webkit-border-radius: 0.33em;
+	   -moz-border-radius: 0.33em;
+	     -o-border-radius: 0.33em;
+	        border-radius: 0.33em;
+	
+	text-shadow: 0 1px rgba(255,255,255,0.3), 0 -1px rgba(0,0,0,0.5);
+	color: rgb(240,240,240);
+	background-color: rgb(127,127,127);
+	
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(160,160,160)), to(rgb(127,127,127)));
+	background-image: -webkit-linear-gradient(top, rgb(160,160,160), rgb(127,127,127));
+	background-image:    -moz-linear-gradient(top, rgb(160,160,160), rgb(127,127,127));
+	background-image:     -ms-linear-gradient(top, rgb(160,160,160), rgb(127,127,127));
+	background-image:      -o-linear-gradient(top, rgb(160,160,160), rgb(127,127,127));
+	background-image:         linear-gradient(top, rgb(160,160,160), rgb(127,127,127));
+	
+	-webkit-box-shadow: 0 1px 1px rgba(255,255,255,0.3), 0 -1px 1px rgba(0,0,0,0.5);
+	   -moz-box-shadow: 0 1px 1px rgba(255,255,255,0.3), 0 -1px 1px rgba(0,0,0,0.5);
+	        box-shadow: 0 1px 1px rgba(255,255,255,0.3), 0 -1px 1px rgba(0,0,0,0.5);
+}
+
+.button:hover,
+.button.active {
+	color: white;
+}
+
+.menu_button {
+	-webkit-border-radius: 0;
+	   -moz-border-radius: 0;
+	     -o-border-radius: 0;
+	        border-radius: 0;
+	
+	background-image: none;
+	
+	-webkit-box-shadow: none;
+	   -moz-box-shadow: none;
+	        box-shadow: none;
+}
