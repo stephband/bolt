@@ -76,15 +76,6 @@
 	text-align: center;
 	
 	background-color: rgba(0,0,0,0.6);
-	
-	opacity: 0;
-	display: none;
-	
-	-webkit-transition: opacity 0.06s ease-in;
-	   -moz-transition: opacity 0.06s ease-in;
-	    -ms-transition: opacity 0.06s ease-in;
-	     -o-transition: opacity 0.06s ease-in;
-	        transition: opacity 0.06s ease-in;
 }
 
 .popup_layer:after {
@@ -98,21 +89,6 @@
 
 .popup_layer > * {
 	text-align: left;
-}
-
-.popup_layer.active {
-	opacity: 1;
-	display: block;
-	
-	-webkit-transition: opacity 0.12s ease-in;
-	   -moz-transition: opacity 0.12s ease-in;
-	    -ms-transition: opacity 0.12s ease-in;
-	     -o-transition: opacity 0.12s ease-in;
-	        transition: opacity 0.12s ease-in;
-}
-
-.popup_layer.transition {
-	display: block;
 }
 
 .popup {
@@ -181,38 +157,12 @@
 		background-image: url('../../images/loading-icon-16-white.gif');
 		background-color: transparent;
 		background-repeat: no-repeat;
-		
-		-webkit-transition: opacity 0.16s ease-in;
-			 -moz-transition: opacity 0.16s ease-in;
-		     -o-transition: opacity 0.16s ease-in;
-						transition: opacity 0.16s ease-in;
-		
-		opacity: 0;
-}
-
-.loading.loading_layer,
-.loading .loading_layer {
-		display: block;
-		opacity: 1;
-}
-
-.transition_support .loading_layer.transition,
-.transition_support .transition .loading_layer {
-	display: block;
 }*/
 
 /* Use a <canvas> as a loading icon */
 .loading_layer {
 	background-image: none;
-	background-color: rgba(38, 64, 89, 0.746094);
-	
-	-webkit-transition: opacity 0.16s ease-in;
-	   -moz-transition: opacity 0.16s ease-in;
-	    -ms-transition: opacity 0.16s ease-in;
-	     -o-transition: opacity 0.16s ease-in;
-	        transition: opacity 0.16s ease-in;
-	
-	opacity: 0;
+	background-color: rgba(31, 32, 33, 0.746094);
 	z-index: 4;
 }
 
@@ -224,11 +174,6 @@
 	height: 80px;
 	margin-left: -40px;
 	margin-top: -40px;
-}
-
-.loading .loading_layer {
-	opacity: 1;
-	overflow: hidden;
 }
 
 
@@ -752,6 +697,14 @@
 
 .tab {
 	display: inline-block;
+}
+
+/* Show/hide transitions. */
+
+.tab,
+.popup_layer,
+.loading_layer {
+	display: inline-block;
 	
 	visibility: hidden;
 	opacity: 0;
@@ -776,7 +729,9 @@
 	        transition-timing-function: ease-in;
 }
 
-.tab.active {
+.tab.active,
+.popup_layer.active,
+.loading .loading_layer {
 	/* The inline-block technique overlays tabs on top of one another
 	   but still allows the height of the blocks to stay in the flow.
 	   It's better than using position: absolute. It rocks. */
