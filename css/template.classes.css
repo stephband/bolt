@@ -197,7 +197,7 @@
 	padding-right: 0.75em;
 	max-width: 20em;
 	
-	margin-top: 2.5em;
+	margin-top: -3em;
 }
 
 
@@ -732,10 +732,10 @@
 }
 
 .js .tip.active {
-	-webkit-transition-delay: 320ms;
-	   -moz-transition-delay: 320ms;
-	    -ms-transition-delay: 320ms;
-	        transition-delay: 320ms;
+	-webkit-transition-delay: 540ms;
+	   -moz-transition-delay: 540ms;
+	    -ms-transition-delay: 540ms;
+	        transition-delay: 540ms;
 }
 
 

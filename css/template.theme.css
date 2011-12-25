@@ -88,7 +88,8 @@
 
 .tip {
 	color: white;
-	border: 1px solid rgb(245,245,245);
+	overflow: visible;
+	/*border: 1px solid rgb(245,245,245);*/
 	
 	-webkit-border-radius: 0.33em;
 	   -moz-border-radius: 0.33em;
@@ -97,7 +98,20 @@
 	
 	background: rgba(63,63,63,0.92);
 	
-	-webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.6);
+	/*-webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.6);
 	   -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.6);
-	        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.6);
+	        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.6);*/
+}
+
+.tip:after {
+	content: '';
+	position: absolute;
+	left: 24px;
+	bottom: -6px;
+	width: 0;
+	height: 0;
+	border-top: 6px solid rgba(63,63,63,0.92);
+	border-right: 6px solid transparent;
+	border-left: 6px solid transparent;
+	border-bottom: 0;
 }
