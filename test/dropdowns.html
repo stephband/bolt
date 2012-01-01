@@ -7,7 +7,7 @@
 	
 	<title>template - dropdown, popdown and tabs test</title>
 	
-	<script>document.documentElement.className='';</script>
+	<script>document.documentElement.className = 'js';</script>
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 	<!-- Force latest IE rendering engine & Chrome Frame -->
@@ -25,6 +25,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/template.typography.14_24.css" />
 	<link rel="stylesheet" type="text/css" href="../css/template.forms.css" />
 	<link rel="stylesheet" type="text/css" href="../css/template.classes.css" />
+	<link rel="stylesheet" type="text/css" href="../css/template.theme.css" />
 	<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="../css/template.ie.css" /><![endif]-->
 	<!--[if IE 8]><link rel="stylesheet" type="text/css" href="../css/template.ie8.css" /><![endif]-->
 	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="../css/template.ie7.css" /><![endif]-->
@@ -33,6 +34,10 @@
 	<link rel="stylesheet" type="text/css" href="../css/site.typography.css" />
 
 	<style>
+		body {
+			background-color: rgb(250,250,250);
+		}
+		
 		section {
 			padding: 1em 0 6em 0;
 			border-bottom: 1px solid #cccccc;
@@ -44,14 +49,12 @@
 		}
 		
 		.dropdown {
-			border: 1px solid #999999;
-			background: #eeeeee;
+			background:rgb(234,234,234);
 		}
 		
 		.popdown {
 			color: white;
-			border: 1px solid black;
-			background: #666666;
+			background: rgb(234,234,234);
 		}
 		
 		.stopdown {
@@ -67,24 +70,23 @@
 		}
 		
 		.tab {
-			background: #cccccc;
 			min-height: 4em;
-		}
-		
-		.tab.transition {
-			position: absolute;
-			width: 100%;
-			top: 0;
-			left: 0;
-		}
-		
-		.tab.active.transition {
-			position: relative;
 		}
 	</style>
 </head>
 
 <body>
+	<section>
+		<ul class="horizontal buttons_index index">
+			<li>
+				<a class="button" href="#popup">Popup</a>
+			</li>
+			<li>
+				<a class="button" href="#load">Load</a>
+			</li>
+		</ul>
+	</section>
+
 	<section>
 		<ul class="horizontal buttons_index index">
 			<li>
@@ -107,6 +109,24 @@
 			</li>
 		</ul>
 	</section>
+	
+	<section>
+		<ul class="horizontal buttons_index index">
+			<li>
+				<a class="button" href="#tip1">Tip by id in href</a>
+			</li>
+			<li>
+				<a class="button" href="#tip" data-tip="#tip1">Tip by id in data-tip</a>
+			</li>
+			<li>
+				<a class="button" href="#tip" data-tip="Tip in data-tip attribute">Tip by string in data-tip</a>
+			</li>
+		</ul>
+	</section>
+	
+	<div class="tip" id="tip1">
+	  <p>Tip in seperate container</p>
+	</div>
 	
 	<section>
 		<ul class="horizontal buttons_index index">
@@ -165,11 +185,13 @@
 		<div class="tabs">
 			<div class="group1_tab tab" id="tab1" data-selector=".group1_tab">
 				<p>Tab 1</p>
-			</div>
-			<div class="group1_tab tab" id="tab2" data-selector=".group1_tab">
+			</div
+			
+			><div class="group1_tab tab" id="tab2" data-selector=".group1_tab">
 				<p>Tab 2</p>
-			</div>
-			<div class="group1_tab tab" id="tab3" data-selector=".group1_tab">
+			</div
+			
+			><div class="group1_tab tab" id="tab3" data-selector=".group1_tab">
 				<p>Tab 3</p>
 			</div>
 		</div>
@@ -184,11 +206,13 @@
 		<div class="tabs">
 			<div class="tab" id="tab4">
 				<p>Tab 4</p>
-			</div>
-			<div class="tab" id="tab5">
+			</div
+			
+			><div class="tab" id="tab5">
 				<p>Tab 5</p>
-			</div>
-			<div class="tab" id="tab6">
+			</div
+			
+			><div class="tab" id="tab6">
 				<p>Tab 6</p>
 			</div>
 		</div>
@@ -206,8 +230,20 @@
 	<script src="../js/jquery.event.activate.js"></script>
 	<script src="../js/jquery.transitions.js"></script>
 	<script src="../js/jquery.popup.js"></script>
+	<script src="../js/jquery.loading.js"></script>
 	<script src="../js/template.ui.js"></script>
 	
 	<script src="../js/js.debug.js"></script>
+	<script>
+		jQuery(document)
+		.delegate('a[href="#popup"]', 'mousedown', function(e) {
+			jQuery('<p>Hello</p>').popup();
+			e.preventDefault();
+		})
+		.delegate('a[href="#load"]', 'mousedown', function(e) {
+			jQuery('body').addLoadingIcon();
+			e.preventDefault();
+		});
+	</script>
 </body>
 </html>
