@@ -1161,8 +1161,28 @@
    You can style specific nodes that happen to have state, or children of state nodes (for
    instance, showing / hiding a .loading_icon when its parent has .loading), but the state
    class itself must not have style applied. */
- 
- 
+
+
+/* table */
+
+/* Orientate a table vertically, so that the <tr>s appear as columns, and
+   <td>s appear on new rows. Use with caution. */
+
+.v_table thead,
+.v_table tbody,
+.v_table tr {
+  display: inline-block;
+}
+
+.v_table {
+  width: auto;
+}
+
+.v_table td {
+  display: block;
+}
+
+
 /* Utilities */
 
 .clear:after {
