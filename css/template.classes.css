@@ -1171,15 +1171,36 @@
 .v_table thead,
 .v_table tbody,
 .v_table tr {
-  display: inline-block;
+	display: inline-block;
 }
 
 .v_table {
-  width: auto;
+	width: auto;
 }
 
 .v_table td {
-  display: block;
+	display: block;
+}
+
+/* Stripes tables and indexes. */
+
+.striped_index > li:nth-child(even),
+.striped_table > tbody > tr:nth-child(odd) > td,
+.striped_table > tbody > tr:nth-child(odd) > th {
+	background-color: rgba(15,15,15,0.08);
+}
+
+.striped_index > li,
+.striped_table > thead > tr > td,
+.striped_table > thead > tr > th,
+.striped_table > tbody > tr > td,
+.striped_table > tbody > tr > th {
+	background-color: rgba(240,240,240,0.1);
+}
+
+.striped_table > tbody > tr:hover > td,
+.striped_table > tbody > tr:hover > th {
+	background-color: rgba(15,15,15,0.15);
 }
 
 
