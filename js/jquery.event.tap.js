@@ -2,7 +2,7 @@
 // 
 // 0.1
 // 
-// Emits a tap event as soon as touchend is heard. This is better than simulated
+// Emits a tap event as soon as touchend is heard, or a taphold. This is better than simulated
 // click events on touch devices, which wait ~300ms before firing, in case they
 // should be interpreted as double clicks.
 
@@ -14,11 +14,17 @@
 		var target = e.target,
 				currentTarget = e.currentTarget,
 				elem = jQuery(e.currentTarget),
-				timer = setTimeout(timeout, 480);
-
+				type = "tap",
+				duration = 480,
+				startTime = +new Date(),
+				timer = setTimeout(timeout, duration);
+		
 		function timeout() {
 			clearTimer();
 			unbindHandlers();
+			
+			e.type = "taphold";
+			jQuery.event.handle.call(currentTarget, e);
 		}
 
 		function clearTimer() {
@@ -38,28 +44,46 @@
 		}
 
 		function touchend(e) {
-			var type = e.type;
+			var _type = e.type;
 			
 			unbindHandlers();
 			
-			e.type = "tap";
+			// Ignore if the end target is not the same as the start target.
+			if (e.target !== target) { return; }
+			
+			// Double check that the required time has passed. iOS appears to
+			// suspend the timer while a page is gestured, causing a tap event
+			// to fire at the end of a scroll. By checking the time we can
+			// mitigate this.
+			if ((+new Date() - startTime) > duration) { return; }
+			
+			e.type = 'tap';
 			jQuery.event.handle.call(currentTarget, e);
-			e.type = type;
+			e.type = _type;
 		}
 
 		bindHandlers();
 	}
 
-	function setup(data, namespaces, eventHandle) {
-		jQuery.event.add(this, "touchstart", touchstart);
-	}
-
-	function teardown(namespace) {
-		jQuery.event.remove(this, "touchstart", touchstart);
-	}
-
 	jQuery.event.special.tap = {
-		setup: setup,
-		teardown: teardown
+		setup: function setup() {
+			jQuery.event.add(this, "touchstart", touchstart);
+		},
+		
+		teardown: function teardown() {
+			jQuery.event.remove(this, "touchstart", touchstart);
+		}
 	};
+
+	// Delegate taphold events to tap events, seeing as that is where
+	// they originate.
+	jQuery.event.special.taphold = {
+		setup: function() {
+			jQuery.event.add(this, 'tap', jQuery.noop);
+		},
+		
+		teardown: function() {
+			jQuery.event.remove(this, 'tap', jQuery.noop);
+		}
+	}
 })(jQuery);

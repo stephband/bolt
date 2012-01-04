@@ -56,10 +56,15 @@
 	
 	<script src="../js/js.debug.js"></script>
 	<script>
+		var i = 0;
+		
 		jQuery(document)
 		.bind('tap', function(e) {
-			jQuery('p').css({backgroundColor: '#' + Math.floor(Math.random() * 1000000)});
-			console.log('TAP', e);
+			jQuery('p').css({backgroundColor: '#' + Math.floor(Math.random() * 1000000)})
+			.html(i++);
+		})
+		.bind('taphold', function() {
+			jQuery('p').css({backgroundColor: '#eeeeee'}).html(i++);
 		});
 	</script>
 </body>
