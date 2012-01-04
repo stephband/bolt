@@ -41,6 +41,9 @@ jQuery.noConflict();
 						    elem = jQuery(target);
 						
 						function mousedown(e) {
+							// Ignore mousedowns from all but the left button.
+							if (!isLeftButton(e)) { return; }
+							
 							// If event is in it or on it, do nothing.
 							if (target === e.target || jQuery.contains(target, e.target)) { return; }
 							
@@ -74,6 +77,9 @@ jQuery.noConflict();
 	    			var target = e.currentTarget;
 	    			
 	    			function mousedown(e) {
+							// Ignore mousedowns from all but the left button.
+							if (!isLeftButton(e)) { return; }
+							
 							// If event is in it or on it, do nothing.
 							if (target === e.target || jQuery.contains(target, e.target)) { return; }
 							
@@ -217,11 +223,22 @@ jQuery.noConflict();
 	}
 	
 	
+	function isLeftButton(e) {
+		// Ignore mousedowns on any button other than the left (or primary)
+		// mouse button, or when a modifier key is pressed.
+		return (e.type === 'mousedown' && e.which === 1 && !e.ctrlKey && !e.altKey);
+	}
+	
+	
 	jQuery(document)
 	
 	// Mousedown on buttons toggle activate on their targets
 	.delegate('a[href^="#"]', 'mousedown touchstart', function(e) {
 		var link, href, elem, data, type, t;
+		
+		// Ignore mousedowns on any button other than the left (or primary)
+		// mouse button, or when a modifier key is pressed.
+		if (!isLeftButton(e)) { return; }
 		
 		// Default is prevented indicates that this link has already
 		// been handled. Save ourselves the overhead of further handling.
