@@ -60,11 +60,11 @@
 		
 		jQuery(document)
 		.bind('tap', function(e) {
-			jQuery('p').css({backgroundColor: '#' + Math.floor(Math.random() * 1000000)})
+			jQuery('.test').css({backgroundColor: '#' + Math.floor(Math.random() * 1000000)})
 			.html(i++);
 		})
 		.bind('taphold', function() {
-			jQuery('p').css({backgroundColor: '#eeeeee'}).html(i++);
+			jQuery('.test').css({backgroundColor: '#eeeeee'}).html('TAPHOLD' + i++);
 		});
 	</script>
 </body>

@@ -15,7 +15,7 @@ jQuery.event.props.push("dataTransfer");
 // For the events touchstart, touchend, touchmove, touchenter,
 // touchleave, and touchcancel.
 
-jQuery.event.props.push("timestamp", "radiusX", "radiusY", "rotationAngle", "force", "touches", "targetTouches", "changedTouches");
+jQuery.event.props.push("radiusX", "radiusY", "rotationAngle", "force", "touches", "targetTouches", "changedTouches");
 
 
 // Detect whether different types of html5 form elements have native UI implemented
