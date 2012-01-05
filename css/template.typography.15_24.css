@@ -33,11 +33,13 @@ h6                { word-spacing: -0.0833em; font-size: 1em; }
 
 p                 { margin-bottom: 0.8em; }
 
-dd                { margin: 0; }
+fieldset          { margin-bottom: 1.6em; }
+
 ul,
 ol,
 dl                { margin: 1.6em 0 1.6em 0; }
 li                { margin-bottom: 0; }
+dd                { margin: 0; }
 
 blockquote        { margin: 0 0 1.6em 0; }
 blockquote:before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
@@ -60,6 +62,21 @@ table             { margin-bottom: 1.6em; }
 th,
 td,
 caption           { padding: 4px 10px 4px 5px; }
+
+/* Forms */
+
+input,
+select            { height: 1.6em; }
+legend            { word-spacing: -0.0833em; font-size: 1.2em;    line-height: 1.3333em; margin-bottom: 0.6667em; }
+
+label,
+input,
+select            { height: 1.6em; }
+
+label,
+input,
+select,
+textarea          { line-height: 1.6em; }
 
 /* Indentation */
 

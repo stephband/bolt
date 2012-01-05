@@ -22,10 +22,6 @@ body {
   position: relative;
 }
 
-.col {
-	background-color: rgba(64,64,64,0.5);
-}
-
 /* Code */
 
 code.block {

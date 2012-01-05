@@ -23,7 +23,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/template.reset.css" />
 	<link rel="stylesheet" type="text/css" href="../css/template.typography.css" />
 	<link rel="stylesheet" type="text/css" href="../css/template.typography.14_24.css" />
-	<link rel="stylesheet" type="text/css" href="../css/template.forms.css" />
+	<!--link rel="stylesheet" type="text/css" href="../css/template.forms.css" /-->
 	<link rel="stylesheet" type="text/css" href="../css/template.classes.css" />
 	<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="../css/template.ie.css" /><![endif]-->
 	<!--[if IE 8]><link rel="stylesheet" type="text/css" href="../css/template.ie8.css" /><![endif]-->
@@ -31,7 +31,6 @@
 	<!--[if IE 6]><link rel="stylesheet" type="text/css" href="../css/template.ie6.css" /><![endif]-->
 	
 	<!-- testing -->
-	<link rel="stylesheet" type="text/css" href="/qunit/qunit/qunit.css" media="screen">
 	<link rel="stylesheet" type="text/css" href="css/test.css" />
 	<style>
 		.col {
@@ -41,10 +40,28 @@
 		.col > p {
 			background-color: rgba(0,0,0,0.1)
 		}
+		
+		[type="email"] {
+			background-color: green;
+		}
+		
+		[class="email"] {
+			background-color: red;
+		}
+		
+		.email {
+			background-color: yellow;
+		}
+		
+		input {
+			background-color: orange;
+		}
 	</style>
 </head>
 
 <body>
+	<input type="text" />
+	<input type="email" class="email"/>
 	<h1 id="qunit-header">col</h1>
 	<h2 id="qunit-banner"></h2>
 	<div id="qunit-testrunner-toolbar"></div>
@@ -63,14 +80,15 @@
 	<script src="../js/ui.site.js"></script>
 	
 	<script>
+		// String a load of html together and sling it in the DOM.
 		(function(jQuery, undefined){
 			function makeTest(cols, tuple, tuplePos) {
-				var html = ['<div class="test">', '<div class="'+cols+'_col_wrap col_wrap wrap">'],
+				var html = ['<div class="test">', '<div class="x'+cols+'_col_wrap col_wrap wrap">'],
 						i = 0;
 				
 				while (i++ < cols){
 					if (tuple > 1 && i === tuplePos) {
-						html.push('<div class="no'+i+'_col tuple'+tuple+'_col col"><p>tuple'+tuple+'</p></div>');
+						html.push('<div class="no'+i+'_col span'+tuple+'_col col"><p>span'+tuple+'</p></div>');
 						i = i + tuple - 1;
 					}
 					else {

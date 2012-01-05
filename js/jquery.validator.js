@@ -30,7 +30,7 @@
 (function(jQuery, undefined){
 	var options = {
 				errorClass: "error",
-				errorNode: jQuery('<label/>', { 'class': 'error_message' }),
+				errorNode: jQuery('<label/>', { 'class': 'error_label' }),
 				errorSelector: "input, textarea"
 			},
 			
