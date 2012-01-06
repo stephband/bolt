@@ -560,6 +560,14 @@
 	width: 100%;
 }
 
+.col > img,
+.col > video,
+.col > object,
+.col > embed {
+	/* Don't allow media to break out of column bounds. */
+	max-width: 100%;
+}
+
 .col_wrap {
   margin-left: -0.8333em;
   margin-right: -0.8333em;
