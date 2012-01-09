@@ -116,7 +116,7 @@
 				timer;
 		
 		// If canvas is supported
-		if (jQuery.support.canvas && jQuery.support.canvas.2d) {
+		if (jQuery.support.canvas && jQuery.support.canvas['2d']) {
 			canvas(d.width, d.height, function(canvas){
 				context(canvas, function(ctx){
 					// Origin in the centre
@@ -226,8 +226,8 @@
 	var canvas = document.createElement('canvas');
 	
 	jQuery.support.canvas = (canvas.getContext && {
-		2d: !!canvas.getContext('2d'),
-		webgl: !!canvas.getContext('webgl')
+		'2d': !!canvas.getContext('2d'),
+		'webgl': !!canvas.getContext('webgl')
 	});
 })(jQuery);
 

@@ -89,21 +89,19 @@
 		flag = false;
 		
 		popup
-		.removeTransitionClass('active', {
-			callback: function(){
-				var scrollLeft = jQuery('html').scrollLeft(),
-				    scrollTop = jQuery('html').scrollTop();
-		    
-				popup.remove();
-				
-				docElem.css({ overflow: '' });
-				
-				// FF fix. Reset the scroll position.
-				if (scrollTop) { docElem.scrollTop(scrollTop); }
-				if (scrollLeft) { docElem.scrollLeft(scrollLeft); }
-				
-				fn && fn.call( context );
-			}
+		.removeTransitionClass('active', function(){
+		  var scrollLeft = jQuery('html').scrollLeft(),
+		      scrollTop = jQuery('html').scrollTop();
+		  
+		  popup.remove();
+		  
+		  docElem.css({ overflow: '' });
+		  
+		  // FF fix. Reset the scroll position.
+		  if (scrollTop) { docElem.scrollTop(scrollTop); }
+		  if (scrollLeft) { docElem.scrollLeft(scrollLeft); }
+		  
+		  fn && fn.call( context );
 		});
 	}
 	
