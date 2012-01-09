@@ -34,6 +34,20 @@
 				errorSelector: "input, textarea"
 			},
 			
+			errorMessages = {
+				// Types
+				url: 'That doesn\'t look like a valid URL',
+				email: 'Enter a valid email',
+				number: 'That\'s not a number.',
+				
+				// Attributes
+				required: 'Required',
+				minlength: 'At least {{attr}} characters',
+				maxlength: 'No more than {{attr}} characters',
+				min: 'Minimum {{attr}}',
+				max: 'Maximum {{attr}}'
+			},
+			
 			debug = (window.console && window.console.log),
 			
 			// Regex
@@ -53,16 +67,13 @@
 					autocomplete: function( value ) {
 						var autovalue = 'http://' + value;
 						return regex.url.test(autovalue) ? autovalue : undefined ;
-					},
-					error: 'This doesn\'t look like a valid url to me'
+					}
 				},
 				email: {
-					test: function( value ) { return regex.email.test(value); },
-					error: 'Enter a valid email'
+					test: function( value ) { return regex.email.test(value); }
 				},
 				number: {
-					test: function( value ) { return regex.number.test(value); },
-					error: 'That\'s not a number.'
+					test: function( value ) { return regex.number.test(value); }
 				},
 				color: {
 					test: function( value ) { return regex.number.test(value); }
@@ -86,20 +97,20 @@
 					return (
 						(!value || !types[type] || types[type].test(value)) ? pass() :
 						autocomplete && ( autovalue = types[type].autocomplete(value) ) ? pass(autovalue) :
-						fail( types[type].error )
+						fail( errorMessages[type] )
 					);
 				},
 				
 				required: function( value, attr, pass, fail ) {
 					return ( !!value ) ?
 						pass() :
-						fail( 'Required' ) ;
+						fail( jQuery.render(errorMessages.required, {attr: attr}) ) ;
 				},
 				
 				minlength: function( value, attr, pass, fail ) {
 					return ( !value || value.length >= parseInt(attr) ) ?
 						pass() :
-						fail( 'At least ' + attr + ' characters' ) ;
+						fail( jQuery.render(errorMessages.required, {attr: attr}) ) ;
 				},
 				
 				maxlength: function( value, attr, pass, fail ) {
@@ -109,19 +120,19 @@
 					// whether it's in the html or not, and sometimes it's -1
 					return ( !value || number === -1 || value.length <= number ) ?
 						pass() :
-						fail( 'No more than ' + attr + ' characters' );
+						fail( jQuery.render(errorMessages.required, {attr: attr}) ) ;
 				},
 				
 				min: function( value, attr, pass, fail ) {
 					return ( !value || parseFloat(attr) <= parseFloat(value) ) ?
 						pass() :
-						fail( 'Minimum ' + attr ) ;
+						fail( jQuery.render(errorMessages.required, {attr: attr}) ) ;
 				},
 				
 				max: function( value, attr, pass, fail ) {
 					return ( !value || parseFloat(attr) >= parseFloat(value) ) ?
 						pass() :
-						fail( 'Maximum ' + attr ) ;
+						fail( jQuery.render(errorMessages.required, {attr: attr}) ) ;
 				}
 				//pattern: function( value, attr, pass, fail ) {
 				//	return ( !value );
@@ -305,10 +316,11 @@
 		});
 	};
 	
-	jQuery.fn.validator.regex = regex;
-	jQuery.fn.validator.options = options;
-	jQuery.fn.validator.attributes = attributes;
+	options.errorMessages = errorMessages;
 	
+	jQuery.fn.validator.regex = regex;
+	jQuery.fn.validator.options = jQuery.fn.validate.options = options;
+	jQuery.fn.validator.attributes = attributes;
 })(jQuery);
 
 
