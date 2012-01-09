@@ -50,7 +50,7 @@ li,
 dt,
 dd,
 blockquote,
-address           { word-spacing: 0.2em; }
+address           { word-spacing: 0.0714em; }
 
 dd                { margin: 0; }
 

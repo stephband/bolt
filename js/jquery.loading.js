@@ -4,8 +4,8 @@
 //
 // Stephen Band
 //
-// Adds two plugins to the jQuery.fn namespace: .addLoadingIcon()
-// and .removeLoadingIcon(). Loading icons are drawn in an html5
+// Adds two plugins to the jQuery.fn namespace: .addLoading()
+// and .removeLoading(). Loading icons are drawn in an html5
 // canvas and support CSS transitions when jQuery.support.cssTransition
 // is true.
 
@@ -115,18 +115,24 @@
 				transitionEnd = jQuery.support.css && jQuery.support.css.transitionEnd,
 				timer;
 		
-		canvas(d.width, d.height, function(canvas){
-			context(canvas, function(ctx){
-				// Origin in the centre
-				ctx.translate(d.width/2, d.height/2);
-				
-				timer = new Timer(25, function(frameCount){
-					drawFrame(ctx, frameCount);
+		// If canvas is supported
+		if (jQuery.support.canvas && jQuery.support.canvas.2d) {
+			canvas(d.width, d.height, function(canvas){
+				context(canvas, function(ctx){
+					// Origin in the centre
+					ctx.translate(d.width/2, d.height/2);
+					
+					timer = new Timer(25, function(frameCount){
+						drawFrame(ctx, frameCount);
+					});
 				});
+				
+				layer.html(canvas);
 			});
-			
-			layer.html(canvas);
-		});
+		}
+		else {
+			timer = new Timer(60, jQuery.noop);
+		}
 		
 		function started(){
 			debug && console.log('Icon is already running, numbnuts.');
@@ -190,9 +196,8 @@
 		return data;
 	}
 	
-	// PLUGIN
 	
-	jQuery.fn.addLoadingIcon = function(o){
+	jQuery.fn.addLoading = jQuery.fn.addLoadingIcon = function(o){
 		return this.each(function(){
 			var elem = jQuery(this),
 					data = returnData(elem);
@@ -201,7 +206,7 @@
 		});
 	};
 	
-	jQuery.fn.removeLoadingIcon = function(){
+	jQuery.fn.removeLoading = jQuery.fn.removeLoadingIcon = function(){
 		return this.each(function(){
 			var elem = jQuery(this),
 					data = elem.data('loading');
@@ -213,6 +218,17 @@
 		});
 	};
 	
+})(jQuery);
+
+
+// Feature detect canvas support
+(function(jQuery, undefined){
+	var canvas = document.createElement('canvas');
+	
+	jQuery.support.canvas = (canvas.getContext && {
+		2d: !!canvas.getContext('2d'),
+		webgl: !!canvas.getContext('webgl')
+	});
 })(jQuery);
 
 
