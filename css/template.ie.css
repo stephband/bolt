@@ -11,7 +11,7 @@ button {
 
 .popup_layer,
 .loading_layer {
-  background-image: url('/images/bg/rgba_0_0_0_70.png');
+  background-image: url('../images/bg/rgba_0_0_0_70.png');
   background-repeat: repeat;
 }
 

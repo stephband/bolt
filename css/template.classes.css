@@ -1307,6 +1307,7 @@
 	
 	cursor: pointer;
 	
+	width: auto;
 	height: 2em;
 	line-height: 2em;
 	padding-left: 0.75em;
