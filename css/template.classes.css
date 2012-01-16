@@ -200,6 +200,18 @@
 	margin-top: -3em;
 }
 
+@media all and (max-width: 500px) {
+
+.js .tip {
+  /* Override offset given to it by JS when the
+     screen is too small. */
+  left: 10% !important;
+  margin-left: 0 !important;
+  width: 80% !important;
+}
+
+}
+
 
 /* utilities */
 
@@ -576,6 +588,8 @@
 .col_wrap > .col {
   padding-left: 0.8333em;
   padding-right: 0.8333em;
+  /* Make sure wraps and cols are using the same font-size. */
+  font-size: inherit;
 }
 
 .col_wrap > .last_col {

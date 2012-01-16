@@ -56,7 +56,7 @@
 		    startTime = e.timeStamp;
 		
 		if (!e.changedTouches) {
-			if (debug) { console.log('This event object has no changedTouches array.'); }
+			if (debug) { console.log('This event object has no changedTouches array.', e); }
 			return;
 		}
 		
@@ -118,6 +118,9 @@
 				// to fire at the end of a scroll. By checking the time we can
 				// mitigate this.
 				if ((e.timeStamp - startTime) > duration) { return; }
+				
+				// Stop simulated mouse events.
+				e.preventDefault();
 				
 				e.type = 'tap';
 				jQuery.event.handle.call(currentTarget, e);

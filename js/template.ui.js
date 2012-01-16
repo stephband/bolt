@@ -202,6 +202,11 @@ jQuery.noConflict();
 		    relatedTarget = jQuery(e.relatedTarget);
 		
 		target.css(relatedTarget.offset());
+		
+		jQuery.event.add(document, 'tap', function tap() {
+			jQuery.event.remove(document, 'tap', tap);
+			target.trigger('deactivate');
+		});
 	}
 	
 	function click(e) {
@@ -258,7 +263,7 @@ jQuery.noConflict();
 		if (data && data.type) {
 			// Check if this type is in classes - if not, we don't want to
 			// be activating it on mousedown.
-			type = (classes[data.type] && data.type);
+			type = data.type;
 		}
 		else {
 			for (t in classes) {
@@ -278,6 +283,8 @@ jQuery.noConflict();
 		link.unbind('click', preventDefault);
 		link.bind('click', preventDefault);
 		
+		if (!classes[type]) { return; }
+		
 		if ((data && data.state) || (!data && elem.hasClass('active'))) {
 			// Element is already active. Do nothing.
 		}
@@ -291,11 +298,10 @@ jQuery.noConflict();
 	})
 
 	// Mouseover on links toggle activate on their targets
-	.delegate('a[href^="#"], [data-tip]', 'mouseover mouseout', function(e) {
-		var link, href, elem, data, type, t;
+	.delegate('a[href^="#"], [data-tip]', 'mouseover mouseout tap', function(e) {
+		var href, node, elem, data, type, t;
 		
-		link = jQuery(e.currentTarget);
-		href = link.data('tip');
+		href = e.currentTarget.getAttribute('data-tip');
 		
 		if (href) {
 			if (!(/^#/.test(href))) {
@@ -303,12 +309,15 @@ jQuery.noConflict();
 			}
 		}
 		else {
-			href = link.attr('href');
+			href = e.currentTarget.getAttribute('href');
 		}
 		
-		elem = jQuery(href);
+		node = document.getElementById(href.replace(/^#/, ''));
 		
-		if (elem.length === 0) { return; }
+		// If there is no node, there's no need to continue. Thanks.
+		if (!node) { return; }
+		
+		elem = jQuery(node);
 		
 		// Get the active data that may have been created by a previous
 		// activate event.
@@ -324,7 +333,11 @@ jQuery.noConflict();
 		  jQuery.data(elem[0], 'active', { type: type, elem: elem });
 		}
 		
-		elem.trigger(e.type === 'mouseover' ? { type: 'activate', relatedTarget: e.currentTarget } : 'deactivate');
+		if (e.type === 'tap') {
+			elem.css(jQuery.prefix('transition')+'Delay', '0ms');
+		}
+		
+		elem.trigger(e.type === 'mouseout' ? 'deactivate' : { type: 'activate', relatedTarget: e.currentTarget });
 	})
 	.delegate('.tip', 'activate', activateTip)
 	.delegate('.tab', 'activate', classes['.tab'].activate)

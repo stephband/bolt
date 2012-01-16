@@ -48,3 +48,7 @@ img { -ms-interpolation-mode: bicubic; }
     left: -10px;                                            /* left: -(w + pl); */
     padding: 0;                                             /* padding-right: w + pr - 10; padding-left: w + pl - 10; */
 }
+
+.js .tip {
+	background-image: url('../images/bg/rgba_0_0_0_80.png');
+}
