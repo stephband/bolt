@@ -744,8 +744,8 @@ if (jQuery.support.cssTransitionEnd) {
     
 //    doc.unbind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', rewrite);
     
-    jQuery.fn.addClass = jQuery.fn.addTransitionClass = makeMethod(addClass, removeClass);
-    jQuery.fn.removeClass = jQuery.fn.removeTransitionClass = makeMethod(removeClass, addClass);
+    /*jQuery.fn.addClass =*/ jQuery.fn.addTransitionClass = makeMethod(addClass, removeClass);
+    /*jQuery.fn.removeClass =*/ jQuery.fn.removeTransitionClass = makeMethod(removeClass, addClass);
 }
 //  });
 })(jQuery);

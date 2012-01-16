@@ -1,30 +1,3 @@
-// Log global variables
-
-(function(window) {
-	// If we're not debugging, don't go any further
-	if (!window.console || !window.console.log || !window.addEventListener) { return; }
-	
-	var startPropArr = Object.keys(window);
-	
-	window.addEventListener('load', function(e) {
-		var timer = setTimeout(function() {
-			var stopPropArr = Object.keys(window),
-			    l = stopPropArr.length,
-			    resPropArr = [];
-			
-			while(l--) {
-				if (startPropArr.indexOf(stopPropArr[l]) === -1 ) {
-					resPropArr.push(stopPropArr[l]);
-				}
-			}
-			
-			console.log('[Global variables]', resPropArr.join(', '));
-			timer = null;
-		}, 200);
-	});
-})(this);
-
-
 // Define some global symbols
 //
 // Yeah, they are UTF-8 symbols. What a laugh.
@@ -115,6 +88,33 @@ if (typeof Object.keys !== 'function') {
 		return keys;
 	}
 }
+
+
+//// Log global variables
+//
+//(function(window) {
+//	// If we're not debugging, don't go any further
+//	if (!window.console || !window.console.log || !window.addEventListener) { return; }
+//	
+//	var startPropArr = Object.keys(window);
+//	
+//	window.addEventListener('load', function(e) {
+//		var timer = setTimeout(function() {
+//			var stopPropArr = Object.keys(window),
+//			    l = stopPropArr.length,
+//			    resPropArr = [];
+//			
+//			while(l--) {
+//				if (startPropArr.indexOf(stopPropArr[l]) === -1 ) {
+//					resPropArr.push(stopPropArr[l]);
+//				}
+//			}
+//			
+//			console.log('[Global variables]', resPropArr.join(', '));
+//			timer = null;
+//		}, 200);
+//	});
+//})(this);
 
 
 // Number

@@ -226,8 +226,9 @@
 	var canvas = document.createElement('canvas');
 	
 	jQuery.support.canvas = (canvas.getContext && {
-		'2d': !!canvas.getContext('2d'),
-		'webgl': !!canvas.getContext('webgl')
+		'2d': !!canvas.getContext('2d')
+		// This throws an error in FF3.6
+		//'webgl': !!canvas.getContext('webgl')
 	});
 })(jQuery);
 
