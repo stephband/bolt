@@ -238,7 +238,7 @@ if (!Array.indexOf) {
 // 2.0_dev
 
 (function(jQuery, undefined){
-  var debug = (window.console && window.console.log),
+  var debug = (window.debug === undefined ? (window.console && window.console.log) : window.debug),
       
       doc = jQuery(document),
       
@@ -502,7 +502,6 @@ if (!Array.indexOf) {
     
     if (!data.length) { removeTransition(node, data); }
     
-    console.log(data.fn);
     data.fn && data.fn.apply(node);
   }
   

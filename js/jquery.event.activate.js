@@ -5,7 +5,7 @@
 // can be enabled by adding the class 'active'.
 
 (function(jQuery, undefined){
-	var debug = (window.console && window.console.log),
+	var debug = (window.debug === undefined ? (window.console && window.console.log) : window.debug),
 	    options = {
 	    	cache: true
 	    };
