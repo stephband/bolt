@@ -606,8 +606,8 @@ jQuery.noConflict();
 		// Delegate events coming from inputs and texareas with placeholders.
 		
 		jQuery(document)
-		.delegate('input[type="search"], input[type="text"]', 'change focusout', changeHandler)
-		.delegate('input[type="search"], input[type="text"]', 'focusin', focusHandler)
+		.delegate('textarea[placeholder], input[placeholder]', 'change focusout', changeHandler)
+		.delegate('textarea[placeholder], input[placeholder]', 'focusin', focusHandler)
 		
 		// Create placeholder labels.
 		
