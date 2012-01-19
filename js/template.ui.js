@@ -325,8 +325,6 @@ jQuery.noConflict();
 		
 		node = document.getElementById(href.replace(/^#/, ''));
 		
-		alert(href + ' ' + node);
-		
 		// If there is no node, there's no need to continue. Thanks.
 		if (!node) { return; }
 		
