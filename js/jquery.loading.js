@@ -149,7 +149,7 @@
 			
 			// Force reflow and add transition class
 			elem.width();
-			elem.addClass( 'loading' );
+			elem.addClass('loading');
 			
 			// Set state
 			this.start = started;
@@ -230,33 +230,4 @@
 		// This throws an error in FF3.6
 		//'webgl': !!canvas.getContext('webgl')
 	});
-})(jQuery);
-
-
-(function(jQuery, undefined){
-  /* Hack to prevent double-click on button */	
-  jQuery.fn.addLoadingButton = function(){
-		return this.each(function(){
-      var elem  = jQuery(this),
-          text = elem.html(),
-          href = elem.attr("href");
-          
-      elem.html(text+"...")
-          .attr("href","#performing_action")
-          .data("original",{"text": text,"href":href})
-          .css({ pointerEvents: "none" });
-		});
-	};
-  jQuery.fn.removeLoadingButton = function(){
-		return this.each(function(){
-		  var elem = jQuery(this),
-		      text = elem.data("original").text,
-		      href = elem.data("original").href;
-		      
-		  elem.html(text)
-		      .attr("href",href)
-		      .removeData("original")
-		      .css({ pointerEvents: "auto" });
-		});
-	};
 })(jQuery);

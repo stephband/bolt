@@ -603,38 +603,36 @@ jQuery.noConflict();
 		.ready(function() {
 			var elem = jQuery('textarea[placeholder], input[placeholder]');
 			
-			// Don't bother going any further if there are no inputs
-			// or textareas to process.
-			
-			if (!elem.length) { return; }
-			
 			elem.each(function(i){
 				var input = this,
 				    elem = jQuery(this),
 				    id = input.id || identify(input),
-				    value = input.value,
-				    height = input.nodeName.toLowerCase() === 'input' ?
-				    	elem.height() : 20,
-				    text = elem.attr('placeholder'),
+				    val = input.value,
+				    css = elem.position(),
+				    height = input.nodeName.toLowerCase() === 'input' ? elem.height() : elem.css('lineHeight'),
+				    text = input.getAttribute('placeholder'),
 				    placeholder = jQuery('<label/>', {
-				    	'for': id,
 				    	'class': 'placeholder',
-				    	text: text,
-				    	css: {
-				    		height: height + 'px',
-				    		lineHeight: height + 'px',
-				    		paddingLeft: elem.css('padding-left'),
-				    		paddingRight: elem.css('padding-right')
-				    	}
+				    	'for': id,
+				    	'text': text
 				    });
 				
-				placeholder.insertAfter(elem);
+				jQuery.extend(css, {
+					height: height + 'px',
+					lineHeight: height + 'px',
+					paddingLeft: elem.css('padding-left'),
+					paddingRight: elem.css('padding-right')
+				});
+				
+				placeholder
+				.css(css)
+				.insertAfter(elem);
 				
 				// Store the placeholder in a hash table to associate it
 				// with its input.
 				store[id] = placeholder;
 				
-				if (!value || !value.length) {
+				if (!val || !val.length) {
 					placeholder.css({ display: 'block' });
 				};
 			});

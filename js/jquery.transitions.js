@@ -440,10 +440,12 @@ if (!Array.indexOf) {
 		else if (obj2) {
 			obj = obj2;
 		}
-    
-		for (prop in obj.properties) {
-			// Add easing to jQuery's repertoire
-			jQuery.addEasing(obj.properties[prop].easing);
+		
+		if (obj) {
+			for (prop in obj.properties) {
+				// Add easing to jQuery's repertoire
+				jQuery.addEasing(obj.properties[prop].easing);
+			}
 		}
     
     return obj;
