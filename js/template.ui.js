@@ -235,6 +235,8 @@ jQuery.noConflict();
 	}
 	
 	
+	var loc = window.location.href.replace(/#.*/, '');
+	
 	jQuery(document)
 	
 	// Mousedown on buttons toggle activate on their targets
@@ -251,6 +253,11 @@ jQuery.noConflict();
 		
 		link = jQuery(e.currentTarget);
 		href = link.attr('href');
+		
+		// IE has a habit of reporting the entire URL even when the link
+		// contains just a relative hash ref. Strip the rest of the URL.
+		href = href.replace(loc, '');
+		
 		elem = jQuery(href);
 		
 		if (elem.length === 0) { return; }
@@ -305,14 +312,20 @@ jQuery.noConflict();
 		
 		if (href) {
 			if (!(/^#/.test(href))) {
-				console.log('This tip does not reference an id. It must be text. Template doesn\'t support this yet. It says:', href);
+				//console.log('This tip does not reference an id. It must be text. Template doesn\'t support this yet. It says:', href);
 			}
 		}
 		else {
 			href = e.currentTarget.getAttribute('href');
+			
+			// IE has a habit of reporting the entire URL even when the link
+			// contains just a relative hash ref. Strip the rest of the URL.
+			href = href.replace(loc, '');
 		}
 		
 		node = document.getElementById(href.replace(/^#/, ''));
+		
+		alert(href + ' ' + node);
 		
 		// If there is no node, there's no need to continue. Thanks.
 		if (!node) { return; }
@@ -616,22 +629,20 @@ jQuery.noConflict();
 				    	'for': id,
 				    	'text': text
 				    });
-				
+
 				jQuery.extend(css, {
 					height: height + 'px',
 					lineHeight: height + 'px',
 					paddingLeft: elem.css('padding-left'),
 					paddingRight: elem.css('padding-right')
 				});
-				
+
 				placeholder
 				.css(css)
 				.insertAfter(elem);
-				
-				// Store the placeholder in a hash table to associate it
-				// with its input.
+
 				store[id] = placeholder;
-				
+
 				if (!val || !val.length) {
 					placeholder.css({ display: 'block' });
 				};

@@ -16,4 +16,5 @@
 
 .js .tip {
 	background-image: url('../images/bg/rgba_0_0_0_80.png');
+	background-repeat: repeat;
 }
