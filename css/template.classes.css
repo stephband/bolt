@@ -1214,6 +1214,13 @@
 	    -ms-transition-timing-function: ease-in;
 	     -o-transition-timing-function: ease-in;
 	        transition-timing-function: ease-in;
+	
+	/* A nice bit of hardware acceleration may help the transitions. */
+	-webkit-transform: translate3d(0,0,0);
+	   -moz-transform: translate3d(0,0,0);
+	    -ms-transform: translate3d(0,0,0);
+	     -o-transform: translate3d(0,0,0);
+	        transform: translate3d(0,0,0);
 }
 
 .js .slide.active {
