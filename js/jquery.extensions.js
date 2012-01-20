@@ -423,6 +423,10 @@ jQuery.fn.extend({
     
     href: function(href) {
         return this.attr("href", href) ;
+    },
+    
+    run: function(fn) {
+    	return fn.apply(this) || this;
     }
 });
 
