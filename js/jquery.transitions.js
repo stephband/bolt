@@ -151,88 +151,6 @@ if (!Array.indexOf) {
 })( jQuery );
 
 
-//// ARRRRGH TEST FAILS ON THE IPHONE!!
-//
-//
-//// Feature test for transitionend event and add it's name as
-//// jQuery.support.cssTransitionEnd.
-//
-//(function(jQuery, undefined){
-//  var debug = (window.console && window.console.log);
-//  
-//  var doc = jQuery(document),
-//      
-//      testElem = jQuery('<div/>').css({
-//        // position: 'absolute' makes IE8 jump into Compatibility
-//        // Mode. God knows why. Use position: 'relative'.
-//        position: 'relative',
-//        top: -200,
-//        left: -9999,
-//        width: 100,
-//        height: 100,
-//        WebkitTransition: 'top 0.01s linear',
-//        MozTransition: 'top 0.01s linear',
-//        msTransition: 'top 0.01ms linear',
-//        OTransition: 'top 0.01s linear',
-//        transition: 'top 0.01s linear'
-//      }),
-//      
-//      timer;
-//  
-//  function removeTest() {
-//    clearTimeout(timer);
-//    timer = null;
-//    testElem.remove();
-//  }
-//  
-//  function transitionEnd(e) {
-//    if (debug) { console.log('[jquery.transitions] Transition feature detect: PASS'); }
-//    
-//    // Get rid of the test element
-//    removeTest();
-//    
-//    // Store flags in jQuery.support
-//    jQuery.support.cssTransition = true;
-//    jQuery.support.cssTransitionEnd = e.type;
-//    
-//    // Stop listening for transitionend
-//    doc.unbind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', transitionEnd);
-//  }
-//  
-//  doc
-//  .bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', transitionEnd)
-//  .ready(function(){
-//    var wait = setTimeout(function() {
-//      clearTimeout(wait);
-//      wait = null;
-//      
-//      // Put the test element in the body
-//      testElem.appendTo('body');
-//      
-//      // Force the browser to reflow.
-//      testElem.width();
-//      
-//      // Apply CSS to trigger a transition
-//      testElem.css({ top: -300 });
-//      
-//      // Set a timeout for the transition test to finish, and if it does not,
-//      // get rid of the test element. Opera requires a much greater delay
-//      // than the time the transition should take, worryingly.
-//      timer = setTimeout(function(){
-//        removeTest();
-//        
-//        if (debug) { console.log('[jquery.transitions] Transition feature detect: FAIL'); }
-//        
-//        // Store flags in jQuery.support
-//        jQuery.support.cssTransition = false;
-//        jQuery.support.cssTransitionEnd = false;
-//      }, 600);
-//    }, 1);
-//  });
-//})(jQuery);
-
-
-
 // jQuery.addTransitionClass(classes, callback)
 // 
 // 2.0_dev
@@ -254,7 +172,7 @@ if (!Array.indexOf) {
         marginRight: true,
         top: true,
         bottom: true,
-        left: true,
+//        left: true,
         right: true,
         fontSize: true
       },
@@ -282,9 +200,7 @@ if (!Array.indexOf) {
                    'paddingTop, paddingRight, paddingBottom, paddingLeft, width, maxWidth, minWidth, bottom, top, left, right, visibility, zIndex, zoom'),
       
       // Splits strings of the form "prop, duration, easing[, delay]"
-      rtransition = /([a-z\-]+)\s+(\d+[ms]+)\s+([a-z\-]+(?:\(\s*(?:\d+\s*,\s*)*\d+\s*\))?)(?:\s+(\d+[ms]+))?\s*/g,
-      rtransitionclass = /(?:^|\s+)transition(?:$|\s+)/;
-  
+      rtransition = /([a-z\-]+)\s+(\d+[ms]+)\s+([a-z\-]+(?:\(\s*(?:\d+\s*,\s*)*\d+\s*\))?)(?:\s+(\d+[ms]+))?\s*/g;  
   
   function parseTransitionCSS(prop, time, ease, delay) {
     var obj = {},
@@ -486,7 +402,7 @@ if (!Array.indexOf) {
     
     jQuery.removeData(node, 'transition');
     jQuery.event.remove(node, support.cssTransitionEnd, transitionend);
-    node.className = node.className.replace(rtransitionclass, ' ');
+    //node.className = node.className.replace(rtransitionclass, ' ');
     if (debug) { console.log('[jquery.transitions] Transition removed.', node, data); }
   }
   
@@ -591,7 +507,7 @@ if (!Array.indexOf) {
         data.styleCSS = (style.length && parseStyle(node, style));
         
         // Add class transition
-        add.call(elem, 'transition');
+        //add.call(elem, 'transition');
       }
       
       // Test for auto properties

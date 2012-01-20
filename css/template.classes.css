@@ -1188,7 +1188,7 @@
 
 
 
-.slide {
+.js .slide {
 	/* By default all slides are positioned off to the left. */ 
 	left: -100%;
 	
@@ -1197,29 +1197,38 @@
 	height: 0;
 	overflow: hidden;
 	
-	-webkit-transition: left 0.33s ease-in;
-	   -moz-transition: left 0.33s ease-in;
-	    -ms-transition: left 0.33s ease-in;
-	     -o-transition: left 0.33s ease-in;
-	        transition: left 0.33s ease-in;
+	-webkit-transition-property: left, height;
+	   -moz-transition-property: left, height;
+	    -ms-transition-property: left, height;
+	     -o-transition-property: left, height;
+	        transition-property: left, height;
+
+	-webkit-transition-duration: 333ms;
+	   -moz-transition-duration: 333ms;
+	    -ms-transition-duration: 333ms;
+	     -o-transition-duration: 333ms;
+	        transition-duration: 333ms;
+
+	-webkit-transition-timing-function: ease-in;
+	   -moz-transition-timing-function: ease-in;
+	    -ms-transition-timing-function: ease-in;
+	     -o-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
 }
 
-.slide.active {
-	/* The .active slide is positioned in the centre. */
-	left: 0;
+.js .slide.active {
+	/* The .active slide is positioned in the centre. It's important because
+	   this rule has to override the following one - even if an active slide
+	   follows an active slide, it should be put at left: 0; */
+	left: 0 !important;
 	height: auto;
 	overflow: visible;
 }
 
-.slide.active ~ .slide {
+.js .slide.active ~ .slide {
 	/* All slides after the .active slide are positioned off to
 	   the right. */
 	left: 100%;
-}
-
-.slide.transition {
-	height: auto;
-	overflow: visible;
 }
 
 

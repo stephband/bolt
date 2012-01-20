@@ -190,7 +190,13 @@ jQuery.noConflict();
 	  	panes = data.panes;
 	  }
 	  
-	  panes.not(e.target).trigger('deactivate');
+	  // Deactivate the last active pane AFTER this pane has been activated.
+	  // It's important for panes who's style depends on the current active
+	  // pane - such as slides, which have .slide.active ~ .slide {...} rules.
+	  var t = setTimeout(function() {
+	  	t = null;
+	  	panes.not(e.target).trigger('deactivate');
+	  }, 0);
 	  
 	  pane.delegate('a[href="#prev"]', 'click', prev);
 	  pane.delegate('a[href="#next"]', 'click', next);
