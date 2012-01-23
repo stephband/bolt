@@ -1,0 +1,3 @@
+[submodule "res/box-sizing-polyfill"]
+	path = res/box-sizing-polyfill
+	url = https://github.com/Schepp/box-sizing-polyfill.git
