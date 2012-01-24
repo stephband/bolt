@@ -227,7 +227,7 @@ if (!Array.indexOf) {
       
       parsed = {
         duration: Math.round( parseFloat(time[l] || time[time.length-1])  * (/ms$/.test(time[l] || time[time.length-1]) ? 1 : 1000 ) ),
-        delay: Math.round( parseFloat(delay[l] || delay[delay.length-1]) * (/ms$/.test(delay[l] || delay[delay.length-1]) ? 1 : 1000 ) ),
+        delay: Math.round( parseFloat(delay[l] || delay[delay.length-1]) * (/ms$/.test(delay[l] || delay[delay.length-1]) ? 1 : 1000 ) ) || 0,
         easing: ease[l] || ease[ease.length-1]
       };
       
@@ -280,6 +280,8 @@ if (!Array.indexOf) {
         max, arr, l, m, val;
     
     str.replace(rtransition, function($0, prop, dur, fn, del) {
+      alert(prop + ' ' + dur + ' ' + fn + ' ' + del);
+      
       propArr.push(jQuery.camelCase(prop));
       durArr.push(dur);
       fnArr.push(fn);
@@ -328,6 +330,7 @@ if (!Array.indexOf) {
         obj, obj2, props, time;
     
     if (str) {
+    	alert(str);
     	obj = parseTransitionStr(str);
     }
     
@@ -337,7 +340,7 @@ if (!Array.indexOf) {
       node.currentStyle[prop + '-timing-function'] || '',
       node.currentStyle[prop + '-delay'] || ''
     );
-    
+		
 		if (obj && obj2) {
 			// Deep extend
 			jQuery.extend(true, obj, obj2);
@@ -633,12 +636,12 @@ if (!Array.indexOf) {
         options.duration = obj.end;
         
         undoClass.call(this, classes);
-        this.animate(css, options);
-        doClass.call(this, classes);
+        elem.animate(css, options);
+        doClass.call(elem, classes);
       }
       else {
-        fn && fn.apply(this);
-        return this;
+        fn && fn.apply(elem);
+        return elem;
       }
     };
   }

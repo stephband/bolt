@@ -1,24 +1,3 @@
-/* Reset */
-
-html, body, div, span, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, code,
-del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend, textarea,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, dialog, figure, footer, header,
-hgroup, nav, section {
-	
-	/* Enable border box-sizing in IE7. The url must be relative to your
-	   html document, not the CSS, so unless you use an absolute path you
-	   may have to rewrite it per-page. The original repo is here:
-	   
-	   https://github.com/Schepp/box-sizing-polyfill
-	*/
-	
-	behavior: url(res/box-sizing-polyfill/boxsizing.htc);
-}
-
 address {
 	font-style: normal;
 }
