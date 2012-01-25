@@ -18,3 +18,13 @@
 	background-image: url('../images/bg/rgba_0_0_0_80.png');
 	background-repeat: repeat;
 }
+
+.dropdown > *,
+.popdown > *,
+.layer > *,
+.tip > *,
+.tab > * {
+  /* IE8 needs to inherit filters from its parent in order
+     to make opacity work. */
+  filter: inherit;
+}

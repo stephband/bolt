@@ -1,21 +1,9 @@
-// indexOf for IE
-
-if (!Array.indexOf) {
-  Array.prototype.indexOf = function (obj, start) {
-    for (var i = (start || 0); i < this.length; i++) {
-      if (this[i] === obj) {
-        return i;
-      }
-    }
-    return -1;
-  };
-}
-
+/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, undef:true, curly:true, browser:true, devel:true, jquery:true, indent:4, maxerr:50, smarttabs:true */
 
 // jQuery.prefix(property)
 // 
 // Returns prefixed CSS property, or unprefixed property, as
-// supported by the browser. 
+// supported by the browser.
 
 (function(jQuery, undefined){
   var prefixes = ['Khtml','O','Moz','Webkit','ms'],
@@ -45,21 +33,80 @@ if (!Array.indexOf) {
     return cache[prop] || (cache[prop] = testPrefix(prop));
   }
   
-  prefix.cache = cache;
   jQuery.prefix = prefix;
 })(jQuery);
 
 
-// jQuery.addEasing(string)
+// Infer transitionend event from CSS transition prefix and add
+// it's name as jQuery.support.cssTransitionEnd.
+
+(function( jQuery, undefined ){
+	var end = {
+	    	KhtmlTransition: false,
+	    	OTransition: 'oTransitionEnd',
+	    	MozTransition: 'transitionend',
+	    	WebkitTransition: 'webkitTransitionEnd',
+	    	msTransition: 'MSTransitionEnd',
+	    	transition: 'transitionend'
+	    },
+	    
+	    prefixed = jQuery.prefix('transition');
+	
+	jQuery.support.cssTransition = prefixed || false;
+	jQuery.support.cssTransitionEnd = (prefixed && end[prefixed]);
+})( jQuery );
+
+
+// jQuery.addTransitionClass(classes, callback)
 // 
-// Interprets and adds easing functions to jQuery.easing
-// according to the CSS spec for transition timing functions. 
+// 2.0_dev
 
 (function(jQuery, undefined){
-  
-  // Timing function definitions from the CSS specification
-  
-  var easing = {
+  var debug = (window.debug === undefined ? (window.console && window.console.log) : window.debug),
+      
+      doc = jQuery(document),
+      
+      support = jQuery.support,
+      
+      // Properties that could potentially have a value of 'auto' or 'inherit',
+      // and thus need a bit of babysitting.
+      autoProps = {
+        height: true,
+        width: true,
+        marginLeft: true,
+        marginRight: true,
+        top: true,
+        bottom: true,
+        left: true,
+        right: true,
+        fontSize: true
+      },
+      
+      transProps = {
+        transition: true,
+        transitionProperty: true,
+        transitionDuration: true,
+        transitionDelay: true,
+        transitionTimingFunction: true
+      },
+      
+      propertyBlacklist = {
+        // Hmm. jQuery doesn't seem to like animating these. Investigate.
+        borderWidth: true,
+        borderBottomWidth: true
+        //opacity: true,
+      },
+      
+      propProps = ('color, fontSize, fontWeight, letterSpacing, lineHeight, textIndent, textShadow, verticalAlign, wordSpacing, backgroundColor, backgroundPosition, backgroundImage, borderColor, borderSpacing, ' +
+                   'borderWidth, clip, crop, height, minHeight, maxHeight, marginTop, marginLeft, marginRight, marginBottom, opacity, outlineWidth, outlineOffset, outlineColor, ' +
+                   'paddingTop, paddingRight, paddingBottom, paddingLeft, width, maxWidth, minWidth, bottom, top, left, right, visibility, zIndex, zoom'),
+      
+      // Splits strings of the form "prop, duration, timingFn[, delay]"
+      rtransition = /([a-z\-]+)\s+(\d+[ms]+)\s+([a-z\-]+(?:\(\s*(?:\d+\s*,\s*)*\d+\s*\))?)(?:\s+(\d+[ms]+))?\s*/g,
+      rtimingfunction = /([a-z\-]+(?:\([\d\.,\s]+\))?)/g,
+      
+      // Timing function definitions from the CSS specification
+      easing = {
         'linear': [0, 0, 1, 1],
         'ease': [0.25, 0.1, 0.25, 1],
         'ease-in': [0.42, 0, 1, 1],
@@ -67,31 +114,67 @@ if (!Array.indexOf) {
         'ease-in-out': [0.42, 0, 0.58, 1]
       };
   
-  // Cubic bezier function purloined from
-  // blogs.msdn.com/b/eternalcoding/archive/2011/12/06/css3-transitions.aspx  
   
-  function makeBezier(x1, y1, x2, y2) {
-    return function (t) {
-      // Extract X (which is equal to time here)
-      var f0 = 1 - 3 * x2 + 3 * x1,
-          f1 = 3 * x2 - 6 * x1,
-          f2 = 3 * x1,
-          refinedT = t,
-          i, refinedT2, refinedT3, x, slope;
+  // Cubic bezier timing function translated from webkit source by Christian Effenberger
+  // http://www.netzgesta.de/dev/cubic-bezier-timing-function.html
+  
+  function makeBezier(p1x, p1y, p2x, p2y) {
+    // Calculate the polynomial coefficients, implicit first and last control points are (0,0) and (1,1).
+    var cx = 3.0 * p1x,
+        bx = 3.0 * (p2x - p1x) - cx,
+        ax = 1.0 - cx - bx,
+        cy = 3.0 * p1y,
+        by = 3.0 * (p2y - p1y) - cy,
+        ay = 1.0 - cy - by;
+
+    // The epsilon value to pass given that the animation is going to run over |dur| ms. The longer the
+    // animation, the more precision is needed in the timing function result to avoid ugly discontinuities.
+    function solveEpsilon(duration) { return 1/(0.2 * duration); }
+
+    function fabs(n) { return n >= 0 ? n : 0 - n ; }
+
+    // `ax t^3 + bx t^2 + cx t' expanded using Horner's rule.
+    function sampleCurveX(t) { return ((ax*t+bx)*t+cx)*t; }
+    function sampleCurveY(t) { return ((ay*t+by)*t+cy)*t; };
+    function sampleCurveDerivativeX(t) { return (3.0*ax*t+2.0*bx)*t+cx; };
+
+    // Given an x value, find a parametric value it came from.
+    function solveCurveX(x,epsilon) {
+      var t0,t1,t2,x2,d2,i;
       
-      for (i = 0; i < 5; i++) {
-        refinedT2 = refinedT * refinedT;
-        refinedT3 = refinedT2 * refinedT;
-        
-        x = f0 * refinedT3 + f1 * refinedT2 + f2 * refinedT;
-        slope = 1.0 / (3.0 * f0 * refinedT2 + 2.0 * f1 * refinedT + f2);
-        refinedT -= (x - t) * slope;
-        refinedT = Math.min(1, Math.max(0, refinedT));
+      // First try a few iterations of Newton's method -- normally very fast.
+      for(t2=x, i=0; i<8; i++) {
+        x2=sampleCurveX(t2)-x;
+        if(fabs(x2) < epsilon) { return t2; }
+        d2=sampleCurveDerivativeX(t2);
+        if(fabs(d2) < 1e-6) { break; }
+        t2=t2-x2/d2;
       }
-     
-      return 3 * Math.pow(1 - refinedT, 2) * refinedT * y1 +
-        3 * (1 - refinedT) * Math.pow(refinedT, 2) * y2 +
-        Math.pow(refinedT, 3);
+      
+      // Fall back to the bisection method for reliability.
+      t0=0.0;
+      t1=1.0;
+      t2=x;
+      if(t2<t0) { return t0; }
+      if(t2>t1) { return t1; }
+      
+      while(t0<t1) {
+      	x2=sampleCurveX(t2);
+      	if(fabs(x2-x)<epsilon) { return t2; }
+      	if(x>x2) { t0=t2; }
+      	else { t1=t2; }
+      	t2=(t1-t0)*.5+t0;
+      }
+      
+      return t2; // Failure.
+    };
+
+    function solve(x,epsilon) {
+    	return sampleCurveY(solveCurveX(x, epsilon));
+    };
+
+    return function(t, time, start, end, duration) {
+      return solve(t, solveEpsilon(duration));
     };
   }
   
@@ -127,108 +210,37 @@ if (!Array.indexOf) {
     return fn;
   }
   
-  jQuery.addEasing = addEasing;
-})(jQuery);
-
-
-// Infer transitionend event from CSS transition prefix and add
-// it's name as jQuery.support.cssTransitionEnd.
-
-(function( jQuery, undefined ){
-	var end = {
-	    	KhtmlTransition: false,
-	    	OTransition: 'oTransitionEnd',
-	    	MozTransition: 'transitionend',
-	    	WebkitTransition: 'webkitTransitionEnd',
-	    	msTransition: 'MSTransitionEnd',
-	    	transition: 'transitionend'
-	    },
-	    
-	    prefixed = jQuery.prefix('transition');
-	
-	jQuery.support.cssTransition = prefixed || false;
-	jQuery.support.cssTransitionEnd = (prefixed && end[prefixed]);
-})( jQuery );
-
-
-// jQuery.addTransitionClass(classes, callback)
-// 
-// 2.0_dev
-
-(function(jQuery, undefined){
-  var debug = (window.debug === undefined ? (window.console && window.console.log) : window.debug),
-      
-      doc = jQuery(document),
-      
-      support = jQuery.support,
-      
-      // Properties that could potentially have a value of 'auto'
-      // or 'inherit', and need a bit of babysitting.
-      
-      autoProps = {
-        height: true,
-        width: true,
-        marginLeft: true,
-        marginRight: true,
-        top: true,
-        bottom: true,
-//        left: true,
-        right: true,
-        fontSize: true
-      },
-      
-      transProps = {
-        transition: true,
-        transitionProperty: true,
-        transitionDuration: true,
-        transitionDelay: true,
-        transitionTimingFunction: true
-      },
-      
-      propertyBlacklist = {
-        // Hmm. jQuery doesn't seem to like animating these.
-        // Investigate.
-        borderWidth: true,
-        borderBottomWidth: true,
-        visibility: true,
-        opacity: true,
-        top: true
-      },
-      
-      propProps = ('color, fontSize, fontWeight, letterSpacing, lineHeight, textIndent, textShadow, verticalAlign, wordSpacing, backgroundColor, backgroundPosition, backgroundImage, borderColor, borderSpacing, ' +
-                   'borderWidth, clip, crop, height, minHeight, maxHeight, marginTop, marginLeft, marginRight, marginBottom, opacity, outlineWidth, outlineOffset, outlineColor, ' +
-                   'paddingTop, paddingRight, paddingBottom, paddingLeft, width, maxWidth, minWidth, bottom, top, left, right, visibility, zIndex, zoom'),
-      
-      // Splits strings of the form "prop, duration, easing[, delay]"
-      rtransition = /([a-z\-]+)\s+(\d+[ms]+)\s+([a-z\-]+(?:\(\s*(?:\d+\s*,\s*)*\d+\s*\))?)(?:\s+(\d+[ms]+))?\s*/g;  
-  
-  function parseTransitionCSS(prop, time, ease, delay) {
+  function parseTransitionCSS(prop, dur, timing, delay) {
     var obj = {},
         properties = {},
         end = 0,
-        l, parsed;
-
+        l, parsed, idur, itiming, idelay;
+    
     prop = prop.split(/,\s*/);
-    time = time.split(/,\s*/);
-    ease = ease.match(/([a-z\-]+(?:\([\d\.,\s]+\))?)/g);
+    dur = dur.split(/,\s*/);
+    timing = timing.match(rtimingfunction);
     delay = delay.split(/,\s*/);
     
     l = prop.length;
 
     while (l--) {
     	// Check for empty string
-      if (!prop[l]) {
-      	prop.length--;
-      	continue;
-      }
+      //if (!prop[l]) {
+      //  prop.length--;
+      //  continue;
+      //}
       
       // TODO: This bit could be dodgy if we end up passing empty
       // strings into these properties. Test!
       
+      idur = dur[l] || dur[dur.length-1];
+      itiming = timing[l] || timing[timing.length-1];
+      idelay = delay[l] || delay[delay.length-1];
+      
       parsed = {
-        duration: Math.round( parseFloat(time[l] || time[time.length-1])  * (/ms$/.test(time[l] || time[time.length-1]) ? 1 : 1000 ) ),
-        delay: Math.round( parseFloat(delay[l] || delay[delay.length-1]) * (/ms$/.test(delay[l] || delay[delay.length-1]) ? 1 : 1000 ) ) || 0,
-        easing: ease[l] || ease[ease.length-1]
+        duration: Math.round(parseFloat(idur) * (/ms$/.test(idur) ? 1 : 1000 )),
+        delay: Math.round(parseFloat(idelay) * (/ms$/.test(idelay) ? 1 : 1000 )) || 0,
+        timingFn: itiming
       };
       
       properties[prop[l]] = parsed;
@@ -248,9 +260,9 @@ if (!Array.indexOf) {
         properties = jQuery.css(node, prop + 'Property'),
         durations, delays;
     
-    // Opera has a nasty habit of reporting empty strings for
-    // its transition styles, even if the CSS is bona-fide. There's
-    // not a great deal we can do about that.
+    // Opera has a nasty habit of reporting empty strings for its
+    // transition styles, even if the CSS is bona-fide. There's not
+    // a great deal we can do about that.
     if (!properties || properties === 'none') { return; }
     
     if (properties === 'all') {
@@ -272,100 +284,48 @@ if (!Array.indexOf) {
     );
   }
   
-  function parseTransitionStr(str) {
-    var propArr = [],
-        durArr = [],
-        fnArr = [],
-        delArr = [],
-        max, arr, l, m, val;
-    
-    str.replace(rtransition, function($0, prop, dur, fn, del) {
-      alert(prop + ' ' + dur + ' ' + fn + ' ' + del);
-      
-      propArr.push(jQuery.camelCase(prop));
-      durArr.push(dur);
-      fnArr.push(fn);
-      delArr.push(del || 0);
-    });
-    
-    max = Math.max(propArr.length, durArr.length, fnArr.length, delArr.length);
-    
-    arr = [propArr, durArr, fnArr, delArr];
-    l = arr.length;
-    
-    while (l--) {
-    	if (arr[l].length < max) {
-    		// Fill her up with the last value
-    		m = arr[l].length - 1;
-    		val = arr[l][m];
-    		
-    		while (++m < max) {
-    			arr[m] = val;
-    		}
-    	}
-    }
-    
-    //jQuery.each(propArr, function(prop) {
-    //	return jQuery.camelCase(prop);
-    //});
-    
-    return parseTransitionCSS(
-    	propArr.join(', '),
-    	durArr.join(', '),
-    	fnArr.join(', '),
-    	delArr.join(', ')
-    );
+  function getStyle(node, prop) {
+    return window.getComputedStyle ?
+      // For IE9
+      getComputedStyle(node, null)[prop] :
+      // For IE6, IE7, IE8
+      node.currentStyle[prop];
   }
   
   function parseTransitionIE(node) {
-    if (!node.currentStyle) { return; }
-    
-    var prop = 'transition',
-        str = (
-        	// For IE6, IE7, IE8
-        	node.currentStyle[prop] ||
-        	// For IE9
-        	(window.getComputedStyle && getComputedStyle(node, null)[prop])
-        ),
+    var str = getStyle(node, 'transition'),
+        properties, durations, timingFns, delays,
         obj, obj2, props, time;
     
     if (str) {
-    	alert(str);
-    	obj = parseTransitionStr(str);
+      obj = parseTransitionStr(str);
+
+      properties = '';
+      durations = '';
+      timingFns = '';
+      delays = '';
+
+      str.replace(rtransition, function($0, prop, dur, fn, del) {
+        properties += (',' + prop);
+        durations += (',' + dur);
+        timingFns += (',' + fn);
+        delays += (',' + (del || 0));
+      });
     }
-    
-    obj2 = parseTransitionCSS(
-      node.currentStyle[prop + '-property'] || '',
-      node.currentStyle[prop + '-duration'] || '',
-      node.currentStyle[prop + '-timing-function'] || '',
-      node.currentStyle[prop + '-delay'] || ''
+
+    obj = parseTransitionCSS(
+      (node.currentStyle['transition-property'] || properties || ''),
+      (node.currentStyle['transition-duration'] || durations || ''),
+      (node.currentStyle['transition-timing-function'] || timingFns || ''),
+      (node.currentStyle['transition-delay'] || delays || '')
     );
-		
-		if (obj && obj2) {
-			// Deep extend
-			jQuery.extend(true, obj, obj2);
-			
-			// Recalculate length and time
-			props = obj.properties;
-			obj.length = 0;
-			obj.end = 0;
-			
-			for (prop in props) {
-				time = props[prop].duration + props[prop].delay;
-				if(time > obj.end) { obj.end = time; }
-				obj.length++;
-			}
-		}
-		else if (obj2) {
-			obj = obj2;
-		}
-		
-		if (obj) {
-			for (prop in obj.properties) {
-				// Add easing to jQuery's repertoire
-				jQuery.addEasing(obj.properties[prop].easing);
-			}
-		}
+    
+    if (obj) {
+      for (prop in obj.properties) {
+        // Add easing to jQuery's repertoire
+        addEasing(obj.properties[prop].timingFn);
+      }
+    }
     
     return obj;
   }
@@ -405,8 +365,7 @@ if (!Array.indexOf) {
     
     jQuery.removeData(node, 'transition');
     jQuery.event.remove(node, support.cssTransitionEnd, transitionend);
-    //node.className = node.className.replace(rtransitionclass, ' ');
-    if (debug) { console.log('[jquery.transitions] Transition removed.', node, data); }
+    if (debug) { console.log('[transition] Transition ended target:', node.id); }
   }
   
   function transitionend (e) {
@@ -415,7 +374,7 @@ if (!Array.indexOf) {
     
     if (e.target !== node) { return; }
     
-    if (debug) { console.log('[jquery.transitions] transitionend:', e.propertyName); }
+    if (debug) { console.log('[transition] transitionend:', e.propertyName); }
     
     // Remove property from transition data and decrement length
     delete data.properties[e.propertyName];
@@ -467,7 +426,7 @@ if (!Array.indexOf) {
           prop, l, data, width, style, endCSS, currentCSS, jolt, value;
       
       if (currentData) {
-        if (debug) { console.log('Transition already happening.'); }
+        if (debug) { console.log('[transition] Transition in progress.'); }
         
         // There is a transition taking place already. This means we have
         // to tread carefully. Start by measuring all currently transitioning
@@ -487,14 +446,14 @@ if (!Array.indexOf) {
       
       // If a transition does not exist, get outta here
       if (!data) {
-        if (debug) { console.log('[jquery.transitions] No transition for classes:', classes); }
+        if (debug) { console.log('[transition] No transition for classes:', classes); }
         
         if (currentData) { removeTransition(node, currentData); }
         fn && fn.apply(node);
         return this;
       }
       
-      if (debug) { console.log('[jquery.transitions] classes:', classes, '| properties:', Object.keys(data.properties)); }
+      if (debug) { console.log('[transition] Transition start target:', node.id, 'properties:', Object.keys(data.properties).join(' ')); }
       
       if (currentData) {
         // merge data with currentData
@@ -508,9 +467,6 @@ if (!Array.indexOf) {
         
         // Store the style attribute
         data.styleCSS = (style.length && parseStyle(node, style));
-        
-        // Add class transition
-        //add.call(elem, 'transition');
       }
       
       // Test for auto properties
@@ -575,7 +531,7 @@ if (!Array.indexOf) {
       // which could happen if non-auto values don't change, which we don't
       // test for.
       data.timer = setTimeout(function() {
-        if (debug) { console.log('[jquery.transitions] TIMEOUT! It\'s not the end of the world.'); }
+        if (debug) { console.log('[transition] TIMEOUT! It\'s not the end of the world.'); }
         
         removeTransition(node, data);
         
@@ -591,6 +547,35 @@ if (!Array.indexOf) {
   }
   
   
+  var handleProp = {
+    visibility: function(node, prop, css, options, trans) {
+      var fn;
+      
+      if (jQuery(node).css(prop) === 'hidden') {
+        fn = options.complete;
+        
+        // Keep the node visible until the end of the transition.
+        jQuery(node).css({ visibility: 'visible' });
+        
+        // Duck tape options.complete to remove visibility rule.
+        options.complete = function() {
+          jQuery(node).css({ visibility: '' });
+          fn && fn.apply(this);
+        };
+      }
+    },
+    
+//    opacity: function(node, prop, css, options, trans) {
+//      css[prop] = jQuery(node).css('opacity') === 0 ? 'hide' : 'show' ;
+//      options.specialEasing[prop] = trans.timingFn;
+//    },
+    
+    _default: function(node, prop, css, options, trans) {
+      css[prop] = parseInt(jQuery(node).css(prop));
+      options.specialEasing[prop] = trans.timingFn;
+    }
+  };
+  
   
   function makeFallback(add) {
     var doClass = add ? jQuery.fn.addClass : jQuery.fn.removeClass,
@@ -599,17 +584,17 @@ if (!Array.indexOf) {
     return function(classes, fn) {
       var node = this[0],
           elem = this,
-          obj, css, style, options, prop;
+          obj, css, style, options, prop, properties;
       
       doClass.call(this, classes);
       
       if (jQuery.support.cssTransition === false && (obj = parseTransitionIE(node))) {
         // Right on! We may not have transition support, but we can read
         // the CSS! I think we can fall back to jQuery, don't you?
-        //alert([obj.length, Object.keys(obj.properties).join(' '), obj.end].join(' | '));
         
         css = {};
         style = this.attr('style');
+        properties = obj.properties;
         options = {
           queue: true,
           specialEasing: {},
@@ -623,19 +608,24 @@ if (!Array.indexOf) {
             else { elem.removeAttr('style'); }
             
             fn && fn.apply(this);
-          }
+          },
+          // For now, we don't support delay or multiple durations
+          duration: obj.end
         };
         
-        for (prop in obj.properties) {
-        	if (propertyBlacklist[prop]) { continue; }
-        	css[prop] = parseInt(jQuery(node).css(prop));
-        	options.specialEasing[prop] = obj.properties[prop].easing;
+        for (prop in properties) {
+          if (propertyBlacklist[prop]) { continue; }
+          
+          (handleProp[prop] || handleProp._default)(node, prop, css, options, properties[prop]);
         }
         
-        // For now, we don't support delay or multiple durations
-        options.duration = obj.end;
-        
         undoClass.call(this, classes);
+        
+        if ('opacity' in properties) {
+          // IE7 needs to be spanked hard to force opacity animations to work.
+          elem.css({ 'filter': 'alpha(opacity='+(elem.css('opacity')*100)+')' });
+        }
+        
         elem.animate(css, options);
         doClass.call(elem, classes);
       }
@@ -646,26 +636,21 @@ if (!Array.indexOf) {
     };
   }
   
-  // Include propertyName in event properties copied to jQuery
-  // event object.
-  if (jQuery.event.props.indexOf("propertyName") < 0) {
-    jQuery.event.props.push("propertyName");
-  }
-  
-  jQuery.fn.addTransitionClass = makeFallback(true);
-  jQuery.fn.removeTransitionClass = makeFallback(false);
-  
-//  doc.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function rewrite() {
-if (jQuery.support.cssTransitionEnd) {
+  if (jQuery.support.cssTransitionEnd) {
     var addClass = jQuery.fn._addClass = jQuery.fn.addClass,
         removeClass = jQuery.fn._removeClass = jQuery.fn.removeClass;
     
-    if (debug) { console.log('Rewriting methods.'); }
+    // Include propertyName in event properties copied to jQuery
+    // event object.
+    if (jQuery.event.props.indexOf("propertyName") < 0) {
+      jQuery.event.props.push("propertyName");
+    }
     
-//    doc.unbind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', rewrite);
-    
-    /*jQuery.fn.addClass =*/ jQuery.fn.addTransitionClass = makeMethod(addClass, removeClass);
-    /*jQuery.fn.removeClass =*/ jQuery.fn.removeTransitionClass = makeMethod(removeClass, addClass);
-}
-//  });
+    jQuery.fn.addTransitionClass = makeMethod(addClass, removeClass);
+    jQuery.fn.removeTransitionClass = makeMethod(removeClass, addClass);
+  }
+  else {
+    jQuery.fn.addTransitionClass = makeFallback(true);
+    jQuery.fn.removeTransitionClass = makeFallback(false);
+  }
 })(jQuery);

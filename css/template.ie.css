@@ -15,6 +15,24 @@ button {
   background-repeat: repeat;
 }
 
+.js .dropdown,
+.js .popdown,
+.js .popup_layer,
+.js .loading_layer,
+.js .tip,
+.js .tab {
+  filter: 'alpha(opacity=0)';
+}
+
+.js .dropdown.active,
+.js .popdown.active,
+.js .popup_layer.active,
+.js .loading_layer.active,
+.js .tip.active,
+.js .tab.active {
+  filter: 'alpha(opacity=100)';
+}
+
 
 /* .thumb */
 
@@ -57,12 +75,12 @@ button {
   background-position: 0 0;
 }
 
-/* .index, .column */
+/* .index, .col */
 
 .index > li,
 .column,
 .col,
 .col_wrap {
-    /* Trigger hasLayout */
-    zoom: 1;
+  /* Trigger hasLayout */
+  zoom: 1;
 }
