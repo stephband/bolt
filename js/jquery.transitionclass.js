@@ -295,8 +295,6 @@
         obj, obj2, props, time;
     
     if (str) {
-      obj = parseTransitionStr(str);
-
       properties = '';
       durations = '';
       timingFns = '';
@@ -568,11 +566,6 @@
         };
       }
     },
-    
-//    opacity: function(node, prop, css, options, trans) {
-//      css[prop] = jQuery(node).css('opacity') === 0 ? 'hide' : 'show' ;
-//      options.specialEasing[prop] = trans.timingFn;
-//    },
     
     _default: function(node, prop, css, options, trans) {
       css[prop] = parseInt(jQuery(node).css(prop));
