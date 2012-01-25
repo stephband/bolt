@@ -216,16 +216,18 @@
 		hide( layer, options.hideCallback, options.context );
 		doc.unbind('mousedown', mousedown);
 		e.preventDefault();
-	}).keypress(function(e){
-    if(e.keyCode==27){
-      var layer   = jQuery(".popup_layer.active"),
-				  options = layer.data('popup');
-			
-			if (layer.length !== 0) {
-		    hide( layer, options.hideCallback, options.context );
-		    doc.unbind('mousedown', mousedown);
-		  }
-    }
+	})
+	
+	.bind('keyup', function(e){
+    if((e.keyCode || e.which) !== 27) { return; }
+    
+    var layer   = jQuery(".popup_layer.active"),
+		    options = layer.data('popup');
+		
+		if (layer.length !== 0) {
+		  hide( layer, options.hideCallback, options.context );
+		  doc.unbind('mousedown', mousedown);
+		}
   });
   
 	// Expose
