@@ -223,16 +223,13 @@
     
     l = prop.length;
 
+    // Careful, because after splitting values into arrays we can
+    // still end up with arrays contining an empty string [""].
+    if (l === 1 && !prop[0]) {
+      return;
+    }
+
     while (l--) {
-    	// Check for empty string
-      //if (!prop[l]) {
-      //  prop.length--;
-      //  continue;
-      //}
-      
-      // TODO: This bit could be dodgy if we end up passing empty
-      // strings into these properties. Test!
-      
       idur = dur[l] || dur[dur.length-1];
       itiming = timing[l] || timing[timing.length-1];
       idelay = delay[l] || delay[delay.length-1];
@@ -313,20 +310,27 @@
       });
     }
 
+//    alert(
+//      getStyle(node, 'transition-property') + ' ' + properties + '\n' +
+//      getStyle(node, 'transition-duration') + ' ' + durations + '\n' +
+//      getStyle(node, 'transition-timing-function') + ' ' + timingFns + '\n' +
+//      getStyle(node, 'transition-delay') + ' ' + delays
+//    );
+
     obj = parseTransitionCSS(
-      (node.currentStyle['transition-property'] || properties || ''),
-      (node.currentStyle['transition-duration'] || durations || ''),
-      (node.currentStyle['transition-timing-function'] || timingFns || ''),
-      (node.currentStyle['transition-delay'] || delays || '')
+      (getStyle(node, 'transition-property') || properties || ''),
+      (getStyle(node, 'transition-duration') || durations || ''),
+      (getStyle(node, 'transition-timing-function') || timingFns || ''),
+      (getStyle(node, 'transition-delay') || delays || '')
     );
-    
+
     if (obj) {
       for (prop in obj.properties) {
         // Add easing to jQuery's repertoire
         addEasing(obj.properties[prop].timingFn);
       }
     }
-    
+
     return obj;
   }
   
