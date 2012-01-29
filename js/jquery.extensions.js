@@ -414,20 +414,10 @@ jQuery.cookie = function(name, value, options) {
 // Extend jQuery plugins with some helper plugins
 
 jQuery.fn.extend({
-    
-    // Attribute helpers
-    
-    id: function(id) {
-        return this.attr("id", id) ;
-    },
-    
-    href: function(href) {
-        return this.attr("href", href) ;
-    },
-    
-    run: function(fn) {
-    	return fn.apply(this) || this;
-    }
+	run: function(fn) {
+		var args = Array.prototype.slice.call(arguments, 1);
+		return fn.apply(this, args) || this;
+	}
 });
 
 
