@@ -1,3 +1,6 @@
 [submodule "res/es5-shim"]
 	path = res/es5-shim
 	url = https://github.com/kriskowal/es5-shim.git
+[submodule "res/html5shiv"]
+	path = res/html5shiv
+	url = https://github.com/aFarkas/html5shiv.git

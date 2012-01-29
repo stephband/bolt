@@ -1671,6 +1671,18 @@
 
 /* Utilities */
 
+.notransition {
+	-webkit-transition-duration: 0 !important;
+	   -moz-transition-duration: 0 !important;
+	    -ms-transition-duration: 0 !important;
+	        transition-duration: 0 !important;
+
+	-webkit-transition-delay: 0 !important;
+	   -moz-transition-delay: 0 !important;
+	    -ms-transition-delay: 0 !important;
+	        transition-delay: 0 !important;
+}
+
 .clear:after {
 	visibility: hidden;
 	display: block;
