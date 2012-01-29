@@ -362,6 +362,8 @@ jQuery.noConflict();
 	.delegate('.popup', 'activate', classes['.popup'].activate)
 	.delegate('.popdown', 'activate', classes['.popdown'].activate)
 	.delegate('.dropdown', 'activate', classes['.dropdown'].activate);
+	
+	jQuery.isPrimaryButton = isLeftButton;
 })( jQuery );
 
 
