@@ -4,3 +4,6 @@
 [submodule "res/html5shiv"]
 	path = res/html5shiv
 	url = https://github.com/aFarkas/html5shiv.git
+[submodule "res/andlog"]
+	path = res/andlog
+	url = https://github.com/andyet/andlog.git
