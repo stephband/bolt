@@ -47,7 +47,7 @@ jQuery.noConflict();
 							// If event is in it or on it, do nothing.
 							if (target === e.target || jQuery.contains(target, e.target)) { return; }
 							
-							jQuery(target).trigger('deactivate');
+							jQuery(target).trigger({type: 'deactivate', relatedTarget: e.target});
 	    			}
 	    			
 	    			function close(e) {
@@ -55,7 +55,7 @@ jQuery.noConflict();
 	    				// been handled, possibly by an inner pane.
 	    				if (e.isDefaultPrevented()) { return; }
 	    				
-	    				elem.trigger('deactivate');
+	    				elem.trigger({type: 'deactivate', relatedTarget: e.target});
 	    			}
 	    			
 	    			function deactivate(e) {
@@ -83,7 +83,7 @@ jQuery.noConflict();
 							// If event is in it or on it, do nothing.
 							if (target === e.target || jQuery.contains(target, e.target)) { return; }
 							
-							jQuery(target).trigger('deactivate');
+							jQuery(target).trigger({type: 'deactivate', relatedTarget: e.target});
 	    			}
 	    			
 	    			function deactivate(e) {
