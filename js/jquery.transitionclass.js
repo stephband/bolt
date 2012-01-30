@@ -589,6 +589,8 @@
         // Right on! We may not have transition support, but we can read
         // the CSS! I think we can fall back to jQuery, don't you?
         
+        jQuery.support.cssTransitionEnd = 'jqueryTransitionEnd';
+        
         css = {};
         style = this.attr('style');
         properties = obj.properties;
@@ -603,6 +605,8 @@
             
             if (style) { elem.attr('style', style); }
             else { elem.removeAttr('style'); }
+            
+            elem.trigger({type: 'jqueryTransitionEnd', propertyName: ''});
             
             fn && fn.apply(this);
           },
