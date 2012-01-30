@@ -85,6 +85,10 @@ button {
   zoom: 1;
 }
 
+.js .button > select {
+	filter: alpha(opacity=0);
+}
+
 body .notransition {
 	-webkit-transition-duration: 0;
 	   -moz-transition-duration: 0;
