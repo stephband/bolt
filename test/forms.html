@@ -3,6 +3,9 @@
 
 <head>
   <title>Forms</title>
+  
+  <script>document.documentElement.className = 'js';</script>
+  
   <link href="../css/template.reset.css" media="all" rel="stylesheet" type="text/css"/>
   <link href="../css/template.classes.css" media="all" rel="stylesheet" type="text/css"/>
   <link href="../css/template.forms.css" media="all" rel="stylesheet" type="text/css"/>
@@ -251,10 +254,24 @@
        ><li><input class="y_range" type="range" id="range4" name="range4" /></li>
       </ul>
     </fieldset>
+  </form
+ ><form class="col">
+    <h2>Restyled select boxes</h2>
+    
+    <fieldset>
+      <label class="button" for="select_wrapped">
+        <select id="select_wrapped">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
+      </label>
+    </fieldset>
   </form>
   
   <script src="../js/jquery.js" type="text/javascript"></script>
   <script src="../js/jquery.validator.js" type="text/javascript"></script>
+  <script src="../js/template.forms.js" type="text/javascript"></script>
   <script type="text/javascript">
     jQuery(document).ready(function(){
       

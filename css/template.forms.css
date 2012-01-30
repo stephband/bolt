@@ -174,6 +174,7 @@ input[type='file'] {
 
 /* Focus and error styles */
 
+label.focus,
 input:focus,
 select:focus,
 textarea:focus,
@@ -276,12 +277,40 @@ input[type="file"],
 input[type="button"],
 input[type="reset"],
 input[type="submit"],
-button {
+button,
+select {
   cursor: pointer;
 }
 
 
 
+/* Select boxes wrapped in buttons for restyling, like this:
+
+   <label class="button" for="select">
+     <span class="value">Price range</span>
+     <select id="select">
+       <option value="0">...</option>
+     </select>
+   </label>
+   
+   When JavaScript is not enabled, we don't want to hide the select,
+   as that would remove the ability to see the current value. */
+
+.button > select {
+	position: absolute;
+	display: block;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.js .button > select {
+  -webkit-appearance: none;
+	opacity: 0;
+}
 
 /* Range inputs.
    
