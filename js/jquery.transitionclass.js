@@ -616,7 +616,6 @@
         
         for (prop in properties) {
           if (propertyBlacklist[prop]) { continue; }
-          
           (handleProp[prop] || handleProp._default)(node, prop, css, options, properties[prop]);
         }
         
