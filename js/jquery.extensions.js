@@ -115,6 +115,7 @@ jQuery.event.props.push("dataTransfer");
   //});
 })(jQuery);
 
+
 // Stores browser scrollbar width as jQuery.support.scrollbarWidth
 // Only available after document ready
 // TODO: Not tested, and probably not working in IE. You may find inspiration here:
@@ -159,30 +160,6 @@ jQuery.event.props.push("dataTransfer");
 })(jQuery);
 
 
-// Stores gap at bottom of textarea as jQuery.support.textareaMarginBottom
-// Textareas have a gap at the bottom that is not controllable by CSS, and it's different
-// in every browser. This plugin tests for that pseudo-margin.
-
-/*(function(jQuery){
-    var test = jQuery('<div style="position: absolute; top: -400px;"><textarea style="margin:0; padding:0; border: none; height: 20px;"></textarea></div>').appendTo('body'),
-        textareaGap;
-    
-    jQuery(function(){
-        // Stick test into the DOM
-        test.appendTo('body');
-        
-        // Find out how big the gap is
-        textareaGap = test.height() - test.children('textarea').height();
-        
-        // Add result to jQuery.support
-        jQuery.support.textareaMarginBottom = textareaGap;
-        
-        // Destroy test
-        test.remove();
-    });
-})(jQuery);*/
-
-
 // Extend jQuery with some helper methods
 
 (function(jQuery, undefined) {
@@ -192,43 +169,7 @@ jQuery.event.props.push("dataTransfer");
   
   jQuery.extend({
     
-    // Event delegation helper. Bind to event, passing in
-    // {'selector': fn} pairs as data. Finds closest match
-    // (caching the result in the clicked element's data),
-    // and triggers the associated function(s) with the matched
-    // node as scope. Returns the result of the last function.
-    // 
-    // Eg:
-    // .bind('click', jQuery.delegate({'selector': fn}))
-    
-    delegate: function(list, context){
-      return function(e){
-        var target = jQuery(e.target),
-            data = target.data("closest") || {},
-            closest, node, result, selector;
-        
-        for (selector in list) {
-          node = data[selector];
-          
-          if ( node === undefined ) {
-              closest = target.closest( selector, this );
-              node = data[selector] = ( closest.length ) ? closest[0] : false ;
-              target.data("closest", data);
-          }
-          
-          if ( node ) { 
-            if (debug) { console.log('[jQuery.delegate] Matched selector: "' + selector + '"'); }
-            e.delegateTarget = node;
-            result = list[selector].call( context || node, e );
-          }
-        }
-        
-        return result;
-      };
-    },
-    
     // Some helpful regex for parsing hrefs and css urls etc.
-    
     regex: {
       integer:    /^-?[0-9]+$/,                                   // integer
       hash:       /^#?$/,                                         // Single hash or empty string
@@ -252,7 +193,6 @@ jQuery.event.props.push("dataTransfer");
     
     // Stores objects against their selectors to help minimise
     // DOM calls. Don't use when DOM nodes change.
-    
     store: function( selector ) {
       var store = this.store,
           obj = store[selector];
@@ -265,11 +205,9 @@ jQuery.event.props.push("dataTransfer");
     // Parses url into an object with values. Bits and pieces 
     // borrowed from Steven Levithan here:
     // http://blog.stevenlevithan.com/archives/parseuri
-    
-    parseURL: function( url ){
-      
-      var str = decodeURI( url ),
-          parsed = jQuery.regex.urlParser.exec( str ),
+    parseURL: function(url){
+      var str = decodeURI(url),
+          parsed = jQuery.regex.urlParser.exec(str),
           obj = {},
           queries = {},
           l = urlKeys.length;
@@ -366,16 +304,6 @@ jQuery.cookie = function(name, value, options) {
         return cookieValue;
     }
 };
-
-
-// Extend jQuery plugins with some helper plugins
-
-jQuery.fn.extend({
-	run: function(fn) {
-		var args = Array.prototype.slice.call(arguments, 1);
-		return fn.apply(this, args) || this;
-	}
-});
 
 
 // jQuery.fn.blockScroll
@@ -574,13 +502,15 @@ jQuery.fn.extend({
 })(jQuery);
 
 
-// Render {{variables}} in strings or in regexp, like this:
+// jQuery.render
+// 
+// Very simple rendering of variables into strings or regex.
 // 
 // jQuery.render(template, object)
 // 
-// where template is a string 'hello {{name}}' or regex
-// /^name:\s({{name}})/ and object is a list of values with
-// keys that match the template variables { name: 'George' }.
+// Where template is a string or regex object with curly-braced
+// variable names like 'hello {{name}}' or regex and object is
+// a list of replacement values, like { name: 'Arthur' }.
 
 jQuery.render = (function(){
   function replaceStringFn(obj) {
@@ -614,7 +544,7 @@ jQuery.render = (function(){
   			(template.ignoreCase ? 'i' : '') +
   			(template.multiline ? 'm' : '')
   		) :
-  		template.replace(/\{\{(\w+)\}\}/g, replaceStringFn(obj));
+  		template.replace(/\{\{\s*(\w+)\s*\}\}/g, replaceStringFn(obj));
   };
 })();
 
@@ -652,6 +582,5 @@ jQuery.render = (function(){
     return cache[prop] || (cache[prop] = testPrefix(prop));
   }
   
-  prefix.cache = cache;
   jQuery.prefix = prefix;
 })(jQuery);
