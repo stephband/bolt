@@ -1479,7 +1479,7 @@
 	background-size: auto;
 	white-space: nowrap;
 	
-	background-image: url('../../images/thumbs/browser_logos.png');
+	background-image: url('../images/thumbs/browser_logos.png');
 	-moz-background-size: 342px 64px;
 			 background-size: 342px 64px;
 }
@@ -1497,6 +1497,17 @@
 	-moz-background-size: 64px 64px;
 			 background-size: 64px 64px;
 }
+
+.icon_thumb {
+	padding-top: 20px;
+	width: 20px;
+	overflow: hidden;
+	background-image: url('../images/thumbs/logos_social.png');
+}
+
+.fb_icon_thumb     { background-position: 0 0; }
+.tw_icon_thumb     { background-position: -20px 0; }
+.yt_icon_thumb     { background-position: -40px 0; }
 
 /* .card */
 
