@@ -364,7 +364,7 @@ jQuery.noConflict();
 	.delegate('.dropdown', 'activate', classes['.dropdown'].activate);
 	
 	jQuery.isPrimaryButton = isLeftButton;
-})( jQuery );
+})(jQuery);
 
 
 // Define event handlers
