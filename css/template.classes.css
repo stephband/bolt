@@ -377,6 +377,8 @@
 .tabs_index > li,
 .crumbs_index > li,
 .actions_index > li {
+	/* For those pour souls who don't understand inline-block (IE7). */
+	display: inline;
 	display: inline-block;
 	vertical-align: top;
 }
@@ -562,13 +564,16 @@
 	   or even mixed fixed and liquid columns, all with arbitrary content
 	   order. However, it is a little susceptible to rounding errors, and
 	   requires spaceless html. */
+	
+	position: relative;
+	
+	/* For those pour souls who don't understand inline-block (IE7). */
+	display: inline;
 	display: inline-block;
 	vertical-align: top;
 	
 	/* Stop content pushing column wider than it should be */
 	overflow: visible;
-	
-	position: relative;
 	width: 100%;
 }
 
