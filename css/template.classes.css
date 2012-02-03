@@ -93,7 +93,6 @@
 	/* Use inline-block to make popup collapse
 	   to the width of its contents. */
 	display: inline-block;
-	display: inline !IE7;
 	
 	/* Center the popup vertically, working in tandem
 	   with the :after rule of .popup_layer. */
@@ -1340,7 +1339,6 @@
 
 .button {
 	display: inline-block;
-	display: inline !IE7;
 	position: relative;
 	
 	cursor: pointer;
@@ -1417,7 +1415,6 @@
 
 .thumb {
 	display: inline-block;
-	display: inline !IE7;
 	vertical-align: baseline;
 	overflow: hidden;
 	
