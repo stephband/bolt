@@ -93,6 +93,7 @@
 	/* Use inline-block to make popup collapse
 	   to the width of its contents. */
 	display: inline-block;
+	display: inline !IE7;
 	
 	/* Center the popup vertically, working in tandem
 	   with the :after rule of .popup_layer. */
@@ -302,6 +303,7 @@
 	content: "▶";
 	font-size: 0.75em;
 	display: inline-block;
+	display: inline !IE7;
 	vertical-align: baseline;
 	width: 2em;
 	text-align: center;
@@ -353,6 +355,7 @@
 .divided_index.thumbs li {
 		height: auto;
 		display: inline-block;
+		display: inline !IE7;
 }
 
 
@@ -378,8 +381,8 @@
 .crumbs_index > li,
 .actions_index > li {
 	/* For those pour souls who don't understand inline-block (IE7). */
-	display: inline;
 	display: inline-block;
+	display: inline !IE7;
 	vertical-align: top;
 }
 
@@ -448,6 +451,7 @@
 .vertical > dt,
 .vertical > dd {
 	display: inline-block;
+	display: inline !IE7;
 	vertical-align: top;
 	margin: 0;
 	padding: 0;
@@ -568,8 +572,8 @@
 	position: relative;
 	
 	/* For those pour souls who don't understand inline-block (IE7). */
-	display: inline;
 	display: inline-block;
+	display: inline !IE7;
 	vertical-align: top;
 	
 	/* Stop content pushing column wider than it should be */
@@ -1126,14 +1130,11 @@
 .tab,
 .slide {
 	display: inline-block;
+	display: inline !IE7;
 	vertical-align: top;
 	position: relative;
 	width: 100%;
 	margin-right: -100%;
-}
-
-.tab {
-	display: inline-block;
 }
 
 /* Show/hide transitions. */
@@ -1339,6 +1340,7 @@
 
 .button {
 	display: inline-block;
+	display: inline !IE7;
 	position: relative;
 	
 	cursor: pointer;
@@ -1415,6 +1417,7 @@
 
 .thumb {
 	display: inline-block;
+	display: inline !IE7;
 	vertical-align: baseline;
 	overflow: hidden;
 	
@@ -1656,6 +1659,7 @@
 .v_table tbody,
 .v_table tr {
 	display: inline-block;
+	display: inline !IE7;
 }
 
 .v_table {
