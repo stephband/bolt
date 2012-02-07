@@ -1201,6 +1201,7 @@
 	   scrollbars when they are not the active step. */
 	height: 0;
 	overflow: hidden;
+	z-index: 1;
 	
 	-webkit-transition-property: left, height;
 	   -moz-transition-property: left, height;
@@ -1235,6 +1236,7 @@
 	left: 0 !important;
 	height: auto;
 	overflow: visible;
+	z-index: 2;
 }
 
 .js .slide.active ~ .slide {
