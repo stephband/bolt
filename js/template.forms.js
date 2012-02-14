@@ -19,7 +19,7 @@
 			// Store reference to label that is a direct wrap of the
 			// target node.
 			data.wrap = data.label.filter(function() {
-				return target.parentNode === this;
+				return (target.parentNode === this);
 			});
 			
 			if (name) {
@@ -38,7 +38,7 @@
 
 		var view = fieldData(node),
 				html;
-		
+
 		// Remove text nodes from the button
 		view.wrap
 		.contents()
