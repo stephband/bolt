@@ -16,6 +16,12 @@
 				label: jQuery('label[for="'+target.id+'"]')
 			};
 			
+			// Store reference to label that is a direct wrap of the
+			// target node.
+			data.wrap = data.label.filter(function() {
+				return target.parentNode === this;
+			});
+			
 			if (name) {
 			  data.fields = jQuery('input[name="'+name+'"]');
 			}
@@ -34,7 +40,7 @@
 				html;
 		
 		// Remove text nodes from the button
-		view.label
+		view.wrap
 		.contents()
 		.filter(function() {
 			return this.nodeType === (window.Node ? Node.TEXT_NODE : 3);
@@ -43,7 +49,7 @@
 		
 		// Prepend the current value of the select
 		html = view.field.find('option[value="'+node.value+'"]').html();
-		view.label.prepend(html);
+		view.wrap.prepend(html);
 	}
 	
 	doc
@@ -135,10 +141,10 @@
 		var view = fieldData(e.target);
 		
 		if (e.type === 'focusin') {
-			view.label.addClass('focus');
+			view.wrap.addClass('focus');
 		}
 		else {
-			view.label.removeClass('focus');
+			view.wrap.removeClass('focus');
 		}
 	})
 	
