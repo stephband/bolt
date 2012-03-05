@@ -471,3 +471,27 @@ textarea+textarea {
   position: absolute;
   left: -10000px;
 }
+
+
+/* form */
+
+.action_form {
+	padding-right: 3em;
+}
+
+.action_form > input {
+	display: inline-block;
+	position: relative;
+	vertical-align: top;
+	width: 100%;
+	margin-right: -100%;
+	left: 0;
+}
+
+.action_form > .submit_button {
+	width: 3em;
+	margin-right: -3em;
+	padding-left: 0;
+	padding-right: 0;
+	left: 100%;
+}
