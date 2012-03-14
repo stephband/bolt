@@ -308,13 +308,15 @@
       });
     }
 
-//    alert(
-//      getStyle(node, 'transition-property') + ' ' + properties + '\n' +
-//      getStyle(node, 'transition-duration') + ' ' + durations + '\n' +
-//      getStyle(node, 'transition-timing-function') + ' ' + timingFns + '\n' +
-//      getStyle(node, 'transition-delay') + ' ' + delays
-//    );
-
+    if (debug) {
+      console.log(
+        getStyle(node, 'transition-property') + ' ' + properties,
+        getStyle(node, 'transition-duration') + ' ' + durations,
+        getStyle(node, 'transition-timing-function') + ' ' + timingFns,
+        getStyle(node, 'transition-delay') + ' ' + delays
+      );
+    }
+    
     obj = parseTransitionCSS(
       (getStyle(node, 'transition-property') || properties || ''),
       (getStyle(node, 'transition-duration') || durations || ''),
@@ -574,10 +576,7 @@
   };
   
   
-  function makeFallback(add) {
-    var doClass = add ? jQuery.fn.addClass : jQuery.fn.removeClass,
-        undoClass = add ? jQuery.fn.removeClass : jQuery.fn.addClass;
-    
+  function makeFallback(doClass, undoClass) {
     return function(classes, fn) {
       var node = this[0],
           elem = this,
@@ -636,10 +635,10 @@
     };
   }
   
+  var addClass = jQuery.fn._addClass = jQuery.fn.addClass,
+      removeClass = jQuery.fn._removeClass = jQuery.fn.removeClass;
+  
   if (jQuery.support.cssTransitionEnd) {
-    var addClass = jQuery.fn._addClass = jQuery.fn.addClass,
-        removeClass = jQuery.fn._removeClass = jQuery.fn.removeClass;
-    
     // Include propertyName in event properties copied to jQuery
     // event object.
     if (jQuery.event.props.indexOf("propertyName") < 0) {
@@ -650,7 +649,7 @@
     jQuery.fn.removeTransitionClass = makeMethod(removeClass, addClass);
   }
   else {
-    jQuery.fn.addTransitionClass = makeFallback(true);
-    jQuery.fn.removeTransitionClass = makeFallback(false);
+    jQuery.fn.addTransitionClass = makeFallback(addClass, removeClass);
+    jQuery.fn.removeTransitionClass = makeFallback(removeClass, addClass);
   }
 })(jQuery);

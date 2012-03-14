@@ -119,12 +119,12 @@
 				// mitigate this.
 				if ((e.timeStamp - startTime) > duration) { return; }
 				
-				// Stop simulated mouse events.
-				e.preventDefault();
-				
 				e.type = 'tap';
 				jQuery.event.handle.call(currentTarget, e);
 				e.type = _type;
+				
+				// Stop simulated mouse events.
+				//e.preventDefault();
 			}
 			
 			timer = setTimeout(timeout, duration);
@@ -154,3 +154,16 @@
 		}
 	};
 })(jQuery);
+
+
+jQuery(document).ready(function(){
+	jQuery('p').on('tap', function(e) {
+		console.log('tap', e);
+	});
+})
+.on('mousedown', function(e){
+  console.log('[document] mousedown', e);
+})
+.on('tap', function(e){
+  console.log('[document] tap', e);
+});

@@ -56,3 +56,8 @@ img { -ms-interpolation-mode: bicubic; }
 .js .tip {
 	background-image: url('../images/bg/rgba_0_0_0_80.png');
 }
+
+.js .button.focus select {
+  /* Stops select width from being 100% of the .button's container. */
+  width: auto;
+}
