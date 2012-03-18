@@ -90,7 +90,7 @@
 		var id = window.location.hash;
 		
 		// Setup all things that should start out active
-		jQuery('.active').trigger('activate');
+		jQuery('.active[id]').trigger('activate');
 		
 		// Activate the node that corresponds to the hashref
 		// in the location bar, checking if it's an alphanumeric
