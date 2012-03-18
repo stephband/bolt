@@ -1251,7 +1251,10 @@
 .popdown,
 .dropdown {
 	display: block;
-	overflow: hidden;
+	/* Hiding overflow causes problems in IE7 when the dropdown's container
+	   is narrower than the dropdown's content. I'm not sure we have any real
+	   reason to hide it. */
+	/*overflow: hidden;*/
 	
 	position: absolute;
 	top: 2em;

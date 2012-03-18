@@ -89,7 +89,9 @@
 	jQuery(document).ready(function(){
 		var id = window.location.hash;
 		
-		// Setup all things that should start out active
+		// Setup all things that should start out active. By limiting
+		// this to only nodes with an id, we avoid buttons sending out
+		// activate events - but should active state require an id? Hmmm.
 		jQuery('.active[id]').trigger('activate');
 		
 		// Activate the node that corresponds to the hashref
