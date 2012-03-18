@@ -154,16 +154,3 @@
 		}
 	};
 })(jQuery);
-
-
-jQuery(document).ready(function(){
-	jQuery('p').on('tap', function(e) {
-		console.log('tap', e);
-	});
-})
-.on('mousedown', function(e){
-  console.log('[document] mousedown', e);
-})
-.on('tap', function(e){
-  console.log('[document] tap', e);
-});
