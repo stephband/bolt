@@ -36,6 +36,8 @@ img { -ms-interpolation-mode: bicubic; }
      http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ */
   
   display: inline;
+  /* These things need hasLayout. */
+  zoom: 1;
 }
 
 .horizontal > .last {
@@ -44,7 +46,6 @@ img { -ms-interpolation-mode: bicubic; }
 
 
 /* IE7-down buttons */
-/* Stephen Band, with thanks to electronlibre.ch */
 /* webdev.stephband.info/buttons */
 
 /* input does not move left with -ve margin */
@@ -60,4 +61,11 @@ img { -ms-interpolation-mode: bicubic; }
 .js .button.focus select {
   /* Stops select width from being 100% of the .button's container. */
   width: auto;
+}
+
+.tab,
+.slide {
+  display: inline;
+  /* These things need hasLayout. */
+  zoom: 1;
 }

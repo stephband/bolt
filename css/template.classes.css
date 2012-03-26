@@ -1129,7 +1129,6 @@
 .tab,
 .slide {
 	display: inline-block;
-	display: inline !IE7;
 	vertical-align: top;
 	position: relative;
 	width: 100%;
