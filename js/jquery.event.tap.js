@@ -1,14 +1,26 @@
 // jquery.event.tap
 // 
-// 0.3
+// 0.4
 // 
-// Emits a tap event as soon as touchend is heard, or a taphold. This is better than simulated
-// click events on touch devices, which wait ~300ms before firing, in case they
-// should be interpreted as double clicks.
+// Emits a tap event as soon as touchend is heard, as long as it's related
+// touchstart was less than a certain time ago.
 // 
-// TODO: There's a bug when a second tap occurs while a first tap has not yet reached held state.
-// All subsequent taps while the first tap is held emit taphold events. Its very puzzling. What's
-// odd is that we never enter the touchend function.
+// This script makes an attempt to normalise touch events and the way browsers
+// simulate mouse events. The point is to do away with simulated mouse events
+// on touch devices, so that a site's touch interaction model can be treated
+// differently from it's mouse interaction model. This kind of thing is fraut
+// with danger. Check out PPK's round-up of touch event support, and my own
+// touch event compatibility table:
+// http://www.quirksmode.org/mobile/tableTouch.html
+// http://labs.cruncher.ch/touch-events-compatibility-table/
+// 
+// Simulated mouse events are prevented by:
+// Android: cancelling them in the capture phase
+// iOS: preventDefault on touchend
+// 
+// Also, in iOS labels don't check or focus their associated checkboxes. This
+// is normalised for checkboxes and radio buttons, but there is no known
+// workaround for text inputs.
 
 
 // Make jQuery copy touch event properties over to the jQuery event
@@ -26,131 +38,153 @@
 
 
 (function(jQuery, undefined){
-	var debug = true;
+	var debug = false;
 	
-	var duration = 480;
+	var duration = 280,
+	    amputateFlag = true,
+	    cache = {};
 	
-	var j = 0;
+	function preventDefault(e) {
+		e.preventDefault();
+	}
+	
+	function stopPropagation(e) {
+		e.stopPropagation();
+	}
+	
+	function amputateMouseEvents() {
+		amputateFlag = false;
 		
-	// TouchList.identifiedTouch does not exist in early webkit.
-	function identifiedTouch(touchList, id) {
-		var i, l;
-		
-		if (touchList.identifiedTouch) {
-			return touchList.identifiedTouch(id);
-		}
-		
-		i = -1;
-		l = touchList.length;
-		
-		while (++i < l) {
-			if (touchList[i].identifier === id) {
-				return touchList[i];
-			}
-		}
+		// It's extreme, but stopping simulated events in the capture phase is one
+		// way of getting dumb browsers to appear not to emit them.
+		document.addEventListener('mousedown', stopPropagation, true);
+		document.addEventListener('mousemove', stopPropagation, true);
+		document.addEventListener('mouseup', stopPropagation, true);
+		document.addEventListener('click', stopPropagation, true);
+		document.addEventListener('mousedown', preventDefault, true);
+		document.addEventListener('mousemove', preventDefault, true);
+		document.addEventListener('mouseup', preventDefault, true);
+		document.addEventListener('click', preventDefault, true);
 	}
 	
 	function touchstart(e) {
-		var target = e.target,
-		    currentTarget = e.currentTarget,
-		    startTime = e.timeStamp;
-		
 		if (!e.changedTouches) {
 			if (debug) { console.log('This event object has no changedTouches array.', e); }
 			return;
 		}
 		
 		jQuery.each(e.changedTouches, function(i, startTouch) {
-			var startX = startTouch.clientX,
-			    startY = startTouch.clientY,
-			    timer;
-
-			function bindHandlers() {
-				jQuery.event.add(currentTarget, "touchcancel", unbindHandlers);
-				jQuery.event.add(currentTarget, "touchcancel", clearTimer);
-				jQuery.event.add(currentTarget, "touchend", touchend);
+			cache[startTouch.identifier] = {
+				target: e.target,
+				clientX: startTouch.clientX,
+				clientY: startTouch.clientY,
+				// Some browsers report timeStamp as a date object. Convert to ms.
+				timeStamp: +e.timeStamp,
+				preventDefault: e.preventDefault,
+				checked: e.target.checked
 			}
-
-			function unbindHandlers() {
-				jQuery.event.remove(currentTarget, "touchcancel", unbindHandlers);
-				jQuery.event.remove(currentTarget, "touchcancel", clearTimer);
-				jQuery.event.remove(currentTarget, "touchend", touchend);
-			}
-
-			function clearTimer() {
-				clearTimeout(timer);
-			}
-
-			function timeout() {
-				var _type = e.type;
-				
-				clearTimer();
-				unbindHandlers();
-				
-				// Ignore if the touch has moved significantly (ie > 16px)
-				if ((Math.pow(startTouch.clientX - startX, 2) + Math.pow(startTouch.clientY - startY, 2)) > 256) { return; }
-				
-				e.type = "taphold";
-				jQuery.event.handle.call(currentTarget, e);
-				e.type = _type;
-			}
-
-			function touchend(e) {
-				var _type = e.type,
-				    endTouch = identifiedTouch(e.changedTouches, startTouch.identifier),
-				    endX = endTouch.clientX,
-				    endY = endTouch.clientY;
-
-				// If the touchend id does not match an id from touchstart, abort.
-				if (!endTouch) { return; }
-				
-				clearTimer();
-				unbindHandlers();
-				
-				// Ignore if the end target is not the same as the start target.
-				if (e.target !== target) { return; }
-				
-				// Ignore if the touch has moved significantly
-				if ((Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2)) > 256) { return; }
-				
-				// Double check that the required time has passed. iOS appears to
-				// suspend the timer while a page is gestured, causing a tap event
-				// to fire at the end of a scroll. By checking the time we can
-				// mitigate this.
-				if ((e.timeStamp - startTime) > duration) { return; }
-				
-				e.type = 'tap';
-				jQuery.event.handle.call(currentTarget, e);
-				e.type = _type;
-				
-				// Stop simulated mouse events.
-				//e.preventDefault();
-			}
-			
-			timer = setTimeout(timeout, duration);
-			bindHandlers();
 		});
 	}
+	
+	function touchend(e) {
+		jQuery.each(e.changedTouches, function(i, endTouch) {
+			var startTouch = cache[endTouch.identifier];
+			
+			delete cache[endTouch.identifier];
+			
+			//console.log(e.timeStamp - startTouch.timeStamp);
+			
+			if (
+				// If time since startTouch is less than duration
+				+e.timeStamp < (startTouch.timeStamp + duration) &&
+				
+				// If targets are the same
+				e.target === startTouch.target &&
+				
+				// If the touch has not moved more than 16px
+				(Math.pow(endTouch.clientX - startTouch.clientX, 2) + Math.pow(endTouch.clientY - startTouch.clientY, 2)) < 256
+			) {
+				// Trigger a tap event
+				jQuery(e.target).trigger({ type: 'tap' });
+				
+				// Stop simulated mouse events in iOS, except for elements that
+				// require it to focus.
+				if (e.target.tagName.toLowerCase() !== 'select') {
+					e.preventDefault();
+				}
+				
+				// Android only cancels mouse events if preventDefault has been
+				// called on touchstart. We can't do that. That stops scroll and other
+				// gestures. Pants. Also, the default Android browser sends simulated
+				// mouse events whatever you do. These browsers have something in common:
+				// their touch identifiers are always 0.
+				if (amputateFlag && endTouch.identifier === 0) {
+					amputateMouseEvents();
+				}
+			}
+		});
+	}
+	
+	var actions = {
+		a: function(target) {
+			console.log(target.href);
+			window.location = target.href;
+		},
+		
+		input: function(target) {
+			if (debug) { console.log('input type="'+target.type+'"'); }
+			
+			// Won't work in iOS, but does elsewhere.
+			target.focus();
+			
+			if (target.type === "checkbox") {
+				target.checked = !target.checked;
+			}
+			else if (target.type === "radio" && !target.checked) {
+				target.checked = true;
+			}
+			else if (target.type === 'submit') {
+  			jQuery(target).closest('form').submit();
+			}
+			else { return; }
+			
+			// Dumb browsers send a change event. They are not supposed to
+			// when an input is changed programmatically. I suspect it's
+			// part of the mouse event simulation. I'm not really worried
+			// enough to fix it right now, though, and we do need to make
+			// sure a change is sent in iOS, so trigger one anyway, after
+			// touchend.
+			setTimeout(function(){
+			  var e = document.createEvent("HTMLEvents");
+			  
+			  // type, bubbling, cancelable
+			  e.initEvent('change', true, false );
+			  target.dispatchEvent(e);
+			}, 0);
+		},
+		
+		select: function(target) {
+			target.focus();
+		},
+		
+		label: function(target) {
+			var input = document.getElementById( target.getAttribute("for") );
+			actions.input(input);
+		}
+	};
 
 	jQuery.event.special.tap = {
-		setup: function setup() {
-			jQuery.event.add(this, "touchstart", touchstart);
-		},
-		
-		teardown: function teardown() {
-			jQuery.event.remove(this, "touchstart", touchstart);
+		_default: function(e) {
+			var target = jQuery(e.target).closest('a, label, input, select');
+			
+			// Ignore if the tap is not on an interactive element
+			if (target.length === 0) { return; }
+			
+			actions[target[0].tagName.toLowerCase()](target[0]);
 		}
 	};
-
-	// Delegate taphold events to tap events, seeing as that is where
-	// they originate.
-	jQuery.event.special.taphold = {
-		setup: function() {
-			jQuery.event.add(this, 'tap', jQuery.noop);
-		},
-		
-		teardown: function() {
-			jQuery.event.remove(this, 'tap', jQuery.noop);
-		}
-	};
+	
+	jQuery(document)
+	.on('touchstart', touchstart)
+	.on('touchend', touchend);
 })(jQuery);
