@@ -1,5 +1,5 @@
 //  jquery.dialog.js
-//  0.6
+//  1.0
 //  Stephen Band
   
 //  dialog(Type, Options)
@@ -24,6 +24,11 @@
 //  activate
 //	deactivate
 
+//  Text for buttons is localisable via jQuery.fn.dialog.text.
+//  Other types of dialog can by added to jQuery.fn.dialog.types. A
+//  dialog type requires an options property and the methods create,
+//  activate and deactivate.
+
 (function(jQuery, undefined){
 	var debug = (window.console && console.log);
 	
@@ -43,22 +48,20 @@
 	    			wrapClass: 'dialog_layer layer',
 	    			'class': 'dialog'
 	    		},
-	    		create: function(elem, layer, options) {
+	    		create: function(elem, options) {
 	    			var dialog = jQuery('<div/>', { 'class': options['class'], css: options.css });
 
-	    			layer.html(
+	    			options.layer.html(
 	    				dialog.html(elem)
 	    			);
-
-	    			return layer;
 	    		},
 	    		activate: function(e) {
 	    			var layer = e.data.layer;
-	    			layer.on("click.dialog", layer, click);
+	    			layer.on("click.dialog", e.data, click);
 	    			disableScroll();
 	    		},
 	    		deactivate: function(e) {
-	    			var layer = e.data.layer.layer;
+	    			var layer = e.data.layer;
 	    			layer.off('click', click);
 	    			enableScroll();
 	    		}
@@ -69,7 +72,7 @@
 	    			wrapClass: 'lightbox_dialog_layer dialog_layer layer',
 	    			'class': 'lightbox_dialog dialog',
 	    		},
-	    		create: function(elem, layer, options) {
+	    		create: function(elem, options) {
 	    			var dialog = jQuery('<div/>', { 'class': options['class'], css: options.css }),
 
 	    				// If we don't create the close button this way - if we write out the html
@@ -77,23 +80,23 @@
 	    				// path in front of it first. Not what we want.
 	    				button = jQuery('<a/>', { 'class': "close_button button", href: "#close", html: text.close });
 
-	    			layer.html(
+	    			options.layer.html(
 	    				dialog
 	    				.html(elem)
 	    				.append(button)
 	    			);
-
-	    			return layer;
 	    		},
 	    		activate: function(e) {
-	    			var layer = e.data.layer;
-	    			layer.bind('click.dialog', layer, click);
-	    			layer.on('click tap', '.close_button', layer, close);
+	    			var options = e.data,
+	    			    layer = options.layer;
+
+	    			layer.on('click.dialog', options, click);
+	    			layer.on('click tap', '.close_button', options, close);
 	    			disableScroll();
 	    		},
 	    		deactivate: function(e) {
 	    			var layer = e.data.layer;
-	    			layer.unbind('click', click);
+	    			layer.off('click', click);
 	    			layer.off('click tap', close);
 	    			enableScroll();
 	    		}
@@ -107,24 +110,26 @@
 	    		create: function(elem, options) {
 	    			var dialog = jQuery('<div/>', { 'class': options['class'], css: options.css }),
 	    				actions = '<ul class="actions_index index">' +
-	    					'<li><a class="confirm_button button" href="#confirm">' + text.ok + '</a></li>' +
+	    					'<li><button class="confirm_button button">' + text.ok + '</button></li>' +
 	    					'</ul>';
 
-	    			layer.html(
+	    			options.layer.html(
 	    				dialog
 	    				.html(elem)
 	    				.append(actions)
 	    			);
-
-	    			return layer;
 	    		},
 	    		activate: function(e) {
-	    			var layer = e.data.layer;
-	    			layer.on('click tap', '.confirm_button', layer, confirm);
+	    			var options = e.data,
+	    			    layer = options.layer;
+
+	    			layer.on('click tap', '.confirm_button', options, confirm);
 	    			disableScroll();
 	    		},
 	    		deactivate: function(e) {
-	    			var layer = e.data.layer;
+	    			var options = e.data,
+	    			    layer = options.layer;
+	    			
 	    			layer.off('click tap', confirm);
 	    			enableScroll();
 	    		}
@@ -142,22 +147,24 @@
 	    					'<li><a class="confirm_button button" href="#confirm">' + text.ok + '</a></li>' +
 	    					'</ul>';
 
-	    			layer.html(
+	    			options.layer.html(
 	    				dialog
 	    				.html(elem)
 	    				.append(actions)
 	    			);
-
-	    			return layer;
 	    		},
 	    		activate: function(e) {
-	    			var layer = e.data.layer;
-	    			layer.on('click tap', '.cancel_button', layer, close);
-	    			layer.on('click tap', '.confirm_button', layer, confirm);
+	    			var options = e.data,
+	    			    layer = options.layer;
+
+	    			layer.on('click tap', '.cancel_button', options, close);
+	    			layer.on('click tap', '.confirm_button', options, confirm);
 	    			disableScroll();
 	    		},
 	    		deactivate: function(e) {
-	    			var layer = e.data.layer;
+	    			var options = e.data,
+	    			    layer = options.layer;
+
 	    			layer.off('click tap', close);
 	    			layer.off('click tap', confirm);
 	    			enableScroll();
@@ -174,11 +181,26 @@
 		e.preventDefault();
 	}
 	
-	function clickClose(e) {
+	function close(e) {
 		var layer = e.data.layer;
 		
 		layer.trigger('deactivate');
 		e.preventDefault();
+	}
+
+	function confirm(e) {
+		var options = e.data,
+		    layer = options.layer;
+		
+		e.preventDefault();
+
+		// Should there be a callback that returns false, that means cancel
+		// the deactivation of the dialog.
+		if (options.callback && options.callback.apply(layer[0]) === false) {
+			return;
+		};
+
+		layer.trigger('deactivate');
 	}
 
 	function disableScroll() {
@@ -231,12 +253,13 @@
 		obj = types[type];
 		options = jQuery.extend({}, obj.options, options);
 		options.layer = jQuery('<div/>', { 'class': options.wrapClass, css: options.wrapCss });
-		obj.create(this, layer, options);
+		obj.create(this, options);
 
 		options.layer
 		.appendTo('body')
 		.on('activate.dialog', options, obj.activate)
 		.on('deactivate.dialog', options, obj.deactivate)
+		.on('deactivateend.dialog', options, deactivateend)
 		.trigger('activate');
 
 		return this;

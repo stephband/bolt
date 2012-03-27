@@ -385,7 +385,7 @@
     data.length--;
     
     if (!data.length) { removeTransition(node, data); }
-    
+
     data.fn && data.fn.apply(node);
   }
   

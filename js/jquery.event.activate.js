@@ -6,6 +6,7 @@
 
 (function(jQuery, undefined){
 	var debug = (window.debug === undefined ? (window.console && window.console.log) : window.debug),
+
 	    options = {
 	    	cache: true
 	    };
@@ -46,7 +47,9 @@
 			if (debug) { console.log('[activate] default | target:', e.target.id, 'data:', data); }
 			
 			data.state = true;
-			data.elem.addTransitionClass('active');
+			data.elem.addTransitionClass('active', function() {
+				data.elem.trigger('activateend');
+			});
 			
 			buttons = ((options.cache && data.buttons) || (e.target.id && jQuery('a[href="#'+e.target.id+'"]')));
 			
@@ -74,7 +77,9 @@
 			if (debug) { console.log('[deactivate] default | target:', e.target.id, 'active:', data.state); }
 			
 			data.state = false;
-			data.elem.removeTransitionClass('active');
+			data.elem.removeTransitionClass('active', function() {
+				data.elem.trigger('deactivateend');
+			});
 
 			buttons = ((options.cache && data.buttons) || (e.target.id && jQuery('a[href="#'+e.target.id+'"]')));
 			
@@ -91,7 +96,8 @@
 		
 		// Setup all things that should start out active. By limiting
 		// this to only nodes with an id, we avoid buttons sending out
-		// activate events - but should active state require an id? Hmmm.
+		// activate events - but should active state require an id? And
+		// what about buttons that do have an id? Hmmm.
 		jQuery('.active[id]').trigger('activate');
 		
 		// Activate the node that corresponds to the hashref

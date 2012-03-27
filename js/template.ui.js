@@ -98,21 +98,6 @@ jQuery.noConflict();
 	    			jQuery.event.add(target, 'click', click);
 	    			jQuery.event.add(target, 'deactivate', deactivate);
 	    		}
-	    	},
-	    	
-	    	'.popup': {
-	    		activate: function(e) {
-	    			var target = jQuery(e.currentTarget);
-	    			
-	    			// Only if activate was triggered on the popup
-	    			if (e.currentTarget !== e.target) { return; }
-	    			
-	    			if (debug) { console.log('activating popup'); }
-	    			
-	    			jQuery(target.html()).popup(target.data("popup"));
-	    			
-	    			e.preventDefault();
-	    		}
 	    	}
 	    },
 
@@ -359,7 +344,6 @@ jQuery.noConflict();
 	.delegate('.tip', 'activate', activateTip)
 	.delegate('.tab', 'activate', classes['.tab'].activate)
 	.delegate('.slide', 'activate', classes['.slide'].activate)
-	.delegate('.popup', 'activate', classes['.popup'].activate)
 	.delegate('.popdown', 'activate', classes['.popdown'].activate)
 	.delegate('.dropdown', 'activate', classes['.dropdown'].activate);
 	

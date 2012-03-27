@@ -69,14 +69,16 @@
 	overflow: scroll;
 }
 
-.popup_layer {
+.popup_layer,
+.dialog_layer {
 	position: fixed;
 	
 	/* Center inline-block contents horizontally */
 	text-align: center;
 }
 
-.popup_layer:after {
+.popup_layer:after,
+.dialog_layer:after {
 	/* Center inline-block contents vertically */
 	display: inline-block;
 	content: '';
@@ -85,11 +87,13 @@
 	vertical-align: middle;
 }
 
-.popup_layer > * {
+.popup_layer > *,
+.dialog_layer > * {
 	text-align: left;
 }
 
-.popup {
+.popup,
+.dialog {
 	/* Use inline-block to make popup collapse
 	   to the width of its contents. */
 	display: inline-block;
@@ -124,14 +128,19 @@
 .popup > img,
 .popup > canvas,
 .popup > object,
-.popup > embed {
+.popup > embed,
+.dialog > img,
+.dialog > canvas,
+.dialog > object,
+.dialog > embed {
 	max-width: 100%;
 	width: auto;
 	height: auto;
 	display: block;
 }
 
-.popup > .close_button {
+.popup > .close_button,
+.dialog > .close_button {
 	position: absolute;
 	top: -0.8333em;
 	right: -0.8333em;
@@ -160,7 +169,8 @@
 
 /* Use a <canvas> as a loading icon */
 .loading_layer,
-.popup_layer {
+.popup_layer,
+.dialog_layer {
 	background-image: none;
 	background-color: rgba(31, 32, 33, 0.746094);
 	z-index: 4;
@@ -1139,6 +1149,7 @@
 
 .js .tab,
 .js .popup_layer,
+.js .dialog_layer,
 .js .loading_layer,
 .js .tip {
 	visibility: hidden;
@@ -1166,6 +1177,7 @@
 
 .js .tab.active,
 .js .popup_layer.active,
+.js .dialog_layer.active,
 .js .loading .loading_layer,
 .js .tip.active {
 	/* The inline-block technique overlays tabs on top of one another
