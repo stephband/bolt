@@ -1335,13 +1335,24 @@
 }
 
 
-/* Links as buttons, thumbnails,	classes */
+/* button and .button */
+
+button {
+	/* buttons have standard padding that needs to be avoided. */
+	padding-top: 0;
+	padding-bottom: 0;
+	/* And they don't automatically inherit font styles. */
+	font-size: inherit;
+	font-family: inherit;
+}
 
 .button:hover,
 .button:focus {
+	/* If button is link, it may have hover styles. */
 	text-decoration: none;
 }
 
+button,
 .button {
 	display: inline-block;
 	position: relative;
@@ -1350,6 +1361,7 @@
 	
 	width: auto;
 	height: 2em;
+	/* button elements ignore line-height, centering text automaticaly. */
 	line-height: 2em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
@@ -1378,10 +1390,13 @@
 	        background-origin: padding-box;
 }
 
+button:hover,
 .button:hover {
 	color: rgb(63,63,63);
 }
 
+button.loading,
+button.disabled,
 .button.loading,
 .button.disabled {
 	opacity: 0.6;
