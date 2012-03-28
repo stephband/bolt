@@ -257,7 +257,7 @@
 		data.options = jQuery.extend({}, types[type].options, options);
 		data.layer = jQuery('<div/>', { 'class': data.options.wrapClass, css: data.options.wrapCss });
 
-		types[type].create(data.layer, this, options);
+		types[type].create(data.layer, this, data.options);
 
 		data.layer
 		.appendTo('body')
