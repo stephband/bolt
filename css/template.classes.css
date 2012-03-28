@@ -231,14 +231,6 @@
 	display: none;
 }
 
-.no_transition {
-	-webkit-transition: none !important;
-	   -moz-transition: none !important;
-	    -ms-transition: none !important;
-	     -o-transition: none !important;
-	        transition: none !important;
-}
-
 
 /* .index
    
@@ -1760,7 +1752,13 @@ button.disabled,
 
 /* Utilities */
 
-.notransition {
+.notransition,
+.notransition .slide,
+.notransition .tab,
+.notransition .popdown,
+.notransition .dropdown,
+.notransition .layer,
+.notransition .tip {
 	-webkit-transition-duration: 0 !important;
 	   -moz-transition-duration: 0 !important;
 	    -ms-transition-duration: 0 !important;
