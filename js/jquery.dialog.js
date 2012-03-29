@@ -56,11 +56,11 @@
 	    			);
 	    		},
 	    		activate: function(layer, options) {
-	    			layer.on("click.dialog", layer, click);
+	    			layer.on("click.dialog tap.dialog", layer, click);
 	    			disableScroll();
 	    		},
 	    		deactivate: function(layer, options) {
-	    			layer.off('click', click);
+	    			layer.off('click tap', click);
 	    			enableScroll();
 	    		}
 	    	},
@@ -85,12 +85,12 @@
 	    			);
 	    		},
 	    		activate: function(layer, options) {
-	    			layer.on('click.dialog', layer, click);
+	    			layer.on('click.dialog tap.dialog', layer, click);
 	    			layer.on('click.dialog tap.dialog', '.close_button', layer, close);
 	    			disableScroll();
 	    		},
 	    		deactivate: function(layer, options) {
-	    			layer.off('click', click);
+	    			layer.off('click tap', click);
 	    			layer.off('click tap', close);
 	    			enableScroll();
 	    		}
