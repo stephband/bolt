@@ -5,7 +5,7 @@
 jQuery.noConflict();
 
 
-// Add css support classes to html
+// Add css support classes to html, remove notransition class
 
 (function(jQuery, undefined){
 	var support = jQuery.support,
@@ -15,4 +15,8 @@ jQuery.noConflict();
 	classes.push('min-width_'+support.css.minWidth);
 	
 	jQuery(document.documentElement).addClass(classes.join(' '));
+
+	jQuery(document).ready(function() {
+		jQuery(document.documentElement).removeClass('notransition');
+	});
 })(jQuery);
