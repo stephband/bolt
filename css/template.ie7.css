@@ -30,7 +30,7 @@ img { -ms-interpolation-mode: bicubic; }
 */
 
 .col,
-.column,
+.thumb,
 .horizontal > li {
   /* Uses a technique for getting inline-block behaviour in IE, explained well here:
      http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ */
@@ -61,6 +61,13 @@ img { -ms-interpolation-mode: bicubic; }
 .js .button.focus select {
   /* Stops select width from being 100% of the .button's container. */
   width: auto;
+}
+
+.thumb {
+  /* Even when overflow is hidden (as it is on .thumb), IE7 includes the hidden, overflowed
+     part in it's background-position calculations. Minimise the size of the overflow. */
+  line-height: 0;
+  font-size: 0;
 }
 
 .tab,
