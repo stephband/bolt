@@ -1203,7 +1203,7 @@
 	left: -100%;
 	
 	/* Slides have no height by default to stop them influencing
-	   scrollbars when they are not the active step. */
+	   scrollbars when they are not active. */
 	height: 0;
 	overflow: hidden;
 	z-index: 1;
@@ -1383,14 +1383,14 @@ button,
 	border-width: 0;
 
 	-webkit-background-clip: padding-box;
-		 -moz-background-clip: padding-box;
+	   -moz-background-clip: padding-box;
 	    -ms-background-clip: padding-box;
 	     -o-background-clip: padding-box;
 	        background-clip: padding-box;
 
 	-webkit-background-origin: padding-box;
-		 -moz-background-origin: padding;
-		 -moz-background-origin: padding-box;
+	   -moz-background-origin: padding;
+	   -moz-background-origin: padding-box;
 	    -ms-background-origin: padding-box;
 	     -o-background-origin: padding-box;
 	        background-origin: padding-box;
