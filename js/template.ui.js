@@ -20,3 +20,5 @@ jQuery.noConflict();
 		jQuery(document.documentElement).removeClass('notransition');
 	});
 })(jQuery);
+
+alert('TEST');
