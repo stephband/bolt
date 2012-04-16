@@ -60,7 +60,7 @@ img { -ms-interpolation-mode: bicubic; }
    Stephen Band
    webdev.stephband.info/buttons */
 
-.disabled                                                   {filter: alpha(opacity=60%);}
+.disabled                                                   {filter: alpha(opacity=40%);}
 
 /* force inline-block behaviour */
 button, .button                                             {display: inline; vertical-align: middle; margin-bottom: 1px;}

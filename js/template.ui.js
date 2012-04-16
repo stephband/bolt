@@ -20,3 +20,12 @@ jQuery.noConflict();
 		jQuery(document.documentElement).removeClass('notransition');
 	});
 })(jQuery);
+
+
+// Select boxes that act as navigation
+
+jQuery(document)
+.on('change', '.nav_select', function(e) {
+	var value = e.currentTarget.value;
+	window.location = value;
+});

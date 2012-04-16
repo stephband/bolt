@@ -1405,7 +1405,7 @@ button.loading,
 button.disabled,
 .button.loading,
 .button.disabled {
-	opacity: 0.6;
+	opacity: 0.4;
 }
 
 .button input {
@@ -1470,6 +1470,22 @@ button.disabled,
 	text-align: center;
 	line-height: 28px;
 	line-height: 1.75rem;
+}
+
+.select_button {
+	padding-right: 2.25em;
+	text-align: left;
+}
+
+.select_button:after {
+  content: '▼';
+  display: block;
+  position: absolute;
+  font-size: inherit;
+  line-height: inherit;
+  top: 0;
+  right: 0.5em;
+  opacity: 0.25;
 }
 
 /* .thumb */
