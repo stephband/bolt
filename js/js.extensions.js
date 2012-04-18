@@ -31,7 +31,7 @@ window.typeOf = function(value) {
 		value instanceof Array ? 'array' :
 		s :
 		s ;
-}
+};
 
 
 // Function.prototype.bind

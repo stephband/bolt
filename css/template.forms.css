@@ -406,17 +406,15 @@ input[type="range"].y_range::-webkit-slider-thumb {
 }
 
 
-/* Placeholders. 
-   
-   No worky in Chrome. It's a bug. */
+/* Placeholders. */
 input::-webkit-input-placeholder {
-	line-height: 2em;
-	height: 2em;
+	/* No worky in WebKit ~2011. It was a bug:
+     https://bugs.webkit.org/show_bug.cgi?id=54797 */
+  line-height: inherit;
 }
 
 input:-moz-placeholder {
-	line-height: 2em;
-	height: 2em;
+	line-height: inherit;
 }
 
 /* Simulate placeholder attribute with a label layered
