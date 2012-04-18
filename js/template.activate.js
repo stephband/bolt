@@ -22,7 +22,7 @@
 						
 						function mousedown(e) {
 							// Ignore mousedowns from all but the left button.
-							if (!isLeftButton(e)) { return; }
+							if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
 							
 							// If event is in it or on it, do nothing.
 							if (target === e.target || jQuery.contains(target, e.target)) { return; }
@@ -41,12 +41,12 @@
 	    			function deactivate(e) {
 	    				if (target !== e.target) { return; }
 	    				
-	    				elem.undelegate('a[href="#close"]', 'click', close);
+	    				elem.undelegate('a[href="#close"]', 'click tap', close);
 	    				jQuery.event.remove(document, 'mousedown touchstart', mousedown);
 	    				jQuery.event.remove(target, 'deactivate', deactivate);
 	    			}
 	    			
-	    			elem.delegate('a[href="#close"]', 'click', close);
+	    			elem.delegate('a[href="#close"]', 'click tap', close);
 	    			jQuery.event.add(document, 'mousedown touchstart', mousedown);
 	    			jQuery.event.add(target, 'deactivate', deactivate);
 	    		}
@@ -58,7 +58,7 @@
 	    			
 	    			function mousedown(e) {
 							// Ignore mousedowns from all but the left button.
-							if (!isLeftButton(e)) { return; }
+							if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
 							
 							// If event is in it or on it, do nothing.
 							if (target === e.target || jQuery.contains(target, e.target)) { return; }
@@ -70,12 +70,12 @@
 	    				if (target !== e.target) { return; }
 	    			  
 	    				jQuery.event.remove(document, 'mousedown touchstart', mousedown);
-	    				jQuery.event.remove(target, 'click', click);
+	    				jQuery.event.remove(target, 'click tap', click);
 	    				jQuery.event.remove(target, 'deactivate', deactivate);
 	    			}
 	    			
 	    			jQuery.event.add(document, 'mousedown touchstart', mousedown);
-	    			jQuery.event.add(target, 'click', click);
+	    			jQuery.event.add(target, 'click tap', click);
 	    			jQuery.event.add(target, 'deactivate', deactivate);
 	    		}
 	    	}
@@ -144,8 +144,8 @@
 	  function deactivate(e) {
 			if (pane[0] !== e.target) { return; }
 			
-			pane.undelegate('a[href="#prev"]', 'click', prev);
-			pane.undelegate('a[href="#next"]', 'click', next);
+			pane.undelegate('a[href="#prev"]', 'click tap', prev);
+			pane.undelegate('a[href="#next"]', 'click tap', next);
 			jQuery.event.remove(e.target, 'deactivate', deactivate);
 		}
 	  
@@ -178,8 +178,8 @@
 	  	panes.not(e.target).trigger('deactivate');
 	  }, 0);
 	  
-	  pane.delegate('a[href="#prev"]', 'click', prev);
-	  pane.delegate('a[href="#next"]', 'click', next);
+	  pane.delegate('a[href="#prev"]', 'click tap', prev);
+	  pane.delegate('a[href="#next"]', 'click tap', next);
 	  jQuery.event.add(pane[0], 'deactivate', deactivate);
 	}
 	
@@ -217,9 +217,8 @@
 	function isLeftButton(e) {
 		// Ignore mousedowns on any button other than the left (or primary)
 		// mouse button, or when a modifier key is pressed.
-		return (e.type === 'mousedown' && e.which === 1 && !e.ctrlKey && !e.altKey);
+		return (e.which === 1 && !e.ctrlKey && !e.altKey);
 	}
-	
 	
 	var loc = window.location.href.replace(/#.*/, '');
 	
@@ -228,10 +227,10 @@
 	// Mousedown on buttons toggle activate on their targets
 	.delegate('a[href^="#"]', 'mousedown touchstart', function(e) {
 		var link, href, elem, data, type, t;
-		
+
 		// Ignore mousedowns on any button other than the left (or primary)
 		// mouse button, or when a modifier key is pressed.
-		if (!isLeftButton(e)) { return; }
+		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
 		
 		// Default is prevented indicates that this link has already
 		// been handled. Save ourselves the overhead of further handling.
@@ -273,8 +272,8 @@
 		
 		e.preventDefault();
 		
-		link.unbind('click', preventDefault);
-		link.bind('click', preventDefault);
+		link.unbind('click tap', preventDefault);
+		link.bind('click tap', preventDefault);
 		
 		if (!classes[type]) { return; }
 		
