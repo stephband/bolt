@@ -45,6 +45,10 @@
 	    cache = {};
 	
 	function preventDefault(e) {
+		// Android browsers really don't like you messing with select boxes.
+		if (e.target.tagName.toLowerCase() === 'select') {
+			return;
+		}
 		e.preventDefault();
 	}
 	
@@ -127,7 +131,7 @@
 	
 	var actions = {
 		a: function(target) {
-			console.log(target.href);
+			if (debug) { console.log(target.href); }
 			window.location = target.href;
 		},
 		
@@ -144,7 +148,7 @@
 				target.checked = true;
 			}
 			else if (target.type === 'submit') {
-  			jQuery(target).closest('form').submit();
+				jQuery(target).closest('form').submit();
 			}
 			else { return; }
 			
