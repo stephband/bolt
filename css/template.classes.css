@@ -64,11 +64,6 @@
 	        box-sizing: content-box;
 }
 
-.scroll_layer {
-	/* Force scrollbars. */
-	overflow: scroll;
-}
-
 .popup_layer,
 .dialog_layer {
 	position: fixed;
@@ -1800,3 +1795,64 @@ button.disabled,
 .bl, .br { bottom: 0; }
 .tl, .bl { left: 0; }
 .tr, .br { right: 0; }
+
+.scroll {
+	overflow: auto;
+	/* Enable momentum scrolling. */
+	-webkit-overflow-scrolling: touch;
+}
+
+.scroll::-webkit-scrollbar {
+	/* Force scrollbars to display in mobile WebKit devices. For a demo
+	   of scrollbar configurations:
+	   http://trac.webkit.org/export/41842/trunk/LayoutTests/scrollbars/overflow-scrollbar-combinations.html
+	*/
+	width: 9px;
+	height: 9px;
+	background-color: transparent;
+	-webkit-border-radius: 12px;
+	        border-radius: 12px;
+}
+
+.scroll::-webkit-scrollbar-thumb:vertical,
+.scroll::-webkit-scrollbar-thumb:horizontal {
+	/* Approximate the style of the iPad's default scrollbars. (Can
+	   probably do better, but this is quick). */
+	background-color: #888888;
+	border: 2px solid white;
+	
+	-webkit-border-radius: 12px;
+	        border-radius: 12px;
+}
+
+.scroll::-webkit-scrollbar-thumb:vertical {
+	min-height: 20px;
+}
+
+.scroll::-webkit-scrollbar-thumb:horizontal {
+	min-width: 20px;
+}
+
+.scroll::-webkit-scrollbar-track-piece:disabled,
+.scroll::-webkit-scrollbar-button:disabled {
+	display: none !important;
+}
+
+.scroll > * {
+	/* A hack to fix Safari bug 10336367, where certain descendants of
+	   -webkit-overflow-scrolling: touch get chopped up. We should be
+	   able to remove this after the next (2012) Safari iOS update. */
+	-webkit-transform: translateZ(0px);
+}
+
+.x_scroll {
+	overflow-y: hidden;
+}
+
+.y_scroll {
+	overflow-x: hidden;
+}
+
+.x_scroll.y_scroll {
+	overflow: scroll;
+}
