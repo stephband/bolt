@@ -1796,6 +1796,9 @@ button.disabled,
 .tl, .bl { left: 0; }
 .tr, .br { right: 0; }
 
+.left { float: left; }
+.right { float: right; }
+
 .scroll {
 	overflow: auto;
 	/* Enable momentum scrolling. Unfortunately this is buggy. It doesn't
