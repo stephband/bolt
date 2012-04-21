@@ -1,0 +1,57 @@
+.block {
+  display: inline-block;
+  vertical-align: top;
+  width: 14.2857%;
+  height: 8em;
+}
+
+.w2_block { width: 28.5714%; }
+.w3_block { width: 42.8571%; }
+.w4_block { width: 57.1429%; }
+
+.h2_block { height: 16em; }
+.h3_block { height: 24em; }
+.h4_block { height: 32em; }
+
+@media all and (min-width: 7.5em)   { html { font-size: 0.9375rem; font-size: 19.0476vw; } .block { width: 100%; }     .w2_block { width: 100%; }     .w3_block { width: 100%;     } .w4_block { width: 100%; } }
+@media all and (min-width: 15em)    { html { font-size: 0.9375rem; font-size: 9.5238vw; }  .block { width: 50%; }      .w2_block { width: 100%; }     .w3_block { width: 100%;     } .w4_block { width: 100%; } }
+@media all and (min-width: 20em)    { html { font-size: 1.25rem;   font-size: 9.5238vw; } } /* iPhone portrait: 20em */
+@media all and (min-width: 22.5em)  { html { font-size: 0.9375rem; font-size: 6.3492vw; }  .block { width: 33.3333%; } .w2_block { width: 66.6667%; } .w3_block { width: 100%;     } .w4_block { width: 100%; } } /* Nexus portrait */
+@media all and (min-width: 30em)    { html { font-size: 0.9375rem; font-size: 4.7619vw; }  .block { width: 25%; }      .w2_block { width: 50%; }      .w3_block { width: 75%;      } .w4_block { width: 100%; } } /* iPhone landscape */
+@media all and (min-width: 36em)    { html { font-size: 0.9rem;    font-size: 3.8095vw; }  .block { width: 20%; }      .w2_block { width: 40%; }      .w3_block { width: 60%;      } .w4_block { width: 80%;  } } 
+@media all and (min-width: 37.375em){ html { font-size: 0.9344rem; font-size: 3.8095vw; } } /* Nexus landscape: 37.375em */
+@media all and (min-width: 48em)    { html { font-size: 1.2rem;    font-size: 3.8095vw; } } /* iPad portrait: 48em */
+@media all and (min-width: 56em)    { html { font-size: 1.1667rem; font-size: 3.1746vw; }  .block { width: 16.6667%; } .w2_block { width: 33.3333%; } .w3_block { width: 50%;      } .w4_block { width: 66.6667%; } }
+@media all and (min-width: 64em)    { html { font-size: 1.1429rem; font-size: 2.7211vw; }  .block { width: 14.2857%; } .w2_block { width: 28.5714%; } .w3_block { width: 42.8571%; } .w4_block { width: 57.1429%; } } /* iPad landscape */
+
+/* Compensate for rounding errors. */
+@media all and (width: 598px)       { .blocks_wrap { margin-left: 1px; } body { padding-top: 1px; } }
+@media all and (width: 768px)       { .blocks_wrap { margin-left: 1px; } body { padding-top: 1px; } }
+@media all and (width: 1024px)      { .blocks_wrap { margin-left: 1px; } body { padding-top: 1px; } }
+
+/* For browsers that don't support vw units, redefine the font-size in steps. */
+@media all and (min-width: 70em)    { html { font-size: 1.25rem; }  }
+@media all and (min-width: 77em)    { html { font-size: 1.375rem; } }
+@media all and (min-width: 84em)    { html { font-size: 1.5rem; }   }
+@media all and (min-width: 91em)    { html { font-size: 1.625rem; } }
+@media all and (min-width: 98em)    { html { font-size: 1.75rem; }  }
+@media all and (min-width: 105em)   { html { font-size: 1.875rem; } }
+@media all and (min-width: 112em)   { html { font-size: 2rem; }     }
+@media all and (min-width: 119em)   { html { font-size: 2.125rem; } }
+@media all and (min-width: 126em)   { html { font-size: 2.25rem; }  }
+@media all and (min-width: 133em)   { html { font-size: 2.375rem; } }
+@media all and (min-width: 140em)   { html { font-size: 2.5rem; }   }
+@media all and (min-width: 147em)   { html { font-size: 2.625rem; } }
+@media all and (min-width: 154em)   { html { font-size: 2.75rem; }  }
+@media all and (min-width: 161em)   { html { font-size: 2.875rem; } }
+@media all and (min-width: 168em)   { html { font-size: 3rem; }     }
+
+/* For browsers that do support vw units, one font-size declaration is enough. */
+@media all and (min-width: 64em)  { html { font-size: 1.5625vw; } }
+
+@media all and (height: 13em)     { html { font-size: 0.8125rem; } } /* iPhone landscape height */
+/*@media all and (height: 17.9375em)  { html { font-size: 0.9344rem; } } /* Nexus Chrome landscape height */
+/*@media all and (height: 22.25em)    { html { font-size: 0.9271rem; } } /* iPhone portrait height */
+/*@media all and (height: 32.4375em)  { html { font-size: 1.0137rem; } } /* Nexus Chrome portrait height */
+@media all and (height: 42em)     { html { font-size: 1.05rem; }  } /* iPad landscape height */
+@media all and (height: 58em)     { html { font-size: 1.211rem; } } /* iPad portrait height. */

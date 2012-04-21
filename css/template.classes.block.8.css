@@ -1,0 +1,75 @@
+.block {
+  display: inline-block;
+  vertical-align: top;
+  width: 25%;
+  height: 10em;
+}
+
+.w2_block { width: 50%; }
+.h2_block { height: 20em; }
+.h3_block { height: 30em; }
+
+@media all and (min-width: 10em) { .block { width: 100%; }     .w2_block { width: 100%; } }
+@media all and (min-width: 20em) { .block { width: 50%; }      .w2_block { width: 100%; } }     /* iPhone portrait width. Nexus portrait width: 22.5em. */
+@media all and (min-width: 30em) { .block { width: 33.3333%; } .w2_block { width: 66.6667%; } } /* iPhone landscape width */
+@media all and (min-width: 40em) { .block { width: 25%; }      .w2_block { width: 50%; } }      /* iPad portrait width: 48em */
+@media all and (min-width: 50em) { .block { width: 20%; }      .w2_block { width: 40%; } }
+@media all and (min-width: 60em) { .block { width: 16.6667%; } .w2_block { width: 33.3333%; } } /* iPad landscape width: 64em */
+@media all and (min-width: 70em) { .block { width: 14.2857%; } .w2_block { width: 28.5714%; } }
+@media all and (min-width: 80em) { .block { width: 12.5%; }    .w2_block { width: 25%; } }
+
+@media all and (min-width: 90em ) { html { font-size: 1.125rem; } }
+@media all and (min-width: 100em) { html { font-size: 1.25rem; } }
+@media all and (min-width: 110em) { html { font-size: 1.375rem; } }
+@media all and (min-width: 120em) { html { font-size: 1.5rem; } }
+@media all and (min-width: 130em) { html { font-size: 1.625rem; } }
+@media all and (min-width: 140em) { html { font-size: 1.75rem; } }
+@media all and (min-width: 150em) { html { font-size: 1.875rem; } }
+@media all and (min-width: 160em) { html { font-size: 2rem; } }
+
+/* There's a limit to how wide block_wrap can get... 2560px, or 160rem */
+@media all and (min-width: 160em) { .block_wrap { width: 160rem; } }
+
+@media all and (min-height: 13em) {  } /* iPhone portrait height */
+@media all and (min-height: 17.9375em) { .block { font-size: 0.9rem; } } /* Nexus Chrome landscape height */
+@media all and (min-height: 22.25em) { .block { font-size: 1.1125rem; } } /* iPhone landscape height */
+@media all and (min-height: 24em) { .block { font-size: 1.2rem; } }
+@media all and (min-height: 26em) { .block { font-size: 1.3rem; } }
+@media all and (min-height: 28em) { .block { font-size: 1.4rem; } }
+@media all and (min-height: 30em) { .block { font-size: 1rem; } }
+@media all and (min-height: 32em) { .block { font-size: 1.0667rem; } }
+@media all and (min-height: 32.4375em) { .block { font-size: 1.0813rem; } } /* Nexus Chrome portrait height */
+@media all and (min-height: 34em) { .block { font-size: 1.1333rem; } }
+@media all and (min-height: 36em) { .block { font-size: 1.2rem; } }
+@media all and (min-height: 38em) { .block { font-size: 1.2667rem; } }
+@media all and (min-height: 40em) { .block { font-size: 1rem; } }
+@media all and (min-height: 42em) { .block { font-size: 1.05rem; } } /* iPad landscape height */
+@media all and (min-height: 44em) { .block { font-size: 1.1rem; } }
+@media all and (min-height: 46em) { .block { font-size: 1.15rem; } }
+@media all and (min-height: 48em) { .block { font-size: 1.2rem; } }
+@media all and (min-height: 50em) { .block { font-size: 1rem; } }
+@media all and (min-height: 52em) { .block { font-size: 1.04rem; } }
+@media all and (min-height: 54em) { .block { font-size: 1.08rem; } }
+@media all and (min-height: 56em) { .block { font-size: 1.12rem; } }
+@media all and (min-height: 58em) { .block { font-size: 1.163rem; } }  /* iPad portrait height. Should be font-size 1.16rem, added a little to get good rendering. */
+@media all and (min-height: 60em) { .block { font-size: 1rem; } }
+@media all and (min-height: 62em) { .block { font-size: 1.0333rem; } }
+@media all and (min-height: 64em) { .block { font-size: 1.0667rem; } }
+@media all and (min-height: 66em) { .block { font-size: 1.1rem; } }
+@media all and (min-height: 68em) { .block { font-size: 1.1333rem; } }
+@media all and (min-height: 70em) { .block { font-size: 1rem; } }
+@media all and (min-height: 72em) { .block { font-size: 1.0286rem; } }
+@media all and (min-height: 74em) { .block { font-size: 1.0571rem; } }
+@media all and (min-height: 76em) { .block { font-size: 1.0857rem; } }
+@media all and (min-height: 78em) { .block { font-size: 1.1143rem; } }
+@media all and (min-height: 80em) { .block { font-size: 1rem; } }
+@media all and (min-height: 82em) { .block { font-size: 1.025rem; } }
+@media all and (min-height: 84em) { .block { font-size: 1.05rem; } }
+@media all and (min-height: 86em) { .block { font-size: 1.075rem; } }
+@media all and (min-height: 88em) { .block { font-size: 1.1rem; } }
+@media all and (min-height: 90em) { .block { font-size: 1rem; } }
+@media all and (min-height: 92em) { .block { font-size: 1.0222rem; } }
+@media all and (min-height: 94em) { .block { font-size: 1.0444rem; } }
+@media all and (min-height: 96em) { .block { font-size: 1.0667rem; } }
+@media all and (min-height: 98em) { .block { font-size: 1.0889rem; } }
+@media all and (min-height: 100em) { .block { font-size: 1rem; } }
