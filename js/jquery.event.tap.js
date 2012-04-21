@@ -38,7 +38,7 @@
 
 
 (function(jQuery, undefined){
-	var debug = false;
+	var debug = true;//false;
 	
 	var duration = 280,
 	    amputateFlag = true,
@@ -95,8 +95,6 @@
 			var startTouch = cache[endTouch.identifier];
 			
 			delete cache[endTouch.identifier];
-			
-			//console.log(e.timeStamp - startTouch.timeStamp);
 			
 			if (
 				// If time since startTouch is less than duration
