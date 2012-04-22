@@ -1107,11 +1107,10 @@
 }
 
 
-/* .panel */
+/* .pane */
 
-.panel {
-	position: absolute;
-	overflow: visible;
+.pane {
+  position: relative;
 }
 
 
