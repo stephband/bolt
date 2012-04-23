@@ -1,7 +1,7 @@
 // vector.js
 //
 // Provides a Vector constructor (that works with or without the 'new'
-// keyword) which takes a pair of [x, y] values as an array, an object
+// keyword) which takes a pair of [x, y] values as an array, object
 // or as straight arguments.
 // 
 // Properties:
