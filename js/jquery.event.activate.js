@@ -1,8 +1,16 @@
 // jquery.event.activate
 // 
-// Provides activate and deactivate events for controlling
-// on/off state of dropdowns, tabs, popups or whatever else
-// can be enabled by adding the class 'active'.
+// Provides activate and deactivate special events for controlling
+// active state of dropdowns, tabs, dialogs and other on/off state
+// interface elements. Elements with special functions can be added
+// to the list of classes by extending the object:
+// 
+// jQuery.event.special.activate.classes
+// 
+// For dynamic apps where buttons are added and removed from the
+// DOM, turn element caching off:
+// 
+// jQuery.event.special.activate.cache = false;
 
 (function(jQuery, undefined){
 	var debug = true, //(window.debug === undefined ? (window.console && window.console.log) : window.debug),
@@ -19,12 +27,13 @@
 	
 	function cacheData(target) {
 		var id = target.id,
-		    data = jQuery.data(target, 'active');
+		    data = jQuery.data(target, 'active'),
+		    c;
 		
 		if (!data) {
 			data = {
 				elem: jQuery(target),
-				buttons: options.cache && id && jQuery('a[href="#'+id+'"]'),
+				buttons: options.cache && id && jQuery('a[href="#'+id+'"]')
 			};
 			
 			for (c in classes) {
@@ -125,13 +134,13 @@
 	};
 	
 	jQuery(document).ready(function(){
-		var id = window.location.hash;
+		var id = window.location.hash,
+		    classlist = '.' + Object.keys(classes).join('.active, .') + '.active';
 		
 		// Setup all things that should start out active. By limiting
-		// this to only nodes with an id, we avoid buttons sending out
-		// activate events - but should active state require an id? And
-		// what about buttons that do have an id? Hmmm.
-		jQuery('.active[id]').trigger('activate');
+		// this to only special classes, we avoid buttons sending out
+		// activate events.
+		jQuery(classlist).trigger('activate');
 		
 		// Activate the node that corresponds to the hashref
 		// in the location bar, checking if it's an alphanumeric

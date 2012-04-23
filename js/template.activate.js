@@ -3,7 +3,7 @@
 (function( jQuery, undefined ){
 	var debug = (window.console && window.console.log),
 	    
-	    classes = jQuery.event.special.activate.classes
+	    classes = jQuery.event.special.activate.classes,
 	    
 	    add = jQuery.event.add,
 	    
@@ -12,6 +12,18 @@
 	    trigger = function(node, type, data) {
 	    	jQuery.event.trigger(type, data, node);
 	    };
+
+	function identify(node) {
+		var id = node.id;
+
+		if (!id) {
+			do { id = Math.ceil(Math.random() * 1000000); }
+			while (document.getElementById(id));
+			node.id = id;
+		}
+
+		return id;
+	}
 
 	function preventDefault(e) {
 		e.preventDefault();
@@ -27,7 +39,7 @@
 	
 	// Mousedown on buttons toggle activate on their targets
 	.delegate('a[href^="#"]', 'mousedown tap', function(e) {
-		var link, id, target, elem, data, type;
+		var id, target, elem, data, type;
 
 		// Ignore mousedowns on any button other than the left (or primary)
 		// mouse button, or when a modifier key is pressed.
@@ -48,9 +60,12 @@
 		
 		// Decide what type this object is.
 		if (data && data.type) {
+			elem = data.elem;
 			type = data.type;
 		}
 		else {
+			elem = jQuery(target);
+
 			for (type in classes) {
 				if (elem.hasClass(type)) { break; }
 				else { type = undefined; }
@@ -60,8 +75,6 @@
 		// If it has no type, we have no business trying to activate
 		// it on mousedown.
 		if (!type) { return; }
-		
-		elem = (data && data.elem) || jQuery(target);
 
 		e.preventDefault();
 
@@ -84,25 +97,32 @@
 		
 		href = e.currentTarget.getAttribute('data-tip');
 		
-		if (href) {
-			if (!(/^#/.test(href))) {
-				//console.log('This tip does not reference an id. It must be text. Template doesn\'t support this yet. It says:', href);
-			}
+		if (href && !(/^#/.test(href))) {
+			elem = jQuery('<div/>', {
+				'class': 'tip',
+				text: href
+			});
+			
+			node = elem[0];
+			e.currentTarget.setAttribute('data-tip', '#' + identify(node));
+			jQuery(document.body).append(elem);
 		}
 		else {
-			href = e.currentTarget.hash;
+			if (!href) {
+				href = e.currentTarget.hash;
+			}
+
+			node = document.getElementById(href.substring(1));
+			
+			// If there is no node, there's no need to continue. Thanks.
+			if (!node) { return; }
+			
+			elem = jQuery(node);
+
+			// Get the active data that may have been created by a previous
+			// activate event.
+			data = jQuery.data(node, 'active');
 		}
-		
-		node = document.getElementById(href.substring(1));
-		
-		// If there is no node, there's no need to continue. Thanks.
-		if (!node) { return; }
-		
-		elem = jQuery(node);
-		
-		// Get the active data that may have been created by a previous
-		// activate event.
-		data = jQuery.data(node, 'active');
 		
 		// Decide what type this object is.
 		if (data && data.type) {

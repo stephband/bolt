@@ -13,6 +13,19 @@
 	    	jQuery.event.trigger(type, data, node);
 	    };
 
+
+	function identify(node) {
+		var id = node.id;
+
+		if (!id) {
+			do { id = Math.ceil(Math.random() * 1000000); }
+			while (document.getElementById(id));
+			node.id = id;
+		}
+
+		return id;
+	}
+
 	function isLeftButton(e) {
 		// Ignore mousedowns on any button other than the left (or primary)
 		// mouse button, or when a modifier key is pressed.
@@ -56,6 +69,7 @@
 		if (e.isDefaultPrevented()) { return; }
 	    				
 		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
+		e.preventDefault();
 	}
 
 	function jump(e) {
@@ -116,15 +130,22 @@
 		tip: {
 			activate: function (e, data, fn) {
 				var elem = data.elem,
-				    relatedTarget = jQuery(e.relatedTarget);
+				    relatedTarget = jQuery(e.relatedTarget),
+				    id = identify(e.target);
 						
 				elem.css(relatedTarget.offset());
-				add(document, 'tap', function tap() {
-					remove(document, 'tap', tap);
+				add(document, 'tap.' + id, function() {
 					trigger(e.target, 'deactivate');
 				});
 
 				fn();
+	    },
+
+	    deactivate: function (e, data, fn) {
+	    	var id = identify(e.target);
+	    	
+	    	remove(document, '.' + id);
+	    	fn();
 	    }
 	  },
 
@@ -140,15 +161,21 @@
 
 		popdown: {
 			activate: function(e, data, fn) {
+				var id = identify(e.target);
+
+				// Namespace delegated events with the id of the target so that
+				// we can easily unbind them again on deactivate.
 				add(e.target, 'click tap', close, e.target, 'a[href="#close"]');
-				add(document, 'mousedown touchstart', mousedown, e.target);
+				add(document, 'mousedown.' + id + ' touchstart.' + id, mousedown, e.target);
 
 				fn();
 			},
 
 			deactivate: function(e, data, fn) {
+				var id = identify(e.target);
+
 				remove(e.target, 'click tap', close);
-				remove(document, 'mousedown touchstart', mousedown);
+				remove(document, '.' + id);
 
 				fn();
 			}
@@ -156,15 +183,21 @@
 	    	
 		dropdown: {
 			activate: function(e, data, fn) {
+				var id = identify(e.target);
+
+				// Namespace delegated events with the id of the target so that
+				// we can easily unbind them again on deactivate.
 				add(e.target, 'click tap', click);
-				add(document, 'mousedown touchstart', mousedown, e.target);
+				add(document, 'mousedown.' + id + ' touchstart.' + id, mousedown, e.target);
 
 				fn();
 			},
 
 			deactivate: function(e, data, fn) {
+				var id = identify(e.target);
+
 				remove(e.target, 'click tap', click);
-				remove(document, 'mousedown touchstart', mousedown);
+				remove(document, '.' + id);
 
 				fn();
 			}
