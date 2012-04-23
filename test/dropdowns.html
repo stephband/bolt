@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" class="no_js">
 <head>
+	<!--script src="http://debug.phonegap.com/target/target-script-min.js#789789789"></script-->
+
 	<meta charset="utf-8" />
 	<meta name="author" content="">
 	<meta name="description" content="">
@@ -10,7 +12,7 @@
 	<script>document.documentElement.className = 'js';</script>
 	<!--script>document.write(unescape('%3Cscript src="http://'+window.location.hostname+':8081/target/target-script-min.js"%3E%3C/script%3E'));</script-->	
 	
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8, maximum-scale=1.2">
 	<!-- Force latest IE rendering engine & Chrome Frame -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<!-- Make IE recognise HTML5 elements for styling - must stay in the head, before elements are used -->
@@ -77,12 +79,11 @@
 <body>
 	<section>
 		<ul class="horizontal buttons_index index">
-			<li>
-				<a class="button" href="#popup">Popup</a>
-			</li>
-			<li>
-				<a class="button" href="#load">Load</a>
-			</li>
+			<li><a class="button" href="#dialog">dialog</a></li>
+			<li><a class="button" href="#alert_dialog">alert dialog</a></li>
+			<li><a class="button" href="#confirm_dialog">confirm dialog</a></li>
+			<li><a class="button" href="#lightbox_dialog">lightbox dialog</a></li>
+			<li><a class="button" href="#load">Load</a></li>
 		</ul>
 	</section>
 
@@ -211,7 +212,7 @@
 				<p>Tab 5</p>
 			</div
 			
-			><div class="tab" id="tab6">
+			><div class="tab active" id="tab6">
 				<p>Tab 6</p>
 			</div>
 		</div>
@@ -228,7 +229,7 @@
 				<p>Slide 1 ||||||||||||||||||||||||||||||||||||||||||||xxx||||||xxxxxxxxxxxxxx|||||||||||||xxxxxxxxxxxxxxxx|||||||||||||||||||xxxxxxxxxxxxx||||||||</p>
 			</div
 			
-			><div class="slide" id="slide2">
+			><div class="slide active" id="slide2">
 				<p>Slide 2 ||||||||||||||||||||||||||||||||||||||||||||xxx||||||xxxxxxxxxxxxxx|||||||||||||xxxxxxxxxxxxxxxx|||||||||||||||||||xxxxxxxxxxxxx||||||||</p>
 			</div
 			
@@ -238,32 +239,67 @@
 		</div>
 	</section>
 	
-	<p>Reload the page with <a href="test_dropdowns.html#drop1">dropdown1</a></p>
-	<p>Reload the page with <a href="test_dropdowns.html#pop2">popdown3</a></p>
-	<p>Reload the page with <a href="test_dropdowns.html#tab3">tab3</a></p>
+	<p>Reload the page with <a href="dropdowns.html#drop1">dropdown1</a></p>
+	<p>Reload the page with <a href="dropdowns.html#pop2">popdown3</a></p>
+	<p>Reload the page with <a href="dropdowns.html#tab3">tab3</a></p>
 	
 	
 	<script src="../res/es5-shim/es5-shim.js"></script>
 	<script src="../js/js.extensions.js"></script>
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="../js/jquery.js"%3E%3C/script%3E'));</script>
 	<script src="../js/jquery.extensions.js"></script>
+	<script src="../js/jquery.event.tap.js"></script>
 	<script src="../js/jquery.event.activate.js"></script>
+	<script src="../js/jquery.event.activate.classes.js"></script>
+	<script src="../js/jquery.event.activate.dialog.js"></script>
 	<script src="../js/jquery.transitionclass.js"></script>
-	<script src="../js/jquery.popup.js"></script>
+	<script src="../js/jquery.dialog.js"></script>
 	<script src="../js/jquery.loading.js"></script>
+	<script src="../js/template.activate.js"></script>
 	<script src="../js/template.ui.js"></script>
 	
 	<!--script src="../js/js.debug.js"></script-->
 	<script>
 		jQuery(document)
-		.delegate('a[href="#popup"]', 'mousedown', function(e) {
-			jQuery('<p>Hello</p>').dialog();
+		.delegate('a[href="#dialog"]', 'click tap', function(e) {
+			//('RABBIT');
+			jQuery('<p>Dialog</p>').dialog();
 			e.preventDefault();
 		})
-		.delegate('a[href="#load"]', 'mousedown', function(e) {
+		.delegate('a[href="#alert_dialog"]', 'click tap', function(e) {
+			jQuery('<p>Alert</p>').dialog('alert', {
+				callback: function() {
+					console.log('CALLBACK WORKING');
+				}
+			});
+
+			e.preventDefault();
+		})
+		.delegate('a[href="#confirm_dialog"]', 'click tap', function(e) {
+			jQuery('<p>Confirm</p>').dialog('confirm', {
+				callback: function() {
+					console.log('CALLBACK WORKING - SHOULD CANCEL deactivate');
+					return false;
+				}
+			});
+			e.preventDefault();
+		})
+		.delegate('a[href="#lightbox_dialog"]', 'click tap', function(e) {
+			jQuery('<p>Lightbox</p>').dialog('lightbox');
+			e.preventDefault();
+		})
+		.delegate('a[href="#load"]', 'click tap', function(e) {
 			jQuery('body').addLoading();
 			e.preventDefault();
-		});
+		})
+		.delegate('a[href="#tip1"]', 'touchstart', function(e) {
+			setTimeout(function(){ alert(list); list = ''; }, 2000);
+		})
+		.delegate('a[href="#tip1"]', 'touchstart mousedown tap click', function(e) {
+			list += ' ' + e.type;
+ 		});
+
+		var list = '';
 	</script>
 </body>
 </html>
