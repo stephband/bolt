@@ -5,10 +5,8 @@
 // can be enabled by adding the class 'active'.
 
 (function(jQuery, undefined){
-	var debug = true, //(window.debug === undefined ? (window.console && window.console.log) : window.debug),
-	    
-	    classes = {},
-	    
+	var debug = (window.debug === undefined ? (window.console && window.console.log) : window.debug),
+
 	    options = {
 	    	cache: true
 	    };
@@ -24,21 +22,15 @@
 		if (!data) {
 			data = {
 				elem: jQuery(target),
-				buttons: options.cache && id && jQuery('a[href="#'+id+'"]'),
+				buttons: options.cache && id && jQuery('a[href="#'+id+'"]')
 			};
-			
-			for (c in classes) {
-				if (data.elem.hasClass(c)) {
-					data.type = c;
-				}
-			}
 			
 			jQuery.data(target, 'active', data);
 		}
 		
 		return data;
 	}
-
+	
 	jQuery.event.special.activate = {
 		
 		// Don't use the DOM for this event
@@ -47,38 +39,26 @@
 		
 		_default: function(e) {
 			var data = cacheData(e.target),
-			    elem = data.elem,
 			    buttons;
 			
-			function activate() {
-				elem.addTransitionClass('active', function() {
-					elem.trigger('activateend');
-				});
-				
-				buttons = ((options.cache && data.buttons) || (e.target.id && jQuery('a[href="#'+e.target.id+'"]')));
-				
-				if (buttons) {
-					buttons.addClass('active');
-				}
-
-				data.state = true;
-			}
-
 			// Don't do anything if elem is already active
 			if (data.state) { return; }
 			
-			if (debug) { console.log('[activate] default | target:', e.target.id, 'data:', data, classes); }
+			if (debug) { console.log('[activate] default | target:', e.target.id, 'data:', data); }
 			
-			if (classes[data.type] && classes[data.type].activate) {
-				classes[data.type].activate(e, data, activate);
-			}
-			else {
-				activate();
+			data.state = true;
+			data.elem.addTransitionClass('active', function() {
+				data.elem.trigger('activateend');
+			});
+			
+			buttons = ((options.cache && data.buttons) || (e.target.id && jQuery('a[href="#'+e.target.id+'"]')));
+			
+			if (buttons) {
+				buttons.addClass('active');
 			}
 		},
 		
-		options: options,
-		classes: classes
+		options: options
 	};
 	
 	jQuery.event.special.deactivate = {
@@ -89,39 +69,26 @@
 		
 		_default: function(e) {
 			var data = cacheData(e.target),
-			    elem = data.elem,
 			    buttons;
-
-			function deactivate() {
-				data.state = false;
-				
-				elem.removeTransitionClass('active', function() {
-					elem.trigger('deactivateend');
-				});
-	
-				buttons = ((options.cache && data.buttons) || (e.target.id && jQuery('a[href="#'+e.target.id+'"]')));
-				
-				if (buttons) {
-					buttons.removeClass('active');
-				}
-			}
-
+			
 			// Don't do anything if elem is already inactive
 			if (!data.state) { return; }
-
+			
 			if (debug) { console.log('[deactivate] default | target:', e.target.id, 'active:', data.state); }
+			
+			data.state = false;
+			data.elem.removeTransitionClass('active', function() {
+				data.elem.trigger('deactivateend');
+			});
 
-			if (classes[data.type] && classes[data.type].deactivate) {
-				classes[data.type].deactivate(e, data, deactivate);
+			buttons = ((options.cache && data.buttons) || (e.target.id && jQuery('a[href="#'+e.target.id+'"]')));
+			
+			if (buttons) {
+				buttons.removeClass('active');
 			}
-			else {
-				deactivate();
-			}
-
 		},
 		
-		options: options,
-		classes: classes
+		options: options
 	};
 	
 	jQuery(document).ready(function(){
