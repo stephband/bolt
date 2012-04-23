@@ -44,6 +44,10 @@
 	    amputateFlag = true,
 	    cache = {};
 	
+	function returnTrue() {
+		return true;
+	}
+
 	function preventDefault(e) {
 		// Android browsers really don't like you messing with select boxes.
 		if (e.target.tagName.toLowerCase() === 'select') {
@@ -86,7 +90,7 @@
 				timeStamp: +e.timeStamp,
 				preventDefault: e.preventDefault,
 				checked: e.target.checked
-			}
+			};
 		});
 	}
 	
@@ -176,6 +180,11 @@
 	};
 
 	jQuery.event.special.tap = {
+		
+		// Don't use the DOM for this event
+		setup: returnTrue,
+		teardown: returnTrue,
+
 		_default: function(e) {
 			var target = jQuery(e.target).closest('a, label, input, select');
 			
