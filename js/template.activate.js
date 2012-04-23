@@ -101,7 +101,7 @@
 		trigger(target, { type: 'activate', relatedTarget: e.currentTarget });
 	})
 
-	// Mouseover on links toggle activate on their targets
+	// Mouseover on tip links toggle activate on their targets
 	.on('mouseover mouseout tap', 'a[href^="#"], [data-tip]', function(e) {
 		var href, node, elem, data, role;
 		
