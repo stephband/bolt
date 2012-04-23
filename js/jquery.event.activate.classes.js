@@ -95,7 +95,7 @@
 	  	}
 	  	else {
 	  		// Choose all sibling panes of the same class
-	  		panes = pane.siblings('.' + data.type).add(e.target);
+	  		panes = pane.siblings('.' + data.role).add(e.target);
 	  	}
 	  	
 	  	// Attach the panes object to each of the panes
@@ -143,7 +143,7 @@
 
 	    deactivate: function (e, data, fn) {
 	    	var id = identify(e.target);
-	    	
+
 	    	remove(document, '.' + id);
 	    	fn();
 	    }
@@ -166,7 +166,7 @@
 				// Namespace delegated events with the id of the target so that
 				// we can easily unbind them again on deactivate.
 				add(e.target, 'click tap', close, e.target, 'a[href="#close"]');
-				add(document, 'mousedown.' + id + ' touchstart.' + id, mousedown, e.target);
+				add(document, 'mousedown.' + id + ' tap.' + id, mousedown, e.target);
 
 				fn();
 			},
@@ -180,7 +180,7 @@
 				fn();
 			}
 		},
-	    	
+	  
 		dropdown: {
 			activate: function(e, data, fn) {
 				var id = identify(e.target);
@@ -188,7 +188,7 @@
 				// Namespace delegated events with the id of the target so that
 				// we can easily unbind them again on deactivate.
 				add(e.target, 'click tap', click);
-				add(document, 'mousedown.' + id + ' touchstart.' + id, mousedown, e.target);
+				add(document, 'mousedown.' + id + ' tap.' + id, mousedown, e.target);
 
 				fn();
 			},

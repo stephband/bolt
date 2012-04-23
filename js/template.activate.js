@@ -35,11 +35,24 @@
 		return (e.which === 1 && !e.ctrlKey && !e.altKey);
 	}
 	
+	function getRoleClass(node) {
+		var classList = node.className.split(/\s+/),
+		    l = classList.length,
+		    i = -1;
+
+		while (i++ < l) {
+			if (classes[classList[i]]) {
+				return classList[i];
+			}
+		}
+	}
+
+
 	jQuery(document)
 	
 	// Mousedown on buttons toggle activate on their targets
-	.delegate('a[href^="#"]', 'mousedown tap', function(e) {
-		var id, target, elem, data, type;
+	.on('mousedown tap', 'a[href^="#"]', function(e) {
+		var id, target, elem, data, role;
 
 		// Ignore mousedowns on any button other than the left (or primary)
 		// mouse button, or when a modifier key is pressed.
@@ -57,55 +70,54 @@
 		// Get the active data that may have been created by a previous
 		// activate event.
 		data = jQuery.data(target, 'active');
-		
-		// Decide what type this object is.
-		if (data && data.type) {
+
+		// Decide what role this object is.
+		if (data && data.role) {
 			elem = data.elem;
-			type = data.type;
+			role = data.role;
 		}
 		else {
 			elem = jQuery(target);
-
-			for (type in classes) {
-				if (elem.hasClass(type)) { break; }
-				else { type = undefined; }
-			}
+			role = elem.data('role') || getRoleClass(target);
 		}
 		
-		// If it has no type, we have no business trying to activate
+		// If it has no role, we have no business trying to activate
 		// it on mousedown.
-		if (!type) { return; }
+		if (!role) { return; }
 
 		e.preventDefault();
 
-		add(e.currentTarget, 'click tap', preventDefault);
+		// Prevent the click that follows the mousedown.
+		if (e.type === 'mousedown') { add(e.currentTarget, 'click', preventDefault); }
 
-		if (!classes[type]) { return; }
+		if (!classes[role]) { return; }
 
 		if ((data && data.state) || (!data && elem.hasClass('active'))) { return; }
 
 		if (!data) {
-			jQuery.data(target, 'active', { type: type, elem: elem });
+			jQuery.data(target, 'active', { role: role, elem: elem });
 		}
-			
+		
 		trigger(target, { type: 'activate', relatedTarget: e.currentTarget });
 	})
 
 	// Mouseover on links toggle activate on their targets
-	.delegate('a[href^="#"], [data-tip]', 'mouseover mouseout tap', function(e) {
-		var href, node, elem, data, type;
+	.on('mouseover mouseout tap', 'a[href^="#"], [data-tip]', function(e) {
+		var href, node, elem, data, role;
 		
 		href = e.currentTarget.getAttribute('data-tip');
 		
 		if (href && !(/^#/.test(href))) {
+			// The data-tip attribute holds text. Create a tip node and
+			// stick it in the DOM
 			elem = jQuery('<div/>', {
 				'class': 'tip',
-				text: href
+				'text': href
 			});
-			
 			node = elem[0];
+			role = 'tip';
 			e.currentTarget.setAttribute('data-tip', '#' + identify(node));
-			jQuery(document.body).append(elem);
+			document.body.appendChild(node);
 		}
 		else {
 			if (!href) {
@@ -116,36 +128,35 @@
 			
 			// If there is no node, there's no need to continue. Thanks.
 			if (!node) { return; }
-			
-			elem = jQuery(node);
 
 			// Get the active data that may have been created by a previous
 			// activate event.
 			data = jQuery.data(node, 'active');
+
+			elem = (data && data.elem) || jQuery(node);
 		}
 		
-		// Decide what type this object is.
-		if (data && data.type) {
-			type = data.type;
-		}
-		else {
-			for (type in classes) {
-				if (elem.hasClass(type)) { break; }
-				else { type = undefined; }
+		// Decide what role this object is.
+		if (!role) {
+			if (data && data.role) {
+				role = data.role;
+			}
+			else {
+				role = elem.data('role') || getRoleClass(node);
 			}
 		}
 
-		if (type && !data) {
-		  jQuery.data(elem[0], 'active', { type: type, elem: elem });
+		if (role && !data) {
+		  jQuery.data(elem[0], 'active', { role: role, elem: elem });
 		}
 
-		// If it has not type tip, we have no business trying to activate
+		// If it has not the role tip, we have no business trying to activate
 		// it on hover.
-		if (type !== 'tip') { return; }
+		if (role !== 'tip') { return; }
 		
 		// Tap events should make tips show immediately
 		if (e.type === 'tap') {
-			elem.css(jQuery.prefix('transition')+'Delay', '0ms');
+			elem.css(jQuery.prefix('transition')+'Delay', '0');
 		}
 		
 		elem.trigger(e.type === 'mouseout' ? 'deactivate' : { type: 'activate', relatedTarget: e.currentTarget });

@@ -10,14 +10,14 @@
 // For dynamic apps where buttons are added and removed from the
 // DOM, turn element caching off:
 // 
-// jQuery.event.special.activate.cache = false;
+// jQuery.event.special.activate.settings.cache = false;
 
 (function(jQuery, undefined){
 	var debug = true, //(window.debug === undefined ? (window.console && window.console.log) : window.debug),
 	    
 	    classes = {},
 	    
-	    options = {
+	    settings = {
 	    	cache: true
 	    };
 	
@@ -25,27 +25,43 @@
 		return true;
 	}
 	
+	function getRoleClass(node) {
+		var classList = node.className.split(/\s+/),
+		    l = classList.length,
+		    i = -1;
+
+		while (i++ < l) {
+			if (classes[classList[i]]) {
+				return classList[i];
+			}
+		}
+	}
+
 	function cacheData(target) {
-		var id = target.id,
-		    data = jQuery.data(target, 'active'),
-		    c;
+		var data = jQuery.data(target, 'active'),
+		    id;
 		
 		if (!data) {
+			id = target.id;
+
 			data = {
 				elem: jQuery(target),
-				buttons: options.cache && id && jQuery('a[href="#'+id+'"]')
+				buttons: settings.cache && id && jQuery('a[href="#'+id+'"]')
 			};
 			
-			for (c in classes) {
-				if (data.elem.hasClass(c)) {
-					data.type = c;
-				}
-			}
+			data.role = data.elem.data('role') || getRoleClass(target);
 			
 			jQuery.data(target, 'active', data);
 		}
 		
 		return data;
+	}
+
+	function findButtons(data, fn) {
+		var id = data.elem[0].id,
+		    buttons = ((settings.cache && data.buttons) || (id && jQuery('a[href="#' + id + '"]')));
+		
+		if (buttons && buttons.length) { fn(buttons); }
 	}
 
 	jQuery.event.special.activate = {
@@ -57,18 +73,18 @@
 		_default: function(e) {
 			var data = cacheData(e.target),
 			    elem = data.elem,
-			    buttons;
+			    role = data.role,
+			    obj = classes[role];
 			
 			function activate() {
 				elem.addTransitionClass('active', function() {
 					elem.trigger('activateend');
+					if (obj && obj.activateend) { obj.activateend(e, data); }
 				});
 				
-				buttons = ((options.cache && data.buttons) || (e.target.id && jQuery('a[href="#'+e.target.id+'"]')));
-				
-				if (buttons) {
+				findButtons(data, function(buttons) {
 					buttons.addClass('active');
-				}
+				});
 
 				data.state = true;
 			}
@@ -78,15 +94,15 @@
 			
 			if (debug) { console.log('[activate] default | target:', e.target.id, 'data:', data, classes); }
 			
-			if (classes[data.type] && classes[data.type].activate) {
-				classes[data.type].activate(e, data, activate);
+			if (obj && obj.activate) {
+				obj.activate(e, data, activate);
 			}
 			else {
 				activate();
 			}
 		},
 		
-		options: options,
+		settings: settings,
 		classes: classes
 	};
 	
@@ -99,20 +115,20 @@
 		_default: function(e) {
 			var data = cacheData(e.target),
 			    elem = data.elem,
-			    buttons;
+			    role = data.role,
+			    obj = classes[role];
 
 			function deactivate() {
 				data.state = false;
 				
 				elem.removeTransitionClass('active', function() {
 					elem.trigger('deactivateend');
+					if (obj && obj.deactivateend) { obj.deactivateend(e, data); }
 				});
 	
-				buttons = ((options.cache && data.buttons) || (e.target.id && jQuery('a[href="#'+e.target.id+'"]')));
-				
-				if (buttons) {
+				findButtons(data, function(buttons) {
 					buttons.removeClass('active');
-				}
+				});
 			}
 
 			// Don't do anything if elem is already inactive
@@ -120,16 +136,15 @@
 
 			if (debug) { console.log('[deactivate] default | target:', e.target.id, 'active:', data.state); }
 
-			if (classes[data.type] && classes[data.type].deactivate) {
-				classes[data.type].deactivate(e, data, deactivate);
+			if (obj && obj.deactivate) {
+				obj.deactivate(e, data, deactivate);
 			}
 			else {
 				deactivate();
 			}
-
 		},
 		
-		options: options,
+		settings: settings,
 		classes: classes
 	};
 	

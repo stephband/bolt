@@ -94,7 +94,6 @@
         // Hmm. jQuery doesn't seem to like animating these. Investigate.
         borderWidth: true,
         borderBottomWidth: true
-        //opacity: true,
       },
       
       propProps = ('color, fontSize, fontWeight, letterSpacing, lineHeight, textIndent, textShadow, verticalAlign, wordSpacing, backgroundColor, backgroundPosition, backgroundImage, borderColor, borderSpacing, ' +
@@ -369,7 +368,10 @@
     
     jQuery.removeData(node, 'transition');
     jQuery.event.remove(node, support.cssTransitionEnd, transitionend);
-    if (debug) { console.log('[transition] Transition ended target:', node.id); }
+    if (debug) { console.log('[transition] Transition ended target:', node.id + '.' + node.className.split(/\s+/).join('.')); }
+    
+    // Call the transition end callback
+    data.fn && data.fn.apply(node);
   }
   
   function transitionend (e) {
@@ -384,9 +386,10 @@
     delete data.properties[e.propertyName];
     data.length--;
     
-    if (!data.length) { removeTransition(node, data); }
-
-    data.fn && data.fn.apply(node);
+    // When the last property has finished transitioning...
+    if (!data.length) {
+      removeTransition(node, data);
+    }
   }
   
   function mergeData(node, newData, curData) {
@@ -457,7 +460,7 @@
         return this;
       }
       
-      if (debug) { console.log('[transition] Transition start target:', node.id, 'properties:', Object.keys(data.properties).join(' ')); }
+      if (debug) { console.log('[transition] Transition start target:', node.id + '.' + node.className.split(/\s+/).join('.'), 'properties:', Object.keys(data.properties).join(' ')); }
       
       if (currentData) {
         // merge data with currentData
