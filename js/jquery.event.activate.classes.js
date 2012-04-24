@@ -82,22 +82,42 @@
 	}
 
 	function movestartSlide(e) {
-		var pane = e.data;
+		var panes = e.data;
 
-		pane.addClass('notransition');
+		panes.elem.parent().addClass('notransition');
 	}
 
 	function moveSlide(e) {
-		var pane = e.data;
+		var panes = e.data,
+		    left = 100 * e.deltaX/panes.pane.offsetWidth;
 
-		pane.css({ left: (100 * e.deltaX/pane.width()) + '%' });
+		panes.pane.style.left = left + '%';
+		if (panes.next) {
+			panes.next.style.left = (left+100)+'%';
+			panes.next.style.height = 'auto';
+		}
+		if (panes.prev) {
+			panes.prev.style.left = (left-100)+'%';
+			panes.prev.style.height = 'auto';
+		}
 	}
 
 	function moveendSlide(e) {
-		var pane = e.data;
+		var panes = e.data;
 
-		pane.removeClass('notransition');
-		pane.css({ left: '' });
+		panes.elem.parent().removeClass('notransition');
+		
+		setTimeout( function() {
+			panes.pane.style.left = '';
+			if (panes.next) {
+				panes.next.style.left = '';
+				panes.next.style.height = '';
+			}
+			if (panes.prev) {
+				panes.prev.style.left = '';
+				panes.prev.style.height = '';
+			}
+		}, 0);
 	}
 
 	function activatePane(e, data, fn) {
@@ -127,20 +147,29 @@
 			panes = paneData.panes;
 	  }
 	  
-	  add(target, 'movestart', movestartSlide, pane);
-	  add(target, 'move', moveSlide, pane);
-	  add(target, 'moveend', moveendSlide, pane);
-		add(target, 'swiperight', jump, panes[(panes.index(target) - 1) % panes.length]);
-		add(target, 'swipeleft',  jump, panes[(panes.index(target) + 1) % panes.length]);
+	  var siblings = {
+			next: panes[panes.index(target) + 1],
+			prev: panes[panes.index(target) - 1],
+			pane: target,
+			elem: pane
+	  };
+
+	  add(target, 'movestart', movestartSlide, siblings);
+	  add(target, 'move', moveSlide, siblings);
+	  add(target, 'moveend', moveendSlide, siblings);
+		add(target, 'swiperight', jump, panes[(panes.index(target) - 1)]);
+		add(target, 'swipeleft',  jump, panes[(panes.index(target) + 1)]);
 	  add(target, 'click tap',  jump, panes[(panes.index(target) - 1) % panes.length], 'a[href="#prev"]');
 	  add(target, 'click tap',  jump, panes[(panes.index(target) + 1) % panes.length], 'a[href="#next"]');
+
+		var activePanes = panes.not(target).filter('.active');
 
 	  fn();
 
 	  // Deactivate the previous active pane AFTER this pane has been
 	  // activated. It's important for panes who's style depends on the
 	  // current active pane, eg: .slide.active ~ .slide
-	  panes.not(e.target).trigger('deactivate');
+	  activePanes.trigger('deactivate');
 	}
 
 	function deactivatePane(e, data, fn) {

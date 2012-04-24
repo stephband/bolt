@@ -77,9 +77,9 @@
         marginRight: true,
         top: true,
         bottom: true,
-        left: true,
+      //  left: true,
         right: true,
-        fontSize: true
+      //  fontSize: true
       },
       
       transProps = {
