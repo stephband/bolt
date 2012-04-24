@@ -67,7 +67,7 @@
 
 		// A prevented default means this link has already been handled.
 		if (e.isDefaultPrevented()) { return; }
-	    				
+	
 		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
 		e.preventDefault();
 	}
@@ -81,6 +81,25 @@
 		e.preventDefault();
 	}
 
+	function movestartSlide(e) {
+		var pane = e.data;
+
+		pane.addClass('notransition');
+	}
+
+	function moveSlide(e) {
+		var pane = e.data;
+
+		pane.css({ left: (100 * e.deltaX/pane.width()) + '%' });
+	}
+
+	function moveendSlide(e) {
+		var pane = e.data;
+
+		pane.removeClass('notransition');
+		pane.css({ left: '' });
+	}
+
 	function activatePane(e, data, fn) {
 	  var target = e.target,
 	      pane = data.elem,
@@ -88,28 +107,33 @@
 		    selector, panes, l;
 	  
 	  if (!paneData) {
-	  	selector = pane.data('selector');
-	  	
-	  	if (selector) {
-	  		panes = jQuery(selector);
-	  	}
-	  	else {
-	  		// Choose all sibling panes of the same class
-	  		panes = pane.siblings('.' + data.role).add(e.target);
-	  	}
-	  	
-	  	// Attach the panes object to each of the panes
-	  	l = panes.length;
-	  	while (l--) {
-	  		jQuery.data(panes[l], 'activePane', { panes: panes });
-	  	}
+			selector = pane.data('selector');
+			
+			if (selector) {
+				panes = jQuery(selector);
+			}
+			else {
+				// Choose all sibling panes of the same class
+				panes = pane.siblings('.' + data.role).add(e.target);
+			}
+			
+			// Attach the panes object to each of the panes
+			l = panes.length;
+			while (l--) {
+				jQuery.data(panes[l], 'activePane', { panes: panes });
+			}
 	  }
-	  else {
-	  	panes = paneData.panes;
+		else {
+			panes = paneData.panes;
 	  }
 	  
-	  add(target, 'click tap', jump, panes[(panes.index(target) - 1) % panes.length], 'a[href="#prev"]');
-	  add(target, 'click tap', jump, panes[(panes.index(target) + 1) % panes.length], 'a[href="#next"]');
+	  add(target, 'movestart', movestartSlide, pane);
+	  add(target, 'move', moveSlide, pane);
+	  add(target, 'moveend', moveendSlide, pane);
+		add(target, 'swiperight', jump, panes[(panes.index(target) - 1) % panes.length]);
+		add(target, 'swipeleft',  jump, panes[(panes.index(target) + 1) % panes.length]);
+	  add(target, 'click tap',  jump, panes[(panes.index(target) - 1) % panes.length], 'a[href="#prev"]');
+	  add(target, 'click tap',  jump, panes[(panes.index(target) + 1) % panes.length], 'a[href="#next"]');
 
 	  fn();
 
@@ -120,8 +144,7 @@
 	}
 
 	function deactivatePane(e, data, fn) {
-		remove(e.target, 'click tap', jump);  // 'a[href="#next"]'
-		//remove(e.target, 'click tap', jump);  // 'a[href="#prev"]'
+		remove(e.target, 'click tap swiperight swipeleft', jump);
 
 		fn();
 	}
@@ -142,10 +165,10 @@
 	    },
 
 	    deactivate: function (e, data, fn) {
-	    	var id = identify(e.target);
+				var id = identify(e.target);
 
-	    	remove(document, '.' + id);
-	    	fn();
+				remove(document, '.' + id);
+				fn();
 	    }
 	  },
 

@@ -1049,10 +1049,8 @@
 }
 
 .js .slide.active {
-	/* The .active slide is positioned in the centre. It's important because
-	   this rule has to override the following one - even if an active slide
-	   follows an active slide, it should be put at left: 0; */
-	left: 0 !important;
+	/* The .active slide is positioned in the centre. */
+	left: 0;
 	height: auto;
 	overflow: visible;
 	z-index: 2;
@@ -1062,6 +1060,11 @@
 	/* All slides after the .active slide are positioned off to
 	   the right. */
 	left: 100%;
+}
+
+.js .slide.active ~ .slide.active {
+	/* Except, of course, any that are still active. */
+	left: 0;
 }
 
 
