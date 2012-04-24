@@ -120,62 +120,23 @@
 		}, 0);
 	}
 
-	function activatePane(e, data, fn) {
-	  var target = e.target,
-	      pane = data.elem,
-	      paneData = pane.data('activePane'),
-		    selector, panes, l;
-	  
-	  if (!paneData) {
-			selector = pane.data('selector');
-			
-			if (selector) {
-				panes = jQuery(selector);
-			}
-			else {
-				// Choose all sibling panes of the same class
-				panes = pane.siblings('.' + data.role).add(e.target);
-			}
+	function cachePaneData(target, data) {
+		var panes = jQuery.data(target, 'activePane'),
+		    l;
+
+	  if (!panes) {
+			// Choose all sibling panes of the same class
+
+			panes = data.elem.siblings('.' + data.role).add(target);
 			
 			// Attach the panes object to each of the panes
 			l = panes.length;
 			while (l--) {
-				jQuery.data(panes[l], 'activePane', { panes: panes });
+				jQuery.data(panes[l], 'activePane', panes);
 			}
 	  }
-		else {
-			panes = paneData.panes;
-	  }
-	  
-	  var siblings = {
-			next: panes[panes.index(target) + 1],
-			prev: panes[panes.index(target) - 1],
-			pane: target,
-			elem: pane
-	  };
 
-	  add(target, 'movestart', movestartSlide, siblings);
-	  add(target, 'move', moveSlide, siblings);
-	  add(target, 'moveend', moveendSlide, siblings);
-		add(target, 'swiperight', jump, panes[(panes.index(target) - 1)]);
-		add(target, 'swipeleft',  jump, panes[(panes.index(target) + 1)]);
-	  add(target, 'click tap',  jump, panes[(panes.index(target) - 1) % panes.length], 'a[href="#prev"]');
-	  add(target, 'click tap',  jump, panes[(panes.index(target) + 1) % panes.length], 'a[href="#next"]');
-
-		var activePanes = panes.not(target).filter('.active');
-
-	  fn();
-
-	  // Deactivate the previous active pane AFTER this pane has been
-	  // activated. It's important for panes who's style depends on the
-	  // current active pane, eg: .slide.active ~ .slide
-	  activePanes.trigger('deactivate');
-	}
-
-	function deactivatePane(e, data, fn) {
-		remove(e.target, 'click tap swiperight swipeleft', jump);
-
-		fn();
+	  return panes;
 	}
 
 	jQuery.extend(jQuery.event.special.activate.classes, {
@@ -202,13 +163,69 @@
 	  },
 
 		tab: {
-			activate: activatePane,
-			deactivate: deactivatePane
+			activate: function activatePane(e, data, fn) {
+				var target = e.target,
+				    panes = cachePaneData(e.target, data),
+				    active;
+
+				add(target, 'click tap',  jump, panes[(panes.index(target) - 1) % panes.length], 'a[href="#prev"]');
+				add(target, 'click tap',  jump, panes[(panes.index(target) + 1) % panes.length], 'a[href="#next"]');
+
+				active = panes.not(target).filter('.active');
+
+				fn();
+
+				// Deactivate the previous active pane AFTER this pane has been
+				// activated. It's important for panes who's style depends on the
+				// current active pane, eg: .slide.active ~ .slide
+				active.trigger('deactivate');
+			},
+
+			deactivate: function(e, data, fn) {
+				remove(e.target, 'click tap swiperight swipeleft', jump);
+				fn();
+			}
 		},
 
 		slide: {
-			activate: activatePane,
-			deactivate: deactivatePane
+			activate: function activatePane(e, data, fn) {
+				var target = e.target,
+				    pane = data.elem,
+				    panes = cachePaneData(e.target, data),
+				    siblings = {
+				    	next: panes[panes.index(target) + 1],
+				    	prev: panes[panes.index(target) - 1],
+				    	pane: target,
+				    	elem: pane
+				    },
+				    active;
+
+				add(target, 'movestart', movestartSlide, siblings);
+				add(target, 'move', moveSlide, siblings);
+				add(target, 'moveend', moveendSlide, siblings);
+				add(target, 'swiperight', jump, siblings.prev);
+				add(target, 'swipeleft',  jump, siblings.next);
+				add(target, 'click tap',  jump, panes[(panes.index(target) - 1) % panes.length], 'a[href="#prev"]');
+				add(target, 'click tap',  jump, panes[(panes.index(target) + 1) % panes.length], 'a[href="#next"]');
+
+				active = panes.not(target).filter('.active');
+
+				fn();
+
+				// Deactivate the previous active pane AFTER this pane has been
+				// activated. It's important for panes who's style depends on the
+				// current active pane, eg: .slide.active ~ .slide
+				active.trigger('deactivate');
+			},
+
+			deactivate: function(e, data, fn) {
+				remove(e.target, 'click tap swiperight swipeleft', jump);
+				remove(e.target, 'movestart', movestartSlide);
+				remove(e.target, 'move', moveSlide);
+				remove(e.target, 'moveend', moveendSlide);
+
+				fn();
+			}
 		},
 
 		popdown: {

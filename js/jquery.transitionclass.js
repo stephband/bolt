@@ -74,11 +74,14 @@
         height: true,
         width: true,
         marginLeft: true,
-        marginRight: true,
-        top: true,
-        bottom: true,
+        marginRight: true
+      // I'm commenting these out because they're rarely used, and 'left'
+      // is causing a problem for slide activation. And things are starting
+      // to feel sluggish.
+      //  top: true,
+      //  bottom: true,
       //  left: true,
-        right: true,
+      //  right: true,
       //  fontSize: true
       },
       
