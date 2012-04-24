@@ -26,7 +26,7 @@
 // Make jQuery copy touch event properties over to the jQuery event
 // object, if they are not already listed.
 (function(jQuery, undefined){
-	var props = ["radiusX", "radiusY", "rotationAngle", "force", "touches", "targetTouches", "changedTouches"],
+	var props = ["touches", "targetTouches", "changedTouches"],
 	    l = props.length;
 	
 	while (l--) {
