@@ -1,15 +1,17 @@
 // jQuery.event.swipe
-// 0.2
+// 0.4
 // Stephen Band
 
 // Dependencies
-// jQuery.event.move
+// jQuery.event.move 1.0
 
 // One of swipeleft, swiperight, swipeup or swipedown is triggered on
 // moveend, when the move has covered a threshold ratio of the dimension
-// of the target node. The default is 0.5. It can be changed with:
-// 
-// jQuery.event.special.swipe.settings
+// of the target node, or has gone really fast. Threshold and velocity
+// sensitivity changed with:
+//
+// jQuery.event.special.swipe.settings.threshold
+// jQuery.event.special.swipe.settings.sensitivity
 
 (function(jQuery, undefined){
 	var add = jQuery.event.add,
@@ -25,40 +27,55 @@
 	    // Ratio of the width (or height) of the target node must be
 	    // swiped before being considered a swipe.
 	    settings = {
-	    	threshold: 0.4
+	    	// Ratio of distance over target finger must travel to be
+	    	// considered a swipe.
+	    	threshold: 0.4,
+	    	// Faster fingers can travel shorter distances to be considered
+	    	// swipes. 'sensitivity' controls how much. Bigger is shorter.
+	    	sensitivity: 2
 	    };
 
-	function returnTrue() {
-		return true;
-	}
-
 	function moveend(e) {
-		var w = e.target.offsetWidth,
-		    h = e.target.offsetHeight;
+		var w, h, event;
 
+		w = e.target.offsetWidth;
+		h = e.target.offsetHeight;
+
+		// Copy over some useful properties from the move event
+		event = {
+			distX: e.distX,
+			distY: e.distY,
+			velocityX: e.velocityX,
+			velocityY: e.velocityY,
+			finger: e.finger
+		};
 
 		// Find out which of the four directions was swiped
-		if (e.deltaX > e.deltaY) {
-			if (e.deltaX > -e.deltaY) {
-				if (e.deltaX/w > settings.threshold) {
-					trigger(e.currentTarget, 'swiperight');
+		if (e.distX > e.distY) {
+			if (e.distX > -e.distY) {
+				if (e.distX/w > settings.threshold || e.velocityX * e.distX/w * settings.sensitivity > 1) {
+					event.type = 'swiperight';
+					trigger(e.currentTarget, event);
 				}
 			}
 			else {
-				if (-e.deltaY/h > settings.threshold) {
-					trigger(e.currentTarget, 'swipeup');
+				if (-e.distY/h > settings.threshold || e.velocityY * e.distY/w * settings.sensitivity > 1) {
+					event.type = 'swipeup';
+					trigger(e.currentTarget, event);
 				}
 			}
 		}
 		else {
-			if (e.deltaX > -e.deltaY) {
-				if (e.deltaY/h > settings.threshold) {
-					trigger(e.currentTarget, 'swipedown');
+			if (e.distX > -e.distY) {
+				if (e.distY/h > settings.threshold || e.velocityY * e.distY/w * settings.sensitivity > 1) {
+					event.type = 'swipedown';
+					trigger(e.currentTarget, event);
 				}
 			}
 			else {
-				if (-e.deltaX/w > settings.threshold) {
-					trigger(e.currentTarget, 'swipeleft');
+				if (-e.distX/w > settings.threshold || e.velocityX * e.distX/w * settings.sensitivity > 1) {
+					event.type = 'swipeleft';
+					trigger(e.currentTarget, event);
 				}
 			}
 		}
