@@ -73,6 +73,17 @@
 		.tab {
 			min-height: 4em;
 		}
+
+		.img_slides_wrap {
+			width: 843px;
+			border: 8px solid #252525;
+			overflow: hidden;
+			background-color: #444444;
+		}
+
+		.img_slide {
+			height: 465px !important;
+		}
 	</style>
 </head>
 
@@ -223,18 +234,23 @@
 			<li><a class="slide_button button" href="#slide1">Slide 1</a></li>
 			<li><a class="slide_button button" href="#slide2">Slide 2</a></li>
 			<li><a class="slide_button button" href="#slide3">Slide 3</a></li>
+			<li><a class="slide_button button" href="#slide4">Slide 4</a></li>
 		</ul>
-		<div class="slides_wrap">
-			<div class="slide" id="slide1">
-				<p>Slide 1 ||||||||||||||||||||||||||||||||||||||||||||xxx||||||xxxxxxxxxxxxxx|||||||||||||xxxxxxxxxxxxxxxx|||||||||||||||||||xxxxxxxxxxxxx||||||||</p>
+		<div class="img_slides_wrap slides_wrap wrap">
+			<div class="img_slide slide" id="slide1">
+				<img src="https://lh5.googleusercontent.com/-MShhyv4lWuM/T4Si18g0XsI/AAAAAAAAANU/Nnnxh68myRA/s827/Norway_201241.png" />
 			</div
 			
-			><div class="slide active" id="slide2">
-				<p>Slide 2 ||||||||||||||||||||||||||||||||||||||||||||xxx||||||xxxxxxxxxxxxxx|||||||||||||xxxxxxxxxxxxxxxx|||||||||||||||||||xxxxxxxxxxxxx||||||||</p>
+			><div class="img_slide slide active" id="slide2">
+				<img src="https://lh3.googleusercontent.com/-9_uG9zfLoIg/T4ShjaNedbI/AAAAAAAAAKc/0zfSJfF6fAM/s827/Norway_201212.png" />
 			</div
 			
-			><div class="slide" id="slide3">
-				<p>Slide 3 ||||||||||||||||||||||||||||||||||||||||||||xxx||||||xxxxxxxxxxxxxx|||||||||||||xxxxxxxxxxxxxxxx|||||||||||||||||||xxxxxxxxxxxxx||||||||</p>
+			><div class="img_slide slide" id="slide3">
+				<img src="https://lh6.googleusercontent.com/-n31QkVB4M9c/T4SjckZM1TI/AAAAAAAAAOs/H26JyEo9970/s827/Norway_201276.png" />
+			</div
+
+			><div class="img_slide slide" id="slide4">
+				<img src="https://lh6.googleusercontent.com/-jti_dD8mDiQ/T4ShY14T5HI/AAAAAAAAAKE/-jF6OT_zmb4/s827/Norway_2012102.png" />
 			</div>
 		</div>
 	</section>
@@ -254,7 +270,7 @@
 	<script src="../js/jquery.event.activate.js"></script>
 	<script src="../js/jquery.event.activate.classes.js"></script>
 	<script src="../js/jquery.event.activate.dialog.js"></script>
-	<script src="../js/jquery.transitionclass.js"></script>
+	<script src="../js/jquery.transitionclass_fallback.js"></script>
 	<script src="../js/jquery.dialog.js"></script>
 	<script src="../js/jquery.loading.js"></script>
 	<script src="../js/template.activate.js"></script>

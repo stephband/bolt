@@ -23,7 +23,7 @@
 
 
 (function(jQuery, undefined){
-	var threshold = 3,
+	var threshold = 6,
 	
 	    add = jQuery.event.add,
 	

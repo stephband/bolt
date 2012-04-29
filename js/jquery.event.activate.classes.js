@@ -1,5 +1,5 @@
 // jQuery.event.activate.classes
-// 
+//
 // Extends the default behaviour of the activate and deactivate
 // events with things to do when they are triggered on elements
 // with various classes.
@@ -75,7 +75,7 @@
 	function jump(e) {
 		// A prevented default means this link has already been handled.
 		if (e.isDefaultPrevented()) { return; }
-		
+
 		// e.data is the pane to jump to.
 		trigger(e.data, 'activate');
 		e.preventDefault();
@@ -84,21 +84,43 @@
 	function movestartSlide(e) {
 		var panes = e.data;
 
+		// If the movestart heads off in a upwards or downwards direction,
+		// 
+		if ((e.distX > e.distY && e.distX < -e.distY) ||
+			(e.distX < e.distY && e.distX > -e.distY)) {
+			e.preventDefault();
+			return;
+		}
+
 		panes.elem.parent().addClass('notransition');
 	}
 
 	function moveSlide(e) {
 		var panes = e.data,
-		    left = 100 * e.deltaX/panes.pane.offsetWidth;
+		    left = 100 * e.distX/panes.pane.offsetWidth;
 
-		panes.pane.style.left = left + '%';
-		if (panes.next) {
+		
+		// This gets the slide effect roughly right. By the time
+		// overflow is hidden, we'll never notice.
+		if (e.distX < 0) {
+			if (panes.next) {
+			panes.pane.style.left = left + '%';
 			panes.next.style.left = (left+100)+'%';
-			panes.next.style.height = 'auto';
+			//panes.next.style.height = 'auto';
+			}
+			else {
+			panes.pane.style.left = left/5 + '%';
+			}
 		}
-		if (panes.prev) {
+		if (e.distX > 0) {
+			if (panes.prev) {
+			panes.pane.style.left = left + '%';
 			panes.prev.style.left = (left-100)+'%';
-			panes.prev.style.height = 'auto';
+			//panes.prev.style.height = 'auto';
+			}
+			else {
+			panes.pane.style.left = left/5 + '%';
+			}
 		}
 	}
 

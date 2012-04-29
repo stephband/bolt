@@ -61,6 +61,7 @@
 	/* Make sure we're using the right box model for this technique */
 	-webkit-box-sizing: content-box;
 	   -moz-box-sizing: content-box;
+	    -ms-box-sizing: content-box;
 	        box-sizing: content-box;
 }
 
@@ -1033,12 +1034,12 @@
 	    -ms-transition-duration: 333ms;
 	     -o-transition-duration: 333ms;
 	        transition-duration: 333ms;
-
-	-webkit-transition-timing-function: ease-in;
-	   -moz-transition-timing-function: ease-in;
-	    -ms-transition-timing-function: ease-in;
-	     -o-transition-timing-function: ease-in;
-	        transition-timing-function: ease-in;
+	
+	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	   -moz-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	    -ms-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	     -o-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
 	
 	/* A nice bit of hardware acceleration may help the transitions. */
 	-webkit-transform: translate3d(0,0,0);

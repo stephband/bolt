@@ -32,7 +32,7 @@
 	    	threshold: 0.4,
 	    	// Faster fingers can travel shorter distances to be considered
 	    	// swipes. 'sensitivity' controls how much. Bigger is shorter.
-	    	sensitivity: 2
+	    	sensitivity: 6
 	    };
 
 	function moveend(e) {
@@ -85,7 +85,7 @@
 		var events = jQuery.data(node, 'events');
 
 		return ((events.swipe ? 1 : 0) +
-			      (events.swipeleft ? 1 : 0) +
+		        (events.swipeleft ? 1 : 0) +
 		        (events.swiperight ? 1 : 0) +
 		        (events.swipeup ? 1 : 0) +
 		        (events.swipedown ? 1 : 0)) > 1;
