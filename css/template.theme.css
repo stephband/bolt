@@ -86,6 +86,10 @@
 	background-color: rgb(234,234,234);
 }
 
+.img_slide {
+	padding: 0;
+}
+
 .tip {
 	color: white;
 	overflow: visible;
