@@ -1,4 +1,4 @@
-// Handle dropdowns, popdowns and tabs
+// Listen for actions that trigger dropdowns, popdowns slides and tabs
 
 (function( jQuery, undefined ){
 	var debug = (window.console && window.console.log),

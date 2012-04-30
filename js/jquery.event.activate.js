@@ -13,7 +13,7 @@
 // jQuery.event.special.activate.settings.cache = false;
 
 (function(jQuery, undefined){
-	var debug = true, //(window.debug === undefined ? (window.console && window.console.log) : window.debug),
+	var debug = false, //(window.debug === undefined ? (window.console && window.console.log) : window.debug),
 	    
 	    classes = {},
 	    

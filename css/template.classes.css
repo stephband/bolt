@@ -11,6 +11,10 @@
 	margin: 0 auto;
 }
 
+.slides_wrap {
+	overflow: hidden;
+}
+
 
 /* .layer */
 
