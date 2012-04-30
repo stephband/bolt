@@ -1385,7 +1385,7 @@ button.disabled,
 	
 	background-image: url('../images/thumbs/browser_logos.png');
 	-moz-background-size: 342px 64px;
-			 background-size: 342px 64px;
+	     background-size: 342px 64px;
 }
 
 .chrome_browser_thumb		{ background-position: -5px 0; }
