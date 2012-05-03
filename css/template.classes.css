@@ -191,15 +191,6 @@
 
 /* .tip */
 
-.js .tips {
-	display: block;
-	position: static;
-	top: 0;
-	left: 0;
-	width: 0;
-	height: 0;
-}
-
 .js .tip {
 	position: absolute;
 	
@@ -212,16 +203,15 @@
 	margin-top: -3em;
 }
 
-@media all and (max-width: 500px) {
-
-.js .tip {
-  /* Override offset given to it by JS when the
-     screen is too small. */
-  left: 10% !important;
-  margin-left: 0 !important;
-  width: 80% !important;
-}
-
+@media all and (max-width: 30em) {
+	.js .tip {
+		/* Override offset given to it by JS when the
+		   screen is too small. */
+		left: 4% !important;
+		margin-left: 0 !important;
+		width: 92% !important;
+		max-width: 92% !important;
+	}
 }
 
 

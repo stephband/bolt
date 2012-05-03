@@ -169,13 +169,17 @@
 			}, 0);
 		},
 		
+		textarea: function(target) {
+			target.focus();
+		},
+
 		select: function(target) {
 			target.focus();
 		},
 		
 		label: function(target) {
 			var input = document.getElementById( target.getAttribute("for") );
-			actions.input(input);
+			actions[input.tagName.toLowerCase()](input);
 		}
 	};
 
@@ -186,7 +190,7 @@
 		teardown: returnTrue,
 
 		_default: function(e) {
-			var target = jQuery(e.target).closest('a, label, input, select');
+			var target = jQuery(e.target).closest('a, label, input, select, textarea');
 			
 			// Ignore if the tap is not on an interactive element
 			if (target.length === 0) { return; }
