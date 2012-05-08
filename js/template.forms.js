@@ -328,6 +328,7 @@
 				jQuery.extend(css, {
 					height: height + 'px',
 					lineHeight: height + 'px',
+					fontSize: elem.css('font-size'),
 					paddingLeft: elem.css('padding-left'),
 					paddingRight: elem.css('padding-right')
 				});
