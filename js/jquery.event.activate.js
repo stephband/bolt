@@ -150,18 +150,22 @@
 	
 	jQuery(document).ready(function(){
 		var id = window.location.hash,
-		    classlist = '.' + Object.keys(classes).join('.active, .') + '.active';
-		
-		// Setup all things that should start out active. By limiting
-		// this to only special classes, we avoid buttons sending out
-		// activate events.
-		jQuery(classlist).trigger('activate');
-		
+		    classArray = Object.keys(classes),
+		    classList;
+
+		if (classArray.length) {
+			// Setup all things that should start out active. By limiting
+			// this to only special classes, we avoid buttons sending out
+			// activate events.
+			classList = '.' + classArray.join('.active, .') + '.active';
+			jQuery(classList).trigger('activate');
+		}
+
 		// Activate the node that corresponds to the hashref
 		// in the location bar, checking if it's an alphanumeric
 		// id selector (not a hash bang).
 		if (!id || !(/^#[\w\d]/.test(id))) { return; }
-		
+
 		jQuery(id).trigger('activate');
 	});
 })(jQuery);
