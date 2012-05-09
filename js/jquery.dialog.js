@@ -165,6 +165,8 @@
 		.on('deactivateend.dialog', deactivateend)
 		.data('active', {
 			elem: dialog,
+			dialogLayer: dialog,
+			dialogBox: box,
 			role: role ? (role + '_dialog_layer') : 'dialog_layer'
 		})
 		.trigger({ type: 'activate', relatedTarget: options.relatedTarget });

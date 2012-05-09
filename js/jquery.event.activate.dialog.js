@@ -57,11 +57,13 @@
 		remove(document, 'touchmove', preventDefault);
 	}
 
-	function maxHeight(images) {
+	function maxHeight(images, height) {
+		var images = data.dialogImages,
+		    height = data.dialogLayer.height() - data.dialogBox.outerHeight() + data.dialogBox.height() - 140;
+
 		// Add max-height to images. Max height needs to be less than the
-		// window height to account for UI around the slides. TODO: find
-		// a way of making this calculation dynamic.
-		images.css({ maxHeight: win.height() - 180 });
+		// window height to account for UI around the slides.
+		images.css({ maxHeight: height });
 	}
 
 	// Event handlers
@@ -98,7 +100,6 @@
 		}
 
 		slide.trigger('activate');
-
 		e.preventDefault();
 	}
 	
@@ -111,12 +112,13 @@
 		}
 
 		slide.trigger('activate');
-
 		e.preventDefault();
 	}
 
 	function rescale(e) {
-		maxHeight(e.data);
+		var data = e.data;
+
+		maxHeight(data);
 	}
 
 	jQuery.extend(jQuery.event.special.activate.classes, {
@@ -125,6 +127,9 @@
 				var slides = jQuery('.slide', e.target),
 				    images = slides.filter('img').add(slides.find('img')),
 				    active, id;
+
+				data.dialogSlides = slides;
+				data.dialogImages = images;
 
 				if (e.relatedTarget) {
 					id = jQuery(e.relatedTarget).data('slide');
@@ -143,10 +148,10 @@
 				add(e.target, 'click.dialog tap.dialog', close, 'close', '.close_button');
 				add(e.target, 'click.dialog tap.dialog', prev, slides, '.prev_button');
 				add(e.target, 'click.dialog tap.dialog', next, slides, '.next_button');
-				add(window, resizeEvent + '.dialog_' + count, rescale, images);
-
+				add(window, resizeEvent + '.dialog_' + count, rescale, data);
+				
 				data.elem.addClass('notransition');
-				maxHeight(images);
+				maxHeight(data);
 				active.trigger('activate');
 				data.elem.removeClass('notransition');
 
