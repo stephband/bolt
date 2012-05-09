@@ -62,7 +62,7 @@
 // 2.0_dev
 
 (function(jQuery, undefined){
-  var debug = (window.debug === undefined ? (window.console && window.console.log) : window.debug),
+  var debug = false, //(window.debug === undefined ? (window.console && window.console.log) : window.debug),
       
       doc = jQuery(document),
       

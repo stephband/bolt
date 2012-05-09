@@ -34,7 +34,7 @@
 //  Dialog roles can by added to jQuery.fn.dialog.roles.
 
 (function(jQuery, undefined){
-	var debug = (window.console && console.log);
+	var debug = false; //(window.console && console.log);
 	
 	var text = {
 	    	ok: 'Ok',
@@ -151,7 +151,7 @@
 		})
 		.trigger('activate');
 
-		return this;
+		return dialog;
 	};
 
 	// Expose
