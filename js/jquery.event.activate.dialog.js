@@ -143,7 +143,7 @@
 				add(e.target, 'click.dialog tap.dialog', close, 'close', '.close_button');
 				add(e.target, 'click.dialog tap.dialog', prev, slides, '.prev_button');
 				add(e.target, 'click.dialog tap.dialog', next, slides, '.next_button');
-				add(window, resizeEvent + '.' + count, rescale, images);
+				add(window, resizeEvent + '.dialog_' + count, rescale, images);
 
 				data.elem.addClass('notransition');
 				maxHeight(images);
@@ -158,7 +158,7 @@
 				remove(e.target, 'click tap', close);
 				remove(e.target, 'click tap', prev);
 				remove(e.target, 'click tap', next);
-				remove(window, resizeEvent + '.' + count, rescale);
+				remove(window, resizeEvent + '.dialog_' + count, rescale);
 
 				fn();
 			},
