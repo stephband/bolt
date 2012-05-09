@@ -56,6 +56,12 @@ hgroup, nav, section {
             background-clip: padding-box;*/
 }
 
+body {
+    /* Sort out random text sizing problems in iOS on orientation
+       change. */
+    -webkit-text-size-adjust: 100%;
+}
+
 article, aside, dialog, figure, footer, header,
 hgroup, nav, section {
     display: block;
