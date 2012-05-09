@@ -7,9 +7,6 @@
 [submodule "res/andlog"]
 	path = res/andlog
 	url = https://github.com/andyet/andlog.git
-[submodule "res/matchMedia"]
-	path = res/matchMedia
-	url = git://github.com/paulirish/matchMedia.js.git
 [submodule "res/ios-orientationchange-fix"]
 	path = res/ios-orientationchange-fix
 	url = https://github.com/scottjehl/iOS-Orientationchange-Fix.git
