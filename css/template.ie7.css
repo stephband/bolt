@@ -1,3 +1,10 @@
+audio,
+canvas,
+video {
+  display: inline;
+  zoom: 1;
+}
+
 address {
 	font-style: normal;
 }

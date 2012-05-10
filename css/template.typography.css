@@ -1,19 +1,22 @@
 /* template.typography.css
- * 
- * Developed using ideas from:
- * www.blueprintcss.org
- * www.webtypography.net
- * 
- * Sizes
- */
+   
+   Developed using ideas from:
+   www.blueprintcss.org
+   www.webtypography.net */
 
 body {
     font-family: Helvetica, Arial, sans-serif;
 }
 
 pre,
-code {
-    font-family: 'Andale Mono', 'Lucida Console', monospace;
+code,
+kbd,
+samp {
+  /* Corrects font family set oddly in IE6, S4/5, Chrome
+     en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
+  font-family: monospace, serif;
+  font-family: 'Andale Mono', 'Lucida Console', monospace;
+  font-size: 1em;
 }
 
 pre {
@@ -44,6 +47,12 @@ h6                { font-weight: normal; }
 
 hr                { height: 0; border-width: 0; border-bottom: 1px solid black; margin-top: -1px; }
 
+
+dl {
+  /* Clearfix, because children of definition list are floated. */
+  zoom: 1;
+}
+
 dl:after {
 	/* Clearfix, because children of definition list are floated. */
 	content: " ";
@@ -52,11 +61,6 @@ dl:after {
 	clear: both;
 	font-size: 0;
 	height: 0;
-}
-
-dl {
-	/* Clearfix, because children of definition list are floated. */
-	zoom: 1;
 }
 
 dt                { float: left; clear: both; text-align: right; width: 22.75%; font-weight: bold; }
@@ -70,12 +74,22 @@ blockquote:before { content: "\201C"; font-size: 3em; color: #484848; float: lef
 
 /* Inline elements */
 
+abbr[title]       { border-bottom: 1px dotted; }
+
+b,
 strong,
 dfn               { font-weight: bold; }
 em,
 dfn               { font-style: italic; }
+small             { font-size: 0.8333em; }
 sup,
-sub               { line-height: 0; font-size: 0.8333em; }
+sub               { line-height: 0; font-size: 0.8333em; position: relative; vertical-align: baseline; }
+sup               { top: -0.5em; }
+sub               { bottom: -0.25em; }
+
+q                 { quotes: none; }
+q:before,
+q:after           { content: ''; content: none; }
 
 time              { text-transform: uppercase; }
 
