@@ -44,21 +44,21 @@ window.typeOf = function(value) {
 // webreflection.blogspot.com/2010/01/javascript-super-bullshit.html
 
 if (!Function.prototype.bind)
-	Function.prototype.bind = function(context) {	 
-		'use strict';	 
-		if (typeof this !== 'function') throw new TypeError();	
-		var _slice = Array.prototype.slice,	 
-				_concat = Array.prototype.concat,	 
-				_arguments = _slice.call(arguments, 1),	 
-				_this = this,	 
-				_function = function() {	
+	Function.prototype.bind = function(context) {
+		'use strict';
+		if (typeof this !== 'function') throw new TypeError();
+		var _slice = Array.prototype.slice,
+				_concat = Array.prototype.concat,
+				_arguments = _slice.call(arguments, 1),
+				_this = this,
+				_function = function() {
 						return _this.apply(this instanceof _dummy ? this : context,	 
 								_concat.call(_arguments, _slice.call(arguments, 0)));	 
-				},	
-				_dummy = function() {};	 
-		_dummy.prototype = _this.prototype;	 
+				},
+				_dummy = function() {};
+		_dummy.prototype = _this.prototype;
 		_function.prototype = new _dummy();
-		return _function;	 
+		return _function;
 };
 
 
