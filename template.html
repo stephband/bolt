@@ -14,7 +14,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<!-- Make IE recognise HTML5 elements for styling -->
 	<!--[if lte IE 8]>
-	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<noscript>
 		<strong>Warning!</strong>
 		Your browser does not support HTML5 so some elements on this page are simulated using JScript. Unfortunately your browser has JScript disabled. Please enable it in order to display this page.
@@ -46,13 +46,13 @@
 </head>
 
 <body>
-
-	<!--[if IE 6]><script src="iepngfix/iepngfix_tilebg.js"></script><![endif]-->
-	<!--[if lte IE 8]><script src="res/es5-shim/es5-shim.min.js"></script><![endif]-->
-	<script src="res/andlog/&log.js"></script>
+	<script>
+		// Function.prototype.bind is the ES5 feature with by far the worst support. Use it
+		// to roughly detect ES5. http://kangax.github.com/es5-compat-table/
+		!Function.prototype.bind && document.write(unescape('%3Cscript src="res/es5-shim/es5-shim.min.js"%3E%3C/script%3E'));
+	</script>
 	<script src="res/ios-orientationchange-fix/ios-orientationchange-fix.js"></script>
-	<script src="js/js.extensions.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/jquery.js"%3E%3C/script%3E'));</script>
 	<script src="js/jquery.extensions.js"></script>
 	<script src="js/jquery.event.tap.js"></script>
@@ -64,9 +64,5 @@
 	<script src="js/template.ui.js"></script>
 	<script src="js/template.forms.js"></script>
 	<script src="js/template.activate.js"></script>
-	
-	<!-- debug -->
-	<!--script src="js/js.debug.js"></script-->
-	<script>document.write(unescape('%3Cscript src="http://'+window.location.hostname+':8081/target/target-script-min.js"%3E%3C/script%3E'));</script>
 </body>
 </html>
