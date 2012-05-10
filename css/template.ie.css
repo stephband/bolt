@@ -7,6 +7,11 @@ button {
   overflow: visible;
 }
 
+textarea {
+  /* Removes default vertical scrollbar */
+  overflow: auto;
+}
+
 /* .layer */
 
 .popup_layer,

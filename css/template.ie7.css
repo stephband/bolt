@@ -2,6 +2,26 @@ address {
 	font-style: normal;
 }
 
+legend {
+  /* Correct odd alignment */
+  margin-left: -7px;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  /* Removes inner spacing without affecting normal text inputs */
+  overflow: visible;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  /* Removes excess padding */
+  height: 13px;
+  width: 13px;
+}
+
 /* Clearfix */
 
 .clear { zoom: 1; }

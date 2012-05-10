@@ -1,49 +1,44 @@
 /* template.forms.css
  * 
  * Stephen Band
+ * 
+ * Some inspiration from normalize.css:
+ * http://necolas.github.com/normalize.css/
  */
 
-form {
-	/* Act as position parent */
-	position: relative;
+form,
+fieldset {
+  /* Act as position parent */
+  position: relative;
 }
 
-fieldset    {
-	margin: 0 0 1.6667em 0;
-	/* Act as position parent */
-	position: relative;
+
+form {
+  /* Correct margin displayed oddly in IE6/7 */
+  margin: 0;
+}
+
+fieldset {
+  /* Reset padding, argin, border */
+  padding: 0;
+  margin: 0 0 1.6667em 0;
+  border: 0;
 }
 
 legend      {
-	font-weight: bold;
-	font-size: 1.1667em;
-}
-
-input,
-select,
-textarea {
-	font-family: inherit;
-	font-size: inherit;
-	font-weight: inherit;
-	
-	/* Make input shadows appear over the top of other elements. */
-	z-index: 2;
-	position: relative;
-	
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-	    -ms-box-sizing: border-box;
-	        box-sizing: border-box;
+  /* Correct color not being inherited (IE6/7/8/9) */
+  border: 0;
+  padding: 0;
+  /* Text should wrap (FF3) */
+  white-space: normal;
+  
+  font-weight: bold;
+  font-size: 1.1667em;
 }
 
 label,
 input,
-select {
-	height: 1.6667em;
-}
-
-label,
-input,
+button,
 select,
 textarea {
 	display: inline-block;
@@ -55,6 +50,33 @@ textarea {
 	/* FF and WebKit ignore line-height on inputs, automatically centring the
 	   text, but IE8 needs it. */
 	line-height: 1.6667em;
+}
+
+input,
+button,
+select,
+textarea {
+  margin: 0;
+  /* Font size is not automaticlly inherited in all browsers. */
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+
+  /* Make input shadows appear over the top of other elements. */
+  z-index: 2;
+  position: relative;
+  
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+label,
+input,
+button,
+select {
+  height: 1.6667em;
 }
 
 label,
@@ -69,23 +91,19 @@ label {
 }
 
 input[type='time'] {
-	max-width: 6em;
+  max-width: 6em;
 }
 
 input,
 textarea {
-    opacity: 0.92;
-    padding: 0 0.5em;
-    /* Nudge up the baseline position in FF3. Doesn't affect WebKit. */
-    padding-bottom: 0.077em;
+  opacity: 0.92;
+  padding: 0 0.5em;
+  /* Nudge up the baseline position in FF3. Doesn't affect WebKit. */
+  padding-bottom: 0.077em;
 }
 
 select {
   opacity: 0.92;
-  /* Nudge down the baseline position in FF.  Doesn't affect Webkit.
-     Only needed when you're overriding the system-style select boxes.
-     You can override by doing almost any manipulation to the border, in FF */
-  /*padding: 0.117em 0.8333em;*/
 }
 
 input {
@@ -112,8 +130,30 @@ textarea {
      -moz-border-bottom-right-radius: 2px !important;
 }
 
-.required {
-  color:#ff8833;
+label[for],
+input[type="file"],
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+button,
+select {
+  /* Clickable stuff gets a pointer cursor... */
+  cursor: pointer;
+}
+
+button[disabled],
+input[disabled],
+select[disabled] {
+  /* ...unless it's disabled. */
+  cursor: default;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  /* Corrects inability to style clickable 'input' types in iOS */
+  -webkit-appearance: button;
 }
 
 input[type="checkbox"],
@@ -137,6 +177,14 @@ input[type="image"] {
 input[type="file"] {
 	/* Part of the button is cut off without a little padding-left in WebKit. */
   padding-left: 1px;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  /* Removes inner padding and border in FF3+
+     www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/ */
+  border: 0;
+  padding: 0;
 }
 
 /* Make search fields appear as other inputs in WebKit. */
@@ -170,6 +218,10 @@ input[type='file'] {
     left: -1px;
     margin-bottom: -3px;
   }
+}
+
+.required {
+  color:#ff8833;
 }
 
 /* Focus and error styles */
@@ -251,6 +303,7 @@ select:focus {
    Use pure attribute selectors because they are weak, and classes
    are able to override them. Pure attribute selectors are a known
    performance drag, so keep them to a minimum. */
+button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
@@ -269,17 +322,6 @@ select:focus {
 	-webkit-box-shadow: none;
 	   -moz-box-shadow: none;
 	        box-shadow: none;
-}
-
-/* Clickable stuff gets a pointer cursor. */
-label[for],
-input[type="file"],
-input[type="button"],
-input[type="reset"],
-input[type="submit"],
-button,
-select {
-  cursor: pointer;
 }
 
 
@@ -342,8 +384,8 @@ select {
    In Opera, range inputs have a max-width of 160px when their width
    is supplied by %, a limit you can't change. In fact percentages
    other than 100% cause some odd behaviour, where the track is sized
-   but the input box remains at 100%. However, webcss sets inputs to
-   display: block, which resolves all these problems.
+   but the input box remains at 100%. Setting inputs to display: block
+   resolves all these problems.
    
    Opera responds to :before and :after content on inputs where WebKit
    and FF do not. So far I haven't found that useful. I just thought
@@ -448,19 +490,10 @@ textarea.empty + .placeholder {
 
 /* Layout */
 
-/*input+label,
-textarea+label,
-input+input,
-textarea+input,
-input+textarea,
-textarea+textarea {
-    margin-top: 0.6667em;
-}*/
-
 /* .custom inputs must be followed by a styled label
    that references them by for="id". */
 
-.custom {
+.custom_input {
   /* We have to take it out of the flow and make it
      invisible, rather than adding display: none,
      because display: none stops keyboard from being
@@ -478,9 +511,7 @@ textarea+textarea {
 }
 
 .action_form > input {
-	display: inline-block;
 	position: relative;
-	vertical-align: top;
 	width: 100%;
 	margin-right: -100%;
 	left: 0;
