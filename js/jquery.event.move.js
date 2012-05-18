@@ -1,6 +1,6 @@
 // jquery.event.move
 //
-// 1.0.1
+// 1.0.2
 //
 // Stephen Band
 //
@@ -332,7 +332,7 @@
 			// Unbind the click suppressor, waiting until after mouseup
 			// has been handled.
 			setTimeout(function(){
-				remove(e.target, 'click', returnFalse);
+				remove(event.target, 'click', returnFalse);
 			}, 0);
 		});
 	}
@@ -455,11 +455,8 @@
 
 			if (event.identifier === undefined) {
 				// We're dealing with a mouse
-
 				// Stop clicks from propagating during a move
-				// Why? I can't remember, but it is important...
-				add(e.target, 'click', returnFalse);
-
+				add(event.target, 'click', returnFalse);
 				add(document, mouseevents.move, activeMousemove, data);
 				add(document, mouseevents.end, activeMouseend, data);
 			}
@@ -471,7 +468,7 @@
 			}
 		}
 	};
-	
+
 	jQuery.event.special.move =
 	jQuery.event.special.moveend = {
 		setup: setup,
