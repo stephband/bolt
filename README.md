@@ -1,6 +1,6 @@
 <h1>template</h1>
 
-<p>A class-based HTML/JS/CSS UI development framework.</p>
+<p>A class-based, evented front-end development framework.</p>
 
 <h2>Cloning</h2>
 
