@@ -46,6 +46,24 @@ body * * * * * * * * * * {
 	background-color: #a7a7a7;
 }*/
 
+h1:empty,
+h2:empty,
+h3:empty,
+h4:empty,
+h5:empty,
+h6:empty,
+p:empty,
+ul:empty,
+ol:empty,
+dl:empty,
+li:empty,
+dt:empty,
+dd:empty,
+blockquote:empty {
+  display: block;
+  background-color: orange !important;
+}
+
 html:after {
   /* Overlay grid image. */
   content: "";
