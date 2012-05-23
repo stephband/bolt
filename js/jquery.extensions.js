@@ -9,21 +9,7 @@
 // event object.
 
 // For dragstart
-
 jQuery.event.props.push("dataTransfer");
-
-// For the events touchstart, touchend, touchmove, touchenter,
-// touchleave, and touchcancel.
-(function(jQuery, undefined){
-	var props = ["radiusX", "radiusY", "rotationAngle", "force", "touches", "targetTouches", "changedTouches"],
-	    l = props.length;
-	
-	while (l--) {
-		if (jQuery.event.props.indexOf(props[l]) === -1) {
-			jQuery.event.props.push(props[l]);
-		}
-	}
-})(jQuery);
 
 
 // Detect whether different types of html5 form elements have native UI implemented
@@ -70,8 +56,7 @@ jQuery.event.props.push("dataTransfer");
   
   var debug = (window.console && console.log);
   
-  var docElem = document.documentElement,
-      testElem = jQuery('<div/>').css({
+  var testElem = jQuery('<div/>').css({
         WebkitBoxSizing: 'border-box',
         MozBoxSizing: 'border-box',
         /* Opera accepts the standard box-sizing */
@@ -83,8 +68,7 @@ jQuery.event.props.push("dataTransfer");
         border: '10px solid red',
         width: 100,
         height: 100
-      }),
-      timer;
+      });
   
   jQuery.support.css = {};
   
@@ -164,8 +148,7 @@ jQuery.event.props.push("dataTransfer");
 
 (function(jQuery, undefined) {
   
-  var debug = (window.console && console.log),
-      urlKeys = ("absolute protocol authority userInfo user password host port relative path directory file query anchor").split(" ");
+  var urlKeys = ("absolute protocol authority userInfo user password host port relative path directory file query anchor").split(" ");
   
   jQuery.extend({
     
@@ -290,7 +273,7 @@ jQuery.cookie = function(name, value, options) {
         document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
     } else { // only name given, get cookie
         var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
+        if (document.cookie && document.cookie !== '') {
             var cookies = document.cookie.split(';');
             for (var i = 0; i < cookies.length; i++) {
                 var cookie = jQuery.trim(cookies[i]);
@@ -320,7 +303,7 @@ jQuery.cookie = function(name, value, options) {
 	function preventScroll(e) {
 		var target = e.target,
 		    delta = e.wheelDelta !== undefined ? -e.wheelDelta : e.detail,
-		    scrollTop, scrollMax;
+		    scrollMax, scrollNow;
 		
 		if (delta < 0) {
 			// We're trying to scroll up. Climb down the DOM tree
@@ -338,7 +321,7 @@ jQuery.cookie = function(name, value, options) {
 				}
 				
 				target = target.parentNode;
-			};
+			}
 		}
 		else {
 			// We're trying to scroll down. Climb down the DOM
@@ -361,7 +344,7 @@ jQuery.cookie = function(name, value, options) {
 				}
 				
 				target = target.parentNode;
-			};
+			}
 		}
 	}
 	
@@ -437,7 +420,7 @@ jQuery.cookie = function(name, value, options) {
 				return obj[match].call( context || this, e );
 			}
 		};
-	};
+	}
 	
 	
 	// Create a drop handler that calls a function from a key:fn
@@ -450,7 +433,8 @@ jQuery.cookie = function(name, value, options) {
 	function handleMimetype(obj, context) {
 		// Curry handler using this scope
 		return function(e){
-			
+			var type;
+
 			// This block is just for logging, so we can see some
 			// data. IE does not have the property dataTransfer.types
 			// so we can't tell what mimetypes are being carried in IE.
@@ -460,15 +444,11 @@ jQuery.cookie = function(name, value, options) {
 						l = types.length,
 						dataObj;
 
-				var target = jQuery(e.target),
-						currentTarget = jQuery(e.currentTarget);
-
 				console.group('[Handler] handleMimeType');
 
 				// Log available mimetypes
 				while (l--) {
 					dataObj = e.originalEvent.dataTransfer.getData(types[l]);
-					ddd(types[l], 'data:', dataObj );
 				}
 			}
 
@@ -493,7 +473,7 @@ jQuery.cookie = function(name, value, options) {
 				console.groupEnd();
 			}
 		};
-	};
+	}
 	
 	// Extend jQuery.event with helpful handler functions
 	
@@ -517,7 +497,7 @@ jQuery.render = (function(){
   	return function($0, $1) {
   		// $1 is the template key.
   		return obj[$1];
-  	}
+  	};
   }
   
   function replaceRegexFn(obj) {
@@ -533,7 +513,7 @@ jQuery.render = (function(){
   		
   		// Return a non-capturing group when $2 exists, or just the source.
   		return $2 ? ['(?:', r, ')', $2].join('') : r ;
-  	}
+  	};
   }
   
   return function(template, obj) {
@@ -560,7 +540,7 @@ jQuery.render = (function(){
       cache = {};
   
   function testPrefix(prop) {
-    var upper, prefixProp;
+    var upper, l, prefixProp;
     
     if (prop in elem.style) { return prop; }
     
