@@ -544,8 +544,6 @@
         if (debug) { console.log('[transition] TIMEOUT! It\'s not the end of the world.'); }
         
         removeTransition(node, data);
-        
-        fn && fn.apply(node);
       }, data.end + 40);
       
       // Bind transition end
