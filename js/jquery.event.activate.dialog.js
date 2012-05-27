@@ -125,7 +125,7 @@
 		slides_dialog_layer: {
 			activate: function(e, data, fn) {
 				var slides = jQuery('.slide', e.target),
-				    images = slides.filter('img').add(slides.find('img')),
+				    images = slides.filter('img, iframe, object, embed').add(slides.find('img, iframe, object, embed')),
 				    active, id;
 
 				data.dialogSlides = slides;
