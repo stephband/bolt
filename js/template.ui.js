@@ -5,25 +5,25 @@
 jQuery.noConflict();
 
 
-// Add css support classes to html, remove notransition class
-
+// Add and remove style flag classes on the document element
 (function(jQuery, undefined){
 	var support = jQuery.support,
-			classes = [];
+			classes = [],
+			docElem = jQuery(document.documentElement);
 	
 	classes.push('min-height_'+support.css.minHeight);
 	classes.push('min-width_'+support.css.minWidth);
 	
-	jQuery(document.documentElement).addClass(classes.join(' '));
+	docElem.addClass(classes.join(' '));
 
+	// When DOM is ready, remove loading classes from document element
 	jQuery(document).ready(function() {
-		jQuery(document.documentElement).removeClass('notransition');
+		docElem.removeClass('notransition loading');
 	});
 })(jQuery);
 
 
 // Select boxes that act as navigation
-
 jQuery(document)
 .on('change', '.nav_select', function(e) {
 	var value = e.currentTarget.value;
