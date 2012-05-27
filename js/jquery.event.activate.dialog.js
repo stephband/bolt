@@ -57,7 +57,7 @@
 		remove(document, 'touchmove', preventDefault);
 	}
 
-	function maxHeight(images, height) {
+	function maxHeight(data) {
 		var images = data.dialogImages,
 		    height = data.dialogLayer.height() - data.dialogBox.outerHeight() + data.dialogBox.height() - 140;
 
