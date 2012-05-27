@@ -7,6 +7,21 @@
  */
 
 form,
+fieldset,
+label,
+legend,
+input,
+output,
+button,
+select,
+textarea {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+form,
 fieldset {
   /* Act as position parent */
   position: relative;
@@ -503,6 +518,11 @@ textarea.empty + .placeholder {
 
 .action_form {
 	padding-right: 3em;
+}
+
+.action_form > input,
+.action_form > .submit_button {
+	vertical-align: top;
 }
 
 .action_form > input {
