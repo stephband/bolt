@@ -1,12 +1,12 @@
 [submodule "res/es5-shim"]
 	path = res/es5-shim
-	url = https://github.com/kriskowal/es5-shim.git
+	url = git://github.com/kriskowal/es5-shim.git
 [submodule "res/html5shiv"]
 	path = res/html5shiv
-	url = https://github.com/aFarkas/html5shiv.git
+	url = git://github.com/aFarkas/html5shiv.git
 [submodule "res/andlog"]
 	path = res/andlog
-	url = https://github.com/andyet/andlog.git
+	url = git://github.com/andyet/andlog.git
 [submodule "res/ios-orientationchange-fix"]
 	path = res/ios-orientationchange-fix
-	url = https://github.com/scottjehl/iOS-Orientationchange-Fix.git
+	url = git://github.com/scottjehl/iOS-Orientationchange-Fix.git
