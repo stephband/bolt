@@ -1591,13 +1591,15 @@ button.disabled,
 .notransition .dropdown,
 .notransition .layer,
 .notransition .tip {
+	/* Potential source of bugs: -moz- must have units even with a 0 value,
+	   or it doesn't read the rule. */
 	-webkit-transition-duration: 0 !important;
-	   -moz-transition-duration: 0 !important;
+	   -moz-transition-duration: 0ms !important;
 	    -ms-transition-duration: 0 !important;
 	        transition-duration: 0 !important;
 
 	-webkit-transition-delay: 0 !important;
-	   -moz-transition-delay: 0 !important;
+	   -moz-transition-delay: 0ms !important;
 	    -ms-transition-delay: 0 !important;
 	        transition-delay: 0 !important;
 }
