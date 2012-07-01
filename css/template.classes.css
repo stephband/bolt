@@ -1539,3 +1539,7 @@ button.disabled,
 .x_scroll.y_scroll {
 	overflow: scroll;
 }
+
+.no_scroll {
+	overflow: hidden;
+}
