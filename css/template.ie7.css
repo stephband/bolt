@@ -58,6 +58,8 @@ img { -ms-interpolation-mode: bicubic; }
 
 .col,
 .thumb,
+.tab,
+.slide,
 .horizontal > li {
   /* Uses a technique for getting inline-block behaviour in IE, explained well here:
      http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ */
@@ -95,11 +97,4 @@ img { -ms-interpolation-mode: bicubic; }
      part in it's background-position calculations. Minimise the size of the overflow. */
   line-height: 0;
   font-size: 0;
-}
-
-.tab,
-.slide {
-  display: inline;
-  /* These things need hasLayout. */
-  zoom: 1;
 }

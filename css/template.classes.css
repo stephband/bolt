@@ -265,6 +265,10 @@
 	font-weight: bold;
 }
 
+.dots_index {
+  text-align: center;
+}
+
 .tabs_index > li {
 	/* Stop content pushing li wider than it should be */
 	overflow: visible;
@@ -362,6 +366,7 @@
 
 .horizontal,
 .tabs_index,
+.dots_index,
 .crumbs_index,
 .actions_index {
 	/* To form grids with a horizontal index, line-height
@@ -371,6 +376,7 @@
 
 .horizontal > *,
 .tabs_index > li,
+.dots_index > li,
 .crumbs_index > li,
 .actions_index > li {
 	/* For those pour souls who don't understand inline-block (IE7). */
@@ -381,6 +387,7 @@
 
 .horizontal > *:last-child,
 .tabs_index > li:last-child,
+.dots_index > li:last-child,
 .crumbs_index > li:last-child,
 .actions_index > li:last-child {
 	margin-right: 0;
@@ -388,6 +395,7 @@
 
 .horizontal > *.last,
 .tabs_index > li.last,
+.dots_index > li.last,
 .crumbs_index > li.last,
 .actions_index > li.last {
 	margin-right: 0;
@@ -1092,6 +1100,24 @@ button.disabled,
 	vertical-align: baseline;
 	margin-left: 0.5em;
 	margin-right: 0.5em;
+}
+
+.dot_button {
+	padding-left: 4px;
+	padding-left: 0.25rem;
+	padding-right: 4px;
+	padding-right: 0.25rem;
+	
+	font-size: 24px;
+	font-size: 1.5rem;
+	line-height: 1em;
+	
+	opacity: 0.6;
+	color: #484848;
+}
+
+.dot_button.active {
+	opacity: 1;
 }
 
 .menu_button,
