@@ -92,53 +92,6 @@
 	}
 
 	jQuery.extend(jQuery.event.special.activate.classes, {
-		tip: {
-			activate: function (e, data, fn) {
-				var elem = data.elem,
-				    relatedTarget = jQuery(e.relatedTarget),
-				    id = identify(e.target);
-						
-				elem.css(relatedTarget.offset());
-				add(document, 'tap.' + id, function() {
-					trigger(e.target, 'deactivate');
-				});
-
-				fn();
-	    },
-
-	    deactivate: function (e, data, fn) {
-				var id = identify(e.target);
-
-				remove(document, '.' + id);
-				fn();
-	    }
-	  },
-
-		tab: {
-			activate: function activatePane(e, data, fn) {
-				var target = e.target,
-				    panes = cachePaneData(e.target, data),
-				    active;
-
-				add(target, 'click tap',  jump, panes[(panes.index(target) - 1) % panes.length], 'a[href="#prev"]');
-				add(target, 'click tap',  jump, panes[(panes.index(target) + 1) % panes.length], 'a[href="#next"]');
-
-				active = panes.not(target).filter('.active');
-
-				fn();
-
-				// Deactivate the previous active pane AFTER this pane has been
-				// activated. It's important for panes who's style depends on the
-				// current active pane, eg: .slide.active ~ .slide
-				active.trigger('deactivate');
-			},
-
-			deactivate: function(e, data, fn) {
-				remove(e.target, 'click tap swiperight swipeleft', jump);
-				fn();
-			}
-		},
-
 		popdown: {
 			activate: function(e, data, fn) {
 				var id = identify(e.target);
