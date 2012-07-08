@@ -2,7 +2,7 @@
 //
 // Extends the default behaviour of events for the .tip class.
 
-(function(jQuery, jQuery.bolt, undefined){
+(function(jQuery, bolt, undefined){
 	var add = jQuery.event.add,
 	    
 	    remove = jQuery.event.remove,
@@ -29,7 +29,7 @@
 		trigger(target, 'deactivate');
 	}
 
-	bolt.classify('tip', {
+	bolt.defineClass('tip', {
 		activate: function (e, data, fn) {
 			var elem = data.elem,
 			    relatedTarget = jQuery(e.relatedTarget),
