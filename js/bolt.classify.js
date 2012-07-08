@@ -1,53 +1,9 @@
-// jQuery.event.activate.tip
+// bolt.classify
 //
-// Extends the default behaviour of the activate and deactivate
-// events with things to do when they are triggered on elements
-// with various classes.
-
-(function(jQuery, jQuery.bolt, undefined){
-	var add = jQuery.event.add,
-	    
-	    remove = jQuery.event.remove,
-
-	    trigger = function(node, type, data) {
-	    	jQuery.event.trigger(type, data, node);
-	    };
-
-	function identify(node) {
-		var id = node.id;
-
-		if (!id) {
-			do { id = Math.ceil(Math.random() * 1000000); }
-			while (document.getElementById(id));
-			node.id = id;
-		}
-
-		return id;
-	}
-
-	bolt.classify('tip', {
-		activate: function (e, data, fn) {
-			var elem = data.elem,
-			    relatedTarget = jQuery(e.relatedTarget),
-			    id = identify(e.target);
-
-			elem.css(relatedTarget.offset());
-			add(document, 'tap.' + id, function() {
-				trigger(e.target, 'deactivate');
-			});
-			
-			fn();
-		},
-
-		deactivate: function (e, data, fn) {
-			var id = identify(e.target);
-
-			remove(document, '.' + id);
-			fn();
-		}
-	});
-})(jQuery, jQuery.bolt);
-
+// bolt.classify(name, obj)
+// 
+// name: the name of the class
+// obj: a list of event types defining default handlers for the class
 
 
 (function(jQuery, bolt, undefined){
