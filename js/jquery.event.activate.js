@@ -168,4 +168,11 @@
 
 		jQuery(id).trigger('activate');
 	});
+
+	// Expose as an AMD module where jQuery is supported
+	if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
+		define(['jquery'], function (jQuery) {
+			return jQuery.event.special.activate;
+		});
+	}
 })(jQuery);
