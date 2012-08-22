@@ -4,12 +4,6 @@
 [submodule "res/html5shiv"]
 	path = res/html5shiv
 	url = git://github.com/aFarkas/html5shiv.git
-[submodule "res/andlog"]
-	path = res/andlog
-	url = git://github.com/andyet/andlog.git
 [submodule "res/ios-orientationchange-fix"]
 	path = res/ios-orientationchange-fix
 	url = git://github.com/scottjehl/iOS-Orientationchange-Fix.git
-[submodule "res/curl"]
-	path = res/curl
-	url = https://github.com/cujojs/curl.git
