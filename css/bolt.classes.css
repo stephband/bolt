@@ -72,11 +72,16 @@
 .popup_layer,
 .dialog_layer {
 	position: fixed;
-	
+}
+
+.center_align,
+.popup_layer,
+.dialog_layer {
 	/* Center inline-block contents horizontally */
 	text-align: center;
 }
 
+.center_align:after,
 .popup_layer:after,
 .dialog_layer:after {
 	/* Center inline-block contents vertically */
@@ -87,11 +92,13 @@
 	vertical-align: middle;
 }
 
+.center_align > *,
 .popup_layer > *,
 .dialog_layer > * {
 	text-align: left;
 }
 
+.center_align > *,
 .popup,
 .dialog {
 	/* Use inline-block to make popup collapse
@@ -106,7 +113,10 @@
 	   bottom. */
 	margin-top: 2.5em;
 	margin-bottom: 2.5em;
-	
+}
+
+.popup,
+.dialog {
 	/* Act as position parent */
 	position: relative;
 	
@@ -545,14 +555,14 @@
 	display: box;
 
 	-webkit-box-align: center;
-	-moz-box-align:		center;
-	-o-box-align:			center;
-	box-align:					center;
+	-moz-box-align: center;
+	-o-box-align: center;
+	box-align: center;
 
 	-webkit-box-pack: center;
-	-moz-box-pack:		center;
-	-o-box-pack:			center;
-	box-pack:					center;
+	-moz-box-pack: center;
+	-o-box-pack: center;
+	box-pack: center;
 	
 	/* FF shrinks the width of boxes with display: box;. Lets
 	   force it to behave like the others. */
