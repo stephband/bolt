@@ -1,9 +1,7 @@
 // Listen for actions that trigger dropdowns, popdowns slides and tabs
 
-(function( jQuery, undefined ){
+(function(jQuery, bolt, undefined){
 	var debug = (window.console && window.console.log),
-	    
-	    classes = jQuery.event.special.activate.classes,
 	    
 	    add = jQuery.event.add,
 	    
@@ -12,98 +10,76 @@
 	    trigger = function(node, type, data) {
 	    	jQuery.event.trigger(type, data, node);
 	    };
-
-	function identify(node) {
-		var id = node.id;
-
-		if (!id) {
-			do { id = Math.ceil(Math.random() * 1000000); }
-			while (document.getElementById(id));
-			node.id = id;
-		}
-
-		return id;
-	}
-
+	
 	function preventDefault(e) {
 		e.preventDefault();
 	}
 	
 	function isLeftButton(e) {
-		// Ignore mousedowns on any button other than the left (or primary)
-		// mouse button, or when a modifier key is pressed.
+		// Ignore mousedowns on any button other than the left (or
+		// primary) mouse button, or when a modifier key is pressed.
 		return (e.which === 1 && !e.ctrlKey && !e.altKey);
 	}
-	
-	function getRoleClass(node) {
-		var classList = node.className.split(/\s+/),
-		    l = classList.length,
-		    i = -1;
-
-		while (i++ < l) {
-			if (classes[classList[i]]) {
-				return classList[i];
-			}
-		}
-	}
-
 
 	jQuery(document)
 	
 	// Mousedown on buttons toggle activate on their targets
 	.on('mousedown tap', 'a[href^="#"]', function(e) {
-		var id, target, elem, data, role;
+		var id, target, elem, data, clas;
+
+		// Default is prevented indicates that this link has already
+		// been handled. Save ourselves the overhead of further handling.
+		if (e.isDefaultPrevented()) { return; }
 
 		// Ignore mousedowns on any button other than the left (or primary)
 		// mouse button, or when a modifier key is pressed.
 		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
-		
-		// Default is prevented indicates that this link has already
-		// been handled. Save ourselves the overhead of further handling.
-		if (e.isDefaultPrevented()) { return; }
-		
+
 		id = e.currentTarget.hash.substring(1);
 		target = document.getElementById(id);
 
+		// This link does not point to an id in the DOM. No action required.
 		if (!target) { return; }
-		
-		// Get the active data that may have been created by a previous
-		// activate event.
-		data = jQuery.data(target, 'active');
 
-		// Decide what role this object is.
-		if (data && data.role) {
+		// Get the bolt data that may have been created by a previous
+		// activate event.
+		data = jQuery.data(target, 'bolt');
+
+		// Decide what class this object is.
+		if (data && data['class']) {
 			elem = data.elem;
-			role = data.role;
+			clas = data['class'];
 		}
 		else {
 			elem = jQuery(target);
-			role = elem.data('role') || getRoleClass(target);
+			clas = bolt.classify(target);
 		}
-		
-		// If it has no role, we have no business trying to activate
+
+		// If it has no class, we have no business trying to activate
 		// it on mousedown.
-		if (!role) { return; }
+		if (!clas) { return; }
 
 		e.preventDefault();
 
 		// Prevent the click that follows the mousedown.
+		// !TODO: this should happen only once!
 		if (e.type === 'mousedown') { add(e.currentTarget, 'click', preventDefault); }
 
-		if (!classes[role]) { return; }
+		if (!bolt.has(clas, 'activate')) { return; }
 
-		if ((data && data.state) || (!data && elem.hasClass('active'))) { return; }
+		if ((data && data.active) || (!data && elem.hasClass('active'))) { return; }
 
+		// Attach bolt's data to the target
 		if (!data) {
-			jQuery.data(target, 'active', { role: role, elem: elem });
+			jQuery.data(target, 'bolt', { 'class': clas, elem: elem });
 		}
-		
+
 		trigger(target, { type: 'activate', relatedTarget: e.currentTarget });
 	})
 
 	// Mouseover on tip links toggle activate on their targets
 	.on('mouseover mouseout tap', 'a[href^="#"], [data-tip]', function(e) {
-		var href, node, elem, data, role;
+		var href, node, elem, data, clas;
 		
 		href = e.currentTarget.getAttribute('data-tip');
 		
@@ -115,8 +91,8 @@
 				'text': href
 			});
 			node = elem[0];
-			role = 'tip';
-			e.currentTarget.setAttribute('data-tip', '#' + identify(node));
+			clas = 'tip';
+			e.currentTarget.setAttribute('data-tip', '#' + bolt.identify(node));
 			document.body.appendChild(node);
 		}
 		else {
@@ -125,40 +101,37 @@
 			}
 
 			node = document.getElementById(href.substring(1));
-			
+
 			// If there is no node, there's no need to continue. Thanks.
 			if (!node) { return; }
 
-			// Get the active data that may have been created by a previous
+			// Get the bolt data that may have been created by a previous
 			// activate event.
-			data = jQuery.data(node, 'active');
+			data = jQuery.data(node, 'bolt');
 
 			elem = (data && data.elem) || jQuery(node);
 		}
-		
-		// Decide what role this object is.
-		if (!role) {
-			if (data && data.role) {
-				role = data.role;
-			}
-			else {
-				role = elem.data('role') || getRoleClass(node);
-			}
+
+		// Decide what class this object is.
+		if (!clas) {
+			clas = data && data['class'] ?
+				data['class'] :
+				bolt.classify(node) ;
 		}
 
-		if (role && !data) {
-		  jQuery.data(elem[0], 'active', { role: role, elem: elem });
+		if (clas && !data) {
+		  jQuery.data(elem[0], 'bolt', { 'class': clas, elem: elem });
 		}
 
-		// If it has not the role tip, we have no business trying to activate
-		// it on hover.
-		if (role !== 'tip') { return; }
-		
+		// If it has not the class 'tip', we have no business trying to
+		// activate it on hover.
+		if (clas !== 'tip') { return; }
+
 		// Tap events should make tips show immediately
 		if (e.type === 'tap') {
 			elem.css(jQuery.prefix('transition')+'Delay', '0');
 		}
-		
+
 		elem.trigger(e.type === 'mouseout' ? 'deactivate' : { type: 'activate', relatedTarget: e.currentTarget });
 	});
-})(jQuery);
+})(jQuery, jQuery.bolt);

@@ -1,4 +1,4 @@
-// template.ui.js
+// bolt.ui.js
 
 // Run jQuery without aliasing it to $
 
