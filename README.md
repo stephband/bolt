@@ -1,6 +1,6 @@
 <h1>Bolt</h1>
 
-<p>A class-based, evented front-end development framework.</p>
+<p>A class-based, jQuery-powered, evented front end development library.</p>
 
 <h2>Cloning</h2>
 
