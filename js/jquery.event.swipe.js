@@ -1,9 +1,9 @@
 // jQuery.event.swipe
-// 0.4
+// 0.5
 // Stephen Band
 
 // Dependencies
-// jQuery.event.move 1.0
+// jQuery.event.move 1.2
 
 // One of swipeleft, swiperight, swipeup or swipedown is triggered on
 // moveend, when the move has covered a threshold ratio of the dimension
@@ -89,14 +89,15 @@
 		}
 	}
 
-	function isSetup(node) {
-		var events = jQuery.data(node, 'events');
-
-		return ((events.swipe ? 1 : 0) +
-		        (events.swipeleft ? 1 : 0) +
-		        (events.swiperight ? 1 : 0) +
-		        (events.swipeup ? 1 : 0) +
-		        (events.swipedown ? 1 : 0)) > 1;
+	function getData(node) {
+		var data = jQuery.data(node, 'event.swipe');
+		
+		if (!data) {
+			data = { count: 0 };
+			jQuery.data(node, 'event.swipe', data);
+		}
+		
+		return data;
 	}
 
 	jQuery.event.special.swipe =
@@ -105,8 +106,10 @@
 	jQuery.event.special.swipeup =
 	jQuery.event.special.swipedown = {
 		setup: function( data, namespaces, eventHandle ) {
+			var data = getData(this);
+
 			// If another swipe event is already setup, don't setup again.
-			if (isSetup(this)) { return; }
+			if (data.count++ > 0) { return; }
 
 			add(this, 'moveend', moveend);
 
@@ -114,8 +117,10 @@
 		},
 
 		teardown: function() {
-			// If another swipe event is still setup, don't teardown yet.
-			if (isSetup(this)) { return; }
+			var data = getData(this);
+
+			// If another swipe event is still setup, don't teardown.
+			if (--data.count > 0) { return; }
 
 			remove(this, 'moveend', moveend);
 
