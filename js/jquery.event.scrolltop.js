@@ -42,26 +42,34 @@
 		jQuery.event.handle.apply(this, arguments);
 	}
 	
+	function getData(node) {
+		var data = jQuery.data(node, 'event.scrolltop');
+		
+		if (!data) {
+			data = { count: 0 };
+			jQuery.data(node, 'event.scrolltop', data);
+		}
+		
+		return data;
+	}
+	
 	function setup(data, namespaces, eventHandle) {
 		var elem = jQuery(this),
-		    events = elem.data('events');
+		    data = getData(this);
 		
 		// Don't bind the scroll handler if it is already bound by the
 		// other scroll event.
-		if (((events.scrolltop ? 1 : 0) +
-		     (events.scrollbottom ? 1 : 0)) > 1) { return; }
+		if (data.count++ > 0) { return; }
 		
 		elem.bind('scroll', elem, scrollhandler);
 	}
 	
 	function teardown(namespace) {
 		var elem = jQuery(this),
-		    events = elem.data('events');
-		
-		// Don't unbind the scroll handler if we still need it for the
-		// other scroll event.
-		if (((events.scrolltop ? 1 : 0) +
-		     (events.scrollbottom ? 1 : 0)) > 1) { return; }
+			data = getData(this);
+
+		// If another swipe event is still setup, don't teardown.
+		if (--data.count > 0) { return; }
 		
 		elem.unbind('scroll', scrollhandler);
 	}
