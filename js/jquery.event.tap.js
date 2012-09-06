@@ -37,7 +37,15 @@
 })(jQuery);
 
 
-(function(jQuery, undefined){
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], module);
+	} else {
+		// Browser globals
+		module(jQuery);
+	}
+})(function(jQuery, undefined){
 	var debug = true;//false;
 	
 	var duration = 280,
@@ -202,4 +210,4 @@
 	jQuery(document)
 	.on('touchstart', touchstart)
 	.on('touchend', touchend);
-})(jQuery);
+});

@@ -2,7 +2,15 @@
 //
 // Extends the default behaviour of events for the .tip class.
 
-(function(jQuery, bolt, undefined){
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery', 'bolt'], module);
+	} else {
+		// Browser globals
+		module(jQuery, jQuery.bolt);
+	}
+})(function(jQuery, bolt, undefined){
 	var add = jQuery.event.add,
 	    remove = jQuery.event.remove,
 	    trigger = function(node, type, data) {
@@ -20,7 +28,7 @@
 			var elem = data.elem,
 			    relatedTarget = jQuery(e.relatedTarget),
 			    id = bolt.identify(e.target);
-console.log('AC');
+
 			elem.css(relatedTarget.offset());
 			add(document, 'tap.' + id, tapHandler, e.target);
 			fn();
@@ -28,13 +36,9 @@ console.log('AC');
 
 		deactivate: function (e, data, fn) {
 			var id = bolt.identify(e.target);
-console.log('DEACTIVATE');
+
 			remove(document, '.' + id, tapHandler);
 			fn();
 		}
 	});
-
-	if (typeof define === 'function' && define.amd) {
-		define(['jquery', 'bolt'], function(jQuery) { return; });
-	}
-})(jQuery, jQuery.bolt);
+});

@@ -1,67 +1,18 @@
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, undef:true, curly:true, browser:true, devel:true, jquery:true, indent:4, maxerr:50, smarttabs:true */
 
-// jQuery.prefix(property)
-// 
-// Returns prefixed CSS property, or unprefixed property, as
-// supported by the browser.
-
-(function(jQuery, undefined){
-  var prefixes = ['Khtml','O','Moz','Webkit','ms'],
-      elem = document.createElement('div'),
-      cache = {};
-  
-  function testPrefix(prop) {
-    var upper, prefixProp, l;
-    
-    if (prop in elem.style) { return prop; }
-    
-    upper = prop.charAt(0).toUpperCase() + prop.slice(1);
-    l = prefixes.length;
-    
-    while (l--) {
-      prefixProp = prefixes[l] + upper;
-      
-      if (prefixProp in elem.style) {
-        return prefixProp;
-      }
-    }
-    
-    return false;
-  }
-  
-  function prefix(prop){
-    return cache[prop] || (cache[prop] = testPrefix(prop));
-  }
-  
-  jQuery.prefix = prefix;
-})(jQuery);
-
-
-// Infer transitionend event from CSS transition prefix and add
-// it's name as jQuery.support.cssTransitionEnd.
-
-(function( jQuery, undefined ){
-	var end = {
-	    	KhtmlTransition: false,
-	    	OTransition: 'oTransitionEnd',
-	    	MozTransition: 'transitionend',
-	    	WebkitTransition: 'webkitTransitionEnd',
-	    	msTransition: 'MSTransitionEnd',
-	    	transition: 'transitionend'
-	    },
-	    
-	    prefixed = jQuery.prefix('transition');
-	
-	jQuery.support.cssTransition = prefixed || false;
-	jQuery.support.cssTransitionEnd = (prefixed && end[prefixed]);
-})( jQuery );
-
-
 // jQuery.addTransitionClass(classes, callback)
 // 
 // 2.0_dev
 
-(function(jQuery, undefined){
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], module);
+	} else {
+		// Browser globals
+		module(jQuery);
+	}
+})(function(jQuery, undefined){
   var debug = false, //(window.debug === undefined ? (window.console && window.console.log) : window.debug),
       
       doc = jQuery(document),
@@ -370,7 +321,7 @@
     data.timer = null;
     
     jQuery.removeData(node, 'transition');
-    jQuery.event.remove(node, support.cssTransitionEnd, transitionend);
+    jQuery.event.remove(node, support.transitionEnd, transitionend);
     if (debug) { console.log('[transition] Transition ended target:', node.id + '.' + node.className.split(/\s+/).join('.')); }
     
     // Call the transition end callback
@@ -547,7 +498,7 @@
       }, data.end + 40);
       
       // Bind transition end
-      jQuery.event.add(node, support.cssTransitionEnd, transitionend, data);
+      jQuery.event.add(node, support.transitionEnd, transitionend, data);
       
       // Return this back to the chain
       return this;
@@ -588,11 +539,11 @@
       
       doClass.call(this, classes);
       
-      if (jQuery.support.cssTransition === false && (obj = parseTransitionIE(node))) {
+      if (jQuery.support.transition === false && (obj = parseTransitionIE(node))) {
         // Right on! We may not have transition support, but we can read
         // the CSS! I think we can fall back to jQuery, don't you?
         
-        jQuery.support.cssTransitionEnd = 'jqueryTransitionEnd';
+        jQuery.support.transitionEnd = 'jqueryTransitionEnd';
         
         css = {};
         style = this.attr('style');
@@ -642,7 +593,7 @@
   var addClass = jQuery.fn._addClass = jQuery.fn.addClass,
       removeClass = jQuery.fn._removeClass = jQuery.fn.removeClass;
   
-  if (jQuery.support.cssTransitionEnd) {
+  if (jQuery.support.transitionEnd) {
     // Include propertyName in event properties copied to jQuery
     // event object.
     if (jQuery.event.props.indexOf("propertyName") < 0) {
@@ -656,4 +607,4 @@
     jQuery.fn.addTransitionClass = makeFallback(addClass, removeClass);
     jQuery.fn.removeTransitionClass = makeFallback(removeClass, addClass);
   }
-})(jQuery);
+});

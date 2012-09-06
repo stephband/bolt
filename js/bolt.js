@@ -18,7 +18,15 @@
 // optionally for the given event type.
 
 
-(function(jQuery, undefined){
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], module);
+	} else {
+		// Browser globals
+		module(jQuery);
+	}
+})(function(jQuery, undefined){
 	var debug = true,
 	    
 	    // Keep a log of event types that have been bolted.
@@ -59,12 +67,12 @@
 		var data = jQuery.data(target, 'bolt');
 		
 		if (!data) {
-			data = {};
+			data = {
+				'elem': jQuery(target),
+				'class': classify(target)
+			};
+			
 			jQuery.data(target, 'bolt', data);
-		}
-		
-		if (!data['class']) {
-			data['class'] = classify(target);
 		}
 		
 		return data;
@@ -121,8 +129,4 @@
 	bolt.has = hasClass;
 	
 	jQuery.bolt = bolt;
-	
-	if (typeof define === 'function' && define.amd) {
-		define(['jquery'], function(jQuery) { return bolt; });
-	}
-})(jQuery);
+});

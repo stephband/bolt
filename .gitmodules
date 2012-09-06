@@ -7,3 +7,6 @@
 [submodule "res/ios-orientationchange-fix"]
 	path = res/ios-orientationchange-fix
 	url = git://github.com/scottjehl/iOS-Orientationchange-Fix.git
+[submodule "res/jquery.cookie"]
+	path = res/jquery.cookie
+	url = git://github.com/carhartl/jquery-cookie.git

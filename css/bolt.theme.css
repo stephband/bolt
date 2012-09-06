@@ -23,14 +23,14 @@
 	line-height: 1.8571em;
 }
 
+.button.on,
 .button:hover,
-.button:active,
-.button.active {
+.button:active {
 	color: white;
 }
 
-.button:active,
-.button.active {
+.button.on,
+.button:active {
 	-webkit-box-shadow: inset 0 0 1px 0 black, 0 1px 1px rgba(255,255,255,0.3), 0 -1px 1px rgba(0,0,0,0.5);
 	   -moz-box-shadow: inset 0 0 1px 0 black, 0 1px 1px rgba(255,255,255,0.3), 0 -1px 1px rgba(0,0,0,0.5);
 	        box-shadow: inset 0 0 1px 0 black, 0 1px 1px rgba(255,255,255,0.3), 0 -1px 1px rgba(0,0,0,0.5);
@@ -38,8 +38,8 @@
 
 
 .menu_button,
-.menu_button:active,
-.menu_button.active {
+.menu_button.on,
+.menu_button:active {
 	border: 0;
 	line-height: 2em;
 	
@@ -65,8 +65,8 @@
 	line-height: 1.9286em;
 }
 
-.tab_button:active,
-.tab_button.active {
+.tab_button.on,
+.tab_button:active {
 	color: black;
 	text-shadow: 0 1px rgba(255,255,255,0.8);
 	
@@ -82,8 +82,23 @@
 	        box-shadow: 0 1px 1px rgba(255,255,255,0.3), 0 -1px 1px rgba(0,0,0,0.5);
 }
 
+.tab_button.on:after,
+.tab_button:active:after {
+	/* Add a blank element at the bottom of the button that
+	   covers the top border of the tab below. */
+	content: ' ';
+	display: block;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: -1px;
+	height: 1px;
+	background-color: rgb(234,234,234);
+}
+
 .tab {
 	background-color: rgb(234,234,234);
+	border-top: 1px solid black;
 }
 
 .img_slide {

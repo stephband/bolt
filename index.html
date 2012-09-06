@@ -5,7 +5,7 @@
 	<meta name="author" content="" />
 	<meta name="description" content="" />
 	
-	<title>Template</title>
+	<title>Bolt</title>
 	
 	<script>document.documentElement.className = 'js';</script>
 	
@@ -26,98 +26,183 @@
 	<link rel="icon" type="image/png" href="images/favicon.png" />
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 	
-	<!--link rel="stylesheet" href="css/template.normalise.css" />
-	<link rel="stylesheet" href="css/template.typography.css" />
-	<link rel="stylesheet" href="css/template.typography.15_24.css" />
-	<link rel="stylesheet" href="css/template.forms.css" />
-	<link rel="stylesheet" href="css/template.classes.css" />
-	<link rel="stylesheet" href="css/template.theme.css" />
-	<link rel="stylesheet" href="/css/template.layout.32em.css" media="all and (min-width: 32em)" />
-	<link rel="stylesheet" href="/css/template.layout.48em.css" media="all and (min-width: 48em)" /-->
+	<link rel="stylesheet" href="css/bolt.normalise.css" />
+	<link rel="stylesheet" href="css/bolt.typography.css" />
+	<link rel="stylesheet" href="css/bolt.typography.15_24.css" />
+	<link rel="stylesheet" href="css/bolt.forms.css" />
+	<link rel="stylesheet" href="css/bolt.classes.css" />
+	<link rel="stylesheet" href="css/bolt.theme.css" />
+	<link rel="stylesheet" href="css/bolt.layout.32em.css" media="all and (min-width: 32em)" />
+	<link rel="stylesheet" href="css/bolt.layout.48em.css" media="all and (min-width: 48em)" />
 	<!--[if (lt IE 9)&(!IEMobile)]>
-	<link rel="stylesheet" href="/css/template.layout.32em.css" media="all" />
-	<link rel="stylesheet" href="/css/template.layout.48em.css" media="all" />
+	<link rel="stylesheet" href="css/bolt.layout.32em.css" media="all" />
+	<link rel="stylesheet" href="css/bolt.layout.48em.css" media="all" />
 	<![endif]-->
-	<!--[if lte IE 8]><link rel="stylesheet" href="css/template.ie.css" /><![endif]-->
-	<!--[if IE 8]><link rel="stylesheet" href="css/template.ie8.css" /><![endif]-->
-	<!--[if IE 7]><link rel="stylesheet" href="css/template.ie7.css" /><![endif]-->
-	<!--[if IE 6]><link rel="stylesheet" href="css/template.ie6.css" /><![endif]-->
-	<link rel="stylesheet" href="css/template.debug.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" href="css/bolt.ie.css" /><![endif]-->
+	<!--[if IE 8]><link rel="stylesheet" href="css/bolt.ie8.css" /><![endif]-->
+	<!--[if IE 7]><link rel="stylesheet" href="css/bolt.ie7.css" /><![endif]-->
+	<!--[if IE 6]><link rel="stylesheet" href="css/bolt.ie6.css" /><![endif]-->
+	<link rel="stylesheet" href="css/bolt.debug.css" />
+	<link rel="stylesheet" href="css/tincr.test.css" />
 </head>
 
 <body>
-	<script src="res/curl/dist/curl-for-jQuery/curl.js" type="text/javascript"></script>
-	
-	<script type="text/javascript">
-		// Configure curl
-		curl({
-		    baseUrl: 'js',
-		    pluginPath: 'res/curl/src/curl/plugin',
-		    paths: {
-		    	jquery: 'jquery',
-		    	res: '../res',
-		    	es5: '../res/es5-shim/es5-shim.min'
-		    }
-		});
-		
-		// Load jQuery plugins
-		curl(['jquery'])
-		.then(function() {
-			curl([
-				'js!jquery.extensions',
-				'js!jquery.event.tap',
-				'js!jquery.event.swipe',
-				'js!jquery.validator',
-				'js!jquery.transition',
-				'js!jquery.loading',
-				'js!jquery.dialog'
-			]);
-			
-			curl(['jquery.event.activate'])
-			.then(function() {
-				curl([
-					'js!jquery.event.activate.dialog',
-					'js!jquery.event.activate.dropdown',
-					'js!jquery.event.activate.slide',
-					'js!jquery.event.activate.tab',
-					'js!jquery.event.activate.tip',
-				]);
-			});
-		});
-		
-		// Load app
-		curl([
-			'app',
-			
-			// ES5
-			// Function.prototype.bind is the ES5 feature with by far the worst support. Use it
-			// to dodgily and roughly detect ES5. http://kangax.github.com/es5-compat-table/
-			(!Function.prototype.bind) && 'js!res/es5-shim/es5-shim.min'
-		])
-		.then(function (app) {
-			console.log(app);
-		});
-		
-		// orientationchange
-		// Detect iOS and load the orientationchange fix where needed.
-		if (/iPhone|iPad|iPod/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1) {
-			curl(['js!res/ios-orientationchange-fix/ios-orientationchange-fix.js']);
-		}
-	</script>
-	
+	<section>
+		<ul class="horizontal buttons_index index">
+			<li>
+				<a class="button" href="#tip1">Tip by id in href</a>
+			</li>
+			<li>
+				<a class="button" href="#tip" data-tip="#tip1">Tip by id in data-tip</a>
+			</li>
+			<li>
+				<a class="button" href="#tip" data-tip="Tip in data-tip attribute">Tip by string in data-tip</a>
+			</li>
+		</ul>
+	</section>
 
-	<!--script src="res/ios-orientationchange-fix/ios-orientationchange-fix.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/jquery.js"%3E%3C/script%3E'));</script>
+	<div class="tip" id="tip1">
+	  <p>Tip in seperate container</p>
+	</div>
+	
+	<section>
+		<ul class="horizontal buttons_index index">
+			<li>
+				<a class="button" href="#pop1">Popdown 1</a>
+				<ul class="popdown popdown_buttons_index buttons_index index" id="pop1">
+					<li><a class="menu_button button" href="#menu_button1">Popdown 1</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="button" href="#pop2">Popdown 2</a>
+				<ul class="popdown popdown_buttons_index buttons_index index" id="pop2">
+					<li><a class="menu_button button" href="#menu_button2">Popdown 2</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="button" href="#pop3">Popdown 3</a>
+				<ul class="popdown popdown_buttons_index buttons_index index" id="pop3">
+					<li><a class="menu_button button" href="#menu_button3">Popdown 3</a></li>
+					<li><a class="menu_button button" href="#close">Close</a></li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+	
+	<section>
+		<ul class="horizontal buttons_index index">
+			<li>
+				<a class="button" href="#drop1">Dropdown 1</a>
+				<ul class="dropdown dropdown_buttons_index buttons_index index" id="drop1">
+					<li><a class="menu_button button">Dropdown 1</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="button" href="#drop2">Dropdown 2</a>
+				<ul class="dropdown dropdown_buttons_index buttons_index index" id="drop2">
+					<li><a class="menu_button button">Dropdown 2</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="button" href="#drop3">Dropdown 3</a>
+				<ul class="dropdown dropdown_buttons_index buttons_index index" id="drop3">
+					<li><a class="menu_button button">Dropdown 3</a></li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+	
+	<section>
+		<ul class="horizontal tabs_index index">
+			<li><a class="tab_button button" href="#tab1">Tab 1</a></li>
+			<li><a class="tab_button button" href="#tab2">Tab 2</a></li>
+			<li><a class="tab_button button" href="#tab3">Tab 3</a></li>
+		</ul>
+		<div class="tabs">
+			<div class="group1_tab tab" id="tab1" data-selector=".group1_tab">
+				<p>Tab 1</p>
+			</div
+			
+			><div class="group1_tab tab" id="tab2" data-selector=".group1_tab">
+				<p>Tab 2</p>
+			</div
+			
+			><div class="group1_tab tab" id="tab3" data-selector=".group1_tab">
+				<p>Tab 3</p>
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<ul class="horizontal tabs_index index">
+			<li><a class="tab_button button" href="#tab4">Tab 4</a></li>
+			<li><a class="tab_button button" href="#tab5">Tab 5</a></li>
+			<li><a class="tab_button button" href="#tab6">Tab 6</a></li>
+		</ul>
+		<div class="tabs">
+			<div class="tab" id="tab4">
+				<p>Tab 4</p>
+			</div
+			
+			><div class="tab" id="tab5">
+				<p>Tab 5</p>
+			</div
+			
+			><div class="tab active" id="tab6">
+				<p>Tab 6</p>
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<ul class="horizontal slide_buttons_index buttons_index index">
+			<li><a class="slide_button button" href="#slide1">Slide 1</a></li>
+			<li><a class="slide_button button" href="#slide2">Slide 2</a></li>
+			<li><a class="slide_button button" href="#slide3">Slide 3</a></li>
+			<li><a class="slide_button button" href="#slide4">Slide 4</a></li>
+		</ul>
+		<div class="img_slides_wrap slides_wrap wrap">
+			<div class="img_slide slide" id="slide1">
+				<img src="https://lh5.googleusercontent.com/-MShhyv4lWuM/T4Si18g0XsI/AAAAAAAAANU/Nnnxh68myRA/s827/Norway_201241.png" />
+			</div
+			
+			><div class="img_slide slide active" id="slide2">
+				<img src="https://lh3.googleusercontent.com/-9_uG9zfLoIg/T4ShjaNedbI/AAAAAAAAAKc/0zfSJfF6fAM/s827/Norway_201212.png" />
+			</div
+			
+			><div class="img_slide slide" id="slide3">
+				<img src="https://lh6.googleusercontent.com/-n31QkVB4M9c/T4SjckZM1TI/AAAAAAAAAOs/H26JyEo9970/s827/Norway_201276.png" />
+			</div
+
+			><div class="img_slide slide" id="slide4">
+				<img src="https://lh6.googleusercontent.com/-jti_dD8mDiQ/T4ShY14T5HI/AAAAAAAAAKE/-jF6OT_zmb4/s827/Norway_2012102.png" />
+			</div>
+		</div>
+	</section>
+	
+	<script>
+		// Function.prototype.bind is the ES5 feature with by far the worst support. Use it
+		// to roughly detect ES5. http://kangax.github.com/es5-compat-table/
+		!Function.prototype.bind && document.write(unescape('%3Cscript src="res/es5-shim/es5-shim.min.js"%3E%3C/script%3E'));
+	</script>
+	<script src="res/ios-orientationchange-fix/ios-orientationchange-fix.js"></script>
+	<script src="js/jquery.js"></script>
 	<script src="js/jquery.extensions.js"></script>
 	<script src="js/jquery.event.tap.js"></script>
+	<script src="js/jquery.event.move.js"></script>
+	<script src="js/jquery.event.swipe.js"></script>
 	<script src="js/jquery.event.activate.js"></script>
 	<script src="js/jquery.validator.js"></script>
 	<script src="js/jquery.transition.js"></script>
 	<script src="js/jquery.loading.js"></script>
 	<script src="js/jquery.dialog.js"></script>
-	<script src="js/template.ui.js"></script>
-	<script src="js/template.forms.js"></script>
-	<script src="js/template.activate.js"></script-->
+	<script src="js/bolt.js"></script>
+	<script src="js/bolt.class.tip.js"></script>
+	<script src="js/bolt.class.dropdown.js"></script>
+	<script src="js/bolt.class.tab.js"></script>
+	<script src="js/bolt.class.slide.js"></script>
+	<script src="js/bolt.actions.js"></script>
+	<script src="js/bolt.ui.js"></script>
+	<script src="js/bolt.forms.js"></script>
 </body>
 </html>

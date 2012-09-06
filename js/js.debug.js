@@ -1,8 +1,8 @@
 // This file should be the first javascript included
 // on the page.
 
-// Store properties of the window object and check
-// against them later to see what we have left lying
+// It stores properties of the window object and checks
+// against them later to see what has been left lying
 // around in the global namespace.
 
 (function(window){

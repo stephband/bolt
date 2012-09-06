@@ -1090,7 +1090,9 @@ button.disabled,
 	color: #484848;
 }
 
-.dot_button.active {
+.dot_button.on,
+.dot_botton:hover,
+.dot_button:focus {
 	opacity: 1;
 }
 
@@ -1109,6 +1111,20 @@ button.disabled,
 	-webkit-border-radius: 0;
 	   -moz-border-radius: 0;
 	        border-radius: 0;
+}
+
+.tab_button {
+	/* Set up z-index to interact with tabs below the tab_buttons.
+	   Tab buttons in the off state go under active tabs. */
+	z-index: 1;
+}
+
+.tab_button.on,
+.tab_button:active {
+	/* Tab buttons in the on state appear over active tabs, and
+	   they should display all their text. */
+	z-index: 3;
+	overflow: visible;
 }
 
 .menu_button {

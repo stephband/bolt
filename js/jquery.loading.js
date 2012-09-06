@@ -6,10 +6,18 @@
 //
 // Adds two plugins to the jQuery.fn namespace: .addLoading()
 // and .removeLoading(). Loading icons are drawn in an html5
-// canvas and support CSS transitions when jQuery.support.cssTransition
+// canvas and support CSS transitions when jQuery.support.transition
 // is true.
 
-(function(jQuery, undefined){
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], module);
+	} else {
+		// Browser globals
+		module(jQuery);
+	}
+})(function(jQuery, undefined){
 	
 //	var debug = (window.console && console.log);
 	var debug = false;
@@ -217,8 +225,7 @@
 			data.stop();
 		});
 	};
-	
-})(jQuery);
+});
 
 
 // Feature detect canvas support

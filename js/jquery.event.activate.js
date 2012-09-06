@@ -9,7 +9,15 @@
 // 
 // jQuery.event.special.activate.settings.cache = false;
 
-(function(jQuery, undefined){
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], module);
+	} else {
+		// Browser globals
+		module(jQuery);
+	}
+})(function(jQuery, undefined){
 	var debug = true,
 	    
 	    activeClass = "active",
@@ -23,28 +31,18 @@
 		return true;
 	}
 
-	function getData(target) {
-		var id = target.id;
-
-		data = {
-			elem: jQuery(target),
-			buttons: settings.cache && id && jQuery('a[href="#'+id+'"]')
-		};
+	function cacheData(target) {
+		var data = jQuery.data(target),
+		    id = target.id;
 		
-		jQuery.data(target, 'active', data);
+		if (!data.elem) { data.elem = jQuery(target); }
+		if (!data.buttons) { data.buttons = settings.cache && id && jQuery('a[href="#'+id+'"]'); }
 		
 		return data;
 	}
 
-	function cacheData(target) {
-		var data = jQuery.data(target, 'active'),
-		    id;
-		
-		return data || getData(target);
-	}
-
 	function getButtons(data) {
-		return (settings.cache && data.buttons) || (data.elem[0].id && jQuery('a[href="#' + id + '"]'));
+		return (settings.cache && data.buttons) || (data.elem[0].id && jQuery('a[href="#' + data.elem[0].id + '"]'));
 	}
 
 	jQuery.event.special.activate = {
@@ -57,7 +55,8 @@
 			    buttons;
 			
 			// Don't do anything if elem is already active
-			if (data.state) { return; }
+			if (data.active) { return; }
+			data.active = true;
 			
 			if (debug) { console.log('[activate] default | target:', e.target.id, 'data:', data); }
 			
@@ -70,8 +69,6 @@
 			if (buttons) {
 				buttons.addClass(onClass);
 			}
-			
-			data.state = true;
 		},
 		
 		settings: settings
@@ -83,14 +80,14 @@
 		teardown: returnTrue,
 		_default: function(e) {
 			var data = cacheData(e.target),
-			    elem = data.elem;
+			    elem = data.elem,
+			    buttons;
 
 			// Don't do anything if elem is already inactive
-			if (!data.state) { return; }
-
+			if (!data.active) { return; }
+			data.active = false;
+			
 			if (debug) { console.log('[deactivate] default | target:', e.target.id, 'data:', data); }
-
-			data.state = false;
 			
 			elem.removeTransitionClass(activeClass, function() {
 				elem.trigger('deactivateend');
@@ -119,9 +116,4 @@
 
 		jQuery(id).trigger('activate');
 	});
-
-	// Expose as an AMD module where jQuery is supported
-	if ( typeof define === "function" && define.amd ) {
-		define(['jquery'], function (jQuery) { return; });
-	}
-})(jQuery);
+});

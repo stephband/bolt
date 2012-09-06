@@ -4,11 +4,17 @@
 // events with things to do when they are triggered on elements
 // with various classes.
 
-(function(jQuery, bolt, undefined){
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery', 'bolt'], module);
+	} else {
+		// Browser globals
+		module(jQuery, jQuery.bolt);
+	}
+})(function(jQuery, bolt, undefined){
 	var add = jQuery.event.add,
-	    
 	    remove = jQuery.event.remove,
-
 	    trigger = function(node, type, data) {
 	    	jQuery.event.trigger(type, data, node);
 	    };
@@ -61,7 +67,6 @@
 
 	bolt('popdown', {
 		activate: function(e, data, fn) {
-console.log('activate');
 			// Don't do anything if elem is already active
 			if (data.active) { return; }
 			data.active = true;
@@ -115,4 +120,4 @@ console.log('activate');
 			fn();
 		}
 	});
-})(jQuery, jQuery.bolt);
+});

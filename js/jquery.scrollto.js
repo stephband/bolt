@@ -1,4 +1,12 @@
-(function(jQuery, undefined) {
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], module);
+	} else {
+		// Browser globals
+		module(jQuery);
+	}
+})(function(jQuery, undefined) {
 	var node;
 
 	jQuery.fn.scrollTo = function() {
@@ -32,4 +40,4 @@
 
 		return this;
 	};
-})(jQuery);
+});

@@ -1,17 +1,25 @@
-// Listen for actions that trigger dropdowns, popdowns slides and tabs
+// Listen for actions that must trigger dropdowns, popdowns slides
+// and tabs and handle sending activate events to them.
 
-(function(jQuery, bolt, undefined){
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery', 'bolt'], module);
+	} else {
+		// Browser globals
+		module(jQuery, jQuery.bolt);
+	}
+})(function(jQuery, bolt, undefined){
 	var debug = (window.console && window.console.log),
 	    
 	    add = jQuery.event.add,
-	    
 	    remove = jQuery.event.remove,
-
 	    trigger = function(node, type, data) {
 	    	jQuery.event.trigger(type, data, node);
 	    };
 	
 	function preventDefault(e) {
+		remove(e.currentTarget, 'click', preventDefault);
 		e.preventDefault();
 	}
 	
@@ -43,35 +51,50 @@
 
 		// Get the bolt data that may have been created by a previous
 		// activate event.
-		data = jQuery.data(target, 'bolt');
+		data = jQuery.data(target);
 
 		// Decide what class this object is.
-		if (data && data['class']) {
-			elem = data.elem;
-			clas = data['class'];
+		if (data.bolt && data.bolt['class']) {
+			// It does no harm to cache data.elem here while we have it.
+			// It's used later by the activate event.
+			elem = data.bolt.elem;
+			clas = data.bolt['class'];
 		}
 		else {
 			elem = jQuery(target);
 			clas = bolt.classify(target);
+			
+			// It does no harm to cache elem here while we have it. It's
+			// used later by the activate event.
+			data.elem = elem;
 		}
 
-		// If it has no class, we have no business trying to activate
-		// it on mousedown.
+		// If it has no bolt registered class, we have no business trying
+		// to activate it on mousedown.
 		if (!clas) { return; }
+
+		// Attach bolt's data to the target
+		if (!data.bolt) {
+			data.bolt = {
+				'elem': elem,
+				'class': clas 
+			};
+		}
 
 		e.preventDefault();
 
-		// Prevent the click that follows the mousedown.
-		// !TODO: this should happen only once!
-		if (e.type === 'mousedown') { add(e.currentTarget, 'click', preventDefault); }
+		// Prevent the click that follows the mousedown. The preventDefault
+		// handler unbinds itself as soon as the click is heard.
+		if (e.type === 'mousedown') {
+			add(e.currentTarget, 'click', preventDefault);
+		}
 
 		if (!bolt.has(clas, 'activate')) { return; }
 
-		if ((data && data.active) || (!data && elem.hasClass('active'))) { return; }
-
-		// Attach bolt's data to the target
-		if (!data) {
-			jQuery.data(target, 'bolt', { 'class': clas, elem: elem });
+		if (data.active === undefined ?
+				elem.hasClass('active') :
+				data.active ) {
+			return;
 		}
 
 		trigger(target, { type: 'activate', relatedTarget: e.currentTarget });
@@ -134,4 +157,4 @@
 
 		elem.trigger(e.type === 'mouseout' ? 'deactivate' : { type: 'activate', relatedTarget: e.currentTarget });
 	});
-})(jQuery, jQuery.bolt);
+});

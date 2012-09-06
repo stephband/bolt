@@ -5,7 +5,15 @@
 // 'scrolltop' and 'scrollbottom' events fire when the user has reached the top
 // or bottom scroll limit.
 
-(function(jQuery, undefined){
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], module);
+	} else {
+		// Browser globals
+		module(jQuery);
+	}
+})(function(jQuery, undefined){
 	
 	function scrollhandler(e) {
 		var elem = e.data,
@@ -63,5 +71,4 @@
 		setup: setup,
 		teardown: teardown
 	};
-	
-})(jQuery);
+});

@@ -33,7 +33,15 @@
 //  Text for buttons is localisable via jQuery.fn.dialog.text.
 //  Dialog roles can by added to jQuery.fn.dialog.roles.
 
-(function(jQuery, undefined){
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], module);
+	} else {
+		// Browser globals
+		module(jQuery);
+	}
+})(function(jQuery, undefined){
 	var debug = false; //(window.console && console.log);
 	
 	var text = {
@@ -177,4 +185,4 @@
 	// Expose
 	jQuery.fn.dialog.roles = roles;
 	jQuery.fn.dialog.text = text;
-})(jQuery);
+});

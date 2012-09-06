@@ -2,7 +2,15 @@
 //
 // Fallback support for transitions for Internet Exploder.
 
-(function(jQuery, undefined) {
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], module);
+	} else {
+		// Browser globals
+		module(jQuery);
+	}
+})(function(jQuery, undefined) {
 	var debug = false,
 
 			properties = [
@@ -336,7 +344,7 @@
 		        else elem.removeAttr('style');
 
 		        elem.trigger({
-		          type: jQuery.support.cssTransitionEnd,
+		          type: jQuery.support.transitionEnd,
 		          propertyName: ''
 		        });
 
@@ -382,7 +390,7 @@
 
 	// The meat and potatoes
 
-	jQuery.support.cssTransitionEnd = 'jqueryTransitionEnd';
+	jQuery.support.transitionEnd = 'jqueryTransitionEnd';
 
 	jQuery.fn.transition = function(fn, callback) {
 		var node = this[0],
@@ -419,4 +427,4 @@
 			this.removeClass(classes);
 		}, callback);
 	};
-})(jQuery);
+});
