@@ -18,7 +18,7 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined){
-	var debug = true,
+	var debug = false,//true,
 	    
 	    activeClass = "active",
 	    onClass = "on",

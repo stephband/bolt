@@ -11,7 +11,7 @@
 		// Browser globals
 		module(jQuery, jQuery.bolt);
 	}
-})(function(jQuery, undefined){
+})(function(jQuery, bolt, undefined){
 	var docElem = jQuery(document.documentElement),
 
 	    win = jQuery(window),

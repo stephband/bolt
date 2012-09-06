@@ -50,7 +50,7 @@
 			var target = e.target,
 			    tabs = cacheTabs(e.target, data),
 			    active;
-			console.log('HEY');
+			
 			if (data.active) { return; }
 			data.active = true;
 			

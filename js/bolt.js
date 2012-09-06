@@ -27,7 +27,7 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined){
-	var debug = true,
+	var debug = false,//true,
 	    
 	    // Keep a log of event types that have been bolted.
 	    types = {},
