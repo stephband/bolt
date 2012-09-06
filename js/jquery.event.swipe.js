@@ -32,8 +32,6 @@
 	    	jQuery.event.trigger(type, data, node);
 	    },
 
-	    // Ratio of the width (or height) of the target node must be
-	    // swiped before being considered a swipe.
 	    settings = {
 	    	// Ratio of distance over target finger must travel to be
 	    	// considered a swipe.
