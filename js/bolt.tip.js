@@ -25,16 +25,31 @@
 
 	bolt('tip', {
 		activate: function (e, data, fn) {
+			if (data.active) { return; }
+			data.active = true;
+			
 			var elem = data.elem,
 			    relatedTarget = jQuery(e.relatedTarget),
-			    id = bolt.identify(e.target);
-
-			elem.css(relatedTarget.offset());
+			    id = bolt.identify(e.target),
+			    relatedOffset = relatedTarget.offset(),
+			    offset = elem.offset(),
+			    position = elem.position(),
+			    height = elem.outerHeight();
+			
+			elem.css({
+				// Round the number to get round a sub-pixel rendering error in Chrome
+				left: Math.floor(relatedOffset.left + position.left - offset.left),
+				top:  Math.floor(relatedOffset.top  + position.top  - offset.top - height - 8)
+			});
+			
 			add(document, 'tap.' + id, tapHandler, e.target);
 			fn();
 		},
 
 		deactivate: function (e, data, fn) {
+			if (!data.active) { return; }
+			data.active = false;
+			
 			var id = bolt.identify(e.target);
 
 			remove(document, '.' + id, tapHandler);

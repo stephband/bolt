@@ -42,143 +42,726 @@
 	<!--[if IE 8]><link rel="stylesheet" href="css/bolt.ie8.css" /><![endif]-->
 	<!--[if IE 7]><link rel="stylesheet" href="css/bolt.ie7.css" /><![endif]-->
 	<!--[if IE 6]><link rel="stylesheet" href="css/bolt.ie6.css" /><![endif]-->
-	<link rel="stylesheet" href="css/bolt.debug.css" />
-	<link rel="stylesheet" href="css/tincr.test.css" />
+	<link rel="stylesheet" type="text/css" href="http://stephband.info/css/site.layout.css?6" />
+	<link rel="stylesheet" type="text/css" href="http://stephband.info/css/page.classes.css?6" />
+	<link rel="stylesheet" type="text/css" href="http://stephband.info/css/syntax.css" />
+	<link rel="stylesheet" href="docs/css/docs.classes.css" />
+	<link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-	<section>
-		<ul class="horizontal buttons_index index">
-			<li>
-				<a class="button" href="#tip1">Tip by id in href</a>
-			</li>
-			<li>
-				<a class="button" href="#tip" data-tip="#tip1">Tip by id in data-tip</a>
-			</li>
-			<li>
-				<a class="button" href="#tip" data-tip="Tip in data-tip attribute">Tip by string in data-tip</a>
-			</li>
-		</ul>
-	</section>
+	<header class="site_header" id="page_header">
+		<div class="header_wrap wrap">
+			<a href="http://stephband.info" title="stephband" rel="index">
+				<h1 class="logo_thumb thumb">stephband.info</h1>
+			</a>
+	
+			<ul class="horizontal site_nav_index nav_index index">
+				<!--li><a href="http://stephband.info" class="nav_tab_button tab_button button">blog</a></li
+				><li><a href="http://webdev.stephband.info" class="nav_tab_button tab_button button">webdev</a></li
+				--><li><a href="http://twitter.com/stephband" class="twitter_button button" rel="external">Twitter</a></li>
+			</ul>
+		</div>
+	</header>
+	
+	<div class="site_wrap wrap">
+		<div class="intro_wrap wrap">
+			
+			<p>
+				Bolt is a class-based library of CSS layout techniques and jQuery evented behaviours.
+				It was born at <a href="http://webdoc.com">webdoc</a> and grew up at <a href="http://cruncher.ch">Cruncher</a>, where it has been used in Rails and Django templates, with Backbone and on it's own for the last couple of years.
+			</p>
+			<p>
+				It has flexible columns with arbitrary content order, thumbs, horizontal lists, adaptable dialogs, dropdowns, tabs, slides, layers&hellip; and so on.
+				It also has evented behaviours with support for touch interactions.
+			</p>
+			
+			<div class="2_col_wrap col_wrap wrap">
+				<div class="no1_col col">
+					<h2>Style</h2>
+					
+					<p>
+						Bolt is designed to be flexibly sized and responsively adapted, and to gracefully degrade in the less able.
+						It comes normalised and with a choice of typographic rhythms, but it really concentrates on layout techniques.
+					</p>
+					
+					<p data-tip="#box_model">
+						Bolt sets the box model to <code>border-box</code> by default, on everything. Border box rocks.
+					</p>
+					<p>
+						Bolt prefers CSS over JavaScript, and uses class changes for visual transitions.
+					</p>
+					<p>
+						Bolt does not give you any colour (other than the boring grey theme you see here, and you're supposed to throw that away).
+					</p>
+					<p>
+						Oh, and it uses underscores in class names. I make no apologies.
+					</p>
+					<!--p>
+						Is Bolt opinionated? It isn't even sentient.
+					</p-->
+				</div>
+			
+				<div class="no2_col col">
+					<h2>Behaviour</h2>
+					<p>
+						Bolt's classes come with behaviour attached.
+						Bolt uses jQuery special events to provide default behaviour for dropdowns, dialogs, tabs &mdash; anything that has on/off state &mdash; as well as touch interactions.
+					</p>
+					<p>
+						Because the behaviours are delegated, there are no plugins to call.
+						Creating a tooltip, for example, is as simple as writing:
+					</p>
+					
+					<pre style="white-space: nowrap;"><code>&lt;a href=&quot;#time&quot;&gt;Time is an illusion.&lt;/a&gt;<br/>
+&lt;p class=&quot;tip&quot; id=&quot;time&quot;&gt;Lunchtime, doubly so.&lt;/p&gt;</code></pre>
 
-	<div class="tip" id="tip1">
-	  <p>Tip in seperate container</p>
+					<p>
+						It doesn't matter when you put this in the DOM, Bolt is already listening for a hover or a touch.
+						Try it:
+					</p>
+					<a href="#time">Time is an illusion.</a>
+					<p class="tip" id="time">Lunchtime, doubly so</p>
+				</div>
+			</div>
+		</div>
+
+		<dl class="index">
+			<dt>Repo:</dt>
+			<dd><a href="http://github.com/stephband/bolt">github.com/stephband/bolt</a></dd>
+			<dt>Issues:</dt>
+			<dd><a href="http://github.com/stephband/bolt">github.com/stephband/bolt/issues</a></dd>
+		</dl>
 	</div>
 	
-	<section>
-		<ul class="horizontal buttons_index index">
-			<li>
-				<a class="button" href="#pop1">Popdown 1</a>
-				<ul class="popdown popdown_buttons_index buttons_index index" id="pop1">
-					<li><a class="menu_button button" href="#menu_button1">Popdown 1</a></li>
+	<div class="site_wrap wrap">
+		<dl class="docs_index index">
+			<dt><code>.button</code></dt>
+			<dd>
+				<a class="button" href="#">button</a>
+			</dd>
+		
+			<dt><code>.select_button</code></dt>
+			<dd>
+				<label class="select_button button" for="select">
+					<select id="select">
+						<option value="0">select_button</option>
+						<option value="1">option</option>
+					</select>
+				</label>
+			</dd>
+		
+			<dt><code>.menu_button</code></dt>
+			<dd>
+				<ul class="buttons_index index" style="width: 12em;">
+					<li><a class="menu_button button" href="#">menu_button</a></li
+					><li><a class="menu_button button" href="#">menu_button</a></li
+					><li><a class="menu_button button" href="#">menu_button</a></li
+					>
 				</ul>
-			</li>
-			<li>
-				<a class="button" href="#pop2">Popdown 2</a>
-				<ul class="popdown popdown_buttons_index buttons_index index" id="pop2">
-					<li><a class="menu_button button" href="#menu_button2">Popdown 2</a></li>
-				</ul>
-			</li>
-			<li>
-				<a class="button" href="#pop3">Popdown 3</a>
-				<ul class="popdown popdown_buttons_index buttons_index index" id="pop3">
-					<li><a class="menu_button button" href="#menu_button3">Popdown 3</a></li>
-					<li><a class="menu_button button" href="#close">Close</a></li>
-				</ul>
-			</li>
-		</ul>
-	</section>
-	
-	<section>
-		<ul class="horizontal buttons_index index">
-			<li>
-				<a class="button" href="#drop1">Dropdown 1</a>
-				<ul class="dropdown dropdown_buttons_index buttons_index index" id="drop1">
-					<li><a class="menu_button button">Dropdown 1</a></li>
-				</ul>
-			</li>
-			<li>
-				<a class="button" href="#drop2">Dropdown 2</a>
-				<ul class="dropdown dropdown_buttons_index buttons_index index" id="drop2">
-					<li><a class="menu_button button">Dropdown 2</a></li>
-				</ul>
-			</li>
-			<li>
-				<a class="button" href="#drop3">Dropdown 3</a>
-				<ul class="dropdown dropdown_buttons_index buttons_index index" id="drop3">
-					<li><a class="menu_button button">Dropdown 3</a></li>
-				</ul>
-			</li>
-		</ul>
-	</section>
-	
-	<section>
-		<ul class="horizontal tabs_index index">
-			<li><a class="tab_button button" href="#tab1">Tab 1</a></li>
-			<li><a class="tab_button button" href="#tab2">Tab 2</a></li>
-			<li><a class="tab_button button" href="#tab3">Tab 3</a></li>
-		</ul>
-		<div class="tabs">
-			<div class="group1_tab tab" id="tab1" data-selector=".group1_tab">
-				<p>Tab 1</p>
-			</div
-			
-			><div class="group1_tab tab" id="tab2" data-selector=".group1_tab">
-				<p>Tab 2</p>
-			</div
-			
-			><div class="group1_tab tab" id="tab3" data-selector=".group1_tab">
-				<p>Tab 3</p>
-			</div>
-		</div>
-	</section>
-	
-	<section>
-		<ul class="horizontal tabs_index index">
-			<li><a class="tab_button button" href="#tab4">Tab 4</a></li>
-			<li><a class="tab_button button" href="#tab5">Tab 5</a></li>
-			<li><a class="tab_button button" href="#tab6">Tab 6</a></li>
-		</ul>
-		<div class="tabs">
-			<div class="tab" id="tab4">
-				<p>Tab 4</p>
-			</div
-			
-			><div class="tab" id="tab5">
-				<p>Tab 5</p>
-			</div
-			
-			><div class="tab active" id="tab6">
-				<p>Tab 6</p>
-			</div>
-		</div>
-	</section>
-	
-	<section>
-		<ul class="horizontal slide_buttons_index buttons_index index">
-			<li><a class="slide_button button" href="#slide1">Slide 1</a></li>
-			<li><a class="slide_button button" href="#slide2">Slide 2</a></li>
-			<li><a class="slide_button button" href="#slide3">Slide 3</a></li>
-			<li><a class="slide_button button" href="#slide4">Slide 4</a></li>
-		</ul>
-		<div class="img_slides_wrap slides_wrap wrap">
-			<div class="img_slide slide" id="slide1">
-				<img src="https://lh5.googleusercontent.com/-MShhyv4lWuM/T4Si18g0XsI/AAAAAAAAANU/Nnnxh68myRA/s827/Norway_201241.png" />
-			</div
-			
-			><div class="img_slide slide active" id="slide2">
-				<img src="https://lh3.googleusercontent.com/-9_uG9zfLoIg/T4ShjaNedbI/AAAAAAAAAKc/0zfSJfF6fAM/s827/Norway_201212.png" />
-			</div
-			
-			><div class="img_slide slide" id="slide3">
-				<img src="https://lh6.googleusercontent.com/-n31QkVB4M9c/T4SjckZM1TI/AAAAAAAAAOs/H26JyEo9970/s827/Norway_201276.png" />
-			</div
+			</dd>
 
-			><div class="img_slide slide" id="slide4">
-				<img src="https://lh6.googleusercontent.com/-jti_dD8mDiQ/T4ShY14T5HI/AAAAAAAAAKE/-jF6OT_zmb4/s827/Norway_2012102.png" />
+			<dt style="margin-bottom: 0;">
+				<code>.tab_button</code>
+			</dt>
+			<dd style="margin-bottom: 0;">
+				<ul class="tabs_index index">
+					<li><a class="tab_button button" href="#tab1">tab_button</a></li>
+					<li><a class="tab_button button" href="#tab2">tab_button</a></li>
+					<li><a class="tab_button button" href="#tab3">tab_button</a></li>
+				</ul>
+			</dd>
+
+			<dt>
+				<code>.tab</code><br/>
+				<code class="js_code" id="tab_trigger">.trigger('activate')</code>
+			</dt>
+			<dd>
+				<div class="tab active" id="tab1">
+					<p>Tab 1</p>
+				</div
+				
+				><div class="tab" id="tab2">
+					<p>Tab 2</p>
+				</div
+				
+				><div class="tab" id="tab3">
+					<p>Tab 3</p>
+				</div>
+			</dd>
+
+			<dt>
+				<code>.popdown</code>
+				<code class="js_code" id="pop_activate">.trigger('activate')</code>
+				<code class="js_code" id="pop_deactivate">.trigger('deactivate')</code>
+			</dt>
+			<dd>
+				<a class="button" href="#pop1">popdown 1</a>
+				<ul class="popdown buttons_index index" id="pop1">
+					<li><a class="menu_button button" href="#">menu_button</a></li
+					><li><a class="menu_button button" href="#close">close</a></li>
+				</ul>
+			</dd>
+			
+			<dt>
+				<code>.dropdown</code>
+				<code class="js_code" id="drop_activate">.trigger('activate')</code>
+				<code class="js_code" id="drop_deactivate">.trigger('deactivate')</code>
+			</dt>
+			<dd>
+				<a class="button" href="#drop1">dropdown 1</a>
+				<ul class="dropdown buttons_index index" id="drop1">
+					<li><a class="menu_button button">menu_button</a></li
+					><li><a class="menu_button button">menu_button</a></li>
+				</ul>
+			</dd>
+		
+			<dt>
+				<code>.tip</code>
+				<p>
+				Tips can be referenced in three ways:
+				1.&nbsp;a hash in the 'href' attribute or
+				2.&nbsp;a hash in the 'data-tip' attribute,
+				where the hash points to an id in the DOM, and the tip can contain any html, or
+				3.&nbsp;inline text in the 'data-tip' attribute.
+				
+				</p>
+			</dt>
+			<dd>
+				One of the major problems encountered in <a href="#tip1">time travel</a> is not that of becoming your own father or mother.
+				There is no problem in becoming your own father or mother that a broad-minded and well-adjusted family can't cope with.
+				There is no problem with changing the <a href="#" data-tip="#tip2">course of history</a> — the course of history does not change, because it all fits together like a jigsaw.
+				All the important changes have happened before the things they were <a href="#" data-tip="This tip is created from text in the data-tip attribute.">supposed to change</a> and it all sorts itself out in the end.
+			</dd>
+		
+			<dt>
+				<code>.slide</code><br/>
+				<code class="js_code" id="slide_trigger">.trigger('activate')</code>
+			</dt>
+			<dd>
+				<div class="img_slides_wrap slides_wrap wrap">
+					<div class="img_slide slide" id="slide1">
+						<img src="https://lh5.googleusercontent.com/-MShhyv4lWuM/T4Si18g0XsI/AAAAAAAAANU/Nnnxh68myRA/s827/Norway_201241.png" />
+					</div
+					
+					><div class="img_slide slide active" id="slide2">
+						<img src="https://lh3.googleusercontent.com/-9_uG9zfLoIg/T4ShjaNedbI/AAAAAAAAAKc/0zfSJfF6fAM/s827/Norway_201212.png" />
+					</div
+					
+					><div class="img_slide slide" id="slide3">
+						<img src="https://lh6.googleusercontent.com/-n31QkVB4M9c/T4SjckZM1TI/AAAAAAAAAOs/H26JyEo9970/s827/Norway_201276.png" />
+					</div
+		
+					><div class="img_slide slide" id="slide4">
+						<img src="https://lh6.googleusercontent.com/-jti_dD8mDiQ/T4ShY14T5HI/AAAAAAAAAKE/-jF6OT_zmb4/s827/Norway_2012102.png" />
+					</div>
+				</div>
+			</dd>
+		
+			<dt><code>.dot_thumb</code></dt>
+			<dd>
+				<ul class="dots_index index">
+					<li><a class="dot_thumb thumb" href="#slide1">Slide 1</a></li
+					><li><a class="dot_thumb thumb" href="#slide2">Slide 2</a></li
+					><li><a class="dot_thumb thumb" href="#slide3">Slide 3</a></li
+					><li><a class="dot_thumb thumb" href="#slide4">Slide 4</a></li>
+				</ul>
+			</dd>
+		
+			<dt>
+				<code>.index</code>
+				<p>Removes default styling from lists.</p>
+			</dt>
+			<dd>
+				<ul class="index">
+					<li>Item 1 in a list</li>
+					<li>Item 2 in a list</li>
+					<li>Item 3 in a list</li>
+					<li>Item 3 in a list</li>
+				</ul>
+			</dd>
+			
+			<dt>
+				<code>.striped_index</code>
+			</dt>
+			<dd>
+				<ul class="striped_index index">
+					<li>Item 1 in a list</li>
+					<li>Item 2 in a list</li>
+					<li>Item 3 in a list</li>
+					<li>Item 3 in a list</li>
+				</ul>
+			</dd>
+			
+			<dt><code>.crumbs_index</code></dt>
+			<dd>
+				<ul class="crumbs_index index">
+					<li><a>link</a></li>
+					<li><a>link</a></li>
+					<li><a>link</a></li>
+				</ul>
+			</dd>
+		
+			<dt><code>.actions_index</code></dt>
+			<dd>
+				<ul class="actions_index index">
+					<li><a class="button">button</a></li>
+					<li><a class="button">button</a></li>
+					<li><a class="button">button</a></li>
+				</ul>
+			</dd>
+	
+			<dt>
+				<code>.col</code>
+				<p>Flexible, nestable columns in with fixed gutters that can be written in arbitrary source order.</p>
+			</dt>
+			<dd>
+				<div class="2_col_wrap col_wrap wrap">
+					<div class="no1_col col"><code>no1_col</code></div
+					><div class="no2_col col"><code>no2_col</code></div>
+				</div>
+			</dd>
+			
+			<dd>
+				<div class="3_col_wrap col_wrap wrap">
+					<div class="no1_col col"><code>no1_col</code></div
+					><div class="no2_col col"><code>no2_col</code></div
+					><div class="no3_col col"><code>no3_col</code></div>
+				</div>
+			</dd>
+			
+			<dd>
+				<div class="4_col_wrap col_wrap wrap">
+					<div class="no1_col col"><code>no1_col</code></div
+					><div class="no2_col col"><code>no2_col</code></div
+					><div class="no3_col col"><code>no3_col</code></div
+					><div class="no4_col col"><code>no4_col</code></div>
+				</div>
+			</dd>
+			
+			<dd>
+				<div class="5_col_wrap col_wrap wrap">
+					<div class="no1_col col"><code>no1_col</code></div
+					><div class="no2_col col"><code>no2_col</code></div
+					><div class="no3_col col"><code>no3_col</code></div
+					><div class="no4_col col"><code>no4_col</code></div
+					><div class="no5_col col"><code>no5_col</code></div>
+				</div>
+			</dd>
+			
+			<dd>
+				<div class="6_col_wrap col_wrap wrap">
+					<div class="no1_col col"><code>no1_col</code></div
+					><div class="no2_col col"><code>no2_col</code></div
+					><div class="no3_col col"><code>no3_col</code></div
+					><div class="no4_col col"><code>no4_col</code></div
+					><div class="no5_col col"><code>no5_col</code></div
+					><div class="no6_col col"><code>no6_col</code></div>
+				</div>
+			</dd>
+			
+			<dd>
+				<div class="7_col_wrap col_wrap wrap">
+					<div class="no1_col col"><code>no1_col</code></div
+					><div class="no2_col col"><code>no2_col</code></div
+					><div class="no3_col col"><code>no3_col</code></div
+					><div class="no4_col col"><code>no4_col</code></div
+					><div class="no5_col col"><code>no5_col</code></div
+					><div class="no6_col col"><code>no6_col</code></div
+					><div class="no7_col col"><code>no7_col</code></div>
+				</div>
+			</dd>
+			
+			<dd>
+				<div class="8_col_wrap col_wrap wrap">
+					<div class="no1_col col"><code>no1_col</code></div
+					><div class="no2_col col"><code>no2_col</code></div
+					><div class="no3_col col"><code>no3_col</code></div
+					><div class="no4_col col"><code>no4_col</code></div
+					><div class="no5_col col"><code>no5_col</code></div
+					><div class="no6_col col"><code>no6_col</code></div
+					><div class="no7_col col"><code>no7_col</code></div
+					><div class="no8_col col"><code>no8_col</code></div>
+				</div>
+			</dd>
+			
+			<dd>
+				<div class="9_col_wrap col_wrap wrap">
+					<div class="no1_col col"><code>no1_col</code></div
+					><div class="no2_col col"><code>no2_col</code></div
+					><div class="no3_col col"><code>no3_col</code></div
+					><div class="no4_col col"><code>no4_col</code></div
+					><div class="no5_col col"><code>no5_col</code></div
+					><div class="no6_col col"><code>no6_col</code></div
+					><div class="no7_col col"><code>no7_col</code></div
+					><div class="no8_col col"><code>no8_col</code></div
+					><div class="no9_col col"><code>no9_col</code></div>
+				</div>
+			</dd>
+			
+			<dd>
+				<div class="10_col_wrap col_wrap wrap">
+					<div class="no1_col col"><code>no1_col</code></div
+					><div class="no2_col col"><code>no2_col</code></div
+					><div class="no3_col col"><code>no3_col</code></div
+					><div class="no4_col col"><code>no4_col</code></div
+					><div class="no5_col col"><code>no5_col</code></div
+					><div class="no6_col col"><code>no6_col</code></div
+					><div class="no7_col col"><code>no7_col</code></div
+					><div class="no8_col col"><code>no8_col</code></div
+					><div class="no9_col col"><code>no9_col</code></div
+					><div class="no10_col col"><code>no10_col</code></div>
+				</div>
+			</dd>
+			
+			<dd>
+				<div class="11_col_wrap col_wrap wrap">
+					<div class="no1_col col"><code>no1_col</code></div
+					><div class="no2_col col"><code>no2_col</code></div
+					><div class="no3_col col"><code>no3_col</code></div
+					><div class="no4_col col"><code>no4_col</code></div
+					><div class="no5_col col"><code>no5_col</code></div
+					><div class="no6_col col"><code>no6_col</code></div
+					><div class="no7_col col"><code>no7_col</code></div
+					><div class="no8_col col"><code>no8_col</code></div
+					><div class="no9_col col"><code>no9_col</code></div
+					><div class="no10_col col"><code>no10_col</code></div
+					><div class="no11_col col"><code>no11_col</code></div>
+				</div>
+			</dd>
+			
+			<dd>
+				<div class="12_col_wrap col_wrap wrap">
+					<div class="no1_col col"><code>no1_col</code></div
+					><div class="no2_col col"><code>no2_col</code></div
+					><div class="no3_col col"><code>no3_col</code></div
+					><div class="no4_col col"><code>no4_col</code></div
+					><div class="no5_col col"><code>no5_col</code></div
+					><div class="no6_col col"><code>no6_col</code></div
+					><div class="no7_col col"><code>no7_col</code></div
+					><div class="no8_col col"><code>no8_col</code></div
+					><div class="no9_col col"><code>no9_col</code></div
+					><div class="no10_col col"><code>no10_col</code></div
+					><div class="no11_col col"><code>no11_col</code></div
+					><div class="no12_col col"><code>no12_col</code></div>
+				</div>
+			</dd>
+			
+			<dt>
+				<code>.layer</code>
+				<p>An absolutely position block that fills it's nearest position parent. It's transparent by default&hellip;</p>
+			</dt>
+			<dd class="fixed_example example">
+				<div class="layer"></div>
+			</dd>
+			
+			<dt>
+				<code>.screen_layer</code>
+				<p>&hellip;but a screen_layer applies a semi-transparent grey mask.</p>
+			</dt>
+			<dd class="fixed_example example">
+				<div class="screen_layer layer"></div>
+			</dd>
+			
+			<dt>
+				<code>.loading_layer</code><br/>
+				<code class="js_code" id="add_loading">.addLoading()</code><br/>
+				<code class="js_code" id="rem_loading">.removeLoading()</code>
+			</dt>
+			<dd class="fixed_example example" id="loading_example">
+				
+			</dd>
+			
+			<dt>
+				<code>.wrap</code>
+				<p>A self-centred position parent. Sounds terrible.</p>
+			</dt>
+			<dd class="flex_example example">
+				<div class="narrow_wrap wrap" style="width: 50%;">
+					One of the major problems encountered in time travel is not that of becoming your own father or mother.
+					There is no problem in becoming your own father or mother that a broad-minded and well-adjusted family can't cope with.
+				</div>
+			</dd>
+		</dl>
+	</div>
+	
+	<p class="tip" id="tip1">This tip is referenced by a hash in the href attribute, for semantic anchoring to tip content.</p>
+	<p class="tip" id="tip2">This tip is referenced by a hash in the data-tip attribute, freeing up the href attribute to link to something else.</p>
+	
+	
+	
+	<div class="site_wrap wrap">
+		<dl class="docs_index index">
+			<dt>
+				forms<br/>
+				<p>Form validation is handled via event delegation, so forms validate automatically where it is not already detected in the browser.</p>
+			</dt>
+			<dd>
+			
+			<div class="3_col_wrap col_wrap wrap example" style="margin-left: 0; margin-right: 0;">
+			<form class="col">
+				<h2>html5 type</h2>
+			  
+			  <label for="text">text</label>
+			  <input type="text" id="text" name="text" />
+			  
+			  <label for="search">search</label>
+			  <input type="search" id="search" name="search" />
+			  
+			  <label for="tel">tel</label>
+			  <input type="tel" id="tel" name="tel" />
+			  
+			  <label for="url">url</label>
+			  <input type="url" id="url" name="url" />
+			  
+			  <label for="color">color</label>
+			  <input type="color" id="color" name="color" />
+			   
+			  <label for="email">email</label>
+			  <input type="email" id="email" name="email" />
+			  
+			  <label for="password">password</label>
+			  <input type="password" id="password" name="password" />
+			  
+			  <label for="textarea">textarea</label>
+			  <textarea id="textarea" name="textarea"></textarea>
+			  
+			  <label for="textarea">textarea.resize_textarea</label>
+			  <textarea class="resize_textarea" id="textarea" name="textarea">The quick brown fox jumps over the lazy dog.</textarea>
+			  
+			  <label for="number">number</label>
+			  <input type="number" id="number" name="number" />
+			  
+			  <label for="date">date</label>
+			  <input type="date" id="date" name="date" />
+			  
+			  <label for="time">time</label>
+			  <input type="time" id="time" name="time" />
+			  
+			  <label for="week">week</label>
+			  <input type="week" id="week" name="week" />
+			  
+			  <label for="month">month</label>
+			  <input type="month" id="month" name="month" />
+			
+			  <label for="datetime">datetime</label>
+			  <input type="datetime" id="datetime" name="datetime" />
+			   
+			  <label for="datetime-local">datetime-local</label>
+			  <input type="datetime-local" id="datetime-local" name="datetime-local" />
+			  
+			  <label for="range">range</label>
+			  <input type="range" id="range" name="range" />
+			  
+			  <label for="radio">radio</label>
+			  <input type="radio" id="radio" name="radio" />
+			  
+			  <label for="checkbox">checkbox</label>
+			  <input type="checkbox" id="checkbox" name="checkbox" />
+			
+			  <label for="radio2">
+			    <input type="radio" id="radio2" name="radio2" />
+			    radio
+			  </label>
+			  
+			  <label for="checkbox2">
+			    <input type="checkbox" id="checkbox2" name="checkbox2" />
+			    checkbox
+			  </label>
+			  
+			  <label for="select">select</label>
+			  <select>
+			  	<option>Item 1</option>
+			  	<option>Item 2</option>
+			  	<option>Item 3</option>
+			  	<option>Item 4</option>
+			  </select>
+			  
+			  <label for="file">file</label>
+			  <input type="file" id="file" name="file" />
+			  
+			  <label for="hidden">hidden</label>
+			  <input type="hidden" id="hidden" name="hidden" />
+			  
+			  <label for="image">image</label>
+			  <input type="image" id="image" name="image" />
+			  
+			  <label for="button">button</label>
+			  <input type="button" id="button" name="button" value="button" />
+			  
+			  <label for="reset">reset</label>
+			  <input type="reset" id="reset" name="reset" />
+			  
+			  <label for="submit">submit</label>
+			  <input type="submit" id="submit" name="submit" />
+			</form
+			
+			><form class="col">
+			  
+			  <h2>custom data-type</h2>
+			  
+			  <label for="csscolor">csscolor</label>
+			  <input type="text" data-type="csscolor" id="csscolor" name="csscolor" />
+			  
+			  <label for="cssangle">cssangle</label>
+			  <input type="text" data-type="cssangle" id="cssangle" name="cssangle" />
+			  
+			  <label for="cssvalue">cssvalue</label>
+			  <input type="text" data-type="cssvalue" id="cssvalue" name="cssvalue" />
+			  
+			  <label for="imagefile">imagefile</label>
+			  <input type="text" data-type="imagefile" id="imagefile" name="imagefile" />
+			
+			  <label for="email">email</label>
+			  <input type="email" data-type="email" id="email" name="email" />
+			  
+			  <label for="csscolorauto">csscolor [autocomplete=on]</label>
+			  <input type="text" data-type="csscolor" id="csscolorauto" name="csscolorauto" autocomplete="on" />
+			  
+			  <label for="cssangleauto">cssangle [autocomplete=on]</label>
+			  <input type="text" data-type="cssangle" id="cssangleauto" name="cssangleauto" autocomplete="on" />
+			  
+			  <label for="cssvalueauto">cssvalue [autocomplete=on]</label>
+			  <input type="text" data-type="cssvalue" id="cssvalueauto" name="cssvalueauto" autocomplete="on" />
+			  
+			  <input class="submit_button button" type="submit" value="Submit"/>
+			</form
+			
+			><form class="col">
+			  
+			  <h2>attribute</h2>
+			  
+			  <label for="minlength">text [minlength=2]</label>
+			  <input type="text" id="minlength" name="minlength" minlength="2" />
+			  
+			  <label for="maxlength">text [maxlength=2]</label>
+			  <input type="text" id="maxlength" name="maxlength" maxlength="2" />
+			  
+			  <label for="min">text [min=2]</label>
+			  <input type="text" id="min" name="min" min="2" />
+			  
+			  <label for="max">text [max=10]</label>
+			  <input type="text" id="max" name="max" max="10" />
+			  
+			  <label for="readonly">text [readonly=readonly]</label>
+			  <input type="text" id="readonly" name="readonly" readonly="readonly" />
+			  
+			  <label for="treadonly">textarea [readonly=readonly]</label>
+			  <textarea id="readonly" name="treadonly" readonly="readonly"></textarea>
+			  
+			  <label for="required">text [required]</label>
+			  <input type="text" id="required" required="required" name="required" />
+			  
+			  <label for="autocomplete">text [autocomplete=on]</label>
+			  <input type="text" id="autocomplete" name="autocomplete" autocomplete="on" />
+			  
+			  <input class="submit_button button" type="submit" id="submit" name="submit" />
+			</form>
+			
+			<hr/>
+			
+			<form class="col">
+			  <h2>Fieldsets and legends</h2>
+			  
+			  <fieldset>
+			    <label for="text2">text</label>
+			    <input type="text" id="text2" name="text2" />
+			    
+			    <label for="text3">text</label>
+			    <input type="text" id="text3" name="text3" />
+			  </fieldset>
+			  
+			  <fieldset>
+			    <legend>Legend</legend>
+			    
+			    <label for="text4">text</label>
+			    <input type="text" id="text4" name="text4" />
+			    
+			    <label for="text5">text</label>
+			    <input type="text" id="text5" name="text5" />
+			  </fieldset>
+			</form
+			><form class="col">
+			  <h2>Range inputs</h2>
+			  
+			  <fieldset>
+			    <label for="range2">range</label>
+			    <input type="range" id="range2" name="range2" />
+			  </fieldset>
+			  
+			  <fieldset>
+			    <label for="range4">vertical range</label>
+			    <input type="range" id="range4" name="range4" class="y_range" />
+			  </fieldset>
+			  
+			  <fieldset>
+			    <label for="range4">list of vertical ranges</label>
+			    <ul class="horizontal range_index index">
+			  	<li><input class="y_range" type="range" id="range4" name="range4" /></li
+			     ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+			     ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+			     ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+			     ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+			     ><li><input class="y_range" type="range" id="range4" name="range4" /></li
+			     ><li><input class="y_range" type="range" id="range4" name="range4" /></li>
+			    </ul>
+			  </fieldset>
+			</form
+			><form class="col">
+			  <h2>Restyled select boxes</h2>
+			  
+			  <fieldset>
+			    <label for="select_wrapped">Select box:</label>
+			    
+			    <label class="button" for="select_wrapped">
+			  	<select id="select_wrapped">
+			  	  <option value="0">0</option>
+			  	  <option value="1">1</option>
+			  	  <option value="2">2</option>
+			  	</select>
+			    </label>
+			  </fieldset>
+			</form>
+			</dd>
+		</dl>
+	</div>
+	
+	
+	<div class="site_wrap wrap">
+		<div class="intro_wrap wrap">
+			<p>
+				Bolt owes a lot to several sources of web goodness, in particular <a href="http://necolas.github.com/normalize.css/">normalise.css</a>, <a href="http://www.blueprintcss.org/">Blueprint</a>, <a href="http://www.webtypography.net">webtypography.net</a>, <a href="http://html5boilerplate.com/">H5BP</a> and of course <a href="http://jquery.com">jQuery</a> and it's community.
+			</p>
+		</div>
+	</div>
+	
+	<footer class="site_footer">
+		<div class="full_wrap wrap">
+			<div class="bio_col col">
+				<h3>Who made this?</h3>
+				<p>I did. I come from Scotland and I live in Lausanne, Switzerland. I make web things at <a href="http://cruncher.ch">Cruncher</a>. I miss Branston Pickle. When I'm not glued to a screen I play music and hike mountains.</p>
+			</div
+			><div class="repo_col col">
+				<h3>More code</h3>
+				<ul class="repo_index index">
+					<li><a href="http://stephband.info/bolt">Bolt</a></li>
+					<li><a href="http://stephband.info/jparallax/">jQuery.parallax</a></li>
+					<li><a href="http://stephband.info/jquery.event.tap/">jQuery.event.tap</a></li>
+					<li><a href="http://stephband.info/jquery.event.move/">jQuery.event.move</a></li>
+					<li><a href="http://stephband.info/jquery.event.swipe/">jQuery.event.swipe</a></li>
+				</ul>
+			</div
+			><div class="social_col col">
+				<h3>Find me on...</h3>
+				<ul class="social_index index">
+					<li><a href="http://twitter.com/stephband">twitter</a></li>
+					<li><a href="http://github.com/stephband">github</a></li>
+					<li><a href="http://plus.google.com/114566808430966059989/photos">google+</a></li>
+					<li><a href="http://www.linkedin.com/profile/view?id=27013870">linkedin</a></li>
+				</ul>
 			</div>
 		</div>
-	</section>
+	</footer>
 	
 	<script>
 		// Function.prototype.bind is the ES5 feature with by far the worst support. Use it
@@ -198,6 +781,7 @@
 	<script src="js/jquery.loading.js"></script>
 	<script src="js/jquery.scrollto.js"></script>
 	<script src="js/jquery.validate.js"></script>
+	<script src="js/jquery.validate.datatype.js"></script>
 	<script src="js/jquery.transition.js"></script>
 	
 	<script src="js/bolt.js"></script>
@@ -210,5 +794,56 @@
 	<script src="js/bolt.dropdown.js"></script>
 	<script src="js/bolt.input.js"></script>
 	<script src="js/bolt.input.placeholder.js"></script>
+
+	<script>
+		jQuery(document).ready(function() {
+			var example = jQuery('#loading_example');
+			
+			jQuery('#add_loading').on('click', function() {
+				example.addLoading();
+			});
+			
+			jQuery('#rem_loading').on('click', function() {
+				example.removeLoading();
+			});
+		
+			jQuery('#slide_trigger').on('click', function() {
+				jQuery('#slide3').trigger('activate');
+			});
+			
+			jQuery('#tab_trigger').on('click', function() {
+				jQuery('#tab3').trigger('activate');
+			});
+			
+			jQuery('#pop_activate').on('click', function() {
+				jQuery('#pop1').trigger('activate');
+			});
+			
+			jQuery('#pop_deactivate').on('click', function() {
+				jQuery('#pop1').trigger('deactivate');
+			});
+
+			jQuery('#drop_activate').on('click', function() {
+				console.log('YAH');
+				jQuery('#drop1').trigger('activate');
+			});
+			
+			jQuery('#drop_deactivate').on('click', function() {
+				jQuery('#drop1').trigger('deactivate');
+			});
+		});
+	</script>
+	
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+
+			jQuery('form')
+			.validator()
+			.bind('submit', function(e){
+				e.preventDefault();
+				console.log('Submit prevented');
+			});
+		});
+	</script>
 </body>
 </html>

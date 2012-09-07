@@ -199,32 +199,6 @@
 }
 
 
-/* .tip */
-
-.js .tip {
-	position: absolute;
-	
-	padding-top: 0.33em;
-	padding-bottom: 0.33em;
-	padding-left: 0.75em;
-	padding-right: 0.75em;
-	max-width: 20em;
-	
-	margin-top: -3em;
-}
-
-@media all and (max-width: 30em) {
-	.js .tip {
-		/* Override offset given to it by JS when the
-		   screen is too small. */
-		left: 4% !important;
-		margin-left: 0 !important;
-		width: 92% !important;
-		max-width: 92% !important;
-	}
-}
-
-
 /* utilities */
 
 .js .hidden {
@@ -268,11 +242,19 @@
 .dropdown_index > li > a {
 	display: block;
 	white-space: nowrap;
-	width:100%;
-	padding-left:10px;
-	padding-right:10px;
+	width: 100%;
+	padding-left: 10px;
+	padding-right: 10px;
 	font-size: 0.9167em;
 	font-weight: bold;
+}
+
+.index > li > .menu_button {
+	width: 100%;
+}
+
+.dots_index > li > .thumb {
+	vertical-align: top;
 }
 
 .dots_index {
@@ -285,16 +267,20 @@
 	margin-right: 0;
 }
 
-.two_tabs_index > li	 { width: 50%; }
-.three_tabs_index > li { width: 33.33%; }
-.four_tabs_index > li	 { width: 25%; }
-.five_tabs_index > li	 { width: 20%; }
-.six_tabs_index > li	 { width: 16.66%; }
-.seven_tabs_index > li { width: 14.28%; }
-.eight_tabs_index > li { width: 12.5%; }
+.two_tabs_index > li        { width: 50%; }
+.three_tabs_index > li      { width: 33.33%; }
+.four_tabs_index > li       { width: 25%; }
+.five_tabs_index > li       { width: 20%; }
+.six_tabs_index > li        { width: 16.66%; }
+.seven_tabs_index > li      { width: 14.28%; }
+.eight_tabs_index > li      { width: 12.5%; }
 
-.tabs_index > li:last-child		{ margin-right: 0; }
-.tabs_index > li.last					{ margin-right: 0; }
+.tabs_index > li:last-child { margin-right: 0; }
+.tabs_index > li.last       { margin-right: 0; }
+
+.tabs_index > li > .tab_button {
+	width: 100%;
+}
 
 .crumbs_index,
 .crumbs_index > li {
@@ -832,8 +818,7 @@
 .js .tab,
 .js .popup_layer,
 .js .dialog_layer,
-.js .loading_layer,
-.js .tip {
+.js .loading_layer {
 	visibility: hidden;
 	opacity: 0;
 	z-index: 1;
@@ -860,12 +845,7 @@
 .js .tab.active,
 .js .popup_layer.active,
 .js .dialog_layer.active,
-.js .loading .loading_layer,
-.js .tip.active {
-	/* The inline-block technique overlays tabs on top of one another
-	   but still allows the height of the blocks to stay in the flow.
-	   It's better than using position: absolute. It rocks. */
-	
+.js .loading .loading_layer {
 	visibility: visible;
 	opacity: 1;
 	z-index: 2;
@@ -876,14 +856,6 @@
 	     -o-transition-timing-function: ease-out;
 	        transition-timing-function: ease-out;
 }
-
-.js .tip.active {
-	-webkit-transition-delay: 540ms;
-	   -moz-transition-delay: 540ms;
-	    -ms-transition-delay: 540ms;
-	        transition-delay: 540ms;
-}
-
 
 
 .js .slide {
@@ -946,6 +918,75 @@
 }
 
 
+/* .tip */
+
+.js .tip {
+	position: absolute;
+	
+	padding-top: 0.33em;
+	padding-bottom: 0.33em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
+	max-width: 20em;
+	
+	visibility: hidden;
+	opacity: 0;
+	margin-top: 0;
+	z-index: 1;
+	
+	-webkit-transition-property: opacity, visibility, margin-top;
+	   -moz-transition-property: opacity, visibility, margin-top;
+	    -ms-transition-property: opacity, visibility, margin-top;
+	     -o-transition-property: opacity, visibility, margin-top;
+	        transition-property: opacity, visibility, margin-top;
+
+	-webkit-transition-duration: 120ms;
+	   -moz-transition-duration: 120ms;
+	    -ms-transition-duration: 120ms;
+	     -o-transition-duration: 120ms;
+	        transition-duration: 120ms;
+
+	-webkit-transition-timing-function: ease-in;
+	   -moz-transition-timing-function: ease-in;
+	    -ms-transition-timing-function: ease-in;
+	     -o-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
+}
+
+.js .tip.active {
+	/* The inline-block technique overlays tabs on top of one another
+	   but still allows the height of the blocks to stay in the flow.
+	   It's better than using position: absolute. It rocks. */
+	
+	visibility: visible;
+	opacity: 1;
+	margin-top: -0.2667em;
+	z-index: 2;
+	
+	-webkit-transition-timing-function: ease-out;
+	   -moz-transition-timing-function: ease-out;
+	    -ms-transition-timing-function: ease-out;
+	     -o-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
+
+	-webkit-transition-delay: 540ms;
+	   -moz-transition-delay: 540ms;
+	    -ms-transition-delay: 540ms;
+	        transition-delay: 540ms;
+}
+
+@media all and (max-width: 30em) {
+	.js .tip {
+		/* Override offset given to it by JS when the
+		   screen is too small. */
+		left: 4% !important;
+		margin-left: 0 !important;
+		width: 92% !important;
+		max-width: 92% !important;
+	}
+}
+
+
 /* .popup, .popdown, .dropdown */
 
 .popdown,
@@ -959,6 +1000,10 @@
 	
 	position: absolute;
 	top: 2em;
+	
+	/* They should appear over the top of following content. */
+	z-index: 3;
+	
 	opacity: 0;
 	visibility: hidden;
 	
@@ -1076,29 +1121,8 @@ button.disabled,
 	margin-right: 0.5em;
 }
 
-.dot_button {
-	padding-left: 4px;
-	padding-left: 0.25rem;
-	padding-right: 4px;
-	padding-right: 0.25rem;
-	
-	font-size: 24px;
-	font-size: 1.5rem;
-	line-height: 1em;
-	
-	opacity: 0.6;
-	color: #484848;
-}
-
-.dot_button.on,
-.dot_botton:hover,
-.dot_button:focus {
-	opacity: 1;
-}
-
 .menu_button,
 .tab_button {
-	width: 100%;
 	padding-left: 0.8333em;
 	padding-right: 0.8333em;
 	
@@ -1286,6 +1310,32 @@ button.disabled,
 .fb_thumb { background-position: 0 0; }
 .tw_thumb { background-position: -25px 0; }
 .yt_thumb { background-position: -49px 0; }
+
+.dot_thumb {
+	font-size: 1.75em;
+	opacity: 0.6;
+	color: #484848;
+	width: 0.8571em;
+	padding-top: 0.8571em;
+	line-height:  0.8571em;
+}
+
+.dot_thumb:after {
+	content: '●';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.dot_thumb.on,
+.dot_thumb:hover,
+.dot_thumb:focus {
+	opacity: 1;
+}
 
 /* .card */
 
