@@ -47,7 +47,7 @@
 	.on('change', '.nav_select', function(e) {
 		var value = e.currentTarget.value;
 		window.location = value;
-	});
+	})
 	
 	// Mousedown on buttons toggle activate on their targets
 	.on('mousedown tap', 'a[href^="#"]', function(e) {
