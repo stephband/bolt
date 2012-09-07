@@ -88,11 +88,11 @@
 	}
 
 	function getData(node) {
-		var data = jQuery.data(node, 'event.swipe');
+		var data = jQuery.data(node, 'event_swipe');
 		
 		if (!data) {
 			data = { count: 0 };
-			jQuery.data(node, 'event.swipe', data);
+			jQuery.data(node, 'event_swipe', data);
 		}
 		
 		return data;
