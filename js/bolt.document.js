@@ -10,13 +10,15 @@
 		module(jQuery, jQuery.bolt);
 	}
 })(function(jQuery, bolt, undefined){
-	var debug = (window.console && window.console.log),
+	var doc = jQuery(document),
+	    docElem = jQuery(document.documentElement);
 	    
 	    add = jQuery.event.add,
 	    remove = jQuery.event.remove,
 	    trigger = function(node, type, data) {
-	    	jQuery.event.trigger(type, data, node);
+	        jQuery.event.trigger(type, data, node);
 	    };
+	
 	
 	function preventDefault(e) {
 		remove(e.currentTarget, 'click', preventDefault);
@@ -28,8 +30,24 @@
 		// primary) mouse button, or when a modifier key is pressed.
 		return (e.which === 1 && !e.ctrlKey && !e.altKey);
 	}
-
-	jQuery(document)
+	
+	
+	// Run jQuery without aliasing it to $
+	jQuery.noConflict();
+	
+	
+	doc
+	
+	// Remove loading classes from document element
+	.ready(function() {
+		docElem.removeClass('notransition loading');
+	})
+	
+	// Select boxes that act as navigation
+	.on('change', '.nav_select', function(e) {
+		var value = e.currentTarget.value;
+		window.location = value;
+	});
 	
 	// Mousedown on buttons toggle activate on their targets
 	.on('mousedown tap', 'a[href^="#"]', function(e) {
