@@ -15,8 +15,8 @@
 		define([
 			'jquery',
 			(window.ie7 || window.ie8 || window.ie9) ?
-				'jquery.transition.ie' :
-				'jquery.transition.fallback'
+				'./jquery.transition.ie' :
+				'./jquery.transition.fallback'
 		], module);
 	} else {
 		// Browser globals
