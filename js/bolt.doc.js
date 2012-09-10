@@ -19,6 +19,27 @@
 	        jQuery.event.trigger(type, data, node);
 	    };
 	
+	var targets = {
+	    	dialog: function(e) {
+	    		var id, target;
+	    		
+	    		// !TODO Make targets pointing to external resources work, too.
+	    		
+	    		id = e.currentTarget.hash.substring(1);
+	    		if (!id) { return }
+	    		
+	    		target = document.getElementById(id);
+	    		if (!target) { return; }
+	    		
+	    		// If the target is html hidden inside a taxt/html script tag,
+	    		// extract the html.
+	    		if (target.getAttribute('type') === 'text/html') {
+	    			target = jQuery(target).html();
+	    		}
+	    		
+	    		jQuery(target).dialog('lightbox');
+	    	}
+	    };
 	
 	function preventDefault(e) {
 		remove(e.currentTarget, 'click', preventDefault);
@@ -49,6 +70,26 @@
 		window.location = value;
 	})
 	
+	// Mousedown on buttons toggle activate on their targets
+	.on('mousedown tap', 'a[target]', function(e) {
+		var target = e.currentTarget.target;
+		
+		if (!targets[target] || !targets[target](e)) { return; }
+		
+		// Prevent the click that follows the mousedown. The preventDefault
+		// handler unbinds itself as soon as the click is heard.
+		if (e.type === 'mousedown') {
+			add(e.currentTarget, 'click', preventDefault);
+		}
+		
+		e.preventDefault();
+	})
+	
+	// Mousedown on buttons toggle activate on their targets
+	.on('mousedown tap', 'a[target]', function(e) {
+		
+	})
+
 	// Mousedown on buttons toggle activate on their targets
 	.on('mousedown tap', 'a[href^="#"]', function(e) {
 		var id, target, elem, data, clas;

@@ -66,14 +66,7 @@
 					    	'css': options.css
 					    }),
 					
-					    // If we don't create the close button this way - if we write out the html
-					    // and have the browser parse it, IE7 cocks up the href, adding the whole
-					    // path in front of it first. Not what we want.
-					    button = jQuery('<a/>', {
-					    	'class': "close_button button",
-					    	'href': "#close",
-					    	'html': text.close
-					    });
+					    button = jquery.fn.dialog.closeButton.clone();
 
 					return box.html(elem).append(button);
 	    	},
@@ -83,15 +76,8 @@
 					    	'class': options['class'] || 'lightbox_dialog dialog',
 					    	'css': options.css
 					    }),
-					
-					    // If we don't create the close button this way - if we write out the html
-					    // and have the browser parse it, IE7 cocks up the href, adding the whole
-					    // path in front of it first. Not what we want.
-					    button = jQuery('<a/>', {
-					    	'class': "close_button button",
-					    	'href': "#close",
-					    	'html': text.close
-					    });
+					    
+					    button = jquery.fn.dialog.closeButton.clone();
 
 					return box.html(elem).append(button);
 	    	},
@@ -185,4 +171,13 @@
 	// Expose
 	jQuery.fn.dialog.roles = roles;
 	jQuery.fn.dialog.text = text;
+	
+	// If we don't create the close button this way - if we write out the html
+	// and have the browser parse it, IE7 cocks up the href, adding the whole
+	// path in front of it first. Not what we want.
+	jquery.fn.dialog.closeButton = jQuery('<a/>', {
+		'class': "close_button button",
+		'href': "#close",
+		'html': text.close
+	});
 });
