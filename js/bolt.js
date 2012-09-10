@@ -129,4 +129,6 @@
 	bolt.has = hasClass;
 	
 	jQuery.bolt = bolt;
+	
+	return bolt;
 });
