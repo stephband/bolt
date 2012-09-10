@@ -66,7 +66,7 @@
 					    	'css': options.css
 					    }),
 					
-					    button = jquery.fn.dialog.closeButton.clone();
+					    button = jQuery.fn.dialog.closeButton.clone();
 
 					return box.html(elem).append(button);
 	    	},
@@ -77,7 +77,7 @@
 					    	'css': options.css
 					    }),
 					    
-					    button = jquery.fn.dialog.closeButton.clone();
+					    button = jQuery.fn.dialog.closeButton.clone();
 
 					return box.html(elem).append(button);
 	    	},
@@ -175,7 +175,7 @@
 	// If we don't create the close button this way - if we write out the html
 	// and have the browser parse it, IE7 cocks up the href, adding the whole
 	// path in front of it first. Not what we want.
-	jquery.fn.dialog.closeButton = jQuery('<a/>', {
+	jQuery.fn.dialog.closeButton = jQuery('<a/>', {
 		'class': "close_button button",
 		'href': "#close",
 		'html': text.close
