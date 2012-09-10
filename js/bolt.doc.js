@@ -87,7 +87,7 @@
 	
 	// Mousedown on buttons toggle activate on their targets
 	.on('click tap', '.close_thumb', function(e) {
-		var elem = jQuery(e.currentTarget).closest('.popdown, .dialog');
+		var elem = jQuery(e.currentTarget).closest('.popdown, .dialog_layer');
 		
 		if (!elem.length) { return; }
 		
