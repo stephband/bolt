@@ -6,7 +6,7 @@
 (function (module) {
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
-		define(['jquery', 'bolt'], module);
+		define(['jquery', './bolt', './jquery.event.activate'], module);
 	} else {
 		// Browser globals
 		module(jQuery, jQuery.bolt);

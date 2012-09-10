@@ -12,7 +12,12 @@
 (function (module) {
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
-		define(['jquery'], module);
+		define([
+			'jquery',
+			(window.ie7 || window.ie8 || window.ie9) ?
+				'jquery.transition.ie' :
+				'jquery.transition.fallback'
+		], module);
 	} else {
 		// Browser globals
 		module(jQuery);

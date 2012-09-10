@@ -7,7 +7,7 @@
 (function (module) {
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
-		define(['jquery'], module);
+		define(['jquery', './jquery.prefix', './jquery.support.transition'], module);
 	} else {
 		// Browser globals
 		module(jQuery);
