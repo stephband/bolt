@@ -88,7 +88,9 @@
 			    args = arguments,
 			    data = cacheData(e.target),
 			    fn = classes[ data['class'] ],
-			    handler = _default.bind(this, e);
+			    handler = _default ?
+			    	_default.bind(this, e) :
+			    	jQuery.noop ;
 
 			if (fn) {
 				// Call bolt's default handler for this class and event.
@@ -110,8 +112,10 @@
 			
 			if (debug) console.log('[bolt] register class:', className, type, event);
 			
-			// If the event is not defined, there's no point in going on.
-			if (!event) { continue; }
+			// If the event is not defined, create a placholder for it.
+			if (!event) {
+				event = jQuery.event.special[type] = {};
+			}
 			
 			// If this event type is not already bolted, do it now.
 			if (!types[type]) {
