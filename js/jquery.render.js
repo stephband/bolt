@@ -48,6 +48,8 @@
   			(template.ignoreCase ? 'i' : '') +
   			(template.multiline ? 'm' : '')
   		) :
-  		template.replace(/\{\{\s*(\w+)\s*\}\}/g, replaceStringFn(obj));
+  		template.replace(jQuery.render.tag, replaceStringFn(obj));
   };
+  
+  jQuery.render.tag = /\{\{\s*(\w+)\s*\}\}/g;
 });
