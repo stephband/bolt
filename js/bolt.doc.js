@@ -86,12 +86,17 @@
 	})
 	
 	// Mousedown on buttons toggle activate on their targets
-	.on('click tap', '.close_thumb', function(e) {
+	// Mousedown on buttons toggle activate on their targets
+	.on('click tap', '.close_thumb, .close_button, .cancel_button', function(e) {
 		var elem = jQuery(e.currentTarget).closest('.popdown, .dialog_layer');
 		
 		if (!elem.length) { return; }
 		
-		elem.trigger('deactivate');
+		elem.trigger({
+			type: 'deactivate',
+			relatedTarget: e.currentTarget
+		});
+		
 		e.preventDefault();
 	})
 

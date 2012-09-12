@@ -78,8 +78,10 @@ textarea {
   font-weight: inherit;
 
   /* Make input shadows appear over the top of other elements. */
-  z-index: 2;
-  position: relative;
+  /* But this buggers up native validation message stacking...
+     what's it for again? */
+  /*z-index: 2;
+  position: relative;*/
 }
 
 label,
@@ -230,8 +232,9 @@ input[type='file'] {
   }
 }
 
-.required {
-  color:#ff8833;
+.required:after {
+	content: ' *';
+	color:#ff8833;
 }
 
 /* Focus and error styles */
@@ -263,6 +266,7 @@ textarea.error:focus,
      -moz-box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
           box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
 }
+
 input.error,
 select.error,
 textarea.error,
@@ -278,6 +282,16 @@ textarea.error,
   -webkit-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
      -moz-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
           box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+}
+
+input::-webkit-validation-bubble-arrow,
+input::-webkit-validation-bubble-message {
+	background-color: #202020;
+	color: #ff5500;
+	border-width: 0;
+	-webkit-box-shadow: 0 0 12px #ff5500;
+	-webkit-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+	        box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
 }
 
 select:focus {
