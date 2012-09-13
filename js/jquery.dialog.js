@@ -157,12 +157,15 @@
 		.appendTo('body')
 		.on('deactivate.dialog', options, deactivate)
 		.on('deactivateend.dialog', deactivateend)
-		.data('active', {
-			elem: dialog,
-			dialogLayer: dialog,
-			dialogBox: box,
-			role: role ? (role + '_dialog_layer') : 'dialog_layer'
-		})
+		// data.elem is also used by jquery.event.activate. Might
+		// as well keep it.
+		.data('elem', dialog)
+//		.data('active', {
+//			elem: dialog,
+//			dialogLayer: dialog,
+//			dialogBox: box,
+//			'class': role ? (role + '_dialog_layer') : 'dialog_layer'
+//		})
 		.trigger({ type: 'activate', relatedTarget: options.relatedTarget });
 
 		return dialog;

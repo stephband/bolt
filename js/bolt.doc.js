@@ -74,6 +74,14 @@
 	.on('mousedown tap', 'a[target]', function(e) {
 		var target = e.currentTarget.target;
 		
+		// Default is prevented indicates that this link has already
+		// been handled. Save ourselves the overhead of further handling.
+		if (e.isDefaultPrevented()) { return; }
+
+		// Ignore mousedowns on any button other than the left (or primary)
+		// mouse button, or when a modifier key is pressed.
+		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
+		
 		if (!targets[target] || !targets[target](e)) { return; }
 		
 		// Prevent the click that follows the mousedown. The preventDefault
@@ -85,8 +93,7 @@
 		e.preventDefault();
 	})
 	
-	// Mousedown on buttons toggle activate on their targets
-	// Mousedown on buttons toggle activate on their targets
+	// Clicks on close buttons deactivate the thing they are inside
 	.on('click tap', '.close_thumb, .close_button, .cancel_button', function(e) {
 		var elem = jQuery(e.currentTarget).closest('.popdown, .dialog_layer');
 		
