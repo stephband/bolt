@@ -74,16 +74,16 @@
 	position: fixed;
 }
 
-.center_align,
+.middle,
 .popup_layer,
 .dialog_layer {
 	/* Center inline-block contents horizontally */
 	text-align: center;
 }
 
-.center_align:after,
-.popup_layer:after,
-.dialog_layer:after {
+.middle:before,
+.popup_layer:before,
+.dialog_layer:before {
 	/* Center inline-block contents vertically */
 	display: inline-block;
 	content: '';
@@ -92,13 +92,13 @@
 	vertical-align: middle;
 }
 
-.center_align > *,
+.middle > *,
 .popup_layer > *,
 .dialog_layer > * {
 	text-align: left;
 }
 
-.center_align > *,
+.middle > *,
 .popup,
 .dialog {
 	/* Use inline-block to make popup collapse
@@ -106,7 +106,7 @@
 	display: inline-block;
 	
 	/* Center the popup vertically, working in tandem
-	   with the :after rule of .popup_layer. */
+	   with the :before rule of .popup_layer. */
 	vertical-align: middle;
 	
 	/* But let's make sure it doesn't touch the top or
