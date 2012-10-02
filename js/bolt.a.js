@@ -47,8 +47,6 @@
 		var path = link.pathname,
 		    node, elem, dialog;
 		
-		console.log(path, rImage.test(path));
-		
 		if (rImage.test(path)) {
 			node = new Image();
 			elem = jQuery(node);
