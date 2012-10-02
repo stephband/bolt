@@ -49,7 +49,7 @@
 		// Disable gestures on touch devices
 		add(document, 'touchmove', preventDefault);
 	}
-
+	
 	function enableScroll() {
 		var scrollLeft = docElem.scrollLeft(),
 		    scrollTop = docElem.scrollTop();
@@ -63,6 +63,23 @@
 
 		// Enable gestures on touch devices
 		remove(document, 'touchmove', preventDefault);
+	}
+
+	function preventDefaultOutside(e) {
+		var node = e.data,
+		    target = e.target;
+		
+		if (node === target || jQuery.contains(node, target)) { return; }
+		
+		e.preventDefault();
+	}
+
+	function disableActivate(dialog) {
+		add(document, 'deactivate', preventDefaultOutside, dialog, '.popdown, .dropdown');
+	}
+
+	function enableActivate(dialog) {
+		remove(document, 'deactivate', preventDefaultOutside);
 	}
 
 	function maxHeight(data) {
@@ -97,6 +114,7 @@
 		count--;
 		if (count) { return; }
 		enableScroll();
+		enableActivate(e.target);
 	}
 
 	function prev(e) {
@@ -183,6 +201,7 @@
 			add(e.target, 'click.dialog tap.dialog', click);
 			add(e.target, 'click.dialog tap.dialog', close, 'close', '.close_button');
 			disableScroll();
+			disableActivate(e.target);
 			count++;
 			fn();
 		},

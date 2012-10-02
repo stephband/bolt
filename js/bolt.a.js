@@ -1,4 +1,4 @@
-// Listen for actions that must trigger dropdowns, popdowns slides
+// Hijax user actions that must trigger dropdowns, popdowns slides
 // and tabs and handle sending activate events to them.
 
 (function (module) {
@@ -17,7 +17,9 @@
 	    remove = jQuery.event.remove,
 	    trigger = function(node, type, data) {
 	        jQuery.event.trigger(type, data, node);
-	    };
+	    },
+	    
+	    rImage = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/;
 	
 	var targets = {
 	    	dialog: function(e) {
@@ -26,7 +28,7 @@
 	    		// !TODO Make targets pointing to external resources work, too.
 	    		
 	    		id = e.currentTarget.hash.substring(1);
-	    		if (!id) { return }
+	    		if (!id) { return loadResource(e.currentTarget); }
 	    		
 	    		target = document.getElementById(id);
 	    		if (!target) { return; }
@@ -40,6 +42,29 @@
 	    		jQuery(target).dialog('lightbox');
 	    	}
 	    };
+	
+	function loadResource(link) {
+		var path = link.pathname,
+		    node, elem, dialog;
+		
+		console.log(path, rImage.test(path));
+		
+		if (rImage.test(path)) {
+			node = new Image();
+			elem = jQuery(node);
+			
+			elem.dialog('lightbox');
+			
+			dialog = elem.parent();
+			dialog.addLoadingIcon();
+			
+			elem.on('load', function() {
+				dialog.removeLoadingIcon();
+			});
+			
+			node.src = path;
+		}
+	}
 	
 	function preventDefault(e) {
 		remove(e.currentTarget, 'click', preventDefault);
