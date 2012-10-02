@@ -60,7 +60,7 @@
 				dialog.removeLoadingIcon();
 			});
 			
-			node.src = path;
+			node.src = link.href;
 		}
 	}
 	
