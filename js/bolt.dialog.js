@@ -75,11 +75,11 @@
 	}
 
 	function disableActivate(dialog) {
-		add(document, 'deactivate', preventDefaultOutside, dialog, '.popdown, .dropdown');
+		add(document.body, 'deactivate', preventDefaultOutside, dialog, '.popdown, .dropdown');
 	}
 
 	function enableActivate(dialog) {
-		remove(document, 'deactivate', preventDefaultOutside);
+		remove(document.body, 'deactivate', preventDefaultOutside);
 	}
 
 	function maxHeight(data) {
