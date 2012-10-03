@@ -41,7 +41,7 @@ textarea {
 
 /* .thumb */
 
-.thumb img {
+.thumb > img {
   /* IE uses an img tag because background-images dont scale. */
   position: absolute;
   top: 0;
