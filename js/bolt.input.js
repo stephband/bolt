@@ -122,6 +122,9 @@
 	// Global form validation
 	
 	.delegate( 'input, textarea', 'change', function(e) {
+		// Don't make this script require jQuery.fn.validate
+		if (!jQuery.fn.validate) { return; }
+		
 		jQuery(this).validate({
 			fail: function(){ e.preventDefault(); }
 		});
