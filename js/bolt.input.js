@@ -31,7 +31,7 @@
 			});
 			
 			if (name) {
-			  data.fields = jQuery('input[name="'+name+'"]');
+				data.fields = jQuery('input[name="'+name+'"]');
 			}
 			
 			jQuery.data(target, 'field', data);
@@ -40,23 +40,41 @@
 		return data;
 	}
 	
+	function removeText(elem) {
+		// Remove text nodes only
+		elem
+		.contents()
+		.filter(function() {
+			return this.nodeType === (window.Node ? window.Node.TEXT_NODE : 3);
+		})
+		.remove();
+	}
+	
 	function populateSelect(node){
 		// Take a select node and put it's selected option content
 		// in the associated label.
 
 		var view = fieldData(node),
-				html;
+		    html;
 
 		// Remove text nodes from the button
-		view.wrap
-		.contents()
-		.filter(function() {
-			return this.nodeType === (window.Node ? Node.TEXT_NODE : 3);
-		})
-		.remove();
+		removeText(view.wrap);
 		
 		// Prepend the current value of the select
 		html = view.field.find('option[value="'+node.value+'"]').html();
+		view.wrap.prepend(html);
+	}
+	
+	function updateFileLabel(node) {
+		// Take a select node and put it's selected option content
+		// in the associated label.
+		var view = fieldData(node),
+		    files = node.files,
+		    html = Array.prototype.map.call(files, name).join('<br/>');
+		
+		// Remove text nodes from the button
+		removeText(view.wrap);
+		
 		view.wrap.prepend(html);
 	}
 	
@@ -140,9 +158,15 @@
 	})
 	
 	// Value display for select boxes that are wrapped in buttons
-	// for style. The value is set as the content of the label.
+	// for style. The value is set as the content of the button.
 	.on('change', '.button > select', function(e) {
 		populateSelect(e.target);
+	})
+	
+	// Value display for file inputs that are wrapped in buttons
+	// for style. Value is set as the text content of the button.
+	.on('change', '.button > input[type="file"]', function(e) {
+		updateFileLabel(e.target);
 	})
 	
 	.on('focusin focusout', '.button > select', function(e) {
