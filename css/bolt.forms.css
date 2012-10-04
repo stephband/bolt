@@ -334,9 +334,9 @@ button,
 	width: auto;
 	opacity: 1;
 	text-indent: 0;
-  vertical-align: baseline;
-  padding-top: 0;
-  padding-bottom: 0;
+	vertical-align: baseline;
+	padding-top: 0;
+	padding-bottom: 0;
 }
 
 .error [type="button"],
@@ -349,34 +349,6 @@ button,
 }
 
 
-
-/* Select boxes wrapped in buttons for restyling, like this:
-
-   <label class="button" for="select">
-     <span class="value">Price range</span>
-     <select id="select">
-       <option value="0">...</option>
-     </select>
-   </label>
-   
-   When JavaScript is not enabled, we don't want to hide the select,
-   as that would remove the ability to see the current value. */
-
-.button > select {
-	position: absolute;
-	display: block;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	width: 100%;
-	height: 100%;
-}
-
-.js .button > select {
-  -webkit-appearance: none;
-	opacity: 0;
-}
 
 /* Range inputs.
    
