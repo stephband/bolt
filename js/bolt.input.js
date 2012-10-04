@@ -39,7 +39,11 @@
 		
 		return data;
 	}
-	
+
+	function name(obj) {
+		return obj.name;
+	}
+
 	function removeText(elem) {
 		// Remove text nodes only
 		elem
@@ -49,7 +53,7 @@
 		})
 		.remove();
 	}
-	
+
 	function populateSelect(node){
 		// Take a select node and put it's selected option content
 		// in the associated label.
