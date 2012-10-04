@@ -123,8 +123,9 @@ input {
   text-indent: -1px;
 }
 
-label input {
-  /* handle nested checkboxes inside labels */
+label > [type="checkbox"],
+label > [type="radio"] {
+  /* Nested checkboxes inside labels */
   margin-right: 0.5em;
 }
 
