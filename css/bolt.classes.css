@@ -1137,7 +1137,8 @@ button.disabled,
    the current value. */
 
 .button > select,
-.button > input[type="file"] {
+.button > input[type="file"],
+.button > input[type="submit"] {
 	position: absolute;
 	display: block;
 	top: 0;
@@ -1151,7 +1152,8 @@ button.disabled,
 }
 
 .js .button > select,
-.js .button > input[type="file"] {
+.js .button > input[type="file"],
+.js .button > input[type="submit"] {
 	-webkit-appearance: none;
 	opacity: 0;
 }
