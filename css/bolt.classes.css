@@ -1146,9 +1146,11 @@ button.disabled,
 	right: 0;
 	width: 100%;
 	height: 100%;
+	padding: 0;
 }
 
-.js .button > select {
+.js .button > select,
+.js .button > input[type="file"] {
 	-webkit-appearance: none;
 	opacity: 0;
 }
