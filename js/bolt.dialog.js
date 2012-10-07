@@ -31,8 +31,16 @@
 	function preventDefault(e) {
 		e.preventDefault();
 	}
+	
+	function preventDefaultOutside(e) {
+		var node = e.data;
+		
+		if (jQuery.contains(node, e.target)) { return; }
+		
+		e.preventDefault();
+	}
 
-	function disableScroll() {
+	function disableScroll(layer) {
 		var scrollLeft = docElem.scrollLeft(),
 		    scrollTop = docElem.scrollTop();
 		
@@ -47,7 +55,7 @@
 		if (scrollLeft) { docElem.scrollLeft(scrollLeft); }
 
 		// Disable gestures on touch devices
-		add(document, 'touchmove', preventDefault);
+		add(document, 'touchmove', preventDefaultOutside, layer);
 	}
 	
 	function enableScroll() {
@@ -62,7 +70,7 @@
 		if (scrollLeft) { docElem.scrollLeft(scrollLeft); }
 
 		// Enable gestures on touch devices
-		remove(document, 'touchmove', preventDefault);
+		remove(document, 'touchmove', preventDefaultOutside);
 	}
 
 	function preventDefaultOutside(e) {
@@ -167,7 +175,7 @@
 			}
 
 			count++;
-			disableScroll();
+			disableScroll(e.target);
 
 			add(e.target, 'click.dialog tap.dialog', click);
 			add(e.target, 'click.dialog tap.dialog', close, 'close', '.close_button');
@@ -200,7 +208,7 @@
 		activate: function(e, data, fn) {
 			add(e.target, 'click.dialog tap.dialog', click);
 			add(e.target, 'click.dialog tap.dialog', close, 'close', '.close_button');
-			disableScroll();
+			disableScroll(e.target);
 			disableActivate(e.target);
 			count++;
 			fn();
@@ -218,7 +226,7 @@
 	bolt('alert_dialog_layer', {
 		activate: function(e, data, fn) {
 			add(e.target, 'click.dialog tap.dialog', close, 'confirm', '.confirm_button');
-			disableScroll();
+			disableScroll(e.target);
 			count++;
 			fn();
 		},
@@ -235,7 +243,7 @@
 		activate: function(e, data, fn) {
 			add(e.target, 'click.dialog tap.dialog', close, 'close', '.cancel_button');
 			add(e.target, 'click.dialog tap.dialog', close, 'confirm', '.confirm_button');
-			disableScroll();
+			disableScroll(e.target);
 			count++;
 			fn();
 		},
@@ -251,7 +259,7 @@
 	bolt('dialog_layer', {
 		activate: function(e, data, fn) {
 			add(e.target, 'click.dialog tap.dialog', click);
-			disableScroll();
+			disableScroll(e.target);
 			count++;
 			fn();
 		},
