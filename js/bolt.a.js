@@ -25,8 +25,6 @@
 	    	dialog: function(e) {
 	    		var id, target;
 	    		
-	    		// !TODO Make targets pointing to external resources work, too.
-	    		
 	    		id = e.currentTarget.hash.substring(1);
 	    		if (!id) { return loadResource(e.currentTarget); }
 	    		
@@ -40,6 +38,9 @@
 	    		}
 	    		
 	    		jQuery(target).dialog('lightbox');
+	    		
+	    		// Return true tells handler to carry on execution
+	    		return true;
 	    	}
 	    };
 	
@@ -67,6 +68,14 @@
 	function preventDefault(e) {
 		remove(e.currentTarget, 'click', preventDefault);
 		e.preventDefault();
+	}
+	
+	function preventClick(e) {
+		// Prevent the click that follows the mousedown. The preventDefault
+		// handler unbinds itself as soon as the click is heard.
+		if (e.type === 'mousedown') {
+			add(e.currentTarget, 'click', preventDefault);
+		}
 	}
 	
 	function isLeftButton(e) {
@@ -105,15 +114,13 @@
 		// mouse button, or when a modifier key is pressed.
 		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
 		
-		if (!targets[target] || !targets[target](e)) { return; }
+		// If the target is not listed, ignore
+		if (!targets[target]) { return; }
 		
-		// Prevent the click that follows the mousedown. The preventDefault
-		// handler unbinds itself as soon as the click is heard.
-		if (e.type === 'mousedown') {
-			add(e.currentTarget, 'click', preventDefault);
-		}
-		
-		e.preventDefault();
+		if (targets[target](e)) {
+			preventClick(e);
+			e.preventDefault();
+		};
 	})
 	
 	// Clicks on close buttons deactivate the thing they are inside
@@ -181,12 +188,7 @@
 		}
 
 		e.preventDefault();
-
-		// Prevent the click that follows the mousedown. The preventDefault
-		// handler unbinds itself as soon as the click is heard.
-		if (e.type === 'mousedown') {
-			add(e.currentTarget, 'click', preventDefault);
-		}
+		preventClick(e);
 
 		if (!bolt.has(clas, 'activate')) { return; }
 

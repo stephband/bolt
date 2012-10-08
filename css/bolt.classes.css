@@ -1591,8 +1591,16 @@ button.disabled,
 	overflow: auto;
 	/* Enable momentum scrolling. Unfortunately this is buggy. It doesn't
 	   update the custom scrollbar during the momentum ease-out. Also, some
-	   children get rendered improperly. Don't use. */
-	/*-webkit-overflow-scrolling: touch;*/
+	   children get rendered improperly.
+	   
+	   Actually, it seems to have improved in iOS 6. */
+	-webkit-overflow-scrolling: touch;
+}
+
+.scroll > * {
+	/* Fixes iOS child rendering scrolling bug. Maybe.
+	   http://stackoverflow.com/questions/7808110/css3-property-webkit-overflow-scrollingtouch-error */
+	-webkit-transform: translateZ(0px);
 }
 
 .scroll::-webkit-scrollbar {
