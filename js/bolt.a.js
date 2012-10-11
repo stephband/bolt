@@ -202,8 +202,15 @@
 	})
 
 	// Mouseover on tip links toggle activate on their targets
-	.on('mouseover mouseout tap', 'a[href^="#"], [data-tip]', function(e) {
-		var href, node, elem, data, clas;
+	.on('mouseover mouseout tap focusin focusout', 'a[href^="#"], [data-tip]', function(e) {
+		var href, node, elem, data, clas, tag;
+		
+		tag = e.target.tagName.toLowerCase();
+		
+		// Input fields should only show tips when focused
+		if (tag === 'input' && (e.type === 'mouseover' || e.type === 'mouseout' || e.type === 'tap')) {
+			return;
+		}
 		
 		href = e.currentTarget.getAttribute('data-tip');
 		
@@ -255,7 +262,9 @@
 		if (e.type === 'tap') {
 			elem.css(jQuery.prefix('transition')+'Delay', '0');
 		}
-
-		elem.trigger(e.type === 'mouseout' ? 'deactivate' : { type: 'activate', relatedTarget: e.currentTarget });
+		
+		elem.trigger(e.type === 'mouseout' || e.type === 'focusout' ?
+			{ type: 'deactivate' } :
+			{ type: 'activate', relatedTarget: e.currentTarget }) ;
 	});
 });
