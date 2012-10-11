@@ -118,11 +118,6 @@ select {
   opacity: 0.92;
 }
 
-input {
-  /* Position text in the same place it is in labels in WebKit / Mozilla */
-  text-indent: -1px;
-}
-
 label > [type="checkbox"],
 label > [type="radio"] {
   /* Nested checkboxes inside labels */
