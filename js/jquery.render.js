@@ -48,9 +48,12 @@
 				(template.ignoreCase ? 'i' : '') +
 				(template.multiline ? 'm' : '')
 			) :
-			template.replace(render.tag, replaceStringFn(obj));
+			template
+			.replace(render.comment, '')
+			.replace(render.tag, replaceStringFn(obj));
 	};
 	
+	render.comment = /\{\%\s*.+?\s*\%\}/g;
 	render.tag = /\{\{\s*(\w+)\s*\}\}/g;
 	
 	if (window.jQuery) { jQuery.render = render; }
