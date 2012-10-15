@@ -20,7 +20,8 @@
 	function replaceStringFn(obj) {
 		return function($0, $1) {
 			// $1 is the template key. Don't render falsy values like undefined.
-			return obj[$1] || '';
+			var value = obj[$1];
+			return value instanceof Array ? value.join(', ') : value || '' ;
 		};
 	}
 	
