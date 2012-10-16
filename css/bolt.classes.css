@@ -1149,6 +1149,7 @@ button.disabled,
 	height: 100%;
 	padding: 0;
 	cursor: pointer;
+	z-index: 2;
 }
 
 .js .button > select,
@@ -1241,6 +1242,7 @@ button.disabled,
   top: 0;
   right: 0.5em;
   opacity: 0.25;
+  z-index: 1;
 }
 
 /* .thumb */
