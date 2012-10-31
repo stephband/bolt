@@ -1121,6 +1121,12 @@ button.disabled,
 	margin-right: 0.5em;
 }
 
+.radio_button,
+.checkbox_button {
+	/* Overflow will hide the browser generated error messages. No no no. */
+	overflow: visible;
+}
+
 /* Select boxes and file inputs wrapped in buttons for
    restyling, like this:
 
