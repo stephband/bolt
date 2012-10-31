@@ -50,14 +50,24 @@ audio:not([controls]) {
 }
 
 [draggable] {
-  /* Make draggable elements draggable in WebKit */
-  -webkit-user-drag: element;
-  cursor: move;
+	/* Make draggable elements draggable in WebKit */
+	-webkit-user-drag: element;
+
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+
+	cursor: move;
 }
 
 [draggable="false"] {
-  -webkit-user-drag: none;
-  cursor: auto;
+ 	-webkit-user-drag: none;
+
+	-webkit-user-select: text;
+	   -moz-user-select: text;
+	    -ms-user-select: text;
+
+	cursor: auto;
 }
 
 
