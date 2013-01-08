@@ -1,4 +1,4 @@
-/* template.typography.12_20.css
+/* bolt.typography.16_20.css
  * 
  * Developed using ideas from:
  * www.blueprintcss.org
@@ -7,11 +7,8 @@
  * 
  */
 
-html {
-    font-size:100.01%;
-}
-
-body{
+html,
+body {
 	font-size: 100%; /* 16px */
 }
 
