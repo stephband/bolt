@@ -117,8 +117,15 @@
 		// Activate the node that corresponds to the hashref in
 		// location.hash, checking if it's an alphanumeric id selector
 		// (not a hash bang).
-		if (!id || !(/^#[\w\d]/.test(id))) { return; }
-
-		jQuery(id).trigger('activate');
+		if (!id || !(/^#\S+$/.test(id))) { return; }
+		
+		// The id may be perfectly valid, yet not be supported by jQuery,
+		// such as ids with a ':' character, so try...catch it.
+		try {
+			jQuery(id).trigger('activate');
+		}
+		catch (e) {
+			if (debug) console.log('Error caught: id hash ' + id + ' is throwing an error in jQuery');
+		}
 	});
 });

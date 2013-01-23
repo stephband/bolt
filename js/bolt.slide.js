@@ -1,4 +1,4 @@
-// bolt.class.slide
+// bolt.slide
 //
 // Extends the default behaviour of the activate and deactivate
 // events with things to do when they are triggered on slides.
