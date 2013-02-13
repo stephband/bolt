@@ -10,3 +10,6 @@
 [submodule "res/jquery.cookie"]
 	path = res/jquery.cookie
 	url = git://github.com/carhartl/jquery-cookie.git
+[submodule "res/box-sizing-polyfill"]
+	path = res/box-sizing-polyfill
+	url = git://github.com/Schepp/box-sizing-polyfill.git
