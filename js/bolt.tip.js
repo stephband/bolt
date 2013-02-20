@@ -43,14 +43,17 @@
 			var offset = elem.offset(),
 			    position = elem.position();
 			
-			elem.css({
+			elem
+			.css({
 				marginTop: '',
 				marginLeft: '',
 				// Round the number to get round a sub-pixel rendering error in Chrome
 				left: Math.floor(relatedOffset.left + position.left - offset.left),
 				top:  Math.floor(relatedOffset.top  + position.top  - offset.top)
-			})
-			.removeClass('notransition');
+			});
+			
+			elem.width();
+			elem.removeClass('notransition');
 			
 			add(document, 'tap.' + id, tapHandler, e.target);
 			fn();
