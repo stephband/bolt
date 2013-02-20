@@ -31,11 +31,11 @@
 			var elem = data.elem,
 			    relatedTarget = jQuery(e.relatedTarget),
 			    id = bolt.identify(e.target),
-			    relatedOffset = relatedTarget.offset(),
-			    marginTop = elem.css('marginTop'),
-			    marginLeft = elem.css('marginLeft');
+			    relatedOffset = relatedTarget.offset();
 			
-			elem.css({
+			elem
+			.addClass('notransition')
+			.css({
 				marginTop: 0,
 				marginLeft: 0
 			});
@@ -49,7 +49,8 @@
 				// Round the number to get round a sub-pixel rendering error in Chrome
 				left: Math.floor(relatedOffset.left + position.left - offset.left),
 				top:  Math.floor(relatedOffset.top  + position.top  - offset.top)
-			});
+			})
+			.removeClass('notransition');
 			
 			add(document, 'tap.' + id, tapHandler, e.target);
 			fn();
