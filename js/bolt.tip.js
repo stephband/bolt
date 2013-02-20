@@ -44,8 +44,8 @@
 			    position = elem.position();
 			
 			elem.css({
-				marginTop: marginTop,
-				marginLeft: marginLeft,
+				marginTop: '',
+				marginLeft: '',
 				// Round the number to get round a sub-pixel rendering error in Chrome
 				left: Math.floor(relatedOffset.left + position.left - offset.left),
 				top:  Math.floor(relatedOffset.top  + position.top  - offset.top)
