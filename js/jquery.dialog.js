@@ -151,7 +151,11 @@
 		});
 
 		box = roles[role || '_default'](this, options);
-
+		
+		box
+		.attr('tabindex', '-1')
+		.attr('role', 'dialog');
+		
 		dialog
 		.html(box)
 		.appendTo('body')
@@ -160,12 +164,6 @@
 		// data.elem is also used by jquery.event.activate. Might
 		// as well keep it.
 		.data('elem', dialog)
-//		.data('active', {
-//			elem: dialog,
-//			dialogLayer: dialog,
-//			dialogBox: box,
-//			'class': role ? (role + '_dialog_layer') : 'dialog_layer'
-//		})
 		.trigger({ type: 'activate', relatedTarget: options.relatedTarget });
 
 		return dialog;

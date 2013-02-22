@@ -31,6 +31,7 @@
 	<link rel="stylesheet" href="css/bolt.typography.15_24.css" />
 	<link rel="stylesheet" href="css/bolt.forms.css" />
 	<link rel="stylesheet" href="css/bolt.classes.css" />
+	<link rel="stylesheet" href="css/bolt.classes.col.css" />
 	<link rel="stylesheet" href="css/bolt.theme.css" />
 	<link rel="stylesheet" href="css/bolt.layout.32em.css" media="all and (min-width: 32em)" />
 	<link rel="stylesheet" href="css/bolt.layout.48em.css" media="all and (min-width: 48em)" />
@@ -66,47 +67,38 @@
 	
 	<div class="site_wrap wrap">
 		<div class="intro_wrap wrap">
-			
 			<p>
-				Bolt is a class-based library of CSS layout techniques and jQuery evented behaviours.
-				It was born at <a href="http://webdoc.com">webdoc</a> and grew up at <a href="http://cruncher.ch">Cruncher</a>, where it has been used in Rails and Django templates, with Backbone and on it's own for the last couple of years.
-			</p>
-			<p>
-				It has flexible columns with arbitrary content order, thumbs, horizontal lists, adaptable dialogs, dropdowns, tabs, slides, layers&hellip; and so on.
-				It also has evented behaviours with support for touch interactions.
+				Bolt is a front-end toolkit of CSS classes and touch-ready evented behaviours.
+				It was born at <a href="http://urturn.com">Urturn</a> and grew up at <a href="http://cruncher.ch">Cruncher</a>.
+				Bolt requires jQuery but is otherwise agnostic.
+				It has been put into production on top of both Rails and Django, and integrated with Backbone and various other app frameworks.
 			</p>
 			
 			<div class="2_col_wrap col_wrap wrap">
 				<div class="no1_col col">
-					<h2>Style</h2>
+					<h2>CSS</h2>
 					
 					<p>
-						Bolt is designed to be flexibly sized and responsively adapted, and to gracefully degrade in the less able.
-						It comes normalised and with a choice of typographic rhythms, but it really concentrates on layout techniques.
+						Bolt is designed to be flexibly sized and responsive, and to progressively enhance.
+						Base classes concentrate on layout techniques, and optional vertical rhythms and horizontal grids are included.
+						Bolt does not give you any colour.
+						Colours change between projects, where layout techniques generally do not.
 					</p>
 					
-					<p data-tip="#box_model">
-						Bolt sets the box model to <code>border-box</code> by default, on everything. Border box rocks.
-					</p>
 					<p>
-						Bolt prefers CSS over JavaScript, and uses class changes for visual transitions.
+						Bolt prefers CSS over JavaScript. It uses class changes and CSS transitions rather than JS animations.
 					</p>
-					<p>
-						Bolt does not give you any colour (other than the boring grey theme you see here, and you're supposed to throw that away).
-					</p>
-					<!--p>
-						Is Bolt opinionated? It isn't even sentient.
-					</p-->
 				</div>
 			
 				<div class="no2_col col">
-					<h2>Behaviour</h2>
+					<h2>JS</h2>
 					<p>
 						Bolt's classes come with behaviour attached.
-						Bolt uses jQuery special events to provide default behaviour for dropdowns, dialogs, tabs &mdash; anything that has on/off state &mdash; as well as touch interactions.
+						Bolt uses jQuery special events to provide default behaviour for dropdowns, dialogs, tabs, slides, tips and anything else that has visible/hidden states.
 					</p>
+					
 					<p>
-						Because the behaviours are delegated, there are no plugins to call.
+						Events are delegated, so there are no plugins to call to make these interactive elements work.
 						Creating a tooltip, for example, is as simple as writing:
 					</p>
 					
@@ -114,9 +106,9 @@
 &lt;p class=&quot;tip&quot; id=&quot;time&quot;&gt;Lunchtime, doubly so.&lt;/p&gt;</code></pre>
 
 					<p>
-						It doesn't matter when you put this in the DOM, Bolt is already listening for a hover or a touch.
 						Try it:
 					</p>
+					
 					<a href="#time">Time is an illusion.</a>
 					<p class="tip" id="time">Lunchtime, doubly so</p>
 				</div>
@@ -130,6 +122,74 @@
 			<dd><a href="http://github.com/stephband/bolt">github.com/stephband/bolt/issues</a></dd>
 		</dl>
 	</div>
+	
+	<style>
+		.doc_table {
+			width: 100%;
+			padding: 0;
+		}
+		
+		.doc_table td > p:first-child {
+			margin-top: 0;
+		}
+		
+		.doc_table td:nth-child(1) {
+			font-weight: bold;
+			text-align: right;
+			width: 10em;
+		}
+
+		.doc_table td:nth-child(2) {
+			text-align: left;
+		}
+		
+		.doc_table td:nth-child(3) {
+			padding: 0.6em;
+			font-family: inconsolata, courier, monospace;
+			white-space: pre;
+			text-align: left;
+			width: 40em;
+			color: rgb(220,220,220);
+			background-color: rgb(60,60,60);
+		}
+		
+		@media all and (max-width: 40em) {
+			.doc_table td {
+				display: block;
+				text-align: left !important;
+				width: 100% !important;
+			}
+		}
+	</style>
+	
+	
+	
+	<table class="doc_table">
+		<tr>
+			<td>.button</td>
+			<td class="demo">
+				<a class="button" href="/">Text</a>
+			</td>
+			<td class="code">
+				<a class="button" href="/">Text</a>
+			</td>
+		</tr>
+		<tr>
+			<td>.dialog</td>
+			<td class="demo">
+				<a class="button" href="#message" target="dialog">Show dialog</a>
+				<div class="hidden">
+					<p id="message">I get put in a dialog.</p>
+				</div>
+			</td>
+			<td class="code">
+				<a class="button" href="#message" target="dialog">Show dialog</a>
+				<div class="hidden">
+				    <p id="message">I get put in a dialog.</p>
+				</div>
+			</td>
+		</tr>
+	</table>
 	
 	<div class="site_wrap wrap">
 		<dl class="docs_index index">
@@ -792,6 +852,30 @@
 	<script src="js/bolt.input.placeholder.js"></script>
 
 	<script>
+		jQuery(document).ready(function() {
+			jQuery('.code').each(function() {
+				var elem = jQuery(this),
+				    html = elem.html(),
+				    cap = /^\n\s+/.exec(html);
+				
+				// Remove initial line-break
+				
+				console.log(cap);
+				
+				html = html
+					.replace(/^\n\s+/, '')
+					.replace(cap[0], '\n')
+					.replace(cap[0], '\n')
+					.replace(cap[0], '\n')
+					.replace(cap[0], '\n')
+					.replace(cap[0], '\n')
+					.replace(cap[0], '\n')
+					.replace(cap[0], '\n');
+				
+				elem.text(html);
+			});
+		});
+		
 		jQuery(document).ready(function() {
 			var example = jQuery('#loading_example');
 			
