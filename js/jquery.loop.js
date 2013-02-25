@@ -7,7 +7,8 @@
 
 (function(jQuery, undefined){
 	var settings = {
-	    	duration: 6000
+	    	duration: 6000,
+	    	delay: 0
 	    };
 	
 	jQuery.fn.loop = function(options) {
@@ -53,7 +54,7 @@
 		
 		// Set the ball rolling
 		fn = activateItem;
-		activate();
+		timer = setTimeout(activate, options.delay);
 		
 		return this;
 	};
