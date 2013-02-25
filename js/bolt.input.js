@@ -144,10 +144,10 @@
 		var data = fieldData(e.target);
 		
 		if (data.field.prop('checked')) {
-			data.label.addClass('active');
+			data.label.addClass('on');
 		}
 		else {
-			data.label.removeClass('active');
+			data.label.removeClass('on');
 		}
 	})
 	
@@ -157,10 +157,10 @@
 		var data = fieldData(e.target);
 		
 		if (data.field.prop('checked')) {
-			data.label.addClass('active');
+			data.label.addClass('on');
 		}
 		else {
-			data.label.removeClass('active');
+			data.label.removeClass('on');
 		}
 	})
 	
@@ -190,6 +190,11 @@
 	.ready(function() {
 		jQuery('.button > select').each(function() {
 			populateSelect(this);
+		});
+		
+		jQuery('input:checked').each(function() {
+			var data = fieldData(this);
+			data.label.addClass('on');
 		});
 	});
 });
