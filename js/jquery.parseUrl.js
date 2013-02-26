@@ -1,5 +1,3 @@
-// Extend jQuery with some helper methods
-
 (function (module) {
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
