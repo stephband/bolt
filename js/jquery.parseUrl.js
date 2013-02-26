@@ -12,7 +12,7 @@
 	// Parses url into an object with values. Bits and pieces 
 	// borrowed from Steven Levithan here:
 	// http://blog.stevenlevithan.com/archives/parseuri
-	jQuery.parseURL = function(url){
+	jQuery.parseUrl = function(url){
 		var str = decodeURI(url),
 		    parsed = jQuery.regex.urlParser.exec(str),
 		    obj = {},
