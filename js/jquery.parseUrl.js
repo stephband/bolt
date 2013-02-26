@@ -7,14 +7,15 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined) {
-	var urlKeys = ("absolute protocol authority userInfo user password host port relative path directory file query anchor").split(" ");
+	var urlKeys = ("absolute protocol authority userInfo user password host port relative path directory file query anchor").split(" "),
+	    rurlParser = /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/;
 	
 	// Parses url into an object with values. Bits and pieces 
 	// borrowed from Steven Levithan here:
 	// http://blog.stevenlevithan.com/archives/parseuri
 	jQuery.parseUrl = function(url){
 		var str = decodeURI(url),
-		    parsed = jQuery.regex.urlParser.exec(str),
+		    parsed = rurlParser.exec(str),
 		    obj = {},
 		    queries = {},
 		    l = urlKeys.length;
