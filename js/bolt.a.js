@@ -19,19 +19,21 @@
 	        jQuery.event.trigger(type, data, node);
 	    },
 	    
-	    rImage = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/;
-	
-	var targets = {
+	    rImage = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/
+	    
+	    targets = {
 	    	dialog: function(e) {
 	    		var ref = e.currentTarget.getAttribute('data-href') || e.currentTarget.hash,
 	    		    id = ref.substring(1),
 	    		    node;
 	    		
-	    		if (!id) { return loadResource(e.currentTarget); }
+	    		if (!id) { return loadResource(e); }
 	    		
 	    		node = document.getElementById(id);
 	    		
 	    		if (!node) { return; }
+	    		
+	    		e.preventDefault();
 	    		
 	    		// If the node is html hidden inside a text/html script tag,
 	    		// extract the html.
@@ -40,17 +42,17 @@
 	    		}
 	    		
 	    		jQuery(node).dialog('lightbox');
-	    		
-	    		// Return true tells handler to carry on execution
-	    		return true;
 	    	}
 	    };
 	
-	function loadResource(link) {
-		var path = link.pathname,
+	function loadResource(e) {
+		var link = e.currentTarget,
+		    path = link.pathname,
 		    node, elem, dialog;
 		
 		if (rImage.test(path)) {
+			e.preventDefault();
+			
 			node = new Image();
 			elem = jQuery(node);
 			
@@ -94,57 +96,12 @@
 		// Ignore mousedowns on any button other than the left (or primary)
 		// mouse button, or when a modifier key is pressed.
 		if (e.type === 'mousedown' && !isLeftButton(e)) { return true; }
+		
+		// Ignore key presses other than the enter key
+		if ((e.type === 'keydown' || e.type === 'keyup') && e.keyCode !== 13) { return true; }
 	}
 	
-	
-	// Run jQuery without aliasing it to $
-	jQuery.noConflict();
-	
-	
-	doc
-	
-	// Remove loading classes from document element
-	.ready(function() {
-		docElem.removeClass('notransition loading');
-	})
-	
-	// Select boxes that act as navigation
-	.on('change', '.nav_select', function(e) {
-		var value = e.currentTarget.value;
-		window.location = value;
-	})
-	
-	// Mousedown on buttons toggle activate on their targets
-	.on('mousedown tap', 'a[target]', function(e) {
-		var target = e.currentTarget.target;
-		
-		if (isIgnorable(e)) { return; }
-		
-		// If the target is not listed, ignore
-		if (!targets[target]) { return; }
-		
-		if (targets[target](e)) {
-			preventClick(e);
-			e.preventDefault();
-		};
-	})
-	
-	// Clicks on close buttons deactivate the thing they are inside
-	.on('click tap', '.close_thumb, .close_button, .cancel_button', function(e) {
-		var elem = jQuery(e.currentTarget).closest('.popdown, .dialog_layer');
-		
-		if (!elem.length) { return; }
-		
-		elem.trigger({
-			type: 'deactivate',
-			relatedTarget: e.currentTarget
-		});
-		
-		e.preventDefault();
-	})
-
-	// Mousedown on buttons toggle activate on their targets
-	.on('mousedown tap', 'a[href^="#"]', function(e) {
+	function activateHref(e) {
 		var id, node, elem, data, clas;
 
 		if (isIgnorable(e)) { return; }
@@ -188,7 +145,10 @@
 		}
 
 		e.preventDefault();
-		preventClick(e);
+		
+		if (e.type === 'mousedown') {
+			preventClick(e);
+		}
 
 		if (!bolt.has(clas, 'activate')) { return; }
 
@@ -199,7 +159,56 @@
 		}
 
 		trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
+	}
+	
+	
+	// Run jQuery without aliasing it to $
+	jQuery.noConflict();
+	
+	
+	doc
+	
+	// Remove loading classes from document element
+	.ready(function() {
+		docElem.removeClass('notransition loading');
 	})
+	
+	// Select boxes that act as navigation
+	.on('change', '.nav_select', function(e) {
+		var value = e.currentTarget.value;
+		window.location = value;
+	})
+	
+	// Mousedown on buttons toggle activate on their targets
+	.on('mousedown tap keydown', 'a[target]', function(e) {
+		var target = e.currentTarget.target;
+		
+		if (isIgnorable(e)) { return; }
+		
+		// If the target is not listed, ignore
+		if (!targets[target]) { return; }
+		
+		if (e.type === 'mousedown') { preventClick(e); }
+		
+		return targets[target](e);
+	})
+	
+	// Clicks on close buttons deactivate the thing they are inside
+	.on('click tap', '.close_thumb, .close_button, .cancel_button', function(e) {
+		var elem = jQuery(e.currentTarget).closest('.popdown, .dialog_layer');
+		
+		if (!elem.length) { return; }
+		
+		elem.trigger({
+			type: 'deactivate',
+			relatedTarget: e.currentTarget
+		});
+		
+		e.preventDefault();
+	})
+
+	// Mousedown on buttons toggle activate on their targets
+	.on('mousedown tap keydown', 'a[href^="#"]', activateHref)
 
 	// Mouseover on tip links toggle activate on their targets
 	.on('mouseover mouseout tap focusin focusout', 'a[href^="#"], [data-tip]', function(e) {
