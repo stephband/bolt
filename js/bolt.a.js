@@ -23,21 +23,23 @@
 	
 	var targets = {
 	    	dialog: function(e) {
-	    		var id, target;
+	    		var ref = e.currentTarget.getAttribute('data-href') || e.currentTarget.hash,
+	    		    id = ref.substring(1),
+	    		    node;
 	    		
-	    		id = e.currentTarget.hash.substring(1);
 	    		if (!id) { return loadResource(e.currentTarget); }
 	    		
-	    		target = document.getElementById(id);
-	    		if (!target) { return; }
+	    		node = document.getElementById(id);
 	    		
-	    		// If the target is html hidden inside a taxt/html script tag,
+	    		if (!node) { return; }
+	    		
+	    		// If the node is html hidden inside a text/html script tag,
 	    		// extract the html.
-	    		if (target.getAttribute('type') === 'text/html') {
-	    			target = jQuery(target).html();
+	    		if (node.getAttribute('type') === 'text/html') {
+	    			node = jQuery(node).html();
 	    		}
 	    		
-	    		jQuery(target).dialog('lightbox');
+	    		jQuery(node).dialog('lightbox');
 	    		
 	    		// Return true tells handler to carry on execution
 	    		return true;
@@ -84,6 +86,16 @@
 		return (e.which === 1 && !e.ctrlKey && !e.altKey);
 	}
 	
+	function isIgnorable(e) {
+		// Default is prevented indicates that this link has already
+		// been handled. Save ourselves the overhead of further handling.
+		if (e.isDefaultPrevented()) { return true; }
+
+		// Ignore mousedowns on any button other than the left (or primary)
+		// mouse button, or when a modifier key is pressed.
+		if (e.type === 'mousedown' && !isLeftButton(e)) { return true; }
+	}
+	
 	
 	// Run jQuery without aliasing it to $
 	jQuery.noConflict();
@@ -106,13 +118,7 @@
 	.on('mousedown tap', 'a[target]', function(e) {
 		var target = e.currentTarget.target;
 		
-		// Default is prevented indicates that this link has already
-		// been handled. Save ourselves the overhead of further handling.
-		if (e.isDefaultPrevented()) { return; }
-
-		// Ignore mousedowns on any button other than the left (or primary)
-		// mouse button, or when a modifier key is pressed.
-		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
+		if (isIgnorable(e)) { return; }
 		
 		// If the target is not listed, ignore
 		if (!targets[target]) { return; }
@@ -139,25 +145,19 @@
 
 	// Mousedown on buttons toggle activate on their targets
 	.on('mousedown tap', 'a[href^="#"]', function(e) {
-		var id, target, elem, data, clas;
+		var id, node, elem, data, clas;
 
-		// Default is prevented indicates that this link has already
-		// been handled. Save ourselves the overhead of further handling.
-		if (e.isDefaultPrevented()) { return; }
-
-		// Ignore mousedowns on any button other than the left (or primary)
-		// mouse button, or when a modifier key is pressed.
-		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
-
+		if (isIgnorable(e)) { return; }
+		
 		id = e.currentTarget.hash.substring(1);
-		target = document.getElementById(id);
-
+		node = document.getElementById(id);
+		
 		// This link does not point to an id in the DOM. No action required.
-		if (!target) { return; }
+		if (!node) { return; }
 
 		// Get the bolt data that may have been created by a previous
 		// activate event.
-		data = jQuery.data(target);
+		data = jQuery.data(node);
 
 		// Decide what class this object is.
 		if (data.bolt && data.bolt['class']) {
@@ -167,8 +167,8 @@
 			clas = data.bolt['class'];
 		}
 		else {
-			elem = jQuery(target);
-			clas = bolt.classify(target);
+			elem = jQuery(node);
+			clas = bolt.classify(node);
 			
 			// It does no harm to cache elem here while we have it. It's
 			// used later by the activate event.
@@ -198,7 +198,7 @@
 			return;
 		}
 
-		trigger(target, { type: 'activate', relatedTarget: e.currentTarget });
+		trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
 	})
 
 	// Mouseover on tip links toggle activate on their targets
