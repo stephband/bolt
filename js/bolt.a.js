@@ -19,7 +19,7 @@
 	        jQuery.event.trigger(type, data, node);
 	    },
 	    
-	    rImage = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/
+	    rImage = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/,
 	    
 	    targets = {
 	    	dialog: function(e) {
