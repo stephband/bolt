@@ -9,6 +9,13 @@
 })(function(jQuery, undefined) {
 	var node;
 
+	if (!jQuery.easing['ease-out']) {
+		// eaeOutQuad
+		jQuery.easing['ease-out'] = function (x, t, b, c, d) {
+			return -c *(t/=d)*(t-2) + b;
+		};
+	}
+
 	jQuery.fn.scrollTo = function() {
 		var elem = this,
 		    offset, obj;
