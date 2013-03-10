@@ -11,6 +11,15 @@
 	margin: 0 auto;
 }
 
+.wrap > img,
+.wrap > video,
+.wrap > canvas,
+.wrap > object,
+.wrap > embed {
+	/* Don't allow media to break out of container bounds. */
+	max-width: 100%;
+}
+
 .slides_wrap {
 	overflow: hidden;
 }

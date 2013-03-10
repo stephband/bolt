@@ -86,11 +86,30 @@ li:empty,
 dt:empty,
 dd:empty,
 blockquote:empty {
-  /* Hide any typographic block that is empty. This is contraversial,
-     but helps correct style errors in blocks of user input where
-     the html has ended up dodgy. Include fronty.debug.css to see
-     empty blocks highlighted. */
+  /* Hide any typographic block that is empty. This is a bit
+     contraversial, but helps correct style errors in blocks
+     of user input where the html has ended up dodgy. Include
+     bolt.debug.css to see empty blocks highlighted. */
   display: none;
+}
+
+p > img,
+p > video,
+p > canvas,
+p > object,
+p > embed,
+li > img,
+li > video,
+li > canvas,
+li > object,
+li > embed,
+dd > img,
+dd > video,
+dd > canvas,
+dd > object,
+dd > embed {
+	/* Don't allow media to break out of container bounds. */
+	max-width: 100%;
 }
 
 /* Inline elements */
