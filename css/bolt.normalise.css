@@ -122,6 +122,7 @@ body {
 	margin: 0;
 }
 
+p,
 dl,
 menu,
 ol,
@@ -156,13 +157,20 @@ mark {
 	color: #000;
 }
 
-img {
-	/* Images are most often used as block level elements. Inline images
-	   sit on the baseline, which has white-space below it. Kill. */
+img,
+video,
+canvas,
+object,
+embed {
+	/* Media are most often used as block level elements. */
 	display: block;
+	/* Don't allow media to break out of container bounds. */
 	max-width: 100%;
 	height: auto;
 	border: 0;
+}
+
+img {
 	/* Improves image quality when scaled in IE7
 	   code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
 	-ms-interpolation-mode: bicubic;

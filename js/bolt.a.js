@@ -265,7 +265,7 @@
 
 		// If it has not the class 'tip', we have no business trying to
 		// activate it on hover.
-		if (clas !== 'tip') { return; }
+		if (clas !== 'tip' && clas !== 'top_tip') { return; }
 
 		// Tap events should make tips show immediately
 		if (e.type === 'tap') {
