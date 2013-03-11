@@ -50,19 +50,20 @@ There are techniques for changing the block order of inline-blocks using a combi
 
 
 ### .dialog
-> Requires bolt.dialog.js for interactivity
+
+> Include bolt.dialog.js
 
 
 ### .slide
 
-> Requires bolt.slide.js for interactivity
+> Include bolt.slide.js
 
 A block that slides to reveal it's sibling.
 
 
 ### .tab
 
-> Requires bolt.tab.js for interactivity
+> Include bolt.tab.js
 
 A block that fades to reveal it's sibling.
 
@@ -84,6 +85,6 @@ Buttons have centred text with automatic ellipsis.
 
 ### .tip
 
-> Requires bolt.tip.js for interactivity
+> Include bolt.tip.js
 
 A tip is hidden by default, and made visible when hovering over something that references it by id.
