@@ -15,7 +15,7 @@ Bolt has submodules. You're probably going to want to clone it with the recursiv
 * Themes change between projects, layout techniques do not. Minimal colour included.
 * Normalised to a useful baseline with the border-box model set across the board.
 * Inline-blocks are preferred over floats for horizontal layout.
-* Positioning is declared with respect to context.
+* Position with respect to context.
 
 
 ## Classes
