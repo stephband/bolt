@@ -44,8 +44,6 @@
 			    position = elem.position(),
 			    height = elem.outerHeight();
 			
-			console.log(relatedOffset.top + relatedHeight + position.top  - offset.top - height);
-			
 			elem
 			.css({
 				margin: '',
