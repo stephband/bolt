@@ -40,7 +40,7 @@ There are techniques for changing the block order of inline-blocks using a combi
 
 ### .index
 
-.index resets the default styles of a list such as a &lt;ul&gt;, &lt;ol&gt; or &lt;dl&gt;, enabling there use for things like lists of buttons, lists of thumbnails.
+.index resets the default styles of a list such as a &lt;ul&gt;, &lt;ol&gt; or &lt;dl&gt;, enabling them for use as lists or grids of thumbs, button or whatever.
 
 &lt;li&gt;s inside of lists are considered as part of their parents containers, so they are always styled with a child selector that associates them to the index:
 
