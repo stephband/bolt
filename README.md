@@ -12,7 +12,7 @@ Bolt has submodules. You're probably going to want to clone it with the recursiv
 ## Principles
 
 * Styles are defined in short, readable and extensible classes.
-* The border-box model keeps us sane.
+* The border-box model is set across the board.
 * Context is used for positioning.
 * Inline-blocks are preferred over floats for horizontal layout.
 
@@ -44,9 +44,9 @@ There are techniques for changing the block order of inline-blocks using a combi
 
 &lt;li&gt;s inside of lists are considered as part of their parents containers, so they are always styled with a child selector that associates them to the index:
 
-.buttons_index > li {
-	margin-bottom: 0.4em;
-}
+    .buttons_index > li {
+        margin-bottom: 0.4em;
+    }
 
 
 ### .dialog
