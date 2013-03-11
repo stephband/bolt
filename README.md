@@ -79,4 +79,6 @@ Buttons have centred text with automatic ellipsis.
 
 ### .tip
 
-A tip is hidden by default, and made visible when hovering over something that references it by id. Requires bolt.tip.js.
+> Requires bolt.tip.js.
+
+A tip is hidden by default, and made visible when hovering over something that references it by id.
