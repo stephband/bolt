@@ -50,22 +50,22 @@
 		// overflow is hidden, we'll never notice.
 		if (e.distX < 0) {
 			if (panes.next) {
-			panes.pane.style.left = left + '%';
-			panes.next.style.left = (left+100)+'%';
-			//panes.next.style.height = 'auto';
-			}
-			else {
-			panes.pane.style.left = left/5 + '%';
+				panes.pane.style.left = left + '%';
+				panes.next.style.left = (left+100)+'%';
+				//panes.next.style.height = 'auto';
+				}
+				else {
+				panes.pane.style.left = left/5 + '%';
 			}
 		}
 		if (e.distX > 0) {
 			if (panes.prev) {
-			panes.pane.style.left = left + '%';
-			panes.prev.style.left = (left-100)+'%';
-			//panes.prev.style.height = 'auto';
-			}
-			else {
-			panes.pane.style.left = left/5 + '%';
+				panes.pane.style.left = left + '%';
+				panes.prev.style.left = (left-100)+'%';
+				//panes.prev.style.height = 'auto';
+				}
+				else {
+				panes.pane.style.left = left/5 + '%';
 			}
 		}
 	}
@@ -122,14 +122,20 @@
 			if (data.active) { return; }
 			data.active = true;
 			
-			add(target, 'movestart', movestartSlide, siblings);
-			add(target, 'move', moveSlide, siblings);
-			add(target, 'moveend', moveendSlide, siblings);
-			add(target, 'swiperight', jump, siblings.prev);
-			add(target, 'swipeleft',  jump, siblings.next);
-			add(target, 'click tap',  jump, panes[(panes.index(target) - 1) % panes.length], 'a[href="#prev"]');
-			add(target, 'click tap',  jump, panes[(panes.index(target) + 1) % panes.length], 'a[href="#next"]');
-
+			if (!data.setup) {
+				data.setup = true;
+				
+				add(target, 'movestart', movestartSlide, siblings);
+				add(target, 'move', moveSlide, siblings);
+				add(target, 'moveend', moveendSlide, siblings);
+				
+				if (siblings.prev) { add(target, 'swiperight', jump, siblings.prev); }
+				if (siblings.next) { add(target, 'swipeleft',  jump, siblings.next); }
+				
+				add(target, 'click tap',  jump, panes[(panes.index(target) - 1) % panes.length], 'a[href="#prev"]');
+				add(target, 'click tap',  jump, panes[(panes.index(target) + 1) % panes.length], 'a[href="#next"]');
+			}
+			
 			active = panes.not(target).filter('.active');
 
 			fn();
@@ -144,10 +150,10 @@
 			if (!data.active) { return; }
 			data.active = false;
 			
-			remove(e.target, 'click tap swiperight swipeleft', jump);
-			remove(e.target, 'movestart', movestartSlide);
-			remove(e.target, 'move', moveSlide);
-			remove(e.target, 'moveend', moveendSlide);
+			//remove(e.target, 'click tap swiperight swipeleft', jump);
+			//remove(e.target, 'movestart', movestartSlide);
+			//remove(e.target, 'move', moveSlide);
+			//remove(e.target, 'moveend', moveendSlide);
 
 			fn();
 		}
