@@ -11,7 +11,7 @@
 	}
 })(function(jQuery, bolt, undefined){
 	var doc = jQuery(document),
-	    docElem = jQuery(document.documentElement);
+	    docElem = jQuery(document.documentElement),
 	    
 	    add = jQuery.event.add,
 	    remove = jQuery.event.remove,
