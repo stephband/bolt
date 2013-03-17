@@ -28,6 +28,8 @@
 	    activeClass = "active",
 	    onClass = "on",
 	    
+	    location = window.location,
+	    
 	    settings = {
 	    	cache: true
 	    };
@@ -36,18 +38,29 @@
 		return true;
 	}
 
+	function sameOrigin() {
+		var node = this;
+		
+		return node.origin === location.origin &&
+		       node.pathname === location.pathname;
+	}
+
+	function findButtons(id) {
+		return jQuery('a[href$="#' + id + '"]').filter(sameOrigin);
+	}
+
 	function cacheData(target) {
 		var data = jQuery.data(target),
 		    id = target.id;
 		
 		if (!data.elem) { data.elem = jQuery(target); }
-		if (!data.buttons) { data.buttons = settings.cache && id && jQuery('a[href="#'+id+'"]'); }
+		if (!data.buttons) { data.buttons = settings.cache && id && findButtons(id); }
 		
 		return data;
 	}
 
 	function getButtons(data) {
-		return (settings.cache && data.buttons) || (data.elem[0].id && jQuery('a[href="#' + data.elem[0].id + '"]'));
+		return (settings.cache && data.buttons) || (data.elem[0].id && findButtons(data.elem[0].id));
 	}
 
 	jQuery.event.special.activate = {
