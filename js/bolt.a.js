@@ -101,10 +101,20 @@
 		if ((e.type === 'keydown' || e.type === 'keyup') && e.keyCode !== 13) { return true; }
 	}
 	
-	function activateHref(e) {
+	function isExternalLink(e) {
+		var location = window.location,
+		    link = e.currentTarget;
+		
+		if (location.origin !== link.origin) { return true; }
+		if (location.pathname !== link.pathname) { return true; }
+	}
+	
+	function activateHash(e) {
 		var id, node, elem, data, clas;
-
+		
 		if (isIgnorable(e)) { return; }
+		
+		if (isExternalLink(e)) { return; }
 		
 		id = e.currentTarget.hash.substring(1);
 		node = document.getElementById(id);
@@ -208,7 +218,7 @@
 	})
 
 	// Mousedown on buttons toggle activate on their targets
-	.on('mousedown tap keydown', 'a[href^="#"]', activateHref)
+	.on('mousedown tap keydown', 'a[href]', activateHash)
 
 	// Mouseover on tip links toggle activate on their targets
 	.on('mouseover mouseout tap focusin focusout', 'a[href^="#"], [data-tip]', function(e) {
