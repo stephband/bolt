@@ -166,6 +166,15 @@
 		}
 	})
 	
+	// For browsers that don't understand it, prevent changes on
+	// disabled form elements.
+	.on('change', '[disabled]', function(e) {
+		// The nuclear approach
+		e.oreventDefault();
+		e.stopPropagation();
+		return false;
+	})
+	
 	// Value display for select boxes that are wrapped in buttons
 	// for style. The value is set as the content of the button.
 	.on('change', '.button > select', function(e) {
