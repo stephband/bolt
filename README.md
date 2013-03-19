@@ -12,10 +12,9 @@ Bolt has submodules. You're probably going to want to clone it with the recursiv
 ## Principles
 
 * Styles are defined in short, readable and extensible classes.
-* Themes change between projects, layout techniques do not. Minimal colour included.
-* Normalised to a useful baseline with the border-box model set across the board.
+* Minimal colour included. Themes change between projects, where layout techniques do not.
+* Normalised to a useful baseline with the box model set to border-box.
 * Inline-blocks are preferred over floats for horizontal layout.
-* Position with respect to context.
 
 
 ## Classes
