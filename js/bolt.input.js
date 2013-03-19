@@ -145,7 +145,7 @@
 	
 	// Active classes for radio input labels
 	
-	.delegate('input[type="radio"]', 'change', function(e){
+	.delegate('input[type="radio"]', 'change update', function(e){
 		var data = fieldData(e.target);
 		
 		if (data.fields) {
@@ -155,7 +155,7 @@
 	
 	// Active classes for checkbox input labels
 	
-	.delegate('input[type="checkbox"]', 'change', function(e) {
+	.delegate('input[type="checkbox"]', 'change update', function(e) {
 		var data = fieldData(e.target);
 		
 		if (data.field.prop('checked')) {
@@ -177,13 +177,13 @@
 	
 	// Value display for select boxes that are wrapped in buttons
 	// for style. The value is set as the content of the button.
-	.on('change', '.button > select', function(e) {
+	.on('change update', '.button > select', function(e) {
 		populateSelect(e.target);
 	})
 	
 	// Value display for file inputs that are wrapped in buttons
 	// for style. Value is set as the text content of the button.
-	.on('change', '.button > input[type="file"]', function(e) {
+	.on('change update', '.button > input[type="file"]', function(e) {
 		updateFileLabel(e.target);
 	})
 	
