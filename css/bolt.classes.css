@@ -757,9 +757,7 @@ button:hover,
 }
 
 button.loading,
-button.disabled,
-.button.loading,
-.button.disabled {
+.button.loading {
 	opacity: 0.4;
 }
 
@@ -1208,6 +1206,10 @@ button.disabled,
 
 .js .hidden {
 	display: none;
+}
+
+.js .disabled {
+	opacity: 0.4;
 }
 
 .notransition,
