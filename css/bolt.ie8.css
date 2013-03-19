@@ -1,3 +1,13 @@
+input[hidden],
+input.hidden {
+	/* IE hates having inputs hidden, so try just making them
+	   invisible. */
+	display: block;
+	position: absolute;
+	z-index: 0;
+	filter: alpha(opacity=0);
+}
+
 /* horizontal
     
    Simulate a bunch of blocks pushed against each other horizontally

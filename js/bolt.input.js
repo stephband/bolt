@@ -82,6 +82,19 @@
 		view.wrap.prepend(html);
 	}
 	
+	function updateRadioLabel() {
+		var node = this,
+		    data = fieldData(node);
+		
+		if (this.checked) {
+		    data.label.addClass('on');
+		}
+		else {
+		    data.label.removeClass('on');
+		}
+	}
+	
+	
 	doc
 	
 	// Readonly inputs have their text selected when you click
@@ -136,18 +149,7 @@
 		var data = fieldData(e.target);
 		
 		if (data.fields) {
-			data.fields.trigger('statechange');
-		}
-	})
-	
-	.delegate('input[type="radio"]', 'statechange', function(e) {
-		var data = fieldData(e.target);
-		
-		if (data.field.prop('checked')) {
-			data.label.addClass('on');
-		}
-		else {
-			data.label.removeClass('on');
+			data.fields.each(updateRadioLabel);
 		}
 	})
 	
