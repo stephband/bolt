@@ -41,8 +41,10 @@
 	function sameOrigin() {
 		var node = this;
 		
-		return node.origin === location.origin &&
-		       node.pathname === location.pathname;
+		return node.host === location.host &&
+		       // IE gives us node.pathname without a leading slash, so
+		       // lop it off location.pathname before comparing.
+		       node.pathname === location.pathname.replace(/^\//, '');
 	}
 
 	function findButtons(id) {
