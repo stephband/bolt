@@ -69,6 +69,10 @@
 		}
 	}
 	
+	function prefixSlash(str) {
+		return (/^\//.test(str) ? '' : '/') + str ;
+	}
+	
 	function preventDefault(e) {
 		remove(e.currentTarget, 'click', preventDefault);
 		e.preventDefault();
@@ -107,9 +111,9 @@
 		
 		if (location.host !== link.host) { return true; }
 		
-		// IE gives us link.pathname without a leading slash, so lop
-		// it off location.pathname before comparing.
-		if (location.pathname.replace(/^\//, '') !== link.pathname) { return true; }
+		// IE gives us link.pathname without a leading slash, so add
+		// one before comparing.
+		if (location.pathname !== prefixSlash(link.pathname)) { return true; }
 	}
 	
 	function activateHash(e) {

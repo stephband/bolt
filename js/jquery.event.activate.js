@@ -37,14 +37,18 @@
 	function returnTrue() {
 		return true;
 	}
+	
+	function prefixSlash(str) {
+		return (/^\//.test(str) ? '' : '/') + str ;
+	}
 
 	function sameOrigin() {
 		var node = this;
 		
 		return node.host === location.host &&
 		       // IE gives us node.pathname without a leading slash, so
-		       // lop it off location.pathname before comparing.
-		       node.pathname === location.pathname.replace(/^\//, '');
+		       // add one before comparing.
+		       prefixSlash(node.pathname) === location.pathname;
 	}
 
 	function findButtons(id) {
