@@ -49,6 +49,14 @@ audio:not([controls]) {
 	display: none;
 }
 
+[placeholder]:focus::-webkit-input-placeholder {
+	/* Get rid of persistent placeholders in webkit, where the placeholder
+	   hangs around like an old fart. More here:
+	   http://adactio.com/journal/6147/
+	*/
+	color: transparent;
+}
+
 [draggable] {
 	/* Make draggable elements draggable in WebKit */
 	-webkit-user-drag: element;

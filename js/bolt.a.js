@@ -105,8 +105,11 @@
 		var location = window.location,
 		    link = e.currentTarget;
 		
-		if (location.origin !== link.origin) { return true; }
-		if (location.pathname !== link.pathname) { return true; }
+		if (location.host !== link.host) { return true; }
+		
+		// IE gives us link.pathname without a leading slash, so lop
+		// it off location.pathname before comparing.
+		if (location.pathname.replace(/^\//, '') !== link.pathname) { return true; }
 	}
 	
 	function activateHash(e) {
