@@ -127,7 +127,10 @@
 			// dailog was opened.
 			setTimeout(function() { focusNode.focus(); }, 0);
 			remove(node, 'deactivate', deactivate);
-			document.removeEventListener('focus', preventFocus);
+			
+			if (document.addEventListener && document.removeEventListener) {
+				document.removeEventListener('focus', preventFocus);
+			}
 		});
 	}
 	
