@@ -117,7 +117,10 @@
 		
 		setTimeout(function() { firstNode.focus(); }, 0);
 		
-		document.addEventListener("focus", preventFocus, true);
+		// Prevent focus in capture phase
+		if (document.addEventListener) {
+			document.addEventListener("focus", preventFocus, true);
+		}
 		
 		add(node, 'deactivate', function deactivate() {
 			// Set focus back to the thing that was last focused when the
