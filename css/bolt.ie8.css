@@ -1,5 +1,7 @@
 input[hidden],
-input.hidden {
+input.hidden,
+.js input[hidden],
+.js input.hidden {
 	/* IE hates having inputs hidden, so try just making them
 	   invisible. */
 	display: block;
