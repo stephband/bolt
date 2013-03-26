@@ -225,14 +225,19 @@ th {
 	  text-shadow: none !important;
 	}
 	
-	a,
-	a:visited {
-	  text-decoration: underline;
+	/* Display external links after their text. */
+	a[href^="http://"],
+	a[href^="http://"]:visited,
+	a[href^="https://"],
+	a[href^="https://"]:visited {
+		text-decoration: underline;
 	}
 	
-	a:after {
-	  content: " (" attr(href) ")";
-	  font-size: 0.9167em;
+	a[href^="http://"]:after,
+	a[href^="https://"]:after {
+		content: " [" attr(href) "] ";
+		font-size: 0.9167em;
+		opacity: 0.75;
 	}
 	
 	pre,
