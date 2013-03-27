@@ -29,6 +29,8 @@
 	    onClass = "on",
 	    
 	    location = window.location,
+	    	    
+	    id = location.hash,
 	    
 	    settings = {
 	    	cache: true
@@ -128,8 +130,6 @@
 	};
 	
 	jQuery(document).ready(function(){
-		var id = window.location.hash;
-		
 		// Setup all things that should start out active.
 		jQuery('.' + activeClass).trigger('activate');
 
