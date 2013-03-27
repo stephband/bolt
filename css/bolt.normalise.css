@@ -169,7 +169,8 @@ img,
 video,
 canvas,
 object,
-embed {
+embed,
+iframe {
 	/* Media are most often used as block level elements. */
 	display: block;
 	height: auto;
