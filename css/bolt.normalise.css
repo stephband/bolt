@@ -166,18 +166,23 @@ mark {
 }
 
 img,
-video,
 canvas,
+video,
 object,
 embed,
 iframe {
 	/* Media are most often used as block level elements. */
 	display: block;
-	height: auto;
 	border: 0;
 }
 
-img {
+img,
+canvas,
+video {
+	height: auto;
+}
+
+img {	
 	/* Improves image quality when scaled in IE7
 	   code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
 	-ms-interpolation-mode: bicubic;
