@@ -166,6 +166,7 @@ mark {
 }
 
 img,
+svg,
 canvas,
 video,
 object,
@@ -177,6 +178,7 @@ iframe {
 }
 
 img,
+svg,
 canvas,
 video {
 	height: auto;
