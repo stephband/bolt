@@ -144,7 +144,7 @@ menu,
 ol,
 ul {
 	/* paddings set differently in IE6/7 */
-	padding: 0 0 0 40px;
+	padding: 0 0 0 2.5em;
 }
 
 a:focus {
