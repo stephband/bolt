@@ -72,6 +72,25 @@ ol                { list-style-type: decimal; }
 blockquote        { font-style: italic; font-family: Georgia, serif; }
 blockquote:before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
 
+p:first-child,
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child,
+ul:first-child,
+ol:first-child,
+dl:first-child,
+li:first-child,
+dt:first-child,
+dd:first-child,
+blockquote:first-child {
+  /* Typographic blocks should not cause a gap at the top of
+     text blocks. That's what padding is for. */
+  margin-top: 0;
+}
+
 p:empty,
 h1:empty,
 h2:empty,
