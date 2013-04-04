@@ -111,15 +111,11 @@
 	function isExternalLink(e) {
 		var location = window.location,
 		    link = e.currentTarget;
-		
-		if (debug) console.log(location.hostname + ' ' + link.hostname);
 
 		// IE gives us the port on link.host, even where it is not specified.
 		// Use link.hostname.
 		if (location.hostname !== link.hostname) { return true; }
 		
-		if (debug) console.log(location.pathname + ' ' + link.pathname + ' ' + prefixSlash(link.pathname));
-
 		// IE gives us link.pathname without a leading slash, so add
 		// one before comparing.
 		if (location.pathname !== prefixSlash(link.pathname)) { return true; }
