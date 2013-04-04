@@ -112,7 +112,7 @@
 		var location = window.location,
 		    link = e.currentTarget;
 		
-		if (debug) console.log(location.host + ' ' + link.host);
+		if (debug) console.log(location.hostname + ' ' + link.hostname);
 
 		// IE gives us the port on link.host, even where it is not specified.
 		// Use link.hostname.
