@@ -10,6 +10,8 @@
 		module(jQuery, jQuery.bolt);
 	}
 })(function(jQuery, bolt, undefined){
+	var debug = window.console && console.log;
+
 	var doc = jQuery(document),
 	    docElem = jQuery(document.documentElement),
 	    
@@ -110,8 +112,12 @@
 		var location = window.location,
 		    link = e.currentTarget;
 		
+		if (debug) console.log(location.host + ' ' + link.host);
+
 		if (location.host !== link.host) { return true; }
 		
+		if (debug) console.log(location.pathname + ' ' + link.pathname + ' ' + prefixSlash(link.pathname));
+
 		// IE gives us link.pathname without a leading slash, so add
 		// one before comparing.
 		if (location.pathname !== prefixSlash(link.pathname)) { return true; }
