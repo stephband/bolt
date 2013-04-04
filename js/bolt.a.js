@@ -114,7 +114,9 @@
 		
 		if (debug) console.log(location.host + ' ' + link.host);
 
-		if (location.host !== link.host) { return true; }
+		// IE gives us the port on link.host, even where it is not specified.
+		// Use link.hostname.
+		if (location.hostname !== link.hostname) { return true; }
 		
 		if (debug) console.log(location.pathname + ' ' + link.pathname + ' ' + prefixSlash(link.pathname));
 
