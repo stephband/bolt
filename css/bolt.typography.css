@@ -5,26 +5,26 @@
    www.webtypography.net */
 
 body {
-    font-family: Helvetica, Arial, sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
 }
 
 pre,
 code,
 kbd,
 samp {
-  /* Corrects font family set oddly in IE6, S4/5, Chrome
-     en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
-  font-family: monospace, serif;
-  font-family: 'Andale Mono', 'Lucida Console', monospace;
-  font-size: 1em;
+	/* Corrects font family set oddly in IE6, S4/5, Chrome
+	   en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
+	font-family: monospace, serif;
+	font-family: 'Andale Mono', 'Lucida Console', monospace;
+	font-size: 1em;
 }
 
 pre {
-  /* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */
-  white-space: pre; /* CSS2 */
-  white-space: pre-wrap; /* CSS2.1 */
-  /*white-space: pre-line; /* CSS3 (and 2.1 as well, actually) */
-  word-wrap: break-word; /* IE */
+	/* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */
+	white-space: pre; /* CSS2 */
+	white-space: pre-wrap; /* CSS2.1 */
+	/*white-space: pre-line; /* CSS3 (and 2.1 as well, actually) */
+	word-wrap: break-word; /* IE */
 }
 
 a:focus,
@@ -32,8 +32,8 @@ a:hover           { text-decoration: underline; }
 a                 { text-decoration: none; }
 
 a:link {
-  /* j.mp/webkit-tap-highlight-color */
-  -webkit-tap-highlight-color: rgba(0,0,0,0.25);
+	/* j.mp/webkit-tap-highlight-color */
+	-webkit-tap-highlight-color: rgba(0,0,0,0.25);
 }
 
 /* Block elements */
@@ -49,8 +49,8 @@ hr                { height: 0; border-width: 0; border-bottom: 1px solid black; 
 
 
 dl {
-  /* Clearfix, because children of definition list are floated. */
-  zoom: 1;
+	/* Clearfix, because children of definition list are floated. */
+	zoom: 1;
 }
 
 dl:after {
@@ -86,9 +86,9 @@ li:first-child,
 dt:first-child,
 dd:first-child,
 blockquote:first-child {
-  /* Typographic blocks should not cause a gap at the top of
-     text blocks. That's what padding is for. */
-  margin-top: 0;
+	/* Typographic blocks should not cause a gap at the top of
+	   text blocks. That's what padding is for. */
+	margin-top: 0;
 }
 
 p:empty,
@@ -105,28 +105,34 @@ li:empty,
 dt:empty,
 dd:empty,
 blockquote:empty {
-  /* Hide any typographic block that is empty. This is a bit
-     contraversial, but helps correct style errors in blocks
-     of user input where the html has ended up dodgy. Include
-     bolt.debug.css to see empty blocks highlighted. */
-  display: none;
+	/* Hide any typographic block that is empty. This is a bit
+	   contraversial, but helps correct style errors in blocks
+	   of user input where the html has ended up dodgy. Include
+	   bolt.debug.css to see empty blocks highlighted. */
+	display: none;
 }
 
 p > img,
+p > svg,
 p > video,
 p > canvas,
 p > object,
 p > embed,
+p > iframe,
 li > img,
+li > svg,
 li > video,
 li > canvas,
 li > object,
 li > embed,
+li > iframe,
 dd > img,
+dd > svg,
 dd > video,
 dd > canvas,
 dd > object,
-dd > embed {
+dd > embed,
+dd > iframe {
 	/* Don't allow media to break out of container bounds. */
 	max-width: 100%;
 }
@@ -173,14 +179,14 @@ caption           { background-color: inherit; }
 /* Selection */
 
 ::selection {
-  background:rgba(27,117,186,0.8);
-  color:rgb(255,255,255);
+	background:rgba(27,117,186,0.8);
+	color:rgb(255,255,255);
 }
 ::-moz-selection {
-  background:rgba(27,117,186,0.8);
-  color:rgb(255,255,255);
+	background:rgba(27,117,186,0.8);
+	color:rgb(255,255,255);
 }
 ::-webkit-selection {
-  background:rgba(27,117,186,0.8);
-  color:rgb(255,255,255);
+	background:rgba(27,117,186,0.8);
+	color:rgb(255,255,255);
 }
