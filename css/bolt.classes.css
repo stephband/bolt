@@ -6,6 +6,7 @@
 /* .wrap */
 
 .wrap {
+	display: block;
 	/* Set as position parent */
 	position: relative;
 	margin: 0 auto;
