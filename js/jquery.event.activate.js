@@ -47,14 +47,18 @@
 	function sameOrigin() {
 		var node = this;
 		
-		return node.host === location.host &&
-		       // IE gives us node.pathname without a leading slash, so
-		       // add one before comparing.
-		       prefixSlash(node.pathname) === location.pathname;
+		//     IE gives us the port on node.host, even where it is not
+		//     specified. Use node.hostname.
+		return location.hostname === node.hostname &&
+		//     IE gives us node.pathname without a leading slash, so
+		//     add one before comparing.
+		       location.pathname === prefixSlash(node.pathname);
 	}
 
 	function findButtons(id) {
-		return jQuery('a[href$="#' + id + '"]').filter(sameOrigin);
+		return jQuery('a[href$="#' + id + '"]')
+			.filter(sameOrigin)
+			.add('[data-href="#' + id + '"]');
 	}
 
 	function cacheData(target) {
