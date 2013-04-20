@@ -170,7 +170,7 @@
 	// disabled form elements.
 	.on('change', '[disabled]', function(e) {
 		// The nuclear approach
-		e.oreventDefault();
+		e.preventDefault();
 		e.stopPropagation();
 		return false;
 	})

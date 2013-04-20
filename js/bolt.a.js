@@ -121,19 +121,7 @@
 		if (location.pathname !== prefixSlash(link.pathname)) { return true; }
 	}
 	
-	function activateHash(e) {
-		var id, node, elem, data, clas;
-		
-		if (isIgnorable(e)) { return; }
-		
-		if (isExternalLink(e)) { return; }
-		
-		id = e.currentTarget.hash.substring(1);
-		node = document.getElementById(id);
-		
-		// This link does not point to an id in the DOM. No action required.
-		if (!node) { return; }
-
+	function boltData(node) {
 		// Get the bolt data that may have been created by a previous
 		// activate event.
 		data = jQuery.data(node);
@@ -166,21 +154,114 @@
 			};
 		}
 
-		e.preventDefault();
+		return data;
+	}
+
+	function activateHref(e, fn) {
+		var id, node, name, data, elem, clas;
+
+		if (isIgnorable(e)) { return; }
+
+		id = e.target.getAttribute('data-href').substring(1);
+		node = document.getElementById(id);
 		
-		if (e.type === 'mousedown') {
-			preventClick(e);
-		}
+		// This link does not point to an id in the DOM. No action required.
+		if (!node) { return; }
 
-		if (!bolt.has(clas, 'activate')) { return; }
+		data = boltData(node);
 
-		if (data.active === undefined ?
-				elem.hasClass('active') :
-				data.active ) {
-			return;
-		}
+		if (!data) { return; }
+		
+		//if (!bolt.has(clas, 'activate')) { return; }
 
-		trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
+		fn(node, data);
+	}
+
+	function activateHash(e, fn) {
+		var id, node, data, elem, clas;
+		
+		if (isIgnorable(e)) { return; }
+		
+		if (isExternalLink(e)) { return; }
+
+		id = e.currentTarget.hash.substring(1);
+		node = document.getElementById(id);
+		
+		// This link does not point to an id in the DOM. No action required.
+		if (!node) { return; }
+
+		data = boltData(node);
+
+		if (!data) { return; }
+
+		fn(node, data);
+	}
+
+	function activateTarget(e) {
+		var target = e.currentTarget.target;
+		
+		if (isIgnorable(e)) { return; }
+		
+		// If the target is not listed, ignore
+		if (!targets[target]) { return; }
+		
+		if (e.type === 'mousedown') { preventClick(e); }
+		
+		return targets[target](e);
+	}
+
+	function changeHref(e) {
+		activateHref(e, function(node, data) {
+			if (e.target.checked) {
+				trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
+			}
+			else {
+				trigger(node, { type: 'deactivate', relatedTarget: e.currentTarget });
+			}	
+		});
+	}
+
+	function mousedownHref(e) {
+		// We have change handlers to listen to inputs
+		if (e.target.tagName.toLowerCase() === 'input') { return; }
+
+		activateHref(e, function(node, data) {
+			e.preventDefault();
+			
+			if (e.type === 'mousedown') {
+				preventClick(e);
+			}
+	
+			//if (!bolt.has(clas, 'activate')) { return; }
+	
+			if (data.active === undefined ?
+					data.bolt.elem.hasClass('active') :
+					data.active ) {
+				return;
+			}
+	
+			trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
+		});
+	}
+
+	function mousedownHash(e) {
+		activateHash(e, function(node, data) {
+			e.preventDefault();
+			
+			if (e.type === 'mousedown') {
+				preventClick(e);
+			}
+	
+			if (!bolt.has(data.bolt['class'], 'activate')) { return; }
+	
+			if (data.active === undefined ?
+					data.bolt.elem.hasClass('active') :
+					data.active ) {
+				return;
+			}
+	
+			trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
+		});
 	}
 	
 	
@@ -200,19 +281,14 @@
 		var value = e.currentTarget.value;
 		window.location = value;
 	})
-	
-	// Mousedown on buttons toggle activate on their targets
-	.on('mousedown tap keydown', 'a[target]', function(e) {
-		var target = e.currentTarget.target;
-		
-		if (isIgnorable(e)) { return; }
-		
-		// If the target is not listed, ignore
-		if (!targets[target]) { return; }
-		
-		if (e.type === 'mousedown') { preventClick(e); }
-		
-		return targets[target](e);
+
+	// 
+	.on('change', '[type="radio"]', function(e) {
+		var name = e.target.name;
+
+		jQuery('[name="'+name+'"]')
+		.not(e.target)
+		.trigger({ type: 'update', checked: e.target });
 	})
 	
 	// Clicks on close buttons deactivate the thing they are inside
@@ -230,7 +306,16 @@
 	})
 
 	// Mousedown on buttons toggle activate on their targets
-	.on('mousedown tap keydown', 'a[href]', activateHash)
+	.on('mousedown tap keydown', 'a[target]', activateTarget)
+
+	// Changing input[data-href] controls target
+	.on('change update', '[data-href]', changeHref)
+
+	// Mousedown on buttons toggle activate on their hrefs
+	.on('mousedown tap keydown', '[data-href]', mousedownHref)
+
+	// Mousedown on buttons toggle activate on their hash
+	.on('mousedown tap keydown', 'a[href]', mousedownHash)
 
 	// Mouseover on tip links toggle activate on their targets
 	.on('mouseover mouseout tap focusin focusout', 'a[href^="#"], [data-tip]', function(e) {
