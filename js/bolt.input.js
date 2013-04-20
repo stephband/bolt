@@ -100,14 +100,14 @@
 	// Readonly inputs have their text selected when you click
 	// on them.
 	
-	.delegate('input[readonly]', 'focus click', function(e) {
+	.on('focus click', 'input[readonly]', function(e) {
 		jQuery(e.currentTarget).select();
 	})
 	
 	// Extend the events emitted by input[type='range']
 	// nodes with changestart and changeend events.
 	
-	.delegate('input[type="range"]', 'mousedown touchstart', (function(){
+	.on('mousedown touchstart', 'input[type="range"]', (function(){
 		var endTypes = {
 			mousedown: 'mouseup',
 			touchstart: 'touchend'
@@ -134,7 +134,7 @@
 	
 	// Global form validation
 	
-	.delegate( 'input, textarea', 'change', function(e) {
+	.on('change', 'input, textarea', function(e) {
 		// Don't make this script require jQuery.fn.validate
 		if (!jQuery.fn.validate) { return; }
 		
@@ -145,7 +145,7 @@
 	
 	// Active classes for radio input labels
 	
-	.delegate('input[type="radio"]', 'change update', function(e){
+	.on('change update', 'input[type="radio"]', function(e){
 		var data = fieldData(e.target);
 		
 		if (data.fields) {
@@ -155,7 +155,7 @@
 	
 	// Active classes for checkbox input labels
 	
-	.delegate('input[type="checkbox"]', 'change update', function(e) {
+	.on('change update', 'input[type="checkbox"]', function(e) {
 		var data = fieldData(e.target);
 		
 		if (data.field.prop('checked')) {
