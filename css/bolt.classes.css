@@ -79,20 +79,17 @@
 	        box-sizing: content-box;
 }
 
-.popup_layer,
 .dialog_layer {
 	position: fixed;
 }
 
 .middle,
-.popup_layer,
 .dialog_layer {
 	/* Center inline-block contents horizontally */
 	text-align: center;
 }
 
 .middle:before,
-.popup_layer:before,
 .dialog_layer:before {
 	/* Center inline-block contents vertically */
 	display: inline-block;
@@ -103,20 +100,18 @@
 }
 
 .middle > *,
-.popup_layer > *,
 .dialog_layer > * {
 	text-align: left;
 }
 
 .middle > *,
-.popup,
 .dialog {
-	/* Use inline-block to make popup collapse
+	/* Use inline-block to make dialog collapse
 	   to the width of its contents. */
 	display: inline-block;
 	
-	/* Center the popup vertically, working in tandem
-	   with the :before rule of .popup_layer. */
+	/* Center the dialog vertically, working in tandem
+	   with the :before rule of .dialog_layer. */
 	vertical-align: middle;
 	
 	/* But let's make sure it doesn't touch the top or
@@ -125,7 +120,6 @@
 	margin-bottom: 2.5em;
 }
 
-.popup,
 .dialog {
 	/* Act as position parent */
 	position: relative;
@@ -145,10 +139,6 @@
 	        box-shadow: 0 2px 24px rgba(0,0,0,0.6);
 }
 
-.popup > img,
-.popup > canvas,
-.popup > object,
-.popup > embed,
 .dialog > img,
 .dialog > canvas,
 .dialog > object,
@@ -159,8 +149,8 @@
 	display: block;
 }
 
-.popup > .close_button,
-.dialog > .close_button {
+.dialog > .close_button,
+.dialog > .close_thumb {
 	position: absolute;
 	top: -16px;
 	top: -1rem;
@@ -191,7 +181,6 @@
 
 /* Use a <canvas> as a loading icon */
 .loading_layer,
-.popup_layer,
 .dialog_layer {
 	background-image: none;
 	background-color: rgba(31, 32, 33, 0.746094);
@@ -473,7 +462,6 @@
 /* Show/hide transitions. */
 
 .js .tab,
-.js .popup_layer,
 .js .dialog_layer,
 .js .loading_layer {
 	visibility: hidden;
@@ -500,7 +488,6 @@
 }
 
 .js .tab.active,
-.js .popup_layer.active,
 .js .dialog_layer.active,
 .js .loading .loading_layer {
 	visibility: visible;
@@ -664,7 +651,7 @@
 }
 
 
-/* .popup, .popdown, .dropdown */
+/* .popdown, .dropdown */
 
 .popdown,
 .dropdown {
