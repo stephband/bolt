@@ -59,17 +59,17 @@
 			
 			node = new Image();
 			elem = jQuery(node);
-			
-			elem.on('load', function() {
-				dialog.removeLoadingIcon();
-			});
 
 			elem.dialog('lightbox');
 			
 			dialog = elem.parent();
 			dialog.addLoadingIcon();
 			
-			node.src = link.href;
+			elem.on('load', function() {
+				dialog.removeLoadingIcon();
+			});
+
+			node.src = href;
 
 			return;
 		}
@@ -77,18 +77,12 @@
 		if (rYouTube.test(link.hostname)) {
 			e.preventDefault();
 			
+			// We don't need a loading indicator because youtube comes with
+			// it's own.
 			elem = jQuery('<iframe class="youtube_iframe" width="560" height="315" src="' + href + '" frameborder="0" allowfullscreen></iframe>');
-			
-			elem.on('load', function() {
-				dialog.removeLoadingIcon();
-			});
+			node = elem[0];
 
 			elem.dialog('lightbox');
-			
-			dialog = elem.parent();
-			dialog.addLoadingIcon();
-			
-			node.src = link.href;
 
 			return;
 		}
