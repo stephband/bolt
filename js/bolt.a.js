@@ -74,12 +74,10 @@
 			return;
 		}
 
-console.log(link.hostname);
-
 		if (rYouTube.test(link.hostname)) {
 			e.preventDefault();
 			
-			elem = jQuery('<iframe width="560" height="315" src="' + href + '" frameborder="0" allowfullscreen></iframe>');
+			elem = jQuery('<iframe class="youtube_iframe" width="560" height="315" src="' + href + '" frameborder="0" allowfullscreen></iframe>');
 			
 			elem.on('load', function() {
 				dialog.removeLoadingIcon();
@@ -186,7 +184,7 @@ console.log(link.hostname);
 
 		if (isIgnorable(e)) { return; }
 
-		id = e.target.getAttribute('data-href').substring(1);
+		id = e.currentTarget.getAttribute('data-href').substring(1);
 		node = document.getElementById(id);
 		
 		// This link does not point to an id in the DOM. No action required.

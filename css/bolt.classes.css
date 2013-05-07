@@ -1,4 +1,4 @@
-/* template.classes.css
+/* bolt.classes.css
 
    Defines base classes and common sub classes, mostly for layout. */
 
@@ -140,13 +140,22 @@
 }
 
 .dialog > img,
+.dialog > svg,
+.dialog > video,
 .dialog > canvas,
 .dialog > object,
-.dialog > embed {
+.dialog > embed,
+.dialog > iframe {
+	/* Don't allow media to break out of container bounds. */
 	max-width: 100%;
-	width: auto;
+}
+
+.dialog > img,
+.dialog > svg,
+.dialog > video,
+.dialog > canvas {
+	/* Allow images to rescale freely. */
 	height: auto;
-	display: block;
 }
 
 .dialog > .close_button,
