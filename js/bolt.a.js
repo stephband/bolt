@@ -22,7 +22,7 @@
 	    },
 	    
 	    rImage = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/,
-	    rYouTube = /www\.youtube\.com\//,
+	    rYouTube = /youtube\.com/,
 	    
 	    targets = {
 	    	dialog: function(e) {
