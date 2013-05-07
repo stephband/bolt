@@ -22,18 +22,19 @@
 	    },
 	    
 	    rImage = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/,
+	    rYouTube = /www\.youtube\.com\//,
 	    
 	    targets = {
 	    	dialog: function(e) {
-	    		var ref = e.currentTarget.getAttribute('data-href') || e.currentTarget.hash,
-	    		    id = ref.substring(1),
+	    		var href = e.currentTarget.getAttribute('data-href') || e.currentTarget.hash,
+	    		    id = href.substring(1),
 	    		    node;
 	    		
-	    		if (!id) { return loadResource(e); }
+	    		if (!id) { return loadResource(e, href); }
 	    		
 	    		node = document.getElementById(id);
 	    		
-	    		if (!node) { return; }
+	    		if (!node) { return loadResource(e, href); }
 	    		
 	    		e.preventDefault();
 	    		
@@ -48,27 +49,50 @@
 	    	}
 	    };
 	
-	function loadResource(e) {
+	function loadResource(e, href) {
 		var link = e.currentTarget,
 		    path = link.pathname,
 		    node, elem, dialog;
 		
-		if (rImage.test(path)) {
+		if (rImage.test(link.pathname)) {
 			e.preventDefault();
 			
 			node = new Image();
 			elem = jQuery(node);
 			
+			elem.on('load', function() {
+				dialog.removeLoadingIcon();
+			});
+
 			elem.dialog('lightbox');
 			
 			dialog = elem.parent();
 			dialog.addLoadingIcon();
 			
+			node.src = link.href;
+
+			return;
+		}
+
+console.log(link.hostname);
+
+		if (rYouTube.test(link.hostname)) {
+			e.preventDefault();
+			
+			elem = jQuery('<iframe width="560" height="315" src="' + href + '" frameborder="0" allowfullscreen></iframe>');
+			
 			elem.on('load', function() {
 				dialog.removeLoadingIcon();
 			});
+
+			elem.dialog('lightbox');
+			
+			dialog = elem.parent();
+			dialog.addLoadingIcon();
 			
 			node.src = link.href;
+
+			return;
 		}
 	}
 	
