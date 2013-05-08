@@ -1,28 +1,52 @@
 /* bolt.classes.css
 
-   Defines base classes and common sub classes, mostly for layout. */
+   Defines base classes and common extended classes, mostly for layout. */
 
 
 /* .wrap */
 
 .wrap {
 	display: block;
-	/* Set as position parent */
+	/* Set as position parent. */
 	position: relative;
+	/* Wraps automatically centre themselves. */
 	margin: 0 auto;
 }
 
 .wrap > img,
+.wrap > svg,
 .wrap > video,
 .wrap > canvas,
 .wrap > object,
-.wrap > embed {
+.wrap > embed,
+.wrap > iframe {
 	/* Don't allow media to break out of container bounds. */
 	max-width: 100%;
 }
 
 .slides_wrap {
 	overflow: hidden;
+}
+
+
+/* .block */
+
+.block {
+	display: block;
+	/* Set as position parent */
+	position: relative;
+	/* Set them up to play nice as inline-blocks. */
+	vertical-align: top;
+	overflow: visible;
+}
+
+
+/* .panel */
+
+.panel {
+	display: block;
+	/* Set as position parent. */
+	position: relative;
 }
 
 
@@ -48,7 +72,8 @@
 	width: 100%;
 	height: 100%;
 	
-	/* Make the corners of layers the same as their parents'. */
+	/* Make the corners of layers the same as their parents', allowing you
+	   to use layers as screens over specific elements. */
 	-webkit-border-radius: inherit;
 	   -moz-border-radius: inherit;
 	        border-radius: inherit;
@@ -103,6 +128,43 @@
 .dialog_layer > * {
 	text-align: left;
 }
+
+/* TODO: We should be able to merge the .gif technique with
+   the <canvas> technique, so that when canvas is not available
+   the gif displays - can we set the gif as background to the
+   canvas and still expect it to display? */
+
+/* Use a .gif as a loading icon */
+
+/*
+.loading_layer {
+		display: none;
+		background-position: 50% 50%;
+		background-image: url('../../images/loading-icon-16-white.gif');
+		background-color: transparent;
+		background-repeat: no-repeat;
+}*/
+
+/* Use a <canvas> as a loading icon */
+.loading_layer,
+.dialog_layer {
+	background-image: none;
+	background-color: rgba(31, 32, 33, 0.746094);
+	z-index: 4;
+}
+
+.loading_layer > canvas {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 80px;
+	height: 80px;
+	margin-left: -40px;
+	margin-top: -40px;
+}
+
+
+/* .dialog */
 
 .middle > *,
 .dialog {
@@ -172,39 +234,7 @@
 }
 
 
-/* TODO: We should be able to merge the .gif technique with
-   the <canvas> technique, so that when canvas is not available
-   the gif displays - can we set the gif as background to the
-   canvas and still expect it to display? */
 
-/* Use a .gif as a loading icon */
-
-/*
-.loading_layer {
-		display: none;
-		background-position: 50% 50%;
-		background-image: url('../../images/loading-icon-16-white.gif');
-		background-color: transparent;
-		background-repeat: no-repeat;
-}*/
-
-/* Use a <canvas> as a loading icon */
-.loading_layer,
-.dialog_layer {
-	background-image: none;
-	background-color: rgba(31, 32, 33, 0.746094);
-	z-index: 4;
-}
-
-.loading_layer > canvas {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 80px;
-	height: 80px;
-	margin-left: -40px;
-	margin-top: -40px;
-}
 
 
 /* .index
@@ -403,323 +433,183 @@
 }
 
 
-/* .col */
+/* .card */
 
-.col {
-	/* This inline-block method produces nice flow, and with a bit of
-	   head scratching can be used for liquid columns with fixed gutters,
-	   or even mixed fixed and liquid columns, all with arbitrary content
-	   order. However, it is a little susceptible to rounding errors, and
-	   requires spaceless html. */
+.card {
+	display: block;
+	min-height: 84px;
 	
+	padding-top:		10px; 
+	padding-right:	10px;
+	padding-bottom: 0;
+	padding-left:		84px;
+	
+	background-repeat: no-repeat;
+	background-color: rgb(200,200,200);
+	
+	/* Act as position parent */
 	position: relative;
 	
-	/* For those pour souls who don't understand inline-block (IE7). */
-	display: inline-block;
-	display: inline !IE7;
-	vertical-align: top;
-	
-	/* Stop content pushing column wider than it should be */
-	overflow: visible;
-	width: 100%;
+	/* A card is meant to have drag data attached. */
+	-webkit-user-drag: element;
 }
 
-.col_wrap {
-  margin-left: -0.8333em;
-  margin-right: -0.8333em;
+.card > .thumb {
+	/* Cards have thumbs. Put them on the left by default. */
+	position: absolute;
+	top: 0.8333em;
+	left: 0.8333em;
 }
 
-.col_wrap > .col {
-  padding-left: 0.8333em;
-  padding-right: 0.8333em;
-  /* Make sure wraps and cols are using the same font-size. */
-  font-size: inherit;
-}
-
-.col_wrap > .last_col {
-	/* A convenient class for when you want to force following columns to wrap. */
-	margin-right: 100%;
+.card a,
+.card img {
+	-webkit-user-drag: none;
 }
 
 
-/* .pane */
+/* .thumb */
 
-.pane {
-  position: relative;
-}
-
-
-/* .content */
-
-.content {
-	/* Content class is used where typography needs to be redefined
-	   for, say, a region of the page that has html that comes from
-	   a CMS, or some other user generated content. */
-	position: relative;
-}
-
-
-.tab,
-.slide {
+.thumb {
 	display: inline-block;
 	vertical-align: top;
-	position: relative;
-	width: 100%;
-	margin-right: -100%;
-}
-
-/* Show/hide transitions. */
-
-.js .tab,
-.js .dialog_layer,
-.js .loading_layer {
-	visibility: hidden;
-	opacity: 0;
-	z-index: 1;
-	
-	-webkit-transition-property: opacity, visibility;
-	   -moz-transition-property: opacity, visibility;
-	    -ms-transition-property: opacity, visibility;
-	     -o-transition-property: opacity, visibility;
-	        transition-property: opacity, visibility;
-
-	-webkit-transition-duration: 120ms;
-	   -moz-transition-duration: 120ms;
-	    -ms-transition-duration: 120ms;
-	     -o-transition-duration: 120ms;
-	        transition-duration: 120ms;
-
-	-webkit-transition-timing-function: ease-in;
-	   -moz-transition-timing-function: ease-in;
-	    -ms-transition-timing-function: ease-in;
-	     -o-transition-timing-function: ease-in;
-	        transition-timing-function: ease-in;
-}
-
-.js .tab.active,
-.js .dialog_layer.active,
-.js .loading .loading_layer {
-	visibility: visible;
-	opacity: 1;
-	z-index: 2;
-	
-	-webkit-transition-timing-function: ease-out;
-	   -moz-transition-timing-function: ease-out;
-	    -ms-transition-timing-function: ease-out;
-	     -o-transition-timing-function: ease-out;
-	        transition-timing-function: ease-out;
-}
-
-
-.js .slide {
-	/* By default all slides are positioned off to the left. */ 
-	left: -100%;
-	
-	/* Slides have no height by default to stop them influencing
-	   scrollbars when they are not active. */
-	height: 0;
 	overflow: hidden;
-	z-index: 1;
-
-	-webkit-touch-callout: none;
-	  -webkit-user-select: none;
-	     -moz-user-select: none;
-	      -ms-user-select: none;
-	          user-select: none;
 	
-	-webkit-transition-property: left, height;
-	   -moz-transition-property: left, height;
-	    -ms-transition-property: left, height;
-	     -o-transition-property: left, height;
-	        transition-property: left, height;
-
-	-webkit-transition-duration: 333ms;
-	   -moz-transition-duration: 333ms;
-	    -ms-transition-duration: 333ms;
-	     -o-transition-duration: 333ms;
-	        transition-duration: 333ms;
+	/* Hide overflowing text. This technique is better
+	   than using -ve text-indent because IE7 moves
+	   the background image with the text-indent. */
+	padding-top: 64px;
+	height: 0;
+	width: 64px;
 	
-	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-	   -moz-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-	    -ms-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-	     -o-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	-webkit-background-size: cover;
+	   -moz-background-size: cover;
+	     -o-background-size: cover;
+	        background-size: cover;
+
+	/* background-position is set for the case where an image is used as the 
+	   the background. 50% to keep it centred, and 33% because faces are often
+	   centred in the upper portion of the image. */
+	background-position: 50% 33%;
+	background-repeat: no-repeat;
 	
-	/* A nice bit of hardware acceleration may help the transitions. */
-	-webkit-transform: translate3d(0,0,0);
-	   -moz-transform: translate3d(0,0,0);
-	    -ms-transform: translate3d(0,0,0);
-	     -o-transform: translate3d(0,0,0);
-	        transform: translate3d(0,0,0);
-}
-
-.js .slide.active {
-	/* The .active slide is positioned in the centre. */
-	left: 0;
-	height: auto;
-	overflow: visible;
-	z-index: 2;
-}
-
-.js .slide.active ~ .slide {
-	/* All slides after the .active slide are positioned off to
-	   the right. */
-	left: 100%;
-}
-
-.js .slide.active ~ .slide.active {
-	/* Except, of course, any that are still active. */
-	left: 0;
-}
-
-.js .stacked_slide {
-	left: 0;
+	text-decoration: none;
+	color: inherit;
 }
 
 @media print {
-	.js .slide {
-		position: static;
-		left: 0;
-		width: 34%;
-		height: auto;
-		margin-right: 3%;
-	}
-
-	.js .slide:nth-child(3n) {
-		margin-right: 0;
+	.thumb {
+		/* Encourage webkit to print background image. */
+		-webkit-print-color-adjust: exact;
 	}
 }
 
-
-/* .tip */
-
-.js .tip {
-	position: absolute;
-	
-	padding-top: 0.33em;
-	padding-bottom: 0.33em;
-	padding-left: 0.75em;
-	padding-right: 0.75em;
-	max-width: 20em;
-	
-	visibility: hidden;
-	opacity: 0;
-	margin-top: 0;
-	z-index: 1;
-	
-	-webkit-transition-property: opacity, visibility, margin-top;
-	   -moz-transition-property: opacity, visibility, margin-top;
-	    -ms-transition-property: opacity, visibility, margin-top;
-	     -o-transition-property: opacity, visibility, margin-top;
-	        transition-property: opacity, visibility, margin-top;
-
-	-webkit-transition-duration: 120ms;
-	   -moz-transition-duration: 120ms;
-	    -ms-transition-duration: 120ms;
-	     -o-transition-duration: 120ms;
-	        transition-duration: 120ms;
-
-	-webkit-transition-timing-function: ease-in;
-	   -moz-transition-timing-function: ease-in;
-	    -ms-transition-timing-function: ease-in;
-	     -o-transition-timing-function: ease-in;
-	        transition-timing-function: ease-in;
-}
-
-.js .tip.active {
-	/* The inline-block technique overlays tabs on top of one another
-	   but still allows the height of the blocks to stay in the flow.
-	   It's better than using position: absolute. It rocks. */
-	
-	visibility: visible;
-	opacity: 1;
-	margin-top: -0.2667em;
-	z-index: 2;
-	
-	-webkit-transition-timing-function: ease-out;
-	   -moz-transition-timing-function: ease-out;
-	    -ms-transition-timing-function: ease-out;
-	     -o-transition-timing-function: ease-out;
-	        transition-timing-function: ease-out;
-
-	-webkit-transition-delay: 540ms;
-	   -moz-transition-delay: 540ms;
-	    -ms-transition-delay: 540ms;
-	        transition-delay: 540ms;
-}
-
-@media all and (max-width: 30em) {
-	.js .tip {
-		/* Override offset given to it by JS when the
-		   screen is too small. */
-		left: 4% !important;
-		margin-left: 0 !important;
-		width: 92% !important;
-		max-width: 92% !important;
-	}
-}
-
-
-/* .popdown, .dropdown */
-
-.popdown,
-.dropdown {
+.banner_thumb {
 	display: block;
-	/* Hiding overflow causes problems in IE7 when the dropdown's container
-	   is narrower than the dropdown's content. I'm not sure we have any real
-	   reason to hide it. Probably if you're animating height to reveal you
-	   want this. */
-	/*overflow: hidden;*/
+	width: auto;
+}
+
+.text_thumb,
+.text_thumbs .thumb {
+	/* Make the text show below the thumb. Text appears
+		 outside of the box - ie, it overflows - so that
+		 we dont see any more of the image than necessary. */
+	overflow: visible;
+	white-space: nowrap;
+	text-align: center;
+	margin-bottom: 1em;
+	line-height: 2.3333em;
 	
+	font-size: 0.9167em;
+	font-weight: bold;
+	color: rgb(100,100,100);
+}
+
+.text_thumb > span {
+	/* We can't use text-overflow because overflow is
+	   visible, so if you want to truncate the text you
+	   need to put a span inside the thumb. */
+	overflow: hidden;
+	display: block;
+	text-align: center;
+	white-space: nowrap;
+	-ms-text-overflow: ellipsis;
+	 -o-text-overflow: ellipsis;
+			text-overflow: ellipsis;
+}
+
+.browser_thumb {
+	width: 64px;
+	padding-top: 64px;
+	height: 2em;
+	line-height: 2em;
+	font-size: 0.8333em;
+	overflow: visible;
+	text-align: center;
+	font-weight: bold;
+	background-repeat: no-repeat;
+	background-size: auto;
+	white-space: nowrap;
+	
+	background-image: url('../images/thumbs/browser_logos.png');
+	-moz-background-size: 342px 64px;
+	     background-size: 342px 64px;
+}
+
+.chrome_browser_thumb		{ background-position: -5px 0; }
+.firefox_browser_thumb	{ background-position: -75px 0; }
+.opera_browser_thumb		{ background-position: -140px 0; }
+.safari_browser_thumb		{ background-position: -205px 0; }
+.ie_browser_thumb				{ background-position: -272px 0; }
+
+.chromeframe_browser_thumb {
+	background-image: url('/images/thumbs/logo_chromeframe.gif');
+	background-position: 0 0;
+	
+	-moz-background-size: 64px 64px;
+			 background-size: 64px 64px;
+}
+
+.fb_thumb,
+.tw_thumb,
+.yt_thumb {
+	padding-top: 20px;
+	width: 20px;
+	overflow: hidden;
+	background-image: url('../images/thumbs/logos_social.png');
+}
+
+.fb_thumb { background-position: 0 0; }
+.tw_thumb { background-position: -25px 0; }
+.yt_thumb { background-position: -49px 0; }
+
+.dot_thumb {
+	font-size: 1.75em;
+	opacity: 0.6;
+	color: #484848;
+	width: 0.8571em;
+	padding-top: 0.8571em;
+	line-height:  0.8571em;
+}
+
+.dot_thumb:after {
+	content: '●';
 	position: absolute;
-	top: 2em;
-	
-	/* They should appear over the top of following content. */
-	z-index: 3;
-	
-	opacity: 0;
-	visibility: hidden;
-	
-	-webkit-transition-property: opacity, top, visibility;
-	   -moz-transition-property: opacity, top, visibility;
-	    -ms-transition-property: opacity, top, visibility;
-	     -o-transition-property: opacity, top, visibility;
-	        transition-property: opacity, top, visibility;
-
-	-webkit-transition-duration: 180ms;
-	   -moz-transition-duration: 180ms;
-	    -ms-transition-duration: 180ms;
-	     -o-transition-duration: 180ms;
-	        transition-duration: 180ms;
-
-	-webkit-transition-timing-function: ease-out;
-	   -moz-transition-timing-function: ease-out;
-	    -ms-transition-timing-function: ease-out;
-	     -o-transition-timing-function: ease-out;
-	        transition-timing-function: ease-out;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	text-align: center;
 }
 
-.popdown.active,
-.dropdown.active {
-	top: 2.3333em;
+.dot_thumb.on,
+.dot_thumb:hover,
+.dot_thumb:focus {
 	opacity: 1;
-	visibility: visible;
-	
-	-webkit-transition-duration: 60ms;
-	   -moz-transition-duration: 60ms;
-	    -ms-transition-duration: 60ms;
-	     -o-transition-duration: 60ms;
-	        transition-duration: 60ms;
-
-	-webkit-transition-timing-function: ease-in;
-	   -moz-transition-timing-function: ease-in;
-	    -ms-transition-timing-function: ease-in;
-	     -o-transition-timing-function: ease-in;
-	        transition-timing-function: ease-in;
 }
 
 
-/* button and .button */
+/* .button */
 
 button {
 	/* buttons have standard padding that needs to be avoided. */
@@ -921,326 +811,274 @@ button.loading,
   z-index: 1;
 }
 
-/* .thumb */
 
-.thumb {
+/* .tab, .slide */
+
+.tab,
+.slide {
 	display: inline-block;
-	vertical-align: baseline;
-	overflow: hidden;
-	
-	/* Hide overflowing text. This technique is better
-	   than using -ve text-indent because IE7 moves
-	   the background image with the text-indent. */
-	padding-top: 64px;
-	height: 0;
-	width: 64px;
-	
-	-webkit-background-size: cover;
-		 -moz-background-size: cover;
-	     -o-background-size: cover;
-					background-size: cover;
+	vertical-align: top;
+	position: relative;
+	width: 100%;
+	/* Give tabs and slides the same origin despite being inline-blocks. */
+	margin-right: -100%;
+}
 
-	background-position: 0 0;
-	background-repeat: no-repeat;
+
+/* .popdown, .dropdown */
+
+.popdown,
+.dropdown {
+	display: block;
+	/* Hiding overflow causes problems in IE7 when the dropdown's container
+	   is narrower than the dropdown's content. I'm not sure we have any real
+	   reason to hide it. Probably if you're animating height to reveal you
+	   want this. */
+	/*overflow: hidden;*/
+	position: absolute;
+	/* They should appear over the top of following content. */
+	z-index: 3;
+}
+
+
+/* Transitions */
+
+.js .tab,
+.js .dialog_layer,
+.js .loading_layer {
+	visibility: hidden;
+	opacity: 0;
+	z-index: 1;
 	
-	text-decoration: none;
-	color: inherit;
+	-webkit-transition-property: opacity, visibility;
+	   -moz-transition-property: opacity, visibility;
+	    -ms-transition-property: opacity, visibility;
+	     -o-transition-property: opacity, visibility;
+	        transition-property: opacity, visibility;
+
+	-webkit-transition-duration: 120ms;
+	   -moz-transition-duration: 120ms;
+	    -ms-transition-duration: 120ms;
+	     -o-transition-duration: 120ms;
+	        transition-duration: 120ms;
+
+	-webkit-transition-timing-function: ease-in;
+	   -moz-transition-timing-function: ease-in;
+	    -ms-transition-timing-function: ease-in;
+	     -o-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
+}
+
+.js .tab.active,
+.js .dialog_layer.active,
+.js .loading .loading_layer {
+	visibility: visible;
+	opacity: 1;
+	z-index: 2;
+	
+	-webkit-transition-timing-function: ease-out;
+	   -moz-transition-timing-function: ease-out;
+	    -ms-transition-timing-function: ease-out;
+	     -o-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
+}
+
+
+.js .slide {
+	/* By default all slides are positioned off to the left. */ 
+	left: -100%;
+	
+	/* Slides have no height by default to stop them influencing
+	   scrollbars when they are not active. */
+	height: 0;
+	overflow: hidden;
+	z-index: 1;
+
+	-webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	     -moz-user-select: none;
+	      -ms-user-select: none;
+	          user-select: none;
+	
+	-webkit-transition-property: left, height;
+	   -moz-transition-property: left, height;
+	    -ms-transition-property: left, height;
+	     -o-transition-property: left, height;
+	        transition-property: left, height;
+
+	-webkit-transition-duration: 333ms;
+	   -moz-transition-duration: 333ms;
+	    -ms-transition-duration: 333ms;
+	     -o-transition-duration: 333ms;
+	        transition-duration: 333ms;
+	
+	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	   -moz-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	    -ms-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	     -o-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	
+	/* A nice bit of hardware acceleration may help the transitions. */
+	-webkit-transform: translate3d(0,0,0);
+	   -moz-transform: translate3d(0,0,0);
+	    -ms-transform: translate3d(0,0,0);
+	     -o-transform: translate3d(0,0,0);
+	        transform: translate3d(0,0,0);
+}
+
+.js .slide.active {
+	/* The .active slide is positioned in the centre. */
+	left: 0;
+	height: auto;
+	overflow: visible;
+	z-index: 2;
+}
+
+.js .slide.active ~ .slide {
+	/* All slides after the .active slide are positioned off to
+	   the right. */
+	left: 100%;
+}
+
+.js .slide.active ~ .slide.active {
+	/* Except, of course, any that are still active. */
+	left: 0;
+}
+
+.js .stacked_slide {
+	left: 0;
 }
 
 @media print {
-	.thumb {
-		/* Encourage webkit to print background image. */
-		-webkit-print-color-adjust: exact;
+	.js .slide {
+		position: static;
+		left: 0;
+		width: 34%;
+		height: auto;
+		margin-right: 3%;
+	}
+
+	.js .slide:nth-child(3n) {
+		margin-right: 0;
 	}
 }
 
-.banner_thumb {
-	display: block;
-	width: auto;
-}
+/* Transitions - .popdown, .dropdown */
 
-.text_thumb,
-.text_thumbs .thumb {
-	/* Make the text show below the thumb. Text appears
-		 outside of the box - ie, it overflows - so that
-		 we dont see any more of the image than necessary. */
-	overflow: visible;
-	white-space: nowrap;
-	text-align: center;
-	margin-bottom: 1em;
-	line-height: 2.3333em;
+.popdown,
+.dropdown {
+	top: 2em;
+	opacity: 0;
+	visibility: hidden;
 	
-	font-size: 0.9167em;
-	font-weight: bold;
-	color: rgb(100,100,100);
+	-webkit-transition-property: opacity, top, visibility;
+	   -moz-transition-property: opacity, top, visibility;
+	    -ms-transition-property: opacity, top, visibility;
+	     -o-transition-property: opacity, top, visibility;
+	        transition-property: opacity, top, visibility;
+
+	-webkit-transition-duration: 180ms;
+	   -moz-transition-duration: 180ms;
+	    -ms-transition-duration: 180ms;
+	     -o-transition-duration: 180ms;
+	        transition-duration: 180ms;
+
+	-webkit-transition-timing-function: ease-out;
+	   -moz-transition-timing-function: ease-out;
+	    -ms-transition-timing-function: ease-out;
+	     -o-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
 }
 
-.text_thumb > span {
-	/* We can't use text-overflow because overflow is
-	   visible, so if you want to truncate the text you
-	   need to put a span inside the thumb. */
-	overflow: hidden;
-	display: block;
-	text-align: center;
-	white-space: nowrap;
-	-ms-text-overflow: ellipsis;
-	 -o-text-overflow: ellipsis;
-			text-overflow: ellipsis;
-}
-
-.browser_thumb {
-	width: 64px;
-	padding-top: 64px;
-	height: 2em;
-	line-height: 2em;
-	font-size: 0.8333em;
-	overflow: visible;
-	text-align: center;
-	font-weight: bold;
-	background-repeat: no-repeat;
-	background-size: auto;
-	white-space: nowrap;
-	
-	background-image: url('../images/thumbs/browser_logos.png');
-	-moz-background-size: 342px 64px;
-	     background-size: 342px 64px;
-}
-
-.chrome_browser_thumb		{ background-position: -5px 0; }
-.firefox_browser_thumb	{ background-position: -75px 0; }
-.opera_browser_thumb		{ background-position: -140px 0; }
-.safari_browser_thumb		{ background-position: -205px 0; }
-.ie_browser_thumb				{ background-position: -272px 0; }
-
-.chromeframe_browser_thumb {
-	background-image: url('/images/thumbs/logo_chromeframe.gif');
-	background-position: 0 0;
-	
-	-moz-background-size: 64px 64px;
-			 background-size: 64px 64px;
-}
-
-.fb_thumb,
-.tw_thumb,
-.yt_thumb {
-	padding-top: 20px;
-	width: 20px;
-	overflow: hidden;
-	background-image: url('../images/thumbs/logos_social.png');
-}
-
-.fb_thumb { background-position: 0 0; }
-.tw_thumb { background-position: -25px 0; }
-.yt_thumb { background-position: -49px 0; }
-
-.dot_thumb {
-	font-size: 1.75em;
-	opacity: 0.6;
-	color: #484848;
-	width: 0.8571em;
-	padding-top: 0.8571em;
-	line-height:  0.8571em;
-}
-
-.dot_thumb:after {
-	content: '●';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	vertical-align: middle;
-	text-align: center;
-}
-
-.dot_thumb.on,
-.dot_thumb:hover,
-.dot_thumb:focus {
+.popdown.active,
+.dropdown.active {
+	top: 2.3333em;
 	opacity: 1;
+	visibility: visible;
+	
+	-webkit-transition-duration: 60ms;
+	   -moz-transition-duration: 60ms;
+	    -ms-transition-duration: 60ms;
+	     -o-transition-duration: 60ms;
+	        transition-duration: 60ms;
+
+	-webkit-transition-timing-function: ease-in;
+	   -moz-transition-timing-function: ease-in;
+	    -ms-transition-timing-function: ease-in;
+	     -o-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
 }
 
-/* .card */
 
-.card {
-	display: block;
-	min-height: 84px;
-	
-	padding-top:		10px; 
-	padding-right:	10px;
-	padding-bottom: 0;
-	padding-left:		84px;
-	
-	background-repeat: no-repeat;
-	background-color: rgb(200,200,200);
-	
-	/* Act as position parent */
-	position: relative;
-	
-	-webkit-user-drag: element;
-}
+/* .tip */
 
-.card > .thumb {
+.js .tip {
 	position: absolute;
-	top: 0.8333em;
-	left: 0.8333em;
-}
-
-.card a,
-.card img {
-	-webkit-user-drag: none;
-}
-
-.card .card_title {
-	font-weight: bold;
-	font-size: 1.08333em;
-	line-height: 1;
-	height: 1.1em;
-	margin-bottom: 0.25em;
 	
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.card ul.meta_index {
-	-webkit-column-count: 2;
-		 -webkit-column-gap: 2px;
-		 -moz-column-count: 2;
-				-moz-column-gap: 2px;
-					 column-count: 2;
-						 column-gap: 2px;
-}
-
-.card .meta_index>li {
-	font-size: 0.9167em;
-	height: 1em;
-	line-height: 1em;
-	margin-right: 0em;
-	margin-bottom: 0.5em;
-}
-
-.card .meta_index a:hover,
-.card .meta_index a:focus {
-	text-decoration: none;
-}
-
-.card_buttons_index {
-	position: absolute;
-	bottom: 0.8333em;
-	right: 0.8333em;
-}
-
-.card_buttons_index > li {
-	margin-bottom: 0;
-}
-
-/* hcard microformat (for reference)
-	 http://microformats.org/wiki/hcard
-*/
-
-/*.vcard
+	padding-top: 0.33em;
+	padding-bottom: 0.33em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
+	max-width: 20em;
 	
-	/* name - use .url for anything that is a link to this person's	 */
-/*	.fn.n
-/*		.nickname
-/*		.given-name
-/*		.additional-name
-/*		.family-name
+	visibility: hidden;
+	opacity: 0;
+	margin-top: 0;
+	z-index: 1;
 	
-	/* name organisation - if the hcard is for an organisation .fn should also be set */
-/*	.org
-/*		.organization-name
-/*		.organization-unit
+	-webkit-transition-property: opacity, visibility, margin-top;
+	   -moz-transition-property: opacity, visibility, margin-top;
+	    -ms-transition-property: opacity, visibility, margin-top;
+	     -o-transition-property: opacity, visibility, margin-top;
+	        transition-property: opacity, visibility, margin-top;
+
+	-webkit-transition-duration: 120ms;
+	   -moz-transition-duration: 120ms;
+	    -ms-transition-duration: 120ms;
+	     -o-transition-duration: 120ms;
+	        transition-duration: 120ms;
+
+	-webkit-transition-timing-function: ease-in;
+	   -moz-transition-timing-function: ease-in;
+	    -ms-transition-timing-function: ease-in;
+	     -o-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
+}
+
+.js .tip.active {
+	/* The inline-block technique overlays tabs on top of one another
+	   but still allows the height of the blocks to stay in the flow.
+	   It's better than using position: absolute. It rocks. */
 	
-	/* email (usually a link) */
-/*	.email
-/*		.type /* home, office, work, blah, blah */
+	visibility: visible;
+	opacity: 1;
+	margin-top: -0.2667em;
+	z-index: 2;
 	
-/*	.photo
-	
-	/* address */
-/*	.adr
-/*		.street-address
-/*		.locality
-/*		.region
-/*		.postal-code
-/*		.country-name
-	
-/*	.tel
-/*		.type /* home, work, etc. */
+	-webkit-transition-timing-function: ease-out;
+	   -moz-transition-timing-function: ease-out;
+	    -ms-transition-timing-function: ease-out;
+	     -o-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
 
-	/* use url for display of addresses of resources about this person - including instant messenger */
-/*	.url */
-
-
-/* State classes:
-   
-     .loading			 - State of items requested from a server
-     .active			 - Implies polar (on/off) state
-     .current			 - Current implies that one out of a number of items is the current one
-     .default			 - Contains a pre-defined value
-     .error				 - Used in forms to style children differently when input has errors
-     .xxx_state		 - Implies multipolar (0/1/2/...) state
-     .xxx_view		 - Applied to the body to control application views
-     .xxx_support	 - Applied to the documentElement to flag CSS support
-   
-   State classes must never have style applied directly, they are here to indicate state only.
-   You can style specific nodes that happen to have state, or children of state nodes (for
-   instance, showing / hiding a .loading_icon when its parent has .loading), but the state
-   class itself must not have style applied. */
-
-
-/* table */
-
-/* Orientate a table vertically, so that the <tr>s appear as columns, and
-   <td>s appear on new rows. Use with caution. */
-
-.v_table thead,
-.v_table tbody,
-.v_table tr {
-	display: inline-block;
-	display: inline !IE7;
+	-webkit-transition-delay: 540ms;
+	   -moz-transition-delay: 540ms;
+	    -ms-transition-delay: 540ms;
+	        transition-delay: 540ms;
 }
 
-.v_table {
-	width: auto;
+@media all and (max-width: 30em) {
+	.js .tip {
+		/* Override offset given to it by JS when the
+		   screen is too small. */
+		left: 4% !important;
+		margin-left: 0 !important;
+		width: 92% !important;
+		max-width: 92% !important;
+	}
 }
 
-.v_table td {
-	display: block;
-}
-
-/* Stripes tables and indexes. */
-
-.striped_index > li:nth-child(even),
-.striped_table > tbody > tr:nth-child(odd) > td,
-.striped_table > tbody > tr:nth-child(odd) > th {
-	background-color: rgba(15,15,15,0.08);
-}
-
-.striped_index > li,
-.striped_table > thead > tr > td,
-.striped_table > thead > tr > th,
-.striped_table > tbody > tr > td,
-.striped_table > tbody > tr > th {
-	background-color: rgba(240,240,240,0.1);
-}
-
-.striped_table > tbody > tr:hover > td,
-.striped_table > tbody > tr:hover > th {
-	background-color: rgba(15,15,15,0.15);
-}
-
-
-/* Utilities */
-
-.js .hidden {
-	display: none;
-}
-
-.js .disabled {
-	opacity: 0.4;
-}
+/* Transitions - cancel transitions. */
 
 .notransition,
 .notransition .slide,
@@ -1260,6 +1098,17 @@ button.loading,
 	   -moz-transition-delay: 0ms !important;
 	    -ms-transition-delay: 0 !important;
 	        transition-delay: 0 !important;
+}
+
+
+/* Utilities */
+
+.hidden {
+	display: none;
+}
+
+.js .disabled {
+	opacity: 0.4;
 }
 
 .clear:after {
@@ -1347,3 +1196,85 @@ button.loading,
 .no_scroll {
 	overflow: hidden;
 }
+
+
+/* table */
+
+/* Orientate a table vertically, so that the <tr>s appear as columns, and
+   <td>s appear on new rows. Use with caution. */
+
+.v_table thead,
+.v_table tbody,
+.v_table tr {
+	display: inline-block;
+	display: inline !IE7;
+}
+
+.v_table {
+	width: auto;
+}
+
+.v_table td {
+	display: block;
+}
+
+/* Stripes tables and indexes. */
+
+.striped_index > li:nth-child(even),
+.striped_table > tbody > tr:nth-child(odd) > td,
+.striped_table > tbody > tr:nth-child(odd) > th {
+	background-color: rgba(15,15,15,0.08);
+}
+
+.striped_index > li,
+.striped_table > thead > tr > td,
+.striped_table > thead > tr > th,
+.striped_table > tbody > tr > td,
+.striped_table > tbody > tr > th {
+	background-color: rgba(240,240,240,0.1);
+}
+
+.striped_table > tbody > tr:hover > td,
+.striped_table > tbody > tr:hover > th {
+	background-color: rgba(15,15,15,0.15);
+}
+
+
+
+/* hcard microformat (for reference)
+	 http://microformats.org/wiki/hcard
+*/
+
+/*.vcard
+	
+	/* name - use .url for anything that is a link to this person's	 */
+/*	.fn.n
+/*		.nickname
+/*		.given-name
+/*		.additional-name
+/*		.family-name
+	
+	/* name organisation - if the hcard is for an organisation .fn should also be set */
+/*	.org
+/*		.organization-name
+/*		.organization-unit
+	
+	/* email (usually a link) */
+/*	.email
+/*		.type /* home, office, work, blah, blah */
+	
+/*	.photo
+	
+	/* address */
+/*	.adr
+/*		.street-address
+/*		.locality
+/*		.region
+/*		.postal-code
+/*		.country-name
+	
+/*	.tel
+/*		.type /* home, work, etc. */
+
+	/* use url for display of addresses of resources about this person - including instant messenger */
+/*	.url */

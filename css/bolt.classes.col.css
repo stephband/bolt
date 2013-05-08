@@ -1,3 +1,42 @@
+/* .col */
+
+.col {
+	/* This inline-block method produces nice flow, and with a bit of
+	   head scratching can be used for liquid columns with fixed gutters,
+	   or even mixed fixed and liquid columns, all with arbitrary content
+	   order. However, it is a little susceptible to rounding errors, and
+	   requires spaceless html. */
+	
+	position: relative;
+	
+	/* For those pour souls who don't understand inline-block (IE7). */
+	display: inline-block;
+	display: inline !IE7;
+	vertical-align: top;
+	
+	/* Stop content pushing column wider than it should be */
+	overflow: visible;
+	width: 100%;
+}
+
+.col_wrap {
+  margin-left: -0.8333em;
+  margin-right: -0.8333em;
+}
+
+.col_wrap > .col {
+  padding-left: 0.8333em;
+  padding-right: 0.8333em;
+  /* Make sure wraps and cols are using the same font-size. */
+  font-size: inherit;
+}
+
+.col_wrap > .last_col {
+	/* A convenient class for when you want to force following columns to wrap. */
+	margin-right: 100%;
+}
+
+
 /* bolt.classes.col.css
    
    Classes for making regular grids of 2 to 12 cols.

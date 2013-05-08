@@ -37,47 +37,6 @@ video {
 	display: inline-block;
 }
 
-audio:not([controls]) {
-	/* Prevents modern browsers from displaying 'audio' without controls
-	   Remove excess height in iOS5 devices */
-	display: none;
-	height: 0;
-}
-
-[hidden] {
-	/* styling for 'hidden' attribute not present in IE7/8/9, FF3, S4. */
-	display: none;
-}
-
-[placeholder]:focus::-webkit-input-placeholder {
-	/* Get rid of persistent placeholders in webkit, where the placeholder
-	   hangs around like an old fart. More here:
-	   http://adactio.com/journal/6147/
-	*/
-	color: transparent;
-}
-
-[draggable] {
-	/* Make draggable elements draggable in WebKit */
-	-webkit-user-drag: element;
-
-	-webkit-user-select: none;
-	   -moz-user-select: none;
-	    -ms-user-select: none;
-
-	cursor: move;
-}
-
-[draggable="false"] {
- 	-webkit-user-drag: none;
-
-	-webkit-user-select: text;
-	   -moz-user-select: text;
-	    -ms-user-select: text;
-
-	cursor: auto;
-}
-
 
 /* Reset */
 
@@ -195,6 +154,13 @@ svg:not(:root) {
 	overflow: hidden;
 }
 
+audio:not([controls]) {
+	/* Prevents modern browsers from displaying 'audio' without controls
+	   Remove excess height in iOS5 devices */
+	display: none;
+	height: 0;
+	
+
 figure {
 	margin: 0;
 }
@@ -217,6 +183,41 @@ table,
 td,
 th {
 	vertical-align: top;
+}
+
+
+[hidden] {
+	/* styling for 'hidden' attribute not present in IE7/8/9, FF3, S4. */
+	display: none;
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+	/* Get rid of persistent placeholders in webkit, where the placeholder
+	   hangs around like an old fart. More here:
+	   http://adactio.com/journal/6147/
+	*/
+	color: transparent;
+}
+
+[draggable] {
+	/* Make draggable elements draggable in WebKit */
+	-webkit-user-drag: element;
+
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+
+	cursor: move;
+}
+
+[draggable="false"] {
+ 	-webkit-user-drag: none;
+
+	-webkit-user-select: text;
+	   -moz-user-select: text;
+	    -ms-user-select: text;
+
+	cursor: auto;
 }
 
 
@@ -252,20 +253,20 @@ th {
 	blockquote,
 	tr,
 	img {
-	  page-break-inside: avoid;
+		page-break-inside: avoid;
 	}
 	
 	h1, h2, h3, h4, h5, h6 {
-	  page-break-after: avoid;
+		page-break-after: avoid;
 	}
 	
 	/* css-discuss.incutio.com/wiki/Printing_Tables */
 	thead {
-	  display: table-header-group;
+		display: table-header-group;
 	}
 	
-	p, h2, h3 {
-	  orphans: 3;
-	  widows: 3;
+	p, h2, h3, h4, h5, h6 {
+		orphans: 3;
+		widows: 3;
 	}
 }
