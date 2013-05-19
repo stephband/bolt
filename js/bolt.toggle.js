@@ -42,7 +42,7 @@
 		// A prevented default means this link has already been handled.
 		if (e.isDefaultPrevented()) { return; }
 	
-		if (!isLeftButton(e)) { return; }
+		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
 		
 		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
 		e.preventDefault();

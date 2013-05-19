@@ -844,6 +844,20 @@ button.loading,
 /* Transitions */
 
 .js .tab,
+.js .slide,
+.js .layer,
+.js .popdown,
+.js .dropdown {
+	/* A nice bit of hardware acceleration should help the transitions run
+	   smoothly. */
+	-webkit-transform: translate3d(0,0,0);
+	   -moz-transform: translate3d(0,0,0);
+	    -ms-transform: translate3d(0,0,0);
+	     -o-transform: translate3d(0,0,0);
+	        transform: translate3d(0,0,0);
+}
+
+.js .tab,
 .js .dialog_layer,
 .js .loading_layer {
 	visibility: hidden;
@@ -883,7 +897,6 @@ button.loading,
 	        transition-timing-function: ease-out;
 }
 
-
 .js .slide {
 	/* By default all slides are positioned off to the left. */ 
 	left: -100%;
@@ -917,13 +930,6 @@ button.loading,
 	    -ms-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
 	     -o-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
 	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-	
-	/* A nice bit of hardware acceleration may help the transitions. */
-	-webkit-transform: translate3d(0,0,0);
-	   -moz-transform: translate3d(0,0,0);
-	    -ms-transform: translate3d(0,0,0);
-	     -o-transform: translate3d(0,0,0);
-	        transform: translate3d(0,0,0);
 }
 
 .js .slide.active {
