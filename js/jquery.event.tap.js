@@ -1,6 +1,6 @@
 // jquery.event.tap
 // 
-// 0.4
+// 0.5
 // 
 // Emits a tap event as soon as touchend is heard, as long as it's related
 // touchstart was less than a certain time ago.
@@ -49,38 +49,47 @@
 	var debug = true;//false;
 	
 	var duration = 280,
-	    amputateFlag = true,
-	    cache = {};
+	    distance = 144,
+	    mouseEvents = true,
+	    cache = {},
+	    rjavascript = /^javascript/;
 	
 	function returnTrue() {
 		return true;
 	}
+	
+	function amputateMouseEvent(e) {
+		// If mouse events are enabled, don't go stopping them.
+		if (mouseEvents) { return; }
 
-	function preventDefault(e) {
 		// Android browsers really don't like you messing with select boxes.
 		if (e.target.tagName.toLowerCase() === 'select') {
 			return;
 		}
+
+		e.stopPropagation();
 		e.preventDefault();
 	}
-	
-	function stopPropagation(e) {
-		e.stopPropagation();
+
+	function enableMouse() {
+		if (debug) console.log('Mouse events enabled');
+		mouseEvents = true;
 	}
-	
-	function amputateMouseEvents() {
-		amputateFlag = false;
-		
-		// It's extreme, but stopping simulated events in the capture phase is one
-		// way of getting dumb browsers to appear not to emit them.
-		document.addEventListener('mousedown', stopPropagation, true);
-		document.addEventListener('mousemove', stopPropagation, true);
-		document.addEventListener('mouseup', stopPropagation, true);
-		document.addEventListener('click', stopPropagation, true);
-		document.addEventListener('mousedown', preventDefault, true);
-		document.addEventListener('mousemove', preventDefault, true);
-		document.addEventListener('mouseup', preventDefault, true);
-		document.addEventListener('click', preventDefault, true);
+
+	function disableMouse() {
+		if (debug) console.log('Mouse events disabled');
+		mouseEvents = false;
+	}
+
+	function disableMouseTemp() {
+		disableMouse();
+		setTimeout(enableMouse, 500);
+	}
+
+	function closest(node, tag) {
+		return node === document ? false :
+			node.tagName.toLowerCase() === tag ? node :
+			closest(node.parentNode, tag);
 	}
 	
 	function touchstart(e) {
@@ -104,36 +113,50 @@
 	
 	function touchend(e) {
 		jQuery.each(e.changedTouches, function(i, endTouch) {
-			var startTouch = cache[endTouch.identifier];
+			var startTouch = cache[endTouch.identifier],
+			    node;
 			
 			delete cache[endTouch.identifier];
 			
-			if (
-				// If time since startTouch is less than duration
+			if (// If time since startTouch is less than duration
 				+e.timeStamp < (startTouch.timeStamp + duration) &&
 				
 				// If targets are the same
 				e.target === startTouch.target &&
 				
-				// If the touch has not moved more than 16px
-				(Math.pow(endTouch.clientX - startTouch.clientX, 2) + Math.pow(endTouch.clientY - startTouch.clientY, 2)) < 256
+				// If the touch has not moved more than 12px
+				(Math.pow(endTouch.clientX - startTouch.clientX, 2) + Math.pow(endTouch.clientY - startTouch.clientY, 2)) < distance
 			) {
 				// Trigger a tap event
 				jQuery(e.target).trigger({ type: 'tap' });
 				
-				// Stop simulated mouse events in iOS, except for elements that
-				// require it to focus.
+				if (// If the target is, or is in, an anchor tag.
+					(node = closest(e.target, 'a')) &&
+
+					// If the href attribute has javascript in it.
+					rjavascript.test(node.href)
+				) {
+					if (debug) console.log('Crap. The href has javascript in it.', node);
+
+					// We're probably dealing with some legacy crap or an
+					// external library like Harvest's Chosen, and it's probably
+					// better not to disable mouse events. Probably.
+					return;
+				}
+
+				// Stop simulated mouse events in iOS, except select boxes,
+				// which require them for focus.
 				if (e.target.tagName.toLowerCase() !== 'select') {
 					e.preventDefault();
 				}
 				
 				// Android only cancels mouse events if preventDefault has been
-				// called on touchstart. We can't do that. That stops scroll and other
-				// gestures. Pants. Also, the default Android browser sends simulated
-				// mouse events whatever you do. These browsers have something in common:
-				// their touch identifiers are always 0.
-				if (amputateFlag && endTouch.identifier === 0) {
-					amputateMouseEvents();
+				// called on touchstart. We can't do that. That stops scroll and
+				// other gestures. Pants. Also, the default Android browser
+				// sends simulated mouse events whatever you do. These browsers
+				// have something in common: their identifiers are always 0.
+				if (endTouch.identifier === 0) {
+					disableMouseTemp();
 				}
 			}
 		});
@@ -142,6 +165,13 @@
 	var actions = {
 		a: function(target) {
 			if (debug) { console.log(target.href); }
+
+			// If the href contains JS, ignore
+			if (rjavascript.test(target.href)) {
+				if (debug) console.log('Ugh! Someone\'s put some JS in an href attribute.', target);
+				return;
+			}
+
 			window.location = target.href;
 		},
 		
@@ -192,13 +222,12 @@
 	};
 
 	jQuery.event.special.tap = {
-		
 		// Don't use the DOM for this event
 		setup: returnTrue,
 		teardown: returnTrue,
 
 		_default: function(e) {
-			var target = jQuery(e.target).closest('a, label, input, select, textarea');
+			var target = jQuery(e.target).closest('a[href], label, input, select, textarea');
 			
 			// Ignore if the tap is not on an interactive element
 			if (target.length === 0) { return; }
@@ -210,4 +239,11 @@
 	jQuery(document)
 	.on('touchstart', touchstart)
 	.on('touchend', touchend);
+
+	// It's a bit extreme, but stopping simulated events in the capture phase is
+	// a way of getting dumb browsers to appear not to emit them.
+	document.addEventListener('mousedown', amputateMouseEvent, true);
+	document.addEventListener('mousemove', amputateMouseEvent, true);
+	document.addEventListener('mouseup',   amputateMouseEvent, true);
+	document.addEventListener('click',     amputateMouseEvent, true);
 });
