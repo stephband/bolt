@@ -1,6 +1,6 @@
 // jquery.event.tap
 // 
-// 0.5
+// 0.5.1
 // 
 // Emits a tap event as soon as touchend is heard, as long as it's related
 // touchstart was less than a certain time ago.
@@ -56,6 +56,10 @@
 	
 	function returnTrue() {
 		return true;
+	}
+
+	function setImmediate(fn) {
+		setTimeout(fn, 0);
 	}
 	
 	function amputateMouseEvent(e) {
@@ -127,8 +131,10 @@
 				// If the touch has not moved more than 12px
 				(Math.pow(endTouch.clientX - startTouch.clientX, 2) + Math.pow(endTouch.clientY - startTouch.clientY, 2)) < distance
 			) {
-				// Trigger a tap event
-				jQuery(e.target).trigger({ type: 'tap' });
+				// Trigger a tap event after this touchend event
+				setImmediate(function() {
+					jQuery(e.target).trigger({ type: 'tap' });
+				});
 				
 				if (// If the target is, or is in, an anchor tag.
 					(node = closest(e.target, 'a')) &&
@@ -140,7 +146,7 @@
 
 					// We're probably dealing with some legacy crap or an
 					// external library like Harvest's Chosen, and it's probably
-					// better not to disable mouse events. Probably.
+					// better not to disable mouse events. Probably. Maybe.
 					return;
 				}
 
