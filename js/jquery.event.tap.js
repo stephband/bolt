@@ -46,7 +46,7 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined){
-	var debug = true;//false;
+	var debug = false;
 	
 	var duration = 280,
 	    distance = 144,
