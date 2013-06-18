@@ -372,7 +372,7 @@
 	 the html.
 */
 
-.row_index,
+.inline_index,
 .tabs_index,
 .dots_index,
 .crumbs_index,
@@ -382,7 +382,7 @@
 	line-height: 0;
 }
 
-.row_index > li,
+.inline_index > li,
 .tabs_index > li,
 .dots_index > li,
 .crumbs_index > li,
@@ -391,12 +391,12 @@
 	vertical-align: top;
 }
 
-.row_index > li:first-child,
-.tabs_index > li:last-child,
-.dots_index > li:last-child,
-.crumbs_index > li:last-child,
-.actions_index > li:last-child {
-	margin-right: 0;
+.inline_index > li:first-child,
+.tabs_index > li:first-child,
+.dots_index > li:first-child,
+.crumbs_index > li:first-child,
+.actions_index > li:first-child {
+	margin-left: 0;
 }
 
 
