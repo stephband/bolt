@@ -1,6 +1,6 @@
 // jquery.event.tap
 // 
-// 0.5.1
+// 0.5.2
 // 
 // Emits a tap event as soon as touchend is heard, as long as it's related
 // touchstart was less than a certain time ago.
@@ -46,7 +46,7 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined){
-	var debug = true;//false;
+	var debug = false;
 	
 	var duration = 280,
 	    distance = 144,
@@ -241,6 +241,9 @@
 			actions[target[0].tagName.toLowerCase()](target[0]);
 		}
 	};
+		
+	// Protect this from being applied to old IE
+	if (!document.addEventListener) { return; }
 	
 	jQuery(document)
 	.on('touchstart', touchstart)
