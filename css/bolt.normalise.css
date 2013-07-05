@@ -199,6 +199,11 @@ th {
 	color: transparent;
 }
 
+[placeholder]:focus::-moz-placeholder {
+	/* Get rid of persistent placeholders in Firefox. */
+	color: transparent;
+}
+
 [draggable] {
 	/* Make draggable elements draggable in WebKit */
 	-webkit-user-drag: element;
