@@ -8,7 +8,8 @@
 (function(jQuery, undefined){
 	var settings = {
 	    	duration: 6000,
-	    	delay: 0
+	    	delay: 0,
+	    	hoverPause: true
 	    };
 	
 	jQuery.fn.loop = function(options) {
@@ -43,14 +44,18 @@
 			i = items.index(this);
 			clearTimer();
 			timer = setTimeout(activate, duration);
-		})
-		.hover(function(e) {
-			fn = clearTimer;
-		}, function() {
-			fn = activateItem;
-			// If the timer has stopped, kick it off again
-			if (!timer) { activate(); }
 		});
+
+		if (options.hoverPause) {
+			items
+			.hover(function(e) {
+				fn = clearTimer;
+			}, function() {
+				fn = activateItem;
+				// If the timer has stopped, kick it off again
+				if (!timer) { activate(); }
+			});
+		}
 		
 		// Set the ball rolling
 		fn = activateItem;
