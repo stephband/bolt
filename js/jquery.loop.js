@@ -9,7 +9,7 @@
 	var settings = {
 	    	duration: 6000,
 	    	delay: 0,
-	    	hoverPause: true
+	    	pauseOnHover: true
 	    };
 	
 	jQuery.fn.loop = function(options) {
@@ -46,7 +46,7 @@
 			timer = setTimeout(activate, duration);
 		});
 
-		if (options.hoverPause) {
+		if (options.pauseOnHover) {
 			items
 			.hover(function(e) {
 				fn = clearTimer;
