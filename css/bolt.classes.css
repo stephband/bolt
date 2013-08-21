@@ -439,13 +439,10 @@
 	display: block;
 	min-height: 84px;
 	
-	padding-top:		10px; 
-	padding-right:	10px;
+	padding-top: 10px; 
+	padding-right: 10px;
 	padding-bottom: 0;
-	padding-left:		84px;
-	
-	background-repeat: no-repeat;
-	background-color: rgb(200,200,200);
+	padding-left: 84px;
 	
 	/* Act as position parent */
 	position: relative;
@@ -457,8 +454,8 @@
 .card > .thumb {
 	/* Cards have thumbs. Put them on the left by default. */
 	position: absolute;
-	top: 0.8333em;
-	left: 0.8333em;
+	top: 0;
+	left: 0;
 }
 
 .card a,
