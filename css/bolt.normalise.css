@@ -88,6 +88,12 @@ hgroup, nav, section {
 	background-repeat: no-repeat;
 }
 
+:before,
+:after {
+	/* Default to backgrounds that don't repeat. */
+	background-repeat: no-repeat;
+}
+
 body {
 	padding: 0;
 	margin: 0;
@@ -188,7 +194,6 @@ td,
 th {
 	vertical-align: top;
 }
-
 
 [hidden] {
 	/* styling for 'hidden' attribute not present in IE7/8/9, FF3, S4. */
