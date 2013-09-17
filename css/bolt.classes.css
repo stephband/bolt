@@ -40,6 +40,17 @@
 	overflow: visible;
 }
 
+.block > img,
+.block > svg,
+.block > video,
+.block > canvas,
+.block > object,
+.block > embed,
+.block > iframe {
+	/* Don't allow media to break out of container bounds. */
+	max-width: 100%;
+}
+
 
 /* .panel */
 
