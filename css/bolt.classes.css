@@ -688,6 +688,8 @@ button.loading,
 	height: auto;
 	vertical-align: baseline;
 	margin-right: 0.5em;
+	/* Stop radio's left edges getting cut off inside buttons. */
+	margin-left: 1px;
 }
 
 .radio_button,
