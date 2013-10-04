@@ -40,6 +40,17 @@
 	overflow: visible;
 }
 
+.block > img,
+.block > svg,
+.block > video,
+.block > canvas,
+.block > object,
+.block > embed,
+.block > iframe {
+	/* Don't allow media to break out of container bounds. */
+	max-width: 100%;
+}
+
 
 /* .panel */
 
@@ -677,6 +688,8 @@ button.loading,
 	height: auto;
 	vertical-align: baseline;
 	margin-right: 0.5em;
+	/* Stop radio's left edges getting cut off inside buttons. */
+	margin-left: 1px;
 }
 
 .radio_button,
