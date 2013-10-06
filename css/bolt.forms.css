@@ -261,6 +261,8 @@ textarea.error:focus,
   /* Create webkit-like outlines for FF */
      -moz-box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
           box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
+
+  border-color: #659DCB !important;
 }
 
 input.error,
@@ -278,6 +280,8 @@ textarea.error,
   -webkit-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
      -moz-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
           box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+
+  border-color: #ff5500 !important;
 }
 
 input::-webkit-validation-bubble-arrow,
