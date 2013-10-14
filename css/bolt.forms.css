@@ -230,7 +230,7 @@ input[type='file'] {
 
 .required:after {
 	content: ' *';
-	color:#ff8833;
+	color: #ff8833;
 }
 
 /* Focus and error styles */
