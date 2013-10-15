@@ -297,15 +297,6 @@
 		var value = e.currentTarget.value;
 		window.location = value;
 	})
-
-	// 
-	.on('change', '[type="radio"]', function(e) {
-		var name = e.target.name;
-
-		jQuery('[name="'+name+'"]')
-		.not(e.target)
-		.trigger({ type: 'valuechange', checked: e.target });
-	})
 	
 	// Clicks on close buttons deactivate the thing they are inside
 	.on('click tap', '.close_thumb, .close_button, .cancel_button', function(e) {
