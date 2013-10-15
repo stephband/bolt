@@ -108,14 +108,9 @@ input[type='time'] {
 
 input,
 textarea {
-  opacity: 0.92;
   padding: 0 0.5em;
   /* Nudge up the baseline position in FF3. Doesn't affect WebKit. */
   padding-bottom: 0.077em;
-}
-
-select {
-  opacity: 0.92;
 }
 
 label > [type="checkbox"],
@@ -235,54 +230,60 @@ input[type='file'] {
 
 /* Focus and error styles */
 
+/* IE hates having border-color applied to select boxes. It forces
+   them into a state where they have to be doubleclicked to open -
+   once to focus, once to open. Even IE10. We are forced to hack
+   around it with the @media screen hack, which nets Safari as well,
+   unfortunately.
+   
+   Chrome doesn't like having box-shadow applied to select boxes,
+   as it renders them with a bigger height. That's ok, I guess.
+   It's pretty difficult to have an error on a select box anyway. */
+
 label.focus,
 input:focus,
-select:focus,
 textarea:focus,
 input.error:focus,
-select.error:focus,
-textarea.error:focus,
-.error input:focus,
-.error select:focus,
-.error textarea:focus {
-  opacity: 1;
-  
-  /* In Webkit, outline doesn't fit the border curves, and in FF outline
-     is ugly. Lets recreate it with box-shadow */
-  outline: none;
-  
-  /* \9 hack for IE8 and below. */
-  outline: 2px solid #639ACA\9;
-  
-  /* Old Safari doesn't do blur radius */
-  -webkit-box-shadow: 0 0 12px #659DCB;
-  /* but Chrome does... */
-  -webkit-box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
-  /* Create webkit-like outlines for FF */
-     -moz-box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
-          box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
+textarea.error:focus {
+    /* In Webkit, outline doesn't fit the border curves, and in FF outline
+       is ugly. Lets recreate it with box-shadow */
+    outline: none;
+    
+    /* Old Safari doesn't do blur radius */
+    -webkit-box-shadow: 0 0 12px #659DCB;
+    /* but Chrome does... */
+    -webkit-box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
+    /* Create webkit-like outlines for FF */
+       -moz-box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
+            box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
 
-  border-color: #659DCB !important;
+    border-color: #659DCB;
 }
 
 input.error,
-select.error,
-textarea.error,
-.error input,
-.error select,
-.error textarea {
-  opacity: 1;
-  
-  /* \9 hack for IE8 and below. */
-  outline: 2px solid #ff5500\9;
-  
-  -webkit-box-shadow: 0 0 12px #ff5500;
-  -webkit-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
-     -moz-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
-          box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
-
-  border-color: #ff5500 !important;
+textarea.error {
+    /* \9 hack for IE8 and below. */
+    outline: 2px solid #ff5500\9;
+    
+    -webkit-box-shadow: 0 0 12px #ff5500;
+    -webkit-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+       -moz-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+            box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
 }
+
+@media screen { @media (min-width: 0px) {
+    /* Hack to apply border color but avoid IE, which hates
+       having border-color applied to select boxes. Unfortunately
+       this hack also ignores Safari. But that's ok. */
+    select:focus
+    select.error:focus {
+        border-color: #659DCB !important;
+    }
+
+    select.error {
+        border-color: #ff5500 !important;
+    }
+}}
 
 input::-webkit-validation-bubble-arrow,
 input::-webkit-validation-bubble-message {

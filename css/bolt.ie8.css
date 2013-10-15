@@ -10,6 +10,20 @@ input.hidden,
 	filter: alpha(opacity=0);
 }
 
+label.focus,
+input:focus,
+select:focus,
+textarea:focus,
+input.error:focus,
+select.error:focus,
+textarea.error:focus,
+.error input:focus,
+.error select:focus,
+.error textarea:focus {
+    /* IE8- doesn't do box-shadow. */
+    outline: 2px solid #659DCB;
+}
+
 /* horizontal
     
    Simulate a bunch of blocks pushed against each other horizontally
