@@ -11,6 +11,10 @@
 })(function(jQuery, undefined){
 	var doc = jQuery(document);
 	
+	function setImmediate(fn) {
+		setTimeout(fn, 0);
+	}
+	
 	function fieldData(target) {
 		var data = jQuery.data(target, 'field'),
 		    field, name;
@@ -207,8 +211,15 @@
 	// If a form is reset, trigger a re-evaluation of the values
 	// of custom form elements.
 	.on('reset', 'form', function(e) {
-		jQuery('input, textarea, select', e.target)
-		.trigger('valuechange');
+		if (e.isDefaultPrevented()) { return; }
+		
+		var fields = jQuery('input, textarea, select', e.target);
+		
+		function reset() {
+			fields.trigger('valuechange');
+		}
+		
+		setImmediate(reset);
 	})
 	
 	.ready(function() {
