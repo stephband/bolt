@@ -291,7 +291,7 @@
 			
 			// Rails doesn't do html5 forms yet. Using email as a data-type is a workaround.
 			email: function( value, pass, fail ) {
-				return jQuery.fn.validator.regex.email.test(value) ?
+				return jQuery.fn.validate.regex.email.test(value) ?
 							 pass() :
 							 fail('Not a valid email address') ;
 			},
@@ -310,7 +310,7 @@
 			}
 		};
 	
-	jQuery.fn.validator.attributes['data-type'] = function( value, type, pass, fail, autocomplete ){
+	jQuery.fn.validate.attributes['data-type'] = function( value, type, pass, fail, autocomplete ){
 		if (debug) { console.log('data-type: '+type); }
 		return !value ? pass() : dataTypes[type]( value, pass, fail, autocomplete ) ;
 	};

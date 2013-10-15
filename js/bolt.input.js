@@ -15,6 +15,10 @@
 		setTimeout(fn, 0);
 	}
 	
+	function thru(value) {
+		return value;
+	}
+	
 	function fieldData(target) {
 		var data = jQuery.data(target, 'field'),
 		    field, name;
@@ -145,6 +149,17 @@
 			fail: function(){ e.preventDefault(); }
 		});
 	})
+
+	.on('valuechange', 'input, textarea', function(e) {
+		// Don't make this script require jQuery.fn.validate
+		if (!jQuery.fn.validate) { return; }
+		
+		jQuery(this).validate(true);
+	})
+
+	.on('input', 'input, textarea', function(e) {
+		jQuery.event.trigger('valuechange', null, e.target);
+	})
 	
 	// Active classes for radio input labels
 	.on('change valuechange', 'input[type="radio"]', function(e){
@@ -230,6 +245,23 @@
 		jQuery('input:checked').each(function() {
 			var data = fieldData(this);
 			data.label.addClass('on');
+		});
+		
+		// Loop over .error_labels already in the DOM, and listen for
+		// changes on their associated inputs to remove them.
+		jQuery('.error_label').each(function(i, label) {
+			var id = label.getAttribute('for');
+			
+			if (!id) { return; }
+			
+			var input = jQuery('#' + id);
+			
+			function remove() {
+				input.off('change valuechange', remove);
+				label.parentNode.removeChild(label);
+			}
+			
+			input.on('change valuechange', remove);
 		});
 	});
 });

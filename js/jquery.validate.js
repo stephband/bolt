@@ -1,6 +1,6 @@
-// jquery.validator.js
+// jquery.validate.js
 // 
-// 0.9
+// 0.9.1
 // 
 // Stephen Band
 // 
@@ -22,7 +22,7 @@
 // Rules are depend on a field's attributes. To define a new rule, add an
 // attribute to test for:
 //
-// jQuery.fn.validator.attributes['data-attribute'] = function(value, attributeValue, passFn, failFn) {
+// jQuery.fn.validate.attributes['data-attribute'] = function(value, attributeValue, passFn, failFn) {
 //	 // Validation logic
 //	 return pass( newValue [optional] ) or fail( errorMessage [optional] )
 // }
@@ -67,7 +67,6 @@
 	    
 	    // html5 input types
 	    types = {
-	    	// type url reports type text in FF3.6
 	    	url: {
 	    		test: function( value ) { return regex.url.test(value); },
 	    		autocomplete: function( value ) {
@@ -150,8 +149,20 @@
 		data.errorNode.remove();
 	}
 
+	function removeErrors(node) {
+		var field = jQuery(node),
+		    data = field.data('validate'),
+		    attr;
+		
+		for (attr in attributes) {
+			if (data && data[attr] === false) {
+				removeError(data, attr);
+			}
+		}
+	}
+
 	// Here's the meat and potatoes
-	function handle(node, options){
+	function validateInput(node, options){
 		var field = jQuery(node),
 		    value = jQuery.trim(field.val()),
 		    data = field.data('validate'),
@@ -169,7 +180,7 @@
 			// than the browser's interpretation.
 			attrval = field[0].getAttribute(attr);
 			
-			if ( attrval ) {
+			if (attrval) {
 				attributes[attr](value, attrval, function(autoval){
 					// The test has passed
 					if (autoval) {
@@ -246,46 +257,46 @@
 		}
 	}
 	
-	jQuery.fn.validator = function(options){
-		var o = jQuery.extend({}, jQuery.fn.validator.options, options);
-		
-		return this
-		.bind('submit', { options: o }, function(e){
-			var form = jQuery(this),
-					data = form.data('validator'),
-					rule, validator, fields;
-			
-			if (!data) {
-				data = { attempt: 0 };
-				form.data('validator', data);
-			}
-			
-			fields = form
-			.find( 'input, textarea' )
-			.each( function(i){
-				if ( !handle(this, o) ) { e.preventDefault(); }
-			});
-			
-			if (debug) { console.log('submit'); }
-			
-			// Dont go on to delegate events when it has already been done
-			// or when there's no fields to validate
-			if ( data.attempt++ || fields.length === 0 ) { return; }
-				
-			form
-			.delegate( 'input, textarea', 'change', function(){
-				if (debug) { console.log('change'); }
-				handle(this, o);
-			});
-			
-			if (debug) { console.log('change events delegated'); }
-		});
-	};
+	//jQuery.fn.validator = function(options){
+	//	var o = jQuery.extend({}, jQuery.fn.validate.options, options);
+	//	
+	//	return this
+	//	.bind('submit', { options: o }, function(e){
+	//		var form = jQuery(this),
+	//				data = form.data('validator'),
+	//				rule, validator, fields;
+	//		
+	//		if (!data) {
+	//			data = { attempt: 0 };
+	//			form.data('validator', data);
+	//		}
+	//		
+	//		fields = form
+	//		.find( 'input, textarea' )
+	//		.each( function(i){
+	//			if ( !validateInput(this, o) ) { e.preventDefault(); }
+	//		});
+	//		
+	//		if (debug) { console.log('submit'); }
+	//		
+	//		// Dont go on to delegate events when it has already been done
+	//		// or when there's no fields to validate
+	//		if ( data.attempt++ || fields.length === 0 ) { return; }
+	//			
+	//		form
+	//		.delegate( 'input, textarea', 'change', function(){
+	//			if (debug) { console.log('change'); }
+	//			validateInput(this, o);
+	//		});
+	//		
+	//		if (debug) { console.log('change events delegated'); }
+	//	});
+	//};
 	
 	// Call .validate() on each of a form's inputs
 	// and textareas, and call pass if everything
 	// passed and fail if at least one thing failed
-	function handleForm( node, options ){
+	function validateForm( node, options ){
 		var failCount = 0;
 		
 		jQuery(node)
@@ -307,28 +318,56 @@
 			options.pass.call(this);
 		}
 	}
+
+	function validateTrueForm(node){
+		jQuery(node)
+		.find("input, textarea")
+		.each(function() {
+			removeErrors(this);
+		});
+	}
+	
+	function validateTrue() {
+		var tagName = this.nodeName.toLowerCase();
+		
+		if (tagName === 'form') {
+			validateTrueForm(this, options);
+			return;
+		}
+
+		if (tagName === 'input' || tagName === 'textarea') {
+			removeErrors(this);
+			return;
+		}
+	}
+	
+	function validate() {
+		var tagName = this.nodeName.toLowerCase();
+		
+		if (tagName === 'form') {
+			validateForm(this, options);
+			return;
+		}
+
+		if (tagName === 'input' || tagName === 'textarea') {
+			validateInput(this, options);
+			return;
+		}
+	}
 	
 	jQuery.fn.validate = function(o){
-		var options = jQuery.extend({}, jQuery.fn.validator.options, o);
+		if (o === true) {
+			return this.each(validateTrue);
+		}
 		
-		return this.each(function(i){
-			var tagName = this.nodeName.toLowerCase();
-			
-			if (tagName === 'form') {
-				handleForm(this, options);
-				return;
-			}
-
-			if (tagName === 'input' || tagName === 'textarea') {
-				handle(this, options);
-				return;
-			}
-		});
+		var options = jQuery.extend({}, jQuery.fn.validate.options, o);
+		
+		return this.each(validate);
 	};
 	
 	options.errorMessages = errorMessages;
 	
-	jQuery.fn.validator.regex = regex;
-	jQuery.fn.validator.options = jQuery.fn.validate.options = options;
-	jQuery.fn.validator.attributes = attributes;
+	jQuery.fn.validate.regex = regex;
+	jQuery.fn.validate.options = jQuery.fn.validate.options = options;
+	jQuery.fn.validate.attributes = attributes;
 });
