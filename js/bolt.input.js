@@ -133,7 +133,6 @@
 	})())
 	
 	// Global form validation
-	
 	.on('change', 'input, textarea', function(e) {
 		// Don't make this script require jQuery.fn.validate
 		if (!jQuery.fn.validate) { return; }
@@ -144,18 +143,25 @@
 	})
 	
 	// Active classes for radio input labels
-	
-	.on('change update', 'input[type="radio"]', function(e){
+	.on('change valuechange', 'input[type="radio"]', function(e){
 		var data = fieldData(e.target);
 		
 		if (data.fields) {
 			data.fields.each(updateRadioLabel);
 		}
 	})
+
+	// I have the impression that this does the same thing...
+//	.on('change', '[type="radio"]', function(e) {
+//		var name = e.target.name;
+//
+//		jQuery('[name="'+name+'"]')
+//		.not(e.target)
+//		.trigger({type: 'valuechange', checked: e.target});
+//	})
 	
 	// Active classes for checkbox input labels
-	
-	.on('change update', 'input[type="checkbox"]', function(e) {
+	.on('change valuechange', 'input[type="checkbox"]', function(e) {
 		var data = fieldData(e.target);
 		
 		if (data.field.prop('checked')) {
@@ -174,19 +180,13 @@
 		e.stopPropagation();
 		return false;
 	})
-	
+
 	// Value display for select boxes that are wrapped in buttons
 	// for style. The value is set as the content of the button.
-	.on('change update', '.button > select', function(e) {
+	.on('change valuechange', '.button > select', function(e) {
 		populateSelect(e.target);
 	})
-	
-	// Value display for file inputs that are wrapped in buttons
-	// for style. Value is set as the text content of the button.
-	.on('change update', '.button > input[type="file"]', function(e) {
-		updateFileLabel(e.target);
-	})
-	
+
 	.on('focusin focusout', '.button > select', function(e) {
 		var view = fieldData(e.target);
 		
@@ -196,6 +196,19 @@
 		else {
 			view.wrap.removeClass('focus');
 		}
+	})
+
+	// Value display for file inputs that are wrapped in buttons
+	// for style. Value is set as the text content of the button.
+	.on('change valuechange', '.button > input[type="file"]', function(e) {
+		updateFileLabel(e.target);
+	})
+
+	// If a form is reset, trigger a re-evaluation of the values
+	// of custom form elements.
+	.on('reset', 'form', function(e) {
+		jQuery('input, textarea, select', e.target)
+		.trigger('valuechange');
 	})
 	
 	.ready(function() {

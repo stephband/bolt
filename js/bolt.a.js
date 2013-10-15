@@ -304,7 +304,7 @@
 
 		jQuery('[name="'+name+'"]')
 		.not(e.target)
-		.trigger({ type: 'update', checked: e.target });
+		.trigger({ type: 'valuechange', checked: e.target });
 	})
 	
 	// Clicks on close buttons deactivate the thing they are inside
@@ -325,7 +325,7 @@
 	.on('mousedown tap keydown', 'a[target]', activateTarget)
 
 	// Changing input[data-href] controls target
-	.on('change update', '[data-href]', changeHref)
+	.on('change valuechange', '[data-href]', changeHref)
 
 	// Mousedown on buttons toggle activate on their hrefs
 	.on('mousedown tap keydown', '[data-href]', mousedownHref)
