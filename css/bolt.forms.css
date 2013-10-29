@@ -313,6 +313,7 @@ select:focus {
 }
 
 .error_label {
+	white-space: nowrap;
 	line-height: 1.6667;
 	color: #dd3300;
 }
