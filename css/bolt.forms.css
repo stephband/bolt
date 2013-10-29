@@ -84,7 +84,6 @@ textarea {
 	position: relative;*/
 }
 
-label,
 input,
 button,
 select {
@@ -96,10 +95,6 @@ input,
 textarea {
 	width: 100%;
 	border: 0;
-}
-
-label {
-	white-space: nowrap;
 }
 
 input[type='time'] {
@@ -257,7 +252,7 @@ textarea.error:focus {
 	   -moz-box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
 			box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
 
-	border-color: #659DCB;
+	border-color: #659DCB !important;
 }
 
 input.error,

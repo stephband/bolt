@@ -206,7 +206,7 @@
 		populateSelect(e.target);
 	})
 
-	.on('focusin focusout', '.button > select', function(e) {
+	.on('focusin focusout', '.button > select, .button > input', function(e) {
 		var view = fieldData(e.target);
 		
 		if (e.type === 'focusin') {
