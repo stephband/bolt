@@ -36,7 +36,7 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined){
-	var debug = false;//(window.console && window.console.log);
+	var debug = (window.console && window.console.log);
 
 	var options = {
 	    	errorClass: "error",
@@ -115,7 +115,7 @@
 	    	minlength: function( value, attr, pass, fail ) {
 	    		return ( !value || value.length >= parseInt(attr) ) ?
 	    			pass() :
-	    			fail( jQuery.render(errorMessages.required, {attr: attr}) ) ;
+	    			fail( jQuery.render(errorMessages.minlength, {attr: attr}) ) ;
 	    	},
 	    	
 	    	maxlength: function( value, attr, pass, fail ) {
@@ -125,19 +125,19 @@
 	    		// whether it's in the html or not, and sometimes it's -1
 	    		return ( !value || number === -1 || value.length <= number ) ?
 	    			pass() :
-	    			fail( jQuery.render(errorMessages.required, {attr: attr}) ) ;
+	    			fail( jQuery.render(errorMessages.maxlength, {attr: attr}) ) ;
 	    	},
 	    	
 	    	min: function( value, attr, pass, fail ) {
 	    		return ( !value || parseFloat(attr) <= parseFloat(value) ) ?
 	    			pass() :
-	    			fail( jQuery.render(errorMessages.required, {attr: attr}) ) ;
+	    			fail( jQuery.render(errorMessages.min, {attr: attr}) ) ;
 	    	},
 	    	
 	    	max: function( value, attr, pass, fail ) {
 	    		return ( !value || parseFloat(attr) >= parseFloat(value) ) ?
 	    			pass() :
-	    			fail( jQuery.render(errorMessages.required, {attr: attr}) ) ;
+	    			fail( jQuery.render(errorMessages.max, {attr: attr}) ) ;
 	    	}
 	    	//pattern: function( value, attr, pass, fail ) {
 	    	//	return ( !value );
@@ -174,6 +174,8 @@
 		    stopTestFlag = false,
 		    attr, attrval, rule, response;
 		
+		if (debug) { console.groupCollapsed('[jquery.validate]', node.id, value); }
+		
 		for (attr in attributes) {
 			// We use getAttribute rather than .attr(), because
 			// it returns the original value of the attribute rather
@@ -181,6 +183,8 @@
 			attrval = field[0].getAttribute(attr);
 			
 			if (attrval) {
+				if (debug) { console.log(attr, attrval); }
+				
 				attributes[attr](value, attrval, function(autoval){
 					// The test has passed
 					if (autoval) {
@@ -192,15 +196,16 @@
 					if (data && data[attr] === false) {
 						removeError(data, attr);
 					}
-				}, function( message ){
+				}, function(message){
 					// The test has failed
 					
 					var response = options.fail && options.fail.call(node, value, message);
 					
+					if (debug) { console.warn('FAIL', attr, message, response); }
+					
 					// If the fail callback returns a value, override the
 					// failure, and put that value in the field.
-					if ( response ) {
-						
+					if (response) {
 						value = response;
 						field.val(response);
 						
@@ -220,14 +225,17 @@
 							field.data('validate', data);
 						}
 						
-						data.errorNode.html( message );
+						// If there is an error message on the node, use that.
+						message = node.getAttribute('data-error-' + attr) || message;
+						
+						data.errorNode.html(message);
 						
 						data[attr] = false;
 						
 						field
-						.before( data.errorNode )
-						.closest( options.errorSelector )
-						.addClass( options.errorClass );
+						.before(data.errorNode)
+						.closest(options.errorSelector)
+						.addClass(options.errorClass);
 						
 						passFlag = false;
 					}
@@ -242,6 +250,8 @@
 				break;
 			}
 		}
+		
+		if (debug) { console.groupEnd(); }
 		
 		if (passFlag) {
 			// Remove error class
@@ -296,26 +306,22 @@
 	// Call .validate() on each of a form's inputs
 	// and textareas, and call pass if everything
 	// passed and fail if at least one thing failed
-	function validateForm( node, options ){
+	function validateForm(node, options){
 		var failCount = 0;
 		
 		jQuery(node)
 		.find("input, textarea")
 		.validate({
-			pass: function( value ){
-				if (debug) { console.log( value + ' - PASS' ); }
-			},
-			fail: function( value ){
-				if (debug) { console.log( value + ' - FAIL' ); }
+			fail: function(value){
 				failCount++;
 			}
 		});
 		
-		if (failCount && options.fail) {
-			options.fail.call(this);
+		if (failCount) {
+			options.fail && options.fail.call(this);
 		}
-		else if (options.pass) {
-			options.pass.call(this);
+		else {
+			options.pass && options.pass.call(this);
 		}
 	}
 
@@ -331,26 +337,12 @@
 		var tagName = this.nodeName.toLowerCase();
 		
 		if (tagName === 'form') {
-			validateTrueForm(this, options);
+			validateTrueForm(this);
 			return;
 		}
 
 		if (tagName === 'input' || tagName === 'textarea') {
 			removeErrors(this);
-			return;
-		}
-	}
-	
-	function validate() {
-		var tagName = this.nodeName.toLowerCase();
-		
-		if (tagName === 'form') {
-			validateForm(this, options);
-			return;
-		}
-
-		if (tagName === 'input' || tagName === 'textarea') {
-			validateInput(this, options);
 			return;
 		}
 	}
@@ -362,7 +354,19 @@
 		
 		var options = jQuery.extend({}, jQuery.fn.validate.options, o);
 		
-		return this.each(validate);
+		return this.each(function validate() {
+			var tagName = this.nodeName.toLowerCase();
+			
+			if (tagName === 'form') {
+				validateForm(this, options);
+				return;
+			}
+	
+			if (tagName === 'input' || tagName === 'textarea') {
+				validateInput(this, options);
+				return;
+			}
+		});
 	};
 	
 	options.errorMessages = errorMessages;
