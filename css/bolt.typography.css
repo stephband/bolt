@@ -38,8 +38,13 @@ pre {
 }
 
 a:focus,
-a:hover           { text-decoration: underline; }
-a                 { text-decoration: none; }
+a:hover {
+	text-decoration: underline;
+}
+
+a {
+	text-decoration: none;
+}
 
 a:link {
 	/* j.mp/webkit-tap-highlight-color */
@@ -48,12 +53,16 @@ a:link {
 
 /* Block elements */
 
+p,
 h1,
 h2,
 h3,
 h4,
 h5,
-h6                { font-weight: normal; }
+h6 {
+	font-weight: normal;
+	margin-bottom: 0;
+}
 
 hr                { height: 0; border-width: 0; border-bottom: 1px solid black; margin-top: -1px; }
 
