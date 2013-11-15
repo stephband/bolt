@@ -38,6 +38,10 @@
 	/* Set them up to play nice as inline-blocks. */
 	vertical-align: top;
 	overflow: visible;
+	/* Negate possible spacing when .block is used on
+	   something typographic. A <p>, for example. */
+	margin: 0;
+	padding: 0;
 }
 
 .block > img,
