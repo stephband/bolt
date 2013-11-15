@@ -56,6 +56,28 @@
 }
 
 
+/* .col */
+
+.col {
+	/* This inline-block method produces nice flow, and with a bit of
+	   head scratching can be used for liquid columns with fixed gutters,
+	   or even mixed fixed and liquid columns, all with arbitrary content
+	   order. However, it is a little susceptible to rounding errors, and
+	   requires spaceless html. */
+	
+	position: relative;
+	
+	/* For those pour souls who don't understand inline-block (IE7). */
+	display: inline-block;
+	display: inline !IE7;
+	vertical-align: top;
+	
+	/* Stop content pushing column wider than it should be */
+	overflow: visible;
+	width: 100%;
+}
+
+
 /* .panel */
 
 .panel {
