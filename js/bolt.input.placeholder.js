@@ -51,8 +51,8 @@
 		// Delegate events coming from inputs and texareas with placeholders.
 		
 		jQuery(document)
-		.delegate('textarea[placeholder], input[placeholder]', 'change focusout', changeHandler)
-		.delegate('textarea[placeholder], input[placeholder]', 'focusin', focusHandler)
+		.on('change focusout', 'textarea[placeholder], input[placeholder]', changeHandler)
+		.on('focusin', 'textarea[placeholder], input[placeholder]', focusHandler)
 		
 		// Create placeholder labels.
 		

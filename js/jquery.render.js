@@ -21,7 +21,11 @@
 		return function($0, $1) {
 			// $1 is the template key. Don't render falsy values like undefined.
 			var value = obj[$1];
-			return value instanceof Array ? value.join(', ') : value || '' ;
+			
+			return value instanceof Array ?
+				value.join(', ') :
+				value === undefined || value === null ? '' :
+				value ;
 		};
 	}
 	
@@ -31,7 +35,7 @@
 			// the template tag is followed by a repetition operator.
 			var r = obj[$1];
 			
-			if (!r) { throw new Error("Exception: attempting to build RegExp but obj['"+$1+"'] is undefined."); }
+			if (r === undefined || r === null) { throw new Error("Exception: attempting to build RegExp but obj['"+$1+"'] is undefined."); }
 			
 			// Strip out beginning and end matchers
 			r = r.source.replace(/^\^|\$$/g, '');

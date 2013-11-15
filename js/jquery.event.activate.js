@@ -28,6 +28,10 @@
 	    activeClass = "active",
 	    onClass = "on",
 	    
+	    location = window.location,
+	    	    
+	    id = location.hash,
+	    
 	    settings = {
 	    	cache: true
 	    };
@@ -35,19 +39,40 @@
 	function returnTrue() {
 		return true;
 	}
+	
+	function prefixSlash(str) {
+		return (/^\//.test(str) ? '' : '/') + str ;
+	}
+
+	function sameOrigin() {
+		var node = this;
+		
+		//     IE gives us the port on node.host, even where it is not
+		//     specified. Use node.hostname.
+		return location.hostname === node.hostname &&
+		//     IE gives us node.pathname without a leading slash, so
+		//     add one before comparing.
+		       location.pathname === prefixSlash(node.pathname);
+	}
+
+	function findButtons(id) {
+		return jQuery('a[href$="#' + id + '"]')
+			.filter(sameOrigin)
+			.add('[data-href="#' + id + '"]');
+	}
 
 	function cacheData(target) {
 		var data = jQuery.data(target),
 		    id = target.id;
 		
 		if (!data.elem) { data.elem = jQuery(target); }
-		if (!data.buttons) { data.buttons = settings.cache && id && jQuery('a[href="#'+id+'"]'); }
+		if (!data.buttons) { data.buttons = settings.cache && id && findButtons(id); }
 		
 		return data;
 	}
 
 	function getButtons(data) {
-		return (settings.cache && data.buttons) || (data.elem[0].id && jQuery('a[href="#' + data.elem[0].id + '"]'));
+		return (settings.cache && data.buttons) || (data.elem[0].id && findButtons(data.elem[0].id));
 	}
 
 	jQuery.event.special.activate = {
@@ -109,8 +134,6 @@
 	};
 	
 	jQuery(document).ready(function(){
-		var id = window.location.hash;
-		
 		// Setup all things that should start out active.
 		jQuery('.' + activeClass).trigger('activate');
 

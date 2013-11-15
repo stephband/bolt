@@ -10,8 +10,10 @@
 		module(jQuery, jQuery.bolt);
 	}
 })(function(jQuery, bolt, undefined){
+	var debug = window.console && console.log;
+
 	var doc = jQuery(document),
-	    docElem = jQuery(document.documentElement);
+	    docElem = jQuery(document.documentElement),
 	    
 	    add = jQuery.event.add,
 	    remove = jQuery.event.remove,
@@ -19,39 +21,45 @@
 	        jQuery.event.trigger(type, data, node);
 	    },
 	    
-	    rImage = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/;
-	
-	var targets = {
+	    rImage = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/,
+	    rYouTube = /youtube\.com/,
+	    
+	    targets = {
 	    	dialog: function(e) {
-	    		var id, target;
+	    		var href = e.currentTarget.getAttribute('data-href') || e.currentTarget.hash,
+	    		    id = href.substring(1),
+	    		    node;
 	    		
-	    		id = e.currentTarget.hash.substring(1);
-	    		if (!id) { return loadResource(e.currentTarget); }
+	    		if (!id) { return loadResource(e, href); }
 	    		
-	    		target = document.getElementById(id);
-	    		if (!target) { return; }
+	    		node = document.getElementById(id);
 	    		
-	    		// If the target is html hidden inside a taxt/html script tag,
+	    		if (!node) { return loadResource(e, href); }
+	    		
+	    		e.preventDefault();
+	    		
+	    		// If the node is html hidden inside a text/html script tag,
 	    		// extract the html.
-	    		if (target.getAttribute('type') === 'text/html') {
-	    			target = jQuery(target).html();
+	    		if (node.getAttribute('type') === 'text/html') {
+	    			/* TODO: jQuery 1.9.1 and 2.0.0b2 are failing because html needs to be whitespace trimmed */
+	    			node = jQuery(node).html();
 	    		}
 	    		
-	    		jQuery(target).dialog('lightbox');
-	    		
-	    		// Return true tells handler to carry on execution
-	    		return true;
+	    		jQuery(node).dialog('lightbox');
 	    	}
 	    };
 	
-	function loadResource(link) {
-		var path = link.pathname,
+	function loadResource(e, href) {
+		var link = e.currentTarget,
+		    path = link.pathname,
 		    node, elem, dialog;
 		
-		if (rImage.test(path)) {
+		if (rImage.test(link.pathname)) {
+			e.preventDefault();
+			
 			node = new Image();
 			elem = jQuery(node);
-			
+
 			elem.dialog('lightbox');
 			
 			dialog = elem.parent();
@@ -60,9 +68,28 @@
 			elem.on('load', function() {
 				dialog.removeLoadingIcon();
 			});
-			
-			node.src = link.href;
+
+			node.src = href;
+
+			return;
 		}
+
+		if (rYouTube.test(link.hostname)) {
+			e.preventDefault();
+			
+			// We don't need a loading indicator because youtube comes with
+			// it's own.
+			elem = jQuery('<iframe class="youtube_iframe" width="560" height="315" src="' + href + '" frameborder="0" allowfullscreen></iframe>');
+			node = elem[0];
+
+			elem.dialog('lightbox');
+
+			return;
+		}
+	}
+	
+	function prefixSlash(str) {
+		return (/^\//.test(str) ? '' : '/') + str ;
 	}
 	
 	function preventDefault(e) {
@@ -84,80 +111,36 @@
 		return (e.which === 1 && !e.ctrlKey && !e.altKey);
 	}
 	
-	
-	// Run jQuery without aliasing it to $
-	jQuery.noConflict();
-	
-	
-	doc
-	
-	// Remove loading classes from document element
-	.ready(function() {
-		docElem.removeClass('notransition loading');
-	})
-	
-	// Select boxes that act as navigation
-	.on('change', '.nav_select', function(e) {
-		var value = e.currentTarget.value;
-		window.location = value;
-	})
-	
-	// Mousedown on buttons toggle activate on their targets
-	.on('mousedown tap', 'a[target]', function(e) {
-		var target = e.currentTarget.target;
-		
+	function isIgnorable(e) {
 		// Default is prevented indicates that this link has already
 		// been handled. Save ourselves the overhead of further handling.
-		if (e.isDefaultPrevented()) { return; }
+		if (e.isDefaultPrevented()) { return true; }
 
 		// Ignore mousedowns on any button other than the left (or primary)
 		// mouse button, or when a modifier key is pressed.
-		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
+		if (e.type === 'mousedown' && !isLeftButton(e)) { return true; }
 		
-		// If the target is not listed, ignore
-		if (!targets[target]) { return; }
-		
-		if (targets[target](e)) {
-			preventClick(e);
-			e.preventDefault();
-		};
-	})
+		// Ignore key presses other than the enter key
+		if ((e.type === 'keydown' || e.type === 'keyup') && e.keyCode !== 13) { return true; }
+	}
 	
-	// Clicks on close buttons deactivate the thing they are inside
-	.on('click tap', '.close_thumb, .close_button, .cancel_button', function(e) {
-		var elem = jQuery(e.currentTarget).closest('.popdown, .dialog_layer');
+	function isExternalLink(e) {
+		var location = window.location,
+		    link = e.currentTarget;
+
+		// IE gives us the port on link.host, even where it is not specified.
+		// Use link.hostname.
+		if (location.hostname !== link.hostname) { return true; }
 		
-		if (!elem.length) { return; }
-		
-		elem.trigger({
-			type: 'deactivate',
-			relatedTarget: e.currentTarget
-		});
-		
-		e.preventDefault();
-	})
-
-	// Mousedown on buttons toggle activate on their targets
-	.on('mousedown tap', 'a[href^="#"]', function(e) {
-		var id, target, elem, data, clas;
-
-		// Default is prevented indicates that this link has already
-		// been handled. Save ourselves the overhead of further handling.
-		if (e.isDefaultPrevented()) { return; }
-
-		// Ignore mousedowns on any button other than the left (or primary)
-		// mouse button, or when a modifier key is pressed.
-		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
-
-		id = e.currentTarget.hash.substring(1);
-		target = document.getElementById(id);
-
-		// This link does not point to an id in the DOM. No action required.
-		if (!target) { return; }
-
+		// IE gives us link.pathname without a leading slash, so add
+		// one before comparing.
+		if (location.pathname !== prefixSlash(link.pathname)) { return true; }
+	}
+	
+	function boltData(node) {
 		// Get the bolt data that may have been created by a previous
 		// activate event.
-		data = jQuery.data(target);
+		data = jQuery.data(node);
 
 		// Decide what class this object is.
 		if (data.bolt && data.bolt['class']) {
@@ -167,8 +150,8 @@
 			clas = data.bolt['class'];
 		}
 		else {
-			elem = jQuery(target);
-			clas = bolt.classify(target);
+			elem = jQuery(node);
+			clas = bolt.classify(node);
 			
 			// It does no harm to cache elem here while we have it. It's
 			// used later by the activate event.
@@ -187,19 +170,159 @@
 			};
 		}
 
-		e.preventDefault();
-		preventClick(e);
+		return data;
+	}
 
-		if (!bolt.has(clas, 'activate')) { return; }
+	function activateHref(e, fn) {
+		var id, node, name, data, elem, clas;
 
-		if (data.active === undefined ?
-				elem.hasClass('active') :
-				data.active ) {
-			return;
-		}
+		if (isIgnorable(e)) { return; }
 
-		trigger(target, { type: 'activate', relatedTarget: e.currentTarget });
+		id = e.currentTarget.getAttribute('data-href').substring(1);
+		node = document.getElementById(id);
+		
+		// This link does not point to an id in the DOM. No action required.
+		if (!node) { return; }
+
+		data = boltData(node);
+
+		if (!data) { return; }
+		
+		//if (!bolt.has(clas, 'activate')) { return; }
+
+		fn(node, data);
+	}
+
+	function activateHash(e, fn) {
+		var id, node, data, elem, clas;
+		
+		if (isIgnorable(e)) { return; }
+		
+		if (isExternalLink(e)) { return; }
+
+		id = e.currentTarget.hash.substring(1);
+		node = document.getElementById(id);
+		
+		// This link does not point to an id in the DOM. No action required.
+		if (!node) { return; }
+
+		data = boltData(node);
+
+		if (!data) { return; }
+
+		fn(node, data);
+	}
+
+	function activateTarget(e) {
+		var target = e.currentTarget.target;
+		
+		if (isIgnorable(e)) { return; }
+		
+		// If the target is not listed, ignore
+		if (!targets[target]) { return; }
+		
+		if (e.type === 'mousedown') { preventClick(e); }
+		
+		return targets[target](e);
+	}
+
+	function changeHref(e) {
+		activateHref(e, function(node, data) {
+			if (e.target.checked) {
+				trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
+			}
+			else {
+				trigger(node, { type: 'deactivate', relatedTarget: e.currentTarget });
+			}	
+		});
+	}
+
+	function mousedownHref(e) {
+		// We have change handlers to listen to inputs
+		if (e.target.tagName.toLowerCase() === 'input') { return; }
+
+		activateHref(e, function(node, data) {
+			e.preventDefault();
+			
+			if (e.type === 'mousedown') {
+				preventClick(e);
+			}
+	
+			//if (!bolt.has(clas, 'activate')) { return; }
+	
+			if (data.active === undefined ?
+					data.bolt.elem.hasClass('active') :
+					data.active ) {
+				return;
+			}
+	
+			trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
+		});
+	}
+
+	function mousedownHash(e) {
+		activateHash(e, function(node, data) {
+			e.preventDefault();
+			
+			if (e.type === 'mousedown') {
+				preventClick(e);
+			}
+	
+			if (!bolt.has(data.bolt['class'], 'activate')) { return; }
+	
+			if (data.active === undefined ?
+					data.bolt.elem.hasClass('active') :
+					data.active ) {
+				return;
+			}
+	
+			trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
+		});
+	}
+	
+	
+	// Run jQuery without aliasing it to $
+	jQuery.noConflict();
+	
+	
+	doc
+	
+	// Remove loading classes from document element
+	.ready(function() {
+		docElem.removeClass('notransition loading');
 	})
+	
+	// Select boxes that act as navigation
+	.on('change', '.nav_select', function(e) {
+		var value = e.currentTarget.value;
+		window.location = value;
+	})
+	
+	// Clicks on close buttons deactivate the thing they are inside
+	.on('click tap', '.close_thumb, .close_button, .cancel_button', function(e) {
+		var elem = jQuery(e.currentTarget).closest('.popdown, .dialog_layer');
+		
+		if (!elem.length) { return; }
+		
+		elem.trigger({
+			type: 'deactivate',
+			relatedTarget: e.currentTarget
+		});
+		
+		e.preventDefault();
+	})
+
+	// Mousedown on buttons toggle activate on their targets
+	.on('mousedown tap keydown', 'a[target]', activateTarget)
+
+	// Changing input[data-href] controls target
+	.on('change valuechange', '[data-href]', changeHref)
+
+	// Mousedown on buttons toggle activate on their hrefs
+	.on('mousedown tap keydown', '[data-href]', mousedownHref)
+
+	// Mousedown on buttons toggle activate on their hash
+	.on('mousedown tap keydown', 'a[href]', mousedownHash)
 
 	// Mouseover on tip links toggle activate on their targets
 	.on('mouseover mouseout tap focusin focusout', 'a[href^="#"], [data-tip]', function(e) {
@@ -256,7 +379,7 @@
 
 		// If it has not the class 'tip', we have no business trying to
 		// activate it on hover.
-		if (clas !== 'tip') { return; }
+		if (clas !== 'tip' && clas !== 'top_tip') { return; }
 
 		// Tap events should make tips show immediately
 		if (e.type === 'tap') {

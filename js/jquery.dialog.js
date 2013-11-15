@@ -53,8 +53,7 @@
 	    roles = {
 	    	_default: function(elem, options) {
 	    		var box = jQuery('<div/>', {
-	    		    	'class': options['class'] || 'dialog',
-	    		    	'css': options.css
+	    		    	'class': options['class'] || 'dialog'
 	    		    });
 
 	    		return box.html(elem);
@@ -62,8 +61,7 @@
 
 	    	slides: function(elem, options) {
 					var box = jQuery('<div/>', {
-					    	'class': options['class'] || 'slides_dialog dialog',
-					    	'css': options.css
+					    	'class': options['class'] || 'slides_dialog dialog'
 					    }),
 					
 					    button = jQuery.fn.dialog.closeButton.clone();
@@ -73,8 +71,7 @@
 
 	    	lightbox: function(elem, options) {
 					var box = jQuery('<div/>', {
-					    	'class': options['class'] || 'lightbox_dialog dialog',
-					    	'css': options.css
+					    	'class': options['class'] || 'lightbox_dialog dialog'
 					    }),
 					    
 					    button = jQuery.fn.dialog.closeButton.clone();
@@ -84,8 +81,7 @@
 
 	    	alert: function(elem, options) {
 	    		var box = jQuery('<div/>', {
-	    		    	'class': options['class'] || 'alert_dialog dialog',
-	    		    	'css': options.css
+	    		    	'class': options['class'] || 'alert_dialog dialog'
 	    		    }),
 
 	    		    actions = '<ul class="actions_index index">' +
@@ -97,8 +93,7 @@
 
 	    	confirm: function(elem, options) {
 	    		var box = jQuery('<div/>', {
-	    		    	'class': options['class'] || 'confirm_dialog dialog',
-	    		    	'css': options.css
+	    		    	'class': options['class'] || 'confirm_dialog dialog'
 	    		    }),
 
 	    		    actions = '<ul class="actions_index index">' +
@@ -146,12 +141,15 @@
 		options = jQuery.extend({}, options);
 
 		dialog = jQuery('<div/>', {
-			'class': options.layerClass || ((role ? (role + '_dialog_layer dialog_layer') : 'dialog_layer') + ' layer'),
-			'css': options.layerCss
+			'class': options.layerClass || ((role ? (role + '_dialog_layer dialog_layer') : 'dialog_layer') + ' layer')
 		});
 
 		box = roles[role || '_default'](this, options);
-
+		
+		box
+		.attr('tabindex', '-1')
+		.attr('role', 'dialog');
+		
 		dialog
 		.html(box)
 		.appendTo('body')
@@ -160,12 +158,6 @@
 		// data.elem is also used by jquery.event.activate. Might
 		// as well keep it.
 		.data('elem', dialog)
-//		.data('active', {
-//			elem: dialog,
-//			dialogLayer: dialog,
-//			dialogBox: box,
-//			'class': role ? (role + '_dialog_layer') : 'dialog_layer'
-//		})
 		.trigger({ type: 'activate', relatedTarget: options.relatedTarget });
 
 		return dialog;
@@ -179,7 +171,7 @@
 	// and have the browser parse it, IE7 cocks up the href, adding the whole
 	// path in front of it first. Not what we want.
 	jQuery.fn.dialog.closeButton = jQuery('<a/>', {
-		'class': "close_button button",
+		'class': "close_thumb thumb",
 		'href': "#close",
 		'html': text.close
 	});

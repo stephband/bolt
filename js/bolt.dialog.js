@@ -12,7 +12,9 @@
 		module(jQuery, jQuery.bolt);
 	}
 })(function(jQuery, bolt, undefined){
-	var docElem = jQuery(document.documentElement),
+	var debug = window.console && console.log,
+
+	    docElem = jQuery(document.documentElement),
 
 	    win = jQuery(window),
 
@@ -27,6 +29,30 @@
 	    resizeEvent = ("onorientationchange" in window) ? "orientationchange" : "resize" ,
 	    
 	    count = 0;
+
+	var mapkey = (function(codes){
+	    	return function(e) {
+	    		var code = codes[e.keyCode]
+	    		    fn = e.data && e.data[code];
+	    		
+	    		if (debug) console.log('[bolt.dialog] mapkey', e.keyCode, code);
+	    		
+	    		if (fn) {
+	    			fn(document.activeElement);
+	    			e.preventDefault();
+	    		}
+	    	}
+	    })({
+	    	8:  'backspace',
+	    	9:  'tab',
+	    	13: 'enter',
+	    	27: 'escape',
+	    	37: 'left',
+	    	38: 'up',
+	    	39: 'right',
+	    	40: 'down',
+	    	46: 'delete'
+	    });
 
 	function preventDefault(e) {
 		e.preventDefault();
@@ -71,6 +97,48 @@
 
 		// Enable gestures on touch devices
 		remove(document, 'touchmove', preventDefaultOutside);
+	}
+	
+	function trapFocus(node, focusNode) {
+		// Trap focus as described by Nikolas Zachas:
+		// http://www.nczonline.net/blog/2013/02/12/making-an-accessible-dialog-box/
+		
+		// Find the first focusable thing.
+		var firstNode = jQuery('[tabindex], a, input, textarea, button', node)[0];
+		
+		function preventFocus(e) {
+			// If trying to focus outside node, set the focus back
+			// to the first thing inside.
+			if (!node.contains(e.target)) {
+				e.stopPropagation();
+				firstNode.focus();
+			}
+		}
+		
+		setTimeout(function() { firstNode.focus(); }, 0);
+		
+		// Prevent focus in capture phase
+		if (document.addEventListener) {
+			document.addEventListener("focus", preventFocus, true);
+		}
+		
+		add(node, 'deactivate', function deactivate() {
+			// Set focus back to the thing that was last focused when the
+			// dailog was opened.
+			setTimeout(function() { focusNode.focus(); }, 0);
+			remove(node, 'deactivate', deactivate);
+			
+			if (document.addEventListener && document.removeEventListener) {
+				document.removeEventListener('focus', preventFocus);
+			}
+		});
+	}
+	
+	function deactivateFocus(e) {
+		var focusNode = e.data;
+		
+		focusNode.focus();
+		remove(e.target, 'deactivate', deactivateFocus);
 	}
 
 	function preventDefaultOutside(e) {
@@ -154,7 +222,7 @@
 
 		maxHeight(data);
 	}
-
+	
 	bolt('slides_dialog_layer', {
 		activate: function(e, data, fn) {
 			var slides = jQuery('.slide', e.target),
@@ -176,12 +244,16 @@
 
 			count++;
 			disableScroll(e.target);
+			trapFocus(e.target, document.activeElement);
 
 			add(e.target, 'click.dialog tap.dialog', click);
 			add(e.target, 'click.dialog tap.dialog', close, 'close', '.close_button');
 			add(e.target, 'click.dialog tap.dialog', prev, slides, '.prev_button');
 			add(e.target, 'click.dialog tap.dialog', next, slides, '.next_button');
 			add(window, resizeEvent + '.dialog_' + count, rescale, data);
+			add(document, 'keyup.dialog' + count, mapkey, {
+				'escape': function() { data.elem.trigger('deactivate'); }
+			});
 			
 			data.elem.addClass('notransition');
 			maxHeight(data);
@@ -197,6 +269,7 @@
 			remove(e.target, 'click tap', prev);
 			remove(e.target, 'click tap', next);
 			remove(window, resizeEvent + '.dialog_' + count, rescale);
+			remove(document, 'keyup.dialog' + count, mapkey);
 
 			fn();
 		},
@@ -206,17 +279,23 @@
 
 	bolt('lightbox_dialog_layer', {
 		activate: function(e, data, fn) {
+			count++;
 			add(e.target, 'click.dialog tap.dialog', click);
 			add(e.target, 'click.dialog tap.dialog', close, 'close', '.close_button');
+			add(document, 'keyup.dialog' + count, mapkey, {
+				'escape': function() { data.elem.trigger('deactivate'); }
+			});
+			
 			disableScroll(e.target);
 			disableActivate(e.target);
-			count++;
+			trapFocus(e.target, document.activeElement);
 			fn();
 		},
 
 		deactivate: function(e, data, fn) {
 			remove(e.target, 'click tap', click);
 			remove(e.target, 'click tap', close);
+			remove(document, 'keyup.dialog' + count, mapkey);
 			fn();
 		},
 
@@ -225,9 +304,10 @@
 
 	bolt('alert_dialog_layer', {
 		activate: function(e, data, fn) {
+			count++;
 			add(e.target, 'click.dialog tap.dialog', close, 'confirm', '.confirm_button');
 			disableScroll(e.target);
-			count++;
+			trapFocus(e.target, document.activeElement);
 			fn();
 		},
 
@@ -241,15 +321,22 @@
 
 	bolt('confirm_dialog_layer', {
 		activate: function(e, data, fn) {
+			count++;
 			add(e.target, 'click.dialog tap.dialog', close, 'close', '.cancel_button');
 			add(e.target, 'click.dialog tap.dialog', close, 'confirm', '.confirm_button');
+			add(document, 'keyup.dialog' + count, mapkey, {
+				'escape': function() { data.elem.trigger('deactivate'); }
+			});
+			
 			disableScroll(e.target);
-			count++;
+			trapFocus(e.target, document.activeElement);
+			
 			fn();
 		},
 
 		deactivate: function(e, data, fn) {
 			remove(e.target, 'click tap', close);
+			remove(document, 'keyup.dialog' + count, mapkey);
 			fn();
 		},
 
@@ -258,14 +345,21 @@
 
 	bolt('dialog_layer', {
 		activate: function(e, data, fn) {
-			add(e.target, 'click.dialog tap.dialog', click);
-			disableScroll(e.target);
 			count++;
+			add(e.target, 'click.dialog tap.dialog', click);
+			add(document, 'keyup.dialog' + count, mapkey, {
+				'escape': function() { data.elem.trigger('deactivate'); }
+			});
+			
+			disableScroll(e.target);
+			trapFocus(e.target, document.activeElement);
+			
 			fn();
 		},
 		
 		deactivate: function(e, data, fn) {
 			remove(e.target, 'click tap', click);
+			remove(document, 'keyup.dialog' + count, mapkey);
 			fn();
 		},
 

@@ -11,6 +11,14 @@
 })(function(jQuery, undefined){
 	var doc = jQuery(document);
 	
+	function setImmediate(fn) {
+		setTimeout(fn, 0);
+	}
+	
+	function thru(value) {
+		return value;
+	}
+	
 	function fieldData(target) {
 		var data = jQuery.data(target, 'field'),
 		    field, name;
@@ -82,19 +90,32 @@
 		view.wrap.prepend(html);
 	}
 	
+	function updateRadioLabel() {
+		var node = this,
+		    data = fieldData(node);
+		
+		if (this.checked) {
+		    data.label.addClass('on');
+		}
+		else {
+		    data.label.removeClass('on');
+		}
+	}
+	
+	
 	doc
 	
 	// Readonly inputs have their text selected when you click
 	// on them.
 	
-	.delegate('input[readonly]', 'focus click', function(e) {
+	.on('focus click', 'input[readonly]', function(e) {
 		jQuery(e.currentTarget).select();
 	})
 	
 	// Extend the events emitted by input[type='range']
 	// nodes with changestart and changeend events.
 	
-	.delegate('input[type="range"]', 'mousedown touchstart', (function(){
+	.on('mousedown touchstart', 'input[type="range"]', (function(){
 		var endTypes = {
 			mousedown: 'mouseup',
 			touchstart: 'touchend'
@@ -120,8 +141,7 @@
 	})())
 	
 	// Global form validation
-	
-	.delegate( 'input, textarea', 'change', function(e) {
+	.on('change', 'input, textarea', function(e) {
 		// Don't make this script require jQuery.fn.validate
 		if (!jQuery.fn.validate) { return; }
 		
@@ -129,54 +149,64 @@
 			fail: function(){ e.preventDefault(); }
 		});
 	})
+
+	.on('valuechange', 'input, textarea', function(e) {
+		// Don't make this script require jQuery.fn.validate
+		if (!jQuery.fn.validate) { return; }
+		
+		jQuery(this).validate(true);
+	})
+
+	.on('input', 'input, textarea', function(e) {
+		jQuery.event.trigger('valuechange', null, e.target);
+	})
 	
 	// Active classes for radio input labels
-	
-	.delegate('input[type="radio"]', 'change', function(e){
+	.on('change valuechange', 'input[type="radio"]', function(e){
 		var data = fieldData(e.target);
 		
 		if (data.fields) {
-			data.fields.trigger('statechange');
+			data.fields.each(updateRadioLabel);
 		}
 	})
-	
-	.delegate('input[type="radio"]', 'statechange', function(e) {
-		var data = fieldData(e.target);
-		
-		if (data.field.prop('checked')) {
-			data.label.addClass('active');
-		}
-		else {
-			data.label.removeClass('active');
-		}
-	})
+
+	// I have the impression that this does the same thing...
+//	.on('change', '[type="radio"]', function(e) {
+//		var name = e.target.name;
+//
+//		jQuery('[name="'+name+'"]')
+//		.not(e.target)
+//		.trigger({type: 'valuechange', checked: e.target});
+//	})
 	
 	// Active classes for checkbox input labels
-	
-	.delegate('input[type="checkbox"]', 'change', function(e) {
+	.on('change valuechange', 'input[type="checkbox"]', function(e) {
 		var data = fieldData(e.target);
 		
 		if (data.field.prop('checked')) {
-			data.label.addClass('active');
+			data.label.addClass('on');
 		}
 		else {
-			data.label.removeClass('active');
+			data.label.removeClass('on');
 		}
 	})
 	
+	// For browsers that don't understand it, prevent changes on
+	// disabled form elements.
+	.on('change', '[disabled]', function(e) {
+		// The nuclear approach
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
+	})
+
 	// Value display for select boxes that are wrapped in buttons
 	// for style. The value is set as the content of the button.
-	.on('change', '.button > select', function(e) {
+	.on('change valuechange', '.button > select', function(e) {
 		populateSelect(e.target);
 	})
-	
-	// Value display for file inputs that are wrapped in buttons
-	// for style. Value is set as the text content of the button.
-	.on('change', '.button > input[type="file"]', function(e) {
-		updateFileLabel(e.target);
-	})
-	
-	.on('focusin focusout', '.button > select', function(e) {
+
+	.on('focusin focusout', '.button > select, .button > input', function(e) {
 		var view = fieldData(e.target);
 		
 		if (e.type === 'focusin') {
@@ -186,10 +216,52 @@
 			view.wrap.removeClass('focus');
 		}
 	})
+
+	// Value display for file inputs that are wrapped in buttons
+	// for style. Value is set as the text content of the button.
+	.on('change valuechange', '.button > input[type="file"]', function(e) {
+		updateFileLabel(e.target);
+	})
+
+	// If a form is reset, trigger a re-evaluation of the values
+	// of custom form elements.
+	.on('reset', 'form', function(e) {
+		if (e.isDefaultPrevented()) { return; }
+		
+		var fields = jQuery('input, textarea, select', e.target);
+		
+		function reset() {
+			fields.trigger('valuechange');
+		}
+		
+		setImmediate(reset);
+	})
 	
 	.ready(function() {
 		jQuery('.button > select').each(function() {
 			populateSelect(this);
+		});
+		
+		jQuery('input:checked').each(function() {
+			var data = fieldData(this);
+			data.label.addClass('on');
+		});
+		
+		// Loop over .error_labels already in the DOM, and listen for
+		// changes on their associated inputs to remove them.
+		jQuery('.error_label').each(function(i, label) {
+			var id = label.getAttribute('for');
+			
+			if (!id) { return; }
+			
+			var input = jQuery('#' + id);
+			
+			function remove() {
+				input.off('change valuechange', remove);
+				label.parentNode.removeChild(label);
+			}
+			
+			input.on('change valuechange', remove);
 		});
 	});
 });

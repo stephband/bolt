@@ -9,8 +9,20 @@
 })(function(jQuery, undefined) {
 	var node;
 
-	jQuery.fn.scrollTo = function() {
+	if (!jQuery.easing['ease-out']) {
+		// eaeOutQuad
+		jQuery.easing['ease-out'] = function (x, t, b, c, d) {
+			return -c *(t/=d)*(t-2) + b;
+		};
+	}
+
+	jQuery.fn.scrollTo = function(fn) {
 		var elem = this,
+		    options = {
+		    	duration: 600,
+		    	easing: 'ease-out',
+		    	done: fn
+		    },
 		    offset, obj;
 
 		if (elem.length === 0) { return this; }
@@ -31,11 +43,11 @@
 		obj = {'scrollTop': offset.top - 48};
 
 		if (node) {
-			node.animate(obj, 400, 'ease-out');
+			node.animate(obj, options);
 		}
 		else {
-			jQuery(document.documentElement).animate(obj, 400, 'ease-out');
-			jQuery(document.body).animate(obj, 400, 'ease-out');
+			jQuery(document.documentElement).animate(obj, options);
+			jQuery(document.body).animate(obj, options);
 		}
 
 		return this;
