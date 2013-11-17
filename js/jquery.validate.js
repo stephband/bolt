@@ -357,13 +357,12 @@
 		return this.each(function validate() {
 			var tagName = this.nodeName.toLowerCase();
 			
-			if (tagName === 'form') {
-				validateForm(this, options);
-				return;
-			}
-	
 			if (tagName === 'input' || tagName === 'textarea') {
 				validateInput(this, options);
+				return;
+			}
+			else {
+				validateForm(this, options);
 				return;
 			}
 		});
