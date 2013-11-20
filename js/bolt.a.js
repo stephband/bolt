@@ -63,11 +63,14 @@
 			elem.dialog('lightbox');
 			
 			dialog = elem.parent();
-			dialog.addLoadingIcon();
 			
-			elem.on('load', function() {
-				dialog.removeLoadingIcon();
-			});
+			if (dialog.addLoadingIcon) {
+				dialog.addLoadingIcon();
+				
+				elem.on('load', function() {
+					dialog.removeLoadingIcon();
+				});
+			}
 
 			node.src = href;
 
