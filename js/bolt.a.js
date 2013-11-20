@@ -26,11 +26,16 @@
 	    
 	    targets = {
 	    	dialog: function(e) {
-	    		var href = e.currentTarget.getAttribute('data-href') || e.currentTarget.hash,
-	    		    id = href.substring(1),
-	    		    node;
+	    		var href = e.currentTarget.getAttribute('data-href') || e.currentTarget.hash || e.currentTarget.href;
+	    		var id = href.substring(1);
+	    		var node, parts, item;
 	    		
 	    		if (!id) { return loadResource(e, href); }
+	    		
+	    		if (parts = /([\w-]+)\/([\w-]+)/.exec(id)) {
+	    			id = parts[1];
+	    			console.log(parts);
+	    		}
 	    		
 	    		node = document.getElementById(id);
 	    		
@@ -46,6 +51,18 @@
 	    		}
 	    		
 	    		jQuery(node).dialog('lightbox');
+	    		
+	    		if (parts) {
+	    			item = jQuery('#' + parts[2]);
+	    			
+	    			item
+	    			.addClass('notransition')
+	    			.trigger('activate')
+	    			.width();
+	    			
+	    			item
+	    			.removeClass('notransition');
+	    		}
 	    	}
 	    };
 	
