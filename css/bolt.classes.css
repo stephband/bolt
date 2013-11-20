@@ -879,6 +879,7 @@ button.loading,
 
 /* Transitions */
 
+.js .tip,
 .js .tab,
 .js .slide,
 .js .layer,
@@ -1005,19 +1006,24 @@ button.loading,
 	}
 }
 
-/* Transitions - .popdown, .dropdown */
+/* Transitions - .popdown, .dropdown, .tip */
 
-.popdown,
-.dropdown {
-	top: 2em;
+.js .tip,
+.js .popdown,
+.js .dropdown {
 	opacity: 0;
 	visibility: hidden;
 	
-	-webkit-transition-property: opacity, top, visibility;
-	   -moz-transition-property: opacity, top, visibility;
-	    -ms-transition-property: opacity, top, visibility;
-	     -o-transition-property: opacity, top, visibility;
-	        transition-property: opacity, top, visibility;
+	-webkit-transition-property: opacity, visibility, transform;
+	   -moz-transition-property: opacity, visibility, transform;
+	    -ms-transition-property: opacity, visibility, transform;
+	     -o-transition-property: opacity, visibility, transform;
+	        transition-property: opacity, visibility, transform;
+}
+
+.js .popdown,
+.js .dropdown {
+	top: 2em;
 
 	-webkit-transition-duration: 180ms;
 	   -moz-transition-duration: 180ms;
@@ -1032,12 +1038,21 @@ button.loading,
 	        transition-timing-function: ease-out;
 }
 
-.popdown.active,
-.dropdown.active {
-	top: 2.3333em;
+.js .tip.active,
+.js .popdown.active,
+.js .dropdown.active {
 	opacity: 1;
 	visibility: visible;
-	
+}
+
+.js .popdown.active,
+.js .dropdown.active {
+	-webkit-transform: translate3d(0, 0.3333rem, 0);
+	   -moz-transform: translate3d(0, 0.3333rem, 0);
+	    -ms-transform:   translate(0, 0.3333rem, 0);
+	     -o-transform: translate3d(0, 0.3333rem, 0);
+	        transform: translate3d(0, 0.3333rem, 0);
+
 	-webkit-transition-duration: 60ms;
 	   -moz-transition-duration: 60ms;
 	    -ms-transition-duration: 60ms;
@@ -1051,28 +1066,17 @@ button.loading,
 	        transition-timing-function: ease-in;
 }
 
-
-/* .tip */
-
-.js .tip {
-	position: absolute;
-	
+.tip {
 	padding-top: 0.33em;
 	padding-bottom: 0.33em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
 	max-width: 20em;
-	
-	visibility: hidden;
-	opacity: 0;
-	margin-top: 0;
+}
+
+.js .tip {
+	position: absolute;
 	z-index: 1;
-	
-	-webkit-transition-property: opacity, visibility, margin-top;
-	   -moz-transition-property: opacity, visibility, margin-top;
-	    -ms-transition-property: opacity, visibility, margin-top;
-	     -o-transition-property: opacity, visibility, margin-top;
-	        transition-property: opacity, visibility, margin-top;
 
 	-webkit-transition-duration: 120ms;
 	   -moz-transition-duration: 120ms;
@@ -1088,15 +1092,14 @@ button.loading,
 }
 
 .js .tip.active {
-	/* The inline-block technique overlays tabs on top of one another
-	   but still allows the height of the blocks to stay in the flow.
-	   It's better than using position: absolute. It rocks. */
-	
-	visibility: visible;
-	opacity: 1;
-	margin-top: -0.2667em;
 	z-index: 2;
-	
+
+	-webkit-transform: translate3d(0, -0.25rem, 0);
+	   -moz-transform: translate3d(0, -0.25rem, 0);
+	    -ms-transform:   translate(0, -0.25rem, 0);
+	     -o-transform: translate3d(0, -0.25rem, 0);
+	        transform: translate3d(0, -0.25rem, 0);
+
 	-webkit-transition-timing-function: ease-out;
 	   -moz-transition-timing-function: ease-out;
 	    -ms-transition-timing-function: ease-out;
