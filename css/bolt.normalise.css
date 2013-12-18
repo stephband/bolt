@@ -200,6 +200,11 @@ th {
 	vertical-align: top;
 }
 
+th,
+td {
+	padding: 0;
+}
+
 [hidden] {
 	/* styling for 'hidden' attribute not present in IE7/8/9, FF3, S4. */
 	display: none;
