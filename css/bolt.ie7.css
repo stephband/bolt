@@ -38,6 +38,9 @@ input[type="radio"] {
 
 img { -ms-interpolation-mode: bicubic; }
 
+.block {
+  zoom: 1;
+}
 
 /* horizontal
     
