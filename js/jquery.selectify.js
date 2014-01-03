@@ -10,18 +10,18 @@
 	
 	jQuery.fn.selectify = function( options ){
 		var select = jQuery('<select/>'),
-				populated = false,
-				selected = false,
-				option = jQuery('<option/>');
-		
-		select.html(
-			option.html((options && options.message) || 'Choisir une catŽgorie')
-		);
+		    populated = false,
+		    selected = false,
+		    option = jQuery('<option/>');
+
+		//select.html(
+		//	option.html((options && options.message) || 'Choisir une categorie')
+		//);
 		
 		this.children().each(function(i){
 			var item = jQuery(this).children('a').eq(0),
-					current = jQuery(this).is( options.currentSelector || '.active' ),
-					option = jQuery('<option/>');
+			    current = item.is(options && options.currentSelector || '.on'),
+			    option = jQuery('<option/>');
 			
 			select.append(
 				option
@@ -38,12 +38,13 @@
 		});
 		
 		doc
-		.undelegate('select', '.selectify')
-		.delegate('select', 'change.selectify', function(e){
+		.off('change.selectify')
+		.on('change.selectify', 'select', function(e){
+			if (e.currentTarget !== select[0]) { return; }
 			var target = jQuery(e.target);
 			window.location = target.val();
 		});
 		
-		return populated ? select : jQuery('') ;
+		return populated ? select : jQuery([]) ;
 	};
 })( jQuery );
