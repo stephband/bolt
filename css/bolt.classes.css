@@ -652,6 +652,11 @@ button {
 	/* And they don't automatically inherit font styles. */
 	font-size: inherit;
 	font-family: inherit;
+
+	-webkit-hyphens: none;
+	   -moz-hyphens: none;
+	    -ms-hyphens: none;
+	        hy­phens: none;
 }
 
 .button:hover,
