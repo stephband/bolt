@@ -9,13 +9,6 @@ body {
 
 	/* Enable kerning in FF and WebKit. */
 	text-rendering: optimizeLegibility;
-
-	/* Enable hyphens for less ragging at line ends.
-	   https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens */
-	-webkit-hyphens: auto;
-	   -moz-hyphens: auto;
-	    -ms-hyphens: auto;
-	        hy­phens: auto;
 }
 
 pre,
