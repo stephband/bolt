@@ -193,6 +193,24 @@
 		return data;
 	}
 
+	function activate(e, node, data) {
+		e.preventDefault();
+		
+		if (e.type === 'mousedown') {
+			preventClick(e);
+		}
+	
+		if (!bolt.has(data.bolt['class'], 'activate')) { return; }
+	
+		if (data.active === undefined ?
+				data.bolt.elem.hasClass('active') :
+				data.active ) {
+			return;
+		}
+	
+		trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
+	}
+
 	function activateHref(e, fn) {
 		var id, node, name, data, elem, clas;
 
@@ -214,7 +232,7 @@
 	}
 
 	function activateHash(e, fn) {
-		var id, node, data, elem, clas;
+		var id, node, data;
 		
 		if (isIgnorable(e)) { return; }
 		
@@ -230,7 +248,7 @@
 
 		if (!data) { return; }
 
-		fn(node, data);
+		fn(e, node, data);
 	}
 
 	function activateTarget(e) {
@@ -281,25 +299,8 @@
 	}
 
 	function mousedownHash(e) {
-		activateHash(e, function(node, data) {
-			e.preventDefault();
-			
-			if (e.type === 'mousedown') {
-				preventClick(e);
-			}
-	
-			if (!bolt.has(data.bolt['class'], 'activate')) { return; }
-	
-			if (data.active === undefined ?
-					data.bolt.elem.hasClass('active') :
-					data.active ) {
-				return;
-			}
-	
-			trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
-		});
+		activateHash(e, activate);
 	}
-	
 	
 	// Run jQuery without aliasing it to $
 	jQuery.noConflict();
