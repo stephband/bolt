@@ -26,9 +26,11 @@
 	    
 	    targets = {
 	    	dialog: function(e) {
-	    		var href = e.currentTarget.getAttribute('data-href') || e.currentTarget.hash,
+	    		var href = e.currentTarget.getAttribute('data-href') || e.currentTarget.hash || e.currentTarget.href,
 	    		    id = href.substring(1),
 	    		    node;
+	    		
+	    		alert(href);
 	    		
 	    		if (!id) { return loadResource(e, href); }
 	    		
@@ -76,16 +78,23 @@
 
 		if (rYouTube.test(link.hostname)) {
 			e.preventDefault();
-			
+
 			// We don't need a loading indicator because youtube comes with
 			// it's own.
 			elem = jQuery('<iframe class="youtube_iframe" width="560" height="315" src="' + href + '" frameborder="0" allowfullscreen></iframe>');
-			node = elem[0];
-
 			elem.dialog('lightbox');
 
 			return;
 		}
+		
+		e.preventDefault();
+		elem = jQuery('<iframe/>', {
+			src: href,
+			frameborder: 0,
+			width: link.getAttribute('data-width'),
+			height: link.getAttribute('data-height')
+		});
+		elem.dialog('lightbox');
 	}
 	
 	function prefixSlash(str) {
