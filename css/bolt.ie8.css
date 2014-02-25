@@ -40,3 +40,7 @@ input.hidden,
      to make opacity work. */
   filter: inherit;
 }
+
+.dialog_layer {
+	background-repeat: repeat;
+}
