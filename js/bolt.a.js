@@ -30,8 +30,6 @@
 	    		    id = href.substring(1),
 	    		    node;
 	    		
-	    		alert(href);
-	    		
 	    		if (!id) { return loadResource(e, href); }
 	    		
 	    		node = document.getElementById(id);
