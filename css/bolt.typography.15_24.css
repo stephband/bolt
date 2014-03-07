@@ -31,7 +31,7 @@ h4                { word-spacing: -0.0833em; font-size: 1.0667em; line-height: 1
 h5                { word-spacing: -0.0833em; font-size: 1em; }
 h6                { word-spacing: -0.0833em; font-size: 1em; }
 
-p                 { margin-bottom: 0.8em; }
+p                 { margin-bottom: 0; margin-top:  0;}
 
 fieldset          { margin-bottom: 1.6em; }
 
