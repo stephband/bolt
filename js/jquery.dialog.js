@@ -84,7 +84,7 @@
 	    		    	'class': options['class'] || 'alert_dialog dialog'
 	    		    }),
 
-	    		    actions = '<ul class="actions_index index">' +
+	    		    actions = '<ul class="action-index index">' +
 	    		    	'<li><button class="confirm_button button">' + text.ok + '</button></li>' +
 	    		    	'</ul>';
 
@@ -96,7 +96,7 @@
 	    		    	'class': options['class'] || 'confirm_dialog dialog'
 	    		    }),
 
-	    		    actions = '<ul class="actions_index index">' +
+	    		    actions = '<ul class="action-index index">' +
 	    		    	'<li><a class="cancel_button button" href="#cancel">' + text.cancel + '</a></li>' +
 	    		    	'<li><a class="confirm_button button" href="#confirm">' + text.ok + '</a></li>' +
 	    		    	'</ul>';
