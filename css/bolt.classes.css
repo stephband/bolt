@@ -488,6 +488,10 @@
 	-webkit-user-drag: element;
 }
 
+a.card:hover {
+	text-decoration: none;
+}
+
 .card > .thumb {
 	/* Cards have thumbs. Put them on the left by default. */
 	position: absolute;
