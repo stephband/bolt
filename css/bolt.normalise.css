@@ -164,6 +164,12 @@ img {
 	-ms-interpolation-mode: bicubic;
 }
 
+svg {
+	/* Make SVGs fill to the color of their parents by default. */
+	fill: currentColor;
+	stroke-color: currentColor;
+}
+
 svg:not(:root) {
 	/* Overflow displayed oddly in IE9 */
 	overflow: hidden;
@@ -198,11 +204,6 @@ table,
 td,
 th {
 	vertical-align: top;
-}
-
-th,
-td {
-	padding: 0;
 }
 
 [hidden] {
