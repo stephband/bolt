@@ -165,9 +165,10 @@ img {
 }
 
 svg {
-	/* Make SVGs fill to the color of their parents by default. */
+	/* Make SVGs fill and stroke to the color of their parents by default. */
 	fill: currentColor;
 	stroke: currentColor;
+	stroke-width: 0;
 }
 
 svg:not(:root) {
