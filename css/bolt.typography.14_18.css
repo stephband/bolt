@@ -33,8 +33,7 @@ h4                { word-spacing: -0.0714em; font-size: 1em; }
 h5                { word-spacing: -0.0714em; font-size: 1em; }
 h6                { word-spacing: -0.0714em; font-size: 1em; }
 
-p                 { margin-bottom: 1.2857em; }
-p:last-child      { margin-bottom: 0; }
+p                 { margin-top: 0.75rem; margin-bottom: 0; }
 
 /* Make first letter different */
 /*p::first-letter   { font-size: 2em; float: left;  }
@@ -50,7 +49,7 @@ li,
 dt,
 dd,
 blockquote,
-address           { word-spacing: 0.0714em; }
+address           { word-spacing: 0; }
 
 dd                { margin: 0; }
 

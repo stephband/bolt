@@ -491,6 +491,10 @@
 	-webkit-user-drag: element;
 }
 
+a.card:hover {
+	text-decoration: none;
+}
+
 .card > .thumb {
 	/* Cards have thumbs. Put them on the left by default. */
 	position: absolute;
@@ -645,6 +649,19 @@
 	opacity: 1;
 }
 
+.select-thumb {}
+
+.select-thumb:after {
+    content: '▼';
+    position: absolute;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    bottom: 0;
+    right: 0;
+    opacity: 0.25;
+    z-index: 1;
+}
+
 
 /* .button */
 
@@ -746,6 +763,7 @@ button.loading,
    the select, as that would remove the ability to see
    the current value. */
 
+.thumb > select,
 .button > select,
 .button > input[type="file"],
 .button > input[type="submit"] {
@@ -762,6 +780,7 @@ button.loading,
 	z-index: 2;
 }
 
+.js .thumb > select,
 .js .button > select,
 .js .button > input[type="file"],
 .js .button > input[type="submit"] {
@@ -838,12 +857,12 @@ button.loading,
 	line-height: 1.75rem;
 }
 
-.select_button {
+.select-button {
 	padding-right: 2.25em;
 	text-align: left;
 }
 
-.select_button:after {
+.select-button:after {
   content: '▼';
   display: block;
   position: absolute;
