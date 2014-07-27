@@ -257,6 +257,11 @@ textarea.error:focus {
 	border-color: #659DCB !important;
 }
 
+input[type="range"]:focus {
+	background-color: transparent;
+	box-shadow: none;
+}
+
 input.error,
 textarea.error {
 	/* \9 hack for IE8 and below. */
