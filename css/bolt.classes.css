@@ -693,7 +693,7 @@ button,
 	cursor: pointer;
 	
 	width: auto;
-	height: 2em;
+	height: auto;
 	/* button elements ignore line-height, centering text automaticaly. */
 	line-height: 2em;
 	padding-left: 0.75em;
