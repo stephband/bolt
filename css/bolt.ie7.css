@@ -38,6 +38,9 @@ input[type="radio"] {
 
 img { -ms-interpolation-mode: bicubic; }
 
+.block {
+  zoom: 1;
+}
 
 /* horizontal
     
@@ -61,7 +64,7 @@ img { -ms-interpolation-mode: bicubic; }
 .tab,
 .slide,
 .dialog,
-.row_index > li {
+.inline_index > li {
   /* Uses a technique for getting inline-block behaviour in IE, explained well here:
      http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ */
   display: inline;

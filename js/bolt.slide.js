@@ -39,6 +39,13 @@
 		}
 
 		panes.elem.parent().addClass('notransition');
+		
+		if (panes.next) {
+			panes.next.style.height = 'auto';
+		}
+		if (panes.prev) {
+			panes.prev.style.height = 'auto';
+		}
 	}
 
 	function moveSlide(e) {
@@ -54,7 +61,7 @@
 				panes.next.style.left = (left+100)+'%';
 				//panes.next.style.height = 'auto';
 				}
-				else {
+			else {
 				panes.pane.style.left = left/5 + '%';
 			}
 		}
@@ -64,7 +71,7 @@
 				panes.prev.style.left = (left-100)+'%';
 				//panes.prev.style.height = 'auto';
 				}
-				else {
+			else {
 				panes.pane.style.left = left/5 + '%';
 			}
 		}

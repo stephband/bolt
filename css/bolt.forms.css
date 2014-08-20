@@ -117,6 +117,8 @@ label > [type="radio"] {
 textarea {
 	min-height: 6.6667em;
 	line-height: inherit;
+	/* IE is set to overflow: scroll by default */
+	overflow: auto;
 	/* Switch off resizing (Webkit) by default */
 	resize: none;
 }
@@ -253,6 +255,11 @@ textarea.error:focus {
 			box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
 
 	border-color: #659DCB !important;
+}
+
+input[type="range"]:focus {
+	background-color: transparent;
+	box-shadow: none;
 }
 
 input.error,

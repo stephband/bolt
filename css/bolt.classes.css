@@ -297,6 +297,9 @@
 	
 	/* Make index items act as position parents. */
 	position: relative;
+
+	/* Prepare for inline-block layout. */
+	vertical-align: top;
 }
 
 .index > li:first-child {
@@ -395,7 +398,7 @@
 	vertical-align: top;
 }
 
-.actions_index {
+.action-index {
 	/* Send action buttons over to the right */
 	text-align: right;
 }
@@ -413,7 +416,7 @@
 .tabs_index,
 .dots_index,
 .crumbs_index,
-.actions_index {
+.action-index {
 	/* To form grids with a horizontal index, line-height
 	   needs to be smaller than the items in the index. */
 	line-height: 0;
@@ -423,7 +426,7 @@
 .tabs_index > li,
 .dots_index > li,
 .crumbs_index > li,
-.actions_index > li {
+.action-index > li {
 	display: inline-block;
 	vertical-align: top;
 }
@@ -432,7 +435,7 @@
 .tabs_index > li:first-child,
 .dots_index > li:first-child,
 .crumbs_index > li:first-child,
-.actions_index > li:first-child {
+.action-index > li:first-child {
 	margin-left: 0;
 }
 
@@ -486,6 +489,10 @@
 	
 	/* A card is meant to have drag data attached. */
 	-webkit-user-drag: element;
+}
+
+a.card:hover {
+	text-decoration: none;
 }
 
 .card > .thumb {
@@ -642,6 +649,19 @@
 	opacity: 1;
 }
 
+.select-thumb {}
+
+.select-thumb:after {
+    content: '▼';
+    position: absolute;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    bottom: 0;
+    right: 0;
+    opacity: 0.25;
+    z-index: 1;
+}
+
 
 /* .button */
 
@@ -652,6 +672,11 @@ button {
 	/* And they don't automatically inherit font styles. */
 	font-size: inherit;
 	font-family: inherit;
+
+	-webkit-hyphens: none;
+	   -moz-hyphens: none;
+	    -ms-hyphens: none;
+	        hy­phens: none;
 }
 
 .button:hover,
@@ -668,7 +693,7 @@ button,
 	cursor: pointer;
 	
 	width: auto;
-	height: 2em;
+	height: auto;
 	/* button elements ignore line-height, centering text automaticaly. */
 	line-height: 2em;
 	padding-left: 0.75em;
@@ -738,6 +763,7 @@ button.loading,
    the select, as that would remove the ability to see
    the current value. */
 
+.thumb > select,
 .button > select,
 .button > input[type="file"],
 .button > input[type="submit"] {
@@ -754,6 +780,7 @@ button.loading,
 	z-index: 2;
 }
 
+.js .thumb > select,
 .js .button > select,
 .js .button > input[type="file"],
 .js .button > input[type="submit"] {
@@ -830,12 +857,12 @@ button.loading,
 	line-height: 1.75rem;
 }
 
-.select_button {
+.select-button {
 	padding-right: 2.25em;
 	text-align: left;
 }
 
-.select_button:after {
+.select-button:after {
   content: '▼';
   display: block;
   position: absolute;
