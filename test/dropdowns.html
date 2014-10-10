@@ -93,7 +93,7 @@
 			<li><a class="button" href="#dialog">dialog</a></li>
 			<li><a class="button" href="#alert_dialog">alert dialog</a></li>
 			<li><a class="button" href="#confirm_dialog">confirm dialog</a></li>
-			<li><a class="button" href="#lightbox_dialog">lightbox dialog</a></li>
+			<li><a class="button" href="#lightbox-dialog">lightbox dialog</a></li>
 			<li><a class="button" href="#load">Load</a></li>
 		</ul>
 	</section>
@@ -305,7 +305,7 @@
 			});
 			e.preventDefault();
 		})
-		.delegate('a[href="#lightbox_dialog"]', 'click tap', function(e) {
+		.delegate('a[href="#lightbox-dialog"]', 'click tap', function(e) {
 			jQuery('<p>Lightbox</p>').dialog('lightbox');
 			e.preventDefault();
 		})
