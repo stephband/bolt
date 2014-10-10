@@ -258,7 +258,7 @@
 }
 
 .dialog > .close_button,
-.dialog > ..close-thumb {
+.dialog > .close-thumb {
 	position: absolute;
 	top: -16px;
 	top: -1rem;
