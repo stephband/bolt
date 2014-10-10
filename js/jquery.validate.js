@@ -36,7 +36,7 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined){
-	var debug = (window.console && window.console.log);
+	var debug = (window.console && window.console.log && window.console.groupCollapsed);
 
 	var options = {
 	    	errorClass: "error",

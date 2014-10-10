@@ -1176,7 +1176,7 @@ button.loading,
 /* Utilities */
 
 .hidden {
-	display: none;
+	display: none !important;
 }
 
 .js .disabled {

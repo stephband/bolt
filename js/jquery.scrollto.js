@@ -9,6 +9,13 @@
 })(function(jQuery, undefined) {
 	var node;
 
+	var defaults = {
+	    	duration: 600,
+	    	easing: 'ease-out',
+	    	offset: 48,
+	    	done: undefined
+	    };
+
 	if (!jQuery.easing['ease-out']) {
 		// eaeOutQuad
 		jQuery.easing['ease-out'] = function (x, t, b, c, d) {
@@ -16,13 +23,9 @@
 		};
 	}
 
-	jQuery.fn.scrollTo = function(fn) {
+	jQuery.fn.scrollTo = function(settings) {
 		var elem = this,
-		    options = {
-		    	duration: 600,
-		    	easing: 'ease-out',
-		    	done: fn
-		    },
+		    options = jQuery.extend({}, defaults, settings),
 		    offset, obj;
 
 		if (elem.length === 0) { return this; }
@@ -40,7 +43,7 @@
 			}
 		}
 
-		obj = {'scrollTop': offset.top - 48};
+		obj = {'scrollTop': offset.top - options.offset};
 
 		if (node) {
 			node.animate(obj, options);
