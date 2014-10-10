@@ -277,7 +277,7 @@
 		deactivateend: deactivateend
 	});
 
-	bolt('lightbox_dialog_layer', {
+	bolt('lightbox-dialog_layer', {
 		activate: function(e, data, fn) {
 			count++;
 			add(e.target, 'click.dialog tap.dialog', click);
