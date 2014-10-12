@@ -171,7 +171,7 @@
 	// and have the browser parse it, IE7 cocks up the href, adding the whole
 	// path in front of it first. Not what we want.
 	jQuery.fn.dialog.closeButton = jQuery('<a/>', {
-		'class': "close_thumb thumb",
+		'class': "close-thumb thumb",
 		'href': "#close",
 		'html': text.close
 	});
