@@ -521,6 +521,10 @@ a.card:hover {
 	padding-top: 64px;
 	height: 0;
 	width: 64px;
+
+	/* Keep top of text safely away from the bottom of
+	   the thumb. */
+	line-height: 2;
 	
 	-webkit-background-size: cover;
 	   -moz-background-size: cover;
