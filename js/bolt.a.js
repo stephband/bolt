@@ -45,7 +45,7 @@
 	    		
 	    		// If the node is html hidden inside a text/html script tag,
 	    		// extract the html.
-	    		if (node.getAttribute('type') === 'text/html') {
+	    		if (node.tagName.toLowerCase() === 'template' || node.getAttribute('type') === 'text/html') {
 	    			/* TODO: jQuery 1.9.1 and 2.0.0b2 are failing because html needs to be whitespace trimmed */
 	    			node = jQuery(node).html();
 	    		}
@@ -320,7 +320,7 @@
 	})
 	
 	// Clicks on close buttons deactivate the thing they are inside
-	.on('click tap', '.close_thumb, .close_button, .cancel_button', function(e) {
+	.on('click tap', '.close-thumb, .close_button, .cancel_button', function(e) {
 		var elem = jQuery(e.currentTarget).closest('.popdown, .dialog_layer');
 		
 		if (!elem.length) { return; }

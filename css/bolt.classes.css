@@ -258,7 +258,7 @@
 }
 
 .dialog > .close_button,
-.dialog > .close_thumb {
+.dialog > .close-thumb {
 	position: absolute;
 	top: -16px;
 	top: -1rem;
@@ -1144,7 +1144,7 @@ button.loading,
 }
 
 @media all and (max-width: 30em) {
-	.js .tip {
+	.js body > .tip {
 		/* Override offset given to it by JS when the
 		   screen is too small. */
 		left: 4% !important;
