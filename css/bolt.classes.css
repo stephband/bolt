@@ -1187,6 +1187,24 @@ button.loading,
 	opacity: 0.4;
 }
 
+.js .loading:after {
+	content: 'loading…';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	font-size: 0.875rem;
+	width: 8rem;
+	height: 1.75rem;
+	line-height: 1.75rem;
+	margin-top: -0.875rem;
+	margin-left: -4rem;
+	text-align: center;
+	color: white;
+	background-color: rgba(0,0,0,0.6);
+	border-radius: 0.25rem;
+	z-index: 10;
+}
+
 .clear:after {
 	visibility: hidden;
 	display: block;
