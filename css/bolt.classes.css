@@ -212,27 +212,27 @@
 	/* Center the dialog vertically, working in tandem
 	   with the :before rule of .dialog_layer. */
 	vertical-align: middle;
-	
-	/* But let's make sure it doesn't touch the top or
-	   bottom. */
-	margin-top: 2.5em;
-	margin-bottom: 2.5em;
 }
 
 .dialog {
 	/* Act as position parent */
 	position: relative;
-	
+
 	padding: 0.8333em;
 	margin: 0;
 	max-width: 72%;
-	
+
+	/* But let's make sure it doesn't touch the top or
+	   bottom. */
+	margin-top: 2.5em;
+	margin-bottom: 2.5em;
+
 	background-color: white;
-	
- 	-webkit-border-radius: 0.3333em;
+
+	-webkit-border-radius: 0.3333em;
 	   -moz-border-radius: 0.3333em;
 	        border-radius: 0.3333em;
-	
+
 	-webkit-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
 	   -moz-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
 	        box-shadow: 0 2px 24px rgba(0,0,0,0.6);
