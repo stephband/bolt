@@ -233,14 +233,14 @@
 
 	function activateHash(e, fn) {
 		var id, node, data;
-		
+
 		if (isIgnorable(e)) { return; }
-		
+
 		if (isExternalLink(e)) { return; }
 
 		id = e.currentTarget.hash.substring(1);
 		node = document.getElementById(id);
-		
+
 		// This link does not point to an id in the DOM. No action required.
 		if (!node) { return; }
 
