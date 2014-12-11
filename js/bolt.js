@@ -27,6 +27,8 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined){
+	"use srtict";
+
 	var debug = false,//true,
 	    
 	    // Keep a log of event types that have been bolted.
