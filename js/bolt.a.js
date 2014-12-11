@@ -10,6 +10,8 @@
 		module(jQuery, jQuery.bolt);
 	}
 })(function(jQuery, bolt, undefined){
+	"use strict";
+
 	var debug = window.console && console.log;
 
 	var doc = jQuery(document),
@@ -160,7 +162,8 @@
 	function boltData(node) {
 		// Get the bolt data that may have been created by a previous
 		// activate event.
-		data = jQuery.data(node);
+		var data = jQuery.data(node);
+		var elem, clas;
 
 		// Decide what class this object is.
 		if (data.bolt && data.bolt['class']) {
