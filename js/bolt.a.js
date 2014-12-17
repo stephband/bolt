@@ -150,6 +150,9 @@
 		var location = window.location,
 		    link = e.currentTarget;
 
+		// IE does not give us a .hostname for links to xxx.xxx.xxx.xxx URLs.
+		if (!link.hostname) { return false; }
+
 		// IE gives us the port on link.host, even where it is not specified.
 		// Use link.hostname.
 		if (location.hostname !== link.hostname) { return true; }
