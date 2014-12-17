@@ -167,15 +167,13 @@ img {
 }
 
 svg {
+	/* Allow SVG elements to escape the SVG container. */
+	overflow: visible;
+
 	/* Make SVGs fill and stroke to the color of their parents by default. */
 	fill: currentColor;
 	stroke: currentColor;
 	stroke-width: 0;
-}
-
-svg:not(:root) {
-	/* Overflow displayed oddly in IE9 */
-	overflow: hidden;
 }
 
 audio:not([controls]) {
