@@ -238,6 +238,7 @@ input[type='file'] {
    It's pretty difficult to have an error on a select box anyway. */
 
 label.focus,
+button:focus,
 input:focus,
 textarea:focus,
 input.error:focus,
