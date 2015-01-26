@@ -105,7 +105,9 @@
 		
 		// Find the first focusable thing.
 		var firstNode = jQuery('[tabindex], a, input, textarea, button', node)[0];
-		
+
+		focusNode = focusNode || document.body;
+
 		function preventFocus(e) {
 			// If trying to focus outside node, set the focus back
 			// to the first thing inside.
@@ -121,13 +123,13 @@
 		if (document.addEventListener) {
 			document.addEventListener("focus", preventFocus, true);
 		}
-		
+
 		add(node, 'deactivate', function deactivate() {
 			// Set focus back to the thing that was last focused when the
 			// dailog was opened.
 			setTimeout(function() { focusNode.focus(); }, 0);
 			remove(node, 'deactivate', deactivate);
-			
+
 			if (document.addEventListener && document.removeEventListener) {
 				document.removeEventListener('focus', preventFocus);
 			}
