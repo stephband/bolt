@@ -91,9 +91,9 @@
 	
 	function keyup(e) {
 		var key = keymap[e.keyCode];
-		
+
 		if (debug) console.log('[jquery.event.keys]', e.keyCode, code);
-		
+
 		trigger(e.target, 'key[' + key + ']', null, true);
 	}
 	
