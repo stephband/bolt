@@ -1,4 +1,6 @@
-(function (module) {
+(function (module, define) {
+	"use strict";
+
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
 		define(['jquery'], module);
@@ -6,11 +8,13 @@
 		// Browser globals
 		module(jQuery);
 	}
-})(function(jQuery, undefined) {
+})(function(jQuery) {
+	"use strict";
+
 	var urlKeys = ("absolute protocol authority userInfo user password host port relative path directory file query anchor").split(" "),
 	    rurlParser = /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/;
-	
-	// Parses url into an object with values. Bits and pieces 
+
+	// Parses url into an object with values. Bits and pieces
 	// borrowed from Steven Levithan here:
 	// http://blog.stevenlevithan.com/archives/parseuri
 	jQuery.parseUrl = function(url){
@@ -19,22 +23,22 @@
 		    obj = {},
 		    queries = {},
 		    l = urlKeys.length;
-		
+
 		while (l--) {
 			obj[ urlKeys[l] ] = parsed[l];
 		}
-		
+
 		if (obj.query){
 			obj.query.replace( /(?:^|&)([^&=]*)=?([^&]*)/g, function ( rien, key, value ) {
 				if (key) {
 					queries[key] = value;
 				}
 			});
-			
+
 			delete obj.query;
 			obj.queries = queries;
 		}
-		
+
 		return obj;
 	};
-});
+}, define);
