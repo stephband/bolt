@@ -1187,25 +1187,37 @@ button.loading,
 	opacity: 0.4;
 }
 
-.js .loading:after {
-	content: 'loading…';
+.js .loading::after {
+	content: '';
 	position: absolute;
-	top: 50%;
 	left: 50%;
-	font-size: 0.875rem;
-	width: 8rem;
-	height: 1.75rem;
-	line-height: 1.75rem;
-	margin-top: -0.875rem;
-	margin-left: -4rem;
-	text-align: center;
-	color: white;
-	background-color: rgba(0,0,0,0.6);
-	border-radius: 0.25rem;
-	z-index: 10;
+	top: 50%;
+	margin-left: -0.9375rem;
+	margin-top: -0.9375rem;
+	height: 1.875rem;
+	width: 1.875rem;
+	opacity: 1;
+
+	-webkit-animation: rotation 1000ms infinite linear;
+	        animation: rotation 1000ms infinite linear;
+
+	border:     0.375rem solid rgba(63, 63, 63, 0.15);
+	border-top: 0.375rem solid rgba(63, 63, 63, 1);
+	border-radius: 100%;
+	z-index: 100;
 }
 
-.clear:after {
+@-webkit-keyframes rotation {
+	from {-webkit-transform: rotate(0deg);}
+	to {-webkit-transform: rotate(359deg);}
+}
+
+@keyframes rotation {
+	from {transform: rotate(0deg);}
+	to {transform: rotate(359deg);}
+}
+
+.clear::after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;
