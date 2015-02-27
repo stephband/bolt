@@ -15,7 +15,7 @@
 })(function(jQuery, undefined){
     var types = jQuery.support.inputTypes = {
           //datetime: false,
-          //date: false,
+          date: false,
           //month: false,
           //week: false,
           time: false,

@@ -107,14 +107,14 @@
 	
 	// Readonly inputs have their text selected when you click
 	// on them.
-	
+
 	.on('focus click', 'input[readonly]', function(e) {
 		jQuery(e.currentTarget).select();
 	})
-	
+
 	// Extend the events emitted by input[type='range']
 	// nodes with changestart and changeend events.
-	
+
 	.on('mousedown touchstart', 'input[type="range"]', (function(){
 		var endTypes = {
 			mousedown: 'mouseup',
@@ -139,7 +139,7 @@
 			.bind(endTypes[ e.type ], mouseup);
 		};
 	})())
-	
+
 	// Global form validation
 	.on('change', 'input, textarea', function(e) {
 		// Don't make this script require jQuery.fn.validate
