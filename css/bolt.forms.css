@@ -1,6 +1,4 @@
-/* template.forms.css
- * 
- * Stephen Band
+/* bolt.forms.css
  * 
  * Some inspiration from normalize.css:
  * http://necolas.github.com/normalize.css/
@@ -34,10 +32,14 @@ form {
 }
 
 fieldset {
-	/* Reset padding, argin, border */
+	/* Reset padding, margin, border */
 	padding: 0;
 	margin: 0;
 	border: 0;
+}
+
+fieldset + fieldset {
+	margin-top: 1.5rem;
 }
 
 legend      {
@@ -62,20 +64,15 @@ textarea {
 	   annoying extra margin-bottom that textareas have in webkit. */
 	vertical-align: top;
 	margin: 0;
-	/* FF and WebKit ignore line-height on inputs, automatically centring the
-	   text, but IE8 needs it. */
-	line-height: 1.6667em;
-}
 
-input,
-button,
-select,
-textarea {
-	margin: 0;
 	/* Font size is not automaticlly inherited in all browsers. */
 	font-family: inherit;
 	font-size: inherit;
 	font-weight: inherit;
+
+	/* FF and WebKit ignore line-height on inputs, automatically centring the
+	   text, but IE8 needs it. */
+	line-height: inherit;
 
 	/* Make input shadows appear over the top of other elements. */
 	/* But this buggers up native validation message stacking...
@@ -84,50 +81,90 @@ textarea {
 	position: relative;*/
 }
 
+label {
+	max-width: 100%;
+	width: auto;
+	border: 0;
+}
+
+label > [type="checkbox"],
+label > [type="radio"] {
+	/* checkboxes nested inside labels */
+	margin-right: 0.5rem;
+}
+
 input,
 button,
 select {
-	height: 1.6667em;
+	height: 1.875rem;
 }
 
-label,
 input,
 textarea {
 	width: 100%;
-	border: 0;
 }
 
 input[type='time'] {
 	max-width: 6em;
 }
 
-input,
-textarea {
-	padding: 0 0.5em;
-	/* Nudge up the baseline position in FF3. Doesn't affect WebKit. */
-	padding-bottom: 0.077em;
+textarea,
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="email"],
+[type="number"],
+[type="search"],
+[type="password"],
+.select-button {
+	font-size: 1.125rem;
+	padding-left: 0.5625rem;
+	padding-right: 0.5625rem;
+	background-color: white;
+	border: #747474 1px solid;
 }
 
-label > [type="checkbox"],
-label > [type="radio"] {
-	/* Nested checkboxes inside labels */
-	margin-right: 0.5em;
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="email"],
+[type="number"],
+[type="search"],
+[type="password"],
+.select-button {
+	/* Compensate for border */
+	line-height: 1.75rem;
+}
+
+/* Make search fields appear as other inputs in WebKit. */
+@media (-webkit-min-device-pixel-ratio:0) {
+	input[type="search"] {
+		-webkit-appearance: textfield;
+		padding-left: 0.1875rem;
+	}
 }
 
 textarea {
 	min-height: 6.6667em;
 	line-height: inherit;
+	padding-top: 0.625rem;
+	padding-bottom: 0.3125rem;
+
 	/* IE is set to overflow: scroll by default */
 	overflow: auto;
 	/* Switch off resizing (Webkit) by default */
 	resize: none;
 }
 
-.resize_textarea {
+.resize-textarea {
+	/* limit resize direction. */
 	resize: vertical;
+
 	/* Make sure the bottom right corner doesn't clip the resize icon */
-	-webkit-border-radius-bottomright:  2px !important;
-	   -moz-border-bottom-right-radius: 2px !important;
+	-webkit-border-radius-bottomright:  0 !important;
+	   -moz-border-bottom-right-radius: 0 !important;
 }
 
 label[for],
@@ -187,14 +224,6 @@ input::-moz-focus-inner {
 	padding: 0;
 }
 
-/* Make search fields appear as other inputs in WebKit. */
-@media (-webkit-min-device-pixel-ratio:0) {
-	input[type="search"] {
-		-webkit-appearance: textfield;
-		padding: 0;
-	}
-}
-
 /* File inputs. You're on your own. Good luck. The best way to handle
    these, frankly, is to make them opacity 0, and overlay a label. You
    don't get to display the filename, but at least you get some style. */
@@ -218,6 +247,20 @@ input[type='file'] {
 		left: -1px;
 		margin-bottom: -3px;
 	}
+}
+
+[type="color"] {
+	padding: 0;
+	/* Make color swatches square. */
+	width: 1.875rem;
+}
+
+[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+
+[type="color"]::-webkit-color-swatch {
+	border: none;
 }
 
 .required:after {
@@ -434,19 +477,120 @@ input[type="range"]::-webkit-slider-thumb {
 		  box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
 }*/
 
+
+input[type="range"] {
+	-webkit-appearance: none !important;
+	background-color: transparent;
+	border-width: 0;
+	height: 1.5625rem;
+	/*required for proper track sizing in FF*/
+	width: 100%;
+}
+
+input[type="range"]:focus {
+	outline: none;
+	outline-width: 0 !important;
+}
+
+input[type=range]::-moz-focus-outer {
+	/* Get rid of that annoying border in FF */
+	border: 0;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+	height: 0.75rem;
+	background: #2B3134;
+	border: none;
+	border-radius: 0.375rem;
+}
+
+input[type=range]::-moz-range-track {
+	height: 0.75rem;
+	background: #2B3134;
+	border: none;
+	border-radius: 0.375rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none !important;
+
+	cursor: pointer;
+
+	background: -webkit-linear-gradient( rgb(247,247,247), rgb(140,140,140) );
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(247,247,247)), color-stop(100%,rgb(140,140,140)));
+	background: #B6B2B0;
+
+	width: 0.875rem;
+	height: 0.875rem;
+	
+	margin-top: -1px;
+	border-width: 0;
+
+	-webkit-border-radius: 0.4375rem;
+	   -moz-border-radius: 0.4375rem;
+	        border-radius: 0.4375rem;
+
+	/*-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+	   -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+	     -o-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+	        box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);*/
+}
+
+input[type=range]::-moz-range-thumb {
+	cursor: pointer;
+
+	background: -webkit-linear-gradient( rgb(247,247,247), rgb(140,140,140) );
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(247,247,247)), color-stop(100%,rgb(140,140,140)));
+	background: #B6B2B0;
+
+	width: 0.875rem;
+	height: 0.875rem;
+	
+	margin-top: -1px;
+	border-width: 0;
+	border-radius: 0.4375rem;
+}
+
+/*hide the outline behind the border*/
+input[type=range]:-moz-focusring {
+	outline: 0 solid transparent;
+}
+
+/*
+input[type=range]:focus::-moz-range-track {
+	background: #ccc;
+}
+*/
+
+
 input[type="range"].y-input {
 	-webkit-appearance: slider-vertical !important;
-	
-	border-width: 0;
-	
+
+	width: 0.75rem;
 	height: 100%;
 	min-height: 32px;
-	width: 20px;
+	/*border-width: 0;*/
+}
+
+input[type="range"].y-input::-webkit-slider-runnable-track {
+	width: 0.75rem;
+}
+
+input[type="range"].y-input::-moz-range-track {
+	width: 0.75rem;
+	height: 100%;
 }
 
 input[type="range"].y-input::-webkit-slider-thumb {
-  -webkit-appearance: sliderthumb-vertical !important;
+	-webkit-appearance: sliderthumb-vertical !important;
+	margin-left: -1px;
 }
+
+input[type="range"].y-input::-moz-range-thumb {
+	
+}
+
+
 
 
 /* Placeholders. */
@@ -487,6 +631,247 @@ input.empty + .placeholder,
 textarea.empty + .placeholder {
 	display: block;
 }
+
+
+.text-label,
+.radio-label,
+.checkbox-label {
+	position: relative;
+	padding-left: 3rem;
+	min-height: 2.8125rem;
+	/*padding-top: 0.125rem;*/
+}
+
+.radio-label {
+	display:block;
+}
+
+@media all and (min-width: 40em) {
+	.text-label,
+	.radio-label,
+	.checkbox-label {
+		font-size: 1.125rem;
+	}
+	.radio-label {
+		display:inline-block;
+	}
+}
+
+.right-label {
+	padding-left: 0;
+	padding-right: 3rem;
+}
+
+.text-label {
+	display: block;
+	padding-top: 0.125rem;
+	padding-bottom: 0.1875rem;
+	line-height: 2.5rem;
+	vertical-align: baseline;
+}
+
+.text-label > .text-span,
+.text-label > input {
+	display: block;
+}
+
+@media all and (min-width: 40em) {
+	.text-label {
+		display: inline-block;
+	}
+
+	.text-label > .text-span {
+		display: inline-block;
+		min-width: 33.3333%;
+	}
+
+	.text-label > input {
+		display: inline-block;
+		width: 33.3333%;
+		height: 2.5rem;
+		line-height: 2.25rem;
+		margin-left: 0.5rem;
+	}
+}
+
+.checkbox-label.v2 {
+	padding-left: 2.5rem;
+}
+
+.radio-label > input,
+.checkbox-label > input {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.right-label > input {
+	left: auto;
+	right: 0;
+}
+
+.radio-label + hr { margin-top: 2rem; }
+
+.dialog > .radio-label,
+.dialog > .checkbox-label {
+	display: block;
+}
+
+/* Only hide radios and checkboxes where we have JS */
+
+.js .radio-label:before,
+.js .radio-label:after,
+.js .checkbox-label:before,
+.js .checkbox-label:after {
+	content: '';
+	position: absolute;
+	top: 0.375rem;
+	left: 0;
+	width: 2rem;
+	height: 2rem;
+	box-sizing: border-box;
+}
+
+.js .right-label:before,
+.js .right-label:after {
+	left: auto;
+	right: 0;
+}
+
+.js .radio-label:before,
+.js .checkbox-label:before {
+	background-color: white;
+	border: 3px solid #585857;
+}
+
+.js .radio-label:before {
+	border-radius: 1rem;
+}
+
+.js .checkbox-label:before {
+	border-radius: 0.375rem;
+}
+
+.js .radio-label:after,
+.js .checkbox-label:after {
+	display: none;
+}
+
+.js .radio-label.on:after,
+.js .checkbox-label.on:after {
+	display: block;
+}
+
+.js .radio-label:after {
+	top: 0.9375rem;
+	left: 0.5625rem;
+	width: 0.875rem;
+	height: 0.875rem;
+	background-color: #585857;
+	border-radius: 0.4375rem;
+}
+
+.js .checkbox-label:after {
+	background-image: url('/static/images/sprites.svg');
+	background-position: -34px -395px;
+}
+
+.js .radio-label > input,
+.js .checkbox-label > input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.js .checkbox-label.v2:before {
+	width: 1.75rem;
+	height: 1.75rem;
+}
+
+.js .checkbox-label.v2:after {
+	background-position: -34px -400px;
+}
+
+.js .yes-radio-label:before,
+.js .no-radio-label:before {
+	border-width: 0;
+	background-color: #7B7B74;
+}
+
+.js .yes-radio-label.on:before,
+.js .yes-radio-label:hover:before {
+	background-color: green;
+	border-color: green;
+}
+
+.js .no-radio-label.on:before,
+.js .no-radio-label:hover:before {
+	background-color: #C22820;
+	border-color: #C22820;
+}
+
+.js .yes-radio-label:after,
+.js .no-radio-label:after {
+	display: block;
+	top: 0.375rem;
+	left: 0;
+	width: 2rem;
+	height: 2rem;
+	background-color: transparent;
+	background-image: url('/static/images/sprites.svg');
+	background-size: auto;
+}
+
+.js .yes-radio-label:after {
+	background-position: 5px -394px;
+}
+
+.js .no-radio-label:after {
+	background-position: 8px -432px;
+}
+
+.select-button {
+	text-overflow: clip;
+	padding-right: 2.125rem;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.select-button:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 1.75rem;
+	height: 1.75rem;
+	opacity: 1;
+	background-color: #C22820;
+	background-image: url('/static/images/sprites.svg');
+	background-position: -34px -251px;
+	background-size: 7.5rem;
+	/*background-color: #747474;*/
+	border-radius: inherit;
+}
+
+@media all and (min-width: 50em) {
+	.select-button {
+		padding-right: 3.375rem;
+	}
+
+	.select-button:after {
+		width: 2.5625rem;
+		height: 2.5625rem;
+		background-position: -76px -511px;
+		background-size: 15rem;
+	}
+}
+
+
+
+
+
 
 
 /* Layout */
