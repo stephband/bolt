@@ -42,7 +42,7 @@ fieldset + fieldset {
 	margin-top: 1.5rem;
 }
 
-legend      {
+legend {
 	/* Correct color not being inherited (IE6/7/8/9) */
 	border: 0;
 	padding: 0;
@@ -84,6 +84,8 @@ textarea {
 label {
 	max-width: 100%;
 	width: auto;
+	height: auto;
+	line-height: 1.5625rem;
 	border: 0;
 }
 
@@ -96,7 +98,7 @@ label > [type="radio"] {
 input,
 button,
 select {
-	height: 1.875rem;
+	height: 2.5rem;
 }
 
 input,
@@ -104,8 +106,27 @@ textarea {
 	width: 100%;
 }
 
+input + label {
+	margin-top: 0.3125rem;
+}
+
 input[type='time'] {
 	max-width: 6em;
+}
+
+textarea,
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="email"],
+[type="color"],
+[type="number"],
+[type="search"],
+[type="password"],
+.select-button {
+	display: block;
+	border: #747474 1px solid;
 }
 
 textarea,
@@ -122,7 +143,6 @@ textarea,
 	padding-left: 0.5625rem;
 	padding-right: 0.5625rem;
 	background-color: white;
-	border: #747474 1px solid;
 }
 
 [type="tel"],
@@ -135,7 +155,7 @@ textarea,
 [type="password"],
 .select-button {
 	/* Compensate for border */
-	line-height: 1.75rem;
+	line-height: 2.375rem;
 }
 
 /* Make search fields appear as other inputs in WebKit. */
@@ -148,7 +168,7 @@ textarea,
 
 textarea {
 	min-height: 6.6667em;
-	line-height: inherit;
+	line-height: 1.25rem;
 	padding-top: 0.625rem;
 	padding-bottom: 0.3125rem;
 
@@ -252,7 +272,7 @@ input[type='file'] {
 [type="color"] {
 	padding: 0;
 	/* Make color swatches square. */
-	width: 1.875rem;
+	width: 2.5rem;
 }
 
 [type="color"]::-webkit-color-swatch-wrapper {
