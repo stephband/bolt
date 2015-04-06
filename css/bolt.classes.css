@@ -861,23 +861,6 @@ button.loading,
 	line-height: 1.75rem;
 }
 
-.select-button {
-	padding-right: 2.25em;
-	text-align: left;
-}
-
-.select-button:after {
-  content: '▼';
-  display: block;
-  position: absolute;
-  font-size: inherit;
-  line-height: inherit;
-  top: 0;
-  right: 0.5em;
-  opacity: 0.25;
-  z-index: 1;
-}
-
 
 /* .tab, .slide */
 

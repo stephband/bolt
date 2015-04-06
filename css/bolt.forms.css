@@ -81,6 +81,13 @@ textarea {
 	position: relative;*/
 }
 
+input,
+button,
+select,
+textarea {
+	color: inherit;
+}
+
 label {
 	max-width: 100%;
 	width: auto;
@@ -122,6 +129,9 @@ textarea,
 [type="url"],
 [type="date"],
 [type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
 [type="email"],
 [type="color"],
 [type="number"],
@@ -129,7 +139,7 @@ textarea,
 [type="password"],
 .select-button {
 	display: block;
-	border: #747474 1px solid;
+	border: #cccccc 1px solid;
 }
 
 textarea,
@@ -137,12 +147,14 @@ textarea,
 [type="url"],
 [type="date"],
 [type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
 [type="email"],
 [type="number"],
 [type="search"],
 [type="password"],
 .select-button {
-	font-size: 1.125rem;
 	padding-left: 0.5625rem;
 	padding-right: 0.5625rem;
 	background-color: white;
@@ -152,13 +164,32 @@ textarea,
 [type="url"],
 [type="date"],
 [type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
 [type="email"],
+[type="color"],
 [type="number"],
 [type="search"],
 [type="password"],
 .select-button {
 	/* Compensate for border */
 	line-height: 2.375rem;
+}
+
+textarea,
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="number"],
+[type="search"],
+[type="password"] {
+	font-size: 1.125rem;
 }
 
 /* Make search fields appear as other inputs in WebKit. */
@@ -181,7 +212,7 @@ textarea {
 	resize: none;
 }
 
-.resize-textarea {
+.resizeable-textarea {
 	/* limit resize direction. */
 	resize: vertical;
 
@@ -286,7 +317,7 @@ input[type='file'] {
 	border: none;
 }
 
-.required:after {
+.required::after {
 	content: ' *';
 	color: #ff8833;
 }
@@ -660,24 +691,10 @@ textarea.empty + .placeholder {
 .radio-label,
 .checkbox-label {
 	position: relative;
-	padding-left: 3rem;
-	min-height: 2.8125rem;
-	/*padding-top: 0.125rem;*/
-}
-
-.radio-label {
-	display:block;
-}
-
-@media all and (min-width: 40em) {
-	.text-label,
-	.radio-label,
-	.checkbox-label {
-		font-size: 1.125rem;
-	}
-	.radio-label {
-		display:inline-block;
-	}
+	padding-left: 2.25rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	min-height: 2.5rem;
 }
 
 .right-label {
@@ -717,10 +734,6 @@ textarea.empty + .placeholder {
 	}
 }
 
-.checkbox-label.v2 {
-	padding-left: 2.5rem;
-}
-
 .radio-label > input,
 .checkbox-label > input {
 	position: absolute;
@@ -733,8 +746,6 @@ textarea.empty + .placeholder {
 	right: 0;
 }
 
-.radio-label + hr { margin-top: 2rem; }
-
 .dialog > .radio-label,
 .dialog > .checkbox-label {
 	display: block;
@@ -742,59 +753,59 @@ textarea.empty + .placeholder {
 
 /* Only hide radios and checkboxes where we have JS */
 
-.js .radio-label:before,
-.js .radio-label:after,
-.js .checkbox-label:before,
-.js .checkbox-label:after {
+.js .radio-label::before,
+.js .radio-label::after,
+.js .checkbox-label::before,
+.js .checkbox-label::after {
 	content: '';
 	position: absolute;
-	top: 0.375rem;
+	top: 0.5rem;
 	left: 0;
-	width: 2rem;
-	height: 2rem;
+	width: 1.5rem;
+	height: 1.5rem;
 	box-sizing: border-box;
 }
 
-.js .right-label:before,
-.js .right-label:after {
+.js .right-label::before,
+.js .right-label::after {
 	left: auto;
 	right: 0;
 }
 
-.js .radio-label:before,
-.js .checkbox-label:before {
+.js .radio-label::before,
+.js .checkbox-label::before {
 	background-color: white;
-	border: 3px solid #585857;
+	border: 1px solid #cccccc;
 }
 
-.js .radio-label:before {
+.js .radio-label::before {
 	border-radius: 1rem;
 }
 
-.js .checkbox-label:before {
-	border-radius: 0.375rem;
+.js .checkbox-label::before {
+	border-radius: 0.25rem;
 }
 
-.js .radio-label:after,
-.js .checkbox-label:after {
+.js .radio-label::after,
+.js .checkbox-label::after {
 	display: none;
 }
 
-.js .radio-label.on:after,
-.js .checkbox-label.on:after {
+.js .radio-label.on::after,
+.js .checkbox-label.on::after {
 	display: block;
 }
 
-.js .radio-label:after {
-	top: 0.9375rem;
-	left: 0.5625rem;
-	width: 0.875rem;
-	height: 0.875rem;
-	background-color: #585857;
-	border-radius: 0.4375rem;
+.js .radio-label::after {
+	top: 0.875rem;
+	left: 0.375rem;
+	width: 0.75rem;
+	height: 0.75rem;
+	background-color: #575757;
+	border-radius: 0.375rem;
 }
 
-.js .checkbox-label:after {
+.js .checkbox-label::after {
 	background-image: url('/static/images/sprites.svg');
 	background-position: -34px -395px;
 }
@@ -808,35 +819,26 @@ textarea.empty + .placeholder {
 	cursor: pointer;
 }
 
-.js .checkbox-label.v2:before {
-	width: 1.75rem;
-	height: 1.75rem;
-}
-
-.js .checkbox-label.v2:after {
-	background-position: -34px -400px;
-}
-
-.js .yes-radio-label:before,
-.js .no-radio-label:before {
+.js .yes-radio-label::before,
+.js .no-radio-label::before {
 	border-width: 0;
 	background-color: #7B7B74;
 }
 
-.js .yes-radio-label.on:before,
-.js .yes-radio-label:hover:before {
+.js .yes-radio-label.on::before,
+.js .yes-radio-label:hover::before {
 	background-color: green;
 	border-color: green;
 }
 
-.js .no-radio-label.on:before,
-.js .no-radio-label:hover:before {
+.js .no-radio-label.on::before,
+.js .no-radio-label:hover::before {
 	background-color: #C22820;
 	border-color: #C22820;
 }
 
-.js .yes-radio-label:after,
-.js .no-radio-label:after {
+.js .yes-radio-label::after,
+.js .no-radio-label::after {
 	display: block;
 	top: 0.375rem;
 	left: 0;
@@ -847,53 +849,43 @@ textarea.empty + .placeholder {
 	background-size: auto;
 }
 
-.js .yes-radio-label:after {
+.js .yes-radio-label::after {
 	background-position: 5px -394px;
 }
 
-.js .no-radio-label:after {
+.js .no-radio-label::after {
 	background-position: 8px -432px;
 }
 
+
 .select-button {
 	text-overflow: clip;
-	padding-right: 2.125rem;
+	text-align: left;
+	padding-right: 2.375rem;
 	padding-top: 0;
 	padding-bottom: 0;
 }
 
-.select-button:after {
-	content: '';
+.select-button::after {
+	content: '▼';
+	box-sizing: border-box;
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 1.75rem;
-	height: 1.75rem;
+	width: 2.4375rem;
+	height: 100%;
 	opacity: 1;
-	background-color: #C22820;
-	background-image: url('/static/images/sprites.svg');
-	background-position: -34px -251px;
-	background-size: 7.5rem;
-	/*background-color: #747474;*/
-	border-radius: inherit;
+	text-align: center;
+	color: #cccccc;
+	border-width: 0;
+	border-left-width: 1px;
+	border-style: inherit;
+	border-color: inherit;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-right-radius: inherit;
+	border-bottom-right-radius: inherit;
 }
-
-@media all and (min-width: 50em) {
-	.select-button {
-		padding-right: 3.375rem;
-	}
-
-	.select-button:after {
-		width: 2.5625rem;
-		height: 2.5625rem;
-		background-position: -76px -511px;
-		background-size: 15rem;
-	}
-}
-
-
-
-
 
 
 
