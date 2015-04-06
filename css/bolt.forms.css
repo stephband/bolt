@@ -106,7 +106,10 @@ textarea {
 	width: 100%;
 }
 
-input + label {
+input + label,
+textarea + label,
+select + label,
+.select-button + label {
 	margin-top: 0.3125rem;
 }
 
