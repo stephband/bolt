@@ -120,8 +120,22 @@ select + label,
 	margin-top: 0.3125rem;
 }
 
-input[type='time'] {
-	max-width: 6em;
+select,
+textarea,
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="color"],
+[type="number"],
+[type="search"],
+[type="password"],
+.select-button {
+	display: block;
 }
 
 textarea,
@@ -138,7 +152,6 @@ textarea,
 [type="search"],
 [type="password"],
 .select-button {
-	display: block;
 	border: #cccccc 1px solid;
 }
 
@@ -190,6 +203,13 @@ textarea,
 [type="search"],
 [type="password"] {
 	font-size: 1.125rem;
+}
+
+input[type='date'],
+input[type='time'],
+input[type='week'],
+input[type='month'] {
+	max-width: 12em;
 }
 
 /* Make search fields appear as other inputs in WebKit. */
@@ -782,7 +802,8 @@ textarea.empty + .placeholder {
 	border-radius: 1rem;
 }
 
-.js .checkbox-label::before {
+.js .checkbox-label::before,
+.js .checkbox-label::after {
 	border-radius: 0.25rem;
 }
 
@@ -806,8 +827,8 @@ textarea.empty + .placeholder {
 }
 
 .js .checkbox-label::after {
-	background-image: url('/static/images/sprites.svg');
-	background-position: -34px -395px;
+	content: '✓';
+	text-align: center;
 }
 
 .js .radio-label > input,
@@ -874,7 +895,6 @@ textarea.empty + .placeholder {
 	right: 0;
 	width: 2.4375rem;
 	height: 100%;
-	opacity: 1;
 	text-align: center;
 	color: #cccccc;
 	border-width: 0;
