@@ -1,0 +1,73 @@
+/* bolt.typography.16_20.css
+ * 
+ * Developed using ideas from:
+ * www.blueprintcss.org
+ * www.webtypography.net
+ * www.html5boilerplate.com
+ * 
+ */
+
+html,
+body {
+	font-size: 100%; /* 16px */
+}
+
+body,
+.index > li {
+	line-height: 1.5;
+}
+
+/* Block */
+
+h1                { font-size: 3em;     line-height: 1em; }
+h2                { font-size: 2.5em;   line-height: 1em; }
+h3                { font-size: 1.5em;   line-height: 1em; }
+h4                { font-size: 1.125em; line-height: 1em; }
+h5                { font-size: 1em;     line-height: 1em; }
+h6                { font-size: 0.875em; line-height: 1em; }
+
+p:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+li:last-child,
+pre:last-child,
+address:last-child,
+blockquote:last-child { margin-bottom: 0; }
+
+dd                { margin: 0; }
+ul,
+ol,
+dl,
+blockquote        { margin: 1.25em 0 1.25em 0; }
+li                { margin-bottom: 0;}
+
+blockquote:before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
+pre,
+address           { margin: 1.25em 0; }
+
+/* Inline */
+
+sup,
+sub               { font-size: 0.625em; line-height: 0; }
+
+abbr              { letter-spacing: 0.1em; }
+pre,
+code              { font-size: 1em; }
+
+/* Tables */
+
+table             { margin-bottom: 1.25em; }
+caption           { padding: 4px 10px 4px 5px; }
+
+/* Indentation */
+
+ul,
+ol,
+blockquote        { margin-left: 2em; }
+
+/* Classes */
+
+.left             { margin: 0.625em 1em 0.625em 0; }
+.right            { margin: 0.625em 0 0.625em 1em; }
+.note             { font-size: 0.875em; line-height: 1.4286em; }
