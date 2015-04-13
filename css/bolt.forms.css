@@ -120,10 +120,6 @@ select + label,
 	margin-top: 0.3125rem;
 }
 
-input + input {
-	margin-top: 0.625rem;
-}
-
 select,
 textarea,
 [type="tel"],
@@ -243,6 +239,24 @@ textarea {
 	/* Make sure the bottom right corner doesn't clip the resize icon */
 	-webkit-border-radius-bottomright:  0 !important;
 	   -moz-border-bottom-right-radius: 0 !important;
+}
+
+input + select,
+input + textarea,
+input + [type="tel"],
+input + [type="url"],
+input + [type="date"],
+input + [type="text"],
+input + [type="time"],
+input + [type="week"],
+input + [type="month"],
+input + [type="email"],
+input + [type="color"],
+input + [type="number"],
+input + [type="search"],
+input + [type="password"],
+input + .select-button {
+	margin-top: 0.625rem;
 }
 
 label[for],

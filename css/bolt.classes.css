@@ -525,7 +525,7 @@ a.card:hover {
 	/* Keep top of text safely away from the bottom of
 	   the thumb. */
 	line-height: 2;
-	
+
 	-webkit-background-size: cover;
 	   -moz-background-size: cover;
 	     -o-background-size: cover;
@@ -536,7 +536,9 @@ a.card:hover {
 	   centred in the upper portion of the image. */
 	background-position: 50% 33%;
 	background-repeat: no-repeat;
-	
+	background-color: transparent;
+	border-width: 0;
+
 	text-decoration: none;
 	color: inherit;
 }
