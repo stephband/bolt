@@ -514,7 +514,13 @@ a.card:hover {
 	display: inline-block;
 	vertical-align: top;
 	overflow: hidden;
-	
+
+	/* Nullify padding that may have been put there by other
+	   styling, say for example by <button class="thumb"> */
+	padding-bottom: 0;
+	padding-left: 0;
+	padding-right: 0;
+
 	/* Hide overflowing text. This technique is better
 	   than using -ve text-indent because IE7 moves
 	   the background image with the text-indent. */
