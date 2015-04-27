@@ -1183,8 +1183,8 @@ button.loading,
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	margin-left: -0.9375rem;
-	margin-top: -0.9375rem;
+	margin-left: -1.25rem;
+	margin-top: -1.25rem;
 	height: 1.875rem;
 	width: 1.875rem;
 	opacity: 1;
@@ -1192,8 +1192,8 @@ button.loading,
 	-webkit-animation: rotation 1000ms infinite linear;
 	        animation: rotation 1000ms infinite linear;
 
-	border:     0.375rem solid rgba(63, 63, 63, 0.15);
-	border-top: 0.375rem solid rgba(63, 63, 63, 1);
+	border:     0.3125rem solid rgba(63, 63, 63, 0.15);
+	border-top: 0.3125rem solid rgba(63, 63, 63, 1);
 	border-radius: 100%;
 	z-index: 100;
 }
