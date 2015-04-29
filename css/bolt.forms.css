@@ -120,6 +120,10 @@ select + label,
 	margin-top: 0.3125rem;
 }
 
+.hidden + label {
+	margin-top: 0;
+}
+
 select,
 textarea,
 [type="tel"],
