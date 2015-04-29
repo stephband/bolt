@@ -85,7 +85,13 @@ input,
 button,
 select,
 textarea {
+	/* iOS has padding in the UA stylesheet. */
+	padding-top: 0;
+	padding-bottom: 0;
 	color: inherit;
+
+	/* Firefox OS adds a background gradient to things. No no no. */
+	background-image: none;
 }
 
 label {
