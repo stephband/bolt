@@ -29,8 +29,8 @@
 	<link rel="stylesheet" href="css/bolt.normalise.css" />
 	<link rel="stylesheet" href="css/bolt.typography.css" />
 	<link rel="stylesheet" href="css/bolt.typography.15_24.css" />
-	<link rel="stylesheet" href="css/bolt.forms.css" />
 	<link rel="stylesheet" href="css/bolt.classes.css" />
+	<link rel="stylesheet" href="css/bolt.forms.css" />
 	<link rel="stylesheet" href="css/bolt.grid.css" />
 	<link rel="stylesheet" href="css/bolt.theme.css" />
 	<!--[if (lt IE 9)&(!IEMobile)]>
@@ -44,6 +44,10 @@
 	<!--link rel="stylesheet" href="css/bolt.debug.css" /-->
 
 	<style>
+		body {
+			padding-top: 1.25rem;
+		}
+
 		.site-wrap {
 			width: 88.8888%
 		}
@@ -62,11 +66,11 @@
 		}
 
 		style.wrap {
-			margin-top: 1.875rem;
-			padding: 1.25rem;
+			padding-left: 1.1875rem;
+			padding-right: 1.25rem;
 			color: #eeeeee;
 			background-color: #666666;
-			border-radius: 1.25rem;
+			border-left: 1px solid #808080;
 		}
 
 		.form-wrap {
@@ -76,12 +80,31 @@
 		code {
 			white-space: nowrap;
 		}
+
+		pre {
+			white-space: pre;
+		}
+
+		label {
+			font-weight: 700;
+		}
+
+		label > small {
+			font-weight: normal;
+		}
+
+		.grey-block {
+			margin-top: 2.5rem;
+			padding-top: 1.875rem;
+			padding-bottom: 5rem;
+			background-color: #666666;
+		}
 	</style>
 </head>
 
 <body>
 
-<div class="wrap grid-2/3 grid-left-2/9">
+<div class="wrap grid-2/3 grid-left-1/9">
 	<h1>bolt.grid.css</h1>
 
 	<p>Generate a responsive grid for Bolt.</p>
@@ -91,15 +114,20 @@
 			<p>
 			Enter the <b>breakpoints</b> in pixels.
 			You may enter any number of breakpoints separated by spaces.
-			They get converted to <code>min-width</code> media queries in <code>em</code>.
+			They get converted to media queries in <code>em</code>. For example, '<code>480&nbsp;960</code>' would&nbsp;generate:
 			</p>
+			<pre style="width: 120%; font-size: 0.875rem;">@media all and (min-width: 30em) {&hellip;}
+@media all and (min-width: 60em) {&hellip;}</pre>
 		</div
 		><div class="grid-block block grid-1/4">
-		<b>Max divisions</b> is the maximum number of grid columns needed.
+		<p>
+		Grid columns are created from <code>1</code> up to <b>max divisions</b>.
+		For example, if max divisions is <code>8</code> or&nbsp;over CSS is generated for:</p>
+		<pre style="width: 120%; font-size: 0.875rem;">class="grid-5/8"</pre>
 		</div
 		><div class="grid-block block grid-1/4">
-		The <b>gutter</b> is the fixed space between grid columns in&nbsp;pixels.
-		It gets converted to <code>rem</code>.
+		The <b>gutter</b> is the fixed space between grid divisions in&nbsp;pixels.
+		It gets converted to&nbsp;<code>rem</code>.
 		</div>
 	</div>
 
@@ -107,15 +135,15 @@
 	<div class="form-wrap wrap">
 		<div class="block grid-3/4 grid-left-1/4">
 			<div class="grid-block block grid-1/3">
-				<label for="breakpoints-input">Breakpoints <small><i>px</i></small></label>
-				<input name="breakpoints" value="" id="breakpoints-input" placeholder="960"/>
+				<label for="breakpoints-input">breakpoints <small><i>px</i></small></label>
+				<input name="breakpoints" value="" id="breakpoints-input" placeholder="none"/>
 			</div
 			><div class="grid-block block grid-1/3">
-				<label>Max devisions</label>
-				<input name="max" value="" id="max-input" placeholder="12"/>
+				<label>max devisions</label>
+				<input type="number" min="2" max="32" step="1" name="max" value="12" id="max-input"/>
 			</div
 			><div class="grid-block block grid-1/3">
-				<label for="gutter-input">Gutter <small><i>px</i></small></label>
+				<label for="gutter-input">gutter <small><i>px</i></small></label>
 				<input name="gutter" value="" id="gutter-input" placeholder="20"/>
 			</div
 			>
@@ -123,7 +151,9 @@
 	</div>
 </div>
 
-<style id="output" class="wrap grid-8/9"></style>
+<div class="grey-block block">
+	<style id="output" class="wrap grid-7/9"></style>
+</div>
 
 <script>
 	(function() {
@@ -288,7 +318,7 @@
 				text += '\n';
 			});
 
-			node.setAttribute('class', 'wrap grid-8/9');
+			node.setAttribute('class', 'wrap grid-7/9');
 			node.textContent = text;
 
 			insertBefore(output, node);
@@ -297,7 +327,7 @@
 		}
 
 		var model = {
-			breakpoints: [960]
+			breakpoints: []
 		};
 
 		function change(e) {
@@ -305,7 +335,7 @@
 			var value;
 
 			if (variable === 'breakpoints') {
-				value = e.target.value ? e.target.value.split(' ') : [960];
+				value = e.target.value ? e.target.value.split(' ') : [720];
 				console.log(value);
 			}
 			else if (variable === 'gutter') {
