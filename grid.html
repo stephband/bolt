@@ -144,7 +144,7 @@
 			</div
 			><div class="grid-block block grid-1/3">
 				<label for="gutter-input">gutter <small><i>px</i></small></label>
-				<input type="number" min="0" max="80" step="1" name="gutter" value="20" id="gutter-input"/>
+				<input type="number" min="0" max="96" step="1" name="gutter" value="20" id="gutter-input"/>
 			</div
 			>
 		</div>
@@ -160,6 +160,10 @@
 		"use strict";
 		
 		var output = document.getElementById('output');
+
+		function isDefined(val) {
+			return val !== undefined && val !== null;
+		}
 
 		function remove(node) {
 			node.parentNode && node.parentNode.removeChild(node);
@@ -207,7 +211,7 @@
 			var text = '';
 
 			breakpoints = breakpoints ? [0].concat(breakpoints) : [0];
-			gutter = gutter ? (gutter / 16) : 1.25;
+			gutter = isDefined(gutter) ? (gutter / 16) : 1.25;
 			max = max || 12;
 
 			console.log(breakpoints, gutter);
