@@ -1336,6 +1336,12 @@ button.loading,
 	background-color: rgba(15,15,15,0.15);
 }
 
+.text-left    { text-align: left; }
+.text-justify { text-align: justify; }
+.text-center  { text-align: center; }
+.text-right   { text-align: right; }
+
+
 
 
 /* hcard microformat (for reference)

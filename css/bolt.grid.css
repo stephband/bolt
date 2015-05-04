@@ -16,34 +16,23 @@ body > .grid-index,
 	margin-right: 0;
 }
 
+.grid-block,
+.grid-index > li {
+	display: inline-block;
+}
+
+.grid-block + .grid-block {
+	margin-left: 1.25rem;
+}
+
+.grid-wrap > .block,
+.grid-wrap > .grid-block + .grid-block,
 .grid-index > li,
 .grid-index > li:first-child {
 	margin-left: 0.625rem;
 	margin-right: 0.625rem;
 	margin-top: 0.625rem;
 	margin-bottom: 0.625rem;
-}
-
-.grid-index > li {
-	display: inline-block;
-}
-
-.grid-block {
-	display: inline-block;
-}
-
-.grid-block:first-child {
-	margin-left: 0;
-}
-
-/*
-.grid-block + .grid-block {
-	margin-left: 1.25rem;
-}
-*/
-
-.grid-block {
-	margin-left: 1.25rem;
 }
 
 .grid-index > li > .thumb {
@@ -75,29 +64,6 @@ body > .grid-index,
 	/* Justify content to gutter centre. */
 	padding-left: 0;
 	padding-right: 0;
-}
-
-.text-left    { text-align: left; }
-.text-justify { text-align: justify; }
-.text-center  { text-align: center; }
-.text-right   { text-align: right; }
-
-
-
-
-.grid-wrap,
-.grid-index {
-    margin: -0.6250rem;
-}
-
-.grid-wrap > .block,
-.grid-index > li,
-.grid-index > li:first-child {
-    margin: 0.6250rem;
-}
-
-.grid-block {
-    margin-left: 1.2500rem;
 }
 
 .grid-1\/2   { width: calc(50.0000% - 0.6250rem); }
