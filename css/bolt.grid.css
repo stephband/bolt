@@ -8,13 +8,24 @@
 	margin-right: -0.625rem;
 }
 
+body > .grid-wrap,
+body > .grid-index,
+.grid-wrap > .grid-wrap,
+.grid-wrap > .grid-index {
+	margin-left: 0;
+	margin-right: 0;
+}
+
 .grid-index > li,
 .grid-index > li:first-child {
-	display: inline-block;
 	margin-left: 0.625rem;
 	margin-right: 0.625rem;
 	margin-top: 0.625rem;
 	margin-bottom: 0.625rem;
+}
+
+.grid-index > li {
+	display: inline-block;
 }
 
 .grid-block {

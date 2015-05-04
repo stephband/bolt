@@ -32,7 +32,7 @@
 	<link rel="stylesheet" href="css/bolt.classes.css" />
 	<link rel="stylesheet" href="css/bolt.forms.css" />
 	<link rel="stylesheet" href="css/bolt.grid.css" />
-	<link rel="stylesheet" href="css/bolt.theme.css" />
+	<link rel="stylesheet" href="css/bolt.guide.css" />
 	<!--[if (lt IE 9)&(!IEMobile)]>
 	<link rel="stylesheet" href="css/bolt.layout.32em.css" media="all" />
 	<link rel="stylesheet" href="css/bolt.layout.48em.css" media="all" />
@@ -99,6 +99,32 @@
 			padding-bottom: 5rem;
 			background-color: #666666;
 		}
+
+		.example {
+			margin-top: 2.5rem;
+		}
+
+		.example > .grid-block,
+		.example > li,
+		.example > li:first-child {
+			font-family: 'Fira Mono', 'Andale Mono', Courier, monospace;
+			font-size: 0.6875rem;
+			letter-spacing: -0.04375em;
+			padding: 0.125rem;
+			padding-top: 0.0625rem;
+			padding-bottom: 0.0625rem;
+			color: #333333;
+			background-color: #cccccc;
+			border-radius: 0.125rem;
+			white-space: nowrap;
+			overflow: hidden;
+			margin-top: 0.25rem;
+			margin-bottom: 0.25rem;
+		}
+
+		.example + .wrap {
+			margin-top: 2.5rem;
+		}
 	</style>
 </head>
 
@@ -151,15 +177,83 @@
 	</div>
 </div>
 
+<div class="grid-wrap wrap example" id="example"></div>
+
+<div class="wrap grid-2/3 grid-left-1/9">
+	<p><code>.grid-<i>n</i>/<i>d</i></code> classes set the width of blocks.</p>
+	<p><code>.grid-left-<i>n</i>/<i>d</i></code> classes set the left margin of blocks.</p>
+	<p><code>.grid-index-<i>n</i>/<i>d</i></code> classes set the width of child <code>&lt;li&gt;</code>s.</p>
+</div>
+
+<!--ul class="grid-index-1/6 grid-index index example">
+	<li class="grid-1/1" style="background-color: transparent;">ul.index.grid-index.grid-index-1/6</li>
+	<li>li</li
+	><li>li</li
+	><li class="grid-1/3">li.grid-1/3</li
+	><li>li</li
+	><li>li</li
+	><li class="grid-left-1/2">li.grid-left-1/2</li
+	><li>li</li
+	><li>li</li
+	><li class="grid-left-1/6 grid-1/2">li.grid-left-1/6.grid-1/2</li
+	><li class="grid-1/3">li.grid-1/3</li
+	><li>li</li
+	><li>li</li
+	><li>li</li
+	><li>li</li
+	><li>li</li
+	><li>li</li
+	>
+</ul-->
+
 <div class="grey-block block">
 	<style id="output" class="wrap grid-7/9"></style>
 </div>
+
+<div class="guide-layer layer guide-18 toggle" id="guide-layer">
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+    <div class="guide-line"></div>
+</div>
+
+<ul class="guide-index index">
+    <li><a class="guide-button button" href="#guide-layer">Guides</a></li>
+</ul>
 
 <script>
 	(function() {
 		"use strict";
 		
 		var output = document.getElementById('output');
+		var list = document.getElementById('example');
 
 		function isDefined(val) {
 			return val !== undefined && val !== null;
@@ -175,6 +269,22 @@
 
 		function insertAfter(target, node) {
 			target.parentNode && target.parentNode.insertBefore(node, target.nextSibling);
+		}
+
+		function append(parent, node) {
+			parent.appendChild(node);
+			return parent;
+		}
+
+		function replace(parent, child) {
+			// Remove all children.
+			while (parent.lastChild) {
+				parent.removeChild(parent.lastChild);
+			}
+			
+			// Append the template fragment.
+			parent.appendChild(child);
+			return parent;
 		}
 
 		function reducable(n, d) {
@@ -208,6 +318,7 @@
 /* 360, 480, 540, 600, 720, 800, 840, 960, 1080, 1200, 1320, 1440 */
 		function render(breakpoints, gutter, max) {
 			var node = document.createElement('style');
+			var frag = document.createDocumentFragment();
 			var text = '';
 
 			breakpoints = breakpoints ? [0].concat(breakpoints) : [0];
@@ -217,14 +328,38 @@
 			console.log(breakpoints, gutter);
 
 			text += '.grid-wrap,\n.grid-index {';
-			text += '\n    margin: -' + (gutter / 2).toFixed(4) + 'rem;';
+			text += '\n    margin-left: -' + (gutter / 2).toFixed(4) + 'rem;';
+			text += '\n    margin-right: -' + (gutter / 2).toFixed(4) + 'rem;';
 			text += '\n}\n\n';
 			text += '.grid-wrap > .block,\n.grid-index > li,\n.grid-index > li:first-child {';
-			text += '\n    margin: ' + (gutter / 2).toFixed(4) + 'rem;';
+			text += '\n    margin-left: ' + (gutter / 2).toFixed(4) + 'rem;';
+			text += '\n    margin-right: ' + (gutter / 2).toFixed(4) + 'rem;';
 			text += '\n}\n\n';
 			text += '.grid-block {';
 			text += '\n    margin-left: ' + gutter.toFixed(4) + 'rem;';
 			text += '\n}\n\n';
+
+			// Render free-standing grid blocks
+			var d = 0;
+			var n = 0;
+			var col;
+
+			while (d++ < max) {
+				n = d;
+
+				while (n--) {
+					col = document.createElement('li');
+					col.setAttribute('class', 'grid-block block grid-1/' + d);
+					col.textContent = '.grid-1/' + d;
+					append(frag, col);
+				}
+
+				while (++n < d) {
+					if (reducable(n, d)) { continue; }
+				}
+			}
+
+			replace(list, frag);
 
 			breakpoints.forEach(function(b) {
 				if (b > 0) {
@@ -232,19 +367,27 @@
 					text += '    /* ' + b + 'px */\n';
 				}
 
+				var tab = b > 0 ? '    ' : '';
+				var breakpoint = b > 0 ? '-' + b : '';
+
+				text += tab + '.grid';
+				text += breakpoint;
+				text += '-' +  pad(1 + '\\/' + 1, 6, ' ');
+				text += ' { display: block; width: auto; }';
+				text += '\n';
+
 				// Render free-standing grid blocks
 				var d = 0;
 				var n = 0;
 
 				while (d++ < max) {
-
 					n = 0;
 					while (++n < d) {
 						if (reducable(n, d)) { continue; }
 
 						//text += n + '/' + d + '\n';
-						text += (b > 0 ? '    ' : '') + '.grid';
-						text += b > 0 ? '-' + b : '';
+						text += tab + '.grid';
+						text += breakpoint;
 						text += '-' +  pad(n + '\\/' + d, 6, ' ');
 						text += ' { width: calc(' + (100 * n / d).toFixed(4) + '% - ' + (gutter - gutter * n / d).toFixed(4) + 'rem); }';
 						text += '\n';
@@ -254,7 +397,7 @@
 				// Render free-standing grid margins
 				var d = 0;
 				var n = 0;
-				var className, definition;
+				var className, definition, fraction;
 
 				while (d++ < max) {
 					n = 0;
@@ -262,17 +405,35 @@
 						if (reducable(n, d)) { continue; }
 
 						className = '.grid';
-						className += b > 0 ? '-' + b : '';
+						className += breakpoint;
 						className += '-left-' +  pad(n + '\\/' + d, 6, ' ');
 
-						text += (b > 0 ? '    ' : '');
+						text += tab;
 						text += className + ' {';
 						text += ' margin-left: calc(' + (100 * n / d).toFixed(4) + '% + ' + (gutter * n / d).toFixed(4) + 'rem);';
 						text += ' }\n';
 					}
 				}
 
+
+
 				// Render wrapped or indexed grid blocks
+
+				className = '.grid';
+				className += breakpoint;
+				className += '-' +  pad(1 + '\\/' + 1, 6, ' ');
+
+				definition = '{ display: block; width: auto; }';
+
+				//text += n + '/' + d + '\n';
+				text += tab;
+				text += 'body > .grid' + breakpoint + '-1\\/1       , ';
+				text += '.grid-wrap > .grid' + breakpoint + '-1\\/1       , ';
+				text += '.grid-index > .grid' + breakpoint + '-1\\/1      , ';
+				text += '.grid' + breakpoint + '-index-1\\/1   > li';
+
+				text += ' ' + definition + '\n';
+
 				d = 0;
 				n = 0;
 
@@ -281,16 +442,16 @@
 					while (++n < d) {
 						if (reducable(n, d)) { continue; }
 
-						className = '.grid';
-						className += b > 0 ? '-' + b : '';
-						className += '-' +  pad(n + '\\/' + d, 6, ' ');
-
+						fraction = '-' +  pad(n + '\\/' + d, 6, ' ');
 						definition = '{ width: calc(' + (100 * n / d).toFixed(4) + '% - ' + gutter + 'rem); }';
 
 						//text += n + '/' + d + '\n';
-						text += (b > 0 ? '    ' : '');
-						text += '.grid-wrap > ' + className + ', ';
-						text += '.grid-index' + className + ' > li ' + definition + '\n';
+						text += tab;
+						text += 'body > .grid' + breakpoint + fraction + '     , ';
+						text += '.grid-wrap > .grid' + breakpoint + fraction + '     , ';
+						text += '.grid-index > .grid' + breakpoint + fraction + '    , ';
+						text += '.grid' + breakpoint + '-index' + fraction + ' > li';
+						text += ' ' + definition + '\n';
 					}
 				}
 
@@ -303,15 +464,14 @@
 					while (++n < d) {
 						if (reducable(n, d)) { continue; }
 
-						className = '.grid';
-						className += b > 0 ? '-' + b : '';
-						className += '-left-' +  pad(n + '\\/' + d, 6, ' ');
-
+						fraction = '-' +  pad(n + '\\/' + d, 6, ' ');
 						definition = '{ margin-left: calc(' + (100 * n / d).toFixed(4) + '% + ' + (gutter / 2).toFixed(4) + 'rem); }';
 
-						text += (b > 0 ? '    ' : '');
-						text += '.grid-wrap > ' + className + ', ';
-						text += '.grid-index' + className + ' > li ' + definition + '\n';
+						text += tab;
+						text += 'body > .grid' + breakpoint + '-left' + fraction + ', ';
+						text += '.grid-wrap > .grid' + breakpoint + '-left' + fraction + ', ';
+						text += '.grid-index > .grid' + breakpoint + '-left' + fraction;
+						text += ' ' + definition + '\n';
 					}
 				}
 
@@ -320,7 +480,23 @@
 				}
 
 				text += '\n';
+
+
 			});
+
+			var className, definition;
+
+			className = '.guide-line';
+
+			definition =  '{\n';
+			definition += '    width: ' + gutter + 'rem;\n';
+			definition += '    border-left: '  + gutter + 'rem solid rgba(114,184,169,0.25);\n';
+			definition += '    border-right: 0 solid rgba(114,184,169,0.25);\n';
+			definition += '    margin-left: -' + (gutter / 2) + 'rem;\n'
+			definition += '}\n';
+
+			text += className + ' ' + definition + '\n';
+
 
 			node.setAttribute('class', 'wrap grid-7/9');
 			node.textContent = text;
@@ -360,5 +536,34 @@
 		render(model.breakpoints, model.gutter, model.max);
 	})();
 </script>
+
+
+	<script src="js/jquery.js"></script>
+	<!--[if lte IE 8]><script src="js/jquery-1.9.1.js"></script><![endif]-->
+	<script src="res/jquery.cookie/jquery.cookie.js"></script>
+	<script src="js/jquery.prefix.js"></script>
+	<script src="js/jquery.render.js"></script>
+	<script src="js/jquery.event.tap.js"></script>
+	<script src="js/jquery.event.move.js"></script>
+	<script src="js/jquery.event.swipe.js"></script>
+	<script src="js/jquery.event.activate.js"></script>
+	<script src="js/jquery.dialog.js"></script>
+	<script src="js/jquery.loading.js"></script>
+	<script src="js/jquery.scrollto.js"></script>
+	<script src="js/jquery.validate.js"></script>
+	<script src="js/jquery.transition.js"></script>
+	
+	<script src="js/bolt.js"></script>
+	<script src="js/bolt.a.js"></script>
+	<script src="js/bolt.tip.js"></script>
+	<script src="js/bolt.tab.js"></script>
+	<script src="js/bolt.slide.js"></script>
+	<script src="js/bolt.toggle.js"></script>
+	<script src="js/bolt.dialog.js"></script>
+	<script src="js/bolt.dropdown.js"></script>
+	<script src="js/bolt.input.js"></script>
+
+
+
 </body>
 </html>
