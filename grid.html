@@ -63,6 +63,7 @@
 			line-height: 1.25em;
 			letter-spacing: -0.04375em;
 			white-space: pre;
+			overflow: auto;
 		}
 
 		style.wrap {
@@ -498,8 +499,6 @@
 				}
 
 				text += '\n';
-
-
 			});
 
 			var className, definition;
@@ -515,6 +514,26 @@
 
 			text += className + ' ' + definition + '\n';
 
+			breakpoints.forEach(function(b) {
+				if (b > 0) {
+					text += '\n@media all and (min-width: ' + (b / 16) + 'em) {\n';
+					text += '    /* ' + b + 'px */\n';
+				}
+
+				var tab = b > 0 ? '    ' : '';
+				var breakpoint = b > 0 ? '-' + b : '';
+				var n = -1;
+
+				while (n++ < max) {
+					text += tab + '.guide-layer > .guide-line:nth-child(' + (n + 1) + ') { left: ' + (100 * n / max) + '%; }\n';
+				}
+
+				text += tab + '.guide-layer > .guide-line:nth-child(' + n + ') ~ .guide-line { display: none; }\n';
+
+				if (b > 0) {
+					text += '}\n';
+				}
+			});
 
 			node.setAttribute('class', 'wrap grid-7/9');
 			node.textContent = text;
