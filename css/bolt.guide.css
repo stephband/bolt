@@ -112,5 +112,4 @@
 .guide-layer > .guide-line:nth-child(17) { left: 88.8889%; }
 .guide-layer > .guide-line:nth-child(18) { left: 94.4444%; }
 .guide-layer > .guide-line:nth-child(19) { left: 100%; }
-.guide-layer > .guide-line:nth-child(19) ~ .guide-line { display: none; }
 
