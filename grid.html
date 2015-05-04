@@ -341,6 +341,12 @@
 			return string + s;
 		}
 
+		function decimals(n, d) {
+			return (n % 1 + '').length > d + 2 ?
+				n.toFixed(d) :
+				n + '';
+		}
+
 /* 360, 480, 540, 600, 720, 800, 840, 960, 1080, 1200, 1320, 1440 */
 		function render(breakpoints, gutter, max) {
 			var node = document.createElement('style');
@@ -354,15 +360,15 @@
 			console.log(breakpoints, gutter);
 
 			text += '.grid-wrap,\n.grid-index {';
-			text += '\n    margin-left: -' + (gutter / 2).toFixed(4) + 'rem;';
-			text += '\n    margin-right: -' + (gutter / 2).toFixed(4) + 'rem;';
+			text += '\n    margin-left: -' + decimals(gutter / 2, 4) + 'rem;';
+			text += '\n    margin-right: -' + decimals(gutter / 2, 4) + 'rem;';
 			text += '\n}\n\n';
 			text += '.grid-wrap > .block,\n.grid-index > li,\n.grid-index > li:first-child {';
-			text += '\n    margin-left: ' + (gutter / 2).toFixed(4) + 'rem;';
-			text += '\n    margin-right: ' + (gutter / 2).toFixed(4) + 'rem;';
+			text += '\n    margin-left: ' + decimals(gutter / 2, 4) + 'rem;';
+			text += '\n    margin-right: ' + decimals(gutter / 2, 4) + 'rem;';
 			text += '\n}\n\n';
 			text += '.grid-block {';
-			text += '\n    margin-left: ' + gutter.toFixed(4) + 'rem;';
+			text += '\n    margin-left: ' + decimals(gutter, 4) + 'rem;';
 			text += '\n}\n\n';
 
 			// Render free-standing grid blocks
@@ -415,7 +421,7 @@
 						text += tab + '.grid';
 						text += breakpoint;
 						text += '-' +  pad(n + '\\/' + d, 6, ' ');
-						text += ' { width: calc(' + (100 * n / d).toFixed(4) + '% - ' + (gutter - gutter * n / d).toFixed(4) + 'rem); }';
+						text += ' { width: calc(' + decimals(100 * n / d, 4) + '% - ' + decimals(gutter - gutter * n / d, 4) + 'rem); }';
 						text += '\n';
 					}
 				}
@@ -436,7 +442,7 @@
 
 						text += tab;
 						text += className + ' {';
-						text += ' margin-left: calc(' + (100 * n / d).toFixed(4) + '% + ' + (gutter * n / d).toFixed(4) + 'rem);';
+						text += ' margin-left: calc(' + decimals(100 * n / d, 4) + '% + ' + decimals(gutter * n / d, 4) + 'rem);';
 						text += ' }\n';
 					}
 				}
@@ -469,7 +475,7 @@
 						if (reducable(n, d)) { continue; }
 
 						fraction = '-' +  pad(n + '\\/' + d, 6, ' ');
-						definition = '{ width: calc(' + (100 * n / d).toFixed(4) + '% - ' + gutter + 'rem); }';
+						definition = '{ width: calc(' + decimals(100 * n / d, 4) + '% - ' + gutter + 'rem); }';
 
 						//text += n + '/' + d + '\n';
 						text += tab;
@@ -491,7 +497,7 @@
 						if (reducable(n, d)) { continue; }
 
 						fraction = '-' +  pad(n + '\\/' + d, 6, ' ');
-						definition = '{ margin-left: calc(' + (100 * n / d).toFixed(4) + '% + ' + (gutter / 2).toFixed(4) + 'rem); }';
+						definition = '{ margin-left: calc(' + decimals(100 * n / d, 4) + '% + ' + decimals(gutter / 2, 4) + 'rem); }';
 
 						text += tab;
 						text += 'body > .grid' + breakpoint + '-left' + fraction + ', ';
@@ -516,7 +522,7 @@
 			definition += '    width: ' + gutter + 'rem;\n';
 			definition += '    border-left: '  + gutter + 'rem solid rgba(114,184,169,0.25);\n';
 			definition += '    border-right: 0 solid rgba(114,184,169,0.25);\n';
-			definition += '    margin-left: -' + (gutter / 2) + 'rem;\n'
+			definition += '    margin-left: -' + decimals(gutter / 2, 4) + 'rem;\n'
 			definition += '}\n';
 
 			text += className + ' ' + definition + '\n';
@@ -532,7 +538,7 @@
 				var n = -1;
 
 				while (n++ < max) {
-					text += tab + '.guide-layer > .guide-line:nth-child(' + (n + 1) + ') { left: ' + (100 * n / max) + '%; }\n';
+					text += tab + '.guide-layer > .guide-line:nth-child(' + (n + 1) + ') { left: ' + decimals(100 * n / max, 4) + '%; }\n';
 				}
 
 				text += tab + '.guide-layer > .guide-line:nth-child(' + n + ') ~ .guide-line { display: none; }\n';
