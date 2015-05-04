@@ -556,13 +556,19 @@ a.card:hover {
 	}
 }
 
-.banner_thumb {
+.block-thumb {
 	display: block;
 	width: auto;
 }
 
-.text_thumb,
-.text_thumbs .thumb {
+.block-thumb-2x3     { padding-top: 150%; }
+.block-thumb-1x1     { padding-top: 100%; }
+.block-thumb-16x9    { padding-top: 56.25%; }
+.block-thumb-3x2     { padding-top: 66.6667%; }
+.block-thumb-2x3     { padding-top: 150%; }
+
+.text-thumb,
+.text-thumbs .thumb {
 	/* Make the text show below the thumb. Text appears
 		 outside of the box - ie, it overflows - so that
 		 we dont see any more of the image than necessary. */
@@ -577,7 +583,7 @@ a.card:hover {
 	color: rgb(100,100,100);
 }
 
-.text_thumb > span {
+.text-thumb > span {
 	/* We can't use text-overflow because overflow is
 	   visible, so if you want to truncate the text you
 	   need to put a span inside the thumb. */
