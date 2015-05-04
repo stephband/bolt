@@ -71,6 +71,7 @@
 .guide-button:hover,
 .guide-button.on {
 	opacity: 1;
+	background-color: rgba(138, 165, 159, 0.8);
 }
 
 .guide-button:hover {
