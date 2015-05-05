@@ -575,6 +575,27 @@
 
 				d = 0;
 				n = 0;
+
+				while (d++ < max) {
+					n = 0;
+					while (++n < d) {
+						if (reducable(n, d)) { continue; }
+
+						fraction = '-' +  pad(n + '\\/' + d, 6, ' ');
+						definition = '{ width: ' + decimals(100 * n / d, 4) + '%; margin-left: 0; margin-right: 0; }';
+
+						//text += n + '/' + d + '\n';
+						text += tab;
+						text += 'body > .grid' + breakpoint + '-bleed' + fraction + ', ';
+						text += '.grid-wrap > .grid' + breakpoint + '-bleed' + fraction + ', ';
+						text += '.grid-index > .grid' + breakpoint + '-bleed' + fraction + ', ';
+						text += '.grid' + breakpoint + '-index' + '-bleed' + fraction + ' > li';
+						text += ' ' + definition + '\n';
+					}
+				}
+
+				d = 0;
+				n = 0;
 				definition = '';
 
 				while (d++ < max) {
