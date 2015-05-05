@@ -46,16 +46,6 @@ h4                { word-spacing: -0.0833em; font-size: 1em;      line-height: 1
 h5                { word-spacing: -0.0833em; font-size: 1em;      line-height: 1.3333em; }
 h6                { word-spacing: -0.0833em; font-size: 1em; }
 
-p                 { margin-bottom: 0.8333em; }
-p:last-child,
-ul:last-child,
-ol:last-child,
-dl:last-child,
-li:last-child,
-pre:last-child,
-address:last-child,
-blockquote:last-child { margin-bottom: 0; }
-
 dd                { margin: 0; }
 ul,
 ol,

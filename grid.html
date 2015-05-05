@@ -114,11 +114,12 @@
 			background-color: #666666;
 		}
 
-		.example {
+		.example,
+		.grid-wrap.example {
 			margin-top: 2.5rem;
 		}
 
-		.example > .grid-block,
+		.example.grid-wrap > .grid-block,
 		.example > li,
 		.example > li:first-child {
 			font-family: 'Fira Mono', 'Andale Mono', Courier, monospace;
@@ -182,7 +183,7 @@
 				<label>max devisions</label>
 				<input type="number" min="2" max="32" step="1" name="max" value="9" id="max-input"/>
 			</div
-			><div class="grid-block block grid-1/3">
+			><div class="grid-block block grid-1/3 grid-end">
 				<label for="gutter-input">gutter <small><i>px</i></small></label>
 				<input type="number" min="0" max="96" step="1" name="gutter" value="20" id="gutter-input"/>
 			</div
@@ -360,16 +361,11 @@
 			console.log(breakpoints, gutter);
 
 			text += '.grid-wrap,\n.grid-index {';
-			text += '\n    margin-left: -' + decimals(gutter / 2, 4) + 'rem;';
-			text += '\n    margin-right: -' + decimals(gutter / 2, 4) + 'rem;';
-			text += '\n}\n\n';
-			text += '.grid-wrap > .block,\n.grid-index > li,\n.grid-index > li:first-child {';
-			text += '\n    margin-left: ' + decimals(gutter / 2, 4) + 'rem;';
-			text += '\n    margin-right: ' + decimals(gutter / 2, 4) + 'rem;';
-			text += '\n}\n\n';
-			text += '.grid-block {';
-			text += '\n    margin-left: ' + decimals(gutter, 4) + 'rem;';
-			text += '\n}\n\n';
+			text += '\n    margin: -' + decimals(gutter / 2, 4) + 'rem;';
+			text += '\n}';
+			text += '\n\n.grid-index > li,\n.grid-index > li:first-child {';
+			text += '\n    margin: ' + decimals(gutter / 2, 4) + 'rem;';
+			text += '\n}\n';
 
 			// Render free-standing grid blocks
 			var d = 0;
@@ -380,7 +376,7 @@
 				n = d;
 
 				while (n--) {
-					col = document.createElement('li');
+					col = document.createElement('div');
 					col.setAttribute('class', 'grid-block block grid-1/' + d);
 					col.textContent = '.grid-1/' + d;
 					append(frag, col);
@@ -393,31 +389,121 @@
 
 			replace(list, frag);
 
-			breakpoints.forEach(function(b) {
+			if (breakpoints.length > 1) {
+				text += '\n/* Declare .grid-block + .grid-block margins first, so';
+				text += '\n   that .grid-wrap > .grid-block margins in later but';
+				text += '\n   smaller breakpoints override them. */\n'
+			}
+
+			breakpoints.forEach(function(b, i) {
 				if (b > 0) {
-					text += '@media all and (min-width: ' + (b / 16) + 'em) {\n';
+					text += '\n@media all and (min-width: ' + (b / 16) + 'em) {\n';
 					text += '    /* ' + b + 'px */\n';
 				}
 
-				var tab = b > 0 ? '    ' : '';
+				var tab = b > 0 ? '\n    ' : '\n';
 				var breakpoint = b > 0 ? '-' + b : '';
 
-				text += tab + '.grid';
-				text += breakpoint;
-				text += '-' +  pad(1 + '\\/' + 1, 6, ' ');
-				text += ' { display: block; width: auto; }';
-				text += '\n';
+				text += tab + '.grid' + breakpoint + '-block {';
+				text += tab + '    display: inline-block;';
+				text += tab + '}\n';
+
+				// TODO: add in all permutations of the breakpoints grid-blocks
+
+				var n = 0;
+				text += tab + '.grid-block + .grid' + breakpoint + '-block';
+
+				if (breakpoint) {
+					while (++n < i) {
+						text += ',' + tab + '.grid-' + breakpoints[n] + '-block + .grid' + breakpoint + '-block';
+					}
+
+					text += ',' + tab + '.grid' + breakpoint + '-block + .grid' + breakpoint + '-block';
+
+					while (--n) {
+						text += ',' + tab + '.grid' + breakpoint + '-block + .grid-' + breakpoints[n] + '-block';
+					}
+
+					text += ',' + tab + '.grid' + breakpoint + '-block + .grid-block';
+				}
+
+				text += ' {';
+				text += tab + '    margin-left: ' + gutter + 'rem;';
+				text += tab + '}\n';
+
+				if (b > 0) {
+					text += '}\n';
+				}
+			});
+
+			breakpoints.forEach(function(b, i) {
+				if (b > 0) {
+					text += '\n@media all and (min-width: ' + (b / 16) + 'em) {\n';
+					text += '    /* ' + b + 'px */\n';
+				}
+
+				var tab = b > 0 ? '\n    ' : '\n';
+				var breakpoint = b > 0 ? '-' + b : '';
+//
+				//text += tab + '.grid' + breakpoint + '-block {';
+				//text += tab + '    display: inline-block;';
+				////text += tab + '    margin-right: ' + decimals(gutter / 2, 4) + 'rem;';
+				//text += tab + '}\n';
+//
+				//// TODO: add in all permutations of the breakpoints grid-blocks
+//
+				//var n = 0;
+				//text += tab + '.grid-block + .grid' + breakpoint + '-block';
+//
+				//if (breakpoint) {
+				//	while (++n < i) {
+				//		text += ',' + tab + '.grid-' + breakpoints[n] + '-block + .grid' + breakpoint + '-block';
+				//	}
+//
+				//	text += ',' + tab + '.grid' + breakpoint + '-block + .grid' + breakpoint + '-block';
+//
+				//	while (--n) {
+				//		text += ',' + tab + '.grid' + breakpoint + '-block + .grid-' + breakpoints[n] + '-block';
+				//	}
+//
+				//	text += ',' + tab + '.grid' + breakpoint + '-block + .grid-block';
+				//}
+//
+				//text += ' {';
+				//text += tab + '    margin-left: ' + gutter + 'rem;';
+				//text += tab + '}\n';
+//
+				//text += tab + '.grid-wrap > .grid' + breakpoint + '-block {';
+				//text += tab + '    margin-left: ' + decimals(gutter / 2, 4) + 'rem;';
+				//text += tab + '    margin-right: ' + decimals(gutter / 2, 4) + 'rem;';
+				//text += tab + '}\n';
+
+				//text += tab + '.grid';
+				//text += breakpoint;
+				//text += '-' +  pad(1 + '\\/' + 1, 6, ' ');
+				//text += ' { display: block; width: auto; }';
+				//text += '\n';
+
+				text += tab + '.grid-wrap > .grid' + breakpoint + '-block {';
+				text += tab + '    margin: ' + decimals(gutter / 2, 4) + 'rem;';
+				text += tab + '}\n';
 
 				// Render free-standing grid blocks
 				var d = 0;
 				var n = 0;
+
+				text += tab + '.grid' + breakpoint + '-' +  pad('1\\/1', 6, ' ');
+				text += ' { width: 100%; }';
+				text += '\n';
+
+				// Tab starts with newline up until here
+				tab = b > 0 ? '    ' : '';
 
 				while (d++ < max) {
 					n = 0;
 					while (++n < d) {
 						if (reducable(n, d)) { continue; }
 
-						//text += n + '/' + d + '\n';
 						text += tab + '.grid';
 						text += breakpoint;
 						text += '-' +  pad(n + '\\/' + d, 6, ' ');
@@ -455,7 +541,7 @@
 				className += breakpoint;
 				className += '-' +  pad(1 + '\\/' + 1, 6, ' ');
 
-				definition = '{ display: block; width: auto; }';
+				definition = '{ width: calc(100% - ' + gutter+ 'rem); }';
 
 				//text += n + '/' + d + '\n';
 				text += tab;
@@ -587,10 +673,7 @@
 	})();
 </script>
 
-
 	<script src="js/jquery.js"></script>
-	<!--[if lte IE 8]><script src="js/jquery-1.9.1.js"></script><![endif]-->
-	<script src="res/jquery.cookie/jquery.cookie.js"></script>
 	<script src="js/jquery.prefix.js"></script>
 	<script src="js/jquery.render.js"></script>
 	<script src="js/jquery.event.tap.js"></script>
@@ -612,8 +695,6 @@
 	<script src="js/bolt.dialog.js"></script>
 	<script src="js/bolt.dropdown.js"></script>
 	<script src="js/bolt.input.js"></script>
-
-
 
 </body>
 </html>

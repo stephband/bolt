@@ -62,16 +62,6 @@ dl,
 pre,
 address        { margin: 0 0 1.5em 0; }
 
-p:last-child,
-ul:last-child,
-ol:last-child,
-dl:last-child,
-li:last-child,
-pre:last-child,
-form:last-child,
-address:last-child,
-blockquote:last-child { margin-bottom: 0; }
-
 blockquote:before { font-size: 3em; margin-left: -0.6em; line-height: 0.92em; }
 
 /* Inline elements */

@@ -48,16 +48,6 @@ h4                { word-spacing: -0.0833em; font-size: 1.17em;  line-height: 1.
 h5                { word-spacing: -0.0833em; font-size: 1.08em;  line-height: 1.54; }
 h6                { word-spacing: -0.0833em; font-size: 1em; }
 
-p                 { margin-bottom: 0.8333em; }
-p:last-child,
-ul:last-child,
-ol:last-child,
-dl:last-child,
-li:last-child,
-pre:last-child,
-address:last-child,
-blockquote:last-child { margin-bottom: 0; }
-
 /* Make first letter different */
 /*p::first-letter   { font-size: 1.3333em; line-height: 1em; font-style: italic; letter-spacing: 0.1333em; }
 p+p::first-letter { font-size: 1em; line-height: 1.3333; font-style: normal; letter-spacing: 0em; }*/

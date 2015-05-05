@@ -26,15 +26,6 @@ h4                { font-size: 1.125em; line-height: 1em; }
 h5                { font-size: 1em;     line-height: 1em; }
 h6                { font-size: 0.875em; line-height: 1em; }
 
-p:last-child,
-ul:last-child,
-ol:last-child,
-dl:last-child,
-li:last-child,
-pre:last-child,
-address:last-child,
-blockquote:last-child { margin-bottom: 0; }
-
 dd                { margin: 0; }
 ul,
 ol,
