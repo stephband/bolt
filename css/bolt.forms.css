@@ -108,6 +108,10 @@ label > [type="radio"] {
 	margin-right: 0.5rem;
 }
 
+label.error_label {
+	display: block;
+}
+
 input,
 button,
 select {
