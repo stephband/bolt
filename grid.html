@@ -205,29 +205,30 @@
 	<p><code>.grid-<i class="breakpoint">breakpoint</i>-index-<i>n</i>/<i>d</i></code> classes set <code>width</code> of child <code>&lt;li&gt;</code>s from the given breakpoint</p>
 </div>
 
-<!--ul class="grid-index-1/6 grid-index index example">
-	<li class="grid-1/1" style="background-color: transparent;">ul.index.grid-index.grid-index-1/6</li>
-	<li>li</li
-	><li>li</li
-	><li class="grid-1/3">li.grid-1/3</li
-	><li>li</li
-	><li>li</li
-	><li class="grid-left-1/2">li.grid-left-1/2</li
-	><li>li</li
-	><li>li</li
-	><li class="grid-left-1/6 grid-1/2">li.grid-left-1/6.grid-1/2</li
-	><li class="grid-1/3">li.grid-1/3</li
-	><li>li</li
-	><li>li</li
-	><li>li</li
-	><li>li</li
-	><li>li</li
-	><li>li</li
-	>
-</ul-->
-
 <div class="grey-block block">
 	<style id="output" class="wrap grid-7/9"></style>
+</div>
+
+<div class="wrap grid-2/3 grid-left-1/9">
+	<p>.grid-index-1/6</p>
+	<ul class="grid-index-1/6 grid-index index example">
+		<li>li</li
+		><li>li</li
+		><li class="grid-1/3">li.grid-1/3</li
+		><li>li</li
+		><li>li</li
+		><li class="grid-left-1/2">li.grid-left-1/2</li
+		><li>li</li
+		><li>li</li
+		><li class="grid-left-1/6 grid-1/2">li.grid-left-1/6.grid-1/2</li
+		><li class="grid-1/3">li.grid-1/3</li
+		><li>li</li
+		><li>li</li
+		><li>li</li
+		><li>li</li
+		><li>li</li
+		><li>li</li>
+	</ul>
 </div>
 
 <div class="guide-layer layer guide-18 toggle" id="guide-layer">
@@ -524,6 +525,11 @@
 				text += '{ margin-left: 0; }';
 				text += '\n';
 
+				text += tab;
+				text += '.' + breakpoint + 'grid-left-0\\/1   ';
+				text += '{ margin-left: ' + decimals(gutter / 2, 4) + 'rem; }';
+				text += '\n';
+
 				// .grid-left-n/d
 				d = 0;
 				n = 0;
@@ -544,6 +550,11 @@
 				text += tab;
 				text += '.' + breakpoint + 'grid-right-0     ';
 				text += '{ margin-right: 0; }';
+				text += '\n';
+
+				text += tab;
+				text += '.' + breakpoint + 'grid-right-0\\/1  ';
+				text += '{ margin-right: ' + decimals(gutter / 2, 4) + 'rem; }';
 				text += '\n';
 
 				// .grid-right-n/d
