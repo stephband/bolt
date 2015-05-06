@@ -358,12 +358,13 @@
 			gutter = isDefined(gutter) ? (gutter / 16) : 1.25;
 			max = max || 9;
 
-			console.log(breakpoints, gutter);
-
-			text += '.grid-wrap,\n.grid-index {';
+			text += '\n.grid-wrap,'
+			text += '\n.grid-index {';
 			text += '\n    margin: -' + decimals(gutter / 2, 4) + 'rem;';
-			text += '\n}';
-			text += '\n\n.grid-index > li,\n.grid-index > li:first-child {';
+			text += '\n}\n';
+
+			text += '\n.grid-index > li,'
+			text += '\n.grid-index > li:first-child {';
 			text += '\n    margin: ' + decimals(gutter / 2, 4) + 'rem;';
 			text += '\n}\n';
 
@@ -389,11 +390,11 @@
 
 			replace(list, frag);
 
-			if (breakpoints.length > 1) {
-				text += '\n/* Declare .grid-block + .grid-block margins first, so';
-				text += '\n   that .grid-wrap > .grid-block margins in later but';
-				text += '\n   smaller breakpoints override them. */\n'
-			}
+//			if (breakpoints.length > 1) {
+//				text += '\n/* Declare .grid-block + .grid-block margins first, so';
+//				text += '\n   that .grid-wrap > .grid-block margins in later but';
+//				text += '\n   smaller breakpoints override them. */\n'
+//			}
 
 			breakpoints.forEach(function(b, i) {
 				if (b > 0) {
@@ -402,34 +403,30 @@
 				}
 
 				var tab = b > 0 ? '\n    ' : '\n';
-				var breakpoint = b > 0 ? '-' + b : '';
-
-				text += tab + '.grid' + breakpoint + '-block {';
-				text += tab + '    display: inline-block;';
-				text += tab + '}\n';
+				var breakpoint = b > 0 ? '\\3' + b[0] + ' ' + b.substring(1) + '-'  : '';
 
 				// TODO: add in all permutations of the breakpoints grid-blocks
 
-				var n = 0;
-				text += tab + '.grid-block + .grid' + breakpoint + '-block';
-
-				if (breakpoint) {
-					while (++n < i) {
-						text += ',' + tab + '.grid-' + breakpoints[n] + '-block + .grid' + breakpoint + '-block';
-					}
-
-					text += ',' + tab + '.grid' + breakpoint + '-block + .grid' + breakpoint + '-block';
-
-					while (--n) {
-						text += ',' + tab + '.grid' + breakpoint + '-block + .grid-' + breakpoints[n] + '-block';
-					}
-
-					text += ',' + tab + '.grid' + breakpoint + '-block + .grid-block';
-				}
-
-				text += ' {';
-				text += tab + '    margin-left: ' + gutter + 'rem;';
-				text += tab + '}\n';
+//				var n = 0;
+//				text += tab + '.grid-block + .grid' + breakpoint + '-block';
+//
+//				if (breakpoint) {
+//					while (++n < i) {
+//						text += ',' + tab + '.grid-' + breakpoints[n] + '-block + .grid' + breakpoint + '-block';
+//					}
+//
+//					text += ',' + tab + '.grid' + breakpoint + '-block + .grid' + breakpoint + '-block';
+//
+//					while (--n) {
+//						text += ',' + tab + '.grid' + breakpoint + '-block + .grid-' + breakpoints[n] + '-block';
+//					}
+//
+//					text += ',' + tab + '.grid' + breakpoint + '-block + .grid-block';
+//				}
+//
+//				text += ' {';
+//				text += tab + '    margin-left: ' + gutter + 'rem;';
+//				text += tab + '}\n';
 
 				if (b > 0) {
 					text += '}\n';
@@ -443,7 +440,7 @@
 				}
 
 				var tab = b > 0 ? '\n    ' : '\n';
-				var breakpoint = b > 0 ? '-' + b : '';
+				var breakpoint = b > 0 ? '\\3' + b[0] + ' ' + b.substring(1) + '-'  : '';
 //
 				//text += tab + '.grid' + breakpoint + '-block {';
 				//text += tab + '    display: inline-block;';
@@ -484,55 +481,86 @@
 				//text += ' { display: block; width: auto; }';
 				//text += '\n';
 
-				text += tab + '.grid-wrap > .grid' + breakpoint + '-block {';
-				text += tab + '    margin: ' + decimals(gutter / 2, 4) + 'rem;';
-				text += tab + '}\n';
-
-				// Render free-standing grid blocks
 				var d = 0;
 				var n = 0;
+				var className, definition, fraction;
 
-				text += tab + '.grid' + breakpoint + '-' +  pad('1\\/1', 6, ' ');
-				text += ' { width: 100%; }';
-				text += '\n';
+				// .grid-block
+				text += tab + '.' + breakpoint + 'grid-block {';
+				text += tab + '    display: inline-block;';
+				text += tab + '    margin-left: ' + decimals(gutter / 2, 4) + 'rem;';
+				text += tab + '    margin-right: ' + decimals(gutter / 2, 4) + 'rem;';
+				text += tab + '}\n';
+
+				// .grid-wrap > .grid-block
+				text += tab + '.grid-wrap > .' + breakpoint + 'grid-block {';
+				text += tab + '    margin: ' + decimals(gutter / 2, 4) + 'rem;';
+				text += tab + '}\n\n';
 
 				// Tab starts with newline up until here
 				tab = b > 0 ? '    ' : '';
 
+				// .grid-1/1
+				text += tab + '.' + breakpoint + 'grid-' +  pad('1\\/1', 6, ' ');
+				text += ' { width: 100%; }';
+				text += '\n';
+
+				// .grid-n/d
 				while (d++ < max) {
 					n = 0;
 					while (++n < d) {
 						if (reducable(n, d)) { continue; }
 
-						text += tab + '.grid';
-						text += breakpoint;
+						text += tab + '.' + breakpoint + 'grid';
 						text += '-' +  pad(n + '\\/' + d, 6, ' ');
 						text += ' { width: calc(' + decimals(100 * n / d, 4) + '% - ' + decimals(gutter - gutter * n / d, 4) + 'rem); }';
 						text += '\n';
 					}
 				}
 
-				// Render free-standing grid margins
-				var d = 0;
-				var n = 0;
-				var className, definition, fraction;
+				// .grid-left-0
+				text += tab;
+				text += '.' + breakpoint + 'grid-left-0      ';
+				text += '{ margin-left: 0; }';
+				text += '\n';
+
+				// .grid-left-n/d
+				d = 0;
+				n = 0;
 
 				while (d++ < max) {
 					n = 0;
 					while (++n < d) {
 						if (reducable(n, d)) { continue; }
 
-						className = '.grid';
-						className += breakpoint;
-						className += '-left-' +  pad(n + '\\/' + d, 6, ' ');
-
 						text += tab;
-						text += className + ' {';
-						text += ' margin-left: calc(' + decimals(100 * n / d, 4) + '% + ' + decimals(gutter * n / d, 4) + 'rem);';
-						text += ' }\n';
+						text += '.' + breakpoint + 'grid-left-' + pad(n + '\\/' + d, 7, ' ');
+						text += '{ margin-left: calc(' + decimals(100 * n / d, 4) + '% + ' + decimals(gutter * n / d, 4) + 'rem); }';
+						text += '\n';
 					}
 				}
 
+				// .grid-right-0
+				text += tab;
+				text += '.' + breakpoint + 'grid-right-0     ';
+				text += '{ margin-right: 0; }';
+				text += '\n';
+
+				// .grid-right-n/d
+				d = 0;
+				n = 0;
+
+				while (d++ < max) {
+					n = 0;
+					while (++n < d) {
+						if (reducable(n, d)) { continue; }
+
+						text += tab;
+						text += '.' + breakpoint + 'grid-right-' + pad(n + '\\/' + d, 6, ' ');
+						text += '{ margin-right: calc(' + decimals(100 * n / d, 4) + '% + ' + decimals(gutter * n / d, 4) + 'rem); }';
+						text += '\n';
+					}
+				}
 
 
 				// Render wrapped or indexed grid blocks
@@ -545,10 +573,10 @@
 
 				//text += n + '/' + d + '\n';
 				text += tab;
-				text += 'body > .grid' + breakpoint + '-1\\/1       , ';
-				text += '.grid-wrap > .grid' + breakpoint + '-1\\/1       , ';
-				text += '.grid-index > .grid' + breakpoint + '-1\\/1      , ';
-				text += '.grid' + breakpoint + '-index-1\\/1   > li';
+				text += 'body > .' + breakpoint + 'grid-1\\/1       , ';
+				text += '.grid-wrap > .' + breakpoint + 'grid-1\\/1       , ';
+				text += '.grid-index > .' + breakpoint + 'grid-1\\/1      , ';
+				text += '.' + breakpoint + 'grid-index-1\\/1   > li';
 
 				text += ' ' + definition + '\n';
 
@@ -565,34 +593,35 @@
 
 						//text += n + '/' + d + '\n';
 						text += tab;
-						text += 'body > .grid' + breakpoint + fraction + '     , ';
-						text += '.grid-wrap > .grid' + breakpoint + fraction + '     , ';
-						text += '.grid-index > .grid' + breakpoint + fraction + '    , ';
-						text += '.grid' + breakpoint + '-index' + fraction + ' > li';
+						text += 'body > .' + breakpoint + 'grid' + fraction + '     , ';
+						text += '.grid-wrap > .' + breakpoint + 'grid' + fraction + '     , ';
+						text += '.grid-index > .' + breakpoint + 'grid' + fraction + '    , ';
+						text += '.' + breakpoint + 'grid-index' + fraction + ' > li';
 						text += ' ' + definition + '\n';
 					}
 				}
 
-				d = 0;
-				n = 0;
-
-				while (d++ < max) {
-					n = 0;
-					while (++n < d) {
-						if (reducable(n, d)) { continue; }
-
-						fraction = '-' +  pad(n + '\\/' + d, 6, ' ');
-						definition = '{ width: ' + decimals(100 * n / d, 4) + '%; margin-left: 0; margin-right: 0; }';
-
-						//text += n + '/' + d + '\n';
-						text += tab;
-						text += 'body > .grid' + breakpoint + '-bleed' + fraction + ', ';
-						text += '.grid-wrap > .grid' + breakpoint + '-bleed' + fraction + ', ';
-						text += '.grid-index > .grid' + breakpoint + '-bleed' + fraction + ', ';
-						text += '.grid' + breakpoint + '-index' + '-bleed' + fraction + ' > li';
-						text += ' ' + definition + '\n';
-					}
-				}
+				// .grid-wrap > .grid-bleed-n/d
+//				d = 0;
+//				n = 0;
+//
+//				while (d++ < max) {
+//					n = 0;
+//					while (++n < d) {
+//						if (reducable(n, d)) { continue; }
+//
+//						fraction = '-' +  pad(n + '\\/' + d, 6, ' ');
+//						definition = '{ width: ' + decimals(100 * n / d, 4) + '%; margin-left: 0; margin-right: 0; }';
+//
+//						//text += n + '/' + d + '\n';
+//						text += tab;
+//						text += 'body > .' + breakpoint + 'grid-bleed' + fraction + ', ';
+//						text += '.grid-wrap > .' + breakpoint + 'grid-bleed' + fraction + ', ';
+//						text += '.grid-index > .' + breakpoint + 'grid-bleed' + fraction + ', ';
+//						text += '.' + breakpoint + 'grid-index' + '-bleed' + fraction + ' > li';
+//						text += ' ' + definition + '\n';
+//					}
+//				}
 
 				d = 0;
 				n = 0;
@@ -607,9 +636,9 @@
 						definition = '{ margin-left: calc(' + decimals(100 * n / d, 4) + '% + ' + decimals(gutter / 2, 4) + 'rem); }';
 
 						text += tab;
-						text += 'body > .grid' + breakpoint + '-left' + fraction + ', ';
-						text += '.grid-wrap > .grid' + breakpoint + '-left' + fraction + ', ';
-						text += '.grid-index > .grid' + breakpoint + '-left' + fraction;
+						text += 'body > .' + breakpoint + 'grid-left' + fraction + ', ';
+						text += '.grid-wrap > .' + breakpoint + 'grid-left' + fraction + ', ';
+						text += '.grid-index > .' + breakpoint + 'grid-left' + fraction;
 						text += ' ' + definition + '\n';
 					}
 				}

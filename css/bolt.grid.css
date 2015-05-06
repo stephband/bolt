@@ -24,20 +24,26 @@ body > .grid-index,
 	margin-right: -0.6250rem;
 }
 
-.grid-block + .grid-block {
-	margin-left: 1.25rem;
-}
-
 .grid-block,
 .grid-index > li {
 	display: inline-block;
 }
 
-.grid-wrap > .grid-block,
+.grid-block,
 .grid-index > li,
 .grid-index > li:first-child {
 	margin-left: 0.625rem;
 	margin-right: 0.625rem;
+}
+
+.grid-left-0,
+.grid-block:first-child {
+	margin-left: 0;
+}
+
+.grid-right-0,
+.grid-block:last-child {
+	margin-right: 0;
 }
 
 .grid-index-adaptive > li:nth-last-child(1):first-child,
