@@ -397,17 +397,17 @@
 //				text += '\n   smaller breakpoints override them. */\n'
 //			}
 
-			breakpoints.forEach(function(b, i) {
-				if (b > 0) {
-					text += '\n@media all and (min-width: ' + (b / 16) + 'em) {\n';
-					text += '    /* ' + b + 'px */\n';
-				}
-
-				var tab = b > 0 ? '\n    ' : '\n';
-				var breakpoint = b > 0 ? '\\3' + b[0] + ' ' + b.substring(1) + '-'  : '';
-
-				// TODO: add in all permutations of the breakpoints grid-blocks
-
+//			breakpoints.forEach(function(b, i) {
+//				if (b > 0) {
+//					text += '\n@media all and (min-width: ' + (b / 16) + 'em) {\n';
+//					text += '    /* ' + b + 'px */\n';
+//				}
+//
+//				var tab = b > 0 ? '\n    ' : '\n';
+//				var breakpoint = b > 0 ? '\\3' + b[0] + ' ' + b.substring(1) + '-'  : '';
+//
+//				// TODO: add in all permutations of the breakpoints grid-blocks
+//
 //				var n = 0;
 //				text += tab + '.grid-block + .grid' + breakpoint + '-block';
 //
@@ -428,11 +428,11 @@
 //				text += ' {';
 //				text += tab + '    margin-left: ' + gutter + 'rem;';
 //				text += tab + '}\n';
-
-				if (b > 0) {
-					text += '}\n';
-				}
-			});
+//
+//				if (b > 0) {
+//					text += '}\n';
+//				}
+//			});
 
 			breakpoints.forEach(function(b, i) {
 				if (b > 0) {
