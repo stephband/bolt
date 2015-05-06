@@ -144,7 +144,6 @@
 </head>
 
 <body>
-
 <div class="wrap grid-2/3 grid-left-1/9">
 	<h1>bolt.grid.css</h1>
 
@@ -490,7 +489,7 @@
 				var className, definition, fraction;
 
 				// .grid-block
-				text += tab + '.' + breakpoint + 'grid-block {';
+				text += tab + '.' + breakpoint + 'grid-block,';
 				text += tab + '    display: inline-block;';
 				text += tab + '    margin-left: ' + decimals(gutter / 2, 4) + 'rem;';
 				text += tab + '    margin-right: ' + decimals(gutter / 2, 4) + 'rem;';
@@ -501,13 +500,13 @@
 				text += tab + '    margin: ' + decimals(gutter / 2, 4) + 'rem;';
 				text += tab + '}\n';
 
-				text += tab + '.' + breakpoint + 'grid-first,';
-				text += tab + '.' + breakpoint + 'grid-block:first-child {';
+				text += tab + '.' + breakpoint + 'grid-first {';
+//				text += tab + '.' + breakpoint + 'grid-block:first-child {';
 				text += tab + '    margin-left: 0;';
 				text += tab + '}\n';
 
-				text += tab + '.' + breakpoint + 'grid-last   ';
-				text += tab + '.' + breakpoint + 'grid-block:last-child {';
+				text += tab + '.' + breakpoint + 'grid-last {';
+//				text += tab + '.' + breakpoint + 'grid-block:last-child {';
 				text += tab + '    margin-right: 0;';
 				text += tab + '}\n';
 
