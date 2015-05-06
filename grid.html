@@ -495,11 +495,6 @@
 				text += tab + '    margin-right: ' + decimals(gutter / 2, 4) + 'rem;';
 				text += tab + '}\n';
 
-				// .grid-wrap > .grid-block
-				text += tab + '.grid-wrap > .' + breakpoint + 'grid-block {';
-				text += tab + '    margin: ' + decimals(gutter / 2, 4) + 'rem;';
-				text += tab + '}\n';
-
 				text += tab + '.' + breakpoint + 'grid-first {';
 //				text += tab + '.' + breakpoint + 'grid-block:first-child {';
 				text += tab + '    margin-left: 0;';
@@ -508,6 +503,11 @@
 				text += tab + '.' + breakpoint + 'grid-last {';
 //				text += tab + '.' + breakpoint + 'grid-block:last-child {';
 				text += tab + '    margin-right: 0;';
+				text += tab + '}\n';
+
+				// .grid-wrap > .grid-block
+				text += tab + '.grid-wrap > .' + breakpoint + 'grid-block {';
+				text += tab + '    margin: ' + decimals(gutter / 2, 4) + 'rem;';
 				text += tab + '}\n';
 
 				// .grid-1/1
