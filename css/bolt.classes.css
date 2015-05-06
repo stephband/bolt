@@ -719,7 +719,6 @@ button,
 	vertical-align: baseline;
 	
 	overflow: hidden;
-	white-space: nowrap;
 	text-overflow: ellipsis;
 	text-align: center;
 	text-decoration: none;

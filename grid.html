@@ -193,6 +193,15 @@
 
 <div class="grid-wrap wrap example" id="example"></div>
 
+<div class="wrap" style="margin-left: 0.625rem; margin-right: 0.625rem;">
+	<div class="grid-block grid-1/6" style="background-color: orange">
+		1/9
+	</div
+	><div class="grid-block grid-3/4 grid-left-1/12" style="background-color: orange">
+		2/3
+	</div>
+</div>
+
 <div class="wrap grid-2/3 grid-left-1/9">
 	<p><code>.grid-<i>n</i>/<i>d</i></code> classes set <code>width</code></p>
 	<p><code>.grid-left-<i>n</i>/<i>d</i></code> classes set <code>margin-left</code></p>
@@ -548,7 +557,7 @@
 
 						text += tab;
 						text += '.' + breakpoint + 'grid-left-' + pad(n + '\\/' + d, 7, ' ');
-						text += '{ margin-left: calc(' + decimals(100 * n / d, 4) + '% + ' + decimals(gutter * n / d, 4) + 'rem); }';
+						text += '{ margin-left: calc(' + decimals(100 * n / d, 4) + '% + ' + decimals(gutter * (1/2 + n/d), 4) + 'rem); }';
 						text += '\n';
 					}
 				}
@@ -570,21 +579,18 @@
 
 						text += tab;
 						text += '.' + breakpoint + 'grid-right-' + pad(n + '\\/' + d, 6, ' ');
-						text += '{ margin-right: calc(' + decimals(100 * n / d, 4) + '% + ' + decimals(gutter * n / d, 4) + 'rem); }';
+						text += '{ margin-right: calc(' + decimals(100 * n / d, 4) + '% + ' + decimals(gutter * (1/2 + n/d), 4) + 'rem); }';
 						text += '\n';
 					}
 				}
 
-
-				// Render wrapped or indexed grid blocks
-
+				// .grid-wrap > .grid-1/1
 				className = '.grid';
 				className += breakpoint;
 				className += '-' +  pad(1 + '\\/' + 1, 6, ' ');
 
 				definition = '{ width: calc(100% - ' + gutter+ 'rem); }';
 
-				//text += n + '/' + d + '\n';
 				text += tab;
 				text += 'body > .' + breakpoint + 'grid-1\\/1       , ';
 				text += '.grid-wrap > .' + breakpoint + 'grid-1\\/1       , ';
@@ -593,6 +599,7 @@
 
 				text += ' ' + definition + '\n';
 
+				// .grid-wrap > .grid-n/d
 				d = 0;
 				n = 0;
 
@@ -614,28 +621,7 @@
 					}
 				}
 
-				// .grid-wrap > .grid-bleed-n/d
-//				d = 0;
-//				n = 0;
-//
-//				while (d++ < max) {
-//					n = 0;
-//					while (++n < d) {
-//						if (reducable(n, d)) { continue; }
-//
-//						fraction = '-' +  pad(n + '\\/' + d, 6, ' ');
-//						definition = '{ width: ' + decimals(100 * n / d, 4) + '%; margin-left: 0; margin-right: 0; }';
-//
-//						//text += n + '/' + d + '\n';
-//						text += tab;
-//						text += 'body > .' + breakpoint + 'grid-bleed' + fraction + ', ';
-//						text += '.grid-wrap > .' + breakpoint + 'grid-bleed' + fraction + ', ';
-//						text += '.grid-index > .' + breakpoint + 'grid-bleed' + fraction + ', ';
-//						text += '.' + breakpoint + 'grid-index' + '-bleed' + fraction + ' > li';
-//						text += ' ' + definition + '\n';
-//					}
-//				}
-
+				// .grid-wrap > .grid-left-n/d
 				d = 0;
 				n = 0;
 				definition = '';

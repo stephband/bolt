@@ -47,6 +47,10 @@
 	display: inline-block;
 }
 
+.guide-index > li > .button {
+	vertical-align: top;
+}
+
 .guide-line {
 	position: absolute;
 	height: 100%;
