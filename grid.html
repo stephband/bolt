@@ -119,7 +119,7 @@
 			margin-top: 2.5rem;
 		}
 
-		.example.grid-wrap > .grid-block,
+		.example > .grid-block.grid-block,
 		.example > li,
 		.example > li:first-child {
 			font-family: 'Fira Mono', 'Andale Mono', Courier, monospace;
@@ -193,28 +193,26 @@
 
 <div class="grid-wrap wrap example" id="example"></div>
 
-<div class="wrap" style="margin-left: 0.625rem; margin-right: 0.625rem;">
-	<div class="grid-block grid-1/6" style="background-color: orange">
-		1/9
-	</div
-	><div class="grid-block grid-3/4 grid-left-1/12" style="background-color: orange">
-		2/3
-	</div>
-</div>
-
 <div class="wrap grid-2/3 grid-left-1/9">
-	<p><code>.grid-<i>n</i>/<i>d</i></code> classes set <code>width</code></p>
-	<p><code>.grid-left-<i>n</i>/<i>d</i></code> classes set <code>margin-left</code></p>
-	<p><code>.grid-index-<i>n</i>/<i>d</i></code> classes set <code>width</code> of child <code>&lt;li&gt;</code>s</p>
+	<p><code>grid-<i>n</i>/<i>d</i></code> classes set <code>width</code></p>
+	<p><code>grid-left-<i>n</i>/<i>d</i></code> classes set <code>margin-left</code></p>
+	<p><code>grid-right-<i>n</i>/<i>d</i></code> classes set <code>margin-right</code></p>
+	<p><code>grid-index-<i>n</i>/<i>d</i></code> classes set <code>width</code> of child <code>&lt;li&gt;</code>s</p>
 	<br/>
 	<p>Where <code><i class="breakpoint">breakpoint</i></code> is any number entered in <label for="breakpoints-input">breakpoints</label>:</p>
-	<p><code>.grid-<i class="breakpoint">breakpoint</i>-<i>n</i>/<i>d</i></code> classes set <code>width</code> from the given breakpoint</p>
-	<p><code>.grid-<i class="breakpoint">breakpoint</i>-left-<i>n</i>/<i>d</i></code> classes set <code>margin-left</code> from the given breakpoint</p>
-	<p><code>.grid-<i class="breakpoint">breakpoint</i>-index-<i>n</i>/<i>d</i></code> classes set <code>width</code> of child <code>&lt;li&gt;</code>s from the given breakpoint</p>
+	<p><code><i class="breakpoint">breakpoint</i>-grid-<i>n</i>/<i>d</i></code> classes set <code>width</code> from the given breakpoint</p>
+	<p><code><i class="breakpoint">breakpoint</i>-grid-left-<i>n</i>/<i>d</i></code> classes set <code>margin-left</code> from the given breakpoint</p>
+	<p><code><i class="breakpoint">breakpoint</i>-grid-right-<i>n</i>/<i>d</i></code> classes set <code>margin-right</code> from the given breakpoint</p>
+	<p><code><i class="breakpoint">breakpoint</i>-grid-index-<i>n</i>/<i>d</i></code> classes set <code>width</code> of child <code>&lt;li&gt;</code>s from the given breakpoint</p>
 </div>
 
 <div class="grey-block block">
 	<style id="output" class="wrap grid-7/9"></style>
+</div>
+
+
+<div class="wrap grid-2/3 grid-left-1/9">
+	<h1>Some tests</h1>
 </div>
 
 <div class="wrap grid-2/3 grid-left-1/9">
@@ -237,6 +235,38 @@
 		><li>li</li
 		><li>li</li>
 	</ul>
+</div>
+
+<div class="wrap grid-2/3 grid-left-1/9">
+	<p>.grid-block</p>
+</div>
+
+<div class="wrap example" style="margin-left: 0.625rem; margin-right: 0.625rem;">
+
+	<!--div class="grid-block grid-first grid-last grid-8/9 grid-left-1/9">.grid-8/9.grid-left-1/9</div>
+	<div class="grid-block grid-first grid-last grid-7/9 grid-left-2/9">.grid-7/9.grid-left-2/9</div>
+	<div class="grid-block grid-first grid-last grid-2/3 grid-left-1/3">.grid-2/3.grid-left-1/3</div-->
+
+	<div class="grid-block grid-first grid-1/9">.grid-1/9</div
+	><div class="grid-block grid-last grid-7/9 grid-left-1/9">.grid-7/9.grid-left-1/9</div>
+
+	<div class="grid-block grid-first grid-1/9">.grid-1/9</div
+	><div class="grid-block grid-last grid-2/3 grid-left-2/9">.grid-2/3.grid-left-2/9</div>
+
+	<div class="grid-block grid-first grid-1/9">.grid-1/9</div
+	><div class="grid-block grid-last grid-5/9 grid-left-1/3">.grid-5/9.grid-left-1/3</div>
+
+	<div class="grid-block grid-first grid-1/9">.grid-1/9</div
+	><div class="grid-block grid-last grid-4/9 grid-left-4/9">.grid-4/9.grid-left-4/9</div>
+
+	<div class="grid-block grid-first grid-1/9">.grid-1/9</div
+	><div class="grid-block grid-last grid-1/3 grid-left-5/9">.grid-1/3.grid-left-5/9</div>
+
+	<div class="grid-block grid-first grid-1/9">.grid-1/9</div
+	><div class="grid-block grid-last grid-2/9 grid-left-2/3">.grid-2/9.grid-left-2/3</div>
+
+	<div class="grid-block grid-first grid-1/9">.grid-1/9</div
+	><div class="grid-block grid-last grid-1/9 grid-left-7/9">.grid-1/9.grid-left-7/9</div>
 </div>
 
 <div class="guide-layer layer guide-18 toggle" id="guide-layer">
