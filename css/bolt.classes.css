@@ -669,7 +669,7 @@ a.card:hover {
 
 .select-thumb {}
 
-.select-thumb:after {
+.select-thumb::after {
     content: '▼';
     position: absolute;
     font-size: 0.75rem;
@@ -694,7 +694,7 @@ button {
 	-webkit-hyphens: none;
 	   -moz-hyphens: none;
 	    -ms-hyphens: none;
-	        hy­phens: none;
+	        hyphens: none;
 }
 
 .button:hover,
