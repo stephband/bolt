@@ -556,16 +556,11 @@ a.card:hover {
 	}
 }
 
-.block-thumb {
-	display: block;
-	width: auto;
-}
-
-.block-thumb-2x3     { padding-top: 150%; }
-.block-thumb-1x1     { padding-top: 100%; }
-.block-thumb-16x9    { padding-top: 56.25%; }
-.block-thumb-3x2     { padding-top: 66.6667%; }
-.block-thumb-2x3     { padding-top: 150%; }
+.thumb-2x3     { display: block; width: auto; padding-top: 150%; }
+.thumb-1x1     { display: block; width: auto; padding-top: 100%; }
+.thumb-16x9    { display: block; width: auto; padding-top: 56.25%; }
+.thumb-3x2     { display: block; width: auto; padding-top: 66.6667%; }
+.thumb-2x3     { display: block; width: auto; padding-top: 150%; }
 
 .text-thumb,
 .text-thumbs .thumb {
@@ -1138,6 +1133,96 @@ button.loading,
 	    -ms-transition-delay: 540ms;
 	        transition-delay: 540ms;
 }
+
+.tip {
+	top: 0;
+	left: 0;
+	font-size: 1rem;
+	padding-left: 0.625rem;
+	background-color: #dbe9ee;
+	border-radius: 0.25rem;
+}
+
+.js .tip {
+	-webkit-transform: translate3d(calc(-50% + 0.5rem), -24px, 0);
+	   -moz-transform: translate3d(calc(-50% + 0.5rem), -24px, 0);
+	    -ms-transform:   translate(calc(-50% + 0.5rem), -24px);
+	     -o-transform: translate3d(calc(-50% + 0.5rem), -24px, 0);
+	        transform: translate3d(calc(-50% + 0.5rem), -24px, 0);
+
+	z-index: 5;
+}
+
+.js .tip.active {
+	-webkit-transform: translate3d(calc(-50% + 0.5rem), -28px, 0);
+	   -moz-transform: translate3d(calc(-50% + 0.5rem), -28px, 0);
+	    -ms-transform:   translate(calc(-50% + 0.5rem), -28px);
+	     -o-transform: translate3d(calc(-50% + 0.5rem), -28px, 0);
+	        transform: translate3d(calc(-50% + 0.5rem), -28px, 0);
+}
+
+.js .right-tip {
+	-webkit-transform: translate3d(0, -50%, 0);
+	   -moz-transform: translate3d(0, -50%, 0);
+	    -ms-transform:   translate(0, -50%);
+	     -o-transform: translate3d(0, -50%, 0);
+	        transform: translate3d(0, -50%, 0);
+}
+
+.js .right-tip.active {
+	-webkit-transform: translate3d(0.25rem, -50%, 0);
+	   -moz-transform: translate3d(0.25rem, -50%, 0);
+	    -ms-transform:   translate(0.25rem, -50%);
+	     -o-transform: translate3d(0.25rem, -50%, 0);
+	        transform: translate3d(0.25rem, -50%, 0);
+}
+
+
+
+.tip::after {
+	display: block;
+	position: absolute;
+	width: 1.25rem;
+	height: 1.25rem;
+	transform: rotate(45deg);
+	background-color: inherit;
+}
+
+.tip-block,
+.js .tip-block {
+	visibility: visible;
+	opacity: 1;
+	position: relative;
+	display: block;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	max-width: none;
+}
+
+.top-tip::after,
+.bottom-tip::after,
+.left-tip::after,
+.right-tip::after {
+	content: ' ';
+}
+
+.top-tip::after,
+.bottom-tip::after {
+	left: 50%;
+	margin-left: -0.625rem;
+}
+
+.left-tip::after,
+.right-tip::after {
+	top: 50%;
+	margin-top: -0.625rem;
+}
+
+.top-tip::after { bottom: -0.625rem; }
+.bottom-tip::after { top: -0.625rem; }
+.left-tip::after { right: -0.625rem; }
+.right-tip::after { left: -0.625rem; }
+
 
 @media all and (max-width: 30em) {
 	.js body > .tip {

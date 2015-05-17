@@ -23,19 +23,15 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined){
-	var debug = false,//true,
-	    
-	    activeClass = "active",
-	    onClass = "on",
-	    
-	    location = window.location,
-	    	    
-	    id = location.hash,
-	    
-	    settings = {
+	var debug = false;//true;
+	var activeClass = "active";
+	var onClass = "on";
+	var location = window.location;
+	var id = location.hash;
+	var settings = {
 	    	cache: true
 	    };
-	
+
 	function returnTrue() {
 		return true;
 	}
@@ -132,8 +128,10 @@
 		
 		settings: settings
 	};
-	
-	jQuery(document).ready(function(){
+
+
+	jQuery(document)
+	.ready(function(){
 		// Setup all things that should start out active.
 		jQuery('.' + activeClass).trigger('activate');
 

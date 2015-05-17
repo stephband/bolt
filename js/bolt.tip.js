@@ -23,7 +23,7 @@
 		trigger(target, 'deactivate');
 	}
 
-	bolt('top_tip', {
+	bolt('top-tip', {
 		activate: function (e, data, fn) {
 			if (data.active) { return; }
 			data.active = true;
@@ -70,11 +70,60 @@
 		}
 	});
 
+
+	bolt('right-tip', {
+		activate: function (e, data, fn) {
+			console.log('RIGHT');
+			if (data.active) { return; }
+			data.active = true;
+
+			var elem = data.elem,
+			    relatedTarget = jQuery(e.relatedTarget),
+			    id = bolt.identify(e.target),
+			    relatedOffset = relatedTarget.offset(),
+			    relatedWidth = relatedTarget.outerWidth();
+
+			elem
+			.addClass('notransition')
+			.css({
+				margin: 0
+			});
+
+			var offset = elem.offset(),
+			    position = elem.position(),
+			    height = elem.outerHeight();
+
+			elem
+			.css({
+				margin: '',
+				// Round the number to get round a sub-pixel rendering error in Chrome
+				left: Math.floor(relatedOffset.left + relatedWidth + position.left - offset.left),
+				top:  Math.floor(relatedOffset.top + (relatedHeight / 2) + position.top - offset.top - (height / 2))
+			});
+
+			elem.width();
+			elem.removeClass('notransition');
+			
+			add(document, 'tap.' + id, tapHandler, e.target);
+			fn();
+		},
+
+		deactivate: function (e, data, fn) {
+			if (!data.active) { return; }
+			data.active = false;
+			
+			var id = bolt.identify(e.target);
+
+			remove(document, '.' + id, tapHandler);
+			fn();
+		}
+	});
+
 	bolt('tip', {
 		activate: function (e, data, fn) {
 			if (data.active) { return; }
 			data.active = true;
-			
+			console.log('TIP');
 			var elem = data.elem,
 			    relatedTarget = jQuery(e.relatedTarget),
 			    id = bolt.identify(e.target),
