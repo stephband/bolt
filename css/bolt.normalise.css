@@ -247,15 +247,15 @@ th {
 
 /* Default print styles. */
 
-@media print {
-	@page {
-	  margin: 0.5cm;
-	}
+@page {
+	margin: 0.5cm;
+}
 
+@media print {
 	html,
 	body {
-	  background: transparent;
-	  text-shadow: none !important;
+		background: transparent;
+		text-shadow: none !important;
 	}
 
 	/* Display external links after their text. */
