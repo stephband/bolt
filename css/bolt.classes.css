@@ -1089,16 +1089,27 @@ button.loading,
 }
 
 .tip {
-	padding-top: 0.33em;
-	padding-bottom: 0.33em;
-	padding-left: 0.75em;
-	padding-right: 0.75em;
+	top: 0;
+	left: 0;
+	/* We want the tip to expand up to 320px, but it won't
+	   do that where it's container is smaller than
+	   left + 320, so give it a negative right. */
+	right: -20rem;
+	font-size: 1rem;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
 	max-width: 20em;
+	border-radius: 0.25rem;
+	border: 0.125rem solid #cadce3;
+	background-color: #dbe9ee;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 
 .js .tip {
 	position: absolute;
-	z-index: 5;
+	z-index: 4;
 
 	-webkit-transition-duration: 120ms;
 	   -moz-transition-duration: 120ms;
@@ -1114,14 +1125,6 @@ button.loading,
 }
 
 .js .tip.active {
-	z-index: 2;
-
-	-webkit-transform: translate3d(0, -0.25rem, 0);
-	   -moz-transform: translate3d(0, -0.25rem, 0);
-	    -ms-transform:   translate(0, -0.25rem, 0);
-	     -o-transform: translate3d(0, -0.25rem, 0);
-	        transform: translate3d(0, -0.25rem, 0);
-
 	-webkit-transition-timing-function: ease-out;
 	   -moz-transition-timing-function: ease-out;
 	    -ms-transition-timing-function: ease-out;
@@ -1134,33 +1137,100 @@ button.loading,
 	        transition-delay: 540ms;
 }
 
-.tip {
-	top: 0;
-	left: 0;
-	/* We want the tip to expand up to 320px, but it won't
-	   do that where it's container is smaller than
-	   left + 320, so give it a negative right. */
-	right: -20rem;
-	font-size: 1rem;
-	padding-left: 0.625rem;
-	background-color: #dbe9ee;
-	border-radius: 0.25rem;
-}
-
 .js .top-tip {
-	-webkit-transform: translate3d(-50%, calc(-100% - 24px), 0);
-	   -moz-transform: translate3d(-50%, calc(-100% - 24px), 0);
-	    -ms-transform:   translate(-50%, calc(-100% - 24px));
-	     -o-transform: translate3d(-50%, calc(-100% - 24px), 0);
-	        transform: translate3d(-50%, calc(-100% - 24px), 0);
+	-webkit-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
+	   -moz-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
+	    -ms-transform:   translate(-50%, calc(-100% - 1.5rem));
+	     -o-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
+	        transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
 }
 
 .js .top-tip.active {
-	-webkit-transform: translate3d(-50%, calc(-100% - 28px), 0);
-	   -moz-transform: translate3d(-50%, calc(-100% - 28px), 0);
-	    -ms-transform:   translate(-50%, calc(-100% - 28px));
-	     -o-transform: translate3d(-50%, calc(-100% - 28px), 0);
-	        transform: translate3d(-50%, calc(-100% - 28px), 0);
+	-webkit-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
+	   -moz-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
+	    -ms-transform:   translate(-50%, calc(-100% - 1.75rem));
+	     -o-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
+	        transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
+}
+
+.js .left-top-tip {
+	-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
+	   -moz-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
+	    -ms-transform:   translate(-16.6667%, calc(-100% - 1.5rem));
+	     -o-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
+	        transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
+}
+
+.js .left-top-tip.active {
+	-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
+	   -moz-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
+	    -ms-transform:   translate(-16.6667%, calc(-100% - 1.75rem));
+	     -o-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
+	        transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
+}
+
+.js .right-top-tip {
+	-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
+	   -moz-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
+	    -ms-transform:   translate(-83.3333%, calc(-100% - 1.5rem));
+	     -o-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
+	        transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
+}
+
+.js .right-top-tip.active {
+	-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
+	   -moz-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
+	    -ms-transform:   translate(-83.3333%, calc(-100% - 1.75rem));
+	     -o-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
+	        transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
+}
+
+.js .bottom-tip {
+	-webkit-transform: translate3d(-50%, 1.5rem, 0);
+	   -moz-transform: translate3d(-50%, 1.5rem, 0);
+	    -ms-transform:   translate(-50%, 1.5rem);
+	     -o-transform: translate3d(-50%, 1.5rem, 0);
+	        transform: translate3d(-50%, 1.5rem, 0);
+}
+
+.js .bottom-tip.active {
+	-webkit-transform: translate3d(-50%, 1.75rem, 0);
+	   -moz-transform: translate3d(-50%, 1.75rem, 0);
+	    -ms-transform:   translate(-50%, 1.75rem);
+	     -o-transform: translate3d(-50%, 1.75rem, 0);
+	        transform: translate3d(-50%, 1.75rem, 0);
+}
+
+.js .right-bottom-tip {
+	-webkit-transform: translate3d(-83.3333%, 1.5rem, 0);
+	   -moz-transform: translate3d(-83.3333%, 1.5rem, 0);
+	    -ms-transform:   translate(-83.3333%, 1.5rem);
+	     -o-transform: translate3d(-83.3333%, 1.5rem, 0);
+	        transform: translate3d(-83.3333%, 1.5rem, 0);
+}
+
+.js .right-bottom-tip.active {
+	-webkit-transform: translate3d(-83.3333%, 1.75rem, 0);
+	   -moz-transform: translate3d(-83.3333%, 1.75rem, 0);
+	    -ms-transform:   translate(-83.3333%, 1.75rem);
+	     -o-transform: translate3d(-83.3333%, 1.75rem, 0);
+	        transform: translate3d(-83.3333%, 1.75rem, 0);
+}
+
+.js .left-bottom-tip {
+	-webkit-transform: translate3d(-16.6667%, 1.5rem, 0);
+	   -moz-transform: translate3d(-16.6667%, 1.5rem, 0);
+	    -ms-transform:   translate(-16.6667%, 1.5rem);
+	     -o-transform: translate3d(-16.6667%, 1.5rem, 0);
+	        transform: translate3d(-16.6667%, 1.5rem, 0);
+}
+
+.js .left-bottom-tip.active {
+	-webkit-transform: translate3d(-16.6667%, 1.75rem, 0);
+	   -moz-transform: translate3d(-16.6667%, 1.75rem, 0);
+	    -ms-transform:   translate(-16.6667%, 1.75rem);
+	     -o-transform: translate3d(-16.6667%, 1.75rem, 0);
+	        transform: translate3d(-16.6667%, 1.75rem, 0);
 }
 
 .js .left-tip {
@@ -1203,17 +1273,9 @@ button.loading,
 	height: 1.25rem;
 	transform: rotate(45deg);
 	background-color: inherit;
-}
-
-.tip-block,
-.js .tip-block {
-	visibility: visible;
-	opacity: 1;
-	position: relative;
-	display: block;
-	margin-top: 1em;
-	margin-bottom: 1em;
-	max-width: none;
+	border-color: inherit;
+	border-width: inherit;
+	border-style: inherit;
 }
 
 .top-tip::after,
@@ -1226,20 +1288,65 @@ button.loading,
 .top-tip::after,
 .bottom-tip::after {
 	left: 50%;
+	right: auto;
 	margin-left: -0.625rem;
 }
 
 .left-tip::after,
 .right-tip::after {
 	top: 50%;
+	bottom: auto;
 	margin-top: -0.625rem;
 }
 
-.top-tip::after { bottom: -0.625rem; }
-.bottom-tip::after { top: -0.625rem; }
-.left-tip::after { right: -0.625rem; }
-.right-tip::after { left: -0.625rem; }
+.top-tip::after {
+	bottom: -0.6875rem;
+	border-top-width: 0;
+	border-left-width: 0;
+	box-shadow: 3px 3px 4px rgba(0,0,0,0.3);
+}
 
+.bottom-tip::after {
+	top: -0.6875rem;
+	border-bottom-width: 0;
+	border-right-width: 0;
+}
+
+.left-tip::after {
+	right: -0.6875rem;
+	border-bottom: 0;
+	border-left: 0;
+	box-shadow: 3px 0px 4px -2px rgba(0,0,0,0.3);
+}
+
+.right-tip::after {
+	left: -0.6875rem;
+	border-right: 0;
+	border-top: 0;
+	box-shadow: 0px 3px 4px -2px rgba(0,0,0,0.3);
+}
+
+.right-top-tip::after,
+.right-bottom-tip::after {
+	left: 83.3333%;
+}
+
+.left-top-tip::after,
+.left-bottom-tip::after {
+	left: 16.6667%;
+}
+
+
+.tip-block,
+.js .tip-block {
+	visibility: visible;
+	opacity: 1;
+	position: relative;
+	display: block;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	max-width: none;
+}
 
 @media all and (max-width: 30em) {
 	.js body > .tip {
@@ -1261,17 +1368,10 @@ button.loading,
 .notransition .dropdown,
 .notransition .layer,
 .notransition .tip {
-	/* Potential source of bugs: -moz- must have units even with a 0 value,
-	   or it doesn't read the rule. */
-	-webkit-transition-duration: 0 !important;
-	   -moz-transition-duration: 0ms !important;
-	    -ms-transition-duration: 0 !important;
-	        transition-duration: 0 !important;
-
-	-webkit-transition-delay: 0 !important;
-	   -moz-transition-delay: 0ms !important;
-	    -ms-transition-delay: 0 !important;
-	        transition-delay: 0 !important;
+	-webkit-transition: none !important;
+	   -moz-transition: none !important;
+	     -o-transition: all 0 linear 0 !important;
+	        transition: none !important;
 }
 
 
