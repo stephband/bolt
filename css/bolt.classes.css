@@ -1143,7 +1143,7 @@ button.loading,
 	border-radius: 0.25rem;
 }
 
-.js .tip {
+.js .top-tip {
 	-webkit-transform: translate3d(calc(-50% + 0.5rem), -24px, 0);
 	   -moz-transform: translate3d(calc(-50% + 0.5rem), -24px, 0);
 	    -ms-transform:   translate(calc(-50% + 0.5rem), -24px);
@@ -1153,12 +1153,28 @@ button.loading,
 	z-index: 5;
 }
 
-.js .tip.active {
+.js .top-tip.active {
 	-webkit-transform: translate3d(calc(-50% + 0.5rem), -28px, 0);
 	   -moz-transform: translate3d(calc(-50% + 0.5rem), -28px, 0);
 	    -ms-transform:   translate(calc(-50% + 0.5rem), -28px);
 	     -o-transform: translate3d(calc(-50% + 0.5rem), -28px, 0);
 	        transform: translate3d(calc(-50% + 0.5rem), -28px, 0);
+}
+
+.js .left-tip {
+	-webkit-transform: translate3d(-100%, -50%, 0);
+	   -moz-transform: translate3d(-100%, -50%, 0);
+	    -ms-transform:   translate(-100%, -50%);
+	     -o-transform: translate3d(-100%, -50%, 0);
+	        transform: translate3d(-100%, -50%, 0);
+}
+
+.js .left-tip.active {
+	-webkit-transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
+	   -moz-transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
+	    -ms-transform:   translate(calc(-100% - 0.25rem), -50%);
+	     -o-transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
+	        transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
 }
 
 .js .right-tip {
@@ -1176,7 +1192,6 @@ button.loading,
 	     -o-transform: translate3d(0.25rem, -50%, 0);
 	        transform: translate3d(0.25rem, -50%, 0);
 }
-
 
 
 .tip::after {
