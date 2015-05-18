@@ -266,8 +266,8 @@ th {
 		text-decoration: underline;
 	}
 
-	a[href^="http://"]:after,
-	a[href^="https://"]:after {
+	a[href^="http://"]::after,
+	a[href^="https://"]::after {
 		content: " [" attr(href) "] ";
 		font-size: 0.9167em;
 		opacity: 0.75;
