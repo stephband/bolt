@@ -141,7 +141,7 @@
 		options = jQuery.extend({}, options);
 
 		dialog = jQuery('<div/>', {
-			'class': options.layerClass || ((role ? (role + '_dialog_layer dialog_layer') : 'dialog_layer') + ' layer')
+			'class': options.layerClass || ((role ? (role + '-dialog-layer dialog-layer') : 'dialog-layer') + ' layer')
 		});
 
 		box = roles[role || '_default'](this, options);

@@ -225,7 +225,7 @@
 		maxHeight(data);
 	}
 	
-	bolt('slides_dialog_layer', {
+	bolt('slides-dialog-layer', {
 		activate: function(e, data, fn) {
 			var slides = jQuery('.slide', e.target),
 			    images = slides.filter('img, iframe, object, embed').add(slides.find('img, iframe, object, embed')),
@@ -279,7 +279,7 @@
 		deactivateend: deactivateend
 	});
 
-	bolt('lightbox-dialog_layer', {
+	bolt('lightbox-dialog-layer', {
 		activate: function(e, data, fn) {
 			count++;
 			add(e.target, 'click.dialog tap.dialog', click);
@@ -304,7 +304,7 @@
 		deactivateend: deactivateend
 	});
 
-	bolt('alert_dialog_layer', {
+	bolt('alert-dialog-layer', {
 		activate: function(e, data, fn) {
 			count++;
 			add(e.target, 'click.dialog tap.dialog', close, 'confirm', '.confirm_button');
@@ -321,7 +321,7 @@
 		deactivateend: deactivateend
 	});
 
-	bolt('confirm_dialog_layer', {
+	bolt('confirm-dialog-layer', {
 		activate: function(e, data, fn) {
 			count++;
 			add(e.target, 'click.dialog tap.dialog', close, 'close', '.cancel_button');
@@ -345,7 +345,7 @@
 		deactivateend: deactivateend
 	});
 
-	bolt('dialog_layer', {
+	bolt('dialog-layer', {
 		activate: function(e, data, fn) {
 			count++;
 			add(e.target, 'click.dialog tap.dialog', click);

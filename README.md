@@ -113,7 +113,7 @@ State of items requested from a server
 
 ### .active
 
-On/off state for .tab, .slide, .dropdown, .dialog_layer, .tip and other interactive classes
+On/off state for .tab, .slide, .dropdown, .dialog-layer, .tip and other interactive classes
 
 ### .error
 

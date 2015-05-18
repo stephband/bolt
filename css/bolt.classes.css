@@ -137,22 +137,21 @@
 	/* Make sure we're using the right box model for this technique */
 	-webkit-box-sizing: content-box;
 	   -moz-box-sizing: content-box;
-	    -ms-box-sizing: content-box;
 	        box-sizing: content-box;
 }
 
-.dialog_layer {
+.dialog-layer {
 	position: fixed;
 }
 
 .middle,
-.dialog_layer {
+.dialog-layer {
 	/* Center inline-block contents horizontally */
 	text-align: center;
 }
 
-.middle:before,
-.dialog_layer:before {
+.middle::before,
+.dialog-layer::before {
 	/* Center inline-block contents vertically */
 	display: inline-block;
 	content: '';
@@ -162,7 +161,7 @@
 }
 
 .middle > *,
-.dialog_layer > * {
+.dialog-layer > * {
 	text-align: left;
 }
 
@@ -184,7 +183,7 @@
 
 /* Use a <canvas> as a loading icon */
 .loading_layer,
-.dialog_layer {
+.dialog-layer {
 	background-image: none;
 	background-color: rgba(31, 32, 33, 0.746094);
 	z-index: 4;
@@ -210,7 +209,7 @@
 	display: inline-block;
 	
 	/* Center the dialog vertically, working in tandem
-	   with the :before rule of .dialog_layer. */
+	   with the :before rule of .dialog-layer. */
 	vertical-align: middle;
 }
 
@@ -306,38 +305,21 @@
 	margin-top: 0;
 }
 
-.dropdown_index {
-	padding: 0.5em 0;
-}
-
-.dropdown_index > li {
-	margin-right: 0;
-}
-
-.dropdown_index > li > a {
+.index > li > .index-button {
 	display: block;
-	white-space: nowrap;
-	width: 100%;
-	padding-left: 10px;
-	padding-right: 10px;
-	font-size: 0.9167em;
-	font-weight: bold;
+	width: auto;
 }
 
-.index > li > .menu_button {
-	width: 100%;
-}
-
-.dots_index > li > .thumb {
+.dots-index > li > .thumb {
 	vertical-align: top;
 }
 
-.dots_index {
+.dots-index {
   text-align: center;
 }
 
 @media print {
-	.dots_index {
+	.dots-index {
 		display: none;
 	}
 }
@@ -359,7 +341,7 @@
 .tabs_index > li:last-child { margin-right: 0; }
 .tabs_index > li.last       { margin-right: 0; }
 
-.tabs_index > li > .tab_button {
+.tabs_index > li > .tab-button {
 	width: 100%;
 }
 
@@ -414,7 +396,7 @@
 
 .inline-index,
 .tabs_index,
-.dots_index,
+.dots-index,
 .crumbs_index,
 .action-index {
 	/* To form grids with a horizontal index, line-height
@@ -424,7 +406,7 @@
 
 .inline-index > li,
 .tabs_index > li,
-.dots_index > li,
+.dots-index > li,
 .crumbs_index > li,
 .action-index > li {
 	display: inline-block;
@@ -433,34 +415,26 @@
 
 .inline-index > li:first-child,
 .tabs_index > li:first-child,
-.dots_index > li:first-child,
+.dots-index > li:first-child,
 .crumbs_index > li:first-child,
 .action-index > li:first-child {
 	margin-left: 0;
 }
 
 
-.horizontal > input[type='radio'],
-.horizontal > input[type='checkbox'] {
-	/* Percentage heights on checkboxes can make them dissapear. */
-	height: auto;
-	width: auto;
-	margin-top: 0.25em;
-}
-
-.horizontal.index > dt,
-.horizontal.index > dd {
+.inline-index > dt,
+.inline-index > dd {
 	margin: 0;
 }
-.horizontal.index > dt,
-.horizontal.index > dd {
+.inline-index > dt,
+.inline-index > dd {
 	width: 160px;
 	line-height: 1.6em;
 }
-.horizontal.index > dt {
+.inline-index > dt {
 	vertical-align: text-bottom;
 }
-.horizontal.index > dd {
+.inline-index > dd {
 	vertical-align: text-top;
 	/* reset the margin that usually indents a dd */
 	margin-left: 0;
@@ -524,9 +498,9 @@ a.card:hover {
 	/* Hide overflowing text. This technique is better
 	   than using -ve text-indent because IE7 moves
 	   the background image with the text-indent. */
-	padding-top: 64px;
+	padding-top: 4rem;
 	height: 0;
-	width: 64px;
+	width: 4rem;
 
 	/* Keep top of text safely away from the bottom of
 	   the thumb. */
@@ -538,9 +512,9 @@ a.card:hover {
 	        background-size: cover;
 
 	/* background-position is set for the case where an image is used as the 
-	   the background. 50% to keep it centred, and 33% because faces are often
+	   the background. 50% to keep it centred, and 40% because faces are often
 	   centred in the upper portion of the image. */
-	background-position: 50% 33%;
+	background-position: 50% 40%;
 	background-repeat: no-repeat;
 	background-color: transparent;
 	border-width: 0;
@@ -562,8 +536,7 @@ a.card:hover {
 .thumb-3x2     { display: block; width: auto; padding-top: 66.6667%; }
 .thumb-2x3     { display: block; width: auto; padding-top: 150%; }
 
-.text-thumb,
-.text-thumbs .thumb {
+.text-thumb {
 	/* Make the text show below the thumb. Text appears
 		 outside of the box - ie, it overflows - so that
 		 we dont see any more of the image than necessary. */
@@ -578,20 +551,7 @@ a.card:hover {
 	color: rgb(100,100,100);
 }
 
-.text-thumb > span {
-	/* We can't use text-overflow because overflow is
-	   visible, so if you want to truncate the text you
-	   need to put a span inside the thumb. */
-	overflow: hidden;
-	display: block;
-	text-align: center;
-	white-space: nowrap;
-	-ms-text-overflow: ellipsis;
-	 -o-text-overflow: ellipsis;
-			text-overflow: ellipsis;
-}
-
-.browser_thumb {
+.browser-thumb {
 	width: 64px;
 	padding-top: 64px;
 	height: 2em;
@@ -609,19 +569,11 @@ a.card:hover {
 	     background-size: 342px 64px;
 }
 
-.chrome_browser_thumb		{ background-position: -5px 0; }
-.firefox_browser_thumb	{ background-position: -75px 0; }
-.opera_browser_thumb		{ background-position: -140px 0; }
-.safari_browser_thumb		{ background-position: -205px 0; }
-.ie_browser_thumb				{ background-position: -272px 0; }
-
-.chromeframe_browser_thumb {
-	background-image: url('/images/thumbs/logo_chromeframe.gif');
-	background-position: 0 0;
-	
-	-moz-background-size: 64px 64px;
-			 background-size: 64px 64px;
-}
+.chrome-browser-thumb  { background-position: -5px 0; }
+.firefox-browser-thumb { background-position: -75px 0; }
+.opera-browser-thumb   { background-position: -140px 0; }
+.safari-browser-thumb  { background-position: -205px 0; }
+.ie-browser-thumb      { background-position: -272px 0; }
 
 .fb_thumb,
 .tw_thumb,
@@ -636,7 +588,7 @@ a.card:hover {
 .tw_thumb { background-position: -25px 0; }
 .yt_thumb { background-position: -49px 0; }
 
-.dot_thumb {
+.dot-thumb {
 	font-size: 1.75em;
 	opacity: 0.6;
 	color: #484848;
@@ -645,7 +597,7 @@ a.card:hover {
 	line-height:  0.8571em;
 }
 
-.dot_thumb:after {
+.dot-thumb::after {
 	content: '●';
 	position: absolute;
 	top: 0;
@@ -656,23 +608,10 @@ a.card:hover {
 	text-align: center;
 }
 
-.dot_thumb.on,
-.dot_thumb:hover,
-.dot_thumb:focus {
+.dot-thumb.on,
+.dot-thumb:hover,
+.dot-thumb:focus {
 	opacity: 1;
-}
-
-.select-thumb {}
-
-.select-thumb::after {
-    content: '▼';
-    position: absolute;
-    font-size: 0.75rem;
-    line-height: 0.75rem;
-    bottom: 0;
-    right: 0;
-    opacity: 0.25;
-    z-index: 1;
 }
 
 
@@ -800,8 +739,7 @@ button.loading,
 	opacity: 0;
 }
 
-.menu_button,
-.tab_button {
+.tab-button {
 	padding-left: 0.8333em;
 	padding-right: 0.8333em;
 	
@@ -816,57 +754,18 @@ button.loading,
 	        border-radius: 0;
 }
 
-.tab_button {
-	/* Set up z-index to interact with tabs below the tab_buttons.
+.tab-button {
+	/* Set up z-index to interact with tabs below the tab-buttons.
 	   Tab buttons in the off state go under active tabs. */
 	z-index: 1;
 }
 
-.tab_button.on,
-.tab_button:active {
+.tab-button.on,
+.tab-button:active {
 	/* Tab buttons in the on state appear over active tabs, and
 	   they should display all their text. */
 	z-index: 3;
 	overflow: visible;
-}
-
-.menu_button {
-	text-align: left;
-}
-
-.close_button {
-	width: 32px;
-	width: 2rem;
-	height: 0;
-	padding-top: 28px;
-	padding-top: 1.75rem;
-
-	color: white;
-	background: #444444;
-	border: 2px solid white;
-
-	-webkit-border-radius: 1rem;
-	   -moz-border-radius: 1rem;
-	        border-radius: 1rem;
-}
-
-.close_button:hover {
-	color: white;
-}
-
-.close_button:after {
-	content: '✖';
-	display: block;
-	position: absolute;
-	font-size: 18px;
-	font-size: 1.125rem;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	line-height: 28px;
-	line-height: 1.75rem;
 }
 
 
@@ -910,49 +809,33 @@ button.loading,
 	/* A nice bit of hardware acceleration should help the transitions run
 	   smoothly. */
 	-webkit-transform: translate3d(0,0,0);
-	   -moz-transform: translate3d(0,0,0);
 	    -ms-transform: translate3d(0,0,0);
-	     -o-transform: translate3d(0,0,0);
 	        transform: translate3d(0,0,0);
 }
 
 .js .tab,
-.js .dialog_layer,
+.js .dialog-layer,
 .js .loading_layer {
 	visibility: hidden;
 	opacity: 0;
 	z-index: 1;
 	
 	-webkit-transition-property: opacity, visibility;
-	   -moz-transition-property: opacity, visibility;
-	    -ms-transition-property: opacity, visibility;
-	     -o-transition-property: opacity, visibility;
 	        transition-property: opacity, visibility;
-
 	-webkit-transition-duration: 120ms;
-	   -moz-transition-duration: 120ms;
-	    -ms-transition-duration: 120ms;
-	     -o-transition-duration: 120ms;
 	        transition-duration: 120ms;
-
 	-webkit-transition-timing-function: ease-in;
-	   -moz-transition-timing-function: ease-in;
-	    -ms-transition-timing-function: ease-in;
-	     -o-transition-timing-function: ease-in;
 	        transition-timing-function: ease-in;
 }
 
 .js .tab.active,
-.js .dialog_layer.active,
+.js .dialog-layer.active,
 .js .loading .loading_layer {
 	visibility: visible;
 	opacity: 1;
 	z-index: 2;
 	
 	-webkit-transition-timing-function: ease-out;
-	   -moz-transition-timing-function: ease-out;
-	    -ms-transition-timing-function: ease-out;
-	     -o-transition-timing-function: ease-out;
 	        transition-timing-function: ease-out;
 }
 
@@ -973,21 +856,10 @@ button.loading,
 	          user-select: none;
 	
 	-webkit-transition-property: left, height;
-	   -moz-transition-property: left, height;
-	    -ms-transition-property: left, height;
-	     -o-transition-property: left, height;
 	        transition-property: left, height;
-
 	-webkit-transition-duration: 333ms;
-	   -moz-transition-duration: 333ms;
-	    -ms-transition-duration: 333ms;
-	     -o-transition-duration: 333ms;
 	        transition-duration: 333ms;
-	
 	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-	   -moz-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-	    -ms-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-	     -o-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
 	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
 }
 
@@ -1037,9 +909,6 @@ button.loading,
 	visibility: hidden;
 	
 	-webkit-transition-property: opacity, visibility, transform;
-	   -moz-transition-property: opacity, visibility, transform;
-	    -ms-transition-property: opacity, visibility, transform;
-	     -o-transition-property: opacity, visibility, transform;
 	        transition-property: opacity, visibility, transform;
 }
 
@@ -1048,15 +917,9 @@ button.loading,
 	top: 2em;
 
 	-webkit-transition-duration: 180ms;
-	   -moz-transition-duration: 180ms;
-	    -ms-transition-duration: 180ms;
-	     -o-transition-duration: 180ms;
 	        transition-duration: 180ms;
 
 	-webkit-transition-timing-function: ease-out;
-	   -moz-transition-timing-function: ease-out;
-	    -ms-transition-timing-function: ease-out;
-	     -o-transition-timing-function: ease-out;
 	        transition-timing-function: ease-out;
 }
 
@@ -1070,21 +933,13 @@ button.loading,
 .js .popdown.active,
 .js .dropdown.active {
 	-webkit-transform: translate3d(0, 0.3333rem, 0);
-	   -moz-transform: translate3d(0, 0.3333rem, 0);
 	    -ms-transform:   translate(0, 0.3333rem, 0);
-	     -o-transform: translate3d(0, 0.3333rem, 0);
 	        transform: translate3d(0, 0.3333rem, 0);
 
 	-webkit-transition-duration: 60ms;
-	   -moz-transition-duration: 60ms;
-	    -ms-transition-duration: 60ms;
-	     -o-transition-duration: 60ms;
 	        transition-duration: 60ms;
 
 	-webkit-transition-timing-function: ease-in;
-	   -moz-transition-timing-function: ease-in;
-	    -ms-transition-timing-function: ease-in;
-	     -o-transition-timing-function: ease-in;
 	        transition-timing-function: ease-in;
 }
 
@@ -1112,156 +967,111 @@ button.loading,
 	z-index: 4;
 
 	-webkit-transition-duration: 120ms;
-	   -moz-transition-duration: 120ms;
-	    -ms-transition-duration: 120ms;
-	     -o-transition-duration: 120ms;
 	        transition-duration: 120ms;
-
 	-webkit-transition-timing-function: ease-in;
-	   -moz-transition-timing-function: ease-in;
-	    -ms-transition-timing-function: ease-in;
-	     -o-transition-timing-function: ease-in;
 	        transition-timing-function: ease-in;
 }
 
 .js .tip.active {
 	-webkit-transition-timing-function: ease-out;
-	   -moz-transition-timing-function: ease-out;
-	    -ms-transition-timing-function: ease-out;
-	     -o-transition-timing-function: ease-out;
 	        transition-timing-function: ease-out;
-
 	-webkit-transition-delay: 540ms;
-	   -moz-transition-delay: 540ms;
-	    -ms-transition-delay: 540ms;
 	        transition-delay: 540ms;
 }
 
 .js .top-tip {
 	-webkit-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
-	   -moz-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
 	    -ms-transform:   translate(-50%, calc(-100% - 1.5rem));
-	     -o-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
 	        transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
 }
 
 .js .top-tip.active {
 	-webkit-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
-	   -moz-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
 	    -ms-transform:   translate(-50%, calc(-100% - 1.75rem));
-	     -o-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
 	        transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
 }
 
 .js .left-top-tip {
 	-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
-	   -moz-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
 	    -ms-transform:   translate(-16.6667%, calc(-100% - 1.5rem));
-	     -o-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
 	        transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
 }
 
 .js .left-top-tip.active {
 	-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
-	   -moz-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
 	    -ms-transform:   translate(-16.6667%, calc(-100% - 1.75rem));
-	     -o-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
 	        transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
 }
 
 .js .right-top-tip {
 	-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
-	   -moz-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
 	    -ms-transform:   translate(-83.3333%, calc(-100% - 1.5rem));
-	     -o-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
 	        transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
 }
 
 .js .right-top-tip.active {
 	-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
-	   -moz-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
 	    -ms-transform:   translate(-83.3333%, calc(-100% - 1.75rem));
-	     -o-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
 	        transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
 }
 
 .js .bottom-tip {
 	-webkit-transform: translate3d(-50%, 1.5rem, 0);
-	   -moz-transform: translate3d(-50%, 1.5rem, 0);
 	    -ms-transform:   translate(-50%, 1.5rem);
-	     -o-transform: translate3d(-50%, 1.5rem, 0);
 	        transform: translate3d(-50%, 1.5rem, 0);
 }
 
 .js .bottom-tip.active {
 	-webkit-transform: translate3d(-50%, 1.75rem, 0);
-	   -moz-transform: translate3d(-50%, 1.75rem, 0);
 	    -ms-transform:   translate(-50%, 1.75rem);
-	     -o-transform: translate3d(-50%, 1.75rem, 0);
 	        transform: translate3d(-50%, 1.75rem, 0);
 }
 
 .js .right-bottom-tip {
 	-webkit-transform: translate3d(-83.3333%, 1.5rem, 0);
-	   -moz-transform: translate3d(-83.3333%, 1.5rem, 0);
 	    -ms-transform:   translate(-83.3333%, 1.5rem);
-	     -o-transform: translate3d(-83.3333%, 1.5rem, 0);
 	        transform: translate3d(-83.3333%, 1.5rem, 0);
 }
 
 .js .right-bottom-tip.active {
 	-webkit-transform: translate3d(-83.3333%, 1.75rem, 0);
-	   -moz-transform: translate3d(-83.3333%, 1.75rem, 0);
 	    -ms-transform:   translate(-83.3333%, 1.75rem);
-	     -o-transform: translate3d(-83.3333%, 1.75rem, 0);
 	        transform: translate3d(-83.3333%, 1.75rem, 0);
 }
 
 .js .left-bottom-tip {
 	-webkit-transform: translate3d(-16.6667%, 1.5rem, 0);
-	   -moz-transform: translate3d(-16.6667%, 1.5rem, 0);
 	    -ms-transform:   translate(-16.6667%, 1.5rem);
-	     -o-transform: translate3d(-16.6667%, 1.5rem, 0);
 	        transform: translate3d(-16.6667%, 1.5rem, 0);
 }
 
 .js .left-bottom-tip.active {
 	-webkit-transform: translate3d(-16.6667%, 1.75rem, 0);
-	   -moz-transform: translate3d(-16.6667%, 1.75rem, 0);
 	    -ms-transform:   translate(-16.6667%, 1.75rem);
-	     -o-transform: translate3d(-16.6667%, 1.75rem, 0);
 	        transform: translate3d(-16.6667%, 1.75rem, 0);
 }
 
 .js .left-tip {
 	-webkit-transform: translate3d(-100%, -50%, 0);
-	   -moz-transform: translate3d(-100%, -50%, 0);
 	    -ms-transform:   translate(-100%, -50%);
-	     -o-transform: translate3d(-100%, -50%, 0);
 	        transform: translate3d(-100%, -50%, 0);
 }
 
 .js .left-tip.active {
 	-webkit-transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
-	   -moz-transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
 	    -ms-transform:   translate(calc(-100% - 0.25rem), -50%);
-	     -o-transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
 	        transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
 }
 
 .js .right-tip {
 	-webkit-transform: translate3d(0, -50%, 0);
-	   -moz-transform: translate3d(0, -50%, 0);
 	    -ms-transform:   translate(0, -50%);
-	     -o-transform: translate3d(0, -50%, 0);
 	        transform: translate3d(0, -50%, 0);
 }
 
 .js .right-tip.active {
 	-webkit-transform: translate3d(0.25rem, -50%, 0);
-	   -moz-transform: translate3d(0.25rem, -50%, 0);
 	    -ms-transform:   translate(0.25rem, -50%);
-	     -o-transform: translate3d(0.25rem, -50%, 0);
 	        transform: translate3d(0.25rem, -50%, 0);
 }
 
@@ -1276,6 +1086,8 @@ button.loading,
 	border-color: inherit;
 	border-width: inherit;
 	border-style: inherit;
+	-webkit-transition: left 120ms ease-out;
+	        transition: left 120ms ease-out;
 }
 
 .top-tip::after,

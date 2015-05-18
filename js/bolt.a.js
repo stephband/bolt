@@ -338,7 +338,7 @@
 	
 	// Clicks on close buttons deactivate the thing they are inside
 	.on('click tap', '.close-thumb, .close_button, .cancel_button', function(e) {
-		var elem = jQuery(e.currentTarget).closest('.popdown, .dialog_layer');
+		var elem = jQuery(e.currentTarget).closest('.popdown, .dialog-layer');
 		
 		if (!elem.length) { return; }
 		
