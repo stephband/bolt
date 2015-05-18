@@ -1098,7 +1098,7 @@ button.loading,
 
 .js .tip {
 	position: absolute;
-	z-index: 1;
+	z-index: 5;
 
 	-webkit-transition-duration: 120ms;
 	   -moz-transition-duration: 120ms;
@@ -1153,8 +1153,6 @@ button.loading,
 	    -ms-transform:   translate(-50%, calc(-100% - 24px));
 	     -o-transform: translate3d(-50%, calc(-100% - 24px), 0);
 	        transform: translate3d(-50%, calc(-100% - 24px), 0);
-
-	z-index: 5;
 }
 
 .js .top-tip.active {
