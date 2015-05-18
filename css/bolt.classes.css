@@ -1137,6 +1137,10 @@ button.loading,
 .tip {
 	top: 0;
 	left: 0;
+	/* We want the tip to expand up to 320px, but it won't
+	   do that where it's container is smaller than
+	   left + 320, so give it a negative right. */
+	right: -20rem;
 	font-size: 1rem;
 	padding-left: 0.625rem;
 	background-color: #dbe9ee;
@@ -1144,21 +1148,21 @@ button.loading,
 }
 
 .js .top-tip {
-	-webkit-transform: translate3d(calc(-50% + 0.5rem), -24px, 0);
-	   -moz-transform: translate3d(calc(-50% + 0.5rem), -24px, 0);
-	    -ms-transform:   translate(calc(-50% + 0.5rem), -24px);
-	     -o-transform: translate3d(calc(-50% + 0.5rem), -24px, 0);
-	        transform: translate3d(calc(-50% + 0.5rem), -24px, 0);
+	-webkit-transform: translate3d(-50%, calc(-100% - 24px), 0);
+	   -moz-transform: translate3d(-50%, calc(-100% - 24px), 0);
+	    -ms-transform:   translate(-50%, calc(-100% - 24px));
+	     -o-transform: translate3d(-50%, calc(-100% - 24px), 0);
+	        transform: translate3d(-50%, calc(-100% - 24px), 0);
 
 	z-index: 5;
 }
 
 .js .top-tip.active {
-	-webkit-transform: translate3d(calc(-50% + 0.5rem), -28px, 0);
-	   -moz-transform: translate3d(calc(-50% + 0.5rem), -28px, 0);
-	    -ms-transform:   translate(calc(-50% + 0.5rem), -28px);
-	     -o-transform: translate3d(calc(-50% + 0.5rem), -28px, 0);
-	        transform: translate3d(calc(-50% + 0.5rem), -28px, 0);
+	-webkit-transform: translate3d(-50%, calc(-100% - 28px), 0);
+	   -moz-transform: translate3d(-50%, calc(-100% - 28px), 0);
+	    -ms-transform:   translate(-50%, calc(-100% - 28px));
+	     -o-transform: translate3d(-50%, calc(-100% - 28px), 0);
+	        transform: translate3d(-50%, calc(-100% - 28px), 0);
 }
 
 .js .left-tip {
