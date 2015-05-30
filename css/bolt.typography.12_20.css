@@ -32,7 +32,7 @@ body{
 }
 
 body,
-.horizontal > *,
+.inline-index > li,
 .tabs_index > li,
 .crumbs_index > li,
 .action-index > li {
