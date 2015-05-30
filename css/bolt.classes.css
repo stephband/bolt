@@ -531,10 +531,12 @@ a.card:hover {
 }
 
 .thumb-2x3     { display: block; width: auto; padding-top: 150%; }
+.thumb-3x4     { display: block; width: auto; padding-top: 133.3333%; }
 .thumb-1x1     { display: block; width: auto; padding-top: 100%; }
-.thumb-16x9    { display: block; width: auto; padding-top: 56.25%; }
+.thumb-4x3     { display: block; width: auto; padding-top: 75%; }
 .thumb-3x2     { display: block; width: auto; padding-top: 66.6667%; }
-.thumb-2x3     { display: block; width: auto; padding-top: 150%; }
+.thumb-16x9    { display: block; width: auto; padding-top: 56.25%; }
+
 
 .text-thumb {
 	/* Make the text show below the thumb. Text appears
