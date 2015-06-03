@@ -1,4 +1,4 @@
-(function (module, define) {
+(function (module) {
 	"use strict";
 
 	if (typeof define === 'function' && define.amd) {
@@ -41,4 +41,4 @@
 
 		return obj;
 	};
-}, define);
+});
