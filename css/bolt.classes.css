@@ -310,16 +310,16 @@
 	width: auto;
 }
 
-.dots-index > li > .thumb {
+.dot-index > li > .thumb {
 	vertical-align: top;
 }
 
-.dots-index {
+.dot-index {
   text-align: center;
 }
 
 @media print {
-	.dots-index {
+	.dot-index {
 		display: none;
 	}
 }
@@ -396,7 +396,7 @@
 
 .inline-index,
 .tabs_index,
-.dots-index,
+.dot-index,
 .crumbs_index,
 .action-index {
 	/* To form grids with a horizontal index, line-height
@@ -406,7 +406,7 @@
 
 .inline-index > li,
 .tabs_index > li,
-.dots-index > li,
+.dot-index > li,
 .crumbs_index > li,
 .action-index > li {
 	display: inline-block;
@@ -415,7 +415,7 @@
 
 .inline-index > li:first-child,
 .tabs_index > li:first-child,
-.dots-index > li:first-child,
+.dot-index > li:first-child,
 .crumbs_index > li:first-child,
 .action-index > li:first-child {
 	margin-left: 0;
