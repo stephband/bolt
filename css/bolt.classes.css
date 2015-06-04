@@ -152,7 +152,9 @@
 
 .middle::before,
 .dialog-layer::before {
-	/* Center inline-block contents vertically */
+	/* Center inline-block contents vertically. Note that to
+	   keep .dialog centered horizontally there should be no
+	   space in front of the .dialog box. */
 	display: inline-block;
 	content: '';
 	height: 100%;
