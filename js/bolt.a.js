@@ -212,13 +212,13 @@
 
 	function activate(e, node, data) {
 		e.preventDefault();
-		
+
 		if (e.type === 'mousedown') {
 			preventClick(e);
 		}
-	
+
 		if (!bolt.has(data.bolt['class'], 'activate')) { return; }
-	
+
 		if (data.active === undefined ?
 				data.bolt.elem.hasClass('active') :
 				data.active ) {
@@ -226,6 +226,27 @@
 		}
 	
 		trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
+	}
+
+	function preventClick(e) {
+		// Prevent the click that follows the mousedown. The preventDefault
+		// handler unbinds itself as soon as the click is heard.
+		if (e.type === 'mousedown') {
+			add(e.currentTarget, 'click', preventDefault);
+		}
+	}
+
+	function close(e) {
+		var activeTarget = e.data;
+
+		// A prevented default means this link has already been handled.
+		if (e.isDefaultPrevented()) { return; }
+	
+		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
+		
+		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
+		e.preventDefault();
+		preventClick(e);
 	}
 
 	function activateHref(e, fn) {
