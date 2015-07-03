@@ -386,16 +386,16 @@
 	// Mouseover on tip links toggle activate on their targets
 	.on('mouseover mouseout tap focusin focusout', 'a[href^="#"], [data-tip]', function(e) {
 		var href, node, elem, data, clas, tag;
-		
+
 		tag = e.target.tagName.toLowerCase();
-		
+
 		// Input fields should only show tips when focused
 		if (tag === 'input' && (e.type === 'mouseover' || e.type === 'mouseout' || e.type === 'tap')) {
 			return;
 		}
-		
+
 		href = e.currentTarget.getAttribute('data-tip');
-		
+
 		if (href && !(/^#/.test(href))) {
 			// The data-tip attribute holds text. Create a tip node and
 			// stick it in the DOM
