@@ -38,7 +38,6 @@
 
 	    		if (parts = /([\w-]+)\/([\w-]+)/.exec(id)) {
 	    			id = parts[1];
-	    			console.log(parts);
 	    		}
 
 	    		node = nodeCache[id] || document.getElementById(id);
@@ -291,9 +290,9 @@
 
 	function activateTarget(e) {
 		var target = e.currentTarget.target;
-		
+
 		if (isIgnorable(e)) { return; }
-		
+
 		// If the target is not listed, ignore
 		if (!targets[target]) { return; }
 		
