@@ -106,6 +106,8 @@
 		// Find the first focusable thing.
 		var firstNode = jQuery('[tabindex], a, input, textarea, button', node)[0];
 
+		if (!firstNode) { return; }
+
 		focusNode = focusNode || document.body;
 
 		function preventFocus(e) {
@@ -116,9 +118,9 @@
 				firstNode.focus();
 			}
 		}
-		
+
 		setTimeout(function() { firstNode.focus(); }, 0);
-		
+
 		// Prevent focus in capture phase
 		if (document.addEventListener) {
 			document.addEventListener("focus", preventFocus, true);
@@ -126,7 +128,7 @@
 
 		add(node, 'deactivate', function deactivate() {
 			// Set focus back to the thing that was last focused when the
-			// dailog was opened.
+			// dialog was opened.
 			setTimeout(function() { focusNode.focus(); }, 0);
 			remove(node, 'deactivate', deactivate);
 
