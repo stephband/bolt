@@ -17,7 +17,7 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined){
-	var debug = true,
+	var debug = false,
 
 	    add = jQuery.event.add,
 	    remove = jQuery.event.remove,
