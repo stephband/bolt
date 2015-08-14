@@ -196,7 +196,7 @@
 	
 	function mousedown(e){
 		var data;
-
+console.log('LEFT', e.which, isLeftButton(e));
 		if (!isLeftButton(e)) { return; }
 
 		data = {
@@ -307,6 +307,9 @@
 		// Create a movestart object with some special properties that
 		// are passed only to the movestart handlers.
 		template.type = 'movestart';
+		template.altKey = e.altKey;
+		template.ctrlKey = e.ctrlKey;
+		template.shiftKey = e.shiftKey;
 		template.distX = distX;
 		template.distY = distY;
 		template.deltaX = distX;
