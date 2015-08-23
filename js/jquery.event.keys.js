@@ -92,7 +92,7 @@
 	function keyup(e) {
 		var key = keymap[e.keyCode];
 
-		if (debug) console.log('[jquery.event.keys]', e.keyCode, code);
+		if (debug) console.log('[jquery.event.keys]', e.keyCode, key);
 
 		// Reuse the keyup event as the key[x] event
 		e.type = 'key[' + key + ']';
