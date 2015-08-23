@@ -99,6 +99,8 @@
 		trigger(e.target, e, null, true);
 	}
 
+	var code;
+
 	for (code in keymap) {
 		jQuery.event.special['key[' + keymap[code] + ']'] = obj;
 	}
