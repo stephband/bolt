@@ -196,7 +196,7 @@
 	
 	function mousedown(e){
 		var data;
-console.log('LEFT', e.which, isLeftButton(e));
+
 		if (!isLeftButton(e)) { return; }
 
 		data = {

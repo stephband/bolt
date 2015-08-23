@@ -176,15 +176,15 @@
 		},
 		
 		regex = {
-			hexColor:		    /^(#)?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/,
-			hslColor:		    /^(?:(hsl)(\())?\s?(\d{1,3}(?:\.\d+)?)\s?,\s?(\d{1,3}(?:\.\d+)?)%\s?,\s?(\d{1,3}(?:\.\d+)?)%\s?(\))?$/,
-			rgbColor:		    /^(?:(rgb)(\())?\s?(\d{1,3})\s?,\s?(\d{1,3})\s?,\s?(\d{1,3})\s?(\))?$/,
-			hslaColor:	    /^(?:(hsla)(\())?\s?(\d{1,3}(?:\.\d+)?)\s?,\s?(\d{1,3}(?:\.\d+)?)%\s?,\s?(\d{1,3}(?:\.\d+)?)%\s?,\s?([01](?:\.\d+)?)\s?(\))?$/,
-			rgbaColor:	    /^(?:(rgba)(\())?\s?(\d{1,3})\s?,\s?(\d{1,3})\s?,\s?(\d{1,3})\s?,\s?([01](?:\.\d+)?)\s?(\))?$/,
-			cssValue:		    /^(\-?\d+(?:\.\d+)?)(px|%|em|ex|pt|in|cm|mm|pt|pc)?$/,
-			cssAngle:		    /^(\-?\d+(?:\.\d+)?)(deg)?$/,
-			imgFile:		    /(?:\.png|\.gif|\.jpeg|\.jpg)$/,
-			'float':		    /^(\-?\d+(?:\.\d+)?)$/
+			hexColor:  /^(#)?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/,
+			hslColor:  /^(?:(hsl)(\())?\s?(\d{1,3}(?:\.\d+)?)\s?,\s?(\d{1,3}(?:\.\d+)?)%\s?,\s?(\d{1,3}(?:\.\d+)?)%\s?(\))?$/,
+			rgbColor:  /^(?:(rgb)(\())?\s?(\d{1,3})\s?,\s?(\d{1,3})\s?,\s?(\d{1,3})\s?(\))?$/,
+			hslaColor: /^(?:(hsla)(\())?\s?(\d{1,3}(?:\.\d+)?)\s?,\s?(\d{1,3}(?:\.\d+)?)%\s?,\s?(\d{1,3}(?:\.\d+)?)%\s?,\s?([01](?:\.\d+)?)\s?(\))?$/,
+			rgbaColor: /^(?:(rgba)(\())?\s?(\d{1,3})\s?,\s?(\d{1,3})\s?,\s?(\d{1,3})\s?,\s?([01](?:\.\d+)?)\s?(\))?$/,
+			cssValue:  /^(\-?\d+(?:\.\d+)?)(px|%|em|ex|pt|in|cm|mm|pt|pc)?$/,
+			cssAngle:  /^(\-?\d+(?:\.\d+)?)(deg)?$/,
+			imgFile:   /(?:\.png|\.gif|\.jpeg|\.jpg)$/,
+			'float':   /^(\-?\d+(?:\.\d+)?)$/
 		},
 		
 		// Data types
@@ -282,20 +282,13 @@
 				
 				return fail('That\'s not a CSS angle I recognise');
 			},
-			
+
 			imagefile: function( value, pass, fail ) {
 				return regex.imgFile.test( value ) ?
 							 pass() :
 							 fail('Must be a <i>.png</i>, <i>.jpg</i>, <i>.jpeg</i>, or <i>.gif</i> file') ;
 			},
-			
-			// Rails doesn't do html5 forms yet. Using email as a data-type is a workaround.
-			email: function( value, pass, fail ) {
-				return jQuery.fn.validate.regex.email.test(value) ?
-							 pass() :
-							 fail('Not a valid email address') ;
-			},
-			
+
 			json: function( value, pass, fail ) {
 				var obj;
 				
