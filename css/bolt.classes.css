@@ -1292,6 +1292,16 @@ button.loading,
 .left { float: left; }
 .right { float: right; }
 
+.align-top      { vertical-align: top !important; }
+.align-middle   { vertical-align: middle !important; }
+.align-bottom   { vertical-align: bottom !important; }
+.align-baseline { vertical-align: baseline !important; }
+
+.text-left    { text-align: left; }
+.text-justify { text-align: justify; }
+.text-center  { text-align: center; }
+.text-right   { text-align: right; }
+
 .scroll {
 	overflow: auto;
 	/* Enable momentum scrolling. Unfortunately this is buggy. It doesn't
@@ -1401,13 +1411,6 @@ button.loading,
 .striped_table > tbody > tr:hover > th {
 	background-color: rgba(15,15,15,0.15);
 }
-
-.text-left    { text-align: left; }
-.text-justify { text-align: justify; }
-.text-center  { text-align: center; }
-.text-right   { text-align: right; }
-
-
 
 
 /* hcard microformat (for reference)
