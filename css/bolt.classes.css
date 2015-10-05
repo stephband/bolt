@@ -765,8 +765,11 @@ button.loading,
 	content: '▶';
 	position: absolute;
 	top: 0;
+	right: 0;
+	font-size: 0.8125em;
 	line-height: inherit;
-	right: 0.625rem;
+	padding-top: inherit;
+	padding-bottom: inherit;
 	transition: transform 320ms ease-out;
 }
 
