@@ -27,7 +27,7 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined){
-	"use srtict";
+	"use strict";
 
 	var debug = false,//true,
 	    
