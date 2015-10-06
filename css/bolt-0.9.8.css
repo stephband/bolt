@@ -1,0 +1,3180 @@
+/* template.normalise.css
+
+   Much borrowed from Normalize.css:
+   http://github.com/necolas/normalize.css
+
+   Also parts from blueprint:
+   http://blueprintcss.org/
+
+   And a few ideas from html5boilerplate:
+   http://html5boilerplate.com/
+
+   Normalisation for forms can be found in template.forms.css. Similarly,
+   most normalisation for typography can be found in template.typography.css.
+*/
+
+
+/* html5 */
+
+/* This is very important. We give his the strongest possible selector. */
+html > body template {
+	display: none !important;
+}
+
+article,
+aside,
+details,
+dialog,
+figcaption,
+figure,
+footer,
+header,
+nav,
+section,
+summary {
+	display: block;
+}
+
+audio,
+canvas,
+video {
+	display: inline-block;
+}
+
+
+/* Reset */
+
+html {
+	/* Corrects text resizing oddly in IE6/7 when body font-size is set using em units
+	   http://clagnut.com/blog/348/#c790 */
+	font-size: 100%;
+	/* Prevents iOS text size adjust after orientation change, without disabling user zoom
+	   www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+
+html, body, div, span,
+object, iframe, canvas, img, svg, audio, track, math,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, address, code, time,
+del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, dialog, figure, figcaption, footer, header,
+nav, section,
+form, fieldset, label, legend, input, output, button, select, textarea,
+progress, meter,
+::before, ::after {
+	/* Here's what makes Bolt a little different. Border box.
+	   It'a a breath of fresh air to work with.
+
+	   Box-sizing breaks in IE8 when min- or max- width or height
+	   are defined, and in FF when min- or max- height are defined
+	   but height is auto. These cases are feature detected and the
+	   classes:
+
+	   min-width_border-box
+	   min-width_content-box
+	   min-height_border-box
+	   min-height_content-box
+
+	   applied to the html element, allowing you to style to overcome
+	   these problems. */
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	    -ms-box-sizing: border-box;
+	        box-sizing: border-box;
+
+	/* Set the dimensions of backgrounds to the limits of the
+	   padding box. */
+	-webkit-background-origin: padding-box;
+	   -moz-background-origin: padding;
+	        background-origin: padding-box;
+
+	/* Default to backgrounds that don't repeat. */
+	background-repeat: no-repeat;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+p,
+dl,
+menu,
+ol,
+ul,
+dd {
+	/* margins set differently in IE6/7 */
+	margin: 0;
+}
+
+menu,
+ol,
+ul {
+	/* paddings set differently in IE6/7 */
+	padding: 0 0 0 1.25em;
+}
+
+a:focus {
+	/* Outline displays oddly in Chrome */
+	outline: thin dotted;
+}
+
+a:hover,
+a:active {
+	/* Improves readability when focused and also mouse hovered in all browsers
+	   people.opera.com/patrickl/experiments/keyboard/test */
+	outline: 0;
+}
+
+mark {
+	/* styling not present in IE6/7/8/9 */
+	background: #ff0;
+	color: #000;
+}
+
+img,
+svg,
+canvas,
+video,
+object,
+embed,
+iframe {
+	/* Media are most often used as block level elements. */
+	display: block;
+	border: 0;
+}
+
+img,
+svg,
+canvas,
+video {
+	height: auto;
+}
+
+img {
+	/* Improves image quality when scaled in IE7
+	   code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
+	-ms-interpolation-mode: bicubic;
+}
+
+svg {
+	/* Allow SVG elements to escape the SVG container. */
+	overflow: visible;
+
+	/* Make SVGs fill and stroke to the color of their parents by default. */
+	fill: currentColor;
+	stroke: currentColor;
+	stroke-width: 0;
+}
+
+audio:not([controls]) {
+	/* Prevents modern browsers from displaying 'audio' without controls
+	   Remove excess height in iOS5 devices */
+	display: none;
+	height: 0;
+}
+
+figure {
+	margin: 0;
+}
+
+table {
+	border-spacing: 0;
+	/* Tables don't get border-radius if they are set to
+	   border-collapse: collapse; */
+	border-collapse: separate;
+
+	/* Remove most spacing between table cells. They still need
+	   'cellspacing="0"' in the markup. */
+	/*border-collapse: collapse;*/
+}
+
+caption,
+th,
+td {
+	text-align: left;
+	font-weight: normal;
+}
+
+table,
+td,
+th {
+	vertical-align: top;
+}
+
+[hidden] {
+	/* styling for 'hidden' attribute not present in IE7/8/9, FF3, S4. */
+	display: none;
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+	/* Get rid of persistent placeholders in webkit, where the placeholder
+	   hangs around like an old fart. More here:
+	   http://adactio.com/journal/6147/
+	*/
+	color: transparent;
+}
+
+[placeholder]:focus::-moz-placeholder {
+	/* Get rid of persistent placeholders in Firefox. */
+	color: transparent;
+}
+
+[draggable] {
+	/* Make draggable elements draggable in WebKit */
+	-webkit-user-drag: element;
+
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+
+	cursor: move;
+}
+
+[draggable="false"] {
+ 	-webkit-user-drag: none;
+
+	-webkit-user-select: text;
+	   -moz-user-select: text;
+	    -ms-user-select: text;
+
+	cursor: auto;
+}
+
+
+/* Default print styles. */
+
+@page {
+	margin: 0.5cm;
+}
+
+@media print {
+	html,
+	body {
+		background: transparent;
+		text-shadow: none !important;
+	}
+
+	/* Display external links after their text. */
+	a[href^="http://"],
+	a[href^="http://"]:visited,
+	a[href^="https://"],
+	a[href^="https://"]:visited {
+		text-decoration: underline;
+	}
+
+	a[href^="http://"]::after,
+	a[href^="https://"]::after {
+		content: " [" attr(href) "] ";
+		font-size: 0.9167em;
+		opacity: 0.75;
+	}
+
+	pre,
+	blockquote,
+	tr,
+	img {
+		page-break-inside: avoid;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		page-break-after: avoid;
+	}
+
+	/* css-discuss.incutio.com/wiki/Printing_Tables */
+	thead {
+		display: table-header-group;
+	}
+
+	p, h2, h3, h4, h5, h6 {
+		orphans: 3;
+		widows: 3;
+	}
+}
+
+/* bolt.classes.css
+
+   Defines base classes and common extended classes, mostly for layout. */
+
+
+/* .wrap */
+
+.wrap {
+	display: block;
+	/* Set as position parent. */
+	position: relative;
+	/* Wraps automatically centre themselves. */
+	margin: 0 auto;
+}
+
+.wrap > img,
+.wrap > svg,
+.wrap > video,
+.wrap > canvas,
+.wrap > object,
+.wrap > embed,
+.wrap > iframe {
+	/* Don't allow media to break out of container bounds. */
+	max-width: 100%;
+}
+
+.slides_wrap {
+	overflow: hidden;
+}
+
+
+/* .block */
+
+.block {
+	display: block;
+	/* Set as position parent */
+	position: relative;
+	/* Set them up to play nice as inline-blocks. */
+	vertical-align: top;
+	overflow: visible;
+	/* Negate possible spacing when .block is used on
+	   something typographic. A <p>, for example. */
+	margin: 0;
+	padding: 0;
+}
+
+.block > img,
+.block > svg,
+.block > video,
+.block > canvas,
+.block > object,
+.block > embed,
+.block > iframe {
+	/* Don't allow media to break out of container bounds. */
+	max-width: 100%;
+}
+
+
+/* .col */
+
+.col {
+	/* This inline-block method produces nice flow, and with a bit of
+	   head scratching can be used for liquid columns with fixed gutters,
+	   or even mixed fixed and liquid columns, all with arbitrary content
+	   order. However, it is a little susceptible to rounding errors, and
+	   requires spaceless html. */
+	
+	position: relative;
+	
+	/* For those pour souls who don't understand inline-block (IE7). */
+	display: inline-block;
+	display: inline !IE7;
+	vertical-align: top;
+	
+	/* Stop content pushing column wider than it should be */
+	overflow: visible;
+	width: 100%;
+}
+
+
+/* .panel */
+
+.panel {
+	display: block;
+	/* Set as position parent. */
+	position: relative;
+}
+
+
+/* .layer */
+
+.layer {
+	/* Permit possible scrollbars. */
+	overflow: auto;
+	
+	/* Make layer occupy the whole of the area in its position parent. */
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	
+	/* Height and width override the top, right, bottom, left declaration.
+	   To use height and width we must change the box model to make sure
+	   padding and border do not make the layer bigger than its container.
+	   The technique above does not work for iframes and can break as soon
+	   as height or width are declared, but the technique below will not
+	   work in IE7, where the box model can't be changed. */
+	width: 100%;
+	height: 100%;
+	
+	/* Make the corners of layers the same as their parents', allowing you
+	   to use layers as screens over specific elements. */
+	-webkit-border-radius: inherit;
+	   -moz-border-radius: inherit;
+	        border-radius: inherit;
+}
+
+.screen_layer {
+	background-color: rgba(0,0,0,0.6);
+}
+
+.pushscroll_layer {
+	/* A technique for hiding scrollbars by nesting two layers, and pushing
+	   the scrollbars on the inner .scroll_layer outside the hidden boundary
+	   of the outer .pushscroll_layer. */
+	   
+	/* These values, representing the thickness of a scrollbar, should be
+	   overriden by feature testing with some js */
+	padding-right: 16px;
+	padding-bottom: 16px;
+	
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	
+	/* Make sure we're using the right box model for this technique */
+	-webkit-box-sizing: content-box;
+	   -moz-box-sizing: content-box;
+	        box-sizing: content-box;
+}
+
+.dialog-layer {
+	position: fixed;
+}
+
+.middle,
+.dialog-layer {
+	/* Center inline-block contents horizontally */
+	text-align: center;
+}
+
+.middle::before,
+.dialog-layer::before {
+	/* Center inline-block contents vertically */
+	display: inline-block;
+	content: '';
+	height: 100%;
+	width: 0;
+	vertical-align: middle;
+}
+
+.middle > *,
+.dialog-layer > * {
+	text-align: left;
+}
+
+/* TODO: We should be able to merge the .gif technique with
+   the <canvas> technique, so that when canvas is not available
+   the gif displays - can we set the gif as background to the
+   canvas and still expect it to display? */
+
+/* Use a .gif as a loading icon */
+
+/*
+.loading_layer {
+		display: none;
+		background-position: 50% 50%;
+		background-image: url('../../images/loading-icon-16-white.gif');
+		background-color: transparent;
+		background-repeat: no-repeat;
+}*/
+
+/* Use a <canvas> as a loading icon */
+.loading_layer,
+.dialog-layer {
+	background-image: none;
+	background-color: rgba(31, 32, 33, 0.746094);
+	z-index: 4;
+}
+
+.loading_layer > canvas {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 80px;
+	height: 80px;
+	margin-left: -40px;
+	margin-top: -40px;
+}
+
+
+/* .dialog */
+
+.middle > *,
+.dialog {
+	/* Use inline-block to make dialog collapse
+	   to the width of its contents. */
+	display: inline-block;
+	
+	/* Center the dialog vertically, working in tandem
+	   with the :before rule of .dialog-layer. */
+	vertical-align: middle;
+}
+
+.dialog {
+	/* Act as position parent */
+	position: relative;
+
+	padding: 0.8333em;
+	margin: 0;
+	max-width: 72%;
+
+	/* But let's make sure it doesn't touch the top or
+	   bottom. */
+	margin-top: 2.5em;
+	margin-bottom: 2.5em;
+
+	background-color: white;
+
+	-webkit-border-radius: 0.3333em;
+	   -moz-border-radius: 0.3333em;
+	        border-radius: 0.3333em;
+
+	-webkit-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+	   -moz-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+	        box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+}
+
+.dialog > img,
+.dialog > svg,
+.dialog > video,
+.dialog > canvas,
+.dialog > object,
+.dialog > embed,
+.dialog > iframe {
+	/* Don't allow media to break out of container bounds. */
+	max-width: 100%;
+}
+
+.dialog > img,
+.dialog > svg,
+.dialog > video,
+.dialog > canvas {
+	/* Allow images to rescale freely. */
+	height: auto;
+}
+
+.dialog > .close_button,
+.dialog > .close-thumb {
+	position: absolute;
+	top: -16px;
+	top: -1rem;
+	right: -16px;
+	right: -1rem;
+	
+	-webkit-box-shadow: 0 0 24px rgba(0,0,0,0.6);
+	   -moz-box-shadow: 0 0 24px rgba(0,0,0,0.6);
+	        box-shadow: 0 0 24px rgba(0,0,0,0.6);
+}
+
+
+
+
+
+/* .index
+   
+   To be applied to <ul>, <ol> and <dl> elements, when you want them to
+   be displayed in a non-default style. Defines styles for lists of
+   inline-blocks like buttons, thumbs or toolbars, as well as lists
+   with dividers. */
+
+.index {
+	/* Remove default styling from list items. */
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.index > li {
+	/* Specifically remove default margin and padding from
+	   list items in case some typography rules have added
+	   these back in after the reset. */
+	margin: 0;
+	padding: 0;
+	
+	/* Make index items act as position parents. */
+	position: relative;
+
+	/* Prepare for inline-block layout. */
+	vertical-align: top;
+}
+
+.index > li:first-child {
+	margin-top: 0;
+}
+
+.index > li > .index-button {
+	display: block;
+	width: auto;
+}
+
+.dots-index > li > .thumb {
+	vertical-align: top;
+}
+
+.dots-index {
+  text-align: center;
+}
+
+@media print {
+	.dots-index {
+		display: none;
+	}
+}
+
+.tabs_index > li {
+	/* Stop content pushing li wider than it should be */
+	overflow: visible;
+	margin-right: 0;
+}
+
+.two_tabs_index > li        { width: 50%; }
+.three_tabs_index > li      { width: 33.33%; }
+.four_tabs_index > li       { width: 25%; }
+.five_tabs_index > li       { width: 20%; }
+.six_tabs_index > li        { width: 16.66%; }
+.seven_tabs_index > li      { width: 14.28%; }
+.eight_tabs_index > li      { width: 12.5%; }
+
+.tabs_index > li:last-child { margin-right: 0; }
+.tabs_index > li.last       { margin-right: 0; }
+
+.tabs_index > li > .tab-button {
+	width: 100%;
+}
+
+.crumbs_index,
+.crumbs_index > li {
+	white-space: nowrap;
+}
+
+.crumbs_index > li + li {
+	padding-left: 1.5em;
+}
+
+.crumbs_index > li + li:before {
+	content: "▶";
+	font-size: 0.75em;
+	display: inline-block;
+	display: inline !IE7;
+	vertical-align: baseline;
+	width: 2em;
+	text-align: center;
+	margin-left: -2em;
+	margin-right: 0;
+}
+
+.crumbs_index > li > .button {
+	width: 100%;
+}
+
+.tabs_index > li > .button,
+.crumbs_index > li > .button,
+.buttons_index > li > .button,
+.thumbs_index > li > .thumb {
+	/* Handle lists that contain just a single type of item. If 
+	   buttons or thumbs are aligned to the baseline, there will be
+	   a gap below them. */
+	vertical-align: top;
+}
+
+.action-index {
+	/* Send action buttons over to the right */
+	text-align: right;
+}
+
+
+/* .index classes with horizontal layout.
+		
+	 Simulate a bunch of blocks pushed against each other horizontally
+	 by using inline-block layout to create a horizontal effect. Because
+	 they're in the flow, children must have no space between them in
+	 the html.
+*/
+
+.inline-index,
+.tabs_index,
+.dots-index,
+.crumbs_index,
+.action-index {
+	/* To form grids with a horizontal index, line-height
+	   needs to be smaller than the items in the index. */
+	line-height: 0;
+}
+
+.inline-index > li,
+.tabs_index > li,
+.dots-index > li,
+.crumbs_index > li,
+.action-index > li {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.inline-index > li:first-child,
+.tabs_index > li:first-child,
+.dots-index > li:first-child,
+.crumbs_index > li:first-child,
+.action-index > li:first-child {
+	margin-left: 0;
+}
+
+
+.inline-index > dt,
+.inline-index > dd {
+	margin: 0;
+}
+.inline-index > dt,
+.inline-index > dd {
+	width: 160px;
+	line-height: 1.6em;
+}
+.inline-index > dt {
+	vertical-align: text-bottom;
+}
+.inline-index > dd {
+	vertical-align: text-top;
+	/* reset the margin that usually indents a dd */
+	margin-left: 0;
+	/* Move it down by one line-height */
+	margin-top: 1.6667em;
+	/* Move it left with a negative margin accounting for size, padding and margin of dt */
+	margin-left: -166px;
+	/* Space at the bottom for when the items wrap */
+	margin-bottom: 1.6667em;
+}
+
+
+/* .card */
+
+.card {
+	display: block;
+	min-height: 84px;
+	
+	padding-top: 10px; 
+	padding-right: 10px;
+	padding-bottom: 0;
+	padding-left: 84px;
+	
+	/* Act as position parent */
+	position: relative;
+	
+	/* A card is meant to have drag data attached. */
+	-webkit-user-drag: element;
+}
+
+a.card:hover {
+	text-decoration: none;
+}
+
+.card > .thumb {
+	/* Cards have thumbs. Put them on the left by default. */
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.card a,
+.card img {
+	-webkit-user-drag: none;
+}
+
+
+/* .thumb */
+
+.thumb {
+	display: inline-block;
+	vertical-align: top;
+	overflow: hidden;
+
+	/* Nullify padding that may have been put there by other
+	   styling, say for example by <button class="thumb"> */
+	padding-bottom: 0;
+	padding-left: 0;
+	padding-right: 0;
+
+	/* Hide overflowing text. This technique is better
+	   than using -ve text-indent because IE7 moves
+	   the background image with the text-indent. */
+	padding-top: 4rem;
+	height: 0;
+	width: 4rem;
+
+	/* Keep top of text safely away from the bottom of
+	   the thumb. */
+	line-height: 2;
+
+	-webkit-background-size: cover;
+	   -moz-background-size: cover;
+	     -o-background-size: cover;
+	        background-size: cover;
+
+	/* background-position is set for the case where an image is used as the 
+	   the background. 50% to keep it centred, and 40% because faces are often
+	   centred in the upper portion of the image. */
+	background-position: 50% 40%;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	border-width: 0;
+
+	text-decoration: none;
+	color: inherit;
+}
+
+@media print {
+	.thumb {
+		/* Encourage webkit to print background image. */
+		-webkit-print-color-adjust: exact;
+	}
+}
+
+.thumb-2x3     { display: block; width: auto; padding-top: 150%; }
+.thumb-1x1     { display: block; width: auto; padding-top: 100%; }
+.thumb-16x9    { display: block; width: auto; padding-top: 56.25%; }
+.thumb-3x2     { display: block; width: auto; padding-top: 66.6667%; }
+.thumb-2x3     { display: block; width: auto; padding-top: 150%; }
+
+.text-thumb {
+	/* Make the text show below the thumb. Text appears
+		 outside of the box - ie, it overflows - so that
+		 we dont see any more of the image than necessary. */
+	overflow: visible;
+	white-space: nowrap;
+	text-align: center;
+	margin-bottom: 1em;
+	line-height: 2.3333em;
+	
+	font-size: 0.9167em;
+	font-weight: bold;
+	color: rgb(100,100,100);
+}
+
+.browser-thumb {
+	width: 64px;
+	padding-top: 64px;
+	height: 2em;
+	line-height: 2em;
+	font-size: 0.8333em;
+	overflow: visible;
+	text-align: center;
+	font-weight: bold;
+	background-repeat: no-repeat;
+	background-size: auto;
+	white-space: nowrap;
+	
+	background-image: url('../images/thumbs/browser_logos.png');
+	-moz-background-size: 342px 64px;
+	     background-size: 342px 64px;
+}
+
+.chrome-browser-thumb  { background-position: -5px 0; }
+.firefox-browser-thumb { background-position: -75px 0; }
+.opera-browser-thumb   { background-position: -140px 0; }
+.safari-browser-thumb  { background-position: -205px 0; }
+.ie-browser-thumb      { background-position: -272px 0; }
+
+.fb_thumb,
+.tw_thumb,
+.yt_thumb {
+	padding-top: 20px;
+	width: 20px;
+	overflow: hidden;
+	background-image: url('../images/thumbs/logos_social.png');
+}
+
+.fb_thumb { background-position: 0 0; }
+.tw_thumb { background-position: -25px 0; }
+.yt_thumb { background-position: -49px 0; }
+
+.dot-thumb {
+	font-size: 1.75em;
+	opacity: 0.6;
+	color: #484848;
+	width: 0.8571em;
+	padding-top: 0.8571em;
+	line-height:  0.8571em;
+}
+
+.dot-thumb::after {
+	content: '●';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.dot-thumb.on,
+.dot-thumb:hover,
+.dot-thumb:focus {
+	opacity: 1;
+}
+
+
+/* .button */
+
+button {
+	/* buttons have standard padding that needs to be avoided. */
+	padding-top: 0;
+	padding-bottom: 0;
+	/* And they don't automatically inherit font styles. */
+	font-size: inherit;
+	font-family: inherit;
+
+	-webkit-hyphens: none;
+	   -moz-hyphens: none;
+	    -ms-hyphens: none;
+	        hyphens: none;
+}
+
+.button:hover,
+.button:focus {
+	/* If button is link, it may have hover styles. */
+	text-decoration: none;
+}
+
+button,
+.button {
+	display: inline-block;
+	position: relative;
+	
+	cursor: pointer;
+	
+	width: auto;
+	height: auto;
+	/* button elements ignore line-height, centering text automaticaly. */
+	line-height: 2em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
+	vertical-align: baseline;
+	
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: center;
+	text-decoration: none;
+	
+	background-repeat: no-repeat;
+	border-width: 0;
+
+	-webkit-background-clip: padding-box;
+	   -moz-background-clip: padding-box;
+	    -ms-background-clip: padding-box;
+	     -o-background-clip: padding-box;
+	        background-clip: padding-box;
+
+	-webkit-background-origin: padding-box;
+	   -moz-background-origin: padding;
+	   -moz-background-origin: padding-box;
+	    -ms-background-origin: padding-box;
+	     -o-background-origin: padding-box;
+	        background-origin: padding-box;
+}
+
+button:hover,
+.button:hover {
+	color: rgb(63,63,63);
+}
+
+button.loading,
+.button.loading {
+	opacity: 0.4;
+}
+
+.button > input[type="radio"],
+.button > input[type="checkbox"] {
+	display: inline;
+	height: auto;
+	vertical-align: baseline;
+	margin-right: 0.5em;
+	/* Stop radio's left edges getting cut off inside buttons. */
+	margin-left: 1px;
+}
+
+.radio_button,
+.checkbox_button {
+	/* Overflow will hide the browser generated error messages. No no no. */
+	overflow: visible;
+}
+
+/* Select boxes and file inputs wrapped in buttons for
+   restyling, like this:
+
+   <label class="button" for="select">
+     <span class="value">Price range</span>
+     <select id="select">
+       <option value="0">...</option>
+     </select>
+   </label>
+   
+   When JavaScript is not enabled, we don't want to hide
+   the select, as that would remove the ability to see
+   the current value. */
+
+.thumb > select,
+.button > select,
+.button > input[type="file"],
+.button > input[type="submit"] {
+	position: absolute;
+	display: block;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	cursor: pointer;
+	z-index: 2;
+}
+
+.js .thumb > select,
+.js .button > select,
+.js .button > input[type="file"],
+.js .button > input[type="submit"] {
+	-webkit-appearance: none;
+	opacity: 0;
+}
+
+.tab-button {
+	padding-left: 0.8333em;
+	padding-right: 0.8333em;
+	
+	/* Remove default border and shadow */
+	
+	-webkit-box-shadow: none;
+	   -moz-box-shadow: none;
+	        box-shadow: none;
+	
+	-webkit-border-radius: 0;
+	   -moz-border-radius: 0;
+	        border-radius: 0;
+}
+
+.tab-button {
+	/* Set up z-index to interact with tabs below the tab-buttons.
+	   Tab buttons in the off state go under active tabs. */
+	z-index: 1;
+}
+
+.tab-button.on,
+.tab-button:active {
+	/* Tab buttons in the on state appear over active tabs, and
+	   they should display all their text. */
+	z-index: 3;
+	overflow: visible;
+}
+
+
+/* .tab, .slide */
+
+.tab,
+.slide {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	width: 100%;
+	/* Give tabs and slides the same origin despite being inline-blocks. */
+	margin-right: -100%;
+}
+
+
+/* .popdown, .dropdown */
+
+.popdown,
+.dropdown {
+	display: block;
+	/* Hiding overflow causes problems in IE7 when the dropdown's container
+	   is narrower than the dropdown's content. I'm not sure we have any real
+	   reason to hide it. Probably if you're animating height to reveal you
+	   want this. */
+	/*overflow: hidden;*/
+	position: absolute;
+	/* They should appear over the top of following content. */
+	z-index: 3;
+}
+
+
+/* Transitions */
+
+.js .tip,
+.js .tab,
+.js .slide,
+.js .layer,
+.js .popdown,
+.js .dropdown {
+	/* A nice bit of hardware acceleration should help the transitions run
+	   smoothly. */
+	-webkit-transform: translate3d(0,0,0);
+	    -ms-transform: translate3d(0,0,0);
+	        transform: translate3d(0,0,0);
+}
+
+.js .tab,
+.js .dialog-layer,
+.js .loading_layer {
+	visibility: hidden;
+	opacity: 0;
+	z-index: 1;
+	
+	-webkit-transition-property: opacity, visibility;
+	        transition-property: opacity, visibility;
+	-webkit-transition-duration: 120ms;
+	        transition-duration: 120ms;
+	-webkit-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
+}
+
+.js .tab.active,
+.js .dialog-layer.active,
+.js .loading .loading_layer {
+	visibility: visible;
+	opacity: 1;
+	z-index: 2;
+	
+	-webkit-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
+}
+
+.js .slide {
+	/* By default all slides are positioned off to the left. */ 
+	left: -100%;
+	
+	/* Slides have no height by default to stop them influencing
+	   scrollbars when they are not active. */
+	height: 0;
+	overflow: hidden;
+	z-index: 1;
+
+	-webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	     -moz-user-select: none;
+	      -ms-user-select: none;
+	          user-select: none;
+	
+	-webkit-transition-property: left, height;
+	        transition-property: left, height;
+	-webkit-transition-duration: 333ms;
+	        transition-duration: 333ms;
+	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+}
+
+.js .slide.active {
+	/* The .active slide is positioned in the centre. */
+	left: 0;
+	height: auto;
+	overflow: visible;
+	z-index: 2;
+}
+
+.js .slide.active ~ .slide {
+	/* All slides after the .active slide are positioned off to
+	   the right. */
+	left: 100%;
+}
+
+.js .slide.active ~ .slide.active {
+	/* Except, of course, any that are still active. */
+	left: 0;
+}
+
+.js .stacked_slide {
+	left: 0;
+}
+
+@media print {
+	.js .slide {
+		position: static;
+		left: 0;
+		width: 34%;
+		height: auto;
+		margin-right: 3%;
+	}
+
+	.js .slide:nth-child(3n) {
+		margin-right: 0;
+	}
+}
+
+/* Transitions - .popdown, .dropdown, .tip */
+
+.js .tip,
+.js .popdown,
+.js .dropdown {
+	opacity: 0;
+	visibility: hidden;
+	
+	-webkit-transition-property: opacity, visibility, transform;
+	        transition-property: opacity, visibility, transform;
+}
+
+.js .popdown,
+.js .dropdown {
+	top: 2em;
+
+	-webkit-transition-duration: 180ms;
+	        transition-duration: 180ms;
+
+	-webkit-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
+}
+
+.js .tip.active,
+.js .popdown.active,
+.js .dropdown.active {
+	opacity: 1;
+	visibility: visible;
+}
+
+.js .popdown.active,
+.js .dropdown.active {
+	-webkit-transform: translate3d(0, 0.3333rem, 0);
+	    -ms-transform:   translate(0, 0.3333rem, 0);
+	        transform: translate3d(0, 0.3333rem, 0);
+
+	-webkit-transition-duration: 60ms;
+	        transition-duration: 60ms;
+
+	-webkit-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
+}
+
+.tip {
+	top: 0;
+	left: 0;
+	/* We want the tip to expand up to 320px, but it won't
+	   do that where it's container is smaller than
+	   left + 320, so give it a negative right. */
+	right: -20rem;
+	font-size: 1rem;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+	max-width: 20em;
+	border-radius: 0.25rem;
+	border: 0.125rem solid #cadce3;
+	background-color: #dbe9ee;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.js .tip {
+	position: absolute;
+	z-index: 4;
+
+	-webkit-transition-duration: 120ms;
+	        transition-duration: 120ms;
+	-webkit-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
+}
+
+.js .tip.active {
+	-webkit-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
+	-webkit-transition-delay: 540ms;
+	        transition-delay: 540ms;
+}
+
+.js .top-tip {
+	-webkit-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
+	    -ms-transform:   translate(-50%, calc(-100% - 1.5rem));
+	        transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
+}
+
+.js .top-tip.active {
+	-webkit-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
+	    -ms-transform:   translate(-50%, calc(-100% - 1.75rem));
+	        transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
+}
+
+.js .left-top-tip {
+	-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
+	    -ms-transform:   translate(-16.6667%, calc(-100% - 1.5rem));
+	        transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
+}
+
+.js .left-top-tip.active {
+	-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
+	    -ms-transform:   translate(-16.6667%, calc(-100% - 1.75rem));
+	        transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
+}
+
+.js .right-top-tip {
+	-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
+	    -ms-transform:   translate(-83.3333%, calc(-100% - 1.5rem));
+	        transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
+}
+
+.js .right-top-tip.active {
+	-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
+	    -ms-transform:   translate(-83.3333%, calc(-100% - 1.75rem));
+	        transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
+}
+
+.js .bottom-tip {
+	-webkit-transform: translate3d(-50%, 1.5rem, 0);
+	    -ms-transform:   translate(-50%, 1.5rem);
+	        transform: translate3d(-50%, 1.5rem, 0);
+}
+
+.js .bottom-tip.active {
+	-webkit-transform: translate3d(-50%, 1.75rem, 0);
+	    -ms-transform:   translate(-50%, 1.75rem);
+	        transform: translate3d(-50%, 1.75rem, 0);
+}
+
+.js .right-bottom-tip {
+	-webkit-transform: translate3d(-83.3333%, 1.5rem, 0);
+	    -ms-transform:   translate(-83.3333%, 1.5rem);
+	        transform: translate3d(-83.3333%, 1.5rem, 0);
+}
+
+.js .right-bottom-tip.active {
+	-webkit-transform: translate3d(-83.3333%, 1.75rem, 0);
+	    -ms-transform:   translate(-83.3333%, 1.75rem);
+	        transform: translate3d(-83.3333%, 1.75rem, 0);
+}
+
+.js .left-bottom-tip {
+	-webkit-transform: translate3d(-16.6667%, 1.5rem, 0);
+	    -ms-transform:   translate(-16.6667%, 1.5rem);
+	        transform: translate3d(-16.6667%, 1.5rem, 0);
+}
+
+.js .left-bottom-tip.active {
+	-webkit-transform: translate3d(-16.6667%, 1.75rem, 0);
+	    -ms-transform:   translate(-16.6667%, 1.75rem);
+	        transform: translate3d(-16.6667%, 1.75rem, 0);
+}
+
+.js .left-tip {
+	-webkit-transform: translate3d(-100%, -50%, 0);
+	    -ms-transform:   translate(-100%, -50%);
+	        transform: translate3d(-100%, -50%, 0);
+}
+
+.js .left-tip.active {
+	-webkit-transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
+	    -ms-transform:   translate(calc(-100% - 0.25rem), -50%);
+	        transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
+}
+
+.js .right-tip {
+	-webkit-transform: translate3d(0, -50%, 0);
+	    -ms-transform:   translate(0, -50%);
+	        transform: translate3d(0, -50%, 0);
+}
+
+.js .right-tip.active {
+	-webkit-transform: translate3d(0.25rem, -50%, 0);
+	    -ms-transform:   translate(0.25rem, -50%);
+	        transform: translate3d(0.25rem, -50%, 0);
+}
+
+
+.tip::after {
+	display: block;
+	position: absolute;
+	width: 1.25rem;
+	height: 1.25rem;
+	transform: rotate(45deg);
+	background-color: inherit;
+	border-color: inherit;
+	border-width: inherit;
+	border-style: inherit;
+	-webkit-transition: left 120ms ease-out;
+	        transition: left 120ms ease-out;
+}
+
+.top-tip::after,
+.bottom-tip::after,
+.left-tip::after,
+.right-tip::after {
+	content: ' ';
+}
+
+.top-tip::after,
+.bottom-tip::after {
+	left: 50%;
+	right: auto;
+	margin-left: -0.625rem;
+}
+
+.left-tip::after,
+.right-tip::after {
+	top: 50%;
+	bottom: auto;
+	margin-top: -0.625rem;
+}
+
+.top-tip::after {
+	bottom: -0.6875rem;
+	border-top-width: 0;
+	border-left-width: 0;
+	box-shadow: 3px 3px 4px rgba(0,0,0,0.3);
+}
+
+.bottom-tip::after {
+	top: -0.6875rem;
+	border-bottom-width: 0;
+	border-right-width: 0;
+}
+
+.left-tip::after {
+	right: -0.6875rem;
+	border-bottom: 0;
+	border-left: 0;
+	box-shadow: 3px 0px 4px -2px rgba(0,0,0,0.3);
+}
+
+.right-tip::after {
+	left: -0.6875rem;
+	border-right: 0;
+	border-top: 0;
+	box-shadow: 0px 3px 4px -2px rgba(0,0,0,0.3);
+}
+
+.right-top-tip::after,
+.right-bottom-tip::after {
+	left: 83.3333%;
+}
+
+.left-top-tip::after,
+.left-bottom-tip::after {
+	left: 16.6667%;
+}
+
+
+.tip-block,
+.js .tip-block {
+	visibility: visible;
+	opacity: 1;
+	position: relative;
+	display: block;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	max-width: none;
+}
+
+@media all and (max-width: 30em) {
+	.js body > .tip {
+		/* Override offset given to it by JS when the
+		   screen is too small. */
+		left: 4% !important;
+		margin-left: 0 !important;
+		width: 92% !important;
+		max-width: 92% !important;
+	}
+}
+
+/* Transitions - cancel transitions. */
+
+.notransition,
+.notransition .slide,
+.notransition .tab,
+.notransition .popdown,
+.notransition .dropdown,
+.notransition .layer,
+.notransition .tip {
+	-webkit-transition: none !important;
+	   -moz-transition: none !important;
+	     -o-transition: all 0 linear 0 !important;
+	        transition: none !important;
+}
+
+
+/* Utilities */
+
+.hidden {
+	display: none !important;
+}
+
+.js .disabled {
+	opacity: 0.4;
+}
+
+.js .loading::after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -1.25rem;
+	margin-top: -1.25rem;
+	height: 1.875rem;
+	width: 1.875rem;
+	opacity: 1;
+
+	-webkit-animation: rotation 1000ms infinite linear;
+	        animation: rotation 1000ms infinite linear;
+
+	border:     0.3125rem solid rgba(63, 63, 63, 0.15);
+	border-top: 0.3125rem solid rgba(63, 63, 63, 1);
+	border-radius: 100%;
+	z-index: 100;
+}
+
+@-webkit-keyframes rotation {
+	from {-webkit-transform: rotate(0deg);}
+	to {-webkit-transform: rotate(359deg);}
+}
+
+@keyframes rotation {
+	from {transform: rotate(0deg);}
+	to {transform: rotate(359deg);}
+}
+
+.clear::after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.tl, .tr, .bl, .br { position: absolute; }
+.tl, .tr { top: 0; }
+.bl, .br { bottom: 0; }
+.tl, .bl { left: 0; }
+.tr, .br { right: 0; }
+
+.left { float: left; }
+.right { float: right; }
+
+.scroll {
+	overflow: auto;
+	/* Enable momentum scrolling. Unfortunately this is buggy. It doesn't
+	   update the custom scrollbar during the momentum ease-out. Also, some
+	   children get rendered improperly.
+	   
+	   Actually, it seems to have improved in iOS 6. */
+	-webkit-overflow-scrolling: touch;
+}
+
+.scroll > * {
+	/* Fixes iOS child rendering scrolling bug. Maybe.
+	   http://stackoverflow.com/questions/7808110/css3-property-webkit-overflow-scrollingtouch-error */
+	-webkit-transform: translateZ(0px);
+}
+
+.scroll::-webkit-scrollbar {
+	/* Force scrollbars to display in mobile WebKit devices. For a demo
+	   of scrollbar configurations:
+	   http://trac.webkit.org/export/41842/trunk/LayoutTests/scrollbars/overflow-scrollbar-combinations.html
+	*/
+	width: 9px;
+	height: 9px;
+	background-color: transparent;
+	-webkit-border-radius: 12px;
+	        border-radius: 12px;
+}
+
+.scroll::-webkit-scrollbar-thumb:vertical,
+.scroll::-webkit-scrollbar-thumb:horizontal {
+	/* Approximate the style of the iPad's default scrollbars. (Can
+	   probably do better, but this is quick). */
+	background-color: #888888;
+	border: 2px solid white;
+	
+	-webkit-border-radius: 12px;
+	        border-radius: 12px;
+}
+
+.scroll::-webkit-scrollbar-thumb:vertical {
+	min-height: 20px;
+}
+
+.scroll::-webkit-scrollbar-thumb:horizontal {
+	min-width: 20px;
+}
+
+.scroll::-webkit-scrollbar-track-piece:disabled,
+.scroll::-webkit-scrollbar-button:disabled {
+	display: none !important;
+}
+
+.x_scroll {
+	overflow-y: hidden;
+}
+
+.y_scroll {
+	overflow-x: hidden;
+}
+
+.x_scroll.y_scroll {
+	overflow: scroll;
+}
+
+.no_scroll {
+	overflow: hidden;
+}
+
+
+/* table */
+
+/* Orientate a table vertically, so that the <tr>s appear as columns, and
+   <td>s appear on new rows. Use with caution. */
+
+.v_table thead,
+.v_table tbody,
+.v_table tr {
+	display: inline-block;
+	display: inline !IE7;
+}
+
+.v_table {
+	width: auto;
+}
+
+.v_table td {
+	display: block;
+}
+
+/* Stripes tables and indexes. */
+
+.striped_index > li:nth-child(even),
+.striped_table > tbody > tr:nth-child(odd) > td,
+.striped_table > tbody > tr:nth-child(odd) > th {
+	background-color: rgba(15,15,15,0.08);
+}
+
+.striped_index > li,
+.striped_table > thead > tr > td,
+.striped_table > thead > tr > th,
+.striped_table > tbody > tr > td,
+.striped_table > tbody > tr > th {
+	background-color: rgba(240,240,240,0.1);
+}
+
+.striped_table > tbody > tr:hover > td,
+.striped_table > tbody > tr:hover > th {
+	background-color: rgba(15,15,15,0.15);
+}
+
+.text-left    { text-align: left; }
+.text-justify { text-align: justify; }
+.text-center  { text-align: center; }
+.text-right   { text-align: right; }
+
+
+
+
+/* hcard microformat (for reference)
+	 http://microformats.org/wiki/hcard
+*/
+
+/*.vcard
+	
+	/* name - use .url for anything that is a link to this person's	 */
+/*	.fn.n
+/*		.nickname
+/*		.given-name
+/*		.additional-name
+/*		.family-name
+	
+	/* name organisation - if the hcard is for an organisation .fn should also be set */
+/*	.org
+/*		.organization-name
+/*		.organization-unit
+	
+	/* email (usually a link) */
+/*	.email
+/*		.type /* home, office, work, blah, blah */
+	
+/*	.photo
+	
+	/* address */
+/*	.adr
+/*		.street-address
+/*		.locality
+/*		.region
+/*		.postal-code
+/*		.country-name
+	
+/*	.tel
+/*		.type /* home, work, etc. */
+
+	/* use url for display of addresses of resources about this person - including instant messenger */
+/*	.url */
+/* bolt.forms.css
+ * 
+ * Some inspiration from normalize.css:
+ * http://necolas.github.com/normalize.css/
+ */
+
+form,
+fieldset,
+label,
+legend,
+input,
+output,
+button,
+select,
+textarea {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	    -ms-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
+form,
+fieldset {
+	/* Act as position parent */
+	position: relative;
+}
+
+
+form {
+	/* Correct margin displayed oddly in IE6/7 */
+	margin: 0;
+}
+
+fieldset {
+	/* Reset padding, margin, border */
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+fieldset + fieldset {
+	margin-top: 1.5rem;
+}
+
+legend {
+	/* Correct color not being inherited (IE6/7/8/9) */
+	border: 0;
+	padding: 0;
+	/* Text should wrap (FF3) */
+	white-space: normal;
+	
+	font-weight: bold;
+	font-size: 1.1667em;
+}
+
+label,
+input,
+button,
+select,
+textarea {
+	display: inline-block;
+	/* Vertical align top to stop extra line space creeping into the vertical
+	   rhythm when inputs stack up. It also has the effect of removing the
+	   annoying extra margin-bottom that textareas have in webkit. */
+	vertical-align: top;
+	margin: 0;
+
+	/* Font size is not automaticlly inherited in all browsers. */
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+
+	/* FF and WebKit ignore line-height on inputs, automatically centring the
+	   text, but IE8 needs it. */
+	line-height: inherit;
+
+	/* Make input shadows appear over the top of other elements. */
+	/* But this buggers up native validation message stacking...
+	   what's it for again? */
+	/*z-index: 2;
+	position: relative;*/
+}
+
+input,
+button,
+select,
+textarea {
+	/* iOS has padding in the UA stylesheet. */
+	padding-top: 0;
+	padding-bottom: 0;
+	color: inherit;
+
+	/* Firefox OS adds a background gradient to things. No no no. */
+	background-image: none;
+}
+
+label {
+	max-width: 100%;
+	width: auto;
+	height: auto;
+	line-height: 1.5625rem;
+	border: 0;
+}
+
+label > [type="checkbox"],
+label > [type="radio"] {
+	/* checkboxes nested inside labels */
+	margin-right: 0.5rem;
+}
+
+label.error_label {
+	display: block;
+}
+
+input,
+button,
+select {
+	height: 2.5rem;
+}
+
+input,
+textarea {
+	width: 100%;
+}
+
+input + label,
+textarea + label,
+select + label,
+.select-button + label {
+	margin-top: 0.3125rem;
+}
+
+.hidden + label {
+	margin-top: 0;
+}
+
+select,
+textarea,
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="color"],
+[type="number"],
+[type="search"],
+[type="password"],
+.select-button {
+	display: block;
+}
+
+textarea,
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="color"],
+[type="number"],
+[type="search"],
+[type="password"],
+.select-button {
+	border: #cccccc 1px solid;
+}
+
+textarea,
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="number"],
+[type="search"],
+[type="password"],
+.select-button {
+	padding-left: 0.5625rem;
+	padding-right: 0.5625rem;
+	background-color: white;
+}
+
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="color"],
+[type="number"],
+[type="search"],
+[type="password"],
+.select-button {
+	/* Compensate for border */
+	line-height: 2.375rem;
+}
+
+textarea,
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="number"],
+[type="search"],
+[type="password"] {
+	font-size: 1.125rem;
+}
+
+input[type='date'],
+input[type='time'],
+input[type='week'],
+input[type='month'] {
+	max-width: 12em;
+}
+
+/* Make search fields appear as other inputs in WebKit. */
+@media (-webkit-min-device-pixel-ratio:0) {
+	input[type="search"] {
+		-webkit-appearance: textfield;
+		padding-left: 0.1875rem;
+	}
+}
+
+textarea {
+	min-height: 6.6667em;
+	line-height: 1.25rem;
+	padding-top: 0.625rem;
+	padding-bottom: 0.3125rem;
+
+	/* IE is set to overflow: scroll by default */
+	overflow: auto;
+	/* Switch off resizing (Webkit) by default */
+	resize: none;
+}
+
+.resizeable-textarea {
+	/* limit resize direction. */
+	resize: vertical;
+
+	/* Make sure the bottom right corner doesn't clip the resize icon */
+	-webkit-border-radius-bottomright:  0 !important;
+	   -moz-border-bottom-right-radius: 0 !important;
+}
+
+input + select,
+input + textarea,
+input + [type="tel"],
+input + [type="url"],
+input + [type="date"],
+input + [type="text"],
+input + [type="time"],
+input + [type="week"],
+input + [type="month"],
+input + [type="email"],
+input + [type="color"],
+input + [type="number"],
+input + [type="search"],
+input + [type="password"],
+input + .select-button {
+	margin-top: 0.625rem;
+}
+
+label[for],
+input[type="file"],
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+button,
+select {
+	/* Clickable stuff gets a pointer cursor... */
+	cursor: pointer;
+}
+
+button[disabled],
+input[disabled],
+select[disabled] {
+	/* ...unless it's disabled. */
+	cursor: default;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	/* Corrects inability to style clickable 'input' types in iOS */
+	-webkit-appearance: button;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	margin-top: 0;
+	margin-bottom: 0;
+	vertical-align: top;
+	padding-left: 0;
+	padding-right: 0;
+	width: auto;
+	/* WebKit clips radio buttons edges slightly when not fully opaque. */
+	opacity: 1;
+}
+
+input[type="range"],
+input[type="image"] {
+	padding: 0;
+	opacity: 1;
+}
+
+input[type="file"] {
+	/* Part of the button is cut off without a little padding-left in WebKit. */
+	padding-left: 1px;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+	/* Removes inner padding and border in FF3+
+	   www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/ */
+	border: 0;
+	padding: 0;
+}
+
+/* File inputs. You're on your own. Good luck. The best way to handle
+   these, frankly, is to make them opacity 0, and overlay a label. You
+   don't get to display the filename, but at least you get some style. */
+input[type='file'] {
+	color: inherit;
+	background: none;
+}
+
+/* File inputs are especially problematic in FF. They
+   require a wrapper to get rid of their system border. */
+@-moz-document url-prefix() {
+	.file_wrap {
+		position: relative;
+		overflow: hidden;
+		width: 100%;
+	}
+
+	.file_wrap input[type='file'] {
+		position: relative;
+		top: -2px;
+		left: -1px;
+		margin-bottom: -3px;
+	}
+}
+
+[type="color"] {
+	padding: 0;
+	/* Make color swatches square. */
+	width: 2.5rem;
+}
+
+[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+
+[type="color"]::-webkit-color-swatch {
+	border: none;
+}
+
+.required::after {
+	content: ' *';
+	color: #ff8833;
+}
+
+/* Focus and error styles */
+
+/* IE hates having border-color applied to select boxes. It forces
+   them into a state where they have to be doubleclicked to open -
+   once to focus, once to open. Even IE10. We are forced to hack
+   around it with the @media screen hack, which nets Safari as well,
+   unfortunately.
+   
+   Chrome doesn't like having box-shadow applied to select boxes,
+   as it renders them with a bigger height. That's ok, I guess.
+   It's pretty difficult to have an error on a select box anyway. */
+
+label.focus,
+button:focus,
+input:focus,
+textarea:focus,
+input.error:focus,
+textarea.error:focus {
+	/* In Webkit, outline doesn't fit the border curves, and in FF outline
+	   is ugly. Lets recreate it with box-shadow */
+	outline: none;
+	
+	/* Old Safari doesn't do blur radius */
+	-webkit-box-shadow: 0 0 12px #659DCB;
+	/* but Chrome does... */
+	-webkit-box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
+	/* Create webkit-like outlines for FF */
+	   -moz-box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
+			box-shadow: 0 0 1px 2px #659DCB, inset 0 0 1px 1px #659DCB;
+
+	border-color: #659DCB !important;
+}
+
+input[type="range"]:focus {
+	background-color: transparent;
+	box-shadow: none;
+}
+
+input.error,
+textarea.error {
+	/* \9 hack for IE8 and below. */
+	outline: 2px solid #ff5500\9;
+	
+	-webkit-box-shadow: 0 0 12px #ff5500;
+	-webkit-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+	   -moz-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+			box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+}
+
+@media screen { @media (min-width: 0px) {
+	/* Hack to apply border color but avoid IE, which hates
+	   having border-color applied to select boxes. Unfortunately
+	   this hack also ignores Safari. But that's ok. */
+	select:focus
+	select.error:focus {
+		border-color: #659DCB !important;
+	}
+
+	select.error {
+		border-color: #ff5500 !important;
+	}
+}}
+
+input::-webkit-validation-bubble-arrow,
+input::-webkit-validation-bubble-message {
+	background-color: #202020;
+	color: #ff5500;
+	border-width: 0;
+	-webkit-box-shadow: 0 0 12px #ff5500;
+	-webkit-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+			box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+}
+
+select:focus {
+	/* In Webkit, select boxes don't accept box-shadow. Outline-style: auto
+	   kills the outline in FF, which is ok, because we re-created it (better)
+	   using a box-shadow (for non-system-style select boxes. FF ignores outline
+	   declarations for system-style select boxes, and uses system blue (Mac). Hey-ho.) */
+	outline: #639ACA auto 6px;
+	-moz-outline-color: #639ACA; 
+	outline-offset: -3px;
+}
+
+.error select {
+	outline: #ff5500 auto 6px;
+	-moz-outline-color: #ff5500; 
+	outline-offset: -3px;
+}
+
+.error select:focus {
+	outline: #ff5500 auto 6px;
+	-moz-outline-color: #ff5500; 
+	outline-offset: -3px;
+}
+
+.error_label {
+	white-space: nowrap;
+	line-height: 1.6667;
+	color: #dd3300;
+}
+
+
+/* Submit, reset and button inputs.
+   
+   Use pure attribute selectors because they are weak, and classes
+   are able to override them. Pure attribute selectors are a known
+   performance drag, so keep them to a minimum. */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+	width: auto;
+	opacity: 1;
+	text-indent: 0;
+	vertical-align: baseline;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.error [type="button"],
+.error [type="reset"],
+.error [type="submit"] {
+	/* Negate error styles applied to inputs. */ 
+	-webkit-box-shadow: none;
+	   -moz-box-shadow: none;
+			box-shadow: none;
+}
+
+
+
+/* Range inputs.
+   
+   In WebKit, tracks and handles are styleable by setting
+   -webkit-appearance, however a value of slider-horizontal on the
+   input will overlay a default handle even when ::-webkit-slider-thumb
+   is set to none.
+   
+   Vertical sliders are considered to be an appearance of slider-vertical,
+   making them impossible to style non-natively (which requires
+   -webkit-appearance: none). Another approach would be to take a
+   horizontal slider and transform: rotate it. Opera correctly displays
+   a vertical slider when width < height. WebKit does not like % heights
+   on vertical range inputs.
+   
+   Opera styles range sliders completely differently from WebKit,
+   unfortunately. Where WebKit uses the input box as the track, and
+   you can style the track by styling the input, Opera renders the
+   track inside the input box. That would be fine, but Opera also has
+   an unchangeable overflow: hidden on the input box, so if you make it
+   small to style the WebKit track, it truncates the handle in Opera.
+   
+   The clever FF4 replacement technique for making range inputs, 
+   http://frankyan.com/labs/html5slider/, results in a similar rendering,
+   so I have come to regard it as the standard approach. Therefore,
+   to style the track in WebKit I use not the input box, but a
+   border-image or background-image inside the input box.
+   
+   In Opera, range inputs have a max-width of 160px when their width
+   is supplied by %, a limit you can't change. In fact percentages
+   other than 100% cause some odd behaviour, where the track is sized
+   but the input box remains at 100%. Setting inputs to display: block
+   resolves all these problems.
+   
+   Opera responds to :before and :after content on inputs where WebKit
+   and FF do not. So far I haven't found that useful. I just thought
+   it was worth mentioning.
+   
+   I think the overall moral of the story is: kill any designer who
+   suggests applying style to range inputs.
+*/
+
+/*input[type="range"] {
+  -webkit-appearance: none !important;
+  
+  cursor: pointer;
+  
+  background-color: transparent;
+  
+  /* Shows up in webkit, but not Opera */
+  /*-webkit-border-image: url('images/range2.png') 6 5 6 5 stretch stretch;
+		  border-image: url('images/range2.png') 6 5 6 5 stretch stretch;
+  
+  /* I don't know why this doesn't show up in Opera,
+	 but it doesn't. This is going to bite us in the future, though. */
+  /*border-left-width: 5px;
+  border-right-width: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  
+  cursor: pointer;
+  
+  background: -webkit-linear-gradient( rgb(247,247,247), rgb(140,140,140) );
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(247,247,247)), color-stop(100%,rgb(140,140,140)));
+  
+  width: 10px;
+  height: 10px;
+  
+  -webkit-border-radius: 0.6em;
+	 -moz-border-radius: 0.6em;
+		  border-radius: 0.6em;
+  
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+	 -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+	   -o-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+		  box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+}*/
+
+
+input[type="range"] {
+	-webkit-appearance: none !important;
+	background-color: transparent;
+	border-width: 0;
+	height: 1.5625rem;
+	/*required for proper track sizing in FF*/
+	width: 100%;
+}
+
+input[type="range"]:focus {
+	outline: none;
+	outline-width: 0 !important;
+}
+
+input[type=range]::-moz-focus-outer {
+	/* Get rid of that annoying border in FF */
+	border: 0;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+	height: 0.75rem;
+	background: #2B3134;
+	border: none;
+	border-radius: 0.375rem;
+}
+
+input[type=range]::-moz-range-track {
+	height: 0.75rem;
+	background: #2B3134;
+	border: none;
+	border-radius: 0.375rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none !important;
+
+	cursor: pointer;
+
+	background: -webkit-linear-gradient( rgb(247,247,247), rgb(140,140,140) );
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(247,247,247)), color-stop(100%,rgb(140,140,140)));
+	background: #B6B2B0;
+
+	width: 0.875rem;
+	height: 0.875rem;
+	
+	margin-top: -1px;
+	border-width: 0;
+
+	-webkit-border-radius: 0.4375rem;
+	   -moz-border-radius: 0.4375rem;
+	        border-radius: 0.4375rem;
+
+	/*-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+	   -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+	     -o-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
+	        box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);*/
+}
+
+input[type=range]::-moz-range-thumb {
+	cursor: pointer;
+
+	background: -webkit-linear-gradient( rgb(247,247,247), rgb(140,140,140) );
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(247,247,247)), color-stop(100%,rgb(140,140,140)));
+	background: #B6B2B0;
+
+	width: 0.875rem;
+	height: 0.875rem;
+	
+	margin-top: -1px;
+	border-width: 0;
+	border-radius: 0.4375rem;
+}
+
+/*hide the outline behind the border*/
+input[type=range]:-moz-focusring {
+	outline: 0 solid transparent;
+}
+
+/*
+input[type=range]:focus::-moz-range-track {
+	background: #ccc;
+}
+*/
+
+
+input[type="range"].y-input {
+	-webkit-appearance: slider-vertical !important;
+
+	width: 0.75rem;
+	height: 100%;
+	min-height: 32px;
+	/*border-width: 0;*/
+}
+
+input[type="range"].y-input::-webkit-slider-runnable-track {
+	width: 0.75rem;
+}
+
+input[type="range"].y-input::-moz-range-track {
+	width: 0.75rem;
+	height: 100%;
+}
+
+input[type="range"].y-input::-webkit-slider-thumb {
+	-webkit-appearance: sliderthumb-vertical !important;
+	margin-left: -1px;
+}
+
+input[type="range"].y-input::-moz-range-thumb {
+	
+}
+
+
+
+
+/* Placeholders. */
+input::-webkit-input-placeholder {
+	/* No worky in WebKit ~2011. It was a bug:
+	 https://bugs.webkit.org/show_bug.cgi?id=54797 */
+	line-height: inherit;
+}
+
+input:-moz-placeholder {
+	line-height: inherit;
+}
+
+/* Simulate placeholder attribute with a label layered
+   over the top of the inputs. */
+
+.placeholder {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0;
+	font-weight: normal;
+	opacity: 0.5;
+	text-align: left;
+	color: #666666;
+	/* Put it above imputs. */
+	z-index: 3;
+}
+
+input + .placeholder,
+textarea + .placeholder,
+input.empty:focus + .placeholder,
+textarea.empty:focus + .placeholder {
+	display: none;
+}
+
+input.empty + .placeholder,
+textarea.empty + .placeholder {
+	display: block;
+}
+
+
+.text-label,
+.radio-label,
+.checkbox-label {
+	position: relative;
+	padding-left: 2.25rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	min-height: 2.5rem;
+}
+
+.right-label {
+	padding-left: 0;
+	padding-right: 3rem;
+}
+
+.text-label {
+	display: block;
+	padding-top: 0.125rem;
+	padding-bottom: 0.1875rem;
+	line-height: 2.5rem;
+	vertical-align: baseline;
+}
+
+.text-label > .text-span,
+.text-label > input {
+	display: block;
+}
+
+@media all and (min-width: 40em) {
+	.text-label {
+		display: inline-block;
+	}
+
+	.text-label > .text-span {
+		display: inline-block;
+		min-width: 33.3333%;
+	}
+
+	.text-label > input {
+		display: inline-block;
+		width: 33.3333%;
+		height: 2.5rem;
+		line-height: 2.25rem;
+		margin-left: 0.5rem;
+	}
+}
+
+.radio-label > input,
+.checkbox-label > input {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.right-label > input {
+	left: auto;
+	right: 0;
+}
+
+.dialog > .radio-label,
+.dialog > .checkbox-label {
+	display: block;
+}
+
+/* Only hide radios and checkboxes where we have JS */
+
+.js .radio-label::before,
+.js .radio-label::after,
+.js .checkbox-label::before,
+.js .checkbox-label::after {
+	content: '';
+	position: absolute;
+	top: 0.5rem;
+	left: 0;
+	width: 1.5rem;
+	height: 1.5rem;
+	box-sizing: border-box;
+}
+
+.js .right-label::before,
+.js .right-label::after {
+	left: auto;
+	right: 0;
+}
+
+.js .radio-label::before,
+.js .checkbox-label::before {
+	background-color: white;
+	border: 1px solid #cccccc;
+}
+
+.js .radio-label::before {
+	border-radius: 1rem;
+}
+
+.js .checkbox-label::before,
+.js .checkbox-label::after {
+	border-radius: 0.25rem;
+}
+
+.js .radio-label::after,
+.js .checkbox-label::after {
+	display: none;
+}
+
+.js .radio-label.on::after,
+.js .checkbox-label.on::after {
+	display: block;
+}
+
+.js .radio-label::after {
+	top: 0.875rem;
+	left: 0.375rem;
+	width: 0.75rem;
+	height: 0.75rem;
+	background-color: #575757;
+	border-radius: 0.375rem;
+}
+
+.js .checkbox-label::after {
+	content: '✓';
+	text-align: center;
+}
+
+.js .radio-label > input,
+.js .checkbox-label > input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.js .yes-radio-label::before,
+.js .no-radio-label::before {
+	border-width: 0;
+	background-color: #7B7B74;
+}
+
+.js .yes-radio-label.on::before,
+.js .yes-radio-label:hover::before {
+	background-color: green;
+	border-color: green;
+}
+
+.js .no-radio-label.on::before,
+.js .no-radio-label:hover::before {
+	background-color: #C22820;
+	border-color: #C22820;
+}
+
+.js .yes-radio-label::after,
+.js .no-radio-label::after {
+	display: block;
+	top: 0.375rem;
+	left: 0;
+	width: 2rem;
+	height: 2rem;
+	background-color: transparent;
+	background-image: url('/static/images/sprites.svg');
+	background-size: auto;
+}
+
+.js .yes-radio-label::after {
+	background-position: 5px -394px;
+}
+
+.js .no-radio-label::after {
+	background-position: 8px -432px;
+}
+
+
+.select-button {
+	text-overflow: clip;
+	text-align: left;
+	padding-right: 2.375rem;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.select-button::after {
+	content: '▼';
+	box-sizing: border-box;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 2.4375rem;
+	height: 100%;
+	text-align: center;
+	color: #cccccc;
+	border-width: 0;
+	border-left-width: 1px;
+	border-style: inherit;
+	border-color: inherit;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-right-radius: inherit;
+	border-bottom-right-radius: inherit;
+}
+
+
+
+/* Layout */
+
+/* .custom inputs must be followed by a styled label
+   that references them by for="id". */
+
+.custom_input {
+	/* We have to take it out of the flow and make it
+	   invisible, rather than adding display: none,
+	   because display: none stops keyboard from being
+	   able to focus it */
+	opacity: 0;
+	position: absolute;
+	left: -10000px;
+}
+
+
+/* form */
+
+.action_form {
+	padding-right: 3em;
+}
+
+.action_form > input,
+.action_form > .submit_button {
+	vertical-align: top;
+}
+
+.action_form > input {
+	position: relative;
+	width: 100%;
+	margin-right: -100%;
+	left: 0;
+}
+
+.action_form > .submit_button {
+	width: 3em;
+	margin-right: -3em;
+	padding-left: 0;
+	padding-right: 0;
+	left: 100%;
+}
+
+
+.grid-wrap,
+.grid-index {
+	position: relative;
+	margin-left: -0.625rem;
+	margin-right: -0.625rem;
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+body > .grid-wrap,
+body > .grid-index,
+.grid-wrap > .grid-wrap,
+.grid-wrap > .grid-index {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.grid-wrap,
+.grid-index {
+	margin-left: -0.6250rem;
+	margin-right: -0.6250rem;
+}
+
+.grid-block,
+.grid-index > li {
+	display: inline-block;
+}
+
+.grid-block,
+.grid-index > li,
+.grid-index > li:first-child {
+	margin-left: 0.625rem;
+	margin-right: 0.625rem;
+}
+
+.grid-left-0,
+.grid-block:first-child {
+	margin-left: 0;
+}
+
+.grid-right-0,
+.grid-block:last-child {
+	margin-right: 0;
+}
+
+.grid-index-adaptive > li:nth-last-child(1):first-child,
+.grid-index-adaptive > li:nth-last-child(1):first-child ~ li { width: calc(100% - 1.25rem); }
+.grid-index-adaptive > li:nth-last-child(2):first-child,
+.grid-index-adaptive > li:nth-last-child(2):first-child ~ li { width: calc(100% - 1.25rem); }
+.grid-index-adaptive > li:nth-last-child(3):first-child,
+.grid-index-adaptive > li:nth-last-child(3):first-child ~ li { width: calc(100% - 1.25rem); }
+.grid-index-adaptive > li:nth-last-child(4):first-child,
+.grid-index-adaptive > li:nth-last-child(4):first-child ~ li { width: calc(50% - 1.25rem); }
+.grid-index-adaptive > li:nth-last-child(5):first-child,
+.grid-index-adaptive > li:nth-last-child(5):first-child ~ li { width: calc(50% - 1.25rem); }
+.grid-index-adaptive > li:nth-last-child(6):first-child,
+.grid-index-adaptive > li:nth-last-child(6):first-child ~ li { width: calc(33.3333% - 1.25rem); }
+.grid-index-adaptive > li:nth-last-child(7):first-child,
+.grid-index-adaptive > li:nth-last-child(7):first-child ~ li { width: calc(25% - 1.25rem); }
+.grid-index-adaptive > li:nth-last-child(7):first-child,
+.grid-index-adaptive > li:nth-last-child(7):first-child ~ li { width: calc(25% - 1.25rem); }
+.grid-index-adaptive > li:nth-last-child(8):first-child,
+.grid-index-adaptive > li:nth-last-child(8):first-child ~ li { width: calc(25% - 1.25rem); }
+.grid-index-adaptive > li:nth-last-child(9):first-child,
+.grid-index-adaptive > li:nth-last-child(9):first-child ~ li { width: calc(20% - 1.25rem); }
+.grid-index-adaptive > li:nth-last-child(10):first-child,
+.grid-index-adaptive > li:nth-last-child(10):first-child ~ li { width: calc(20% - 1.25rem); }
+
+@media all and (min-width: 50em) {
+	.grid-index-adaptive > li:nth-last-child(2):first-child,
+	.grid-index-adaptive > li:nth-last-child(2):first-child ~ li { width: calc(50% - 1.25rem); }
+	.grid-index-adaptive > li:nth-last-child(3):first-child,
+	.grid-index-adaptive > li:nth-last-child(3):first-child ~ li { width: calc(33.3333% - 1.25rem); }
+	.grid-index-adaptive > li:nth-last-child(4):first-child,
+	.grid-index-adaptive > li:nth-last-child(4):first-child ~ li { width: calc(25% - 1.25rem); }
+	.grid-index-adaptive > li:nth-last-child(5):first-child,
+	.grid-index-adaptive > li:nth-last-child(5):first-child ~ li { width: calc(20% - 1.25rem); }
+	.grid-index-adaptive > li:nth-last-child(6):first-child,
+	.grid-index-adaptive > li:nth-last-child(6):first-child ~ li { width: calc(16.6667% - 1.25rem); }
+	.grid-index-adaptive > li:nth-last-child(7):first-child,
+	.grid-index-adaptive > li:nth-last-child(7):first-child ~ li { width: calc(14.2857% - 1.25rem); }
+	.grid-index-adaptive > li:nth-last-child(8):first-child,
+	.grid-index-adaptive > li:nth-last-child(8):first-child ~ li { width: calc(12.5% - 1.25rem); }
+	.grid-index-adaptive > li:nth-last-child(9):first-child,
+	.grid-index-adaptive > li:nth-last-child(9):first-child ~ li { width: calc(11.1111% - 1.25rem); }
+	.grid-index-adaptive > li:nth-last-child(10):first-child,
+	.grid-index-adaptive > li:nth-last-child(10):first-child ~ li { width: calc(10% - 1.25rem); }
+}
+
+
+.grid-bleed {
+	/* Justify content to gutter centre. */
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.grid-1\/2   { width: calc(50.0000% - 0.6250rem); }
+.grid-1\/3   { width: calc(33.3333% - 0.8333rem); }
+.grid-2\/3   { width: calc(66.6667% - 0.4167rem); }
+.grid-1\/4   { width: calc(25.0000% - 0.9375rem); }
+.grid-3\/4   { width: calc(75.0000% - 0.3125rem); }
+.grid-1\/5   { width: calc(20.0000% - 1.0000rem); }
+.grid-2\/5   { width: calc(40.0000% - 0.7500rem); }
+.grid-3\/5   { width: calc(60.0000% - 0.5000rem); }
+.grid-4\/5   { width: calc(80.0000% - 0.2500rem); }
+.grid-1\/6   { width: calc(16.6667% - 1.0417rem); }
+.grid-5\/6   { width: calc(83.3333% - 0.2083rem); }
+.grid-1\/7   { width: calc(14.2857% - 1.0714rem); }
+.grid-2\/7   { width: calc(28.5714% - 0.8929rem); }
+.grid-3\/7   { width: calc(42.8571% - 0.7143rem); }
+.grid-4\/7   { width: calc(57.1429% - 0.5357rem); }
+.grid-5\/7   { width: calc(71.4286% - 0.3571rem); }
+.grid-6\/7   { width: calc(85.7143% - 0.1786rem); }
+.grid-1\/8   { width: calc(12.5000% - 1.0938rem); }
+.grid-3\/8   { width: calc(37.5000% - 0.7813rem); }
+.grid-5\/8   { width: calc(62.5000% - 0.4688rem); }
+.grid-7\/8   { width: calc(87.5000% - 0.1563rem); }
+.grid-1\/9   { width: calc(11.1111% - 1.1111rem); }
+.grid-2\/9   { width: calc(22.2222% - 0.9722rem); }
+.grid-4\/9   { width: calc(44.4444% - 0.6944rem); }
+.grid-5\/9   { width: calc(55.5556% - 0.5556rem); }
+.grid-7\/9   { width: calc(77.7778% - 0.2778rem); }
+.grid-8\/9   { width: calc(88.8889% - 0.1389rem); }
+.grid-1\/10  { width: calc(10.0000% - 1.1250rem); }
+.grid-3\/10  { width: calc(30.0000% - 0.8750rem); }
+.grid-7\/10  { width: calc(70.0000% - 0.3750rem); }
+.grid-9\/10  { width: calc(90.0000% - 0.1250rem); }
+.grid-1\/11  { width: calc(9.0909% - 1.1364rem); }
+.grid-2\/11  { width: calc(18.1818% - 1.0227rem); }
+.grid-3\/11  { width: calc(27.2727% - 0.9091rem); }
+.grid-4\/11  { width: calc(36.3636% - 0.7955rem); }
+.grid-5\/11  { width: calc(45.4545% - 0.6818rem); }
+.grid-6\/11  { width: calc(54.5455% - 0.5682rem); }
+.grid-7\/11  { width: calc(63.6364% - 0.4545rem); }
+.grid-8\/11  { width: calc(72.7273% - 0.3409rem); }
+.grid-9\/11  { width: calc(81.8182% - 0.2273rem); }
+.grid-10\/11 { width: calc(90.9091% - 0.1136rem); }
+.grid-1\/12  { width: calc(8.3333% - 1.1458rem); }
+.grid-5\/12  { width: calc(41.6667% - 0.7292rem); }
+.grid-7\/12  { width: calc(58.3333% - 0.5208rem); }
+.grid-11\/12 { width: calc(91.6667% - 0.1042rem); }
+.grid-left-1\/2   { margin-left: calc(50.0000% + 0.6250rem); }
+.grid-left-1\/3   { margin-left: calc(33.3333% + 0.4167rem); }
+.grid-left-2\/3   { margin-left: calc(66.6667% + 0.8333rem); }
+.grid-left-1\/4   { margin-left: calc(25.0000% + 0.3125rem); }
+.grid-left-3\/4   { margin-left: calc(75.0000% + 0.9375rem); }
+.grid-left-1\/5   { margin-left: calc(20.0000% + 0.2500rem); }
+.grid-left-2\/5   { margin-left: calc(40.0000% + 0.5000rem); }
+.grid-left-3\/5   { margin-left: calc(60.0000% + 0.7500rem); }
+.grid-left-4\/5   { margin-left: calc(80.0000% + 1.0000rem); }
+.grid-left-1\/6   { margin-left: calc(16.6667% + 0.2083rem); }
+.grid-left-5\/6   { margin-left: calc(83.3333% + 1.0417rem); }
+.grid-left-1\/7   { margin-left: calc(14.2857% + 0.1786rem); }
+.grid-left-2\/7   { margin-left: calc(28.5714% + 0.3571rem); }
+.grid-left-3\/7   { margin-left: calc(42.8571% + 0.5357rem); }
+.grid-left-4\/7   { margin-left: calc(57.1429% + 0.7143rem); }
+.grid-left-5\/7   { margin-left: calc(71.4286% + 0.8929rem); }
+.grid-left-6\/7   { margin-left: calc(85.7143% + 1.0714rem); }
+.grid-left-1\/8   { margin-left: calc(12.5000% + 0.1563rem); }
+.grid-left-3\/8   { margin-left: calc(37.5000% + 0.4688rem); }
+.grid-left-5\/8   { margin-left: calc(62.5000% + 0.7813rem); }
+.grid-left-7\/8   { margin-left: calc(87.5000% + 1.0938rem); }
+.grid-left-1\/9   { margin-left: calc(11.1111% + 0.1389rem); }
+.grid-left-2\/9   { margin-left: calc(22.2222% + 0.2778rem); }
+.grid-left-4\/9   { margin-left: calc(44.4444% + 0.5556rem); }
+.grid-left-5\/9   { margin-left: calc(55.5556% + 0.6944rem); }
+.grid-left-7\/9   { margin-left: calc(77.7778% + 0.9722rem); }
+.grid-left-8\/9   { margin-left: calc(88.8889% + 1.1111rem); }
+.grid-left-1\/10  { margin-left: calc(10.0000% + 0.1250rem); }
+.grid-left-3\/10  { margin-left: calc(30.0000% + 0.3750rem); }
+.grid-left-7\/10  { margin-left: calc(70.0000% + 0.8750rem); }
+.grid-left-9\/10  { margin-left: calc(90.0000% + 1.1250rem); }
+.grid-left-1\/11  { margin-left: calc(9.0909% + 0.1136rem); }
+.grid-left-2\/11  { margin-left: calc(18.1818% + 0.2273rem); }
+.grid-left-3\/11  { margin-left: calc(27.2727% + 0.3409rem); }
+.grid-left-4\/11  { margin-left: calc(36.3636% + 0.4545rem); }
+.grid-left-5\/11  { margin-left: calc(45.4545% + 0.5682rem); }
+.grid-left-6\/11  { margin-left: calc(54.5455% + 0.6818rem); }
+.grid-left-7\/11  { margin-left: calc(63.6364% + 0.7955rem); }
+.grid-left-8\/11  { margin-left: calc(72.7273% + 0.9091rem); }
+.grid-left-9\/11  { margin-left: calc(81.8182% + 1.0227rem); }
+.grid-left-10\/11 { margin-left: calc(90.9091% + 1.1364rem); }
+.grid-left-1\/12  { margin-left: calc(8.3333% + 0.1042rem); }
+.grid-left-5\/12  { margin-left: calc(41.6667% + 0.5208rem); }
+.grid-left-7\/12  { margin-left: calc(58.3333% + 0.7292rem); }
+.grid-left-11\/12 { margin-left: calc(91.6667% + 1.1458rem); }
+.grid-wrap > .grid-1\/2  , .grid-index.grid-1\/2   > li { width: calc(50.0000% - 1.25rem); }
+.grid-wrap > .grid-1\/3  , .grid-index.grid-1\/3   > li { width: calc(33.3333% - 1.25rem); }
+.grid-wrap > .grid-2\/3  , .grid-index.grid-2\/3   > li { width: calc(66.6667% - 1.25rem); }
+.grid-wrap > .grid-1\/4  , .grid-index.grid-1\/4   > li { width: calc(25.0000% - 1.25rem); }
+.grid-wrap > .grid-3\/4  , .grid-index.grid-3\/4   > li { width: calc(75.0000% - 1.25rem); }
+.grid-wrap > .grid-1\/5  , .grid-index.grid-1\/5   > li { width: calc(20.0000% - 1.25rem); }
+.grid-wrap > .grid-2\/5  , .grid-index.grid-2\/5   > li { width: calc(40.0000% - 1.25rem); }
+.grid-wrap > .grid-3\/5  , .grid-index.grid-3\/5   > li { width: calc(60.0000% - 1.25rem); }
+.grid-wrap > .grid-4\/5  , .grid-index.grid-4\/5   > li { width: calc(80.0000% - 1.25rem); }
+.grid-wrap > .grid-1\/6  , .grid-index.grid-1\/6   > li { width: calc(16.6667% - 1.25rem); }
+.grid-wrap > .grid-5\/6  , .grid-index.grid-5\/6   > li { width: calc(83.3333% - 1.25rem); }
+.grid-wrap > .grid-1\/7  , .grid-index.grid-1\/7   > li { width: calc(14.2857% - 1.25rem); }
+.grid-wrap > .grid-2\/7  , .grid-index.grid-2\/7   > li { width: calc(28.5714% - 1.25rem); }
+.grid-wrap > .grid-3\/7  , .grid-index.grid-3\/7   > li { width: calc(42.8571% - 1.25rem); }
+.grid-wrap > .grid-4\/7  , .grid-index.grid-4\/7   > li { width: calc(57.1429% - 1.25rem); }
+.grid-wrap > .grid-5\/7  , .grid-index.grid-5\/7   > li { width: calc(71.4286% - 1.25rem); }
+.grid-wrap > .grid-6\/7  , .grid-index.grid-6\/7   > li { width: calc(85.7143% - 1.25rem); }
+.grid-wrap > .grid-1\/8  , .grid-index.grid-1\/8   > li { width: calc(12.5000% - 1.25rem); }
+.grid-wrap > .grid-3\/8  , .grid-index.grid-3\/8   > li { width: calc(37.5000% - 1.25rem); }
+.grid-wrap > .grid-5\/8  , .grid-index.grid-5\/8   > li { width: calc(62.5000% - 1.25rem); }
+.grid-wrap > .grid-7\/8  , .grid-index.grid-7\/8   > li { width: calc(87.5000% - 1.25rem); }
+.grid-wrap > .grid-1\/9  , .grid-index.grid-1\/9   > li { width: calc(11.1111% - 1.25rem); }
+.grid-wrap > .grid-2\/9  , .grid-index.grid-2\/9   > li { width: calc(22.2222% - 1.25rem); }
+.grid-wrap > .grid-4\/9  , .grid-index.grid-4\/9   > li { width: calc(44.4444% - 1.25rem); }
+.grid-wrap > .grid-5\/9  , .grid-index.grid-5\/9   > li { width: calc(55.5556% - 1.25rem); }
+.grid-wrap > .grid-7\/9  , .grid-index.grid-7\/9   > li { width: calc(77.7778% - 1.25rem); }
+.grid-wrap > .grid-8\/9  , .grid-index.grid-8\/9   > li { width: calc(88.8889% - 1.25rem); }
+.grid-wrap > .grid-1\/10 , .grid-index.grid-1\/10  > li { width: calc(10.0000% - 1.25rem); }
+.grid-wrap > .grid-3\/10 , .grid-index.grid-3\/10  > li { width: calc(30.0000% - 1.25rem); }
+.grid-wrap > .grid-7\/10 , .grid-index.grid-7\/10  > li { width: calc(70.0000% - 1.25rem); }
+.grid-wrap > .grid-9\/10 , .grid-index.grid-9\/10  > li { width: calc(90.0000% - 1.25rem); }
+.grid-wrap > .grid-1\/11 , .grid-index.grid-1\/11  > li { width: calc(9.0909% - 1.25rem); }
+.grid-wrap > .grid-2\/11 , .grid-index.grid-2\/11  > li { width: calc(18.1818% - 1.25rem); }
+.grid-wrap > .grid-3\/11 , .grid-index.grid-3\/11  > li { width: calc(27.2727% - 1.25rem); }
+.grid-wrap > .grid-4\/11 , .grid-index.grid-4\/11  > li { width: calc(36.3636% - 1.25rem); }
+.grid-wrap > .grid-5\/11 , .grid-index.grid-5\/11  > li { width: calc(45.4545% - 1.25rem); }
+.grid-wrap > .grid-6\/11 , .grid-index.grid-6\/11  > li { width: calc(54.5455% - 1.25rem); }
+.grid-wrap > .grid-7\/11 , .grid-index.grid-7\/11  > li { width: calc(63.6364% - 1.25rem); }
+.grid-wrap > .grid-8\/11 , .grid-index.grid-8\/11  > li { width: calc(72.7273% - 1.25rem); }
+.grid-wrap > .grid-9\/11 , .grid-index.grid-9\/11  > li { width: calc(81.8182% - 1.25rem); }
+.grid-wrap > .grid-10\/11, .grid-index.grid-10\/11 > li { width: calc(90.9091% - 1.25rem); }
+.grid-wrap > .grid-1\/12 , .grid-index.grid-1\/12  > li { width: calc(8.3333% - 1.25rem); }
+.grid-wrap > .grid-5\/12 , .grid-index.grid-5\/12  > li { width: calc(41.6667% - 1.25rem); }
+.grid-wrap > .grid-7\/12 , .grid-index.grid-7\/12  > li { width: calc(58.3333% - 1.25rem); }
+.grid-wrap > .grid-11\/12, .grid-index.grid-11\/12 > li { width: calc(91.6667% - 1.25rem); }
+.grid-wrap > .grid-left-1\/2  , .grid-index.grid-left-1\/2   > li { margin-left: calc(50.0000% + 0.6250rem); }
+.grid-wrap > .grid-left-1\/3  , .grid-index.grid-left-1\/3   > li { margin-left: calc(33.3333% + 0.6250rem); }
+.grid-wrap > .grid-left-2\/3  , .grid-index.grid-left-2\/3   > li { margin-left: calc(66.6667% + 0.6250rem); }
+.grid-wrap > .grid-left-1\/4  , .grid-index.grid-left-1\/4   > li { margin-left: calc(25.0000% + 0.6250rem); }
+.grid-wrap > .grid-left-3\/4  , .grid-index.grid-left-3\/4   > li { margin-left: calc(75.0000% + 0.6250rem); }
+.grid-wrap > .grid-left-1\/5  , .grid-index.grid-left-1\/5   > li { margin-left: calc(20.0000% + 0.6250rem); }
+.grid-wrap > .grid-left-2\/5  , .grid-index.grid-left-2\/5   > li { margin-left: calc(40.0000% + 0.6250rem); }
+.grid-wrap > .grid-left-3\/5  , .grid-index.grid-left-3\/5   > li { margin-left: calc(60.0000% + 0.6250rem); }
+.grid-wrap > .grid-left-4\/5  , .grid-index.grid-left-4\/5   > li { margin-left: calc(80.0000% + 0.6250rem); }
+.grid-wrap > .grid-left-1\/6  , .grid-index.grid-left-1\/6   > li { margin-left: calc(16.6667% + 0.6250rem); }
+.grid-wrap > .grid-left-5\/6  , .grid-index.grid-left-5\/6   > li { margin-left: calc(83.3333% + 0.6250rem); }
+.grid-wrap > .grid-left-1\/7  , .grid-index.grid-left-1\/7   > li { margin-left: calc(14.2857% + 0.6250rem); }
+.grid-wrap > .grid-left-2\/7  , .grid-index.grid-left-2\/7   > li { margin-left: calc(28.5714% + 0.6250rem); }
+.grid-wrap > .grid-left-3\/7  , .grid-index.grid-left-3\/7   > li { margin-left: calc(42.8571% + 0.6250rem); }
+.grid-wrap > .grid-left-4\/7  , .grid-index.grid-left-4\/7   > li { margin-left: calc(57.1429% + 0.6250rem); }
+.grid-wrap > .grid-left-5\/7  , .grid-index.grid-left-5\/7   > li { margin-left: calc(71.4286% + 0.6250rem); }
+.grid-wrap > .grid-left-6\/7  , .grid-index.grid-left-6\/7   > li { margin-left: calc(85.7143% + 0.6250rem); }
+.grid-wrap > .grid-left-1\/8  , .grid-index.grid-left-1\/8   > li { margin-left: calc(12.5000% + 0.6250rem); }
+.grid-wrap > .grid-left-3\/8  , .grid-index.grid-left-3\/8   > li { margin-left: calc(37.5000% + 0.6250rem); }
+.grid-wrap > .grid-left-5\/8  , .grid-index.grid-left-5\/8   > li { margin-left: calc(62.5000% + 0.6250rem); }
+.grid-wrap > .grid-left-7\/8  , .grid-index.grid-left-7\/8   > li { margin-left: calc(87.5000% + 0.6250rem); }
+.grid-wrap > .grid-left-1\/9  , .grid-index.grid-left-1\/9   > li { margin-left: calc(11.1111% + 0.6250rem); }
+.grid-wrap > .grid-left-2\/9  , .grid-index.grid-left-2\/9   > li { margin-left: calc(22.2222% + 0.6250rem); }
+.grid-wrap > .grid-left-4\/9  , .grid-index.grid-left-4\/9   > li { margin-left: calc(44.4444% + 0.6250rem); }
+.grid-wrap > .grid-left-5\/9  , .grid-index.grid-left-5\/9   > li { margin-left: calc(55.5556% + 0.6250rem); }
+.grid-wrap > .grid-left-7\/9  , .grid-index.grid-left-7\/9   > li { margin-left: calc(77.7778% + 0.6250rem); }
+.grid-wrap > .grid-left-8\/9  , .grid-index.grid-left-8\/9   > li { margin-left: calc(88.8889% + 0.6250rem); }
+.grid-wrap > .grid-left-1\/10 , .grid-index.grid-left-1\/10  > li { margin-left: calc(10.0000% + 0.6250rem); }
+.grid-wrap > .grid-left-3\/10 , .grid-index.grid-left-3\/10  > li { margin-left: calc(30.0000% + 0.6250rem); }
+.grid-wrap > .grid-left-7\/10 , .grid-index.grid-left-7\/10  > li { margin-left: calc(70.0000% + 0.6250rem); }
+.grid-wrap > .grid-left-9\/10 , .grid-index.grid-left-9\/10  > li { margin-left: calc(90.0000% + 0.6250rem); }
+.grid-wrap > .grid-left-1\/11 , .grid-index.grid-left-1\/11  > li { margin-left: calc(9.0909% + 0.6250rem); }
+.grid-wrap > .grid-left-2\/11 , .grid-index.grid-left-2\/11  > li { margin-left: calc(18.1818% + 0.6250rem); }
+.grid-wrap > .grid-left-3\/11 , .grid-index.grid-left-3\/11  > li { margin-left: calc(27.2727% + 0.6250rem); }
+.grid-wrap > .grid-left-4\/11 , .grid-index.grid-left-4\/11  > li { margin-left: calc(36.3636% + 0.6250rem); }
+.grid-wrap > .grid-left-5\/11 , .grid-index.grid-left-5\/11  > li { margin-left: calc(45.4545% + 0.6250rem); }
+.grid-wrap > .grid-left-6\/11 , .grid-index.grid-left-6\/11  > li { margin-left: calc(54.5455% + 0.6250rem); }
+.grid-wrap > .grid-left-7\/11 , .grid-index.grid-left-7\/11  > li { margin-left: calc(63.6364% + 0.6250rem); }
+.grid-wrap > .grid-left-8\/11 , .grid-index.grid-left-8\/11  > li { margin-left: calc(72.7273% + 0.6250rem); }
+.grid-wrap > .grid-left-9\/11 , .grid-index.grid-left-9\/11  > li { margin-left: calc(81.8182% + 0.6250rem); }
+.grid-wrap > .grid-left-10\/11, .grid-index.grid-left-10\/11 > li { margin-left: calc(90.9091% + 0.6250rem); }
+.grid-wrap > .grid-left-1\/12 , .grid-index.grid-left-1\/12  > li { margin-left: calc(8.3333% + 0.6250rem); }
+.grid-wrap > .grid-left-5\/12 , .grid-index.grid-left-5\/12  > li { margin-left: calc(41.6667% + 0.6250rem); }
+.grid-wrap > .grid-left-7\/12 , .grid-index.grid-left-7\/12  > li { margin-left: calc(58.3333% + 0.6250rem); }
+.grid-wrap > .grid-left-11\/12, .grid-index.grid-left-11\/12 > li { margin-left: calc(91.6667% + 0.6250rem); }
+
+/* template.typography.css
+   
+   Developed using ideas from:
+   www.blueprintcss.org
+   www.webtypography.net */
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+
+	/* Enable kerning in FF and WebKit. */
+	text-rendering: optimizeLegibility;
+}
+
+pre,
+code,
+kbd,
+samp {
+	/* Corrects font family set oddly in IE6, S4/5, Chrome
+	   en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
+	font-family: monospace, serif;
+	font-family: 'Andale Mono', 'Lucida Console', monospace;
+	font-size: 1em;
+}
+
+pre {
+	/* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */
+	white-space: pre; /* CSS2 */
+	white-space: pre-wrap; /* CSS2.1 */
+	/*white-space: pre-line; /* CSS3 (and 2.1 as well, actually) */
+	word-wrap: break-word; /* IE */
+}
+
+a:focus,
+a:hover {
+	text-decoration: underline;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link {
+	/* j.mp/webkit-tap-highlight-color */
+	-webkit-tap-highlight-color: rgba(0,0,0,0.25);
+}
+
+/* Block elements */
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	margin-bottom: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	-webkit-hyphens: none;
+	   -moz-hyphens: none;
+	    -ms-hyphens: none;
+	        hyphens: none;
+}
+
+hr                { height: 0; border-width: 0; border-bottom: 1px solid black; margin-top: -1px; }
+
+
+dl {
+	/* Clearfix, because children of definition list are floated. */
+	zoom: 1;
+}
+
+dl:after {
+	/* Clearfix, because children of definition list are floated. */
+	content: " ";
+	visibility: hidden;
+	display: block;
+	clear: both;
+	font-size: 0;
+	height: 0;
+}
+
+dt                { float: left; clear: both; text-align: right; width: 22.75%; font-weight: bold; }
+dd                { float: right; text-align: left; width: 74.25%; }
+
+ul                { list-style-type: disc; }
+ol                { list-style-type: decimal; }
+
+blockquote        { font-style: italic; font-family: Georgia, serif; }
+blockquote:before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
+
+/*p:first-child,
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child,
+ul:first-child,
+ol:first-child,
+dl:first-child,
+li:first-child,
+dt:first-child,
+dd:first-child,
+blockquote:first-child {*/
+	/* Typographic blocks should not cause a gap at the top of
+	   text blocks. That's what padding is for. */
+/*	margin-top: 0;
+}*/
+
+p:empty,
+h1:empty,
+h2:empty,
+h3:empty,
+h4:empty,
+h5:empty,
+h6:empty,
+ul:empty,
+ol:empty,
+dl:empty,
+li:empty,
+dt:empty,
+dd:empty,
+blockquote:empty {
+	/* Hide any typographic block that is empty. This is a bit
+	   contraversial, but helps correct style errors in blocks
+	   of user input where the html has ended up dodgy. Include
+	   bolt.debug.css to see empty blocks highlighted. */
+	display: none;
+}
+
+p > img,
+p > svg,
+p > video,
+p > canvas,
+p > object,
+p > embed,
+p > iframe,
+li > img,
+li > svg,
+li > video,
+li > canvas,
+li > object,
+li > embed,
+li > iframe,
+dd > img,
+dd > svg,
+dd > video,
+dd > canvas,
+dd > object,
+dd > embed,
+dd > iframe {
+	/* Don't allow media to break out of container bounds. */
+	max-width: 100%;
+}
+
+/* Inline elements */
+
+abbr[title]       { border-bottom: 1px dotted; }
+
+b,
+strong,
+dfn               { font-weight: bold; }
+em,
+dfn               { font-style: italic; }
+small             { font-size: 0.8333em; }
+sup,
+sub               { line-height: 0; font-size: 0.8333em; position: relative; vertical-align: baseline; }
+sup               { top: -0.5em; }
+sub               { bottom: -0.25em; }
+
+q                 { quotes: none; }
+q:before,
+q:after           { content: ''; content: none; }
+
+time              { text-transform: uppercase; }
+
+abbr              { letter-spacing: 0.1em; }
+pre,
+code,
+tt                { font-family: 'andale mono', 'lucida console', monospace; }
+del               { opacity: 0.5; filter: alpha(opacity=50%); text-decoration: line-through; }
+
+/* Tables */
+
+table             { width:100%; }
+th                { font-weight: bold; }
+tfoot             { font-style: italic; }
+caption           { background-color: inherit; }
+
+/* Classes */
+
+.last             { margin-bottom: 0; }
+.note             { font-style: italic; }
+
+/* Selection */
+
+::selection {
+	background:rgba(27,117,186,0.8);
+	color:rgb(255,255,255);
+}
+::-moz-selection {
+	background:rgba(27,117,186,0.8);
+	color:rgb(255,255,255);
+}
+::-webkit-selection {
+	background:rgba(27,117,186,0.8);
+	color:rgb(255,255,255);
+}
