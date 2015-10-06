@@ -74,7 +74,7 @@ gulp.task('build-css', function() {
   // Concat files
   .pipe(concat('bolt-' + package.version + '.css'))
   // Add a comment to the top
-  .pipe(header('/* Bolt ' + package.version + ' CSS */\n\n'))
+  .pipe(header('/* bolt ' + package.version + ' CSS */\n\n'))
   // Write the file to the directory
   .pipe(gulp.dest('./css/'));
 });
@@ -101,7 +101,7 @@ gulp.task('build-js', function() {
   // Concat files
   .pipe(concat('bolt-' + package.version + '.js'))
   // Add a comment to the top
-  .pipe(header('/* Bolt ' + package.version + ' JS */\n\n'))
+  .pipe(header('/* bolt ' + package.version + ' JS */\n\n'))
   // Write the file to the directory
   .pipe(gulp.dest('./js/'));
 });
