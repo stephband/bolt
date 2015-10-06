@@ -86,6 +86,7 @@ gulp.task('build-js', function() {
     "./js/jquery.event.swipe.js",
     "./js/jquery.event.activate.js",
     "./js/jquery.dialog.js",
+    "./js/jquery.transition.js",
     "./js/jquery.validate.js",
     "./js/bolt.js",
     "./js/bolt.a.js",
