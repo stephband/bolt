@@ -81,18 +81,21 @@ gulp.task('build-css', function() {
 
 gulp.task('build-js', function() {
   return gulp.src([
-    "./js/jquery.transition.js",
+    "./js/jquery.support.inputtypes.js",
     "./js/jquery.event.move.js",
     "./js/jquery.event.swipe.js",
     "./js/jquery.event.activate.js",
     "./js/jquery.dialog.js",
+    "./js/jquery.validate.js",
     "./js/bolt.js",
     "./js/bolt.a.js",
+    "./js/bolt.dialog.js",
     "./js/bolt.input.js",
-    "./js/bolt.tab.js",
+    "./js/bolt.input.placeholder.js",
     "./js/bolt.slide.js",
-    "./js/bolt.toggle.js",
-    "./js/bolt.dialog.js"
+    "./js/bolt.tab.js",
+    "./js/bolt.tip.js",
+    "./js/bolt.toggle.js"
   ])
   // Concat files
   .pipe(concat('bolt-' + package.version + '.js'))

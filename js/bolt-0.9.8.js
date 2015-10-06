@@ -1,53 +1,47 @@
 /* Bolt 0.9.8 JS */
 
-// Fallback support for jQuery.fn.addTransitionClass. Also can
-// be used in cases where low file size is a proirity.
+// Detect whether different types of html5 form elements have native UI implemented
+// and store boolean in jQuery.support.inputTypes[type]. For now, types not used in
+// webdoc are commented out.
+// You may find inspiration at Mike Taylor's site, here:
+// http://www.miketaylr.com/code/html5-forms-ui-support.html
 
 (function (module) {
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
-		define(['jquery', './jquery.support.transition'], module);
+		define(['jquery'], module);
 	} else {
 		// Browser globals
 		module(jQuery);
 	}
-})(function(jQuery) {
-	var debug = false;//true;
-	
-	jQuery.fn.addTransitionClass = function(classes, callback) {
-		if (debug) { console.log('jquery.addTransitionClass', classes, !!callback); }
-		
-		this.transition(function() {
-			this.addClass(classes);
-		}, callback);
-	};
-	
-	jQuery.fn.removeTransitionClass = function(classes, callback) {
-		if (debug) { console.log('jquery.removeTransitionClass', classes, !!callback); }
-		
-		this.transition(function() {
-			this.removeClass(classes);
-		}, callback);
-	};
-	
-	jQuery.fn.transition = function(fn, callback) {
-		if (debug) { console.log('jquery.transition', !!fn, !!callback); }
-		
-		var elem = this;
-		
-		if (callback && jQuery.support.transition) {
-			elem.on(jQuery.support.transitionEnd, function transitionend(e) {
-				elem.off(jQuery.support.transitionEnd, transitionend);
-				callback.apply(elem);
-			});
-		}
-		
-		fn.apply(this);
-		
-		if (callback && !jQuery.support.transition) {
-			callback.apply(elem);
-		}
-	};
+})(function(jQuery, undefined){
+    var types = jQuery.support.inputTypes = {
+          //datetime: false,
+          date: false,
+          //month: false,
+          //week: false,
+          time: false,
+          //'datetime-local': false,
+          number: false,
+          range: false
+        };
+    
+    var testValue = '::',
+        input, type;
+    
+    // Loop over types
+    for (type in types) {
+      // Set the input type, then check to see if it still behaves like a text
+      // input, or if the type is still that to which it was set.
+      input = document.createElement('input');
+      input.setAttribute('type', type);
+      input.setAttribute('value', testValue);
+      
+      types[type] = input.value !== testValue || input.type === type;
+    }
+    
+    // Detect support for the input placeholder attribute.
+    jQuery.support.placeholder = 'placeholder' in input;
 });
 // jquery.event.move
 //
@@ -1093,6 +1087,347 @@
 		'html': text.close
 	});
 });
+// jquery.validate.js
+// 
+// 0.9.1
+// 
+// Stephen Band
+// 
+// Parts of this plugin are inspired by jquery.validate.js (Jörn Zaefferer) -
+// indeed some regex is borrowed from there.
+//
+// Options:
+// 
+// errorSelector - Selector for the closest element to a failed field where
+//                 errorClass is added. By default this is the input or
+//                 textarea field itself.
+// errorClass    - Class that is applied to the errorSelector node when the
+//                 the field fails validation. Default is 'error'.
+// errorNode     - A jQuery object that is cloned and used as a container
+//                 for all error messages.
+// autocomplete	 - Overides the form's own autocomplete attribute, which is
+//                 useful when validating on keyup events.
+//
+// Rules are depend on a field's attributes. To define a new rule, add an
+// attribute to test for:
+//
+// jQuery.fn.validate.attributes['data-attribute'] = function(value, attributeValue, passFn, failFn) {
+//	 // Validation logic
+//	 return pass( newValue [optional] ) or fail( errorMessage [optional] )
+// }
+
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], module);
+	} else {
+		// Browser globals
+		module(jQuery);
+	}
+})(function(jQuery, undefined){
+	var debug = (window.console && window.console.log && window.console.groupCollapsed);
+
+	var options = {
+	    	errorClass: "error",
+	    	errorNode: jQuery('<label/>', { 'class': 'error_label' }),
+	    	errorSelector: "input, textarea"
+	    },
+	    
+	    errorMessages = {
+	    	// Types
+	    	url: 'That doesn\'t look like a valid URL',
+	    	email: 'Enter a valid email',
+	    	number: 'That\'s not a number.',
+	    	
+	    	// Attributes
+	    	required: 'Required',
+	    	minlength: 'At least {{attr}} characters',
+	    	maxlength: 'No more than {{attr}} characters',
+	    	min: 'Minimum {{attr}}',
+	    	max: 'Maximum {{attr}}'
+	    },
+	    
+	    regex = {
+	    	url:		/^([a-z][\w\.\-\+]*\:\/\/)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}/,
+	    	email:		/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i,
+	    	number:		/^(\d*\.?\d+)$/,
+	    	color:		/^#([0-9a-fA-F]{6})$/
+	    },
+	    
+	    // html5 input types
+	    types = {
+	    	url: {
+	    		test: function( value ) { return regex.url.test(value); },
+	    		autocomplete: function( value ) {
+	    			var autovalue = 'http://' + value;
+	    			return regex.url.test(autovalue) ? autovalue : undefined ;
+	    		}
+	    	},
+	    	email: {
+	    		test: function( value ) { return regex.email.test(value); }
+	    	},
+	    	number: {
+	    		test: function( value ) { return regex.number.test(value); }
+	    	},
+	    	color: {
+	    		test: function( value ) { return regex.color.test(value); }
+	    	}
+	    	//datetime: {},
+	    	//date: {},
+	    	//month: {},
+	    	//week: {},
+	    	//time: {},
+	    	//'datetime-local': {},
+	    	//range: {},
+	    	//tel: {},
+	    	//search: {},
+	    },
+
+	    
+	    attributes = {
+	    	type: function( value, type, pass, fail, autocomplete ){
+	    		var autovalue;
+	    		//console.log( value, type, pass, fail, autocomplete );
+	    		return (
+	    			(!value || !types[type] || types[type].test(value)) ? pass() :
+	    			autocomplete && ( autovalue = types[type].autocomplete(value) ) ? pass(autovalue) :
+	    			fail( errorMessages[type] )
+	    		);
+	    	},
+	    	
+	    	required: function( value, attr, pass, fail ) {
+	    		return ( !!value ) ?
+	    			pass() :
+	    			fail( jQuery.render(errorMessages.required, {attr: attr}) ) ;
+	    	},
+	    	
+	    	minlength: function( value, attr, pass, fail ) {
+	    		return ( !value || value.length >= parseInt(attr) ) ?
+	    			pass() :
+	    			fail( jQuery.render(errorMessages.minlength, {attr: attr}) ) ;
+	    	},
+	    	
+	    	maxlength: function( value, attr, pass, fail ) {
+	    		var number = parseInt( attr );
+	    		
+	    		// Be careful, if there is no value maxlength is implicitly there
+	    		// whether it's in the html or not, and sometimes it's -1
+	    		return ( !value || number === -1 || value.length <= number ) ?
+	    			pass() :
+	    			fail( jQuery.render(errorMessages.maxlength, {attr: attr}) ) ;
+	    	},
+	    	
+	    	min: function( value, attr, pass, fail ) {
+	    		return ( !value || parseFloat(attr) <= parseFloat(value) ) ?
+	    			pass() :
+	    			fail( jQuery.render(errorMessages.min, {attr: attr}) ) ;
+	    	},
+	    	
+	    	max: function( value, attr, pass, fail ) {
+	    		return ( !value || parseFloat(attr) >= parseFloat(value) ) ?
+	    			pass() :
+	    			fail( jQuery.render(errorMessages.max, {attr: attr}) ) ;
+	    	}
+	    	//pattern: function( value, attr, pass, fail ) {
+	    	//	return ( !value );
+	    	//}
+	    };
+	
+	function removeError(data, attr) {
+		data[attr] = true;
+		data.errorNode.remove();
+	}
+
+	function removeErrors(node) {
+		var field = jQuery(node),
+		    data = field.data('validate'),
+		    attr;
+		
+		for (attr in attributes) {
+			if (data && data[attr] === false) {
+				removeError(data, attr);
+			}
+		}
+	}
+
+	// Here's the meat and potatoes
+	function validateInput(node, options){
+		var field = jQuery(node),
+		    value = jQuery.trim(field.val()),
+		    data = field.data('validate'),
+		    // Adding this option as a quick fix for unwanted autocompletion
+		    // happening on the change event. In reality, we may have to
+		    // rethink autocomplete a bit.
+		    autocomplete = (options.autocomplete !== undefined) ? options.autocomplete : field.attr( 'autocomplete' ) === 'on' ,
+		    passFlag = true,
+		    stopTestFlag = false,
+		    attr, attrval, rule, response;
+		
+		if (debug) { console.groupCollapsed('[jquery.validate]', node.id, value); }
+		
+		for (attr in attributes) {
+			// We use getAttribute rather than .attr(), because
+			// it returns the original value of the attribute rather
+			// than the browser's interpretation.
+			attrval = field[0].getAttribute(attr);
+			
+			if (attrval) {
+				if (debug) { console.log(attr, attrval); }
+				
+				attributes[attr](value, attrval, function(autoval){
+					// The test has passed
+					if (autoval) {
+						value = autoval;
+						field.val(autoval);
+					}
+					
+					// Remove the error message
+					if (data && data[attr] === false) {
+						removeError(data, attr);
+					}
+				}, function(message){
+					// The test has failed
+					
+					var response = options.fail && options.fail.call(node, value, message);
+					
+					if (debug) { console.warn('FAIL', attr, message, response); }
+					
+					// If the fail callback returns a value, override the
+					// failure, and put that value in the field.
+					if (response) {
+						value = response;
+						field.val(response);
+						
+						// Remove the error message
+						if ( data && data[attr] === false ) {
+							removeError(data, attr);
+						}
+					}
+					// Otherwise, it's the end of the road for this one
+					else {
+						if (!data) {
+							data = {
+								errorNode: options.errorNode
+									.clone()
+									.attr("for", field.attr("id") || "" )
+							};
+							field.data('validate', data);
+						}
+						
+						// If there is an error message on the node, use that.
+						message = node.getAttribute('data-error-' + attr) || message;
+						
+						data.errorNode.html(message);
+						
+						data[attr] = false;
+						
+						field
+						.before(data.errorNode)
+						.closest(options.errorSelector)
+						.addClass(options.errorClass);
+						
+						passFlag = false;
+					}
+					
+					stopTestFlag = true;
+				}, autocomplete );
+			}
+			
+			// If we've been told to stop testing,
+			// break out of this loop.
+			if (stopTestFlag) {
+				break;
+			}
+		}
+		
+		if (debug) { console.groupEnd(); }
+		
+		if (passFlag) {
+			// Remove error class
+			field
+			.closest( '.' + options.errorClass )
+			.removeClass( options.errorClass );
+			
+			// Fire callback with input as context and arguments
+			// value (string), checked (boolean)
+			options.pass && options.pass.call(node, value, field.attr('checked'));
+			
+			return true;
+		}
+	}
+	
+	// Call .validate() on each of a form's inputs
+	// and textareas, and call pass if everything
+	// passed and fail if at least one thing failed
+	function validateForm(node, options){
+		var failCount = 0;
+		
+		jQuery(node)
+		.find("input, textarea, select")
+		.validate({
+			fail: function(value){
+				failCount++;
+			}
+		});
+		
+		if (failCount) {
+			options.fail && options.fail.call(this);
+		}
+		else {
+			options.pass && options.pass.call(this);
+		}
+	}
+
+	function validateTrueForm(node){
+		jQuery(node)
+		.find("input, textarea")
+		.each(function() {
+			removeErrors(this);
+		});
+	}
+	
+	function validateTrue() {
+		var tagName = this.nodeName.toLowerCase();
+		
+		if (tagName === 'form') {
+			validateTrueForm(this);
+			return;
+		}
+
+		if (tagName === 'input' || tagName === 'textarea') {
+			removeErrors(this);
+			return;
+		}
+	}
+	
+	jQuery.fn.validate = function(o){
+		if (o === true) {
+			return this.each(validateTrue);
+		}
+		
+		var options = jQuery.extend({}, jQuery.fn.validate.options, o);
+		
+		return this.each(function validate() {
+			var tagName = this.nodeName.toLowerCase();
+			
+			if (tagName === 'input' || tagName === 'textarea' || tagName === 'select') {
+				if (this.disabled) { return; }
+				validateInput(this, options);
+				return;
+			}
+			else {
+				validateForm(this, options);
+				return;
+			}
+		});
+	};
+	
+	options.errorMessages = errorMessages;
+	
+	jQuery.fn.validate.regex = regex;
+	jQuery.fn.validate.options = jQuery.fn.validate.options = options;
+	jQuery.fn.validate.attributes = attributes;
+});
 // bolt
 //
 // bolt(name, obj)
@@ -1684,596 +2019,6 @@
 			{ type: 'activate', relatedTarget: e.currentTarget }) ;
 	});
 });
-// Handle form elements
-
-(function (module) {
-	if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
-		define(['jquery'], module);
-	} else {
-		// Browser globals
-		module(jQuery);
-	}
-})(function(jQuery, undefined){
-	var doc = jQuery(document);
-	
-	function setImmediate(fn) {
-		setTimeout(fn, 0);
-	}
-	
-	function thru(value) {
-		return value;
-	}
-	
-	function fieldData(target) {
-		var data = jQuery.data(target, 'field'),
-		    field, name;
-		
-		if (!data){
-			field = jQuery(target);
-			name = field.attr('name');
-			
-			data = {
-				field: field,
-				label: jQuery('label[for="'+target.id+'"]')
-			};
-			
-			// Store reference to label that is a direct wrap of the
-			// target node.
-			data.wrap = data.label.filter(function() {
-				return (target.parentNode === this);
-			});
-			
-			if (name) {
-				data.fields = jQuery('input[name="'+name+'"]');
-			}
-			
-			jQuery.data(target, 'field', data);
-		}
-		
-		return data;
-	}
-
-	function name(obj) {
-		return obj.name;
-	}
-
-	function removeText(elem) {
-		// Remove text nodes only
-		elem
-		.contents()
-		.filter(function() {
-			return this.nodeType === (window.Node ? window.Node.TEXT_NODE : 3);
-		})
-		.remove();
-	}
-
-	function populateSelect(node){
-		// Take a select node and put it's selected option content
-		// in the associated label.
-
-		var view = fieldData(node),
-		    html;
-
-		// Remove text nodes from the button
-		removeText(view.wrap);
-		
-		// Prepend the current value of the select
-		html = view.field.find('option[value="'+node.value+'"]').html();
-		view.wrap.prepend(html);
-	}
-	
-	function updateFileLabel(node) {
-		// Take a select node and put it's selected option content
-		// in the associated label.
-		var view = fieldData(node),
-		    files = node.files,
-		    html = Array.prototype.map.call(files, name).join('<br/>');
-		
-		// Remove text nodes from the button
-		removeText(view.wrap);
-		
-		view.wrap.prepend(html);
-	}
-	
-	function updateRadioLabel() {
-		var node = this,
-		    data = fieldData(node);
-		
-		if (this.checked) {
-		    data.label.addClass('on');
-		}
-		else {
-		    data.label.removeClass('on');
-		}
-	}
-	
-	
-	doc
-	
-	// Readonly inputs have their text selected when you click
-	// on them.
-
-	.on('focus click', 'input[readonly]', function(e) {
-		jQuery(e.currentTarget).select();
-	})
-
-	// Extend the events emitted by input[type='range']
-	// nodes with changestart and changeend events.
-
-	.on('mousedown touchstart', 'input[type="range"]', (function(){
-		var endTypes = {
-			mousedown: 'mouseup',
-			touchstart: 'touchend'
-		};
-		
-		function change(e){
-			jQuery(e.target)
-			.trigger({ type: 'changestart' })
-			.unbind('change', change);
-		}
-		
-		function mouseup(e){
-			jQuery(e.target)
-			.trigger({ type: 'changeend' })
-			.unbind('mouseup', mouseup);
-		}
-		
-		return function(e){
-			jQuery(e.target)
-			.bind('change', change)
-			.bind(endTypes[ e.type ], mouseup);
-		};
-	})())
-
-	// Global form validation
-	.on('change', 'input, textarea', function(e) {
-		// Don't make this script require jQuery.fn.validate
-		if (!jQuery.fn.validate) { return; }
-		
-		jQuery(this).validate({
-			fail: function(){ e.preventDefault(); }
-		});
-	})
-
-	.on('valuechange', 'input, textarea', function(e) {
-		// Don't make this script require jQuery.fn.validate
-		if (!jQuery.fn.validate) { return; }
-		
-		jQuery(this).validate(true);
-	})
-
-	.on('input', 'input, textarea', function(e) {
-		jQuery.event.trigger('valuechange', null, e.target);
-	})
-	
-	// Active classes for radio input labels
-	.on('change valuechange', 'input[type="radio"]', function(e){
-		var data = fieldData(e.target);
-		
-		if (data.fields) {
-			data.fields.each(updateRadioLabel);
-		}
-	})
-
-	// I have the impression that this does the same thing...
-//	.on('change', '[type="radio"]', function(e) {
-//		var name = e.target.name;
-//
-//		jQuery('[name="'+name+'"]')
-//		.not(e.target)
-//		.trigger({type: 'valuechange', checked: e.target});
-//	})
-	
-	// Active classes for checkbox input labels
-	.on('change valuechange', 'input[type="checkbox"]', function(e) {
-		var data = fieldData(e.target);
-		
-		if (data.field.prop('checked')) {
-			data.label.addClass('on');
-		}
-		else {
-			data.label.removeClass('on');
-		}
-	})
-	
-	// For browsers that don't understand it, prevent changes on
-	// disabled form elements.
-	.on('change', '[disabled]', function(e) {
-		// The nuclear approach
-		e.preventDefault();
-		e.stopPropagation();
-		return false;
-	})
-
-	// Value display for select boxes that are wrapped in buttons
-	// for style. The value is set as the content of the button.
-	.on('change valuechange', '.button > select', function(e) {
-		populateSelect(e.target);
-	})
-
-	.on('focusin focusout', '.button > select, .button > input', function(e) {
-		var view = fieldData(e.target);
-		
-		if (e.type === 'focusin') {
-			view.wrap.addClass('focus');
-		}
-		else {
-			view.wrap.removeClass('focus');
-		}
-	})
-
-	// Value display for file inputs that are wrapped in buttons
-	// for style. Value is set as the text content of the button.
-	.on('change valuechange', '.button > input[type="file"]', function(e) {
-		updateFileLabel(e.target);
-	})
-
-	// If a form is reset, trigger a re-evaluation of the values
-	// of custom form elements.
-	.on('reset', 'form', function(e) {
-		if (e.isDefaultPrevented()) { return; }
-		
-		var fields = jQuery('input, textarea, select', e.target);
-		
-		function reset() {
-			fields.trigger('valuechange');
-		}
-		
-		setImmediate(reset);
-	})
-	
-	.ready(function() {
-		jQuery('.button > select').each(function() {
-			populateSelect(this);
-		});
-		
-		jQuery('input:checked').each(function() {
-			var data = fieldData(this);
-			data.label.addClass('on');
-		});
-		
-		// Loop over .error_labels already in the DOM, and listen for
-		// changes on their associated inputs to remove them.
-		jQuery('.error_label').each(function(i, label) {
-			var id = label.getAttribute('for');
-			
-			if (!id) { return; }
-			
-			var input = jQuery('#' + id);
-			
-			function remove() {
-				input.off('change valuechange', remove);
-				label.parentNode.removeChild(label);
-			}
-			
-			input.on('change valuechange', remove);
-		});
-	});
-});
-// bolt.class.tab
-//
-// Extends the default behaviour of the activate and deactivate
-// events with things to do when they are triggered on tabs.
-
-(function (module) {
-	if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
-		define(['jquery', './bolt', './jquery.event.activate'], module);
-	} else {
-		// Browser globals
-		module(jQuery, jQuery.bolt);
-	}
-})(function(jQuery, bolt, undefined){
-	var add = jQuery.event.add,
-	    remove = jQuery.event.remove,
-	    trigger = function(node, type, data) {
-	    	jQuery.event.trigger(type, data, node);
-	    };
-
-	function jump(e) {
-		// A prevented default means this link has already been handled.
-		if (e.isDefaultPrevented()) { return; }
-
-		// e.data is the pane to jump to.
-		trigger(e.data, 'activate');
-		e.preventDefault();
-	}
-
-	function cacheTabs(target, data) {
-		var tabs = jQuery.data(target, 'tabs'),
-		    l;
-
-		if (!tabs) {
-			// Choose all sibling panes of the same class
-			tabs = data.elem.siblings('.' + data['class']).add(target);
-			
-			// Attach the panes object to each of the panes
-			l = tabs.length;
-			while (l--) {
-				jQuery.data(tabs[l], 'tabs', tabs);
-			}
-		}
-
-		return tabs;
-	}
-
-	bolt('tab', {
-		activate: function activatePane(e, data, fn) {
-			var target = e.target,
-			    tabs = cacheTabs(e.target, data),
-			    active;
-
-			if (data.active) { return; }
-			data.active = true;
-			
-			add(target, 'click tap',  jump, tabs[(tabs.index(target) - 1) % tabs.length], 'a[href="#prev"]');
-			add(target, 'click tap',  jump, tabs[(tabs.index(target) + 1) % tabs.length], 'a[href="#next"]');
-
-			active = tabs.not(target).filter('.active');
-
-			fn();
-
-			// Deactivate the previous active pane AFTER this pane has been
-			// activated. It's important for panes who's style depends on the
-			// current active pane, eg: .slide.active ~ .slide
-			active.trigger('deactivate');
-		},
-
-		deactivate: function(e, data, fn) {
-			if (!data.active) { return; }
-			data.active = false;
-			
-			remove(e.target, 'click tap swiperight swipeleft', jump);
-			fn();
-		}
-	});
-});
-// bolt.slide
-//
-// Extends the default behaviour of the activate and deactivate
-// events with things to do when they are triggered on slides.
-
-(function (module) {
-	if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
-		define(['jquery', './bolt', './jquery.event.activate'], module);
-	} else {
-		// Browser globals
-		module(jQuery, jQuery.bolt);
-	}
-})(function(jQuery, bolt, undefined){
-	var add = jQuery.event.add,
-	    remove = jQuery.event.remove,
-	    trigger = function(node, type, data) {
-	    	jQuery.event.trigger(type, data, node);
-	    };
-
-	function jump(e) {
-		// A prevented default means this link has already been handled.
-		if (e.isDefaultPrevented()) { return; }
-
-		// e.data is the pane to jump to.
-		trigger(e.data, 'activate');
-		e.preventDefault();
-	}
-
-	function movestartSlide(e) {
-		var panes = e.data;
-
-		// If the movestart heads off in a upwards or downwards direction,
-		// 
-		if ((e.distX > e.distY && e.distX < -e.distY) ||
-			(e.distX < e.distY && e.distX > -e.distY)) {
-			e.preventDefault();
-			return;
-		}
-
-		panes.elem.parent().addClass('notransition');
-		
-		if (panes.next) {
-			panes.next.style.height = 'auto';
-		}
-		if (panes.prev) {
-			panes.prev.style.height = 'auto';
-		}
-	}
-
-	function moveSlide(e) {
-		var panes = e.data,
-		    left = 100 * e.distX/panes.pane.offsetWidth;
-
-		
-		// This gets the slide effect roughly right. By the time
-		// overflow is hidden, we'll never notice.
-		if (e.distX < 0) {
-			if (panes.next) {
-				panes.pane.style.left = left + '%';
-				panes.next.style.left = (left+100)+'%';
-				//panes.next.style.height = 'auto';
-				}
-			else {
-				panes.pane.style.left = left/5 + '%';
-			}
-		}
-		if (e.distX > 0) {
-			if (panes.prev) {
-				panes.pane.style.left = left + '%';
-				panes.prev.style.left = (left-100)+'%';
-				//panes.prev.style.height = 'auto';
-				}
-			else {
-				panes.pane.style.left = left/5 + '%';
-			}
-		}
-	}
-
-	function moveendSlide(e) {
-		var panes = e.data;
-
-		panes.elem.parent().removeClass('notransition');
-		
-		setTimeout( function() {
-			panes.pane.style.left = '';
-			if (panes.next) {
-				panes.next.style.left = '';
-				panes.next.style.height = '';
-			}
-			if (panes.prev) {
-				panes.prev.style.left = '';
-				panes.prev.style.height = '';
-			}
-		}, 0);
-	}
-
-	function cachePaneData(target, data) {
-		var slides = jQuery.data(target, 'slides'),
-		    l;
-
-		if (!slides) {
-			// Choose all sibling panes of the same class
-			slides = data.elem.siblings('.' + data['class']).add(target);
-			
-			// Attach the panes object to each of the panes
-			l = slides.length;
-			while (l--) {
-				jQuery.data(slides[l], 'slides', slides);
-			}
-		}
-
-		return slides;
-	}
-
-	bolt('slide', {
-		activate: function activatePane(e, data, fn) {
-			var target = e.target,
-			    pane = data.elem,
-			    panes = cachePaneData(e.target, data),
-			    siblings = {
-			    	next: panes[panes.index(target) + 1],
-			    	prev: panes[panes.index(target) - 1],
-			    	pane: target,
-			    	elem: pane
-			    },
-			    active;
-			
-			if (data.active) { return; }
-			data.active = true;
-			
-			if (!data.setup) {
-				data.setup = true;
-				
-				add(target, 'movestart', movestartSlide, siblings);
-				add(target, 'move', moveSlide, siblings);
-				add(target, 'moveend', moveendSlide, siblings);
-				
-				if (siblings.prev) { add(target, 'swiperight', jump, siblings.prev); }
-				if (siblings.next) { add(target, 'swipeleft',  jump, siblings.next); }
-				
-				add(target, 'click tap',  jump, panes[(panes.index(target) - 1) % panes.length], 'a[href="#prev"]');
-				add(target, 'click tap',  jump, panes[(panes.index(target) + 1) % panes.length], 'a[href="#next"]');
-			}
-			
-			active = panes.not(target).filter('.active');
-
-			fn();
-
-			// Deactivate the previous active pane AFTER this pane has been
-			// activated. It's important for panes who's style depends on the
-			// current active pane, eg: .slide.active ~ .slide
-			active.trigger('deactivate');
-		},
-
-		deactivate: function(e, data, fn) {
-			if (!data.active) { return; }
-			data.active = false;
-			
-			//remove(e.target, 'click tap swiperight swipeleft', jump);
-			//remove(e.target, 'movestart', movestartSlide);
-			//remove(e.target, 'move', moveSlide);
-			//remove(e.target, 'moveend', moveendSlide);
-
-			fn();
-		}
-	});
-});
-// bolt.map
-//
-// Controls the map dropdown at the top of the body
-
-(function (module) {
-	if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
-		define(['jquery', './bolt', './jquery.event.activate'], module);
-	} else {
-		// Browser globals
-		module(jQuery, jQuery.bolt);
-	}
-})(function(jQuery, bolt, undefined){
-	var add = jQuery.event.add,
-	    remove = jQuery.event.remove,
-	    trigger = function(node, type, data) {
-	    	jQuery.event.trigger(type, data, node);
-	    };
-
-	function isLeftButton(e) {
-		// Ignore mousedowns on any button other than the left (or primary)
-		// mouse button, or when a modifier key is pressed.
-		return (e.which === 1 && !e.ctrlKey && !e.altKey);
-	}
-
-	function preventDefault(e) {
-		remove(e.currentTarget, 'click', preventDefault);
-		e.preventDefault();
-	}
-	
-	function preventClick(e) {
-		// Prevent the click that follows the mousedown. The preventDefault
-		// handler unbinds itself as soon as the click is heard.
-		if (e.type === 'mousedown') {
-			add(e.currentTarget, 'click', preventDefault);
-		}
-	}
-
-	function close(e) {
-		var activeTarget = e.data;
-
-		// A prevented default means this link has already been handled.
-		if (e.isDefaultPrevented()) { return; }
-	
-		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
-		
-		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
-		e.preventDefault();
-		preventClick(e);
-	}
-
-	bolt('toggle', {
-		activate: function(e, data, fn) {
-			// Don't do anything if elem is already active
-			if (data.active) { return; }
-			data.active = true;
-			
-			var id = bolt.identify(e.target);
-			
-			jQuery('[href="#' + id + '"]').on('mousedown tap', e.target, close);
-
-			fn();
-		},
-
-		deactivate: function(e, data, fn) {
-			// Don't do anything if elem is already inactive
-			if (!data.active) { return; }
-			data.active = false;
-			
-			var id = bolt.identify(e.target);
-			
-			jQuery('[href="#' + id + '"]').off('mousedown tap', close);
-			
-			fn();
-		}
-	});
-});
 // jquery.event.activate.dialog
 // 
 // Provides activate and deactivate events for controlling
@@ -2644,5 +2389,860 @@
 		},
 
 		deactivateend: deactivateend
+	});
+});
+// Handle form elements
+
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], module);
+	} else {
+		// Browser globals
+		module(jQuery);
+	}
+})(function(jQuery, undefined){
+	var doc = jQuery(document);
+	
+	function setImmediate(fn) {
+		setTimeout(fn, 0);
+	}
+	
+	function thru(value) {
+		return value;
+	}
+	
+	function fieldData(target) {
+		var data = jQuery.data(target, 'field'),
+		    field, name;
+		
+		if (!data){
+			field = jQuery(target);
+			name = field.attr('name');
+			
+			data = {
+				field: field,
+				label: jQuery('label[for="'+target.id+'"]')
+			};
+			
+			// Store reference to label that is a direct wrap of the
+			// target node.
+			data.wrap = data.label.filter(function() {
+				return (target.parentNode === this);
+			});
+			
+			if (name) {
+				data.fields = jQuery('input[name="'+name+'"]');
+			}
+			
+			jQuery.data(target, 'field', data);
+		}
+		
+		return data;
+	}
+
+	function name(obj) {
+		return obj.name;
+	}
+
+	function removeText(elem) {
+		// Remove text nodes only
+		elem
+		.contents()
+		.filter(function() {
+			return this.nodeType === (window.Node ? window.Node.TEXT_NODE : 3);
+		})
+		.remove();
+	}
+
+	function populateSelect(node){
+		// Take a select node and put it's selected option content
+		// in the associated label.
+
+		var view = fieldData(node),
+		    html;
+
+		// Remove text nodes from the button
+		removeText(view.wrap);
+		
+		// Prepend the current value of the select
+		html = view.field.find('option[value="'+node.value+'"]').html();
+		view.wrap.prepend(html);
+	}
+	
+	function updateFileLabel(node) {
+		// Take a select node and put it's selected option content
+		// in the associated label.
+		var view = fieldData(node),
+		    files = node.files,
+		    html = Array.prototype.map.call(files, name).join('<br/>');
+		
+		// Remove text nodes from the button
+		removeText(view.wrap);
+		
+		view.wrap.prepend(html);
+	}
+	
+	function updateRadioLabel() {
+		var node = this,
+		    data = fieldData(node);
+		
+		if (this.checked) {
+		    data.label.addClass('on');
+		}
+		else {
+		    data.label.removeClass('on');
+		}
+	}
+	
+	
+	doc
+	
+	// Readonly inputs have their text selected when you click
+	// on them.
+
+	.on('focus click', 'input[readonly]', function(e) {
+		jQuery(e.currentTarget).select();
+	})
+
+	// Extend the events emitted by input[type='range']
+	// nodes with changestart and changeend events.
+
+	.on('mousedown touchstart', 'input[type="range"]', (function(){
+		var endTypes = {
+			mousedown: 'mouseup',
+			touchstart: 'touchend'
+		};
+		
+		function change(e){
+			jQuery(e.target)
+			.trigger({ type: 'changestart' })
+			.unbind('change', change);
+		}
+		
+		function mouseup(e){
+			jQuery(e.target)
+			.trigger({ type: 'changeend' })
+			.unbind('mouseup', mouseup);
+		}
+		
+		return function(e){
+			jQuery(e.target)
+			.bind('change', change)
+			.bind(endTypes[ e.type ], mouseup);
+		};
+	})())
+
+	// Global form validation
+	.on('change', 'input, textarea', function(e) {
+		// Don't make this script require jQuery.fn.validate
+		if (!jQuery.fn.validate) { return; }
+		
+		jQuery(this).validate({
+			fail: function(){ e.preventDefault(); }
+		});
+	})
+
+	.on('valuechange', 'input, textarea', function(e) {
+		// Don't make this script require jQuery.fn.validate
+		if (!jQuery.fn.validate) { return; }
+		
+		jQuery(this).validate(true);
+	})
+
+	.on('input', 'input, textarea', function(e) {
+		jQuery.event.trigger('valuechange', null, e.target);
+	})
+	
+	// Active classes for radio input labels
+	.on('change valuechange', 'input[type="radio"]', function(e){
+		var data = fieldData(e.target);
+		
+		if (data.fields) {
+			data.fields.each(updateRadioLabel);
+		}
+	})
+
+	// I have the impression that this does the same thing...
+//	.on('change', '[type="radio"]', function(e) {
+//		var name = e.target.name;
+//
+//		jQuery('[name="'+name+'"]')
+//		.not(e.target)
+//		.trigger({type: 'valuechange', checked: e.target});
+//	})
+	
+	// Active classes for checkbox input labels
+	.on('change valuechange', 'input[type="checkbox"]', function(e) {
+		var data = fieldData(e.target);
+		
+		if (data.field.prop('checked')) {
+			data.label.addClass('on');
+		}
+		else {
+			data.label.removeClass('on');
+		}
+	})
+	
+	// For browsers that don't understand it, prevent changes on
+	// disabled form elements.
+	.on('change', '[disabled]', function(e) {
+		// The nuclear approach
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
+	})
+
+	// Value display for select boxes that are wrapped in buttons
+	// for style. The value is set as the content of the button.
+	.on('change valuechange', '.button > select', function(e) {
+		populateSelect(e.target);
+	})
+
+	.on('focusin focusout', '.button > select, .button > input', function(e) {
+		var view = fieldData(e.target);
+		
+		if (e.type === 'focusin') {
+			view.wrap.addClass('focus');
+		}
+		else {
+			view.wrap.removeClass('focus');
+		}
+	})
+
+	// Value display for file inputs that are wrapped in buttons
+	// for style. Value is set as the text content of the button.
+	.on('change valuechange', '.button > input[type="file"]', function(e) {
+		updateFileLabel(e.target);
+	})
+
+	// If a form is reset, trigger a re-evaluation of the values
+	// of custom form elements.
+	.on('reset', 'form', function(e) {
+		if (e.isDefaultPrevented()) { return; }
+		
+		var fields = jQuery('input, textarea, select', e.target);
+		
+		function reset() {
+			fields.trigger('valuechange');
+		}
+		
+		setImmediate(reset);
+	})
+	
+	.ready(function() {
+		jQuery('.button > select').each(function() {
+			populateSelect(this);
+		});
+		
+		jQuery('input:checked').each(function() {
+			var data = fieldData(this);
+			data.label.addClass('on');
+		});
+		
+		// Loop over .error_labels already in the DOM, and listen for
+		// changes on their associated inputs to remove them.
+		jQuery('.error_label').each(function(i, label) {
+			var id = label.getAttribute('for');
+			
+			if (!id) { return; }
+			
+			var input = jQuery('#' + id);
+			
+			function remove() {
+				input.off('change valuechange', remove);
+				label.parentNode.removeChild(label);
+			}
+			
+			input.on('change valuechange', remove);
+		});
+	});
+});
+// Create placeholder labels when browser does not
+// natively support placeholder attribute.
+
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], module);
+	} else {
+		// Browser globals
+		module(jQuery);
+	}
+})(function( jQuery, undefined ){
+	var store = {},
+			a = 0;
+	
+	function identify(fly){
+	  // Generate an id, apply it to the input node
+	  // and return it.
+	  var id = 'input_' + a++ ;
+	  
+	  fly.id = id;
+	  return id;
+	}
+	
+	function changeHandler(e) {
+		var input = e.target,
+		  	value = input.value,
+		  	placeholder = store[input.id];
+		
+		if ( !value || !value.length ) {
+		  placeholder.css({ display: 'block' });
+		}
+		else {
+		  placeholder.css({ display: 'none' });
+		};
+	}
+	
+	function focusHandler(e) {
+		var input = e.target,
+		  	placeholder = store[input.id];
+		
+		placeholder.css({ display: 'none' });
+	}
+	
+	// Feature detect placeholder support, and when there is no
+	// support create placeholder labels to simulate placeholder
+	// attributes, and delegate event handlers.
+	
+	if (!jQuery.support.placeholder) {
+		
+		// Delegate events coming from inputs and texareas with placeholders.
+		
+		jQuery(document)
+		.on('change focusout', 'textarea[placeholder], input[placeholder]', changeHandler)
+		.on('focusin', 'textarea[placeholder], input[placeholder]', focusHandler)
+		
+		// Create placeholder labels.
+		
+		.ready(function() {
+			var elem = jQuery('textarea[placeholder], input[placeholder]');
+			
+			elem.each(function(i){
+				var input = this,
+				    elem = jQuery(this),
+				    id = input.id || identify(input),
+				    val = input.value,
+				    css = elem.position(),
+				    height = input.nodeName.toLowerCase() === 'input' ? elem.height() : elem.css('lineHeight'),
+				    text = input.getAttribute('placeholder'),
+				    placeholder = jQuery('<label/>', {
+				    	'class': 'placeholder',
+				    	'for': id,
+				    	'text': text
+				    });
+
+				jQuery.extend(css, {
+					height: height + 'px',
+					lineHeight: height + 'px',
+					fontSize: elem.css('font-size'),
+					paddingLeft: elem.css('padding-left'),
+					paddingRight: elem.css('padding-right')
+				});
+
+				placeholder
+				.css(css)
+				.insertAfter(elem);
+
+				store[id] = placeholder;
+
+				if (!val || !val.length) {
+					placeholder.css({ display: 'block' });
+				};
+			});
+		});
+	}
+});
+
+// bolt.slide
+//
+// Extends the default behaviour of the activate and deactivate
+// events with things to do when they are triggered on slides.
+
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery', './bolt', './jquery.event.activate'], module);
+	} else {
+		// Browser globals
+		module(jQuery, jQuery.bolt);
+	}
+})(function(jQuery, bolt, undefined){
+	var add = jQuery.event.add,
+	    remove = jQuery.event.remove,
+	    trigger = function(node, type, data) {
+	    	jQuery.event.trigger(type, data, node);
+	    };
+
+	function jump(e) {
+		// A prevented default means this link has already been handled.
+		if (e.isDefaultPrevented()) { return; }
+
+		// e.data is the pane to jump to.
+		trigger(e.data, 'activate');
+		e.preventDefault();
+	}
+
+	function movestartSlide(e) {
+		var panes = e.data;
+
+		// If the movestart heads off in a upwards or downwards direction,
+		// 
+		if ((e.distX > e.distY && e.distX < -e.distY) ||
+			(e.distX < e.distY && e.distX > -e.distY)) {
+			e.preventDefault();
+			return;
+		}
+
+		panes.elem.parent().addClass('notransition');
+		
+		if (panes.next) {
+			panes.next.style.height = 'auto';
+		}
+		if (panes.prev) {
+			panes.prev.style.height = 'auto';
+		}
+	}
+
+	function moveSlide(e) {
+		var panes = e.data,
+		    left = 100 * e.distX/panes.pane.offsetWidth;
+
+		
+		// This gets the slide effect roughly right. By the time
+		// overflow is hidden, we'll never notice.
+		if (e.distX < 0) {
+			if (panes.next) {
+				panes.pane.style.left = left + '%';
+				panes.next.style.left = (left+100)+'%';
+				//panes.next.style.height = 'auto';
+				}
+			else {
+				panes.pane.style.left = left/5 + '%';
+			}
+		}
+		if (e.distX > 0) {
+			if (panes.prev) {
+				panes.pane.style.left = left + '%';
+				panes.prev.style.left = (left-100)+'%';
+				//panes.prev.style.height = 'auto';
+				}
+			else {
+				panes.pane.style.left = left/5 + '%';
+			}
+		}
+	}
+
+	function moveendSlide(e) {
+		var panes = e.data;
+
+		panes.elem.parent().removeClass('notransition');
+		
+		setTimeout( function() {
+			panes.pane.style.left = '';
+			if (panes.next) {
+				panes.next.style.left = '';
+				panes.next.style.height = '';
+			}
+			if (panes.prev) {
+				panes.prev.style.left = '';
+				panes.prev.style.height = '';
+			}
+		}, 0);
+	}
+
+	function cachePaneData(target, data) {
+		var slides = jQuery.data(target, 'slides'),
+		    l;
+
+		if (!slides) {
+			// Choose all sibling panes of the same class
+			slides = data.elem.siblings('.' + data['class']).add(target);
+			
+			// Attach the panes object to each of the panes
+			l = slides.length;
+			while (l--) {
+				jQuery.data(slides[l], 'slides', slides);
+			}
+		}
+
+		return slides;
+	}
+
+	bolt('slide', {
+		activate: function activatePane(e, data, fn) {
+			var target = e.target,
+			    pane = data.elem,
+			    panes = cachePaneData(e.target, data),
+			    siblings = {
+			    	next: panes[panes.index(target) + 1],
+			    	prev: panes[panes.index(target) - 1],
+			    	pane: target,
+			    	elem: pane
+			    },
+			    active;
+			
+			if (data.active) { return; }
+			data.active = true;
+			
+			if (!data.setup) {
+				data.setup = true;
+				
+				add(target, 'movestart', movestartSlide, siblings);
+				add(target, 'move', moveSlide, siblings);
+				add(target, 'moveend', moveendSlide, siblings);
+				
+				if (siblings.prev) { add(target, 'swiperight', jump, siblings.prev); }
+				if (siblings.next) { add(target, 'swipeleft',  jump, siblings.next); }
+				
+				add(target, 'click tap',  jump, panes[(panes.index(target) - 1) % panes.length], 'a[href="#prev"]');
+				add(target, 'click tap',  jump, panes[(panes.index(target) + 1) % panes.length], 'a[href="#next"]');
+			}
+			
+			active = panes.not(target).filter('.active');
+
+			fn();
+
+			// Deactivate the previous active pane AFTER this pane has been
+			// activated. It's important for panes who's style depends on the
+			// current active pane, eg: .slide.active ~ .slide
+			active.trigger('deactivate');
+		},
+
+		deactivate: function(e, data, fn) {
+			if (!data.active) { return; }
+			data.active = false;
+			
+			//remove(e.target, 'click tap swiperight swipeleft', jump);
+			//remove(e.target, 'movestart', movestartSlide);
+			//remove(e.target, 'move', moveSlide);
+			//remove(e.target, 'moveend', moveendSlide);
+
+			fn();
+		}
+	});
+});
+// bolt.class.tab
+//
+// Extends the default behaviour of the activate and deactivate
+// events with things to do when they are triggered on tabs.
+
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery', './bolt', './jquery.event.activate'], module);
+	} else {
+		// Browser globals
+		module(jQuery, jQuery.bolt);
+	}
+})(function(jQuery, bolt, undefined){
+	var add = jQuery.event.add,
+	    remove = jQuery.event.remove,
+	    trigger = function(node, type, data) {
+	    	jQuery.event.trigger(type, data, node);
+	    };
+
+	function jump(e) {
+		// A prevented default means this link has already been handled.
+		if (e.isDefaultPrevented()) { return; }
+
+		// e.data is the pane to jump to.
+		trigger(e.data, 'activate');
+		e.preventDefault();
+	}
+
+	function cacheTabs(target, data) {
+		var tabs = jQuery.data(target, 'tabs'),
+		    l;
+
+		if (!tabs) {
+			// Choose all sibling panes of the same class
+			tabs = data.elem.siblings('.' + data['class']).add(target);
+			
+			// Attach the panes object to each of the panes
+			l = tabs.length;
+			while (l--) {
+				jQuery.data(tabs[l], 'tabs', tabs);
+			}
+		}
+
+		return tabs;
+	}
+
+	bolt('tab', {
+		activate: function activatePane(e, data, fn) {
+			var target = e.target,
+			    tabs = cacheTabs(e.target, data),
+			    active;
+
+			if (data.active) { return; }
+			data.active = true;
+			
+			add(target, 'click tap',  jump, tabs[(tabs.index(target) - 1) % tabs.length], 'a[href="#prev"]');
+			add(target, 'click tap',  jump, tabs[(tabs.index(target) + 1) % tabs.length], 'a[href="#next"]');
+
+			active = tabs.not(target).filter('.active');
+
+			fn();
+
+			// Deactivate the previous active pane AFTER this pane has been
+			// activated. It's important for panes who's style depends on the
+			// current active pane, eg: .slide.active ~ .slide
+			active.trigger('deactivate');
+		},
+
+		deactivate: function(e, data, fn) {
+			if (!data.active) { return; }
+			data.active = false;
+			
+			remove(e.target, 'click tap swiperight swipeleft', jump);
+			fn();
+		}
+	});
+});
+// bolt.classes.tip
+//
+// Extends the default behaviour of events for the .tip class.
+
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery', './bolt', './jquery.event.activate'], module);
+	} else {
+		// Browser globals
+		module(jQuery, jQuery.bolt);
+	}
+})(function(jQuery, bolt, undefined){
+	var add = jQuery.event.add,
+	    remove = jQuery.event.remove,
+	    trigger = function(node, type, data) {
+	    	jQuery.event.trigger(type, data, node);
+	    };
+
+	function tapHandler(e) {
+		var target = e.data;
+		
+		trigger(target, 'deactivate');
+	}
+
+	bolt('top-tip', {
+		activate: function (e, data, fn) {
+			if (data.active) { return; }
+			data.active = true;
+			
+			var elem = data.elem,
+			    relatedTarget = jQuery(e.relatedTarget),
+			    id = bolt.identify(e.target),
+			    relatedOffset = relatedTarget.offset(),
+			    relatedHeight = relatedTarget.outerHeight();
+			
+			elem
+			.addClass('notransition')
+			.css({
+				margin: 0
+			});
+			
+			var offset = elem.offset(),
+			    position = elem.position(),
+			    height = elem.outerHeight();
+			
+			elem
+			.css({
+				margin: '',
+				// Round the number to get round a sub-pixel rendering error in Chrome
+				left: Math.floor(relatedOffset.left + position.left - offset.left),
+				top:  Math.floor(relatedOffset.top + position.top  - offset.top - height)
+			});
+			
+			elem.width();
+			elem.removeClass('notransition');
+			
+			add(document, 'tap.' + id, tapHandler, e.target);
+			fn();
+		},
+
+		deactivate: function (e, data, fn) {
+			if (!data.active) { return; }
+			data.active = false;
+			
+			var id = bolt.identify(e.target);
+
+			remove(document, '.' + id, tapHandler);
+			fn();
+		}
+	});
+
+
+	bolt('right-tip', {
+		activate: function (e, data, fn) {
+			console.log('RIGHT');
+			if (data.active) { return; }
+			data.active = true;
+
+			var elem = data.elem,
+			    relatedTarget = jQuery(e.relatedTarget),
+			    id = bolt.identify(e.target),
+			    relatedOffset = relatedTarget.offset(),
+			    relatedWidth = relatedTarget.outerWidth();
+
+			elem
+			.addClass('notransition')
+			.css({
+				margin: 0
+			});
+
+			var offset = elem.offset(),
+			    position = elem.position(),
+			    height = elem.outerHeight();
+
+			elem
+			.css({
+				margin: '',
+				// Round the number to get round a sub-pixel rendering error in Chrome
+				left: Math.floor(relatedOffset.left + relatedWidth + position.left - offset.left),
+				top:  Math.floor(relatedOffset.top + (relatedHeight / 2) + position.top - offset.top - (height / 2))
+			});
+
+			elem.width();
+			elem.removeClass('notransition');
+			
+			add(document, 'tap.' + id, tapHandler, e.target);
+			fn();
+		},
+
+		deactivate: function (e, data, fn) {
+			if (!data.active) { return; }
+			data.active = false;
+			
+			var id = bolt.identify(e.target);
+
+			remove(document, '.' + id, tapHandler);
+			fn();
+		}
+	});
+
+	bolt('tip', {
+		activate: function (e, data, fn) {
+			if (data.active) { return; }
+			data.active = true;
+			console.log('TIP');
+			var elem = data.elem,
+			    relatedTarget = jQuery(e.relatedTarget),
+			    id = bolt.identify(e.target),
+			    relatedOffset = relatedTarget.offset();
+			
+			elem
+			.addClass('notransition')
+			.css({
+				marginTop: 0,
+				marginLeft: 0
+			});
+			
+			var offset = elem.offset(),
+			    position = elem.position();
+			
+			elem
+			.css({
+				marginTop: '',
+				marginLeft: '',
+				// Round the number to get round a sub-pixel rendering error in Chrome
+				left: Math.floor(relatedOffset.left + position.left - offset.left),
+				top:  Math.floor(relatedOffset.top  + position.top  - offset.top)
+			});
+			
+			elem.width();
+			elem.removeClass('notransition');
+			
+			add(document, 'tap.' + id, tapHandler, e.target);
+			fn();
+		},
+
+		deactivate: function (e, data, fn) {
+			if (!data.active) { return; }
+			data.active = false;
+			
+			var id = bolt.identify(e.target);
+
+			remove(document, '.' + id, tapHandler);
+			fn();
+		}
+	});
+});
+// bolt.map
+//
+// Controls the map dropdown at the top of the body
+
+(function (module) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery', './bolt', './jquery.event.activate'], module);
+	} else {
+		// Browser globals
+		module(jQuery, jQuery.bolt);
+	}
+})(function(jQuery, bolt, undefined){
+	var add = jQuery.event.add,
+	    remove = jQuery.event.remove,
+	    trigger = function(node, type, data) {
+	    	jQuery.event.trigger(type, data, node);
+	    };
+
+	function isLeftButton(e) {
+		// Ignore mousedowns on any button other than the left (or primary)
+		// mouse button, or when a modifier key is pressed.
+		return (e.which === 1 && !e.ctrlKey && !e.altKey);
+	}
+
+	function preventDefault(e) {
+		remove(e.currentTarget, 'click', preventDefault);
+		e.preventDefault();
+	}
+	
+	function preventClick(e) {
+		// Prevent the click that follows the mousedown. The preventDefault
+		// handler unbinds itself as soon as the click is heard.
+		if (e.type === 'mousedown') {
+			add(e.currentTarget, 'click', preventDefault);
+		}
+	}
+
+	function close(e) {
+		var activeTarget = e.data;
+
+		// A prevented default means this link has already been handled.
+		if (e.isDefaultPrevented()) { return; }
+	
+		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
+		
+		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
+		e.preventDefault();
+		preventClick(e);
+	}
+
+	bolt('toggle', {
+		activate: function(e, data, fn) {
+			// Don't do anything if elem is already active
+			if (data.active) { return; }
+			data.active = true;
+			
+			var id = bolt.identify(e.target);
+			
+			jQuery('[href="#' + id + '"]').on('mousedown tap', e.target, close);
+
+			fn();
+		},
+
+		deactivate: function(e, data, fn) {
+			// Don't do anything if elem is already inactive
+			if (!data.active) { return; }
+			data.active = false;
+			
+			var id = bolt.identify(e.target);
+			
+			jQuery('[href="#' + id + '"]').off('mousedown tap', close);
+			
+			fn();
+		}
 	});
 });
