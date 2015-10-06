@@ -1,4 +1,4 @@
-/* template.typography.14_24.css
+/* bolt.type.14-24.css
  * 
  * Developed using ideas from:
  * www.blueprintcss.org
@@ -21,40 +21,20 @@ body,
 .tabs_index > li,
 .crumbs_index > li,
 .action-index > li {
-    line-height: 1.4286; /* 20px */
+    line-height: 1.7143; /* 24px */
 }
 
 /* Block elements */
 
-h1                { word-spacing: -0.1em;    font-size: 1.4286em; line-height: 1;      margin-bottom: 1em; }
-h2                { word-spacing: -0.0555em; font-size: 1.2857em; line-height: 1.1111; margin-bottom: 1.1111em; }
-h3                { word-spacing: -0.0625em; font-size: 1.1429em; line-height: 1.25;   margin-bottom: 0; }
-h4                { word-spacing: -0.0714em; font-size: 1em; }
-h5                { word-spacing: -0.0714em; font-size: 1em; }
-h6                { word-spacing: -0.0714em; font-size: 1em; }
+h1                { word-spacing: -0.0833em; font-size: 1.5em;   line-height: 1.1429; margin-bottom: 1.1429em; }
+h2                { word-spacing: -0.0833em; font-size: 1.2em;   line-height: 1.4286; margin-bottom: 1.4286em; }
+h3                { word-spacing: -0.0833em; font-size: 1.0714em;line-height: 1.6;    margin-bottom: 0; }
+h4                { word-spacing: -0.0833em; font-size: 1em; }
+h5                { word-spacing: -0.0833em; font-size: 1em; }
+h6                { word-spacing: -0.0833em; font-size: 1em; }
+
 p                 { margin-bottom: 0.8572em; }
-li                { margin-bottom: 0; }
-hr                { margin-bottom: 1.4286em; }
-
-p + h2,
-ul + h2,
-ol + h2,
-dl + h2,
-pre + h2,
-div + h2,
-table + h2,
-address + h2,
-blockquote + h2   { margin-top: 2.2222em; }
-
-p + h3,
-ul + h3,
-ol + h3,
-dl + h3,
-pre + h3,
-div + h3,
-table + h3,
-address + h3,
-blockquote + h3   { margin-top: 1.25em; }
+p:last-child      { margin-bottom: 0; }
 
 /* Make first letter different */
 /*p::first-letter   { font-size: 2em; float: left;  }
@@ -70,18 +50,19 @@ li,
 dt,
 dd,
 blockquote,
-address           { word-spacing: 0.0714em; }
+address           { word-spacing: 0.2em; }
 
 dd                { margin: 0; }
 
 ul,
 ol,
-blockquote        { margin: 0 1.4286em 0.7143em 1.4286em; }
-
-dl,
 pre,
-table,
-address           { margin: 0 0 1.4286em 0; }
+blockquote        { margin: 0.8572em 3.4286em; }
+
+address           { margin: 0.8572em 0; }
+
+li,
+dd                { margin-bottom: 0.8572em;}
 
 blockquote:before { font-size: 3em; line-height: 0.92em; margin-left: -0.6em; }
 
@@ -91,6 +72,7 @@ time              { text-transform: uppercase; }
 
 sup,
 sub               { font-size: 0.7143em; line-height: 0; }
+
 abbr              { letter-spacing: 0.1em; }
 pre,
 code,
@@ -98,6 +80,7 @@ tt                { font-size: 1em; }
 
 /* Tables */
 
+table             { margin-bottom: 1.4em; }
 th,
 td,
 caption           { padding: 4px 10px 4px 5px; }

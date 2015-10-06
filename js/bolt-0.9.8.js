@@ -1,3 +1,5 @@
+/* Bolt 0.9.8 JS */
+
 // Fallback support for jQuery.fn.addTransitionClass. Also can
 // be used in cases where low file size is a proirity.
 

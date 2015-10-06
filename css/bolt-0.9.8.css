@@ -1,4 +1,6 @@
-/* template.normalise.css
+/* Bolt 0.9.8 CSS */
+
+/* bolt.normalise.css
 
    Much borrowed from Normalize.css:
    http://github.com/necolas/normalize.css
@@ -9,14 +11,13 @@
    And a few ideas from html5boilerplate:
    http://html5boilerplate.com/
 
-   Normalisation for forms can be found in template.forms.css. Similarly,
-   most normalisation for typography can be found in template.typography.css.
+   Normalisation for forms can be found in bolt.forms.css. Similarly,
+   most normalisation for typography can be found in bolt.type.css.
 */
 
-
-/* html5 */
-
-/* This is very important. We give his the strongest possible selector. */
+/* Hide templates in browsers where they are not natively supported. This is
+   important, and there is no time when we don't want this to be true, so
+   give it the strongest possible selector. */
 html > body template {
 	display: none !important;
 }
@@ -2856,7 +2857,7 @@ body > .grid-index,
 .adaptive-bleed-index > li:nth-last-child(10):first-child,
 .adaptive-bleed-index > li:nth-last-child(10):first-child ~ li { width: 10%; }
 
-/* template.typography.css
+/* bolt.type.css
    
    Developed using ideas from:
    www.blueprintcss.org

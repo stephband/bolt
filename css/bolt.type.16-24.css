@@ -1,4 +1,4 @@
-/* bolt.typography.16_20.css
+/* bolt.type.16-24.css
  * 
  * Developed using ideas from:
  * www.blueprintcss.org
@@ -7,14 +7,14 @@
  * 
  */
 
-html {
+html,
+body {
 	font-size: 100%; /* 16px */
 }
 
 body,
 .index > li {
-	font-size: 1.125rem;
-	line-height: 1;
+	line-height: 1.5;
 }
 
 /* Block */

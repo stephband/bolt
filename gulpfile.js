@@ -30,6 +30,7 @@ CONFIG.plugins = {
 // Load the gulp plugins
 var package = require('./package.json');
 var gulp = require('gulp');
+var header = require('gulp-header');
 var concat = require('gulp-concat');
 var runSequence = require('run-sequence');
 
@@ -70,7 +71,11 @@ gulp.task('build-css', function() {
     "./css/bolt.grid.css",
     "./css/bolt.type.css"
   ])
+  // Concat files
   .pipe(concat('bolt-' + package.version + '.css'))
+  // Add a comment to the top
+  .pipe(header('/* Bolt ' + package.version + ' CSS */\n\n'))
+  // Write the file to the directory
   .pipe(gulp.dest('./css/'));
 });
 
@@ -89,7 +94,11 @@ gulp.task('build-js', function() {
     "./js/bolt.toggle.js",
     "./js/bolt.dialog.js"
   ])
+  // Concat files
   .pipe(concat('bolt-' + package.version + '.js'))
+  // Add a comment to the top
+  .pipe(header('/* Bolt ' + package.version + ' JS */\n\n'))
+  // Write the file to the directory
   .pipe(gulp.dest('./js/'));
 });
 
