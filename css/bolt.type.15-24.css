@@ -38,7 +38,7 @@ li                { margin-bottom: 0; }
 dd                { margin: 0; }
 
 blockquote        { margin: 0 0 1.6em 0; }
-blockquote:before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
+blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
 pre,
 address           { margin: 1.6em 0; }
 

@@ -46,11 +46,11 @@ video {
 /* Reset */
 
 html {
-	/* Corrects text resizing oddly in IE6/7 when body font-size is set using em units
-	   http://clagnut.com/blog/348/#c790 */
+	/* Corrects text resizing oddly in IE6/7 when body font-size is set using em
+	   units: http://clagnut.com/blog/348/#c790 */
 	font-size: 100%;
-	/* Prevents iOS text size adjust after orientation change, without disabling user zoom
-	   www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+	/* Prevents iOS text size adjust after orientation change, without disabling
+	   user zoom: www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
 }
@@ -638,7 +638,7 @@ th {
 	padding-left: 1.5em;
 }
 
-.crumbs_index > li + li:before {
+.crumbs_index > li + li::before {
 	content: "▶";
 	font-size: 0.75em;
 	display: inline-block;
@@ -2943,7 +2943,7 @@ dl {
 	zoom: 1;
 }
 
-dl:after {
+dl::after {
 	/* Clearfix, because children of definition list are floated. */
 	content: " ";
 	visibility: hidden;
@@ -2960,7 +2960,7 @@ ul                { list-style-type: disc; }
 ol                { list-style-type: decimal; }
 
 blockquote        { font-style: italic; font-family: Georgia, serif; }
-blockquote:before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
+blockquote::before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
 
 /*p:first-child,
 h1:first-child,
@@ -3043,8 +3043,8 @@ sup               { top: -0.5em; }
 sub               { bottom: -0.25em; }
 
 q                 { quotes: none; }
-q:before,
-q:after           { content: ''; content: none; }
+q::before,
+q::after           { content: ''; content: none; }
 
 time              { text-transform: uppercase; }
 

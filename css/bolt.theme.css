@@ -82,8 +82,8 @@
 	        box-shadow: 0 1px 1px rgba(255,255,255,0.3), 0 -1px 1px rgba(0,0,0,0.5);
 }
 
-.tab_button.on:after,
-.tab_button:active:after {
+.tab_button.on::after,
+.tab_button:active::after {
 	/* Add a blank element at the bottom of the button that
 	   covers the top border of the tab below. */
 	content: ' ';
@@ -122,7 +122,7 @@
 	        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.6);*/
 }
 
-.tip:after {
+.tip::after {
 	content: '';
 	position: absolute;
 	left: 24px;

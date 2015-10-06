@@ -53,7 +53,7 @@ dl,
 blockquote        { margin: 1.3333em 0 1.3333em 0; }
 li                { margin-bottom: 0;}
 
-blockquote:before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
+blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
 pre,
 address           { margin: 1.3333em 0; }
 

@@ -136,7 +136,7 @@
 			var logElem = jQuery('<dl/>', {'class': 'css_log log'});
 			
 			jQuery('head').append('<style>'+
-				'.log:after {visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0;}' +
+				'.log::after {visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0;}' +
 				'.log dt {float:left; clear:both; width: 38%; text-align: right; margin: 0;} ' +
 				'.log dd {float:right; clear:right; width: 60%; margin: 0;} ' +
 				'.log .unfound {opacity: 0.6;} ' +
