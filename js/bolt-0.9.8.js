@@ -356,6 +356,9 @@
 		// Create a movestart object with some special properties that
 		// are passed only to the movestart handlers.
 		template.type = 'movestart';
+		template.altKey = e.altKey;
+		template.ctrlKey = e.ctrlKey;
+		template.shiftKey = e.shiftKey;
 		template.distX = distX;
 		template.distY = distY;
 		template.deltaX = distX;
@@ -1268,7 +1271,6 @@
 
 	    		if (parts = /([\w-]+)\/([\w-]+)/.exec(id)) {
 	    			id = parts[1];
-	    			console.log(parts);
 	    		}
 
 	    		node = nodeCache[id] || document.getElementById(id);
@@ -1442,13 +1444,13 @@
 
 	function activate(e, node, data) {
 		e.preventDefault();
-		
+
 		if (e.type === 'mousedown') {
 			preventClick(e);
 		}
-	
+
 		if (!bolt.has(data.bolt['class'], 'activate')) { return; }
-	
+
 		if (data.active === undefined ?
 				data.bolt.elem.hasClass('active') :
 				data.active ) {
@@ -1456,6 +1458,27 @@
 		}
 	
 		trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
+	}
+
+	function preventClick(e) {
+		// Prevent the click that follows the mousedown. The preventDefault
+		// handler unbinds itself as soon as the click is heard.
+		if (e.type === 'mousedown') {
+			add(e.currentTarget, 'click', preventDefault);
+		}
+	}
+
+	function close(e) {
+		var activeTarget = e.data;
+
+		// A prevented default means this link has already been handled.
+		if (e.isDefaultPrevented()) { return; }
+	
+		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
+		
+		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
+		e.preventDefault();
+		preventClick(e);
 	}
 
 	function activateHref(e, fn) {
@@ -1500,9 +1523,9 @@
 
 	function activateTarget(e) {
 		var target = e.currentTarget.target;
-		
+
 		if (isIgnorable(e)) { return; }
-		
+
 		// If the target is not listed, ignore
 		if (!targets[target]) { return; }
 		
@@ -1595,16 +1618,16 @@
 	// Mouseover on tip links toggle activate on their targets
 	.on('mouseover mouseout tap focusin focusout', 'a[href^="#"], [data-tip]', function(e) {
 		var href, node, elem, data, clas, tag;
-		
+
 		tag = e.target.tagName.toLowerCase();
-		
+
 		// Input fields should only show tips when focused
 		if (tag === 'input' && (e.type === 'mouseover' || e.type === 'mouseout' || e.type === 'tap')) {
 			return;
 		}
-		
+
 		href = e.currentTarget.getAttribute('data-tip');
-		
+
 		if (href && !(/^#/.test(href))) {
 			// The data-tip attribute holds text. Create a tip node and
 			// stick it in the DOM
@@ -1978,7 +2001,7 @@
 			var target = e.target,
 			    tabs = cacheTabs(e.target, data),
 			    active;
-			
+
 			if (data.active) { return; }
 			data.active = true;
 			
@@ -2357,6 +2380,8 @@
 		// Find the first focusable thing.
 		var firstNode = jQuery('[tabindex], a, input, textarea, button', node)[0];
 
+		if (!firstNode) { return; }
+
 		focusNode = focusNode || document.body;
 
 		function preventFocus(e) {
@@ -2367,9 +2392,9 @@
 				firstNode.focus();
 			}
 		}
-		
+
 		setTimeout(function() { firstNode.focus(); }, 0);
-		
+
 		// Prevent focus in capture phase
 		if (document.addEventListener) {
 			document.addEventListener("focus", preventFocus, true);
@@ -2377,7 +2402,7 @@
 
 		add(node, 'deactivate', function deactivate() {
 			// Set focus back to the thing that was last focused when the
-			// dailog was opened.
+			// dialog was opened.
 			setTimeout(function() { focusNode.focus(); }, 0);
 			remove(node, 'deactivate', deactivate);
 
