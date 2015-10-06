@@ -38,7 +38,6 @@
 
 	    		if (parts = /([\w-]+)\/([\w-]+)/.exec(id)) {
 	    			id = parts[1];
-	    			console.log(parts);
 	    		}
 
 	    		node = nodeCache[id] || document.getElementById(id);
@@ -212,13 +211,13 @@
 
 	function activate(e, node, data) {
 		e.preventDefault();
-		
+
 		if (e.type === 'mousedown') {
 			preventClick(e);
 		}
-	
+
 		if (!bolt.has(data.bolt['class'], 'activate')) { return; }
-	
+
 		if (data.active === undefined ?
 				data.bolt.elem.hasClass('active') :
 				data.active ) {
@@ -226,6 +225,27 @@
 		}
 	
 		trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
+	}
+
+	function preventClick(e) {
+		// Prevent the click that follows the mousedown. The preventDefault
+		// handler unbinds itself as soon as the click is heard.
+		if (e.type === 'mousedown') {
+			add(e.currentTarget, 'click', preventDefault);
+		}
+	}
+
+	function close(e) {
+		var activeTarget = e.data;
+
+		// A prevented default means this link has already been handled.
+		if (e.isDefaultPrevented()) { return; }
+	
+		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
+		
+		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
+		e.preventDefault();
+		preventClick(e);
 	}
 
 	function activateHref(e, fn) {
@@ -270,9 +290,9 @@
 
 	function activateTarget(e) {
 		var target = e.currentTarget.target;
-		
+
 		if (isIgnorable(e)) { return; }
-		
+
 		// If the target is not listed, ignore
 		if (!targets[target]) { return; }
 		
@@ -365,16 +385,16 @@
 	// Mouseover on tip links toggle activate on their targets
 	.on('mouseover mouseout tap focusin focusout', 'a[href^="#"], [data-tip]', function(e) {
 		var href, node, elem, data, clas, tag;
-		
+
 		tag = e.target.tagName.toLowerCase();
-		
+
 		// Input fields should only show tips when focused
 		if (tag === 'input' && (e.type === 'mouseover' || e.type === 'mouseout' || e.type === 'tap')) {
 			return;
 		}
-		
+
 		href = e.currentTarget.getAttribute('data-tip');
-		
+
 		if (href && !(/^#/.test(href))) {
 			// The data-tip attribute holds text. Create a tip node and
 			// stick it in the DOM

@@ -7,10 +7,13 @@
 
 .wrap {
 	display: block;
+
 	/* Set as position parent. */
 	position: relative;
+
 	/* Wraps automatically centre themselves. */
-	margin: 0 auto;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .wrap > img,
@@ -33,11 +36,14 @@
 
 .block {
 	display: block;
+
 	/* Set as position parent */
 	position: relative;
+
 	/* Set them up to play nice as inline-blocks. */
 	vertical-align: top;
 	overflow: visible;
+
 	/* Negate possible spacing when .block is used on
 	   something typographic. A <p>, for example. */
 	margin: 0;
@@ -53,6 +59,42 @@
 .block > iframe {
 	/* Don't allow media to break out of container bounds. */
 	max-width: 100%;
+}
+
+.toggle-block {
+	max-height: 0;
+	opacity: 0.5;
+	overflow: hidden;
+	visibility: visible;
+	transition:
+		max-height 400ms cubic-bezier(0, 0.5, 0.33, 1),
+		padding-top 400ms cubic-bezier(0.8, 0, 0.8, 0),
+		padding-bottom 400ms cubic-bezier(0.48, 0.85, 0.8, 1),
+		margin-bottom 400ms cubic-bezier(0, 0.5, 0.33, 1),
+		opacity 400ms linear,
+		border-color 400ms linear,
+		background-color 200ms linear,
+		visibility 400ms linear;
+}
+
+.toggle-block:not(.active) {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.toggle-block.active {
+	max-height: 100rem;
+	opacity: 1;
+	visibility: visible;
+	transition:
+		max-height 400ms cubic-bezier(0.4, 0, 1, 0.32),
+		padding-top 400ms cubic-bezier(0.2, 1, 0.2, 1),
+		padding-bottom 400ms cubic-bezier(0.6, 0.9, 0.7, 1),
+		margin-bottom 400ms cubic-bezier(0.4, 0, 1, 0.32),
+		opacity 400ms linear,
+		border-color 400ms linear,
+		background-color 200ms linear,
+		visibility 400ms linear;
 }
 
 
@@ -75,15 +117,6 @@
 	/* Stop content pushing column wider than it should be */
 	overflow: visible;
 	width: 100%;
-}
-
-
-/* .panel */
-
-.panel {
-	display: block;
-	/* Set as position parent. */
-	position: relative;
 }
 
 
@@ -142,6 +175,9 @@
 
 .dialog-layer {
 	position: fixed;
+	background-image: none;
+	background-color: rgba(31, 32, 33, 0.746094);
+	z-index: 4;
 }
 
 .middle,
@@ -152,7 +188,9 @@
 
 .middle::before,
 .dialog-layer::before {
-	/* Center inline-block contents vertically */
+	/* Center inline-block contents vertically. Note that to
+	   keep .dialog centered horizontally there should be no
+	   space in front of the .dialog box. */
 	display: inline-block;
 	content: '';
 	height: 100%;
@@ -163,40 +201,6 @@
 .middle > *,
 .dialog-layer > * {
 	text-align: left;
-}
-
-/* TODO: We should be able to merge the .gif technique with
-   the <canvas> technique, so that when canvas is not available
-   the gif displays - can we set the gif as background to the
-   canvas and still expect it to display? */
-
-/* Use a .gif as a loading icon */
-
-/*
-.loading_layer {
-		display: none;
-		background-position: 50% 50%;
-		background-image: url('../../images/loading-icon-16-white.gif');
-		background-color: transparent;
-		background-repeat: no-repeat;
-}*/
-
-/* Use a <canvas> as a loading icon */
-.loading_layer,
-.dialog-layer {
-	background-image: none;
-	background-color: rgba(31, 32, 33, 0.746094);
-	z-index: 4;
-}
-
-.loading_layer > canvas {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 80px;
-	height: 80px;
-	margin-left: -40px;
-	margin-top: -40px;
 }
 
 
@@ -271,8 +275,6 @@
 
 
 
-
-
 /* .index
    
    To be applied to <ul>, <ol> and <dl> elements, when you want them to
@@ -299,6 +301,7 @@
 
 	/* Prepare for inline-block layout. */
 	vertical-align: top;
+	overflow: visible;
 }
 
 .index > li:first-child {
@@ -310,39 +313,22 @@
 	width: auto;
 }
 
-.dots-index > li > .thumb {
-	vertical-align: top;
+.dot-index {
+	text-align: center;
 }
 
-.dots-index {
-  text-align: center;
+.dot-index > li > .thumb {
+	display: block;
+}
+
+.dot-index > li + li {
+	margin-left: 0.75rem;
 }
 
 @media print {
-	.dots-index {
+	.dot-index {
 		display: none;
 	}
-}
-
-.tabs_index > li {
-	/* Stop content pushing li wider than it should be */
-	overflow: visible;
-	margin-right: 0;
-}
-
-.two_tabs_index > li        { width: 50%; }
-.three_tabs_index > li      { width: 33.33%; }
-.four_tabs_index > li       { width: 25%; }
-.five_tabs_index > li       { width: 20%; }
-.six_tabs_index > li        { width: 16.66%; }
-.seven_tabs_index > li      { width: 14.28%; }
-.eight_tabs_index > li      { width: 12.5%; }
-
-.tabs_index > li:last-child { margin-right: 0; }
-.tabs_index > li.last       { margin-right: 0; }
-
-.tabs_index > li > .tab-button {
-	width: 100%;
 }
 
 .crumbs_index,
@@ -370,14 +356,13 @@
 	width: 100%;
 }
 
-.tabs_index > li > .button,
 .crumbs_index > li > .button,
 .buttons_index > li > .button,
 .thumbs_index > li > .thumb {
 	/* Handle lists that contain just a single type of item. If 
 	   buttons or thumbs are aligned to the baseline, there will be
 	   a gap below them. */
-	vertical-align: top;
+	vertical-align: middle;
 }
 
 .action-index {
@@ -395,8 +380,8 @@
 */
 
 .inline-index,
-.tabs_index,
-.dots-index,
+.tab-index,
+.dot-index,
 .crumbs_index,
 .action-index {
 	/* To form grids with a horizontal index, line-height
@@ -405,22 +390,29 @@
 }
 
 .inline-index > li,
-.tabs_index > li,
-.dots-index > li,
+.dot-index > li,
 .crumbs_index > li,
 .action-index > li {
 	display: inline-block;
 	vertical-align: top;
 }
 
+.tab-index > li {
+	display: inline-block;
+	vertical-align: bottom;
+}
+
 .inline-index > li:first-child,
-.tabs_index > li:first-child,
-.dots-index > li:first-child,
+.tab-index > li:first-child,
+.dot-index > li:first-child,
 .crumbs_index > li:first-child,
 .action-index > li:first-child {
 	margin-left: 0;
 }
 
+.tab-index > li > .button {
+	display: block;
+}
 
 .inline-index > dt,
 .inline-index > dd {
@@ -531,10 +523,12 @@ a.card:hover {
 }
 
 .thumb-2x3     { display: block; width: auto; padding-top: 150%; }
+.thumb-3x4     { display: block; width: auto; padding-top: 133.3333%; }
 .thumb-1x1     { display: block; width: auto; padding-top: 100%; }
-.thumb-16x9    { display: block; width: auto; padding-top: 56.25%; }
+.thumb-4x3     { display: block; width: auto; padding-top: 75%; }
 .thumb-3x2     { display: block; width: auto; padding-top: 66.6667%; }
-.thumb-2x3     { display: block; width: auto; padding-top: 150%; }
+.thumb-16x9    { display: block; width: auto; padding-top: 56.25%; }
+
 
 .text-thumb {
 	/* Make the text show below the thumb. Text appears
@@ -589,23 +583,16 @@ a.card:hover {
 .yt_thumb { background-position: -49px 0; }
 
 .dot-thumb {
-	font-size: 1.75em;
-	opacity: 0.6;
-	color: #484848;
-	width: 0.8571em;
-	padding-top: 0.8571em;
-	line-height:  0.8571em;
+	padding-top: 0.9375rem;
+	width: 0.9375rem;
+	border-radius: 0.5rem;
+	background-color: white;
+	background-image: none;
+	opacity: 0.6667;
 }
 
-.dot-thumb::after {
-	content: '●';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	vertical-align: middle;
-	text-align: center;
+.dot-thumb.on {
+	background-color: white;
 }
 
 .dot-thumb.on,
@@ -768,17 +755,47 @@ button.loading,
 	overflow: visible;
 }
 
+.toggle-button {
+	display: block;
+	text-align: left;
+	padding-left: 0;
+}
+
+.toggle-button::after {
+	content: '▶';
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 0.8125em;
+	line-height: inherit;
+	padding-top: inherit;
+	padding-bottom: inherit;
+	transition: transform 320ms ease-out;
+}
+
+.toggle-button.on::after {
+	transform: rotate(90deg);
+	transition-timing-function: ease-in;
+	transition-duration: 80ms;
+}
 
 /* .tab, .slide */
 
 .tab,
 .slide {
 	display: inline-block;
-	vertical-align: top;
 	position: relative;
 	width: 100%;
 	/* Give tabs and slides the same origin despite being inline-blocks. */
 	margin-right: -100%;
+}
+
+.tab {
+	vertical-align: top;
+}
+
+.slide {
+	vertical-align: middle;
 }
 
 
@@ -801,6 +818,7 @@ button.loading,
 /* Transitions */
 
 .js .tip,
+.js .bubble,
 .js .tab,
 .js .slide,
 .js .layer,
@@ -903,6 +921,7 @@ button.loading,
 /* Transitions - .popdown, .dropdown, .tip */
 
 .js .tip,
+.js .bubble,
 .js .popdown,
 .js .dropdown {
 	opacity: 0;
@@ -924,6 +943,7 @@ button.loading,
 }
 
 .js .tip.active,
+.js .bubble.active,
 .js .popdown.active,
 .js .dropdown.active {
 	opacity: 1;
@@ -943,7 +963,8 @@ button.loading,
 	        transition-timing-function: ease-in;
 }
 
-.tip {
+.tip,
+.bubble {
 	top: 0;
 	left: 0;
 	/* We want the tip to expand up to 320px, but it won't
@@ -962,7 +983,8 @@ button.loading,
 	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 
-.js .tip {
+.js .tip,
+.js .bubble {
 	position: absolute;
 	z-index: 4;
 
@@ -973,110 +995,129 @@ button.loading,
 }
 
 .js .tip.active {
+	/* No delay for bubble. */
 	-webkit-transition-timing-function: ease-out;
 	        transition-timing-function: ease-out;
 	-webkit-transition-delay: 540ms;
 	        transition-delay: 540ms;
 }
 
-.js .top-tip {
+.js .top-tip,
+.js .top-bubble {
 	-webkit-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
 	    -ms-transform:   translate(-50%, calc(-100% - 1.5rem));
 	        transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
 }
 
-.js .top-tip.active {
+.js .top-tip.active,
+.js .top-bubble.active {
 	-webkit-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
 	    -ms-transform:   translate(-50%, calc(-100% - 1.75rem));
 	        transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
 }
 
-.js .left-top-tip {
+.js .left-top-tip,
+.js .left-top-bubble {
 	-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
 	    -ms-transform:   translate(-16.6667%, calc(-100% - 1.5rem));
 	        transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
 }
 
-.js .left-top-tip.active {
+.js .left-top-tip.active,
+.js .left-top-bubble.active {
 	-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
 	    -ms-transform:   translate(-16.6667%, calc(-100% - 1.75rem));
 	        transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
 }
 
-.js .right-top-tip {
+.js .right-top-tip,
+.js .right-top-bubble {
 	-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
 	    -ms-transform:   translate(-83.3333%, calc(-100% - 1.5rem));
 	        transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
 }
 
-.js .right-top-tip.active {
+.js .right-top-tip.active,
+.js .right-top-bubble.active {
 	-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
 	    -ms-transform:   translate(-83.3333%, calc(-100% - 1.75rem));
 	        transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
 }
 
-.js .bottom-tip {
+.js .bottom-tip,
+.js .bottom-bubble {
 	-webkit-transform: translate3d(-50%, 1.5rem, 0);
 	    -ms-transform:   translate(-50%, 1.5rem);
 	        transform: translate3d(-50%, 1.5rem, 0);
 }
 
-.js .bottom-tip.active {
+.js .bottom-tip.active,
+.js .bottom-bubble.active {
 	-webkit-transform: translate3d(-50%, 1.75rem, 0);
 	    -ms-transform:   translate(-50%, 1.75rem);
 	        transform: translate3d(-50%, 1.75rem, 0);
 }
 
-.js .right-bottom-tip {
+.js .right-bottom-tip,
+.js .right-bottom-bubble {
 	-webkit-transform: translate3d(-83.3333%, 1.5rem, 0);
 	    -ms-transform:   translate(-83.3333%, 1.5rem);
 	        transform: translate3d(-83.3333%, 1.5rem, 0);
 }
 
-.js .right-bottom-tip.active {
+.js .right-bottom-tip.active,
+.js .right-bottom-bubble.active {
 	-webkit-transform: translate3d(-83.3333%, 1.75rem, 0);
 	    -ms-transform:   translate(-83.3333%, 1.75rem);
 	        transform: translate3d(-83.3333%, 1.75rem, 0);
 }
 
-.js .left-bottom-tip {
+.js .left-bottom-tip,
+.js .left-bottom-bubble {
 	-webkit-transform: translate3d(-16.6667%, 1.5rem, 0);
 	    -ms-transform:   translate(-16.6667%, 1.5rem);
 	        transform: translate3d(-16.6667%, 1.5rem, 0);
 }
 
-.js .left-bottom-tip.active {
+.js .left-bottom-tip.active,
+.js .left-bottom-bubble.active {
 	-webkit-transform: translate3d(-16.6667%, 1.75rem, 0);
 	    -ms-transform:   translate(-16.6667%, 1.75rem);
 	        transform: translate3d(-16.6667%, 1.75rem, 0);
 }
 
-.js .left-tip {
+.js .left-tip,
+.js .left-bubble {
 	-webkit-transform: translate3d(-100%, -50%, 0);
 	    -ms-transform:   translate(-100%, -50%);
 	        transform: translate3d(-100%, -50%, 0);
 }
 
-.js .left-tip.active {
+.js .left-tip.active,
+.js .left-bubble.active {
 	-webkit-transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
 	    -ms-transform:   translate(calc(-100% - 0.25rem), -50%);
 	        transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
 }
 
-.js .right-tip {
-	-webkit-transform: translate3d(0, -50%, 0);
-	    -ms-transform:   translate(0, -50%);
-	        transform: translate3d(0, -50%, 0);
+.js .right-tip,
+.js .right-bubble {
+	/* Make room for the .bubble::after point. */
+	-webkit-transform: translate3d(0.9375rem, -50%, 0);
+	    -ms-transform:   translate(0.9375rem, -50%);
+	        transform: translate3d(0.9375rem, -50%, 0);
 }
 
-.js .right-tip.active {
-	-webkit-transform: translate3d(0.25rem, -50%, 0);
-	    -ms-transform:   translate(0.25rem, -50%);
-	        transform: translate3d(0.25rem, -50%, 0);
+.js .right-tip.active,
+.js .right-bubble.active {
+	-webkit-transform: translate3d(1.25rem, -50%, 0);
+	    -ms-transform:   translate(1.25rem, -50%);
+	        transform: translate3d(1.25rem, -50%, 0);
 }
 
 
-.tip::after {
+.tip::after,
+.bubble::after {
 	display: block;
 	position: absolute;
 	width: 1.25rem;
@@ -1093,45 +1134,57 @@ button.loading,
 .top-tip::after,
 .bottom-tip::after,
 .left-tip::after,
-.right-tip::after {
+.right-tip::after,
+.top-bubble::after,
+.bottom-bubble::after,
+.left-bubble::after,
+.right-bubble::after {
 	content: ' ';
 }
 
 .top-tip::after,
-.bottom-tip::after {
+.bottom-tip::after,
+.top-bubble::after,
+.bottom-bubble::after {
 	left: 50%;
 	right: auto;
 	margin-left: -0.625rem;
 }
 
 .left-tip::after,
-.right-tip::after {
+.right-tip::after,
+.left-bubble::after,
+.right-bubble::after {
 	top: 50%;
 	bottom: auto;
 	margin-top: -0.625rem;
 }
 
-.top-tip::after {
+.top-tip::after,
+.top-bubble::after {
 	bottom: -0.6875rem;
 	border-top-width: 0;
 	border-left-width: 0;
 	box-shadow: 3px 3px 4px rgba(0,0,0,0.3);
 }
 
-.bottom-tip::after {
+.bottom-tip::after,
+.bottom-bubble::after {
 	top: -0.6875rem;
 	border-bottom-width: 0;
 	border-right-width: 0;
 }
 
-.left-tip::after {
+.left-tip::after,
+.left-bubble::after {
 	right: -0.6875rem;
 	border-bottom: 0;
 	border-left: 0;
 	box-shadow: 3px 0px 4px -2px rgba(0,0,0,0.3);
 }
 
-.right-tip::after {
+.right-tip::after,
+.right-bubble::after {
 	left: -0.6875rem;
 	border-right: 0;
 	border-top: 0;
@@ -1139,15 +1192,18 @@ button.loading,
 }
 
 .right-top-tip::after,
-.right-bottom-tip::after {
+.right-bottom-tip::after,
+.right-top-bubble::after,
+.right-bottom-bubble::after {
 	left: 83.3333%;
 }
 
 .left-top-tip::after,
-.left-bottom-tip::after {
+.left-bottom-tip::after,
+.left-top-bubble::after,
+.left-bottom-bubble::after {
 	left: 16.6667%;
 }
-
 
 .tip-block,
 .js .tip-block {
@@ -1244,6 +1300,16 @@ button.loading,
 
 .left { float: left; }
 .right { float: right; }
+
+.align-top      { vertical-align: top !important; }
+.align-middle   { vertical-align: middle !important; }
+.align-bottom   { vertical-align: bottom !important; }
+.align-baseline { vertical-align: baseline !important; }
+
+.text-left      { text-align: left; }
+.text-justify   { text-align: justify; }
+.text-center    { text-align: center; }
+.text-right     { text-align: right; }
 
 .scroll {
 	overflow: auto;
@@ -1354,13 +1420,6 @@ button.loading,
 .striped_table > tbody > tr:hover > th {
 	background-color: rgba(15,15,15,0.15);
 }
-
-.text-left    { text-align: left; }
-.text-justify { text-align: justify; }
-.text-center  { text-align: center; }
-.text-right   { text-align: right; }
-
-
 
 
 /* hcard microformat (for reference)

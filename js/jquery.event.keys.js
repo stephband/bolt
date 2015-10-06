@@ -17,14 +17,14 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined){
-	var debug = true,
-	
+	var debug = false,
+
 	    add = jQuery.event.add,
 	    remove = jQuery.event.remove,
 	    trigger = function(node, type, data, handlersOnly) {
 	    	jQuery.event.trigger(type, data, node, handlersOnly);
 	    },
-	    
+
 	    keymap = {
 	    	8:  'backspace',
 	    	9:  'tab',
@@ -76,7 +76,7 @@
 	    	89: 'y',
 	    	90: 'z'
 	    },
-	    
+
 	    obj = {
 	    	setup: function(data, namespaces, eventHandle) {
 	    		add(this, 'keyup', keyup);
@@ -88,15 +88,19 @@
 	    		return true;
 	    	}
 	    };
-	
+
 	function keyup(e) {
 		var key = keymap[e.keyCode];
 
-		if (debug) console.log('[jquery.event.keys]', e.keyCode, code);
+		if (debug) console.log('[jquery.event.keys]', e.keyCode, key);
 
-		trigger(e.target, 'key[' + key + ']', null, true);
+		// Reuse the keyup event as the key[x] event
+		e.type = 'key[' + key + ']';
+		trigger(e.target, e, null, true);
 	}
-	
+
+	var code;
+
 	for (code in keymap) {
 		jQuery.event.special['key[' + keymap[code] + ']'] = obj;
 	}

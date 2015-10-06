@@ -54,7 +54,7 @@ h4,
 h5,
 h6 {
 	font-weight: normal;
-	margin-bottom: 0;
+	margin: 0;
 }
 
 h1,
@@ -69,7 +69,14 @@ h6 {
 	        hyphens: none;
 }
 
-hr                { height: 0; border-width: 0; border-bottom: 1px solid black; margin-top: -1px; }
+hr {
+	/* IE9 does not properly get border-color for <hr>s that
+	   have border-width > 1px. Use background-color. */
+	height: 1px;
+	border-width: 0;
+	margin-top: -1px;
+	background-color: inherit;
+}
 
 
 dl {
