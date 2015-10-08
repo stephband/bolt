@@ -4,6 +4,11 @@
    www.blueprintcss.org
    www.webtypography.net */
 
+html,
+body {
+	font-size: 100%; /* 16px, normally */
+}
+
 body {
 	font-family: Helvetica, Arial, sans-serif;
 

@@ -1249,6 +1249,13 @@ button.loading,
 	display: none !important;
 }
 
+.masked {
+	position: absolute !important;
+	opacity: 0 !important;
+	width: 0 !important;
+	height: 0 !important;
+}
+
 .js .disabled {
 	opacity: 0.4;
 }
