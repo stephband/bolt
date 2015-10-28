@@ -1,8 +1,13 @@
-/* template.typography.css
+/* bolt.type.css
    
    Developed using ideas from:
    www.blueprintcss.org
    www.webtypography.net */
+
+html,
+body {
+	font-size: 100%; /* 16px, normally */
+}
 
 body {
 	font-family: Helvetica, Arial, sans-serif;
@@ -84,7 +89,7 @@ dl {
 	zoom: 1;
 }
 
-dl:after {
+dl::after {
 	/* Clearfix, because children of definition list are floated. */
 	content: " ";
 	visibility: hidden;
@@ -101,7 +106,7 @@ ul                { list-style-type: disc; }
 ol                { list-style-type: decimal; }
 
 blockquote        { font-style: italic; font-family: Georgia, serif; }
-blockquote:before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
+blockquote::before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
 
 /*p:first-child,
 h1:first-child,
@@ -184,8 +189,8 @@ sup               { top: -0.5em; }
 sub               { bottom: -0.25em; }
 
 q                 { quotes: none; }
-q:before,
-q:after           { content: ''; content: none; }
+q::before,
+q::after           { content: ''; content: none; }
 
 time              { text-transform: uppercase; }
 

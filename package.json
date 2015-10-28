@@ -1,10 +1,24 @@
 {
-	"name": "nut.css and bolt.js",
-	"description": "A front-end toolkit of classes and evented behaviours.",
-	"version": "0.9.7",
-	"author": "@stephband <stephband@googlemail.com>",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/stephband/bolt.git"
-	}
+  "name": "bolt",
+  "description": "A front-end toolkit of classes and evented behaviours.",
+  "version": "0.9.8",
+  "author": "@stephband <stephband@googlemail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephband/bolt.git"
+  },
+  "devDependencies": {
+    "es6-shim": "^0.33.3",
+    "event-stream": "^3.3.1",
+    "glob-all": "^3.0.1",
+    "gulp": "^3.9.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-eslint": "^1.0.0",
+    "gulp-header": "^1.7.1",
+    "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-rename": "^1.2.2",
+    "run-sequence": "^1.1.4"
+  },
+  "license": "MIT"
 }

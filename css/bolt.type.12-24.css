@@ -1,4 +1,4 @@
-/* template.typography.12_24.css
+/* bolt.type.12-24.css
  * 
  * Developed using ideas from:
  * www.blueprintcss.org
@@ -40,7 +40,7 @@ p+p::first-letter { font-size: 1em; line-height: 1.3333; font-style: normal; let
 /*p::first-line     { font-weight: bold; }
 p+p::first-line   { font-weight: normal; }*/
 /* Start paragraphs with a character or symbol */
-/*p+p:before  { content: "\2767"; padding-right: 0.4em; }*/
+/*p+p::before  { content: "\2767"; padding-right: 0.4em; }*/
 
 p,
 li,
@@ -60,7 +60,7 @@ address        { margin: 1em 0; }
 
 li             { margin-bottom: 1em;}
 
-blockquote:before { font-size: 3em; margin-left: -0.6em; line-height: 0.92em; }
+blockquote::before { font-size: 3em; margin-left: -0.6em; line-height: 0.92em; }
 
 /* Inline elements */
 

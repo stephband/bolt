@@ -6,3 +6,4 @@ res/iepngfix/opacity.png
 res/iepngfix/opacity2.png
 res/iepngfix/shadow.png
 archive/*
+node_modules/*

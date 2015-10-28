@@ -1,4 +1,4 @@
-/* bolt.typography.16_20.css
+/* bolt.type.16-20.css
  * 
  * Developed using ideas from:
  * www.blueprintcss.org
@@ -33,7 +33,7 @@ dl,
 blockquote        { margin: 1.25em 0 1.25em 0; }
 li                { margin-bottom: 0;}
 
-blockquote:before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
+blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
 pre,
 address           { margin: 1.25em 0; }
 
