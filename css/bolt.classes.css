@@ -1320,6 +1320,10 @@ button.loading,
 	        border-radius: 12px;
 }
 
+.hidden-scroll::-webkit-scrollbar {
+	display: none;
+}
+
 .scroll::-webkit-scrollbar-thumb:vertical,
 .scroll::-webkit-scrollbar-thumb:horizontal {
 	/* Approximate the style of the iPad's default scrollbars. (Can
@@ -1344,21 +1348,9 @@ button.loading,
 	display: none !important;
 }
 
-.x_scroll {
-	overflow-y: hidden;
-}
-
-.y_scroll {
-	overflow-x: hidden;
-}
-
-.x_scroll.y_scroll {
-	overflow: scroll;
-}
-
-.no_scroll {
-	overflow: hidden;
-}
+.x-scroll { overflow-y: hidden; }
+.y-scroll { overflow-x: hidden; }
+.no-scroll { overflow: hidden; }
 
 
 /* table */

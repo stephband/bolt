@@ -21,65 +21,122 @@
 	<link rel="stylesheet" href="css/bolt.classes.css" />
 
 	<style>
-		html {
-			overflow: hidden;
-		}
-
-		html, body {
+		html,
+		body {
 			width: 100%;
 			height: 100%;
+		}
+
+		body {
+			min-height: 20rem;
+		}
+
+		@media screen and (min-height: 20em) {
+			html {
+				overflow: hidden;
+			}
+		}
+
+
+		body > header {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			background-color: rgba(240,200,120,0.4);
+			z-index: 10;
 		}
 
 		body {
 			display: flex;
 			flex-direction: column;
 			flex-wrap: nowrap;
-			justify-content: flex-end;
+			align-items: stretch;
+		}
+
+		body > .panel {
+			width: 100%;
+		}
+
+		body > .graph-panel {
+			height: 6.5625rem;
+			flex-grow: 1;
+			flex-shrink: 0;
+			background-color: #333333;
+		}
+
+		body > .sequencer-panel {
+			height: 0;
+			flex-grow: 0;
+			flex-shrink: 1;
+			background-color: green;
+			transition: height 400ms ease-in;
+			-webkit-transition: height 400ms ease-in;
+		}
+
+		body > .sequencer-panel.active {
+			height: calc(100% - 9.375rem);
+		}
+
+		body > .tool-panel {
+			height: 2.8125rem;
+			flex-grow: 0;
+			flex-shrink: 0;
+		}
+
+		body > .info-panel {
+			overflow: hidden;
+			max-height: 0;
+			flex-grow: 0;
+			flex-shrink: 0;
+			transition: max-height 400ms ease-in;
+			-webkit-transition: max-height 400ms ease-in;
+		}
+
+		body > .info-panel.active {
+			max-height: 400px;
+		}
+
+		.graph-panel {
+			display: flex;
+		}
+
+		.graph-panel > .output-block {
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+			background-color: rgba(240,200,120,0.4);
+		}
+
+		.sequencer-panel {
+			display: flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			justify-content: flex-start;
 			align-items: stretch;
 			align-content: stretch;
 		}
 
-		body > .box {
+		.sequencer-panel > .box {
 			position: relative;
 		}
 
-		body > .box-1 {
+		.sequencer-panel > .box-1 {
 			width: 100%;
 			flex-grow: 0;
 			flex-shrink: 0;
 		}
 
-		body > .box-2 {
+		.sequencer-panel > .box-2 {
 			width: 100%;
 			flex-grow: 1;
-		}
-
-		body > .box-3 {
-			height: 45px;
-			flex-grow: 0;
-			flex-shrink: 0;
-		}
-
-		body > .box-4 {
-			max-height: 0;
-			flex-grow: 0;
-			flex-shrink: 0;
-			transition: height 400ms ease-in;
-			-webkit-transition: max-height 400ms ease-in;
-		}
-
-		body > .box-4.active {
-			max-height: 400px;
-			flex-grow: 0;
-			flex-shrink: 0;
 		}
 
 
 		.box-1 { background-color: #886611; border-bottom: 1px solid black; }
 		.box-2 { background-color: #995522; }
-		.box-3 { background-color: #779933; }
-		.box-4 { background-color: #aa4422; }
-		
+		.tool-panel { background-color: #779933; }
+		.info-panel { background-color: #aa4422; }
+
 		.box > .scroll {
 			position: absolute;
 			display: block;
@@ -89,14 +146,6 @@
 			height: 100%;
 			overflow: auto;
 			border-left: 1px solid black;
-		}
-
-		.box > .scroll-x {
-			overflow-y: hidden;
-		}
-
-		.box > .scroll-x::-webkit-scrollbar { 
-			display: none;
 		}
 
 		.bar {
@@ -112,29 +161,65 @@
 			background-color: #883300;
 		}
 
-		.box > .scroll.bar::-webkit-scrollbar { 
-			display: none;
-		}
-
 		.scroll > p {
-			width: 1080px;
+			width: 1280px;
 		}
 	</style>
 </head>
 
 <body>
+<header>LOGO</header>
+<div class="graph-panel panel">
+	<div class="hidden-scroll scroll">
+		<p>
+		Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+		Duis aute irure indent tabs or spaces velit esse cilium buntum how crunchy duntum.
+		Excepteur tranquilis syntax error memorandum qui officia nostrud operating system alertus.
+		Hyper text linkus operari avec computatrum ad coniungere hominum.
+		Standards code est pulchra on chromium et foxus sed souvent suckum in internet explorum.
+		Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+		Duis aute irure indent tabs or spaces velit esse cilium buntum how crunchy duntum.
+		Excepteur tranquilis syntax error memorandum qui officia nostrud operating system alertus.
+		Hyper text linkus operari avec computatrum ad coniungere hominum.
+		Standards code est pulchra on chromium et foxus sed souvent suckum in internet explorum.
+		Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+		Duis aute irure indent tabs or spaces velit esse cilium buntum how crunchy duntum.
+		Excepteur tranquilis syntax error memorandum qui officia nostrud operating system alertus.
+		Hyper text linkus operari avec computatrum ad coniungere hominum.
+		Standards code est pulchra on chromium et foxus sed souvent suckum in internet explorum.
+		Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+		Duis aute irure indent tabs or spaces velit esse cilium buntum how crunchy duntum.
+		Excepteur tranquilis syntax error memorandum qui officia nostrud operating system alertus.
+		Hyper text linkus operari avec computatrum ad coniungere hominum.
+		Standards code est pulchra on chromium et foxus sed souvent suckum in internet explorum.
+		Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+		Duis aute irure indent tabs or spaces velit esse cilium buntum how crunchy duntum.
+		Excepteur tranquilis syntax error memorandum qui officia nostrud operating system alertus.
+		Hyper text linkus operari avec computatrum ad coniungere hominum.
+		Standards code est pulchra on chromium et foxus sed souvent suckum in internet explorum.
+		Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+		Duis aute irure indent tabs or spaces velit esse cilium buntum how crunchy duntum.
+		Excepteur tranquilis syntax error memorandum qui officia nostrud operating system alertus.
+		Hyper text linkus operari avec computatrum ad coniungere hominum.
+		Standards code est pulchra on chromium et foxus sed souvent suckum in internet explorum.
+		</p>
+	</div>
+	<div class="output-block block">OUTPUT</div>
+</div>
+
+<div class="sequencer-panel panel toggle" id="sequencer-panel">
 	<div class="box box-1">
 		<div class="bar">
 			Hello<br/>Bottom
 		</div>
-		<div class="scroll scroll-x">
+		<div class="x-scroll hidden-scroll scroll">
 			<p>
 			WoohoyHello<br/>BottomHello<br/>Bottom
 			</p>
 		</div>
 	</div>
 	<div class="box box-2">
-		<div class="scroll bar">
+		<div class="hidden-scroll scroll bar">
 			Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 			Duis aute irure indent tabs or spaces velit esse cilium buntum how crunchy duntum.
 			Excepteur tranquilis syntax error memorandum qui officia nostrud operating system alertus.
@@ -145,7 +230,7 @@
 			Excepteur tranquilis syntax error memorandum qui officia nostrud operating system alertus.
 			Hyper text linkus operari avec computatrum ad coniungere hominum.
 		</div>
-		<div class="scroll">
+		<div class="hidden-scroll scroll">
 			<p>
 			Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 			Duis aute irure indent tabs or spaces velit esse cilium buntum how crunchy duntum.
@@ -180,14 +265,18 @@
 			</p>
 		</div>
 	</div>
-	<div class="box box-3">
-		<a href="#toggle-panel">TOGGLE</a>
-	</div>
-	<div class="box box-4 toggle" id="toggle-panel">
-		Standards code est pulchra on<br/>
-		chromium et foxus sed souvent<br/>
-		suckum in internet explorum.
-	</div>
+</div>
+
+<div class="tool-panel panel">
+	<a href="#sequencer-panel">SEQUENCER</a>
+	<a href="#info-panel">INFO</a>
+</div>
+
+<div class="info-panel panel toggle" id="info-panel">
+	Standards code est pulchra on<br/>
+	chromium et foxus sed souvent<br/>
+	suckum in internet explorum.
+</div>
 
 	<script src="js/jquery-2.1.4.js"></script>
 	<script src="js/jquery.event.activate.js"></script>
