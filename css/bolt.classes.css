@@ -98,25 +98,34 @@
 }
 
 
-/* .col */
+/* .flex */
 
-.col {
-	/* This inline-block method produces nice flow, and with a bit of
-	   head scratching can be used for liquid columns with fixed gutters,
-	   or even mixed fixed and liquid columns, all with arbitrary content
-	   order. However, it is a little susceptible to rounding errors, and
-	   requires spaceless html. */
-	
+.flex {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: stretch;
+}
+
+.x-flex { flex-direction: row; }
+.y-flex { flex-direction: column; }
+
+
+/* .box */
+
+.box {
 	position: relative;
-	
-	/* For those pour souls who don't understand inline-block (IE7). */
-	display: inline-block;
-	display: inline !IE7;
-	vertical-align: top;
-	
-	/* Stop content pushing column wider than it should be */
-	overflow: visible;
-	width: 100%;
+}
+
+.\30 -box {
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+.\31 -box {
+	flex-grow: 1;
+	flex-shrink: 1;
 }
 
 

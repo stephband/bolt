@@ -27,16 +27,20 @@
 			height: 100%;
 		}
 
-		body {
-			min-height: 20rem;
-		}
-
 		@media screen and (min-height: 20em) {
 			html {
 				overflow: hidden;
 			}
 		}
 
+		body {
+			min-height: 20rem;
+			background-color: #354147;
+			display: flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			align-items: stretch;
+		}
 
 		body > header {
 			position: absolute;
@@ -46,119 +50,67 @@
 			z-index: 10;
 		}
 
-		body {
-			display: flex;
-			flex-direction: column;
-			flex-wrap: nowrap;
-			align-items: stretch;
-		}
-
-		body > .panel {
-			width: 100%;
-		}
-
-		body > .graph-panel {
+		body > .graph-box {
 			height: 6.5625rem;
 			flex-grow: 1;
 			flex-shrink: 0;
-			background-color: #333333;
 		}
 
-		body > .sequencer-panel {
+		body > .sequencer-box {
 			height: 0;
 			flex-grow: 0;
 			flex-shrink: 1;
-			background-color: green;
-			transition: height 400ms ease-in;
-			-webkit-transition: height 400ms ease-in;
+			transition: height 320ms ease-out;
+			-webkit-transition: height 320ms ease-out;
 		}
 
-		body > .sequencer-panel.active {
+		body > .sequencer-box.active {
 			height: calc(100% - 9.375rem);
 		}
 
-		body > .tool-panel {
-			height: 2.8125rem;
-			flex-grow: 0;
-			flex-shrink: 0;
-		}
-
-		body > .info-panel {
-			overflow: hidden;
-			max-height: 0;
-			flex-grow: 0;
-			flex-shrink: 0;
-			transition: max-height 400ms ease-in;
-			-webkit-transition: max-height 400ms ease-in;
-		}
-
-		body > .info-panel.active {
-			max-height: 400px;
-		}
-
-		.graph-panel {
-			display: flex;
-		}
-
-		.graph-panel > .output-block {
+		.graph-box > .output-block {
 			position: absolute;
 			bottom: 10px;
 			right: 10px;
 			background-color: rgba(240,200,120,0.4);
 		}
 
-		.sequencer-panel {
-			display: flex;
-			flex-direction: column;
-			flex-wrap: nowrap;
-			justify-content: flex-start;
-			align-items: stretch;
-			align-content: stretch;
+		.sequencer-box {
+			background-color: #354147;
 		}
 
-		.sequencer-panel > .box {
-			position: relative;
+		.sequencer-box > .time-box,
+		.sequencer-box > .sequence-box {
+			border-top: 1px solid #1B1B1B;
 		}
 
-		.sequencer-panel > .box-1 {
-			width: 100%;
+		.tool-box {
+			height: 2.8125rem;
+		}
+
+		.time-box {
+			height: auto;
 			flex-grow: 0;
 			flex-shrink: 0;
 		}
 
-		.sequencer-panel > .box-2 {
-			width: 100%;
+		.sequence-box {
+			height: 0;
 			flex-grow: 1;
+			flex-shrink: 1;
 		}
 
+		.side-box { width: 11.25rem; }
+		.main-box { width: calc(100% - 11.25rem); }
 
-		.box-1 { background-color: #886611; border-bottom: 1px solid black; }
-		.box-2 { background-color: #995522; }
-		.tool-panel { background-color: #779933; }
-		.info-panel { background-color: #aa4422; }
-
-		.box > .scroll {
-			position: absolute;
-			display: block;
-			top: 0;
-			left: 17.5rem;
-			width: calc(100% - 17.5rem);
-			height: 100%;
-			overflow: auto;
-			border-left: 1px solid black;
+		@media screen and (min-width: 50.625em) {
+			.side-box { width: 22.2222%; }
+			.main-box { width: 77.7778%; }
 		}
 
-		.bar {
-			width: 17.5rem;
-			height: 100%;
-			background-color: #bb6600;
-		}
-
-		.box > .scroll.bar {
-			width: 17.5rem;
-			left: 0;
-			border-width: 0;
-			background-color: #883300;
+		@media screen and (min-width: 78.75em) {
+			.side-box { width: 17.5rem; }
+			.main-box { width: calc(100% - 17.5rem); }
 		}
 
 		.scroll > p {
@@ -169,7 +121,7 @@
 
 <body>
 <header>LOGO</header>
-<div class="graph-panel panel">
+<div class="graph-box box flex">
 	<div class="hidden-scroll scroll">
 		<p>
 		Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
@@ -207,19 +159,19 @@
 	<div class="output-block block">OUTPUT</div>
 </div>
 
-<div class="sequencer-panel panel toggle" id="sequencer-panel">
-	<div class="box box-1">
-		<div class="bar">
+<div class="sequencer-box box y-flex flex toggle" id="sequencer-box">
+	<div class="time-box box x-flex flex">
+		<div class="side-box box">
 			Hello<br/>Bottom
 		</div>
-		<div class="x-scroll hidden-scroll scroll">
+		<div class="main-box box x-scroll hidden-scroll scroll">
 			<p>
 			WoohoyHello<br/>BottomHello<br/>Bottom
 			</p>
 		</div>
 	</div>
-	<div class="box box-2">
-		<div class="hidden-scroll scroll bar">
+	<div class="sequence-box box x-flex flex">
+		<div class="side-box box hidden-scroll y-scroll scroll">
 			Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 			Duis aute irure indent tabs or spaces velit esse cilium buntum how crunchy duntum.
 			Excepteur tranquilis syntax error memorandum qui officia nostrud operating system alertus.
@@ -230,7 +182,7 @@
 			Excepteur tranquilis syntax error memorandum qui officia nostrud operating system alertus.
 			Hyper text linkus operari avec computatrum ad coniungere hominum.
 		</div>
-		<div class="hidden-scroll scroll">
+		<div class="main-box box hidden-scroll scroll">
 			<p>
 			Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 			Duis aute irure indent tabs or spaces velit esse cilium buntum how crunchy duntum.
@@ -267,15 +219,9 @@
 	</div>
 </div>
 
-<div class="tool-panel panel">
-	<a href="#sequencer-panel">SEQUENCER</a>
-	<a href="#info-panel">INFO</a>
-</div>
-
-<div class="info-panel panel toggle" id="info-panel">
-	Standards code est pulchra on<br/>
-	chromium et foxus sed souvent<br/>
-	suckum in internet explorum.
+<div class="tool-box 0-box box">
+	<a href="#sequencer-box">SEQUENCER</a>
+	<a href="#info-box">INFO</a>
 </div>
 
 	<script src="js/jquery-2.1.4.js"></script>
