@@ -25,6 +25,8 @@
 	    	jQuery.event.trigger(type, data, node, handlersOnly);
 	    },
 
+	    nodes = new WeakMap(),
+
 	    keymap = {
 	    	8:  'backspace',
 	    	9:  'tab',
@@ -79,12 +81,23 @@
 
 	    obj = {
 	    	setup: function(data, namespaces, eventHandle) {
+	    		var n = nodes.get(this) || 0;
+
+	    		// Setup this node once
+	    		if (n) { return true; }
+
 	    		add(this, 'keyup', keyup);
+	    		nodes.set(this, ++n);
 	    		return true;
 	    	},
 	    	
 	    	teardown: function(namespaces) {
+	    		var n = nodes.get(this) || 0;
+
 	    		remove(this, 'keyup', keyup);
+
+	    		if (n < 2) { nodes.delete(this); }
+	    		else { nodes.set(this, --n); }
 	    		return true;
 	    	}
 	    };
