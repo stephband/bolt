@@ -84,43 +84,53 @@
 	var keydownDef = {
 		setup: function(data, namespaces, eventHandle) {
 			var n = nodesDown.get(this) || 0;
+			nodesDown.set(this, ++n);
 
 			// Setup this node once
-			if (n) { return true; }
+			if (n > 1) {
+				add(this, 'keydown', keydown);
+			}
 
-			add(this, 'keydown', keydown);
-			nodesDown.set(this, ++n);
 			return true;
 		},
 		
 		teardown: function(namespaces) {
 			var n = nodesDown.get(this) || 0;
+			nodesDown.set(this, --n);
 
-			remove(this, 'keydown', keydown);
-			if (n < 2) { nodesDown.delete(this); }
-			else { nodesDown.set(this, --n); }
+			// Teardown this node once
+			if (n < 1) {
+				nodesDown.delete(this);
+				remove(this, 'keydown', keydown);
+			}
+
 			return true;
 		}
 	};
 
 	var keyupDef = {
 		setup: function(data, namespaces, eventHandle) {
-			var n = nodesUp.get(this) || 0;
+			var n = nodesDown.get(this) || 0;
+			nodesDown.set(this, ++n);
 
 			// Setup this node once
-			if (n) { return true; }
+			if (n > 1) {
+				add(this, 'keyup', keydown);
+			}
 
-			add(this, 'keyup', keyup);
-			nodesUp.set(this, ++n);
 			return true;
 		},
 		
 		teardown: function(namespaces) {
-			var n = nodesUp.get(this) || 0;
+			var n = nodesDown.get(this) || 0;
+			nodesDown.set(this, --n);
 
-			remove(this, 'keyup', keyup);
-			if (n < 2) { nodesUp.delete(this); }
-			else { nodesUp.set(this, --n); }
+			// Teardown this node once
+			if (n < 1) {
+				nodesDown.delete(this);
+				remove(this, 'keyup', keydown);
+			}
+
 			return true;
 		}
 	};
