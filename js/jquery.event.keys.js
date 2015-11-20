@@ -1,10 +1,10 @@
 // jquery.event.keys
-// 
+//
 // Creates several special events for listening to the keyboard,
 // where the name of the key is used in the event type:
-// 
+//
 // jQuery(node).on('key[enter]', fn);
-// 
+//
 // These events do not bubble.
 
 
@@ -78,8 +78,37 @@
 			88: 'x',
 			89: 'y',
 			90: 'z',
-			91: 'cmd'
+			// Mac Chrome left CMD
+			91: 'cmd',
+			// Mac Chrome right CMD
+			93: 'cmd',
+			// Mac FF
+			224: 'cmd'
 		};
+
+	var keyupDef = {
+		setup: function(data, namespaces, eventHandle) {
+			var n = nodesUp.get(this) || 0;
+			nodesUp.set(this, ++n);
+
+			// Setup this node once
+			if (n === 1) { add(this, 'keyup', keyup); }
+			return true;
+		},
+
+		teardown: function(namespaces) {
+			var n = nodesUp.get(this) || 0;
+			nodesUp.set(this, --n);
+
+			// Teardown when last listener is unbound
+			if (n < 1) {
+				nodesUp.delete(this);
+				remove(this, 'keyup', keyup);
+			}
+
+			return true;
+		}
+	};
 
 	var keydownDef = {
 		setup: function(data, namespaces, eventHandle) {
@@ -87,48 +116,18 @@
 			nodesDown.set(this, ++n);
 
 			// Setup this node once
-			if (n > 1) {
-				add(this, 'keydown', keydown);
-			}
-
+			if (n === 1) { add(this, 'keydown', keydown); }
 			return true;
 		},
-		
+
 		teardown: function(namespaces) {
 			var n = nodesDown.get(this) || 0;
 			nodesDown.set(this, --n);
 
-			// Teardown this node once
+			// Teardown when last listener is unbound
 			if (n < 1) {
 				nodesDown.delete(this);
 				remove(this, 'keydown', keydown);
-			}
-
-			return true;
-		}
-	};
-
-	var keyupDef = {
-		setup: function(data, namespaces, eventHandle) {
-			var n = nodesDown.get(this) || 0;
-			nodesDown.set(this, ++n);
-
-			// Setup this node once
-			if (n > 1) {
-				add(this, 'keyup', keydown);
-			}
-
-			return true;
-		},
-		
-		teardown: function(namespaces) {
-			var n = nodesDown.get(this) || 0;
-			nodesDown.set(this, --n);
-
-			// Teardown this node once
-			if (n < 1) {
-				nodesDown.delete(this);
-				remove(this, 'keyup', keydown);
 			}
 
 			return true;
@@ -140,9 +139,10 @@
 
 		if (debug) console.log('[jquery.event.keys]', e.keyCode, key);
 
-		// Reuse the keydown event as the keydown[x] event
-		e.type = e.type + '[' + key + ']';
-		trigger(e.target, e, null, true);
+		// Reuse the keydown event as the keydown[x] event, but check
+		// first to make sure we have not already done it
+		if (e.type === 'keydown') { e.type = 'keydown[' + key + ']'; }
+		trigger(e.currentTarget, e, null, true);
 	}
 
 	function keyup(e) {
@@ -150,9 +150,10 @@
 
 		if (debug) console.log('[jquery.event.keys]', e.keyCode, key);
 
-		// Reuse the keyup event as the key[x] event
-		e.type = e.type + '[' + key + ']';
-		trigger(e.target, e, null, true);
+		// Reuse the keyup event as the keyup[x] event, but check
+		// first to make sure we have not already done it
+		if (e.type === 'keyup') { e.type = 'keyup[' + key + ']'; }
+		trigger(e.currentTarget, e, null, true);
 	}
 
 	var code;
