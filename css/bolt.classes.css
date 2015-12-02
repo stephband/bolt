@@ -134,14 +134,14 @@
 .layer {
 	/* Permit possible scrollbars. */
 	overflow: auto;
-	
+
 	/* Make layer occupy the whole of the area in its position parent. */
 	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
-	
+
 	/* Height and width override the top, right, bottom, left declaration.
 	   To use height and width we must change the box model to make sure
 	   padding and border do not make the layer bigger than its container.
@@ -150,7 +150,7 @@
 	   work in IE7, where the box model can't be changed. */
 	width: 100%;
 	height: 100%;
-	
+
 	/* Make the corners of layers the same as their parents', allowing you
 	   to use layers as screens over specific elements. */
 	-webkit-border-radius: inherit;
@@ -166,16 +166,16 @@
 	/* A technique for hiding scrollbars by nesting two layers, and pushing
 	   the scrollbars on the inner .scroll_layer outside the hidden boundary
 	   of the outer .pushscroll_layer. */
-	   
+
 	/* These values, representing the thickness of a scrollbar, should be
 	   overriden by feature testing with some js */
 	padding-right: 16px;
 	padding-bottom: 16px;
-	
+
 	overflow: hidden;
 	width: 100%;
 	height: 100%;
-	
+
 	/* Make sure we're using the right box model for this technique */
 	-webkit-box-sizing: content-box;
 	   -moz-box-sizing: content-box;
@@ -220,7 +220,7 @@
 	/* Use inline-block to make dialog collapse
 	   to the width of its contents. */
 	display: inline-block;
-	
+
 	/* Center the dialog vertically, working in tandem
 	   with the :before rule of .dialog-layer. */
 	vertical-align: middle;
@@ -276,7 +276,7 @@
 	top: -1rem;
 	right: -16px;
 	right: -1rem;
-	
+
 	-webkit-box-shadow: 0 0 24px rgba(0,0,0,0.6);
 	   -moz-box-shadow: 0 0 24px rgba(0,0,0,0.6);
 	        box-shadow: 0 0 24px rgba(0,0,0,0.6);
@@ -285,7 +285,7 @@
 
 
 /* .index
-   
+
    To be applied to <ul>, <ol> and <dl> elements, when you want them to
    be displayed in a non-default style. Defines styles for lists of
    inline-blocks like buttons, thumbs or toolbars, as well as lists
@@ -304,7 +304,7 @@
 	   these back in after the reset. */
 	margin: 0;
 	padding: 0;
-	
+
 	/* Make index items act as position parents. */
 	position: relative;
 
@@ -368,7 +368,7 @@
 .crumbs_index > li > .button,
 .buttons_index > li > .button,
 .thumbs_index > li > .thumb {
-	/* Handle lists that contain just a single type of item. If 
+	/* Handle lists that contain just a single type of item. If
 	   buttons or thumbs are aligned to the baseline, there will be
 	   a gap below them. */
 	vertical-align: middle;
@@ -381,7 +381,7 @@
 
 
 /* .index classes with horizontal layout.
-		
+
 	 Simulate a bunch of blocks pushed against each other horizontally
 	 by using inline-block layout to create a horizontal effect. Because
 	 they're in the flow, children must have no space between them in
@@ -453,15 +453,15 @@
 .card {
 	display: block;
 	min-height: 84px;
-	
-	padding-top: 10px; 
+
+	padding-top: 10px;
 	padding-right: 10px;
 	padding-bottom: 0;
 	padding-left: 84px;
-	
+
 	/* Act as position parent */
 	position: relative;
-	
+
 	/* A card is meant to have drag data attached. */
 	-webkit-user-drag: element;
 }
@@ -512,7 +512,7 @@ a.card:hover {
 	     -o-background-size: cover;
 	        background-size: cover;
 
-	/* background-position is set for the case where an image is used as the 
+	/* background-position is set for the case where an image is used as the
 	   the background. 50% to keep it centred, and 40% because faces are often
 	   centred in the upper portion of the image. */
 	background-position: 50% 40%;
@@ -548,7 +548,7 @@ a.card:hover {
 	text-align: center;
 	margin-bottom: 1em;
 	line-height: 2.3333em;
-	
+
 	font-size: 0.9167em;
 	font-weight: bold;
 	color: rgb(100,100,100);
@@ -566,7 +566,7 @@ a.card:hover {
 	background-repeat: no-repeat;
 	background-size: auto;
 	white-space: nowrap;
-	
+
 	background-image: url('../images/thumbs/browser_logos.png');
 	-moz-background-size: 342px 64px;
 	     background-size: 342px 64px;
@@ -637,9 +637,9 @@ button,
 .button {
 	display: inline-block;
 	position: relative;
-	
+
 	cursor: pointer;
-	
+
 	width: auto;
 	height: auto;
 	/* button elements ignore line-height, centering text automaticaly. */
@@ -647,12 +647,12 @@ button,
 	padding-left: 0.75em;
 	padding-right: 0.75em;
 	vertical-align: baseline;
-	
+
 	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: center;
 	text-decoration: none;
-	
+
 	background-repeat: no-repeat;
 	border-width: 0;
 
@@ -705,7 +705,7 @@ button.loading,
        <option value="0">...</option>
      </select>
    </label>
-   
+
    When JavaScript is not enabled, we don't want to hide
    the select, as that would remove the ability to see
    the current value. */
@@ -738,13 +738,13 @@ button.loading,
 .tab-button {
 	padding-left: 0.8333em;
 	padding-right: 0.8333em;
-	
+
 	/* Remove default border and shadow */
-	
+
 	-webkit-box-shadow: none;
 	   -moz-box-shadow: none;
 	        box-shadow: none;
-	
+
 	-webkit-border-radius: 0;
 	   -moz-border-radius: 0;
 	        border-radius: 0;
@@ -808,16 +808,10 @@ button.loading,
 }
 
 
-/* .popdown, .dropdown */
+/* .popdown */
 
-.popdown,
-.dropdown {
+.popdown {
 	display: block;
-	/* Hiding overflow causes problems in IE7 when the dropdown's container
-	   is narrower than the dropdown's content. I'm not sure we have any real
-	   reason to hide it. Probably if you're animating height to reveal you
-	   want this. */
-	/*overflow: hidden;*/
 	position: absolute;
 	/* They should appear over the top of following content. */
 	z-index: 3;
@@ -831,8 +825,7 @@ button.loading,
 .js .tab,
 .js .slide,
 .js .layer,
-.js .popdown,
-.js .dropdown {
+.js .popdown {
 	/* A nice bit of hardware acceleration should help the transitions run
 	   smoothly. */
 	-webkit-transform: translate3d(0,0,0);
@@ -846,7 +839,7 @@ button.loading,
 	visibility: hidden;
 	opacity: 0;
 	z-index: 1;
-	
+
 	-webkit-transition-property: opacity, visibility;
 	        transition-property: opacity, visibility;
 	-webkit-transition-duration: 120ms;
@@ -861,15 +854,15 @@ button.loading,
 	visibility: visible;
 	opacity: 1;
 	z-index: 2;
-	
+
 	-webkit-transition-timing-function: ease-out;
 	        transition-timing-function: ease-out;
 }
 
 .js .slide {
-	/* By default all slides are positioned off to the left. */ 
+	/* By default all slides are positioned off to the left. */
 	left: -100%;
-	
+
 	/* Slides have no height by default to stop them influencing
 	   scrollbars when they are not active. */
 	height: 0;
@@ -881,7 +874,7 @@ button.loading,
 	     -moz-user-select: none;
 	      -ms-user-select: none;
 	          user-select: none;
-	
+
 	-webkit-transition-property: left, height;
 	        transition-property: left, height;
 	-webkit-transition-duration: 333ms;
@@ -927,21 +920,19 @@ button.loading,
 	}
 }
 
-/* Transitions - .popdown, .dropdown, .tip */
+/* Transitions - .popdown, .tip */
 
 .js .tip,
 .js .bubble,
-.js .popdown,
-.js .dropdown {
+.js .popdown {
 	opacity: 0;
 	visibility: hidden;
-	
+
 	-webkit-transition-property: opacity, visibility, transform;
 	        transition-property: opacity, visibility, transform;
 }
 
-.js .popdown,
-.js .dropdown {
+.js .popdown {
 	top: 2em;
 
 	-webkit-transition-duration: 180ms;
@@ -953,14 +944,12 @@ button.loading,
 
 .js .tip.active,
 .js .bubble.active,
-.js .popdown.active,
-.js .dropdown.active {
+.js .popdown.active {
 	opacity: 1;
 	visibility: visible;
 }
 
-.js .popdown.active,
-.js .dropdown.active {
+.js .popdown.active {
 	-webkit-transform: translate3d(0, 0.3333rem, 0);
 	    -ms-transform:   translate(0, 0.3333rem, 0);
 	        transform: translate3d(0, 0.3333rem, 0);
@@ -1242,7 +1231,6 @@ button.loading,
 .notransition .slide,
 .notransition .tab,
 .notransition .popdown,
-.notransition .dropdown,
 .notransition .layer,
 .notransition .tip {
 	-webkit-transition: none !important;
@@ -1332,7 +1320,7 @@ button.loading,
 	/* Enable momentum scrolling. Unfortunately this is buggy. It doesn't
 	   update the custom scrollbar during the momentum ease-out. Also, some
 	   children get rendered improperly.
-	   
+
 	   Actually, it seems to have improved in iOS 6. */
 	-webkit-overflow-scrolling: touch;
 }
@@ -1365,7 +1353,7 @@ button.loading,
 	   probably do better, but this is quick). */
 	background-color: #888888;
 	border: 2px solid white;
-	
+
 	-webkit-border-radius: 12px;
 	        border-radius: 12px;
 }
@@ -1435,25 +1423,25 @@ button.loading,
 */
 
 /*.vcard
-	
+
 	/* name - use .url for anything that is a link to this person's	 */
 /*	.fn.n
 /*		.nickname
 /*		.given-name
 /*		.additional-name
 /*		.family-name
-	
+
 	/* name organisation - if the hcard is for an organisation .fn should also be set */
 /*	.org
 /*		.organization-name
 /*		.organization-unit
-	
+
 	/* email (usually a link) */
 /*	.email
 /*		.type /* home, office, work, blah, blah */
-	
+
 /*	.photo
-	
+
 	/* address */
 /*	.adr
 /*		.street-address
@@ -1461,7 +1449,7 @@ button.loading,
 /*		.region
 /*		.postal-code
 /*		.country-name
-	
+
 /*	.tel
 /*		.type /* home, work, etc. */
 
