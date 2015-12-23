@@ -1,4 +1,4 @@
-/* Bolt 0.9.8 JS */
+/* bolt 0.9.8 JS */
 
 // Detect whether different types of html5 form elements have native UI implemented
 // and store boolean in jQuery.support.inputTypes[type]. For now, types not used in
@@ -1506,7 +1506,7 @@
 		module(jQuery);
 	}
 })(function(jQuery, undefined){
-	"use srtict";
+	"use strict";
 
 	var debug = false,//true,
 	    

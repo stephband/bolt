@@ -1,4 +1,4 @@
-/* Bolt 0.9.8 CSS */
+/* bolt 0.9.8 CSS */
 
 /* bolt.normalise.css
 
@@ -363,7 +363,7 @@ th {
 	max-height: 0;
 	opacity: 0.5;
 	overflow: hidden;
-	visibility: visible;
+	visibility: hidden;
 	transition:
 		max-height 400ms cubic-bezier(0, 0.5, 0.33, 1),
 		padding-top 400ms cubic-bezier(0.8, 0, 0.8, 0),
@@ -396,25 +396,34 @@ th {
 }
 
 
-/* .col */
+/* .flex */
 
-.col {
-	/* This inline-block method produces nice flow, and with a bit of
-	   head scratching can be used for liquid columns with fixed gutters,
-	   or even mixed fixed and liquid columns, all with arbitrary content
-	   order. However, it is a little susceptible to rounding errors, and
-	   requires spaceless html. */
-	
+.flex {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: stretch;
+}
+
+.x-flex { flex-direction: row; }
+.y-flex { flex-direction: column; }
+
+
+/* .box */
+
+.box {
 	position: relative;
-	
-	/* For those pour souls who don't understand inline-block (IE7). */
-	display: inline-block;
-	display: inline !IE7;
-	vertical-align: top;
-	
-	/* Stop content pushing column wider than it should be */
-	overflow: visible;
-	width: 100%;
+}
+
+.\30 -box {
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+.\31 -box {
+	flex-grow: 1;
+	flex-shrink: 1;
 }
 
 
@@ -1547,6 +1556,13 @@ button.loading,
 	display: none !important;
 }
 
+.masked {
+	position: absolute !important;
+	opacity: 0 !important;
+	width: 0 !important;
+	height: 0 !important;
+}
+
 .js .disabled {
 	opacity: 0.4;
 }
@@ -1637,6 +1653,10 @@ button.loading,
 	        border-radius: 12px;
 }
 
+.hidden-scroll::-webkit-scrollbar {
+	display: none;
+}
+
 .scroll::-webkit-scrollbar-thumb:vertical,
 .scroll::-webkit-scrollbar-thumb:horizontal {
 	/* Approximate the style of the iPad's default scrollbars. (Can
@@ -1661,21 +1681,9 @@ button.loading,
 	display: none !important;
 }
 
-.x_scroll {
-	overflow-y: hidden;
-}
-
-.y_scroll {
-	overflow-x: hidden;
-}
-
-.x_scroll.y_scroll {
-	overflow: scroll;
-}
-
-.no_scroll {
-	overflow: hidden;
-}
+.x-scroll { overflow-y: hidden; }
+.y-scroll { overflow-x: hidden; }
+.no-scroll { overflow: hidden; }
 
 
 /* table */
@@ -2862,6 +2870,11 @@ body > .grid-index,
    Developed using ideas from:
    www.blueprintcss.org
    www.webtypography.net */
+
+html,
+body {
+	font-size: 100%; /* 16px, normally */
+}
 
 body {
 	font-family: Helvetica, Arial, sans-serif;
