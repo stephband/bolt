@@ -65,11 +65,22 @@ gulp.task('test:spec', function(done) {
 
 gulp.task('build-css', function() {
   return gulp.src([
-    "./css/bolt.normalise.css",
-    "./css/bolt.classes.css",
-    "./css/bolt.forms.css",
-    "./css/bolt.grid.css",
-    "./css/bolt.type.css"
+    "css/normalise",
+    "css/form",
+    "css/block",
+    "css/index",
+    "css/card",
+    "css/button",
+    "css/thumb",
+    "css/grid",
+    "css/type",
+    "css/color",
+    "css/utilities",
+    "css/body",
+    "css/header",
+    "css/footer",
+    "css/nav",
+    "css/space"
   ])
   // Concat files
   .pipe(concat('bolt-' + package.version + '.css'))

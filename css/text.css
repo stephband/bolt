@@ -1,0 +1,548 @@
+/* bolt.type.css
+
+   Developed using ideas from:
+   www.blueprintcss.org
+   www.webtypography.net */
+
+html {
+	font-size: 100%; /* 16px, normally */
+}
+
+body {
+	/* Enable kerning in FF and WebKit. */
+	text-rendering: optimizeLegibility;
+}
+
+pre,
+code,
+kbd,
+samp {
+	/* Corrects font family set oddly in IE6, S4/5, Chrome
+	   en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
+	font-family: monospace, serif;
+	font-family: 'Andale Mono', 'Lucida Console', monospace;
+	font-size: 0.916667em;
+	line-height: 1.454545em;
+	white-space: nowrap;
+}
+
+pre {
+	/* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */
+	white-space: pre; /* CSS2 */
+	white-space: pre-wrap; /* CSS2.1 */
+	/*white-space: pre-line; /* CSS3 (and 2.1 as well, actually) */
+	word-wrap: break-word; /* IE */
+}
+
+pre > code {
+	font-size: inherit;
+	line-height: inherit;
+	white-space: inherit;
+}
+
+a:focus,
+a:hover {
+	text-decoration: underline;
+	color: $theme-color;
+}
+
+a {
+	text-decoration: underline;
+	color: inherit;
+}
+
+a:link {
+	/* j.mp/webkit-tap-highlight-color */
+	-webkit-tap-highlight-color: rgba(0,0,0,0.25);
+}
+
+/* Block elements */
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	-webkit-hyphens: none;
+	   -moz-hyphens: none;
+	    -ms-hyphens: none;
+	        hyphens: none;
+}
+
+hr {
+	/* IE9 does not properly get border-color for <hr>s that
+	   have border-width > 1px. Use background-color. */
+	height: 1px;
+	border-width: 0;
+	margin-top: -1px;
+	background-color: $neutral-color-2;
+}
+
+
+dl {
+	/* Clearfix, because children of definition list are floated. */
+	zoom: 1;
+}
+
+dl::after {
+	/* Clearfix, because children of definition list are floated. */
+	content: " ";
+	visibility: hidden;
+	display: block;
+	clear: both;
+	font-size: 0;
+	height: 0;
+}
+
+dt                { float: left; clear: both; text-align: right; width: 22.75%; font-weight: bold; }
+dd                { float: right; text-align: left; width: 74.25%; }
+
+ul                { list-style-type: disc; }
+ol                { list-style-type: decimal; }
+
+blockquote        { font-style: italic; font-family: Georgia, serif; }
+blockquote::before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
+
+p:empty,
+h1:empty,
+h2:empty,
+h3:empty,
+h4:empty,
+h5:empty,
+h6:empty,
+ul:empty,
+ol:empty,
+dl:empty,
+li:empty,
+dt:empty,
+dd:empty,
+blockquote:empty {
+	/* Hide any typographic block that is empty. This is a bit
+	   contraversial, but helps correct style errors in blocks
+	   of user input where the HTML has ended up being dodgy -
+	   perhaps thanks to a CMS editor, for example. */
+	display: none;
+}
+
+p > img,
+p > svg,
+p > video,
+p > canvas,
+p > object,
+p > embed,
+p > iframe,
+li > img,
+li > svg,
+li > video,
+li > canvas,
+li > object,
+li > embed,
+li > iframe,
+dd > img,
+dd > svg,
+dd > video,
+dd > canvas,
+dd > object,
+dd > embed,
+dd > iframe {
+	/* Don't allow media to break out of container bounds. */
+	max-width: 100%;
+}
+
+/* Inline elements */
+
+abbr[title]       { border-bottom: 1px dotted; }
+
+b,
+strong,
+dfn               { font-weight: bold; }
+em,
+dfn               { font-style: italic; }
+
+/* Match the l-height of <small> to the x-height of surrounding text. */
+small             { font-size: 0.727272em; font-weight: 400; }
+sup,
+sub               { line-height: 0; font-size: 0.8333em; position: relative; vertical-align: baseline; }
+sup               { top: -0.5em; }
+sub               { bottom: -0.25em; }
+
+q                 { quotes: none; }
+q::before,
+q::after           { content: ''; content: none; }
+
+abbr              { letter-spacing: 0.1em; }
+pre,
+code,
+tt                { font-family: 'Andale Mono', 'Lucida Console', monospace; }
+del               { opacity: 0.5; filter: alpha(opacity=50%); text-decoration: line-through; }
+
+/* Tables */
+
+table             { width: 100%; }
+th                { font-weight: bold; }
+tfoot             { font-style: italic; }
+caption           { background-color: inherit; }
+
+/* Classes */
+
+.last             { margin-bottom: 0; }
+.note             { font-style: italic; }
+
+/* Selection */
+
+::selection {
+	background:rgba(27,117,186,0.8);
+	color:rgb(255,255,255);
+}
+::-moz-selection {
+	background:rgba(27,117,186,0.8);
+	color:rgb(255,255,255);
+}
+::-webkit-selection {
+	background:rgba(27,117,186,0.8);
+	color:rgb(255,255,255);
+}
+
+
+/*
+.text-<i>n</i>
+
+Styleguide: text
+*/
+
+/*
+.text-1, h1
+
+Markup: <p class="text-1">Crunchum ipsum</p>
+
+Styleguide: text.1
+*/
+
+/*
+.text-2, h2
+
+Markup: <p class="text-2">Crunchum ipsum dolor sit coder void</p>
+
+Styleguide: text.2
+*/
+
+/*
+.text-3, h3
+
+Markup: <p class="text-3">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p>
+
+Styleguide: text.3
+*/
+
+/*
+.text-4, h4
+
+Markup: <p class="text-4">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
+
+Styleguide: text.4
+*/
+
+/*
+.text-5, h5
+
+Markup: <p class="text-5">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
+
+Styleguide: text.5
+*/
+
+/*
+.text-6, h6
+
+Markup: <p class="text-6">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
+
+Styleguide: text.6
+*/
+
+/*
+.text-7
+
+Markup: <p class="text-7">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
+
+Styleguide: text.7
+*/
+
+/*
+.text-8, body
+
+Markup: <p class="text-8">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
+<p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
+
+Styleguide: text.8
+*/
+
+/*
+.text-9
+
+Markup: <p class="text-9">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
+
+Styleguide: text.9
+*/
+
+/*
+.text-10
+
+Markup: <p class="text-10">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
+
+Styleguide: text.10
+*/
+
+/*
+.text-11
+
+Markup: <p class="text-11">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
+
+Styleguide: text.11
+*/
+
+/*
+.text-12
+
+Markup: <p class="text-12">Crunchum ipsum dolor sit coder void, constructor function</p>
+
+Styleguide: text.12
+*/
+
+/*
+.text-13
+
+Markup: <p class="text-13">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p>
+
+Styleguide: text.13
+*/
+
+.text-1, h1       { font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif; font-size: 2.5rem;   line-height: 2.625rem; font-weight: 700; font-style: none;   text-transform: none;      color: inherit; }
+.text-2, h2       { font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif; font-size: 1.5rem;   line-height: 1.625rem; font-weight: 700; font-style: none;   text-transform: uppercase; color: inherit; }
+.text-3, h3       { font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif; font-size: 1.25rem;  line-height: 1.5rem;   font-weight: 700; font-style: none;   text-transform: none;      color: inherit; }
+.text-4, h4       { font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif; font-size: 1rem;     line-height: 1.5rem;   font-weight: 700; font-style: none;   text-transform: none;      color: inherit; }
+.text-5, h5       { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 1rem;     line-height: 1.375rem; font-weight: 700; font-style: italic; text-transform: none;      color: inherit; }
+.text-6, h6       { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 1.125rem; line-height: 1.5rem;   font-weight: 300; font-style: none;   text-transform: none;      color: inherit; }
+.text-7           { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 0.875rem; line-height: 1.375rem; font-weight: 300; font-style: none;   text-transform: uppercase; color: inherit; }
+.text-8, body     { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 1rem;     line-height: 1.5rem;   font-weight: 400; font-style: none;   text-transform: none;      color: inherit; }
+.text-9           { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 0.875rem; line-height: 1.375rem; font-weight: 400; font-style: none;   text-transform: none;      color: $neutral-color-1; }
+.text-10          { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 0.875rem; line-height: 1.25rem;  font-weight: 400; font-style: italic; text-transform: none;      color: $neutral-color-1; }
+.text-11          { font-family: 'Andale Mono', monospace;                         font-size: 0.75rem;  line-height: 1rem;     font-weight: 400; font-style: none;   text-transform: none;      color: inherit; }
+.text-12          { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 1.5rem;   line-height: 1.625rem; font-weight: 400; font-style: none;   text-transform: uppercase; color: inherit; }
+.text-13          { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 1.25rem;  line-height: 1.5rem;   font-weight: 700; font-style: none;   text-transform: none;      color: inherit; }
+
+
+@media screen and (min-width: $breakpoint-2) {
+	.text-1, h1       { font-size: 3.75rem;  line-height: 4.125rem; }
+	.text-2, h2       { font-size: 1.75rem;  line-height: 2.125rem; }
+	.text-3, h3       { font-size: 1.25rem;  line-height: 1.5rem; }
+	.text-4, h4       { font-size: 1rem;     line-height: 1.5rem; }
+	.text-5, h5       { font-size: 0.875rem; line-height: 1.375rem; }
+	.text-6, h6       { font-size: 1.125rem; line-height: 1.5rem; }
+	.text-7           {  }
+	.text-8, body     { font-size: 0.875rem; line-height: 1.375rem; }
+	.text-9           {  }
+	.text-10          { font-size: 0.75rem;  line-height: 1rem; }
+	/*.text-11        { font-size: 0.75rem;  line-height: 1rem; }*/
+	.text-12          { font-size: 1.75rem;  line-height: 2.125rem; }
+	.text-13          { font-size: 1.25rem;  line-height: 1.5rem; }
+}
+
+
+/* Vertical typographic spacings pairs.
+   (We use 'body' in 'body tag + .class' to increase the
+   specificity of that selector by 1, making it override
+   '.class + tag' but not '.class + .class'). */
+
+*  + h1, * + .text-1                                            { margin-top: 2.5rem; }
+*  + h2, * + .text-2                                            { margin-top: 2.5rem; }
+p  + h2, .text-8 + .text-2, body p + .text-2, .text-8 + .text-2 { margin-top: 2.5rem; }
+*  + h3, * + .text-3                                            { margin-top: 1.25rem; }
+h2 + h3, .text-2 + h3,   body h2 + .text-3,   .text-2 + .text-3 { margin-top: 1.5625rem; }
+p  + h3, .text-8 + h3,  body p  + .text-3,  .text-8 + .text-3,
+dl + h3, dl + .text-3,
+ul + h3, ul + .text-3                                          { margin-top: 2.5rem; }
+*  + h4,  * + .text-4                                           { margin-top: 1.25rem; }
+h1 + h4,  .text-1 + h4,  body h1 + .text-4,  .text-1 + .text-4,
+h2 + h4,  .text-2 + h4,  body h2 + .text-4,  .text-2 + .text-4  { margin-top: 1.625rem; }
+h3 + h4,  .text-3 + h4,  body h3 + .text-4,  .text-3 + .text-4  { margin-top: 1.125rem; }
+p  + h4,  .text-8 + h4,  body p  + .text-4,  .text-8 + .text-4,
+dl + h4,  dl + .text-4,
+ul + h4,  ul + .text-4                                          { margin-top: 2.5rem; }
+*  + h5,  * + .text-5                                           { margin-top: 1.25rem; }
+h2 + h5,  .text-2 + h5,  body h2 + .text-5,  .text-2 + .text-5  { margin-top: 1.25rem; }
+h4 + h5,  .text-4 + h5,  body h4 + .text-5,  .text-4 + .text-5,
+p  + h5,  .text-8 + h5,  body p  + .text-5,  .text-8 + .text-5  { margin-top: 0.9375rem; }
+.text-10 + h5, .text-10 + .text-5                                 { margin-top: 0.625rem; }
+*  + p,   * + .text-8                                           { margin-top: 0.625rem; }
+h1 + p,   .text-1 + p,   body h1 + .text-8,  .text-1 + .text-8  { margin-top: 2.1875rem; }
+h3 + p,   .text-3 + p,   body h3 + .text-8,  .text-3 + .text-8  { margin-top: 0.625rem; }
+h5 + p,   .text-5 + p,   body h5 + .text-8,  .text-5 + .text-8,
+h5 + ul,  .text-5 + ul                                          { margin-top: 0; }
+.text-7 + .dashed-ul { margin-top: 0.125rem; }
+p  + p,   .text-8 + p,   body p  + .text-8,  .text-8 + .text-8  { margin-top: 0.9375rem; }
+
+p + .text-9,  .text-8 + .text-9  { margin-top: 0.125rem; }
+p + .text-10, .text-8 + .text-10 { margin-top: 1.875rem; }
+.text-9 + .text-10 { margin-top: 1.875rem; }
+
+.text-13 + p, .text-13 + .text-8  { margin-top: 0.625rem; }
+
+.block  + .text-10 { margin-top: 2.5rem; }
+h2 + ul,   .text-2 + ul { margin-top: 1.875rem; }
+h3 + ul,   .text-3 + ul { margin-top: 1.25rem; }
+p + pre,  .text-8 + pre,
+pre + p,  pre + .text-8 { margin-top: 1.25rem; }
+
+p + form, .text-8 + form { margin-top: 0.5rem; }
+p + fieldset, .text-8 + fieldset { margin-top: 2rem; }
+p + .box, .text-8 + .box-block { margin-top: 1.875rem; }
+p + .slides-block { margin-top: 2.5rem; }
+.slides-block + .block { margin-top: 2.8125rem; }
+
+.slides-block + .slides-block,
+.slides-block + .video-block,
+.video-block  + .video-block { margin-top: 1.25rem; }
+
+@media screen and (min-width: $breakpoint-2) {
+	.slides-block + .slides-block,
+	.slides-block + .video-block,
+	.video-block  + .video-block { margin-top: 1.875rem; }
+}
+
+
+ul + img { margin-top: 1.875rem; }
+
+@media screen and (min-width: $breakpoint-2) {
+	p + .box, .text-8 + .box-block { margin-top: 2.5rem; }
+}
+
+.lined {
+	position: relative;
+}
+
+.lined::before {
+	content: '';
+	position: absolute;
+	width: 3.75rem;
+	height: 0;
+	left: 0;
+	bottom: 0;
+	border-bottom: 0.1875rem solid $theme-color;
+}
+
+h1.lined, .text-1.lined { padding-bottom: 1.875rem; }
+h2.lined, .text-2.lined { padding-bottom: 2.125rem; }
+h3.lined, .text-3.lined { padding-bottom: 1.25rem; }
+h4.lined, .text-4.lined { padding-bottom: 1rem; }
+
+.text-2.lined + .text-1 { margin-top: 3.75rem; }
+.text-4.lined + .text-3 { margin-top: 0.9375rem; }
+
+.text-12 + .grid-index  { margin-top: 1.5625rem; }
+
+
+p + .box-block { margin-top: 1.875rem; }
+
+@media screen and (min-width: $breakpoint-2) {
+	p + .box-block { margin-top: 2.8125rem; }
+}
+
+h1 + .select-button, .text-1 + .select-button {  margin-top: 1.875rem; }
+.page-select-button + p, .page-select-button + .text-8 {  margin-top: 2.5rem; }
+
+
+h1 > a:focus,
+h1 > a:hover,
+.text-1 > a:focus,
+.text-1 > a:hover,
+h2 > a:focus,
+h2 > a:hover,
+.text-2 > a:focus,
+.text-2 > a:hover,
+h3 > a:focus,
+h3 > a:hover,
+.text-3 > a:focus,
+.text-3 > a:hover {
+	text-decoration: none;
+	color: $theme-color;
+}
+
+h1 > a,
+h2 > a,
+h3 > a {
+	text-decoration: none;
+	color: inherit;
+}
+
+
+dd                { margin: 0; }
+ul,
+ol,
+dl,
+blockquote        { margin-top: 1.25rem; }
+li                { margin-bottom: 0;}
+
+blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
+pre,
+address           { margin: 1.3333em 0; }
+
+/* Inline elements */
+
+sup,
+sub               { font-size: 0.6em; line-height: 0; }
+
+abbr              { letter-spacing: 0.1em; }
+
+/* Tables */
+
+table             { margin-bottom: 1.3333em; }
+th,
+td,
+caption           { padding: 4px 10px 4px 5px; }
+
+/* Indentation */
+
+ul,
+ol                { margin-left: 0; }
+
+blockquote        { margin-left: 2.6667em; }
+
+.dashed-ul {
+	margin-left: 0;
+	padding-left: 1rem;
+}
+
+.dashed-ul > li {
+	list-style-type: none;
+}
+
+.dashed-ul > li::before {
+	display: inline-block;
+	content: '–';
+	width: 1rem;
+	margin-left: -1rem;
+}
+
+.dashed-ul > li + li {
+	margin-top: 0.125rem;
+}
+
+/* Classes */
+
+.left             { margin: 0.75em 1em 0.75em 0; }
+.right            { margin: 0.75em 0 0.75em 1em; }
+.note             { font-size: 0.9167em; line-height: 1.8181; }
+.uppercased       { text-transform: uppercase; }
+.html-tag::before { content: '<'; margin-right: -0.1em; }
+.html-tag::after  { content: '>'; margin-left: -0.1em; }

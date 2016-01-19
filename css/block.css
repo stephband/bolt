@@ -1,0 +1,456 @@
+
+/*
+.block
+
+A block, ready to be an inline-block, a position parent, and a
+container for media: img, svg, video, canvas, etc.
+
+Styleguide: Block
+*/
+
+.block {
+	display: block;
+
+	/* Set as position parent */
+	position: relative;
+
+	/* Set them up to play nice as inline-blocks. */
+	vertical-align: top;
+	overflow: visible;
+
+	/* Negate possible spacing when .block is used on
+	   something typographic like a <p>, for example. */
+	margin: 0;
+	padding: 0;
+}
+
+.block > img,
+.block > svg,
+.block > video,
+.block > canvas,
+.block > object,
+.block > embed,
+.block > iframe {
+	/* Don't allow media to break out of container bounds. */
+	max-width: 100%;
+}
+
+
+/*
+.toggle-block
+
+A block animated to behave like a drawer that reveals content when the class
+<code>active</code> is added. Note in this example the class <code>toggle</code>
+is an action class that gives the block <code>active</code> when a link that
+references it is clicked.
+
+Markup: <a href="#some-stuff">Click to show</a>
+<div class="toggle-block block toggle" id="some-stuff">
+  <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop
+  python orientation semi colon incident. Duis aute irure indent tabs or
+  spaces velit esse cilium buntum how crunchy duntum.</p>
+</div>
+
+Styleguide: Block.toggle-block
+*/
+
+.toggle-block {
+	max-height: 0;
+	opacity: 0.5;
+	overflow: hidden;
+	visibility: hidden;
+	transition:
+		max-height 400ms cubic-bezier(0, 0.5, 0.33, 1),
+		padding-top 400ms cubic-bezier(0.8, 0, 0.8, 0),
+		padding-bottom 400ms cubic-bezier(0.48, 0.85, 0.8, 1),
+		margin-bottom 400ms cubic-bezier(0, 0.5, 0.33, 1),
+		opacity 400ms linear,
+		border-color 400ms linear,
+		background-color 200ms linear,
+		visibility 400ms linear;
+}
+
+.toggle-block:not(.active) {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.toggle-block.active {
+	max-height: 100rem;
+	opacity: 1;
+	visibility: visible;
+	transition:
+		max-height 400ms cubic-bezier(0.4, 0, 1, 0.32),
+		padding-top 400ms cubic-bezier(0.2, 1, 0.2, 1),
+		padding-bottom 400ms cubic-bezier(0.6, 0.9, 0.7, 1),
+		margin-bottom 400ms cubic-bezier(0.4, 0, 1, 0.32),
+		opacity 400ms linear,
+		border-color 400ms linear,
+		background-color 200ms linear,
+		visibility 400ms linear;
+}
+
+
+/*
+.full-block
+
+A block that fills the width of it's parent. When applied to media – img, video,
+etc. – the media assumes auto height.
+
+Markup: <img class="full-block block" src="//source.unsplash.com/category/nature/1300x620" />
+
+Styleguide: Block.full-block
+*/
+
+.full-block {
+	width: 100%;
+	height: auto;
+}
+
+.full-block + .grid-block {
+	margin-top: 1.5625rem;
+}
+
+@media screen and (min-width: $breakpoint-4) {
+	.full-block > .alert-block {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		z-index: 2;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.full-block + .grid-block {
+		margin-top: 5.3125rem;
+	}
+}
+
+
+/*
+.video-block
+
+A block for videos.
+
+Markup: <iframe class="video-block block" src="https://player.vimeo.com/video/74100316" width="520" height="292" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+Styleguide: Block.video-block
+*/
+
+.video-block {
+	width: 100%;
+	background-color: $neutral-color-1;
+}
+
+
+/*
+.box-block
+
+A padded, gray coloured box.
+
+Markup: <div class="box-block block">I am a box block.</div>
+
+Styleguide: Block.box-block
+*/
+
+.box-block {
+	padding: 1.25rem;
+	background-color: $neutral-color-3;
+}
+
+@media screen and (min-width: $breakpoint-2) {
+	.box-block {
+		padding: 2.5rem;
+	}
+
+	.box-block + .box-block {
+		margin-top: 2.8125rem;
+	}
+}
+
+.block + .box-block     { margin-top: 2.5rem; }
+.box-block + .box-block { margin-top: 1.25rem; }
+
+
+/*
+.alert-block
+
+A padded, yellow coloured block.
+
+Markup: <div class="alert-block block">
+  <h1 class="text-3">Le musée déménage!</h1>
+  <p>Rendez-vous en décembre avec une toute nouvelle exposition permanente!</p>
+  <button class="dismiss-thumb thumb">Dismiss</button>
+</div>
+
+Styleguide: Block.alert-block
+*/
+
+.alert-block {
+	padding: 1.25rem;
+	color: $black-color;
+	background-color: $alert-color;
+}
+
+.alert-block > .thumb {
+	position: absolute;
+	top: 0.625rem;
+	right: 0.625rem;
+}
+
+@media all and (min-width: $breakpoint-2) {
+	.alert-block {
+		padding: 1.875rem;
+	}
+}
+
+
+/*
+.wrap-block
+
+A centered block that assumes the width of the site content.
+
+Markup: <div class="wrap-block block">Site content</div>
+
+Styleguide: Block.wrap-block
+*/
+
+.wrap-block {
+	max-width: 71.25rem;
+	margin-left: $mobile-gutter;
+	margin-right: $mobile-gutter;
+}
+
+@media all and (min-width: $breakpoint-2) {
+	.wrap-block {
+		margin-left: #{$desktop-gutter / 2};
+		margin-right: #{$desktop-gutter / 2};
+	}
+}
+
+@media screen and (min-width: $breakpoint-6) {
+	.wrap-block {
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+
+
+a.summary-block {
+	text-decoration: none;
+}
+
+
+/*
+.padded-block
+
+A block with content displaced by 40px of left padding.
+
+Markup: <div class="padded-block block">
+  Crunchum ipsum dolor sit coder void, constructor function,
+  sed do while loop python orientation semi colon incident.
+</div>
+
+Styleguide: Block.padded-block
+*/
+
+.padded-block {
+	padding-left: 2.5rem;
+}
+
+@media screen and (min-width: $breakpoint-2) {
+	.\@600-padded-block {
+		padding-left: 2.5rem;
+	}
+}
+
+@media screen and (min-width: $breakpoint-4) {
+	.\@896-padded-block {
+		padding-left: 2.5rem;
+	}
+}
+
+
+/*
+.lead-block
+
+A padded block, intended as a first child of grid-block, that is raised with
+negative <code>margin-top</code> to overlap a banner image, but only on desktop.
+
+Styleguide: Block.padded-block
+*/
+
+.lead-block {
+	padding-top: 2.1875rem;
+}
+
+@media screen and (min-width: $breakpoint-4) {
+	.lead-block {
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+		padding-top: 2.1875rem;
+		background-color: $white-color;
+	}
+
+	.leader-block {
+		padding-left: 2.5rem;
+		padding-top: 2.4375rem;
+		background-color: $white-color;
+	}
+}
+
+
+/*
+.info-block
+
+A block with a dividing line across the top, used to wrap information at the
+end of the page.
+
+Markup: <aside class="info-block block" role="contentinfo"></aside>
+
+Styleguide: Block.info-block
+*/
+
+.info-block::before {
+	/* Create divider line across the top. */
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0.625rem;
+	right: 0.625rem;
+	height: 0;
+	border-top: 1px solid $neutral-color-2;
+}
+
+.info-block > .block {
+	margin-top: 1.25rem;
+	margin-bottom: 1.25rem;
+}
+
+@media all and (min-width: $breakpoint-2) {
+	.info-block {
+		padding-top: 1.75rem;
+	}
+
+	.info-block::before {
+		left: 0.9375rem;
+		right: 0.9375rem;
+	}
+}
+
+
+/*
+.slides-block
+
+A wrapper for <code>slide-block</code>s and <code>ctrl-button</code>s.
+
+Styleguide: Block.slides-block-1
+*/
+
+.slides-block {
+	overflow: hidden;
+	background-color: $neutral-color-2;
+}
+
+.slides-block > .ctrl-thumb {
+	position: absolute;
+	top: 50%;
+	margin-top: -1.375rem;
+	z-index: 3;
+}
+
+.slides-block > .prev-ctrl-thumb {
+	left: 0;
+}
+
+.slides-block > .next-ctrl-thumb {
+	right: 0;
+}
+
+
+/*
+.slide-block
+
+An inline-block set up for left-right transitions between it and it's siblings.
+<code>slide-block</code>s are only styled as slides where the <code>js</code>
+class is on an ancestor, as they require JS to be enhanced as swipeable.
+
+Markup: <div class="slides-block block">
+  <img class="slide-block block slide active" id="slide-1" src="//source.unsplash.com/category/nature/520x310"
+  /><img class="slide-block block slide" id="slide-2" src="//source.unsplash.com/category/nature/520x310"
+  /><img class="slide-block block slide" id="slide-3" src="//source.unsplash.com/category/nature/520x310" />
+  <a class="prev-ctrl-thumb ctrl-thumb thumb" href="#slide-1">Previous</a>
+  <a class="next-ctrl-thumb ctrl-thumb thumb" href="#slide-2">Next</a>
+</div>
+
+Styleguide: Block.slides-block-2
+*/
+
+.slide-block {
+	display: inline-block;
+	width: 100%;
+	/* Give all sbling slide-blocks the same origin by overlapping. */
+	margin-right: -100%;
+	vertical-align: middle;
+}
+
+.js .slide-block {
+	/* By default all slides are positioned off to the left. */
+	left: -100%;
+	overflow: hidden;
+	z-index: 1;
+
+	-webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	     -moz-user-select: none;
+	      -ms-user-select: none;
+	          user-select: none;
+
+	/* A nice bit of hardware acceleration should help the transitions run
+	   smoothly. */
+	-webkit-transform: translate3d(0,0,0);
+	    -ms-transform: translate3d(0,0,0);
+	        transform: translate3d(0,0,0);
+
+	-webkit-transition-property: left, height;
+	        transition-property: left, height;
+	-webkit-transition-duration: 333ms;
+	        transition-duration: 333ms;
+	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+}
+
+.js .slide-block.active {
+	/* The .active slide is positioned in the centre. */
+	left: 0;
+	height: auto;
+	overflow: visible;
+	z-index: 2;
+}
+
+.js .slide-block.active ~ .slide-block {
+	/* All slides after the .active slide are positioned off to
+	   the right. */
+	left: 100%;
+}
+
+.js .slide-block.active ~ .slide-block.active {
+	/* Except, of course, any that are still active. */
+	left: 0;
+}
+
+@media print {
+	.js .slide-block {
+		position: static;
+		left: 0;
+		width: 34%;
+		height: auto;
+		margin-right: 3%;
+	}
+
+	.js .slide-block:nth-child(3n) {
+		margin-right: 0;
+	}
+}

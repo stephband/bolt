@@ -1,0 +1,455 @@
+/*
+Grid
+
+A flexible, nestable, responsive grid system.
+
+Styleguide: wGrid
+*/
+
+@mixin grid($gutter: 1.25rem, $n: 6, $prefix: '') {
+	.grid-block > .#{$prefix}block,
+	.#{$prefix}grid-index > li {
+		display: inline-block;
+		margin: #{$gutter / 2};
+	}
+
+	/* Grid widths. */
+
+	.#{$prefix}grid-1\/1   {
+		width: 100%;
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.#{$prefix}grid-#{$j}\/#{$i}   {
+				width: calc(#{100 * $j / $i}% - #{$gutter * ($i - $j) / $i});
+			}
+		}
+	}
+
+	/* Grid margins. */
+
+	.#{$prefix}grid-left-0 {
+		margin-left: #{$gutter / 2};
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.#{$prefix}grid-left-#{$j}\/#{$i} {
+				margin-left: calc(#{100 * $j / $i}% + #{$gutter * $j / $i});
+			}
+		}
+	}
+
+	/* Grid widths inside a grid-block or grid-index. */
+
+	.grid-block > .#{$prefix}grid-1\/1,
+	.grid-index > .#{$prefix}grid-1\/1,
+	.#{$prefix}grid-index-1\/1 > li {
+		width: calc(100% - #{$gutter});
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.grid-block > .#{$prefix}grid-#{$j}\/#{$i},
+			.grid-index > .#{$prefix}grid-#{$j}\/#{$i},
+			.#{$prefix}grid-index-#{$j}\/#{$i} > li {
+				width: calc(#{100 * $j / $i}% - #{$gutter});
+			}
+		}
+	}
+
+	/* Grid margins inside a grid-block or grid-index. */
+
+	.grid-block > .#{$prefix}grid-left-0,
+	.grid-index > .#{$prefix}grid-left-0 {
+		margin-left: #{$gutter / 2};
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.grid-block > .#{$prefix}grid-left-#{$j}\/#{$i},
+			.grid-index > .#{$prefix}grid-left-#{$j}\/#{$i} {
+				margin-left: calc(#{100 * $j / $i}% + #{$gutter / 2});
+			}
+		}
+	}
+}
+
+
+/*
+.grid-block
+
+Wraps rows of child <code>block</code>s to form a grid with gutters.
+Child <code>block</code>s are rendered as <code>inline-block</code>s,
+horizontal margins are set to create gutter spacings, and vertical margins
+set to the vertical grid. Because <code>inline-block</code>s are space
+sensitive, to get accurate spacing child blocks should have no spaces
+between them. If you are using a templating engine it likely has some kind of
+<code>{{spaceless}}</code> process. If not, here is one (valid) way of sanely
+writing spaceless html:
+
+Markup: <div class="grid-block block">
+  <code class="block grid-1/1 neutral-bg-2">.grid-1/1</code
+ ><code class="block grid-1/2 neutral-bg-2">.grid-1/2</code
+ ><code class="block grid-1/2 neutral-bg-2">.grid-1/2</code
+ ><code class="block grid-1/3 neutral-bg-2">.grid-1/3</code
+ ><code class="block grid-2/3 neutral-bg-2">.grid-2/3</code
+ ><code class="block grid-1/4 neutral-bg-2">.grid-1/4</code
+ ><code class="block grid-3/4 neutral-bg-2">.grid-3/4</code
+ ><code class="block grid-1/5 neutral-bg-2">.grid-1/5</code
+ ><code class="block grid-3/5 neutral-bg-2">.grid-3/5</code
+ ><code class="block grid-1/5 neutral-bg-2">.grid-1/5</code
+ ><code class="block grid-1/6 neutral-bg-2">.grid-1/6</code
+ ><code class="block grid-1/2 neutral-bg-2">.grid-1/2</code
+ ><code class="block grid-1/3 neutral-bg-2">.grid-1/3</code>
+</div>
+
+Styleguide: wGrid.1
+*/
+
+/*
+.grid-index
+
+Similar to <code>grid-block</code>, but for lists, where the children
+<code class="html-tag">li</code>s behave as do <code>block</code>s inside
+a <code>grid-block</code>.
+
+Markup: <ul class="grid-index-1/3 grid-index index">
+  <li class="neutral-bg-2">One</li
+  ><li class="neutral-bg-2">Two</li
+  ><li class="neutral-bg-2">Three</li>
+</ul>
+
+Styleguide: wGrid.11
+*/
+
+.grid-block,
+.grid-index {
+	position: relative;
+	padding: 0;
+	margin: -#{$mobile-gutter / 2};
+}
+
+.grid-block > .grid-block,
+.grid-block > .grid-index {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.grid-block > hr.block {
+	margin-top: 2rem;
+	margin-bottom: 1.875rem;
+}
+
+
+/*
+.grid-n/d
+
+Sets width to <i>n</i>/<i>d</i> divisions of the horizontal grid. There are 6
+divisions available, with a gutter of <code>1.25rem</code>
+(<code>20px</code>). Widths are expressed as reduced fractions, so for
+example there is no <code>.grid-2/4</code>, because that is reduceable to
+<code>.grid-1/2</code>.
+
+.grid-1/1 - Full width column.
+.grid-1/2 - Half width column.
+.grid-1/3 - Third width column.
+.grid-2/3 - Two thirds width column.
+.grid-1/4 - Quarter width column.
+.grid-3/4 - Three-quarters width column.
+.grid-1/5 - Fifth width column.
+.grid-... - ...
+.grid-5/6 - Five-sixths width column.
+
+Styleguide: wGrid.2
+*/
+
+/*
+.grid-index-n/d
+
+As with <code>.grid-<i>n</i>/<i>d</i></code> classes, but sets the width of
+child <code class="html-tag">li</code>s to <i>n</i>/<i>d</i> divisions of the
+horizontal grid.
+
+.grid-index-1/1 - Full width column.
+.grid-index-1/2 - Half width column.
+.grid-index-1/3 - Third width column.
+.grid-index-2/3 - Two thirds width column.
+.grid-... - ...
+.grid-5/6 - Five-sixths width column.
+
+Styleguide: wGrid.12
+*/
+
+@include grid($mobile-gutter, 6);
+
+@media all and (min-width: $breakpoint-2) {
+	/* The grid changes to big gutters. */
+	.grid-block,
+	.grid-index {
+		margin: -#{$desktop-gutter / 2};
+	}
+
+	@include grid($desktop-gutter, 6);
+
+	/*
+	.@600-block
+
+	Styleguide: wGrid.601
+	*/
+
+	/*
+	.@600-grid-n/d
+
+	On media wider than 600px, sets width to <i>n</i>/<i>d</i> divisions of
+	the horizontal grid. There are up to 12 grid divisions available, with a
+	gutter of <code>1.875rem</code> (<code>30px</code>).
+
+	.@600-grid-1/1   - Full width column.
+	.@600-grid-1/2   - Half width column.
+	.@600-grid-1/3   - Third width column.
+	.@600-grid-2/3   - Two thirds width column.
+	.@600-grid-...   - ...
+	.@600-grid-11/12 - Eleven-twelfths width column.
+
+	Styleguide: wGrid.602
+	*/
+
+	/*
+	.@600-grid-index-n/d
+
+	As with <code>.@600-grid-<i>n</i>/<i>d</i></code> classes, but sets the width of
+	child <code class="html-tag">li</code>s to <i>n</i>/<i>d</i> divisions of the
+	horizontal grid.
+
+	.@600-grid-index-1/1   - Full width column.
+	.@600-grid-index-1/2   - Half width column.
+	.@600-grid-index-1/3   - Third width column.
+	.@600-grid-index-2/3   - Two thirds width column.
+	.@600-grid-...         - ...
+	.@600-grid-index-11/12 - Eleven-twelfths width column.
+
+	Styleguide: wGrid.612
+	*/
+
+	@include grid($desktop-gutter, 12, '\\@600-');
+}
+
+@media all and (min-width: $breakpoint-4) {
+	/*
+	.@896-block
+
+	Styleguide: wGrid.801
+	*/
+
+	/*
+	.@896-grid-n/d
+
+	On media wider than 896px, sets width to <i>n</i>/<i>d</i> divisions of
+	the horizontal grid. There are up to 12 grid divisions available, with a
+	gutter of <code>1.875rem</code> (<code>30px</code>).
+
+	.@896-grid-1/1   - Full width column.
+	.@896-grid-1/2   - Half width column.
+	.@896-grid-1/3   - Third width column.
+	.@896-grid-2/3   - Two thirds width column.
+	.@896-grid-...   - ...
+	.@896-grid-11/12 - Eleven-twelfths width column.
+
+	Styleguide: wGrid.802
+	*/
+
+	/*
+	.@896-grid-index-n/d
+
+	As with <code>.@896-grid-<i>n</i>/<i>d</i></code> classes, but sets the width of
+	child <code class="html-tag">li</code>s to <i>n</i>/<i>d</i> divisions of the
+	horizontal grid.
+
+	.@896-grid-index-1/1 - Full width column.
+	.@896-grid-index-1/2 - Half width column.
+	.@896-grid-index-1/3 - Third width column.
+	.@896-grid-index-2/3 - Two thirds width column.
+	.@896-grid-...       - ...
+	.@896-grid-11/12     - Eleven-twelfths width column.
+
+	Styleguide: wGrid.812
+	*/
+
+	@include grid($desktop-gutter, 12, '\\@896-');
+
+	.grid-block > .lead-block,
+	.grid-block > .leader-block {
+		margin-top: -13.75rem;
+	}
+}
+
+
+/*
+.grid-top-n
+
+Sets margin-top to <i>n</i> times the gutter bleed.
+
+.@600-grid-top-0   - gutter
+.@600-grid-top-1   - gutter
+.@600-grid-top-2   - gutter
+.@600-grid-top-... - ...
+.@600-grid-top-6   - gutter
+
+Styleguide: wGrid.21
+*/
+
+.grid-top--2, .grid-block > .grid-top--2  { margin-top: -1.25rem; }
+.grid-top--1, .grid-block > .grid-top--1  { margin-top: -0.625rem; }
+.grid-top-0 , .grid-block > .grid-top-0   { margin-top: 0; }
+.grid-top-1 , .grid-block > .grid-top-1   { margin-top: 0.625rem; }
+.grid-top-2 , .grid-block > .grid-top-2   { margin-top: 1.25rem; }
+.grid-top-3 , .grid-block > .grid-top-3   { margin-top: 1.875rem; }
+.grid-top-4 , .grid-block > .grid-top-4   { margin-top: 2.5rem; }
+.grid-top-5 , .grid-block > .grid-top-5   { margin-top: 3.125rem; }
+.grid-top-6 , .grid-block > .grid-top-6   { margin-top: 3.75rem; }
+
+@media all and (min-width: $breakpoint-2) {
+	/*
+	.@600-top-n
+
+	On media wider than 600px, sets margin-top to <i>n</i> times the
+	gutter bleed.
+
+	.@600-grid-top-0   - gutter
+	.@600-grid-top-1   - gutter
+	.@600-grid-top-2   - gutter
+	.@600-grid-top-... - ...
+	.@600-grid-top-10  - gutter
+
+	Styleguide: wGrid.621
+	*/
+
+	.\@600-grid-top--2, .grid-block > .\@600-grid-top--2  { margin-top: -1.875rem; }
+	.\@600-grid-top--1, .grid-block > .\@600-grid-top--1  { margin-top: -0.9375rem; }
+	.\@600-grid-top-0 , .grid-block > .\@600-grid-top-0   { margin-top: 0; }
+	.\@600-grid-top-1 , .grid-block > .\@600-grid-top-1   { margin-top: 0.9375rem; }
+	.\@600-grid-top-2 , .grid-block > .\@600-grid-top-2   { margin-top: 1.875rem; }
+	.\@600-grid-top-3 , .grid-block > .\@600-grid-top-3   { margin-top: 2.8125rem; }
+	.\@600-grid-top-4 , .grid-block > .\@600-grid-top-4   { margin-top: 3.75rem; }
+	.\@600-grid-top-5 , .grid-block > .\@600-grid-top-5   { margin-top: 4.6875rem; }
+	.\@600-grid-top-6 , .grid-block > .\@600-grid-top-6   { margin-top: 5.625rem; }
+	.\@600-grid-top-7 , .grid-block > .\@600-grid-top-7   { margin-top: 6.5625rem; }
+	.\@600-grid-top-8 , .grid-block > .\@600-grid-top-8   { margin-top: 7.5rem; }
+	.\@600-grid-top-9 , .grid-block > .\@600-grid-top-9   { margin-top: 8.4375rem; }
+	.\@600-grid-top-10, .grid-block > .\@600-grid-top-10  { margin-top: 9.375rem; }
+}
+
+@media all and (min-width: $breakpoint-4) {
+	/*
+	.@896-grid-top-n
+
+	On media wider than 896px, sets margin-top to <i>n</i> times the
+	gutter bleed.
+
+	.@896-grid-top-0   - gutter
+	.@896-grid-top-1   - gutter
+	.@896-grid-top-2   - gutter
+	.@896-grid-top-... - ...
+	.@896-grid-top-10  - gutter
+
+	Styleguide: wGrid.821
+	*/
+
+	.\@896-grid-top--2, .grid-block > .\@896-grid-top--2  { margin-top: -1.875rem; }
+	.\@896-grid-top--1, .grid-block > .\@896-grid-top--1  { margin-top: -0.9375rem; }
+	.\@896-grid-top-0 , .grid-block > .\@896-grid-top-0   { margin-top: 0; }
+	.\@896-grid-top-1 , .grid-block > .\@896-grid-top-1   { margin-top: 0.9375rem; }
+	.\@896-grid-top-2 , .grid-block > .\@896-grid-top-2   { margin-top: 1.875rem; }
+	.\@896-grid-top-3 , .grid-block > .\@896-grid-top-3   { margin-top: 2.8125rem; }
+	.\@896-grid-top-4 , .grid-block > .\@896-grid-top-4   { margin-top: 3.75rem; }
+	.\@896-grid-top-5 , .grid-block > .\@896-grid-top-5   { margin-top: 4.6875rem; }
+	.\@896-grid-top-6 , .grid-block > .\@896-grid-top-6   { margin-top: 5.625rem; }
+	.\@896-grid-top-7 , .grid-block > .\@896-grid-top-7   { margin-top: 6.5625rem; }
+	.\@896-grid-top-8 , .grid-block > .\@896-grid-top-8   { margin-top: 7.5rem; }
+	.\@896-grid-top-9 , .grid-block > .\@896-grid-top-9   { margin-top: 8.4375rem; }
+	.\@896-grid-top-10, .grid-block > .\@896-grid-top-10  { margin-top: 9.375rem; }
+}
+
+
+/*
+.grid-index-1/n
+
+A <code>grid-index</code> whose child <code class="html-tag">li</code> widths are set
+to <code>1/n</code> grid divisions, <code>n</code> being the number of
+children. Accomodates up to 12 children.
+
+Markup: <ul class="grid-index-1/n grid-index index">
+  <li class="neutral-bg-2">One</li
+  ><li class="neutral-bg-2">Two</li
+  ><li class="neutral-bg-2">Three</li>
+</ul>
+
+Styleguide: wGrid.1001
+*/
+
+.grid-index-1\/n > li:nth-last-child(2):first-child,
+.grid-index-1\/n > li:nth-last-child(2):first-child ~ li { width: calc(50% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(3):first-child,
+.grid-index-1\/n > li:nth-last-child(3):first-child ~ li { width: calc(33.3333% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(4):first-child,
+.grid-index-1\/n > li:nth-last-child(4):first-child ~ li { width: calc(25% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(5):first-child,
+.grid-index-1\/n > li:nth-last-child(5):first-child ~ li { width: calc(20% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(6):first-child,
+.grid-index-1\/n > li:nth-last-child(6):first-child ~ li { width: calc(16.6667% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(7):first-child,
+.grid-index-1\/n > li:nth-last-child(7):first-child ~ li { width: calc(14.2857% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(8):first-child,
+.grid-index-1\/n > li:nth-last-child(8):first-child ~ li { width: calc(12.5% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(9):first-child,
+.grid-index-1\/n > li:nth-last-child(9):first-child ~ li { width: calc(11.1111% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(10):first-child,
+.grid-index-1\/n > li:nth-last-child(10):first-child ~ li { width: calc(10% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(11):first-child,
+.grid-index-1\/n > li:nth-last-child(11):first-child ~ li { width: calc(9.090909% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(12):first-child,
+.grid-index-1\/n > li:nth-last-child(12):first-child ~ li { width: calc(8.333333% - 1.875rem); }
+
+
+@media all and (min-width: $breakpoint-2) {
+	/*
+	.@600-grid-index-1/n
+
+	A <code>grid-index</code> whose child <code class="html-tag">li</code> widths
+	are set to <code>1/n</code> grid dvisions, <code>n</code> being the number of
+	children.
+
+	Markup: <ul class="@600-grid-index-1/n grid-index index">
+	  <li class="neutral-bg-2">One</li
+	  ><li class="neutral-bg-2">Two</li
+	  ><li class="neutral-bg-2">Three</li>
+	</ul>
+
+	Styleguide: wGrid.1002
+	*/
+
+	.\@600-grid-index-1\/n > li:nth-last-child(2):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(2):first-child ~ li { width: calc(50% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(3):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(3):first-child ~ li { width: calc(33.3333% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(4):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(4):first-child ~ li { width: calc(25% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(5):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(5):first-child ~ li { width: calc(20% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(6):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(6):first-child ~ li { width: calc(16.6667% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(7):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(7):first-child ~ li { width: calc(14.2857% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(8):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(8):first-child ~ li { width: calc(12.5% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(9):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(9):first-child ~ li { width: calc(11.1111% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(10):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(10):first-child ~ li { width: calc(10% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(11):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(11):first-child ~ li { width: calc(9.090909% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(12):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(12):first-child ~ li { width: calc(8.333333% - 1.875rem); }
+}
