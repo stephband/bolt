@@ -1,7 +1,7 @@
 // bolt.slide
 //
 // Extends the default behaviour of the activate and deactivate
-// events with things to do when they are triggered on slides.
+// events with finger movement to create slides.
 
 (function (module) {
 	if (typeof define === 'function' && define.amd) {
@@ -31,7 +31,7 @@
 		var panes = e.data;
 
 		// If the movestart heads off in a upwards or downwards direction,
-		// 
+		//
 		if ((e.distX > e.distY && e.distX < -e.distY) ||
 			(e.distX < e.distY && e.distX > -e.distY)) {
 			e.preventDefault();
@@ -39,7 +39,7 @@
 		}
 
 		panes.elem.parent().addClass('notransition');
-		
+
 		if (panes.next) {
 			panes.next.style.height = 'auto';
 		}
@@ -52,7 +52,7 @@
 		var panes = e.data,
 		    left = 100 * e.distX/panes.pane.offsetWidth;
 
-		
+
 		// This gets the slide effect roughly right. By the time
 		// overflow is hidden, we'll never notice.
 		if (e.distX < 0) {
@@ -81,7 +81,7 @@
 		var panes = e.data;
 
 		panes.elem.parent().removeClass('notransition');
-		
+
 		setTimeout( function() {
 			panes.pane.style.left = '';
 			if (panes.next) {
@@ -102,7 +102,7 @@
 		if (!slides) {
 			// Choose all sibling panes of the same class
 			slides = data.elem.siblings('.' + data['class']).add(target);
-			
+
 			// Attach the panes object to each of the panes
 			l = slides.length;
 			while (l--) {
@@ -125,24 +125,24 @@
 			    	elem: pane
 			    },
 			    active;
-			
+
 			if (data.active) { return; }
 			data.active = true;
-			
+
 			if (!data.setup) {
 				data.setup = true;
-				
+
 				add(target, 'movestart', movestartSlide, siblings);
 				add(target, 'move', moveSlide, siblings);
 				add(target, 'moveend', moveendSlide, siblings);
-				
+
 				if (siblings.prev) { add(target, 'swiperight', jump, siblings.prev); }
 				if (siblings.next) { add(target, 'swipeleft',  jump, siblings.next); }
-				
+
 				add(target, 'click tap',  jump, panes[(panes.index(target) - 1) % panes.length], 'a[href="#prev"]');
 				add(target, 'click tap',  jump, panes[(panes.index(target) + 1) % panes.length], 'a[href="#next"]');
 			}
-			
+
 			active = panes.not(target).filter('.active');
 
 			fn();
@@ -156,7 +156,7 @@
 		deactivate: function(e, data, fn) {
 			if (!data.active) { return; }
 			data.active = false;
-			
+
 			//remove(e.target, 'click tap swiperight swipeleft', jump);
 			//remove(e.target, 'movestart', movestartSlide);
 			//remove(e.target, 'move', moveSlide);

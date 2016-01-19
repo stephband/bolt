@@ -1,6 +1,6 @@
-// bolt.map
+// bolt.toggle
 //
-// Controls the map dropdown at the top of the body
+// Simple active/inactive behaviour.
 
 (function (module) {
 	if (typeof define === 'function' && define.amd) {
@@ -27,7 +27,7 @@
 		remove(e.currentTarget, 'click', preventDefault);
 		e.preventDefault();
 	}
-	
+
 	function preventClick(e) {
 		// Prevent the click that follows the mousedown. The preventDefault
 		// handler unbinds itself as soon as the click is heard.
@@ -41,9 +41,9 @@
 
 		// A prevented default means this link has already been handled.
 		if (e.isDefaultPrevented()) { return; }
-	
+
 		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
-		
+
 		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
 		e.preventDefault();
 		preventClick(e);
@@ -54,9 +54,9 @@
 			// Don't do anything if elem is already active
 			if (data.active) { return; }
 			data.active = true;
-			
+
 			var id = bolt.identify(e.target);
-			
+
 			jQuery('[href="#' + id + '"]').on('mousedown tap', e.target, close);
 
 			fn();
@@ -66,11 +66,11 @@
 			// Don't do anything if elem is already inactive
 			if (!data.active) { return; }
 			data.active = false;
-			
+
 			var id = bolt.identify(e.target);
-			
+
 			jQuery('[href="#' + id + '"]').off('mousedown tap', close);
-			
+
 			fn();
 		}
 	});

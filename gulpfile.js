@@ -79,25 +79,47 @@ gulp.task('build-css', function() {
   .pipe(gulp.dest('./css/'));
 });
 
+
+var files = [
+  "./js/jquery.support.inputtypes.js",
+  "./js/jquery.event.move.js",
+  "./js/jquery.event.swipe.js",
+  "./js/jquery.event.activate.js",
+  "./js/jquery.dialog.js",
+  "./js/jquery.transition.js",
+  "./js/jquery.validate.js",
+  "./js/bolt.js",
+  "./js/bolt.a.js",
+  "./js/bolt.dialog.js",
+  "./js/bolt.input.js",
+  "./js/bolt.input.placeholder.js",
+  "./js/bolt.slide.js",
+  "./js/bolt.tab.js",
+  "./js/bolt.tip.js",
+  "./js/bolt.toggle.js"
+];
+
+var museeFiles = [
+  "./js/jquery.support.inputtypes.js",
+  "./js/jquery.event.move.js",
+  "./js/jquery.event.swipe.js",
+  "./js/jquery.event.activate.js",
+  //"./js/jquery.dialog.js",
+  "./js/jquery.transition.js",
+  "./js/jquery.validate.js",
+  "./js/bolt.js",
+  "./js/bolt.a.js",
+  //"./js/bolt.dialog.js",
+  "./js/bolt.input.musees.js",
+  //"./js/bolt.input.placeholder.js",
+  "./js/bolt.slide.js",
+  //"./js/bolt.tab.js",
+  //"./js/bolt.tip.js",
+  "./js/bolt.toggle.js"
+];
+
 gulp.task('build-js', function() {
-  return gulp.src([
-    "./js/jquery.support.inputtypes.js",
-    "./js/jquery.event.move.js",
-    "./js/jquery.event.swipe.js",
-    "./js/jquery.event.activate.js",
-    "./js/jquery.dialog.js",
-    "./js/jquery.transition.js",
-    "./js/jquery.validate.js",
-    "./js/bolt.js",
-    "./js/bolt.a.js",
-    "./js/bolt.dialog.js",
-    "./js/bolt.input.js",
-    "./js/bolt.input.placeholder.js",
-    "./js/bolt.slide.js",
-    "./js/bolt.tab.js",
-    "./js/bolt.tip.js",
-    "./js/bolt.toggle.js"
-  ])
+  return gulp.src(museeFiles)
   // Concat files
   .pipe(concat('bolt-' + package.version + '.js'))
   // Add a comment to the top
