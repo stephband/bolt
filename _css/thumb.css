@@ -64,14 +64,12 @@ Styleguide: Thumb
 }
 
 
-/*
-.logo-thumb
-
-Markup: <a class="logo-thumb thumb" href="/">Logo name</a>
-<a class="logo-thumb thumb desaturated" href="/">Logo name</a>
-
-Styleguide: Thumb.logo-thumb
-*/
+// .logo-thumb
+//
+// Markup: <a class="logo-thumb thumb" href="/">Logo name</a>
+// <a class="logo-thumb thumb desaturated" href="/">Logo name</a>
+//
+// Styleguide: Thumb.logo-thumb
 
 .logo-thumb {
 	position: relative;
@@ -123,13 +121,11 @@ Styleguide: Thumb.logo-thumb
 }
 
 
-/*
-.nav-thumb
-
-Markup: <a class="nav-thumb thumb" href="#nav">Navigation</a>
-
-Styleguide: Thumb.nav-thumb
-*/
+// .nav-thumb
+//
+// Markup: <a class="nav-thumb thumb" href="#nav">Navigation</a>
+//
+// Styleguide: Thumb.nav-thumb
 
 .nav-thumb {
 	width: 2.5rem;
@@ -141,15 +137,84 @@ Styleguide: Thumb.nav-thumb
 }
 
 
-/*
-.dismiss-thumb
+// .search-thumb
+//
+// Markup: <input class="search-thumb thumb" type="submit" value="Search" />
+//
+// Styleguide: Thumb.search-thumb
 
-Icon for dismissing alerts.
+.search-thumb {
+	width: 2.1875rem;
+	padding-top: 2.1875rem;
+	background-image: url('../images/sprites-common.svg');
+	background-position: 0 -200px;
+	background-size: auto;
+	background-color: $neutral-color-2;
+}
 
-Markup: <button class="dismiss-thumb thumb">Dismiss</button>
+// .ctrl-thumb
+//
+// Markup: <a class="prev-ctrl-thumb ctrl-thumb thumb" href="#nav">Navigation</a>
+// <a class="next-ctrl-thumb ctrl-thumb thumb" href="#nav">Navigation</a>
+//
+// Styleguide: Thumb.ctrl-thumb
 
-Styleguide: Thumb.dismiss-thumb
-*/
+.ctrl-thumb {
+	width: 2.8125rem;
+	padding-top: 2.8125rem;
+	background-color: rgba(33,33,33,0.8);
+	background-image: url('../images/sprites-common.svg');
+	background-size: auto;
+	opacity: 1;
+	transition: opacity 200ms linear;
+}
+
+.ctrl-thumb.disabled {
+	opacity: 0;
+}
+
+.prev-ctrl-thumb { background-position: 0 -575px; }
+.next-ctrl-thumb { background-position: 0 -525px; }
+
+.play-ctrl-thumb {
+	width: 4.5rem;
+	padding-top: 4.5rem;
+	background-position: 0 0;
+}
+
+// .expo-thumb
+//
+// Markup: <a class="expo-thumb thumb" href="#nav" style="background-image: url('//source.unsplash.com/category/nature/226x320');">Navigation</a>
+//
+// Styleguide: Thumb.expo-thumb
+
+.expo-thumb {
+	width: 14.0625rem;
+	padding-top: 20rem;
+	background-color: rgba(33,33,33,0.8);
+}
+
+// .vd-thumb
+//
+// Markup: <a class="vd-thumb thumb black-bg" href="#nav">Canton de Vaud</a>
+//
+// Styleguide: Thumb.vd-thumb
+
+.vd-thumb {
+	width: 4rem;
+	padding-top: 6.875rem;
+	background-image: url('../images/sprites-common.svg');
+	background-position: 0 -400px;
+	background-size: auto;
+}
+
+// .dismiss-thumb
+//
+// Icon for dismissing alerts.
+//
+// Markup: <button class="dismiss-thumb thumb">Dismiss</button>
+//
+// Styleguide: Thumb.dismiss-thumb
 
 .dismiss-thumb {
 	width: 1.875rem;
@@ -160,24 +225,22 @@ Styleguide: Thumb.dismiss-thumb
 }
 
 
-/*
-.close-thumb
-
-<code>close-thumb</code> is a little special as it contains an SVG. This is
-the only icon in the design that requires different colours in different
-themes. It seems silly to make theme-specific spritemaps just for this icon,
-so we use an inline SVG and inherit color
-
-Markup: <a class="close-thumb thumb" href="#nav">
-  <svg>
-    <title>Close</title>
-    <line class="stroke-line" x1="5" y1="5" x2 ="35" y2="35"></line>
-    <line class="stroke-line" x1="5" y1="35" x2 ="35" y2="5"></line>
-  </svg>
-</a>
-
-Styleguide: Thumb.close-thumb
-*/
+// .close-thumb
+//
+// <code>close-thumb</code> is a little special as it contains an SVG. This is
+// the only icon in the design that requires different colours in different
+// themes. It seems silly to make theme-specific spritemaps just for this icon,
+// so we use an inline SVG and inherit color
+//
+// Markup: <a class="close-thumb thumb" href="#nav">
+//   <svg>
+//     <title>Close</title>
+//     <line class="stroke-line" x1="5" y1="5" x2 ="35" y2="35"></line>
+//     <line class="stroke-line" x1="5" y1="35" x2 ="35" y2="5"></line>
+//   </svg>
+// </a>
+//
+// Styleguide: Thumb.close-thumb
 
 .close-thumb {
 	width: 2.5rem;
@@ -253,7 +316,7 @@ Styleguide: Thumb.social-thumb-3
 .in-thumb {
 	width: 1.875rem;
 	padding-top: 1.875rem;
-	background-image: url('../images/sprites-common.svg');
+	background-image: url('../../public/images/sprites-common.svg');
 	background-size: 7.5rem auto;
 }
 

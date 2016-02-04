@@ -1,0 +1,412 @@
+
+.kss-style .text-2,
+.kss-style h2 {
+	text-transform: none;
+}
+
+.styleguide-table {
+	display: table;
+	width: 100%;
+}
+
+.styleguide-table > tbody > tr > td {
+	position: relative;
+	width: auto;
+	padding: 0;
+	vertical-align: top;
+	box-sizing: content-box;
+	border-top: 0.3125rem solid transparent;
+	background-origin: content-box;
+	background-clip: padding-box;
+}
+
+.styleguide-table > tbody > tr > td:first-child {
+	background-color: rgba(255,255,255,0.06);
+	box-shadow: inset 0 0 0 1px #E6E5DB;
+}
+
+.styleguide-table > tbody > tr > td:nth-child(2) {
+	font-family: Inconsolata, Courier, monospace;
+	white-space: pre-wrap;
+	padding-left: 0.9375rem;
+	padding-right: 0.9375rem;
+	width: 25%;
+	color: #444444;
+	border-right: 0.9375rem solid transparent;
+	box-sizing: padding-box;
+}
+
+.styleguide-table > tbody > tr > td:last-child {
+	font-family: Inconsolata, Courier, monospace;
+	padding-left: 0.9375rem;
+	padding-right: 0;
+	width: 25%;
+	white-space: pre-wrap;
+	color: #888888;
+	border-left: 0.9375rem solid transparent;
+	box-sizing: padding-box;
+}
+
+
+#kss-node .example-block {
+	background-color: rgba(255,255,255,0.6);
+	box-shadow: inset 0 0 0 1px rgba(0,0,0,0.066);
+}
+
+#kss-node .code-block {
+	white-space: pre;
+	word-wrap: normal;
+	overflow-x: auto;
+}
+
+#kss-node {
+    margin: 0;
+    padding: 20px;
+    background: #fff
+}
+@media screen and (min-width: 769px) {
+    #kss-node {
+        padding: 0;
+        background: #fff
+    }
+    #kss-node .kss-main,
+    #kss-node .kss-sidebar {
+        float: left;
+        margin-right: -100%;
+        box-sizing: border-box
+    }
+}
+#kss-node .kss-main {
+    width: 100%;
+    margin: 0 auto;
+	padding-top: 3rem;
+}
+@media screen and (min-width: 769px) {
+    #kss-node .kss-main {
+        width: 80%;
+        margin-left: 20%;
+        padding: 1.875rem 20px 0 30px
+    }
+}
+#kss-node .kss-sidebar {
+    border-bottom: 1px solid #ddd
+}
+@media screen and (min-width: 769px) {
+    #kss-node .kss-sidebar {
+        position: fixed;
+        width: 20%;
+        height: 100%;
+        overflow: auto;
+        padding: 0 10px 0 20px;
+        border-bottom: 0;
+        background-image: url(noise-low.png);
+        box-shadow: inset -10px 0 40px -10px rgba(0, 0, 0, 0.06);
+		background-repeat: repeat;
+    }
+}
+#kss-node .kss-doc-title {
+    margin: 0
+}
+@media screen and (min-width: 769px) {
+    #kss-node .kss-doc-title {
+        font-size: 1.5em
+    }
+}
+
+#kss-node .kss-nav .menu-index .button {
+	display: block;
+	padding-left: 0;
+	text-align: left;
+}
+
+#kss-node .class-button {
+	padding-top: 0.125rem;
+	padding-bottom: 0.125rem;
+	padding-right: 0.9375rem;
+	font-family: Courier, monospace;
+	font-weight: 700;
+	font-size: 0.8125rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+@media screen and (min-width: 769px) {
+    #kss-node .kss-header,
+    #kss-node .kss-nav {
+        margin-top: 2em
+    }
+}
+#kss-node .kss-nav__menu {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding: 0;
+    list-style-type: none
+}
+#kss-node .kss-nav__menu-item {
+    display: inline-block;
+    padding-right: 24px
+}
+@media screen and (min-width: 769px) {
+    #kss-node .kss-nav__menu-item {
+        display: list-item;
+        padding-right: 0
+    }
+}
+#kss-node .kss-nav__menu-child {
+    display: none
+}
+@media screen and (min-width: 769px) {
+    #kss-node .kss-nav__menu-child {
+        display: block;
+        list-style-type: none;
+        margin: 0;
+        padding: 0
+    }
+    #kss-node .kss-nav__menu-child li:first-child {
+        margin-top: 10px;
+        border-top: 1px solid #ccc;
+        padding: 10px 0 0
+    }
+    #kss-node .kss-nav__menu-child li:last-child {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+        padding: 0 0 10px
+    }
+}
+#kss-node .kss-nav__ref {
+    color: #333;
+    font-weight: bold
+}
+#kss-node .kss-nav__ref:after {
+    content: ' '
+}
+#kss-node .kss-nav__ref-child {
+    font-weight: normal
+}
+#kss-node .kss-section {
+    max-width: 64rem;
+    margin-bottom: 60px
+}
+
+#kss-node .kss-section > .block + .block,
+#kss-node .kss-section > .block + .styleguide-table {
+	margin-top: 0.9375rem;
+}
+
+#kss-node .kss-section > .block + .grid-block {
+	margin-top: 0.125rem;
+}
+
+#kss-node .kss-title {
+    margin-bottom: 0
+}
+#kss-node .kss-title__ref {
+    display: block;
+    font-size: 16px;
+    line-height: 16px;
+    color: #666
+}
+#kss-node .kss-title__ref:before {
+    content: 'Section '
+}
+#kss-node .kss-title__permalink {
+    display: block;
+    color: #000;
+    text-decoration: none
+}
+#kss-node .kss-title__permalink:hover,
+#kss-node .kss-title__permalink:focus,
+#kss-node .kss-title__permalink:active {
+    color: #0645ad
+}
+
+#kss-node .kss-title__permalink > code {
+    font-size: 1em;
+}
+
+@media screen and (min-width: 607px) {
+    #kss-node .kss-title__permalink:hover .kss-title__permalink-hash,
+    #kss-node .kss-title__permalink:focus .kss-title__permalink-hash,
+    #kss-node .kss-title__permalink:active .kss-title__permalink-hash {
+        display: inline;
+		line-height: 0;
+    }
+}
+#kss-node .kss-title__permalink-hash {
+    display: none;
+    color: #ccc
+}
+#kss-node .kss-parameters {
+    display: table;
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+@media screen and (min-width: 56em) {
+	#kss-node .kss-parameters {
+		width: 200%;
+	}
+}
+
+#kss-node .kss-parameters__item {
+    display: table-row
+}
+#kss-node .kss-parameters__name {
+    display: table-cell;
+    padding-right: 20px;
+	width: 9.375rem;
+}
+#kss-node .kss-parameters__description {
+    display: table-cell
+}
+#kss-node .kss-modifier__wrapper {
+    border: 1px solid #ccc;
+    padding: 10px
+}
+#kss-node .kss-modifier__heading {
+    margin: -10px -10px 10px -10px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    background-color: #eee;
+    font-weight: bold
+}
+#kss-node .kss-modifier__default-name {
+    font-weight: bold;
+    margin-bottom: 12px
+}
+#kss-node .kss-modifier__name {
+    float: left;
+    padding-right: 10px;
+    font-weight: bold
+}
+#kss-node .kss-modifier__description {
+    margin-bottom: 12px
+}
+#kss-node .kss-modifier__example {
+    clear: left;
+    padding: 1px 0;
+    position: relative;
+    margin: 0 0 23px 0
+}
+#kss-node .kss-modifier__example:last-child {
+    margin: 0
+}
+#kss-node .kss-markup {
+    margin: -1px 0 24px 0;
+    border: 1px solid #999
+}
+#kss-node .kss-markup pre {
+    margin: 0
+}
+#kss-node .kss-github {
+    display: none
+}
+@media screen and (min-width: 501px) {
+    #kss-node .kss-github {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0
+    }
+}
+#kss-node .kss-github img {
+    border: 0
+}
+#kss-node .pln {
+    color: #000
+}
+#kss-node .str {
+    color: #080
+}
+#kss-node .kwd {
+    color: #008
+}
+#kss-node .com {
+    color: #800
+}
+#kss-node .typ {
+    color: #606
+}
+#kss-node .lit {
+    color: #066
+}
+#kss-node .pun,
+#kss-node .opn,
+#kss-node .clo {
+    color: #660
+}
+#kss-node .tag {
+    color: #008
+}
+#kss-node .atn {
+    color: #606
+}
+#kss-node .atv {
+    color: #080
+}
+#kss-node .dec,
+#kss-node .var {
+    color: #606
+}
+#kss-node .fun {
+    color: red
+}
+@media print,
+projection {
+    #kss-node .str {
+        color: #060
+    }
+    #kss-node .kwd {
+        color: #006;
+        font-weight: bold
+    }
+    #kss-node .com {
+        color: #600;
+        font-style: italic
+    }
+    #kss-node .typ {
+        color: #404;
+        font-weight: bold
+    }
+    #kss-node .lit {
+        color: #044
+    }
+    #kss-node .pun,
+    #kss-node .opn,
+    #kss-node .clo {
+        color: #440
+    }
+    #kss-node .tag {
+        color: #006;
+        font-weight: bold
+    }
+    #kss-node .atn {
+        color: #404
+    }
+    #kss-node .atv {
+        color: #060
+    }
+}
+#kss-node ol.linenums {
+    margin: 0;
+    padding: 0 0 3px 0;
+    list-style-type: none
+}
+#kss-node ol.linenums li {
+    min-height: 24px;
+    border-bottom: 1px solid #eee;
+    padding: 0 10px;
+    background: #fff
+}
+#kss-node ol.linenums li:first-child {
+    padding-top: 3px
+}
+#kss-node ol.linenums li.L0,
+#kss-node ol.linenums li.L2,
+#kss-node ol.linenums li.L4,
+#kss-node ol.linenums li.L6,
+#kss-node ol.linenums li.L8 {
+    background: #fcfcfc
+}

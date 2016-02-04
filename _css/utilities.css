@@ -27,19 +27,16 @@ Styleguide: zutilities.transition
 	        transition: none !important;
 }
 
-
-/*
-Modify
-
-.on        - Added via JS to links or labels that reference the <code>id</code> of an element that is activated
-.active    - Added via JS to an element like a <code>toggle</code> or <code>slide</code> when activated
-.hidden    - Hides element
-.masked    - Hides element visually and removes it from the flow without using <code>display: none;</code>
-.disabled  - Dims element
-.requested - Uses <code>::after</code> content to overlay a loading animation
-
-Styleguide: zutilities.modify
-*/
+// Modify
+//
+// .on        - Added via JS to links or labels that reference the <code>id</code> of an element that is activated
+// .active    - Added via JS to an element like a <code>toggle</code> or <code>slide</code> when activated
+// .hidden    - Hides element
+// .masked    - Hides element visually and removes it from the flow without using <code>display: none;</code>
+// .disabled  - Dims element
+// .requested - Uses <code>::after</code> content to overlay a loading animation
+//
+// Styleguide: zutilities.modify
 
 .hidden {
 	display: none !important;
@@ -95,27 +92,24 @@ Styleguide: zutilities.modify
 	height: 0;
 }
 
-
-/*
-Position
-
-.tl             - position absolutely at the top left.
-.tr             - position absolutely at the top right.
-.bl             - position absolutely at the bottom left.
-.br             - position absolutely at the bottom right.
-.align-top      - vertical align to top.
-.align-middle   - vertical align to middle.
-.align-bottom   - vertical align to bottom.
-.align-baseline - vertical align to baseline.
-.left           - float left.
-.right          - float right.
-.left-text      - text align left.
-.justify-text   - text align justify.
-.center-text    - text align center.
-.right-text     - text align right.
-
-Styleguide: zutilities.position
-*/
+// Position
+//
+// .tl             - position absolutely at the top left.
+// .tr             - position absolutely at the top right.
+// .bl             - position absolutely at the bottom left.
+// .br             - position absolutely at the bottom right.
+// .align-top      - vertical align to top.
+// .align-middle   - vertical align to middle.
+// .align-bottom   - vertical align to bottom.
+// .align-baseline - vertical align to baseline.
+// .left           - float left.
+// .right          - float right.
+// .text-left      - text align left.
+// .text-justify   - text align justify.
+// .text-center    - text align center.
+// .text-right     - text align right.
+//
+// Styleguide: zutilities.position
 
 .tl, .tr, .bl, .br { position: absolute; }
 .tl, .tr { top: 0; }
@@ -131,21 +125,18 @@ Styleguide: zutilities.position
 .align-bottom   { vertical-align: bottom !important; }
 .align-baseline { vertical-align: baseline !important; }
 
-.left-text      { text-align: left; }
-.justify-text   { text-align: justify; }
-.center-text    { text-align: center; }
-.right-text     { text-align: right; }
+.text-left      { text-align: left; }
+.text-justify   { text-align: justify; }
+.text-center    { text-align: center; }
+.text-right     { text-align: right; }
 
-
-/*
-Scroll
-
-.scroll         - Sets <code>overflow: auto;</code> and forces display of
-                  scrollbars when scrollable.
-.hidden-scroll  - Force hides scrollbars where possible (Chrome, Safari, Opera).
-
-Styleguide: zutilities.scroll
-*/
+// Scroll
+//
+// .scroll         - Sets <code>overflow: auto;</code> and forces display of
+//                   scrollbars when scrollable.
+// .hidden-scroll  - Force hides scrollbars where possible (Chrome, Safari, Opera).
+//
+// Styleguide: zutilities.scroll
 
 .scroll {
 	overflow: auto;
@@ -208,22 +199,20 @@ Styleguide: zutilities.scroll
 .no-scroll { overflow: hidden; }
 
 
-/*
-Respond
-
-.@480-hidden  - Hidden on media larger than 25em (480px) wide.
-.@480-shown   - Hidden on media smaller than 25em (480px) wide.
-.@600-hidden  - Hidden on media larger than 37.5em (600px) wide.
-.@600-shown   - Hidden on media smaller than 37.5em (600px) wide.
-.@720-hidden  - Hidden on media larger than 45em (720px) wide.
-.@720-shown   - Hidden on media smaller than 45em (720px) wide.
-.@960-hidden  - Hidden on media larger than 56em (960px) wide.
-.@960-shown   - Hidden on media smaller than 56em (960px) wide.
-.@1080-hidden - Hidden on media larger than 60em (1080px) wide.
-.@1080-shown  - Hidden on media smaller than 60em (1080px) wide.
-
-Styleguide: zutilities.respond
-*/
+// Respond
+//
+// .@400-hidden - Hidden on media larger than 25em (400px) wide.
+// .@400-shown  - Hidden on media smaller than 25em (400px) wide.
+// .@600-hidden - Hidden on media larger than 37.5em (600px) wide.
+// .@600-shown  - Hidden on media smaller than 37.5em (600px) wide.
+// .@720-hidden - Hidden on media larger than 45em (720px) wide.
+// .@720-shown  - Hidden on media smaller than 45em (720px) wide.
+// .@896-hidden - Hidden on media larger than 56em (896px) wide.
+// .@896-shown  - Hidden on media smaller than 56em (896px) wide.
+// .@960-hidden - Hidden on media larger than 60em (960px) wide.
+// .@960-shown  - Hidden on media smaller than 60em (960px) wide.
+//
+// Styleguide: zutilities.respond
 
 @media screen and (max-width: #{$breakpoint-1 - 0.0001}) {
 	.\@400-shown { display: none !important; }

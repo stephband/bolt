@@ -407,9 +407,6 @@ pre + p,  pre + .text-8 { margin-top: 1.25rem; }
 p + form, .text-8 + form { margin-top: 0.5rem; }
 p + fieldset, .text-8 + fieldset { margin-top: 2rem; }
 p + .box, .text-8 + .box-block { margin-top: 1.875rem; }
-
-h2 + .action-button, .text-2 + .action-button { margin-top: 1.75rem; }
-
 p + .slides-block { margin-top: 2.5rem; }
 .slides-block + .block { margin-top: 2.8125rem; }
 

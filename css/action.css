@@ -1,0 +1,191 @@
+
+/*
+
+TODO: This file is a bit of a mess.
+
+*/
+
+
+/* .tab, .slide */
+
+.tab,
+.slide {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	/* Give tabs and slides the same origin despite being inline-blocks. */
+	margin-right: -100%;
+}
+
+.tab {
+	vertical-align: top;
+}
+
+.slide {
+	vertical-align: middle;
+}
+
+
+/* .popdown, .dropdown */
+
+.popdown,
+.dropdown {
+	display: block;
+	/* Hiding overflow causes problems in IE7 when the dropdown's container
+	   is narrower than the dropdown's content. I'm not sure we have any real
+	   reason to hide it. Probably if you're animating height to reveal you
+	   want this. */
+	/*overflow: hidden;*/
+	position: absolute;
+	/* They should appear over the top of following content. */
+	z-index: 3;
+}
+
+
+/* Transitions */
+
+.js .tip,
+.js .bubble,
+.js .tab,
+.js .slide,
+.js .layer,
+.js .popdown,
+.js .dropdown {
+	/* A nice bit of hardware acceleration should help the transitions run
+	   smoothly. */
+	-webkit-transform: translate3d(0,0,0);
+	    -ms-transform: translate3d(0,0,0);
+	        transform: translate3d(0,0,0);
+}
+
+.js .tab,
+.js .dialog-layer,
+.js .loading_layer {
+	visibility: hidden;
+	opacity: 0;
+	z-index: 1;
+
+	-webkit-transition-property: opacity, visibility;
+	        transition-property: opacity, visibility;
+	-webkit-transition-duration: 120ms;
+	        transition-duration: 120ms;
+	-webkit-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
+}
+
+.js .tab.active,
+.js .dialog-layer.active,
+.js .loading .loading_layer {
+	visibility: visible;
+	opacity: 1;
+	z-index: 2;
+
+	-webkit-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
+}
+
+.js .slide {
+	/* By default all slides are positioned off to the left. */
+	left: -100%;
+
+	/* Slides have no height by default to stop them influencing
+	   scrollbars when they are not active. */
+	height: 0;
+	overflow: hidden;
+	z-index: 1;
+
+	-webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	     -moz-user-select: none;
+	      -ms-user-select: none;
+	          user-select: none;
+
+	-webkit-transition-property: left, height;
+	        transition-property: left, height;
+	-webkit-transition-duration: 333ms;
+	        transition-duration: 333ms;
+	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+}
+
+.js .slide.active {
+	/* The .active slide is positioned in the centre. */
+	left: 0;
+	height: auto;
+	overflow: visible;
+	z-index: 2;
+}
+
+.js .slide.active ~ .slide {
+	/* All slides after the .active slide are positioned off to
+	   the right. */
+	left: 100%;
+}
+
+.js .slide.active ~ .slide.active {
+	/* Except, of course, any that are still active. */
+	left: 0;
+}
+
+.js .stacked_slide {
+	left: 0;
+}
+
+@media print {
+	.js .slide {
+		position: static;
+		left: 0;
+		width: 34%;
+		height: auto;
+		margin-right: 3%;
+	}
+
+	.js .slide:nth-child(3n) {
+		margin-right: 0;
+	}
+}
+
+/* Transitions - .popdown, .dropdown, .tip */
+
+.js .tip,
+.js .bubble,
+.js .popdown,
+.js .dropdown {
+	opacity: 0;
+	visibility: hidden;
+
+	-webkit-transition-property: opacity, visibility, transform;
+	        transition-property: opacity, visibility, transform;
+}
+
+.js .popdown,
+.js .dropdown {
+	top: 2em;
+
+	-webkit-transition-duration: 180ms;
+	        transition-duration: 180ms;
+
+	-webkit-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
+}
+
+.js .tip.active,
+.js .bubble.active,
+.js .popdown.active,
+.js .dropdown.active {
+	opacity: 1;
+	visibility: visible;
+}
+
+.js .popdown.active,
+.js .dropdown.active {
+	-webkit-transform: translate3d(0, 0.3333rem, 0);
+	    -ms-transform:   translate(0, 0.3333rem, 0);
+	        transform: translate3d(0, 0.3333rem, 0);
+
+	-webkit-transition-duration: 60ms;
+	        transition-duration: 60ms;
+
+	-webkit-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
+}

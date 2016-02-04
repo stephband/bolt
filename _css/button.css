@@ -237,6 +237,104 @@ Styleguide: Button.checkbox-button
 
 
 /*
+.action-button
+
+Markup: <a class="action-button button" href="#">Action</a>
+<a class="action-button button on" href="#">Action</a>
+
+Styleguide: Button.action-button
+*/
+
+.action-button {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	padding-top: 0.625rem;
+	padding-bottom: 0.625rem;
+	padding-left: 1.5625rem;
+	padding-right: 1.5625rem;
+	vertical-align: middle;
+	color: white;
+	background-color: $black-color;
+}
+
+.action-button:hover,
+.action-button:focus,
+.action-button.on {
+	color: white;
+	background-color: $theme-color;
+}
+
+/*
+.big-action-button
+
+Markup: <a class="big-action-button action-button button" href="#">Action</a>
+<a class="big-action-button action-button button on" href="#">Action</a>
+
+Styleguide: Button.action-button-big
+*/
+
+.big-action-button {
+	padding-top: 0.9375rem;
+	padding-bottom: 0.9375rem;
+}
+
+@media all and (min-width: $breakpoint-2) {
+	.big-action-button {
+		padding-top: 1.25rem;
+		padding-bottom: 1.25rem;
+	}
+}
+
+/*
+.search-action-button
+
+Markup: <a class="search-action-button big-action-button action-button button" href="#">Find</a>
+<a class="search-action-button big-action-button action-button button on" href="#">Find</a>
+
+Styleguide: Button.action-button-search
+*/
+
+.search-action-button {
+	padding-left: 3.125rem;
+	background-image: url('../images/sprites-common.svg');
+	background-size: auto;
+	background-position: 0 -304px;
+}
+
+.search-action-button.big-action-button {
+	padding-left: 3.5rem;
+}
+
+@media all and (min-width: $breakpoint-2) {
+	.search-action-button.big-action-button {
+		background-position: 0 -300px;
+	}
+}
+
+
+/*
+.link-action-button
+
+Markup: <a class="link-action-button action-button button" href="#">Go somewhere</a>
+<a class="link-action-button action-button button on" href="#">Go somewhere</a>
+
+Styleguide: Button.action-button-link
+*/
+
+.link-action-button::after {
+	display: inline-block;
+	content: '';
+	width: 1.875rem;
+	height: 1.25rem;
+	vertical-align: top;
+	margin-left: 0.75rem;
+	background-image: url('../images/sprites-common.svg');
+	background-size: auto;
+	background-position: 0 -250px;
+}
+
+
+/*
 .menu-button
 
 Markup: <a class="menu-button button" href="#">button</a>
@@ -295,6 +393,152 @@ Styleguide: Button.menu-button-2
 }
 
 .toggle-menu-button.on::after {
-	-webkit-transform: rotate(90deg);
-	        transform: rotate(90deg);
+	transform: rotate(90deg);
+}
+
+
+/*
+.letter-button
+
+Square button for displaying an index of letters (see letter-index).
+
+Markup: <a class="letter-button button" href="#">A</a>
+
+Styleguide: Button.letter-button
+*/
+
+.letter-button {
+	font-family: 'Roboto', Helvetica, Arial, sans-serif;
+	font-size: 1.125rem;
+	font-weight: 400;
+	padding-left: 1px;
+	padding-right: 1px;
+	width: 1.625rem;
+	height: 1.625rem;
+	line-height: 1.625rem;
+}
+
+.letter-button:hover,
+.letter-button:focus {
+	background-color: $neutral-color-3;
+}
+
+.letter-button.on {
+	color: $theme-color;
+	background-color: transparent;
+}
+
+
+/*
+.link-button
+
+Text button found in the navigation section.
+
+Styleguide: Button.link-button
+*/
+
+/*
+.icon-button
+
+Text button with icon found in the navigation section.
+
+Styleguide: Button.icon-button
+*/
+
+.link-button,
+.icon-button {
+	font-size: 1rem;
+	line-height: 1.5rem;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+	text-align: left;
+}
+
+.link-button:hover,
+.icon-button:hover,
+.link-button:focus,
+.icon-button:focus {
+	text-decoration: underline;
+}
+
+.icon-button::before {
+	display: inline-block;
+	content: '';
+	width: 1rem;
+	height: 1rem;
+	vertical-align: -2px;
+	margin-right: 0.5rem;
+	background-image: url('../../public/images/sprites-common.svg');
+}
+
+.fb-icon-button::before {
+	background-color: #3b5998;
+	background-position: 0 -75px;
+}
+
+.portal-icon-button::before {
+	width: 1.0625rem;
+	height: 1.0625rem;
+	background-position: 0 -125px;
+}
+
+@media screen and (min-width: $breakpoint-3) {
+	.link-button,
+	.icon-button {
+		font-size: 0.875rem;
+	}
+
+	.link-button {
+		font-size: 0.875rem;
+		padding-top: 0;
+		padding-left: 0.5625rem;
+		padding-right: 0.5625rem;
+	}
+
+	.icon-button {
+		font-weight: bold;
+	}
+
+	.icon-button::before {
+		margin-right: 0.375rem;
+	}
+
+	.portal-icon-button::before {
+		background-position: 0 -150px;
+	}
+}
+
+
+/*
+.page-button
+
+See page-index.
+
+Markup: <a class="page-button button on" href="{{ url }}">1</a>
+<a class="page-button button" href="{{ url }}">2</a>
+
+Styleguide: Button.page-button
+*/
+
+.page-button {
+	line-height: 2.25rem;
+	min-width: 2.25rem;
+	height: 2.25rem;
+	color: $white-color;
+	background-color: $black-color;
+}
+
+.page-button:hover {
+	/* Only give it hover state if it's a link. */
+	color: $white-color;
+	background-color: $theme-color;
+}
+
+.page-button.on {
+	line-height: 2.125rem;
+	color: $black-color;
+	background-color: white;
+	border: 1px solid $neutral-color-2;
 }

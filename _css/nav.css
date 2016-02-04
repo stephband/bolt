@@ -19,17 +19,15 @@ Styleguide: 4.1
 	padding-top: 5.3125rem;
 	overflow: visible;
 	padding-bottom: 0;
-	-webkit-transform: translate3d(-100%, 0, 0);
-	        transform: translate3d(-100%, 0, 0);
-	transition: transform 300ms cubic-bezier(0.27, 0.6, 0.55, 1);
+	transform: translate3d(-100%, 0, 0);
+	transition: transform 300ms ease-out;
 	color: $white-color;
 	background-color: $black-color;
 }
 
 .nav-block.active {
-	-webkit-transform: translate3d(0, 0, 0);
-	        transform: translate3d(0, 0, 0);
-	transition: transform 160ms cubic-bezier(0.43, 0.15, 0.82, 0.3);
+	transform: translate3d(0, 0, 0);
+	transition: transform 160ms ease-in;
 }
 
 .nav-block > .close-thumb {
@@ -42,8 +40,7 @@ Styleguide: 4.1
 	.nav-block {
 		text-align: right;
 		padding-top: 0;
-		-webkit-transform: none;
-		        transform: none;
+		transform: none;
 		color: $black-color;
 		background-color: transparent;
 	}
@@ -74,7 +71,7 @@ Styleguide: 4.1
 	}
 }
 
-@media screen and (min-width: $breakpoint-6) {
+@media screen and (min-width: 71.25em) {
 	.nav-block > .nav-index {
 		top: 4.0625rem;
 		right: 12.5rem;
@@ -138,28 +135,25 @@ Styleguide: 4.4
 		padding-left: 0.875rem;
 		padding-right: 0.875rem;
 		min-width: 15rem;
-		-webkit-transform: translate3d(-50%, -50%, 0) scale(0.6667) translate3d(50%, 50%, 0);
-		        transform: translate3d(-50%, -50%, 0) scale(0.6667) translate3d(50%, 50%, 0);
-		opacity: 0;
+		transform: scale(1) translate3d(0, -1rem, 0);
+		opacity: 0.3333;
 		visibility: hidden;
 		transition:
-			transform 240ms cubic-bezier(0.23, -0.6, 0.89, 0.32),
-			opacity 240ms ease-in,
-			visibility 240ms linear;
+			transform 300ms ease-out,
+			opacity 300ms linear,
+			visibility 300ms linear;
 		background-color: $black-color;
 	}
 
 	.sub-index.active {
 		max-height: none;
-		-webkit-transform: scale(1);
-		        transform: scale(1);
+		transform: scale(1) translate3d(0, 0, 0);
 		opacity: 1;
 		visibility: visible;
 		transition:
-			transform 60ms cubic-bezier(0.56, 0.39, 0.53, 1.43),
-			opacity 160ms ease-out,
-			visibility 160ms linear;
-		z-index: 2;
+			transform 100ms ease-out,
+			opacity 100ms linear,
+			visibility 100ms linear;
 	}
 
 	.nav-index > li > .sub-index {
@@ -169,16 +163,8 @@ Styleguide: 4.4
 	}
 
 	.nav-index > li:last-child > .sub-index {
-		/* Point the last menu to the left. */
 		left: auto;
 		right: -1px;
-		-webkit-transform: translate3d(50%, -50%, 0) scale(0.6667) translate3d(-50%, 50%, 0);
-		        transform: translate3d(50%, -50%, 0) scale(0.6667) translate3d(-50%, 50%, 0);
-	}
-
-	.nav-index > li:last-child > .sub-index.active {
-		-webkit-transform: scale(1);
-		        transform: scale(1);
 	}
 
 	.nav-index + .social-index {
@@ -234,8 +220,7 @@ Styleguide: 4.3
 }
 
 .nav-button.on::before {
-	-webkit-transform: rotate(90deg);
-	        transform: rotate(90deg);
+	transform: rotate(90deg);
 }
 
 .nav-button + .sub-index {
@@ -254,7 +239,7 @@ Styleguide: 4.3
 		margin-left: -1px;
 		margin-right: -1px;
 		color: $black-color;
-		transition: background-color 240ms ease-in;
+		transition: background-color 300ms linear;
 	}
 
 	.nav-button:hover {
@@ -272,26 +257,7 @@ Styleguide: 4.3
 	.nav-button.on {
 		color: $white-color;
 		background-color: $black-color;
-		transition: background-color 160ms ease-out;
-	}
-
-	.nav-button::after {
-		/* A visual hack. For the purposes of the sub-index opacity transition,
-		   mask out the bottom 4px of the button. */
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 0.3125rem;
-		background-color: $white-color;
-		visibility: hidden;
-		transition: visibility 240ms linear;
-	}
-
-	.nav-button.on::after {
-		visibility: visible;
-		transition: visibility 160ms linear;
+		transition: background-color 100ms linear;
 	}
 
 	.nav-button + .sub-index {

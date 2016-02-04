@@ -43,18 +43,16 @@ legend {
 	font-size: 1.1667em;
 }
 
-/*
-label + input
-
-Styles for vanilla labels and inputs.
-
-Markup: <label>Name</label>
-<input type="text" placeholder="Arthur Dent" />
-<label>Email</label>
-<input type="email" placeholder="arthur.dent@guide.co.scc" />
-
-Styleguide: xForms.1
-*/
+// label + input
+//
+// Styles for vanilla labels and inputs.
+//
+// Markup: <label>Name</label>
+// <input type="text" placeholder="Arthur Dent" />
+// <label>Email</label>
+// <input type="email" placeholder="arthur.dent@guide.co.scc" />
+//
+// Styleguide: xForms.1
 
 label,
 input,
@@ -790,36 +788,31 @@ textarea.empty + .placeholder {
 	}
 }
 
+// .radio-label
+//
+// A radio input wrapped in a label that gives it custom style. Depends on JS,
+// so the style is enhanced only where the class <code>js</code> is present on
+// a parent.
+//
+// Markup: <label class="radio-label" for="radio-1">
+//   <input type="radio" id="radio-1" />
+//   Yes, choose me!
+// </label>
+//
+// Styleguide: xForms.2
 
-/*
-.radio-label
-
-A radio input wrapped in a label that gives it custom style. Depends on JS,
-so the style is enhanced only where the class <code>js</code> is present on
-a parent.
-
-Markup: <label class="radio-label" for="radio-1">
-  <input type="radio" id="radio-1" />
-  Yes, choose me!
-</label>
-
-Styleguide: xForms.2
-*/
-
-/*
-.checkbox-label
-
-A checkbox input wrapped in a label that gives it custom style. Depends on JS,
-so the style is enhanced only where the class <code>js</code> is present on
-a parent.
-
-Markup: <label class="checkbox-label" for="checkbox-1">
-  <input type="checkbox" id="checkbox-1" />
-  Yes, choose me!
-</label>
-
-Styleguide: xForms.3
-*/
+// .checkbox-label
+//
+// A checkbox input wrapped in a label that gives it custom style. Depends on JS,
+// so the style is enhanced only where the class <code>js</code> is present on
+// a parent.
+//
+// Markup: <label class="checkbox-label" for="checkbox-1">
+//   <input type="checkbox" id="checkbox-1" />
+//   Yes, choose me!
+// </label>
+//
+// Styleguide: xForms.3
 
 .text-label,
 .radio-label,
@@ -996,18 +989,41 @@ Styleguide: xForms.3
 
 
 
-/*
-.uni-form
 
-A form containing one single field and a button.
+// .uni-form
+//
+// A form containing one single field and a button.
+//
+// Markup: <form action="{{ url }}" method="post" class="uni-form">
+//   <input type="email" class="small-input" placeholder="arthur.dent@sc.corp" />
+//   <input type="submit" class="action-button button" value="Send" />
+// </form>
+//
+// Styleguide: xForms.10
 
-Markup: <form action="{{ url }}" method="post" class="uni-form">
-  <input type="email" class="small-input" placeholder="arthur.dent@sc.corp" />
-  <input type="submit" class="action-button button" value="Send" />
-</form>
 
-Styleguide: xForms.10
-*/
+// .large-uni-form
+//
+// A large form containing a big field and a big button.
+//
+// Markup: <form action="{{ url }}" method="post" class="large-uni-form uni-form">
+//   <input type="search" class="big-input" placeholder="Search" />
+//   <input type="submit" class="search-action-button big-action-button action-button button" value="Search" />
+// </form>
+//
+// Styleguide: xForms.11
+
+// .search-uni-form
+//
+// A grey form containing a search field and thumb, for the site header.
+//
+// Markup: <form action="{{ url }}" method="post" class="search-uni-form uni-form">
+//   <input type="search" class="search-input" placeholder="Search" />
+//   <input type="submit" class="search-thumb thumb" value="Search" />
+// </form>
+//
+// Styleguide: xForms.12
+
 
 .uni-form > input,
 .uni-form > .button {
@@ -1026,6 +1042,14 @@ Styleguide: xForms.10
 	width: auto;
 }
 
+.search-uni-form {
+	padding-right: 2.1875rem;
+}
+
+.search-uni-form > .thumb {
+	width: 2.1875rem;
+}
+
 @media screen and (min-width: 25em) {
 	.uni-form {
 		padding-right: 7.75rem;
@@ -1042,5 +1066,21 @@ Styleguide: xForms.10
 		width: 7.5rem;
 		/* Negate last breakpoint. */
 		margin-top: 0;
+	}
+
+	.large-uni-form {
+		padding-right: 9.625rem;
+	}
+
+	.large-uni-form > .button {
+		width: 9.375rem;
+	}
+
+	.search-uni-form {
+		padding-right: 2.1875rem;
+	}
+
+	.search-uni-form > .thumb {
+		width: 2.1875rem;
 	}
 }

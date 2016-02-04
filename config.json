@@ -1,0 +1,11 @@
+{
+  "homepage": "README.md",
+  "placeholder": "",
+  "source": ["css/"],
+  "destination":  "styleguide/",
+  "css": [
+      "css/style.css",
+  ],
+  "js": [],
+  "template": "styleguide-template"
+}

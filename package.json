@@ -2,7 +2,7 @@
   "name": "bolt",
   "description": "A front-end toolkit of classes and evented behaviours.",
   "version": "0.9.8",
-  "author": "@stephband <stephband@googlemail.com>",
+  "author": "@stephband",
   "repository": {
     "type": "git",
     "url": "https://github.com/stephband/bolt.git"
@@ -18,6 +18,7 @@
     "gulp-header": "^1.7.1",
     "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.2.0",
     "run-sequence": "^1.1.4"
   },
   "license": "MIT"

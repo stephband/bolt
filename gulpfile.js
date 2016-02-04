@@ -1,6 +1,7 @@
 var path = require('path');
 var gulp = require('gulp');
 
+
 var CONFIG = {};
 
 CONFIG.dir = {
@@ -30,9 +31,11 @@ CONFIG.plugins = {
 // Load the gulp plugins
 var package = require('./package.json');
 var gulp = require('gulp');
+var sass = require('gulp-sass');
 var header = require('gulp-header');
 var concat = require('gulp-concat');
 var runSequence = require('run-sequence');
+var exec = require('child_process').exec;
 
 // Lint the source files
 gulp.task('lint:src', function() {
@@ -63,24 +66,28 @@ gulp.task('test:spec', function(done) {
   });
 });
 
+gulp.task('sass', function() {
+  gulp.src('css/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./css/'));
+});
+
 gulp.task('build-css', function() {
   return gulp.src([
-    "css/normalise",
-    "css/form",
-    "css/block",
-    "css/index",
-    "css/card",
-    "css/button",
-    "css/thumb",
-    "css/grid",
-    "css/type",
-    "css/color",
-    "css/utilities",
-    "css/body",
-    "css/header",
-    "css/footer",
-    "css/nav",
-    "css/space"
+    "css/normalise.css",
+    "css/form.css",
+    "css/block.css",
+    "css/index.css",
+    "css/card.css",
+    "css/button.css",
+    "css/thumb.css",
+    "css/grid.css",
+    "css/text.css",
+    "css/color.css",
+    "css/utilities.css",
+    "css/body.css",
+    "css/nav.css",
+    "css/space.css"
   ])
   // Concat files
   .pipe(concat('bolt-' + package.version + '.css'))
@@ -117,6 +124,14 @@ gulp.task('build-js', function() {
   .pipe(gulp.dest('./js/'));
 });
 
+gulp.task('kss', function(cb) {
+  exec('./node_modules/kss/bin/kss-node --config config.json', function(error, stout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    cb(err);
+  });
+});
+
 gulp.task('default', function(done) {
-  runSequence(['build-css', 'build-js'], done);
+  runSequence(['sass', 'build-css', 'build-js'], done);
 });
