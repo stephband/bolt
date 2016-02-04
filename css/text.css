@@ -1,8 +1,9 @@
-/* bolt.type.css
 
-   Developed using ideas from:
-   www.blueprintcss.org
-   www.webtypography.net */
+/*
+Text
+
+Styleguide: vText
+*/
 
 html {
 	font-size: 100%; /* 16px, normally */
@@ -171,7 +172,7 @@ dfn               { font-weight: bold; }
 em,
 dfn               { font-style: italic; }
 
-/* Match the l-height of <small> to the x-height of surrounding text. */
+/* Match the l-height of <small> to the x-height of surrounding vText. */
 small             { font-size: 0.727272em; font-weight: 400; }
 sup,
 sub               { line-height: 0; font-size: 0.8333em; position: relative; vertical-align: baseline; }
@@ -217,17 +218,11 @@ caption           { background-color: inherit; }
 
 
 /*
-.text-<i>n</i>
-
-Styleguide: text
-*/
-
-/*
 .text-1, h1
 
 Markup: <p class="text-1">Crunchum ipsum</p>
 
-Styleguide: text.1
+Styleguide: vText.1
 */
 
 /*
@@ -235,7 +230,7 @@ Styleguide: text.1
 
 Markup: <p class="text-2">Crunchum ipsum dolor sit coder void</p>
 
-Styleguide: text.2
+Styleguide: vText.2
 */
 
 /*
@@ -243,7 +238,7 @@ Styleguide: text.2
 
 Markup: <p class="text-3">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p>
 
-Styleguide: text.3
+Styleguide: vText.3
 */
 
 /*
@@ -251,7 +246,7 @@ Styleguide: text.3
 
 Markup: <p class="text-4">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: text.4
+Styleguide: vText.4
 */
 
 /*
@@ -259,7 +254,7 @@ Styleguide: text.4
 
 Markup: <p class="text-5">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: text.5
+Styleguide: vText.5
 */
 
 /*
@@ -267,7 +262,7 @@ Styleguide: text.5
 
 Markup: <p class="text-6">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: text.6
+Styleguide: vText.6
 */
 
 /*
@@ -275,7 +270,7 @@ Styleguide: text.6
 
 Markup: <p class="text-7">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: text.7
+Styleguide: vText.7
 */
 
 /*
@@ -284,7 +279,7 @@ Styleguide: text.7
 Markup: <p class="text-8">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
 <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
 
-Styleguide: text.8
+Styleguide: vText.8
 */
 
 /*
@@ -292,7 +287,7 @@ Styleguide: text.8
 
 Markup: <p class="text-9">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: text.9
+Styleguide: vText.9
 */
 
 /*
@@ -300,7 +295,7 @@ Styleguide: text.9
 
 Markup: <p class="text-10">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: text.10
+Styleguide: vText.10
 */
 
 /*
@@ -308,7 +303,7 @@ Styleguide: text.10
 
 Markup: <p class="text-11">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: text.11
+Styleguide: vText.11
 */
 
 /*
@@ -316,7 +311,7 @@ Styleguide: text.11
 
 Markup: <p class="text-12">Crunchum ipsum dolor sit coder void, constructor function</p>
 
-Styleguide: text.12
+Styleguide: vText.12
 */
 
 /*
@@ -324,7 +319,7 @@ Styleguide: text.12
 
 Markup: <p class="text-13">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p>
 
-Styleguide: text.13
+Styleguide: vText.13
 */
 
 .text-1, h1       { font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif; font-size: 2.5rem;   line-height: 2.625rem; font-weight: 700; font-style: none;   text-transform: none;      color: inherit; }

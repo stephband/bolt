@@ -94,7 +94,7 @@ gulp.task('build-css', function() {
   // Add a comment to the top
   .pipe(header('/* bolt ' + package.version + ' CSS */\n\n'))
   // Write the file to the directory
-  .pipe(gulp.dest('./css/'));
+  .pipe(gulp.dest('./package/css/'));
 });
 
 gulp.task('build-js', function() {
@@ -121,17 +121,17 @@ gulp.task('build-js', function() {
   // Add a comment to the top
   .pipe(header('/* bolt ' + package.version + ' JS */\n\n'))
   // Write the file to the directory
-  .pipe(gulp.dest('./js/'));
+  .pipe(gulp.dest('./package/js/'));
 });
 
 gulp.task('kss', function(cb) {
-  exec('./node_modules/kss/bin/kss-node --config config.json', function(error, stout, stderr) {
+  exec('./node_modules/kss/bin/kss-node --config config.json', function(error, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
-    cb(err);
+    cb(error);
   });
 });
 
 gulp.task('default', function(done) {
-  runSequence(['sass', 'build-css', 'build-js'], done);
+  runSequence(['sass', 'build-css', 'build-js', 'kss'], done);
 });

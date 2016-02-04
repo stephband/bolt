@@ -103,10 +103,10 @@ Position
 .tr             - position absolutely at the top right.
 .bl             - position absolutely at the bottom left.
 .br             - position absolutely at the bottom right.
-.align-top      - vertical align to top.
-.align-middle   - vertical align to middle.
-.align-bottom   - vertical align to bottom.
-.align-baseline - vertical align to baseline.
+.top-align      - vertical align to top.
+.middle-align   - vertical align to middle.
+.bottom-align   - vertical align to bottom.
+.baseline-align - vertical align to baseline.
 .left           - float left.
 .right          - float right.
 .left-text      - text align left.
@@ -126,10 +126,10 @@ Styleguide: zutilities.position
 .left { float: left; }
 .right { float: right; }
 
-.align-top      { vertical-align: top !important; }
-.align-middle   { vertical-align: middle !important; }
-.align-bottom   { vertical-align: bottom !important; }
-.align-baseline { vertical-align: baseline !important; }
+.top-align      { vertical-align: top !important; }
+.middle-align   { vertical-align: middle !important; }
+.bottom-align   { vertical-align: bottom !important; }
+.baseline-align { vertical-align: baseline !important; }
 
 .left-text      { text-align: left; }
 .justify-text   { text-align: justify; }

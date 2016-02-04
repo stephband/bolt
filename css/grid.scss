@@ -1,0 +1,280 @@
+
+$breakpoint-1: 30em;
+$breakpoint-2: 37.5rem;
+$breakpoint-3: 45em;
+$breakpoint-4: 60em;
+
+$gutter:       1.25rem;
+
+// Grid
+//
+// A flexible, nestable, responsive grid system.
+//
+// Styleguide: wGrid
+
+@mixin grid($gutter: 1.25rem, $n: 6, $prefix: '') {
+	.grid-block > .#{$prefix}block,
+	.#{$prefix}grid-index > li {
+		display: inline-block;
+		margin: #{$gutter / 2};
+	}
+
+	/* Grid widths. */
+
+	.#{$prefix}grid-1\/1   {
+		width: 100%;
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.#{$prefix}grid-#{$j}\/#{$i}   {
+				width: calc(#{100 * $j / $i}% - #{$gutter * ($i - $j) / $i});
+			}
+		}
+	}
+
+	/* Grid margins. */
+
+	.#{$prefix}grid-left-0 {
+		margin-left: #{$gutter / 2};
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.#{$prefix}grid-left-#{$j}\/#{$i} {
+				margin-left: calc(#{100 * $j / $i}% + #{$gutter * $j / $i});
+			}
+		}
+	}
+
+	/* Grid widths inside a grid-block or grid-index. */
+
+	.grid-block > .#{$prefix}grid-1\/1,
+	.grid-index > .#{$prefix}grid-1\/1,
+	.#{$prefix}grid-index-1\/1 > li {
+		width: calc(100% - #{$gutter});
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.grid-block > .#{$prefix}grid-#{$j}\/#{$i},
+			.grid-index > .#{$prefix}grid-#{$j}\/#{$i},
+			.#{$prefix}grid-index-#{$j}\/#{$i} > li {
+				width: calc(#{100 * $j / $i}% - #{$gutter});
+			}
+		}
+	}
+
+	/* Grid margins inside a grid-block or grid-index. */
+
+	.grid-block > .#{$prefix}grid-left-0,
+	.grid-index > .#{$prefix}grid-left-0 {
+		margin-left: #{$gutter / 2};
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.grid-block > .#{$prefix}grid-left-#{$j}\/#{$i},
+			.grid-index > .#{$prefix}grid-left-#{$j}\/#{$i} {
+				margin-left: calc(#{100 * $j / $i}% + #{$gutter / 2});
+			}
+		}
+	}
+}
+
+
+// .grid-block
+//
+// Wraps rows of child <code>block</code>s to form a grid with gutters.
+// Child <code>block</code>s are rendered as <code>inline-block</code>s,
+// horizontal margins are set to create gutter spacings, and vertical margins
+// set to the vertical grid. Because <code>inline-block</code>s are space
+// sensitive, to get accurate spacing child blocks should have no spaces
+// between them. If you are using a templating engine it likely has some kind of
+// <code>{{spaceless}}</code> process. If not, here is one (valid) way of sanely
+// writing spaceless html:
+//
+// Markup: <div class="grid-block block">
+//   <code class="block grid-1/1 neutral-bg-2">.grid-1/1</code
+//  ><code class="block grid-1/2 neutral-bg-2">.grid-1/2</code
+//  ><code class="block grid-1/2 neutral-bg-2">.grid-1/2</code
+//  ><code class="block grid-1/3 neutral-bg-2">.grid-1/3</code
+//  ><code class="block grid-2/3 neutral-bg-2">.grid-2/3</code
+//  ><code class="block grid-1/4 neutral-bg-2">.grid-1/4</code
+//  ><code class="block grid-3/4 neutral-bg-2">.grid-3/4</code
+//  ><code class="block grid-1/5 neutral-bg-2">.grid-1/5</code
+//  ><code class="block grid-3/5 neutral-bg-2">.grid-3/5</code
+//  ><code class="block grid-1/5 neutral-bg-2">.grid-1/5</code
+//  ><code class="block grid-1/6 neutral-bg-2">.grid-1/6</code
+//  ><code class="block grid-1/2 neutral-bg-2">.grid-1/2</code
+//  ><code class="block grid-1/3 neutral-bg-2">.grid-1/3</code>
+// </div>
+//
+// Styleguide: wGrid.1
+
+
+// .grid-index
+//
+// Similar to <code>grid-block</code>, but for lists, where the children
+// <code class="html-tag">li</code>s behave as do <code>block</code>s inside
+// a <code>grid-block</code>.
+//
+// Markup: <ul class="grid-index-1/3 grid-index index">
+//   <li class="neutral-bg-2">One</li
+//   ><li class="neutral-bg-2">Two</li
+//   ><li class="neutral-bg-2">Three</li>
+// </ul>
+//
+// Styleguide: wGrid.11
+
+
+.grid-block,
+.grid-index {
+	position: relative;
+	padding: 0;
+	margin: -#{$gutter / 2};
+}
+
+.grid-block > .grid-block,
+.grid-block > .grid-index {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.grid-block > hr.block {
+	margin-top: 2rem;
+	margin-bottom: 1.875rem;
+}
+
+
+// .grid-n/d
+//
+// Sets width to <i>n</i>/<i>d</i> divisions of the horizontal grid. There are 6
+// divisions available, with a gutter of <code>1.25rem</code>
+// (<code>20px</code>). Widths are expressed as reduced fractions, so for
+// example there is no <code>.grid-2/4</code>, because that is reduceable to
+// <code>.grid-1/2</code>.
+//
+// .grid-1/1 - Full width column.
+// .grid-1/2 - Half width column.
+// .grid-1/3 - Third width column.
+// .grid-2/3 - Two thirds width column.
+// .grid-1/4 - Quarter width column.
+// .grid-3/4 - Three-quarters width column.
+// .grid-1/5 - Fifth width column.
+// .grid-... - ...
+// .grid-5/6 - Five-sixths width column.
+//
+// Styleguide: wGrid.2
+
+
+// .grid-index-n/d
+//
+// As with <code>.grid-<i>n</i>/<i>d</i></code> classes, but sets the width of
+// child <code class="html-tag">li</code>s to <i>n</i>/<i>d</i> divisions of the
+// horizontal grid.
+//
+// .grid-index-1/1 - Full width column.
+// .grid-index-1/2 - Half width column.
+// .grid-index-1/3 - Third width column.
+// .grid-index-2/3 - Two thirds width column.
+// .grid-... - ...
+// .grid-5/6 - Five-sixths width column.
+//
+// Styleguide: wGrid.12
+
+@include grid($gutter, 6);
+
+@media all and (min-width: $breakpoint-1) {
+	@include grid($gutter, 6, '\\@1-');
+}
+
+@media all and (min-width: $breakpoint-2) {
+	@include grid($gutter, 9, '\\@2-');
+}
+
+@media all and (min-width: $breakpoint-3) {
+	@include grid($gutter, 12, '\\@3-');
+}
+
+@media all and (min-width: $breakpoint-4) {
+	@include grid($gutter, 12, '\\@4-');
+}
+
+
+// .grid-index-1/n
+//
+// A <code>grid-index</code> whose child <code class="html-tag">li</code> widths are set
+// to <code>1/n</code> grid divisions, <code>n</code> being the number of
+// children. Accomodates up to 12 children.
+//
+// Markup: <ul class="grid-index-1/n grid-index index">
+//   <li class="neutral-bg-2">One</li
+//   ><li class="neutral-bg-2">Two</li
+//   ><li class="neutral-bg-2">Three</li>
+// </ul>
+//
+// Styleguide: wGrid.1001
+
+.grid-index-1\/n > li:nth-last-child(2):first-child,
+.grid-index-1\/n > li:nth-last-child(2):first-child ~ li { width: calc(50% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(3):first-child,
+.grid-index-1\/n > li:nth-last-child(3):first-child ~ li { width: calc(33.3333% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(4):first-child,
+.grid-index-1\/n > li:nth-last-child(4):first-child ~ li { width: calc(25% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(5):first-child,
+.grid-index-1\/n > li:nth-last-child(5):first-child ~ li { width: calc(20% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(6):first-child,
+.grid-index-1\/n > li:nth-last-child(6):first-child ~ li { width: calc(16.6667% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(7):first-child,
+.grid-index-1\/n > li:nth-last-child(7):first-child ~ li { width: calc(14.2857% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(8):first-child,
+.grid-index-1\/n > li:nth-last-child(8):first-child ~ li { width: calc(12.5% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(9):first-child,
+.grid-index-1\/n > li:nth-last-child(9):first-child ~ li { width: calc(11.1111% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(10):first-child,
+.grid-index-1\/n > li:nth-last-child(10):first-child ~ li { width: calc(10% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(11):first-child,
+.grid-index-1\/n > li:nth-last-child(11):first-child ~ li { width: calc(9.090909% - 1.875rem); }
+.grid-index-1\/n > li:nth-last-child(12):first-child,
+.grid-index-1\/n > li:nth-last-child(12):first-child ~ li { width: calc(8.333333% - 1.875rem); }
+
+
+@media all and (min-width: $breakpoint-2) {
+	// .@600-grid-index-1/n
+	//
+	// A <code>grid-index</code> whose child <code class="html-tag">li</code> widths
+	// are set to <code>1/n</code> grid dvisions, <code>n</code> being the number of
+	// children.
+	//
+	// Markup: <ul class="@600-grid-index-1/n grid-index index">
+	//   <li class="neutral-bg-2">One</li
+	//   ><li class="neutral-bg-2">Two</li
+	//   ><li class="neutral-bg-2">Three</li>
+	// </ul>
+	//
+	// Styleguide: wGrid.1002
+
+	.\@600-grid-index-1\/n > li:nth-last-child(2):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(2):first-child ~ li { width: calc(50% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(3):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(3):first-child ~ li { width: calc(33.3333% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(4):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(4):first-child ~ li { width: calc(25% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(5):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(5):first-child ~ li { width: calc(20% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(6):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(6):first-child ~ li { width: calc(16.6667% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(7):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(7):first-child ~ li { width: calc(14.2857% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(8):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(8):first-child ~ li { width: calc(12.5% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(9):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(9):first-child ~ li { width: calc(11.1111% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(10):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(10):first-child ~ li { width: calc(10% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(11):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(11):first-child ~ li { width: calc(9.090909% - 1.875rem); }
+	.\@600-grid-index-1\/n > li:nth-last-child(12):first-child,
+	.\@600-grid-index-1\/n > li:nth-last-child(12):first-child ~ li { width: calc(8.333333% - 1.875rem); }
+}

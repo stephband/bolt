@@ -1,12 +1,30 @@
 
 /*
+Actions
 
-TODO: This file is a bit of a mess.
+Action classes progressively enhance elements with behaviours using JavaScript
+(found in <code>bolt-musees.js</code>). Actions are instantiated lazily when
+they are first activated, so there is no need to initialise them by calling
+any jQuery plugins.
 
+When a link is clicked and its href references a node in the DOM that
+has an action class, an <code>"activate"</code> event is triggered on that
+node, and it is given the class <code>"active"</code>. All links that point to
+it are given the class <code>"on"</code>. The type of behaviour determines how
+the node can be deactivated.
+
+The <code>activate</code> and <code>deactivate</code> events are jQuery special
+events. Nodes with action classes can be activated via JS, simply by
+triggering an activate event: <pre>jQuery('#my-toggle').trigger('activate');</pre>
+
+.active - applied to elements with action classes
+.on     - applied to <code class="html-tag">a</code>s with an href that
+          points to an element with an action class (or
+          <code class="html-tag">label</code>s with a <code>for</code> attribute
+          pointing to a radio or checkbox).
+
+Styleguide: yactions
 */
-
-
-/* .tab, .slide */
 
 .tab,
 .slide {
@@ -84,6 +102,78 @@ TODO: This file is a bit of a mess.
 	        transition-timing-function: ease-out;
 }
 
+.js .tip,
+.js .bubble,
+.js .popdown,
+.js .dropdown {
+	opacity: 0;
+	visibility: hidden;
+
+	-webkit-transition-property: opacity, visibility, transform;
+	        transition-property: opacity, visibility, transform;
+}
+
+.js .popdown,
+.js .dropdown {
+	top: 2em;
+
+	-webkit-transition-duration: 180ms;
+	        transition-duration: 180ms;
+
+	-webkit-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
+}
+
+.js .tip.active,
+.js .bubble.active,
+.js .popdown.active,
+.js .dropdown.active {
+	opacity: 1;
+	visibility: visible;
+}
+
+.js .popdown.active,
+.js .dropdown.active {
+	-webkit-transform: translate3d(0, 0.3333rem, 0);
+	    -ms-transform:   translate(0, 0.3333rem, 0);
+	        transform: translate3d(0, 0.3333rem, 0);
+
+	-webkit-transition-duration: 60ms;
+	        transition-duration: 60ms;
+
+	-webkit-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
+}
+
+
+
+
+/*
+.slide
+
+An action class for making slideshows.
+
+Clicks on links pointing to a <code>slide</code> trigger its active state,
+and deactivate all it's sibling slides. In other words, only one slide amongst
+siblings can be active at any one time. Slides are also given swipe left and
+swipe right behaviour.
+
+Note that in this example, the class <code>slide</code> makes the
+<code>img</code>s activatable, but the classes <code>slide-block block</code>
+are needed to define style and transitions.
+
+Markup: <div class="slides-block block">
+  <img class="slide-block block slide active" id="slide-1" src="//source.unsplash.com/category/nature/520x310"
+  /><img class="slide-block block slide" id="slide-2" src="//source.unsplash.com/category/technology/520x310"
+  /><img class="slide-block block slide" id="slide-3" src="//source.unsplash.com/category/food/520x310" />
+</div>
+<a href="#slide-1">1</a>
+<a href="#slide-2">2</a>
+<a href="#slide-3">3</a>
+
+Styleguide: yactions.slide
+*/
+
 .js .slide {
 	/* By default all slides are positioned off to the left. */
 	left: -100%;
@@ -145,47 +235,97 @@ TODO: This file is a bit of a mess.
 	}
 }
 
-/* Transitions - .popdown, .dropdown, .tip */
 
-.js .tip,
-.js .bubble,
-.js .popdown,
-.js .dropdown {
-	opacity: 0;
-	visibility: hidden;
+/*
+.toggle
 
-	-webkit-transition-property: opacity, visibility, transform;
-	        transition-property: opacity, visibility, transform;
-}
+An action class for creating drawers, submenus or anything else that has
+open/closed state.
 
-.js .popdown,
-.js .dropdown {
-	top: 2em;
+Clicks on links pointing to a <code>.toggle</code> toggle its active state.
+Note that in this example, the class <code>toggle</code> gives the
+<code class="html-tag">p</code> active/inactive behaviour, but the classes
+<code>toggle-block block</code> are needed to give it style and transitions.
 
-	-webkit-transition-duration: 180ms;
-	        transition-duration: 180ms;
+Markup: <a class="action-button button" href="#toggle-test">Toggle text</a>
+<p class="toggle toggle-block block" id="toggle-test">
+  Crunchum ipsum dolor sit coder void, constructor function, sed do while loop
+  python orientation semi colon incident. Duis aute irure indent tabs or spaces
+  velit esse cilium buntum how crunchy duntum.
+</p>
 
-	-webkit-transition-timing-function: ease-out;
-	        transition-timing-function: ease-out;
-}
+Styleguide: yactions.toggle
+*/
 
-.js .tip.active,
-.js .bubble.active,
-.js .popdown.active,
-.js .dropdown.active {
-	opacity: 1;
-	visibility: visible;
-}
 
-.js .popdown.active,
-.js .dropdown.active {
-	-webkit-transform: translate3d(0, 0.3333rem, 0);
-	    -ms-transform:   translate(0, 0.3333rem, 0);
-	        transform: translate3d(0, 0.3333rem, 0);
+/*
+.pop
 
-	-webkit-transition-duration: 60ms;
-	        transition-duration: 60ms;
+An action class for creating drawers, submenus or anything else that has
+momentary open/closed state – ie, click outside it and it closes automatically.
 
-	-webkit-transition-timing-function: ease-in;
-	        transition-timing-function: ease-in;
-}
+Styleguide: yactions.pop
+*/
+
+
+
+/*
+In a similar way, bolt provides classes for enhancing form elements.
+If an <code>input[type="checkbox"]</code> or <code>input[type="radio"]</code>
+is checked, all labels with a <code>for</code> attribute pointing to it are
+given the class <code>"on"</code>. (Unlike elements with an action class,
+<code>"active"</code> is not applied to the input and an <code>activate</code>
+event is not triggered. Inputs already have the <code>:checked</code> pseudo
+class and the <code>change</code> event.)
+
+Bolt also validates form inputs and displays error messages.
+
+
+
+.button > select
+
+A label with <code>button</code> that points to a <code>select</code> via its
+<code>for</code> attribute has it's text updated when the <code>select</code> is
+changed.
+
+Markup: <label class="select-button button" for="tab-select">
+  Choose an option
+  <select id="tab-select">
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+  </select>
+</label>
+
+
+
+.button > .href-select
+
+Markup: <label class="select-button button" for="tab-select">
+	Select Button
+	<select class="href-select">
+		<option value="/one">one.html</option>
+		<option value="/two">two.html</option>
+		<option value="/three">three.html</option>
+	</select>
+</label>
+
+
+
+
+label > input[type="radio"]
+
+Markup: <label class="radio-label" for="my-radio-1">
+  <input type="radio" name="my-radio" id="my-radio-1" value="1" />
+  My radio label
+</label>
+
+
+
+
+.checkbox-label > input[type="checkbox"]
+
+Markup: <label class="checkbox-label" for="my-checkbox-1">
+  My checkbox label
+  <input type="checkbox" name="my-checkbox" id="my-checkbox-1" value="1" />
+</label>
+*/
