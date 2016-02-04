@@ -1,3 +1,6 @@
+_archive/*
+docs/*
+_index.html
 res/iepngfix/checkerboard.gif
 res/iepngfix/helix.gif
 res/iepngfix/iepngfix.html
