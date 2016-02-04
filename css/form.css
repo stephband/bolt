@@ -1,3 +1,4 @@
+
 /*
 Forms
 
@@ -92,8 +93,13 @@ textarea {
 	padding-top: 0;
 	padding-bottom: 0;
 	color: inherit;
+}
 
-	/* Firefox OS adds a background gradient to things. No no no. */
+input,
+button,
+textarea {
+	/* Firefox OS adds a background gradient to things. No no no. Don't apply
+	   to selects as it causes them to be rendered old-style in FF desktop */
 	background-image: none;
 }
 
@@ -420,6 +426,14 @@ input[type="range"]:focus {
 input.error,
 textarea.error {
 	border-color: #e62b24 !important;
+
+	/* \9 hack for IE8 and below. */
+	outline: 2px solid #ff5500\9;
+
+	-webkit-box-shadow: 0 0 12px #ff5500;
+	-webkit-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+	   -moz-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+			box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
 }
 
 @media screen { @media (min-width: 0px) {

@@ -19,7 +19,7 @@
 
 	function tapHandler(e) {
 		var target = e.data;
-		
+
 		trigger(target, 'deactivate');
 	}
 
@@ -27,23 +27,23 @@
 		activate: function (e, data, fn) {
 			if (data.active) { return; }
 			data.active = true;
-			
+
 			var elem = data.elem,
 			    relatedTarget = jQuery(e.relatedTarget),
 			    id = bolt.identify(e.target),
 			    relatedOffset = relatedTarget.offset(),
 			    relatedHeight = relatedTarget.outerHeight();
-			
+
 			elem
 			.addClass('notransition')
 			.css({
 				margin: 0
 			});
-			
+
 			var offset = elem.offset(),
 			    position = elem.position(),
 			    height = elem.outerHeight();
-			
+
 			elem
 			.css({
 				margin: '',
@@ -51,10 +51,10 @@
 				left: Math.floor(relatedOffset.left + position.left - offset.left),
 				top:  Math.floor(relatedOffset.top + position.top  - offset.top - height)
 			});
-			
+
 			elem.width();
 			elem.removeClass('notransition');
-			
+
 			add(document, 'tap.' + id, tapHandler, e.target);
 			fn();
 		},
@@ -62,7 +62,7 @@
 		deactivate: function (e, data, fn) {
 			if (!data.active) { return; }
 			data.active = false;
-			
+
 			var id = bolt.identify(e.target);
 
 			remove(document, '.' + id, tapHandler);
@@ -103,7 +103,7 @@
 
 			elem.width();
 			elem.removeClass('notransition');
-			
+
 			add(document, 'tap.' + id, tapHandler, e.target);
 			fn();
 		},
@@ -111,7 +111,7 @@
 		deactivate: function (e, data, fn) {
 			if (!data.active) { return; }
 			data.active = false;
-			
+
 			var id = bolt.identify(e.target);
 
 			remove(document, '.' + id, tapHandler);
@@ -123,22 +123,22 @@
 		activate: function (e, data, fn) {
 			if (data.active) { return; }
 			data.active = true;
-			console.log('TIP');
+			
 			var elem = data.elem,
 			    relatedTarget = jQuery(e.relatedTarget),
 			    id = bolt.identify(e.target),
 			    relatedOffset = relatedTarget.offset();
-			
+
 			elem
 			.addClass('notransition')
 			.css({
 				marginTop: 0,
 				marginLeft: 0
 			});
-			
+
 			var offset = elem.offset(),
 			    position = elem.position();
-			
+
 			elem
 			.css({
 				marginTop: '',
@@ -147,10 +147,10 @@
 				left: Math.floor(relatedOffset.left + position.left - offset.left),
 				top:  Math.floor(relatedOffset.top  + position.top  - offset.top)
 			});
-			
+
 			elem.width();
 			elem.removeClass('notransition');
-			
+
 			add(document, 'tap.' + id, tapHandler, e.target);
 			fn();
 		},
@@ -158,7 +158,7 @@
 		deactivate: function (e, data, fn) {
 			if (!data.active) { return; }
 			data.active = false;
-			
+
 			var id = bolt.identify(e.target);
 
 			remove(document, '.' + id, tapHandler);

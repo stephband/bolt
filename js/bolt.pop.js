@@ -30,16 +30,16 @@
 
 		// Ignore mousedowns from all but the left button.
 		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
-	
+
 		// If event is in it or on it, do nothing.
 		if (activeTarget === e.target || jQuery.contains(activeTarget, e.target)) { return; }
-	
+
 		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
 	}
 
 	function click(e) {
 		var target = e.currentTarget;
-		
+
 		// If we've clicked on a file input inside it, wait
 		// for the input to change. This is a fix for file
 		// inputs not firing change events when they're made
@@ -48,10 +48,10 @@
 			jQuery.event.add(e.target, 'change', function(e){
 				trigger(target, 'deactivate');
 			});
-			
+
 			return;
 		}
-		
+
 		trigger(target, 'deactivate');
 	}
 
@@ -60,19 +60,19 @@
 
 		// A prevented default means this link has already been handled.
 		if (e.isDefaultPrevented()) { return; }
-	
+
 		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
 		e.preventDefault();
 	}
 
-	bolt('popdown', {
+	bolt('pop', {
 		activate: function(e, data, fn) {
 			// Don't do anything if elem is already active
 			if (data.active) { return; }
 			data.active = true;
-			
+
 			var id = bolt.identify(e.target);
-			
+
 			// Namespace delegated events with the id of the target so that
 			// we can easily unbind them again on deactivate.
 			add(e.target, 'click tap', close, e.target, 'a[href="#close"]');
@@ -84,23 +84,23 @@
 			// Don't do anything if elem is already inactive
 			if (!data.active) { return; }
 			data.active = false;
-			
+
 			var id = bolt.identify(e.target);
-			
+
 			remove(e.target, 'click tap', close);
 			remove(document, '.' + id);
 			fn();
 		}
 	});
-	
+
 	bolt('dropdown', {
 		activate: function(e, data, fn) {
 			// Don't do anything if elem is already active
 			if (data.active) { return; }
 			data.active = true;
-			
+
 			var id = bolt.identify(e.target);
-			
+
 			// Namespace delegated events with the id of the target so that
 			// we can easily unbind them again on deactivate.
 			add(e.target, 'click tap', click);
@@ -112,9 +112,9 @@
 			// Don't do anything if elem is already inactive
 			if (!data.active) { return; }
 			data.active = false;
-			
+
 			var id = bolt.identify(e.target);
-			
+
 			remove(e.target, 'click tap', click);
 			remove(document, '.' + id);
 			fn();
