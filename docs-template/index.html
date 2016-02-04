@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--[if lte IE 6]>            <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IEMobile 7]>          <html class="no-js iem7" lang="en"> <![endif]-->
+<!--[if (IE 7)&(!IEMobile)]>  <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>                <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>{{options.title}}</title>
+
+  <meta name="description" content="">
+  <meta name="generator" content="kss-node">
+  <meta name="viewport" content="width=device-width">
+
+  <script>document.documentElement.className = 'js';</script>
+
+  <link rel="stylesheet" href="public/kss.css">
+  {{{styles}}}
+</head>
+<body id="kss-node">
+
+<div class="kss-sidebar kss-style">
+  <header class="kss-header">
+    <h1 class="kss-doc-title">{{options.title}}</h1>
+  </header>
+  <nav class="kss-nav">
+    <ul class="menu-index index">
+      <li>
+        <a class="menu-button button" href="../index.html">Home</a>
+      </li>
+
+      {{#eachRoot}}
+      <li>
+        <a class="toggle-menu-button menu-button button {{#ifReference ../rootName}}on{{/ifReference}}" href="section-{{referenceURI}}.html">{{{header}}}</a>
+
+        {{#ifReference ../rootName}}
+
+        <ul class="index">
+          {{#eachSection reference}}
+          {{#ifDepth 2}}
+          <li>
+            <a class="class-button button" href="section-{{../../referenceURI}}.html#kssref-{{referenceURI}}">{{{header}}}</a>
+          </li>
+          {{/ifDepth}}
+          {{/eachSection}}
+        </ul>
+        {{/ifReference}}
+      </li>
+      {{/eachRoot}}
+
+    </ul>
+  </nav>
+</div>
+<article role="main" class="kss-main">
+{{#if homepage}}
+  <div id="kssref-0" class="kss-section kss-section--depth-0 kss-overview kss-style">
+    {{{homepage}}}
+  </div>
+{{else}}
+
+  {{!
+    Display each section, in order.
+
+    The "root" element comes first in this loop, and can be detected using
+    the "#ifDepth 1" block as seen below.
+  }}
+  {{#eachSection rootName}}
+    {{#ifDepth 1}}
+      <div     id="kssref-{{referenceURI}}" class="kss-section kss-section--depth-{{depth}}">
+    {{else}}
+      <section id="kssref-{{referenceURI}}" class="kss-section kss-section--depth-{{depth}}">
+    {{/ifDepth}}
+
+    <div class="kss-style block @896-grid-1/2">
+      <h{{depth}} {{#ifDepth 1}}class="text-2"{{else}}class="text-6"{{/ifDepth}}>
+        <a class="kss-title__permalink text-4" href="#kssref-{{referenceURI}}">
+          <!--small>{{#ifNumeric reference}}{{reference}}{{else}}{{autoincrement}}{{/ifNumeric}}</small-->
+          <code>{{{header}}}</code>
+          <small class="kss-title__permalink-hash">{{#ifNumeric reference}}#permalink{{else}}#{{reference}}{{/ifNumeric}}</small>
+        </a>
+      </h{{depth}}>
+
+    {{#if description}}
+      {{{description}}}
+    {{/if}}
+
+    {{#if parameters}}
+      <ul class="kss-parameters">
+      {{#eachParameter}}
+        <li class="kss-parameters__item">
+          <code class="kss-parameters__name">{{name}}</code>
+          <div class="kss-parameters__description">{{{description}}}</div>
+        </li>
+      {{/eachParameter}}
+      </ul>
+    {{/if}}
+    </div>
+
+    {{#if markup}}
+    <div class="grid-block block">
+        <div class="example-block block @600-grid-2/3 @896-grid-1/2">
+            {{{markup}}}
+        </div
+
+        ><pre class="prettyprint lang-html code-block block @896-grid-1/2"><code data-language="html">{{markup}}</code></pre>
+
+        {{#eachModifier}}
+        <div class="example-block block @600-grid-2/3 @896-grid-1/2">
+            {{{markup}}}
+        </div
+
+        ><pre class="prettyprint lang-html code-block block @896-grid-1/2"><code data-language="html">{{markup}}</code></pre
+
+        >{{#if name}}<p class="block @600-grid-2/3 @896-grid-1/2">
+            {{name}} – {{{description}}}
+        </p>{{/if}}
+        {{/eachModifier}}
+    </div>
+    {{/if}}
+
+    {{#ifDepth 1}}
+      </div>
+    {{else}}
+      </section>
+    {{/ifDepth}}
+  {{/eachSection}}
+{{/if}}
+</article>
+
+<!-- SCRIPTS -->
+<script src="public/kss.js"></script>
+<script src="public/prettify.js"></script>
+<script>
+  prettyPrint();
+</script>
+{{{scripts}}}
+
+<!-- For Musees Cantonaux -->
+<script src="../public/js/object.assign.js"></script>
+<script src="../public/js/jquery-2.1.4.js"></script>
+<script src="../public/js/window.breakpoint.js"></script>
+<script src="../public/js/bolt-musees.js"></script>
+<script src="../public/js/site-nav.js"></script>
+<script src="../public/js/slide.js"></script>
+
+<!-- Automatically generated using <a href="https://github.com/kss-node/kss-node">kss-node</a>. -->
+</body>
+</html>
