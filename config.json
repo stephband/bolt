@@ -5,23 +5,5 @@
       "css/"
   ],
   "destination":  "docs/",
-  "css": [
-      "../css/normalise.css",
-      "../css/form.css",
-      "../css/block.css",
-      "../css/index.css",
-      "../css/card.css",
-      "../css/button.css",
-      "../css/thumb.css",
-      "../css/grid.css",
-      "../css/text.css",
-      "../css/color.css",
-      "../css/utilities.css",
-      "../css/body.css",
-      "../css/nav.css",
-      "../css/space.css",
-      "../css/action.css"
-  ],
-  "js": [],
   "template": "docs-template"
 }

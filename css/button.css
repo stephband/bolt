@@ -219,18 +219,18 @@ Styleguide: Button.radio-button
 */
 
 /*
-.checkbox-button
+.check-button
 
-Markup: <label class="checkbox-button button" for="checkbox-2">
+Markup: <label class="check-button button" for="checkbox-2">
   <input type="checkbox" id="checkbox-2" />
   Choose me!
 </label>
 
-Styleguide: Button.checkbox-button
+Styleguide: Button.check-button
 */
 
 .radio-button,
-.checkbox-button {
+.check-button {
 	/* Overflow will hide the browser generated error messages. No no no. */
 	overflow: visible;
 }

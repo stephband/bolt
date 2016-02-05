@@ -1,13 +1,12 @@
+body > .grid-block {
+  margin-left: 0.625rem;
+  margin-right: 0.625rem; }
+
 .grid-block,
 .grid-index {
   position: relative;
   padding: 0;
   margin: -0.625rem; }
-
-.grid-block > .grid-block,
-.grid-block > .grid-index {
-  margin-left: 0;
-  margin-right: 0; }
 
 .grid-block > hr.block {
   margin-top: 2rem;
@@ -17,6 +16,10 @@
 .grid-index > li {
   display: inline-block;
   margin: 0.625rem; }
+
+.grid-block > .grid-block {
+  margin-left: 0;
+  margin-right: 0; }
 
 /* Grid widths. */
 .grid-1\/1 {
@@ -267,6 +270,9 @@
   .\@1-grid-index > li {
     display: inline-block;
     margin: 0.625rem; }
+  .grid-block > .grid-block {
+    margin-left: 0;
+    margin-right: 0; }
   /* Grid widths. */
   .\@1-grid-1\/1 {
     width: 100%; }
@@ -453,6 +459,9 @@
   .\@2-grid-index > li {
     display: inline-block;
     margin: 0.625rem; }
+  .grid-block > .grid-block {
+    margin-left: 0;
+    margin-right: 0; }
   /* Grid widths. */
   .\@2-grid-1\/1 {
     width: 100%; }
@@ -870,6 +879,9 @@
   .\@3-grid-index > li {
     display: inline-block;
     margin: 0.625rem; }
+  .grid-block > .grid-block {
+    margin-left: 0;
+    margin-right: 0; }
   /* Grid widths. */
   .\@3-grid-1\/1 {
     width: 100%; }
@@ -1617,6 +1629,9 @@
   .\@4-grid-index > li {
     display: inline-block;
     margin: 0.625rem; }
+  .grid-block > .grid-block {
+    margin-left: 0;
+    margin-right: 0; }
   /* Grid widths. */
   .\@4-grid-1\/1 {
     width: 100%; }

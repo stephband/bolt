@@ -2,8 +2,9 @@
 /*
 .block
 
-A block, ready to be an inline-block, a position parent, and a
-container for media: img, svg, video, canvas, etc.
+<p>For layout. There are two ways a <code>.block</code> can be styled: as a <code>block</code>, for a vertical layout, or as <code>inline-block</code>, for a horizontal layout. <code>block</code> by default, obviously.</p>
+<p>Any <code>.block</code> child of a <code>.grid-block</code> becomes an inline-block. Grid layout can be designed by adding <code>.grid-<i>n</i>/<i>d</i></code> classes to those children.</p>
+<p>Applied to a media tag like img, svg, video and canvas, <code>.block</code> will scale the element to fill the available width.</p>
 
 Styleguide: Block
 */
@@ -13,6 +14,9 @@ Styleguide: Block
 
 	/* Set as position parent */
 	position: relative;
+
+	/* Force img, video, svg to scale. */
+	height: auto;
 
 	/* Set them up to play nice as inline-blocks. */
 	vertical-align: top;
@@ -88,23 +92,6 @@ Styleguide: Block.toggle-block
 		border-color 400ms linear,
 		background-color 200ms linear,
 		visibility 400ms linear;
-}
-
-
-/*
-.full-block
-
-A block that fills the width of it's parent. When applied to media – img, video,
-etc. – the media assumes auto height.
-
-Markup: <img class="full-block block" src="//source.unsplash.com/category/nature/1300x620" />
-
-Styleguide: Block.full-block
-*/
-
-.full-block {
-	width: 100%;
-	height: auto;
 }
 
 

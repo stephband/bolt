@@ -56,13 +56,13 @@ html {
 }
 
 html, body, div, span,
-object, iframe, canvas, img, svg, audio, track, math,
+object, iframe, canvas, img, svg, audio, video, track, math,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, address, code, time,
 del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, dialog, figure, figcaption, footer, header,
-nav, section,
+article, aside, details, dialog, figure, figcaption, footer, header,
+nav, section, summary,
 form, fieldset, label, legend, input, output, button, select, textarea,
 progress, meter,
 ::before, ::after {
@@ -296,6 +296,7 @@ th {
 	}
 }
 
+
 /*
 Forms
 
@@ -390,8 +391,13 @@ textarea {
 	padding-top: 0;
 	padding-bottom: 0;
 	color: inherit;
+}
 
-	/* Firefox OS adds a background gradient to things. No no no. */
+input,
+button,
+textarea {
+	/* Firefox OS adds a background gradient to things. No no no. Don't apply
+	   to selects as it causes them to be rendered old-style in FF desktop */
 	background-image: none;
 }
 
@@ -718,6 +724,14 @@ input[type="range"]:focus {
 input.error,
 textarea.error {
 	border-color: #e62b24 !important;
+
+	/* \9 hack for IE8 and below. */
+	outline: 2px solid #ff5500\9;
+
+	-webkit-box-shadow: 0 0 12px #ff5500;
+	-webkit-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+	   -moz-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
+			box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;
 }
 
 @media screen { @media (min-width: 0px) {
@@ -1347,8 +1361,9 @@ Styleguide: xForms.10
 /*
 .block
 
-A block, ready to be an inline-block, a position parent, and a
-container for media: img, svg, video, canvas, etc.
+<p>For layout. There are two ways a <code>.block</code> can be styled: as a <code>block</code>, for a vertical layout, or as <code>inline-block</code>, for a horizontal layout. <code>block</code> by default, obviously.</p>
+<p>Any <code>.block</code> child of a <code>.grid-block</code> becomes an inline-block. Grid layout can be designed by adding <code>.grid-<i>n</i>/<i>d</i></code> classes to those children.</p>
+<p>Applied to a media tag like img, svg, video and canvas, <code>.block</code> will scale the element to fill the available width.</p>
 
 Styleguide: Block
 */
@@ -1358,6 +1373,9 @@ Styleguide: Block
 
 	/* Set as position parent */
 	position: relative;
+
+	/* Force img, video, svg to scale. */
+	height: auto;
 
 	/* Set them up to play nice as inline-blocks. */
 	vertical-align: top;
@@ -1433,23 +1451,6 @@ Styleguide: Block.toggle-block
 		border-color 400ms linear,
 		background-color 200ms linear,
 		visibility 400ms linear;
-}
-
-
-/*
-.full-block
-
-A block that fills the width of it's parent. When applied to media – img, video,
-etc. – the media assumes auto height.
-
-Markup: <img class="full-block block" src="//source.unsplash.com/category/nature/1300x620" />
-
-Styleguide: Block.full-block
-*/
-
-.full-block {
-	width: 100%;
-	height: auto;
 }
 
 
@@ -1947,18 +1948,18 @@ Styleguide: Button.radio-button
 */
 
 /*
-.checkbox-button
+.check-button
 
-Markup: <label class="checkbox-button button" for="checkbox-2">
+Markup: <label class="check-button button" for="checkbox-2">
   <input type="checkbox" id="checkbox-2" />
   Choose me!
 </label>
 
-Styleguide: Button.checkbox-button
+Styleguide: Button.check-button
 */
 
 .radio-button,
-.checkbox-button {
+.check-button {
 	/* Overflow will hide the browser generated error messages. No no no. */
 	overflow: visible;
 }
@@ -2031,11 +2032,13 @@ Styleguide: Button.menu-button-2
 /*
 .thumb
 
-A thumb is an icon or avatar or other image. It displays a
-<code>background-image</code> so that it is not interactive (the user cannot
-automatically drag it or open it in a new tab as they could with an
-&lt;img/&gt;), while text content is hidden accessibly by being pushed
-out of the box with <code>padding-top</code>.
+A thumb is an icon or avatar or other image.
+A thumb hides it's inner text, displaying only it's <code>background-image</code>.
+Overflow is hidden and padding-top is used to determine it's height.
+
+Why a <code>background-image</code>?
+The user cannot interact with a <code>background-image</code> in the way they can with an &lt;img/&gt;).
+And in essence it's an image replacement technique - the (hidden) text is the semantic content.
 
 A default thumb is a square of 64x64px. Add an image by defining a
 <code>background-image</code>. The image is centered and 'cropped' via
@@ -2323,16 +2326,15 @@ Styleguide: Thumb.social-thumb-3
 	}
 }
 
+body > .grid-block {
+  margin-left: 0.625rem;
+  margin-right: 0.625rem; }
+
 .grid-block,
 .grid-index {
   position: relative;
   padding: 0;
   margin: -0.625rem; }
-
-.grid-block > .grid-block,
-.grid-block > .grid-index {
-  margin-left: 0;
-  margin-right: 0; }
 
 .grid-block > hr.block {
   margin-top: 2rem;
@@ -2342,6 +2344,10 @@ Styleguide: Thumb.social-thumb-3
 .grid-index > li {
   display: inline-block;
   margin: 0.625rem; }
+
+.grid-block > .grid-block {
+  margin-left: 0;
+  margin-right: 0; }
 
 /* Grid widths. */
 .grid-1\/1 {
@@ -2592,6 +2598,9 @@ Styleguide: Thumb.social-thumb-3
   .\@1-grid-index > li {
     display: inline-block;
     margin: 0.625rem; }
+  .grid-block > .grid-block {
+    margin-left: 0;
+    margin-right: 0; }
   /* Grid widths. */
   .\@1-grid-1\/1 {
     width: 100%; }
@@ -2778,6 +2787,9 @@ Styleguide: Thumb.social-thumb-3
   .\@2-grid-index > li {
     display: inline-block;
     margin: 0.625rem; }
+  .grid-block > .grid-block {
+    margin-left: 0;
+    margin-right: 0; }
   /* Grid widths. */
   .\@2-grid-1\/1 {
     width: 100%; }
@@ -3195,6 +3207,9 @@ Styleguide: Thumb.social-thumb-3
   .\@3-grid-index > li {
     display: inline-block;
     margin: 0.625rem; }
+  .grid-block > .grid-block {
+    margin-left: 0;
+    margin-right: 0; }
   /* Grid widths. */
   .\@3-grid-1\/1 {
     width: 100%; }
@@ -3942,6 +3957,9 @@ Styleguide: Thumb.social-thumb-3
   .\@4-grid-index > li {
     display: inline-block;
     margin: 0.625rem; }
+  .grid-block > .grid-block {
+    margin-left: 0;
+    margin-right: 0; }
   /* Grid widths. */
   .\@4-grid-1\/1 {
     width: 100%; }
@@ -5415,10 +5433,10 @@ Position
 .tr             - position absolutely at the top right.
 .bl             - position absolutely at the bottom left.
 .br             - position absolutely at the bottom right.
-.align-top      - vertical align to top.
-.align-middle   - vertical align to middle.
-.align-bottom   - vertical align to bottom.
-.align-baseline - vertical align to baseline.
+.top-align      - vertical align to top.
+.middle-align   - vertical align to middle.
+.bottom-align   - vertical align to bottom.
+.baseline-align - vertical align to baseline.
 .left           - float left.
 .right          - float right.
 .left-text      - text align left.
@@ -5438,10 +5456,10 @@ Styleguide: zutilities.position
 .left { float: left; }
 .right { float: right; }
 
-.align-top      { vertical-align: top !important; }
-.align-middle   { vertical-align: middle !important; }
-.align-bottom   { vertical-align: bottom !important; }
-.align-baseline { vertical-align: baseline !important; }
+.top-align      { vertical-align: top !important; }
+.middle-align   { vertical-align: middle !important; }
+.bottom-align   { vertical-align: bottom !important; }
+.baseline-align { vertical-align: baseline !important; }
 
 .left-text      { text-align: left; }
 .justify-text   { text-align: justify; }

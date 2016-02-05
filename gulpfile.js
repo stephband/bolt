@@ -85,7 +85,7 @@ gulp.task('build-css', function() {
     "css/text.css",
     "css/color.css",
     "css/utilities.css",
-    "css/body.css",
+    "css/document.css",
     "css/nav.css",
     "css/space.css"
   ])
