@@ -201,20 +201,7 @@ caption           { background-color: inherit; }
 .last             { margin-bottom: 0; }
 .note             { font-style: italic; }
 
-/* Selection */
 
-::selection {
-	background:rgba(27,117,186,0.8);
-	color:rgb(255,255,255);
-}
-::-moz-selection {
-	background:rgba(27,117,186,0.8);
-	color:rgb(255,255,255);
-}
-::-webkit-selection {
-	background:rgba(27,117,186,0.8);
-	color:rgb(255,255,255);
-}
 
 
 /*
@@ -266,7 +253,7 @@ Styleguide: vText.6
 */
 
 /*
-.text-7
+.text-7, code
 
 Markup: <p class="text-7">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
@@ -282,60 +269,32 @@ Markup: <p class="text-8">Crunchum ipsum dolor sit coder void, constructor funct
 Styleguide: vText.8
 */
 
-/*
-.text-9
+.text-1, h1,
+.text-2, h2,
+.text-3, h3,
+.text-4, h4,
+.text-5, h5,
+.text-6, h6,
+.text-8, body {
+	font-family: Helvetica, Arial, sans-serif;
+	font-style: none;
+	text-transform: none;
+}
 
-Markup: <p class="text-9">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
+.text-7, code     {
+	font-family: Courier, monospace;
+	font-style: none;
+	text-transform: none;
+}
 
-Styleguide: vText.9
-*/
-
-/*
-.text-10
-
-Markup: <p class="text-10">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
-
-Styleguide: vText.10
-*/
-
-/*
-.text-11
-
-Markup: <p class="text-11">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
-
-Styleguide: vText.11
-*/
-
-/*
-.text-12
-
-Markup: <p class="text-12">Crunchum ipsum dolor sit coder void, constructor function</p>
-
-Styleguide: vText.12
-*/
-
-/*
-.text-13
-
-Markup: <p class="text-13">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p>
-
-Styleguide: vText.13
-*/
-
-.text-1, h1       { font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif; font-size: 2.5rem;   line-height: 2.625rem; font-weight: 700; font-style: none;   text-transform: none;      color: inherit; }
-.text-2, h2       { font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif; font-size: 1.5rem;   line-height: 1.625rem; font-weight: 700; font-style: none;   text-transform: uppercase; color: inherit; }
-.text-3, h3       { font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif; font-size: 1.25rem;  line-height: 1.5rem;   font-weight: 700; font-style: none;   text-transform: none;      color: inherit; }
-.text-4, h4       { font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif; font-size: 1rem;     line-height: 1.5rem;   font-weight: 700; font-style: none;   text-transform: none;      color: inherit; }
-.text-5, h5       { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 1rem;     line-height: 1.375rem; font-weight: 700; font-style: italic; text-transform: none;      color: inherit; }
-.text-6, h6       { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 1.125rem; line-height: 1.5rem;   font-weight: 300; font-style: none;   text-transform: none;      color: inherit; }
-.text-7           { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 0.875rem; line-height: 1.375rem; font-weight: 300; font-style: none;   text-transform: uppercase; color: inherit; }
-.text-8, body     { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 1rem;     line-height: 1.5rem;   font-weight: 400; font-style: none;   text-transform: none;      color: inherit; }
-.text-9           { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 0.875rem; line-height: 1.375rem; font-weight: 400; font-style: none;   text-transform: none;      color: $neutral-color-1; }
-.text-10          { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 0.875rem; line-height: 1.25rem;  font-weight: 400; font-style: italic; text-transform: none;      color: $neutral-color-1; }
-.text-11          { font-family: 'Andale Mono', monospace;                         font-size: 0.75rem;  line-height: 1rem;     font-weight: 400; font-style: none;   text-transform: none;      color: inherit; }
-.text-12          { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 1.5rem;   line-height: 1.625rem; font-weight: 400; font-style: none;   text-transform: uppercase; color: inherit; }
-.text-13          { font-family: 'Roboto', Helvetica, Arial, sans-serif;           font-size: 1.25rem;  line-height: 1.5rem;   font-weight: 700; font-style: none;   text-transform: none;      color: inherit; }
-
+.text-1, h1       { font-size: 2.5rem;   line-height: 2.625rem; font-weight: 700; }
+.text-2, h2       { font-size: 1.5rem;   line-height: 1.625rem; font-weight: 700; }
+.text-3, h3       { font-size: 1.25rem;  line-height: 1.5rem;   font-weight: 700; }
+.text-4, h4       { font-size: 1rem;     line-height: 1.5rem;   font-weight: 700; }
+.text-5, h5       { font-size: 1rem;     line-height: 1.375rem; font-weight: 700; }
+.text-6, h6       { font-size: 1.125rem; line-height: 1.5rem;   font-weight: 300; }
+.text-7, code     { font-size: 0.875rem; line-height: 1.5rem;   font-weight: 400; }
+.text-8, body     { font-size: 1rem;     line-height: 1.5625rem;   font-weight: 400; }
 
 @media screen and (min-width: $breakpoint-2) {
 	.text-1, h1       { font-size: 3.75rem;  line-height: 4.125rem; }
@@ -344,13 +303,7 @@ Styleguide: vText.13
 	.text-4, h4       { font-size: 1rem;     line-height: 1.5rem; }
 	.text-5, h5       { font-size: 0.875rem; line-height: 1.375rem; }
 	.text-6, h6       { font-size: 1.125rem; line-height: 1.5rem; }
-	.text-7           {  }
 	.text-8, body     { font-size: 0.875rem; line-height: 1.375rem; }
-	.text-9           {  }
-	.text-10          { font-size: 0.75rem;  line-height: 1rem; }
-	/*.text-11        { font-size: 0.75rem;  line-height: 1rem; }*/
-	.text-12          { font-size: 1.75rem;  line-height: 2.125rem; }
-	.text-13          { font-size: 1.25rem;  line-height: 1.5rem; }
 }
 
 
@@ -378,87 +331,20 @@ ul + h4,  ul + .text-4                                          { margin-top: 2.
 h2 + h5,  .text-2 + h5,  body h2 + .text-5,  .text-2 + .text-5  { margin-top: 1.25rem; }
 h4 + h5,  .text-4 + h5,  body h4 + .text-5,  .text-4 + .text-5,
 p  + h5,  .text-8 + h5,  body p  + .text-5,  .text-8 + .text-5  { margin-top: 0.9375rem; }
-.text-10 + h5, .text-10 + .text-5                                 { margin-top: 0.625rem; }
 *  + p,   * + .text-8                                           { margin-top: 0.625rem; }
 h1 + p,   .text-1 + p,   body h1 + .text-8,  .text-1 + .text-8  { margin-top: 2.1875rem; }
 h3 + p,   .text-3 + p,   body h3 + .text-8,  .text-3 + .text-8  { margin-top: 0.625rem; }
 h5 + p,   .text-5 + p,   body h5 + .text-8,  .text-5 + .text-8,
 h5 + ul,  .text-5 + ul                                          { margin-top: 0; }
-.text-7 + .dashed-ul { margin-top: 0.125rem; }
 p  + p,   .text-8 + p,   body p  + .text-8,  .text-8 + .text-8  { margin-top: 0.9375rem; }
 
-p + .text-9,  .text-8 + .text-9  { margin-top: 0.125rem; }
-p + .text-10, .text-8 + .text-10 { margin-top: 1.875rem; }
-.text-9 + .text-10 { margin-top: 1.875rem; }
 
-.text-13 + p, .text-13 + .text-8  { margin-top: 0.625rem; }
-
-.block  + .text-10 { margin-top: 2.5rem; }
 h2 + ul,   .text-2 + ul { margin-top: 1.875rem; }
 h3 + ul,   .text-3 + ul { margin-top: 1.25rem; }
-p + pre,  .text-8 + pre,
-pre + p,  pre + .text-8 { margin-top: 1.25rem; }
+p + pre,  .text-8 + pre, pre + p,  pre + .text-8 { margin-top: 1.25rem; }
 
-p + form, .text-8 + form { margin-top: 0.5rem; }
+p + form,     .text-8 + form     { margin-top: 0.5rem; }
 p + fieldset, .text-8 + fieldset { margin-top: 2rem; }
-p + .box, .text-8 + .box-block { margin-top: 1.875rem; }
-
-h2 + .action-button, .text-2 + .action-button { margin-top: 1.75rem; }
-
-p + .slides-block { margin-top: 2.5rem; }
-.slides-block + .block { margin-top: 2.8125rem; }
-
-.slides-block + .slides-block,
-.slides-block + .video-block,
-.video-block  + .video-block { margin-top: 1.25rem; }
-
-@media screen and (min-width: $breakpoint-2) {
-	.slides-block + .slides-block,
-	.slides-block + .video-block,
-	.video-block  + .video-block { margin-top: 1.875rem; }
-}
-
-
-ul + img { margin-top: 1.875rem; }
-
-@media screen and (min-width: $breakpoint-2) {
-	p + .box, .text-8 + .box-block { margin-top: 2.5rem; }
-}
-
-.lined {
-	position: relative;
-}
-
-.lined::before {
-	content: '';
-	position: absolute;
-	width: 3.75rem;
-	height: 0;
-	left: 0;
-	bottom: 0;
-	border-bottom: 0.1875rem solid $theme-color;
-}
-
-h1.lined, .text-1.lined { padding-bottom: 1.875rem; }
-h2.lined, .text-2.lined { padding-bottom: 2.125rem; }
-h3.lined, .text-3.lined { padding-bottom: 1.25rem; }
-h4.lined, .text-4.lined { padding-bottom: 1rem; }
-
-.text-2.lined + .text-1 { margin-top: 3.75rem; }
-.text-4.lined + .text-3 { margin-top: 0.9375rem; }
-
-.text-12 + .grid-index  { margin-top: 1.5625rem; }
-
-
-p + .box-block { margin-top: 1.875rem; }
-
-@media screen and (min-width: $breakpoint-2) {
-	p + .box-block { margin-top: 2.8125rem; }
-}
-
-h1 + .select-button, .text-1 + .select-button {  margin-top: 1.875rem; }
-.page-select-button + p, .page-select-button + .text-8 {  margin-top: 2.5rem; }
-
 
 h1 > a:focus,
 h1 > a:hover,
@@ -516,31 +402,27 @@ ol                { margin-left: 0; }
 
 blockquote        { margin-left: 2.6667em; }
 
-.dashed-ul {
-	margin-left: 0;
-	padding-left: 1rem;
-}
-
-.dashed-ul > li {
-	list-style-type: none;
-}
-
-.dashed-ul > li::before {
-	display: inline-block;
-	content: '–';
-	width: 1rem;
-	margin-left: -1rem;
-}
-
-.dashed-ul > li + li {
-	margin-top: 0.125rem;
-}
 
 /* Classes */
 
 .left             { margin: 0.75em 1em 0.75em 0; }
 .right            { margin: 0.75em 0 0.75em 1em; }
 .note             { font-size: 0.9167em; line-height: 1.8181; }
-.uppercased       { text-transform: uppercase; }
+.uppercase-text   { text-transform: uppercase; }
 .html-tag::before { content: '<'; margin-right: -0.1em; }
 .html-tag::after  { content: '>'; margin-left: -0.1em; }
+
+/* Selection */
+
+::selection {
+	background:rgba(27,117,186,0.8);
+	color:rgb(255,255,255);
+}
+::-moz-selection {
+	background:rgba(27,117,186,0.8);
+	color:rgb(255,255,255);
+}
+::-webkit-selection {
+	background:rgba(27,117,186,0.8);
+	color:rgb(255,255,255);
+}

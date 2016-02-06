@@ -127,14 +127,14 @@ Styleguide: zutilities.position
 .right { float: right; }
 
 .top-align      { vertical-align: top !important; }
-.middle-align   { vertical-align: middle !important; }
 .bottom-align   { vertical-align: bottom !important; }
+.middle-align   { vertical-align: middle !important; }
 .baseline-align { vertical-align: baseline !important; }
 
-.left-text      { text-align: left; }
-.justify-text   { text-align: justify; }
-.center-text    { text-align: center; }
-.right-text     { text-align: right; }
+.left-align     { text-align: left; }
+.right-align    { text-align: right; }
+.center-align   { text-align: center; }
+.justify-align  { text-align: justify; }
 
 
 /*
