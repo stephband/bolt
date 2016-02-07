@@ -44,7 +44,7 @@ pre > code {
 a:focus,
 a:hover {
 	text-decoration: underline;
-	color: $theme-color;
+	color: #78A1AF;
 }
 
 a {
@@ -87,8 +87,8 @@ hr {
 	   have border-width > 1px. Use background-color. */
 	height: 1px;
 	border-width: 0;
-	margin-top: -1px;
-	background-color: $neutral-color-2;
+	margin-bottom: -1px;
+	background-color: currentcolor;
 }
 
 
@@ -293,7 +293,7 @@ Styleguide: vText.8
 .text-4, h4       { font-size: 1rem;     line-height: 1.5rem;   font-weight: 700; }
 .text-5, h5       { font-size: 1rem;     line-height: 1.375rem; font-weight: 700; }
 .text-6, h6       { font-size: 1.125rem; line-height: 1.5rem;   font-weight: 300; }
-.text-7, code     { font-size: 0.875rem; line-height: 1.5rem;   font-weight: 400; }
+.text-7           { font-size: 0.875rem; line-height: 1.5rem;   font-weight: 400; }
 .text-8, body     { font-size: 1rem;     line-height: 1.5625rem;   font-weight: 400; }
 
 @media screen and (min-width: $breakpoint-2) {
@@ -346,30 +346,6 @@ p + pre,  .text-8 + pre, pre + p,  pre + .text-8 { margin-top: 1.25rem; }
 p + form,     .text-8 + form     { margin-top: 0.5rem; }
 p + fieldset, .text-8 + fieldset { margin-top: 2rem; }
 
-h1 > a:focus,
-h1 > a:hover,
-.text-1 > a:focus,
-.text-1 > a:hover,
-h2 > a:focus,
-h2 > a:hover,
-.text-2 > a:focus,
-.text-2 > a:hover,
-h3 > a:focus,
-h3 > a:hover,
-.text-3 > a:focus,
-.text-3 > a:hover {
-	text-decoration: none;
-	color: $theme-color;
-}
-
-h1 > a,
-h2 > a,
-h3 > a {
-	text-decoration: none;
-	color: inherit;
-}
-
-
 dd                { margin: 0; }
 ul,
 ol,
@@ -411,7 +387,7 @@ blockquote        { margin-left: 2.6667em; }
 .uppercase-text   { text-transform: uppercase; }
 .html-tag::before { content: '<'; margin-right: -0.1em; }
 .html-tag::after  { content: '>'; margin-left: -0.1em; }
- 
+
 /* Selection */
 
 ::selection {
