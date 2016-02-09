@@ -96,7 +96,7 @@ Styleguide: zutilities.modify
 }
 
 .fixed {
-	position: fixed;
+	position: fixed !important;
 }
 
 /*
