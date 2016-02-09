@@ -95,6 +95,9 @@ Styleguide: zutilities.modify
 	height: 0;
 }
 
+.fixed {
+	position: fixed;
+}
 
 /*
 Position
