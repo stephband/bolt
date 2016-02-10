@@ -117,11 +117,6 @@ $gutter:       2.5rem;
 //
 // Styleguide: wGrid.1
 
-body > .grid-block {
-	margin-left: #{$gutter / 2};
-	margin-right: #{$gutter / 2};
-}
-
 // .grid-index
 //
 // Similar to <code>grid-block</code>, but for lists, where the children
