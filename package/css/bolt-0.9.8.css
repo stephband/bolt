@@ -2326,10 +2326,6 @@ Styleguide: Thumb.social-thumb-3
 	}
 }
 
-body > .grid-block {
-  margin-left: 1.25rem;
-  margin-right: 1.25rem; }
-
 .grid-block,
 .grid-index {
   position: relative;
