@@ -1381,9 +1381,9 @@ Styleguide: Block
 	vertical-align: top;
 	overflow: visible;
 
-	/* Negate possible spacing when .block is used on
-	   something typographic like a <p>, for example. */
-	margin: 0;
+	/* Negate possible spacing when .block is used on something typographic like
+	   a <p>, for example. Also, make blocks behave as centered wraps by default. */
+	margin-top: 0 auto;
 	padding: 0;
 }
 
