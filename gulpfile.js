@@ -20,7 +20,6 @@ var files = {
 		"css/thumb.css",
 		"css/grid.css",
 		"css/text.css",
-		"css/color.css",
 		"css/utilities.css",
 		"css/document.css",
 		"css/space.css",
@@ -61,8 +60,8 @@ var config = {
 		template: 'docs-template',
 
 		// Relative paths to include in styleguide
-		css: files.css.map(prefixUpLevel),
-		js: files.js.map(prefixUpLevel)
+		css: files.css.map(upLevel),
+		js: files.js.map(upLevel)
 	},
 
 	karma: {
@@ -73,7 +72,7 @@ var config = {
 	}
 };
 
-function prefixUpLevel(path) {
+function upLevel(path) {
 	return '../' + path;
 }
 
