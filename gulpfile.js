@@ -1,5 +1,11 @@
 var path = require('path');
 var gulp = require('gulp');
+var sass = require('gulp-sass');
+var header = require('gulp-header');
+var concat = require('gulp-concat');
+var runSequence = require('run-sequence');
+var exec = require('child_process').exec;
+var package = require('./package.json');
 
 
 var CONFIG = {};
@@ -17,9 +23,6 @@ CONFIG.files = {
 }
 
 CONFIG.plugins = {
-  loadPlugins: {
-
-  },
   karma: {
     // unfortunately, karma needs the __dirname here
     configFile: path.join(__dirname, CONFIG.dir.testConfig, 'karma.conf.js'),
@@ -28,14 +31,66 @@ CONFIG.plugins = {
   }
 }
 
-// Load the gulp plugins
-var package = require('./package.json');
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var header = require('gulp-header');
-var concat = require('gulp-concat');
-var runSequence = require('run-sequence');
-var exec = require('child_process').exec;
+var files = {
+	css: [
+		"css/normalise.css",
+		"css/form.css",
+		"css/block.css",
+		"css/index.css",
+		"css/card.css",
+		"css/button.css",
+		"css/thumb.css",
+		"css/grid.css",
+		"css/text.css",
+		"css/color.css",
+		"css/utilities.css",
+		"css/document.css",
+		"css/nav.css",
+		"css/space.css"
+	],
+
+	js: [
+		"./js/jquery.support.inputtypes.js",
+		"./js/jquery.event.move.js",
+		"./js/jquery.event.swipe.js",
+		"./js/jquery.event.activate.js",
+		"./js/jquery.dialog.js",
+		"./js/jquery.transition.js",
+		"./js/jquery.validate.js",
+		"./js/bolt.js",
+		"./js/bolt.a.js",
+		"./js/bolt.dialog.js",
+		"./js/bolt.input.js",
+		"./js/bolt.input.placeholder.js",
+		"./js/bolt.slide.js",
+		"./js/bolt.tab.js",
+		"./js/bolt.tip.js",
+		"./js/bolt.toggle.js"
+	]
+};
+
+var config = {
+	kss: {
+		title: (package.title || ''),
+
+		// Directories to search for KSS comments
+		source: ['css'],
+
+		// Directory to render styleguide
+		destination: 'docs',
+
+		// Location of template
+		template: 'docs-template',
+
+		// Relative paths to include in styleguide
+		css: files.css.map(prefixUpLevel),
+		js: files.js.map(prefixUpLevel)
+	}
+};
+
+function prefixUpLevel(path) {
+	return '../' + path;
+}
 
 // Lint the source files
 gulp.task('lint:src', function() {
@@ -73,22 +128,7 @@ gulp.task('sass', function() {
 });
 
 gulp.task('build-css', function() {
-  return gulp.src([
-    "css/normalise.css",
-    "css/form.css",
-    "css/block.css",
-    "css/index.css",
-    "css/card.css",
-    "css/button.css",
-    "css/thumb.css",
-    "css/grid.css",
-    "css/text.css",
-    "css/color.css",
-    "css/utilities.css",
-    "css/document.css",
-    "css/nav.css",
-    "css/space.css"
-  ])
+  return gulp.src(files.css)
   // Concat files
   .pipe(concat('bolt-' + package.version + '.css'))
   // Add a comment to the top
@@ -98,24 +138,7 @@ gulp.task('build-css', function() {
 });
 
 gulp.task('build-js', function() {
-  return gulp.src([
-    "./js/jquery.support.inputtypes.js",
-    "./js/jquery.event.move.js",
-    "./js/jquery.event.swipe.js",
-    "./js/jquery.event.activate.js",
-    "./js/jquery.dialog.js",
-    "./js/jquery.transition.js",
-    "./js/jquery.validate.js",
-    "./js/bolt.js",
-    "./js/bolt.a.js",
-    "./js/bolt.dialog.js",
-    "./js/bolt.input.js",
-    "./js/bolt.input.placeholder.js",
-    "./js/bolt.slide.js",
-    "./js/bolt.tab.js",
-    "./js/bolt.tip.js",
-    "./js/bolt.toggle.js"
-  ])
+  return gulp.src(files.js)
   // Concat files
   .pipe(concat('bolt-' + package.version + '.js'))
   // Add a comment to the top
@@ -125,13 +148,21 @@ gulp.task('build-js', function() {
 });
 
 gulp.task('kss', function(cb) {
-  exec('./node_modules/kss/bin/kss-node --config config.json', function(error, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    cb(error);
-  });
+	var command =
+		'./node_modules/kss/bin/kss-node' +
+		' --source '      + config.kss.source.join(' --source ') +
+		' --destination ' + config.kss.destination +
+		' --template '    + config.kss.template +
+		' --css ../'      + config.kss.css.join(' --css ') +
+		' --js '          + config.kss.js.join(' --js ') ;
+
+	exec(command, function(error, stdout, stderr) {
+		console.log(stdout);
+		console.log(stderr);
+		cb(error);
+	});
 });
 
 gulp.task('default', function(done) {
-  runSequence(['sass', 'build-css', 'build-js', 'kss'], done);
+	runSequence(['sass', 'build-css', 'build-js', 'kss'], done);
 });

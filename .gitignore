@@ -1,12 +1,2 @@
-_archive/*
 docs/*
-_index.html
-res/iepngfix/checkerboard.gif
-res/iepngfix/helix.gif
-res/iepngfix/iepngfix.html
-res/iepngfix/iepngfix.php
-res/iepngfix/opacity.png
-res/iepngfix/opacity2.png
-res/iepngfix/shadow.png
-archive/*
 node_modules/*

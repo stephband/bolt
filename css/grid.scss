@@ -1,10 +1,13 @@
 
-$breakpoint-1: 30em;
-$breakpoint-2: 37.5rem;
-$breakpoint-3: 45em;
-$breakpoint-4: 60em;
+$grid-count: 6;
+$gutter:     2.5rem;
 
-$gutter:       2.5rem;
+// prefix, min-width, grid count, gutter
+$breakpoints:
+	'\\@1-' 30em   6  2.5rem,
+	'\\@2-' 37.5em 9  2.5rem,
+	'\\@3-' 45em   12 2.5rem,
+	'\\@4-' 60em   12 2.5rem;
 
 // Grid
 //
@@ -181,22 +184,12 @@ $gutter:       2.5rem;
 //
 // Styleguide: wGrid.12
 
-@include grid($gutter, 6);
+@include grid($gutter, $grid-count);
 
-@media all and (min-width: $breakpoint-1) {
-	@include grid($gutter, 6, '\\@1-');
-}
-
-@media all and (min-width: $breakpoint-2) {
-	@include grid($gutter, 9, '\\@2-');
-}
-
-@media all and (min-width: $breakpoint-3) {
-	@include grid($gutter, 12, '\\@3-');
-}
-
-@media all and (min-width: $breakpoint-4) {
-	@include grid($gutter, 12, '\\@4-');
+@each $breakpoint in $breakpoints {
+	@media all and (min-width: nth($breakpoint, 2)) {
+		@include grid(nth($breakpoint, 4), nth($breakpoint, 3), nth($breakpoint, 1));
+	}
 }
 
 
@@ -214,65 +207,33 @@ $gutter:       2.5rem;
 //
 // Styleguide: wGrid.1001
 
-.grid-index-1\/n > li:nth-last-child(2):first-child,
-.grid-index-1\/n > li:nth-last-child(2):first-child ~ li { width: calc(50% - 1.875rem); }
-.grid-index-1\/n > li:nth-last-child(3):first-child,
-.grid-index-1\/n > li:nth-last-child(3):first-child ~ li { width: calc(33.3333% - 1.875rem); }
-.grid-index-1\/n > li:nth-last-child(4):first-child,
-.grid-index-1\/n > li:nth-last-child(4):first-child ~ li { width: calc(25% - 1.875rem); }
-.grid-index-1\/n > li:nth-last-child(5):first-child,
-.grid-index-1\/n > li:nth-last-child(5):first-child ~ li { width: calc(20% - 1.875rem); }
-.grid-index-1\/n > li:nth-last-child(6):first-child,
-.grid-index-1\/n > li:nth-last-child(6):first-child ~ li { width: calc(16.6667% - 1.875rem); }
-.grid-index-1\/n > li:nth-last-child(7):first-child,
-.grid-index-1\/n > li:nth-last-child(7):first-child ~ li { width: calc(14.2857% - 1.875rem); }
-.grid-index-1\/n > li:nth-last-child(8):first-child,
-.grid-index-1\/n > li:nth-last-child(8):first-child ~ li { width: calc(12.5% - 1.875rem); }
-.grid-index-1\/n > li:nth-last-child(9):first-child,
-.grid-index-1\/n > li:nth-last-child(9):first-child ~ li { width: calc(11.1111% - 1.875rem); }
-.grid-index-1\/n > li:nth-last-child(10):first-child,
-.grid-index-1\/n > li:nth-last-child(10):first-child ~ li { width: calc(10% - 1.875rem); }
-.grid-index-1\/n > li:nth-last-child(11):first-child,
-.grid-index-1\/n > li:nth-last-child(11):first-child ~ li { width: calc(9.090909% - 1.875rem); }
-.grid-index-1\/n > li:nth-last-child(12):first-child,
-.grid-index-1\/n > li:nth-last-child(12):first-child ~ li { width: calc(8.333333% - 1.875rem); }
+// .@breakpoint-grid-index-1/n
+//
+// A <code>grid-index</code> whose child <code class="html-tag">li</code> widths
+// are set to <code>1/n</code> grid dvisions, <code>n</code> being the number of
+// children.
+//
+// Markup: <ul class="@600-grid-index-1/n grid-index index">
+//   <li class="neutral-bg-2">One</li
+//   ><li class="neutral-bg-2">Two</li
+//   ><li class="neutral-bg-2">Three</li>
+// </ul>
+//
+// Styleguide: wGrid.1002
 
+@mixin grid-index-adaptive($gutter: 1.25rem, $n: 6, $prefix: '') {
+	@for $i from 2 through $n {
+		.#{$prefix}grid-index-1\/n > li:nth-last-child(#{$i}):first-child,
+		.#{$prefix}grid-index-1\/n > li:nth-last-child(#{$i}):first-child ~ li {
+			width: calc(#{100 / $i}% - #{$gutter});
+		}
+	}
+}
 
-@media all and (min-width: $breakpoint-2) {
-	// .@600-grid-index-1/n
-	//
-	// A <code>grid-index</code> whose child <code class="html-tag">li</code> widths
-	// are set to <code>1/n</code> grid dvisions, <code>n</code> being the number of
-	// children.
-	//
-	// Markup: <ul class="@600-grid-index-1/n grid-index index">
-	//   <li class="neutral-bg-2">One</li
-	//   ><li class="neutral-bg-2">Two</li
-	//   ><li class="neutral-bg-2">Three</li>
-	// </ul>
-	//
-	// Styleguide: wGrid.1002
+@include grid-index-adaptive($gutter, $grid-count);
 
-	.\@600-grid-index-1\/n > li:nth-last-child(2):first-child,
-	.\@600-grid-index-1\/n > li:nth-last-child(2):first-child ~ li { width: calc(50% - 1.875rem); }
-	.\@600-grid-index-1\/n > li:nth-last-child(3):first-child,
-	.\@600-grid-index-1\/n > li:nth-last-child(3):first-child ~ li { width: calc(33.3333% - 1.875rem); }
-	.\@600-grid-index-1\/n > li:nth-last-child(4):first-child,
-	.\@600-grid-index-1\/n > li:nth-last-child(4):first-child ~ li { width: calc(25% - 1.875rem); }
-	.\@600-grid-index-1\/n > li:nth-last-child(5):first-child,
-	.\@600-grid-index-1\/n > li:nth-last-child(5):first-child ~ li { width: calc(20% - 1.875rem); }
-	.\@600-grid-index-1\/n > li:nth-last-child(6):first-child,
-	.\@600-grid-index-1\/n > li:nth-last-child(6):first-child ~ li { width: calc(16.6667% - 1.875rem); }
-	.\@600-grid-index-1\/n > li:nth-last-child(7):first-child,
-	.\@600-grid-index-1\/n > li:nth-last-child(7):first-child ~ li { width: calc(14.2857% - 1.875rem); }
-	.\@600-grid-index-1\/n > li:nth-last-child(8):first-child,
-	.\@600-grid-index-1\/n > li:nth-last-child(8):first-child ~ li { width: calc(12.5% - 1.875rem); }
-	.\@600-grid-index-1\/n > li:nth-last-child(9):first-child,
-	.\@600-grid-index-1\/n > li:nth-last-child(9):first-child ~ li { width: calc(11.1111% - 1.875rem); }
-	.\@600-grid-index-1\/n > li:nth-last-child(10):first-child,
-	.\@600-grid-index-1\/n > li:nth-last-child(10):first-child ~ li { width: calc(10% - 1.875rem); }
-	.\@600-grid-index-1\/n > li:nth-last-child(11):first-child,
-	.\@600-grid-index-1\/n > li:nth-last-child(11):first-child ~ li { width: calc(9.090909% - 1.875rem); }
-	.\@600-grid-index-1\/n > li:nth-last-child(12):first-child,
-	.\@600-grid-index-1\/n > li:nth-last-child(12):first-child ~ li { width: calc(8.333333% - 1.875rem); }
+@each $breakpoint in $breakpoints {
+	@media all and (min-width: nth($breakpoint, 2)) {
+		@include grid-index-adaptive(nth($breakpoint, 4), nth($breakpoint, 3), nth($breakpoint, 1));
+	}
 }

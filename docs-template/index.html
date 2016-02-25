@@ -29,6 +29,8 @@
 	<link rel="stylesheet" href="../css/space.css" />
 	<link rel="stylesheet" href="../css/action.css" />
 
+	{{{styles}}}
+
     <link rel="stylesheet" href="public/kss.css">
 </head>
 
@@ -86,7 +88,7 @@
       <section id="kssref-{{referenceURI}}" class="kss-section kss-section--depth-{{depth}}">
     {{/ifDepth}}
 
-    <div class="kss-style block @896-grid-1/2">
+    <div class="kss-style block @3-grid-1/2">
       <h{{depth}} {{#ifDepth 1}}class="text-2"{{else}}class="text-6"{{/ifDepth}}>
         <a class="kss-title__permalink text-4" href="#kssref-{{referenceURI}}">
           <!--small>{{#ifNumeric reference}}{{reference}}{{else}}{{autoincrement}}{{/ifNumeric}}</small-->
@@ -113,20 +115,20 @@
 
     {{#if markup}}
     <div class="grid-block block">
-        <div class="example-block block @600-grid-2/3 @896-grid-1/2">
+        <div class="example-block block @2-grid-2/3 @3-grid-1/2">
             {{{markup}}}
         </div
 
-        ><pre class="prettyprint lang-html code-block block @896-grid-1/2"><code data-language="html">{{markup}}</code></pre>
+        ><pre class="prettyprint lang-html code-block block @3-grid-1/2"><code data-language="html">{{markup}}</code></pre>
 
         {{#eachModifier}}
-        <div class="example-block block @600-grid-2/3 @896-grid-1/2">
+        <div class="example-block block @2-grid-2/3 @3-grid-1/2">
             {{{markup}}}
         </div
 
-        ><pre class="prettyprint lang-html code-block block @896-grid-1/2"><code data-language="html">{{markup}}</code></pre
+        ><pre class="prettyprint lang-html code-block block @3-grid-1/2"><code data-language="html">{{markup}}</code></pre
 
-        >{{#if name}}<p class="block @600-grid-2/3 @896-grid-1/2">
+        >{{#if name}}<p class="block @2-grid-2/3 @3-grid-1/2">
             {{name}} – {{{description}}}
         </p>{{/if}}
         {{/eachModifier}}
@@ -149,6 +151,8 @@
 </script>
 <script src="../js/jquery-2.1.4.js"></script>
 <script src="../package/js/bolt-0.9.8.js"></script>
+
+{{{scripts}}}
 
 </body>
 </html>

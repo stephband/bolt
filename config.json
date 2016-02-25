@@ -1,9 +1,0 @@
-{
-  "homepage": "README.md",
-  "placeholder": "",
-  "source": [
-      "css/"
-  ],
-  "destination":  "docs/",
-  "template": "docs-template"
-}
