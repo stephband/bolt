@@ -153,7 +153,7 @@ gulp.task('kss', function(cb) {
 		' --source '      + config.kss.source.join(' --source ') +
 		' --destination ' + config.kss.destination +
 		' --template '    + config.kss.template +
-		' --css ../'      + config.kss.css.join(' --css ') +
+		' --css '         + config.kss.css.join(' --css ') +
 		' --js '          + config.kss.js.join(' --js ') ;
 
 	exec(command, function(error, stdout, stderr) {
