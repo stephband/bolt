@@ -7,37 +7,15 @@ var runSequence = require('run-sequence');
 var exec = require('child_process').exec;
 var package = require('./package.json');
 
-
-var CONFIG = {};
-
-CONFIG.dir = {
-  src: 'js',
-  build: 'build',
-  testSpec: 'test/spec',
-  testConfig: 'test/config'
-}
-
-CONFIG.files = {
-  src: path.join(CONFIG.dir.src, '**', '*.js'),
-  testSpec: path.join(CONFIG.dir.testSpec, '**', '*.spec.js')
-}
-
-CONFIG.plugins = {
-  karma: {
-    // unfortunately, karma needs the __dirname here
-    configFile: path.join(__dirname, CONFIG.dir.testConfig, 'karma.conf.js'),
-    browsers: ['Chrome'],
-    singleRun: true
-  }
-}
-
 var files = {
 	css: [
 		"css/normalise.css",
 		"css/form.css",
 		"css/block.css",
 		"css/index.css",
+		"css/layer.css",
 		"css/card.css",
+		"css/bubble.css",
 		"css/button.css",
 		"css/thumb.css",
 		"css/grid.css",
@@ -45,27 +23,27 @@ var files = {
 		"css/color.css",
 		"css/utilities.css",
 		"css/document.css",
-		"css/nav.css",
-		"css/space.css"
+		"css/space.css",
+		"css/action.css"
 	],
 
 	js: [
-		"./js/jquery.support.inputtypes.js",
-		"./js/jquery.event.move.js",
-		"./js/jquery.event.swipe.js",
-		"./js/jquery.event.activate.js",
-		"./js/jquery.dialog.js",
-		"./js/jquery.transition.js",
-		"./js/jquery.validate.js",
-		"./js/bolt.js",
-		"./js/bolt.a.js",
-		"./js/bolt.dialog.js",
-		"./js/bolt.input.js",
-		"./js/bolt.input.placeholder.js",
-		"./js/bolt.slide.js",
-		"./js/bolt.tab.js",
-		"./js/bolt.tip.js",
-		"./js/bolt.toggle.js"
+		"js/jquery.support.inputtypes.js",
+		"js/jquery.event.move.js",
+		"js/jquery.event.swipe.js",
+		"js/jquery.event.activate.js",
+		"js/jquery.dialog.js",
+		"js/jquery.transition.js",
+		"js/jquery.validate.js",
+		"js/bolt.js",
+		"js/bolt.a.js",
+		"js/bolt.dialog.js",
+		"js/bolt.input.js",
+		"js/bolt.input.placeholder.js",
+		"js/bolt.slide.js",
+		"js/bolt.tab.js",
+		"js/bolt.tip.js",
+		"js/bolt.toggle.js"
 	]
 };
 
@@ -85,6 +63,13 @@ var config = {
 		// Relative paths to include in styleguide
 		css: files.css.map(prefixUpLevel),
 		js: files.js.map(prefixUpLevel)
+	},
+
+	karma: {
+		// unfortunately, karma needs the __dirname here
+		//configFile: path.join(__dirname, CONFIG.dir.testConfig, 'karma.conf.js'),
+		browsers: ['Chrome'],
+		singleRun: true
 	}
 };
 
@@ -94,9 +79,7 @@ function prefixUpLevel(path) {
 
 // Lint the source files
 gulp.task('lint:src', function() {
-  return gulp.src([
-    CONFIG.files.src
-  ])
+  return gulp.src([files.js])
   // eslint() attaches the lint output to the eslint property
   // of the file object so it can be used by other modules.
   .pipe($.eslint())
@@ -111,7 +94,7 @@ gulp.task('lint:src', function() {
 // Run the unit tests
 gulp.task('test:spec', function(done) {
   return karma
-  .start(CONFIG.plugins.karma, function(err) {
+  .start(config.karma, function(err) {
     // Stop the gulp task when an error occurs
     // in the unit tests
     if (err) {
