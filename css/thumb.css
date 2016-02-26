@@ -67,70 +67,11 @@ Styleguide: Thumb
 
 
 /*
-.logo-thumb
-
-Markup: <a class="logo-thumb thumb" href="/">Logo name</a>
-<a class="logo-thumb thumb desaturated" href="/">Logo name</a>
-
-Styleguide: Thumb.logo-thumb
-*/
-
-.logo-thumb {
-	position: relative;
-	width: 9.625rem;
-	padding-top: 2.5rem;
-	/* Overriden by theme. */
-	background-image: url('../images/sprites-mcb.svg');
-	background-size: 100% auto;
-	background-position: 0 0;
-}
-
-.logo-thumb::after {
-	position: absolute;
-	top: 0;
-	left: 0;
-	content: '';
-	width: inherit;
-	height: 100%;
-	/* Overriden by theme. */
-	background-image: inherit;
-	background-size: inherit;
-	background-position: 0 -59.6px;
-	opacity: 0;
-	transition: opacity 1200ms linear 140ms;
-}
-
-.logo-thumb.desaturated::after {
-	opacity: 1;
-	transition: opacity 200ms linear;
-}
-
-@media screen and (min-width: $breakpoint-3) {
-	.logo-thumb {
-		width: 13.125rem;
-		padding-top: 4rem;
-	}
-
-	.logo-thumb::after {
-		content: none;
-	}
-}
-
-@media screen and (min-width: $breakpoint-5) {
-	.logo-thumb {
-		width: 16.375rem;
-		padding-top: 5rem;
-		background-size: auto;
-	}
-}
-
-
-/*
 .nav-thumb
 
 Markup: <a class="nav-thumb thumb" href="#nav">Navigation</a>
 
-Styleguide: Thumb.nav-thumb
+Styleguide: thumb.nav-thumb
 */
 
 .nav-thumb {
@@ -150,7 +91,7 @@ Icon for dismissing alerts.
 
 Markup: <button class="dismiss-thumb thumb">Dismiss</button>
 
-Styleguide: Thumb.dismiss-thumb
+Styleguide: thumb.dismiss-thumb
 */
 
 .dismiss-thumb {
@@ -178,7 +119,7 @@ Markup: <a class="close-thumb thumb" href="#nav">
   </svg>
 </a>
 
-Styleguide: Thumb.close-thumb
+Styleguide: thumb.close-thumb
 */
 
 .close-thumb {
@@ -201,7 +142,7 @@ See also page-index.
 Markup: <a class="prev-page-thumb page-thumb thumb" href="/">Previous</a>
 <a class="next-page-thumb page-thumb thumb" href="/">Next</a>
 
-Styleguide: Thumb.page-thumb
+Styleguide: thumb.page-thumb
 */
 
 .page-thumb {
@@ -231,7 +172,7 @@ Styleguide: Thumb.page-thumb
 
 Markup: <a class="fb-thumb thumb" href="/">Facebook</a>
 
-Styleguide: Thumb.social-thumb-1
+Styleguide: thumb.social-thumb-1
 */
 
 /*
@@ -239,7 +180,7 @@ Styleguide: Thumb.social-thumb-1
 
 Markup: <a class="tw-thumb thumb" href="/">Twitter</a>
 
-Styleguide: Thumb.social-thumb-2
+Styleguide: thumb.social-thumb-2
 */
 
 /*
@@ -247,7 +188,7 @@ Styleguide: Thumb.social-thumb-2
 
 Markup: <a class="in-thumb thumb" href="/">Instagram</a>
 
-Styleguide: Thumb.social-thumb-3
+Styleguide: thumb.social-thumb-3
 */
 
 .fb-thumb,

@@ -21,6 +21,7 @@ var files = {
 		"css/grid.css",
 		"css/text.css",
 		"css/utilities.css",
+		"css/color.css",
 		"css/document.css",
 		"css/space.css",
 		"css/action.css"
