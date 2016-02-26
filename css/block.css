@@ -6,7 +6,7 @@
 <p>Any <code>.block</code> child of a <code>.grid-block</code> becomes an inline-block. Grid layout can be designed by adding <code>.grid-<i>n</i>/<i>d</i></code> classes to those children.</p>
 <p>Applied to a media tag like img, svg, video and canvas, <code>.block</code> will scale the element to fill the available width.</p>
 
-Styleguide: Block
+Styleguide: block
 */
 
 .block {
@@ -55,7 +55,7 @@ Markup: <a href="#some-stuff">Click to show</a>
   spaces velit esse cilium buntum how crunchy duntum.</p>
 </div>
 
-Styleguide: Block.toggle-block
+Styleguide: block.toggle-block
 */
 
 .toggle-block {
@@ -100,7 +100,7 @@ Styleguide: Block.toggle-block
 
 A wrapper for <code>slide-block</code>s and <code>ctrl-button</code>s.
 
-Styleguide: Block.slides-block-1
+Styleguide: block.slides-block-1
 */
 
 .slides-block {
@@ -139,7 +139,7 @@ Markup: <div class="slides-block block">
   <a class="next-ctrl-thumb ctrl-thumb thumb" href="#slide-2">Next</a>
 </div>
 
-Styleguide: Block.slides-block-2
+Styleguide: block.slides-block-2
 */
 
 .slide-block {
