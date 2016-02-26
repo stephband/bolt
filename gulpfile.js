@@ -53,13 +53,13 @@ var config = {
 		title: (package.title || ''),
 
 		// Directories to search for KSS comments
-		source: ['css'],
+		source: ['css', 'scss'],
 
 		// Directory to render styleguide
-		destination: 'docs',
+		destination: 'styles',
 
 		// Location of template
-		template: 'docs-template',
+		template: 'styles-template',
 
 		// Relative paths to include in styleguide
 		css: files.css.map(upLevel),
@@ -106,7 +106,7 @@ gulp.task('test:spec', function(done) {
 });
 
 gulp.task('sass', function() {
-  gulp.src('css/*.scss')
+  gulp.src('scss/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./css/'));
 });

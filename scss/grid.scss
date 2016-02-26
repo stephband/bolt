@@ -1,19 +1,31 @@
 
-$grid-count: 6;
-$gutter:     2.5rem;
+// Grid
+//
+// A flexible, nestable, responsive grid system.
+//
+// Styleguide: wGrid
+
+// Requires SCSS vars:
+//
+// $grid-count: 6;
+// $gutter:     2.5rem;
+//
+// // prefix, min-width, grid count, gutter
+// $breakpoints:
+// 	'\\@1-' 30em   6  2.5rem,
+// 	'\\@2-' 37.5em 9  2.5rem,
+// 	'\\@3-' 45em   12 2.5rem,
+// 	'\\@4-' 60em   12 2.5rem;
+
+$grid-count: 6 !default;
+$gutter:     2.5rem !default;
 
 // prefix, min-width, grid count, gutter
 $breakpoints:
 	'\\@1-' 30em   6  2.5rem,
 	'\\@2-' 37.5em 9  2.5rem,
 	'\\@3-' 45em   12 2.5rem,
-	'\\@4-' 60em   12 2.5rem;
-
-// Grid
-//
-// A flexible, nestable, responsive grid system.
-//
-// Styleguide: wGrid
+	'\\@4-' 60em   12 2.5rem !default;
 
 @mixin grid($gutter: 1.25rem, $n: 6, $prefix: '') {
 	.grid-block > .#{$prefix}block,
