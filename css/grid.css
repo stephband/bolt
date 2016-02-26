@@ -2,16 +2,14 @@
 .grid-index {
   position: relative;
   padding: 0;
-  margin: -1.25rem; }
-
-.grid-block > hr.block {
-  margin-top: 2rem;
-  margin-bottom: 1.875rem; }
+  margin-left: -1.25rem;
+  margin-right: -1.25rem; }
 
 .grid-block > .block,
 .grid-index > li {
   display: inline-block;
-  margin: 1.25rem; }
+  margin-left: 1.25rem;
+  margin-right: 1.25rem; }
 
 .grid-block > .grid-block {
   margin-left: 0;
@@ -265,7 +263,8 @@
   .grid-block > .\@1-block,
   .\@1-grid-index > li {
     display: inline-block;
-    margin: 1.25rem; }
+    margin-left: 1.25rem;
+    margin-right: 1.25rem; }
   .grid-block > .grid-block {
     margin-left: 0;
     margin-right: 0; }
@@ -454,7 +453,8 @@
   .grid-block > .\@2-block,
   .\@2-grid-index > li {
     display: inline-block;
-    margin: 1.25rem; }
+    margin-left: 1.25rem;
+    margin-right: 1.25rem; }
   .grid-block > .grid-block {
     margin-left: 0;
     margin-right: 0; }
@@ -874,7 +874,8 @@
   .grid-block > .\@3-block,
   .\@3-grid-index > li {
     display: inline-block;
-    margin: 1.25rem; }
+    margin-left: 1.25rem;
+    margin-right: 1.25rem; }
   .grid-block > .grid-block {
     margin-left: 0;
     margin-right: 0; }
@@ -1624,7 +1625,8 @@
   .grid-block > .\@4-block,
   .\@4-grid-index > li {
     display: inline-block;
-    margin: 1.25rem; }
+    margin-left: 1.25rem;
+    margin-right: 1.25rem; }
   .grid-block > .grid-block {
     margin-left: 0;
     margin-right: 0; }
