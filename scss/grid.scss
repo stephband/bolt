@@ -5,20 +5,8 @@
 //
 // Styleguide: wGrid
 
-// Requires SCSS vars:
-//
-// $grid-count: 6;
-// $gutter:     2.5rem;
-//
-// // prefix, min-width, grid count, gutter
-// $breakpoints:
-// 	'\\@1-' 30em   6  2.5rem,
-// 	'\\@2-' 37.5em 9  2.5rem,
-// 	'\\@3-' 45em   12 2.5rem,
-// 	'\\@4-' 60em   12 2.5rem;
-
 $grid-count: 6 !default;
-$gutter:     2.5rem !default;
+$grid-gutter: 2.5rem !default;
 
 // prefix, min-width, grid count, gutter
 $breakpoints:
@@ -151,7 +139,7 @@ $breakpoints:
 .grid-index {
 	position: relative;
 	padding: 0;
-	margin: -#{$gutter / 2};
+	margin: -#{$grid-gutter / 2};
 }
 
 .grid-block > hr.block {
@@ -196,7 +184,7 @@ $breakpoints:
 //
 // Styleguide: wGrid.12
 
-@include grid($gutter, $grid-count);
+@include grid($grid-gutter, $grid-count);
 
 @each $breakpoint in $breakpoints {
 	@media all and (min-width: nth($breakpoint, 2)) {
@@ -242,7 +230,7 @@ $breakpoints:
 	}
 }
 
-@include grid-index-adaptive($gutter, $grid-count);
+@include grid-index-adaptive($grid-gutter, $grid-count);
 
 @each $breakpoint in $breakpoints {
 	@media all and (min-width: nth($breakpoint, 2)) {
