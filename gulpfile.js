@@ -27,6 +27,7 @@ var files = {
 	],
 
 	js: [
+		"js/jquery-2.2.0.js",
 		"js/jquery.support.inputtypes.js",
 		"js/jquery.event.move.js",
 		"js/jquery.event.swipe.js",
