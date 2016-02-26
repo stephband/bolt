@@ -27,7 +27,6 @@ var files = {
 	],
 
 	js: [
-		"js/jquery-2.2.0.js",
 		"js/jquery.support.inputtypes.js",
 		"js/jquery.event.move.js",
 		"js/jquery.event.swipe.js",
@@ -44,7 +43,9 @@ var files = {
 		"js/bolt.tab.js",
 		"js/bolt.tip.js",
 		"js/bolt.toggle.js"
-	]
+	],
+
+    jquery: 'js/jquery-2.2.0.js'
 };
 
 var config = {
@@ -62,7 +63,7 @@ var config = {
 
 		// Relative paths to include in styleguide
 		css: files.css.map(upLevel),
-		js: files.js.map(upLevel)
+		js: [upLevel(files.jquery)].concat(files.js.map(upLevel))
 	},
 
 	karma: {
@@ -137,7 +138,7 @@ gulp.task('kss', function(cb) {
 		' --destination ' + config.kss.destination +
 		' --template '    + config.kss.template +
 		' --css '         + config.kss.css.join(' --css ') +
-		' --js '          + config.kss.js.join(' --js ') ;
+        ' --js '          + config.kss.js.join(' --js ') ;
 
 	exec(command, function(error, stdout, stderr) {
 		console.log(stdout);
