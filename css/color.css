@@ -1,7 +1,21 @@
 /*
-Color
+.white-color<br/>
+.white-bg
 
-Styleguide: vUtilities.color
+Markup: <p class="text-4 white-color">Text</p>
+<p class="text-4 white-bg">Text</p>
+
+Styleguide: Color.1
+*/
+
+/*
+.black-color<br/>
+.black-bg
+
+Markup: <p class="text-4 black-color">Text</p>
+<p class="text-4 black-bg">Text</p>
+
+Styleguide: Color.2
 */
 
 .white-color { color: white; }

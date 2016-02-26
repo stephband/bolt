@@ -78,7 +78,7 @@ Styleguide: thumb.nav-thumb
 	width: 2.5rem;
 	padding-top: 2.5rem;
 	background-color: $theme-color;
-	background-image: url('../images/sprites-common.svg');
+	background-image: url('../images/sprites.svg');
 	background-position: 0 0;
 	background-size: auto;
 }
@@ -97,7 +97,7 @@ Styleguide: thumb.dismiss-thumb
 .dismiss-thumb {
 	width: 1.875rem;
 	padding-top: 1.875rem;
-	background-image: url('../images/sprites-common.svg');
+	background-image: url('../images/sprites.svg');
 	background-position: 0 -625px;
 	background-size: auto;
 }
@@ -150,7 +150,7 @@ Styleguide: thumb.page-thumb
 	padding-top: 2.25rem;
 	color: $white-color;
 	background-color: $black-color;
-	background-image: url('../images/sprites-common.svg');
+	background-image: url('../images/sprites.svg');
 	background-size: 48px auto;
 }
 
@@ -196,7 +196,7 @@ Styleguide: thumb.social-thumb-3
 .in-thumb {
 	width: 1.875rem;
 	padding-top: 1.875rem;
-	background-image: url('../images/sprites-common.svg');
+	background-image: url('../images/sprites.svg');
 	background-size: 7.5rem auto;
 }
 
