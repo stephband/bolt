@@ -2,9 +2,14 @@
 /*
 .block
 
-<p>For layout. There are two ways a <code>.block</code> can be styled: as a <code>block</code>, for a vertical layout, or as <code>inline-block</code>, for a horizontal layout. <code>block</code> by default, obviously.</p>
-<p>Any <code>.block</code> child of a <code>.grid-block</code> becomes an inline-block. Grid layout can be designed by adding <code>.grid-<i>n</i>/<i>d</i></code> classes to those children.</p>
-<p>Applied to a media tag like img, svg, video and canvas, <code>.block</code> will scale the element to fill the available width.</p>
+<p>For layout. There are two ways a <code>.block</code> can be styled: as a
+<code>block</code>, for a vertical layout, or as <code>inline-block</code>, for
+a horizontal layout. <code>block</code> by default, obviously.</p>
+<p>Any <code>.block</code> child of a <code>.grid-block</code> becomes an
+inline-block. Grid layout can be designed by adding
+<code>.grid-<i>n</i>/<i>d</i></code> classes to those children.</p>
+<p>Applied to a media tag like img, svg, video and canvas, <code>.block</code>
+will scale the element to fill the available width.</p>
 
 Styleguide: block
 */
@@ -35,7 +40,7 @@ Styleguide: block
 .block > object,
 .block > embed,
 .block > iframe {
-	/* Don't allow media to break out of container bounds. */
+	/* Don't allow media to break out of .block bounds. */
 	max-width: 100%;
 }
 
