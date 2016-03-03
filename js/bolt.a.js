@@ -412,7 +412,7 @@
 				href = e.currentTarget.hash;
 			}
 
-			node = document.getElementById(href.substring(1));
+			node = href.substring(1) && document.getElementById(href.substring(1));
 
 			// If there is no node, there's no need to continue. Thanks.
 			if (!node) { return; }
