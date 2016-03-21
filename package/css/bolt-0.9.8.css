@@ -1361,11 +1361,16 @@ Styleguide: xForms.10
 /*
 .block
 
-<p>For layout. There are two ways a <code>.block</code> can be styled: as a <code>block</code>, for a vertical layout, or as <code>inline-block</code>, for a horizontal layout. <code>block</code> by default, obviously.</p>
-<p>Any <code>.block</code> child of a <code>.grid-block</code> becomes an inline-block. Grid layout can be designed by adding <code>.grid-<i>n</i>/<i>d</i></code> classes to those children.</p>
-<p>Applied to a media tag like img, svg, video and canvas, <code>.block</code> will scale the element to fill the available width.</p>
+<p>For layout. There are two ways a <code>.block</code> can be styled: as a
+<code>block</code>, for a vertical layout, or as <code>inline-block</code>, for
+a horizontal layout. <code>block</code> by default, obviously.</p>
+<p>Any <code>.block</code> child of a <code>.grid-block</code> becomes an
+inline-block. Grid layout can be designed by adding
+<code>.grid-<i>n</i>/<i>d</i></code> classes to those children.</p>
+<p>Applied to a media tag like img, svg, video and canvas, <code>.block</code>
+will scale the element to fill the available width.</p>
 
-Styleguide: Block
+Styleguide: block
 */
 
 .block {
@@ -1394,7 +1399,7 @@ Styleguide: Block
 .block > object,
 .block > embed,
 .block > iframe {
-	/* Don't allow media to break out of container bounds. */
+	/* Don't allow media to break out of .block bounds. */
 	max-width: 100%;
 }
 
@@ -1414,7 +1419,7 @@ Markup: <a href="#some-stuff">Click to show</a>
   spaces velit esse cilium buntum how crunchy duntum.</p>
 </div>
 
-Styleguide: Block.toggle-block
+Styleguide: block.toggle-block
 */
 
 .toggle-block {
@@ -1459,7 +1464,7 @@ Styleguide: Block.toggle-block
 
 A wrapper for <code>slide-block</code>s and <code>ctrl-button</code>s.
 
-Styleguide: Block.slides-block-1
+Styleguide: block.slides-block-1
 */
 
 .slides-block {
@@ -1498,7 +1503,7 @@ Markup: <div class="slides-block block">
   <a class="next-ctrl-thumb ctrl-thumb thumb" href="#slide-2">Next</a>
 </div>
 
-Styleguide: Block.slides-block-2
+Styleguide: block.slides-block-2
 */
 
 .slide-block {
@@ -2560,7 +2565,7 @@ Styleguide: thumb.nav-thumb
 	width: 2.5rem;
 	padding-top: 2.5rem;
 	background-color: $theme-color;
-	background-image: url('../images/sprites-common.svg');
+	background-image: url('../images/sprites.svg');
 	background-position: 0 0;
 	background-size: auto;
 }
@@ -2579,7 +2584,7 @@ Styleguide: thumb.dismiss-thumb
 .dismiss-thumb {
 	width: 1.875rem;
 	padding-top: 1.875rem;
-	background-image: url('../images/sprites-common.svg');
+	background-image: url('../images/sprites.svg');
 	background-position: 0 -625px;
 	background-size: auto;
 }
@@ -2632,7 +2637,7 @@ Styleguide: thumb.page-thumb
 	padding-top: 2.25rem;
 	color: $white-color;
 	background-color: $black-color;
-	background-image: url('../images/sprites-common.svg');
+	background-image: url('../images/sprites.svg');
 	background-size: 48px auto;
 }
 
@@ -2678,7 +2683,7 @@ Styleguide: thumb.social-thumb-3
 .in-thumb {
 	width: 1.875rem;
 	padding-top: 1.875rem;
-	background-image: url('../images/sprites-common.svg');
+	background-image: url('../images/sprites.svg');
 	background-size: 7.5rem auto;
 }
 
@@ -2723,16 +2728,14 @@ Styleguide: thumb.social-thumb-3
 .grid-index {
   position: relative;
   padding: 0;
-  margin: -1.25rem; }
-
-.grid-block > hr.block {
-  margin-top: 2rem;
-  margin-bottom: 1.875rem; }
+  margin-left: -1.25rem;
+  margin-right: -1.25rem; }
 
 .grid-block > .block,
 .grid-index > li {
   display: inline-block;
-  margin: 1.25rem; }
+  margin-left: 1.25rem;
+  margin-right: 1.25rem; }
 
 .grid-block > .grid-block {
   margin-left: 0;
@@ -2986,7 +2989,8 @@ Styleguide: thumb.social-thumb-3
   .grid-block > .\@1-block,
   .\@1-grid-index > li {
     display: inline-block;
-    margin: 1.25rem; }
+    margin-left: 1.25rem;
+    margin-right: 1.25rem; }
   .grid-block > .grid-block {
     margin-left: 0;
     margin-right: 0; }
@@ -3175,7 +3179,8 @@ Styleguide: thumb.social-thumb-3
   .grid-block > .\@2-block,
   .\@2-grid-index > li {
     display: inline-block;
-    margin: 1.25rem; }
+    margin-left: 1.25rem;
+    margin-right: 1.25rem; }
   .grid-block > .grid-block {
     margin-left: 0;
     margin-right: 0; }
@@ -3595,7 +3600,8 @@ Styleguide: thumb.social-thumb-3
   .grid-block > .\@3-block,
   .\@3-grid-index > li {
     display: inline-block;
-    margin: 1.25rem; }
+    margin-left: 1.25rem;
+    margin-right: 1.25rem; }
   .grid-block > .grid-block {
     margin-left: 0;
     margin-right: 0; }
@@ -4345,7 +4351,8 @@ Styleguide: thumb.social-thumb-3
   .grid-block > .\@4-block,
   .\@4-grid-index > li {
     display: inline-block;
-    margin: 1.25rem; }
+    margin-left: 1.25rem;
+    margin-right: 1.25rem; }
   .grid-block > .grid-block {
     margin-left: 0;
     margin-right: 0; }
@@ -5900,16 +5907,30 @@ Styleguide: zutilities.respond
 }
 
 /*
-Color
+.white-color<br/>
+.white-bg
 
-Styleguide: vUtilities.color
+Markup: <p class="text-4 white-color">#ffffff</p>
+<p class="text-4 white-bg">#ffffff</p>
+
+Styleguide: Color.1
 */
 
 .white-color { color: white; }
-.black-color { color: black; }
+.white-bg    { background-color: white; }
 
-.white-bg { background-color: white; }
-.black-bg { background-color: black; }
+/*
+.black-color<br/>
+.black-bg
+
+Markup: <p class="text-4 black-color">#000000</p>
+<p class="text-4 black-bg">#000000</p>
+
+Styleguide: Color.2
+*/
+
+.black-color { color: black; }
+.black-bg    { background-color: black; }
 
 
 /*
