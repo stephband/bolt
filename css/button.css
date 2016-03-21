@@ -131,6 +131,8 @@ Markup: <label class="button" for="file-input">
 	width: 100%;
 	height: 100%;
 	padding: 0;
+	margin: 0;
+	border: 0;
 	cursor: pointer;
 	z-index: 2;
 }
