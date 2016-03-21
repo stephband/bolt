@@ -292,7 +292,7 @@ Styleguide: button.menu-button-2
 	right: 0.5625rem;
 	height: 0;
 	margin-top: -6px;
-	border-left: 6px solid #e62b24;
+	border-left: 6px solid currentcolor;
 	border-top: 6px solid rgba(0, 0, 0, 0);
 	border-bottom: 6px solid rgba(0, 0, 0, 0);
 	transition: transform 200ms linear;

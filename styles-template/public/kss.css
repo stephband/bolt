@@ -47,6 +47,11 @@
 	box-sizing: padding-box;
 }
 
+.menu-button {
+	font-family: Inconsolata, Courier, monospace;
+}
+
+
 
 #kss-node .example-block {
 	background-color: rgba(255,255,255,0.6);
@@ -99,9 +104,9 @@
         overflow: auto;
         padding: 0 10px 0 20px;
         border-bottom: 0;
-        background-image: url(noise-low.png);
-        box-shadow: inset -10px 0 40px -10px rgba(0, 0, 0, 0.06);
-		background-repeat: repeat;
+        box-shadow:
+            inset -1px 0 30px 5px rgba(0, 0, 0, 0.1),
+            inset -1px 0 0 rgba(0,0,0,0.2);
     }
 }
 #kss-node .kss-doc-title {
@@ -123,7 +128,7 @@
 	padding-top: 0.125rem;
 	padding-bottom: 0.125rem;
 	padding-right: 0.9375rem;
-	font-family: Courier, monospace;
+	font-family: Inconsolata, Courier, monospace;
 	font-weight: 700;
 	font-size: 0.8125rem;
 	overflow: hidden;
@@ -221,9 +226,6 @@
     color: #0645ad
 }
 
-#kss-node .kss-title__permalink > code {
-    font-size: 1em;
-}
 
 @media screen and (min-width: 607px) {
     #kss-node .kss-title__permalink:hover .kss-title__permalink-hash,
@@ -410,3 +412,10 @@ projection {
 #kss-node ol.linenums li.L8 {
     background: #fcfcfc
 }
+
+.bolt-text-4 > code,
+.lang-html > code {
+	font-family: Inconsolata, Courier, monospace;
+}
+
+.bolt-text-4 > code { font-size: 1rem; line-height: 1.5rem; font-weight: 700; }

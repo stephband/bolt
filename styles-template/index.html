@@ -12,6 +12,7 @@
 	<script>document.documentElement.className = 'js';</script>
 
 	<link rel="icon" type="image/png" href="favicon.png" />
+	<link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
 	{{{styles}}}
 
@@ -26,9 +27,9 @@
   </header>
   <nav class="kss-nav">
     <ul class="menu-index index">
-      <li>
+      <!--li>
         <a class="menu-button button" href="../index.html">Home</a>
-      </li>
+      </li-->
 
       {{#eachRoot}}
       <li>
@@ -73,8 +74,8 @@
     {{/ifDepth}}
 
     <div class="kss-style block @3-grid-1/2">
-      <h{{depth}} {{#ifDepth 1}}class="text-2"{{else}}class="text-6"{{/ifDepth}}>
-        <a class="kss-title__permalink text-4" href="#kssref-{{referenceURI}}">
+      <h{{depth}}>
+        <a class="kss-title__permalink bolt-text-4" href="#kssref-{{referenceURI}}">
           <!--small>{{#ifNumeric reference}}{{reference}}{{else}}{{autoincrement}}{{/ifNumeric}}</small-->
           <code>{{{header}}}</code>
           <small class="kss-title__permalink-hash">{{#ifNumeric reference}}#permalink{{else}}#{{reference}}{{/ifNumeric}}</small>
