@@ -1,10 +1,4 @@
 /*
-nav
-
-Styleguide: 4
-*/
-
-/*
 .nav-block
 
 Container block for navigation section of the page, positioned absolutely as a
@@ -12,7 +6,7 @@ direct child of <code>body</code> and animated as needed by size of the screen.
 
 Markup: <nav class="nav-block block toggle" id="nav"></nav>
 
-Styleguide: 4.1
+Styleguide: block.nav-block
 */
 
 .nav-block {
@@ -87,7 +81,13 @@ Styleguide: 4.1
 
 List of <code>nav-button</code>s.
 
-Styleguide: 4.2
+Markup: <ul class="nav-index index">
+  <li><a class="nav-button button on" href="#example-nav">First button</a></li
+  ><li><a class="nav-button button" href="#">Second button</a></li
+  ><li><a class="nav-button button current" href="#">Third button</a></li>
+</ul>
+
+Styleguide: index.nav-index
 */
 
 /*
@@ -95,7 +95,13 @@ Styleguide: 4.2
 
 List of <code>sub-button</code>s.
 
-Styleguide: 4.4
+Markup: <ul class="sub-index index">
+  <li><a class="sub-button button on" href="#example-nav">First button</a></li
+  ><li><a class="sub-button button" href="#">Second button</a></li
+  ><li><a class="sub-button button current" href="#">Third button</a></li>
+</ul>
+
+Styleguide: index.sub-index
 */
 
 .sub-index {
@@ -192,13 +198,9 @@ Styleguide: 4.4
 
 Principal navigation button.
 
-Markup: <ul class="nav-index index">
-  <li><a class="nav-button button on" href="#example-nav">Expositions</a></li
-  ><li><a class="nav-button button" href="#">Activités</a></li
-  ><li><a class="nav-button button current" href="#">Collections et publications</a></li>
-</ul>
+Markup: <a class="nav-button button on" href="#example-nav">Nav button</a>
 
-Styleguide: 4.3
+Styleguide: button.nav-button
 */
 
 .nav-button {
@@ -312,7 +314,7 @@ Markup: <ul class="sub-index index toggle active" id="example-nav">
   <li><a class="sub-button button" href="/">Contact</a></li>
 </ul>
 
-Styleguide: 4.5
+Styleguide: button.sub-button
 */
 
 .sub-button {
