@@ -22,7 +22,7 @@ var files = {
 		"css/text.css",
 		"css/utilities.css",
 		"css/color.css",
-		"css/document.css",
+		"css/",
 		"css/space.css",
 		"css/action.css"
 	],
