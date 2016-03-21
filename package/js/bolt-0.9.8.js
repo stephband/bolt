@@ -1635,13 +1635,13 @@
 
 	var doc = jQuery(document),
 	    docElem = jQuery(document.documentElement),
-	    
+
 	    add = jQuery.event.add,
 	    remove = jQuery.event.remove,
 	    trigger = function(node, type, data) {
 	        jQuery.event.trigger(type, data, node);
 	    },
-	    
+
 	    rImage = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/,
 	    rYouTube = /youtube\.com/,
 
@@ -1682,7 +1682,7 @@
 	    		}
 
 	    		jQuery(node).dialog('lightbox');
-	    		
+
 	    		if (parts) {
 	    			item = jQuery('#' + parts[2]);
 
@@ -1696,25 +1696,25 @@
 	    		}
 	    	}
 	    };
-	
+
 	function loadResource(e, href) {
 		var link = e.currentTarget,
 		    path = link.pathname,
 		    node, elem, dialog;
-		
+
 		if (rImage.test(link.pathname)) {
 			e.preventDefault();
-			
+
 			node = new Image();
 			elem = jQuery(node);
 
 			elem.dialog('lightbox');
-			
+
 			dialog = elem.parent();
-			
+
 			if (dialog.addLoadingIcon) {
 				dialog.addLoadingIcon();
-				
+
 				elem.on('load', function() {
 					dialog.removeLoadingIcon();
 				});
@@ -1727,7 +1727,7 @@
 
 		if (rYouTube.test(link.hostname)) {
 			e.preventDefault();
-			
+
 			// We don't need a loading indicator because youtube comes with
 			// it's own.
 			elem = jQuery('<iframe class="youtube_iframe" width="560" height="315" src="' + href + '" frameborder="0" allowfullscreen></iframe>');
@@ -1738,16 +1738,16 @@
 			return;
 		}
 	}
-	
+
 	function prefixSlash(str) {
 		return (/^\//.test(str) ? '' : '/') + str ;
 	}
-	
+
 	function preventDefault(e) {
 		remove(e.currentTarget, 'click', preventDefault);
 		e.preventDefault();
 	}
-	
+
 	function preventClick(e) {
 		// Prevent the click that follows the mousedown. The preventDefault
 		// handler unbinds itself as soon as the click is heard.
@@ -1755,13 +1755,13 @@
 			add(e.currentTarget, 'click', preventDefault);
 		}
 	}
-	
+
 	function isLeftButton(e) {
 		// Ignore mousedowns on any button other than the left (or
 		// primary) mouse button, or when a modifier key is pressed.
 		return (e.which === 1 && !e.ctrlKey && !e.altKey);
 	}
-	
+
 	function isIgnorable(e) {
 		// Default is prevented indicates that this link has already
 		// been handled. Save ourselves the overhead of further handling.
@@ -1770,11 +1770,11 @@
 		// Ignore mousedowns on any button other than the left (or primary)
 		// mouse button, or when a modifier key is pressed.
 		if (e.type === 'mousedown' && !isLeftButton(e)) { return true; }
-		
+
 		// Ignore key presses other than the enter key
 		if ((e.type === 'keydown' || e.type === 'keyup') && e.keyCode !== 13) { return true; }
 	}
-	
+
 	function isExternalLink(e) {
 		var location = window.location,
 		    link = e.currentTarget;
@@ -1785,12 +1785,12 @@
 		// IE gives us the port on link.host, even where it is not specified.
 		// Use link.hostname.
 		if (location.hostname !== link.hostname) { return true; }
-		
+
 		// IE gives us link.pathname without a leading slash, so add
 		// one before comparing.
 		if (location.pathname !== prefixSlash(link.pathname)) { return true; }
 	}
-	
+
 	function boltData(node) {
 		// Get the bolt data that may have been created by a previous
 		// activate event.
@@ -1807,7 +1807,7 @@
 		else {
 			elem = jQuery(node);
 			clas = bolt.classify(node);
-			
+
 			// It does no harm to cache elem here while we have it. It's
 			// used later by the activate event.
 			data.elem = elem;
@@ -1821,7 +1821,7 @@
 		if (!data.bolt) {
 			data.bolt = {
 				'elem': elem,
-				'class': clas 
+				'class': clas
 			};
 		}
 
@@ -1842,7 +1842,7 @@
 				data.active ) {
 			return;
 		}
-	
+
 		trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
 	}
 
@@ -1859,9 +1859,9 @@
 
 		// A prevented default means this link has already been handled.
 		if (e.isDefaultPrevented()) { return; }
-	
+
 		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
-		
+
 		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
 		e.preventDefault();
 		preventClick(e);
@@ -1874,14 +1874,14 @@
 
 		id = e.currentTarget.getAttribute('data-href').substring(1);
 		node = document.getElementById(id);
-		
+
 		// This link does not point to an id in the DOM. No action required.
 		if (!node) { return; }
 
 		data = boltData(node);
 
 		if (!data) { return; }
-		
+
 		//if (!bolt.has(clas, 'activate')) { return; }
 
 		fn(node, data);
@@ -1914,9 +1914,9 @@
 
 		// If the target is not listed, ignore
 		if (!targets[target]) { return; }
-		
+
 		if (e.type === 'mousedown') { preventClick(e); }
-		
+
 		return targets[target](e);
 	}
 
@@ -1927,7 +1927,7 @@
 			}
 			else {
 				trigger(node, { type: 'deactivate', relatedTarget: e.currentTarget });
-			}	
+			}
 		});
 	}
 
@@ -1937,19 +1937,19 @@
 
 		activateHref(e, function(node, data) {
 			e.preventDefault();
-			
+
 			if (e.type === 'mousedown') {
 				preventClick(e);
 			}
-	
+
 			//if (!bolt.has(clas, 'activate')) { return; }
-	
+
 			if (data.active === undefined ?
 					data.bolt.elem.hasClass('active') :
 					data.active ) {
 				return;
 			}
-	
+
 			trigger(node, { type: 'activate', relatedTarget: e.currentTarget });
 		});
 	}
@@ -1957,35 +1957,35 @@
 	function mousedownHash(e) {
 		activateHash(e, activate);
 	}
-	
+
 	// Run jQuery without aliasing it to $
 	jQuery.noConflict();
-	
-	
+
+
 	doc
-	
+
 	// Remove loading classes from document element
 	.ready(function() {
 		docElem.removeClass('notransition loading');
 	})
-	
+
 	// Select boxes that act as navigation
-	.on('change', '.nav_select', function(e) {
+	.on('change', '.nav-select', function(e) {
 		var value = e.currentTarget.value;
 		window.location = value;
 	})
-	
+
 	// Clicks on close buttons deactivate the thing they are inside
 	.on('click tap', '.close-thumb, .close_button, .cancel_button', function(e) {
 		var elem = jQuery(e.currentTarget).closest('.popdown, .dialog-layer');
-		
+
 		if (!elem.length) { return; }
-		
+
 		elem.trigger({
 			type: 'deactivate',
 			relatedTarget: e.currentTarget
 		});
-		
+
 		e.preventDefault();
 	})
 
@@ -2062,7 +2062,7 @@
 		if (e.type === 'tap') {
 			elem.css(jQuery.prefix('transition')+'Delay', '0');
 		}
-		
+
 		elem.trigger(e.type === 'mouseout' || e.type === 'focusout' ?
 			{ type: 'deactivate' } :
 			{ type: 'activate', relatedTarget: e.currentTarget }) ;
