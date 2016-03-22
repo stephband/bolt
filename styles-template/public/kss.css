@@ -102,11 +102,9 @@
         width: 20%;
         height: 100%;
         overflow: auto;
-        padding: 0 10px 0 20px;
+        padding: 0;
         border-bottom: 0;
-        box-shadow:
-            inset -1px 0 30px 5px rgba(0, 0, 0, 0.1),
-            inset -1px 0 0 rgba(0,0,0,0.2);
+        box-shadow: inset -1px 0 0 rgba(0,0,0,0.08);
     }
 }
 #kss-node .kss-doc-title {
@@ -121,13 +119,13 @@
 #kss-node .kss-nav .menu-index .button {
 	display: block;
 	padding-left: 0;
-	text-align: left;
+	text-align: right;
 }
 
 #kss-node .class-button {
 	padding-top: 0.125rem;
 	padding-bottom: 0.125rem;
-	padding-right: 0.9375rem;
+	padding-right: 1.875rem;
 	font-family: Inconsolata, Courier, monospace;
 	font-weight: 700;
 	font-size: 0.8125rem;
@@ -413,9 +411,29 @@ projection {
     background: #fcfcfc
 }
 
-.bolt-text-4 > code,
-.lang-html > code {
+.kss-sidebar .menu-button {
+	padding-right: 1.875rem;
+	color: #999999;
+}
+
+.kss-sidebar .menu-button.on,
+.kss-sidebar .menu-button:hover {
+	color: currentcolor;
+}
+
+.kss-sidebar .menu-button::after {
+	content: none;
+	right: 0;
+}
+
+.kss-sidebar .menu-button.on::after {
+	content: '';
+	transform: none;
+}
+
+#kss-node .bolt-text-4 > code,
+#kss-node .lang-html > code {
 	font-family: Inconsolata, Courier, monospace;
 }
 
-.bolt-text-4 > code { font-size: 1rem; line-height: 1.5rem; font-weight: 700; }
+#kss-node .bolt-text-4 > code { font-size: 1rem; line-height: 1.5rem; font-weight: 700; }
