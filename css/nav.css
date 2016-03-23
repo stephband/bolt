@@ -1,3 +1,4 @@
+
 /*
 .nav-block
 
@@ -10,14 +11,10 @@ Styleguide: block.nav-block
 */
 
 .nav-block {
-	padding-top: 5.3125rem;
 	overflow: visible;
-	padding-bottom: 0;
 	-webkit-transform: translate3d(-100%, 0, 0);
 	        transform: translate3d(-100%, 0, 0);
 	transition: transform 300ms cubic-bezier(0.27, 0.6, 0.55, 1);
-	color: $white-color;
-	background-color: $black-color;
 }
 
 .nav-block.active {
@@ -34,47 +31,20 @@ Styleguide: block.nav-block
 
 @media screen and (min-width: $breakpoint-3) {
 	.nav-block {
-		text-align: right;
-		padding-top: 0;
 		-webkit-transform: none;
 		        transform: none;
-		color: $black-color;
-		background-color: transparent;
-	}
-
-	.nav-block > .link-index,
-	.nav-block > .lang-index,
-	.nav-block > .social-index {
-		display: inline-block;
-		vertical-align: baseline;
 	}
 
 	.nav-block > .nav-index, {
 		position: absolute;
-		top: 8rem;
-		right: -0.875rem;
-	}
-
-	.nav-block > .search-uni-form {
-		position: absolute;
-		top: 4.5rem;
+		top: 0;
 		right: 0;
-		background-color: green;
-		width: 180px;
 	}
 
 	.nav-block > .close-thumb {
 		display: none !important;
 	}
 }
-
-@media screen and (min-width: $breakpoint-6) {
-	.nav-block > .nav-index {
-		top: 4.0625rem;
-		right: 12.5rem;
-	}
-}
-
 
 /*
 .nav-index
@@ -118,23 +88,9 @@ Styleguide: index.sub-index
 	opacity: 1;
 }
 
-.nav-index + .social-index {
-	margin-top: 2.5rem;
-}
-
 @media screen and (min-width: $breakpoint-3) {
 	.nav-index > li {
 		display: inline-block;
-	}
-
-	.nav-index > li + li::before {
-		content: '';
-		position: absolute;
-		left: -1px;
-		top: 50%;
-		height: 0.75rem;
-		margin-top: -0.375rem;
-		border-left: 2px solid currentcolor;
 	}
 
 	.sub-index {
@@ -152,7 +108,6 @@ Styleguide: index.sub-index
 			transform 240ms cubic-bezier(0.23, -0.6, 0.89, 0.32),
 			opacity 240ms ease-in,
 			visibility 240ms linear;
-		background-color: $black-color;
 	}
 
 	.sub-index.active {
@@ -170,14 +125,14 @@ Styleguide: index.sub-index
 
 	.nav-index > li > .sub-index {
 		position: absolute;
-		top: 2.8125rem;
-		left: -1px;
+		top: 0;
+		left: 0;
 	}
 
 	.nav-index > li:last-child > .sub-index {
 		/* Point the last menu to the left. */
 		left: auto;
-		right: -1px;
+		right: 0;
 		-webkit-transform: translate3d(50%, -50%, 0) scale(0.6667) translate3d(-50%, 50%, 0);
 		        transform: translate3d(50%, -50%, 0) scale(0.6667) translate3d(-50%, 50%, 0);
 	}
@@ -185,163 +140,5 @@ Styleguide: index.sub-index
 	.nav-index > li:last-child > .sub-index.active {
 		-webkit-transform: scale(1);
 		        transform: scale(1);
-	}
-
-	.nav-index + .social-index {
-		margin-top: 0;
-	}
-}
-
-
-/*
-.nav-button
-
-Principal navigation button.
-
-Markup: <a class="nav-button button on" href="#example-nav">Nav button</a>
-
-Styleguide: button.nav-button
-*/
-
-.nav-button {
-	display: block;
-	padding-top: 1.125rem;
-	padding-bottom: 1.125rem;
-	padding-left: 2.5rem;
-	padding-right: 1.25rem;
-	font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
-	font-size: 1.25rem;
-	font-weight: 700;
-	line-height: 1.5rem;
-	text-align: left;
-	text-transform: uppercase;
-}
-
-.nav-button:hover {
-	color: white;
-	text-decoration: underline;
-}
-
-.nav-button::before {
-	position: absolute;
-	top: 50%;
-	left: 20px;
-	content: '';
-	height: 0;
-	margin-top: -6px;
-	border-left: 6px solid $theme-color;
-	border-top: 6px solid transparent;
-	border-bottom: 6px solid transparent;
-	transition: transform 200ms linear;
-}
-
-.nav-button.on::before {
-	-webkit-transform: rotate(90deg);
-	        transform: rotate(90deg);
-}
-
-.nav-button + .sub-index {
-	margin-top: -18px;
-	margin-bottom: 18px;
-}
-
-@media screen and (min-width: $breakpoint-3) {
-	.nav-button {
-		font-size: 0.875rem;
-		line-height: 1.25rem;
-		padding-top: 0.9375rem;
-		padding-bottom: 0.9375rem;
-		padding-left: 0.875rem;
-		padding-right: 0.875rem;
-		margin-left: -1px;
-		margin-right: -1px;
-		color: $black-color;
-		transition: background-color 240ms ease-in;
-	}
-
-	.nav-button:hover {
-		color: $black-color;
-	}
-
-	.nav-button::before {
-		content: none;
-	}
-
-	.nav-button.current {
-		color: $mcb-theme-color;
-	}
-
-	.nav-button.on {
-		color: $white-color;
-		background-color: $black-color;
-		transition: background-color 160ms ease-out;
-	}
-
-	.nav-button::after {
-		/* A visual hack. For the purposes of the sub-index opacity transition,
-		   mask out the bottom 4px of the button. */
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 0.3125rem;
-		background-color: $white-color;
-		visibility: hidden;
-		transition: visibility 240ms linear;
-	}
-
-	.nav-button.on::after {
-		visibility: visible;
-		transition: visibility 160ms linear;
-	}
-
-	.nav-button + .sub-index {
-		margin-top: 0;
-		margin-bottom: 0;
-	}
-}
-
-
-/*
-.sub-button
-
-Secondary navigation button.
-
-Markup: <ul class="sub-index index toggle active" id="example-nav">
-  <li><a class="sub-button button" href="/">About</a></li>
-  <li><a class="sub-button button" href="/">Blog</a></li>
-  <li><a class="sub-button button" href="/">Contact</a></li>
-</ul>
-
-Styleguide: button.sub-button
-*/
-
-.sub-button {
-	display: block;
-	text-align: left;
-	font-size: 1rem;
-	line-height: 1.5rem;
-	padding-top: 0.5625rem;
-	padding-bottom: 0.5625rem;
-	padding-left: 2.5rem;
-	padding-right: 1.25rem;
-	color: $white-color;
-}
-
-.sub-button:hover,
-.sub-button:focus {
-	text-decoration: underline;
-}
-
-@media screen and (min-width: $breakpoint-3) {
-	.sub-button {
-		font-size: 0.875rem;
-		line-height: 1.25rem;
-		padding-top: 0.875rem;
-		padding-bottom: 0.875rem;
-		padding-left: 0.875rem;
-		padding-right: 0.875rem;
-		color: $white-color !important;
 	}
 }

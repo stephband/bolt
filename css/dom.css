@@ -45,3 +45,16 @@ body {
 		min-height: 100%;
 	}
 }
+
+/*
+body > .nav-block
+
+Styleguide: 1-dom.3
+*/
+
+body > .nav-block {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}

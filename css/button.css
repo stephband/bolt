@@ -241,6 +241,30 @@ Styleguide: button.check-button
 
 
 /*
+.icon-button
+
+Assumes the dimensions of the icon it contains.
+
+Markup: <a class="icon-button button" href="#navigation">
+  <svg class="burger-svg">
+    <title>Navigation</title>
+    <line x1="10" y1="9"  x2="30" y2="9"></line>
+    <line x1="10" y1="15" x2="30" y2="15"></line>
+    <line x1="10" y1="21" x2="30" y2="21"></line>
+  </svg>
+</a>
+
+Styleguide: button.icon-button
+*/
+
+.icon-button {
+	padding: 0;
+	width: auto;
+	height: auto;
+}
+
+
+/*
 .menu-button
 
 Markup: <a class="menu-button button" href="#">button</a>
