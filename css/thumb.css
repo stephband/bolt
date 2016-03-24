@@ -2,13 +2,12 @@
 /*
 .thumb
 
-A thumb is an icon or avatar or other image.
-A thumb hides it's inner text, displaying only it's <code>background-image</code>.
-Overflow is hidden and padding-top is used to determine it's height.
-
-Why a <code>background-image</code>?
-The user cannot interact with a <code>background-image</code> in the way they can with an &lt;img/&gt;).
-And in essence it's an image replacement technique - the (hidden) text is the semantic content.
+Base class for thumbnails.
+A <code>.thumb</code> is an icon or avatar or other image.
+A <code>.thumb</code> hides text content by pushing it outside the hidden overflow, displaying only it's <code>background-image</code>.
+The user cannot interact with a <code>background-image</code> in the way they can with an <code>&lt;img/&gt;</code>).
+This should be the main consideration when deciding to use a <code>.thumb</code> or an <code>&lt;img/&gt;</code>.
+Thumb is in essence an image replacement technique.
 
 A default thumb is a square of 64x64px. Add an image by defining a
 <code>background-image</code>. The image is centered and 'cropped' via
@@ -16,7 +15,7 @@ A default thumb is a square of 64x64px. Add an image by defining a
 
 Markup: <a class="thumb" href="#" style="background-image: url('//source.unsplash.com/category/nature/128x80')">Thumb text</a>
 
-Styleguide: Thumb
+Styleguide: thumb
 */
 
 .thumb {
@@ -67,171 +66,29 @@ Styleguide: Thumb
 
 
 /*
-.logo-thumb
-
-Markup: <a class="logo-thumb thumb" href="/">Logo name</a>
-<a class="logo-thumb thumb desaturated" href="/">Logo name</a>
-
-Styleguide: Thumb.logo-thumb
-*/
-
-.logo-thumb {
-	position: relative;
-	width: 9.625rem;
-	padding-top: 2.5rem;
-	/* Overriden by theme. */
-	background-image: url('../images/sprites-mcb.svg');
-	background-size: 100% auto;
-	background-position: 0 0;
-}
-
-.logo-thumb::after {
-	position: absolute;
-	top: 0;
-	left: 0;
-	content: '';
-	width: inherit;
-	height: 100%;
-	/* Overriden by theme. */
-	background-image: inherit;
-	background-size: inherit;
-	background-position: 0 -59.6px;
-	opacity: 0;
-	transition: opacity 1200ms linear 140ms;
-}
-
-.logo-thumb.desaturated::after {
-	opacity: 1;
-	transition: opacity 200ms linear;
-}
-
-@media screen and (min-width: $breakpoint-3) {
-	.logo-thumb {
-		width: 13.125rem;
-		padding-top: 4rem;
-	}
-
-	.logo-thumb::after {
-		content: none;
-	}
-}
-
-@media screen and (min-width: $breakpoint-5) {
-	.logo-thumb {
-		width: 16.375rem;
-		padding-top: 5rem;
-		background-size: auto;
-	}
-}
-
-
-/*
-.nav-thumb
-
-Markup: <a class="nav-thumb thumb" href="#nav">Navigation</a>
-
-Styleguide: Thumb.nav-thumb
-*/
-
-.nav-thumb {
-	width: 2.5rem;
-	padding-top: 2.5rem;
-	background-color: $theme-color;
-	background-image: url('../images/sprites-common.svg');
-	background-position: 0 0;
-	background-size: auto;
-}
-
-
-/*
 .dismiss-thumb
 
 Icon for dismissing alerts.
 
 Markup: <button class="dismiss-thumb thumb">Dismiss</button>
 
-Styleguide: Thumb.dismiss-thumb
+Styleguide: thumb.dismiss-thumb
 */
 
 .dismiss-thumb {
 	width: 1.875rem;
 	padding-top: 1.875rem;
-	background-image: url('../images/sprites-common.svg');
+	background-image: url('../images/sprites.svg');
 	background-position: 0 -625px;
 	background-size: auto;
 }
-
-
-/*
-.close-thumb
-
-<code>close-thumb</code> is a little special as it contains an SVG. This is
-the only icon in the design that requires different colours in different
-themes. It seems silly to make theme-specific spritemaps just for this icon,
-so we use an inline SVG and inherit color
-
-Markup: <a class="close-thumb thumb" href="#nav">
-  <svg>
-    <title>Close</title>
-    <line class="stroke-line" x1="5" y1="5" x2 ="35" y2="35"></line>
-    <line class="stroke-line" x1="5" y1="35" x2 ="35" y2="5"></line>
-  </svg>
-</a>
-
-Styleguide: Thumb.close-thumb
-*/
-
-.close-thumb {
-	width: 2.5rem;
-	height: 2.5rem;
-	padding-top: 0;
-	color: $theme-color;
-}
-
-.stroke-line {
-	stroke-width: 3;
-}
-
-
-/*
-.page-thumb
-
-See also page-index.
-
-Markup: <a class="prev-page-thumb page-thumb thumb" href="/">Previous</a>
-<a class="next-page-thumb page-thumb thumb" href="/">Next</a>
-
-Styleguide: Thumb.page-thumb
-*/
-
-.page-thumb {
-	width: 2.25rem;
-	padding-top: 2.25rem;
-	color: $white-color;
-	background-color: $black-color;
-	background-image: url('../images/sprites-common.svg');
-	background-size: 48px auto;
-}
-
-.page-thumb.disabled {
-	background-color: $neutral-color-2;
-}
-
-.prev-page-thumb {
-	background-position: 0 -429px;
-}
-
-.next-page-thumb {
-	background-position: 0 -392px;
-}
-
 
 /*
 .fb-thumb
 
 Markup: <a class="fb-thumb thumb" href="/">Facebook</a>
 
-Styleguide: Thumb.social-thumb-1
+Styleguide: thumb.social-thumb-1
 */
 
 /*
@@ -239,7 +96,7 @@ Styleguide: Thumb.social-thumb-1
 
 Markup: <a class="tw-thumb thumb" href="/">Twitter</a>
 
-Styleguide: Thumb.social-thumb-2
+Styleguide: thumb.social-thumb-2
 */
 
 /*
@@ -247,7 +104,7 @@ Styleguide: Thumb.social-thumb-2
 
 Markup: <a class="in-thumb thumb" href="/">Instagram</a>
 
-Styleguide: Thumb.social-thumb-3
+Styleguide: thumb.social-thumb-3
 */
 
 .fb-thumb,
@@ -255,7 +112,7 @@ Styleguide: Thumb.social-thumb-3
 .in-thumb {
 	width: 1.875rem;
 	padding-top: 1.875rem;
-	background-image: url('../images/sprites-common.svg');
+	background-image: url('../images/sprites.svg');
 	background-size: 7.5rem auto;
 }
 

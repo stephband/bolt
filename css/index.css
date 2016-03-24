@@ -11,7 +11,7 @@ Markup: <ul class="index">
   <li>Two</li>
 </ul>
 
-Styleguide: Index
+Styleguide: index
 */
 
 .index {
@@ -55,7 +55,7 @@ Markup: <ul class="crumb-index index">
   ><li><a href="#document">document</a></li>
 </ul>
 
-Styleguide: Index.crumb-index
+Styleguide: index.crumb-index
 */
 
 .crumb-index,
@@ -95,7 +95,7 @@ Markup: <ul class="menu-index index">
   ><li><a class="menu-button button" href="#">Four</a></li>
 </ul>
 
-Styleguide: Index.menu-index
+Styleguide: index.menu-index
 */
 
 .menu-index > li + li {

@@ -1,0 +1,25 @@
+/*
+.white-color<br/>
+.white-bg
+
+Markup: <p class="text-4 white-color">#ffffff</p>
+<p class="text-4 white-bg">#ffffff</p>
+
+Styleguide: Color.1
+*/
+
+.white-color { color: white; }
+.white-bg    { background-color: white; }
+
+/*
+.black-color<br/>
+.black-bg
+
+Markup: <p class="text-4 black-color">#000000</p>
+<p class="text-4 black-bg">#000000</p>
+
+Styleguide: Color.2
+*/
+
+.black-color { color: black; }
+.black-bg    { background-color: black; }
