@@ -2700,7 +2700,8 @@ Styleguide: thumb.social-thumb-3
 }
 
 .grid-block,
-.grid-index {
+.grid-index,
+.index > .grid-block {
   position: relative;
   padding: 0;
   margin-left: -1.25rem;
