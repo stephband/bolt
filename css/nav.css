@@ -74,21 +74,12 @@ Markup: <ul class="sub-index index">
 Styleguide: index.sub-index
 */
 
-.sub-index {
-	overflow: hidden;
-	max-height: 0;
-	opacity: 0.3333;
-	transition:
-		max-height 300ms ease-out,
-		opacity 300ms linear;
+.nav-index > li > .button,
+.sub-index > li > .button {
+	display: block;
 }
 
-.sub-index.active {
-	max-height: 30rem;
-	opacity: 1;
-}
-
-@media screen and (min-width: $breakpoint-3) {
+@media screen and (min-width: 48rem) {
 	.nav-index > li {
 		display: inline-block;
 	}
@@ -99,9 +90,9 @@ Styleguide: index.sub-index
 		padding-bottom: 0.875rem;
 		padding-left: 0.875rem;
 		padding-right: 0.875rem;
-		min-width: 15rem;
+		min-width: 12.5rem;
 		-webkit-transform: translate3d(-50%, -50%, 0) scale(0.6667) translate3d(50%, 50%, 0);
-		        transform: translate3d(-50%, -50%, 0) scale(0.6667) translate3d(50%, 50%, 0);
+		transform: translate3d(-50%, -50%, 0) scale(0.6667) translate3d(50%, 50%, 0);
 		opacity: 0;
 		visibility: hidden;
 		transition:
@@ -125,7 +116,7 @@ Styleguide: index.sub-index
 
 	.nav-index > li > .sub-index {
 		position: absolute;
-		top: 0;
+		top: 4.375rem;
 		left: 0;
 	}
 

@@ -143,6 +143,12 @@ $breakpoints:
 .grid-index {
 	position: relative;
 	padding: 0;
+}
+
+.grid-block,
+.grid-index,
+/* Override .index > li */
+.index > .grid-block {
 	margin-left:   -#{$grid-gutter / 2};
 	margin-right:  -#{$grid-gutter / 2};
 	margin-top:    -#{$grid-space / 2};

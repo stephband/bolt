@@ -1933,145 +1933,13 @@ Styleguide: Bubble
 	padding-bottom: 0.75rem;
 	padding-left: 1.25rem;
 	padding-right: 1.25rem;
-	max-width: 20em;
+	width: 92%;
+	max-width: 92%;
 	border-radius: 0.25rem;
 	border: 0.125rem solid #cadce3;
 	background-color: #dbe9ee;
 	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
-
-.js .tip,
-.js .bubble {
-	position: absolute;
-	z-index: 4;
-
-	-webkit-transition-duration: 120ms;
-	        transition-duration: 120ms;
-	-webkit-transition-timing-function: ease-in;
-	        transition-timing-function: ease-in;
-}
-
-.js .tip.active {
-	/* No delay for bubble. */
-	-webkit-transition-timing-function: ease-out;
-	        transition-timing-function: ease-out;
-	-webkit-transition-delay: 540ms;
-	        transition-delay: 540ms;
-}
-
-.js .top-tip,
-.js .top-bubble {
-	-webkit-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
-	    -ms-transform:   translate(-50%, calc(-100% - 1.5rem));
-	        transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
-}
-
-.js .top-tip.active,
-.js .top-bubble.active {
-	-webkit-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
-	    -ms-transform:   translate(-50%, calc(-100% - 1.75rem));
-	        transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
-}
-
-.js .left-top-tip,
-.js .left-top-bubble {
-	-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
-	    -ms-transform:   translate(-16.6667%, calc(-100% - 1.5rem));
-	        transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
-}
-
-.js .left-top-tip.active,
-.js .left-top-bubble.active {
-	-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
-	    -ms-transform:   translate(-16.6667%, calc(-100% - 1.75rem));
-	        transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
-}
-
-.js .right-top-tip,
-.js .right-top-bubble {
-	-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
-	    -ms-transform:   translate(-83.3333%, calc(-100% - 1.5rem));
-	        transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
-}
-
-.js .right-top-tip.active,
-.js .right-top-bubble.active {
-	-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
-	    -ms-transform:   translate(-83.3333%, calc(-100% - 1.75rem));
-	        transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
-}
-
-.js .bottom-tip,
-.js .bottom-bubble {
-	-webkit-transform: translate3d(-50%, 1.5rem, 0);
-	    -ms-transform:   translate(-50%, 1.5rem);
-	        transform: translate3d(-50%, 1.5rem, 0);
-}
-
-.js .bottom-tip.active,
-.js .bottom-bubble.active {
-	-webkit-transform: translate3d(-50%, 1.75rem, 0);
-	    -ms-transform:   translate(-50%, 1.75rem);
-	        transform: translate3d(-50%, 1.75rem, 0);
-}
-
-.js .right-bottom-tip,
-.js .right-bottom-bubble {
-	-webkit-transform: translate3d(-83.3333%, 1.5rem, 0);
-	    -ms-transform:   translate(-83.3333%, 1.5rem);
-	        transform: translate3d(-83.3333%, 1.5rem, 0);
-}
-
-.js .right-bottom-tip.active,
-.js .right-bottom-bubble.active {
-	-webkit-transform: translate3d(-83.3333%, 1.75rem, 0);
-	    -ms-transform:   translate(-83.3333%, 1.75rem);
-	        transform: translate3d(-83.3333%, 1.75rem, 0);
-}
-
-.js .left-bottom-tip,
-.js .left-bottom-bubble {
-	-webkit-transform: translate3d(-16.6667%, 1.5rem, 0);
-	    -ms-transform:   translate(-16.6667%, 1.5rem);
-	        transform: translate3d(-16.6667%, 1.5rem, 0);
-}
-
-.js .left-bottom-tip.active,
-.js .left-bottom-bubble.active {
-	-webkit-transform: translate3d(-16.6667%, 1.75rem, 0);
-	    -ms-transform:   translate(-16.6667%, 1.75rem);
-	        transform: translate3d(-16.6667%, 1.75rem, 0);
-}
-
-.js .left-tip,
-.js .left-bubble {
-	-webkit-transform: translate3d(-100%, -50%, 0);
-	    -ms-transform:   translate(-100%, -50%);
-	        transform: translate3d(-100%, -50%, 0);
-}
-
-.js .left-tip.active,
-.js .left-bubble.active {
-	-webkit-transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
-	    -ms-transform:   translate(calc(-100% - 0.25rem), -50%);
-	        transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
-}
-
-.js .right-tip,
-.js .right-bubble {
-	/* Make room for the .bubble::after point. */
-	-webkit-transform: translate3d(0.9375rem, -50%, 0);
-	    -ms-transform:   translate(0.9375rem, -50%);
-	        transform: translate3d(0.9375rem, -50%, 0);
-}
-
-.js .right-tip.active,
-.js .right-bubble.active {
-	-webkit-transform: translate3d(1.25rem, -50%, 0);
-	    -ms-transform:   translate(1.25rem, -50%);
-	        transform: translate3d(1.25rem, -50%, 0);
-}
-
 
 .tip::after,
 .bubble::after {
@@ -2162,6 +2030,180 @@ Styleguide: Bubble
 	left: 16.6667%;
 }
 
+.js .tip,
+.js .bubble {
+	position: absolute;
+	z-index: 4;
+
+	opacity: 0;
+	visibility: hidden;
+
+	-webkit-transition-property: opacity, visibility, transform;
+	        transition-property: opacity, visibility, transform;
+	-webkit-transition-duration: 120ms;
+	        transition-duration: 120ms;
+	-webkit-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
+}
+
+.js .tip.active,
+.js .bubble.active {
+	opacity: 1;
+	visibility: visible;
+}
+
+.js .tip.active {
+	/* No delay for bubble. */
+	-webkit-transition-timing-function: ease-out;
+	        transition-timing-function: ease-out;
+	-webkit-transition-delay: 540ms;
+	        transition-delay: 540ms;
+}
+
+.js .bottom-tip,
+.js .bottom-bubble {
+	-webkit-transform: translate3d(0, 1.5rem, 0);
+		-ms-transform:   translate(0, 1.5rem);
+			transform: translate3d(0, 1.5rem, 0);
+}
+
+.js .bottom-tip.active,
+.js .bottom-bubble.active {
+	-webkit-transform: translate3d(0, 1.75rem, 0);
+		-ms-transform:   translate(0, 1.75rem);
+			transform: translate3d(0, 1.75rem, 0);
+}
+
+@media screen and (max-width: 31.9999em) {
+	.js .tip,
+	.js .bubble {
+		/* Override offset given to it by JS when the
+		   screen is too small. */
+		left: 4% !important;
+	}
+}
+
+@media screen and (min-width: 32em) {
+	.tip,
+	.bubble {
+		width: auto;
+		max-width: 20rem;
+	}
+
+	.js .top-tip,
+	.js .top-bubble {
+		-webkit-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
+		    -ms-transform:   translate(-50%, calc(-100% - 1.5rem));
+		        transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
+	}
+
+	.js .top-tip.active,
+	.js .top-bubble.active {
+		-webkit-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
+		    -ms-transform:   translate(-50%, calc(-100% - 1.75rem));
+		        transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
+	}
+
+	.js .left-top-tip,
+	.js .left-top-bubble {
+		-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
+		    -ms-transform:   translate(-16.6667%, calc(-100% - 1.5rem));
+		        transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
+	}
+
+	.js .left-top-tip.active,
+	.js .left-top-bubble.active {
+		-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
+		    -ms-transform:   translate(-16.6667%, calc(-100% - 1.75rem));
+		        transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
+	}
+
+	.js .right-top-tip,
+	.js .right-top-bubble {
+		-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
+		    -ms-transform:   translate(-83.3333%, calc(-100% - 1.5rem));
+		        transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
+	}
+
+	.js .right-top-tip.active,
+	.js .right-top-bubble.active {
+		-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
+		    -ms-transform:   translate(-83.3333%, calc(-100% - 1.75rem));
+		        transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
+	}
+
+	.js .bottom-tip,
+	.js .bottom-bubble {
+		-webkit-transform: translate3d(-50%, 1.5rem, 0);
+		    -ms-transform:   translate(-50%, 1.5rem);
+		        transform: translate3d(-50%, 1.5rem, 0);
+	}
+
+	.js .bottom-tip.active,
+	.js .bottom-bubble.active {
+		-webkit-transform: translate3d(-50%, 1.75rem, 0);
+		    -ms-transform:   translate(-50%, 1.75rem);
+		        transform: translate3d(-50%, 1.75rem, 0);
+	}
+
+	.js .right-bottom-tip,
+	.js .right-bottom-bubble {
+		-webkit-transform: translate3d(-83.3333%, 1.5rem, 0);
+		    -ms-transform:   translate(-83.3333%, 1.5rem);
+		        transform: translate3d(-83.3333%, 1.5rem, 0);
+	}
+
+	.js .right-bottom-tip.active,
+	.js .right-bottom-bubble.active {
+		-webkit-transform: translate3d(-83.3333%, 1.75rem, 0);
+		    -ms-transform:   translate(-83.3333%, 1.75rem);
+		        transform: translate3d(-83.3333%, 1.75rem, 0);
+	}
+
+	.js .left-bottom-tip,
+	.js .left-bottom-bubble {
+		-webkit-transform: translate3d(-16.6667%, 1.5rem, 0);
+		    -ms-transform:   translate(-16.6667%, 1.5rem);
+		        transform: translate3d(-16.6667%, 1.5rem, 0);
+	}
+
+	.js .left-bottom-tip.active,
+	.js .left-bottom-bubble.active {
+		-webkit-transform: translate3d(-16.6667%, 1.75rem, 0);
+		    -ms-transform:   translate(-16.6667%, 1.75rem);
+		        transform: translate3d(-16.6667%, 1.75rem, 0);
+	}
+
+	.js .left-tip,
+	.js .left-bubble {
+		-webkit-transform: translate3d(-100%, -50%, 0);
+		    -ms-transform:   translate(-100%, -50%);
+		        transform: translate3d(-100%, -50%, 0);
+	}
+
+	.js .left-tip.active,
+	.js .left-bubble.active {
+		-webkit-transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
+		    -ms-transform:   translate(calc(-100% - 0.25rem), -50%);
+		        transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
+	}
+
+	.js .right-tip,
+	.js .right-bubble {
+		/* Make room for the .bubble::after point. */
+		-webkit-transform: translate3d(0.9375rem, -50%, 0);
+		    -ms-transform:   translate(0.9375rem, -50%);
+		        transform: translate3d(0.9375rem, -50%, 0);
+	}
+
+	.js .right-tip.active,
+	.js .right-bubble.active {
+		-webkit-transform: translate3d(1.25rem, -50%, 0);
+		    -ms-transform:   translate(1.25rem, -50%);
+		        transform: translate3d(1.25rem, -50%, 0);
+	}
+}
+
 .tip-block,
 .js .tip-block {
 	visibility: visible;
@@ -2171,17 +2213,6 @@ Styleguide: Bubble
 	margin-top: 1em;
 	margin-bottom: 1em;
 	max-width: none;
-}
-
-@media all and (max-width: 30em) {
-	.js body > .tip {
-		/* Override offset given to it by JS when the
-		   screen is too small. */
-		left: 4% !important;
-		margin-left: 0 !important;
-		width: 92% !important;
-		max-width: 92% !important;
-	}
 }
 
 
@@ -2423,6 +2454,30 @@ Styleguide: button.check-button
 .check-button {
 	/* Overflow will hide the browser generated error messages. No no no. */
 	overflow: visible;
+}
+
+
+/*
+.icon-button
+
+Assumes the dimensions of the icon it contains.
+
+Markup: <a class="icon-button button" href="#navigation">
+  <svg class="burger-svg">
+    <title>Navigation</title>
+    <line x1="10" y1="9"  x2="30" y2="9"></line>
+    <line x1="10" y1="15" x2="30" y2="15"></line>
+    <line x1="10" y1="21" x2="30" y2="21"></line>
+  </svg>
+</a>
+
+Styleguide: button.icon-button
+*/
+
+.icon-button {
+	padding: 0;
+	width: auto;
+	height: auto;
 }
 
 
@@ -5231,7 +5286,6 @@ h3,
 h4,
 h5,
 h6 {
-	font-weight: normal;
 	margin: 0;
 }
 
@@ -5241,6 +5295,7 @@ h3,
 h4,
 h5,
 h6 {
+	font-weight: normal;
 	-webkit-hyphens: none;
 	   -moz-hyphens: none;
 	    -ms-hyphens: none;
@@ -5930,8 +5985,6 @@ Styleguide: yactions
 
 /* Transitions */
 
-.js .tip,
-.js .bubble,
 .js .tab,
 .js .slide,
 .js .layer,
@@ -5970,8 +6023,6 @@ Styleguide: yactions
 	        transition-timing-function: ease-out;
 }
 
-.js .tip,
-.js .bubble,
 .js .popdown,
 .js .dropdown {
 	opacity: 0;
@@ -5992,8 +6043,6 @@ Styleguide: yactions
 	        transition-timing-function: ease-out;
 }
 
-.js .tip.active,
-.js .bubble.active,
 .js .popdown.active,
 .js .dropdown.active {
 	opacity: 1;
