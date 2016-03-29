@@ -134,10 +134,10 @@ Styleguide: zutilities.position
 .middle-align   { vertical-align: middle !important; }
 .baseline-align { vertical-align: baseline !important; }
 
-.left-align     { text-align: left; }
-.right-align    { text-align: right; }
-.center-align   { text-align: center; }
-.justify-align  { text-align: justify; }
+.left-align     { text-align: left !important; }
+.right-align    { text-align: right !important; }
+.center-align   { text-align: center !important; }
+.justify-align  { text-align: justify !important; }
 
 
 /*
