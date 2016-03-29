@@ -388,6 +388,9 @@ blockquote        { margin-left: 2.6667em; }
 .html-tag::before { content: '<'; margin-right: -0.1em; }
 .html-tag::after  { content: '>'; margin-left: -0.1em; }
 
+.no-wrap          { white-space: nowrap; }
+.line-wrap        { white-space: pre; }
+
 /* Selection */
 
 ::selection {
