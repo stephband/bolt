@@ -733,7 +733,7 @@ input[type="range"].y-input::-moz-range-thumb {
 	line-height: inherit;
 }
 
-:placehodler-shown {
+:placeholder-shown {
 	font-style: italic;
 	line-height: inherit;
 }
