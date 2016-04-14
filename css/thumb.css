@@ -130,25 +130,3 @@ Styleguide: thumb.social-thumb-3
 	background-color: #3f729b;
 	background-position: 0 -11.75rem;
 }
-
-@media screen and (min-width: $breakpoint-3) {
-	.fb-thumb,
-	.tw-thumb,
-	.in-thumb {
-		width: 1rem;
-		padding-top: 1rem;
-		background-size: auto;
-	}
-
-	.fb-thumb {
-		background-position: 0 -4.6875rem;
-	}
-
-	.tw-thumb {
-		background-position: 0 -3.125rem;
-	}
-
-	.in-thumb {
-		background-position: 0 -6.25rem;
-	}
-}
