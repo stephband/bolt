@@ -11,10 +11,10 @@ $grid-space:  1.875rem !default;
 
 // prefix, min-width, grid count, gutter, space
 $breakpoints:
-	'\\@1-' 30em   6  2.5rem 1.875rem,
-	'\\@2-' 37.5em 9  2.5rem 1.875rem,
-	'\\@3-' 45em   12 2.5rem 1.875rem,
-	'\\@4-' 60em   12 2.5rem 1.875rem !default;
+	'\\@1-' 30em   6  $grid-gutter $grid-space,
+	'\\@2-' 37.5em 9  $grid-gutter $grid-space,
+	'\\@3-' 45em   12 $grid-gutter $grid-space,
+	'\\@4-' 60em   12 $grid-gutter $grid-space !default;
 
 @mixin grid($prefix: '', $n: 6, $gutter: 1.25rem, $space: 1.25rem) {
 	.grid-block > .#{$prefix}block,
@@ -94,6 +94,10 @@ $breakpoints:
 	}
 }
 
+/*
+grid.css
+Warning: this file is auto-generated from scss/grid.scss. Do not modify!
+*/
 
 // .grid-block
 //
