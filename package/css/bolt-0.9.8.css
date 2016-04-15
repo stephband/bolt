@@ -2322,7 +2322,7 @@ Markup: <label class="button" for="select">
   </select>
 </label>
 
-Styleguide: button.button > select
+Styleguide: xForms.4
 */
 
 /*
@@ -2335,6 +2335,8 @@ Markup: <label class="button" for="file-input">
   Select file...
   <input type="file" id="file-input" />
 </label>
+
+Styleguide: xForms.5
 */
 
 .thumb > select,
@@ -2454,30 +2456,6 @@ Styleguide: button.check-button
 .check-button {
 	/* Overflow will hide the browser generated error messages. No no no. */
 	overflow: visible;
-}
-
-
-/*
-.icon-button
-
-Assumes the dimensions of the icon it contains.
-
-Markup: <a class="icon-button button" href="#navigation">
-  <svg class="burger-svg">
-    <title>Navigation</title>
-    <line x1="10" y1="9"  x2="30" y2="9"></line>
-    <line x1="10" y1="15" x2="30" y2="15"></line>
-    <line x1="10" y1="21" x2="30" y2="21"></line>
-  </svg>
-</a>
-
-Styleguide: button.icon-button
-*/
-
-.icon-button {
-	padding: 0;
-	width: auto;
-	height: auto;
 }
 
 
@@ -5819,27 +5797,19 @@ Styleguide: zutilities.scroll
 .no-scroll { overflow: hidden; }
 
 /*
-.white-color<br/>
-.white-bg
+.black-bg<br/>
+.white-bg<br/>
+.black-color<br/>
+.white-color
 
-Markup: <p class="text-4 white-color">#ffffff</p>
-<p class="text-4 white-bg">#ffffff</p>
+Markup: <p class="text-5 white-color black-bg">Black</p>
+<p class="text-5 black-color white-bg">White</p>
 
 Styleguide: Color.1
 */
 
 .white-color { color: white; }
 .white-bg    { background-color: white; }
-
-/*
-.black-color<br/>
-.black-bg
-
-Markup: <p class="text-4 black-color">#000000</p>
-<p class="text-4 black-bg">#000000</p>
-
-Styleguide: Color.2
-*/
 
 .black-color { color: black; }
 .black-bg    { background-color: black; }
