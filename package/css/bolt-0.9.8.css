@@ -1031,7 +1031,7 @@ input[type="range"].y-input::-moz-range-thumb {
 	line-height: inherit;
 }
 
-:placehodler-shown {
+:placeholder-shown {
 	font-style: italic;
 	line-height: inherit;
 }
@@ -2392,7 +2392,7 @@ Styleguide: button.select-button
 	padding-top: 0;
 	padding-bottom: 0;
 	color: $neutral-color-1;
-	border: 1px solid $neutral-color-2;
+	border: 1px solid currentcolor;
 	background-color: white;
 }
 
@@ -2405,7 +2405,7 @@ Styleguide: button.select-button
 	width: 2.4375rem;
 	height: 100%;
 	border-width: 0;
-	border-left-width: 1px;
+	border-left-width: inherit;
 	border-style: inherit;
 	border-color: inherit;
 	border-top-left-radius: 0;
@@ -2421,7 +2421,7 @@ Styleguide: button.select-button
 	right: 0.875rem;
 	height: 0;
 	margin-top: -3px;
-	border-top: 6px solid $black-color;
+	border-top: 6px solid currentcolor;
 	border-left: 6px solid rgba(0, 0, 0, 0);
 	border-right: 6px solid rgba(0, 0, 0, 0);
 	transition: transform 200ms linear;
@@ -2677,33 +2677,18 @@ Styleguide: thumb.social-thumb-3
 	background-position: 0 -11.75rem;
 }
 
-@media screen and (min-width: $breakpoint-3) {
-	.fb-thumb,
-	.tw-thumb,
-	.in-thumb {
-		width: 1rem;
-		padding-top: 1rem;
-		background-size: auto;
-	}
-
-	.fb-thumb {
-		background-position: 0 -4.6875rem;
-	}
-
-	.tw-thumb {
-		background-position: 0 -3.125rem;
-	}
-
-	.in-thumb {
-		background-position: 0 -6.25rem;
-	}
-}
+/*
+grid.css
+Warning: this file is auto-generated from scss/grid.scss. Do not modify!
+*/
+.grid-block,
+.grid-index {
+  position: relative;
+  padding: 0; }
 
 .grid-block,
 .grid-index,
 .index > .grid-block {
-  position: relative;
-  padding: 0;
   margin-left: -1.25rem;
   margin-right: -1.25rem;
   margin-top: -0.9375rem;
@@ -5474,14 +5459,6 @@ Styleguide: vText.6
 */
 
 /*
-.text-7, code
-
-Markup: <p class="text-7">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
-
-Styleguide: vText.7
-*/
-
-/*
 .text-8, body
 
 Markup: <p class="text-8">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
@@ -5608,6 +5585,9 @@ blockquote        { margin-left: 2.6667em; }
 .uppercase-text   { text-transform: uppercase; }
 .html-tag::before { content: '<'; margin-right: -0.1em; }
 .html-tag::after  { content: '>'; margin-left: -0.1em; }
+
+.no-wrap          { white-space: nowrap; }
+.line-wrap        { white-space: pre; }
 
 /* Selection */
 
@@ -5760,10 +5740,10 @@ Styleguide: zutilities.position
 .middle-align   { vertical-align: middle !important; }
 .baseline-align { vertical-align: baseline !important; }
 
-.left-align     { text-align: left; }
-.right-align    { text-align: right; }
-.center-align   { text-align: center; }
-.justify-align  { text-align: justify; }
+.left-align     { text-align: left !important; }
+.right-align    { text-align: right !important; }
+.center-align   { text-align: center !important; }
+.justify-align  { text-align: justify !important; }
 
 
 /*
@@ -5804,6 +5784,8 @@ Styleguide: zutilities.scroll
 	        border-radius: 12px;
 }
 
+.scroll-hidden::-webkit-scrollbar,
+/* Support the old way too, for now */
 .hidden-scroll::-webkit-scrollbar {
 	display: none;
 }
@@ -5835,64 +5817,6 @@ Styleguide: zutilities.scroll
 .x-scroll { overflow-y: hidden; }
 .y-scroll { overflow-x: hidden; }
 .no-scroll { overflow: hidden; }
-
-
-/*
-Respond
-
-.@480-hidden  - Hidden on media larger than 25em (480px) wide.
-.@480-shown   - Hidden on media smaller than 25em (480px) wide.
-.@600-hidden  - Hidden on media larger than 37.5em (600px) wide.
-.@600-shown   - Hidden on media smaller than 37.5em (600px) wide.
-.@720-hidden  - Hidden on media larger than 45em (720px) wide.
-.@720-shown   - Hidden on media smaller than 45em (720px) wide.
-.@960-hidden  - Hidden on media larger than 56em (960px) wide.
-.@960-shown   - Hidden on media smaller than 56em (960px) wide.
-.@1080-hidden - Hidden on media larger than 60em (1080px) wide.
-.@1080-shown  - Hidden on media smaller than 60em (1080px) wide.
-
-Styleguide: zutilities.respond
-*/
-
-@media screen and (max-width: #{$breakpoint-1 - 0.0001}) {
-	.\@400-shown { display: none !important; }
-}
-
-@media screen and (min-width: $breakpoint-1) {
-	.\@400-hidden { display: none !important; }
-}
-
-@media screen and (max-width: #{$breakpoint-2 - 0.0001}) {
-	.\@600-shown { display: none !important; }
-}
-
-@media screen and (min-width: $breakpoint-2) {
-	.\@600-hidden { display: none !important; }
-}
-
-@media screen and (max-width: #{$breakpoint-3 - 0.0001}) {
-	.\@720-shown { display: none !important; }
-}
-
-@media screen and (min-width: $breakpoint-3) {
-	.\@720-hidden { display: none !important; }
-}
-
-@media screen and (max-width: #{$breakpoint-4 - 0.0001}) {
-	.\@896-shown { display: none !important; }
-}
-
-@media screen and (min-width: $breakpoint-4) {
-	.\@896-hidden { display: none !important; }
-}
-
-@media screen and (max-width: #{$breakpoint-5 - 0.0001}) {
-	.\@960-shown { display: none !important; }
-}
-
-@media screen and (min-width: $breakpoint-5) {
-	.\@960-hidden { display: none !important; }
-}
 
 /*
 .white-color<br/>

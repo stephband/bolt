@@ -175,7 +175,7 @@ Styleguide: button.select-button
 	padding-top: 0;
 	padding-bottom: 0;
 	color: $neutral-color-1;
-	border: 1px solid $neutral-color-2;
+	border: 1px solid currentcolor;
 	background-color: white;
 }
 
@@ -188,7 +188,7 @@ Styleguide: button.select-button
 	width: 2.4375rem;
 	height: 100%;
 	border-width: 0;
-	border-left-width: 1px;
+	border-left-width: inherit;
 	border-style: inherit;
 	border-color: inherit;
 	border-top-left-radius: 0;
@@ -204,7 +204,7 @@ Styleguide: button.select-button
 	right: 0.875rem;
 	height: 0;
 	margin-top: -3px;
-	border-top: 6px solid $black-color;
+	border-top: 6px solid currentcolor;
 	border-left: 6px solid rgba(0, 0, 0, 0);
 	border-right: 6px solid rgba(0, 0, 0, 0);
 	transition: transform 200ms linear;
