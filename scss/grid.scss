@@ -92,6 +92,38 @@ $breakpoints:
 			}
 		}
 	}
+
+	/* Bleed widths. */
+
+	.#{$prefix}width-1\/1 {
+		width: 100%;
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.#{$prefix}width-#{$j}\/#{$i} {
+				width: #{100 * $j / $i}%;
+			}
+		}
+	}
+
+	/* Bleed margins inside a grid-block or grid-index. */
+
+	.grid-block > .#{$prefix}width-1\/1,
+	.grid-index > .#{$prefix}width-1\/1 {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.grid-block > .#{$prefix}width-#{$j}\/#{$i},
+			.grid-index > .#{$prefix}width-#{$j}\/#{$i} {
+				margin-left: 0;
+				margin-right: 0;
+			}
+		}
+	}
 }
 
 
