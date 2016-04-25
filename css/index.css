@@ -105,3 +105,23 @@ Styleguide: index.menu-index
 .menu-index > li > .button {
 	display: block;
 }
+
+
+/*
+.inline-index
+
+Horizontal layout of <code>li</code>s.
+
+Markup: <ul class="inline-index index">
+   <li><a class="button" href="#">One</a></li
+  ><li><a class="button" href="#">Two</a></li
+  ><li><a class="button" href="#">Three</a></li
+  ><li><a class="button" href="#">Four</a></li>
+</ul>
+
+Styleguide: index.inline-index
+*/
+
+.inline-index > li {
+	display: inline-block;
+}

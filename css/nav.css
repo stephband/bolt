@@ -70,8 +70,6 @@ Markup: <ul class="sub-index index">
   ><li><a class="sub-button button" href="#">Second button</a></li
   ><li><a class="sub-button button current" href="#">Third button</a></li>
 </ul>
-
-Styleguide: index.sub-index
 */
 
 .nav-index > li > .button,

@@ -131,24 +131,33 @@ Styleguide: thumb.social-thumb-3
 	background-position: 0 -11.75rem;
 }
 
-@media screen and (min-width: $breakpoint-3) {
-	.fb-thumb,
-	.tw-thumb,
-	.in-thumb {
-		width: 1rem;
-		padding-top: 1rem;
-		background-size: auto;
-	}
+/*
+.dot-thumb
 
-	.fb-thumb {
-		background-position: 0 -4.6875rem;
-	}
+Markup: <a class="dot-thumb thumb" href="/1">1</a>
 
-	.tw-thumb {
-		background-position: 0 -3.125rem;
-	}
+Styleguide: thumb.dot-thumb
+*/
 
-	.in-thumb {
-		background-position: 0 -6.25rem;
-	}
+.dot-thumb {
+	position: relative;
+	width: 1.25rem;
+	padding-top: 1.25rem;
+}
+
+.dot-thumb::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -0.3125rem;
+	margin-left: -0.3125rem;
+	width: 0.625rem;
+	height: 0.625rem;
+	border: 1px solid currentcolor;
+	border-radius: 50%;
+}
+
+.dot-thumb.on::before {
+	background-color: currentcolor;
 }

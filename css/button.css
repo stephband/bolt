@@ -105,7 +105,7 @@ Markup: <label class="button" for="select">
   </select>
 </label>
 
-Styleguide: button.button > select
+Styleguide: xForms.4
 */
 
 /*
@@ -118,6 +118,8 @@ Markup: <label class="button" for="file-input">
   Select file...
   <input type="file" id="file-input" />
 </label>
+
+Styleguide: xForms.5
 */
 
 .thumb > select,
@@ -175,7 +177,7 @@ Styleguide: button.select-button
 	padding-top: 0;
 	padding-bottom: 0;
 	color: $neutral-color-1;
-	border: 1px solid $neutral-color-2;
+	border: 1px solid currentcolor;
 	background-color: white;
 }
 
@@ -188,7 +190,7 @@ Styleguide: button.select-button
 	width: 2.4375rem;
 	height: 100%;
 	border-width: 0;
-	border-left-width: 1px;
+	border-left-width: inherit;
 	border-style: inherit;
 	border-color: inherit;
 	border-top-left-radius: 0;
@@ -204,7 +206,7 @@ Styleguide: button.select-button
 	right: 0.875rem;
 	height: 0;
 	margin-top: -3px;
-	border-top: 6px solid $black-color;
+	border-top: 6px solid currentcolor;
 	border-left: 6px solid rgba(0, 0, 0, 0);
 	border-right: 6px solid rgba(0, 0, 0, 0);
 	transition: transform 200ms linear;
@@ -237,30 +239,6 @@ Styleguide: button.check-button
 .check-button {
 	/* Overflow will hide the browser generated error messages. No no no. */
 	overflow: visible;
-}
-
-
-/*
-.icon-button
-
-Assumes the dimensions of the icon it contains.
-
-Markup: <a class="icon-button button" href="#navigation">
-  <svg class="burger-svg">
-    <title>Navigation</title>
-    <line x1="10" y1="9"  x2="30" y2="9"></line>
-    <line x1="10" y1="15" x2="30" y2="15"></line>
-    <line x1="10" y1="21" x2="30" y2="21"></line>
-  </svg>
-</a>
-
-Styleguide: button.icon-button
-*/
-
-.icon-button {
-	padding: 0;
-	width: auto;
-	height: auto;
 }
 
 
