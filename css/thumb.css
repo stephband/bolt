@@ -66,22 +66,45 @@ Styleguide: thumb
 
 
 /*
-.dismiss-thumb
+.close-thumb
 
-Icon for dismissing alerts.
+Markup: <a class="close-thumb thumb" href="#">Close</a>
 
-Markup: <button class="dismiss-thumb thumb">Dismiss</button>
-
-Styleguide: thumb.dismiss-thumb
+Styleguide: thumb.close-thumb
 */
 
-.dismiss-thumb {
-	width: 1.875rem;
-	padding-top: 1.875rem;
-	background-image: url('../images/sprites.svg');
-	background-position: 0 -625px;
-	background-size: auto;
+.close-thumb {
+	width: 2.5rem;
+	padding-top: 2.5rem;
+	background-image: none;
+	background-color: white;
+	border-radius: 50%;
+	box-shadow: none;
 }
+
+.close-thumb::before,
+.close-thumb::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -0.625rem;
+	width: 1.25rem;
+	height: 0;
+	border-top: 1px solid currentcolor;
+	border-bottom: 1px solid currentcolor;
+	border-radius: 1px;
+}
+
+.close-thumb::before {
+	transform: rotate(45deg);
+}
+
+.close-thumb::after {
+	transform: rotate(-45deg);
+}
+
 
 /*
 .fb-thumb
