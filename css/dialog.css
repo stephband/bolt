@@ -45,4 +45,5 @@
 	position: absolute;
 	top: -0.9375rem;
 	right: -0.9375rem;
+	z-index: 2;
 }
