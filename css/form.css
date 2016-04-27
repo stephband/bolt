@@ -517,6 +517,30 @@ button,
 
 
 
+/* Date and time inputs. */
+
+::-webkit-datetime-edit-text {
+	/* Space the separators and make them lighter. */
+	opacity: 0.333333;
+	padding-left: 0.0625rem;
+	padding-right: 0.0625rem;
+}
+
+[type="date"]::-webkit-inner-spin-button {
+	/* Hide the increment/decrement control. */
+	display: none;
+}
+
+/*
+::-webkit-datetime-edit { padding: 0; }
+::-webkit-datetime-edit-fields-wrapper { background: transparent; }
+::-webkit-datetime-edit-month-field { color: ; }
+::-webkit-datetime-edit-day-field { color: ; }
+::-webkit-datetime-edit-year-field { color: ; }
+::-webkit-inner-spin-button { display: none; }
+::-webkit-calendar-picker-indicator { }
+*/
+
 /* Range inputs.
 
    In WebKit, tracks and handles are styleable by setting

@@ -105,6 +105,55 @@ Styleguide: thumb.close-thumb
 	transform: rotate(-45deg);
 }
 
+/*
+.prev-thumb<br/>
+.next-thumb
+
+Navigation thumbs for slideshows.
+
+Markup: <a class="prev-thumb thumb">Previous</a>
+<a class="next-thumb thumb">Next</a>
+
+Styleguide: thumb.prev-thumb
+*/
+
+.prev-thumb,
+.next-thumb {
+	position: relative;
+	width: 3.75rem;
+	padding-top: 5rem;
+	background-image: none;
+}
+
+.prev-thumb::before,
+.next-thumb::before {
+	position: absolute;
+	top: 50%;
+	content: '';
+	height: 1.875rem;
+	width: 1.875rem;
+	margin-top: -0.9375rem;
+	border-top: 1px solid currentcolor;
+	border-left: 1px solid currentcolor;
+}
+
+.prev-thumb::before {
+	left: 62.5%;
+	margin-left: -0.9375rem;
+	transform: rotate(-45deg);
+}
+
+.next-thumb::before {
+	right: 62.5%;
+	margin-right: -0.9375rem;
+	transform: rotate(135deg);
+}
+
+.prev-thumb:hover::before,
+.next-thumb:hover::before {
+	border-top-width: 2px;
+	border-left-width: 2px;
+}
 
 /*
 .fb-thumb
