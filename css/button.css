@@ -25,6 +25,9 @@ button {
 	   -moz-hyphens: none;
 	    -ms-hyphens: none;
 	        hyphens: none;
+
+	color: inherit;
+	background-color: transparent;
 }
 
 button,

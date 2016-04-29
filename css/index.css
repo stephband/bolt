@@ -83,31 +83,6 @@ Styleguide: index.crumb-index
 
 
 /*
-.menu-index
-
-Divided list of block <code class="html-tag">li</code>s for
-<code>menu-button</code>s.
-
-Markup: <ul class="menu-index index">
-   <li><a class="menu-button button" href="#">One</a></li
-  ><li><a class="menu-button button" href="#">Two</a></li
-  ><li><a class="menu-button button" href="#">Three</a></li
-  ><li><a class="menu-button button" href="#">Four</a></li>
-</ul>
-
-Styleguide: index.menu-index
-*/
-
-.menu-index > li + li {
-	border-top: 1px solid $neutral-color-2;
-}
-
-.menu-index > li > .button {
-	display: block;
-}
-
-
-/*
 .inline-index
 
 Horizontal layout of <code>li</code>s.
