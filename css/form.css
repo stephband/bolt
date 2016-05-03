@@ -44,6 +44,14 @@ legend {
 	font-size: 1.1667em;
 }
 
+option {
+	/* In Firefox options are partially styleable. Make sure they don't
+	   become unreadable by inheriting colors. */
+	color: black;
+	background: white;
+	padding: 0.3125rem 0.9375rem;
+}
+
 /*
 label + input
 
