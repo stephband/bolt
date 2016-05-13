@@ -37,7 +37,7 @@
 
         {{#ifReference ../rootName}}
 
-        <ul class="index">
+        <!--ul class="index">
           {{#eachSection reference}}
           {{#ifDepth 2}}
           <li>
@@ -45,12 +45,12 @@
           </li>
           {{/ifDepth}}
           {{/eachSection}}
-        </ul>
+	  	</ul-->
         {{/ifReference}}
       </li>
       {{/eachRoot}}
 
-    </ul>
+  </ul>
   </nav>
 </div>
 <article role="main" class="kss-main">
@@ -68,13 +68,13 @@
   }}
   {{#eachSection rootName}}
     {{#ifDepth 1}}
-      <div     id="{{referenceURI}}" class="kss-section kss-section--depth-{{depth}}">
+      <div     id="{{referenceURI}}" class="kss-section kss-section--depth-{{depth}} grid-block">
     {{else}}
-      <section id="{{referenceURI}}" class="kss-section kss-section--depth-{{depth}}">
+      <section id="{{referenceURI}}" class="kss-section kss-section--depth-{{depth}} grid-block">
     {{/ifDepth}}
 
-    <div class="kss-style block @3-grid-1/2">
-      <h{{depth}}>
+    <div class="kss-style block grid-1/3 @3-grid-1/4">
+      <h{{depth}} class="text-6">
         <a class="kss-title__permalink bolt-text-4" href="#{{referenceURI}}">
           <!--small>{{#ifNumeric reference}}{{reference}}{{else}}{{autoincrement}}{{/ifNumeric}}</small-->
           <code>{{{header}}}</code>
@@ -96,24 +96,23 @@
       {{/eachParameter}}
       </ul>
     {{/if}}
-    </div>
+    </div
 
-    {{#if markup}}
-    <div class="grid-block block">
-        <div class="example-block block @2-grid-2/3 @3-grid-1/2">
+	>{{#if markup}}<div class="grid-block block grid-2/3 @3-grid-1/2">
+        <div class="example-block block grid-1/1">
             {{{markup}}}
         </div
 
-        ><pre class="prettyprint lang-html code-block block @3-grid-1/2"><code data-language="html">{{markup}}</code></pre>
+        ><pre class="prettyprint lang-html code-block block grid-1/1"><code data-language="html">{{markup}}</code></pre>
 
         {{#eachModifier}}
-        <div class="example-block block @2-grid-2/3 @3-grid-1/2">
+        <div class="example-block block grid-1/1">
             {{{markup}}}
         </div
 
-        ><pre class="prettyprint lang-html code-block block @3-grid-1/2"><code data-language="html">{{markup}}</code></pre
+        ><pre class="prettyprint lang-html code-block block grid-1/1"><code data-language="html">{{markup}}</code></pre
 
-        >{{#if name}}<p class="block @2-grid-2/3 @3-grid-1/2">
+        >{{#if name}}<p class="block grid-1/1">
             {{name}} – {{{description}}}
         </p>{{/if}}
         {{/eachModifier}}

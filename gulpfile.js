@@ -12,6 +12,7 @@ var files = {
 		"css/normalise.css",
 		"css/form.css",
 		"css/block.css",
+		"css/dialog.css",
 		"css/index.css",
 		"css/layer.css",
 		"css/card.css",
@@ -22,7 +23,7 @@ var files = {
 		"css/text.css",
 		"css/utilities.css",
 		"css/color.css",
-		"css/",
+		"css/dom.css",
 		"css/space.css",
 		"css/action.css"
 	],

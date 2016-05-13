@@ -916,7 +916,7 @@
 //  Dependencies
 //  jquery.event.activate
 //  jquery.event.activate.dialog
-  
+
 //  .dialog(role, options)
 //  Displays current jQuery object in a dialog. Both role and options
 //  are optional.
@@ -954,7 +954,7 @@
 	}
 })(function(jQuery, undefined){
 	var debug = false; //(window.console && console.log);
-	
+
 	var text = {
 	    	ok: 'Ok',
 	    	cancel: 'Cancel',
@@ -972,9 +972,9 @@
 
 	    	slides: function(elem, options) {
 					var box = jQuery('<div/>', {
-					    	'class': options['class'] || 'slides_dialog dialog'
+					    	'class': options['class'] || 'slides-dialog dialog'
 					    }),
-					
+
 					    button = jQuery.fn.dialog.closeButton.clone();
 
 					return box.html(elem).append(button);
@@ -982,9 +982,9 @@
 
 	    	lightbox: function(elem, options) {
 					var box = jQuery('<div/>', {
-					    	'class': options['class'] || 'lightbox_dialog dialog'
+					    	'class': options['class'] || 'lightbox-dialog dialog'
 					    }),
-					    
+
 					    button = jQuery.fn.dialog.closeButton.clone();
 
 					return box.html(elem).append(button);
@@ -992,7 +992,7 @@
 
 	    	alert: function(elem, options) {
 	    		var box = jQuery('<div/>', {
-	    		    	'class': options['class'] || 'alert_dialog dialog'
+	    		    	'class': options['class'] || 'alert-dialog dialog'
 	    		    }),
 
 	    		    actions = '<ul class="action-index index">' +
@@ -1004,7 +1004,7 @@
 
 	    	confirm: function(elem, options) {
 	    		var box = jQuery('<div/>', {
-	    		    	'class': options['class'] || 'confirm_dialog dialog'
+	    		    	'class': options['class'] || 'confirm-dialog dialog'
 	    		    }),
 
 	    		    actions = '<ul class="action-index index">' +
@@ -1033,7 +1033,7 @@
 		.off('deactivateend', deactivateend)
 		.remove();
 	}
-	
+
 	jQuery.fn.dialog = function(role, options){
 		var dialog, box;
 
@@ -1056,11 +1056,11 @@
 		});
 
 		box = roles[role || '_default'](this, options);
-		
+
 		box
 		.attr('tabindex', '-1')
 		.attr('role', 'dialog');
-		
+
 		dialog
 		.html(box)
 		.appendTo('body')
@@ -1077,7 +1077,7 @@
 	// Expose
 	jQuery.fn.dialog.roles = roles;
 	jQuery.fn.dialog.text = text;
-	
+
 	// If we don't create the close button this way - if we write out the html
 	// and have the browser parse it, IE7 cocks up the href, adding the whole
 	// path in front of it first. Not what we want.
@@ -1087,6 +1087,7 @@
 		'html': text.close
 	});
 });
+
 // Fallback support for jQuery.fn.addTransitionClass. Also can
 // be used in cases where low file size is a proirity.
 
@@ -1137,16 +1138,16 @@
 	};
 });
 // jquery.validate.js
-// 
+//
 // 0.9.1
-// 
+//
 // Stephen Band
-// 
+//
 // Parts of this plugin are inspired by jquery.validate.js (Jörn Zaefferer) -
 // indeed some regex is borrowed from there.
 //
 // Options:
-// 
+//
 // errorSelector - Selector for the closest element to a failed field where
 //                 errorClass is added. By default this is the input or
 //                 textarea field itself.
@@ -1181,13 +1182,13 @@
 	    	errorNode: jQuery('<label/>', { 'class': 'error_label' }),
 	    	errorSelector: "input, textarea"
 	    },
-	    
+
 	    errorMessages = {
 	    	// Types
 	    	url: 'That doesn\'t look like a valid URL',
 	    	email: 'Enter a valid email',
 	    	number: 'That\'s not a number.',
-	    	
+
 	    	// Attributes
 	    	required: 'Required',
 	    	minlength: 'At least {{attr}} characters',
@@ -1195,14 +1196,14 @@
 	    	min: 'Minimum {{attr}}',
 	    	max: 'Maximum {{attr}}'
 	    },
-	    
+
 	    regex = {
 	    	url:		/^([a-z][\w\.\-\+]*\:\/\/)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}/,
 	    	email:		/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i,
-	    	number:		/^(\d*\.?\d+)$/,
+	    	number:		/^(\-?\d*\.?\d+)$/,
 	    	color:		/^#([0-9a-fA-F]{6})$/
 	    },
-	    
+
 	    // html5 input types
 	    types = {
 	    	url: {
@@ -1232,7 +1233,6 @@
 	    	//search: {},
 	    },
 
-	    
 	    attributes = {
 	    	type: function( value, type, pass, fail, autocomplete ){
 	    		var autovalue;
@@ -1243,35 +1243,35 @@
 	    			fail( errorMessages[type] )
 	    		);
 	    	},
-	    	
+
 	    	required: function( value, attr, pass, fail ) {
 	    		return ( !!value ) ?
 	    			pass() :
 	    			fail( jQuery.render(errorMessages.required, {attr: attr}) ) ;
 	    	},
-	    	
+
 	    	minlength: function( value, attr, pass, fail ) {
 	    		return ( !value || value.length >= parseInt(attr) ) ?
 	    			pass() :
 	    			fail( jQuery.render(errorMessages.minlength, {attr: attr}) ) ;
 	    	},
-	    	
+
 	    	maxlength: function( value, attr, pass, fail ) {
 	    		var number = parseInt( attr );
-	    		
+
 	    		// Be careful, if there is no value maxlength is implicitly there
 	    		// whether it's in the html or not, and sometimes it's -1
 	    		return ( !value || number === -1 || value.length <= number ) ?
 	    			pass() :
 	    			fail( jQuery.render(errorMessages.maxlength, {attr: attr}) ) ;
 	    	},
-	    	
+
 	    	min: function( value, attr, pass, fail ) {
 	    		return ( !value || parseFloat(attr) <= parseFloat(value) ) ?
 	    			pass() :
 	    			fail( jQuery.render(errorMessages.min, {attr: attr}) ) ;
 	    	},
-	    	
+
 	    	max: function( value, attr, pass, fail ) {
 	    		return ( !value || parseFloat(attr) >= parseFloat(value) ) ?
 	    			pass() :
@@ -1281,7 +1281,7 @@
 	    	//	return ( !value );
 	    	//}
 	    };
-	
+
 	function removeError(data, attr) {
 		data[attr] = true;
 		data.errorNode.remove();
@@ -1291,7 +1291,7 @@
 		var field = jQuery(node),
 		    data = field.data('validate'),
 		    attr;
-		
+
 		for (attr in attributes) {
 			if (data && data[attr] === false) {
 				removeError(data, attr);
@@ -1311,42 +1311,42 @@
 		    passFlag = true,
 		    stopTestFlag = false,
 		    attr, attrval, rule, response;
-		
+
 		if (debug) { console.groupCollapsed('[jquery.validate]', node.id, value); }
-		
+
 		for (attr in attributes) {
 			// We use getAttribute rather than .attr(), because
 			// it returns the original value of the attribute rather
 			// than the browser's interpretation.
 			attrval = field[0].getAttribute(attr);
-			
+
 			if (attrval) {
 				if (debug) { console.log(attr, attrval); }
-				
+
 				attributes[attr](value, attrval, function(autoval){
 					// The test has passed
 					if (autoval) {
 						value = autoval;
 						field.val(autoval);
 					}
-					
+
 					// Remove the error message
 					if (data && data[attr] === false) {
 						removeError(data, attr);
 					}
 				}, function(message){
 					// The test has failed
-					
+
 					var response = options.fail && options.fail.call(node, value, message);
-					
+
 					if (debug) { console.warn('FAIL', attr, message, response); }
-					
+
 					// If the fail callback returns a value, override the
 					// failure, and put that value in the field.
 					if (response) {
 						value = response;
 						field.val(response);
-						
+
 						// Remove the error message
 						if ( data && data[attr] === false ) {
 							removeError(data, attr);
@@ -1362,55 +1362,55 @@
 							};
 							field.data('validate', data);
 						}
-						
+
 						// If there is an error message on the node, use that.
 						message = node.getAttribute('data-error-' + attr) || message;
-						
+
 						data.errorNode.html(message);
-						
+
 						data[attr] = false;
-						
+
 						field
 						.before(data.errorNode)
 						.closest(options.errorSelector)
 						.addClass(options.errorClass);
-						
+
 						passFlag = false;
 					}
-					
+
 					stopTestFlag = true;
 				}, autocomplete );
 			}
-			
+
 			// If we've been told to stop testing,
 			// break out of this loop.
 			if (stopTestFlag) {
 				break;
 			}
 		}
-		
+
 		if (debug) { console.groupEnd(); }
-		
+
 		if (passFlag) {
 			// Remove error class
 			field
 			.closest( '.' + options.errorClass )
 			.removeClass( options.errorClass );
-			
+
 			// Fire callback with input as context and arguments
 			// value (string), checked (boolean)
 			options.pass && options.pass.call(node, value, field.attr('checked'));
-			
+
 			return true;
 		}
 	}
-	
+
 	// Call .validate() on each of a form's inputs
 	// and textareas, and call pass if everything
 	// passed and fail if at least one thing failed
 	function validateForm(node, options){
 		var failCount = 0;
-		
+
 		jQuery(node)
 		.find("input, textarea, select")
 		.validate({
@@ -1418,7 +1418,7 @@
 				failCount++;
 			}
 		});
-		
+
 		if (failCount) {
 			options.fail && options.fail.call(this);
 		}
@@ -1434,10 +1434,10 @@
 			removeErrors(this);
 		});
 	}
-	
+
 	function validateTrue() {
 		var tagName = this.nodeName.toLowerCase();
-		
+
 		if (tagName === 'form') {
 			validateTrueForm(this);
 			return;
@@ -1448,17 +1448,17 @@
 			return;
 		}
 	}
-	
+
 	jQuery.fn.validate = function(o){
 		if (o === true) {
 			return this.each(validateTrue);
 		}
-		
+
 		var options = jQuery.extend({}, jQuery.fn.validate.options, o);
-		
+
 		return this.each(function validate() {
 			var tagName = this.nodeName.toLowerCase();
-			
+
 			if (tagName === 'input' || tagName === 'textarea' || tagName === 'select') {
 				if (this.disabled) { return; }
 				validateInput(this, options);
@@ -1470,13 +1470,14 @@
 			}
 		});
 	};
-	
+
 	options.errorMessages = errorMessages;
-	
+
 	jQuery.fn.validate.regex = regex;
 	jQuery.fn.validate.options = jQuery.fn.validate.options = options;
 	jQuery.fn.validate.attributes = attributes;
 });
+
 // bolt
 //
 // bolt(name, obj)

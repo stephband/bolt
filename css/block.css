@@ -113,18 +113,19 @@ Styleguide: block.slides-block-1
 	background-color: $neutral-color-2;
 }
 
-.slides-block > .ctrl-thumb {
+.slides-block > .prev-thumb,
+.slides-block > .next-thumb {
 	position: absolute;
 	top: 50%;
 	margin-top: -1.375rem;
 	z-index: 3;
 }
 
-.slides-block > .prev-ctrl-thumb {
+.slides-block > .prev-thumb {
 	left: 0;
 }
 
-.slides-block > .next-ctrl-thumb {
+.slides-block > .next-thumb {
 	right: 0;
 }
 
@@ -140,8 +141,8 @@ Markup: <div class="slides-block block">
   <img class="slide-block block slide active" id="slide-1" src="//source.unsplash.com/category/nature/520x310"
   /><img class="slide-block block slide" id="slide-2" src="//source.unsplash.com/category/nature/520x310"
   /><img class="slide-block block slide" id="slide-3" src="//source.unsplash.com/category/nature/520x310" />
-  <a class="prev-ctrl-thumb ctrl-thumb thumb" href="#slide-1">Previous</a>
-  <a class="next-ctrl-thumb ctrl-thumb thumb" href="#slide-2">Next</a>
+  <a class="prev-thumb thumb" href="#slide-1">Previous</a>
+  <a class="next-thumb thumb" href="#slide-2">Next</a>
 </div>
 
 Styleguide: block.slides-block-2

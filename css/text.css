@@ -253,14 +253,6 @@ Styleguide: vText.6
 */
 
 /*
-.text-7, code
-
-Markup: <p class="text-7">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
-
-Styleguide: vText.7
-*/
-
-/*
 .text-8, body
 
 Markup: <p class="text-8">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
@@ -387,6 +379,9 @@ blockquote        { margin-left: 2.6667em; }
 .uppercase-text   { text-transform: uppercase; }
 .html-tag::before { content: '<'; margin-right: -0.1em; }
 .html-tag::after  { content: '>'; margin-left: -0.1em; }
+
+.no-wrap          { white-space: nowrap; }
+.line-wrap        { white-space: pre; }
 
 /* Selection */
 

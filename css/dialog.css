@@ -1,0 +1,49 @@
+.dialog {
+	/* Act as position parent */
+	position: relative;
+
+	padding: 0.75rem;
+	margin: 0;
+	max-width: 72%;
+
+	/* But let's make sure it doesn't touch the top or
+	   bottom. */
+	margin-top: 2.5em;
+	margin-bottom: 2.5em;
+
+	background-color: white;
+
+	-webkit-border-radius: 0.3333em;
+	   -moz-border-radius: 0.3333em;
+	        border-radius: 0.3333em;
+
+	-webkit-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+	   -moz-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+	        box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+}
+
+.dialog > img,
+.dialog > svg,
+.dialog > video,
+.dialog > canvas,
+.dialog > object,
+.dialog > embed,
+.dialog > iframe {
+	/* Don't allow media to break out of container bounds. */
+	max-width: 100%;
+}
+
+.dialog > img,
+.dialog > svg,
+.dialog > video,
+.dialog > canvas {
+	/* Allow images to rescale freely. */
+	height: auto;
+}
+
+.dialog > .close-thumb {
+	position: absolute;
+	top: -0.9375rem;
+	right: -0.9375rem;
+	z-index: 2;
+}

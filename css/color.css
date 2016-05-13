@@ -1,9 +1,11 @@
 /*
-.white-color<br/>
-.white-bg
+.black-bg<br/>
+.white-bg<br/>
+.black-color<br/>
+.white-color
 
-Markup: <p class="text-4 white-color">#ffffff</p>
-<p class="text-4 white-bg">#ffffff</p>
+Markup: <p class="text-5 white-color black-bg">Black</p>
+<p class="text-5 black-color white-bg">White</p>
 
 Styleguide: Color.1
 */
@@ -11,16 +13,6 @@ Styleguide: Color.1
 :root { --white-color: white; }
 .white-color { color: white; }
 .white-bg    { background-color: white; }
-
-/*
-.black-color<br/>
-.black-bg
-
-Markup: <p class="text-4 black-color">#000000</p>
-<p class="text-4 black-bg">#000000</p>
-
-Styleguide: Color.2
-*/
 
 :root { --black-color: black; }
 .black-color { color: black; }

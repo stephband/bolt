@@ -66,21 +66,93 @@ Styleguide: thumb
 
 
 /*
-.dismiss-thumb
+.close-thumb
 
-Icon for dismissing alerts.
+Markup: <a class="close-thumb thumb" href="#">Close</a>
 
-Markup: <button class="dismiss-thumb thumb">Dismiss</button>
-
-Styleguide: thumb.dismiss-thumb
+Styleguide: thumb.close-thumb
 */
 
-.dismiss-thumb {
+.close-thumb {
+	width: 2.5rem;
+	padding-top: 2.5rem;
+	background-image: none;
+	background-color: white;
+	border-radius: 50%;
+	box-shadow: none;
+}
+
+.close-thumb::before,
+.close-thumb::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -0.625rem;
+	width: 1.25rem;
+	height: 0;
+	border-top: 1px solid currentcolor;
+	border-bottom: 1px solid currentcolor;
+	border-radius: 1px;
+}
+
+.close-thumb::before {
+	transform: rotate(45deg);
+}
+
+.close-thumb::after {
+	transform: rotate(-45deg);
+}
+
+/*
+.prev-thumb<br/>
+.next-thumb
+
+Navigation thumbs for slideshows.
+
+Markup: <a class="prev-thumb thumb">Previous</a>
+<a class="next-thumb thumb">Next</a>
+
+Styleguide: thumb.prev-thumb
+*/
+
+.prev-thumb,
+.next-thumb {
+	position: relative;
+	width: 3.75rem;
+	padding-top: 5rem;
+	background-image: none;
+}
+
+.prev-thumb::before,
+.next-thumb::before {
+	position: absolute;
+	top: 50%;
+	content: '';
+	height: 1.875rem;
 	width: 1.875rem;
-	padding-top: 1.875rem;
-	background-image: url('../images/sprites.svg');
-	background-position: 0 -625px;
-	background-size: auto;
+	margin-top: -0.9375rem;
+	border-top: 1px solid currentcolor;
+	border-left: 1px solid currentcolor;
+}
+
+.prev-thumb::before {
+	left: 62.5%;
+	margin-left: -0.9375rem;
+	transform: rotate(-45deg);
+}
+
+.next-thumb::before {
+	right: 62.5%;
+	margin-right: -0.9375rem;
+	transform: rotate(135deg);
+}
+
+.prev-thumb:hover::before,
+.next-thumb:hover::before {
+	border-top-width: 2px;
+	border-left-width: 2px;
 }
 
 /*
@@ -131,24 +203,33 @@ Styleguide: thumb.social-thumb-3
 	background-position: 0 -11.75rem;
 }
 
-@media screen and (min-width: $breakpoint-3) {
-	.fb-thumb,
-	.tw-thumb,
-	.in-thumb {
-		width: 1rem;
-		padding-top: 1rem;
-		background-size: auto;
-	}
+/*
+.dot-thumb
 
-	.fb-thumb {
-		background-position: 0 -4.6875rem;
-	}
+Markup: <a class="dot-thumb thumb" href="/1">1</a>
 
-	.tw-thumb {
-		background-position: 0 -3.125rem;
-	}
+Styleguide: thumb.dot-thumb
+*/
 
-	.in-thumb {
-		background-position: 0 -6.25rem;
-	}
+.dot-thumb {
+	position: relative;
+	width: 1.25rem;
+	padding-top: 1.25rem;
+}
+
+.dot-thumb::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -0.3125rem;
+	margin-left: -0.3125rem;
+	width: 0.625rem;
+	height: 0.625rem;
+	border: 1px solid currentcolor;
+	border-radius: 50%;
+}
+
+.dot-thumb.on::before {
+	background-color: currentcolor;
 }

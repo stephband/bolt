@@ -342,6 +342,14 @@ legend {
 	font-size: 1.1667em;
 }
 
+option {
+	/* In Firefox options are partially styleable. Make sure they don't
+	   become unreadable by inheriting colors. */
+	color: black;
+	background: white;
+	padding: 0.3125rem 0.9375rem;
+}
+
 /*
 label + input
 
@@ -815,6 +823,30 @@ button,
 
 
 
+/* Date and time inputs. */
+
+::-webkit-datetime-edit-text {
+	/* Space the separators and make them lighter. */
+	opacity: 0.333333;
+	padding-left: 0.0625rem;
+	padding-right: 0.0625rem;
+}
+
+[type="date"]::-webkit-inner-spin-button {
+	/* Hide the increment/decrement control. */
+	display: none;
+}
+
+/*
+::-webkit-datetime-edit { padding: 0; }
+::-webkit-datetime-edit-fields-wrapper { background: transparent; }
+::-webkit-datetime-edit-month-field { color: ; }
+::-webkit-datetime-edit-day-field { color: ; }
+::-webkit-datetime-edit-year-field { color: ; }
+::-webkit-inner-spin-button { display: none; }
+::-webkit-calendar-picker-indicator { }
+*/
+
 /* Range inputs.
 
    In WebKit, tracks and handles are styleable by setting
@@ -1031,7 +1063,7 @@ input[type="range"].y-input::-moz-range-thumb {
 	line-height: inherit;
 }
 
-:placehodler-shown {
+:placeholder-shown {
 	font-style: italic;
 	line-height: inherit;
 }
@@ -1573,6 +1605,56 @@ Styleguide: block.slides-block-2
 	}
 }
 
+.dialog {
+	/* Act as position parent */
+	position: relative;
+
+	padding: 0.75rem;
+	margin: 0;
+	max-width: 72%;
+
+	/* But let's make sure it doesn't touch the top or
+	   bottom. */
+	margin-top: 2.5em;
+	margin-bottom: 2.5em;
+
+	background-color: white;
+
+	-webkit-border-radius: 0.3333em;
+	   -moz-border-radius: 0.3333em;
+	        border-radius: 0.3333em;
+
+	-webkit-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+	   -moz-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+	        box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+}
+
+.dialog > img,
+.dialog > svg,
+.dialog > video,
+.dialog > canvas,
+.dialog > object,
+.dialog > embed,
+.dialog > iframe {
+	/* Don't allow media to break out of container bounds. */
+	max-width: 100%;
+}
+
+.dialog > img,
+.dialog > svg,
+.dialog > video,
+.dialog > canvas {
+	/* Allow images to rescale freely. */
+	height: auto;
+}
+
+.dialog > .close-thumb {
+	position: absolute;
+	top: -0.9375rem;
+	right: -0.9375rem;
+	z-index: 2;
+}
+
 /*
 .index
 
@@ -1654,31 +1736,6 @@ Styleguide: index.crumb-index
 
 .crumb-index > li:last-child > a {
 	color: $theme-color;
-}
-
-
-/*
-.menu-index
-
-Divided list of block <code class="html-tag">li</code>s for
-<code>menu-button</code>s.
-
-Markup: <ul class="menu-index index">
-   <li><a class="menu-button button" href="#">One</a></li
-  ><li><a class="menu-button button" href="#">Two</a></li
-  ><li><a class="menu-button button" href="#">Three</a></li
-  ><li><a class="menu-button button" href="#">Four</a></li>
-</ul>
-
-Styleguide: index.menu-index
-*/
-
-.menu-index > li + li {
-	border-top: 1px solid $neutral-color-2;
-}
-
-.menu-index > li > .button {
-	display: block;
 }
 
 
@@ -1802,62 +1859,6 @@ Styleguide: layer.dialog-layer
 	/* Center the dialog vertically, working in tandem
 	   with the :before rule of .dialog-layer. */
 	vertical-align: middle;
-}
-
-.dialog {
-	/* Act as position parent */
-	position: relative;
-
-	padding: 0.8333em;
-	margin: 0;
-	max-width: 72%;
-
-	/* But let's make sure it doesn't touch the top or
-	   bottom. */
-	margin-top: 2.5em;
-	margin-bottom: 2.5em;
-
-	background-color: white;
-
-	-webkit-border-radius: 0.3333em;
-	   -moz-border-radius: 0.3333em;
-	        border-radius: 0.3333em;
-
-	-webkit-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
-	   -moz-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
-	        box-shadow: 0 2px 24px rgba(0,0,0,0.6);
-}
-
-.dialog > img,
-.dialog > svg,
-.dialog > video,
-.dialog > canvas,
-.dialog > object,
-.dialog > embed,
-.dialog > iframe {
-	/* Don't allow media to break out of container bounds. */
-	max-width: 100%;
-}
-
-.dialog > img,
-.dialog > svg,
-.dialog > video,
-.dialog > canvas {
-	/* Allow images to rescale freely. */
-	height: auto;
-}
-
-.dialog > .close_button,
-.dialog > .close-thumb {
-	position: absolute;
-	top: -16px;
-	top: -1rem;
-	right: -16px;
-	right: -1rem;
-
-	-webkit-box-shadow: 0 0 24px rgba(0,0,0,0.6);
-	   -moz-box-shadow: 0 0 24px rgba(0,0,0,0.6);
-	        box-shadow: 0 0 24px rgba(0,0,0,0.6);
 }
 
 
@@ -2242,6 +2243,9 @@ button {
 	   -moz-hyphens: none;
 	    -ms-hyphens: none;
 	        hyphens: none;
+
+	color: inherit;
+	background-color: transparent;
 }
 
 button,
@@ -2322,7 +2326,7 @@ Markup: <label class="button" for="select">
   </select>
 </label>
 
-Styleguide: button.button > select
+Styleguide: xForms.4
 */
 
 /*
@@ -2335,6 +2339,8 @@ Markup: <label class="button" for="file-input">
   Select file...
   <input type="file" id="file-input" />
 </label>
+
+Styleguide: xForms.5
 */
 
 .thumb > select,
@@ -2392,7 +2398,7 @@ Styleguide: button.select-button
 	padding-top: 0;
 	padding-bottom: 0;
 	color: $neutral-color-1;
-	border: 1px solid $neutral-color-2;
+	border: 1px solid currentcolor;
 	background-color: white;
 }
 
@@ -2405,7 +2411,7 @@ Styleguide: button.select-button
 	width: 2.4375rem;
 	height: 100%;
 	border-width: 0;
-	border-left-width: 1px;
+	border-left-width: inherit;
 	border-style: inherit;
 	border-color: inherit;
 	border-top-left-radius: 0;
@@ -2421,7 +2427,7 @@ Styleguide: button.select-button
 	right: 0.875rem;
 	height: 0;
 	margin-top: -3px;
-	border-top: 6px solid $black-color;
+	border-top: 6px solid currentcolor;
 	border-left: 6px solid rgba(0, 0, 0, 0);
 	border-right: 6px solid rgba(0, 0, 0, 0);
 	transition: transform 200ms linear;
@@ -2454,30 +2460,6 @@ Styleguide: button.check-button
 .check-button {
 	/* Overflow will hide the browser generated error messages. No no no. */
 	overflow: visible;
-}
-
-
-/*
-.icon-button
-
-Assumes the dimensions of the icon it contains.
-
-Markup: <a class="icon-button button" href="#navigation">
-  <svg class="burger-svg">
-    <title>Navigation</title>
-    <line x1="10" y1="9"  x2="30" y2="9"></line>
-    <line x1="10" y1="15" x2="30" y2="15"></line>
-    <line x1="10" y1="21" x2="30" y2="21"></line>
-  </svg>
-</a>
-
-Styleguide: button.icon-button
-*/
-
-.icon-button {
-	padding: 0;
-	width: auto;
-	height: auto;
 }
 
 
@@ -2612,21 +2594,93 @@ Styleguide: thumb
 
 
 /*
-.dismiss-thumb
+.close-thumb
 
-Icon for dismissing alerts.
+Markup: <a class="close-thumb thumb" href="#">Close</a>
 
-Markup: <button class="dismiss-thumb thumb">Dismiss</button>
-
-Styleguide: thumb.dismiss-thumb
+Styleguide: thumb.close-thumb
 */
 
-.dismiss-thumb {
+.close-thumb {
+	width: 2.5rem;
+	padding-top: 2.5rem;
+	background-image: none;
+	background-color: white;
+	border-radius: 50%;
+	box-shadow: none;
+}
+
+.close-thumb::before,
+.close-thumb::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -0.625rem;
+	width: 1.25rem;
+	height: 0;
+	border-top: 1px solid currentcolor;
+	border-bottom: 1px solid currentcolor;
+	border-radius: 1px;
+}
+
+.close-thumb::before {
+	transform: rotate(45deg);
+}
+
+.close-thumb::after {
+	transform: rotate(-45deg);
+}
+
+/*
+.prev-thumb<br/>
+.next-thumb
+
+Navigation thumbs for slideshows.
+
+Markup: <a class="prev-thumb thumb">Previous</a>
+<a class="next-thumb thumb">Next</a>
+
+Styleguide: thumb.prev-thumb
+*/
+
+.prev-thumb,
+.next-thumb {
+	position: relative;
+	width: 3.75rem;
+	padding-top: 5rem;
+	background-image: none;
+}
+
+.prev-thumb::before,
+.next-thumb::before {
+	position: absolute;
+	top: 50%;
+	content: '';
+	height: 1.875rem;
 	width: 1.875rem;
-	padding-top: 1.875rem;
-	background-image: url('../images/sprites.svg');
-	background-position: 0 -625px;
-	background-size: auto;
+	margin-top: -0.9375rem;
+	border-top: 1px solid currentcolor;
+	border-left: 1px solid currentcolor;
+}
+
+.prev-thumb::before {
+	left: 62.5%;
+	margin-left: -0.9375rem;
+	transform: rotate(-45deg);
+}
+
+.next-thumb::before {
+	right: 62.5%;
+	margin-right: -0.9375rem;
+	transform: rotate(135deg);
+}
+
+.prev-thumb:hover::before,
+.next-thumb:hover::before {
+	border-top-width: 2px;
+	border-left-width: 2px;
 }
 
 /*
@@ -2677,32 +2731,49 @@ Styleguide: thumb.social-thumb-3
 	background-position: 0 -11.75rem;
 }
 
-@media screen and (min-width: $breakpoint-3) {
-	.fb-thumb,
-	.tw-thumb,
-	.in-thumb {
-		width: 1rem;
-		padding-top: 1rem;
-		background-size: auto;
-	}
+/*
+.dot-thumb
 
-	.fb-thumb {
-		background-position: 0 -4.6875rem;
-	}
+Markup: <a class="dot-thumb thumb" href="/1">1</a>
 
-	.tw-thumb {
-		background-position: 0 -3.125rem;
-	}
+Styleguide: thumb.dot-thumb
+*/
 
-	.in-thumb {
-		background-position: 0 -6.25rem;
-	}
+.dot-thumb {
+	position: relative;
+	width: 1.25rem;
+	padding-top: 1.25rem;
 }
 
+.dot-thumb::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -0.3125rem;
+	margin-left: -0.3125rem;
+	width: 0.625rem;
+	height: 0.625rem;
+	border: 1px solid currentcolor;
+	border-radius: 50%;
+}
+
+.dot-thumb.on::before {
+	background-color: currentcolor;
+}
+
+/*
+grid.css
+Warning: this file is auto-generated from scss/grid.scss. Do not modify!
+*/
 .grid-block,
 .grid-index {
   position: relative;
-  padding: 0;
+  padding: 0; }
+
+.grid-block,
+.grid-index,
+.index > .grid-block {
   margin-left: -1.25rem;
   margin-right: -1.25rem;
   margin-top: -0.9375rem;
@@ -2964,6 +3035,136 @@ Styleguide: thumb.social-thumb-3
 .grid-index > .grid-left-5\/6 {
   margin-left: calc(83.33333% + 1.25rem); }
 
+/* Bleed widths. */
+.width-1\/1 {
+  width: 100%; }
+
+.width-1\/2 {
+  width: 50%; }
+
+.width-1\/3 {
+  width: 33.33333%; }
+
+.width-2\/3 {
+  width: 66.66667%; }
+
+.width-1\/4 {
+  width: 25%; }
+
+.width-2\/4 {
+  width: 50%; }
+
+.width-3\/4 {
+  width: 75%; }
+
+.width-1\/5 {
+  width: 20%; }
+
+.width-2\/5 {
+  width: 40%; }
+
+.width-3\/5 {
+  width: 60%; }
+
+.width-4\/5 {
+  width: 80%; }
+
+.width-1\/6 {
+  width: 16.66667%; }
+
+.width-2\/6 {
+  width: 33.33333%; }
+
+.width-3\/6 {
+  width: 50%; }
+
+.width-4\/6 {
+  width: 66.66667%; }
+
+.width-5\/6 {
+  width: 83.33333%; }
+
+/* Bleed margins inside a grid-block or grid-index. */
+.grid-block > .width-1\/1,
+.grid-index > .width-1\/1 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-1\/2,
+.grid-index > .width-1\/2 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-1\/3,
+.grid-index > .width-1\/3 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-2\/3,
+.grid-index > .width-2\/3 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-1\/4,
+.grid-index > .width-1\/4 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-2\/4,
+.grid-index > .width-2\/4 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-3\/4,
+.grid-index > .width-3\/4 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-1\/5,
+.grid-index > .width-1\/5 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-2\/5,
+.grid-index > .width-2\/5 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-3\/5,
+.grid-index > .width-3\/5 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-4\/5,
+.grid-index > .width-4\/5 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-1\/6,
+.grid-index > .width-1\/6 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-2\/6,
+.grid-index > .width-2\/6 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-3\/6,
+.grid-index > .width-3\/6 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-4\/6,
+.grid-index > .width-4\/6 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.grid-block > .width-5\/6,
+.grid-index > .width-5\/6 {
+  margin-left: 0;
+  margin-right: 0; }
+
 @media all and (min-width: 30em) {
   .grid-block > .\@1-block,
   .\@1-grid-index > li {
@@ -3154,7 +3355,105 @@ Styleguide: thumb.social-thumb-3
     margin-left: calc(66.66667% + 1.25rem); }
   .grid-block > .\@1-grid-left-5\/6,
   .grid-index > .\@1-grid-left-5\/6 {
-    margin-left: calc(83.33333% + 1.25rem); } }
+    margin-left: calc(83.33333% + 1.25rem); }
+  /* Bleed widths. */
+  .\@1-width-1\/1 {
+    width: 100%; }
+  .\@1-width-1\/2 {
+    width: 50%; }
+  .\@1-width-1\/3 {
+    width: 33.33333%; }
+  .\@1-width-2\/3 {
+    width: 66.66667%; }
+  .\@1-width-1\/4 {
+    width: 25%; }
+  .\@1-width-2\/4 {
+    width: 50%; }
+  .\@1-width-3\/4 {
+    width: 75%; }
+  .\@1-width-1\/5 {
+    width: 20%; }
+  .\@1-width-2\/5 {
+    width: 40%; }
+  .\@1-width-3\/5 {
+    width: 60%; }
+  .\@1-width-4\/5 {
+    width: 80%; }
+  .\@1-width-1\/6 {
+    width: 16.66667%; }
+  .\@1-width-2\/6 {
+    width: 33.33333%; }
+  .\@1-width-3\/6 {
+    width: 50%; }
+  .\@1-width-4\/6 {
+    width: 66.66667%; }
+  .\@1-width-5\/6 {
+    width: 83.33333%; }
+  /* Bleed margins inside a grid-block or grid-index. */
+  .grid-block > .\@1-width-1\/1,
+  .grid-index > .\@1-width-1\/1 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-1\/2,
+  .grid-index > .\@1-width-1\/2 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-1\/3,
+  .grid-index > .\@1-width-1\/3 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-2\/3,
+  .grid-index > .\@1-width-2\/3 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-1\/4,
+  .grid-index > .\@1-width-1\/4 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-2\/4,
+  .grid-index > .\@1-width-2\/4 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-3\/4,
+  .grid-index > .\@1-width-3\/4 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-1\/5,
+  .grid-index > .\@1-width-1\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-2\/5,
+  .grid-index > .\@1-width-2\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-3\/5,
+  .grid-index > .\@1-width-3\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-4\/5,
+  .grid-index > .\@1-width-4\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-1\/6,
+  .grid-index > .\@1-width-1\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-2\/6,
+  .grid-index > .\@1-width-2\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-3\/6,
+  .grid-index > .\@1-width-3\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-4\/6,
+  .grid-index > .\@1-width-4\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@1-width-5\/6,
+  .grid-index > .\@1-width-5\/6 {
+    margin-left: 0;
+    margin-right: 0; } }
 
 @media all and (min-width: 37.5em) {
   .grid-block > .\@2-block,
@@ -3577,7 +3876,231 @@ Styleguide: thumb.social-thumb-3
     margin-left: calc(77.77778% + 1.25rem); }
   .grid-block > .\@2-grid-left-8\/9,
   .grid-index > .\@2-grid-left-8\/9 {
-    margin-left: calc(88.88889% + 1.25rem); } }
+    margin-left: calc(88.88889% + 1.25rem); }
+  /* Bleed widths. */
+  .\@2-width-1\/1 {
+    width: 100%; }
+  .\@2-width-1\/2 {
+    width: 50%; }
+  .\@2-width-1\/3 {
+    width: 33.33333%; }
+  .\@2-width-2\/3 {
+    width: 66.66667%; }
+  .\@2-width-1\/4 {
+    width: 25%; }
+  .\@2-width-2\/4 {
+    width: 50%; }
+  .\@2-width-3\/4 {
+    width: 75%; }
+  .\@2-width-1\/5 {
+    width: 20%; }
+  .\@2-width-2\/5 {
+    width: 40%; }
+  .\@2-width-3\/5 {
+    width: 60%; }
+  .\@2-width-4\/5 {
+    width: 80%; }
+  .\@2-width-1\/6 {
+    width: 16.66667%; }
+  .\@2-width-2\/6 {
+    width: 33.33333%; }
+  .\@2-width-3\/6 {
+    width: 50%; }
+  .\@2-width-4\/6 {
+    width: 66.66667%; }
+  .\@2-width-5\/6 {
+    width: 83.33333%; }
+  .\@2-width-1\/7 {
+    width: 14.28571%; }
+  .\@2-width-2\/7 {
+    width: 28.57143%; }
+  .\@2-width-3\/7 {
+    width: 42.85714%; }
+  .\@2-width-4\/7 {
+    width: 57.14286%; }
+  .\@2-width-5\/7 {
+    width: 71.42857%; }
+  .\@2-width-6\/7 {
+    width: 85.71429%; }
+  .\@2-width-1\/8 {
+    width: 12.5%; }
+  .\@2-width-2\/8 {
+    width: 25%; }
+  .\@2-width-3\/8 {
+    width: 37.5%; }
+  .\@2-width-4\/8 {
+    width: 50%; }
+  .\@2-width-5\/8 {
+    width: 62.5%; }
+  .\@2-width-6\/8 {
+    width: 75%; }
+  .\@2-width-7\/8 {
+    width: 87.5%; }
+  .\@2-width-1\/9 {
+    width: 11.11111%; }
+  .\@2-width-2\/9 {
+    width: 22.22222%; }
+  .\@2-width-3\/9 {
+    width: 33.33333%; }
+  .\@2-width-4\/9 {
+    width: 44.44444%; }
+  .\@2-width-5\/9 {
+    width: 55.55556%; }
+  .\@2-width-6\/9 {
+    width: 66.66667%; }
+  .\@2-width-7\/9 {
+    width: 77.77778%; }
+  .\@2-width-8\/9 {
+    width: 88.88889%; }
+  /* Bleed margins inside a grid-block or grid-index. */
+  .grid-block > .\@2-width-1\/1,
+  .grid-index > .\@2-width-1\/1 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-1\/2,
+  .grid-index > .\@2-width-1\/2 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-1\/3,
+  .grid-index > .\@2-width-1\/3 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-2\/3,
+  .grid-index > .\@2-width-2\/3 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-1\/4,
+  .grid-index > .\@2-width-1\/4 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-2\/4,
+  .grid-index > .\@2-width-2\/4 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-3\/4,
+  .grid-index > .\@2-width-3\/4 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-1\/5,
+  .grid-index > .\@2-width-1\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-2\/5,
+  .grid-index > .\@2-width-2\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-3\/5,
+  .grid-index > .\@2-width-3\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-4\/5,
+  .grid-index > .\@2-width-4\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-1\/6,
+  .grid-index > .\@2-width-1\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-2\/6,
+  .grid-index > .\@2-width-2\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-3\/6,
+  .grid-index > .\@2-width-3\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-4\/6,
+  .grid-index > .\@2-width-4\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-5\/6,
+  .grid-index > .\@2-width-5\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-1\/7,
+  .grid-index > .\@2-width-1\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-2\/7,
+  .grid-index > .\@2-width-2\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-3\/7,
+  .grid-index > .\@2-width-3\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-4\/7,
+  .grid-index > .\@2-width-4\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-5\/7,
+  .grid-index > .\@2-width-5\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-6\/7,
+  .grid-index > .\@2-width-6\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-1\/8,
+  .grid-index > .\@2-width-1\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-2\/8,
+  .grid-index > .\@2-width-2\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-3\/8,
+  .grid-index > .\@2-width-3\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-4\/8,
+  .grid-index > .\@2-width-4\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-5\/8,
+  .grid-index > .\@2-width-5\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-6\/8,
+  .grid-index > .\@2-width-6\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-7\/8,
+  .grid-index > .\@2-width-7\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-1\/9,
+  .grid-index > .\@2-width-1\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-2\/9,
+  .grid-index > .\@2-width-2\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-3\/9,
+  .grid-index > .\@2-width-3\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-4\/9,
+  .grid-index > .\@2-width-4\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-5\/9,
+  .grid-index > .\@2-width-5\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-6\/9,
+  .grid-index > .\@2-width-6\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-7\/9,
+  .grid-index > .\@2-width-7\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@2-width-8\/9,
+  .grid-index > .\@2-width-8\/9 {
+    margin-left: 0;
+    margin-right: 0; } }
 
 @media all and (min-width: 45em) {
   .grid-block > .\@3-block,
@@ -4330,7 +4853,411 @@ Styleguide: thumb.social-thumb-3
     margin-left: calc(83.33333% + 1.25rem); }
   .grid-block > .\@3-grid-left-11\/12,
   .grid-index > .\@3-grid-left-11\/12 {
-    margin-left: calc(91.66667% + 1.25rem); } }
+    margin-left: calc(91.66667% + 1.25rem); }
+  /* Bleed widths. */
+  .\@3-width-1\/1 {
+    width: 100%; }
+  .\@3-width-1\/2 {
+    width: 50%; }
+  .\@3-width-1\/3 {
+    width: 33.33333%; }
+  .\@3-width-2\/3 {
+    width: 66.66667%; }
+  .\@3-width-1\/4 {
+    width: 25%; }
+  .\@3-width-2\/4 {
+    width: 50%; }
+  .\@3-width-3\/4 {
+    width: 75%; }
+  .\@3-width-1\/5 {
+    width: 20%; }
+  .\@3-width-2\/5 {
+    width: 40%; }
+  .\@3-width-3\/5 {
+    width: 60%; }
+  .\@3-width-4\/5 {
+    width: 80%; }
+  .\@3-width-1\/6 {
+    width: 16.66667%; }
+  .\@3-width-2\/6 {
+    width: 33.33333%; }
+  .\@3-width-3\/6 {
+    width: 50%; }
+  .\@3-width-4\/6 {
+    width: 66.66667%; }
+  .\@3-width-5\/6 {
+    width: 83.33333%; }
+  .\@3-width-1\/7 {
+    width: 14.28571%; }
+  .\@3-width-2\/7 {
+    width: 28.57143%; }
+  .\@3-width-3\/7 {
+    width: 42.85714%; }
+  .\@3-width-4\/7 {
+    width: 57.14286%; }
+  .\@3-width-5\/7 {
+    width: 71.42857%; }
+  .\@3-width-6\/7 {
+    width: 85.71429%; }
+  .\@3-width-1\/8 {
+    width: 12.5%; }
+  .\@3-width-2\/8 {
+    width: 25%; }
+  .\@3-width-3\/8 {
+    width: 37.5%; }
+  .\@3-width-4\/8 {
+    width: 50%; }
+  .\@3-width-5\/8 {
+    width: 62.5%; }
+  .\@3-width-6\/8 {
+    width: 75%; }
+  .\@3-width-7\/8 {
+    width: 87.5%; }
+  .\@3-width-1\/9 {
+    width: 11.11111%; }
+  .\@3-width-2\/9 {
+    width: 22.22222%; }
+  .\@3-width-3\/9 {
+    width: 33.33333%; }
+  .\@3-width-4\/9 {
+    width: 44.44444%; }
+  .\@3-width-5\/9 {
+    width: 55.55556%; }
+  .\@3-width-6\/9 {
+    width: 66.66667%; }
+  .\@3-width-7\/9 {
+    width: 77.77778%; }
+  .\@3-width-8\/9 {
+    width: 88.88889%; }
+  .\@3-width-1\/10 {
+    width: 10%; }
+  .\@3-width-2\/10 {
+    width: 20%; }
+  .\@3-width-3\/10 {
+    width: 30%; }
+  .\@3-width-4\/10 {
+    width: 40%; }
+  .\@3-width-5\/10 {
+    width: 50%; }
+  .\@3-width-6\/10 {
+    width: 60%; }
+  .\@3-width-7\/10 {
+    width: 70%; }
+  .\@3-width-8\/10 {
+    width: 80%; }
+  .\@3-width-9\/10 {
+    width: 90%; }
+  .\@3-width-1\/11 {
+    width: 9.09091%; }
+  .\@3-width-2\/11 {
+    width: 18.18182%; }
+  .\@3-width-3\/11 {
+    width: 27.27273%; }
+  .\@3-width-4\/11 {
+    width: 36.36364%; }
+  .\@3-width-5\/11 {
+    width: 45.45455%; }
+  .\@3-width-6\/11 {
+    width: 54.54545%; }
+  .\@3-width-7\/11 {
+    width: 63.63636%; }
+  .\@3-width-8\/11 {
+    width: 72.72727%; }
+  .\@3-width-9\/11 {
+    width: 81.81818%; }
+  .\@3-width-10\/11 {
+    width: 90.90909%; }
+  .\@3-width-1\/12 {
+    width: 8.33333%; }
+  .\@3-width-2\/12 {
+    width: 16.66667%; }
+  .\@3-width-3\/12 {
+    width: 25%; }
+  .\@3-width-4\/12 {
+    width: 33.33333%; }
+  .\@3-width-5\/12 {
+    width: 41.66667%; }
+  .\@3-width-6\/12 {
+    width: 50%; }
+  .\@3-width-7\/12 {
+    width: 58.33333%; }
+  .\@3-width-8\/12 {
+    width: 66.66667%; }
+  .\@3-width-9\/12 {
+    width: 75%; }
+  .\@3-width-10\/12 {
+    width: 83.33333%; }
+  .\@3-width-11\/12 {
+    width: 91.66667%; }
+  /* Bleed margins inside a grid-block or grid-index. */
+  .grid-block > .\@3-width-1\/1,
+  .grid-index > .\@3-width-1\/1 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-1\/2,
+  .grid-index > .\@3-width-1\/2 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-1\/3,
+  .grid-index > .\@3-width-1\/3 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-2\/3,
+  .grid-index > .\@3-width-2\/3 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-1\/4,
+  .grid-index > .\@3-width-1\/4 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-2\/4,
+  .grid-index > .\@3-width-2\/4 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-3\/4,
+  .grid-index > .\@3-width-3\/4 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-1\/5,
+  .grid-index > .\@3-width-1\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-2\/5,
+  .grid-index > .\@3-width-2\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-3\/5,
+  .grid-index > .\@3-width-3\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-4\/5,
+  .grid-index > .\@3-width-4\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-1\/6,
+  .grid-index > .\@3-width-1\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-2\/6,
+  .grid-index > .\@3-width-2\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-3\/6,
+  .grid-index > .\@3-width-3\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-4\/6,
+  .grid-index > .\@3-width-4\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-5\/6,
+  .grid-index > .\@3-width-5\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-1\/7,
+  .grid-index > .\@3-width-1\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-2\/7,
+  .grid-index > .\@3-width-2\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-3\/7,
+  .grid-index > .\@3-width-3\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-4\/7,
+  .grid-index > .\@3-width-4\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-5\/7,
+  .grid-index > .\@3-width-5\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-6\/7,
+  .grid-index > .\@3-width-6\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-1\/8,
+  .grid-index > .\@3-width-1\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-2\/8,
+  .grid-index > .\@3-width-2\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-3\/8,
+  .grid-index > .\@3-width-3\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-4\/8,
+  .grid-index > .\@3-width-4\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-5\/8,
+  .grid-index > .\@3-width-5\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-6\/8,
+  .grid-index > .\@3-width-6\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-7\/8,
+  .grid-index > .\@3-width-7\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-1\/9,
+  .grid-index > .\@3-width-1\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-2\/9,
+  .grid-index > .\@3-width-2\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-3\/9,
+  .grid-index > .\@3-width-3\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-4\/9,
+  .grid-index > .\@3-width-4\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-5\/9,
+  .grid-index > .\@3-width-5\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-6\/9,
+  .grid-index > .\@3-width-6\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-7\/9,
+  .grid-index > .\@3-width-7\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-8\/9,
+  .grid-index > .\@3-width-8\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-1\/10,
+  .grid-index > .\@3-width-1\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-2\/10,
+  .grid-index > .\@3-width-2\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-3\/10,
+  .grid-index > .\@3-width-3\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-4\/10,
+  .grid-index > .\@3-width-4\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-5\/10,
+  .grid-index > .\@3-width-5\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-6\/10,
+  .grid-index > .\@3-width-6\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-7\/10,
+  .grid-index > .\@3-width-7\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-8\/10,
+  .grid-index > .\@3-width-8\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-9\/10,
+  .grid-index > .\@3-width-9\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-1\/11,
+  .grid-index > .\@3-width-1\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-2\/11,
+  .grid-index > .\@3-width-2\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-3\/11,
+  .grid-index > .\@3-width-3\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-4\/11,
+  .grid-index > .\@3-width-4\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-5\/11,
+  .grid-index > .\@3-width-5\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-6\/11,
+  .grid-index > .\@3-width-6\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-7\/11,
+  .grid-index > .\@3-width-7\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-8\/11,
+  .grid-index > .\@3-width-8\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-9\/11,
+  .grid-index > .\@3-width-9\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-10\/11,
+  .grid-index > .\@3-width-10\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-1\/12,
+  .grid-index > .\@3-width-1\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-2\/12,
+  .grid-index > .\@3-width-2\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-3\/12,
+  .grid-index > .\@3-width-3\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-4\/12,
+  .grid-index > .\@3-width-4\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-5\/12,
+  .grid-index > .\@3-width-5\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-6\/12,
+  .grid-index > .\@3-width-6\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-7\/12,
+  .grid-index > .\@3-width-7\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-8\/12,
+  .grid-index > .\@3-width-8\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-9\/12,
+  .grid-index > .\@3-width-9\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-10\/12,
+  .grid-index > .\@3-width-10\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@3-width-11\/12,
+  .grid-index > .\@3-width-11\/12 {
+    margin-left: 0;
+    margin-right: 0; } }
 
 @media all and (min-width: 60em) {
   .grid-block > .\@4-block,
@@ -5083,7 +6010,411 @@ Styleguide: thumb.social-thumb-3
     margin-left: calc(83.33333% + 1.25rem); }
   .grid-block > .\@4-grid-left-11\/12,
   .grid-index > .\@4-grid-left-11\/12 {
-    margin-left: calc(91.66667% + 1.25rem); } }
+    margin-left: calc(91.66667% + 1.25rem); }
+  /* Bleed widths. */
+  .\@4-width-1\/1 {
+    width: 100%; }
+  .\@4-width-1\/2 {
+    width: 50%; }
+  .\@4-width-1\/3 {
+    width: 33.33333%; }
+  .\@4-width-2\/3 {
+    width: 66.66667%; }
+  .\@4-width-1\/4 {
+    width: 25%; }
+  .\@4-width-2\/4 {
+    width: 50%; }
+  .\@4-width-3\/4 {
+    width: 75%; }
+  .\@4-width-1\/5 {
+    width: 20%; }
+  .\@4-width-2\/5 {
+    width: 40%; }
+  .\@4-width-3\/5 {
+    width: 60%; }
+  .\@4-width-4\/5 {
+    width: 80%; }
+  .\@4-width-1\/6 {
+    width: 16.66667%; }
+  .\@4-width-2\/6 {
+    width: 33.33333%; }
+  .\@4-width-3\/6 {
+    width: 50%; }
+  .\@4-width-4\/6 {
+    width: 66.66667%; }
+  .\@4-width-5\/6 {
+    width: 83.33333%; }
+  .\@4-width-1\/7 {
+    width: 14.28571%; }
+  .\@4-width-2\/7 {
+    width: 28.57143%; }
+  .\@4-width-3\/7 {
+    width: 42.85714%; }
+  .\@4-width-4\/7 {
+    width: 57.14286%; }
+  .\@4-width-5\/7 {
+    width: 71.42857%; }
+  .\@4-width-6\/7 {
+    width: 85.71429%; }
+  .\@4-width-1\/8 {
+    width: 12.5%; }
+  .\@4-width-2\/8 {
+    width: 25%; }
+  .\@4-width-3\/8 {
+    width: 37.5%; }
+  .\@4-width-4\/8 {
+    width: 50%; }
+  .\@4-width-5\/8 {
+    width: 62.5%; }
+  .\@4-width-6\/8 {
+    width: 75%; }
+  .\@4-width-7\/8 {
+    width: 87.5%; }
+  .\@4-width-1\/9 {
+    width: 11.11111%; }
+  .\@4-width-2\/9 {
+    width: 22.22222%; }
+  .\@4-width-3\/9 {
+    width: 33.33333%; }
+  .\@4-width-4\/9 {
+    width: 44.44444%; }
+  .\@4-width-5\/9 {
+    width: 55.55556%; }
+  .\@4-width-6\/9 {
+    width: 66.66667%; }
+  .\@4-width-7\/9 {
+    width: 77.77778%; }
+  .\@4-width-8\/9 {
+    width: 88.88889%; }
+  .\@4-width-1\/10 {
+    width: 10%; }
+  .\@4-width-2\/10 {
+    width: 20%; }
+  .\@4-width-3\/10 {
+    width: 30%; }
+  .\@4-width-4\/10 {
+    width: 40%; }
+  .\@4-width-5\/10 {
+    width: 50%; }
+  .\@4-width-6\/10 {
+    width: 60%; }
+  .\@4-width-7\/10 {
+    width: 70%; }
+  .\@4-width-8\/10 {
+    width: 80%; }
+  .\@4-width-9\/10 {
+    width: 90%; }
+  .\@4-width-1\/11 {
+    width: 9.09091%; }
+  .\@4-width-2\/11 {
+    width: 18.18182%; }
+  .\@4-width-3\/11 {
+    width: 27.27273%; }
+  .\@4-width-4\/11 {
+    width: 36.36364%; }
+  .\@4-width-5\/11 {
+    width: 45.45455%; }
+  .\@4-width-6\/11 {
+    width: 54.54545%; }
+  .\@4-width-7\/11 {
+    width: 63.63636%; }
+  .\@4-width-8\/11 {
+    width: 72.72727%; }
+  .\@4-width-9\/11 {
+    width: 81.81818%; }
+  .\@4-width-10\/11 {
+    width: 90.90909%; }
+  .\@4-width-1\/12 {
+    width: 8.33333%; }
+  .\@4-width-2\/12 {
+    width: 16.66667%; }
+  .\@4-width-3\/12 {
+    width: 25%; }
+  .\@4-width-4\/12 {
+    width: 33.33333%; }
+  .\@4-width-5\/12 {
+    width: 41.66667%; }
+  .\@4-width-6\/12 {
+    width: 50%; }
+  .\@4-width-7\/12 {
+    width: 58.33333%; }
+  .\@4-width-8\/12 {
+    width: 66.66667%; }
+  .\@4-width-9\/12 {
+    width: 75%; }
+  .\@4-width-10\/12 {
+    width: 83.33333%; }
+  .\@4-width-11\/12 {
+    width: 91.66667%; }
+  /* Bleed margins inside a grid-block or grid-index. */
+  .grid-block > .\@4-width-1\/1,
+  .grid-index > .\@4-width-1\/1 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-1\/2,
+  .grid-index > .\@4-width-1\/2 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-1\/3,
+  .grid-index > .\@4-width-1\/3 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-2\/3,
+  .grid-index > .\@4-width-2\/3 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-1\/4,
+  .grid-index > .\@4-width-1\/4 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-2\/4,
+  .grid-index > .\@4-width-2\/4 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-3\/4,
+  .grid-index > .\@4-width-3\/4 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-1\/5,
+  .grid-index > .\@4-width-1\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-2\/5,
+  .grid-index > .\@4-width-2\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-3\/5,
+  .grid-index > .\@4-width-3\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-4\/5,
+  .grid-index > .\@4-width-4\/5 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-1\/6,
+  .grid-index > .\@4-width-1\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-2\/6,
+  .grid-index > .\@4-width-2\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-3\/6,
+  .grid-index > .\@4-width-3\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-4\/6,
+  .grid-index > .\@4-width-4\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-5\/6,
+  .grid-index > .\@4-width-5\/6 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-1\/7,
+  .grid-index > .\@4-width-1\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-2\/7,
+  .grid-index > .\@4-width-2\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-3\/7,
+  .grid-index > .\@4-width-3\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-4\/7,
+  .grid-index > .\@4-width-4\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-5\/7,
+  .grid-index > .\@4-width-5\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-6\/7,
+  .grid-index > .\@4-width-6\/7 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-1\/8,
+  .grid-index > .\@4-width-1\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-2\/8,
+  .grid-index > .\@4-width-2\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-3\/8,
+  .grid-index > .\@4-width-3\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-4\/8,
+  .grid-index > .\@4-width-4\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-5\/8,
+  .grid-index > .\@4-width-5\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-6\/8,
+  .grid-index > .\@4-width-6\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-7\/8,
+  .grid-index > .\@4-width-7\/8 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-1\/9,
+  .grid-index > .\@4-width-1\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-2\/9,
+  .grid-index > .\@4-width-2\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-3\/9,
+  .grid-index > .\@4-width-3\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-4\/9,
+  .grid-index > .\@4-width-4\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-5\/9,
+  .grid-index > .\@4-width-5\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-6\/9,
+  .grid-index > .\@4-width-6\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-7\/9,
+  .grid-index > .\@4-width-7\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-8\/9,
+  .grid-index > .\@4-width-8\/9 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-1\/10,
+  .grid-index > .\@4-width-1\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-2\/10,
+  .grid-index > .\@4-width-2\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-3\/10,
+  .grid-index > .\@4-width-3\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-4\/10,
+  .grid-index > .\@4-width-4\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-5\/10,
+  .grid-index > .\@4-width-5\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-6\/10,
+  .grid-index > .\@4-width-6\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-7\/10,
+  .grid-index > .\@4-width-7\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-8\/10,
+  .grid-index > .\@4-width-8\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-9\/10,
+  .grid-index > .\@4-width-9\/10 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-1\/11,
+  .grid-index > .\@4-width-1\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-2\/11,
+  .grid-index > .\@4-width-2\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-3\/11,
+  .grid-index > .\@4-width-3\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-4\/11,
+  .grid-index > .\@4-width-4\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-5\/11,
+  .grid-index > .\@4-width-5\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-6\/11,
+  .grid-index > .\@4-width-6\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-7\/11,
+  .grid-index > .\@4-width-7\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-8\/11,
+  .grid-index > .\@4-width-8\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-9\/11,
+  .grid-index > .\@4-width-9\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-10\/11,
+  .grid-index > .\@4-width-10\/11 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-1\/12,
+  .grid-index > .\@4-width-1\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-2\/12,
+  .grid-index > .\@4-width-2\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-3\/12,
+  .grid-index > .\@4-width-3\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-4\/12,
+  .grid-index > .\@4-width-4\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-5\/12,
+  .grid-index > .\@4-width-5\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-6\/12,
+  .grid-index > .\@4-width-6\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-7\/12,
+  .grid-index > .\@4-width-7\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-8\/12,
+  .grid-index > .\@4-width-8\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-9\/12,
+  .grid-index > .\@4-width-9\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-10\/12,
+  .grid-index > .\@4-width-10\/12 {
+    margin-left: 0;
+    margin-right: 0; }
+  .grid-block > .\@4-width-11\/12,
+  .grid-index > .\@4-width-11\/12 {
+    margin-left: 0;
+    margin-right: 0; } }
 
 .grid-index-1\/n > li:nth-last-child(2):first-child,
 .grid-index-1\/n > li:nth-last-child(2):first-child ~ li {
@@ -5473,14 +6804,6 @@ Styleguide: vText.6
 */
 
 /*
-.text-7, code
-
-Markup: <p class="text-7">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
-
-Styleguide: vText.7
-*/
-
-/*
 .text-8, body
 
 Markup: <p class="text-8">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
@@ -5607,6 +6930,9 @@ blockquote        { margin-left: 2.6667em; }
 .uppercase-text   { text-transform: uppercase; }
 .html-tag::before { content: '<'; margin-right: -0.1em; }
 .html-tag::after  { content: '>'; margin-left: -0.1em; }
+
+.no-wrap          { white-space: nowrap; }
+.line-wrap        { white-space: pre; }
 
 /* Selection */
 
@@ -5759,10 +7085,10 @@ Styleguide: zutilities.position
 .middle-align   { vertical-align: middle !important; }
 .baseline-align { vertical-align: baseline !important; }
 
-.left-align     { text-align: left; }
-.right-align    { text-align: right; }
-.center-align   { text-align: center; }
-.justify-align  { text-align: justify; }
+.left-align     { text-align: left !important; }
+.right-align    { text-align: right !important; }
+.center-align   { text-align: center !important; }
+.justify-align  { text-align: justify !important; }
 
 
 /*
@@ -5803,6 +7129,8 @@ Styleguide: zutilities.scroll
 	        border-radius: 12px;
 }
 
+.scroll-hidden::-webkit-scrollbar,
+/* Support the old way too, for now */
 .hidden-scroll::-webkit-scrollbar {
 	display: none;
 }
@@ -5835,70 +7163,14 @@ Styleguide: zutilities.scroll
 .y-scroll { overflow-x: hidden; }
 .no-scroll { overflow: hidden; }
 
-
 /*
-Respond
+.black-bg<br/>
+.white-bg<br/>
+.black-color<br/>
+.white-color
 
-.@480-hidden  - Hidden on media larger than 25em (480px) wide.
-.@480-shown   - Hidden on media smaller than 25em (480px) wide.
-.@600-hidden  - Hidden on media larger than 37.5em (600px) wide.
-.@600-shown   - Hidden on media smaller than 37.5em (600px) wide.
-.@720-hidden  - Hidden on media larger than 45em (720px) wide.
-.@720-shown   - Hidden on media smaller than 45em (720px) wide.
-.@960-hidden  - Hidden on media larger than 56em (960px) wide.
-.@960-shown   - Hidden on media smaller than 56em (960px) wide.
-.@1080-hidden - Hidden on media larger than 60em (1080px) wide.
-.@1080-shown  - Hidden on media smaller than 60em (1080px) wide.
-
-Styleguide: zutilities.respond
-*/
-
-@media screen and (max-width: #{$breakpoint-1 - 0.0001}) {
-	.\@400-shown { display: none !important; }
-}
-
-@media screen and (min-width: $breakpoint-1) {
-	.\@400-hidden { display: none !important; }
-}
-
-@media screen and (max-width: #{$breakpoint-2 - 0.0001}) {
-	.\@600-shown { display: none !important; }
-}
-
-@media screen and (min-width: $breakpoint-2) {
-	.\@600-hidden { display: none !important; }
-}
-
-@media screen and (max-width: #{$breakpoint-3 - 0.0001}) {
-	.\@720-shown { display: none !important; }
-}
-
-@media screen and (min-width: $breakpoint-3) {
-	.\@720-hidden { display: none !important; }
-}
-
-@media screen and (max-width: #{$breakpoint-4 - 0.0001}) {
-	.\@896-shown { display: none !important; }
-}
-
-@media screen and (min-width: $breakpoint-4) {
-	.\@896-hidden { display: none !important; }
-}
-
-@media screen and (max-width: #{$breakpoint-5 - 0.0001}) {
-	.\@960-shown { display: none !important; }
-}
-
-@media screen and (min-width: $breakpoint-5) {
-	.\@960-hidden { display: none !important; }
-}
-
-/*
-.white-color<br/>
-.white-bg
-
-Markup: <p class="text-4 white-color">#ffffff</p>
-<p class="text-4 white-bg">#ffffff</p>
+Markup: <p class="text-5 white-color black-bg">Black</p>
+<p class="text-5 black-color white-bg">White</p>
 
 Styleguide: Color.1
 */
@@ -5906,18 +7178,69 @@ Styleguide: Color.1
 .white-color { color: white; }
 .white-bg    { background-color: white; }
 
-/*
-.black-color<br/>
-.black-bg
-
-Markup: <p class="text-4 black-color">#000000</p>
-<p class="text-4 black-bg">#000000</p>
-
-Styleguide: Color.2
-*/
-
 .black-color { color: black; }
 .black-bg    { background-color: black; }
+
+/*
+DOM
+
+Styleguide: 1-dom
+*/
+
+/*
+html
+
+Root element.
+
+Styleguide: 1-dom.1
+*/
+
+html,
+:root {
+	height: 100%;
+	color: black;
+	/* Setting a background on <html> means that a background
+	   on <body> does not get set on <html>. Win. */
+	background-color: white;
+}
+
+
+/*
+body
+
+Styles applied to body.
+
+Styleguide: 1-dom.2
+*/
+
+body {
+	/* Act as position parent */
+	position: relative;
+
+	/* The document should have a minimum height that allows
+	   enough space for it's absolutely positioned children */
+	min-height: 50rem;
+}
+
+@media screen and (min-height: 50em) {
+	body {
+		/* Insist that body fills the window */
+		min-height: 100%;
+	}
+}
+
+/*
+body > .nav-block
+
+Styleguide: 1-dom.3
+*/
+
+body > .nav-block {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
 
 
 

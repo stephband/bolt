@@ -1,0 +1,31 @@
+@media screen and (max-width: 29.9999em) {
+  .\@1-shown {
+    display: none !important; } }
+
+@media screen and (min-width: 30em) {
+  .\@1-hidden {
+    display: none !important; } }
+
+@media screen and (max-width: 37.4999em) {
+  .\@2-shown {
+    display: none !important; } }
+
+@media screen and (min-width: 37.5em) {
+  .\@2-hidden {
+    display: none !important; } }
+
+@media screen and (max-width: 44.9999em) {
+  .\@3-shown {
+    display: none !important; } }
+
+@media screen and (min-width: 45em) {
+  .\@3-hidden {
+    display: none !important; } }
+
+@media screen and (max-width: 59.9999em) {
+  .\@4-shown {
+    display: none !important; } }
+
+@media screen and (min-width: 60em) {
+  .\@4-hidden {
+    display: none !important; } }
