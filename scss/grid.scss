@@ -272,6 +272,13 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 			width: calc(#{100 / $i}% - #{$gutter});
 		}
 	}
+
+	@for $i from 2 through $n {
+		.#{$prefix}width-1\/n:nth-last-child(#{$i}):first-child,
+		.#{$prefix}width-1\/n:nth-last-child(#{$i}):first-child ~ li {
+			width: #{100 / $i}%;
+		}
+	}
 }
 
 @include grid-index-adaptive($grid-gutter, $grid-count);
