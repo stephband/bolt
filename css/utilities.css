@@ -52,6 +52,7 @@ Styleguide: zutilities.modify
 	height: 0 !important;
 }
 
+.disabled,
 .js input.disabled {
 	opacity: 0.4;
 }
