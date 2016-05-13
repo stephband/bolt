@@ -267,9 +267,10 @@ th {
 
 	a[href^="http://"]::after,
 	a[href^="https://"]::after {
-		content: " [" attr(href) "] ";
+		content: " (" attr(href) ") ";
 		font-size: 0.9167em;
-		opacity: 0.75;
+		text-transform: lowercase;
+		opacity: 0.8;
 	}
 
 	pre,
