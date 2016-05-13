@@ -273,6 +273,7 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 		}
 	}
 
+	/* width-1/n classes */
 	@for $i from 2 through $n {
 		.#{$prefix}width-1\/n:nth-last-child(#{$i}):first-child,
 		.#{$prefix}width-1\/n:nth-last-child(#{$i}):first-child ~ li {

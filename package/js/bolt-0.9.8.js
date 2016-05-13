@@ -916,7 +916,7 @@
 //  Dependencies
 //  jquery.event.activate
 //  jquery.event.activate.dialog
-  
+
 //  .dialog(role, options)
 //  Displays current jQuery object in a dialog. Both role and options
 //  are optional.
@@ -954,7 +954,7 @@
 	}
 })(function(jQuery, undefined){
 	var debug = false; //(window.console && console.log);
-	
+
 	var text = {
 	    	ok: 'Ok',
 	    	cancel: 'Cancel',
@@ -972,9 +972,9 @@
 
 	    	slides: function(elem, options) {
 					var box = jQuery('<div/>', {
-					    	'class': options['class'] || 'slides_dialog dialog'
+					    	'class': options['class'] || 'slides-dialog dialog'
 					    }),
-					
+
 					    button = jQuery.fn.dialog.closeButton.clone();
 
 					return box.html(elem).append(button);
@@ -982,9 +982,9 @@
 
 	    	lightbox: function(elem, options) {
 					var box = jQuery('<div/>', {
-					    	'class': options['class'] || 'lightbox_dialog dialog'
+					    	'class': options['class'] || 'lightbox-dialog dialog'
 					    }),
-					    
+
 					    button = jQuery.fn.dialog.closeButton.clone();
 
 					return box.html(elem).append(button);
@@ -992,7 +992,7 @@
 
 	    	alert: function(elem, options) {
 	    		var box = jQuery('<div/>', {
-	    		    	'class': options['class'] || 'alert_dialog dialog'
+	    		    	'class': options['class'] || 'alert-dialog dialog'
 	    		    }),
 
 	    		    actions = '<ul class="action-index index">' +
@@ -1004,7 +1004,7 @@
 
 	    	confirm: function(elem, options) {
 	    		var box = jQuery('<div/>', {
-	    		    	'class': options['class'] || 'confirm_dialog dialog'
+	    		    	'class': options['class'] || 'confirm-dialog dialog'
 	    		    }),
 
 	    		    actions = '<ul class="action-index index">' +
@@ -1033,7 +1033,7 @@
 		.off('deactivateend', deactivateend)
 		.remove();
 	}
-	
+
 	jQuery.fn.dialog = function(role, options){
 		var dialog, box;
 
@@ -1056,11 +1056,11 @@
 		});
 
 		box = roles[role || '_default'](this, options);
-		
+
 		box
 		.attr('tabindex', '-1')
 		.attr('role', 'dialog');
-		
+
 		dialog
 		.html(box)
 		.appendTo('body')
@@ -1077,7 +1077,7 @@
 	// Expose
 	jQuery.fn.dialog.roles = roles;
 	jQuery.fn.dialog.text = text;
-	
+
 	// If we don't create the close button this way - if we write out the html
 	// and have the browser parse it, IE7 cocks up the href, adding the whole
 	// path in front of it first. Not what we want.
@@ -1087,6 +1087,7 @@
 		'html': text.close
 	});
 });
+
 // Fallback support for jQuery.fn.addTransitionClass. Also can
 // be used in cases where low file size is a proirity.
 

@@ -80,23 +80,3 @@ Styleguide: index.crumb-index
 .crumb-index > li:last-child > a {
 	color: $theme-color;
 }
-
-
-/*
-.inline-index
-
-Horizontal layout of <code>li</code>s.
-
-Markup: <ul class="inline-index index">
-   <li><a class="button" href="#">One</a></li
-  ><li><a class="button" href="#">Two</a></li
-  ><li><a class="button" href="#">Three</a></li
-  ><li><a class="button" href="#">Four</a></li>
-</ul>
-
-Styleguide: index.inline-index
-*/
-
-.inline-index > li {
-	display: inline-block;
-}
