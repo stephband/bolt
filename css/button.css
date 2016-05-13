@@ -126,9 +126,11 @@ Styleguide: xForms.5
 */
 
 .thumb > select,
-.button > select,
 .button > input[type="file"],
-.button > input[type="submit"] {
+.button > input[type="submit"],
+.select-button > select,
+.radio-button > input[type="radio"],
+.checkbox-button > input[type="checkbox"] {
 	position: absolute;
 	display: block;
 	top: 0;
@@ -145,9 +147,11 @@ Styleguide: xForms.5
 }
 
 .js .thumb > select,
-.js .button > select,
 .js .button > input[type="file"],
-.js .button > input[type="submit"] {
+.js .button > input[type="submit"],
+.js .select-button > select,
+.js .radio-button > input[type="radio"],
+.js .checkbox-button > input[type="checkbox"] {
 	-webkit-appearance: none;
 	opacity: 0;
 }
@@ -239,8 +243,9 @@ Styleguide: button.check-button
 */
 
 .radio-button,
-.check-button {
-	/* Overflow will hide the browser generated error messages. No no no. */
+.checkbox-button {
+	/* A hidden overflow would hide the browser generated error messages.
+	   No no no. Make sure it's visible. */
 	overflow: visible;
 }
 
