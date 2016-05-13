@@ -40,7 +40,7 @@ $breakpoints:
 	@for $i from 1 through $n {
 		@for $j from 1 to $i {
 			.#{$prefix}grid-#{$j}\/#{$i}   {
-				width: calc(#{100 * $j / $i}% - #{$gutter * ($i - $j) / $i});
+				width: calc(#{100% * $j / $i} - #{$gutter * ($i - $j) / $i});
 			}
 		}
 	}
@@ -54,7 +54,7 @@ $breakpoints:
 	@for $i from 1 through $n {
 		@for $j from 1 to $i {
 			.#{$prefix}grid-left-#{$j}\/#{$i} {
-				margin-left: calc(#{100 * $j / $i}% + #{$gutter * $j / $i});
+				margin-left: calc(#{100% * $j / $i} + #{$gutter * $j / $i});
 			}
 		}
 	}
@@ -72,7 +72,7 @@ $breakpoints:
 			.grid-block > .#{$prefix}grid-#{$j}\/#{$i},
 			.grid-index > .#{$prefix}grid-#{$j}\/#{$i},
 			.#{$prefix}grid-index-#{$j}\/#{$i} > li {
-				width: calc(#{100 * $j / $i}% - #{$gutter});
+				width: calc(#{100% * $j / $i} - #{$gutter});
 			}
 		}
 	}
@@ -88,7 +88,7 @@ $breakpoints:
 		@for $j from 1 to $i {
 			.grid-block > .#{$prefix}grid-left-#{$j}\/#{$i},
 			.grid-index > .#{$prefix}grid-left-#{$j}\/#{$i} {
-				margin-left: calc(#{100 * $j / $i}% + #{$gutter / 2});
+				margin-left: calc(#{100% * $j / $i} + #{$gutter / 2});
 			}
 		}
 	}
@@ -102,7 +102,7 @@ $breakpoints:
 	@for $i from 1 through $n {
 		@for $j from 1 to $i {
 			.#{$prefix}width-#{$j}\/#{$i} {
-				width: #{100 * $j / $i}%;
+				width: #{100% * $j / $i};
 			}
 		}
 	}
@@ -269,7 +269,7 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 	@for $i from 2 through $n {
 		.#{$prefix}grid-index-1\/n > li:nth-last-child(#{$i}):first-child,
 		.#{$prefix}grid-index-1\/n > li:nth-last-child(#{$i}):first-child ~ li {
-			width: calc(#{100 / $i}% - #{$gutter});
+			width: calc(#{100% / $i} - #{$gutter});
 		}
 	}
 
@@ -277,7 +277,7 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 	@for $i from 2 through $n {
 		.#{$prefix}width-1\/n:nth-last-child(#{$i}):first-child,
 		.#{$prefix}width-1\/n:nth-last-child(#{$i}):first-child ~ li {
-			width: #{100 / $i}%;
+			width: #{100% / $i};
 		}
 	}
 }
