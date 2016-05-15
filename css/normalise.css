@@ -104,8 +104,9 @@ dl,
 menu,
 ol,
 ul,
-dd {
-	/* margins set differently in IE6/7 */
+dd,
+pre {
+	/* margins set differently in IE6/7, Chrome */
 	margin: 0;
 }
 
