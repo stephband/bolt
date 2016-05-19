@@ -939,8 +939,9 @@ Styleguide: xForms.3
 .js .checkbox-label::after {
 	content: '';
 	position: absolute;
-	top: 0.5rem;
+	top: 50%;
 	left: 0;
+	margin-top: -0.75rem;
 	width: 1.5rem;
 	height: 1.5rem;
 	box-sizing: border-box;
