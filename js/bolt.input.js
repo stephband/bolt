@@ -10,41 +10,41 @@
 	}
 })(function(jQuery, undefined){
 	var doc = jQuery(document);
-	
+
 	function setImmediate(fn) {
 		setTimeout(fn, 0);
 	}
-	
+
 	function thru(value) {
 		return value;
 	}
-	
+
 	function fieldData(target) {
 		var data = jQuery.data(target, 'field'),
 		    field, name;
-		
+
 		if (!data){
 			field = jQuery(target);
 			name = field.attr('name');
-			
+
 			data = {
 				field: field,
 				label: jQuery('label[for="'+target.id+'"]')
 			};
-			
+
 			// Store reference to label that is a direct wrap of the
 			// target node.
 			data.wrap = data.label.filter(function() {
 				return (target.parentNode === this);
 			});
-			
+
 			if (name) {
 				data.fields = jQuery('input[name="'+name+'"]');
 			}
-			
+
 			jQuery.data(target, 'field', data);
 		}
-		
+
 		return data;
 	}
 
@@ -71,29 +71,29 @@
 
 		// Remove text nodes from the button
 		removeText(view.wrap);
-		
+
 		// Prepend the current value of the select
 		html = view.field.find('option[value="'+node.value+'"]').html();
 		view.wrap.prepend(html);
 	}
-	
+
 	function updateFileLabel(node) {
 		// Take a select node and put it's selected option content
 		// in the associated label.
 		var view = fieldData(node),
 		    files = node.files,
 		    html = Array.prototype.map.call(files, name).join('<br/>');
-		
+
 		// Remove text nodes from the button
 		removeText(view.wrap);
-		
+
 		view.wrap.prepend(html);
 	}
-	
+
 	function updateRadioLabel() {
 		var node = this,
 		    data = fieldData(node);
-		
+
 		if (this.checked) {
 		    data.label.addClass('on');
 		}
@@ -101,10 +101,10 @@
 		    data.label.removeClass('on');
 		}
 	}
-	
-	
+
+
 	doc
-	
+
 	// Readonly inputs have their text selected when you click
 	// on them.
 
@@ -120,19 +120,19 @@
 			mousedown: 'mouseup',
 			touchstart: 'touchend'
 		};
-		
+
 		function change(e){
 			jQuery(e.target)
 			.trigger({ type: 'changestart' })
 			.unbind('change', change);
 		}
-		
+
 		function mouseup(e){
 			jQuery(e.target)
 			.trigger({ type: 'changeend' })
 			.unbind('mouseup', mouseup);
 		}
-		
+
 		return function(e){
 			jQuery(e.target)
 			.bind('change', change)
@@ -144,7 +144,7 @@
 	.on('change', 'input, textarea', function(e) {
 		// Don't make this script require jQuery.fn.validate
 		if (!jQuery.fn.validate) { return; }
-		
+
 		jQuery(this).validate({
 			fail: function(){ e.preventDefault(); }
 		});
@@ -153,18 +153,18 @@
 	.on('valuechange', 'input, textarea', function(e) {
 		// Don't make this script require jQuery.fn.validate
 		if (!jQuery.fn.validate) { return; }
-		
+
 		jQuery(this).validate(true);
 	})
 
 	.on('input', 'input, textarea', function(e) {
 		jQuery.event.trigger('valuechange', null, e.target);
 	})
-	
+
 	// Active classes for radio input labels
 	.on('change valuechange', 'input[type="radio"]', function(e){
 		var data = fieldData(e.target);
-		
+
 		if (data.fields) {
 			data.fields.each(updateRadioLabel);
 		}
@@ -178,11 +178,11 @@
 //		.not(e.target)
 //		.trigger({type: 'valuechange', checked: e.target});
 //	})
-	
+
 	// Active classes for checkbox input labels
 	.on('change valuechange', 'input[type="checkbox"]', function(e) {
 		var data = fieldData(e.target);
-		
+
 		if (data.field.prop('checked')) {
 			data.label.addClass('on');
 		}
@@ -190,7 +190,7 @@
 			data.label.removeClass('on');
 		}
 	})
-	
+
 	// For browsers that don't understand it, prevent changes on
 	// disabled form elements.
 	.on('change', '[disabled]', function(e) {
@@ -208,7 +208,7 @@
 
 	.on('focusin focusout', '.button > select, .button > input', function(e) {
 		var view = fieldData(e.target);
-		
+
 		if (e.type === 'focusin') {
 			view.wrap.addClass('focus');
 		}
@@ -227,40 +227,40 @@
 	// of custom form elements.
 	.on('reset', 'form', function(e) {
 		if (e.isDefaultPrevented()) { return; }
-		
+
 		var fields = jQuery('input, textarea, select', e.target);
-		
+
 		function reset() {
 			fields.trigger('valuechange');
 		}
-		
+
 		setImmediate(reset);
 	})
-	
+
 	.ready(function() {
 		jQuery('.button > select').each(function() {
 			populateSelect(this);
 		});
-		
+
 		jQuery('input:checked').each(function() {
 			var data = fieldData(this);
 			data.label.addClass('on');
 		});
-		
+
 		// Loop over .error_labels already in the DOM, and listen for
 		// changes on their associated inputs to remove them.
 		jQuery('.error_label').each(function(i, label) {
 			var id = label.getAttribute('for');
-			
+
 			if (!id) { return; }
-			
+
 			var input = jQuery('#' + id);
-			
+
 			function remove() {
 				input.off('change valuechange', remove);
 				label.parentNode.removeChild(label);
 			}
-			
+
 			input.on('change valuechange', remove);
 		});
 	});
