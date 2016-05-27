@@ -179,9 +179,7 @@ Styleguide: zutilities.scroll
 	        border-radius: 12px;
 }
 
-.scroll-hidden::-webkit-scrollbar,
-/* Support the old way too, for now */
-.hidden-scroll::-webkit-scrollbar {
+.scroll-hidden::-webkit-scrollbar {
 	display: none;
 }
 
