@@ -45,6 +45,14 @@ Styleguide: zutilities.modify
 	display: none !important;
 }
 
+.on > .on-hidden {
+	display: none !important;
+}
+
+:not(.on) > .on-shown {
+	display: none !important;
+}
+
 .masked {
 	position: absolute !important;
 	opacity: 0 !important;

@@ -357,7 +357,6 @@ abbr              { letter-spacing: 0.1em; }
 
 /* Tables */
 
-table             { margin-bottom: 1.3333em; }
 th,
 td,
 caption           { padding: 4px 10px 4px 5px; }
