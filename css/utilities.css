@@ -121,10 +121,10 @@ Position
 .baseline-align - vertical align to baseline.
 .left           - float left.
 .right          - float right.
-.left-text      - text align left.
-.justify-text   - text align justify.
-.center-text    - text align center.
-.right-text     - text align right.
+.left-align      - text align left.
+.justify-align   - text align justify.
+.center-align    - text align center.
+.right-align     - text align right.
 
 Styleguide: zutilities.position
 */
