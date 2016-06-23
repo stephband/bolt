@@ -62,21 +62,6 @@
 		.remove();
 	}
 
-	//function populateSelect(node){
-	//	// Take a select node and put it's selected option content
-	//	// in the associated label.
-	//
-	//	var view = fieldData(node),
-	//	    html;
-	//
-	//	// Remove text nodes from the button
-	//	removeText(view.wrap);
-	//
-	//	// Prepend the current value of the select
-	//	html = view.field.find('option[value="'+node.value+'"]').html();
-	//	view.wrap.prepend(html);
-	//}
-
 	function updateFileLabel(node) {
 		// Take a select node and put it's selected option content
 		// in the associated label.
@@ -170,15 +155,6 @@
 		}
 	})
 
-	// I have the impression that this does the same thing...
-//	.on('change', '[type="radio"]', function(e) {
-//		var name = e.target.name;
-//
-//		jQuery('[name="'+name+'"]')
-//		.not(e.target)
-//		.trigger({type: 'valuechange', checked: e.target});
-//	})
-
 	// Active classes for checkbox input labels
 	.on('change valuechange', 'input[type="checkbox"]', function(e) {
 		var data = fieldData(e.target);
@@ -199,12 +175,6 @@
 		e.stopPropagation();
 		return false;
 	})
-
-	// Value display for select boxes that are wrapped in buttons
-	// for style. The value is set as the content of the button.
-	//.on('change valuechange', '.button > select', function(e) {
-	//	populateSelect(e.target);
-	//})
 
 	.on('focusin focusout', '.button > select, .button > input', function(e) {
 		var view = fieldData(e.target);
@@ -238,10 +208,6 @@
 	})
 
 	.ready(function() {
-		//jQuery('.button > select').each(function() {
-		//	populateSelect(this);
-		//});
-
 		jQuery('input:checked').each(function() {
 			var data = fieldData(this);
 			data.label.addClass('on');

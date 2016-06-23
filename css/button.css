@@ -93,24 +93,6 @@ button.loading,
 	margin-right: 0.25em;
 }
 
-
-/*
-.button > select
-
-Select elements can be wrapped in buttons. They are hidden to allow the
-button to be used for custom style. Relies on JS to update the button's text,
-so the style is only applied where the class <code>js</code> exists on a parent.
-
-Markup: <label class="button" for="select">
-  Choose...
-  <select id="select">
-    <option value="0">Option 0</option>
-  </select>
-</label>
-
-Styleguide: xForms.4
-*/
-
 /*
 .button > input[type="file"]
 
@@ -128,7 +110,6 @@ Styleguide: xForms.5
 .thumb > select,
 .button > input[type="file"],
 .button > input[type="submit"],
-/*.select-button > select,*/
 .radio-button > input[type="radio"],
 .checkbox-button > input[type="checkbox"] {
 	position: absolute;
@@ -162,9 +143,8 @@ Styleguide: xForms.5
 
 For wrapping a select in label and giving it custom style.
 
-Markup: <label class="select-button button" for="select-1">
-  Choose an option...
-  <select id="select-1">
+Markup: <label class="select-button button">
+  <select>
     <option value="1">One</option>
     <option value="2">Two</option>
     <option value="3">Three</option>
@@ -172,53 +152,6 @@ Markup: <label class="select-button button" for="select-1">
 </label>
 
 Styleguide: button.select-button
-*/
-
-/*
-.select-button {
-	display: block;
-	text-overflow: clip;
-	text-align: left;
-	line-height: 2.6875rem;
-	padding-right: 2.375rem;
-	padding-top: 0;
-	padding-bottom: 0;
-	color: $neutral-color-1;
-	border: 1px solid currentcolor;
-	background-color: white;
-}
-
-.select-button::before {
-	content: '';
-	box-sizing: border-box;
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 2.4375rem;
-	height: 100%;
-	border-width: 0;
-	border-left-width: inherit;
-	border-style: inherit;
-	border-color: inherit;
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-	border-top-right-radius: inherit;
-	border-bottom-right-radius: inherit;
-}
-
-.select-button::after {
-	content: '';
-	position: absolute;
-	top: 50%;
-	right: 0.875rem;
-	height: 0;
-	margin-top: -3px;
-	border-top: 6px solid currentcolor;
-	border-left: 6px solid rgba(0, 0, 0, 0);
-	border-right: 6px solid rgba(0, 0, 0, 0);
-	transition: transform 200ms linear;
-}
-
 */
 
 .select-button {
@@ -307,13 +240,6 @@ Styleguide: button.select-button
 		border-color: #aaa; /* Match-03 */
 	}
 }
-
-
-
-
-
-
-
 
 /*
 .radio-button
