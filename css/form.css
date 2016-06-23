@@ -189,6 +189,7 @@ textarea,
 [type="password"],
 .select-button {
 	border: 1px solid $neutral-color-2;
+	background-color: white;
 }
 
 textarea,
@@ -203,10 +204,9 @@ textarea,
 [type="number"],
 [type="search"],
 [type="password"],
-.select-button {
+.select-button > select {
 	padding-left: 0.5625rem;
 	padding-right: 0.5625rem;
-	background-color: white;
 }
 
 [type="tel"],
