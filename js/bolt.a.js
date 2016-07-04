@@ -272,10 +272,9 @@
 		var id, node, data;
 
 		if (isIgnorable(e)) { return; }
-
 		if (isExternalLink(e)) { return; }
 
-		id = e.currentTarget.hash.substring(1);
+		id = (e.currentTarget.hash || e.currentTarget.getAttribute('href')).substring(1);
 		node = document.getElementById(id);
 
 		// This link does not point to an id in the DOM. No action required.
@@ -380,7 +379,7 @@
 	.on('mousedown tap keydown', '[data-href]', mousedownHref)
 
 	// Mousedown on buttons toggle activate on their hash
-	.on('mousedown tap keydown', 'a[href]', mousedownHash)
+	.on('mousedown tap keydown', '[href]', mousedownHash)
 
 	// Mouseover on tip links toggle activate on their targets
 	.on('mouseover mouseout tap focusin focusout', 'a[href^="#"], [data-tip]', function(e) {
