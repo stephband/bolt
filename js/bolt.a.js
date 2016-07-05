@@ -274,7 +274,11 @@
 		if (isIgnorable(e)) { return; }
 		if (isExternalLink(e)) { return; }
 
-		id = (e.currentTarget.hash || e.currentTarget.getAttribute('href')).substring(1);
+		id = (isDefined(e.currentTarget.hash) ?
+			e.currentTarget.hash :
+			e.currentTarget.getAttribute('href'))
+		.substring(1);
+
 		node = document.getElementById(id);
 
 		// This link does not point to an id in the DOM. No action required.
