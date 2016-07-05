@@ -78,6 +78,10 @@
 	    	}
 	    };
 
+	function isDefined(value) {
+		return value !== undefined && value !== null ;
+	}
+
 	function loadResource(e, href) {
 		var link = e.currentTarget,
 		    path = link.pathname,
