@@ -278,6 +278,9 @@
 		if (isIgnorable(e)) { return; }
 		if (isExternalLink(e)) { return; }
 
+		// A bit of a quick fix to avoid triggering hrefs inside hrefs
+		if (jQuery(e.target).closest('[href]')[0] !== e.currentTarget) { return; }
+
 		id = (isDefined(e.currentTarget.hash) ?
 			e.currentTarget.hash :
 			e.currentTarget.getAttribute('href'))
