@@ -17,6 +17,8 @@
 	    	jQuery.event.trigger(type, data, node);
 	    };
 
+	var body = jQuery(document.body);
+
 	function isLeftButton(e) {
 		// Ignore mousedowns on any button other than the left (or primary)
 		// mouse button, or when a modifier key is pressed.
@@ -27,7 +29,7 @@
 		remove(e.currentTarget, 'click', preventDefault);
 		e.preventDefault();
 	}
-	
+
 	function preventClick(e) {
 		// Prevent the click that follows the mousedown. The preventDefault
 		// handler unbinds itself as soon as the click is heard.
@@ -36,15 +38,20 @@
 		}
 	}
 
-	function close(e) {
+	function mousedown(e) {
 		var activeTarget = e.data;
 
 		// A prevented default means this link has already been handled.
 		if (e.isDefaultPrevented()) { return; }
-	
 		if (e.type === 'mousedown' && !isLeftButton(e)) { return; }
-		
-		trigger(activeTarget, {type: 'deactivate', relatedTarget: e.target});
+
+		var node = jQuery(e.target).closest('[href]')[0];
+		if (!node) { return; }
+
+		var href = node.getAttribute('href');
+		if (href !== ('#' + activeTarget.id)) { return; }
+
+		trigger(activeTarget, { type: 'deactivate', relatedTarget: e.target });
 		e.preventDefault();
 		preventClick(e);
 	}
@@ -54,11 +61,8 @@
 			// Don't do anything if elem is already active
 			if (data.active) { return; }
 			data.active = true;
-			
 			var id = bolt.identify(e.target);
-			
-			jQuery('[href="#' + id + '"]').on('mousedown tap', e.target, close);
-
+			body.on('mousedown tap', e.target, mousedown);
 			fn();
 		},
 
@@ -66,11 +70,8 @@
 			// Don't do anything if elem is already inactive
 			if (!data.active) { return; }
 			data.active = false;
-			
 			var id = bolt.identify(e.target);
-			
-			jQuery('[href="#' + id + '"]').off('mousedown tap', close);
-			
+			body.off('mousedown tap', mousedown);
 			fn();
 		}
 	});
