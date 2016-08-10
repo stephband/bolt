@@ -13,7 +13,13 @@ Styleguide: Color.1
 :root { --white-color: white; }
 .white-color { color: white; }
 .white-bg    { background-color: white; }
+.white-fill  { fill: white; }
 
 :root { --black-color: black; }
 .black-color { color: black; }
 .black-bg    { background-color: black; }
+.black-fill  { fill: black; }
+
+.current-color { color: currentcolor; }
+.current-bg    { background-color: currentcolor; }
+.current-fill  { fill: currentcolor; }
