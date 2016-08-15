@@ -102,7 +102,7 @@ $breakpoints:
 	@for $i from 1 through $n {
 		@for $j from 1 to $i {
 			.#{$prefix}width-#{$j}\/#{$i} {
-				width: #{100% * $j / $i};
+				width: #{100% * $j / $i} !important;
 			}
 		}
 	}
