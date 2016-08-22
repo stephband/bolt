@@ -17,6 +17,16 @@ $breakpoints:
 	'\\@4-' 60em   12 $grid-gutter $grid-space !default;
 
 @mixin grid($prefix: '', $n: 6, $gutter: 1.25rem, $space: 1.25rem) {
+	.grid-block,
+	.grid-index,
+	/* Override .index > li */
+	.index > .grid-block {
+		margin-left:   -#{$gutter / 2};
+		margin-right:  -#{$gutter / 2};
+		margin-top:    -#{$space / 2};
+		margin-bottom: -#{$space / 2};
+	}
+
 	.grid-block > .block,
 	.#{$prefix}grid-index > li {
 		display: inline-block;

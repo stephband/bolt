@@ -22,6 +22,8 @@ Styleguide: index
 }
 
 .index > li {
+	display: block;
+
 	/* Specifically remove default margin and padding from
 	   list items in case some typography rules have added
 	   these back in after the reset. */
