@@ -26,5 +26,7 @@ $breakpoints:
 
 	@media screen and (min-width: #{nth($breakpoint, 2)}) {
 		.#{nth($breakpoint, 1)}hidden { display: none !important; }
+		.#{nth($breakpoint, 1)}left   { float: left; }
+		.#{nth($breakpoint, 1)}right  { float: right; }
 	}
 }

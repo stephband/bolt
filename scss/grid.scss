@@ -17,12 +17,22 @@ $breakpoints:
 	'\\@4-' 60em   12 $grid-gutter $grid-space !default;
 
 @mixin grid($prefix: '', $n: 6, $gutter: 1.25rem, $space: 1.25rem) {
-	.grid-block > .#{$prefix}block,
+	.grid-block,
+	.grid-index,
+	/* Override .index > li */
+	.index > .grid-block {
+		margin-left:   -#{$gutter / 2};
+		margin-right:  -#{$gutter / 2};
+		margin-top:    -#{$space / 2};
+		margin-bottom: -#{$space / 2};
+	}
+
+	.grid-block > .block,
 	.#{$prefix}grid-index > li {
 		display: inline-block;
-		margin-left: #{$gutter / 2};
+		margin-left:  #{$gutter / 2};
 		margin-right: #{$gutter / 2};
-		margin-top: #{$space / 2};
+		margin-top:    #{$space / 2};
 		margin-bottom: #{$space / 2};
 	}
 
@@ -102,7 +112,7 @@ $breakpoints:
 	@for $i from 1 through $n {
 		@for $j from 1 to $i {
 			.#{$prefix}width-#{$j}\/#{$i} {
-				width: #{100% * $j / $i};
+				width: #{100% * $j / $i} !important;
 			}
 		}
 	}
