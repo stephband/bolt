@@ -30,7 +30,7 @@
 		e.preventDefault();
 	}
 
-	bolt('toggle', {
+	bolt('toggleable', {
 		activate: function(e, data, fn) {
 			// Don't do anything if elem is already active
 			if (data.active) { return; }

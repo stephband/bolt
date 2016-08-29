@@ -14,7 +14,7 @@
 	    	easing: 'ease-out',
 	    	offset: 48,
 	    	done: undefined
-	    };
+	};
 
 	if (!jQuery.easing['ease-out']) {
 		// eaeOutQuad

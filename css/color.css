@@ -1,3 +1,10 @@
+
+/*
+.color
+
+Styleguide: color
+*/
+
 /*
 .black-bg<br/>
 .white-bg<br/>
@@ -7,7 +14,7 @@
 Markup: <p class="text-5 white-color black-bg">Black</p>
 <p class="text-5 black-color white-bg">White</p>
 
-Styleguide: Color.1
+Styleguide: color.1
 */
 
 :root { --white-color: white; }

@@ -35,7 +35,7 @@
 		e.preventDefault();
 	}
 
-	bolt('pop-action', {
+	bolt('popable', {
 		activate: function (e, data, fn) {
 			if (data.active) { return; }
 			data.active = true;
