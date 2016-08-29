@@ -1,8 +1,8 @@
 
 /*
-Text
+.text
 
-Styleguide: vText
+Styleguide: text
 */
 
 html {
@@ -174,7 +174,7 @@ dfn               { font-weight: bold; }
 em,
 dfn               { font-style: italic; }
 
-/* Match the l-height of <small> to the x-height of surrounding vText. */
+/* Match the l-height of <small> to the x-height of surrounding text. */
 small             { font-size: 0.727272em; font-weight: 400; }
 sup,
 sub               { line-height: 0; font-size: 0.8333em; position: relative; vertical-align: baseline; }
@@ -200,15 +200,12 @@ caption           { background-color: inherit; }
 .last             { margin-bottom: 0; }
 .note             { font-style: italic; }
 
-
-
-
 /*
 .text-1, h1
 
 Markup: <p class="text-1">Crunchum ipsum</p>
 
-Styleguide: vText.1
+Styleguide: text.01
 */
 
 /*
@@ -216,7 +213,7 @@ Styleguide: vText.1
 
 Markup: <p class="text-2">Crunchum ipsum dolor sit coder void</p>
 
-Styleguide: vText.2
+Styleguide: text.02
 */
 
 /*
@@ -224,7 +221,7 @@ Styleguide: vText.2
 
 Markup: <p class="text-3">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p>
 
-Styleguide: vText.3
+Styleguide: text.03
 */
 
 /*
@@ -232,7 +229,7 @@ Styleguide: vText.3
 
 Markup: <p class="text-4">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: vText.4
+Styleguide: text.04
 */
 
 /*
@@ -240,7 +237,7 @@ Styleguide: vText.4
 
 Markup: <p class="text-5">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: vText.5
+Styleguide: text.05
 */
 
 /*
@@ -248,7 +245,7 @@ Styleguide: vText.5
 
 Markup: <p class="text-6">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: vText.6
+Styleguide: text.06
 */
 
 /*
@@ -257,7 +254,7 @@ Styleguide: vText.6
 Markup: <p class="text-8">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
 <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
 
-Styleguide: vText.8
+Styleguide: text.08
 */
 
 .text-1, h1,
