@@ -157,15 +157,17 @@ Styleguide: Bubble
 		max-width: 20rem;
 	}
 
+	/* IE Won't do calc() in transforms. */
+
 	.js .top-bubble {
 		-webkit-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
-		    -ms-transform:   translate(-50%, calc(-100% - 1.5rem));
+		    -ms-transform: translateX(-50%) translateY(-100%) translateY(-1.5rem);
 		        transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
 	}
 
 	.js .top-bubble.active {
 		-webkit-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
-		    -ms-transform:   translate(-50%, calc(-100% - 1.75rem));
+		    -ms-transform: translateX(-50%) translateY(-100%) translateY(-1.75rem);
 		        transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
 	}
 
