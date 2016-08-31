@@ -250,7 +250,7 @@ input[type='month'] {
 
 /* Make search fields appear as other inputs in WebKit. */
 @media (-webkit-min-device-pixel-ratio:0) {
-	input[type="search"] {
+	[type="search"] {
 		-webkit-appearance: textfield;
 		padding-left: 0.1875rem;
 	}
