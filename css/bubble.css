@@ -161,37 +161,37 @@ Styleguide: Bubble
 
 	.js .top-bubble {
 		-webkit-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
-		    -ms-transform: translateX(-50%) translateY(-100%) translateY(-1.5rem);
+		    -ms-transform:  translateX(-50%) translateY(-100%) translateY(-1.5rem);
 		        transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
 	}
 
 	.js .top-bubble.active {
 		-webkit-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
-		    -ms-transform: translateX(-50%) translateY(-100%) translateY(-1.75rem);
+		    -ms-transform:  translateX(-50%) translateY(-100%) translateY(-1.75rem);
 		        transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
 	}
 
 	.js .left-top-bubble {
 		-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
-		    -ms-transform:   translate(-16.6667%, calc(-100% - 1.5rem));
+		    -ms-transform:  translateX(-16.6667%) translateY(-100%) translateY(-1.5rem);
 		        transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
 	}
 
 	.js .left-top-bubble.active {
 		-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
-		    -ms-transform:   translate(-16.6667%, calc(-100% - 1.75rem));
+		    -ms-transform:  translateX(-16.6667%) translateY(-100%) translateY(-1.75rem);
 		        transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
 	}
 
 	.js .right-top-bubble {
 		-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
-		    -ms-transform:   translate(-83.3333%, calc(-100% - 1.5rem));
+		    -ms-transform:  translateX(-83.3333%) translateY(-100%) translateY(-1.5rem);
 		        transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
 	}
 
 	.js .right-top-bubble.active {
 		-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
-		    -ms-transform:   translate(-83.3333%, calc(-100% - 1.75rem));
+		    -ms-transform:  translateX(-83.3333%) translateY(-100%) translateY(-1.75rem);
 		        transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
 	}
 
