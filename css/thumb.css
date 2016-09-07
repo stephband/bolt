@@ -64,6 +64,11 @@ Styleguide: thumb
 	}
 }
 
+.thumb-1x1 {
+	width: 100%;
+	padding-top: 100%;
+}
+
 /*
 .close-thumb
 
