@@ -67,6 +67,7 @@ Styleguide: thumb
 .thumb-1\:1,
 .thumb-4\:3,
 .thumb-16\:9 {
+	background-size: contain;
 	width: 100%;
 }
 
