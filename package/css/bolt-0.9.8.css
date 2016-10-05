@@ -106,8 +106,9 @@ dl,
 menu,
 ol,
 ul,
-dd {
-	/* margins set differently in IE6/7 */
+dd,
+pre {
+	/* margins set differently in IE6/7, Chrome */
 	margin: 0;
 }
 
@@ -488,6 +489,7 @@ textarea,
 [type="password"],
 .select-button {
 	border: 1px solid $neutral-color-2;
+	background-color: white;
 }
 
 textarea,
@@ -502,10 +504,9 @@ textarea,
 [type="number"],
 [type="search"],
 [type="password"],
-.select-button {
+.select-button > select {
 	padding-left: 0.5625rem;
 	padding-right: 0.5625rem;
-	background-color: white;
 }
 
 [type="tel"],
@@ -549,7 +550,7 @@ input[type='month'] {
 
 /* Make search fields appear as other inputs in WebKit. */
 @media (-webkit-min-device-pixel-ratio:0) {
-	input[type="search"] {
+	[type="search"] {
 		-webkit-appearance: textfield;
 		padding-left: 0.1875rem;
 	}
@@ -1238,8 +1239,9 @@ Styleguide: xForms.3
 .js .checkbox-label::after {
 	content: '';
 	position: absolute;
-	top: 0.5rem;
+	top: 50%;
 	left: 0;
+	margin-top: -0.75rem;
 	width: 1.5rem;
 	height: 1.5rem;
 	box-sizing: border-box;
@@ -1681,6 +1683,8 @@ Styleguide: index
 }
 
 .index > li {
+	display: block;
+
 	/* Specifically remove default margin and padding from
 	   list items in case some typography rules have added
 	   these back in after the reset. */
@@ -1693,11 +1697,6 @@ Styleguide: index
 	/* Prepare for inline-block layout. */
 	vertical-align: top;
 	overflow: visible;
-}
-
-.index > li > .index-button {
-	display: block;
-	width: auto;
 }
 
 
@@ -1738,6 +1737,26 @@ Styleguide: index.crumb-index
 
 .crumb-index > li:last-child > a {
 	color: $theme-color;
+}
+
+
+/*
+.inline-index
+
+Horizontal layout of <code>li</code>s.
+
+Markup: <ul class="inline-index index">
+   <li><a class="button" href="#">One</a></li
+  ><li><a class="button" href="#">Two</a></li
+  ><li><a class="button" href="#">Three</a></li
+  ><li><a class="button" href="#">Four</a></li>
+</ul>
+
+Styleguide: index.inline-index
+*/
+
+.inline-index > li {
+	display: inline-block;
 }
 
 
@@ -1923,11 +1942,10 @@ A tip bubble, speech bubble, description bubble or what-have-you.
 Styleguide: Bubble
 */
 
-.tip,
 .bubble {
 	top: 0;
 	left: 0;
-	/* We want the tip to expand up to 320px, but it won't
+	/* We want the bubble to expand up to 320px, but it won't
 	   do that where it's container is smaller than
 	   left + 320, so give it a negative right. */
 	right: -20rem;
@@ -1944,7 +1962,6 @@ Styleguide: Bubble
 	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 
-.tip::after,
 .bubble::after {
 	display: block;
 	position: absolute;
@@ -1959,10 +1976,6 @@ Styleguide: Bubble
 	        transition: left 120ms ease-out;
 }
 
-.top-tip::after,
-.bottom-tip::after,
-.left-tip::after,
-.right-tip::after,
 .top-bubble::after,
 .bottom-bubble::after,
 .left-bubble::after,
@@ -1970,8 +1983,6 @@ Styleguide: Bubble
 	content: ' ';
 }
 
-.top-tip::after,
-.bottom-tip::after,
 .top-bubble::after,
 .bottom-bubble::after {
 	left: 50%;
@@ -1979,8 +1990,6 @@ Styleguide: Bubble
 	margin-left: -0.625rem;
 }
 
-.left-tip::after,
-.right-tip::after,
 .left-bubble::after,
 .right-bubble::after {
 	top: 50%;
@@ -1988,7 +1997,6 @@ Styleguide: Bubble
 	margin-top: -0.625rem;
 }
 
-.top-tip::after,
 .top-bubble::after {
 	bottom: -0.6875rem;
 	border-top-width: 0;
@@ -1996,14 +2004,12 @@ Styleguide: Bubble
 	box-shadow: 3px 3px 4px rgba(0,0,0,0.3);
 }
 
-.bottom-tip::after,
 .bottom-bubble::after {
 	top: -0.6875rem;
 	border-bottom-width: 0;
 	border-right-width: 0;
 }
 
-.left-tip::after,
 .left-bubble::after {
 	right: -0.6875rem;
 	border-bottom: 0;
@@ -2011,7 +2017,6 @@ Styleguide: Bubble
 	box-shadow: 3px 0px 4px -2px rgba(0,0,0,0.3);
 }
 
-.right-tip::after,
 .right-bubble::after {
 	left: -0.6875rem;
 	border-right: 0;
@@ -2019,21 +2024,16 @@ Styleguide: Bubble
 	box-shadow: 0px 3px 4px -2px rgba(0,0,0,0.3);
 }
 
-.right-top-tip::after,
-.right-bottom-tip::after,
 .right-top-bubble::after,
 .right-bottom-bubble::after {
 	left: 83.3333%;
 }
 
-.left-top-tip::after,
-.left-bottom-tip::after,
 .left-top-bubble::after,
 .left-bottom-bubble::after {
 	left: 16.6667%;
 }
 
-.js .tip,
 .js .bubble {
 	position: absolute;
 	z-index: 4;
@@ -2049,28 +2049,29 @@ Styleguide: Bubble
 	        transition-timing-function: ease-in;
 }
 
-.js .tip.active,
 .js .bubble.active {
 	opacity: 1;
 	visibility: visible;
 }
 
-.js .tip.active {
-	/* No delay for bubble. */
-	-webkit-transition-timing-function: ease-out;
-	        transition-timing-function: ease-out;
-	-webkit-transition-delay: 540ms;
-	        transition-delay: 540ms;
+.js .top-bubble {
+	-webkit-transform: translate3d(0, calc(-100% - 1.5rem), 0);
+		-ms-transform:   translate(0, calc(-100% - 1.5rem));
+			transform: translate3d(0, calc(-100% - 1.5rem), 0);
 }
 
-.js .bottom-tip,
+.js .top-bubble.active {
+	-webkit-transform: translate3d(0, calc(-100% - 1.75rem), 0);
+		-ms-transform:   translate(0, calc(-100% - 1.75rem));
+			transform: translate3d(0, calc(-100% - 1.75rem), 0);
+}
+
 .js .bottom-bubble {
 	-webkit-transform: translate3d(0, 1.5rem, 0);
 		-ms-transform:   translate(0, 1.5rem);
 			transform: translate3d(0, 1.5rem, 0);
 }
 
-.js .bottom-tip.active,
 .js .bottom-bubble.active {
 	-webkit-transform: translate3d(0, 1.75rem, 0);
 		-ms-transform:   translate(0, 1.75rem);
@@ -2078,7 +2079,6 @@ Styleguide: Bubble
 }
 
 @media screen and (max-width: 31.9999em) {
-	.js .tip,
 	.js .bubble {
 		/* Override offset given to it by JS when the
 		   screen is too small. */
@@ -2087,111 +2087,97 @@ Styleguide: Bubble
 }
 
 @media screen and (min-width: 32em) {
-	.tip,
 	.bubble {
 		width: auto;
 		max-width: 20rem;
 	}
 
-	.js .top-tip,
+	/* IE Won't do calc() in transforms. */
+
 	.js .top-bubble {
 		-webkit-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
-		    -ms-transform:   translate(-50%, calc(-100% - 1.5rem));
+		    -ms-transform:  translateX(-50%) translateY(-100%) translateY(-1.5rem);
 		        transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
 	}
 
-	.js .top-tip.active,
 	.js .top-bubble.active {
 		-webkit-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
-		    -ms-transform:   translate(-50%, calc(-100% - 1.75rem));
+		    -ms-transform:  translateX(-50%) translateY(-100%) translateY(-1.75rem);
 		        transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
 	}
 
-	.js .left-top-tip,
 	.js .left-top-bubble {
 		-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
-		    -ms-transform:   translate(-16.6667%, calc(-100% - 1.5rem));
+		    -ms-transform:  translateX(-16.6667%) translateY(-100%) translateY(-1.5rem);
 		        transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
 	}
 
-	.js .left-top-tip.active,
 	.js .left-top-bubble.active {
 		-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
-		    -ms-transform:   translate(-16.6667%, calc(-100% - 1.75rem));
+		    -ms-transform:  translateX(-16.6667%) translateY(-100%) translateY(-1.75rem);
 		        transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
 	}
 
-	.js .right-top-tip,
 	.js .right-top-bubble {
 		-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
-		    -ms-transform:   translate(-83.3333%, calc(-100% - 1.5rem));
+		    -ms-transform:  translateX(-83.3333%) translateY(-100%) translateY(-1.5rem);
 		        transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
 	}
 
-	.js .right-top-tip.active,
 	.js .right-top-bubble.active {
 		-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
-		    -ms-transform:   translate(-83.3333%, calc(-100% - 1.75rem));
+		    -ms-transform:  translateX(-83.3333%) translateY(-100%) translateY(-1.75rem);
 		        transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
 	}
 
-	.js .bottom-tip,
 	.js .bottom-bubble {
 		-webkit-transform: translate3d(-50%, 1.5rem, 0);
 		    -ms-transform:   translate(-50%, 1.5rem);
 		        transform: translate3d(-50%, 1.5rem, 0);
 	}
 
-	.js .bottom-tip.active,
 	.js .bottom-bubble.active {
 		-webkit-transform: translate3d(-50%, 1.75rem, 0);
 		    -ms-transform:   translate(-50%, 1.75rem);
 		        transform: translate3d(-50%, 1.75rem, 0);
 	}
 
-	.js .right-bottom-tip,
 	.js .right-bottom-bubble {
 		-webkit-transform: translate3d(-83.3333%, 1.5rem, 0);
 		    -ms-transform:   translate(-83.3333%, 1.5rem);
 		        transform: translate3d(-83.3333%, 1.5rem, 0);
 	}
 
-	.js .right-bottom-tip.active,
 	.js .right-bottom-bubble.active {
 		-webkit-transform: translate3d(-83.3333%, 1.75rem, 0);
 		    -ms-transform:   translate(-83.3333%, 1.75rem);
 		        transform: translate3d(-83.3333%, 1.75rem, 0);
 	}
 
-	.js .left-bottom-tip,
 	.js .left-bottom-bubble {
 		-webkit-transform: translate3d(-16.6667%, 1.5rem, 0);
 		    -ms-transform:   translate(-16.6667%, 1.5rem);
 		        transform: translate3d(-16.6667%, 1.5rem, 0);
 	}
 
-	.js .left-bottom-tip.active,
 	.js .left-bottom-bubble.active {
 		-webkit-transform: translate3d(-16.6667%, 1.75rem, 0);
 		    -ms-transform:   translate(-16.6667%, 1.75rem);
 		        transform: translate3d(-16.6667%, 1.75rem, 0);
 	}
 
-	.js .left-tip,
 	.js .left-bubble {
 		-webkit-transform: translate3d(-100%, -50%, 0);
 		    -ms-transform:   translate(-100%, -50%);
 		        transform: translate3d(-100%, -50%, 0);
 	}
 
-	.js .left-tip.active,
 	.js .left-bubble.active {
 		-webkit-transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
 		    -ms-transform:   translate(calc(-100% - 0.25rem), -50%);
 		        transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
 	}
 
-	.js .right-tip,
 	.js .right-bubble {
 		/* Make room for the .bubble::after point. */
 		-webkit-transform: translate3d(0.9375rem, -50%, 0);
@@ -2199,23 +2185,11 @@ Styleguide: Bubble
 		        transform: translate3d(0.9375rem, -50%, 0);
 	}
 
-	.js .right-tip.active,
 	.js .right-bubble.active {
 		-webkit-transform: translate3d(1.25rem, -50%, 0);
 		    -ms-transform:   translate(1.25rem, -50%);
 		        transform: translate3d(1.25rem, -50%, 0);
 	}
-}
-
-.tip-block,
-.js .tip-block {
-	visibility: visible;
-	opacity: 1;
-	position: relative;
-	display: block;
-	margin-top: 1em;
-	margin-bottom: 1em;
-	max-width: none;
 }
 
 
@@ -2313,24 +2287,6 @@ button.loading,
 	margin-right: 0.25em;
 }
 
-
-/*
-.button > select
-
-Select elements can be wrapped in buttons. They are hidden to allow the
-button to be used for custom style. Relies on JS to update the button's text,
-so the style is only applied where the class <code>js</code> exists on a parent.
-
-Markup: <label class="button" for="select">
-  Choose...
-  <select id="select">
-    <option value="0">Option 0</option>
-  </select>
-</label>
-
-Styleguide: xForms.4
-*/
-
 /*
 .button > input[type="file"]
 
@@ -2346,9 +2302,10 @@ Styleguide: xForms.5
 */
 
 .thumb > select,
-.button > select,
 .button > input[type="file"],
-.button > input[type="submit"] {
+.button > input[type="submit"],
+.radio-button > input[type="radio"],
+.checkbox-button > input[type="checkbox"] {
 	position: absolute;
 	display: block;
 	top: 0;
@@ -2365,9 +2322,11 @@ Styleguide: xForms.5
 }
 
 .js .thumb > select,
-.js .button > select,
 .js .button > input[type="file"],
-.js .button > input[type="submit"] {
+.js .button > input[type="submit"],
+/*.js .select-button > select,*/
+.js .radio-button > input[type="radio"],
+.js .checkbox-button > input[type="checkbox"] {
 	-webkit-appearance: none;
 	opacity: 0;
 }
@@ -2378,9 +2337,8 @@ Styleguide: xForms.5
 
 For wrapping a select in label and giving it custom style.
 
-Markup: <label class="select-button button" for="select-1">
-  Choose an option...
-  <select id="select-1">
+Markup: <label class="select-button button">
+  <select>
     <option value="1">One</option>
     <option value="2">Two</option>
     <option value="3">Three</option>
@@ -2392,16 +2350,24 @@ Styleguide: button.select-button
 
 .select-button {
 	display: block;
-	text-overflow: clip;
-	text-align: left;
-	/* Compensate for border */
-	line-height: 2.6875rem;
-	padding-right: 2.375rem;
-	padding-top: 0;
-	padding-bottom: 0;
-	color: $neutral-color-1;
-	border: 1px solid currentcolor;
-	background-color: white;
+	padding: 0;
+}
+
+.select-button > select {
+	display: block;
+
+	/* This is the native select, we're making everything but the text invisible
+	   so we can see the button styles in the wrapper. */
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	outline: none;
+
+	/* Prefixed box-sizing rules necessary for older browsers */
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
 }
 
 .select-button::before {
@@ -2423,7 +2389,9 @@ Styleguide: button.select-button
 }
 
 .select-button::after {
-	content: '';
+	/* Custom arrow sits on top of the select - could be an image, SVG, icon
+	   font, etc. or the arrow could just baked into the bg image on the select. */
+	content: "";
 	position: absolute;
 	top: 50%;
 	right: 0.875rem;
@@ -2433,8 +2401,39 @@ Styleguide: button.select-button
 	border-left: 6px solid rgba(0, 0, 0, 0);
 	border-right: 6px solid rgba(0, 0, 0, 0);
 	transition: transform 200ms linear;
+	z-index: 2;
+
+	/* These hacks make the select behind the arrow clickable in some browsers */
+	pointer-events: none;
+	display: none;
 }
 
+@supports ( -webkit-appearance: none ) or ( appearance: none )
+	/* Firefox <= 34 has a false positive on @supports( -moz-appearance: none )
+	   @supports ( mask-type: alpha ) is Firefox 35+ */
+	or ( ( -moz-appearance: none ) and ( mask-type: alpha ) ) {
+	/* Show custom arrow */
+	.select-button::after {
+		display: block;
+	}
+
+	/* Remove select styling */
+	.select-button > select {
+		padding-right: 2em; /* Match-01 */
+		/* inside @supports so that iOS <= 8 display the native arrow */
+		background: none; /* Match-04 */
+		/* inside @supports so that Android <= 4.3 display the native arrow */
+		border-width: 0; /* Match-05 */
+
+		-webkit-appearance: none;
+		   -moz-appearance: none;
+		        appearance: none;
+	}
+
+	.select-button select:focus {
+		border-color: #aaa; /* Match-03 */
+	}
+}
 
 /*
 .radio-button
@@ -2459,8 +2458,9 @@ Styleguide: button.check-button
 */
 
 .radio-button,
-.check-button {
-	/* Overflow will hide the browser generated error messages. No no no. */
+.checkbox-button {
+	/* A hidden overflow would hide the browser generated error messages.
+	   No no no. Make sure it's visible. */
 	overflow: visible;
 }
 
@@ -2593,7 +2593,6 @@ Styleguide: thumb
 		-webkit-print-color-adjust: exact;
 	}
 }
-
 
 /*
 .close-thumb
@@ -2781,6 +2780,14 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
   margin-top: -0.9375rem;
   margin-bottom: -0.9375rem; }
 
+.grid-block,
+.grid-index,
+.index > .grid-block {
+  margin-left: -1.25rem;
+  margin-right: -1.25rem;
+  margin-top: -0.9375rem;
+  margin-bottom: -0.9375rem; }
+
 .grid-block > .block,
 .grid-index > li {
   display: inline-block;
@@ -2791,7 +2798,9 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 
 .grid-block > .grid-block {
   margin-left: 0;
-  margin-right: 0; }
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0; }
 
 /* Grid widths. */
 .grid-1\/1 {
@@ -3037,138 +3046,128 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 .grid-index > .grid-left-5\/6 {
   margin-left: calc(83.33333% + 1.25rem); }
 
-/* Bleed widths. */
-.width-1\/1 {
-  width: 100%; }
-
-.width-1\/2 {
-  width: 50%; }
-
-.width-1\/3 {
-  width: 33.33333%; }
-
-.width-2\/3 {
-  width: 66.66667%; }
-
-.width-1\/4 {
-  width: 25%; }
-
-.width-2\/4 {
-  width: 50%; }
-
-.width-3\/4 {
-  width: 75%; }
-
-.width-1\/5 {
-  width: 20%; }
-
-.width-2\/5 {
-  width: 40%; }
-
-.width-3\/5 {
-  width: 60%; }
-
-.width-4\/5 {
-  width: 80%; }
-
-.width-1\/6 {
-  width: 16.66667%; }
-
-.width-2\/6 {
-  width: 33.33333%; }
-
-.width-3\/6 {
-  width: 50%; }
-
-.width-4\/6 {
-  width: 66.66667%; }
-
-.width-5\/6 {
-  width: 83.33333%; }
-
-/* Bleed margins inside a grid-block or grid-index. */
+/* Bleed widths and margins inside a grid-block or grid-index. */
+.width-1\/1,
 .grid-block > .width-1\/1,
 .grid-index > .width-1\/1 {
+  width: 100%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-1\/2,
 .grid-block > .width-1\/2,
 .grid-index > .width-1\/2 {
+  width: 50%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-1\/3,
 .grid-block > .width-1\/3,
 .grid-index > .width-1\/3 {
+  width: 33.33333%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-2\/3,
 .grid-block > .width-2\/3,
 .grid-index > .width-2\/3 {
+  width: 66.66667%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-1\/4,
 .grid-block > .width-1\/4,
 .grid-index > .width-1\/4 {
+  width: 25%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-2\/4,
 .grid-block > .width-2\/4,
 .grid-index > .width-2\/4 {
+  width: 50%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-3\/4,
 .grid-block > .width-3\/4,
 .grid-index > .width-3\/4 {
+  width: 75%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-1\/5,
 .grid-block > .width-1\/5,
 .grid-index > .width-1\/5 {
+  width: 20%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-2\/5,
 .grid-block > .width-2\/5,
 .grid-index > .width-2\/5 {
+  width: 40%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-3\/5,
 .grid-block > .width-3\/5,
 .grid-index > .width-3\/5 {
+  width: 60%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-4\/5,
 .grid-block > .width-4\/5,
 .grid-index > .width-4\/5 {
+  width: 80%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-1\/6,
 .grid-block > .width-1\/6,
 .grid-index > .width-1\/6 {
+  width: 16.66667%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-2\/6,
 .grid-block > .width-2\/6,
 .grid-index > .width-2\/6 {
+  width: 33.33333%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-3\/6,
 .grid-block > .width-3\/6,
 .grid-index > .width-3\/6 {
+  width: 50%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-4\/6,
 .grid-block > .width-4\/6,
 .grid-index > .width-4\/6 {
+  width: 66.66667%;
   margin-left: 0;
   margin-right: 0; }
 
+.width-5\/6,
 .grid-block > .width-5\/6,
 .grid-index > .width-5\/6 {
+  width: 83.33333%;
   margin-left: 0;
   margin-right: 0; }
 
 @media all and (min-width: 30em) {
-  .grid-block > .\@1-block,
+  .grid-block,
+  .grid-index,
+  .index > .grid-block {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    margin-top: -0.9375rem;
+    margin-bottom: -0.9375rem; }
+  .grid-block > .block,
   .\@1-grid-index > li {
     display: inline-block;
     margin-left: 1.25rem;
@@ -3177,7 +3176,9 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
     margin-bottom: 0.9375rem; }
   .grid-block > .grid-block {
     margin-left: 0;
-    margin-right: 0; }
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0; }
   /* Grid widths. */
   .\@1-grid-1\/1 {
     width: 100%; }
@@ -3358,107 +3359,113 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
   .grid-block > .\@1-grid-left-5\/6,
   .grid-index > .\@1-grid-left-5\/6 {
     margin-left: calc(83.33333% + 1.25rem); }
-  /* Bleed widths. */
-  .\@1-width-1\/1 {
-    width: 100%; }
-  .\@1-width-1\/2 {
-    width: 50%; }
-  .\@1-width-1\/3 {
-    width: 33.33333%; }
-  .\@1-width-2\/3 {
-    width: 66.66667%; }
-  .\@1-width-1\/4 {
-    width: 25%; }
-  .\@1-width-2\/4 {
-    width: 50%; }
-  .\@1-width-3\/4 {
-    width: 75%; }
-  .\@1-width-1\/5 {
-    width: 20%; }
-  .\@1-width-2\/5 {
-    width: 40%; }
-  .\@1-width-3\/5 {
-    width: 60%; }
-  .\@1-width-4\/5 {
-    width: 80%; }
-  .\@1-width-1\/6 {
-    width: 16.66667%; }
-  .\@1-width-2\/6 {
-    width: 33.33333%; }
-  .\@1-width-3\/6 {
-    width: 50%; }
-  .\@1-width-4\/6 {
-    width: 66.66667%; }
-  .\@1-width-5\/6 {
-    width: 83.33333%; }
-  /* Bleed margins inside a grid-block or grid-index. */
+  /* Bleed widths and margins inside a grid-block or grid-index. */
+  .\@1-width-1\/1,
   .grid-block > .\@1-width-1\/1,
   .grid-index > .\@1-width-1\/1 {
+    width: 100%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-1\/2,
   .grid-block > .\@1-width-1\/2,
   .grid-index > .\@1-width-1\/2 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-1\/3,
   .grid-block > .\@1-width-1\/3,
   .grid-index > .\@1-width-1\/3 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-2\/3,
   .grid-block > .\@1-width-2\/3,
   .grid-index > .\@1-width-2\/3 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-1\/4,
   .grid-block > .\@1-width-1\/4,
   .grid-index > .\@1-width-1\/4 {
+    width: 25%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-2\/4,
   .grid-block > .\@1-width-2\/4,
   .grid-index > .\@1-width-2\/4 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-3\/4,
   .grid-block > .\@1-width-3\/4,
   .grid-index > .\@1-width-3\/4 {
+    width: 75%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-1\/5,
   .grid-block > .\@1-width-1\/5,
   .grid-index > .\@1-width-1\/5 {
+    width: 20%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-2\/5,
   .grid-block > .\@1-width-2\/5,
   .grid-index > .\@1-width-2\/5 {
+    width: 40%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-3\/5,
   .grid-block > .\@1-width-3\/5,
   .grid-index > .\@1-width-3\/5 {
+    width: 60%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-4\/5,
   .grid-block > .\@1-width-4\/5,
   .grid-index > .\@1-width-4\/5 {
+    width: 80%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-1\/6,
   .grid-block > .\@1-width-1\/6,
   .grid-index > .\@1-width-1\/6 {
+    width: 16.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-2\/6,
   .grid-block > .\@1-width-2\/6,
   .grid-index > .\@1-width-2\/6 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-3\/6,
   .grid-block > .\@1-width-3\/6,
   .grid-index > .\@1-width-3\/6 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-4\/6,
   .grid-block > .\@1-width-4\/6,
   .grid-index > .\@1-width-4\/6 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@1-width-5\/6,
   .grid-block > .\@1-width-5\/6,
   .grid-index > .\@1-width-5\/6 {
+    width: 83.33333%;
     margin-left: 0;
     margin-right: 0; } }
 
 @media all and (min-width: 37.5em) {
-  .grid-block > .\@2-block,
+  .grid-block,
+  .grid-index,
+  .index > .grid-block {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    margin-top: -0.9375rem;
+    margin-bottom: -0.9375rem; }
+  .grid-block > .block,
   .\@2-grid-index > li {
     display: inline-block;
     margin-left: 1.25rem;
@@ -3467,7 +3474,9 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
     margin-bottom: 0.9375rem; }
   .grid-block > .grid-block {
     margin-left: 0;
-    margin-right: 0; }
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0; }
   /* Grid widths. */
   .\@2-grid-1\/1 {
     width: 100%; }
@@ -3879,233 +3888,239 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
   .grid-block > .\@2-grid-left-8\/9,
   .grid-index > .\@2-grid-left-8\/9 {
     margin-left: calc(88.88889% + 1.25rem); }
-  /* Bleed widths. */
-  .\@2-width-1\/1 {
-    width: 100%; }
-  .\@2-width-1\/2 {
-    width: 50%; }
-  .\@2-width-1\/3 {
-    width: 33.33333%; }
-  .\@2-width-2\/3 {
-    width: 66.66667%; }
-  .\@2-width-1\/4 {
-    width: 25%; }
-  .\@2-width-2\/4 {
-    width: 50%; }
-  .\@2-width-3\/4 {
-    width: 75%; }
-  .\@2-width-1\/5 {
-    width: 20%; }
-  .\@2-width-2\/5 {
-    width: 40%; }
-  .\@2-width-3\/5 {
-    width: 60%; }
-  .\@2-width-4\/5 {
-    width: 80%; }
-  .\@2-width-1\/6 {
-    width: 16.66667%; }
-  .\@2-width-2\/6 {
-    width: 33.33333%; }
-  .\@2-width-3\/6 {
-    width: 50%; }
-  .\@2-width-4\/6 {
-    width: 66.66667%; }
-  .\@2-width-5\/6 {
-    width: 83.33333%; }
-  .\@2-width-1\/7 {
-    width: 14.28571%; }
-  .\@2-width-2\/7 {
-    width: 28.57143%; }
-  .\@2-width-3\/7 {
-    width: 42.85714%; }
-  .\@2-width-4\/7 {
-    width: 57.14286%; }
-  .\@2-width-5\/7 {
-    width: 71.42857%; }
-  .\@2-width-6\/7 {
-    width: 85.71429%; }
-  .\@2-width-1\/8 {
-    width: 12.5%; }
-  .\@2-width-2\/8 {
-    width: 25%; }
-  .\@2-width-3\/8 {
-    width: 37.5%; }
-  .\@2-width-4\/8 {
-    width: 50%; }
-  .\@2-width-5\/8 {
-    width: 62.5%; }
-  .\@2-width-6\/8 {
-    width: 75%; }
-  .\@2-width-7\/8 {
-    width: 87.5%; }
-  .\@2-width-1\/9 {
-    width: 11.11111%; }
-  .\@2-width-2\/9 {
-    width: 22.22222%; }
-  .\@2-width-3\/9 {
-    width: 33.33333%; }
-  .\@2-width-4\/9 {
-    width: 44.44444%; }
-  .\@2-width-5\/9 {
-    width: 55.55556%; }
-  .\@2-width-6\/9 {
-    width: 66.66667%; }
-  .\@2-width-7\/9 {
-    width: 77.77778%; }
-  .\@2-width-8\/9 {
-    width: 88.88889%; }
-  /* Bleed margins inside a grid-block or grid-index. */
+  /* Bleed widths and margins inside a grid-block or grid-index. */
+  .\@2-width-1\/1,
   .grid-block > .\@2-width-1\/1,
   .grid-index > .\@2-width-1\/1 {
+    width: 100%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-1\/2,
   .grid-block > .\@2-width-1\/2,
   .grid-index > .\@2-width-1\/2 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-1\/3,
   .grid-block > .\@2-width-1\/3,
   .grid-index > .\@2-width-1\/3 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-2\/3,
   .grid-block > .\@2-width-2\/3,
   .grid-index > .\@2-width-2\/3 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-1\/4,
   .grid-block > .\@2-width-1\/4,
   .grid-index > .\@2-width-1\/4 {
+    width: 25%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-2\/4,
   .grid-block > .\@2-width-2\/4,
   .grid-index > .\@2-width-2\/4 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-3\/4,
   .grid-block > .\@2-width-3\/4,
   .grid-index > .\@2-width-3\/4 {
+    width: 75%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-1\/5,
   .grid-block > .\@2-width-1\/5,
   .grid-index > .\@2-width-1\/5 {
+    width: 20%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-2\/5,
   .grid-block > .\@2-width-2\/5,
   .grid-index > .\@2-width-2\/5 {
+    width: 40%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-3\/5,
   .grid-block > .\@2-width-3\/5,
   .grid-index > .\@2-width-3\/5 {
+    width: 60%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-4\/5,
   .grid-block > .\@2-width-4\/5,
   .grid-index > .\@2-width-4\/5 {
+    width: 80%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-1\/6,
   .grid-block > .\@2-width-1\/6,
   .grid-index > .\@2-width-1\/6 {
+    width: 16.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-2\/6,
   .grid-block > .\@2-width-2\/6,
   .grid-index > .\@2-width-2\/6 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-3\/6,
   .grid-block > .\@2-width-3\/6,
   .grid-index > .\@2-width-3\/6 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-4\/6,
   .grid-block > .\@2-width-4\/6,
   .grid-index > .\@2-width-4\/6 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-5\/6,
   .grid-block > .\@2-width-5\/6,
   .grid-index > .\@2-width-5\/6 {
+    width: 83.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-1\/7,
   .grid-block > .\@2-width-1\/7,
   .grid-index > .\@2-width-1\/7 {
+    width: 14.28571%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-2\/7,
   .grid-block > .\@2-width-2\/7,
   .grid-index > .\@2-width-2\/7 {
+    width: 28.57143%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-3\/7,
   .grid-block > .\@2-width-3\/7,
   .grid-index > .\@2-width-3\/7 {
+    width: 42.85714%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-4\/7,
   .grid-block > .\@2-width-4\/7,
   .grid-index > .\@2-width-4\/7 {
+    width: 57.14286%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-5\/7,
   .grid-block > .\@2-width-5\/7,
   .grid-index > .\@2-width-5\/7 {
+    width: 71.42857%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-6\/7,
   .grid-block > .\@2-width-6\/7,
   .grid-index > .\@2-width-6\/7 {
+    width: 85.71429%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-1\/8,
   .grid-block > .\@2-width-1\/8,
   .grid-index > .\@2-width-1\/8 {
+    width: 12.5%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-2\/8,
   .grid-block > .\@2-width-2\/8,
   .grid-index > .\@2-width-2\/8 {
+    width: 25%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-3\/8,
   .grid-block > .\@2-width-3\/8,
   .grid-index > .\@2-width-3\/8 {
+    width: 37.5%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-4\/8,
   .grid-block > .\@2-width-4\/8,
   .grid-index > .\@2-width-4\/8 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-5\/8,
   .grid-block > .\@2-width-5\/8,
   .grid-index > .\@2-width-5\/8 {
+    width: 62.5%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-6\/8,
   .grid-block > .\@2-width-6\/8,
   .grid-index > .\@2-width-6\/8 {
+    width: 75%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-7\/8,
   .grid-block > .\@2-width-7\/8,
   .grid-index > .\@2-width-7\/8 {
+    width: 87.5%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-1\/9,
   .grid-block > .\@2-width-1\/9,
   .grid-index > .\@2-width-1\/9 {
+    width: 11.11111%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-2\/9,
   .grid-block > .\@2-width-2\/9,
   .grid-index > .\@2-width-2\/9 {
+    width: 22.22222%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-3\/9,
   .grid-block > .\@2-width-3\/9,
   .grid-index > .\@2-width-3\/9 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-4\/9,
   .grid-block > .\@2-width-4\/9,
   .grid-index > .\@2-width-4\/9 {
+    width: 44.44444%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-5\/9,
   .grid-block > .\@2-width-5\/9,
   .grid-index > .\@2-width-5\/9 {
+    width: 55.55556%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-6\/9,
   .grid-block > .\@2-width-6\/9,
   .grid-index > .\@2-width-6\/9 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-7\/9,
   .grid-block > .\@2-width-7\/9,
   .grid-index > .\@2-width-7\/9 {
+    width: 77.77778%;
     margin-left: 0;
     margin-right: 0; }
+  .\@2-width-8\/9,
   .grid-block > .\@2-width-8\/9,
   .grid-index > .\@2-width-8\/9 {
+    width: 88.88889%;
     margin-left: 0;
     margin-right: 0; } }
 
 @media all and (min-width: 45em) {
-  .grid-block > .\@3-block,
+  .grid-block,
+  .grid-index,
+  .index > .grid-block {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    margin-top: -0.9375rem;
+    margin-bottom: -0.9375rem; }
+  .grid-block > .block,
   .\@3-grid-index > li {
     display: inline-block;
     margin-left: 1.25rem;
@@ -4114,7 +4129,9 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
     margin-bottom: 0.9375rem; }
   .grid-block > .grid-block {
     margin-left: 0;
-    margin-right: 0; }
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0; }
   /* Grid widths. */
   .\@3-grid-1\/1 {
     width: 100%; }
@@ -4856,413 +4873,419 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
   .grid-block > .\@3-grid-left-11\/12,
   .grid-index > .\@3-grid-left-11\/12 {
     margin-left: calc(91.66667% + 1.25rem); }
-  /* Bleed widths. */
-  .\@3-width-1\/1 {
-    width: 100%; }
-  .\@3-width-1\/2 {
-    width: 50%; }
-  .\@3-width-1\/3 {
-    width: 33.33333%; }
-  .\@3-width-2\/3 {
-    width: 66.66667%; }
-  .\@3-width-1\/4 {
-    width: 25%; }
-  .\@3-width-2\/4 {
-    width: 50%; }
-  .\@3-width-3\/4 {
-    width: 75%; }
-  .\@3-width-1\/5 {
-    width: 20%; }
-  .\@3-width-2\/5 {
-    width: 40%; }
-  .\@3-width-3\/5 {
-    width: 60%; }
-  .\@3-width-4\/5 {
-    width: 80%; }
-  .\@3-width-1\/6 {
-    width: 16.66667%; }
-  .\@3-width-2\/6 {
-    width: 33.33333%; }
-  .\@3-width-3\/6 {
-    width: 50%; }
-  .\@3-width-4\/6 {
-    width: 66.66667%; }
-  .\@3-width-5\/6 {
-    width: 83.33333%; }
-  .\@3-width-1\/7 {
-    width: 14.28571%; }
-  .\@3-width-2\/7 {
-    width: 28.57143%; }
-  .\@3-width-3\/7 {
-    width: 42.85714%; }
-  .\@3-width-4\/7 {
-    width: 57.14286%; }
-  .\@3-width-5\/7 {
-    width: 71.42857%; }
-  .\@3-width-6\/7 {
-    width: 85.71429%; }
-  .\@3-width-1\/8 {
-    width: 12.5%; }
-  .\@3-width-2\/8 {
-    width: 25%; }
-  .\@3-width-3\/8 {
-    width: 37.5%; }
-  .\@3-width-4\/8 {
-    width: 50%; }
-  .\@3-width-5\/8 {
-    width: 62.5%; }
-  .\@3-width-6\/8 {
-    width: 75%; }
-  .\@3-width-7\/8 {
-    width: 87.5%; }
-  .\@3-width-1\/9 {
-    width: 11.11111%; }
-  .\@3-width-2\/9 {
-    width: 22.22222%; }
-  .\@3-width-3\/9 {
-    width: 33.33333%; }
-  .\@3-width-4\/9 {
-    width: 44.44444%; }
-  .\@3-width-5\/9 {
-    width: 55.55556%; }
-  .\@3-width-6\/9 {
-    width: 66.66667%; }
-  .\@3-width-7\/9 {
-    width: 77.77778%; }
-  .\@3-width-8\/9 {
-    width: 88.88889%; }
-  .\@3-width-1\/10 {
-    width: 10%; }
-  .\@3-width-2\/10 {
-    width: 20%; }
-  .\@3-width-3\/10 {
-    width: 30%; }
-  .\@3-width-4\/10 {
-    width: 40%; }
-  .\@3-width-5\/10 {
-    width: 50%; }
-  .\@3-width-6\/10 {
-    width: 60%; }
-  .\@3-width-7\/10 {
-    width: 70%; }
-  .\@3-width-8\/10 {
-    width: 80%; }
-  .\@3-width-9\/10 {
-    width: 90%; }
-  .\@3-width-1\/11 {
-    width: 9.09091%; }
-  .\@3-width-2\/11 {
-    width: 18.18182%; }
-  .\@3-width-3\/11 {
-    width: 27.27273%; }
-  .\@3-width-4\/11 {
-    width: 36.36364%; }
-  .\@3-width-5\/11 {
-    width: 45.45455%; }
-  .\@3-width-6\/11 {
-    width: 54.54545%; }
-  .\@3-width-7\/11 {
-    width: 63.63636%; }
-  .\@3-width-8\/11 {
-    width: 72.72727%; }
-  .\@3-width-9\/11 {
-    width: 81.81818%; }
-  .\@3-width-10\/11 {
-    width: 90.90909%; }
-  .\@3-width-1\/12 {
-    width: 8.33333%; }
-  .\@3-width-2\/12 {
-    width: 16.66667%; }
-  .\@3-width-3\/12 {
-    width: 25%; }
-  .\@3-width-4\/12 {
-    width: 33.33333%; }
-  .\@3-width-5\/12 {
-    width: 41.66667%; }
-  .\@3-width-6\/12 {
-    width: 50%; }
-  .\@3-width-7\/12 {
-    width: 58.33333%; }
-  .\@3-width-8\/12 {
-    width: 66.66667%; }
-  .\@3-width-9\/12 {
-    width: 75%; }
-  .\@3-width-10\/12 {
-    width: 83.33333%; }
-  .\@3-width-11\/12 {
-    width: 91.66667%; }
-  /* Bleed margins inside a grid-block or grid-index. */
+  /* Bleed widths and margins inside a grid-block or grid-index. */
+  .\@3-width-1\/1,
   .grid-block > .\@3-width-1\/1,
   .grid-index > .\@3-width-1\/1 {
+    width: 100%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-1\/2,
   .grid-block > .\@3-width-1\/2,
   .grid-index > .\@3-width-1\/2 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-1\/3,
   .grid-block > .\@3-width-1\/3,
   .grid-index > .\@3-width-1\/3 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-2\/3,
   .grid-block > .\@3-width-2\/3,
   .grid-index > .\@3-width-2\/3 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-1\/4,
   .grid-block > .\@3-width-1\/4,
   .grid-index > .\@3-width-1\/4 {
+    width: 25%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-2\/4,
   .grid-block > .\@3-width-2\/4,
   .grid-index > .\@3-width-2\/4 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-3\/4,
   .grid-block > .\@3-width-3\/4,
   .grid-index > .\@3-width-3\/4 {
+    width: 75%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-1\/5,
   .grid-block > .\@3-width-1\/5,
   .grid-index > .\@3-width-1\/5 {
+    width: 20%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-2\/5,
   .grid-block > .\@3-width-2\/5,
   .grid-index > .\@3-width-2\/5 {
+    width: 40%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-3\/5,
   .grid-block > .\@3-width-3\/5,
   .grid-index > .\@3-width-3\/5 {
+    width: 60%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-4\/5,
   .grid-block > .\@3-width-4\/5,
   .grid-index > .\@3-width-4\/5 {
+    width: 80%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-1\/6,
   .grid-block > .\@3-width-1\/6,
   .grid-index > .\@3-width-1\/6 {
+    width: 16.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-2\/6,
   .grid-block > .\@3-width-2\/6,
   .grid-index > .\@3-width-2\/6 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-3\/6,
   .grid-block > .\@3-width-3\/6,
   .grid-index > .\@3-width-3\/6 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-4\/6,
   .grid-block > .\@3-width-4\/6,
   .grid-index > .\@3-width-4\/6 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-5\/6,
   .grid-block > .\@3-width-5\/6,
   .grid-index > .\@3-width-5\/6 {
+    width: 83.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-1\/7,
   .grid-block > .\@3-width-1\/7,
   .grid-index > .\@3-width-1\/7 {
+    width: 14.28571%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-2\/7,
   .grid-block > .\@3-width-2\/7,
   .grid-index > .\@3-width-2\/7 {
+    width: 28.57143%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-3\/7,
   .grid-block > .\@3-width-3\/7,
   .grid-index > .\@3-width-3\/7 {
+    width: 42.85714%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-4\/7,
   .grid-block > .\@3-width-4\/7,
   .grid-index > .\@3-width-4\/7 {
+    width: 57.14286%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-5\/7,
   .grid-block > .\@3-width-5\/7,
   .grid-index > .\@3-width-5\/7 {
+    width: 71.42857%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-6\/7,
   .grid-block > .\@3-width-6\/7,
   .grid-index > .\@3-width-6\/7 {
+    width: 85.71429%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-1\/8,
   .grid-block > .\@3-width-1\/8,
   .grid-index > .\@3-width-1\/8 {
+    width: 12.5%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-2\/8,
   .grid-block > .\@3-width-2\/8,
   .grid-index > .\@3-width-2\/8 {
+    width: 25%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-3\/8,
   .grid-block > .\@3-width-3\/8,
   .grid-index > .\@3-width-3\/8 {
+    width: 37.5%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-4\/8,
   .grid-block > .\@3-width-4\/8,
   .grid-index > .\@3-width-4\/8 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-5\/8,
   .grid-block > .\@3-width-5\/8,
   .grid-index > .\@3-width-5\/8 {
+    width: 62.5%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-6\/8,
   .grid-block > .\@3-width-6\/8,
   .grid-index > .\@3-width-6\/8 {
+    width: 75%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-7\/8,
   .grid-block > .\@3-width-7\/8,
   .grid-index > .\@3-width-7\/8 {
+    width: 87.5%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-1\/9,
   .grid-block > .\@3-width-1\/9,
   .grid-index > .\@3-width-1\/9 {
+    width: 11.11111%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-2\/9,
   .grid-block > .\@3-width-2\/9,
   .grid-index > .\@3-width-2\/9 {
+    width: 22.22222%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-3\/9,
   .grid-block > .\@3-width-3\/9,
   .grid-index > .\@3-width-3\/9 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-4\/9,
   .grid-block > .\@3-width-4\/9,
   .grid-index > .\@3-width-4\/9 {
+    width: 44.44444%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-5\/9,
   .grid-block > .\@3-width-5\/9,
   .grid-index > .\@3-width-5\/9 {
+    width: 55.55556%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-6\/9,
   .grid-block > .\@3-width-6\/9,
   .grid-index > .\@3-width-6\/9 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-7\/9,
   .grid-block > .\@3-width-7\/9,
   .grid-index > .\@3-width-7\/9 {
+    width: 77.77778%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-8\/9,
   .grid-block > .\@3-width-8\/9,
   .grid-index > .\@3-width-8\/9 {
+    width: 88.88889%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-1\/10,
   .grid-block > .\@3-width-1\/10,
   .grid-index > .\@3-width-1\/10 {
+    width: 10%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-2\/10,
   .grid-block > .\@3-width-2\/10,
   .grid-index > .\@3-width-2\/10 {
+    width: 20%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-3\/10,
   .grid-block > .\@3-width-3\/10,
   .grid-index > .\@3-width-3\/10 {
+    width: 30%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-4\/10,
   .grid-block > .\@3-width-4\/10,
   .grid-index > .\@3-width-4\/10 {
+    width: 40%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-5\/10,
   .grid-block > .\@3-width-5\/10,
   .grid-index > .\@3-width-5\/10 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-6\/10,
   .grid-block > .\@3-width-6\/10,
   .grid-index > .\@3-width-6\/10 {
+    width: 60%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-7\/10,
   .grid-block > .\@3-width-7\/10,
   .grid-index > .\@3-width-7\/10 {
+    width: 70%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-8\/10,
   .grid-block > .\@3-width-8\/10,
   .grid-index > .\@3-width-8\/10 {
+    width: 80%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-9\/10,
   .grid-block > .\@3-width-9\/10,
   .grid-index > .\@3-width-9\/10 {
+    width: 90%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-1\/11,
   .grid-block > .\@3-width-1\/11,
   .grid-index > .\@3-width-1\/11 {
+    width: 9.09091%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-2\/11,
   .grid-block > .\@3-width-2\/11,
   .grid-index > .\@3-width-2\/11 {
+    width: 18.18182%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-3\/11,
   .grid-block > .\@3-width-3\/11,
   .grid-index > .\@3-width-3\/11 {
+    width: 27.27273%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-4\/11,
   .grid-block > .\@3-width-4\/11,
   .grid-index > .\@3-width-4\/11 {
+    width: 36.36364%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-5\/11,
   .grid-block > .\@3-width-5\/11,
   .grid-index > .\@3-width-5\/11 {
+    width: 45.45455%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-6\/11,
   .grid-block > .\@3-width-6\/11,
   .grid-index > .\@3-width-6\/11 {
+    width: 54.54545%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-7\/11,
   .grid-block > .\@3-width-7\/11,
   .grid-index > .\@3-width-7\/11 {
+    width: 63.63636%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-8\/11,
   .grid-block > .\@3-width-8\/11,
   .grid-index > .\@3-width-8\/11 {
+    width: 72.72727%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-9\/11,
   .grid-block > .\@3-width-9\/11,
   .grid-index > .\@3-width-9\/11 {
+    width: 81.81818%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-10\/11,
   .grid-block > .\@3-width-10\/11,
   .grid-index > .\@3-width-10\/11 {
+    width: 90.90909%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-1\/12,
   .grid-block > .\@3-width-1\/12,
   .grid-index > .\@3-width-1\/12 {
+    width: 8.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-2\/12,
   .grid-block > .\@3-width-2\/12,
   .grid-index > .\@3-width-2\/12 {
+    width: 16.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-3\/12,
   .grid-block > .\@3-width-3\/12,
   .grid-index > .\@3-width-3\/12 {
+    width: 25%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-4\/12,
   .grid-block > .\@3-width-4\/12,
   .grid-index > .\@3-width-4\/12 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-5\/12,
   .grid-block > .\@3-width-5\/12,
   .grid-index > .\@3-width-5\/12 {
+    width: 41.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-6\/12,
   .grid-block > .\@3-width-6\/12,
   .grid-index > .\@3-width-6\/12 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-7\/12,
   .grid-block > .\@3-width-7\/12,
   .grid-index > .\@3-width-7\/12 {
+    width: 58.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-8\/12,
   .grid-block > .\@3-width-8\/12,
   .grid-index > .\@3-width-8\/12 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-9\/12,
   .grid-block > .\@3-width-9\/12,
   .grid-index > .\@3-width-9\/12 {
+    width: 75%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-10\/12,
   .grid-block > .\@3-width-10\/12,
   .grid-index > .\@3-width-10\/12 {
+    width: 83.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@3-width-11\/12,
   .grid-block > .\@3-width-11\/12,
   .grid-index > .\@3-width-11\/12 {
+    width: 91.66667%;
     margin-left: 0;
     margin-right: 0; } }
 
 @media all and (min-width: 60em) {
-  .grid-block > .\@4-block,
+  .grid-block,
+  .grid-index,
+  .index > .grid-block {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    margin-top: -0.9375rem;
+    margin-bottom: -0.9375rem; }
+  .grid-block > .block,
   .\@4-grid-index > li {
     display: inline-block;
     margin-left: 1.25rem;
@@ -5271,7 +5294,9 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
     margin-bottom: 0.9375rem; }
   .grid-block > .grid-block {
     margin-left: 0;
-    margin-right: 0; }
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0; }
   /* Grid widths. */
   .\@4-grid-1\/1 {
     width: 100%; }
@@ -6013,408 +6038,407 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
   .grid-block > .\@4-grid-left-11\/12,
   .grid-index > .\@4-grid-left-11\/12 {
     margin-left: calc(91.66667% + 1.25rem); }
-  /* Bleed widths. */
-  .\@4-width-1\/1 {
-    width: 100%; }
-  .\@4-width-1\/2 {
-    width: 50%; }
-  .\@4-width-1\/3 {
-    width: 33.33333%; }
-  .\@4-width-2\/3 {
-    width: 66.66667%; }
-  .\@4-width-1\/4 {
-    width: 25%; }
-  .\@4-width-2\/4 {
-    width: 50%; }
-  .\@4-width-3\/4 {
-    width: 75%; }
-  .\@4-width-1\/5 {
-    width: 20%; }
-  .\@4-width-2\/5 {
-    width: 40%; }
-  .\@4-width-3\/5 {
-    width: 60%; }
-  .\@4-width-4\/5 {
-    width: 80%; }
-  .\@4-width-1\/6 {
-    width: 16.66667%; }
-  .\@4-width-2\/6 {
-    width: 33.33333%; }
-  .\@4-width-3\/6 {
-    width: 50%; }
-  .\@4-width-4\/6 {
-    width: 66.66667%; }
-  .\@4-width-5\/6 {
-    width: 83.33333%; }
-  .\@4-width-1\/7 {
-    width: 14.28571%; }
-  .\@4-width-2\/7 {
-    width: 28.57143%; }
-  .\@4-width-3\/7 {
-    width: 42.85714%; }
-  .\@4-width-4\/7 {
-    width: 57.14286%; }
-  .\@4-width-5\/7 {
-    width: 71.42857%; }
-  .\@4-width-6\/7 {
-    width: 85.71429%; }
-  .\@4-width-1\/8 {
-    width: 12.5%; }
-  .\@4-width-2\/8 {
-    width: 25%; }
-  .\@4-width-3\/8 {
-    width: 37.5%; }
-  .\@4-width-4\/8 {
-    width: 50%; }
-  .\@4-width-5\/8 {
-    width: 62.5%; }
-  .\@4-width-6\/8 {
-    width: 75%; }
-  .\@4-width-7\/8 {
-    width: 87.5%; }
-  .\@4-width-1\/9 {
-    width: 11.11111%; }
-  .\@4-width-2\/9 {
-    width: 22.22222%; }
-  .\@4-width-3\/9 {
-    width: 33.33333%; }
-  .\@4-width-4\/9 {
-    width: 44.44444%; }
-  .\@4-width-5\/9 {
-    width: 55.55556%; }
-  .\@4-width-6\/9 {
-    width: 66.66667%; }
-  .\@4-width-7\/9 {
-    width: 77.77778%; }
-  .\@4-width-8\/9 {
-    width: 88.88889%; }
-  .\@4-width-1\/10 {
-    width: 10%; }
-  .\@4-width-2\/10 {
-    width: 20%; }
-  .\@4-width-3\/10 {
-    width: 30%; }
-  .\@4-width-4\/10 {
-    width: 40%; }
-  .\@4-width-5\/10 {
-    width: 50%; }
-  .\@4-width-6\/10 {
-    width: 60%; }
-  .\@4-width-7\/10 {
-    width: 70%; }
-  .\@4-width-8\/10 {
-    width: 80%; }
-  .\@4-width-9\/10 {
-    width: 90%; }
-  .\@4-width-1\/11 {
-    width: 9.09091%; }
-  .\@4-width-2\/11 {
-    width: 18.18182%; }
-  .\@4-width-3\/11 {
-    width: 27.27273%; }
-  .\@4-width-4\/11 {
-    width: 36.36364%; }
-  .\@4-width-5\/11 {
-    width: 45.45455%; }
-  .\@4-width-6\/11 {
-    width: 54.54545%; }
-  .\@4-width-7\/11 {
-    width: 63.63636%; }
-  .\@4-width-8\/11 {
-    width: 72.72727%; }
-  .\@4-width-9\/11 {
-    width: 81.81818%; }
-  .\@4-width-10\/11 {
-    width: 90.90909%; }
-  .\@4-width-1\/12 {
-    width: 8.33333%; }
-  .\@4-width-2\/12 {
-    width: 16.66667%; }
-  .\@4-width-3\/12 {
-    width: 25%; }
-  .\@4-width-4\/12 {
-    width: 33.33333%; }
-  .\@4-width-5\/12 {
-    width: 41.66667%; }
-  .\@4-width-6\/12 {
-    width: 50%; }
-  .\@4-width-7\/12 {
-    width: 58.33333%; }
-  .\@4-width-8\/12 {
-    width: 66.66667%; }
-  .\@4-width-9\/12 {
-    width: 75%; }
-  .\@4-width-10\/12 {
-    width: 83.33333%; }
-  .\@4-width-11\/12 {
-    width: 91.66667%; }
-  /* Bleed margins inside a grid-block or grid-index. */
+  /* Bleed widths and margins inside a grid-block or grid-index. */
+  .\@4-width-1\/1,
   .grid-block > .\@4-width-1\/1,
   .grid-index > .\@4-width-1\/1 {
+    width: 100%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-1\/2,
   .grid-block > .\@4-width-1\/2,
   .grid-index > .\@4-width-1\/2 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-1\/3,
   .grid-block > .\@4-width-1\/3,
   .grid-index > .\@4-width-1\/3 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-2\/3,
   .grid-block > .\@4-width-2\/3,
   .grid-index > .\@4-width-2\/3 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-1\/4,
   .grid-block > .\@4-width-1\/4,
   .grid-index > .\@4-width-1\/4 {
+    width: 25%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-2\/4,
   .grid-block > .\@4-width-2\/4,
   .grid-index > .\@4-width-2\/4 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-3\/4,
   .grid-block > .\@4-width-3\/4,
   .grid-index > .\@4-width-3\/4 {
+    width: 75%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-1\/5,
   .grid-block > .\@4-width-1\/5,
   .grid-index > .\@4-width-1\/5 {
+    width: 20%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-2\/5,
   .grid-block > .\@4-width-2\/5,
   .grid-index > .\@4-width-2\/5 {
+    width: 40%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-3\/5,
   .grid-block > .\@4-width-3\/5,
   .grid-index > .\@4-width-3\/5 {
+    width: 60%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-4\/5,
   .grid-block > .\@4-width-4\/5,
   .grid-index > .\@4-width-4\/5 {
+    width: 80%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-1\/6,
   .grid-block > .\@4-width-1\/6,
   .grid-index > .\@4-width-1\/6 {
+    width: 16.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-2\/6,
   .grid-block > .\@4-width-2\/6,
   .grid-index > .\@4-width-2\/6 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-3\/6,
   .grid-block > .\@4-width-3\/6,
   .grid-index > .\@4-width-3\/6 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-4\/6,
   .grid-block > .\@4-width-4\/6,
   .grid-index > .\@4-width-4\/6 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-5\/6,
   .grid-block > .\@4-width-5\/6,
   .grid-index > .\@4-width-5\/6 {
+    width: 83.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-1\/7,
   .grid-block > .\@4-width-1\/7,
   .grid-index > .\@4-width-1\/7 {
+    width: 14.28571%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-2\/7,
   .grid-block > .\@4-width-2\/7,
   .grid-index > .\@4-width-2\/7 {
+    width: 28.57143%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-3\/7,
   .grid-block > .\@4-width-3\/7,
   .grid-index > .\@4-width-3\/7 {
+    width: 42.85714%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-4\/7,
   .grid-block > .\@4-width-4\/7,
   .grid-index > .\@4-width-4\/7 {
+    width: 57.14286%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-5\/7,
   .grid-block > .\@4-width-5\/7,
   .grid-index > .\@4-width-5\/7 {
+    width: 71.42857%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-6\/7,
   .grid-block > .\@4-width-6\/7,
   .grid-index > .\@4-width-6\/7 {
+    width: 85.71429%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-1\/8,
   .grid-block > .\@4-width-1\/8,
   .grid-index > .\@4-width-1\/8 {
+    width: 12.5%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-2\/8,
   .grid-block > .\@4-width-2\/8,
   .grid-index > .\@4-width-2\/8 {
+    width: 25%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-3\/8,
   .grid-block > .\@4-width-3\/8,
   .grid-index > .\@4-width-3\/8 {
+    width: 37.5%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-4\/8,
   .grid-block > .\@4-width-4\/8,
   .grid-index > .\@4-width-4\/8 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-5\/8,
   .grid-block > .\@4-width-5\/8,
   .grid-index > .\@4-width-5\/8 {
+    width: 62.5%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-6\/8,
   .grid-block > .\@4-width-6\/8,
   .grid-index > .\@4-width-6\/8 {
+    width: 75%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-7\/8,
   .grid-block > .\@4-width-7\/8,
   .grid-index > .\@4-width-7\/8 {
+    width: 87.5%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-1\/9,
   .grid-block > .\@4-width-1\/9,
   .grid-index > .\@4-width-1\/9 {
+    width: 11.11111%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-2\/9,
   .grid-block > .\@4-width-2\/9,
   .grid-index > .\@4-width-2\/9 {
+    width: 22.22222%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-3\/9,
   .grid-block > .\@4-width-3\/9,
   .grid-index > .\@4-width-3\/9 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-4\/9,
   .grid-block > .\@4-width-4\/9,
   .grid-index > .\@4-width-4\/9 {
+    width: 44.44444%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-5\/9,
   .grid-block > .\@4-width-5\/9,
   .grid-index > .\@4-width-5\/9 {
+    width: 55.55556%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-6\/9,
   .grid-block > .\@4-width-6\/9,
   .grid-index > .\@4-width-6\/9 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-7\/9,
   .grid-block > .\@4-width-7\/9,
   .grid-index > .\@4-width-7\/9 {
+    width: 77.77778%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-8\/9,
   .grid-block > .\@4-width-8\/9,
   .grid-index > .\@4-width-8\/9 {
+    width: 88.88889%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-1\/10,
   .grid-block > .\@4-width-1\/10,
   .grid-index > .\@4-width-1\/10 {
+    width: 10%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-2\/10,
   .grid-block > .\@4-width-2\/10,
   .grid-index > .\@4-width-2\/10 {
+    width: 20%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-3\/10,
   .grid-block > .\@4-width-3\/10,
   .grid-index > .\@4-width-3\/10 {
+    width: 30%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-4\/10,
   .grid-block > .\@4-width-4\/10,
   .grid-index > .\@4-width-4\/10 {
+    width: 40%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-5\/10,
   .grid-block > .\@4-width-5\/10,
   .grid-index > .\@4-width-5\/10 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-6\/10,
   .grid-block > .\@4-width-6\/10,
   .grid-index > .\@4-width-6\/10 {
+    width: 60%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-7\/10,
   .grid-block > .\@4-width-7\/10,
   .grid-index > .\@4-width-7\/10 {
+    width: 70%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-8\/10,
   .grid-block > .\@4-width-8\/10,
   .grid-index > .\@4-width-8\/10 {
+    width: 80%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-9\/10,
   .grid-block > .\@4-width-9\/10,
   .grid-index > .\@4-width-9\/10 {
+    width: 90%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-1\/11,
   .grid-block > .\@4-width-1\/11,
   .grid-index > .\@4-width-1\/11 {
+    width: 9.09091%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-2\/11,
   .grid-block > .\@4-width-2\/11,
   .grid-index > .\@4-width-2\/11 {
+    width: 18.18182%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-3\/11,
   .grid-block > .\@4-width-3\/11,
   .grid-index > .\@4-width-3\/11 {
+    width: 27.27273%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-4\/11,
   .grid-block > .\@4-width-4\/11,
   .grid-index > .\@4-width-4\/11 {
+    width: 36.36364%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-5\/11,
   .grid-block > .\@4-width-5\/11,
   .grid-index > .\@4-width-5\/11 {
+    width: 45.45455%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-6\/11,
   .grid-block > .\@4-width-6\/11,
   .grid-index > .\@4-width-6\/11 {
+    width: 54.54545%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-7\/11,
   .grid-block > .\@4-width-7\/11,
   .grid-index > .\@4-width-7\/11 {
+    width: 63.63636%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-8\/11,
   .grid-block > .\@4-width-8\/11,
   .grid-index > .\@4-width-8\/11 {
+    width: 72.72727%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-9\/11,
   .grid-block > .\@4-width-9\/11,
   .grid-index > .\@4-width-9\/11 {
+    width: 81.81818%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-10\/11,
   .grid-block > .\@4-width-10\/11,
   .grid-index > .\@4-width-10\/11 {
+    width: 90.90909%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-1\/12,
   .grid-block > .\@4-width-1\/12,
   .grid-index > .\@4-width-1\/12 {
+    width: 8.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-2\/12,
   .grid-block > .\@4-width-2\/12,
   .grid-index > .\@4-width-2\/12 {
+    width: 16.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-3\/12,
   .grid-block > .\@4-width-3\/12,
   .grid-index > .\@4-width-3\/12 {
+    width: 25%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-4\/12,
   .grid-block > .\@4-width-4\/12,
   .grid-index > .\@4-width-4\/12 {
+    width: 33.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-5\/12,
   .grid-block > .\@4-width-5\/12,
   .grid-index > .\@4-width-5\/12 {
+    width: 41.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-6\/12,
   .grid-block > .\@4-width-6\/12,
   .grid-index > .\@4-width-6\/12 {
+    width: 50%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-7\/12,
   .grid-block > .\@4-width-7\/12,
   .grid-index > .\@4-width-7\/12 {
+    width: 58.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-8\/12,
   .grid-block > .\@4-width-8\/12,
   .grid-index > .\@4-width-8\/12 {
+    width: 66.66667%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-9\/12,
   .grid-block > .\@4-width-9\/12,
   .grid-index > .\@4-width-9\/12 {
+    width: 75%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-10\/12,
   .grid-block > .\@4-width-10\/12,
   .grid-index > .\@4-width-10\/12 {
+    width: 83.33333%;
     margin-left: 0;
     margin-right: 0; }
+  .\@4-width-11\/12,
   .grid-block > .\@4-width-11\/12,
   .grid-index > .\@4-width-11\/12 {
+    width: 91.66667%;
     margin-left: 0;
     margin-right: 0; } }
 
@@ -6683,9 +6707,9 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 
 
 /*
-Text
+.text
 
-Styleguide: vText
+Styleguide: text
 */
 
 html {
@@ -6704,9 +6728,12 @@ samp {
 	/* Corrects font family set oddly in IE6, S4/5, Chrome
 	   en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
 	font-family: monospace, serif;
-	font-family: 'Andale Mono', 'Lucida Console', monospace;
-	font-size: 0.916667em;
-	line-height: 1.454545em;
+	font-family: Monaco, 'Lucida Console', monospace;
+}
+
+code,
+kbd,
+samp {
 	white-space: nowrap;
 }
 
@@ -6719,7 +6746,6 @@ pre {
 }
 
 pre > code {
-	font-size: inherit;
 	line-height: inherit;
 	white-space: inherit;
 }
@@ -6735,7 +6761,7 @@ a {
 	color: inherit;
 }
 
-a:link {
+[href] {
 	/* j.mp/webkit-tap-highlight-color */
 	-webkit-tap-highlight-color: rgba(0,0,0,0.25);
 }
@@ -6855,7 +6881,7 @@ dfn               { font-weight: bold; }
 em,
 dfn               { font-style: italic; }
 
-/* Match the l-height of <small> to the x-height of surrounding vText. */
+/* Match the l-height of <small> to the x-height of surrounding text. */
 small             { font-size: 0.727272em; font-weight: 400; }
 sup,
 sub               { line-height: 0; font-size: 0.8333em; position: relative; vertical-align: baseline; }
@@ -6867,9 +6893,6 @@ q::before,
 q::after           { content: ''; content: none; }
 
 abbr              { letter-spacing: 0.1em; }
-pre,
-code,
-tt                { font-family: 'Andale Mono', 'Lucida Console', monospace; }
 del               { opacity: 0.5; filter: alpha(opacity=50%); text-decoration: line-through; }
 
 /* Tables */
@@ -6884,15 +6907,12 @@ caption           { background-color: inherit; }
 .last             { margin-bottom: 0; }
 .note             { font-style: italic; }
 
-
-
-
 /*
 .text-1, h1
 
 Markup: <p class="text-1">Crunchum ipsum</p>
 
-Styleguide: vText.1
+Styleguide: text.01
 */
 
 /*
@@ -6900,7 +6920,7 @@ Styleguide: vText.1
 
 Markup: <p class="text-2">Crunchum ipsum dolor sit coder void</p>
 
-Styleguide: vText.2
+Styleguide: text.02
 */
 
 /*
@@ -6908,7 +6928,7 @@ Styleguide: vText.2
 
 Markup: <p class="text-3">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p>
 
-Styleguide: vText.3
+Styleguide: text.03
 */
 
 /*
@@ -6916,7 +6936,7 @@ Styleguide: vText.3
 
 Markup: <p class="text-4">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: vText.4
+Styleguide: text.04
 */
 
 /*
@@ -6924,7 +6944,7 @@ Styleguide: vText.4
 
 Markup: <p class="text-5">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: vText.5
+Styleguide: text.05
 */
 
 /*
@@ -6932,7 +6952,7 @@ Styleguide: vText.5
 
 Markup: <p class="text-6">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: vText.6
+Styleguide: text.06
 */
 
 /*
@@ -6941,7 +6961,7 @@ Styleguide: vText.6
 Markup: <p class="text-8">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
 <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
 
-Styleguide: vText.8
+Styleguide: text.08
 */
 
 .text-1, h1,
@@ -7030,7 +7050,7 @@ li                { margin-bottom: 0;}
 
 blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
 pre,
-address           { margin: 1.3333em 0; }
+address           { margin-top: 1.3333em; }
 
 /* Inline elements */
 
@@ -7041,7 +7061,6 @@ abbr              { letter-spacing: 0.1em; }
 
 /* Tables */
 
-table             { margin-bottom: 1.3333em; }
 th,
 td,
 caption           { padding: 4px 10px 4px 5px; }
@@ -7128,6 +7147,14 @@ Styleguide: zutilities.modify
 	display: none !important;
 }
 
+.on > .on-hidden {
+	display: none !important;
+}
+
+:not(.on) > .on-shown {
+	display: none !important;
+}
+
 .masked {
 	position: absolute !important;
 	opacity: 0 !important;
@@ -7135,6 +7162,7 @@ Styleguide: zutilities.modify
 	height: 0 !important;
 }
 
+.disabled,
 .js input.disabled {
 	opacity: 0.4;
 }
@@ -7261,9 +7289,7 @@ Styleguide: zutilities.scroll
 	        border-radius: 12px;
 }
 
-.scroll-hidden::-webkit-scrollbar,
-/* Support the old way too, for now */
-.hidden-scroll::-webkit-scrollbar {
+.scroll-hidden::-webkit-scrollbar {
 	display: none;
 }
 
@@ -7295,6 +7321,13 @@ Styleguide: zutilities.scroll
 .y-scroll { overflow-x: hidden; }
 .no-scroll { overflow: hidden; }
 
+
+/*
+.color
+
+Styleguide: color
+*/
+
 /*
 .black-bg<br/>
 .white-bg<br/>
@@ -7304,16 +7337,22 @@ Styleguide: zutilities.scroll
 Markup: <p class="text-5 white-color black-bg">Black</p>
 <p class="text-5 black-color white-bg">White</p>
 
-Styleguide: Color.1
+Styleguide: color.1
 */
 
 :root { --white-color: white; }
 .white-color { color: white; }
 .white-bg    { background-color: white; }
+.white-fill  { fill: white; }
 
 :root { --black-color: black; }
 .black-color { color: black; }
 .black-bg    { background-color: black; }
+.black-fill  { fill: black; }
+
+.current-color { color: currentcolor; }
+.current-bg    { background-color: currentcolor; }
+.current-fill  { fill: currentcolor; }
 
 /*
 DOM

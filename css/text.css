@@ -271,7 +271,7 @@ Styleguide: text.08
 
 .text-7, code     {
 	font-family: Courier, monospace;
-	font-style: none;
+	font-style: normal;
 	text-transform: none;
 }
 

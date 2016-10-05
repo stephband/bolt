@@ -798,34 +798,6 @@ textarea.empty + .placeholder {
 	display: block;
 }
 
-.search-input {
-	height: 2.1875rem;
-	line-height: 2.0625rem;
-	color: $black-color;
-	background-color: $neutral-color-2;
-}
-
-.small-input {
-	/* Same height as action-button. */
-	height: 2.5rem;
-	line-height: 2.375rem;
-}
-
-.big-input {
-	/* Same height as big-action-button. */
-	padding-left: 1.25rem;
-	height: 3.125rem;
-	line-height: 3rem;
-}
-
-@media all and (min-width: $breakpoint-2) {
-	.big-input {
-		padding-left: 1.5625rem;
-		height: 3.75rem;
-		line-height: 3.625rem;
-	}
-}
-
 .message-textarea {
 	min-height: 12.5rem;
 }

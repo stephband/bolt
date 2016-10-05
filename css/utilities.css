@@ -154,7 +154,7 @@ Scroll
 
 .scroll         - Sets <code>overflow: auto;</code> and forces display of
                   scrollbars when scrollable.
-.hidden-scroll  - Force hides scrollbars where possible (Chrome, Safari, Opera).
+.scroll-hidden  - Force hides scrollbars where possible (Chrome, Safari, Opera).
 
 Styleguide: zutilities.scroll
 */

@@ -193,6 +193,7 @@ Styleguide: button.select-button
 	border-bottom-left-radius: 0;
 	border-top-right-radius: inherit;
 	border-bottom-right-radius: inherit;
+	pointer-events: none;
 }
 
 .select-button::after {
@@ -213,6 +214,7 @@ Styleguide: button.select-button
 	/* These hacks make the select behind the arrow clickable in some browsers */
 	pointer-events: none;
 	display: none;
+	pointer-events: none;
 }
 
 @supports ( -webkit-appearance: none ) or ( appearance: none )
