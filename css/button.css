@@ -283,24 +283,9 @@ Styleguide: button.menu-button-1
 */
 
 .menu-button {
-	font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
-	font-weight: 700;
-	font-size: 1rem;
-	line-height: 1.25rem;
-	padding-top: 0.75rem;
-	padding-bottom: 0.75rem;
+	display: block;
 	text-align: left;
 	color: inherit;
-	background-color: transparent;
-}
-
-.menu-button:hover,
-.menu-button:focus {
-	background-color: $neutral-color-3;
-}
-
-.menu-button.on {
-	color: $theme-color;
 	background-color: transparent;
 }
 

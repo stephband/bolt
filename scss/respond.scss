@@ -21,12 +21,14 @@ $breakpoints:
 
 @each $breakpoint in $breakpoints {
 	@media screen and (max-width: #{nth($breakpoint, 2) - 0.0001}) {
-		.#{nth($breakpoint, 1)}shown { display: none !important; }
+		.#{nth($breakpoint, 1)}shown        { display: none !important; }
 	}
 
 	@media screen and (min-width: #{nth($breakpoint, 2)}) {
-		.#{nth($breakpoint, 1)}hidden { display: none !important; }
-		.#{nth($breakpoint, 1)}left   { float: left; }
-		.#{nth($breakpoint, 1)}right  { float: right; }
+		.#{nth($breakpoint, 1)}hidden       { display: none !important; }
+		.#{nth($breakpoint, 1)}block        { display: block; }
+		.#{nth($breakpoint, 1)}inline-block { display: inline-block; }
+		.#{nth($breakpoint, 1)}left         { float: left; }
+		.#{nth($breakpoint, 1)}right        { float: right; }
 	}
 }
