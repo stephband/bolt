@@ -169,6 +169,7 @@ Styleguide: button.select-button
 	margin: 0;
 	padding: 0;
 	outline: none;
+	border: none;
 
 	/* Prefixed box-sizing rules necessary for older browsers */
 	-webkit-box-sizing: border-box;
