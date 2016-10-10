@@ -35,8 +35,6 @@ button,
 	display: inline-block;
 	position: relative;
 
-	cursor: pointer;
-
 	width: auto;
 	height: auto;
 	/* button elements ignore line-height, centering text automaticaly. */
