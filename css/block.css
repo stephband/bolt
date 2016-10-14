@@ -46,6 +46,16 @@ Styleguide: block
 
 
 /*
+.inline-block
+
+Styleguide: block.inline-block
+*/
+
+.inline-block {
+	display: inline-block;
+}
+
+/*
 .toggle-block
 
 A block animated to behave like a drawer that reveals content when the class
