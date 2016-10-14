@@ -111,6 +111,41 @@ Styleguide: block.toggle-block
 
 
 /*
+.swipe-block
+
+Styleguide: block.swipe-block
+*/
+
+.js .swipe-block {
+	/* A nice bit of hardware acceleration should help the transitions run
+	   smoothly. */
+	-webkit-transform: translate3d(0,0,0);
+	    -ms-transform: translate3d(0,0,0);
+	        transform: translate3d(0,0,0);
+
+	-webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	     -moz-user-select: none;
+	      -ms-user-select: none;
+	          user-select: none;
+
+	-webkit-transition-property: transform;
+	        transition-property: transform;
+	-webkit-transition-duration: 333ms;
+	        transition-duration: 333ms;
+	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+}
+
+@media print {
+	.js .swipe-block {
+		position: static;
+		transition: none !important;
+	}
+}
+
+
+/*
 .slides-block
 
 A wrapper for <code>slide-block</code>s and <code>ctrl-button</code>s.

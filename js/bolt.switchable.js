@@ -28,7 +28,7 @@
 	}
 
 	function cacheNodes(target, data) {
-		var nodes = jQuery.data(target, 'nodes'),
+		var nodes = jQuery.data(target, 'switchables'),
 		    l;
 
 		if (!nodes) {
@@ -38,7 +38,7 @@
 			// Attach the panes object to each of the panes
 			l = nodes.length;
 			while (l--) {
-				jQuery.data(nodes[l], 'nodes', nodes);
+				jQuery.data(nodes[l], 'switchables', nodes);
 			}
 		}
 
