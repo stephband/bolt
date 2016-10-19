@@ -46,6 +46,16 @@ Styleguide: block
 
 
 /*
+.inline-block
+
+Styleguide: block.inline-block
+*/
+
+.inline-block {
+	display: inline-block;
+}
+
+/*
 .toggle-block
 
 A block animated to behave like a drawer that reveals content when the class
@@ -97,6 +107,41 @@ Styleguide: block.toggle-block
 		border-color 400ms linear,
 		background-color 200ms linear,
 		visibility 400ms linear;
+}
+
+
+/*
+.swipe-block
+
+Styleguide: block.swipe-block
+*/
+
+.js .swipe-block {
+	/* A nice bit of hardware acceleration should help the transitions run
+	   smoothly. */
+	-webkit-transform: translate3d(0,0,0);
+	    -ms-transform: translate3d(0,0,0);
+	        transform: translate3d(0,0,0);
+
+	-webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	     -moz-user-select: none;
+	      -ms-user-select: none;
+	          user-select: none;
+
+	-webkit-transition-property: transform;
+	        transition-property: transform;
+	-webkit-transition-duration: 333ms;
+	        transition-duration: 333ms;
+	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+}
+
+@media print {
+	.js .swipe-block {
+		position: static;
+		transition: none !important;
+	}
 }
 
 

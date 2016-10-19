@@ -135,6 +135,10 @@ mark {
 	color: #000;
 }
 
+button {
+	cursor: pointer;
+}
+
 img,
 svg,
 canvas,

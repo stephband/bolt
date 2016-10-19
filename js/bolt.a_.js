@@ -20,60 +20,60 @@
 	        jQuery.event.trigger(type, data, node);
 	    };
 
-//	    rImage = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/,
-//	    rYouTube = /youtube\.com/,
-//
-//	    nodeCache = {},
-//
-//	    targets = {
-//	    	dialog: function(e) {
-//	    		var href = e.currentTarget.getAttribute('data-href') || e.currentTarget.hash || e.currentTarget.href;
-//	    		var id = href.substring(1);
-//	    		var node, parts, item;
-//
-//	    		if (!id) { return loadResource(e, href); }
-//
-//	    		if (parts = /([\w-]+)\/([\w-]+)/.exec(id)) {
-//	    			id = parts[1];
-//	    		}
-//
-//	    		node = nodeCache[id] || document.getElementById(id);
-//
-//	    		if (!node) { return loadResource(e, href); }
-//
-//	    		e.preventDefault();
-//
-//	    		// If the node is html hidden inside a text/html script tag,
-//	    		// extract the html.
-//	    		if (node.getAttribute && node.getAttribute('type') === 'text/html') {
-//	    			// TODO: jQuery 1.9.1 and 2.0.0b2 are failing because html
-//	    			// needs to be whitespace trimmed.
-//	    			node = jQuery(node).html();
-//	    		}
-//
-//	    		// If it's a template...
-//	    		if (node.tagName && node.tagName.toLowerCase() === 'template') {
-//	    			// If it is not inert (like in IE), remove it from the DOM to
-//	    			// stop ids in it clashing with ids in the rendered result.
-//	    			if (!node.content) { jQuery(node).remove(); }
-//	    			node = nodeCache[id] = jQuery(node).html();
-//	    		}
-//
-//	    		jQuery(node).dialog('lightbox');
-//
-//	    		if (parts) {
-//	    			item = jQuery('#' + parts[2]);
-//
-//	    			item
-//	    			.addClass('notransition')
-//	    			.trigger('activate')
-//	    			.width();
-//
-//	    			item
-//	    			.removeClass('notransition');
-//	    		}
-//	    	}
-//	    };
+	var rImage = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/,
+	    rYouTube = /youtube\.com/,
+
+	    nodeCache = {},
+
+	    targets = {
+	    	dialog: function(e) {
+	    		var href = e.currentTarget.getAttribute('data-href') || e.currentTarget.hash || e.currentTarget.href;
+	    		var id = href.substring(1);
+	    		var node, parts, item;
+
+	    		if (!id) { return loadResource(e, href); }
+
+	    		if (parts = /([\w-]+)\/([\w-]+)/.exec(id)) {
+	    			id = parts[1];
+	    		}
+
+	    		node = nodeCache[id] || document.getElementById(id);
+
+	    		if (!node) { return loadResource(e, href); }
+
+	    		e.preventDefault();
+
+	    		// If the node is html hidden inside a text/html script tag,
+	    		// extract the html.
+	    		if (node.getAttribute && node.getAttribute('type') === 'text/html') {
+	    			// TODO: jQuery 1.9.1 and 2.0.0b2 are failing because html
+	    			// needs to be whitespace trimmed.
+	    			node = jQuery(node).html();
+	    		}
+
+	    		// If it's a template...
+	    		if (node.tagName && node.tagName.toLowerCase() === 'template') {
+	    			// If it is not inert (like in IE), remove it from the DOM to
+	    			// stop ids in it clashing with ids in the rendered result.
+	    			if (!node.content) { jQuery(node).remove(); }
+	    			node = nodeCache[id] = jQuery(node).html();
+	    		}
+
+	    		jQuery(node).dialog('lightbox');
+
+	    		if (parts) {
+	    			item = jQuery('#' + parts[2]);
+
+	    			item
+	    			.addClass('notransition')
+	    			.trigger('activate')
+	    			.width();
+
+	    			item
+	    			.removeClass('notransition');
+	    		}
+	    	}
+	    };
 
 	function isDefined(value) {
 		return value !== undefined && value !== null ;
@@ -279,18 +279,18 @@
 		fn(e, node, data);
 	}
 
-//	function activateTarget(e) {
-//		var target = e.currentTarget.target;
-//
-//		if (isIgnorable(e)) { return; }
-//
-//		// If the target is not listed, ignore
-//		if (!targets[target]) { return; }
-//
-//		if (e.type === 'mousedown') { preventClick(e); }
-//
-//		return targets[target](e);
-//	}
+	function activateTarget(e) {
+		var target = e.currentTarget.target;
+
+		if (isIgnorable(e)) { return; }
+
+		// If the target is not listed, ignore
+		if (!targets[target]) { return; }
+
+		if (e.type === 'mousedown') { preventClick(e); }
+
+		return targets[target](e);
+	}
 
 //	function changeHref(e) {
 //		activateHref(e, function(node, data) {
@@ -363,10 +363,10 @@
 	// Mousedown on buttons toggle activate on their hash
 	.on('click', '[href]', function click(e) {
 		activateHash(e, activate);
-	});
+	})
 
 	// Mousedown on buttons toggle activate on their targets
-	//.on('mousedown tap keydown', 'a[target]', activateTarget)
+	.on('click', 'a[target]', activateTarget);
 
 	// Changing input[data-href] controls target
 	//.on('change valuechange', '[data-href]', changeHref)
