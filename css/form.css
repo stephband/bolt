@@ -1,4 +1,9 @@
 
+/* IE has some really intrusive 'clear field' buttons. */
+input::-ms-clear {
+    display: none;
+}
+
 /*
 Forms
 
