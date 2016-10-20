@@ -214,6 +214,14 @@ th {
 	display: none;
 }
 
+/* IE has some really intrusive 'clear' icons in text inputs. Set them to 0x0
+   rather than display: none...
+   http://stackoverflow.com/questions/14007655/remove-ie10s-clear-field-x-button-on-certain-inputs/14739092#14739092 */
+::-ms-clear {
+	width: 0;
+	height: 0;
+}
+
 [placeholder]:focus::-webkit-input-placeholder {
 	/* Get rid of persistent placeholders in webkit, where the placeholder
 	   hangs around like an old fart. More here:
