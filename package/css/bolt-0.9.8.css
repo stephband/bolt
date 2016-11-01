@@ -22,42 +22,9 @@
 	display: none !important;
 }
 
-article,
-aside,
-details,
-dialog,
-figcaption,
-figure,
-footer,
-header,
-nav,
-section,
-summary {
-	display: block;
-}
-
-audio,
-canvas,
-video {
-	display: inline-block;
-}
-
-
-/* Reset */
-
-html {
-	/* Corrects text resizing oddly in IE6/7 when body font-size is set using em units
-	   http://clagnut.com/blog/348/#c790 */
-	font-size: 100%;
-	/* Prevents iOS text size adjust after orientation change, without disabling user zoom
-	   www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
-	-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
-}
-
 html, body, div, span,
 object, iframe, canvas, img, svg, audio, video, track, math,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+h1, h2, h3, h4, h5, h6, hr, p, blockquote, pre,
 a, abbr, address, code, time,
 del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
 table, caption, tbody, tfoot, thead, tr, th, td,
@@ -67,20 +34,7 @@ form, fieldset, label, legend, input, output, button, select, textarea,
 progress, meter,
 ::before, ::after {
 	/* Here's what makes Bolt a little different. Border box.
-	   It'a a breath of fresh air to work with.
-
-	   Box-sizing breaks in IE8 when min- or max- width or height
-	   are defined, and in FF when min- or max- height are defined
-	   but height is auto. These cases are feature detected and the
-	   classes:
-
-	   min-width_border-box
-	   min-width_content-box
-	   min-height_border-box
-	   min-height_content-box
-
-	   applied to the html element, allowing you to style to overcome
-	   these problems. */
+	   It'a a breath of fresh air to work with. */
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 	    -ms-box-sizing: border-box;
@@ -96,9 +50,42 @@ progress, meter,
 	background-repeat: no-repeat;
 }
 
+html {
+	/* Corrects text resizing oddly in IE6/7 when body font-size is set using em units
+	   http://clagnut.com/blog/348/#c790 */
+	font-size: 100%;
+	line-height: 1.15;
+
+	/* Prevents iOS text size adjust after orientation change, without disabling user zoom
+	   www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+
 body {
 	padding: 0;
 	margin: 0;
+}
+
+article,
+aside,
+details,
+dialog,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section,
+summary {
+	display: block;
+}
+
+audio,
+canvas,
+video {
+	display: inline-block;
 }
 
 p,
@@ -112,11 +99,30 @@ pre {
 	margin: 0;
 }
 
+code,
+kbd,
+samp,
+pre {
+	/* Correct the inheritance and scaling of font size */
+	font-family: monospace, monospace;
+	
+	/* Correct the odd `em` font sizing */
+	font-size: 1em;
+}
+
 menu,
 ol,
 ul {
 	/* paddings set differently in IE6/7 */
 	padding: 0 0 0 1.25em;
+}
+
+a {
+	/* Remove the gray background on active links in IE 10 */
+	background-color: transparent;
+
+	/* Remove gaps in links underline in iOS 8+ and Safari 8+ */
+	-webkit-text-decoration-skip: objects;
 }
 
 a:focus {
@@ -128,13 +134,26 @@ a:hover,
 a:active {
 	/* Improves readability when focused and also mouse hovered in all browsers
 	   people.opera.com/patrickl/experiments/keyboard/test */
-	outline: 0;
+	outline-width: 0;
+}
+
+abbr[title] {
+	/* Remove the bottom border in FF 39- */
+	border-bottom: none;
 }
 
 mark {
 	/* styling not present in IE6/7/8/9 */
 	background: #ff0;
 	color: #000;
+}
+
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+	-webkit-appearance: button;
+	cursor: pointer;
 }
 
 img,
@@ -209,7 +228,15 @@ th {
 
 [hidden] {
 	/* styling for 'hidden' attribute not present in IE7/8/9, FF3, S4. */
-	display: none;
+	display: none !important;
+}
+
+/* IE has some really intrusive 'clear' icons in text inputs. Set them to 0x0
+   rather than display: none because...
+   http://stackoverflow.com/questions/14007655/remove-ie10s-clear-field-x-button-on-certain-inputs/14739092#14739092 */
+::-ms-clear {
+	width: 0;
+	height: 0;
 }
 
 [placeholder]:focus::-webkit-input-placeholder {
@@ -1098,34 +1125,6 @@ textarea.empty + .placeholder {
 	display: block;
 }
 
-.search-input {
-	height: 2.1875rem;
-	line-height: 2.0625rem;
-	color: $black-color;
-	background-color: $neutral-color-2;
-}
-
-.small-input {
-	/* Same height as action-button. */
-	height: 2.5rem;
-	line-height: 2.375rem;
-}
-
-.big-input {
-	/* Same height as big-action-button. */
-	padding-left: 1.25rem;
-	height: 3.125rem;
-	line-height: 3rem;
-}
-
-@media all and (min-width: $breakpoint-2) {
-	.big-input {
-		padding-left: 1.5625rem;
-		height: 3.75rem;
-		line-height: 3.625rem;
-	}
-}
-
 .message-textarea {
 	min-height: 12.5rem;
 }
@@ -1440,6 +1439,16 @@ Styleguide: block
 
 
 /*
+.inline-block
+
+Styleguide: block.inline-block
+*/
+
+.inline-block {
+	display: inline-block;
+}
+
+/*
 .toggle-block
 
 A block animated to behave like a drawer that reveals content when the class
@@ -1491,6 +1500,41 @@ Styleguide: block.toggle-block
 		border-color 400ms linear,
 		background-color 200ms linear,
 		visibility 400ms linear;
+}
+
+
+/*
+.swipe-block
+
+Styleguide: block.swipe-block
+*/
+
+.js .swipe-block {
+	/* A nice bit of hardware acceleration should help the transitions run
+	   smoothly. */
+	-webkit-transform: translate3d(0,0,0);
+	    -ms-transform: translate3d(0,0,0);
+	        transform: translate3d(0,0,0);
+
+	-webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	     -moz-user-select: none;
+	      -ms-user-select: none;
+	          user-select: none;
+
+	-webkit-transition-property: transform;
+	        transition-property: transform;
+	-webkit-transition-duration: 333ms;
+	        transition-duration: 333ms;
+	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+}
+
+@media print {
+	.js .swipe-block {
+		position: static;
+		transition: none !important;
+	}
 }
 
 
@@ -2229,8 +2273,6 @@ button,
 	display: inline-block;
 	position: relative;
 
-	cursor: pointer;
-
 	width: auto;
 	height: auto;
 	/* button elements ignore line-height, centering text automaticaly. */
@@ -2363,6 +2405,7 @@ Styleguide: button.select-button
 	margin: 0;
 	padding: 0;
 	outline: none;
+	border: none;
 
 	/* Prefixed box-sizing rules necessary for older browsers */
 	-webkit-box-sizing: border-box;
@@ -2386,6 +2429,7 @@ Styleguide: button.select-button
 	border-bottom-left-radius: 0;
 	border-top-right-radius: inherit;
 	border-bottom-right-radius: inherit;
+	pointer-events: none;
 }
 
 .select-button::after {
@@ -2406,6 +2450,7 @@ Styleguide: button.select-button
 	/* These hacks make the select behind the arrow clickable in some browsers */
 	pointer-events: none;
 	display: none;
+	pointer-events: none;
 }
 
 @supports ( -webkit-appearance: none ) or ( appearance: none )
@@ -2475,24 +2520,9 @@ Styleguide: button.menu-button-1
 */
 
 .menu-button {
-	font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
-	font-weight: 700;
-	font-size: 1rem;
-	line-height: 1.25rem;
-	padding-top: 0.75rem;
-	padding-bottom: 0.75rem;
+	display: block;
 	text-align: left;
 	color: inherit;
-	background-color: transparent;
-}
-
-.menu-button:hover,
-.menu-button:focus {
-	background-color: $neutral-color-3;
-}
-
-.menu-button.on {
-	color: $theme-color;
 	background-color: transparent;
 }
 
@@ -2593,6 +2623,17 @@ Styleguide: thumb
 		-webkit-print-color-adjust: exact;
 	}
 }
+
+.thumb-1\:1,
+.thumb-4\:3,
+.thumb-16\:9 {
+	background-size: contain;
+	width: 100%;
+}
+
+.thumb-1\:1  { padding-top: 100%; }
+.thumb-4\:3  { padding-top: 75%; }
+.thumb-16\:9 { padding-top: 56.25%; }
 
 /*
 .close-thumb
@@ -6978,7 +7019,7 @@ Styleguide: text.08
 
 .text-7, code     {
 	font-family: Courier, monospace;
-	font-style: none;
+	font-style: normal;
 	text-transform: none;
 }
 
@@ -7256,7 +7297,7 @@ Scroll
 
 .scroll         - Sets <code>overflow: auto;</code> and forces display of
                   scrollbars when scrollable.
-.hidden-scroll  - Force hides scrollbars where possible (Chrome, Safari, Opera).
+.scroll-hidden  - Force hides scrollbars where possible (Chrome, Safari, Opera).
 
 Styleguide: zutilities.scroll
 */
@@ -7371,7 +7412,7 @@ Styleguide: 1-dom.1
 html,
 :root {
 	height: 100%;
-	color: black;
+	color: #000000;
 	/* Setting a background on <html> means that a background
 	   on <body> does not get set on <html>. Win. */
 	background-color: white;
