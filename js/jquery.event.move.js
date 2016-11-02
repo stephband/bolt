@@ -71,15 +71,15 @@
 	    },
 	    
 	    mouseevents = {
-	    	move: 'mousemove',
+	    	move:   'mousemove',
 	    	cancel: 'mouseup dragstart',
-	    	end: 'mouseup'
+	    	end:    'mouseup'
 	    },
-	    
+
 	    touchevents = {
-	    	move: 'touchmove',
+	    	move:   'touchmove',
 	    	cancel: 'touchend',
-	    	end: 'touchend'
+	    	end:    'touchend'
 	    };
 
 
