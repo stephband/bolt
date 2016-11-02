@@ -5,6 +5,10 @@
 @media screen and (min-width: 30em) {
   .\@1-hidden {
     display: none !important; }
+  .\@1-block {
+    display: block; }
+  .\@1-inline-block {
+    display: inline-block; }
   .\@1-left {
     float: left; }
   .\@1-right {
@@ -17,6 +21,10 @@
 @media screen and (min-width: 37.5em) {
   .\@2-hidden {
     display: none !important; }
+  .\@2-block {
+    display: block; }
+  .\@2-inline-block {
+    display: inline-block; }
   .\@2-left {
     float: left; }
   .\@2-right {
@@ -29,6 +37,10 @@
 @media screen and (min-width: 45em) {
   .\@3-hidden {
     display: none !important; }
+  .\@3-block {
+    display: block; }
+  .\@3-inline-block {
+    display: inline-block; }
   .\@3-left {
     float: left; }
   .\@3-right {
@@ -41,6 +53,10 @@
 @media screen and (min-width: 60em) {
   .\@4-hidden {
     display: none !important; }
+  .\@4-block {
+    display: block; }
+  .\@4-inline-block {
+    display: inline-block; }
   .\@4-left {
     float: left; }
   .\@4-right {
