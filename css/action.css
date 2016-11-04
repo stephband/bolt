@@ -100,6 +100,15 @@ Styleguide: yactions
 	        transition-timing-function: ease-out;
 }
 
+.js .tab.active,
+.js .loading .loading_layer {
+	z-index: 2;
+}
+	
+.js .dialog-layer.active {
+	z-index: 10;
+}
+
 .js .popdown,
 .js .dropdown {
 	opacity: 0;
