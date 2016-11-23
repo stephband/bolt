@@ -30,3 +30,6 @@ Styleguide: color.1
 .current-color { color: currentcolor; }
 .current-bg    { background-color: currentcolor; }
 .current-fill  { fill: currentcolor; }
+
+.transparent-color { color: transparent; }
+.transparent-bg    { background-color: transparent; }
