@@ -1,0 +1,30 @@
+/* .flex */
+
+.flex,
+.index > .flex {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: stretch;
+}
+
+.x-flex { flex-direction: row; }
+.y-flex { flex-direction: column; }
+
+
+/* .box */
+
+.box {
+	position: relative;
+}
+
+.box-0 {
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+.box-1 {
+	flex-grow: 1;
+	flex-shrink: 1;
+}
