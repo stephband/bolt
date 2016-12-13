@@ -20,7 +20,7 @@ $breakpoints:
 	'\\@4-' 60em   12 $grid-gutter $grid-space !default;
 
 @each $breakpoint in $breakpoints {
-	@media screen and (max-width: #{nth($breakpoint, 2) - 0.0001}) {
+	@media screen and (max-width: #{nth($breakpoint, 2) - 0.001}) {
 		.#{nth($breakpoint, 1)}shown { display: none !important; }
 	}
 

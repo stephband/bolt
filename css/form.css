@@ -101,6 +101,7 @@ textarea {
 	padding-top: 0;
 	padding-bottom: 0;
 	color: inherit;
+	border-radius: 0;
 }
 
 input,
