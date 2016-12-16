@@ -945,6 +945,8 @@ Styleguide: xForms.3
 	display: none;
 }
 
+.masked[type="radio"]:checked + .radio-label::after,
+.masked[type="checkbox"]:checked + .checkbox-label::after,
 .js .radio-label.on::after,
 .js .checkbox-label.on::after {
 	display: block;
@@ -979,6 +981,7 @@ Styleguide: xForms.3
 	background-color: #7B7B74;
 }
 
+.masked[type="radio"]:checked + .yes-radio-label.on::before,
 .js .yes-radio-label.on::before,
 .js .yes-radio-label:hover::before,
 .js .yes-radio-label:focus::before {
@@ -986,6 +989,7 @@ Styleguide: xForms.3
 	border-color: green;
 }
 
+.masked[type="radio"]:checked + .no-radio-label.on::before,
 .js .no-radio-label.on::before,
 .js .no-radio-label:hover::before,
 .js .no-radio-label:focus::before {
