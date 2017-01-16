@@ -135,8 +135,8 @@ Styleguide: zutilities.position
 .tl, .bl { left: 0; }
 .tr, .br { right: 0; }
 
-.left { float: left; }
-.right { float: right; }
+.left { float: left; clear: left; }
+.right { float: right; clear: right; }
 
 .top-align      { vertical-align: top !important; }
 .bottom-align   { vertical-align: bottom !important; }
