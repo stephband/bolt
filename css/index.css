@@ -75,7 +75,7 @@ Styleguide: index.crumb-index
 }
 
 .crumb-index > li:last-child > a {
-	color: $theme-color;
+	color: blue;
 }
 
 

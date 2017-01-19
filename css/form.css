@@ -117,7 +117,7 @@ label {
 	height: auto;
 	line-height: 1.75rem;
 	border: 0;
-	color: $black-color;
+	color: #000000;
 }
 
 label > [type="checkbox"],
@@ -188,7 +188,7 @@ textarea,
 [type="search"],
 [type="password"],
 .select-button {
-	border: 1px solid $neutral-color-2;
+	border: 1px solid #cecece;
 	background-color: white;
 }
 
@@ -437,7 +437,7 @@ textarea.error {
 	border-color: #e62b24 !important;
 
 	/* \9 hack for IE8 and below. */
-	outline: 2px solid #ff5500\9;
+	/* outline: 2px solid #ff5500\9; */
 
 	-webkit-box-shadow: 0 0 12px #ff5500;
 	-webkit-box-shadow: 0 0 1px 2px #ff5500, inset 0 0 1px #ff5500;

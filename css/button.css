@@ -207,6 +207,7 @@ Styleguide: button.select-button
 	border-top: 6px solid currentcolor;
 	border-left: 6px solid rgba(0, 0, 0, 0);
 	border-right: 6px solid rgba(0, 0, 0, 0);
+	-webkit-transition: transform 200ms linear;
 	transition: transform 200ms linear;
 	z-index: 2;
 
