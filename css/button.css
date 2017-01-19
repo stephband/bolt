@@ -162,12 +162,13 @@ Styleguide: button.select-button
 
 	/* This is the native select, we're making everything but the text invisible
 	   so we can see the button styles in the wrapper. */
-	width: 100%;
-	height: 100%;
-	margin: 0;
+	width: calc(100% + 2px);
+	height: calc(100% + 2px);
+	margin: -1px;
 	padding: 0;
 	outline: none;
-	border: none;
+	border: 1px solid transparent;
+	border-radius: inherit;
 
 	/* Prefixed box-sizing rules necessary for older browsers */
 	-webkit-box-sizing: border-box;
@@ -230,15 +231,11 @@ Styleguide: button.select-button
 		/* inside @supports so that iOS <= 8 display the native arrow */
 		background: none; /* Match-04 */
 		/* inside @supports so that Android <= 4.3 display the native arrow */
-		border-width: 0; /* Match-05 */
+		border-width: 1px; /* Match-05 */
 
 		-webkit-appearance: none;
 		   -moz-appearance: none;
 		        appearance: none;
-	}
-
-	.select-button select:focus {
-		border-color: #aaa; /* Match-03 */
 	}
 }
 

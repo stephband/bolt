@@ -412,6 +412,7 @@ input[type='file'] {
 label.focus,
 button:focus,
 input:focus,
+select:focus,
 textarea:focus,
 input.error:focus,
 textarea.error:focus {
