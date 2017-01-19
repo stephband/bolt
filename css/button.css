@@ -168,6 +168,7 @@ Styleguide: button.select-button
 	padding: 0;
 	outline: none;
 	border: 1px solid transparent;
+	border-color: inherit;
 	border-radius: inherit;
 
 	/* Prefixed box-sizing rules necessary for older browsers */
