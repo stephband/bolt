@@ -155,7 +155,7 @@ Styleguide: block.slides-block-1
 
 .slides-block {
 	overflow: hidden;
-	background-color: $neutral-color-2;
+	background-color: #cecece;
 }
 
 .slides-block > .prev-thumb,
