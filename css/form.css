@@ -5,6 +5,25 @@ Forms
 Styleguide: xForms
 */
 
+/*
+It is time to look at these pseudo selectors, which now have broad support:
+
+:enabled
+:disabled
+:required
+:optional
+:checked
+:valid
+:invalid
+
+Slightly less support:
+
+:in-range
+:out-of-range
+*/
+
+
+
 form,
 fieldset,
 label,
