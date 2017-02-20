@@ -353,7 +353,7 @@ input[type="radio"] {
 	opacity: 1;
 }
 
-input[type="range"],
+[type="range"],
 input[type="image"] {
 	padding: 0;
 	opacity: 1;
@@ -446,7 +446,7 @@ textarea.error:focus {
 	border-color: rgb(80,134,197) !important;
 }
 
-input[type="range"]:focus {
+[type="range"]:focus {
 	background-color: transparent;
 	box-shadow: none;
 }
@@ -610,7 +610,7 @@ button,
    suggests applying style to range inputs.
 */
 
-/*input[type="range"] {
+/*[type="range"] {
   -webkit-appearance: none !important;
 
   cursor: pointer;
@@ -627,7 +627,7 @@ button,
   border-right-width: 5px;
 }
 
-input[type="range"]::-webkit-slider-thumb {
+[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none !important;
 
   cursor: pointer;
@@ -649,7 +649,7 @@ input[type="range"]::-webkit-slider-thumb {
 }*/
 
 
-input[type="range"] {
+[type="range"] {
 	-webkit-appearance: none !important;
 	background-color: transparent;
 	border-width: 0;
@@ -658,31 +658,55 @@ input[type="range"] {
 	width: 100%;
 }
 
-input[type="range"]:focus {
+[type="range"]:focus {
 	outline: none;
 	outline-width: 0 !important;
 }
 
-input[type=range]::-moz-focus-outer {
+[type="range"]::-moz-focus-outer {
 	/* Get rid of that annoying border in FF */
 	border: 0;
 }
 
-input[type="range"]::-webkit-slider-runnable-track {
+[type="range"]::-webkit-slider-runnable-track {
 	height: 0.75rem;
 	background: #2B3134;
 	border: none;
 	border-radius: 0.375rem;
 }
 
-input[type=range]::-moz-range-track {
+[type="range"]::-moz-range-track {
 	height: 0.75rem;
 	background: #2B3134;
 	border: none;
 	border-radius: 0.375rem;
 }
 
-input[type="range"]::-webkit-slider-thumb {
+/* IE!!
+[type="range"]::-ms-track {
+	width: 100%;
+	cursor: pointer;
+	background: #2B3134;
+	border-color: transparent;
+	color: transparent;
+}
+
+[type="range"]::-ms-fill-lower {
+  background: #2a6495;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+[type="range"]::-ms-fill-upper {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+*/
+
+[type="range"]::-webkit-slider-thumb {
 	-webkit-appearance: none !important;
 
 	cursor: pointer;
@@ -707,7 +731,22 @@ input[type="range"]::-webkit-slider-thumb {
 	        box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);*/
 }
 
-input[type=range]::-moz-range-thumb {
+[type="range"]::-moz-range-thumb {
+	cursor: pointer;
+
+	background: -webkit-linear-gradient( rgb(247,247,247), rgb(140,140,140) );
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(247,247,247)), color-stop(100%,rgb(140,140,140)));
+	background: #B6B2B0;
+
+	width: 0.875rem;
+	height: 0.875rem;
+
+	margin-top: -1px;
+	border-width: 0;
+	border-radius: 0.4375rem;
+}
+
+[type="range"]::-ms-thumb {
 	cursor: pointer;
 
 	background: -webkit-linear-gradient( rgb(247,247,247), rgb(140,140,140) );
@@ -723,18 +762,18 @@ input[type=range]::-moz-range-thumb {
 }
 
 /*hide the outline behind the border*/
-input[type=range]:-moz-focusring {
+[type="range"]:-moz-focusring {
 	outline: 0 solid transparent;
 }
 
 /*
-input[type=range]:focus::-moz-range-track {
+[type="range"]:focus::-moz-range-track {
 	background: #ccc;
 }
 */
 
 
-input[type="range"].y-input {
+[type="range"].y-input {
 	-webkit-appearance: slider-vertical !important;
 
 	width: 0.75rem;
@@ -743,21 +782,21 @@ input[type="range"].y-input {
 	/*border-width: 0;*/
 }
 
-input[type="range"].y-input::-webkit-slider-runnable-track {
+[type="range"].y-input::-webkit-slider-runnable-track {
 	width: 0.75rem;
 }
 
-input[type="range"].y-input::-moz-range-track {
+[type="range"].y-input::-moz-range-track {
 	width: 0.75rem;
 	height: 100%;
 }
 
-input[type="range"].y-input::-webkit-slider-thumb {
+[type="range"].y-input::-webkit-slider-thumb {
 	-webkit-appearance: sliderthumb-vertical !important;
 	margin-left: -1px;
 }
 
-input[type="range"].y-input::-moz-range-thumb {
+[type="range"].y-input::-moz-range-thumb {
 
 }
 
