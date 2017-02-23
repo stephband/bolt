@@ -15,12 +15,7 @@ Styleguide: zutilities.transition
 */
 
 .notransition,
-.notransition .slide,
-.notransition .tab,
-.notransition .popdown,
-.notransition .dropdown,
-.notransition .layer,
-.notransition .tip {
+.notransition * {
 	-webkit-transition: none !important;
 	   -moz-transition: none !important;
 	     -o-transition: all 0 linear 0 !important;
