@@ -212,4 +212,4 @@ Styleguide: zutilities.scroll
 
 .x-scroll { overflow-y: hidden; }
 .y-scroll { overflow-x: hidden; }
-.no-scroll { overflow: hidden; }
+.no-scroll { overflow: hidden !important; }
