@@ -375,7 +375,7 @@ blockquote        { margin-left: 2.6667em; }
 .html-tag::after  { content: '>'; margin-left: -0.1em; }
 
 .wrap             { white-space: normal; }
-.no-wrap          { white-space: nowrap; }
+.no-wrap          { white-space: nowrap; text-overflow: ellipsis; }
 .line-wrap        { white-space: pre; }
 
 /* Selection */
