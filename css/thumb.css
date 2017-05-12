@@ -194,7 +194,6 @@ Styleguide: thumb.social-thumb-3
 .in-thumb {
 	width: 1.875rem;
 	padding-top: 1.875rem;
-	background-image: url('../images/sprites.svg');
 	background-size: 7.5rem auto;
 }
 
