@@ -591,44 +591,6 @@ button,
    suggests applying style to range inputs.
 */
 
-/*input[type="range"] {
-  -webkit-appearance: none !important;
-
-  cursor: pointer;
-
-  background-color: transparent;
-
-  /* Shows up in webkit, but not Opera */
-  /*-webkit-border-image: url('images/range2.png') 6 5 6 5 stretch stretch;
-		  border-image: url('images/range2.png') 6 5 6 5 stretch stretch;
-
-  /* I don't know why this doesn't show up in Opera,
-	 but it doesn't. This is going to bite us in the future, though. */
-  /*border-left-width: 5px;
-  border-right-width: 5px;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none !important;
-
-  cursor: pointer;
-
-  background: -webkit-linear-gradient( rgb(247,247,247), rgb(140,140,140) );
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(247,247,247)), color-stop(100%,rgb(140,140,140)));
-
-  width: 10px;
-  height: 10px;
-
-  -webkit-border-radius: 0.6em;
-	 -moz-border-radius: 0.6em;
-		  border-radius: 0.6em;
-
-  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
-	 -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
-	   -o-box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
-		  box-shadow: 0 1px 1px rgba(0,0,0,0.6), inset 0 -3px 6px rgba(204,204,204,1);
-}*/
-
 
 input[type="range"] {
 	-webkit-appearance: none !important;
