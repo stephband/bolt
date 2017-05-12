@@ -46,7 +46,6 @@ pre > code {
 a:focus,
 a:hover {
 	text-decoration: underline;
-	color: #78A1AF;
 }
 
 a {
@@ -375,7 +374,8 @@ blockquote        { margin-left: 2.6667em; }
 .html-tag::before { content: '<'; margin-right: -0.1em; }
 .html-tag::after  { content: '>'; margin-left: -0.1em; }
 
-.no-wrap          { white-space: nowrap; }
+.wrap             { white-space: normal; }
+.no-wrap          { white-space: nowrap; text-overflow: ellipsis; }
 .line-wrap        { white-space: pre; }
 
 /* Selection */
