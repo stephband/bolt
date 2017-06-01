@@ -18,7 +18,6 @@ $breakpoints:
 
 @mixin grid($prefix: '', $n: 6, $gutter: 1.25rem, $space: 1.25rem) {
 	.grid-block,
-	.grid-index,
 	/* Override .index > li */
 	.index > .grid-block {
 		margin-left:   -#{$gutter / 2};
@@ -27,8 +26,7 @@ $breakpoints:
 		margin-bottom: -#{$space / 2};
 	}
 
-	.grid-block > .block,
-	.#{$prefix}grid-index > li {
+	.grid-block > .block {
 		display: inline-block;
 		min-width: 0;
 		margin-left:  #{$gutter / 2};
@@ -74,43 +72,22 @@ $breakpoints:
 
 	/* Grid widths inside a grid-block or grid-index. */
 
-	.grid-block > .#{$prefix}grid-1\/1,
-	.grid-index > .#{$prefix}grid-1\/1,
-	.#{$prefix}grid-index-1\/1 > li {
+	.grid-block > .#{$prefix}grid-1\/1 {
 		width: calc(100% - #{$gutter});
 	}
 
 	@for $i from 1 through $n {
 		@for $j from 1 to $i {
-			.grid-block > .#{$prefix}grid-#{$j}\/#{$i},
-			.grid-index > .#{$prefix}grid-#{$j}\/#{$i},
-			.#{$prefix}grid-index-#{$j}\/#{$i} > li {
+			.grid-block > .#{$prefix}grid-#{$j}\/#{$i} {
 				width: calc(#{100% * $j / $i} - #{$gutter});
-			}
-		}
-	}
-
-	/* Grid margins inside a grid-block or grid-index. */
-
-	.grid-block > .#{$prefix}grid-left-0,
-	.grid-index > .#{$prefix}grid-left-0 {
-		margin-left: #{$gutter / 2};
-	}
-
-	@for $i from 1 through $n {
-		@for $j from 1 to $i {
-			.grid-block > .#{$prefix}grid-left-#{$j}\/#{$i},
-			.grid-index > .#{$prefix}grid-left-#{$j}\/#{$i} {
-				margin-left: calc(#{100% * $j / $i} + #{$gutter / 2});
 			}
 		}
 	}
 
 	/* Bleed widths and margins inside a grid-block or grid-index. */
 
-	.#{$prefix}width-1\/1,
-	.grid-block > .#{$prefix}width-1\/1,
-	.grid-index > .#{$prefix}width-1\/1 {
+	.#{$prefix}span-1\/1,
+	.grid-block > .#{$prefix}span-1\/1 {
 		width: 100%;
 		margin-left: 0;
 		margin-right: 0;
@@ -118,12 +95,39 @@ $breakpoints:
 
 	@for $i from 1 through $n {
 		@for $j from 1 to $i {
-			.#{$prefix}width-#{$j}\/#{$i},
-			.grid-block > .#{$prefix}width-#{$j}\/#{$i},
-			.grid-index > .#{$prefix}width-#{$j}\/#{$i} {
+			.#{$prefix}span-#{$j}\/#{$i},
+			.grid-block > .#{$prefix}span-#{$j}\/#{$i} {
 				width: #{100% * $j / $i};
 				margin-left: 0;
 				margin-right: 0;
+			}
+		}
+	}
+
+	/* Grid margins inside a grid-block or grid-index. */
+
+	.grid-block > .#{$prefix}grid-left-0 {
+		margin-left: #{$gutter / 2};
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.grid-block > .#{$prefix}grid-left-#{$j}\/#{$i} {
+				margin-left: calc(#{100% * $j / $i} + #{$gutter / 2});
+			}
+		}
+	}
+
+	/* Grid margins inside a grid-block or grid-index. */
+
+	.grid-block > .#{$prefix}span-left-0 {
+		margin-left: 0;
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.grid-block > .#{$prefix}span-left-#{$j}\/#{$i} {
+				margin-left: #{100% * $j / $i};
 			}
 		}
 	}
@@ -185,7 +189,6 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 }
 
 .grid-block,
-.grid-index,
 /* Override .index > li */
 .index > .grid-block {
 	margin-left:   -#{$grid-gutter / 2};
@@ -214,22 +217,6 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 // .grid-5/6 - Five-sixths width column.
 //
 // Styleguide: wGrid.2
-
-
-// .grid-index-n/d
-//
-// As with <code>.grid-<i>n</i>/<i>d</i></code> classes, but sets the width of
-// child <code class="html-tag">li</code>s to <i>n</i>/<i>d</i> divisions of the
-// horizontal grid.
-//
-// .grid-index-1/1 - Full width column.
-// .grid-index-1/2 - Half width column.
-// .grid-index-1/3 - Third width column.
-// .grid-index-2/3 - Two thirds width column.
-// .grid-... - ...
-// .grid-5/6 - Five-sixths width column.
-//
-// Styleguide: wGrid.12
 
 @include grid('', $grid-count, $grid-gutter, $grid-space);
 
