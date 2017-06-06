@@ -442,6 +442,32 @@ textarea.error {
 	}
 }}
 
+.validated input:invalid,
+.validated select:invalid,
+.validated textarea:invalid,
+input.validated:invalid,
+select.validated:invalid,
+textarea.validated:invalid {
+	-webkit-box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
+	   -moz-box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
+			box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
+
+	border-color: rgb(214,23,41) !important;
+}
+
+.validated input:focus,
+.validated select:focus,
+.validated textarea:focus,
+input.validated:focus,
+select.validated:focus,
+textarea.validated:focus {
+	-webkit-box-shadow: 0 0 1rem rgba(80,134,197,0.625), inset 0 0 0.5rem rgba(80,134,197,0.625);
+	   -moz-box-shadow: 0 0 1rem rgba(80,134,197,0.625), inset 0 0 0.5rem rgba(80,134,197,0.625);
+	        box-shadow: 0 0 1rem rgba(80,134,197,0.625), inset 0 0 0.5rem rgba(80,134,197,0.625);
+
+	border-color: rgb(80,134,197) !important;
+}
+
 input::-webkit-validation-bubble-arrow,
 input::-webkit-validation-bubble-message {
 	background-color: #202020;
