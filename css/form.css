@@ -742,7 +742,6 @@ button,
 
 :placeholder-shown {
 	font-style: italic;
-	line-height: inherit;
 }
 
 /* Simulate placeholder attribute with a label layered
