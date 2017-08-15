@@ -1,5 +1,7 @@
 (function() {
-  var KssStateGenerator = (function() {
+  var KssStateGenerator;
+
+  KssStateGenerator = (function() {
     var pseudo_selectors;
 
     pseudo_selectors = ['hover', 'enabled', 'disabled', 'active', 'visited', 'focus', 'target', 'checked', 'empty', 'first-of-type', 'last-of-type', 'first-child', 'last-child'];
@@ -43,9 +45,9 @@
     };
 
     return KssStateGenerator;
+
   })();
 
-  // Dont render CSS states. It's mucking up our responsive stuff.
-  //new KssStateGenerator;
+  new KssStateGenerator;
 
 }).call(this);

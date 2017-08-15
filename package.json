@@ -9,10 +9,11 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "kss": "^3.0.0-beta.18"
+    "kss": "^3.0.0-beta.18",
+    "node-sass": "^4.5.3"
   },
   "scripts": {
-    "sass": "",
+    "sass": "node-sass --output-style compact --indent-type tab -o css scss",
     "styleguide": "kss --config kss.json",
     "build": "npm run sass && npm run styleguide"
   }
