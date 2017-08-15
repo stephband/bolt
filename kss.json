@@ -9,20 +9,21 @@
   "destination":  "styleguide/",
 
   "css": [
-    "css/normalise.css",
-    "css/form.css",
-    "css/block.css",
-    "css/index.css",
-    "css/card.css",
-    "css/button.css",
-    "css/thumb.css",
-    "css/grid.css",
-    "css/text.css",
-    "css/color.css",
-    "css/utilities.css",
-    "css/dom.css",
-    "css/nav.css",
-    "css/space.css"
+    "../css/normalise.css",
+    "../css/form.css",
+    "../css/label.css",
+    "../css/flex.css",
+    "../css/block.css",
+    "../css/index.css",
+    "../css/card.css",
+    "../css/button.css",
+    "../css/thumb.css",
+    "../css/grid.css",
+    "../css/text.css",
+    "../css/color.css",
+    "../css/utilities.css",
+    "../css/dom.css",
+    "../css/nav.css"
   ],
 
   "js": []
