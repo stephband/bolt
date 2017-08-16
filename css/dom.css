@@ -1,16 +1,3 @@
-/*
-DOM
-
-Styleguide: 1-dom
-*/
-
-/*
-html
-
-Root element.
-
-Styleguide: 1-dom.1
-*/
 
 html,
 :root {
@@ -20,15 +7,6 @@ html,
 	   on <body> does not get set on <html>. Win. */
 	background-color: white;
 }
-
-
-/*
-body
-
-Styles applied to body.
-
-Styleguide: 1-dom.2
-*/
 
 body {
 	/* Act as position parent */
@@ -45,12 +23,6 @@ body {
 		min-height: 100%;
 	}
 }
-
-/*
-body > .nav-block
-
-Styleguide: 1-dom.3
-*/
 
 body > .nav-block {
 	position: absolute;

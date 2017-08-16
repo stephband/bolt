@@ -9,7 +9,7 @@ Markup: <div class="block" style="height: 200px">
   <div class="layer neutral-bg-2"></div>
 </div>
 
-Styleguide: layer
+Styleguide: 4.layer
 */
 
 
@@ -77,7 +77,7 @@ Markup: <div class="dialog-layer layer">
 	</div>
 </div>
 
-Styleguide: layer.dialog-layer
+Styleguide: 4.layer.dialog-layer
 */
 
 .dialog-layer {

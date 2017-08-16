@@ -10,6 +10,8 @@
 
   "destination":  "styleguide/",
 
+  "nav-depth": 2,
+
   "css": [
     "../css/normalise.css",
     "../css/form.css",

@@ -1,20 +1,23 @@
-
 /*
-.color
+Colour
 
-Styleguide: color
+Styleguide: 5.colour
 */
 
 /*
-.black-bg<br/>
-.white-bg<br/>
-.black-color<br/>
-.white-color
+.black-bg
 
 Markup: <p class="text-5 white-color black-bg">Black</p>
-<p class="text-5 black-color white-bg">White</p>
 
-Styleguide: color.1
+Styleguide: 5.colour.black-bg
+*/
+
+/*
+.white-bg
+
+Markup: <p class="text-5 black-color white-bg">White</p>
+
+Styleguide: 5.colour.white-bg
 */
 
 .transparent-fg { color: transparent; }

@@ -50,7 +50,7 @@ Markup: <label class="radio-label" for="radio-1">
   Yes, choose me!
 </label>
 
-Styleguide: xForms.2
+Styleguide: 3.radio-label
 */
 
 /*
@@ -65,7 +65,7 @@ Markup: <label class="checkbox-label" for="checkbox-1">
   Yes, choose me!
 </label>
 
-Styleguide: xForms.3
+Styleguide: 3.checkbox-label
 */
 
 .text-label,

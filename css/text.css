@@ -1,8 +1,8 @@
 
 /*
-.text
+Typography.
 
-Styleguide: text
+Styleguide:  2
 */
 
 html {
@@ -204,7 +204,7 @@ caption           { background-color: inherit; }
 
 Markup: <p class="text-1">Crunchum ipsum</p>
 
-Styleguide: text.01
+Styleguide:  2.01
 */
 
 /*
@@ -212,7 +212,7 @@ Styleguide: text.01
 
 Markup: <p class="text-2">Crunchum ipsum dolor sit coder void</p>
 
-Styleguide: text.02
+Styleguide:  2.02
 */
 
 /*
@@ -220,7 +220,7 @@ Styleguide: text.02
 
 Markup: <p class="text-3">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p>
 
-Styleguide: text.03
+Styleguide:  2.03
 */
 
 /*
@@ -228,7 +228,7 @@ Styleguide: text.03
 
 Markup: <p class="text-4">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: text.04
+Styleguide:  2.04
 */
 
 /*
@@ -236,7 +236,7 @@ Styleguide: text.04
 
 Markup: <p class="text-5">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: text.05
+Styleguide:  2.05
 */
 
 /*
@@ -244,7 +244,7 @@ Styleguide: text.05
 
 Markup: <p class="text-6">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 
-Styleguide: text.06
+Styleguide:  2.06
 */
 
 /*
@@ -253,7 +253,7 @@ Styleguide: text.06
 Markup: <p class="text-8">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
 <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
 
-Styleguide: text.08
+Styleguide:  2.08
 */
 
 .text-1, h1,

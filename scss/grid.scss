@@ -1,20 +1,13 @@
 
-// Grid
-//
-// A flexible, nestable, responsive grid system.
-//
-// Styleguide: wGrid
-
 $grid-count:  6 !default;
 $grid-gutter: 2.5rem !default;
 $grid-space:  1.875rem !default;
 
 // prefix, min-width, grid count, gutter, space
 $breakpoints:
-	'\\@1-' 30em   6  $grid-gutter $grid-space,
-	'\\@2-' 37.5em 9  $grid-gutter $grid-space,
-	'\\@3-' 45em   12 $grid-gutter $grid-space,
-	'\\@4-' 60em   12 $grid-gutter $grid-space !default;
+	'\\@1-' 30em 6  $grid-gutter $grid-space,
+	'\\@2-' 50em 9  $grid-gutter $grid-space,
+	'\\@3-' 70em 12 $grid-gutter $grid-space !default;
 
 @mixin grid($prefix: '', $n: 6, $gutter: 1.25rem, $space: 1.25rem) {
 	.grid-block,
@@ -70,7 +63,7 @@ $breakpoints:
 		}
 	}
 
-	/* Grid widths inside a grid-block or grid-index. */
+	/* Grid widths inside a grid-block. */
 
 	.grid-block > .#{$prefix}grid-1\/1 {
 		width: calc(100% - #{$gutter});
@@ -84,7 +77,7 @@ $breakpoints:
 		}
 	}
 
-	/* Bleed widths and margins inside a grid-block or grid-index. */
+	/* Bleed widths and margins inside a grid-block. */
 
 	.#{$prefix}span-1\/1,
 	.grid-block > .#{$prefix}span-1\/1 {
@@ -104,7 +97,7 @@ $breakpoints:
 		}
 	}
 
-	/* Grid margins inside a grid-block or grid-index. */
+	/* Grid margins inside a grid-block. */
 
 	.grid-block > .#{$prefix}grid-left-0 {
 		margin-left: #{$gutter / 2};
@@ -118,7 +111,7 @@ $breakpoints:
 		}
 	}
 
-	/* Grid margins inside a grid-block or grid-index. */
+	/* Grid margins inside a grid-block. */
 
 	.grid-block > .#{$prefix}span-left-0 {
 		margin-left: 0;
@@ -143,47 +136,27 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 // Wraps rows of child <code>block</code>s to form a grid with gutters.
 // Child <code>block</code>s are rendered as <code>inline-block</code>s,
 // horizontal margins are set to create gutter spacings, and vertical margins
-// set to the vertical grid. Because <code>inline-block</code>s are space
-// sensitive, to get accurate spacing child blocks should have no spaces
-// between them. If you are using a templating engine it likely has some kind of
-// <code>{{spaceless}}</code> process. If not, here is one (valid) way of sanely
-// writing spaceless html:
+// set to the vertical grid.
 //
 // Markup: <div class="grid-block block">
-//   <code class="block grid-1/1 white-color black-bg">.grid-1/1</code
-//  ><code class="block grid-1/2 white-color black-bg">.grid-1/2</code
-//  ><code class="block grid-1/2 white-color black-bg">.grid-1/2</code
-//  ><code class="block grid-1/3 white-color black-bg">.grid-1/3</code
-//  ><code class="block grid-2/3 white-color black-bg">.grid-2/3</code
-//  ><code class="block grid-1/4 white-color black-bg">.grid-1/4</code
-//  ><code class="block grid-3/4 white-color black-bg">.grid-3/4</code
-//  ><code class="block grid-1/5 white-color black-bg">.grid-1/5</code
-//  ><code class="block grid-3/5 white-color black-bg">.grid-3/5</code
-//  ><code class="block grid-1/5 white-color black-bg">.grid-1/5</code
-//  ><code class="block grid-1/6 white-color black-bg">.grid-1/6</code
-//  ><code class="block grid-1/2 white-color black-bg">.grid-1/2</code
-//  ><code class="block grid-1/3 white-color black-bg">.grid-1/3</code>
+//   <code class="block grid-1/1 white-fg black-bg">.grid-1/1</code
+//  ><code class="block grid-1/2 white-fg black-bg">.grid-1/2</code
+//  ><code class="block grid-1/2 white-fg black-bg">.grid-1/2</code
+//  ><code class="block grid-1/3 white-fg black-bg">.grid-1/3</code
+//  ><code class="block grid-2/3 white-fg black-bg">.grid-2/3</code
+//  ><code class="block grid-1/4 white-fg black-bg">.grid-1/4</code
+//  ><code class="block grid-3/4 white-fg black-bg">.grid-3/4</code
+//  ><code class="block grid-1/5 white-fg black-bg">.grid-1/5</code
+//  ><code class="block grid-3/5 white-fg black-bg">.grid-3/5</code
+//  ><code class="block grid-1/5 white-fg black-bg">.grid-1/5</code
+//  ><code class="block grid-1/6 white-fg black-bg">.grid-1/6</code
+//  ><code class="block grid-1/2 white-fg black-bg">.grid-1/2</code
+//  ><code class="block grid-1/3 white-fg black-bg">.grid-1/3</code>
 // </div>
 //
-// Styleguide: wGrid.1
+// Styleguide: 1.1.grid-block
 
-// .grid-index
-//
-// Similar to <code>grid-block</code>, but for lists, where the children
-// <code class="html-tag">li</code>s behave as do <code>block</code>s inside
-// a <code>grid-block</code>.
-//
-// Markup: <ul class="grid-index-1/3 grid-index index">
-//   <li class="white-color black-bg">One</li
-//   ><li class="white-color black-bg">Two</li
-//   ><li class="white-color black-bg">Three</li>
-// </ul>
-//
-// Styleguide: wGrid.11
-
-
-.grid-block,
-.grid-index {
+.grid-block {
 	position: relative;
 	padding: 0;
 }
@@ -197,6 +170,27 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 	margin-bottom: -#{$grid-space / 2};
 }
 
+
+// .span-n/d
+//
+// Sets width to <i>n</i>/<i>d</i> divisions of the horizontal grid. There are 6
+// divisions available, with a gutter of <code>1.25rem</code>
+// (<code>20px</code>). Widths are expressed as reduced fractions, so for
+// example there is no <code>.grid-2/4</code>, because that is reduceable to
+// <code>.grid-1/2</code>.
+//
+// .span-1/1 - Full width column.
+// .span-1/2 - Half width column.
+// .span-1/3 - Third width column.
+// .span-2/3 - Two thirds width column.
+// .span-1/4 - Quarter width column.
+// .span-3/4 - Three-quarters width column.
+// .span-1/5 - One fifth width column.
+// .span-... - ...
+//
+// .span-1/n - Adaptive width, depends on number of siblings
+//
+// Styleguide: 1.span
 
 // .grid-n/d
 //
@@ -216,7 +210,9 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 // .grid-... - ...
 // .grid-5/6 - Five-sixths width column.
 //
-// Styleguide: wGrid.2
+// .grid-1/n - Adaptive width, depending on number of siblings
+//
+// Styleguide: 1.grid
 
 @include grid('', $grid-count, $grid-gutter, $grid-space);
 
@@ -227,55 +223,27 @@ Warning: this file is auto-generated from scss/grid.scss. Do not modify!
 }
 
 
-// .grid-index-1/n
-//
-// A <code>grid-index</code> whose child <code class="html-tag">li</code> widths are set
-// to <code>1/n</code> grid divisions, <code>n</code> being the number of
-// children. Accomodates up to 12 children.
-//
-// Markup: <ul class="grid-index-1/n grid-index index">
-//   <li class="white-color black-bg">One</li
-//   ><li class="white-color black-bg">Two</li
-//   ><li class="white-color black-bg">Three</li>
-// </ul>
-//
-// Styleguide: wGrid.1001
-
-// .@breakpoint-grid-index-1/n
-//
-// A <code>grid-index</code> whose child <code class="html-tag">li</code> widths
-// are set to <code>1/n</code> grid dvisions, <code>n</code> being the number of
-// children.
-//
-// Markup: <ul class="@600-grid-index-1/n grid-index index">
-//   <li class="white-color black-bg">One</li
-//   ><li class="white-color black-bg">Two</li
-//   ><li class="white-color black-bg">Three</li>
-// </ul>
-//
-// Styleguide: wGrid.1002
-
-@mixin grid-index-adaptive($gutter: 1.25rem, $n: 6, $prefix: '') {
+@mixin adaptive-grid($gutter: 1.25rem, $n: 6, $prefix: '') {
 	@for $i from 2 through $n {
-		.#{$prefix}grid-index-1\/n > li:nth-last-child(#{$i}):first-child,
-		.#{$prefix}grid-index-1\/n > li:nth-last-child(#{$i}):first-child ~ li {
+		.#{$prefix}grid-1\/n:nth-last-child(#{$i}):first-child,
+		.*:nth-last-child(#{$i}):first-child ~ #{$prefix}grid-1\/n {
 			width: calc(#{100% / $i} - #{$gutter});
 		}
 	}
 
-	/* width-1/n classes */
+	/* span-1/n classes */
 	@for $i from 2 through $n {
-		.#{$prefix}width-1\/n:nth-last-child(#{$i}):first-child,
-		.#{$prefix}width-1\/n:nth-last-child(#{$i}):first-child ~ li {
+		.#{$prefix}span-1\/n:nth-last-child(#{$i}):first-child,
+		.*:nth-last-child(#{$i}):first-child ~ #{$prefix}span-1\/n {
 			width: #{100% / $i};
 		}
 	}
 }
 
-@include grid-index-adaptive($grid-gutter, $grid-count);
+@include adaptive-grid($grid-gutter, $grid-count);
 
 @each $breakpoint in $breakpoints {
 	@media all and (min-width: nth($breakpoint, 2)) {
-		@include grid-index-adaptive(nth($breakpoint, 4), nth($breakpoint, 3), nth($breakpoint, 1));
+		@include adaptive-grid(nth($breakpoint, 4), nth($breakpoint, 3), nth($breakpoint, 1));
 	}
 }

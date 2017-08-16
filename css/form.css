@@ -1,9 +1,9 @@
-
 /*
-Forms
+Forms.
 
-Styleguide: xForms
+Styleguide: 3
 */
+
 
 /*
 It is time to look at these pseudo selectors, which now have broad support:
@@ -70,17 +70,24 @@ option {
 	padding: 0.3125rem 0.9375rem;
 }
 
+
 /*
-label + input
+input
 
 Styles for vanilla labels and inputs.
 
-Markup: <label>Name</label>
-<input type="text" placeholder="Arthur Dent" />
-<label>Email</label>
-<input type="email" placeholder="arthur.dent@guide.co.scc" />
+Markup: <label>Text</label>
+<input type="text" value="text" />
+<label>Password</label>
+<input type="password" value="password" />
+<label>Number</label>
+<input type="number" value="0" />
+<label>Range</label>
+<input type="range" value="0" />
+<label>URL</label>
+<input type="url" value="http://stephen.band/bolt" />
 
-Styleguide: xForms.1
+Styleguide: 3.1
 */
 
 label,
@@ -793,7 +800,7 @@ Markup: <form action="{{ url }}" method="post" class="uni-form">
   <input type="submit" class="action-button button" value="Send" />
 </form>
 
-Styleguide: xForms.10
+Styleguide: 3.uni-form
 */
 
 .uni-form > input,

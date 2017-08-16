@@ -1,3 +1,9 @@
+/*
+Components.
+
+Styleguide: 4
+*/
+
 
 /*
 .button
@@ -10,7 +16,7 @@ also be used on labels wrapping various form elements.
 
 Markup: <a class="button" href="#something">Link to something</a>
 
-Styleguide: button
+Styleguide: 4.button
 */
 
 button {
@@ -102,7 +108,7 @@ Markup: <label class="button" for="file-input">
   <input type="file" id="file-input" />
 </label>
 
-Styleguide: xForms.5
+Styleguid forms.button
 */
 
 .thumb > select,
@@ -149,7 +155,7 @@ Markup: <label class="select-button button">
   </select>
 </label>
 
-Styleguide: button.select-button
+Styleguide: 3.select-button
 */
 
 .select-button {
@@ -249,18 +255,18 @@ Markup: <label class="radio-button button" for="radio-2">
   Choose me!
 </label>
 
-Styleguide: button.radio-button
+Styleguide: 3.radio-button
 */
 
 /*
-.check-button
+.checkbox-button
 
-Markup: <label class="check-button button" for="checkbox-2">
+Markup: <label class="checkbox-button button" for="checkbox-2">
   <input type="checkbox" id="checkbox-2" />
   Choose me!
 </label>
 
-Styleguide: button.check-button
+Styleguide: 3.checkbox-button
 */
 
 .radio-button,
@@ -268,53 +274,4 @@ Styleguide: button.check-button
 	/* A hidden overflow would hide the browser generated error messages.
 	   No no no. Make sure it's visible. */
 	overflow: visible;
-}
-
-
-/*
-.menu-button
-
-Markup: <a class="menu-button button" href="#">button</a>
-<a class="menu-button button on" href="#">button</a>
-
-Styleguide: button.menu-button-1
-*/
-
-.menu-button {
-	display: block;
-	text-align: left;
-	color: inherit;
-	background-color: transparent;
-}
-
-
-/*
-.toggle-menu-button
-
-Markup: <a class="toggle-menu-button menu-button button" href="#id">button</a>
-<a class="toggle-menu-button menu-button button on" href="#id">button</a>
-
-Styleguide: button.menu-button-2
-*/
-
-.toggle-menu-button {
-	padding-right: 2.5rem;
-}
-
-.toggle-menu-button::after {
-	content: '';
-	position: absolute;
-	top: 50%;
-	right: 0.5625rem;
-	height: 0;
-	margin-top: -6px;
-	border-left: 6px solid currentcolor;
-	border-top: 6px solid rgba(0, 0, 0, 0);
-	border-bottom: 6px solid rgba(0, 0, 0, 0);
-	transition: transform 200ms linear;
-}
-
-.toggle-menu-button.on::after {
-	-webkit-transform: rotate(90deg);
-	        transform: rotate(90deg);
 }

@@ -1,3 +1,8 @@
+/*
+Layout.
+
+Styleguide: 1
+*/
 
 /*
 .block
@@ -11,7 +16,7 @@ inline-block. Grid layout can be designed by adding
 <p>Applied to a media tag like img, svg, video and canvas, <code>.block</code>
 will scale the element to fill the available width.</p>
 
-Styleguide: block
+Styleguide: 1.1
 */
 
 .block {
@@ -48,7 +53,7 @@ Styleguide: block
 /*
 .inline-block
 
-Styleguide: block.inline-block
+Styleguide: 1.1.inline-block
 */
 
 .inline-block {
@@ -70,7 +75,7 @@ Markup: <a href="#some-stuff">Click to show</a>
   spaces velit esse cilium buntum how crunchy duntum.</p>
 </div>
 
-Styleguide: block.toggle-block
+Styleguide: 1.1.toggle-block
 */
 
 .toggle-block {
@@ -113,7 +118,7 @@ Styleguide: block.toggle-block
 /*
 .swipe-block
 
-Styleguide: block.swipe-block
+Styleguide: 1.1.swipe-block
 */
 
 .js .swipe-block {
@@ -150,7 +155,7 @@ Styleguide: block.swipe-block
 
 A wrapper for <code>slide-block</code>s and <code>ctrl-button</code>s.
 
-Styleguide: block.slides-block-1
+Styleguide: 1.1.slides-block-1
 */
 
 .slides-block {
@@ -190,7 +195,7 @@ Markup: <div class="slides-block block">
   <a class="next-thumb thumb" href="#slide-2">Next</a>
 </div>
 
-Styleguide: block.slides-block-2
+Styleguide: 1.1.slides-block-2
 */
 
 .slide-block {

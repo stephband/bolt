@@ -1,9 +1,8 @@
 /*
-Utilities
+Modifiers.
 
-Styleguide: zutilities
+Styleguide: 5
 */
-
 
 /*
 Transition
@@ -11,7 +10,7 @@ Transition
 .notransition - cancels transitions on an element (and any slide, tab, pop,
 layer or tip descendents).
 
-Styleguide: zutilities.transition
+Styleguide: 5.transition
 */
 
 .notransition,
@@ -33,7 +32,7 @@ Modify
 .disabled  - Dims element
 .requested - Uses <code>::after</code> content to overlay a loading animation
 
-Styleguide: zutilities.modify
+Styleguide: 5.modify
 */
 
 .hidden {
@@ -131,7 +130,7 @@ Position
 .center-align    - text align center.
 .right-align     - text align right.
 
-Styleguide: zutilities.position
+Styleguide: 5.position
 */
 
 .tl, .tr, .bl, .br { position: absolute; }
@@ -161,7 +160,7 @@ Scroll
                   scrollbars when scrollable.
 .scroll-hidden  - Force hides scrollbars where possible (Chrome, Safari, Opera).
 
-Styleguide: zutilities.scroll
+Styleguide: 5.scroll
 */
 
 .scroll {

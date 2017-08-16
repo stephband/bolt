@@ -15,7 +15,7 @@ A default thumb is a square of 64x64px. Add an image by defining a
 
 Markup: <a class="thumb" href="#" style="background-image: url('//source.unsplash.com/category/nature/128x80')">Thumb text</a>
 
-Styleguide: thumb
+Styleguide: 4.thumb
 */
 
 .thumb {
@@ -80,7 +80,7 @@ Styleguide: thumb
 
 Markup: <a class="close-thumb thumb" href="#">Close</a>
 
-Styleguide: thumb.close-thumb
+Styleguide: 4.thumb.close-thumb
 */
 
 .close-thumb {
@@ -124,7 +124,7 @@ Navigation thumbs for slideshows.
 Markup: <a class="prev-thumb thumb">Previous</a>
 <a class="next-thumb thumb">Next</a>
 
-Styleguide: thumb.prev-thumb
+Styleguide: 4.thumb.prev-thumb
 */
 
 .prev-thumb,
@@ -170,7 +170,7 @@ Styleguide: thumb.prev-thumb
 
 Markup: <a class="fb-thumb thumb" href="/">Facebook</a>
 
-Styleguide: thumb.social-thumb-1
+Styleguide: 4.thumb.social-thumb-1
 */
 
 /*
@@ -178,7 +178,7 @@ Styleguide: thumb.social-thumb-1
 
 Markup: <a class="tw-thumb thumb" href="/">Twitter</a>
 
-Styleguide: thumb.social-thumb-2
+Styleguide: 4.thumb.social-thumb-2
 */
 
 /*
@@ -186,7 +186,7 @@ Styleguide: thumb.social-thumb-2
 
 Markup: <a class="in-thumb thumb" href="/">Instagram</a>
 
-Styleguide: thumb.social-thumb-3
+Styleguide: 4.thumb.social-thumb-3
 */
 
 .fb-thumb,
@@ -217,7 +217,7 @@ Styleguide: thumb.social-thumb-3
 
 Markup: <a class="dot-thumb thumb" href="/1">1</a>
 
-Styleguide: thumb.dot-thumb
+Styleguide: 4.thumb.dot-thumb
 */
 
 .dot-thumb {
