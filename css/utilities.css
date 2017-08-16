@@ -48,8 +48,8 @@ Styleguide: 5.modify
 }
 
 .masked {
-	display: block !important;
-	position: relative !important;
+	display: inline-block !important;
+	position: absolute !important;
 	opacity: 0 !important;
 
 	/* Width and height 0 cause browser validation bubbles to dissappear. */

@@ -96,10 +96,10 @@ button,
 select,
 textarea {
 	display: inline-block;
-	/* Vertical align top to stop extra line space creeping into the vertical
+	/* Vertical align middle to stop extra line space creeping into the vertical
 	   rhythm when inputs stack up. It also has the effect of removing the
 	   annoying extra margin-bottom that textareas have in webkit. */
-	vertical-align: top;
+	vertical-align: middle;
 	margin: 0;
 
 	/* Font size is not automaticlly inherited in all browsers. */
