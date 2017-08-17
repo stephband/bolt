@@ -6,10 +6,10 @@
 <p>Typically, used behind a .dialog to cover the page. layers are absolutely positioned, so they are not in the flow. By default a layer is scrollable, in case the content put inside it is too big for it.</p>
 
 Markup: <div class="block" style="height: 200px">
-  <div class="layer neutral-bg-2"></div>
+  <div class="layer white-fg black-bg">Layer</div>
 </div>
 
-Styleguide: 4.layer
+Styleguide: 1.layer
 */
 
 
@@ -62,61 +62,4 @@ Styleguide: 4.layer
 	-webkit-box-sizing: content-box;
 	   -moz-box-sizing: content-box;
 	        box-sizing: content-box;
-}
-
-/*
-.dialog-layer
-
-A fixed positioned 'layer' with a translucent background color that fills
-the window. A <code>.dialog</code> inside a dialog layer is automatically
-centered horizontally and vertically and scrollable.
-
-Markup: <div class="dialog-layer layer">
-	<div class="dialog">
-		<h1>Hello</h1>
-	</div>
-</div>
-
-Styleguide: 4.layer.dialog-layer
-*/
-
-.dialog-layer {
-	position: fixed;
-	background-image: none;
-	background-color: rgba(31, 32, 33, 0.746094);
-	z-index: 4;
-}
-
-.middle,
-.dialog-layer {
-	/* Center inline-block contents horizontally */
-	text-align: center;
-}
-
-.middle::before,
-.dialog-layer::before {
-	/* Center inline-block contents vertically. Note that to
-	   keep .dialog centered horizontally there should be no
-	   space in front of the .dialog box. */
-	display: inline-block;
-	content: '';
-	height: 100%;
-	width: 0;
-	vertical-align: middle;
-}
-
-.middle > *,
-.dialog-layer > * {
-	text-align: left;
-}
-
-.middle > *,
-.dialog {
-	/* Use inline-block to make dialog collapse
-	   to the width of its contents. */
-	display: inline-block;
-
-	/* Center the dialog vertically, working in tandem
-	   with the :before rule of .dialog-layer. */
-	vertical-align: middle;
 }

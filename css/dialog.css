@@ -1,3 +1,61 @@
+
+.dialog-layer {
+	position: fixed;
+	background-image: none;
+	background-color: rgba(31, 32, 33, 0.746094);
+	z-index: 4;
+}
+
+.middle,
+.dialog-layer {
+	/* Center inline-block contents horizontally */
+	text-align: center;
+}
+
+.middle::before,
+.dialog-layer::before {
+	/* Center inline-block contents vertically. Note that to
+	   keep .dialog centered horizontally there should be no
+	   space in front of the .dialog box. */
+	display: inline-block;
+	content: '';
+	height: 100%;
+	width: 0;
+	vertical-align: middle;
+}
+
+.middle > *,
+.dialog-layer > * {
+	text-align: left;
+
+	/* Use inline-block to make dialog collapse
+	   to the width of its contents. */
+	display: inline-block;
+
+	/* Center the dialog vertically, working in tandem
+	   with the :before rule of .dialog-layer. */
+	vertical-align: middle;
+}
+
+
+/*
+.dialog
+
+A fixed positioned 'layer' with a translucent background color that fills
+the window. A <code>.dialog</code> inside a dialog layer is automatically
+centered horizontally and vertically and scrollable.
+
+Markup: <div class="block" style="height: 200px">
+  <div class="dialog-layer layer">
+    <div class="dialog">
+      <h1>Hello</h1>
+    </div>
+  </div>
+</div>
+
+Styleguide: 4.dialog
+*/
+
 .dialog {
 	/* Act as position parent */
 	position: relative;
@@ -8,8 +66,7 @@
 
 	/* But let's make sure it doesn't touch the top or
 	   bottom. */
-	margin-top: 2.5em;
-	margin-bottom: 2.5em;
+	max-height: calc(100% - 4.5rem);
 
 	background-color: white;
 

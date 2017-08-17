@@ -154,13 +154,44 @@ Styleguide: 5.position
 
 
 /*
-Scroll
+.scroll
 
-.scroll         - Sets <code>overflow: auto;</code> and forces display of
-                  scrollbars when scrollable.
-.scroll-hidden  - Force hides scrollbars where possible (Chrome, Safari, Opera).
+Sets <code>overflow: auto;</code> and forces display of scrollbars when
+scrollable.
 
 Styleguide: 5.scroll
+*/
+
+/*
+.hidden-scroll
+
+Force hides scrollbars where possible (Chrome, Safari, Opera).
+
+Styleguide: 5.scroll-hidden
+*/
+
+/*
+.x-scroll
+
+Hides vertical overflow.
+
+Styleguide: 5.scroll-x
+*/
+
+/*
+.y-scroll
+
+Hides horizontal overflow.
+
+Styleguide: 5.scroll-y
+*/
+
+/*
+.no-scroll
+
+Hides overflow.
+
+Styleguide: 5.scroll-no
 */
 
 .scroll {
@@ -191,7 +222,7 @@ Styleguide: 5.scroll
 	        border-radius: 12px;
 }
 
-.scroll-hidden::-webkit-scrollbar {
+.hidden-scroll::-webkit-scrollbar {
 	display: none;
 }
 
@@ -219,6 +250,6 @@ Styleguide: 5.scroll
 	display: none !important;
 }
 
-.x-scroll { overflow-y: hidden; }
-.y-scroll { overflow-x: hidden; }
+.x-scroll  { overflow-y: hidden; }
+.y-scroll  { overflow-x: hidden; }
 .no-scroll { overflow: hidden !important; }
