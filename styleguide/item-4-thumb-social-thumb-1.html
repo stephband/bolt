@@ -9,6 +9,7 @@
   <meta name="viewport" content="width=device-width">
 
   <link rel="stylesheet" href="kss-assets/kss.css">
+  <link rel="stylesheet" href="kss-assets/prettify-cruncher.css">
   <link rel="stylesheet" href="../css/normalise.css">
 <link rel="stylesheet" href="../css/form.css">
 <link rel="stylesheet" href="../css/label.css">
@@ -30,6 +31,37 @@
   <style>
 	  body {
 		  padding-top: 4.6875rem !important;
+		  padding-bottom: 3.75rem !important;
+		  margin-left: 22.2222% !important;
+		  padding-left: 0 !important;
+		  padding-right: 0 !important;
+		  background-color: #f2f2f2 !important;
+	  }
+
+	  body::before {
+		  content: '';
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  width: 42.8571%;
+		  height: 100%;
+		  background-image:
+		  	linear-gradient(#eeeeee 0px, #eeeeee 1px, transparent 1px, transparent 10px),
+		  	linear-gradient(to right, #eeeeee 0px, #eeeeee 1px, transparent 1px, transparent 10px);
+		  background-size: 10px 10px;
+		  background-repeat: repeat;
+		  box-shadow: inset 0 0 0 1px #eeeeee;
+		  background-color: white;
+	  }
+
+	  body > .grid-block {
+		  width: auto;
+		  margin-left: 0;
+		  margin-right: 0;
+	  }
+
+	  body > .grid-block + .grid-block {
+		  margin-top: 1.5rem;
 	  }
 
 	  .class-index > li,
@@ -37,13 +69,13 @@
 	  
 	  .text-7, code { font-family: 'Inconsolata', monospace; }
 	  a.text-7 { text-decoration: none; }
-	  .text-9 { font-size: 0.8125rem; }
+	  .text-9 { font-size: 0.75rem; line-height: 0.9375rem; }
 
 	  .text-2 { line-height: 1.5rem; }
 
 	  .text-1 + .text-9,
 	  .text-2 + .text-9,
-	  .text-3 + .text-9 { margin-top: 0; }
+	  .text-3 + .text-9 { margin-top: 0.1875rem; }
 
 	  .text-9 + * { margin-top: 1.125rem; }
 
@@ -57,10 +89,12 @@
           position: fixed;
           top: 0;
           left: 0;
-          width: 20%;
+          width: 22.222222%;
           height: 100%;
           overflow: auto;
           padding: 1.5rem 0.75rem 1.5rem 1.125rem;
+          z-index: 2;
+          background-color: white;
       }
 
 	  .side-block > header + nav {
@@ -69,9 +103,84 @@
 
 	  pre,
 	  pre code { white-space: pre; }
+
+	  .demo-block {
+		  min-height: 0;
+		  /*background-color: #f8f8f8;*/
+		  border-width: 0 !important;
+		  /*background-image:
+		  	linear-gradient(#eeeeee 0px, #eeeeee 1px, transparent 1px, transparent 10px),
+		  	linear-gradient(to right, #eeeeee 0px, #eeeeee 1px, transparent 1px, transparent 10px);
+		  background-size: 10px 10px;
+		  background-repeat: repeat;
+		  box-shadow: inset 0 0 0 1px #eeeeee;*/
+		  /*background-color: white;
+		  border-top: 1px solid #eeeeee !important;
+		  border-bottom: 1px solid #eeeeee !important;*/
+	}
+.grid-block > .demo-block,
+.grid-block > .code-block {
+	margin-top: 0.9375rem;
+	margin-bottom: 1.875rem;
+}
+
+.grid-block > .grid-1\/7 {
+		width: calc(14.28571% - 1.125rem);
+		padding-left: 0.5625rem;
+		padding-right: 0.5625rem;
+}
+
+.grid-block > .grid-2\/7 {
+		width: calc(28.57143% - 1.125rem);
+		padding-left: 0.5625rem;
+		padding-right: 0.5625rem;
+}
+
+.grid-block > .grid-3\/7 {
+		width: calc(42.85714% - 1.125rem);
+		padding-left: 0.5625rem;
+		padding-right: 0.5625rem;
+}
+
+.grid-block > .grid-4\/7 {
+		width: calc(57.14286% - 1.125rem);
+}
+
+.grid-block > .grid-5\/7 {
+		width: calc(71.42857% - 1.125rem);
+}
+
+.grid-block > .grid-6\/7 {
+		width: calc(85.71429% - 1.125rem);
+}
+
+
+	  .grid-block > .span-3\/7 {
+		  width: 42.85714%;
+		  margin-left: 0;
+		  margin-right: 0;
+	  }
+
+	  .grid-block > .span-4\/7 {
+		  width: 57.14285%;
+		  margin-left: 0;
+		  margin-right: 0;
+	  }
+	
+	  .code-block > pre {
+		  padding-left: 1.125rem;
+	  }
+	  
+	  .description-block {
+		  font-size: 0.9375rem;
+		  line-height: 1.3125rem;
+	  }
+	
+	  .source-text { opacity: 0.5; transition: opacity 0.6s linear; }
+	  section:hover .source-text { opacity: 1; }
   </style>
 </head>
-<body id="kss-node" class="kss-fullscreen-mode">
+<body id="kss-node">
 
 <div class="side-block block">
   <header>
@@ -101,15 +210,213 @@
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-1.html#kssref-1-grid">
+                <a class="text-7" href="section-1.html#kssref-1-3">
                   <!--span class="kss-nav__ref ">1.3</span
-                  ><span class="kss-nav__name"-->.grid-n/d<!--/span-->
+                  ><span class="kss-nav__name"-->.layer<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-1.html#kssref-1-span">
+                <a class="text-7" href="section-1.html#kssref-1-grid-1-1">
                   <!--span class="kss-nav__ref ">1.4</span
-                  ><span class="kss-nav__name"-->.span-n/d<!--/span-->
+                  ><span class="kss-nav__name"-->.grid-1/1<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-1-2">
+                  <!--span class="kss-nav__ref ">1.5</span
+                  ><span class="kss-nav__name"-->.grid-1/2<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-1-3">
+                  <!--span class="kss-nav__ref ">1.6</span
+                  ><span class="kss-nav__name"-->.grid-1/3<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-1-4">
+                  <!--span class="kss-nav__ref ">1.7</span
+                  ><span class="kss-nav__name"-->.grid-1/4<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-1-5">
+                  <!--span class="kss-nav__ref ">1.8</span
+                  ><span class="kss-nav__name"-->.grid-1/5<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-1-6">
+                  <!--span class="kss-nav__ref ">1.9</span
+                  ><span class="kss-nav__name"-->.grid-1/6<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-2-3">
+                  <!--span class="kss-nav__ref ">1.10</span
+                  ><span class="kss-nav__name"-->.grid-2/3<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-2-4">
+                  <!--span class="kss-nav__ref ">1.11</span
+                  ><span class="kss-nav__name"-->.grid-2/4<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-2-5">
+                  <!--span class="kss-nav__ref ">1.12</span
+                  ><span class="kss-nav__name"-->.grid-2/5<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-2-6">
+                  <!--span class="kss-nav__ref ">1.13</span
+                  ><span class="kss-nav__name"-->.grid-2/6<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-3-4">
+                  <!--span class="kss-nav__ref ">1.14</span
+                  ><span class="kss-nav__name"-->.grid-3/4<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-3-5">
+                  <!--span class="kss-nav__ref ">1.15</span
+                  ><span class="kss-nav__name"-->.grid-3/5<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-3-6">
+                  <!--span class="kss-nav__ref ">1.16</span
+                  ><span class="kss-nav__name"-->.grid-3/6<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-4-5">
+                  <!--span class="kss-nav__ref ">1.17</span
+                  ><span class="kss-nav__name"-->.grid-4/5<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-4-6">
+                  <!--span class="kss-nav__ref ">1.18</span
+                  ><span class="kss-nav__name"-->.grid-4/6<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-5-6">
+                  <!--span class="kss-nav__ref ">1.19</span
+                  ><span class="kss-nav__name"-->.grid-5/6<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-grid-n">
+                  <!--span class="kss-nav__ref ">1.20</span
+                  ><span class="kss-nav__name"-->.grid-1/n<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-1-1">
+                  <!--span class="kss-nav__ref ">1.21</span
+                  ><span class="kss-nav__name"-->.span-1/1<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-1-2">
+                  <!--span class="kss-nav__ref ">1.22</span
+                  ><span class="kss-nav__name"-->.span-1/2<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-1-3">
+                  <!--span class="kss-nav__ref ">1.23</span
+                  ><span class="kss-nav__name"-->.span-1/3<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-1-4">
+                  <!--span class="kss-nav__ref ">1.24</span
+                  ><span class="kss-nav__name"-->.span-1/4<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-1-5">
+                  <!--span class="kss-nav__ref ">1.25</span
+                  ><span class="kss-nav__name"-->.span-1/5<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-1-6">
+                  <!--span class="kss-nav__ref ">1.26</span
+                  ><span class="kss-nav__name"-->.span-1/6<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-2-3">
+                  <!--span class="kss-nav__ref ">1.27</span
+                  ><span class="kss-nav__name"-->.span-2/3<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-2-4">
+                  <!--span class="kss-nav__ref ">1.28</span
+                  ><span class="kss-nav__name"-->.span-2/4<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-2-5">
+                  <!--span class="kss-nav__ref ">1.29</span
+                  ><span class="kss-nav__name"-->.span-2/5<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-2-6">
+                  <!--span class="kss-nav__ref ">1.30</span
+                  ><span class="kss-nav__name"-->.span-2/6<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-3-4">
+                  <!--span class="kss-nav__ref ">1.31</span
+                  ><span class="kss-nav__name"-->.span-3/4<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-3-5">
+                  <!--span class="kss-nav__ref ">1.32</span
+                  ><span class="kss-nav__name"-->.span-3/5<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-3-6">
+                  <!--span class="kss-nav__ref ">1.33</span
+                  ><span class="kss-nav__name"-->.span-3/6<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-4-5">
+                  <!--span class="kss-nav__ref ">1.34</span
+                  ><span class="kss-nav__name"-->.span-4/5<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-4-6">
+                  <!--span class="kss-nav__ref ">1.35</span
+                  ><span class="kss-nav__name"-->.span-4/6<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-5-6">
+                  <!--span class="kss-nav__ref ">1.36</span
+                  ><span class="kss-nav__name"-->.span-5/6<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-1.html#kssref-1-span-n">
+                  <!--span class="kss-nav__ref ">1.37</span
+                  ><span class="kss-nav__name"-->.span-1/n<!--/span-->
                 </a>
               </li>
             </ul>
@@ -233,9 +540,9 @@
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-4.html#kssref-4-layer">
+                <a class="text-7" href="section-4.html#kssref-4-dialog">
                   <!--span class="kss-nav__ref ">4.4</span
-                  ><span class="kss-nav__name"-->.layer<!--/span-->
+                  ><span class="kss-nav__name"-->.dialog<!--/span-->
                 </a>
               </li>
               <li>
@@ -269,20 +576,38 @@
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-respond">
+                <a class="text-7" href="section-5.html#kssref-5-scroll">
                   <!--span class="kss-nav__ref ">5.4</span
-                  ><span class="kss-nav__name"-->Respond<!--/span-->
+                  ><span class="kss-nav__name"-->.scroll<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-scroll">
+                <a class="text-7" href="section-5.html#kssref-5-scroll-hidden">
                   <!--span class="kss-nav__ref ">5.5</span
-                  ><span class="kss-nav__name"-->Scroll<!--/span-->
+                  ><span class="kss-nav__name"-->.hidden-scroll<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-scroll-no">
+                  <!--span class="kss-nav__ref ">5.6</span
+                  ><span class="kss-nav__name"-->.no-scroll<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-scroll-x">
+                  <!--span class="kss-nav__ref ">5.7</span
+                  ><span class="kss-nav__name"-->.x-scroll<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-scroll-y">
+                  <!--span class="kss-nav__ref ">5.8</span
+                  ><span class="kss-nav__name"-->.y-scroll<!--/span-->
                 </a>
               </li>
               <li>
                 <a class="text-7" href="section-5.html#kssref-5-transition">
-                  <!--span class="kss-nav__ref ">5.6</span
+                  <!--span class="kss-nav__ref ">5.9</span
                   ><span class="kss-nav__name"-->Transition<!--/span-->
                 </a>
               </li>
@@ -290,29 +615,31 @@
   </nav>
 </div>
 
-<article role="main" class="kss-main">
 
-    
-<div class="block grid-1/2">
+    <p class="block grid-1/7 source-text text-9 right-align">
+          <code>thumb.css:168</code>
+        </p
+  
+    	><div class="description-block block grid-3/7">
+            
+        </div>
+
+<div class="demo-block block span-3/7">
           <!--div class="kss-modifier__heading kss-style">
             Example
           </div>
 
           -->
 
-          <div class="kss-modifier__example">
-            <a class="fb-thumb thumb" href="/">Facebook</a>
-            <div class="kss-modifier__example-footer"></div>
-          </div>
+          <a class="fb-thumb thumb" href="/">Facebook</a>
 
         </div
-      ><div class="block grid-1/2">
-        <pre class="prettyprint lang-html scroll scroll-hidden"><code data-language="html">&lt;a class&#x3D;&quot;fb-thumb thumb&quot; href&#x3D;&quot;/&quot;&gt;Facebook&lt;/a&gt;</code></pre>
-      </div
+      ><div class="code-block block span-4/7">
+          <pre class="prettyprint lang-html scroll hidden-scroll"><code data-language="html">&lt;a class&#x3D;&quot;fb-thumb thumb&quot; href&#x3D;&quot;/&quot;&gt;Facebook&lt;/a&gt;</code></pre>
+        </div
       >
 
     
-</article>
 
 <!-- SCRIPTS -->
 <script src="kss-assets/kss.js"></script>
