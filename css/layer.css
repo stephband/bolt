@@ -9,9 +9,8 @@ Markup: <div class="block" style="height: 200px">
   <div class="layer neutral-bg-2"></div>
 </div>
 
-Styleguide: 4.layer
+Styleguide: 1.3
 */
-
 
 .layer {
 	/* Permit possible scrollbars. */
@@ -65,26 +64,28 @@ Styleguide: 4.layer
 }
 
 /*
-.dialog-layer
+.dialog
 
-A fixed positioned 'layer' with a translucent background color that fills
-the window. A <code>.dialog</code> inside a dialog layer is automatically
-centered horizontally and vertically and scrollable.
-
-Markup: <div class="dialog-layer layer">
-	<div class="dialog">
-		<h1>Hello</h1>
-	</div>
+Markup: <div class="block" style="height: 200px; position: relative;">
+    <div class="dialog-layer layer">
+        <div class="dialog">
+            <h1>Hello</h1>
+        </div>
+    </div>
 </div>
 
-Styleguide: 4.layer.dialog-layer
+Styleguide: 4.dialog
 */
 
 .dialog-layer {
-	position: fixed;
+	position: absolute;
 	background-image: none;
 	background-color: rgba(31, 32, 33, 0.746094);
 	z-index: 4;
+}
+
+body > .dialog-layer {
+	position: fixed;
 }
 
 .middle,

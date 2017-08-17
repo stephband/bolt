@@ -331,8 +331,9 @@ blockquote        { margin-top: 1.25rem; }
 li                { margin-bottom: 0;}
 
 blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
-pre,
-address           { margin-top: 1.3333em; }
+
+/*pre,
+address           { margin-top: 1.3333em; }*/
 
 /* Inline elements */
 

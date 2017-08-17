@@ -54,6 +54,18 @@
 
 	  pre,
 	  pre code { white-space: pre; }
+
+	  .demo-block {
+		  min-height: 0;
+		  box-shadow: inset 0 0 0 1px #eeeeee;
+		  /*background-color: #f8f8f8;*/
+		  border-width: 0 !important;
+		  background-image:
+		  	linear-gradient(#eeeeee 0px, #eeeeee 1px, transparent 1px, transparent 10px),
+		  	linear-gradient(to right, #eeeeee 0px, #eeeeee 1px, transparent 1px, transparent 10px);
+		  background-size: 10px 10px;
+		  background-repeat: repeat;
+	  }
   </style>
 </head>
 <body id="kss-node" {{#if template.isItem}}class="kss-fullscreen-mode"{{/if}}>
@@ -228,7 +240,7 @@
           {{/if}}
           -->
 
-          <div class="kss-modifier__example">
+          <div class="demo-block block kss-modifier__example">
             {{{example}}}
             <div class="kss-modifier__example-footer"></div>
           </div>

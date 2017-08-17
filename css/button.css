@@ -145,8 +145,6 @@ Styleguid forms.button
 /*
 .select-button
 
-For wrapping a select in label and giving it custom style.
-
 Markup: <label class="select-button button">
   <select>
     <option value="1">One</option>

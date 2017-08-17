@@ -41,14 +41,8 @@ fieldset + fieldset {
 /*
 .radio-label
 
-A radio input wrapped in a label that gives it custom style. Depends on JS,
-so the style is enhanced only where the class <code>js</code> is present on
-a parent.
-
-Markup: <label class="radio-label" for="radio-1">
-  <input type="radio" id="radio-1" />
-  Yes, choose me!
-</label>
+Markup: <input type="radio" class="masked" id="radio-1" />
+<label class="radio-label" for="radio-1">Yes, choose me!</label>
 
 Styleguide: 3.radio-label
 */
@@ -56,14 +50,8 @@ Styleguide: 3.radio-label
 /*
 .checkbox-label
 
-A checkbox input wrapped in a label that gives it custom style. Depends on JS,
-so the style is enhanced only where the class <code>js</code> is present on
-a parent.
-
-Markup: <label class="checkbox-label" for="checkbox-1">
-  <input type="checkbox" id="checkbox-1" />
-  Yes, choose me!
-</label>
+Markup: <input type="checkbox" class="masked" id="checkbox-1" />
+<label class="checkbox-label" for="checkbox-1">Yes, choose me!</label>
 
 Styleguide: 3.checkbox-label
 */

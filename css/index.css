@@ -42,10 +42,6 @@ Styleguide: 1.2
 /*
 .crumb-index
 
-A <code>'>'</code> character delimited list on one line for making navigation
-breadcrumbs. <code class="html-tag">li</code>s are inline-blocks, so they should
-have no spaces between them.
-
 Markup: <ul class="crumb-index index">
    <li><a href="#path">path</a></li
   ><li><a href="#to">to</a></li
@@ -81,8 +77,6 @@ Styleguide: 1.2.crumb-index
 
 /*
 .inline-index
-
-Horizontal layout of <code>li</code>s.
 
 Markup: <ul class="inline-index index">
    <li><a class="button" href="#">One</a></li

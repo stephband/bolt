@@ -3,10 +3,7 @@
 
   "builder": "kss",
 
-  "source": [
-    "css",
-    "scss"
-  ],
+  "source": ["css"],
 
   "destination":  "styleguide/",
 
