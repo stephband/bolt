@@ -1,6 +1,5 @@
 
 .dialog-layer {
-	position: fixed;
 	background-image: none;
 	background-color: rgba(31, 32, 33, 0.746094);
 	z-index: 4;
@@ -41,11 +40,7 @@
 /*
 .dialog
 
-A fixed positioned 'layer' with a translucent background color that fills
-the window. A <code>.dialog</code> inside a dialog layer is automatically
-centered horizontally and vertically and scrollable.
-
-Markup: <div class="block" style="height: 200px">
+Markup: <div class="block" style="height: 7.5rem;">
   <div class="dialog-layer layer">
     <div class="dialog">
       <h1>Hello</h1>
