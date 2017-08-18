@@ -248,10 +248,8 @@ Styleguide: 3.select-button
 /*
 .radio-button
 
-Markup: <label class="radio-button button" for="radio-2">
-  <input type="radio" id="radio-2" />
-  Choose me!
-</label>
+Markup: <input class="masked" type="radio" id="radio-2" />
+<label class="radio-button button" for="radio-2">Choose me!</label>
 
 Styleguide: 3.radio-button
 */
@@ -259,10 +257,8 @@ Styleguide: 3.radio-button
 /*
 .checkbox-button
 
-Markup: <label class="checkbox-button button" for="checkbox-2">
-  <input type="checkbox" id="checkbox-2" />
-  Choose me!
-</label>
+Markup: <input class="masked" type="checkbox" id="checkbox-2" />
+<label class="checkbox-button button" for="checkbox-2">Choose me!</label>
 
 Styleguide: 3.checkbox-button
 */
@@ -271,5 +267,5 @@ Styleguide: 3.checkbox-button
 .checkbox-button {
 	/* A hidden overflow would hide the browser generated error messages.
 	   No no no. Make sure it's visible. */
-	overflow: visible;
+	/*overflow: visible;*/
 }

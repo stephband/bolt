@@ -40,42 +40,6 @@ Styleguide: 1.2
 
 
 /*
-.crumb-index
-
-Markup: <ul class="crumb-index index">
-   <li><a href="#path">path</a></li
-  ><li><a href="#to">to</a></li
-  ><li><a href="#document">document</a></li>
-</ul>
-
-Styleguide: 1.2.crumb-index
-*/
-
-.crumb-index,
-.crumb-index > li {
-	display: inline-block;
-	white-space: nowrap;
-	line-height: 1.25rem;
-}
-
-.crumb-index > li + li::before {
-	content: ">";
-	display: inline-block;
-	vertical-align: baseline;
-	width: 1.5rem;
-	text-align: center;
-}
-
-.crumb-index > li > a {
-	text-decoration: none;
-}
-
-.crumb-index > li:last-child > a {
-	color: blue;
-}
-
-
-/*
 .inline-index
 
 Markup: <ul class="inline-index index">

@@ -1,0 +1,24 @@
+/*
+Position
+
+.tl             - position absolutely at the top left.
+.tr             - position absolutely at the top right.
+.bl             - position absolutely at the bottom left.
+.br             - position absolutely at the bottom right.
+.top-align      - vertical align to top.
+.middle-align   - vertical align to middle.
+.bottom-align   - vertical align to bottom.
+.baseline-align - vertical align to baseline.
+.left-align     - text align left.
+.justify-align  - text align justify.
+.center-align   - text align center.
+.right-align    - text align right.
+
+Styleguide: 5.position
+*/
+
+.tl, .tr, .bl, .br { position: absolute; }
+.tl, .tr { top: 0; }
+.bl, .br { bottom: 0; }
+.tl, .bl { left: 0; }
+.tr, .br { right: 0; }

@@ -22,8 +22,8 @@
     "../css/grid.css",
     "../css/text.css",
     "../css/color.css",
-    "../css/utilities.css",
-    "../css/dom.css",
+    "../css/modifiers.css",
+    "../css/body.css",
     "../css/nav.css"
   ],
 

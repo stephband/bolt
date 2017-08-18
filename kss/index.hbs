@@ -2,7 +2,9 @@
 <html class="no-js" lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{{options.title}}</title>
+
+  <title>Bolt</title>
+  <script>document.documentElement.className = 'js';</script>
 
   <meta name="description" content="">
   <meta name="generator" content="kss-node">
@@ -54,15 +56,15 @@
 	  
 	  .text-7, code { font-family: 'Inconsolata', monospace; }
 	  a.text-7 { text-decoration: none; }
-	  .text-9 { font-size: 0.75rem; line-height: 0.9375rem; }
+	  .text-source { font-size: 0.75rem; line-height: 0.9375rem; }
 
 	  .text-2 { line-height: 1.5rem; }
 
-	  .text-1 + .text-9,
-	  .text-2 + .text-9,
-	  .text-3 + .text-9 { margin-top: 0.1875rem; }
+	  .text-1 + .text-source,
+	  .text-2 + .text-source,
+	  .text-3 + .text-source { margin-top: 0.1875rem; }
 
-	  .text-9 + * { margin-top: 1.125rem; }
+	  .text-source + * { margin-top: 1.125rem; }
 
 	  .class-index + .text-4 { margin-top: 1.125rem; }
 	  .text-4 + .class-index { margin-top: 0.9375rem; }
@@ -161,7 +163,7 @@
 		  line-height: 1.3125rem;
 	  }
 	
-	  .source-text { opacity: 0.5; transition: opacity 0.6s linear; }
+	  .text-source { opacity: 0.5; transition: opacity 0.6s linear; margin-left: 0.375rem; }
 	  section:hover .source-text { opacity: 1; }
   </style>
 </head>
@@ -218,7 +220,7 @@
     {{#if @first}}{{else}}
     <section id="kssref-{{referenceURI}}" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h{{depth}} class="text-{{depth}}" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-{{referenceURI}}">
             <!--span class="kss-title__ref">
@@ -232,14 +234,13 @@
               </span>
             </span-->
             <code>{{header}}</code>
+            {{#if source.filename}}
+            <code class="text-source">{{source.filename}}:{{source.line}}</code>
+            {{/if}}
           </a>
         </h{{depth}}
 
-        ></header>{{/if}}{{#if source.filename}}<p class="block grid-1/7 source-text text-9 right-align">
-          <code>{{source.filename}}:{{source.line}}</code>
-        </p
-  
-    	>{{/if}}<div class="description-block block grid-3/7">
+        ></header>{{/if}}<div class="description-block block grid-3/7">
             {{#if description}}{{{description}}}{{/if}}
         </div>
 
