@@ -1,0 +1,29 @@
+
+$components:
+	'header.css' header-block,
+	'footer.css' footer-block !default;
+
+
+@mixin component($file: '', $class: '') {
+	.debug .#{$class}:hover {
+		box-shadow:
+			inset 0 0 0 1px red,
+			0 0 0 1px red;
+	}
+
+	.debug .#{$class}:hover::after {
+		content: '#{$file}';
+		position: absolute;
+		top: 0;
+		left: 0;
+		padding: 0.125rem 0.25rem;
+		font-size: 0.625rem;
+		color: white;
+		background-color: red;
+		z-index: 1001;
+	}
+}
+
+@each $component in $components {
+	@include component(nth($component, 1), nth($component, 2));
+}
