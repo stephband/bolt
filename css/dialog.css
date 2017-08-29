@@ -82,7 +82,10 @@ Styleguide: 4.dialog
 .dialog > embed,
 .dialog > iframe {
 	/* Don't allow media to break out of container bounds. */
-	max-width: 100%;
+	width: 100%;
+	max-width: none;
+	object-fit: contain;
+	object-position: 50% 50%;
 }
 
 .dialog > img,
@@ -91,11 +94,5 @@ Styleguide: 4.dialog
 .dialog > canvas {
 	/* Allow images to rescale freely. */
 	height: auto;
-}
-
-.dialog > .close-thumb {
-	position: absolute;
-	top: -0.9375rem;
-	right: -0.9375rem;
-	z-index: 2;
+	max-height: calc(100vh - 6rem);
 }
