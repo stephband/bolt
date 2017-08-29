@@ -118,8 +118,52 @@ Styleguide: 1.1.toggle-block
 /*
 .swipe-block
 
-Styleguide: 1.1.swipe-block
+Markup: <div class="swipe-block block slideable swipeable">
+    <div class="slock switchable" id="slide-0">
+        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 1" draggable="false" />
+    </div
+    ><div class="block switchable" id="slide-1">
+        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 2" draggable="false" />
+    </div
+    ><div class="block switchable" id="slide-2">
+        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 3" draggable="false" />
+    </div>
+</div>
+
+Styleguide: 4.slides
 */
+
+.swipe-block {
+	white-space: nowrap;
+}
+
+.swipe-block > .block {
+	display: inline-block;
+	margin-left: 0;
+	margin-right: 0;
+	width: 100%;
+}
+
+.swipe-block > img,
+.swipe-block > .block > img {
+	width: 100%;
+	height: auto;
+	max-width: none;
+	max-height: calc(100vh - 6rem);
+	object-fit: contain;
+	object-position: 50% 50%;
+}
+
+.swipe-block > .block,
+.swipe-block > .block:focus,
+.swipe-block > .block > img,
+.swipe-block > .block > img:focus {
+	outline: none;
+}
+
+.swipe-block > .block + .block {
+	margin-left: 0;
+}
 
 .js .swipe-block {
 	/* A nice bit of hardware acceleration should help the transitions run
@@ -146,121 +190,5 @@ Styleguide: 1.1.swipe-block
 	.js .swipe-block {
 		position: static;
 		transition: none !important;
-	}
-}
-
-
-/*
-.slides-block
-
-A wrapper for <code>slide-block</code>s and <code>ctrl-button</code>s.
-
-Styleguide: 1.1.slides-block-1
-*/
-
-.slides-block {
-	overflow: hidden;
-	background-color: #cecece;
-}
-
-.slides-block > .prev-thumb,
-.slides-block > .next-thumb {
-	position: absolute;
-	top: 50%;
-	margin-top: -1.375rem;
-	z-index: 3;
-}
-
-.slides-block > .prev-thumb {
-	left: 0;
-}
-
-.slides-block > .next-thumb {
-	right: 0;
-}
-
-
-/*
-.slide-block
-
-An inline-block set up for left-right transitions between it and it's siblings.
-<code>slide-block</code>s are only styled as slides where the <code>js</code>
-class is on an ancestor, as they require JS to be enhanced as swipeable.
-
-Markup: <div class="slides-block block">
-  <img class="slide-block block slide active" id="slide-1" src="//source.unsplash.com/category/nature/520x310"
-  /><img class="slide-block block slide" id="slide-2" src="//source.unsplash.com/category/nature/520x310"
-  /><img class="slide-block block slide" id="slide-3" src="//source.unsplash.com/category/nature/520x310" />
-  <a class="prev-thumb thumb" href="#slide-1">Previous</a>
-  <a class="next-thumb thumb" href="#slide-2">Next</a>
-</div>
-
-Styleguide: 1.1.slides-block-2
-*/
-
-.slide-block {
-	display: inline-block;
-	width: 100%;
-	/* Give all sbling slide-blocks the same origin by overlapping. */
-	margin-right: -100%;
-	vertical-align: middle;
-}
-
-.js .slide-block {
-	/* By default all slides are positioned off to the left. */
-	left: -100%;
-	overflow: hidden;
-	z-index: 1;
-
-	-webkit-touch-callout: none;
-	  -webkit-user-select: none;
-	     -moz-user-select: none;
-	      -ms-user-select: none;
-	          user-select: none;
-
-	/* A nice bit of hardware acceleration should help the transitions run
-	   smoothly. */
-	-webkit-transform: translate3d(0,0,0);
-	    -ms-transform: translate3d(0,0,0);
-	        transform: translate3d(0,0,0);
-
-	-webkit-transition-property: left, height;
-	        transition-property: left, height;
-	-webkit-transition-duration: 333ms;
-	        transition-duration: 333ms;
-	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-}
-
-.js .slide-block.active {
-	/* The .active slide is positioned in the centre. */
-	left: 0;
-	height: auto;
-	overflow: visible;
-	z-index: 2;
-}
-
-.js .slide-block.active ~ .slide-block {
-	/* All slides after the .active slide are positioned off to
-	   the right. */
-	left: 100%;
-}
-
-.js .slide-block.active ~ .slide-block.active {
-	/* Except, of course, any that are still active. */
-	left: 0;
-}
-
-@media print {
-	.js .slide-block {
-		position: static;
-		left: 0;
-		width: 34%;
-		height: auto;
-		margin-right: 3%;
-	}
-
-	.js .slide-block:nth-child(3n) {
-		margin-right: 0;
 	}
 }
