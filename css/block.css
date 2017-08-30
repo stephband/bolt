@@ -118,7 +118,7 @@ Styleguide: 1.1.toggle-block
 /*
 .swipe-block
 
-Markup: <div class="swipe-block block slideable swipeable">
+Markup: <div class="swipe-block block swipeable swipeable">
     <div class="slock switchable" id="slide-0">
         <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 1" draggable="false" />
     </div
