@@ -398,11 +398,11 @@ Styleguide: 5.scroll-3
 .y-scroll  { overflow-x: hidden; }
 
 /*
-.noscroll
+.no-scroll
 
 Hides overflow.
 
-Markup: <pre class="noscroll" style="height: 7.5rem;">
+Markup: <pre class="no-scroll" style="height: 7.5rem;">
 Crunchum ipsum dolor sit coder void, constructor function,
 sed do while loop python orientation semi colon incident.
 Duis aute irure indent tabs or spaces velit esse cilium
@@ -415,4 +415,5 @@ sed souvent suckum in internet explorum.
 Styleguide: 5.scroll-4
 */
 
-.noscroll { overflow: hidden !important; }
+.noscroll,
+.no-scroll { overflow: hidden !important; }
