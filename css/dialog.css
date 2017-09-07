@@ -8,6 +8,7 @@
 		visibility 0.3s linear,
 		opacity 0.3s linear;
 	z-index: 6;
+	cursor: pointer;
 }
 
 .dialog-layer.active {
