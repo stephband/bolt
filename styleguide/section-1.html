@@ -2,7 +2,9 @@
 <html class="no-js" lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Bolt.</title>
+
+  <title>Bolt</title>
+  <script>document.documentElement.className = 'js';</script>
 
   <meta name="description" content="">
   <meta name="generator" content="kss-node">
@@ -22,8 +24,8 @@
 <link rel="stylesheet" href="../css/grid.css">
 <link rel="stylesheet" href="../css/text.css">
 <link rel="stylesheet" href="../css/color.css">
-<link rel="stylesheet" href="../css/utilities.css">
-<link rel="stylesheet" href="../css/dom.css">
+<link rel="stylesheet" href="../css/modifiers.css">
+<link rel="stylesheet" href="../css/body.css">
 <link rel="stylesheet" href="../css/nav.css">
 
 
@@ -69,15 +71,15 @@
 	  
 	  .text-7, code { font-family: 'Inconsolata', monospace; }
 	  a.text-7 { text-decoration: none; }
-	  .text-9 { font-size: 0.75rem; line-height: 0.9375rem; }
+	  .text-source { font-size: 0.75rem; line-height: 0.9375rem; }
 
 	  .text-2 { line-height: 1.5rem; }
 
-	  .text-1 + .text-9,
-	  .text-2 + .text-9,
-	  .text-3 + .text-9 { margin-top: 0.1875rem; }
+	  .text-1 + .text-source,
+	  .text-2 + .text-source,
+	  .text-3 + .text-source { margin-top: 0.1875rem; }
 
-	  .text-9 + * { margin-top: 1.125rem; }
+	  .text-source + * { margin-top: 1.125rem; }
 
 	  .class-index + .text-4 { margin-top: 1.125rem; }
 	  .text-4 + .class-index { margin-top: 0.9375rem; }
@@ -93,7 +95,6 @@
           height: 100%;
           overflow: auto;
           padding: 1.5rem 0.75rem 1.5rem 1.125rem;
-          z-index: 2;
           background-color: white;
       }
 
@@ -176,7 +177,7 @@
 		  line-height: 1.3125rem;
 	  }
 	
-	  .source-text { opacity: 0.5; transition: opacity 0.6s linear; }
+	  .text-source { opacity: 0.5; transition: opacity 0.6s linear; margin-left: 0.375rem; }
 	  section:hover .source-text { opacity: 1; }
   </style>
 </head>
@@ -534,15 +535,15 @@
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-4.html#kssref-4-card">
+                <a class="text-7" href="section-4.html#kssref-4-dialog">
                   <!--span class="kss-nav__ref ">4.3</span
-                  ><span class="kss-nav__name"-->.card<!--/span-->
+                  ><span class="kss-nav__name"-->.dialog<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-4.html#kssref-4-dialog">
+                <a class="text-7" href="section-4.html#kssref-4-slides">
                   <!--span class="kss-nav__ref ">4.4</span
-                  ><span class="kss-nav__name"-->.dialog<!--/span-->
+                  ><span class="kss-nav__name"-->.swipe-block<!--/span-->
                 </a>
               </li>
               <li>
@@ -558,57 +559,171 @@
         </h2>
             <ul class="class-index index" style="padding-left: 0;">
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-colour">
+                <a class="text-7" href="section-5.html#kssref-5-active">
                   <!--span class="kss-nav__ref ">5.1</span
-                  ><span class="kss-nav__name"-->Colour<!--/span-->
+                  ><span class="kss-nav__name"-->.active<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-modify">
+                <a class="text-7" href="section-5.html#kssref-5-align-1">
                   <!--span class="kss-nav__ref ">5.2</span
-                  ><span class="kss-nav__name"-->Modify<!--/span-->
+                  ><span class="kss-nav__name"-->.top-align<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-position">
+                <a class="text-7" href="section-5.html#kssref-5-align-2">
                   <!--span class="kss-nav__ref ">5.3</span
-                  ><span class="kss-nav__name"-->Position<!--/span-->
+                  ><span class="kss-nav__name"-->.bottom-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-align-3">
+                  <!--span class="kss-nav__ref ">5.4</span
+                  ><span class="kss-nav__name"-->.middle-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-align-4">
+                  <!--span class="kss-nav__ref ">5.5</span
+                  ><span class="kss-nav__name"-->.baseline-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-align-5">
+                  <!--span class="kss-nav__ref ">5.6</span
+                  ><span class="kss-nav__name"-->.left-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-align-6">
+                  <!--span class="kss-nav__ref ">5.7</span
+                  ><span class="kss-nav__name"-->.right-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-align-7">
+                  <!--span class="kss-nav__ref ">5.8</span
+                  ><span class="kss-nav__name"-->.center-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-align-8">
+                  <!--span class="kss-nav__ref ">5.9</span
+                  ><span class="kss-nav__name"-->.justify-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-color-1">
+                  <!--span class="kss-nav__ref ">5.10</span
+                  ><span class="kss-nav__name"-->.black-fg, .black-bg<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-color-2">
+                  <!--span class="kss-nav__ref ">5.11</span
+                  ><span class="kss-nav__name"-->.white-fg, .white-bg<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-disabled">
+                  <!--span class="kss-nav__ref ">5.12</span
+                  ><span class="kss-nav__name"-->.disabled<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-float-clear">
+                  <!--span class="kss-nav__ref ">5.13</span
+                  ><span class="kss-nav__name"-->.clear<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-float-left">
+                  <!--span class="kss-nav__ref ">5.14</span
+                  ><span class="kss-nav__name"-->.left<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-float-right">
+                  <!--span class="kss-nav__ref ">5.15</span
+                  ><span class="kss-nav__name"-->.right<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-hidden">
+                  <!--span class="kss-nav__ref ">5.16</span
+                  ><span class="kss-nav__name"-->.hidden<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-hidden-shown">
+                  <!--span class="kss-nav__ref ">5.17</span
+                  ><span class="kss-nav__name"-->.shown<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-masked">
+                  <!--span class="kss-nav__ref ">5.18</span
+                  ><span class="kss-nav__name"-->.masked<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-notransition">
+                  <!--span class="kss-nav__ref ">5.19</span
+                  ><span class="kss-nav__name"-->.notransition<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-on">
+                  <!--span class="kss-nav__ref ">5.20</span
+                  ><span class="kss-nav__name"-->.on<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-on-hidden">
+                  <!--span class="kss-nav__ref ">5.21</span
+                  ><span class="kss-nav__name"-->.on-hidden<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-on-shown">
+                  <!--span class="kss-nav__ref ">5.22</span
+                  ><span class="kss-nav__name"-->.on-shown<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-requested">
+                  <!--span class="kss-nav__ref ">5.23</span
+                  ><span class="kss-nav__name"-->.requested<!--/span-->
                 </a>
               </li>
               <li>
                 <a class="text-7" href="section-5.html#kssref-5-scroll">
-                  <!--span class="kss-nav__ref ">5.4</span
+                  <!--span class="kss-nav__ref ">5.24</span
                   ><span class="kss-nav__name"-->.scroll<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-scroll-hidden">
-                  <!--span class="kss-nav__ref ">5.5</span
+                <a class="text-7" href="section-5.html#kssref-5-scroll-1">
+                  <!--span class="kss-nav__ref ">5.25</span
                   ><span class="kss-nav__name"-->.hidden-scroll<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-scroll-no">
-                  <!--span class="kss-nav__ref ">5.6</span
-                  ><span class="kss-nav__name"-->.no-scroll<!--/span-->
-                </a>
-              </li>
-              <li>
-                <a class="text-7" href="section-5.html#kssref-5-scroll-x">
-                  <!--span class="kss-nav__ref ">5.7</span
+                <a class="text-7" href="section-5.html#kssref-5-scroll-2">
+                  <!--span class="kss-nav__ref ">5.26</span
                   ><span class="kss-nav__name"-->.x-scroll<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-scroll-y">
-                  <!--span class="kss-nav__ref ">5.8</span
+                <a class="text-7" href="section-5.html#kssref-5-scroll-3">
+                  <!--span class="kss-nav__ref ">5.27</span
                   ><span class="kss-nav__name"-->.y-scroll<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-transition">
-                  <!--span class="kss-nav__ref ">5.9</span
-                  ><span class="kss-nav__name"-->Transition<!--/span-->
+                <a class="text-7" href="section-5.html#kssref-5-scroll-4">
+                  <!--span class="kss-nav__ref ">5.28</span
+                  ><span class="kss-nav__name"-->.no-scroll<!--/span-->
                 </a>
               </li>
             </ul>
@@ -616,11 +731,7 @@
 </div>
 
 
-    <p class="block grid-1/7 source-text text-9 right-align">
-          <code>block.css:1</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+    <div class="description-block block grid-3/7">
             
         </div>
 
@@ -630,7 +741,7 @@
     
     <section id="kssref-1-1" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-1">
             <!--span class="kss-title__ref">
@@ -640,14 +751,11 @@
               </span>
             </span-->
             <code>.block</code>
+            <code class="text-source">block.css:7</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>block.css:7</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             <p>For layout. There are two ways a <code>.block</code> can be styled: as a
 <code>block</code>, for a vertical layout, or as <code>inline-block</code>, for
 a horizontal layout. <code>block</code> by default, obviously.</p>
@@ -664,7 +772,7 @@ will scale the element to fill the available width.</p>
     
     <section id="kssref-1-1-grid-block" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-1-grid-block">
             <!--span class="kss-title__ref">
@@ -674,14 +782,11 @@ will scale the element to fill the available width.</p>
               </span>
             </span-->
             <code>.grid-block</code>
+            <code class="text-source">grid.css:5</code>
           </a>
         </h3
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:5</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             <p>Wraps rows of child <code>block</code>s to form a grid with gutters.
 Child <code>block</code>s are rendered as <code>inline-block</code>s,
 horizontal margins are set to create gutter spacings, and vertical margins
@@ -724,7 +829,7 @@ set to the vertical grid.</p>
     
     <section id="kssref-1-1-inline-block" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-1-inline-block">
             <!--span class="kss-title__ref">
@@ -734,124 +839,11 @@ set to the vertical grid.</p>
               </span>
             </span-->
             <code>.inline-block</code>
+            <code class="text-source">block.css:53</code>
           </a>
         </h3
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>block.css:53</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
-            
-        </div>
-
-
-
-    </section>
-    
-    <section id="kssref-1-1-slides-block-1" class="grid-block block">
-
-      <header class="block grid-2/7">
-        <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
-          <a class="kss-title__permalink" href="#kssref-1-1-slides-block-1">
-            <!--span class="kss-title__ref">
-              1.1.3
-              <span class="kss-title__permalink-hash">
-                  #1.1.slides-block-1
-              </span>
-            </span-->
-            <code>.slides-block</code>
-          </a>
-        </h3
-
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>block.css:153</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
-            <p>A wrapper for <code>slide-block</code>s and <code>ctrl-button</code>s.</p>
-
-        </div>
-
-
-
-    </section>
-    
-    <section id="kssref-1-1-slides-block-2" class="grid-block block">
-
-      <header class="block grid-2/7">
-        <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
-          <a class="kss-title__permalink" href="#kssref-1-1-slides-block-2">
-            <!--span class="kss-title__ref">
-              1.1.4
-              <span class="kss-title__permalink-hash">
-                  #1.1.slides-block-2
-              </span>
-            </span-->
-            <code>.slide-block</code>
-          </a>
-        </h3
-
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>block.css:183</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
-            <p>An inline-block set up for left-right transitions between it and it&#39;s siblings.
-<code>slide-block</code>s are only styled as slides where the <code>js</code>
-class is on an ancestor, as they require JS to be enhanced as swipeable.</p>
-
-        </div>
-
-<div class="demo-block block span-3/7">
-          <!--div class="kss-modifier__heading kss-style">
-            Example
-          </div>
-
-          -->
-
-          <div class="slides-block block">
-  <img class="slide-block block slide active" id="slide-1" src="//source.unsplash.com/category/nature/520x310"
-  /><img class="slide-block block slide" id="slide-2" src="//source.unsplash.com/category/nature/520x310"
-  /><img class="slide-block block slide" id="slide-3" src="//source.unsplash.com/category/nature/520x310" />
-  <a class="prev-thumb thumb" href="#slide-1">Previous</a>
-  <a class="next-thumb thumb" href="#slide-2">Next</a>
-</div>
-
-        </div
-      ><div class="code-block block span-4/7">
-          <pre class="prettyprint lang-html scroll hidden-scroll"><code data-language="html">&lt;div class&#x3D;&quot;slides-block block&quot;&gt;
-  &lt;img class&#x3D;&quot;slide-block block slide active&quot; id&#x3D;&quot;slide-1&quot; src&#x3D;&quot;//source.unsplash.com/category/nature/520x310&quot;
-  /&gt;&lt;img class&#x3D;&quot;slide-block block slide&quot; id&#x3D;&quot;slide-2&quot; src&#x3D;&quot;//source.unsplash.com/category/nature/520x310&quot;
-  /&gt;&lt;img class&#x3D;&quot;slide-block block slide&quot; id&#x3D;&quot;slide-3&quot; src&#x3D;&quot;//source.unsplash.com/category/nature/520x310&quot; /&gt;
-  &lt;a class&#x3D;&quot;prev-thumb thumb&quot; href&#x3D;&quot;#slide-1&quot;&gt;Previous&lt;/a&gt;
-  &lt;a class&#x3D;&quot;next-thumb thumb&quot; href&#x3D;&quot;#slide-2&quot;&gt;Next&lt;/a&gt;
-&lt;/div&gt;</code></pre>
-        </div
-      >
-
-    </section>
-    
-    <section id="kssref-1-1-swipe-block" class="grid-block block">
-
-      <header class="block grid-2/7">
-        <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
-          <a class="kss-title__permalink" href="#kssref-1-1-swipe-block">
-            <!--span class="kss-title__ref">
-              1.1.5
-              <span class="kss-title__permalink-hash">
-                  #1.1.swipe-block
-              </span>
-            </span-->
-            <code>.swipe-block</code>
-          </a>
-        </h3
-
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>block.css:118</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -861,24 +853,21 @@ class is on an ancestor, as they require JS to be enhanced as swipeable.</p>
     
     <section id="kssref-1-1-toggle-block" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-1-toggle-block">
             <!--span class="kss-title__ref">
-              1.1.6
+              1.1.3
               <span class="kss-title__permalink-hash">
                   #1.1.toggle-block
               </span>
             </span-->
             <code>.toggle-block</code>
+            <code class="text-source">block.css:63</code>
           </a>
         </h3
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>block.css:63</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             <p>A block animated to behave like a drawer that reveals content when the class
 <code>active</code> is added. Note in this example the class <code>toggle</code>
 is an action class that gives the block <code>active</code> when a link that
@@ -915,7 +904,7 @@ references it is clicked.</p>
     
     <section id="kssref-1-2" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-2">
             <!--span class="kss-title__ref">
@@ -925,14 +914,11 @@ references it is clicked.</p>
               </span>
             </span-->
             <code>.index</code>
+            <code class="text-source">index.css:1</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>index.css:1</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             <p>Applied to <code class="html-tag">ul</code>, <code class="html-tag">ol</code>
 and <code class="html-tag">dl</code> elements to zero their default typographic
 style. Child <code class="html-tag">li</code>s are blocks, but they are set up
@@ -963,74 +949,23 @@ to play nice as inline-blocks too.</p>
 
     </section>
     
-    <section id="kssref-1-2-crumb-index" class="grid-block block">
-
-      <header class="block grid-2/7">
-        <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
-          <a class="kss-title__permalink" href="#kssref-1-2-crumb-index">
-            <!--span class="kss-title__ref">
-              1.2.1
-              <span class="kss-title__permalink-hash">
-                  #1.2.crumb-index
-              </span>
-            </span-->
-            <code>.crumb-index</code>
-          </a>
-        </h3
-
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>index.css:42</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
-            
-        </div>
-
-<div class="demo-block block span-3/7">
-          <!--div class="kss-modifier__heading kss-style">
-            Example
-          </div>
-
-          -->
-
-          <ul class="crumb-index index">
-   <li><a href="#path">path</a></li
-  ><li><a href="#to">to</a></li
-  ><li><a href="#document">document</a></li>
-</ul>
-
-        </div
-      ><div class="code-block block span-4/7">
-          <pre class="prettyprint lang-html scroll hidden-scroll"><code data-language="html">&lt;ul class&#x3D;&quot;crumb-index index&quot;&gt;
-   &lt;li&gt;&lt;a href&#x3D;&quot;#path&quot;&gt;path&lt;/a&gt;&lt;/li
-  &gt;&lt;li&gt;&lt;a href&#x3D;&quot;#to&quot;&gt;to&lt;/a&gt;&lt;/li
-  &gt;&lt;li&gt;&lt;a href&#x3D;&quot;#document&quot;&gt;document&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
-        </div
-      >
-
-    </section>
-    
     <section id="kssref-1-2-inline-index" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-2-inline-index">
             <!--span class="kss-title__ref">
-              1.2.2
+              1.2.1
               <span class="kss-title__permalink-hash">
                   #1.2.inline-index
               </span>
             </span-->
             <code>.inline-index</code>
+            <code class="text-source">index.css:42</code>
           </a>
         </h3
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>index.css:78</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1063,7 +998,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-3" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-3">
             <!--span class="kss-title__ref">
@@ -1073,14 +1008,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.layer</code>
+            <code class="text-source">layer.css:2</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>layer.css:2</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             <p>An absolutely positioned block that fills it&#39;s position parent.</p>
 <p>Typically, used behind a .dialog to cover the page. layers are absolutely positioned, so they are not in the flow. By default a layer is scrollable, in case the content put inside it is too big for it.</p>
         </div>
@@ -1108,7 +1040,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-1-1" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-1-1">
             <!--span class="kss-title__ref">
@@ -1118,14 +1050,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-1/1</code>
+            <code class="text-source">grid.css:63</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:63</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1135,7 +1064,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-1-2" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-1-2">
             <!--span class="kss-title__ref">
@@ -1145,14 +1074,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-1/2</code>
+            <code class="text-source">grid.css:72</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:72</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1162,7 +1088,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-1-3" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-1-3">
             <!--span class="kss-title__ref">
@@ -1172,14 +1098,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-1/3</code>
+            <code class="text-source">grid.css:81</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:81</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1189,7 +1112,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-1-4" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-1-4">
             <!--span class="kss-title__ref">
@@ -1199,14 +1122,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-1/4</code>
+            <code class="text-source">grid.css:99</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:99</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1216,7 +1136,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-1-5" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-1-5">
             <!--span class="kss-title__ref">
@@ -1226,14 +1146,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-1/5</code>
+            <code class="text-source">grid.css:126</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:126</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1243,7 +1160,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-1-6" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-1-6">
             <!--span class="kss-title__ref">
@@ -1253,14 +1170,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-1/6</code>
+            <code class="text-source">grid.css:162</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:162</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1270,7 +1184,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-2-3" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-2-3">
             <!--span class="kss-title__ref">
@@ -1280,14 +1194,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-2/3</code>
+            <code class="text-source">grid.css:90</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:90</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1297,7 +1208,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-2-4" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-2-4">
             <!--span class="kss-title__ref">
@@ -1307,14 +1218,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-2/4</code>
+            <code class="text-source">grid.css:108</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:108</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1324,7 +1232,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-2-5" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-2-5">
             <!--span class="kss-title__ref">
@@ -1334,14 +1242,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-2/5</code>
+            <code class="text-source">grid.css:135</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:135</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1351,7 +1256,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-2-6" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-2-6">
             <!--span class="kss-title__ref">
@@ -1361,14 +1266,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-2/6</code>
+            <code class="text-source">grid.css:171</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:171</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1378,7 +1280,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-3-4" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-3-4">
             <!--span class="kss-title__ref">
@@ -1388,14 +1290,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-3/4</code>
+            <code class="text-source">grid.css:117</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:117</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1405,7 +1304,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-3-5" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-3-5">
             <!--span class="kss-title__ref">
@@ -1415,14 +1314,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-3/5</code>
+            <code class="text-source">grid.css:144</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:144</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1432,7 +1328,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-3-6" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-3-6">
             <!--span class="kss-title__ref">
@@ -1442,14 +1338,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-3/6</code>
+            <code class="text-source">grid.css:180</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:180</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1459,7 +1352,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-4-5" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-4-5">
             <!--span class="kss-title__ref">
@@ -1469,14 +1362,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-4/5</code>
+            <code class="text-source">grid.css:153</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:153</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1486,7 +1376,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-4-6" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-4-6">
             <!--span class="kss-title__ref">
@@ -1496,14 +1386,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-4/6</code>
+            <code class="text-source">grid.css:189</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:189</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1513,7 +1400,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-5-6" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-5-6">
             <!--span class="kss-title__ref">
@@ -1523,14 +1410,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-5/6</code>
+            <code class="text-source">grid.css:198</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:198</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1540,7 +1424,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-grid-n" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-grid-n">
             <!--span class="kss-title__ref">
@@ -1550,14 +1434,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.grid-1/n</code>
+            <code class="text-source">grid.css:3270</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:3270</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1567,7 +1448,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-1-1" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-1-1">
             <!--span class="kss-title__ref">
@@ -1577,14 +1458,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-1/1</code>
+            <code class="text-source">grid.css:338</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:338</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1594,7 +1472,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-1-2" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-1-2">
             <!--span class="kss-title__ref">
@@ -1604,14 +1482,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-1/2</code>
+            <code class="text-source">grid.css:350</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:350</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1621,7 +1496,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-1-3" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-1-3">
             <!--span class="kss-title__ref">
@@ -1631,14 +1506,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-1/3</code>
+            <code class="text-source">grid.css:362</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:362</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1648,7 +1520,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-1-4" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-1-4">
             <!--span class="kss-title__ref">
@@ -1658,14 +1530,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-1/4</code>
+            <code class="text-source">grid.css:386</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:386</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1675,7 +1544,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-1-5" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-1-5">
             <!--span class="kss-title__ref">
@@ -1685,14 +1554,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-1/5</code>
+            <code class="text-source">grid.css:422</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:422</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1702,7 +1568,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-1-6" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-1-6">
             <!--span class="kss-title__ref">
@@ -1712,14 +1578,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-1/6</code>
+            <code class="text-source">grid.css:470</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:470</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1729,7 +1592,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-2-3" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-2-3">
             <!--span class="kss-title__ref">
@@ -1739,14 +1602,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-2/3</code>
+            <code class="text-source">grid.css:374</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:374</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1756,7 +1616,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-2-4" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-2-4">
             <!--span class="kss-title__ref">
@@ -1766,14 +1626,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-2/4</code>
+            <code class="text-source">grid.css:398</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:398</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1783,7 +1640,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-2-5" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-2-5">
             <!--span class="kss-title__ref">
@@ -1793,14 +1650,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-2/5</code>
+            <code class="text-source">grid.css:434</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:434</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1810,7 +1664,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-2-6" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-2-6">
             <!--span class="kss-title__ref">
@@ -1820,14 +1674,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-2/6</code>
+            <code class="text-source">grid.css:482</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:482</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1837,7 +1688,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-3-4" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-3-4">
             <!--span class="kss-title__ref">
@@ -1847,14 +1698,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-3/4</code>
+            <code class="text-source">grid.css:410</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:410</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1864,7 +1712,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-3-5" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-3-5">
             <!--span class="kss-title__ref">
@@ -1874,14 +1722,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-3/5</code>
+            <code class="text-source">grid.css:446</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:446</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1891,7 +1736,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-3-6" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-3-6">
             <!--span class="kss-title__ref">
@@ -1901,14 +1746,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-3/6</code>
+            <code class="text-source">grid.css:494</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:494</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1918,7 +1760,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-4-5" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-4-5">
             <!--span class="kss-title__ref">
@@ -1928,14 +1770,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-4/5</code>
+            <code class="text-source">grid.css:458</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:458</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1945,7 +1784,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-4-6" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-4-6">
             <!--span class="kss-title__ref">
@@ -1955,14 +1794,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-4/6</code>
+            <code class="text-source">grid.css:506</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:506</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1972,7 +1808,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-5-6" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-5-6">
             <!--span class="kss-title__ref">
@@ -1982,14 +1818,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-5/6</code>
+            <code class="text-source">grid.css:518</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:518</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1999,7 +1832,7 @@ to play nice as inline-blocks too.</p>
     
     <section id="kssref-1-span-n" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-1-span-n">
             <!--span class="kss-title__ref">
@@ -2009,14 +1842,11 @@ to play nice as inline-blocks too.</p>
               </span>
             </span-->
             <code>.span-1/n</code>
+            <code class="text-source">grid.css:3275</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>grid.css:3275</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 

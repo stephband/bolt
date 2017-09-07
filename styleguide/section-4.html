@@ -2,7 +2,9 @@
 <html class="no-js" lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Bolt.</title>
+
+  <title>Bolt</title>
+  <script>document.documentElement.className = 'js';</script>
 
   <meta name="description" content="">
   <meta name="generator" content="kss-node">
@@ -22,8 +24,8 @@
 <link rel="stylesheet" href="../css/grid.css">
 <link rel="stylesheet" href="../css/text.css">
 <link rel="stylesheet" href="../css/color.css">
-<link rel="stylesheet" href="../css/utilities.css">
-<link rel="stylesheet" href="../css/dom.css">
+<link rel="stylesheet" href="../css/modifiers.css">
+<link rel="stylesheet" href="../css/body.css">
 <link rel="stylesheet" href="../css/nav.css">
 
 
@@ -69,15 +71,15 @@
 	  
 	  .text-7, code { font-family: 'Inconsolata', monospace; }
 	  a.text-7 { text-decoration: none; }
-	  .text-9 { font-size: 0.75rem; line-height: 0.9375rem; }
+	  .text-source { font-size: 0.75rem; line-height: 0.9375rem; }
 
 	  .text-2 { line-height: 1.5rem; }
 
-	  .text-1 + .text-9,
-	  .text-2 + .text-9,
-	  .text-3 + .text-9 { margin-top: 0.1875rem; }
+	  .text-1 + .text-source,
+	  .text-2 + .text-source,
+	  .text-3 + .text-source { margin-top: 0.1875rem; }
 
-	  .text-9 + * { margin-top: 1.125rem; }
+	  .text-source + * { margin-top: 1.125rem; }
 
 	  .class-index + .text-4 { margin-top: 1.125rem; }
 	  .text-4 + .class-index { margin-top: 0.9375rem; }
@@ -93,7 +95,6 @@
           height: 100%;
           overflow: auto;
           padding: 1.5rem 0.75rem 1.5rem 1.125rem;
-          z-index: 2;
           background-color: white;
       }
 
@@ -176,7 +177,7 @@
 		  line-height: 1.3125rem;
 	  }
 	
-	  .source-text { opacity: 0.5; transition: opacity 0.6s linear; }
+	  .text-source { opacity: 0.5; transition: opacity 0.6s linear; margin-left: 0.375rem; }
 	  section:hover .source-text { opacity: 1; }
   </style>
 </head>
@@ -534,15 +535,15 @@
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-4.html#kssref-4-card">
+                <a class="text-7" href="section-4.html#kssref-4-dialog">
                   <!--span class="kss-nav__ref ">4.3</span
-                  ><span class="kss-nav__name"-->.card<!--/span-->
+                  ><span class="kss-nav__name"-->.dialog<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-4.html#kssref-4-dialog">
+                <a class="text-7" href="section-4.html#kssref-4-slides">
                   <!--span class="kss-nav__ref ">4.4</span
-                  ><span class="kss-nav__name"-->.dialog<!--/span-->
+                  ><span class="kss-nav__name"-->.swipe-block<!--/span-->
                 </a>
               </li>
               <li>
@@ -558,57 +559,171 @@
         </h2>
             <ul class="class-index index" style="padding-left: 0;">
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-colour">
+                <a class="text-7" href="section-5.html#kssref-5-active">
                   <!--span class="kss-nav__ref ">5.1</span
-                  ><span class="kss-nav__name"-->Colour<!--/span-->
+                  ><span class="kss-nav__name"-->.active<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-modify">
+                <a class="text-7" href="section-5.html#kssref-5-align-1">
                   <!--span class="kss-nav__ref ">5.2</span
-                  ><span class="kss-nav__name"-->Modify<!--/span-->
+                  ><span class="kss-nav__name"-->.top-align<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-position">
+                <a class="text-7" href="section-5.html#kssref-5-align-2">
                   <!--span class="kss-nav__ref ">5.3</span
-                  ><span class="kss-nav__name"-->Position<!--/span-->
+                  ><span class="kss-nav__name"-->.bottom-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-align-3">
+                  <!--span class="kss-nav__ref ">5.4</span
+                  ><span class="kss-nav__name"-->.middle-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-align-4">
+                  <!--span class="kss-nav__ref ">5.5</span
+                  ><span class="kss-nav__name"-->.baseline-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-align-5">
+                  <!--span class="kss-nav__ref ">5.6</span
+                  ><span class="kss-nav__name"-->.left-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-align-6">
+                  <!--span class="kss-nav__ref ">5.7</span
+                  ><span class="kss-nav__name"-->.right-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-align-7">
+                  <!--span class="kss-nav__ref ">5.8</span
+                  ><span class="kss-nav__name"-->.center-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-align-8">
+                  <!--span class="kss-nav__ref ">5.9</span
+                  ><span class="kss-nav__name"-->.justify-align<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-color-1">
+                  <!--span class="kss-nav__ref ">5.10</span
+                  ><span class="kss-nav__name"-->.black-fg, .black-bg<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-color-2">
+                  <!--span class="kss-nav__ref ">5.11</span
+                  ><span class="kss-nav__name"-->.white-fg, .white-bg<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-disabled">
+                  <!--span class="kss-nav__ref ">5.12</span
+                  ><span class="kss-nav__name"-->.disabled<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-float-clear">
+                  <!--span class="kss-nav__ref ">5.13</span
+                  ><span class="kss-nav__name"-->.clear<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-float-left">
+                  <!--span class="kss-nav__ref ">5.14</span
+                  ><span class="kss-nav__name"-->.left<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-float-right">
+                  <!--span class="kss-nav__ref ">5.15</span
+                  ><span class="kss-nav__name"-->.right<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-hidden">
+                  <!--span class="kss-nav__ref ">5.16</span
+                  ><span class="kss-nav__name"-->.hidden<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-hidden-shown">
+                  <!--span class="kss-nav__ref ">5.17</span
+                  ><span class="kss-nav__name"-->.shown<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-masked">
+                  <!--span class="kss-nav__ref ">5.18</span
+                  ><span class="kss-nav__name"-->.masked<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-notransition">
+                  <!--span class="kss-nav__ref ">5.19</span
+                  ><span class="kss-nav__name"-->.notransition<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-on">
+                  <!--span class="kss-nav__ref ">5.20</span
+                  ><span class="kss-nav__name"-->.on<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-on-hidden">
+                  <!--span class="kss-nav__ref ">5.21</span
+                  ><span class="kss-nav__name"-->.on-hidden<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-on-shown">
+                  <!--span class="kss-nav__ref ">5.22</span
+                  ><span class="kss-nav__name"-->.on-shown<!--/span-->
+                </a>
+              </li>
+              <li>
+                <a class="text-7" href="section-5.html#kssref-5-requested">
+                  <!--span class="kss-nav__ref ">5.23</span
+                  ><span class="kss-nav__name"-->.requested<!--/span-->
                 </a>
               </li>
               <li>
                 <a class="text-7" href="section-5.html#kssref-5-scroll">
-                  <!--span class="kss-nav__ref ">5.4</span
+                  <!--span class="kss-nav__ref ">5.24</span
                   ><span class="kss-nav__name"-->.scroll<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-scroll-hidden">
-                  <!--span class="kss-nav__ref ">5.5</span
+                <a class="text-7" href="section-5.html#kssref-5-scroll-1">
+                  <!--span class="kss-nav__ref ">5.25</span
                   ><span class="kss-nav__name"-->.hidden-scroll<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-scroll-no">
-                  <!--span class="kss-nav__ref ">5.6</span
-                  ><span class="kss-nav__name"-->.no-scroll<!--/span-->
-                </a>
-              </li>
-              <li>
-                <a class="text-7" href="section-5.html#kssref-5-scroll-x">
-                  <!--span class="kss-nav__ref ">5.7</span
+                <a class="text-7" href="section-5.html#kssref-5-scroll-2">
+                  <!--span class="kss-nav__ref ">5.26</span
                   ><span class="kss-nav__name"-->.x-scroll<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-scroll-y">
-                  <!--span class="kss-nav__ref ">5.8</span
+                <a class="text-7" href="section-5.html#kssref-5-scroll-3">
+                  <!--span class="kss-nav__ref ">5.27</span
                   ><span class="kss-nav__name"-->.y-scroll<!--/span-->
                 </a>
               </li>
               <li>
-                <a class="text-7" href="section-5.html#kssref-5-transition">
-                  <!--span class="kss-nav__ref ">5.9</span
-                  ><span class="kss-nav__name"-->Transition<!--/span-->
+                <a class="text-7" href="section-5.html#kssref-5-scroll-4">
+                  <!--span class="kss-nav__ref ">5.28</span
+                  ><span class="kss-nav__name"-->.no-scroll<!--/span-->
                 </a>
               </li>
             </ul>
@@ -616,11 +731,7 @@
 </div>
 
 
-    <p class="block grid-1/7 source-text text-9 right-align">
-          <code>button.css:1</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+    <div class="description-block block grid-3/7">
             
         </div>
 
@@ -630,7 +741,7 @@
     
     <section id="kssref-4-bubble" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-4-bubble">
             <!--span class="kss-title__ref">
@@ -640,14 +751,11 @@
               </span>
             </span-->
             <code>.bubble</code>
+            <code class="text-source">bubble.css:2</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>bubble.css:2</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             <p>A tip bubble, speech bubble, description bubble or what-have-you.</p>
 
         </div>
@@ -658,7 +766,7 @@
     
     <section id="kssref-4-button" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-4-button">
             <!--span class="kss-title__ref">
@@ -668,14 +776,11 @@
               </span>
             </span-->
             <code>.button</code>
+            <code class="text-source">button.css:8</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>button.css:8</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             <p>Inline-block with padding and centered text ready to be styled as a button.
 It has no <code>background</code> or <code>border-radius</code> by default.
 Both the <code class="html-tag">button</code> element and the class
@@ -701,83 +806,24 @@ also be used on labels wrapping various form elements.</p>
 
     </section>
     
-    <section id="kssref-4-card" class="grid-block block">
-
-      <header class="block grid-2/7">
-        <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
-          <a class="kss-title__permalink" href="#kssref-4-card">
-            <!--span class="kss-title__ref">
-              4.3
-              <span class="kss-title__permalink-hash">
-                  #4.card
-              </span>
-            </span-->
-            <code>.card</code>
-          </a>
-        </h2
-
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>card.css:2</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
-            <p>A block with a fixed size <code>img</code> or <code>.thumb</code> plus
-description text, such as a product listing or article summary or user
-contact card.</p>
-
-        </div>
-
-<div class="demo-block block span-3/7">
-          <!--div class="kss-modifier__heading kss-style">
-            Example
-          </div>
-
-          -->
-
-          <article class="card">
-  <h1 class="text-3">Card title</h1>
-  <p>Crunchum ipsum dolor sit coder void, constructor function,
-  sed do while loop python orientation semi colon incident.</p>
-  <a class="thumb" href="/" style="background-image: url('//source.unsplash.com/category/nature/1300x620');"></a>
-</article>
-
-        </div
-      ><div class="code-block block span-4/7">
-          <pre class="prettyprint lang-html scroll hidden-scroll"><code data-language="html">&lt;article class&#x3D;&quot;card&quot;&gt;
-  &lt;h1 class&#x3D;&quot;text-3&quot;&gt;Card title&lt;/h1&gt;
-  &lt;p&gt;Crunchum ipsum dolor sit coder void, constructor function,
-  sed do while loop python orientation semi colon incident.&lt;/p&gt;
-  &lt;a class&#x3D;&quot;thumb&quot; href&#x3D;&quot;/&quot; style&#x3D;&quot;background-image: url(&#x27;//source.unsplash.com/category/nature/1300x620&#x27;);&quot;&gt;&lt;/a&gt;
-&lt;/article&gt;</code></pre>
-        </div
-      >
-
-    </section>
-    
     <section id="kssref-4-dialog" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-4-dialog">
             <!--span class="kss-title__ref">
-              4.4
+              4.3
               <span class="kss-title__permalink-hash">
                   #4.dialog
               </span>
             </span-->
             <code>.dialog</code>
+            <code class="text-source">dialog.css:49</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>dialog.css:41</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
-            <p>A fixed positioned &#39;layer&#39; with a translucent background color that fills
-the window. A <code>.dialog</code> inside a dialog layer is automatically
-centered horizontally and vertically and scrollable.</p>
-
+        ></header><div class="description-block block grid-3/7">
+            
         </div>
 
 <div class="demo-block block span-3/7">
@@ -787,7 +833,7 @@ centered horizontally and vertically and scrollable.</p>
 
           -->
 
-          <div class="block" style="height: 200px">
+          <div class="block" style="height: 7.5rem;">
   <div class="dialog-layer layer">
     <div class="dialog">
       <h1>Hello</h1>
@@ -797,7 +843,7 @@ centered horizontally and vertically and scrollable.</p>
 
         </div
       ><div class="code-block block span-4/7">
-          <pre class="prettyprint lang-html scroll hidden-scroll"><code data-language="html">&lt;div class&#x3D;&quot;block&quot; style&#x3D;&quot;height: 200px&quot;&gt;
+          <pre class="prettyprint lang-html scroll hidden-scroll"><code data-language="html">&lt;div class&#x3D;&quot;block&quot; style&#x3D;&quot;height: 7.5rem;&quot;&gt;
   &lt;div class&#x3D;&quot;dialog-layer layer&quot;&gt;
     &lt;div class&#x3D;&quot;dialog&quot;&gt;
       &lt;h1&gt;Hello&lt;/h1&gt;
@@ -809,9 +855,66 @@ centered horizontally and vertically and scrollable.</p>
 
     </section>
     
+    <section id="kssref-4-slides" class="grid-block block">
+
+      <header class="block span-3/7">
+        <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
+          <a class="kss-title__permalink" href="#kssref-4-slides">
+            <!--span class="kss-title__ref">
+              4.4
+              <span class="kss-title__permalink-hash">
+                  #4.slides
+              </span>
+            </span-->
+            <code>.swipe-block</code>
+            <code class="text-source">block.css:118</code>
+          </a>
+        </h2
+
+        ></header><div class="description-block block grid-3/7">
+            
+        </div>
+
+<div class="demo-block block span-3/7">
+          <!--div class="kss-modifier__heading kss-style">
+            Example
+          </div>
+
+          -->
+
+          <div class="swipe-block block swipeable swipeable">
+    <div class="slock switchable" id="slide-0">
+        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 1" draggable="false" />
+    </div
+    ><div class="block switchable" id="slide-1">
+        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 2" draggable="false" />
+    </div
+    ><div class="block switchable" id="slide-2">
+        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 3" draggable="false" />
+    </div>
+</div>
+
+        </div
+      ><div class="code-block block span-4/7">
+          <pre class="prettyprint lang-html scroll hidden-scroll"><code data-language="html">&lt;div class&#x3D;&quot;swipe-block block swipeable swipeable&quot;&gt;
+    &lt;div class&#x3D;&quot;slock switchable&quot; id&#x3D;&quot;slide-0&quot;&gt;
+        &lt;img class&#x3D;&quot;block&quot; src&#x3D;&quot;//source.unsplash.com/category/nature/1300x620&quot; alt&#x3D;&quot;Image 1&quot; draggable&#x3D;&quot;false&quot; /&gt;
+    &lt;/div
+    &gt;&lt;div class&#x3D;&quot;block switchable&quot; id&#x3D;&quot;slide-1&quot;&gt;
+        &lt;img class&#x3D;&quot;block&quot; src&#x3D;&quot;//source.unsplash.com/category/nature/1300x620&quot; alt&#x3D;&quot;Image 2&quot; draggable&#x3D;&quot;false&quot; /&gt;
+    &lt;/div
+    &gt;&lt;div class&#x3D;&quot;block switchable&quot; id&#x3D;&quot;slide-2&quot;&gt;
+        &lt;img class&#x3D;&quot;block&quot; src&#x3D;&quot;//source.unsplash.com/category/nature/1300x620&quot; alt&#x3D;&quot;Image 3&quot; draggable&#x3D;&quot;false&quot; /&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div
+      >
+
+    </section>
+    
     <section id="kssref-4-thumb" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h2 class="text-2" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-4-thumb">
             <!--span class="kss-title__ref">
@@ -821,14 +924,11 @@ centered horizontally and vertically and scrollable.</p>
               </span>
             </span-->
             <code>.thumb</code>
+            <code class="text-source">thumb.css:2</code>
           </a>
         </h2
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>thumb.css:2</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             <p>Base class for thumbnails.
 A <code>.thumb</code> is an icon or avatar or other image.
 A <code>.thumb</code> hides text content by pushing it outside the hidden overflow, displaying only it&#39;s <code>background-image</code>.
@@ -860,7 +960,7 @@ Thumb is in essence an image replacement technique.</p>
     
     <section id="kssref-4-thumb-close-thumb" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-4-thumb-close-thumb">
             <!--span class="kss-title__ref">
@@ -870,14 +970,11 @@ Thumb is in essence an image replacement technique.</p>
               </span>
             </span-->
             <code>.close-thumb</code>
+            <code class="text-source">thumb.css:79</code>
           </a>
         </h3
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>thumb.css:78</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -900,7 +997,7 @@ Thumb is in essence an image replacement technique.</p>
     
     <section id="kssref-4-thumb-dot-thumb" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-4-thumb-dot-thumb">
             <!--span class="kss-title__ref">
@@ -910,14 +1007,11 @@ Thumb is in essence an image replacement technique.</p>
               </span>
             </span-->
             <code>.dot-thumb</code>
+            <code class="text-source">thumb.css:216</code>
           </a>
         </h3
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>thumb.css:215</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -940,7 +1034,7 @@ Thumb is in essence an image replacement technique.</p>
     
     <section id="kssref-4-thumb-prev-thumb" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-4-thumb-prev-thumb">
             <!--span class="kss-title__ref">
@@ -950,14 +1044,11 @@ Thumb is in essence an image replacement technique.</p>
               </span>
             </span-->
             <code>.prev-thumb&lt;br/&gt; .next-thumb</code>
+            <code class="text-source">thumb.css:119</code>
           </a>
         </h3
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>thumb.css:118</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             <p>.prev-thumb<br/>
 .next-thumb</p>
 <p>Navigation thumbs for slideshows.</p>
@@ -985,7 +1076,7 @@ Thumb is in essence an image replacement technique.</p>
     
     <section id="kssref-4-thumb-social-thumb-1" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-4-thumb-social-thumb-1">
             <!--span class="kss-title__ref">
@@ -995,14 +1086,11 @@ Thumb is in essence an image replacement technique.</p>
               </span>
             </span-->
             <code>.fb-thumb</code>
+            <code class="text-source">thumb.css:169</code>
           </a>
         </h3
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>thumb.css:168</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1025,7 +1113,7 @@ Thumb is in essence an image replacement technique.</p>
     
     <section id="kssref-4-thumb-social-thumb-2" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-4-thumb-social-thumb-2">
             <!--span class="kss-title__ref">
@@ -1035,14 +1123,11 @@ Thumb is in essence an image replacement technique.</p>
               </span>
             </span-->
             <code>.tw-thumb</code>
+            <code class="text-source">thumb.css:177</code>
           </a>
         </h3
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>thumb.css:176</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
@@ -1065,7 +1150,7 @@ Thumb is in essence an image replacement technique.</p>
     
     <section id="kssref-4-thumb-social-thumb-3" class="grid-block block">
 
-      <header class="block grid-2/7">
+      <header class="block span-3/7">
         <h3 class="text-3" style="font-size: 1.3125rem; font-weight: 700;">
           <a class="kss-title__permalink" href="#kssref-4-thumb-social-thumb-3">
             <!--span class="kss-title__ref">
@@ -1075,14 +1160,11 @@ Thumb is in essence an image replacement technique.</p>
               </span>
             </span-->
             <code>.in-thumb</code>
+            <code class="text-source">thumb.css:185</code>
           </a>
         </h3
 
-        ></header><p class="block grid-1/7 source-text text-9 right-align">
-          <code>thumb.css:184</code>
-        </p
-  
-    	><div class="description-block block grid-3/7">
+        ></header><div class="description-block block grid-3/7">
             
         </div>
 
