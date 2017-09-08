@@ -188,15 +188,6 @@ Styleguide: 1.1.grid-block
 	padding: 0;
 }
 
-.grid-block,
-/* Override .index > li */
-.index > .grid-block {
-	margin-left:   -#{$grid-gutter / 2};
-	margin-right:  -#{$grid-gutter / 2};
-	margin-top:    -#{$grid-space / 2};
-	margin-bottom: -#{$grid-space / 2};
-}
-
 @include grid('', $grid-count, $grid-gutter, $grid-space);
 
 @each $breakpoint in $breakpoints {
