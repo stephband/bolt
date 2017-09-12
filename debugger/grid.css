@@ -3,7 +3,14 @@ body > .debug-switch {
 	position: fixed;
 	top: 0.375rem;
 	right: 0.375rem;
-	z-index: 1000000;
+	z-index: 1000001;
+}
+
+#grid-debug-input {
+	position: fixed;
+	top: 0.375rem;
+	right: 0.375rem;
+	opacity: 0;
 }
 
 body > .debug-grid-block {
@@ -20,10 +27,6 @@ body > .debug-grid-block {
 	z-index: 1000000;
 }
 
-
-
-
-
 .debug-switch {
 	text-decoration: none !important;
 	text-transform: uppercase;
@@ -32,8 +35,8 @@ body > .debug-grid-block {
 	line-height: 1.125rem;
 	padding: 0.125rem 0.375rem;
 	border-radius: 0.375rem;
-	color: white !important;
-	background-color: rgba(0,0,0,0.2);
+	color: rgba(255,255,255,0.94) !important;
+	background-color: rgba(0,0,0,0.2) !important;
 }
 
 input + .debug-switch {
@@ -41,7 +44,9 @@ input + .debug-switch {
 }
 
 input:checked + .debug-switch {
-	background-color: rgb(60,140,180);
+	color: rgba(255,255,255,1) !important;
+	background-color: rgb(60,140,180) !important;
+	text-shadow: 0 2px 1px black;
 }
 
 input:checked + .debug-switch + .debug-grid-block {
