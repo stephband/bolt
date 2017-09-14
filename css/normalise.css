@@ -128,12 +128,14 @@ a:focus {
 	outline: thin dotted;
 }
 
-a:hover,
+/* Superseded by dom.root.js, where we add classes .mouse or .keyboard
+   to the root to style focus. */
+/*a:hover,
 a:active {
 	/* Improves readability when focused and also mouse hovered in all browsers
 	   people.opera.com/patrickl/experiments/keyboard/test */
-	outline-width: 0;
-}
+	/*outline-width: 0;
+}*/
 
 abbr[title] {
 	/* Remove the bottom border in FF 39- */

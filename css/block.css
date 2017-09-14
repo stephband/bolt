@@ -149,7 +149,6 @@ Styleguide: 4.slides
 	width: 100%;
 	height: auto;
 	max-width: none;
-	max-height: calc(100vh - 6rem);
 	object-fit: contain;
 	object-position: 50% 50%;
 }

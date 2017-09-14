@@ -1,3 +1,14 @@
+
+html,
+:root {
+	height: 100%;
+	color: #000000;
+
+	/* Setting a background on <html> means that a background
+	   on <body> does not get set on <html>. Win. */
+	background-color: white;
+}
+
 /* Respond to device input classes. */
 
 .mouse *:focus {
