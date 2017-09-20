@@ -1,0 +1,258 @@
+
+/*
+.bubble
+
+A tip bubble, speech bubble, description bubble or what-have-you.
+
+Styleguide: 4.bubble
+*/
+
+.bubble {
+	top: 0;
+	left: 0;
+	/* We want the bubble to expand up to 320px, but it won't
+	   do that where it's container is smaller than
+	   left + 320, so give it a negative right. */
+	right: -20rem;
+	font-size: 1rem;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+	width: 92%;
+	max-width: 92%;
+	border-radius: 0.25rem;
+	border: 0.125rem solid #cadce3;
+	background-color: #dbe9ee;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.bubble::after {
+	display: block;
+	position: absolute;
+	width: 1.25rem;
+	height: 1.25rem;
+	transform: rotate(45deg);
+	background-color: inherit;
+	border-color: inherit;
+	border-width: inherit;
+	border-style: inherit;
+	-webkit-transition: left 120ms ease-out;
+	        transition: left 120ms ease-out;
+}
+
+.top-bubble::after,
+.bottom-bubble::after,
+.left-bubble::after,
+.right-bubble::after {
+	content: ' ';
+}
+
+.top-bubble::after,
+.bottom-bubble::after {
+	left: 50%;
+	right: auto;
+	margin-left: -0.625rem;
+}
+
+.left-bubble::after,
+.right-bubble::after {
+	top: 50%;
+	bottom: auto;
+	margin-top: -0.625rem;
+}
+
+.top-bubble::after {
+	bottom: -0.6875rem;
+	border-top-width: 0;
+	border-left-width: 0;
+	box-shadow: 3px 3px 4px rgba(0,0,0,0.3);
+}
+
+.bottom-bubble::after {
+	top: -0.6875rem;
+	border-bottom-width: 0;
+	border-right-width: 0;
+}
+
+.left-bubble::after {
+	right: -0.6875rem;
+	border-bottom: 0;
+	border-left: 0;
+	box-shadow: 3px 0px 4px -2px rgba(0,0,0,0.3);
+}
+
+.right-bubble::after {
+	left: -0.6875rem;
+	border-right: 0;
+	border-top: 0;
+	box-shadow: 0px 3px 4px -2px rgba(0,0,0,0.3);
+}
+
+.right-top-bubble::after,
+.right-bottom-bubble::after {
+	left: 83.3333%;
+}
+
+.left-top-bubble::after,
+.left-bottom-bubble::after {
+	left: 16.6667%;
+}
+
+.js .bubble {
+	position: absolute;
+	z-index: 4;
+
+	opacity: 0;
+	visibility: hidden;
+
+	-webkit-transition-property: opacity, visibility, transform;
+	        transition-property: opacity, visibility, transform;
+	-webkit-transition-duration: 120ms;
+	        transition-duration: 120ms;
+	-webkit-transition-timing-function: ease-in;
+	        transition-timing-function: ease-in;
+}
+
+.js .bubble.active {
+	opacity: 1;
+	visibility: visible;
+}
+
+.js .top-bubble {
+	-webkit-transform: translate3d(0, calc(-100% - 1.5rem), 0);
+		-ms-transform:   translate(0, calc(-100% - 1.5rem));
+			transform: translate3d(0, calc(-100% - 1.5rem), 0);
+}
+
+.js .top-bubble.active {
+	-webkit-transform: translate3d(0, calc(-100% - 1.75rem), 0);
+		-ms-transform:   translate(0, calc(-100% - 1.75rem));
+			transform: translate3d(0, calc(-100% - 1.75rem), 0);
+}
+
+.js .bottom-bubble {
+	-webkit-transform: translate3d(0, 1.5rem, 0);
+		-ms-transform:   translate(0, 1.5rem);
+			transform: translate3d(0, 1.5rem, 0);
+}
+
+.js .bottom-bubble.active {
+	-webkit-transform: translate3d(0, 1.75rem, 0);
+		-ms-transform:   translate(0, 1.75rem);
+			transform: translate3d(0, 1.75rem, 0);
+}
+
+@media screen and (max-width: 31.9999em) {
+	.js .bubble {
+		/* Override offset given to it by JS when the
+		   screen is too small. */
+		left: 4% !important;
+	}
+}
+
+@media screen and (min-width: 32em) {
+	.bubble {
+		width: auto;
+		max-width: 20rem;
+	}
+
+	/* IE Won't do calc() in transforms. */
+
+	.js .top-bubble {
+		-webkit-transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
+		    -ms-transform:  translateX(-50%) translateY(-100%) translateY(-1.5rem);
+		        transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
+	}
+
+	.js .top-bubble.active {
+		-webkit-transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
+		    -ms-transform:  translateX(-50%) translateY(-100%) translateY(-1.75rem);
+		        transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
+	}
+
+	.js .left-top-bubble {
+		-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
+		    -ms-transform:  translateX(-16.6667%) translateY(-100%) translateY(-1.5rem);
+		        transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
+	}
+
+	.js .left-top-bubble.active {
+		-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
+		    -ms-transform:  translateX(-16.6667%) translateY(-100%) translateY(-1.75rem);
+		        transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
+	}
+
+	.js .right-top-bubble {
+		-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
+		    -ms-transform:  translateX(-83.3333%) translateY(-100%) translateY(-1.5rem);
+		        transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
+	}
+
+	.js .right-top-bubble.active {
+		-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
+		    -ms-transform:  translateX(-83.3333%) translateY(-100%) translateY(-1.75rem);
+		        transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
+	}
+
+	.js .bottom-bubble {
+		-webkit-transform: translate3d(-50%, 1.5rem, 0);
+		    -ms-transform:   translate(-50%, 1.5rem);
+		        transform: translate3d(-50%, 1.5rem, 0);
+	}
+
+	.js .bottom-bubble.active {
+		-webkit-transform: translate3d(-50%, 1.75rem, 0);
+		    -ms-transform:   translate(-50%, 1.75rem);
+		        transform: translate3d(-50%, 1.75rem, 0);
+	}
+
+	.js .right-bottom-bubble {
+		-webkit-transform: translate3d(-83.3333%, 1.5rem, 0);
+		    -ms-transform:   translate(-83.3333%, 1.5rem);
+		        transform: translate3d(-83.3333%, 1.5rem, 0);
+	}
+
+	.js .right-bottom-bubble.active {
+		-webkit-transform: translate3d(-83.3333%, 1.75rem, 0);
+		    -ms-transform:   translate(-83.3333%, 1.75rem);
+		        transform: translate3d(-83.3333%, 1.75rem, 0);
+	}
+
+	.js .left-bottom-bubble {
+		-webkit-transform: translate3d(-16.6667%, 1.5rem, 0);
+		    -ms-transform:   translate(-16.6667%, 1.5rem);
+		        transform: translate3d(-16.6667%, 1.5rem, 0);
+	}
+
+	.js .left-bottom-bubble.active {
+		-webkit-transform: translate3d(-16.6667%, 1.75rem, 0);
+		    -ms-transform:   translate(-16.6667%, 1.75rem);
+		        transform: translate3d(-16.6667%, 1.75rem, 0);
+	}
+
+	.js .left-bubble {
+		-webkit-transform: translate3d(-100%, -50%, 0);
+		    -ms-transform:   translate(-100%, -50%);
+		        transform: translate3d(-100%, -50%, 0);
+	}
+
+	.js .left-bubble.active {
+		-webkit-transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
+		    -ms-transform:   translate(calc(-100% - 0.25rem), -50%);
+		        transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
+	}
+
+	.js .right-bubble {
+		/* Make room for the .bubble::after point. */
+		-webkit-transform: translate3d(0.9375rem, -50%, 0);
+		    -ms-transform:   translate(0.9375rem, -50%);
+		        transform: translate3d(0.9375rem, -50%, 0);
+	}
+
+	.js .right-bubble.active {
+		-webkit-transform: translate3d(1.25rem, -50%, 0);
+		    -ms-transform:   translate(1.25rem, -50%);
+		        transform: translate3d(1.25rem, -50%, 0);
+	}
+}
