@@ -14,7 +14,7 @@
   },
   "scripts": {
     "sass": "node-sass --output-style expanded --indent-type tab -o classes classes && node-sass --output-style expanded --indent-type tab -o components/grid components/grid",
-    "styleguide": "kss --config kss.json",
-    "build": "npm run sass && npm run styleguide"
+    "build": "cat classes/* > dist/bolt-1.0.css",
+    "styleguide": "kss --config kss.json"
   }
 }
