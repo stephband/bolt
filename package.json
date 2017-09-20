@@ -13,7 +13,7 @@
     "node-sass": "^4.5.3"
   },
   "scripts": {
-    "sass": "node-sass --output-style expanded --indent-type tab -o css scss",
+    "sass": "node-sass --output-style expanded --indent-type tab -o classes classes && node-sass --output-style expanded --indent-type tab -o components/grid components/grid",
     "styleguide": "kss --config kss.json",
     "build": "npm run sass && npm run styleguide"
   }
