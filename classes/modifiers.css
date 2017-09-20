@@ -179,10 +179,28 @@ Styleguide: 5.float-clear
 }
 
 
+/*
+.fixed
+
+Styleguide: 5.fixed
+*/
 
 .fixed {
 	position: fixed !important;
 }
+
+
+/*
+.sticky
+
+Styleguide: 5.sticky
+*/
+
+.sticky {
+	position: sticky !important;
+	top: 0;
+}
+
 
 /*
 .left
