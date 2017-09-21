@@ -76,6 +76,11 @@ button,
 	text-decoration: none;
 }
 
+button:hover,
+.button[href]:hover {
+	/* Hover styles for button and [href] */
+}
+
 button.loading,
 .button.loading {
 	opacity: 0.4;
