@@ -81,13 +81,13 @@ $breakpoints:
 
 	/* Grid widths inside a grid-block. */
 
-	.grid-block > .#{$prefix}grid-1\/1 {
+	.#{$prefix}grid-1\/1 {
 		width: calc(100% - #{$gutter});
 	}
 
 	@for $i from 1 through $n {
 		@for $j from 1 to $i {
-			.grid-block > .#{$prefix}grid-#{$j}\/#{$i} {
+			.#{$prefix}grid-#{$j}\/#{$i} {
 				width: calc(#{100% * $j / $i} - #{$gutter});
 			}
 		}
@@ -103,9 +103,11 @@ $breakpoints:
 	*/
 	}
 
-	.#{$prefix}span-1\/1,
-	.grid-block > .#{$prefix}span-1\/1 {
+	.#{$prefix}span-1\/1 {
 		width: 100%;
+	}
+
+	.grid-block > .#{$prefix}span-1\/1 {
 		margin-left: 0;
 		margin-right: 0;
 	}
@@ -119,9 +121,12 @@ $breakpoints:
 			Styleguide: 1.span-#{$j}/#{$i}
 			*/
 			}
-			.#{$prefix}span-#{$j}\/#{$i},
-			.grid-block > .#{$prefix}span-#{$j}\/#{$i} {
+
+			.#{$prefix}span-#{$j}\/#{$i} {
 				width: #{100% * $j / $i};
+			}
+
+			.grid-block > .#{$prefix}span-#{$j}\/#{$i} {
 				margin-left: 0;
 				margin-right: 0;
 			}

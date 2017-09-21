@@ -70,16 +70,16 @@ A block animated to behave as a tab that fades to reveal content when the class
 Styleguide: 4.tab-block
 */
 
-.tab-block {
+.js .tab-block {
 	display: inline-block;
 	position: relative;
 	width: 100%;
-	/* Give tabs and slides the same origin despite being inline-blocks. */
-	margin-right: -100%;
 	vertical-align: top;
-}
 
-.js .tab-block {
+	/* Give all tabs the same origin despite being consecutive inline-blocks.
+	   Requires spaceless HTML. */
+	margin-right: -100% !important;
+
 	visibility: hidden;
 	opacity: 0;
 	z-index: 1;
