@@ -189,8 +189,7 @@ del               { opacity: 0.5; filter: alpha(opacity=50%); text-decoration: l
 
 /* Tables */
 
-table             { width: 100%; }
-th                { font-weight: bold; }
+table             {width: 100%;}
 tfoot             { font-style: italic; }
 caption           { background-color: inherit; }
 
