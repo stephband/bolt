@@ -1,0 +1,97 @@
+
+/*
+table
+
+Markup: <table>
+  <thead>
+    <tr><th>1</th><th>2</th><th>3</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>One</td><td>Two</td><td>Three</td></tr>
+    <tr><td>Un</td><td>Deux</td><td>Trois</td></tr>
+    <tr><td>Uno</td><td>Due</td><td>Tre</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><th>Small</th><th>Medium</th><th>Large</th></tr>
+  </tfoot>
+</table>
+
+Styeguide: 4.table
+*/
+
+th,
+td {
+	padding: 0;
+	padding-left: 0.1875rem;
+	padding-right: 0.1875rem;
+}
+
+th:first-child,
+td:first-child {
+	padding-left: 0.9375rem;
+}
+
+th:last-child,
+td:last-child {
+	padding-right: 0.9375rem;
+}
+
+th {
+	vertical-align: bottom;
+}
+
+td {
+	padding-top: 0.1875rem;
+	padding-bottom: 0.1875rem;
+	vertical-align: middle;
+}
+
+thead > tr:last-child > th {
+	padding-bottom: 6px;
+}
+
+tbody > tr > td {
+	border-top: 1px solid hsl(200, 10%, 85%);
+}
+
+tbody > tr:first-child > td {
+	border-top: 1px solid hsl(200, 10%, 75%);
+}
+
+tbody + tfoot > tr > td {
+	border-top: 1px solid hsl(200, 10%, 75%);
+	border-bottom: 1px solid hsl(200, 10%, 75%);
+}
+
+table {
+	width: auto;
+    margin-left: 0;
+    margin-right: 0;
+	table-layout:fixed;
+}
+
+/*
+.striped-table
+
+Markup: <table class="striped-table">
+  <thead>
+    <tr><th>1</th><th>2</th><th>3</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>One</td><td>Two</td><td>Three</td></tr>
+    <tr><td>Un</td><td>Deux</td><td>Trois</td></tr>
+    <tr><td>Uno</td><td>Due</td><td>Tre</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><th>Small</th><th>Medium</th><th>Large</th></tr>
+  </tfoot>
+</table>
+
+Styeguide: 4.table
+*/
+
+.striped-table > tbody > tr:nth-child(2n),
+.striped-table > tbody > tr:nth-child(2n) > td {
+	/* Zebra stripes. */
+	background-color: hsl(200, 10%, 94%);
+}
