@@ -47,6 +47,11 @@
 	vertical-align: middle;
 }
 
+body > .dialog-layer {
+	position: fixed;
+}
+
+
 /*
 .dialog
 
