@@ -1,21 +1,35 @@
-/* .flex */
+/*
+.flex
+
+Styleguide: 1.1.flex
+*/
 
 .flex,
 .index > .flex {
 	display: flex;
 	flex-wrap: nowrap;
-	justify-content: flex-start;
+	justify-content: center;
 	align-items: stretch;
 	align-content: stretch;
 }
 
 .n-flex { flex-direction: column-reverse; }
-.e-flex { flex-direction: column; }
-.s-flex { flex-direction: row; }
+.s-flex { flex-direction: column; }
+.e-flex { flex-direction: row; }
 .w-flex { flex-direction: row-reverse; }
+/*
+.n-flex > .box,
+.s-flex > .box { width: 100%; }
+*/
+.start-flex   { justify-content: flex-start; }
+.end-flex     { justify-content: flex-end; }
+.justify-flex { justify-content: space-between; }
+.grid-flex    { justify-content: space-around; }
+.spaced-flex  { justify-content: space-evenly; }
 
 .flex.wrap    { flex-wrap: wrap; }
 .flex.no-wrap { flex-wrap: nowrap; }
+
 
 /* .box */
 

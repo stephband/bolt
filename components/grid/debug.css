@@ -6,6 +6,10 @@ body > .debug-switch {
 	z-index: 1000001;
 }
 
+body > .cms-toolbar-debug ~ .debug-switch {
+	top: 3.75rem;
+}
+
 #grid-debug-input {
 	position: fixed;
 	top: 0.375rem;
@@ -54,11 +58,7 @@ input:checked + .debug-switch + .debug-grid-block {
 	transition: height 0.4s linear;
 }
 
-
-
-
-
 .debug-grid-block > .block {
 	height: 100%;
-	background-color: rgba(60,140,180,0.2);
+	background-color: rgba(60,140,180,0.16);
 }
