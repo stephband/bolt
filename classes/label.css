@@ -23,11 +23,7 @@ label.error_label {
 	display: block;
 }
 
-input + label,
-textarea + label,
-select + label,
-.select-button + label,
-fieldset + label,
+* + label,
 fieldset + input,
 fieldset + fieldset {
 	margin-top: 2rem;
@@ -226,4 +222,3 @@ Styleguide: 3.checkbox-label
 .no-radio-label::after {
 	background-position: 8px -432px;
 }
-
