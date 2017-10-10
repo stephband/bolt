@@ -103,7 +103,7 @@ samp,
 pre {
 	/* Correct the inheritance and scaling of font size */
 	font-family: monospace, monospace;
-	
+
 	/* Correct the odd `em` font sizing */
 	font-size: 1em;
 }
@@ -133,6 +133,15 @@ a:active {
 	/* Improves readability when focused and also mouse hovered in all browsers
 	   people.opera.com/patrickl/experiments/keyboard/test */
 	outline-width: 0;
+}
+
+[href] {
+	/* j.mp/webkit-tap-highlight-color */
+	-webkit-tap-highlight-color: rgba(0,0,0,0.25);
+
+	/* FF refuses to give us a pointer on SVGs wrapped in links without being
+	   nudged with this. */
+	cursor: pointer;
 }
 
 abbr[title] {
