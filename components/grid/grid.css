@@ -262,67 +262,67 @@ Styleguide: 1.1.grid-block
 }
 
 /* Grid widths inside a grid-block. */
-.grid-block > .grid-1\/1 {
+.grid-1\/1 {
 		width: calc(100% - 2.5rem);
 }
 
-.grid-block > .grid-1\/2 {
+.grid-1\/2 {
 		width: calc(50% - 2.5rem);
 }
 
-.grid-block > .grid-1\/3 {
+.grid-1\/3 {
 		width: calc(33.33333% - 2.5rem);
 }
 
-.grid-block > .grid-2\/3 {
+.grid-2\/3 {
 		width: calc(66.66667% - 2.5rem);
 }
 
-.grid-block > .grid-1\/4 {
+.grid-1\/4 {
 		width: calc(25% - 2.5rem);
 }
 
-.grid-block > .grid-2\/4 {
+.grid-2\/4 {
 		width: calc(50% - 2.5rem);
 }
 
-.grid-block > .grid-3\/4 {
+.grid-3\/4 {
 		width: calc(75% - 2.5rem);
 }
 
-.grid-block > .grid-1\/5 {
+.grid-1\/5 {
 		width: calc(20% - 2.5rem);
 }
 
-.grid-block > .grid-2\/5 {
+.grid-2\/5 {
 		width: calc(40% - 2.5rem);
 }
 
-.grid-block > .grid-3\/5 {
+.grid-3\/5 {
 		width: calc(60% - 2.5rem);
 }
 
-.grid-block > .grid-4\/5 {
+.grid-4\/5 {
 		width: calc(80% - 2.5rem);
 }
 
-.grid-block > .grid-1\/6 {
+.grid-1\/6 {
 		width: calc(16.66667% - 2.5rem);
 }
 
-.grid-block > .grid-2\/6 {
+.grid-2\/6 {
 		width: calc(33.33333% - 2.5rem);
 }
 
-.grid-block > .grid-3\/6 {
+.grid-3\/6 {
 		width: calc(50% - 2.5rem);
 }
 
-.grid-block > .grid-4\/6 {
+.grid-4\/6 {
 		width: calc(66.66667% - 2.5rem);
 }
 
-.grid-block > .grid-5\/6 {
+.grid-5\/6 {
 		width: calc(83.33333% - 2.5rem);
 }
 
@@ -332,9 +332,11 @@ Styleguide: 1.1.grid-block
 
 	Styleguide: 1.span-1/1
 	*/
-.span-1\/1,
-.grid-block > .span-1\/1 {
+.span-1\/1 {
 		width: 100%;
+}
+
+.grid-block > .span-1\/1 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -344,9 +346,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-1/2
 			*/
-.span-1\/2,
-.grid-block > .span-1\/2 {
+.span-1\/2 {
 		width: 50%;
+}
+
+.grid-block > .span-1\/2 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -356,9 +360,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-1/3
 			*/
-.span-1\/3,
-.grid-block > .span-1\/3 {
+.span-1\/3 {
 		width: 33.33333%;
+}
+
+.grid-block > .span-1\/3 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -368,9 +374,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-2/3
 			*/
-.span-2\/3,
-.grid-block > .span-2\/3 {
+.span-2\/3 {
 		width: 66.66667%;
+}
+
+.grid-block > .span-2\/3 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -380,9 +388,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-1/4
 			*/
-.span-1\/4,
-.grid-block > .span-1\/4 {
+.span-1\/4 {
 		width: 25%;
+}
+
+.grid-block > .span-1\/4 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -392,9 +402,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-2/4
 			*/
-.span-2\/4,
-.grid-block > .span-2\/4 {
+.span-2\/4 {
 		width: 50%;
+}
+
+.grid-block > .span-2\/4 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -404,9 +416,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-3/4
 			*/
-.span-3\/4,
-.grid-block > .span-3\/4 {
+.span-3\/4 {
 		width: 75%;
+}
+
+.grid-block > .span-3\/4 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -416,9 +430,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-1/5
 			*/
-.span-1\/5,
-.grid-block > .span-1\/5 {
+.span-1\/5 {
 		width: 20%;
+}
+
+.grid-block > .span-1\/5 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -428,9 +444,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-2/5
 			*/
-.span-2\/5,
-.grid-block > .span-2\/5 {
+.span-2\/5 {
 		width: 40%;
+}
+
+.grid-block > .span-2\/5 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -440,9 +458,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-3/5
 			*/
-.span-3\/5,
-.grid-block > .span-3\/5 {
+.span-3\/5 {
 		width: 60%;
+}
+
+.grid-block > .span-3\/5 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -452,9 +472,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-4/5
 			*/
-.span-4\/5,
-.grid-block > .span-4\/5 {
+.span-4\/5 {
 		width: 80%;
+}
+
+.grid-block > .span-4\/5 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -464,9 +486,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-1/6
 			*/
-.span-1\/6,
-.grid-block > .span-1\/6 {
+.span-1\/6 {
 		width: 16.66667%;
+}
+
+.grid-block > .span-1\/6 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -476,9 +500,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-2/6
 			*/
-.span-2\/6,
-.grid-block > .span-2\/6 {
+.span-2\/6 {
 		width: 33.33333%;
+}
+
+.grid-block > .span-2\/6 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -488,9 +514,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-3/6
 			*/
-.span-3\/6,
-.grid-block > .span-3\/6 {
+.span-3\/6 {
 		width: 50%;
+}
+
+.grid-block > .span-3\/6 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -500,9 +528,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-4/6
 			*/
-.span-4\/6,
-.grid-block > .span-4\/6 {
+.span-4\/6 {
 		width: 66.66667%;
+}
+
+.grid-block > .span-4\/6 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -512,9 +542,11 @@ Styleguide: 1.1.grid-block
 
 			Styleguide: 1.span-5/6
 			*/
-.span-5\/6,
-.grid-block > .span-5\/6 {
+.span-5\/6 {
 		width: 83.33333%;
+}
+
+.grid-block > .span-5\/6 {
 		margin-left: 0;
 		margin-right: 0;
 }
@@ -770,148 +802,164 @@ Styleguide: 1.1.grid-block
 				margin-left: calc(83.33333% + 2.08333rem);
 		}
 		/* Grid widths inside a grid-block. */
-		.grid-block > .\@1-grid-1\/1 {
+		.\@1-grid-1\/1 {
 				width: calc(100% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-1\/2 {
+		.\@1-grid-1\/2 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-1\/3 {
+		.\@1-grid-1\/3 {
 				width: calc(33.33333% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-2\/3 {
+		.\@1-grid-2\/3 {
 				width: calc(66.66667% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-1\/4 {
+		.\@1-grid-1\/4 {
 				width: calc(25% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-2\/4 {
+		.\@1-grid-2\/4 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-3\/4 {
+		.\@1-grid-3\/4 {
 				width: calc(75% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-1\/5 {
+		.\@1-grid-1\/5 {
 				width: calc(20% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-2\/5 {
+		.\@1-grid-2\/5 {
 				width: calc(40% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-3\/5 {
+		.\@1-grid-3\/5 {
 				width: calc(60% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-4\/5 {
+		.\@1-grid-4\/5 {
 				width: calc(80% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-1\/6 {
+		.\@1-grid-1\/6 {
 				width: calc(16.66667% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-2\/6 {
+		.\@1-grid-2\/6 {
 				width: calc(33.33333% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-3\/6 {
+		.\@1-grid-3\/6 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-4\/6 {
+		.\@1-grid-4\/6 {
 				width: calc(66.66667% - 2.5rem);
 		}
-		.grid-block > .\@1-grid-5\/6 {
+		.\@1-grid-5\/6 {
 				width: calc(83.33333% - 2.5rem);
 		}
 		/* Bleed widths and margins inside a grid-block. */
-		.\@1-span-1\/1,
-		.grid-block > .\@1-span-1\/1 {
+		.\@1-span-1\/1 {
 				width: 100%;
+		}
+		.grid-block > .\@1-span-1\/1 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-1\/2,
+		.\@1-span-1\/2 {
+				width: 50%;
+		}
 		.grid-block > .\@1-span-1\/2 {
-				width: 50%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-1\/3,
+		.\@1-span-1\/3 {
+				width: 33.33333%;
+		}
 		.grid-block > .\@1-span-1\/3 {
-				width: 33.33333%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-2\/3,
+		.\@1-span-2\/3 {
+				width: 66.66667%;
+		}
 		.grid-block > .\@1-span-2\/3 {
-				width: 66.66667%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-1\/4,
-		.grid-block > .\@1-span-1\/4 {
+		.\@1-span-1\/4 {
 				width: 25%;
+		}
+		.grid-block > .\@1-span-1\/4 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-2\/4,
+		.\@1-span-2\/4 {
+				width: 50%;
+		}
 		.grid-block > .\@1-span-2\/4 {
-				width: 50%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-3\/4,
-		.grid-block > .\@1-span-3\/4 {
+		.\@1-span-3\/4 {
 				width: 75%;
+		}
+		.grid-block > .\@1-span-3\/4 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-1\/5,
-		.grid-block > .\@1-span-1\/5 {
+		.\@1-span-1\/5 {
 				width: 20%;
+		}
+		.grid-block > .\@1-span-1\/5 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-2\/5,
-		.grid-block > .\@1-span-2\/5 {
+		.\@1-span-2\/5 {
 				width: 40%;
+		}
+		.grid-block > .\@1-span-2\/5 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-3\/5,
-		.grid-block > .\@1-span-3\/5 {
+		.\@1-span-3\/5 {
 				width: 60%;
+		}
+		.grid-block > .\@1-span-3\/5 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-4\/5,
-		.grid-block > .\@1-span-4\/5 {
+		.\@1-span-4\/5 {
 				width: 80%;
+		}
+		.grid-block > .\@1-span-4\/5 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-1\/6,
-		.grid-block > .\@1-span-1\/6 {
+		.\@1-span-1\/6 {
 				width: 16.66667%;
+		}
+		.grid-block > .\@1-span-1\/6 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-2\/6,
-		.grid-block > .\@1-span-2\/6 {
+		.\@1-span-2\/6 {
 				width: 33.33333%;
+		}
+		.grid-block > .\@1-span-2\/6 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-3\/6,
-		.grid-block > .\@1-span-3\/6 {
+		.\@1-span-3\/6 {
 				width: 50%;
+		}
+		.grid-block > .\@1-span-3\/6 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-4\/6,
-		.grid-block > .\@1-span-4\/6 {
+		.\@1-span-4\/6 {
 				width: 66.66667%;
+		}
+		.grid-block > .\@1-span-4\/6 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@1-span-5\/6,
-		.grid-block > .\@1-span-5\/6 {
+		.\@1-span-5\/6 {
 				width: 83.33333%;
+		}
+		.grid-block > .\@1-span-5\/6 {
 				margin-left: 0;
 				margin-right: 0;
 		}
@@ -1262,337 +1310,374 @@ Styleguide: 1.1.grid-block
 				margin-left: calc(88.88889% + 2.22222rem);
 		}
 		/* Grid widths inside a grid-block. */
-		.grid-block > .\@2-grid-1\/1 {
+		.\@2-grid-1\/1 {
 				width: calc(100% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-1\/2 {
+		.\@2-grid-1\/2 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-1\/3 {
+		.\@2-grid-1\/3 {
 				width: calc(33.33333% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-2\/3 {
+		.\@2-grid-2\/3 {
 				width: calc(66.66667% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-1\/4 {
+		.\@2-grid-1\/4 {
 				width: calc(25% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-2\/4 {
+		.\@2-grid-2\/4 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-3\/4 {
+		.\@2-grid-3\/4 {
 				width: calc(75% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-1\/5 {
+		.\@2-grid-1\/5 {
 				width: calc(20% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-2\/5 {
+		.\@2-grid-2\/5 {
 				width: calc(40% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-3\/5 {
+		.\@2-grid-3\/5 {
 				width: calc(60% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-4\/5 {
+		.\@2-grid-4\/5 {
 				width: calc(80% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-1\/6 {
+		.\@2-grid-1\/6 {
 				width: calc(16.66667% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-2\/6 {
+		.\@2-grid-2\/6 {
 				width: calc(33.33333% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-3\/6 {
+		.\@2-grid-3\/6 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-4\/6 {
+		.\@2-grid-4\/6 {
 				width: calc(66.66667% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-5\/6 {
+		.\@2-grid-5\/6 {
 				width: calc(83.33333% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-1\/7 {
+		.\@2-grid-1\/7 {
 				width: calc(14.28571% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-2\/7 {
+		.\@2-grid-2\/7 {
 				width: calc(28.57143% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-3\/7 {
+		.\@2-grid-3\/7 {
 				width: calc(42.85714% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-4\/7 {
+		.\@2-grid-4\/7 {
 				width: calc(57.14286% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-5\/7 {
+		.\@2-grid-5\/7 {
 				width: calc(71.42857% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-6\/7 {
+		.\@2-grid-6\/7 {
 				width: calc(85.71429% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-1\/8 {
+		.\@2-grid-1\/8 {
 				width: calc(12.5% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-2\/8 {
+		.\@2-grid-2\/8 {
 				width: calc(25% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-3\/8 {
+		.\@2-grid-3\/8 {
 				width: calc(37.5% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-4\/8 {
+		.\@2-grid-4\/8 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-5\/8 {
+		.\@2-grid-5\/8 {
 				width: calc(62.5% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-6\/8 {
+		.\@2-grid-6\/8 {
 				width: calc(75% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-7\/8 {
+		.\@2-grid-7\/8 {
 				width: calc(87.5% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-1\/9 {
+		.\@2-grid-1\/9 {
 				width: calc(11.11111% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-2\/9 {
+		.\@2-grid-2\/9 {
 				width: calc(22.22222% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-3\/9 {
+		.\@2-grid-3\/9 {
 				width: calc(33.33333% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-4\/9 {
+		.\@2-grid-4\/9 {
 				width: calc(44.44444% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-5\/9 {
+		.\@2-grid-5\/9 {
 				width: calc(55.55556% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-6\/9 {
+		.\@2-grid-6\/9 {
 				width: calc(66.66667% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-7\/9 {
+		.\@2-grid-7\/9 {
 				width: calc(77.77778% - 2.5rem);
 		}
-		.grid-block > .\@2-grid-8\/9 {
+		.\@2-grid-8\/9 {
 				width: calc(88.88889% - 2.5rem);
 		}
 		/* Bleed widths and margins inside a grid-block. */
-		.\@2-span-1\/1,
-		.grid-block > .\@2-span-1\/1 {
+		.\@2-span-1\/1 {
 				width: 100%;
+		}
+		.grid-block > .\@2-span-1\/1 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-1\/2,
+		.\@2-span-1\/2 {
+				width: 50%;
+		}
 		.grid-block > .\@2-span-1\/2 {
-				width: 50%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-1\/3,
+		.\@2-span-1\/3 {
+				width: 33.33333%;
+		}
 		.grid-block > .\@2-span-1\/3 {
-				width: 33.33333%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-2\/3,
+		.\@2-span-2\/3 {
+				width: 66.66667%;
+		}
 		.grid-block > .\@2-span-2\/3 {
-				width: 66.66667%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-1\/4,
+		.\@2-span-1\/4 {
+				width: 25%;
+		}
 		.grid-block > .\@2-span-1\/4 {
-				width: 25%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-2\/4,
+		.\@2-span-2\/4 {
+				width: 50%;
+		}
 		.grid-block > .\@2-span-2\/4 {
-				width: 50%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-3\/4,
+		.\@2-span-3\/4 {
+				width: 75%;
+		}
 		.grid-block > .\@2-span-3\/4 {
-				width: 75%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-1\/5,
-		.grid-block > .\@2-span-1\/5 {
+		.\@2-span-1\/5 {
 				width: 20%;
+		}
+		.grid-block > .\@2-span-1\/5 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-2\/5,
-		.grid-block > .\@2-span-2\/5 {
+		.\@2-span-2\/5 {
 				width: 40%;
+		}
+		.grid-block > .\@2-span-2\/5 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-3\/5,
-		.grid-block > .\@2-span-3\/5 {
+		.\@2-span-3\/5 {
 				width: 60%;
+		}
+		.grid-block > .\@2-span-3\/5 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-4\/5,
-		.grid-block > .\@2-span-4\/5 {
+		.\@2-span-4\/5 {
 				width: 80%;
+		}
+		.grid-block > .\@2-span-4\/5 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-1\/6,
-		.grid-block > .\@2-span-1\/6 {
+		.\@2-span-1\/6 {
 				width: 16.66667%;
+		}
+		.grid-block > .\@2-span-1\/6 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-2\/6,
+		.\@2-span-2\/6 {
+				width: 33.33333%;
+		}
 		.grid-block > .\@2-span-2\/6 {
-				width: 33.33333%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-3\/6,
+		.\@2-span-3\/6 {
+				width: 50%;
+		}
 		.grid-block > .\@2-span-3\/6 {
-				width: 50%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-4\/6,
+		.\@2-span-4\/6 {
+				width: 66.66667%;
+		}
 		.grid-block > .\@2-span-4\/6 {
-				width: 66.66667%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-5\/6,
-		.grid-block > .\@2-span-5\/6 {
+		.\@2-span-5\/6 {
 				width: 83.33333%;
+		}
+		.grid-block > .\@2-span-5\/6 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-1\/7,
-		.grid-block > .\@2-span-1\/7 {
+		.\@2-span-1\/7 {
 				width: 14.28571%;
+		}
+		.grid-block > .\@2-span-1\/7 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-2\/7,
-		.grid-block > .\@2-span-2\/7 {
+		.\@2-span-2\/7 {
 				width: 28.57143%;
+		}
+		.grid-block > .\@2-span-2\/7 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-3\/7,
-		.grid-block > .\@2-span-3\/7 {
+		.\@2-span-3\/7 {
 				width: 42.85714%;
+		}
+		.grid-block > .\@2-span-3\/7 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-4\/7,
-		.grid-block > .\@2-span-4\/7 {
+		.\@2-span-4\/7 {
 				width: 57.14286%;
+		}
+		.grid-block > .\@2-span-4\/7 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-5\/7,
-		.grid-block > .\@2-span-5\/7 {
+		.\@2-span-5\/7 {
 				width: 71.42857%;
+		}
+		.grid-block > .\@2-span-5\/7 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-6\/7,
-		.grid-block > .\@2-span-6\/7 {
+		.\@2-span-6\/7 {
 				width: 85.71429%;
+		}
+		.grid-block > .\@2-span-6\/7 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-1\/8,
-		.grid-block > .\@2-span-1\/8 {
+		.\@2-span-1\/8 {
 				width: 12.5%;
+		}
+		.grid-block > .\@2-span-1\/8 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-2\/8,
-		.grid-block > .\@2-span-2\/8 {
+		.\@2-span-2\/8 {
 				width: 25%;
+		}
+		.grid-block > .\@2-span-2\/8 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-3\/8,
-		.grid-block > .\@2-span-3\/8 {
+		.\@2-span-3\/8 {
 				width: 37.5%;
+		}
+		.grid-block > .\@2-span-3\/8 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-4\/8,
-		.grid-block > .\@2-span-4\/8 {
+		.\@2-span-4\/8 {
 				width: 50%;
+		}
+		.grid-block > .\@2-span-4\/8 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-5\/8,
-		.grid-block > .\@2-span-5\/8 {
+		.\@2-span-5\/8 {
 				width: 62.5%;
+		}
+		.grid-block > .\@2-span-5\/8 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-6\/8,
-		.grid-block > .\@2-span-6\/8 {
+		.\@2-span-6\/8 {
 				width: 75%;
+		}
+		.grid-block > .\@2-span-6\/8 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-7\/8,
-		.grid-block > .\@2-span-7\/8 {
+		.\@2-span-7\/8 {
 				width: 87.5%;
+		}
+		.grid-block > .\@2-span-7\/8 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-1\/9,
-		.grid-block > .\@2-span-1\/9 {
+		.\@2-span-1\/9 {
 				width: 11.11111%;
+		}
+		.grid-block > .\@2-span-1\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-2\/9,
-		.grid-block > .\@2-span-2\/9 {
+		.\@2-span-2\/9 {
 				width: 22.22222%;
+		}
+		.grid-block > .\@2-span-2\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-3\/9,
-		.grid-block > .\@2-span-3\/9 {
+		.\@2-span-3\/9 {
 				width: 33.33333%;
+		}
+		.grid-block > .\@2-span-3\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-4\/9,
-		.grid-block > .\@2-span-4\/9 {
+		.\@2-span-4\/9 {
 				width: 44.44444%;
+		}
+		.grid-block > .\@2-span-4\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-5\/9,
-		.grid-block > .\@2-span-5\/9 {
+		.\@2-span-5\/9 {
 				width: 55.55556%;
+		}
+		.grid-block > .\@2-span-5\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-6\/9,
-		.grid-block > .\@2-span-6\/9 {
+		.\@2-span-6\/9 {
 				width: 66.66667%;
+		}
+		.grid-block > .\@2-span-6\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-7\/9,
-		.grid-block > .\@2-span-7\/9 {
+		.\@2-span-7\/9 {
 				width: 77.77778%;
+		}
+		.grid-block > .\@2-span-7\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@2-span-8\/9,
-		.grid-block > .\@2-span-8\/9 {
+		.\@2-span-8\/9 {
 				width: 88.88889%;
+		}
+		.grid-block > .\@2-span-8\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
@@ -2249,607 +2334,674 @@ Styleguide: 1.1.grid-block
 				margin-left: calc(91.66667% + 2.29167rem);
 		}
 		/* Grid widths inside a grid-block. */
-		.grid-block > .\@3-grid-1\/1 {
+		.\@3-grid-1\/1 {
 				width: calc(100% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-1\/2 {
+		.\@3-grid-1\/2 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-1\/3 {
+		.\@3-grid-1\/3 {
 				width: calc(33.33333% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-2\/3 {
+		.\@3-grid-2\/3 {
 				width: calc(66.66667% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-1\/4 {
+		.\@3-grid-1\/4 {
 				width: calc(25% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-2\/4 {
+		.\@3-grid-2\/4 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-3\/4 {
+		.\@3-grid-3\/4 {
 				width: calc(75% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-1\/5 {
+		.\@3-grid-1\/5 {
 				width: calc(20% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-2\/5 {
+		.\@3-grid-2\/5 {
 				width: calc(40% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-3\/5 {
+		.\@3-grid-3\/5 {
 				width: calc(60% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-4\/5 {
+		.\@3-grid-4\/5 {
 				width: calc(80% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-1\/6 {
+		.\@3-grid-1\/6 {
 				width: calc(16.66667% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-2\/6 {
+		.\@3-grid-2\/6 {
 				width: calc(33.33333% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-3\/6 {
+		.\@3-grid-3\/6 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-4\/6 {
+		.\@3-grid-4\/6 {
 				width: calc(66.66667% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-5\/6 {
+		.\@3-grid-5\/6 {
 				width: calc(83.33333% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-1\/7 {
+		.\@3-grid-1\/7 {
 				width: calc(14.28571% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-2\/7 {
+		.\@3-grid-2\/7 {
 				width: calc(28.57143% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-3\/7 {
+		.\@3-grid-3\/7 {
 				width: calc(42.85714% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-4\/7 {
+		.\@3-grid-4\/7 {
 				width: calc(57.14286% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-5\/7 {
+		.\@3-grid-5\/7 {
 				width: calc(71.42857% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-6\/7 {
+		.\@3-grid-6\/7 {
 				width: calc(85.71429% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-1\/8 {
+		.\@3-grid-1\/8 {
 				width: calc(12.5% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-2\/8 {
+		.\@3-grid-2\/8 {
 				width: calc(25% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-3\/8 {
+		.\@3-grid-3\/8 {
 				width: calc(37.5% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-4\/8 {
+		.\@3-grid-4\/8 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-5\/8 {
+		.\@3-grid-5\/8 {
 				width: calc(62.5% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-6\/8 {
+		.\@3-grid-6\/8 {
 				width: calc(75% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-7\/8 {
+		.\@3-grid-7\/8 {
 				width: calc(87.5% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-1\/9 {
+		.\@3-grid-1\/9 {
 				width: calc(11.11111% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-2\/9 {
+		.\@3-grid-2\/9 {
 				width: calc(22.22222% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-3\/9 {
+		.\@3-grid-3\/9 {
 				width: calc(33.33333% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-4\/9 {
+		.\@3-grid-4\/9 {
 				width: calc(44.44444% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-5\/9 {
+		.\@3-grid-5\/9 {
 				width: calc(55.55556% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-6\/9 {
+		.\@3-grid-6\/9 {
 				width: calc(66.66667% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-7\/9 {
+		.\@3-grid-7\/9 {
 				width: calc(77.77778% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-8\/9 {
+		.\@3-grid-8\/9 {
 				width: calc(88.88889% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-1\/10 {
+		.\@3-grid-1\/10 {
 				width: calc(10% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-2\/10 {
+		.\@3-grid-2\/10 {
 				width: calc(20% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-3\/10 {
+		.\@3-grid-3\/10 {
 				width: calc(30% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-4\/10 {
+		.\@3-grid-4\/10 {
 				width: calc(40% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-5\/10 {
+		.\@3-grid-5\/10 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-6\/10 {
+		.\@3-grid-6\/10 {
 				width: calc(60% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-7\/10 {
+		.\@3-grid-7\/10 {
 				width: calc(70% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-8\/10 {
+		.\@3-grid-8\/10 {
 				width: calc(80% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-9\/10 {
+		.\@3-grid-9\/10 {
 				width: calc(90% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-1\/11 {
+		.\@3-grid-1\/11 {
 				width: calc(9.09091% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-2\/11 {
+		.\@3-grid-2\/11 {
 				width: calc(18.18182% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-3\/11 {
+		.\@3-grid-3\/11 {
 				width: calc(27.27273% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-4\/11 {
+		.\@3-grid-4\/11 {
 				width: calc(36.36364% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-5\/11 {
+		.\@3-grid-5\/11 {
 				width: calc(45.45455% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-6\/11 {
+		.\@3-grid-6\/11 {
 				width: calc(54.54545% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-7\/11 {
+		.\@3-grid-7\/11 {
 				width: calc(63.63636% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-8\/11 {
+		.\@3-grid-8\/11 {
 				width: calc(72.72727% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-9\/11 {
+		.\@3-grid-9\/11 {
 				width: calc(81.81818% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-10\/11 {
+		.\@3-grid-10\/11 {
 				width: calc(90.90909% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-1\/12 {
+		.\@3-grid-1\/12 {
 				width: calc(8.33333% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-2\/12 {
+		.\@3-grid-2\/12 {
 				width: calc(16.66667% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-3\/12 {
+		.\@3-grid-3\/12 {
 				width: calc(25% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-4\/12 {
+		.\@3-grid-4\/12 {
 				width: calc(33.33333% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-5\/12 {
+		.\@3-grid-5\/12 {
 				width: calc(41.66667% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-6\/12 {
+		.\@3-grid-6\/12 {
 				width: calc(50% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-7\/12 {
+		.\@3-grid-7\/12 {
 				width: calc(58.33333% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-8\/12 {
+		.\@3-grid-8\/12 {
 				width: calc(66.66667% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-9\/12 {
+		.\@3-grid-9\/12 {
 				width: calc(75% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-10\/12 {
+		.\@3-grid-10\/12 {
 				width: calc(83.33333% - 2.5rem);
 		}
-		.grid-block > .\@3-grid-11\/12 {
+		.\@3-grid-11\/12 {
 				width: calc(91.66667% - 2.5rem);
 		}
 		/* Bleed widths and margins inside a grid-block. */
-		.\@3-span-1\/1,
-		.grid-block > .\@3-span-1\/1 {
+		.\@3-span-1\/1 {
 				width: 100%;
+		}
+		.grid-block > .\@3-span-1\/1 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-1\/2,
+		.\@3-span-1\/2 {
+				width: 50%;
+		}
 		.grid-block > .\@3-span-1\/2 {
-				width: 50%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-1\/3,
+		.\@3-span-1\/3 {
+				width: 33.33333%;
+		}
 		.grid-block > .\@3-span-1\/3 {
-				width: 33.33333%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-2\/3,
+		.\@3-span-2\/3 {
+				width: 66.66667%;
+		}
 		.grid-block > .\@3-span-2\/3 {
-				width: 66.66667%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-1\/4,
+		.\@3-span-1\/4 {
+				width: 25%;
+		}
 		.grid-block > .\@3-span-1\/4 {
-				width: 25%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-2\/4,
+		.\@3-span-2\/4 {
+				width: 50%;
+		}
 		.grid-block > .\@3-span-2\/4 {
-				width: 50%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-3\/4,
+		.\@3-span-3\/4 {
+				width: 75%;
+		}
 		.grid-block > .\@3-span-3\/4 {
-				width: 75%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-1\/5,
+		.\@3-span-1\/5 {
+				width: 20%;
+		}
 		.grid-block > .\@3-span-1\/5 {
-				width: 20%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-2\/5,
+		.\@3-span-2\/5 {
+				width: 40%;
+		}
 		.grid-block > .\@3-span-2\/5 {
-				width: 40%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-3\/5,
+		.\@3-span-3\/5 {
+				width: 60%;
+		}
 		.grid-block > .\@3-span-3\/5 {
-				width: 60%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-4\/5,
+		.\@3-span-4\/5 {
+				width: 80%;
+		}
 		.grid-block > .\@3-span-4\/5 {
-				width: 80%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-1\/6,
+		.\@3-span-1\/6 {
+				width: 16.66667%;
+		}
 		.grid-block > .\@3-span-1\/6 {
-				width: 16.66667%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-2\/6,
+		.\@3-span-2\/6 {
+				width: 33.33333%;
+		}
 		.grid-block > .\@3-span-2\/6 {
-				width: 33.33333%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-3\/6,
+		.\@3-span-3\/6 {
+				width: 50%;
+		}
 		.grid-block > .\@3-span-3\/6 {
-				width: 50%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-4\/6,
+		.\@3-span-4\/6 {
+				width: 66.66667%;
+		}
 		.grid-block > .\@3-span-4\/6 {
-				width: 66.66667%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-5\/6,
+		.\@3-span-5\/6 {
+				width: 83.33333%;
+		}
 		.grid-block > .\@3-span-5\/6 {
-				width: 83.33333%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-1\/7,
-		.grid-block > .\@3-span-1\/7 {
+		.\@3-span-1\/7 {
 				width: 14.28571%;
+		}
+		.grid-block > .\@3-span-1\/7 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-2\/7,
-		.grid-block > .\@3-span-2\/7 {
+		.\@3-span-2\/7 {
 				width: 28.57143%;
+		}
+		.grid-block > .\@3-span-2\/7 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-3\/7,
-		.grid-block > .\@3-span-3\/7 {
+		.\@3-span-3\/7 {
 				width: 42.85714%;
+		}
+		.grid-block > .\@3-span-3\/7 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-4\/7,
-		.grid-block > .\@3-span-4\/7 {
+		.\@3-span-4\/7 {
 				width: 57.14286%;
+		}
+		.grid-block > .\@3-span-4\/7 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-5\/7,
-		.grid-block > .\@3-span-5\/7 {
+		.\@3-span-5\/7 {
 				width: 71.42857%;
+		}
+		.grid-block > .\@3-span-5\/7 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-6\/7,
-		.grid-block > .\@3-span-6\/7 {
+		.\@3-span-6\/7 {
 				width: 85.71429%;
+		}
+		.grid-block > .\@3-span-6\/7 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-1\/8,
-		.grid-block > .\@3-span-1\/8 {
+		.\@3-span-1\/8 {
 				width: 12.5%;
+		}
+		.grid-block > .\@3-span-1\/8 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-2\/8,
+		.\@3-span-2\/8 {
+				width: 25%;
+		}
 		.grid-block > .\@3-span-2\/8 {
-				width: 25%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-3\/8,
-		.grid-block > .\@3-span-3\/8 {
+		.\@3-span-3\/8 {
 				width: 37.5%;
+		}
+		.grid-block > .\@3-span-3\/8 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-4\/8,
+		.\@3-span-4\/8 {
+				width: 50%;
+		}
 		.grid-block > .\@3-span-4\/8 {
-				width: 50%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-5\/8,
-		.grid-block > .\@3-span-5\/8 {
+		.\@3-span-5\/8 {
 				width: 62.5%;
+		}
+		.grid-block > .\@3-span-5\/8 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-6\/8,
+		.\@3-span-6\/8 {
+				width: 75%;
+		}
 		.grid-block > .\@3-span-6\/8 {
-				width: 75%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-7\/8,
-		.grid-block > .\@3-span-7\/8 {
+		.\@3-span-7\/8 {
 				width: 87.5%;
+		}
+		.grid-block > .\@3-span-7\/8 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-1\/9,
-		.grid-block > .\@3-span-1\/9 {
+		.\@3-span-1\/9 {
 				width: 11.11111%;
+		}
+		.grid-block > .\@3-span-1\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-2\/9,
-		.grid-block > .\@3-span-2\/9 {
+		.\@3-span-2\/9 {
 				width: 22.22222%;
+		}
+		.grid-block > .\@3-span-2\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-3\/9,
+		.\@3-span-3\/9 {
+				width: 33.33333%;
+		}
 		.grid-block > .\@3-span-3\/9 {
-				width: 33.33333%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-4\/9,
-		.grid-block > .\@3-span-4\/9 {
+		.\@3-span-4\/9 {
 				width: 44.44444%;
+		}
+		.grid-block > .\@3-span-4\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-5\/9,
-		.grid-block > .\@3-span-5\/9 {
+		.\@3-span-5\/9 {
 				width: 55.55556%;
+		}
+		.grid-block > .\@3-span-5\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-6\/9,
+		.\@3-span-6\/9 {
+				width: 66.66667%;
+		}
 		.grid-block > .\@3-span-6\/9 {
-				width: 66.66667%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-7\/9,
-		.grid-block > .\@3-span-7\/9 {
+		.\@3-span-7\/9 {
 				width: 77.77778%;
+		}
+		.grid-block > .\@3-span-7\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-8\/9,
-		.grid-block > .\@3-span-8\/9 {
+		.\@3-span-8\/9 {
 				width: 88.88889%;
+		}
+		.grid-block > .\@3-span-8\/9 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-1\/10,
-		.grid-block > .\@3-span-1\/10 {
+		.\@3-span-1\/10 {
 				width: 10%;
+		}
+		.grid-block > .\@3-span-1\/10 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-2\/10,
-		.grid-block > .\@3-span-2\/10 {
+		.\@3-span-2\/10 {
 				width: 20%;
+		}
+		.grid-block > .\@3-span-2\/10 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-3\/10,
-		.grid-block > .\@3-span-3\/10 {
+		.\@3-span-3\/10 {
 				width: 30%;
+		}
+		.grid-block > .\@3-span-3\/10 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-4\/10,
-		.grid-block > .\@3-span-4\/10 {
+		.\@3-span-4\/10 {
 				width: 40%;
+		}
+		.grid-block > .\@3-span-4\/10 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-5\/10,
+		.\@3-span-5\/10 {
+				width: 50%;
+		}
 		.grid-block > .\@3-span-5\/10 {
-				width: 50%;
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-6\/10,
-		.grid-block > .\@3-span-6\/10 {
+		.\@3-span-6\/10 {
 				width: 60%;
+		}
+		.grid-block > .\@3-span-6\/10 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-7\/10,
-		.grid-block > .\@3-span-7\/10 {
+		.\@3-span-7\/10 {
 				width: 70%;
+		}
+		.grid-block > .\@3-span-7\/10 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-8\/10,
-		.grid-block > .\@3-span-8\/10 {
+		.\@3-span-8\/10 {
 				width: 80%;
+		}
+		.grid-block > .\@3-span-8\/10 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-9\/10,
-		.grid-block > .\@3-span-9\/10 {
+		.\@3-span-9\/10 {
 				width: 90%;
+		}
+		.grid-block > .\@3-span-9\/10 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-1\/11,
-		.grid-block > .\@3-span-1\/11 {
+		.\@3-span-1\/11 {
 				width: 9.09091%;
+		}
+		.grid-block > .\@3-span-1\/11 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-2\/11,
-		.grid-block > .\@3-span-2\/11 {
+		.\@3-span-2\/11 {
 				width: 18.18182%;
+		}
+		.grid-block > .\@3-span-2\/11 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-3\/11,
-		.grid-block > .\@3-span-3\/11 {
+		.\@3-span-3\/11 {
 				width: 27.27273%;
+		}
+		.grid-block > .\@3-span-3\/11 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-4\/11,
-		.grid-block > .\@3-span-4\/11 {
+		.\@3-span-4\/11 {
 				width: 36.36364%;
+		}
+		.grid-block > .\@3-span-4\/11 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-5\/11,
-		.grid-block > .\@3-span-5\/11 {
+		.\@3-span-5\/11 {
 				width: 45.45455%;
+		}
+		.grid-block > .\@3-span-5\/11 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-6\/11,
-		.grid-block > .\@3-span-6\/11 {
+		.\@3-span-6\/11 {
 				width: 54.54545%;
+		}
+		.grid-block > .\@3-span-6\/11 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-7\/11,
-		.grid-block > .\@3-span-7\/11 {
+		.\@3-span-7\/11 {
 				width: 63.63636%;
+		}
+		.grid-block > .\@3-span-7\/11 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-8\/11,
-		.grid-block > .\@3-span-8\/11 {
+		.\@3-span-8\/11 {
 				width: 72.72727%;
+		}
+		.grid-block > .\@3-span-8\/11 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-9\/11,
-		.grid-block > .\@3-span-9\/11 {
+		.\@3-span-9\/11 {
 				width: 81.81818%;
+		}
+		.grid-block > .\@3-span-9\/11 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-10\/11,
-		.grid-block > .\@3-span-10\/11 {
+		.\@3-span-10\/11 {
 				width: 90.90909%;
+		}
+		.grid-block > .\@3-span-10\/11 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-1\/12,
-		.grid-block > .\@3-span-1\/12 {
+		.\@3-span-1\/12 {
 				width: 8.33333%;
+		}
+		.grid-block > .\@3-span-1\/12 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-2\/12,
-		.grid-block > .\@3-span-2\/12 {
+		.\@3-span-2\/12 {
 				width: 16.66667%;
+		}
+		.grid-block > .\@3-span-2\/12 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-3\/12,
-		.grid-block > .\@3-span-3\/12 {
+		.\@3-span-3\/12 {
 				width: 25%;
+		}
+		.grid-block > .\@3-span-3\/12 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-4\/12,
-		.grid-block > .\@3-span-4\/12 {
+		.\@3-span-4\/12 {
 				width: 33.33333%;
+		}
+		.grid-block > .\@3-span-4\/12 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-5\/12,
-		.grid-block > .\@3-span-5\/12 {
+		.\@3-span-5\/12 {
 				width: 41.66667%;
+		}
+		.grid-block > .\@3-span-5\/12 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-6\/12,
-		.grid-block > .\@3-span-6\/12 {
+		.\@3-span-6\/12 {
 				width: 50%;
+		}
+		.grid-block > .\@3-span-6\/12 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-7\/12,
-		.grid-block > .\@3-span-7\/12 {
+		.\@3-span-7\/12 {
 				width: 58.33333%;
+		}
+		.grid-block > .\@3-span-7\/12 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-8\/12,
-		.grid-block > .\@3-span-8\/12 {
+		.\@3-span-8\/12 {
 				width: 66.66667%;
+		}
+		.grid-block > .\@3-span-8\/12 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-9\/12,
-		.grid-block > .\@3-span-9\/12 {
+		.\@3-span-9\/12 {
 				width: 75%;
+		}
+		.grid-block > .\@3-span-9\/12 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-10\/12,
-		.grid-block > .\@3-span-10\/12 {
+		.\@3-span-10\/12 {
 				width: 83.33333%;
+		}
+		.grid-block > .\@3-span-10\/12 {
 				margin-left: 0;
 				margin-right: 0;
 		}
-		.\@3-span-11\/12,
-		.grid-block > .\@3-span-11\/12 {
+		.\@3-span-11\/12 {
 				width: 91.66667%;
+		}
+		.grid-block > .\@3-span-11\/12 {
 				margin-left: 0;
 				margin-right: 0;
 		}

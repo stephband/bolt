@@ -1,7 +1,7 @@
 {
   "name": "bolt",
   "description": "A front-end toolkit of classes and evented behaviours.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "@stephband",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   },
   "scripts": {
     "sass": "node-sass --output-style expanded --indent-type tab -o classes classes && node-sass --output-style expanded --indent-type tab -o components/grid components/grid",
-    "build": "cat classes/* > dist/bolt-1.0.css",
+    "build": "cat classes/normalise.css classes/root.css classes/body.css classes/index.css classes/button.css classes/thumb.css classes/bubble.css classes/input.css classes/label.css classes/table.css classes/block.css classes/flex.css classes/layer.css classes/text.css classes/color.css classes/modifiers.css classes/respond.css components/grid/grid.css components/dialog/dialog.css > dist/bolt.css && cp dist/bolt.css dist/bolt-2.0.0.css",
     "styleguide": "kss --config kss.json"
   }
 }

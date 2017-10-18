@@ -1,14 +1,9 @@
 
-$grid-count:  6 !default;
-$grid-gutter: 2.5rem !default;
-$grid-space:  1.875rem !default;
-
 // prefix, min-width, grid count, gutter, space
 $breakpoints:
-	'\\@1-' 30em   6  $grid-gutter $grid-space,
-	'\\@2-' 37.5em 9  $grid-gutter $grid-space,
-	'\\@3-' 45em   12 $grid-gutter $grid-space,
-	'\\@4-' 60em   12 $grid-gutter $grid-space !default;
+	'\\@1-' 30em,
+	'\\@2-' 50em,
+	'\\@3-' 70em;
 
 @each $breakpoint in $breakpoints {
 	@media screen and (max-width: #{nth($breakpoint, 2) - 0.0001}) {
