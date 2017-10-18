@@ -17,7 +17,7 @@
     "sass":          "node-sass --output-style expanded --indent-type tab -o classes classes && node-sass --output-style expanded --indent-type tab -o components/grid components/grid",
     "build":         "cat classes/normalise.css classes/root.css classes/body.css classes/index.css classes/button.css classes/thumb.css classes/bubble.css classes/input.css classes/label.css classes/table.css classes/block.css classes/flex.css classes/layer.css classes/text.css classes/color.css classes/modifiers.css classes/respond.css components/grid/grid.css components/dialog/dialog.css > dist/bolt.css && minify dist/bolt.css",
     "build-version": "npm run build && cp dist/bolt.css dist/bolt-2.0.0.css && cp dist/bolt.min.css dist/bolt-2.0.0.min.css",
-    "publish":       "git checkout gh-pages && git pull origin master && npm run build-version && git commit -am 'Build version 2.0.0' && git push && git checkout master",
+    "publish":       "git pull origin master && npm run build-version && git add dist/* && git commit -m 'Build version 2.0.0' && git push",
     "styleguide":    "kss --config kss.json"
   }
 }
