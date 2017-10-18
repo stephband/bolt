@@ -5,8 +5,8 @@ $grid-space:  1.5rem !default;
 
 // prefix, min-width, grid count, gutter, space
 $breakpoints:
-	'\\@1-' 30em 3 $grid-gutter $grid-space,
-	'\\@2-' 50em 6 $grid-gutter $grid-space,
+	'\\@1-' 30em 6 $grid-gutter $grid-space,
+	'\\@2-' 50em 9 $grid-gutter $grid-space,
 	'\\@3-' 70em 9 $grid-gutter $grid-space !default;
 
 @mixin grid($prefix: '', $n: 6, $gutter: 1.25rem, $space: 1.25rem) {
