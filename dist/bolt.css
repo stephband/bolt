@@ -2702,18 +2702,14 @@ Styleguide: 1.3
 	        border-radius: inherit;
 }
 
-.fixed-layer {
-	position: fixed;
-}
-
 .screen-layer {
 	background-color: rgba(0,0,0,0.6);
 }
 
-.pushscroll-layer {
+.scroll-layer {
 	/* A technique for hiding scrollbars by nesting two layers, and pushing
-	   the scrollbars on the inner .scroll_layer outside the hidden boundary
-	   of the outer .pushscroll_layer. */
+	   the scrollbars on the inner .scroll outside the hidden boundary
+	   of the outer .scroll-layer. */
 
 	/* These values, representing the thickness of a scrollbar, should be
 	   overriden by feature testing with some js */
@@ -2729,6 +2725,8 @@ Styleguide: 1.3
 	   -moz-box-sizing: content-box;
 	        box-sizing: content-box;
 }
+
+.scroll-layer > .layer {}
 
 /*
 Typography.
