@@ -1,4 +1,4 @@
-/* normalise.css
+/* html.css
 
    Much borrowed from Normalize.css:
    http://github.com/necolas/normalize.css
@@ -48,7 +48,10 @@ progress, meter,
 	background-repeat: no-repeat;
 }
 
-html {
+html,
+:root {
+	height: 100%;
+
 	/* Corrects text resizing oddly in IE6/7 when body font-size is set using em units
 	   http://clagnut.com/blog/348/#c790 */
 	font-size: 100%;
@@ -58,6 +61,11 @@ html {
 	   www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
+
+	/* Setting a background on <html> means that a background
+	   on <body> does not get set on <html>. Win. */
+	color: #000000;
+	background-color: white;
 }
 
 body {
@@ -103,7 +111,7 @@ samp,
 pre {
 	/* Correct the inheritance and scaling of font size */
 	font-family: monospace, monospace;
-	
+
 	/* Correct the odd `em` font sizing */
 	font-size: 1em;
 }
@@ -324,21 +332,16 @@ th {
 		widows: 3;
 	}
 }
+/* Normalise SVG */
 
-html,
-:root {
-	height: 100%;
-	color: #000000;
-
-	/* Setting a background on <html> means that a background
-	   on <body> does not get set on <html>. Win. */
-	background-color: white;
-}
-
-/* Respond to device input classes. */
-
-.mouse *:focus {
-	outline: none !important;
+path,
+line,
+polygon,
+rect,
+circle,
+ellipse,
+text {
+	vector-effect: non-scaling-stroke;
 }
 
 body {
