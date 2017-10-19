@@ -10,7 +10,8 @@
   "nav-depth": 2,
 
   "css": [
-    "../classes/normalise.css",
+    "../classes/html.css",
+    "../classes/svg.css",
     "../classes/input.css",
     "../classes/label.css",
     "../classes/flex.css",
