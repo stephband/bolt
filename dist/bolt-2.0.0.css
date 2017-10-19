@@ -6604,6 +6604,7 @@ Styleguide: 1.span-n
 	cursor: pointer;
 }
 
+.dialog-layer.on,
 .dialog-layer.active {
 	opacity: 1;
 	visibility: visible;
