@@ -2,18 +2,17 @@
 
 A library of front end classes. <a href="http://stephen.band/bolt">Bolt</a> sets up a baseline for building flexible interfaces.
 
-## Latest build
-
-* <a href="http://stephen.band/bolt/dist/bolt.css">http://stephen.band/bolt/dist/bolt.css</a> (~125k)
-* <a href="http://stephen.band/bolt/dist/bolt.min.css">http://stephen.band/bolt/dist/bolt.min.css</a> (~85k)
-
-
 * Normalises for usefuleness. Bolt sets the box model to border-box across the board.
 * Descriptive base classes define layout techniques (.block, .button, .flex, .grid, .table, &hellips;).
 * Text stylesheet and the grid component set up a vertical rhythm.
 * Flexible, nestable and responsive horizontal grid component.
 * No colour. Themes change between projects while layout techniques generally don't. Bolt focuses on layout techniques.
 * Styleguide generated from KSS comments.
+
+## Latest build 2.0.0
+
+* <a href="http://stephen.band/bolt/dist/bolt.css">http://stephen.band/bolt/dist/bolt.css</a> (~125k)
+* <a href="http://stephen.band/bolt/dist/bolt.min.css">http://stephen.band/bolt/dist/bolt.min.css</a> (~85k)
 
 ## Getting started
 
