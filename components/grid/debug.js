@@ -3,12 +3,16 @@
 
 	var html = ''
 	+ '<input type="checkbox" id="grid-debug-input" />'
-	+ '<label class="debug-switch switch" for="grid-debug-input">Grid</label>'
+	+ '<label class="debug-switch switch" for="grid-debug-input">Grid</label>';
+
+	var grid = ''
 	+ '<div class="debug-grid-block grid-block block" id="grid-debug-block">'
-	+   '<div class="block grid-1/4"></div>'
-	+   '<div class="block grid-1/4"></div>'
-	+   '<div class="block grid-1/4"></div>'
-	+   '<div class="block grid-1/4"></div>'
+	+   '<div class="block grid-1/6"></div>'
+	+   '<div class="block grid-1/6"></div>'
+	+   '<div class="block grid-1/6"></div>'
+	+   '<div class="block grid-1/6"></div>'
+	+   '<div class="block grid-1/6"></div>'
+	+   '<div class="block grid-1/6"></div>'
 	+ '</div>';
 
 	var ready = new Promise(function(accept, reject) {
@@ -29,7 +33,14 @@
 	}
 
 	ready.then(function(document) {
+		var block    = document.getElementById('grid-debug-block');
+console.log('YES', block)
+		if (!block) {
+			block = fragmentFromString(grid);
+			document.body.appendChild(block);
+		}
+
 		var fragment = fragmentFromString(html);
-		document.body.appendChild(fragment);
+		block.before(fragment);
 	});
 })(this);
