@@ -402,10 +402,9 @@ input[type='file'] {
 	box-shadow: none;
 }
 
-/* Legacy */
-input.error,
-textarea.error,
-/* ------ */
+:root:not(.js) input:invalid,
+:root:not(.js) select:invalid,
+:root:not(.js) textarea:invalid,
 .validated input:invalid,
 .validated select:invalid,
 .validated textarea:invalid,

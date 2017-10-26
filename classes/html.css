@@ -27,7 +27,7 @@ a, abbr, address, code, time,
 br, del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, details, dialog, figure, figcaption, footer, header,
-nav, section, summary,
+nav, main, section, summary,
 form, fieldset, label, legend, input, output, button, select, textarea,
 progress, meter,
 ::before, ::after {
