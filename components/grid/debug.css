@@ -54,8 +54,12 @@ input:checked + .debug-switch {
 }
 
 input:checked + .debug-switch + .debug-grid-block {
-	height: 100%;
+	height: calc(100% + 1rem);
 	transition: height 0.4s linear;
+}
+
+.debug-grid-block {
+	overflow: hidden;
 }
 
 .debug-grid-block > .block {
