@@ -10,12 +10,7 @@ $breakpoints:
 	'\\@3-' 70em 9 $grid-gutter $grid-space !default;
 
 @mixin grid($prefix: '', $n: 6, $gutter: 1.25rem, $space: 1.25rem) {
-
-	/* Grid widths. */
-
 	@if $prefix == '' {
-
-
 		/* Grid blocks */
 
 		.grid-block,
@@ -26,7 +21,7 @@ $breakpoints:
 
 		.grid-block > .block {
 			display: inline-block;
-	//		min-width: 0;
+//		min-width: 0;
 			margin: #{$space / 2} #{$gutter / 2};
 		}
 
@@ -34,13 +29,11 @@ $breakpoints:
 			margin: 0;
 		}
 
+		/*
+		.grid-1/1
 
-
-	/*
-	.grid-1/1
-
-	Styleguide: 1.grid-1/1
-	*/
+		Styleguide: 1.grid-1/1
+		*/
 	}
 
 	.#{$prefix}grid-1\/1   {
@@ -63,19 +56,45 @@ $breakpoints:
 		}
 	}
 
-	/* Grid margins. */
+	/*
+	.span-1/1
 
-	.#{$prefix}grid-left-0 {
-		margin-left: #{$gutter / 2};
+	Styleguide: 1.grid-1/1
+	*/
+
+	.#{$prefix}span-1\/1   {
+		width: 100%;
 	}
 
 	@for $i from 1 through $n {
 		@for $j from 1 to $i {
-			.#{$prefix}grid-left-#{$j}\/#{$i} {
-				margin-left: calc(#{100% * $j / $i} + #{$gutter * $j / $i});
+			@if $prefix == '' {
+			/*
+			.grid-#{$j}/#{$i}
+
+			Styleguide: 1.grid-#{$j}/#{$i}
+			*/
+			}
+
+			.#{$prefix}span-#{$j}\/#{$i}   {
+				width: #{100% * ($j / $i)};
 			}
 		}
 	}
+
+//	/* Grid margins. */
+//
+//	.#{$prefix}grid-left-0 {
+//		margin-left: #{$gutter / 2};
+//	}
+//
+//	@for $i from 1 through $n {
+//		@for $j from 1 to $i {
+//			.#{$prefix}grid-left-#{$j}\/#{$i} {
+//				margin-left: calc(#{100% * $j / $i} + #{$gutter * $j / $i});
+//			}
+//		}
+//	}
 
 
 	/* Grid widths inside grid-blocks. */
