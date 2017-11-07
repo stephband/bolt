@@ -77,7 +77,7 @@ $breakpoints:
 			}
 
 			.#{$prefix}span-#{$j}\/#{$i}   {
-				width: #{100% * ($j / $i)};
+				width: calc(#{100% * ($j / $i)} + #{$gutter * ($j / $i)});
 			}
 		}
 	}
