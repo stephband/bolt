@@ -597,6 +597,12 @@ button,
 	border-radius: 0.375rem;
 }
 
+[type="range"]::-moz-range-progress {
+	height: 0.75em;
+	background-color: #2B3134;
+	border-radius: 0.375rem;
+}
+
 [type=range]::-ms-track {
 	height: 0.75rem;
 	border: none;
