@@ -54,11 +54,22 @@ input:checked + .debug-switch {
 }
 
 input:checked + .debug-switch + .debug-grid-block {
-	height: 100%;
+	height: calc(100% + 1rem);
 	transition: height 0.4s linear;
 }
 
+.debug-grid-block {
+	overflow: hidden;
+}
+
 .debug-grid-block > .block {
+	font-size: 0.75rem;
+	font-weight; 500;
+	line-height: 0.75rem;
+	text-align: center;
+	padding-top: 0.375rem;
 	height: 100%;
-	background-color: rgba(60,140,180,0.16);
+	color: #3c8cb4;
+	background-color: rgba(60,140,180,0.12);
+	overflow: hidden;
 }
