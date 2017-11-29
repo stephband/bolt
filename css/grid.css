@@ -1023,7 +1023,7 @@ Styleguide: 1.1.grid-block
 		}
 }
 
-@media all and (min-width: 50em) {
+@media all and (min-width: 52.5em) {
 		.grid-block,
 		.index > .grid-block {
 				margin-left: -1.25rem;
@@ -3350,7 +3350,7 @@ Styleguide: 1.span-n
 		}
 }
 
-@media all and (min-width: 50em) {
+@media all and (min-width: 52.5em) {
 		.\@2-grid-1\/n:nth-last-child(2):first-child {
 				width: calc(50% - 2.5rem);
 		}
