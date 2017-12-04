@@ -55,7 +55,8 @@ Hide an element when its parent has class <code>on</code>.
 Styleguide: 5.on-hidden
 */
 
-.on > .on-hidden {
+.on > .on-hidden,
+.on.on-hidden {
 	display: none !important;
 }
 
@@ -67,7 +68,8 @@ Show an element when its parent has class <code>on</code>.
 Styleguide: 5.on-shown
 */
 
-:not(.on) > .on-shown {
+:not(.on) > .on-shown,
+.on-shown:not(.on) {
 	display: none !important;
 }
 
