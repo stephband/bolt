@@ -22,13 +22,13 @@
 		}
 }
 
-@media screen and (max-width: 37.4999em) {
+@media screen and (max-width: 49.9999em) {
 		.\@2-shown {
 				display: none !important;
 		}
 }
 
-@media screen and (min-width: 37.5em) {
+@media screen and (min-width: 50em) {
 		.\@2-hidden {
 				display: none !important;
 		}
@@ -46,13 +46,13 @@
 		}
 }
 
-@media screen and (max-width: 44.9999em) {
+@media screen and (max-width: 69.9999em) {
 		.\@3-shown {
 				display: none !important;
 		}
 }
 
-@media screen and (min-width: 45em) {
+@media screen and (min-width: 70em) {
 		.\@3-hidden {
 				display: none !important;
 		}
@@ -66,30 +66,6 @@
 				float: left;
 		}
 		.\@3-right {
-				float: right;
-		}
-}
-
-@media screen and (max-width: 59.9999em) {
-		.\@4-shown {
-				display: none !important;
-		}
-}
-
-@media screen and (min-width: 60em) {
-		.\@4-hidden {
-				display: none !important;
-		}
-		.\@4-block {
-				display: block;
-		}
-		.\@4-inline-block {
-				display: inline-block;
-		}
-		.\@4-left {
-				float: left;
-		}
-		.\@4-right {
 				float: right;
 		}
 }

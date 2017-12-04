@@ -74,6 +74,58 @@ Styleguide: 5.on-shown
 }
 
 /*
+.fullscreen-hidden
+
+Hide an element when in fullscreen mode.
+
+Styleguide: 5.fullscreen-hidden
+*/
+
+.fullscreen-hidden:-webkit-full-screen,
+:-webkit-full-screen .fullscreen-hidden {
+	display: none !important;
+}
+
+.fullscreen-hidden:-moz-full-screen,
+:-moz-full-screen .fullscreen-hidden {
+	display: none !important;
+}
+
+.fullscreen-hidden:-ms-fullscreen,
+:-ms-fullscreen .fullscreen-hidden {
+	display: none !important;
+}
+
+.fullscreen-hidden:fullscreen,
+:fullscreen .fullscreen-hidden {
+	display: none !important;
+}
+
+/*
+.fullscreen-shown
+
+Show an element when its parent has class <code>on</code>.
+
+Styleguide: 5.fullscreen-shown
+*/
+
+.fullscreen-shown:not(:-webkit-full-screen) {
+	display: none !important;
+}
+
+.fullscreen-shown:not(:-moz-full-screen) {
+	display: none !important;
+}
+
+.fullscreen-shown:not(:-ms-fullscreen) {
+	display: none !important;
+}
+
+.fullscreen-shown:not(:fullscreen) {
+	display: none !important;
+}
+
+/*
 .masked
 
 Styleguide: 5.masked

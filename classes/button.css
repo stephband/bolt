@@ -41,6 +41,10 @@ button,
 	display: inline-block;
 	position: relative;
 
+	/* Has it's own stacking context, to prevent icons and masked inputs
+	   overflowing stacks outside the button */
+	z-index: 0;
+
 	width: auto;
 	height: auto;
 	/* button elements ignore line-height, centering text automaticaly. */
@@ -272,4 +276,29 @@ Styleguide: 3.checkbox-button
 	/* A hidden overflow would hide the browser generated error messages.
 	   No no no. Make sure it's visible. */
 	/*overflow: visible;*/
+}
+
+/*
+.toggle-button
+
+Markup: <a class="toggle-button button" href="#id">Open</a>
+
+Styleguide: 3.toggle-button
+*/
+
+.toggle-button::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	right: 0.75rem;
+	width: 0.5625rem;
+	height: 0.5625rem;
+	border-right: 1px solid white;
+	border-bottom: 1px solid white;
+	transform: translate3d(0,-50%,0) rotate(-45deg);
+	transition: transform 0.2s linear;
+}
+
+.toggle-button.on::after {
+	transform: translate3d(0,-50%,0) rotate(45deg);
 }

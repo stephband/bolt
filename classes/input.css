@@ -402,10 +402,9 @@ input[type='file'] {
 	box-shadow: none;
 }
 
-/* Legacy */
-input.error,
-textarea.error,
-/* ------ */
+:root:not(.js) input:invalid,
+:root:not(.js) select:invalid,
+:root:not(.js) textarea:invalid,
 .validated input:invalid,
 .validated select:invalid,
 .validated textarea:invalid,
@@ -595,6 +594,12 @@ button,
 	height: 0.75rem;
 	background: #2B3134;
 	border: none;
+	border-radius: 0.375rem;
+}
+
+[type="range"]::-moz-range-progress {
+	height: 0.75em;
+	background-color: #2B3134;
 	border-radius: 0.375rem;
 }
 

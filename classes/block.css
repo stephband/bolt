@@ -49,6 +49,10 @@ Styleguide: 1.1
 	max-width: 100%;
 }
 
+hr.block {
+	height: 1px;
+}
+
 
 /*
 .inline-block
@@ -60,6 +64,23 @@ Styleguide: 1.1.inline-block
 	display: inline-block;
 }
 
+/*
+.stack-block
+
+A block with no height and visible overflow intended as a stacking origin
+for children to be overlayed over the following content.
+
+Styleguide: 1.1.stack-block
+*/
+
+.stack-block {
+    position: relative;
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
 
 /*
 .tab-block

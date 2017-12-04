@@ -1,4 +1,4 @@
-/* normalise.css
+/* html.css
 
    Much borrowed from Normalize.css:
    http://github.com/necolas/normalize.css
@@ -20,6 +20,34 @@
 	display: none !important;
 }
 
+/* Make fullscreen elements fill the screen */
+
+:-webkit-full-screen {
+	width: 100vw !important;
+	height: 100vh !important;
+	margin: 0 !important;
+}
+
+:-moz-full-screen {
+	width: 100vw !important;
+	height: 100vh !important;
+	margin: 0 !important;
+}
+
+:-ms-fullscreen {
+	width: 100vw !important;
+	height: 100vh !important;
+	margin: 0 !important;
+}
+
+:fullscreen {
+	width: 100vw !important;
+	height: 100vh !important;
+	margin: 0 !important;
+}
+
+/* Normalise elements */
+
 html, body, div, span,
 object, iframe, canvas, img, svg, audio, video, track, math,
 h1, h2, h3, h4, h5, h6, hr, p, blockquote, pre,
@@ -27,7 +55,7 @@ a, abbr, address, code, time,
 br, del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, details, dialog, figure, figcaption, footer, header,
-nav, section, summary,
+nav, main, section, summary,
 form, fieldset, label, legend, input, output, button, select, textarea,
 progress, meter,
 ::before, ::after {
@@ -48,7 +76,10 @@ progress, meter,
 	background-repeat: no-repeat;
 }
 
-html {
+html,
+:root {
+	height: 100%;
+
 	/* Corrects text resizing oddly in IE6/7 when body font-size is set using em units
 	   http://clagnut.com/blog/348/#c790 */
 	font-size: 100%;
@@ -58,6 +89,11 @@ html {
 	   www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
+
+	/* Setting a background on <html> means that a background
+	   on <body> does not get set on <html>. Win. */
+	color: #000000;
+	background-color: white;
 }
 
 body {
@@ -103,7 +139,7 @@ samp,
 pre {
 	/* Correct the inheritance and scaling of font size */
 	font-family: monospace, monospace;
-	
+
 	/* Correct the odd `em` font sizing */
 	font-size: 1em;
 }

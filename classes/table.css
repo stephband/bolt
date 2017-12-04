@@ -30,18 +30,18 @@ td {
 
 th:first-child,
 td:first-child {
-	padding-left: 0.9375rem;
+	padding-left: 0;
 }
 
 th:last-child,
 td:last-child {
-	padding-right: 0.9375rem;
+	padding-right: 0;
 }
 
 thead > tr > th,
 thead > tr > td {
-    padding-top:    0.875rem;
-	padding-bottom: 0.875rem;
+    padding-top:    0.75rem;
+	padding-bottom: 0.375rem;
 	vertical-align: bottom;
 }
 
@@ -50,33 +50,17 @@ thead > tr:last-child > td {
 	padding-bottom: 0.375rem;
 }
 
-thead + tbody > tr:first-child > th,
-thead + tbody > tr:first-child > td {
-	border-top: 1px solid hsl(198, 10%, 75%);
-}
-
 tbody > tr > th,
 tbody > tr > td {
-    /* Compensate for border-top */
-    padding-top:    0.8125rem;
-	padding-bottom: 0.875rem;
+	line-height:    1.5rem;
+    padding-top:    0.1875rem;
+	padding-bottom: 0.1875rem;
 	vertical-align: middle;
-}
-
-tbody > tr + tr > th,
-tbody > tr + tr > td {
-	border-top: 1px solid hsl(198, 10%, 85%);
-}
-
-tbody + tfoot > tr > th,
-tbody + tfoot > tr > td {
-	border-top: 1px solid hsl(198, 10%, 75%);
 }
 
 tfoot > tr > th,
 tfoot > tr > td {
-    /* Compensate for border-top */
-    padding-top:    0.8125rem;
+    padding-top:    0.875rem;
 	padding-bottom: 0.875rem;
 	vertical-align: top;
 }
@@ -87,6 +71,79 @@ table {
 	margin-right: 0;
 	table-layout:fixed;
 }
+
+
+
+/*
+.lined-table
+
+Markup: <table class="lined-table">
+  <thead>
+    <tr><th></th><th>1</th><th>2</th><th>3</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>English</th><td>One</td><td>Two</td><td>Three</td></tr>
+    <tr><th>Français</th><td>Un</td><td>Deux</td><td>Trois</td></tr>
+    <tr><th>Italiano</th><td>Uno</td><td>Due</td><td>Tre</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><th>Notes</th><td>Small</td><th>Medium</td><td>Large</td></tr>
+  </tfoot>
+</table>
+
+Styleguide: 4.table
+*/
+
+
+.lined-table th,
+.lined-table td {
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+}
+
+.lined-table th:first-child,
+.lined-table td:first-child {
+	padding-left: 1.25rem;
+}
+
+.lined-table th:last-child,
+.lined-table td:last-child {
+	padding-right: 1.25rem;
+}
+
+.lined-table > thead > tr > th,
+.lined-table > thead > tr > td {
+    /* Compensate for border-top */
+    padding-top:    0.625rem;
+	padding-bottom: 0.375rem;
+}
+
+.lined-table > thead + tbody > tr:first-child > th,
+.lined-table > thead + tbody > tr:first-child > td {
+    padding-bottom: 0.875rem;
+	border-top-width: 0;
+}
+
+.lined-table > thead > tr:last-child > th,
+.lined-table > thead > tr:last-child > td {
+	padding-bottom: 0.375rem;
+}
+
+.lined-table > tbody > tr > th,
+.lined-table > tbody > tr > td {
+    /* Compensate for border-top */
+    padding-top:    0.8125rem;
+	padding-bottom: 0.875rem;
+}
+
+.lined-table > tfoot > tr > th,
+.lined-table > tfoot > tr > td {
+    /* Compensate for border-top */
+    padding-top:    0.8125rem;
+	padding-bottom: 0.875rem;
+	vertical-align: top;
+}
+
 
 
 /*
@@ -108,6 +165,12 @@ Markup: <table class="striped-table">
 
 Styleguide: 4.table-striped
 */
+
+.striped-table > tbody > tr > th,
+.striped-table > tbody > tr > td {
+    padding-top:    0.875rem;
+	padding-bottom: 0.875rem;
+}
 
 .striped-table > tbody > tr:nth-child(2n) > th,
 .striped-table > tbody > tr:nth-child(2n) > td {
