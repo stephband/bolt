@@ -56,7 +56,7 @@ Styleguide: 5.on-hidden
 */
 
 .on > .on-hidden,
-.on.on-hidden {
+.on-hidden.on {
 	display: none !important;
 }
 
@@ -68,8 +68,7 @@ Show an element when its parent has class <code>on</code>.
 Styleguide: 5.on-shown
 */
 
-:not(.on) > .on-shown,
-.on-shown:not(.on) {
+:not(.on) > .on-shown:not(.on) {
 	display: none !important;
 }
 
@@ -82,7 +81,7 @@ Styleguide: 5.requested-hidden
 */
 
 .requested > .requested-hidden,
-.requested.requested-hidden {
+.requested-hidden.requested {
 	display: none !important;
 }
 
@@ -94,8 +93,7 @@ Show an element when its parent has class <code>requested</code>.
 Styleguide: 5.requested-shown
 */
 
-:not(.requested) > .requested-shown:not(.requested),
-.requested-shown:not(.requested) {
+:not(.requested) > .requested-shown:not(.requested) {
 	display: none !important;
 }
 
@@ -129,8 +127,6 @@ Styleguide: 5.fullscreen-hidden
 
 /*
 .fullscreen-shown
-
-Show an element when its parent has class <code>on</code>.
 
 Styleguide: 5.fullscreen-shown
 */
