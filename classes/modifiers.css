@@ -74,6 +74,32 @@ Styleguide: 5.on-shown
 }
 
 /*
+.requested-hidden
+
+Hide an element when its parent has class <code>requested</code>.
+
+Styleguide: 5.requested-hidden
+*/
+
+.requested > .requested-hidden,
+.requested.requested-hidden {
+	display: none !important;
+}
+
+/*
+.requested-shown
+
+Show an element when its parent has class <code>requested</code>.
+
+Styleguide: 5.requested-shown
+*/
+
+:not(.requested) > .requested-shown,
+.requested-shown:not(.requested) {
+	display: none !important;
+}
+
+/*
 .fullscreen-hidden
 
 Hide an element when in fullscreen mode.
