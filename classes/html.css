@@ -20,6 +20,34 @@
 	display: none !important;
 }
 
+/* Make fullscreen elements fill the screen */
+
+:-webkit-full-screen {
+	width: 100vw !important;
+	height: 100vh !important;
+	margin: 0 !important;
+}
+
+:-moz-full-screen {
+	width: 100vw !important;
+	height: 100vh !important;
+	margin: 0 !important;
+}
+
+:-ms-fullscreen {
+	width: 100vw !important;
+	height: 100vh !important;
+	margin: 0 !important;
+}
+
+:fullscreen {
+	width: 100vw !important;
+	height: 100vh !important;
+	margin: 0 !important;
+}
+
+/* Normalise elements */
+
 html, body, div, span,
 object, iframe, canvas, img, svg, audio, video, track, math,
 h1, h2, h3, h4, h5, h6, hr, p, blockquote, pre,
