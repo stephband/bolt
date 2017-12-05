@@ -94,7 +94,7 @@ Show an element when its parent has class <code>requested</code>.
 Styleguide: 5.requested-shown
 */
 
-:not(.requested) > .requested-shown,
+:not(.requested) > .requested-shown:not(.requested),
 .requested-shown:not(.requested) {
 	display: none !important;
 }
