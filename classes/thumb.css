@@ -22,6 +22,7 @@ Styleguide: 4.thumb
 	display: inline-block;
 	vertical-align: top;
 	overflow: hidden;
+	position: relative;
 
 	/* Nullify padding that may have been put there by other
 	   styling, say for example by <button class="thumb"> */
