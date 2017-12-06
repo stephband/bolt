@@ -38,14 +38,30 @@ Styleguide: 5.hidden
 }
 
 /*
-.shown
+.active-hidden
 
-Show element.
+Hide an element when its parent has class <code>active</code>.
 
-Styleguide: 5.hidden-shown
+Styleguide: 5.active-hidden
 */
 
-.shown {}
+.active-hidden.active,
+.active > .active-hidden {
+	display: none !important;
+}
+
+/*
+.active-shown
+
+Show an element when its parent has class <code>active</code>.
+
+Styleguide: 5.active-shown
+*/
+
+:not(.active) > .active-shown:not(.active) {
+	display: none !important;
+}
+
 
 /*
 .on-hidden
@@ -55,8 +71,8 @@ Hide an element when its parent has class <code>on</code>.
 Styleguide: 5.on-hidden
 */
 
-.on > .on-hidden,
-.on-hidden.on {
+.on-hidden.on,
+.on > .on-hidden {
 	display: none !important;
 }
 
@@ -80,8 +96,8 @@ Hide an element when its parent has class <code>requested</code>.
 Styleguide: 5.requested-hidden
 */
 
-.requested > .requested-hidden,
-.requested-hidden.requested {
+.requested-hidden.requested,
+.requested > .requested-hidden {
 	display: none !important;
 }
 
@@ -131,19 +147,19 @@ Styleguide: 5.fullscreen-hidden
 Styleguide: 5.fullscreen-shown
 */
 
-.fullscreen-shown:not(:-webkit-full-screen) {
+:not(:-webkit-full-screen) > .fullscreen-shown:not(:-webkit-full-screen) {
 	display: none !important;
 }
 
-.fullscreen-shown:not(:-moz-full-screen) {
+:not(:-moz-full-screen) > .fullscreen-shown:not(:-moz-full-screen) {
 	display: none !important;
 }
 
-.fullscreen-shown:not(:-ms-fullscreen) {
+:not(:-ms-fullscreen) > .fullscreen-shown:not(:-ms-fullscreen) {
 	display: none !important;
 }
 
-.fullscreen-shown:not(:fullscreen) {
+:not(:fullscreen) > .fullscreen-shown:not(:fullscreen) {
 	display: none !important;
 }
 
@@ -222,15 +238,15 @@ Styleguide: 5.requested
 }
 
 /*
-.notransition
+.no-transition
 
 Cancel transitions on an element and all descendents.
 
-Styleguide: 5.notransition
+Styleguide: 5.no-transition
 */
 
-.notransition,
-.notransition * {
+.no-transition,
+.no-transition * {
 	-webkit-transition: none !important;
 	   -moz-transition: none !important;
 	     -o-transition: all 0 linear 0 !important;
@@ -509,5 +525,4 @@ sed souvent suckum in internet explorum.
 Styleguide: 5.scroll-4
 */
 
-.noscroll,
 .no-scroll { overflow: hidden !important; }
