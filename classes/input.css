@@ -429,6 +429,7 @@ textarea:focus,
 input.validated:focus,
 select.validated:focus,
 textarea.validated:focus,
+.masked:focus + .focus-label:before,
 .masked:focus + .checkbox-label:before,
 .masked:focus + .radio-label:before {
 	/* In Webkit, outline doesn't fit the border curves, and in FF outline
