@@ -34,7 +34,7 @@
 
 	ready.then(function(document) {
 		var block    = document.getElementById('grid-debug-block');
-console.log('YES', block)
+
 		if (!block) {
 			block = fragmentFromString(grid);
 			document.body.appendChild(block);
