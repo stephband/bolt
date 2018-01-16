@@ -184,6 +184,15 @@ Styleguide: 3.checkbox-label
 	cursor: pointer;
 }
 
+.masked + .checkbox-label,
+.masked + .radio-label {
+    margin-top: 0;
+}
+
+/* .yes-radio-label
+   .no-radio-label
+*/
+
 .yes-radio-label::before,
 .no-radio-label::before {
 	border-width: 0;
