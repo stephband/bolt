@@ -59,6 +59,10 @@ Styleguide: 4.thumb
 	color: inherit;
 }
 
+.thumb.block {
+	overflow: hidden;
+}
+
 @media print {
 	.thumb {
 		/* Encourage webkit to print background image. */

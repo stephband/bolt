@@ -229,14 +229,14 @@ Styleguide: 1.span-n
 @mixin adaptive-grid($gutter: 1.25rem, $n: 6, $prefix: '') {
 	@for $i from 2 through $n {
 		.#{$prefix}grid-1\/n:nth-last-child(#{$i}):first-child,
-		.*:nth-last-child(#{$i}):first-child ~ #{$prefix}grid-1\/n {
+		*:nth-last-child(#{$i}):first-child ~ .#{$prefix}grid-1\/n {
 			width: calc(#{100% / $i} - #{$gutter});
 		}
 	}
 
 	@for $i from 2 through $n {
 		.#{$prefix}span-1\/n:nth-last-child(#{$i}):first-child,
-		.*:nth-last-child(#{$i}):first-child ~ #{$prefix}span-1\/n {
+		*:nth-last-child(#{$i}):first-child ~ .#{$prefix}span-1\/n {
 			width: #{100% / $i};
 		}
 	}
