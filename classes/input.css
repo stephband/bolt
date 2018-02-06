@@ -4,10 +4,14 @@ Forms.
 Styleguide: 3
 */
 
+/* Edge fails to update styles for changed disabled properties. This rule
+   targetting the attribute rather than the pseudo-selector keeps the
+   pseudo-selectors up-to-date.
+   https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11295231/
+*/
+[disabled] ~ _ {}
 
 /*
-It is time to look at these pseudo selectors, which now have broad support:
-
 :enabled
 :disabled
 :required
