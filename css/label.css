@@ -172,8 +172,8 @@ Styleguide: xForms.3
 	display: none;
 }
 
-.masked[type="radio"]:checked + .radio-label::after,
-.masked[type="checkbox"]:checked + .checkbox-label::after {
+.masked:checked + .radio-label::after,
+.masked:checked + .checkbox-label::after {
 	display: block;
 }
 
@@ -238,4 +238,3 @@ Styleguide: xForms.3
 .no-radio-label::after {
 	background-position: 8px -432px;
 }
-
