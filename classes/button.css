@@ -180,7 +180,8 @@ Styleguide: 3.select-button
 	width: calc(100% + 2px);
 	height: calc(100% + 2px);
 	margin: -1px;
-	padding: 0;
+	padding-top: 0;
+	padding-bottom: 0;
 	outline: none;
 	border: 1px solid transparent;
 	border-radius: inherit;

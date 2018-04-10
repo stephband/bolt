@@ -185,7 +185,6 @@ textarea,
 	background-color: white;
 }
 
-textarea,
 [type="tel"],
 [type="url"],
 [type="date"],
@@ -196,7 +195,11 @@ textarea,
 [type="email"],
 [type="number"],
 [type="search"],
-[type="password"],
+[type="password"] {
+	text-indent: 0.5625rem;
+}
+
+textarea,
 .select-button > select {
 	padding-left: 0.5625rem;
 	padding-right: 0.5625rem;
