@@ -198,7 +198,7 @@ Styleguide: 3.select-button
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 2.4375rem;
+	width: 2.4375rem; /* Match-01 */
 	height: 100%;
 	border-width: 0;
 	border-left-width: inherit;
@@ -244,7 +244,7 @@ Styleguide: 3.select-button
 
 	/* Remove select styling */
 	.select-button > select {
-		padding-right: 2em; /* Match-01 */
+		padding-right: 2.4375rem; /* Match-01 */
 		/* inside @supports so that iOS <= 8 display the native arrow */
 		background: none; /* Match-04 */
 		/* inside @supports so that Android <= 4.3 display the native arrow */
