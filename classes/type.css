@@ -1,0 +1,38 @@
+
+dd                { margin: 0; }
+ul,
+ol,
+dl,
+blockquote        { margin-top: 1.25rem; }
+li                { margin-bottom: 0;}
+
+blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
+
+/* Inline elements */
+
+sup,
+sub               { font-size: 0.6em; line-height: 0; }
+
+abbr              { letter-spacing: 0.1em; }
+
+/* Tables */
+
+th,
+td,
+caption           { padding: 4px 10px 4px 5px; }
+
+/* Indentation */
+
+ul,
+ol                { margin-left: 0; }
+
+blockquote        { margin-left: 2.6667em; }
+
+/* Classes */
+
+.wrap             { white-space: normal; }
+.no-wrap          { white-space: nowrap; text-overflow: ellipsis; }
+.line-wrap        { white-space: pre; }
+
+.tag-code::before { content: '<'; margin-right: -0.1em; }
+.tag-code::after  { content: '>'; margin-left: -0.1em; }
