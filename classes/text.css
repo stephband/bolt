@@ -322,38 +322,6 @@ p + pre,  .text-8 + pre, pre + p,  pre + .text-8 { margin-top: 1.25rem; }
 p + form,     .text-8 + form     { margin-top: 0.5rem; }
 p + fieldset, .text-8 + fieldset { margin-top: 2rem; }
 
-dd                { margin: 0; }
-ul,
-ol,
-dl,
-blockquote        { margin-top: 1.25rem; }
-li                { margin-bottom: 0;}
-
-blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
-
-/*pre,
-address           { margin-top: 1.3333em; }*/
-
-/* Inline elements */
-
-sup,
-sub               { font-size: 0.6em; line-height: 0; }
-
-abbr              { letter-spacing: 0.1em; }
-
-/* Tables */
-
-th,
-td,
-caption           { padding: 4px 10px 4px 5px; }
-
-/* Indentation */
-
-ul,
-ol                { margin-left: 0; }
-
-blockquote        { margin-left: 2.6667em; }
-
 
 /* Classes */
 
