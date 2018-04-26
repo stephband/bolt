@@ -21,8 +21,11 @@ $breakpoints:
 
 		.grid-block > .block {
 			display: inline-block;
-//		min-width: 0;
 			margin: #{$space / 2} #{$gutter / 2};
+		}
+
+		.grid-block > .flex {
+			display: inline-flex;
 		}
 
 		.grid-block > .grid-block {
