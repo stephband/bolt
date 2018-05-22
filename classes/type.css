@@ -241,6 +241,7 @@ blockquote        { margin-left: 2.6667em; }
 
 .wrap             { white-space: normal; }
 .no-wrap          { white-space: nowrap; text-overflow: ellipsis; }
+.break-wrap       { white-space: normal; overflow-wrap: break-word; }
 .line-wrap        { white-space: pre; }
 
 /* Modifiers */
