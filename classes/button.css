@@ -296,8 +296,8 @@ Styleguide: 3.toggle-button
 	right: 0.75rem;
 	width: 0.5625rem;
 	height: 0.5625rem;
-	border-right: 1px solid white;
-	border-bottom: 1px solid white;
+	border-right: 1px solid currentcolor;
+	border-bottom: 1px solid currentcolor;
 	transform: translate3d(0,-50%,0) rotate(-45deg);
 	transition: transform 0.2s linear;
 }
