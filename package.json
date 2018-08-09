@@ -14,13 +14,8 @@
     "node-sass": "^4.5.3"
   },
   "scripts": {
-<<<<<<< HEAD
-    "sass": "node-sass --output-style expanded --indent-type tab -o classes classes && node-sass --output-style expanded --indent-type tab -o components/grid components/grid",
-    "build": "cat classes/html.css classes/svg.css classes/body.css classes/index.css classes/button.css classes/thumb.css classes/bubble.css classes/input.css classes/label.css classes/table.css classes/block.css classes/flex.css classes/layer.css classes/type.css classes/text.css classes/color.css classes/modifiers.css classes/respond.css components/grid/grid.css components/dialog/dialog.css > dist/bolt.css && minify dist/bolt.css",
-=======
     "sass":          "node-sass --output-style expanded --indent-type tab -o css css && node-sass --output-style expanded --indent-type tab -o components/grid components/grid",
     "build":         "cat css/html.css css/svg.css css/body.css css/index.css css/button.css css/thumb.css css/bubble.css css/input.css css/label.css css/table.css css/block.css css/flex.css css/layer.css css/type.css css/text.css css/color.css css/modifiers.css css/respond.css components/grid/grid.css components/dialog/dialog.css > dist/bolt.css && minify dist/bolt.css",
->>>>>>> ce29a3833904dec731c5656e71a6f18addc3a952
     "build-version": "npm run build && cp dist/bolt.css dist/bolt-2.0.0.css && cp dist/bolt.min.css dist/bolt-2.0.0.min.css",
     "publish": "git pull origin master && npm run build-version && git add dist/* && git commit -am 'Build version 2.0.0' && git push",
     "styleguide": "kss --config kss.json"
