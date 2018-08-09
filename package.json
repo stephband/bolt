@@ -14,10 +14,10 @@
     "node-sass": "^4.5.3"
   },
   "scripts": {
-    "sass":          "node-sass --output-style expanded --indent-type tab -o classes classes && node-sass --output-style expanded --indent-type tab -o components/grid components/grid",
-    "build":         "cat classes/html.css classes/svg.css classes/body.css classes/index.css classes/button.css classes/thumb.css classes/bubble.css classes/input.css classes/label.css classes/table.css classes/block.css classes/flex.css classes/layer.css classes/type.css classes/text.css classes/color.css classes/modifiers.css classes/respond.css components/grid/grid.css components/dialog/dialog.css > dist/bolt.css && minify dist/bolt.css",
+    "sass": "node-sass --output-style expanded --indent-type tab -o classes classes && node-sass --output-style expanded --indent-type tab -o components/grid components/grid",
+    "build": "cat classes/html.css classes/svg.css classes/body.css classes/index.css classes/button.css classes/thumb.css classes/bubble.css classes/input.css classes/label.css classes/table.css classes/block.css classes/flex.css classes/layer.css classes/type.css classes/text.css classes/color.css classes/modifiers.css classes/respond.css components/grid/grid.css components/dialog/dialog.css > dist/bolt.css && minify dist/bolt.css",
     "build-version": "npm run build && cp dist/bolt.css dist/bolt-2.0.0.css && cp dist/bolt.min.css dist/bolt-2.0.0.min.css",
-    "publish":       "git pull origin master && npm run build-version && git add dist/* && git commit -am 'Build version 2.0.0' && git push",
-    "styleguide":    "kss --config kss.json"
+    "publish": "git pull origin master && npm run build-version && git add dist/* && git commit -am 'Build version 2.0.0' && git push",
+    "styleguide": "kss --config kss.json"
   }
 }
