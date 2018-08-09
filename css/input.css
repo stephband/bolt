@@ -418,10 +418,7 @@ input[type='file'] {
 input.validated:invalid,
 select.validated:invalid,
 textarea.validated:invalid {
-	-webkit-box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
-	-moz-box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
 	box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
-
 	border-color: #d61729 !important;
 }
 
@@ -442,11 +439,7 @@ textarea.validated:focus,
 	/* In Webkit, outline doesn't fit the border curves, and in FF outline
 	   is ugly. Lets recreate it with box-shadow */
 	outline: none;
-
-	-webkit-box-shadow: 0 0 5px 2px hsla(200,56%,49%,0.8), inset 0 0 0.5rem hsla(200,65%,60%,0.6);
-	   -moz-box-shadow: 0 0 5px 2px hsla(200,56%,49%,0.8), inset 0 0 0.5rem hsla(200,65%,60%,0.6);
-	        box-shadow: 0 0 5px 2px hsla(200,56%,49%,0.8), inset 0 0 0.5rem hsla(200,65%,60%,0.6);
-
+	box-shadow: 0 0 5px 2px hsla(200,56%,49%,0.8), inset 0 0 0.5rem hsla(200,65%,60%,0.6);
 	border-color: #2c9bd3 !important;
 }
 
