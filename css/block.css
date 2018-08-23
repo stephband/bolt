@@ -64,6 +64,23 @@ Styleguide: 1.1.inline-block
 	display: inline-block;
 }
 
+/*
+.stack-block
+
+A block with no height and visible overflow intended as a stacking origin
+for children to be overlayed over the following content.
+
+Styleguide: 1.1.stack-block
+*/
+
+.stack-block {
+    position: relative;
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
 
 /*
 .tab-block
@@ -75,40 +92,27 @@ Styleguide: 4.tab-block
 */
 
 .js .tab-block {
-	display: inline-block;
 	position: relative;
 	width: 100%;
-	vertical-align: top;
-
-	/* Give all tabs the same origin despite being consecutive inline-blocks.
-	   Requires spaceless HTML. */
-	margin-right: -100% !important;
 
 	visibility: hidden;
 	opacity: 0;
 	z-index: 1;
 
-	-webkit-transition-property: opacity, visibility;
-	        transition-property: opacity, visibility;
-	-webkit-transition-duration: 120ms;
-	        transition-duration: 120ms;
-	-webkit-transition-timing-function: ease-in;
-	        transition-timing-function: ease-in;
+	transition-property: opacity, visibility;
+	transition-duration: 120ms;
+	transition-timing-function: ease-in;
 
 	/* A nice bit of hardware acceleration should help the transitions run
 	   smoothly. */
-	-webkit-transform: translate3d(0,0,0);
-	    -ms-transform: translate3d(0,0,0);
-	        transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
 }
 
 .js .tab-block.active {
 	visibility: visible;
 	opacity: 1;
 	z-index: 2;
-
-	-webkit-transition-timing-function: ease-out;
-	        transition-timing-function: ease-out;
+	transition-timing-function: ease-out;
 }
 
 .js .tab-block.active {

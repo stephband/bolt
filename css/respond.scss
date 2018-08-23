@@ -1,0 +1,28 @@
+
+// prefix, min-width, grid count, gutter, space
+$breakpoints:
+	'\\@1-' 30em,
+	'\\@2-' 50em,
+	'\\@3-' 70em !default;
+
+@each $breakpoint in $breakpoints {
+	@media screen and (max-width: #{nth($breakpoint, 2) - 0.0001}) {
+		.#{nth($breakpoint, 1)}shown        { display: none !important; }
+	}
+
+	@media screen and (min-width: #{nth($breakpoint, 2)}) {
+		.#{nth($breakpoint, 1)}hidden         { display: none !important; }
+		.#{nth($breakpoint, 1)}block          { display: block; }
+		.#{nth($breakpoint, 1)}inline-block   { display: inline-block; }
+		.#{nth($breakpoint, 1)}left           { float: left; clear: left; }
+		.#{nth($breakpoint, 1)}right          { float: right; clear: right; }
+		.#{nth($breakpoint, 1)}top-align      { vertical-align: top !important; }
+		.#{nth($breakpoint, 1)}bottom-align   { vertical-align: bottom !important; }
+		.#{nth($breakpoint, 1)}middle-align   { vertical-align: middle !important; }
+		.#{nth($breakpoint, 1)}baseline-align { vertical-align: baseline !important; }
+		.#{nth($breakpoint, 1)}left-align     { text-align: left !important; }
+		.#{nth($breakpoint, 1)}right-align    { text-align: right !important; }
+		.#{nth($breakpoint, 1)}center-align   { text-align: center !important; }
+		.#{nth($breakpoint, 1)}justify-align  { text-align: justify !important; }
+	}
+}
