@@ -30,6 +30,19 @@ Styleguide: 1.1.flex
 .flex.wrap    { flex-wrap: wrap; }
 .flex.no-wrap { flex-wrap: nowrap; }
 
+.halves-flex > *   { flex: 1 0 50%; }
+.thirds-flex > *   { flex: 1 0 33.333333%; }
+.quarters-flex > * { flex: 1 0 25%; }
+.fifths-flex > *   { flex: 1 0 20%; }
+.sixths-flex > *   { flex: 1 0 16.666667%; }
+
+/* Keep focus box-shadows over the top of their siblings */
+.flex > * { z-index: 0; }
+.flex > .select-button { z-index: 1; }
+.flex > *:focus { z-index: 2; }
+
+
+
 
 /* .box */
 
