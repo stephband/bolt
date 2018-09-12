@@ -115,6 +115,17 @@ Styleguide: 1.1.flex
 
 
 /*
+.grid-block
+
+Styleguide: 1.1.grid
+*/
+
+.grid-block {
+	display: grid;
+}
+
+
+/*
 .tab-block
 
 A block animated to behave as a tab that fades to reveal content when the class
