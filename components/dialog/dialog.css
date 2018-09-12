@@ -68,6 +68,8 @@ Styleguide: 4.dialog
 */
 
 .dialog {
+	cursor: default;
+
 	/* Act as position parent */
 	position: relative;
 
