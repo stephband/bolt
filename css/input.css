@@ -38,7 +38,7 @@ select,
 textarea {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
-	    -ms-box-sizing: border-box;
+	    -ms-box-sizing: border-box;m
 	        box-sizing: border-box;
 }
 
@@ -51,7 +51,7 @@ fieldset {
 fieldset {
 	/* Reset padding, margin, border */
 	padding: 0;
-	margin: 0;
+	margin: auto;
 	border: 0;
 }
 
@@ -102,7 +102,7 @@ textarea {
 	   rhythm when inputs stack up. It also has the effect of removing the
 	   annoying extra margin-bottom that textareas have in webkit. */
 	vertical-align: middle;
-	margin: 0;
+	margin: auto;
 
 	/* Font size is not automaticlly inherited in all browsers. */
 	font-family: inherit;

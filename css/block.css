@@ -124,6 +124,10 @@ Styleguide: 1.1.grid
 	display: grid;
 }
 
+.grid-block > * {
+	margin: auto;
+}
+
 
 /*
 .tab-block

@@ -131,7 +131,7 @@ ul,
 dd,
 pre {
 	/* margins set differently in IE6/7, Chrome */
-	margin: 0;
+	margin: auto;
 }
 
 code,
@@ -236,7 +236,7 @@ audio:not([controls]) {
 }
 
 figure {
-	margin: 0;
+	margin: auto;
 }
 
 table {
