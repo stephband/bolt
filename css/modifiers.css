@@ -175,15 +175,12 @@ Styleguide: 5.masked
 	opacity: 0 !important;
 
 	/* Width and height 0 cause browser validation bubbles to dissappear. */
-	width: 12px !important;
-	height: 12px !important;
-
-	/* Make it take up no space. */
-	margin-bottom: -12px !important;
-	margin-right: -12px !important;
+	width: 1px !important;
+	height: 1px !important;
 
 	/* Position it so that the validation message appears in the correct place */
-	top: 12px !important;
+	margin-top: 2.5rem !important;
+	margin-left: 0.75rem !important;
 }
 
 /*
