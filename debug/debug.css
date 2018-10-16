@@ -5,7 +5,26 @@
 [alt=""],
 img:not([alt]),
 p:empty,
-.debug-border {
+.debug {
     box-shadow: 0 0 0px 2px rgba(255,0,74,0.875), inset 0 0 0px 1px rgba(255,0,74,0.875) !important;
     border-color: rgb(255, 0, 74) !important;
+}
+
+p.debug,
+p:empty {
+    min-width: 3.125rem;
+}
+
+p.debug::before,
+p:empty::before {
+    content: '<p></p>';
+    position: absolute;
+    font-family: 'Andale Mono', 'Courier New', monospace;
+    font-size: 0.6875rem;
+    line-height: 0.9375rem;
+    width: 3.125rem;
+    opacity: 0.8;
+    padding: 0.0625rem;
+    white-space: nowrap;
+    color: rgb(255, 0, 74);
 }
