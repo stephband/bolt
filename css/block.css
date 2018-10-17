@@ -249,6 +249,7 @@ Styleguide: 4.slides
 	margin-left: 0;
 	margin-right: 0;
 	width: 100%;
+	max-width: 100vw;
 }
 
 .swipe-block > img,

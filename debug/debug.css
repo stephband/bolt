@@ -5,19 +5,39 @@
 [alt=""],
 img:not([alt]),
 p:empty,
+h1:empty,
+h2:empty,
+h3:empty,
+h4:empty,
+h5:empty,
+h6:empty,
 .debug {
     box-shadow: 0 0 0px 2px rgba(255,0,74,0.875), inset 0 0 0px 1px rgba(255,0,74,0.875) !important;
     border-color: rgb(255, 0, 74) !important;
 }
 
-p.debug,
-p:empty {
+.debug,
+:empty {
+    /* Overide hiders in text.css */
+    display: block !important;
     min-width: 3.125rem;
+    min-height: 1em;
 }
 
 p.debug::before,
-p:empty::before {
-    content: '<p></p>';
+p:empty::before,
+h1.debug::before,
+h1:empty::before,
+h2.debug::before,
+h2:empty::before,
+h3.debug::before,
+h3:empty::before,
+h4.debug::before,
+h4:empty::before,
+h5.debug::before,
+h5:empty::before,
+h6.debug::before,
+h6:empty::before {
     position: absolute;
     font-family: 'Andale Mono', 'Courier New', monospace;
     font-size: 0.6875rem;
@@ -28,3 +48,18 @@ p:empty::before {
     white-space: nowrap;
     color: rgb(255, 0, 74);
 }
+
+p.debug::before,
+p:empty::before { content: '<p></p>'; }
+h1.debug::before,
+h1:empty::before { content: '<h1></h1>'; }
+h2.debug::before,
+h2:empty::before { content: '<h2></h2>'; }
+h3.debug::before,
+h3:empty::before { content: '<h3></h3>'; }
+h4.debug::before,
+h4:empty::before { content: '<h4></h4>'; }
+h5.debug::before,
+h5:empty::before { content: '<h5></h5>'; }
+h6.debug::before,
+h6:empty::before { content: '<h6></h6>'; }
