@@ -169,7 +169,9 @@ Styleguide: 3.select-button
 
 .select-button {
 	display: block;
-	padding: 0;
+	/* There should never be padding on select-button, it's padding should be
+	   managed by the select within. */
+	padding: 0 !important;
 }
 
 .select-button > select {
