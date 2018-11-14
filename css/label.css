@@ -19,10 +19,6 @@ label > [type="radio"] {
 	line-height: inherit;
 }
 
-label.error_label {
-	display: block;
-}
-
 * + label,
 fieldset + input,
 fieldset + fieldset {
@@ -52,7 +48,6 @@ Markup: <input type="checkbox" class="masked" id="checkbox-1" />
 Styleguide: 3.checkbox-label
 */
 
-.text-label,
 .radio-label,
 .checkbox-label {
 	position: relative;
@@ -65,38 +60,6 @@ Styleguide: 3.checkbox-label
 .right-label {
 	padding-left: 0;
 	padding-right: 3rem;
-}
-
-.text-label {
-	display: block;
-	padding-top: 0.125rem;
-	padding-bottom: 0.1875rem;
-	line-height: 2.5rem;
-	vertical-align: baseline;
-}
-
-.text-label > .text-span,
-.text-label > input {
-	display: block;
-}
-
-@media all and (min-width: 40em) {
-	.text-label {
-		display: inline-block;
-	}
-
-	.text-label > .text-span {
-		display: inline-block;
-		min-width: 33.3333%;
-	}
-
-	.text-label > input {
-		display: inline-block;
-		width: 33.3333%;
-		height: 2.5rem;
-		line-height: 2.25rem;
-		margin-left: 0.5rem;
-	}
 }
 
 .radio-label > input,
@@ -231,3 +194,47 @@ Styleguide: 3.checkbox-label
 .no-radio-label::after {
 	background-position: 8px -432px;
 }
+
+
+/* Error labels */
+
+.error-label {
+	color: #d0153e;
+}
+
+.col-1 + .error-label { grid-column-start: 1; }
+.col-2 + .error-label { grid-column-start: 2; }
+.col-3 + .error-label { grid-column-start: 3; }
+.col-4 + .error-label { grid-column-start: 4; }
+.col-5 + .error-label { grid-column-start: 5; }
+.col-6 + .error-label { grid-column-start: 6; }
+.col-7 + .error-label { grid-column-start: 7; }
+.col-8 + .error-label { grid-column-start: 8; }
+.col-9 + .error-label { grid-column-start: 9; }
+
+.span-1 + .error-label { grid-column-end: span 1; }
+.span-2 + .error-label { grid-column-end: span 2; }
+.span-3 + .error-label { grid-column-end: span 3; }
+.span-4 + .error-label { grid-column-end: span 4; }
+.span-5 + .error-label { grid-column-end: span 5; }
+.span-6 + .error-label { grid-column-end: span 6; }
+.span-7 + .error-label { grid-column-end: span 7; }
+.span-8 + .error-label { grid-column-end: span 8; }
+.span-9 + .error-label { grid-column-end: span 9; }
+
+.row-1  + .error-label { grid-row-start: 1; }
+.row-2  + .error-label { grid-row-start: 2; }
+.row-3  + .error-label { grid-row-start: 3; }
+.row-4  + .error-label { grid-row-start: 4; }
+.row-5  + .error-label { grid-row-start: 5; }
+.row-6  + .error-label { grid-row-start: 6; }
+.row-7  + .error-label { grid-row-start: 7; }
+.row-8  + .error-label { grid-row-start: 8; }
+.row-9  + .error-label { grid-row-start: 9; }
+.row-10 + .error-label { grid-row-start: 10; }
+.row-11 + .error-label { grid-row-start: 11; }
+.row-12 + .error-label { grid-row-start: 12; }
+.row-13 + .error-label { grid-row-start: 13; }
+.row-14 + .error-label { grid-row-start: 14; }
+.row-15 + .error-label { grid-row-start: 15; }
+.row-16 + .error-label { grid-row-start: 16; }

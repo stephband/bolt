@@ -180,6 +180,7 @@ Styleguide: 3.select-button
 	/* This is the native select, we're making everything but the text invisible
 	   so we can see the button styles in the wrapper. */
 	width: calc(100% + 2px);
+	max-width: none;
 	height: calc(100% + 2px);
 	margin: -1px;
 	padding-top: 0;
