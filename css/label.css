@@ -196,7 +196,13 @@ Styleguide: 3.checkbox-label
 }
 
 
-/* Error labels */
+/*
+.error-label
+*/
+
+/*
+.help-label
+*/
 
 .error-label {
 	color: #d0153e;
