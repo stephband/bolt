@@ -24,5 +24,39 @@ $breakpoints:
 		.#{nth($breakpoint, 1)}right-align    { text-align: right !important; }
 		.#{nth($breakpoint, 1)}center-align   { text-align: center !important; }
 		.#{nth($breakpoint, 1)}justify-align  { text-align: justify !important; }
+		.#{nth($breakpoint, 1)}col-1          { grid-column-start: 1; }
+		.#{nth($breakpoint, 1)}col-2          { grid-column-start: 2; }
+		.#{nth($breakpoint, 1)}col-3          { grid-column-start: 3; }
+		.#{nth($breakpoint, 1)}col-4          { grid-column-start: 4; }
+		.#{nth($breakpoint, 1)}col-5          { grid-column-start: 5; }
+		.#{nth($breakpoint, 1)}col-6          { grid-column-start: 6; }
+		.#{nth($breakpoint, 1)}col-7          { grid-column-start: 7; }
+		.#{nth($breakpoint, 1)}col-8          { grid-column-start: 8; }
+		.#{nth($breakpoint, 1)}col-9          { grid-column-start: 9; }
+		.#{nth($breakpoint, 1)}span-1         { grid-column-end: span 1; }
+		.#{nth($breakpoint, 1)}span-2         { grid-column-end: span 2; }
+		.#{nth($breakpoint, 1)}span-3         { grid-column-end: span 3; }
+		.#{nth($breakpoint, 1)}span-4         { grid-column-end: span 4; }
+		.#{nth($breakpoint, 1)}span-5         { grid-column-end: span 5; }
+		.#{nth($breakpoint, 1)}span-6         { grid-column-end: span 6; }
+		.#{nth($breakpoint, 1)}span-7         { grid-column-end: span 7; }
+		.#{nth($breakpoint, 1)}span-8         { grid-column-end: span 8; }
+		.#{nth($breakpoint, 1)}span-9         { grid-column-end: span 9; }
+		.#{nth($breakpoint, 1)}row-1          { grid-row-start: 1; }
+		.#{nth($breakpoint, 1)}row-2          { grid-row-start: 2; }
+		.#{nth($breakpoint, 1)}row-3          { grid-row-start: 3; }
+		.#{nth($breakpoint, 1)}row-4          { grid-row-start: 4; }
+		.#{nth($breakpoint, 1)}row-5          { grid-row-start: 5; }
+		.#{nth($breakpoint, 1)}row-6          { grid-row-start: 6; }
+		.#{nth($breakpoint, 1)}row-7          { grid-row-start: 7; }
+		.#{nth($breakpoint, 1)}row-8          { grid-row-start: 8; }
+		.#{nth($breakpoint, 1)}row-9          { grid-row-start: 9; }
+		.#{nth($breakpoint, 1)}row-10         { grid-row-start: 10; }
+		.#{nth($breakpoint, 1)}row-11         { grid-row-start: 11; }
+		.#{nth($breakpoint, 1)}row-12         { grid-row-start: 12; }
+		.#{nth($breakpoint, 1)}row-13         { grid-row-start: 13; }
+		.#{nth($breakpoint, 1)}row-14         { grid-row-start: 14; }
+		.#{nth($breakpoint, 1)}row-15         { grid-row-start: 15; }
+		.#{nth($breakpoint, 1)}row-16         { grid-row-start: 16; }
 	}
 }
