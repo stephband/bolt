@@ -388,7 +388,7 @@ input[type='file'] {
 }
 
 .required::after {
-	content: ' *';
+	content: '\00a0*';
 	color: #e62b24;
 }
 
