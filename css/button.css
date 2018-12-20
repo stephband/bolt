@@ -292,6 +292,10 @@ Markup: <a class="toggle-button button" href="#id">Open</a>
 Styleguide: 3.toggle-button
 */
 
+.toggle-button {
+	padding-right: 1.875rem;
+}
+
 .toggle-button::after {
 	content: '';
 	position: absolute;
@@ -301,10 +305,10 @@ Styleguide: 3.toggle-button
 	height: 0.5625rem;
 	border-right: 1px solid currentcolor;
 	border-bottom: 1px solid currentcolor;
-	transform: translate3d(0,-50%,0) rotate(-45deg);
+	transform: translate3d(-20%,-50%,0) rotate(-45deg);
 	transition: transform 0.2s linear;
 }
 
 .toggle-button.on::after {
-	transform: translate3d(0,-50%,0) rotate(45deg);
+	transform: translate3d(0,-70.7%,0) rotate(45deg);
 }
