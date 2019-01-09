@@ -108,9 +108,6 @@ dl::after {
 	height: 0;
 }
 
-dt                { float: left; clear: both; text-align: right; width: 22.75%; font-weight: bold; }
-dd                { float: right; text-align: left; width: 74.25%; }
-
 ul                { list-style-type: disc; }
 ol                { list-style-type: decimal; }
 
