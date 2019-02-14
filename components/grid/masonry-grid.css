@@ -1,0 +1,39 @@
+
+/*
+.masonry-grid
+*/
+
+.masonry-grid {
+    display: grid;
+    align-items: stretch;
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    grid-gap: 0.625rem;
+    grid-auto-rows: minmax(7.1875rem, auto);
+    grid-auto-flow: dense;
+    padding: 10px;
+
+    display: block;
+}
+
+.masonry-grid > * {
+    width: 100%;
+}
+
+@media (min-width: 60em) {
+    .masonry-grid {
+        grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+    }
+}
+
+@media (min-width: 90em) {
+    .masonry-grid {
+        grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    }
+}
+
+.grid-row-span-1 { grid-row-end: span 1; }
+.grid-row-span-2 { grid-row-end: span 2; }
+.grid-row-span-3 { grid-row-end: span 3; }
+.grid-row-span-4 { grid-row-end: span 4; }
+.grid-row-span-5 { grid-row-end: span 5; }
+.grid-row-span-6 { grid-row-end: span 6; }

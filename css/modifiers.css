@@ -190,7 +190,7 @@ Styleguide: 5.disabled
 */
 
 .disabled,
-.js input.disabled {
+:disabled {
 	opacity: 0.4;
 }
 
