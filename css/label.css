@@ -55,6 +55,7 @@ Styleguide: 3.checkbox-label
 	padding-top: 0.5rem;
 	padding-bottom: 0.5rem;
 	min-height: 2.5rem;
+	text-align: left;
 }
 
 .right-label {
