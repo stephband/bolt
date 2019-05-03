@@ -126,7 +126,7 @@ Styleguide: 3.checkbox-label
 }
 
 .radio-label::after {
-	top: 0.875rem;
+	top: 0.9375rem;
 	left: 0.375rem;
 	width: 0.75rem;
 	height: 0.75rem;
