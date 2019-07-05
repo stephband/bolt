@@ -96,6 +96,44 @@ Styleguide: 4.thumb
 
 
 /*
+.burger-thumb
+
+Markup: <a class="burger-thumb thumb" href="#">Navigation</a>
+
+Styleguide: 4.thumb.button-thumb
+*/
+
+.burger-thumb {
+    padding-top: 3.75rem;
+    width: 3.75rem;
+}
+
+.burger-thumb.on {
+    color: black;
+    background-color:  #e6e6e6;
+    background-color: var(--color-grey-5);
+    outline-width: 0;
+}
+
+.burger-thumb::before,
+.burger-thumb::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 2px);
+    left: 32%;
+    width: 36%;
+    height: 9px;
+    border-top: 3px solid currentcolor;
+    border-bottom: 3px solid currentcolor;
+}
+
+.burger-thumb::before {
+    top: calc(50% - 8px);
+    border-top: 3px solid currentcolor;
+}
+
+
+/*
 .close-thumb
 
 Markup: <a class="close-thumb thumb" href="#">Close</a>
