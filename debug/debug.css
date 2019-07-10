@@ -57,7 +57,7 @@ h6:empty::before {
 }
 
 p.debug::before,
-p:empty::before { content: '<p></p>'; }
+p:empty::before  { content: '<p></p>'; }
 h1.debug::before,
 h1:empty::before { content: '<h1></h1>'; }
 h2.debug::before,
