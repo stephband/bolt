@@ -24,12 +24,12 @@ Styleguide: 5.color-2
 .current-bg   { background-color: currentcolor; }
 .current-fill { fill: currentcolor; }
 
-:root { --white: white; }
+:root       { --white: white; }
 .white-fg   { color: white; }
 .white-bg   { background-color: white; }
 .white-fill { fill: white; }
 
-:root { --black: black; }
+:root       { --black: black; }
 .black-fg   { color: black; }
 .black-bg   { background-color: black; }
 .black-fill { fill: black; }
