@@ -239,6 +239,13 @@ figure {
 	margin: auto;
 }
 
+figure > img,
+figure > svg,
+figure > canvas,
+figure > video {
+    width: 100%;
+}
+
 table {
 	border-spacing: 0;
 	/* Tables don't get border-radius if they are set to
