@@ -209,7 +209,9 @@ img,
 svg,
 canvas,
 video {
-	height: auto;
+    /* Prevent media from overflowing parent by default */
+    max-width: 100%;
+    height: auto;
 }
 
 img {
