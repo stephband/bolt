@@ -247,6 +247,7 @@ Styleguide: 3.checkbox-label
 .row-16 + .error-label, .row-16 + .help-label { grid-row-start: 16; }
 
 .error-label + .help-label {
-    /* Hide help while there are errors. */
+    /* Hide help while there are errors. Errors disappear when you start
+       typing anyway, so help is still available. */
     display: none;
 }
