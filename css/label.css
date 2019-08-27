@@ -245,3 +245,8 @@ Styleguide: 3.checkbox-label
 .row-14 + .error-label, .row-14 + .help-label { grid-row-start: 14; }
 .row-15 + .error-label, .row-15 + .help-label { grid-row-start: 15; }
 .row-16 + .error-label, .row-16 + .help-label { grid-row-start: 16; }
+
+.error-label + .help-label {
+    /* Hide help while there are errors. */
+    display: none;
+}
