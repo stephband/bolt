@@ -1,4 +1,4 @@
-@media screen and (max-width: 29.9999em) {
+@media screen and (max-width: 29.999em) {
 		.\@1-shown {
 				display: none !important;
 		}
@@ -22,7 +22,7 @@
 		}
 }
 
-@media screen and (max-width: 49.9999em) {
+@media screen and (max-width: 49.999em) {
 		.\@2-shown {
 				display: none !important;
 		}
@@ -46,7 +46,7 @@
 		}
 }
 
-@media screen and (max-width: 69.9999em) {
+@media screen and (max-width: 69.999em) {
 		.\@3-shown {
 				display: none !important;
 		}

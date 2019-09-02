@@ -143,7 +143,7 @@ Styleguide: 4.bubble
 			transform: translate3d(0, 1.75rem, 0);
 }
 
-@media screen and (max-width: 31.9999em) {
+@media screen and (max-width: 31.999em) {
 	.js .bubble {
 		/* Override offset given to it by JS when the
 		   screen is too small. */
