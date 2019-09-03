@@ -120,8 +120,8 @@ Styleguide: 3.checkbox-label
 	display: none;
 }
 
-.masked[type="radio"]:checked + .radio-label::after,
-.masked[type="checkbox"]:checked + .checkbox-label::after {
+.masked:checked + .radio-label::after,
+.masked:checked + .checkbox-label::after {
 	display: block;
 }
 
@@ -196,7 +196,6 @@ Styleguide: 3.checkbox-label
 	background-position: 8px -432px;
 }
 
-
 /*
 .error-label
 */
@@ -209,25 +208,31 @@ Styleguide: 3.checkbox-label
 	color: #d0153e;
 }
 
-.col-1 + .error-label, .col-1 + .help-label { grid-column-start: 1; }
-.col-2 + .error-label, .col-2 + .help-label { grid-column-start: 2; }
-.col-3 + .error-label, .col-3 + .help-label { grid-column-start: 3; }
-.col-4 + .error-label, .col-4 + .help-label { grid-column-start: 4; }
-.col-5 + .error-label, .col-5 + .help-label { grid-column-start: 5; }
-.col-6 + .error-label, .col-6 + .help-label { grid-column-start: 6; }
-.col-7 + .error-label, .col-7 + .help-label { grid-column-start: 7; }
-.col-8 + .error-label, .col-8 + .help-label { grid-column-start: 8; }
-.col-9 + .error-label, .col-9 + .help-label { grid-column-start: 9; }
+.col-1 + .error-label,  .col-1 + .help-label  { grid-column-start: 1; }
+.col-2 + .error-label,  .col-2 + .help-label  { grid-column-start: 2; }
+.col-3 + .error-label,  .col-3 + .help-label  { grid-column-start: 3; }
+.col-4 + .error-label,  .col-4 + .help-label  { grid-column-start: 4; }
+.col-5 + .error-label,  .col-5 + .help-label  { grid-column-start: 5; }
+.col-6 + .error-label,  .col-6 + .help-label  { grid-column-start: 6; }
+.col-7 + .error-label,  .col-7 + .help-label  { grid-column-start: 7; }
+.col-8 + .error-label,  .col-8 + .help-label  { grid-column-start: 8; }
+.col-9 + .error-label,  .col-9 + .help-label  { grid-column-start: 9; }
+.col-10 + .error-label, .col-10 + .help-label { grid-column-start: 10; }
+.col-11 + .error-label, .col-11 + .help-label { grid-column-start: 11; }
+.col-12 + .error-label, .col-12 + .help-label { grid-column-start: 12; }
 
-.span-1 + .error-label, .span-1 + .help-label { grid-column-end: span 1; }
-.span-2 + .error-label, .span-2 + .help-label { grid-column-end: span 2; }
-.span-3 + .error-label, .span-3 + .help-label { grid-column-end: span 3; }
-.span-4 + .error-label, .span-4 + .help-label { grid-column-end: span 4; }
-.span-5 + .error-label, .span-5 + .help-label { grid-column-end: span 5; }
-.span-6 + .error-label, .span-6 + .help-label { grid-column-end: span 6; }
-.span-7 + .error-label, .span-7 + .help-label { grid-column-end: span 7; }
-.span-8 + .error-label, .span-8 + .help-label { grid-column-end: span 8; }
-.span-9 + .error-label, .span-9 + .help-label { grid-column-end: span 9; }
+.span-1 + .error-label,  .span-1 + .help-label  { grid-column-end: span 1; }
+.span-2 + .error-label,  .span-2 + .help-label  { grid-column-end: span 2; }
+.span-3 + .error-label,  .span-3 + .help-label  { grid-column-end: span 3; }
+.span-4 + .error-label,  .span-4 + .help-label  { grid-column-end: span 4; }
+.span-5 + .error-label,  .span-5 + .help-label  { grid-column-end: span 5; }
+.span-6 + .error-label,  .span-6 + .help-label  { grid-column-end: span 6; }
+.span-7 + .error-label,  .span-7 + .help-label  { grid-column-end: span 7; }
+.span-8 + .error-label,  .span-8 + .help-label  { grid-column-end: span 8; }
+.span-9 + .error-label,  .span-9 + .help-label  { grid-column-end: span 9; }
+.span-10 + .error-label, .span-10 + .help-label { grid-column-end: span 10; }
+.span-11 + .error-label, .span-11 + .help-label { grid-column-end: span 11; }
+.span-12 + .error-label, .span-12 + .help-label { grid-column-end: span 12; }
 
 .row-1  + .error-label, .row-1  + .help-label { grid-row-start: 1; }
 .row-2  + .error-label, .row-2  + .help-label { grid-row-start: 2; }
@@ -245,6 +250,8 @@ Styleguide: 3.checkbox-label
 .row-14 + .error-label, .row-14 + .help-label { grid-row-start: 14; }
 .row-15 + .error-label, .row-15 + .help-label { grid-row-start: 15; }
 .row-16 + .error-label, .row-16 + .help-label { grid-row-start: 16; }
+.row-17 + .error-label, .row-17 + .help-label { grid-row-start: 17; }
+.row-18 + .error-label, .row-18 + .help-label { grid-row-start: 18; }
 
 .error-label + .help-label {
     /* Hide help while there are errors. Errors disappear when you start
