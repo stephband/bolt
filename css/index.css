@@ -11,7 +11,7 @@ Markup: <ul class="index">
   <li>Two</li>
 </ul>
 
-Styleguide: index
+Styleguide: 1.2
 */
 
 .index {
@@ -40,49 +40,7 @@ Styleguide: index
 
 
 /*
-.crumb-index
-
-A <code>'>'</code> character delimited list on one line for making navigation
-breadcrumbs. <code class="html-tag">li</code>s are inline-blocks, so they should
-have no spaces between them.
-
-Markup: <ul class="crumb-index index">
-   <li><a href="#path">path</a></li
-  ><li><a href="#to">to</a></li
-  ><li><a href="#document">document</a></li>
-</ul>
-
-Styleguide: index.crumb-index
-*/
-
-.crumb-index,
-.crumb-index > li {
-	display: inline-block;
-	white-space: nowrap;
-	line-height: 1.25rem;
-}
-
-.crumb-index > li + li::before {
-	content: ">";
-	display: inline-block;
-	vertical-align: baseline;
-	width: 1.5rem;
-	text-align: center;
-}
-
-.crumb-index > li > a {
-	text-decoration: none;
-}
-
-.crumb-index > li:last-child > a {
-	color: blue;
-}
-
-
-/*
 .inline-index
-
-Horizontal layout of <code>li</code>s.
 
 Markup: <ul class="inline-index index">
    <li><a class="button" href="#">One</a></li
@@ -91,7 +49,7 @@ Markup: <ul class="inline-index index">
   ><li><a class="button" href="#">Four</a></li>
 </ul>
 
-Styleguide: index.inline-index
+Styleguide: 1.2.inline-index
 */
 
 .inline-index > li {

@@ -1,0 +1,254 @@
+
+$grid-count:  6 !default;
+$grid-gutter: 1.875rem !default;
+$grid-space:  1.5rem !default;
+
+// prefix, min-width, grid count, gutter, space
+$breakpoints:
+	'\\@1-' 30em 6 $grid-gutter $grid-space,
+	'\\@2-' 50em 9 $grid-gutter $grid-space,
+	'\\@3-' 70em 9 $grid-gutter $grid-space !default;
+
+@mixin grid($prefix: '', $n: 6, $gutter: 1.25rem, $space: 1.25rem) {
+	@if $prefix == '' {
+		/* Grid blocks */
+
+		.grid-block,
+		/* Override .index > li */
+		.index > .grid-block {
+			margin: -#{$space / 2} -#{$gutter / 2};
+		}
+
+		.grid-block > .block {
+			display: inline-block;
+			margin: #{$space / 2} #{$gutter / 2};
+		}
+
+		.grid-block > .flex {
+			display: inline-flex;
+		}
+
+		.grid-block > .grid-block {
+			margin: 0;
+		}
+
+		/*
+		.grid-1/1
+
+		Styleguide: 1.grid-1/1
+		*/
+	}
+
+	.#{$prefix}grid-1\/1   {
+		width: 100%;
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			@if $prefix == '' {
+			/*
+			.grid-#{$j}/#{$i}
+
+			Styleguide: 1.grid-#{$j}/#{$i}
+			*/
+			}
+
+			.#{$prefix}grid-#{$j}\/#{$i}   {
+				width: calc(#{100% * ($j / $i)} - #{$gutter * (1 - ($j / $i))});
+			}
+		}
+	}
+
+	/*
+	.span-1/1
+
+	Styleguide: 1.grid-1/1
+	*/
+
+	.#{$prefix}span-1\/1   {
+		width: 100%;
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			@if $prefix == '' {
+			/*
+			.grid-#{$j}/#{$i}
+
+			Styleguide: 1.grid-#{$j}/#{$i}
+			*/
+			}
+
+			.#{$prefix}span-#{$j}\/#{$i}   {
+				width: calc(#{100% * ($j / $i)} + #{$gutter * ($j / $i)});
+			}
+		}
+	}
+
+//	/* Grid margins. */
+//
+//	.#{$prefix}grid-left-0 {
+//		margin-left: #{$gutter / 2};
+//	}
+//
+//	@for $i from 1 through $n {
+//		@for $j from 1 to $i {
+//			.#{$prefix}grid-left-#{$j}\/#{$i} {
+//				margin-left: calc(#{100% * $j / $i} + #{$gutter * $j / $i});
+//			}
+//		}
+//	}
+
+
+	/* Grid widths inside grid-blocks. */
+
+	.grid-block > .#{$prefix}grid-1\/1 {
+		width: calc(100% - #{$gutter});
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.grid-block > .#{$prefix}grid-#{$j}\/#{$i} {
+				width: calc(#{100% * $j / $i} - #{$gutter});
+			}
+		}
+	}
+
+	/* Span widths inside grid-blocks. */
+
+	@if $prefix == '' {
+	/*
+	.span-1/1
+
+	Styleguide: 1.span-1/1
+	*/
+	}
+
+	.grid-block > .#{$prefix}span-1\/1 {
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			@if $prefix == '' {
+			/*
+			.span-#{$j}/#{$i}
+
+			Styleguide: 1.span-#{$j}/#{$i}
+			*/
+			}
+
+			.grid-block > .#{$prefix}span-#{$j}\/#{$i} {
+				width: #{100% * $j / $i};
+				margin-left: 0;
+				margin-right: 0;
+			}
+		}
+	}
+
+	/* Grid margins inside a grid-block. */
+
+	.grid-block > .#{$prefix}grid-left-0 {
+		margin-left: #{$gutter / 2};
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.grid-block > .#{$prefix}grid-left-#{$j}\/#{$i} {
+				margin-left: calc(#{100% * $j / $i} + #{$gutter / 2});
+			}
+		}
+	}
+
+	/* Span margins inside a grid-block. */
+
+	.grid-block > .#{$prefix}span-left-0 {
+		margin-left: 0;
+	}
+
+	@for $i from 1 through $n {
+		@for $j from 1 to $i {
+			.grid-block > .#{$prefix}span-left-#{$j}\/#{$i} {
+				margin-left: #{100% * $j / $i};
+			}
+		}
+	}
+}
+
+/*
+grid.css
+Warning: this file is auto-generated from scss/grid.scss. Do not modify!
+*/
+
+/*
+.grid-block
+
+Wraps rows of child <code>block</code>s to form a grid with gutters.
+Child <code>block</code>s are rendered as <code>inline-block</code>s,
+horizontal margins are set to create gutter spacings, and vertical margins
+set to the vertical grid.
+
+Markup: <div class="grid-block block">
+   <code class="block grid-1/1 @2-grid-1/1 white-fg black-bg">.grid-1/1</code
+  ><code class="block grid-1/2 @2-grid-1/2 white-fg black-bg">.grid-1/2</code
+  ><code class="block grid-1/2 @2-grid-1/2 white-fg black-bg">.grid-1/2</code
+  ><code class="block grid-1/3 @2-grid-1/3 white-fg black-bg">.grid-1/3</code
+  ><code class="block grid-2/3 @2-grid-2/3 white-fg black-bg">.grid-2/3</code
+  ><code class="block grid-1/4 @2-grid-1/4 white-fg black-bg">.grid-1/4</code
+  ><code class="block grid-3/4 @2-grid-3/4 white-fg black-bg">.grid-3/4</code>
+</div>
+
+Styleguide: 1.1.grid-block
+*/
+
+.grid-block {
+	position: relative;
+	padding: 0;
+}
+
+@include grid('', $grid-count, $grid-gutter, $grid-space);
+
+@each $breakpoint in $breakpoints {
+	@media all and (min-width: nth($breakpoint, 2)) {
+		@include grid(nth($breakpoint, 1), nth($breakpoint, 3), nth($breakpoint, 4), nth($breakpoint, 5));
+	}
+}
+
+
+/*
+.grid-1/n
+
+Styleguide: 1.grid-n
+*/
+
+/*
+.span-1/n
+
+Styleguide: 1.span-n
+*/
+
+@mixin adaptive-grid($gutter: 1.25rem, $n: 6, $prefix: '') {
+	@for $i from 2 through $n {
+		.#{$prefix}grid-1\/n:nth-last-child(#{$i}):first-child,
+		*:nth-last-child(#{$i}):first-child ~ .#{$prefix}grid-1\/n {
+			width: calc(#{100% / $i} - #{$gutter});
+		}
+	}
+
+	@for $i from 2 through $n {
+		.#{$prefix}span-1\/n:nth-last-child(#{$i}):first-child,
+		*:nth-last-child(#{$i}):first-child ~ .#{$prefix}span-1\/n {
+			width: #{100% / $i};
+		}
+	}
+}
+
+@include adaptive-grid($grid-gutter, $grid-count);
+
+@each $breakpoint in $breakpoints {
+	@media all and (min-width: nth($breakpoint, 2)) {
+		@include adaptive-grid(nth($breakpoint, 4), nth($breakpoint, 3), nth($breakpoint, 1));
+	}
+}

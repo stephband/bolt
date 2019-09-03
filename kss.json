@@ -1,0 +1,35 @@
+{
+  "title": "Bolt.",
+
+  "builder": "kss",
+
+  "source": ["css"],
+
+  "destination":  "styleguide/",
+
+  "nav-depth": 2,
+
+  "css": [
+    "../css/html.css",
+    "../css/svg.css",
+    "../css/input.css",
+    "../css/label.css",
+    "../css/flex.css",
+    "../css/block.css",
+    "../css/index.css",
+    "../css/card.css",
+    "../css/button.css",
+    "../css/thumb.css",
+    "../css/grid.css",
+    "../css/text.css",
+    "../css/color.css",
+    "../css/modifiers.css",
+    "../css/root.css",
+    "../css/body.css",
+    "../components/grid/grid.css",
+    "../components/bubble/bubble.css",
+    "../components/dialog/dialog.css"
+  ],
+
+  "js": []
+}

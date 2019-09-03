@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Bolt</title>
+  <script>document.documentElement.className = 'js';</script>
+
+  <meta name="description" content="">
+  <meta name="generator" content="kss-node">
+  <meta name="viewport" content="width=device-width">
+
+  <link rel="stylesheet" href="kss-assets/kss.css">
+  <link rel="stylesheet" href="kss-assets/prettify-cruncher.css">
+  {{{styles}}}
+
+<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+  <style>
+	  body {
+		  padding-top: 4.6875rem !important;
+		  padding-bottom: 3.75rem !important;
+		  margin-left: 22.2222% !important;
+		  padding-left: 0 !important;
+		  padding-right: 0 !important;
+		  background-color: #f2f2f2 !important;
+	  }
+
+	  body::before {
+		  content: '';
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  width: 42.8571%;
+		  height: 100%;
+		  background-image:
+		  	linear-gradient(#eeeeee 0px, #eeeeee 1px, transparent 1px, transparent 10px),
+		  	linear-gradient(to right, #eeeeee 0px, #eeeeee 1px, transparent 1px, transparent 10px);
+		  background-size: 10px 10px;
+		  background-repeat: repeat;
+		  box-shadow: inset 0 0 0 1px #eeeeee;
+		  background-color: white;
+	  }
+
+	  body > .grid-block {
+		  width: auto;
+		  margin-left: 0;
+		  margin-right: 0;
+	  }
+
+	  body > .grid-block + .grid-block {
+		  margin-top: 1.5rem;
+	  }
+
+	  .class-index > li,
+	  .class-index > li > .text-7 { line-height: 1.125rem; }
+	  
+	  .text-7, code { font-family: 'Inconsolata', monospace; }
+	  a.text-7 { text-decoration: none; }
+	  .text-source { font-size: 0.75rem; line-height: 0.9375rem; }
+
+	  .text-2 { line-height: 1.5rem; }
+
+	  .text-1 + .text-source,
+	  .text-2 + .text-source,
+	  .text-3 + .text-source { margin-top: 0.1875rem; }
+
+	  .text-source + * { margin-top: 1.125rem; }
+
+	  .class-index + .text-4 { margin-top: 1.125rem; }
+	  .text-4 + .class-index { margin-top: 0.9375rem; }
+
+	  pre { line-height: 1.125rem; }
+	  pre code { font-size: 0.875rem; }
+
+	  .side-block {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 22.222222%;
+          height: 100%;
+          overflow: auto;
+          padding: 1.5rem 0.75rem 1.5rem 1.125rem;
+          background-color: white;
+      }
+
+	  .side-block > header + nav {
+		  margin-top: 1.875rem;
+	  }
+
+	  pre,
+	  pre code { white-space: pre; }
+
+	  .demo-block {
+		  min-height: 0;
+		  /*background-color: #f8f8f8;*/
+		  border-width: 0 !important;
+		  /*background-image:
+		  	linear-gradient(#eeeeee 0px, #eeeeee 1px, transparent 1px, transparent 10px),
+		  	linear-gradient(to right, #eeeeee 0px, #eeeeee 1px, transparent 1px, transparent 10px);
+		  background-size: 10px 10px;
+		  background-repeat: repeat;
+		  box-shadow: inset 0 0 0 1px #eeeeee;*/
+		  /*background-color: white;
+		  border-top: 1px solid #eeeeee !important;
+		  border-bottom: 1px solid #eeeeee !important;*/
+	}
+.grid-block > .demo-block,
+.grid-block > .code-block {
+	margin-top: 0.9375rem;
+	margin-bottom: 1.875rem;
+}
+
+.grid-block > .grid-1\/7 {
+		width: calc(14.28571% - 1.125rem);
+		padding-left: 0.5625rem;
+		padding-right: 0.5625rem;
+}
+
+.grid-block > .grid-2\/7 {
+		width: calc(28.57143% - 1.125rem);
+		padding-left: 0.5625rem;
+		padding-right: 0.5625rem;
+}
+
+.grid-block > .grid-3\/7 {
+		width: calc(42.85714% - 1.125rem);
+		padding-left: 0.5625rem;
+		padding-right: 0.5625rem;
+}
+
+.grid-block > .grid-4\/7 {
+		width: calc(57.14286% - 1.125rem);
+}
+
+.grid-block > .grid-5\/7 {
+		width: calc(71.42857% - 1.125rem);
+}
+
+.grid-block > .grid-6\/7 {
+		width: calc(85.71429% - 1.125rem);
+}
+
+
+	  .grid-block > .span-3\/7 {
+		  width: 42.85714%;
+		  margin-left: 0;
+		  margin-right: 0;
+	  }
+
+	  .grid-block > .span-4\/7 {
+		  width: 57.14285%;
+		  margin-left: 0;
+		  margin-right: 0;
+	  }
+	
+	  .code-block > pre {
+		  padding-left: 1.125rem;
+	  }
+	  
+	  .description-block {
+		  font-size: 0.9375rem;
+		  line-height: 1.3125rem;
+	  }
+	
+	  .text-source { opacity: 0.5; transition: opacity 0.6s linear; margin-left: 0.375rem; }
+	  section:hover .source-text { opacity: 1; }
+  </style>
+</head>
+<body id="kss-node">
+
+<div class="side-block block">
+  <header>
+    <a class="block" href="../" style="text-decoration: none;">
+      <h1 class="text-2">
+	    {{options.title}}
+      </h1>
+    </a>
+  </header>
+
+  <nav>
+    {{#each menu}}
+        <h2 class="text-4" href="section-{{referenceURI}}.html">
+          <!--span class="kss-nav__ref">{{referenceNumber}}</span
+          ><span class="kss-nav__name"-->{{header}}<!--/span-->
+        </h2>
+        {{!-- {{#if isActive}} --}}
+          {{#if children}}
+            <ul class="class-index index" style="padding-left: 0;">
+            {{#each children}}
+              <li>
+                <a class="text-7" href="section-{{../referenceURI}}.html#kssref-{{referenceURI}}">
+                  <!--span class="kss-nav__ref {{#if isGrandChild}}kss-nav__ref-child{{/if}}">{{referenceNumber}}</span
+                  ><span class="kss-nav__name"-->{{header}}<!--/span-->
+                </a>
+              </li>
+            {{/each}}
+            </ul>
+          {{/if}}
+        {{!-- {{/if}} --}}
+    {{/each}}
+  </nav>
+</div>
+
+{{#if template.isHomepage}}
+  {{#if homepage}}
+    <div id="kssref-0" class="kss-section kss-section--depth-0 kss-overview kss-style">
+      {{{homepage}}}
+    </div>
+  {{/if}}
+{{else}}
+
+  {{!
+    Display each section, in order.
+
+    The "root" element comes first in this loop, and can be detected using
+    the "#if @first" block as seen below.
+  }}
+  {{#each sections}}
+    {{#if @first}}{{else}}
+    <section id="kssref-{{referenceURI}}" class="grid-block block">
+
+      <header class="block span-3/7">
+        <h{{depth}} class="text-{{depth}}" style="font-size: 1.3125rem; font-weight: 700;">
+          <a class="kss-title__permalink" href="#kssref-{{referenceURI}}">
+            <!--span class="kss-title__ref">
+              {{referenceNumber}}
+              <span class="kss-title__permalink-hash">
+                {{#if @root.hasNumericReferences}}
+                  #permalink
+                {{else}}
+                  #{{reference}}
+                {{/if}}
+              </span>
+            </span-->
+            <code>{{header}}</code>
+            {{#if source.filename}}
+            <code class="text-source">{{source.filename}}:{{source.line}}</code>
+            {{/if}}
+          </a>
+        </h{{depth}}
+
+        ></header>{{/if}}<div class="description-block block grid-3/7">
+            {{#if description}}{{{description}}}{{/if}}
+        </div>
+
+        {{#if parameters}}
+        <div class="block grid-6/7">
+          <div class="kss-parameters__title">Parameters:</div>
+          <ul class="kss-parameters">
+          {{#each parameters}}
+            <li class="kss-parameters__item">
+              <div class="kss-parameters__name"><code>{{name}}</code></div>
+              <div class="kss-parameters__description">
+                {{{description}}}
+                {{#if defaultValue}}
+                  <div class="kss-parameters__default-value">
+                    Defaults to: <code>{{defaultValue}}</code>
+                  </div>
+                {{/if}}
+              </div>
+            </li>
+          {{/each}}
+          </ul>
+        </div>
+        {{/if ~}}
+
+
+        {{#if example}}<div class="demo-block block span-3/7">
+          <!--div class="kss-modifier__heading kss-style">
+            Example{{#if modifiers}}s{{/if}}
+          </div>
+
+          {{#if modifiers}}
+            <div class="kss-modifier__default-name kss-style">
+              Default styling
+            </div>
+          {{/if}}
+          -->
+
+          {{{example}}}
+
+          {{#each modifiers}}
+            <div class="kss-modifier__name kss-style">
+              {{name}}
+            </div>
+            <div class="kss-modifier__description kss-style">
+              {{{description}}}
+            </div>
+            <div class="kss-modifier__example">
+              {{{markup}}}
+              <div class="kss-modifier__example-footer"></div>
+            </div>
+          {{/each}}
+        </div
+      >{{/if}}{{#if markup}}<div class="code-block block span-4/7">
+          <pre class="prettyprint lang-html scroll hidden-scroll"><code data-language="html">{{markup}}</code></pre>
+        </div
+      >{{/if }}
+
+    {{#if @first}}{{else}}</section>{{/if}}
+  {{/each}}
+{{/if}}
+
+<!-- SCRIPTS -->
+<script src="kss-assets/kss.js"></script>
+<!--script src="kss-assets/scrollspy.js"></script-->
+<script src="kss-assets/prettify.js"></script>
+<!--script src="kss-assets/kss-fullscreen.js"></script-->
+<script src="kss-assets/kss-guides.js"></script>
+<script src="kss-assets/kss-markup.js"></script>
+<script>
+  prettyPrint();
+  //var spy = new ScrollSpy('#kss-node', {
+  //  nav: '.kss-nav__menu-child > li > a',
+  //  className: 'is-in-viewport'
+  //});
+  //var kssFullScreen = new KssFullScreen({
+  //  idPrefix: 'kss-fullscreen-',
+  //  bodyClass: 'kss-fullscreen-mode',
+  //  elementClass: 'is-fullscreen'
+  //});
+  var kssGuides = new KssGuides({
+    bodyClass: 'kss-guides-mode'
+  });
+  var kssMarkup = new KssMarkup({
+    bodyClass: 'kss-markup-mode',
+    detailsClass: 'kss-markup'
+  });
+</script>
+{{{scripts}}}
+
+{{! This will only be included in the demo page. }}
+{{#if options.demo}}
+  <footer class="kss-github">
+    <!-- https://github.com/blog/273-github-ribbons -->
+    <a href="https://github.com/kss-node/kss-node"><img src="kss-assets/github-fork--black.png" alt="Fork me on GitHub"></a>
+  </footer>
+{{/if}}
+
+<!-- Automatically built using <a href="https://github.com/kss-node/kss-node">kss-node</a>. -->
+</body>
+</html>

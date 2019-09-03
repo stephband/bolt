@@ -1,3 +1,9 @@
+/*
+Components.
+
+Styleguide: 4
+*/
+
 
 /*
 .button
@@ -10,7 +16,7 @@ also be used on labels wrapping various form elements.
 
 Markup: <a class="button" href="#something">Link to something</a>
 
-Styleguide: button
+Styleguide: 4.button
 */
 
 button {
@@ -35,6 +41,10 @@ button,
 	display: inline-block;
 	position: relative;
 
+	/* Has it's own stacking context, to prevent icons and masked inputs
+	   overflowing stacks outside the button */
+	z-index: 0;
+
 	width: auto;
 	height: auto;
 	/* button elements ignore line-height, centering text automaticaly. */
@@ -46,6 +56,8 @@ button,
 	text-overflow: ellipsis;
 	text-align: center;
 	text-decoration: none;
+	/* Overrides default browser style on input type=submit (white-space: pre) */
+	white-space: normal;
 
 	background-repeat: no-repeat;
 	border-width: 0;
@@ -68,6 +80,11 @@ button,
 .button:focus {
 	/* If button is link, it may have hover styles. */
 	text-decoration: none;
+}
+
+button:hover,
+.button[href]:hover {
+	/* Hover styles for button and [href] */
 }
 
 button.loading,
@@ -102,7 +119,7 @@ Markup: <label class="button" for="file-input">
   <input type="file" id="file-input" />
 </label>
 
-Styleguide: xForms.5
+Styleguid forms.button
 */
 
 .thumb > select,
@@ -139,8 +156,6 @@ Styleguide: xForms.5
 /*
 .select-button
 
-For wrapping a select in label and giving it custom style.
-
 Markup: <label class="select-button button">
   <select>
     <option value="1">One</option>
@@ -149,12 +164,14 @@ Markup: <label class="select-button button">
   </select>
 </label>
 
-Styleguide: button.select-button
+Styleguide: 3.select-button
 */
 
 .select-button {
 	display: block;
-	padding: 0;
+	/* There should never be padding on select-button, it's padding should be
+	   managed by the select within. */
+	padding: 0 !important;
 }
 
 .select-button > select {
@@ -163,12 +180,13 @@ Styleguide: button.select-button
 	/* This is the native select, we're making everything but the text invisible
 	   so we can see the button styles in the wrapper. */
 	width: calc(100% + 2px);
+	max-width: none;
 	height: calc(100% + 2px);
 	margin: -1px;
-	padding: 0;
+	padding-top: 0;
+	padding-bottom: 0;
 	outline: none;
 	border: 1px solid transparent;
-	border-color: inherit;
 	border-radius: inherit;
 
 	/* Prefixed box-sizing rules necessary for older browsers */
@@ -183,7 +201,7 @@ Styleguide: button.select-button
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 2.4375rem;
+	width: 2.4375rem; /* Match-01 */
 	height: 100%;
 	border-width: 0;
 	border-left-width: inherit;
@@ -229,7 +247,7 @@ Styleguide: button.select-button
 
 	/* Remove select styling */
 	.select-button > select {
-		padding-right: 2em; /* Match-01 */
+		padding-right: 2.4375rem; /* Match-01 */
 		/* inside @supports so that iOS <= 8 display the native arrow */
 		background: none; /* Match-04 */
 		/* inside @supports so that Android <= 4.3 display the native arrow */
@@ -244,77 +262,53 @@ Styleguide: button.select-button
 /*
 .radio-button
 
-Markup: <label class="radio-button button" for="radio-2">
-  <input type="radio" id="radio-2" />
-  Choose me!
-</label>
+Markup: <input class="masked" type="radio" id="radio-2" />
+<label class="radio-button button" for="radio-2">Choose me!</label>
 
-Styleguide: button.radio-button
+Styleguide: 3.radio-button
 */
 
 /*
-.check-button
+.checkbox-button
 
-Markup: <label class="check-button button" for="checkbox-2">
-  <input type="checkbox" id="checkbox-2" />
-  Choose me!
-</label>
+Markup: <input class="masked" type="checkbox" id="checkbox-2" />
+<label class="checkbox-button button" for="checkbox-2">Choose me!</label>
 
-Styleguide: button.check-button
+Styleguide: 3.checkbox-button
 */
 
 .radio-button,
 .checkbox-button {
 	/* A hidden overflow would hide the browser generated error messages.
 	   No no no. Make sure it's visible. */
-	overflow: visible;
+	/*overflow: visible;*/
 }
-
 
 /*
-.menu-button
+.toggle-button
 
-Markup: <a class="menu-button button" href="#">button</a>
-<a class="menu-button button on" href="#">button</a>
+Markup: <a class="toggle-button button" href="#id">Open</a>
 
-Styleguide: button.menu-button-1
+Styleguide: 3.toggle-button
 */
 
-.menu-button {
-	display: block;
-	text-align: left;
-	color: inherit;
-	background-color: transparent;
+.toggle-button {
+	padding-right: 1.875rem;
 }
 
-
-/*
-.toggle-menu-button
-
-Markup: <a class="toggle-menu-button menu-button button" href="#id">button</a>
-<a class="toggle-menu-button menu-button button on" href="#id">button</a>
-
-Styleguide: button.menu-button-2
-*/
-
-.toggle-menu-button {
-	padding-right: 2.5rem;
-}
-
-.toggle-menu-button::after {
+.toggle-button::after {
 	content: '';
 	position: absolute;
 	top: 50%;
-	right: 0.5625rem;
-	height: 0;
-	margin-top: -6px;
-	border-left: 6px solid currentcolor;
-	border-top: 6px solid rgba(0, 0, 0, 0);
-	border-bottom: 6px solid rgba(0, 0, 0, 0);
-	transition: transform 200ms linear;
+	right: 0.75rem;
+	width: 0.5625rem;
+	height: 0.5625rem;
+	border-right: 1px solid currentcolor;
+	border-bottom: 1px solid currentcolor;
+	transform: translate3d(-20%,-50%,0) rotate(-45deg);
+	transition: transform 0.2s linear;
 }
 
-.toggle-menu-button.on::after {
-	-webkit-transform: rotate(90deg);
-	        transform: rotate(90deg);
+.toggle-button.on::after {
+	transform: translate3d(0,-70.7%,0) rotate(45deg);
 }

@@ -1,0 +1,88 @@
+
+#design-debug-input {
+	position: fixed;
+	top: 0.375rem;
+	right: 0.375rem;
+	opacity: 0;
+}
+
+body > .design-debug-switch {
+	right: 3.25rem;
+}
+
+body > .design-debug-layer {
+    z-index: -1;
+}
+
+body > .design-debug-block {
+    position: fixed;
+    top: 2rem;
+    right: 0.375rem;
+    max-width: 15rem;
+    z-index: 1000001;
+}
+
+
+
+.design-debug-layer {
+    filter: grayscale(0.8);
+    background-position: 50% 0;
+    background-size: 1273px auto;
+
+    visibility: hidden;
+    transition: visibility 0.2s linear;
+    pointer-events: none;
+}
+
+input:checked + .debug-switch + .design-debug-layer {
+    visibility: visible;
+	transition: visibility 0.4s linear;
+}
+
+
+
+.design-debug-block {
+    font-size: 14px;
+    color: white;
+    background-color: #3c8cb4;
+    padding: 0.5625rem;
+    border-radius: 0.3125rem;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.2s linear 0.4s,
+        visibility 0.2s linear 0.4s;
+}
+
+.design-debug-block > input {
+    font-size: 14px;
+    display: inline-block;
+    color: black;
+    width: 100%;
+    vertical-align: top;
+    margin-top: 0;
+    border-width: 0;
+}
+
+.design-debug-block > input + input {
+    width: calc(33.3333% - 0.375rem);
+    vertical-align: baseline;
+    margin-top: 0.5rem;
+}
+
+.design-debug-block > input + input[type="checkbox"] {
+    width: auto;
+}
+
+.design-debug-block > input + input + input {
+    margin-left: 0.5625rem;
+}
+
+input:checked + .debug-switch:hover + .design-debug-layer + .design-debug-block,
+input:checked + .debug-switch + .design-debug-layer + .design-debug-block:hover {
+    opacity: 1;
+    visibility: visible;
+	transition:
+        opacity 0.2s linear 0.4s,
+        visibility 0.2s linear 0.4s;
+}

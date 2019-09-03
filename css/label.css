@@ -19,15 +19,7 @@ label > [type="radio"] {
 	line-height: inherit;
 }
 
-label.error_label {
-	display: block;
-}
-
-input + label,
-textarea + label,
-select + label,
-.select-button + label,
-fieldset + label,
+* + label,
 fieldset + input,
 fieldset + fieldset {
 	margin-top: 2rem;
@@ -41,34 +33,21 @@ fieldset + fieldset {
 /*
 .radio-label
 
-A radio input wrapped in a label that gives it custom style. Depends on JS,
-so the style is enhanced only where the class <code>js</code> is present on
-a parent.
+Markup: <input type="radio" class="masked" id="radio-1" />
+<label class="radio-label" for="radio-1">Yes, choose me!</label>
 
-Markup: <label class="radio-label" for="radio-1">
-  <input type="radio" id="radio-1" />
-  Yes, choose me!
-</label>
-
-Styleguide: xForms.2
+Styleguide: 3.radio-label
 */
 
 /*
 .checkbox-label
 
-A checkbox input wrapped in a label that gives it custom style. Depends on JS,
-so the style is enhanced only where the class <code>js</code> is present on
-a parent.
+Markup: <input type="checkbox" class="masked" id="checkbox-1" />
+<label class="checkbox-label" for="checkbox-1">Yes, choose me!</label>
 
-Markup: <label class="checkbox-label" for="checkbox-1">
-  <input type="checkbox" id="checkbox-1" />
-  Yes, choose me!
-</label>
-
-Styleguide: xForms.3
+Styleguide: 3.checkbox-label
 */
 
-.text-label,
 .radio-label,
 .checkbox-label {
 	position: relative;
@@ -76,43 +55,12 @@ Styleguide: xForms.3
 	padding-top: 0.5rem;
 	padding-bottom: 0.5rem;
 	min-height: 2.5rem;
+	text-align: left;
 }
 
 .right-label {
 	padding-left: 0;
 	padding-right: 3rem;
-}
-
-.text-label {
-	display: block;
-	padding-top: 0.125rem;
-	padding-bottom: 0.1875rem;
-	line-height: 2.5rem;
-	vertical-align: baseline;
-}
-
-.text-label > .text-span,
-.text-label > input {
-	display: block;
-}
-
-@media all and (min-width: 40em) {
-	.text-label {
-		display: inline-block;
-	}
-
-	.text-label > .text-span {
-		display: inline-block;
-		min-width: 33.3333%;
-	}
-
-	.text-label > input {
-		display: inline-block;
-		width: 33.3333%;
-		height: 2.5rem;
-		line-height: 2.25rem;
-		margin-left: 0.5rem;
-	}
 }
 
 .radio-label > input,
@@ -138,9 +86,9 @@ Styleguide: xForms.3
 .checkbox-label::after {
 	content: '';
 	position: absolute;
-	top: 50%;
+	top: 0.5625rem;
 	left: 0;
-	margin-top: -0.75rem;
+	margin-top: 0;
 	width: 1.5rem;
 	height: 1.5rem;
 	box-sizing: border-box;
@@ -178,7 +126,7 @@ Styleguide: xForms.3
 }
 
 .radio-label::after {
-	top: 0.875rem;
+	top: 0.9375rem;
 	left: 0.375rem;
 	width: 0.75rem;
 	height: 0.75rem;
@@ -199,6 +147,15 @@ Styleguide: xForms.3
 	opacity: 0;
 	cursor: pointer;
 }
+
+.masked + .checkbox-label,
+.masked + .radio-label {
+    margin-top: 0;
+}
+
+/* .yes-radio-label
+   .no-radio-label
+*/
 
 .yes-radio-label::before,
 .no-radio-label::before {
@@ -237,4 +194,67 @@ Styleguide: xForms.3
 
 .no-radio-label::after {
 	background-position: 8px -432px;
+}
+
+/*
+.error-label
+*/
+
+/*
+.help-label
+*/
+
+.error-label {
+	color: #d0153e;
+}
+
+.col-1 + .error-label,  .col-1 + .help-label  { grid-column-start: 1; }
+.col-2 + .error-label,  .col-2 + .help-label  { grid-column-start: 2; }
+.col-3 + .error-label,  .col-3 + .help-label  { grid-column-start: 3; }
+.col-4 + .error-label,  .col-4 + .help-label  { grid-column-start: 4; }
+.col-5 + .error-label,  .col-5 + .help-label  { grid-column-start: 5; }
+.col-6 + .error-label,  .col-6 + .help-label  { grid-column-start: 6; }
+.col-7 + .error-label,  .col-7 + .help-label  { grid-column-start: 7; }
+.col-8 + .error-label,  .col-8 + .help-label  { grid-column-start: 8; }
+.col-9 + .error-label,  .col-9 + .help-label  { grid-column-start: 9; }
+.col-10 + .error-label, .col-10 + .help-label { grid-column-start: 10; }
+.col-11 + .error-label, .col-11 + .help-label { grid-column-start: 11; }
+.col-12 + .error-label, .col-12 + .help-label { grid-column-start: 12; }
+
+.span-1 + .error-label,  .span-1 + .help-label  { grid-column-end: span 1; }
+.span-2 + .error-label,  .span-2 + .help-label  { grid-column-end: span 2; }
+.span-3 + .error-label,  .span-3 + .help-label  { grid-column-end: span 3; }
+.span-4 + .error-label,  .span-4 + .help-label  { grid-column-end: span 4; }
+.span-5 + .error-label,  .span-5 + .help-label  { grid-column-end: span 5; }
+.span-6 + .error-label,  .span-6 + .help-label  { grid-column-end: span 6; }
+.span-7 + .error-label,  .span-7 + .help-label  { grid-column-end: span 7; }
+.span-8 + .error-label,  .span-8 + .help-label  { grid-column-end: span 8; }
+.span-9 + .error-label,  .span-9 + .help-label  { grid-column-end: span 9; }
+.span-10 + .error-label, .span-10 + .help-label { grid-column-end: span 10; }
+.span-11 + .error-label, .span-11 + .help-label { grid-column-end: span 11; }
+.span-12 + .error-label, .span-12 + .help-label { grid-column-end: span 12; }
+
+.row-1  + .error-label, .row-1  + .help-label { grid-row-start: 1; }
+.row-2  + .error-label, .row-2  + .help-label { grid-row-start: 2; }
+.row-3  + .error-label, .row-3  + .help-label { grid-row-start: 3; }
+.row-4  + .error-label, .row-4  + .help-label { grid-row-start: 4; }
+.row-5  + .error-label, .row-5  + .help-label { grid-row-start: 5; }
+.row-6  + .error-label, .row-6  + .help-label { grid-row-start: 6; }
+.row-7  + .error-label, .row-7  + .help-label { grid-row-start: 7; }
+.row-8  + .error-label, .row-8  + .help-label { grid-row-start: 8; }
+.row-9  + .error-label, .row-9  + .help-label { grid-row-start: 9; }
+.row-10 + .error-label, .row-10 + .help-label { grid-row-start: 10; }
+.row-11 + .error-label, .row-11 + .help-label { grid-row-start: 11; }
+.row-12 + .error-label, .row-12 + .help-label { grid-row-start: 12; }
+.row-13 + .error-label, .row-13 + .help-label { grid-row-start: 13; }
+.row-14 + .error-label, .row-14 + .help-label { grid-row-start: 14; }
+.row-15 + .error-label, .row-15 + .help-label { grid-row-start: 15; }
+.row-16 + .error-label, .row-16 + .help-label { grid-row-start: 16; }
+.row-17 + .error-label, .row-17 + .help-label { grid-row-start: 17; }
+.row-18 + .error-label, .row-18 + .help-label { grid-row-start: 18; }
+
+.error-label + .help-label {
+    /* Hide help while there are errors. Errors disappear when you start
+       typing anyway, so help is still available. */
+    display: none;
 }

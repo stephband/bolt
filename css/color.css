@@ -1,35 +1,35 @@
 
 /*
-.color
+.black-fg, .black-bg
 
-Styleguide: color
+Markup: <p class="text-5 black-fg white-bg">Black</p>
+<p class="text-5 white-fg black-bg">Black</p>
+
+Styleguide: 5.color-1
 */
 
 /*
-.black-bg<br/>
-.white-bg<br/>
-.black-color<br/>
-.white-color
+.white-fg, .white-bg
 
-Markup: <p class="text-5 white-color black-bg">Black</p>
-<p class="text-5 black-color white-bg">White</p>
+Markup: <p class="text-5 white-fg black-bg">White</p>
+<p class="text-5 black-fg white-bg">White</p>
 
-Styleguide: color.1
+Styleguide: 5.color-2
 */
 
-:root { --white-color: white; }
-.white-color { color: white; }
-.white-bg    { background-color: white; }
-.white-fill  { fill: white; }
+.transparent-fg { color: transparent; }
+.transparent-bg { background-color: transparent; }
 
-:root { --black-color: black; }
-.black-color { color: black; }
-.black-bg    { background-color: black; }
-.black-fill  { fill: black; }
+.current-fg   { color: currentcolor; }
+.current-bg   { background-color: currentcolor; }
+.current-fill { fill: currentcolor; }
 
-.current-color { color: currentcolor; }
-.current-bg    { background-color: currentcolor; }
-.current-fill  { fill: currentcolor; }
+:root       { --white: white; }
+.white-fg   { color: white; }
+.white-bg   { background-color: white; }
+.white-fill { fill: white; }
 
-.transparent-color { color: transparent; }
-.transparent-bg    { background-color: transparent; }
+:root       { --black: black; }
+.black-fg   { color: black; }
+.black-bg   { background-color: black; }
+.black-fill { fill: black; }

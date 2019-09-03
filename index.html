@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<!--
+	    What should go in a <head>?
+	    https://github.com/joshbuchea/HEAD
+
+		How should I approach image alt text?
+		https://axesslab.com/alt-texts/
+	 -->
+
 	<meta charset="utf-8" />
 	<meta name="author" content="" />
 	<meta name="description" content="" />
@@ -14,26 +22,31 @@
 	<link rel="icon" type="image/png" href="images/favicon.png" />
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-	<link rel="stylesheet" href="css/normalise.css" />
-	<link rel="stylesheet" href="css/form.css" />
+	<link rel="stylesheet" href="css/html.css" />
+	<link rel="stylesheet" href="css/svg.css" />
+	<link rel="stylesheet" href="css/body.css" />
+	<link rel="stylesheet" href="css/input.css" />
+	<link rel="stylesheet" href="css/label.css" />
 	<link rel="stylesheet" href="css/block.css" />
 	<link rel="stylesheet" href="css/index.css" />
+	<link rel="stylesheet" href="css/layer.css" />
 	<link rel="stylesheet" href="css/card.css" />
 	<link rel="stylesheet" href="css/button.css" />
 	<link rel="stylesheet" href="css/thumb.css" />
-	<link rel="stylesheet" href="css/grid.css" />
+	<link rel="stylesheet" href="css/type.css" />
 	<link rel="stylesheet" href="css/text.css" />
 	<link rel="stylesheet" href="css/color.css" />
-	<link rel="stylesheet" href="css/utilities.css" />
-	<link rel="stylesheet" href="css/dom.css" />
-	<link rel="stylesheet" href="css/nav.css" />
-	<link rel="stylesheet" href="css/space.css" />
-	<link rel="stylesheet" href="css/action.css" />
+	<link rel="stylesheet" href="css/modifiers.css" />
+    <link rel="stylesheet" href="components/grid/grid.css" />
+	<link rel="stylesheet" href="components/dialog/dialog.css" />
 
 	<style>
 		body {
 			padding-top: 1.875rem;
-			color: #421F2B;
+			color: #17397b;
+			color: #005477;
+			color: #005071;
+			/*color: #132673;*/
 		}
 		body > .grid-block {
 			max-width: 80rem;
@@ -65,83 +78,80 @@ code {
 	<div class="grid-block block">
 		<article class="grid-block block grid-1/6">
 			<h2 class="block grid-1/1">Base.</h2
-			><a class="grid-1/1 block" href="docs/section-block.html"><code>.block</code></a
-			><!--a class="grid-1/1 block" href="docs/section-block.html"><code>.grid-block</code></a
-			><a class="grid-1/1 block" href="docs/section-block.html"><code>.toggle-block</code></a
-			--><a class="grid-1/1 block" href="docs/section-bubble.html"><code>.bubble</code></a
-			><a class="grid-1/1 block" href="docs/section-button.html"><code>.button</code></a
-			><a class="grid-1/1 block" href="docs/section-card.html"><code>.card</code></a
-			><a class="grid-1/1 block" href="docs/section-index.html"><code>.index</code></a
-			><!--a class="grid-1/1 block" href="docs/section-index.html"><code>.grid-index</code></a
-			--><a class="grid-1/1 block" href="docs/section-layer.html"><code>.layer</code></a
-			><a class="grid-1/1 block" href="docs/section-thumb.html"><code>.thumb</code></a>
+			><a class="grid-1/1 block" href="styleguide/section-block.html"><code>.block</code></a
+			><!--a class="grid-1/1 block" href="styleguide/section-block.html"><code>.toggle-block</code></a
+			--><a class="grid-1/1 block" href="styleguide/section-bubble.html"><code>.bubble</code></a
+			><a class="grid-1/1 block" href="styleguide/section-button.html"><code>.button</code></a
+			><a class="grid-1/1 block" href="styleguide/section-card.html"><code>.card</code></a
+			><a class="grid-1/1 block" href="styleguide/section-block.html"><code>.flex</code></a
+			><a class="grid-1/1 block" href="styleguide/section-index.html"><code>.index</code></a
+			><!--a class="grid-1/1 block" href="styleguide/section-index.html"><code>.grid-index</code></a
+			--><a class="grid-1/1 block" href="styleguide/section-layer.html"><code>.layer</code></a
+			><a class="grid-1/1 block" href="styleguide/section-thumb.html"><code>.thumb</code></a>
 		</article
 
 		><article class="grid-block block grid-1/6">
 			<h2 class="block grid-1/1">Grid.</h2
-			><a class="block grid-1/1" href="docs/section-grid.html"><code>.grid-block</code></a
-			><a class="block grid-1/1" href="docs/section-grid.html"><code>.grid-<i>n</i>/<i>d</i></code></a
-			><a class="block grid-1/1" href="docs/section-grid.html"><code>.grid-left-<i>n</i>/<i>d</i></code></a
-			><a class="block grid-1/1" href="docs/section-grid.html"><code>.grid-right-<i>n</i>/<i>d</i></code></a
-			><a class="block grid-1/1" href="docs/section-grid.html"><code>.grid-index</code></a
-			><a class="block grid-1/1" href="docs/section-grid.html"><code>.grid-index-<i>n</i>/<i>d</i></code></a
-			><a class="block grid-1/1" href="docs/section-grid.html"><code>.grid-index-1/<i>n</i></code></a>
+			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-block</code></a
+			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-<i>n</i>/<i>d</i></code></a
+			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-left-<i>n</i>/<i>d</i></code></a
+			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-right-<i>n</i>/<i>d</i></code></a
+			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-index</code></a
+			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-index-<i>n</i>/<i>d</i></code></a
+			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-index-1/<i>n</i></code></a>
 		</article
 
 		><article class="grid-block block grid-1/6">
 			<h2 class="block grid-1/1">Text.</h2
-			><a class="block grid-1/1" href="docs/section-text.html"><code>h1, .text-1</code></a
-			><a class="block grid-1/1" href="docs/section-text.html"><code>h2, .text-2</code></a
-			><a class="block grid-1/1" href="docs/section-text.html"><code>h3, .text-3</code></a
-			><a class="block grid-1/1" href="docs/section-text.html"><code>h4, .text-4</code></a
-			><a class="block grid-1/1" href="docs/section-text.html"><code>h5, .text-5</code></a
-			><a class="block grid-1/1" href="docs/section-text.html"><code>h6, .text-6</code></a
-			><a class="block grid-1/1" href="docs/section-text.html"><code>body, .text-8</code></a>
+			><a class="block grid-1/1" href="styleguide/section-text.html"><code>h1, .text-1</code></a
+			><a class="block grid-1/1" href="styleguide/section-text.html"><code>h2, .text-2</code></a
+			><a class="block grid-1/1" href="styleguide/section-text.html"><code>h3, .text-3</code></a
+			><a class="block grid-1/1" href="styleguide/section-text.html"><code>h4, .text-4</code></a
+			><a class="block grid-1/1" href="styleguide/section-text.html"><code>h5, .text-5</code></a
+			><a class="block grid-1/1" href="styleguide/section-text.html"><code>h6, .text-6</code></a
+			><a class="block grid-1/1" href="styleguide/section-text.html"><code>body, .text-8</code></a>
 		</article
 
 		><article class="grid-block block grid-1/6">
 			<h2 class="block grid-1/1">Forms.</h2
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>label</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>input</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>textarea</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>select</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.select-button</code></a></li
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.radio-button</code></a></li
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.check-button</code></a></li>
-		</article
-
-		><article class="grid-block block grid-1/6">
-			<h2 class="block grid-1/1">Actions.</h2
-			><a class="block grid-1/1" href="docs/section-actions.html"><code>.slide</code></a
-			><a class="block grid-1/1" href="docs/section-actions.html"><code>.toggle</code></a
-			><a class="block grid-1/1" href="docs/section-actions.html"><code>.tab</code></a
-			><a class="block grid-1/1" href="docs/section-actions.html"><code>.dialog</code></a
-			><a class="block grid-1/1" href="docs/section-actions.html"><code>.tip</code></a>
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>label</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>input</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>textarea</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>select</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.select-button</code></a></li
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.radio-button</code></a></li
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.check-button</code></a></li>
 		</article
 
 		><div class="grid-block block grid-1/6">
 			<h2 class="block grid-1/1">Helpers.</h2
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.shown</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.hidden</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.masked</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.disabled</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.fixed</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.top-align</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.middle-align</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.bottom-align</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.baseline-align</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.left-align</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.justify-align</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.center-align</code></a
-			><a class="block grid-1/1" href="docs/section-xforms.html"><code>.right-align</code></a
-			><a class="block grid-1/2" href="docs/section-xforms.html"><code>.left</code></a
-			><a class="block grid-1/2" href="docs/section-xforms.html"><code>.right</code></a
-			><a class="block grid-1/4" href="docs/section-xforms.html"><code>.tl</code></a
-			><a class="block grid-1/4" href="docs/section-xforms.html"><code>.tr</code></a
-			><a class="block grid-1/4" href="docs/section-xforms.html"><code>.bl</code></a
-			><a class="block grid-1/4" href="docs/section-xforms.html"><code>.br</code></a>
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.shown</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.hidden</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.masked</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.disabled</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.fixed</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.top-align</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.middle-align</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.bottom-align</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.baseline-align</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.left-align</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.justify-align</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.center-align</code></a
+			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.right-align</code></a
+			><a class="block grid-1/2" href="styleguide/section-xforms.html"><code>.left</code></a
+			><a class="block grid-1/2" href="styleguide/section-xforms.html"><code>.right</code></a
+			><a class="block grid-1/4" href="styleguide/section-xforms.html"><code>.tl</code></a
+			><a class="block grid-1/4" href="styleguide/section-xforms.html"><code>.tr</code></a
+			><a class="block grid-1/4" href="styleguide/section-xforms.html"><code>.bl</code></a
+			><a class="block grid-1/4" href="styleguide/section-xforms.html"><code>.br</code></a>
 			</ul>
-		</div>
+		</div
+
+		><article class="grid-block block grid-1/6">
+			<h2 class="block grid-1/1">Breakpoints.</h2
+			><a class="block grid-1/1" href="styleguide/section-actions.html"><code>.@1-</code></a
+			><a class="block grid-1/1" href="styleguide/section-actions.html"><code>.@2-</code></a>
+		</article>
 	</div>
 
 	<script src="js/jquery-2.1.4.js"></script>

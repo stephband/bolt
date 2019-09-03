@@ -15,13 +15,14 @@ A default thumb is a square of 64x64px. Add an image by defining a
 
 Markup: <a class="thumb" href="#" style="background-image: url('//source.unsplash.com/category/nature/128x80')">Thumb text</a>
 
-Styleguide: thumb
+Styleguide: 4.thumb
 */
 
 .thumb {
 	display: inline-block;
 	vertical-align: top;
 	overflow: hidden;
+	position: relative;
 
 	/* Nullify padding that may have been put there by other
 	   styling, say for example by <button class="thumb"> */
@@ -34,6 +35,7 @@ Styleguide: thumb
 	   the background image with the text-indent. */
 	padding-top: 4rem;
 	height: 0;
+	min-height: 0;
 	width: 4rem;
 
 	/* Keep top of text safely away from the bottom of
@@ -57,6 +59,20 @@ Styleguide: thumb
 	color: inherit;
 }
 
+.thumb > svg,
+.thumb > iframe {
+    /* Make media fill thumbs. */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.thumb.block {
+	overflow: hidden;
+}
+
 @media print {
 	.thumb {
 		/* Encourage webkit to print background image. */
@@ -64,23 +80,75 @@ Styleguide: thumb
 	}
 }
 
+.thumb-1\:2,
+.thumb-2\:3,
+.thumb-3\:4,
+.thumb-4\:5,
 .thumb-1\:1,
+.thumb-5\:4,
 .thumb-4\:3,
-.thumb-16\:9 {
+.thumb-3\:2,
+.thumb-16\:9,
+.thumb-2\:1 {
 	background-size: contain;
 	width: 100%;
 }
 
+.thumb-2\:3  { padding-top: 150%; }
+.thumb-3\:4  { padding-top: 133.333333%; }
+.thumb-4\:5  { padding-top: 125%; }
 .thumb-1\:1  { padding-top: 100%; }
+.thumb-5\:4  { padding-top: 80%; }
 .thumb-4\:3  { padding-top: 75%; }
+.thumb-3\:2  { padding-top: 66.666667%; }
 .thumb-16\:9 { padding-top: 56.25%; }
+.thumb-2\:1  { padding-top: 50%; }
+
+
+/*
+.burger-thumb
+
+Markup: <a class="burger-thumb thumb" href="#">Navigation</a>
+
+Styleguide: 4.thumb.button-thumb
+*/
+
+.burger-thumb {
+    padding-top: 3.75rem;
+    width: 3.75rem;
+}
+
+.burger-thumb.on {
+    color: black;
+    background-color:  #e6e6e6;
+    background-color: var(--color-grey-5);
+    outline-width: 0;
+}
+
+.burger-thumb::before,
+.burger-thumb::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 2px);
+    left: 32%;
+    width: 36%;
+    height: 9px;
+    border-top: 3px solid currentcolor;
+    border-bottom: 3px solid currentcolor;
+}
+
+.burger-thumb::before {
+    top: calc(50% - 8px);
+    border-top: 3px solid currentcolor;
+}
+
 
 /*
 .close-thumb
 
 Markup: <a class="close-thumb thumb" href="#">Close</a>
 
-Styleguide: thumb.close-thumb
+Styleguide: 4.thumb.close-thumb
 */
 
 .close-thumb {
@@ -124,7 +192,7 @@ Navigation thumbs for slideshows.
 Markup: <a class="prev-thumb thumb">Previous</a>
 <a class="next-thumb thumb">Next</a>
 
-Styleguide: thumb.prev-thumb
+Styleguide: 4.thumb.prev-thumb
 */
 
 .prev-thumb,
@@ -170,7 +238,7 @@ Styleguide: thumb.prev-thumb
 
 Markup: <a class="fb-thumb thumb" href="/">Facebook</a>
 
-Styleguide: thumb.social-thumb-1
+Styleguide: 4.thumb.social-thumb-1
 */
 
 /*
@@ -178,7 +246,7 @@ Styleguide: thumb.social-thumb-1
 
 Markup: <a class="tw-thumb thumb" href="/">Twitter</a>
 
-Styleguide: thumb.social-thumb-2
+Styleguide: 4.thumb.social-thumb-2
 */
 
 /*
@@ -186,7 +254,7 @@ Styleguide: thumb.social-thumb-2
 
 Markup: <a class="in-thumb thumb" href="/">Instagram</a>
 
-Styleguide: thumb.social-thumb-3
+Styleguide: 4.thumb.social-thumb-3
 */
 
 .fb-thumb,
@@ -217,7 +285,7 @@ Styleguide: thumb.social-thumb-3
 
 Markup: <a class="dot-thumb thumb" href="/1">1</a>
 
-Styleguide: thumb.dot-thumb
+Styleguide: 4.thumb.dot-thumb
 */
 
 .dot-thumb {

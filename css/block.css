@@ -1,3 +1,8 @@
+/*
+Layout.
+
+Styleguide: 1
+*/
 
 /*
 .block
@@ -11,7 +16,7 @@ inline-block. Grid layout can be designed by adding
 <p>Applied to a media tag like img, svg, video and canvas, <code>.block</code>
 will scale the element to fill the available width.</p>
 
-Styleguide: block
+Styleguide: 1.1
 */
 
 .block {
@@ -26,6 +31,9 @@ Styleguide: block
 	/* Set them up to play nice as inline-blocks. */
 	vertical-align: top;
 	overflow: visible;
+
+	/* Set them up to place nice as flexboxes. */
+	justify-content: center;
 
 	/* Negate possible spacing when .block is used on something typographic like
 	   a <p>, for example. Also, make blocks behave as centered wraps by default. */
@@ -44,16 +52,172 @@ Styleguide: block
 	max-width: 100%;
 }
 
+hr.block {
+	height: 1px;
+}
+
 
 /*
 .inline-block
 
-Styleguide: block.inline-block
+Styleguide: 1.1.inline-block
 */
 
 .inline-block {
 	display: inline-block;
 }
+
+
+/*
+.flex-block
+
+Styleguide: 1.1.flex
+*/
+
+.flex-block {
+	display: flex;
+}
+
+.n-flex-block { flex-direction: column-reverse; }
+.s-flex-block { flex-direction: column; }
+.e-flex-block { flex-direction: row; }
+.w-flex-block { flex-direction: row-reverse; }
+
+/* Keep focus box-shadows over the top of their siblings */
+.flex-block > * { z-index: 0; }
+.flex-block > .select-button { z-index: 1; }
+.flex-block > *:focus { z-index: 2; }
+
+.wrap         { flex-wrap: wrap; }
+.no-wrap      { flex-wrap: nowrap; }
+
+.flex-1\/2 { flex: 0 0 50%; }
+.flex-1\/3 { flex: 0 0 33.333333333%; }
+.flex-2\/3 { flex: 0 0 66.666666667%; }
+.flex-1\/4 { flex: 0 0 25%; }
+.flex-3\/4 { flex: 0 0 75%; }
+.flex-1\/5 { flex: 0 0 20%; }
+.flex-2\/5 { flex: 0 0 40%; }
+.flex-3\/5 { flex: 0 0 60%; }
+.flex-4\/5 { flex: 0 0 80%; }
+.flex-1\/6 { flex: 0 0 16.666666667%; }
+.flex-5\/6 { flex: 0 0 83.333333333%; }
+.flex-1\/7 { flex: 0 0 14.285714286%; }
+.flex-2\/7 { flex: 0 0 28.571428571%; }
+.flex-3\/7 { flex: 0 0 42.857142857%; }
+.flex-4\/7 { flex: 0 0 57.142857143%; }
+.flex-5\/7 { flex: 0 0 71.428571429%; }
+.flex-6\/7 { flex: 0 0 85.714285714%; }
+.flex-1\/8 { flex: 0 0 12.5%; }
+.flex-3\/8 { flex: 0 0 37.5%; }
+.flex-5\/8 { flex: 0 0 62.5%; }
+.flex-7\/8 { flex: 0 0 87.5%; }
+
+
+/*
+.grid-block
+
+Styleguide: 1.1.grid
+*/
+
+.grid-block {
+	display: grid;
+}
+
+.grid-block > * {
+	margin: auto;
+}
+
+.col-1     { grid-column-start: 1; }
+.col-2     { grid-column-start: 2; }
+.col-3     { grid-column-start: 3; }
+.col-4     { grid-column-start: 4; }
+.col-5     { grid-column-start: 5; }
+.col-6     { grid-column-start: 6; }
+.col-7     { grid-column-start: 7; }
+.col-8     { grid-column-start: 8; }
+.col-9     { grid-column-start: 9; }
+.col-10    { grid-column-start: 10; }
+.col-11    { grid-column-start: 11; }
+.col-12    { grid-column-start: 12; }
+
+.span-1    { grid-column-end: span 1; }
+.span-2    { grid-column-end: span 2; }
+.span-3    { grid-column-end: span 3; }
+.span-4    { grid-column-end: span 4; }
+.span-5    { grid-column-end: span 5; }
+.span-6    { grid-column-end: span 6; }
+.span-7    { grid-column-end: span 7; }
+.span-8    { grid-column-end: span 8; }
+.span-9    { grid-column-end: span 9; }
+.span-10   { grid-column-end: span 10; }
+.span-11   { grid-column-end: span 11; }
+.span-12   { grid-column-end: span 12; }
+
+.row-1     { grid-row-start: 1; }
+.row-2     { grid-row-start: 2; }
+.row-3     { grid-row-start: 3; }
+.row-4     { grid-row-start: 4; }
+.row-5     { grid-row-start: 5; }
+.row-6     { grid-row-start: 6; }
+.row-7     { grid-row-start: 7; }
+.row-8     { grid-row-start: 8; }
+.row-9     { grid-row-start: 9; }
+.row-10    { grid-row-start: 10; }
+.row-11    { grid-row-start: 11; }
+.row-12    { grid-row-start: 12; }
+.row-13    { grid-row-start: 13; }
+.row-14    { grid-row-start: 14; }
+.row-15    { grid-row-start: 15; }
+.row-16    { grid-row-start: 16; }
+
+.rowspan-1 { grid-row-end: span 1; }
+.rowspan-2 { grid-row-end: span 2; }
+.rowspan-3 { grid-row-end: span 3; }
+.rowspan-4 { grid-row-end: span 4; }
+.rowspan-5 { grid-row-end: span 5; }
+.rowspan-6 { grid-row-end: span 6; }
+.rowspan-7 { grid-row-end: span 7; }
+.rowspan-8 { grid-row-end: span 8; }
+.rowspan-9 { grid-row-end: span 9; }
+
+/*
+.tab-block
+
+A block animated to behave as a tab that fades to reveal content when the class
+<code>active</code> is added.
+
+Styleguide: 4.tab-block
+*/
+
+.js .tab-block {
+	position: relative;
+	width: 100%;
+
+	visibility: hidden;
+	opacity: 0;
+	z-index: 1;
+
+	transition-property: opacity, visibility;
+	transition-duration: 120ms;
+	transition-timing-function: ease-in;
+
+	/* A nice bit of hardware acceleration should help the transitions run
+	   smoothly. */
+	transform: translate3d(0,0,0);
+}
+
+.js .tab-block.active {
+	visibility: visible;
+	opacity: 1;
+	z-index: 2;
+	transition-timing-function: ease-out;
+}
+
+.js .tab-block.active {
+	z-index: 2;
+}
+
 
 /*
 .toggle-block
@@ -70,7 +234,7 @@ Markup: <a href="#some-stuff">Click to show</a>
   spaces velit esse cilium buntum how crunchy duntum.</p>
 </div>
 
-Styleguide: block.toggle-block
+Styleguide: 1.1.toggle-block
 */
 
 .toggle-block {
@@ -82,6 +246,7 @@ Styleguide: block.toggle-block
 		max-height 400ms cubic-bezier(0, 0.5, 0.33, 1),
 		padding-top 400ms cubic-bezier(0.8, 0, 0.8, 0),
 		padding-bottom 400ms cubic-bezier(0.48, 0.85, 0.8, 1),
+		margin-top 400ms cubic-bezier(0.77, 0, 0.79, 0.78),
 		margin-bottom 400ms cubic-bezier(0, 0.5, 0.33, 1),
 		opacity 400ms linear,
 		border-color 400ms linear,
@@ -102,7 +267,8 @@ Styleguide: block.toggle-block
 		max-height 400ms cubic-bezier(0.4, 0, 1, 0.32),
 		padding-top 400ms cubic-bezier(0.2, 1, 0.2, 1),
 		padding-bottom 400ms cubic-bezier(0.6, 0.9, 0.7, 1),
-		margin-bottom 400ms cubic-bezier(0.4, 0, 1, 0.32),
+		margin-top 400ms cubic-bezier(0, 0.62, 0.35, 0.82),
+		margin-bottom 400ms cubic-bezier(0, 0.4, 1, 0.32),
 		opacity 400ms linear,
 		border-color 400ms linear,
 		background-color 200ms linear,
@@ -113,8 +279,52 @@ Styleguide: block.toggle-block
 /*
 .swipe-block
 
-Styleguide: block.swipe-block
+Markup: <div class="swipe-block block swipeable swipeable">
+    <div class="slock switchable" id="slide-0">
+        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 1" draggable="false" />
+    </div
+    ><div class="block switchable" id="slide-1">
+        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 2" draggable="false" />
+    </div
+    ><div class="block switchable" id="slide-2">
+        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 3" draggable="false" />
+    </div>
+</div>
+
+Styleguide: 4.slides
 */
+
+.swipe-block {
+	white-space: nowrap;
+}
+
+.swipe-block > .block {
+	display: inline-block;
+	margin-left: 0;
+	margin-right: 0;
+	width: 100%;
+	max-width: 100vw;
+}
+
+.swipe-block > img,
+.swipe-block > .block > img {
+	width: 100%;
+	height: auto;
+	max-width: none;
+	object-fit: contain;
+	object-position: 50% 50%;
+}
+
+.swipe-block > .block,
+.swipe-block > .block:focus,
+.swipe-block > .block > img,
+.swipe-block > .block > img:focus {
+	outline: none;
+}
+
+.swipe-block > .block + .block {
+	margin-left: 0;
+}
 
 .js .swipe-block {
 	/* A nice bit of hardware acceleration should help the transitions run
@@ -141,121 +351,5 @@ Styleguide: block.swipe-block
 	.js .swipe-block {
 		position: static;
 		transition: none !important;
-	}
-}
-
-
-/*
-.slides-block
-
-A wrapper for <code>slide-block</code>s and <code>ctrl-button</code>s.
-
-Styleguide: block.slides-block-1
-*/
-
-.slides-block {
-	overflow: hidden;
-	background-color: #cecece;
-}
-
-.slides-block > .prev-thumb,
-.slides-block > .next-thumb {
-	position: absolute;
-	top: 50%;
-	margin-top: -1.375rem;
-	z-index: 3;
-}
-
-.slides-block > .prev-thumb {
-	left: 0;
-}
-
-.slides-block > .next-thumb {
-	right: 0;
-}
-
-
-/*
-.slide-block
-
-An inline-block set up for left-right transitions between it and it's siblings.
-<code>slide-block</code>s are only styled as slides where the <code>js</code>
-class is on an ancestor, as they require JS to be enhanced as swipeable.
-
-Markup: <div class="slides-block block">
-  <img class="slide-block block slide active" id="slide-1" src="//source.unsplash.com/category/nature/520x310"
-  /><img class="slide-block block slide" id="slide-2" src="//source.unsplash.com/category/nature/520x310"
-  /><img class="slide-block block slide" id="slide-3" src="//source.unsplash.com/category/nature/520x310" />
-  <a class="prev-thumb thumb" href="#slide-1">Previous</a>
-  <a class="next-thumb thumb" href="#slide-2">Next</a>
-</div>
-
-Styleguide: block.slides-block-2
-*/
-
-.slide-block {
-	display: inline-block;
-	width: 100%;
-	/* Give all sbling slide-blocks the same origin by overlapping. */
-	margin-right: -100%;
-	vertical-align: middle;
-}
-
-.js .slide-block {
-	/* By default all slides are positioned off to the left. */
-	left: -100%;
-	overflow: hidden;
-	z-index: 1;
-
-	-webkit-touch-callout: none;
-	  -webkit-user-select: none;
-	     -moz-user-select: none;
-	      -ms-user-select: none;
-	          user-select: none;
-
-	/* A nice bit of hardware acceleration should help the transitions run
-	   smoothly. */
-	-webkit-transform: translate3d(0,0,0);
-	    -ms-transform: translate3d(0,0,0);
-	        transform: translate3d(0,0,0);
-
-	-webkit-transition-property: left, height;
-	        transition-property: left, height;
-	-webkit-transition-duration: 333ms;
-	        transition-duration: 333ms;
-	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-}
-
-.js .slide-block.active {
-	/* The .active slide is positioned in the centre. */
-	left: 0;
-	height: auto;
-	overflow: visible;
-	z-index: 2;
-}
-
-.js .slide-block.active ~ .slide-block {
-	/* All slides after the .active slide are positioned off to
-	   the right. */
-	left: 100%;
-}
-
-.js .slide-block.active ~ .slide-block.active {
-	/* Except, of course, any that are still active. */
-	left: 0;
-}
-
-@media print {
-	.js .slide-block {
-		position: static;
-		left: 0;
-		width: 34%;
-		height: auto;
-		margin-right: 3%;
-	}
-
-	.js .slide-block:nth-child(3n) {
-		margin-right: 0;
 	}
 }
