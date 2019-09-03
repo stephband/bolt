@@ -137,16 +137,22 @@ Styleguide: 1.1.grid
 .col-7     { grid-column-start: 7; }
 .col-8     { grid-column-start: 8; }
 .col-9     { grid-column-start: 9; }
+.col-10    { grid-column-start: 10; }
+.col-11    { grid-column-start: 11; }
+.col-12    { grid-column-start: 12; }
 
-.span-1 { grid-column-end: span 1; }
-.span-2 { grid-column-end: span 2; }
-.span-3 { grid-column-end: span 3; }
-.span-4 { grid-column-end: span 4; }
-.span-5 { grid-column-end: span 5; }
-.span-6 { grid-column-end: span 6; }
-.span-7 { grid-column-end: span 7; }
-.span-8 { grid-column-end: span 8; }
-.span-9 { grid-column-end: span 9; }
+.span-1    { grid-column-end: span 1; }
+.span-2    { grid-column-end: span 2; }
+.span-3    { grid-column-end: span 3; }
+.span-4    { grid-column-end: span 4; }
+.span-5    { grid-column-end: span 5; }
+.span-6    { grid-column-end: span 6; }
+.span-7    { grid-column-end: span 7; }
+.span-8    { grid-column-end: span 8; }
+.span-9    { grid-column-end: span 9; }
+.span-10   { grid-column-end: span 10; }
+.span-11   { grid-column-end: span 11; }
+.span-12   { grid-column-end: span 12; }
 
 .row-1     { grid-row-start: 1; }
 .row-2     { grid-row-start: 2; }

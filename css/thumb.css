@@ -59,6 +59,16 @@ Styleguide: 4.thumb
 	color: inherit;
 }
 
+.thumb > svg,
+.thumb > iframe {
+    /* Make media fill thumbs. */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .thumb.block {
 	overflow: hidden;
 }
