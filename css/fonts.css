@@ -448,8 +448,8 @@
     font-weight: 400;
     font-style: normal;
     font-stretch: normal;
-    src: url('/static/bolt/fonts/charter/webfonts/charter_regular-webfont.woff') format('woff'),
-         url('/static/bolt/fonts/charter/webfonts/charter_regular-webfont.eot') format('eot');
+    src: url('/static/bolt/fonts/charter/charter_regular-webfont.woff') format('woff'),
+         url('/static/bolt/fonts/charter/charter_regular-webfont.eot') format('eot');
 }
 
 
