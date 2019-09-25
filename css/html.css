@@ -80,11 +80,6 @@ html,
 :root {
 	height: 100%;
 
-	/* Corrects text resizing oddly in IE6/7 when body font-size is set using em units
-	   http://clagnut.com/blog/348/#c790 */
-	font-size: 100%;
-	line-height: 1.15;
-
 	/* Prevents iOS text size adjust after orientation change, without disabling user zoom
 	   www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
 	-webkit-text-size-adjust: 100%;
@@ -94,6 +89,9 @@ html,
 	   on <body> does not get set on <html>. Win. */
 	color: #000000;
 	background-color: white;
+
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
+    scroll-behavior: smooth;
 }
 
 body {
