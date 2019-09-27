@@ -11,8 +11,12 @@ h3:empty,
 h4:empty,
 h5:empty,
 h6:empty,
+ul:empty,
+ol:empty,
+li:empty,
+blockquote:empty,
 .debug {
-    box-shadow: 0 0 0px 2px rgba(255,0,74,0.875), inset 0 0 0px 1px rgba(255,0,74,0.875) !important;
+    box-shadow: 0 0 0px 2px rgba(255,0,74,0.875) !important;
     border-color: rgb(255, 0, 74) !important;
 }
 
@@ -24,7 +28,9 @@ h4:empty,
 h5:empty,
 h6:empty,
 ul:empty,
-li:empty {
+ol:empty,
+li:empty,
+blockquote:empty {
     /* Overide hiders in text.css */
     display: block !important;
     min-width: 3.125rem;
@@ -44,7 +50,17 @@ h4:empty::before,
 h5.debug::before,
 h5:empty::before,
 h6.debug::before,
-h6:empty::before {
+h6:empty::before,
+ul.debug::before,
+ul:empty::before,
+ol.debug::before,
+ol:empty::before,
+li.debug::before,
+li:empty::before,
+blockquote.debug::before,
+blockquote:empty::before {
+    /* Do not position it with top, left, etc. We cannot give the parent
+       position: relative */
     position: absolute;
     font-family: 'Andale Mono', 'Courier New', monospace;
     font-size: 0.6875rem;
@@ -57,16 +73,24 @@ h6:empty::before {
 }
 
 p.debug::before,
-p:empty::before  { content: '<p></p>'; }
+p:empty::before  { content: '<p>'; }
 h1.debug::before,
-h1:empty::before { content: '<h1></h1>'; }
+h1:empty::before { content: '<h1>'; }
 h2.debug::before,
-h2:empty::before { content: '<h2></h2>'; }
+h2:empty::before { content: '<h2>'; }
 h3.debug::before,
-h3:empty::before { content: '<h3></h3>'; }
+h3:empty::before { content: '<h3>'; }
 h4.debug::before,
-h4:empty::before { content: '<h4></h4>'; }
+h4:empty::before { content: '<h4>'; }
 h5.debug::before,
-h5:empty::before { content: '<h5></h5>'; }
+h5:empty::before { content: '<h5>'; }
 h6.debug::before,
-h6:empty::before { content: '<h6></h6>'; }
+h6:empty::before { content: '<h6>'; }
+ul.debug::before,
+ul:empty::before { content: '<ul>'; }
+ol.debug::before,
+ol:empty::before { content: '<ol>'; }
+li.debug::before,
+li:empty::before { content: '<li>'; }
+blockquote.debug::before,
+blockquote:empty::before { content: '<blockquote>'; }
