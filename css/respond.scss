@@ -63,6 +63,14 @@ $breakpoints:
 .row-16         { grid-row-start: 16 !important; }
 .row-17         { grid-row-start: 17 !important; }
 .row-18         { grid-row-start: 18 !important; }
+.x-end          { justify-self: end !important; }
+.x-start        { justify-self: start !important; }
+.x-center       { justify-self: center !important; }
+.x-stretch      { justify-self: stretch !important; }
+.y-end          { align-self: end !important; }
+.y-start        { align-self: start !important; }
+.y-center       { align-self: center !important; }
+.y-stretch      { align-self: stretch !important; }
 
 @each $breakpoint in $breakpoints {
 	@media screen and (max-width: #{nth($breakpoint, 2) - 0.001}) {
@@ -126,5 +134,13 @@ $breakpoints:
 		.#{nth($breakpoint, 1)}row-16         { grid-row-start: 16 !important; }
 		.#{nth($breakpoint, 1)}row-17         { grid-row-start: 17 !important; }
 		.#{nth($breakpoint, 1)}row-18         { grid-row-start: 18 !important; }
+        .#{nth($breakpoint, 1)}x-end          { justify-self: end !important; }
+        .#{nth($breakpoint, 1)}x-start        { justify-self: start !important; }
+        .#{nth($breakpoint, 1)}x-center       { justify-self: center !important; }
+        .#{nth($breakpoint, 1)}x-stretch      { justify-self: stretch !important; }
+        .#{nth($breakpoint, 1)}y-end          { align-self: end !important; }
+        .#{nth($breakpoint, 1)}y-start        { align-self: start !important; }
+        .#{nth($breakpoint, 1)}y-center       { align-self: center !important; }
+        .#{nth($breakpoint, 1)}y-stretch      { align-self: stretch !important; }
 	}
 }
