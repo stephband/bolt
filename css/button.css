@@ -307,6 +307,7 @@ Styleguide: 3.toggle-button
 	border-bottom: 1px solid currentcolor;
 	transform: translate3d(-20%,-50%,0) rotate(-45deg);
 	transition: transform 0.2s linear;
+	margin-top: -0.75rem;
 }
 
 .toggle-button.on::after {

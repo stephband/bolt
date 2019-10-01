@@ -132,6 +132,12 @@ pre {
 	margin: auto;
 }
 
+hr {
+    /* Things collapse to 0 width when they are children of grids. Margin 0
+       avoids this. */
+    margin: 0;
+}
+
 code,
 kbd,
 samp,
@@ -147,7 +153,7 @@ menu,
 ol,
 ul {
 	/* paddings set differently in IE6/7 */
-	padding: 0 0 0 1.25em;
+	padding: 0;
 }
 
 a {

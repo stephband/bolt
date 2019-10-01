@@ -20,57 +20,58 @@ $breakpoints:
 .right-align    { text-align: right !important; }
 .center-align   { text-align: center !important; }
 .justify-align  { text-align: justify !important; }
-.col-1          { grid-column-start: 1 !important; }
-.col-2          { grid-column-start: 2 !important; }
-.col-3          { grid-column-start: 3 !important; }
-.col-4          { grid-column-start: 4 !important; }
-.col-5          { grid-column-start: 5 !important; }
-.col-6          { grid-column-start: 6 !important; }
-.col-7          { grid-column-start: 7 !important; }
-.col-8          { grid-column-start: 8 !important; }
-.col-9          { grid-column-start: 9 !important; }
-.col-10         { grid-column-start: 10 !important; }
-.col-11         { grid-column-start: 11 !important; }
-.col-12         { grid-column-start: 12 !important; }
-.span-1         { grid-column-end: span 1 !important; }
-.span-2         { grid-column-end: span 2 !important; }
-.span-3         { grid-column-end: span 3 !important; }
-.span-4         { grid-column-end: span 4 !important; }
-.span-5         { grid-column-end: span 5 !important; }
-.span-6         { grid-column-end: span 6 !important; }
-.span-7         { grid-column-end: span 7 !important; }
-.span-8         { grid-column-end: span 8 !important; }
-.span-9         { grid-column-end: span 9 !important; }
-.span-10        { grid-column-end: span 10 !important; }
-.span-11        { grid-column-end: span 11 !important; }
-.span-12        { grid-column-end: span 12 !important; }
-.span--1        { grid-column-end: span -1 !important; }
-.row-1          { grid-row-start: 1 !important; }
-.row-2          { grid-row-start: 2 !important; }
-.row-3          { grid-row-start: 3 !important; }
-.row-4          { grid-row-start: 4 !important; }
-.row-5          { grid-row-start: 5 !important; }
-.row-6          { grid-row-start: 6 !important; }
-.row-7          { grid-row-start: 7 !important; }
-.row-8          { grid-row-start: 8 !important; }
-.row-9          { grid-row-start: 9 !important; }
-.row-10         { grid-row-start: 10 !important; }
-.row-11         { grid-row-start: 11 !important; }
-.row-12         { grid-row-start: 12 !important; }
-.row-13         { grid-row-start: 13 !important; }
-.row-14         { grid-row-start: 14 !important; }
-.row-15         { grid-row-start: 15 !important; }
-.row-16         { grid-row-start: 16 !important; }
-.row-17         { grid-row-start: 17 !important; }
-.row-18         { grid-row-start: 18 !important; }
+.x-1            { grid-column-start: 1 !important; }
+.x-2            { grid-column-start: 2 !important; }
+.x-3            { grid-column-start: 3 !important; }
+.x-4            { grid-column-start: 4 !important; }
+.x-5            { grid-column-start: 5 !important; }
+.x-6            { grid-column-start: 6 !important; }
+.x-7            { grid-column-start: 7 !important; }
+.x-8            { grid-column-start: 8 !important; }
+.x-9            { grid-column-start: 9 !important; }
+.x-10           { grid-column-start: 10 !important; }
+.x-11           { grid-column-start: 11 !important; }
+.x-12           { grid-column-start: 12 !important; }
+.x-span-1       { grid-column-end: span 1 !important; }
+.x-span-2       { grid-column-end: span 2 !important; }
+.x-span-3       { grid-column-end: span 3 !important; }
+.x-span-4       { grid-column-end: span 4 !important; }
+.x-span-5       { grid-column-end: span 5 !important; }
+.x-span-6       { grid-column-end: span 6 !important; }
+.x-span-7       { grid-column-end: span 7 !important; }
+.x-span-8       { grid-column-end: span 8 !important; }
+.x-span-9       { grid-column-end: span 9 !important; }
+.x-span-10      { grid-column-end: span 10 !important; }
+.x-span-11      { grid-column-end: span 11 !important; }
+.x-span-12      { grid-column-end: span 12 !important; }
+.x-span--1      { grid-column-end: span -1 !important; }
 .x-end          { justify-self: end !important; }
 .x-start        { justify-self: start !important; }
 .x-center       { justify-self: center !important; }
 .x-stretch      { justify-self: stretch !important; }
+.y-1            { grid-row-start: 1 !important; }
+.y-2            { grid-row-start: 2 !important; }
+.y-3            { grid-row-start: 3 !important; }
+.y-4            { grid-row-start: 4 !important; }
+.y-5            { grid-row-start: 5 !important; }
+.y-6            { grid-row-start: 6 !important; }
+.y-7            { grid-row-start: 7 !important; }
+.y-8            { grid-row-start: 8 !important; }
+.y-9            { grid-row-start: 9 !important; }
+.y-10           { grid-row-start: 10 !important; }
+.y-11           { grid-row-start: 11 !important; }
+.y-12           { grid-row-start: 12 !important; }
+.y-13           { grid-row-start: 13 !important; }
+.y-14           { grid-row-start: 14 !important; }
+.y-15           { grid-row-start: 15 !important; }
+.y-16           { grid-row-start: 16 !important; }
+.y-17           { grid-row-start: 17 !important; }
+.y-18           { grid-row-start: 18 !important; }
 .y-end          { align-self: end !important; }
 .y-start        { align-self: start !important; }
 .y-center       { align-self: center !important; }
 .y-stretch      { align-self: stretch !important; }
+.y-baseline     { align-self: baseline !important; }
 
 @each $breakpoint in $breakpoints {
 	@media screen and (max-width: #{nth($breakpoint, 2) - 0.001}) {
@@ -91,56 +92,57 @@ $breakpoints:
 		.#{nth($breakpoint, 1)}right-align    { text-align: right !important; }
 		.#{nth($breakpoint, 1)}center-align   { text-align: center !important; }
 		.#{nth($breakpoint, 1)}justify-align  { text-align: justify !important; }
-		.#{nth($breakpoint, 1)}col-1          { grid-column-start: 1 !important; }
-		.#{nth($breakpoint, 1)}col-2          { grid-column-start: 2 !important; }
-		.#{nth($breakpoint, 1)}col-3          { grid-column-start: 3 !important; }
-		.#{nth($breakpoint, 1)}col-4          { grid-column-start: 4 !important; }
-		.#{nth($breakpoint, 1)}col-5          { grid-column-start: 5 !important; }
-		.#{nth($breakpoint, 1)}col-6          { grid-column-start: 6 !important; }
-		.#{nth($breakpoint, 1)}col-7          { grid-column-start: 7 !important; }
-		.#{nth($breakpoint, 1)}col-8          { grid-column-start: 8 !important; }
-		.#{nth($breakpoint, 1)}col-9          { grid-column-start: 9 !important; }
-		.#{nth($breakpoint, 1)}col-10         { grid-column-start: 10 !important; }
-		.#{nth($breakpoint, 1)}col-11         { grid-column-start: 11 !important; }
-		.#{nth($breakpoint, 1)}col-12         { grid-column-start: 12 !important; }
-		.#{nth($breakpoint, 1)}span-1         { grid-column-end: span 1 !important; }
-		.#{nth($breakpoint, 1)}span-2         { grid-column-end: span 2 !important; }
-		.#{nth($breakpoint, 1)}span-3         { grid-column-end: span 3 !important; }
-		.#{nth($breakpoint, 1)}span-4         { grid-column-end: span 4 !important; }
-		.#{nth($breakpoint, 1)}span-5         { grid-column-end: span 5 !important; }
-		.#{nth($breakpoint, 1)}span-6         { grid-column-end: span 6 !important; }
-		.#{nth($breakpoint, 1)}span-7         { grid-column-end: span 7 !important; }
-		.#{nth($breakpoint, 1)}span-8         { grid-column-end: span 8 !important; }
-		.#{nth($breakpoint, 1)}span-9         { grid-column-end: span 9 !important; }
-		.#{nth($breakpoint, 1)}span-10        { grid-column-end: span 10 !important; }
-		.#{nth($breakpoint, 1)}span-11        { grid-column-end: span 11 !important; }
-		.#{nth($breakpoint, 1)}span-12        { grid-column-end: span 12 !important; }
-        .#{nth($breakpoint, 1)}span--1        { grid-column-end: span -1 !important; }
-		.#{nth($breakpoint, 1)}row-1          { grid-row-start: 1 !important; }
-		.#{nth($breakpoint, 1)}row-2          { grid-row-start: 2 !important; }
-		.#{nth($breakpoint, 1)}row-3          { grid-row-start: 3 !important; }
-		.#{nth($breakpoint, 1)}row-4          { grid-row-start: 4 !important; }
-		.#{nth($breakpoint, 1)}row-5          { grid-row-start: 5 !important; }
-		.#{nth($breakpoint, 1)}row-6          { grid-row-start: 6 !important; }
-		.#{nth($breakpoint, 1)}row-7          { grid-row-start: 7 !important; }
-		.#{nth($breakpoint, 1)}row-8          { grid-row-start: 8 !important; }
-		.#{nth($breakpoint, 1)}row-9          { grid-row-start: 9 !important; }
-		.#{nth($breakpoint, 1)}row-10         { grid-row-start: 10 !important; }
-		.#{nth($breakpoint, 1)}row-11         { grid-row-start: 11 !important; }
-		.#{nth($breakpoint, 1)}row-12         { grid-row-start: 12 !important; }
-		.#{nth($breakpoint, 1)}row-13         { grid-row-start: 13 !important; }
-		.#{nth($breakpoint, 1)}row-14         { grid-row-start: 14 !important; }
-		.#{nth($breakpoint, 1)}row-15         { grid-row-start: 15 !important; }
-		.#{nth($breakpoint, 1)}row-16         { grid-row-start: 16 !important; }
-		.#{nth($breakpoint, 1)}row-17         { grid-row-start: 17 !important; }
-		.#{nth($breakpoint, 1)}row-18         { grid-row-start: 18 !important; }
+		.#{nth($breakpoint, 1)}x-1            { grid-column-start: 1 !important; }
+		.#{nth($breakpoint, 1)}x-2            { grid-column-start: 2 !important; }
+		.#{nth($breakpoint, 1)}x-3            { grid-column-start: 3 !important; }
+		.#{nth($breakpoint, 1)}x-4            { grid-column-start: 4 !important; }
+		.#{nth($breakpoint, 1)}x-5            { grid-column-start: 5 !important; }
+		.#{nth($breakpoint, 1)}x-6            { grid-column-start: 6 !important; }
+		.#{nth($breakpoint, 1)}x-7            { grid-column-start: 7 !important; }
+		.#{nth($breakpoint, 1)}x-8            { grid-column-start: 8 !important; }
+		.#{nth($breakpoint, 1)}x-9            { grid-column-start: 9 !important; }
+		.#{nth($breakpoint, 1)}x-10           { grid-column-start: 10 !important; }
+		.#{nth($breakpoint, 1)}x-11           { grid-column-start: 11 !important; }
+		.#{nth($breakpoint, 1)}x-12           { grid-column-start: 12 !important; }
+		.#{nth($breakpoint, 1)}x-span-1       { grid-column-end: span 1 !important; }
+		.#{nth($breakpoint, 1)}x-span-2       { grid-column-end: span 2 !important; }
+		.#{nth($breakpoint, 1)}x-span-3       { grid-column-end: span 3 !important; }
+		.#{nth($breakpoint, 1)}x-span-4       { grid-column-end: span 4 !important; }
+		.#{nth($breakpoint, 1)}x-span-5       { grid-column-end: span 5 !important; }
+		.#{nth($breakpoint, 1)}x-span-6       { grid-column-end: span 6 !important; }
+		.#{nth($breakpoint, 1)}x-span-7       { grid-column-end: span 7 !important; }
+		.#{nth($breakpoint, 1)}x-span-8       { grid-column-end: span 8 !important; }
+		.#{nth($breakpoint, 1)}x-span-9       { grid-column-end: span 9 !important; }
+		.#{nth($breakpoint, 1)}x-span-10      { grid-column-end: span 10 !important; }
+		.#{nth($breakpoint, 1)}x-span-11      { grid-column-end: span 11 !important; }
+		.#{nth($breakpoint, 1)}x-span-12      { grid-column-end: span 12 !important; }
+        .#{nth($breakpoint, 1)}x-span--1      { grid-column-end: span -1 !important; }
         .#{nth($breakpoint, 1)}x-end          { justify-self: end !important; }
         .#{nth($breakpoint, 1)}x-start        { justify-self: start !important; }
         .#{nth($breakpoint, 1)}x-center       { justify-self: center !important; }
         .#{nth($breakpoint, 1)}x-stretch      { justify-self: stretch !important; }
+		.#{nth($breakpoint, 1)}y-1            { grid-row-start: 1 !important; }
+		.#{nth($breakpoint, 1)}y-2            { grid-row-start: 2 !important; }
+		.#{nth($breakpoint, 1)}y-3            { grid-row-start: 3 !important; }
+		.#{nth($breakpoint, 1)}y-4            { grid-row-start: 4 !important; }
+		.#{nth($breakpoint, 1)}y-5            { grid-row-start: 5 !important; }
+		.#{nth($breakpoint, 1)}y-6            { grid-row-start: 6 !important; }
+		.#{nth($breakpoint, 1)}y-7            { grid-row-start: 7 !important; }
+		.#{nth($breakpoint, 1)}y-8            { grid-row-start: 8 !important; }
+		.#{nth($breakpoint, 1)}y-9            { grid-row-start: 9 !important; }
+		.#{nth($breakpoint, 1)}y-10           { grid-row-start: 10 !important; }
+		.#{nth($breakpoint, 1)}y-11           { grid-row-start: 11 !important; }
+		.#{nth($breakpoint, 1)}y-12           { grid-row-start: 12 !important; }
+		.#{nth($breakpoint, 1)}y-13           { grid-row-start: 13 !important; }
+		.#{nth($breakpoint, 1)}y-14           { grid-row-start: 14 !important; }
+		.#{nth($breakpoint, 1)}y-15           { grid-row-start: 15 !important; }
+		.#{nth($breakpoint, 1)}y-16           { grid-row-start: 16 !important; }
+		.#{nth($breakpoint, 1)}y-17           { grid-row-start: 17 !important; }
+		.#{nth($breakpoint, 1)}y-18           { grid-row-start: 18 !important; }
         .#{nth($breakpoint, 1)}y-end          { align-self: end !important; }
         .#{nth($breakpoint, 1)}y-start        { align-self: start !important; }
         .#{nth($breakpoint, 1)}y-center       { align-self: center !important; }
         .#{nth($breakpoint, 1)}y-stretch      { align-self: stretch !important; }
+        .#{nth($breakpoint, 1)}y-baseline     { align-self: baseline !important; }
 	}
 }
