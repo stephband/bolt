@@ -136,7 +136,7 @@ a:focus {
 	outline: thin dotted;
 }
 
-/* Superseded by dom.root.js, where we add classes .mouse or .keyboard
+/* Superseded by dom.device.js, where we add classes .mouse or .keyboard
    to the root to style focus. */
 /*a:hover,
 a:active {
