@@ -123,6 +123,13 @@ p + pre,  .text-8 + pre, pre + p,  pre + .text-8 { margin-top: 1.25rem; }
 p + form,     .text-8 + form     { margin-top: 0.5rem; }
 p + fieldset, .text-8 + fieldset { margin-top: 2rem; }
 
+.light-text     { font-weight: 300 !important; }
+.normal-text    { font-weight: 400 !important; }
+.book-text      { font-weight: 450 !important; }
+.medium-text    { font-weight: 500 !important; }
+.semi-text      { font-weight: 600 !important; }
+.bold-text      { font-weight: 700 !important; }
+
 /* Selection */
 
 ::selection {
