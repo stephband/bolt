@@ -1,0 +1,40 @@
+
+/* CSS Component template */
+
+.component {
+    /* Style */
+}
+
+.component > .child {
+    /* Positioning of dependents */
+}
+
+.component > .child + .child {
+    /* Spacing of dependents relative to one another */
+}
+
+:not(.touch-device) .component:hover {
+    /* Hover style excluding touch devices, whose simulated hover state
+       is persistent */
+}
+
+:not(.touch-device) .component:focus {
+    /* Focus style excluding touch devices, whose focus state is
+       persistent */
+}
+
+* + .component {
+    /* Default vertical spacing */
+    margin-top: 0;
+}
+
+.class + .component {
+    /* Specific vertical spacing */
+    margin-top: 0;
+}
+
+@media (min-width: 50em) {
+    .component {
+        /* ... */
+    }
+}
