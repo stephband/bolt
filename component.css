@@ -1,16 +1,19 @@
 
-/* CSS Component template */
+/*
+CSS Component template
+A template for structuring CSS components the Bolt way.
+*/
 
 .component {
     /* Style */
 }
 
 .component > .child {
-    /* Positioning of dependents */
+    /* Layout of dependents */
 }
 
 .component > .child + .child {
-    /* Spacing of dependents relative to one another */
+    /* Layout of dependents relative to one another */
 }
 
 :not(.touch-device) .component:hover {
@@ -24,16 +27,16 @@
 }
 
 * + .component {
-    /* Default vertical spacing */
+    /* Default top or left margin spacing */
     margin-top: 0;
 }
 
 .class + .component {
-    /* Specific vertical spacing */
+    /* Context-specific top or left margin spacing */
     margin-top: 0;
 }
 
-@media (min-width: 50em) {
+@media (min-width: 30em) {
     .component {
         /* ... */
     }

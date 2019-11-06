@@ -1,5 +1,19 @@
 
 /*
+Text sizing. Viewport equivalent sizes:
+
+Viewport  1rem
+––––––––––––––
+1600      1vw
+800       2vw
+533.333   3vw
+400       4vw
+320       5vw
+–––––––––––––
+
+*/
+
+/*
 .text-1, h1
 
 Markup: <p class="text-1">Crunchum ipsum</p>
