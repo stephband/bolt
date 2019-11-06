@@ -9,4 +9,5 @@
 
     /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
     scroll-behavior: smooth;
+    scroll-padding: 0;
 }
