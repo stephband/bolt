@@ -10,3 +10,16 @@
     /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
     scroll-behavior: smooth;
 }
+
+:root.loading {
+    /* In Chrome smooth scrolling affects initial load when a hashref
+       is sought. Neuter it during load. A good way to do this is to put a
+       script in your <head>:
+
+       <script>
+          document.documentElement.classList.add('loading');
+          window.addEventListener('load', () => document.documentElement.classList.remove('loading'));
+       </script>
+    */
+    scroll-behavior: auto;
+}

@@ -16,8 +16,12 @@
 
 	<title>Bolt</title>
 
-	<!-- Bolt requires this. -->
-	<script>document.documentElement.className = 'js';</script>
+	<!-- Bolt requires class 'js' to support advanced js-only styles -->
+    <script>
+    document.documentElement.className = 'js dom-loading loading';
+    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('dom-loading'));
+    window.addEventListener('load', () => document.documentElement.classList.remove('loading'));
+    </script>
 
 	<link rel="icon" type="image/png" href="images/favicon.png" />
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
