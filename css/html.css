@@ -87,10 +87,6 @@ html,
 body {
 	padding: 0;
 	margin: 0;
-
-    /* In Chromium, even though document.scrollingElement is the root,
-       scroll-padding only works on <body>. Make it inherit from root. */
-    scroll-padding: inherit;
 }
 
 article,
