@@ -16,7 +16,7 @@ ol:empty,
 li:empty,
 blockquote:empty,
 .debug {
-    box-shadow: 0 0 0px 2px rgba(255,0,74,0.875) !important;
+    box-shadow: 0 0 0px 1px rgba(255,0,74,0.75) !important;
     border-color: rgb(255, 0, 74) !important;
 }
 
