@@ -16,7 +16,7 @@ ol:empty,
 li:empty,
 blockquote:empty,
 .debug {
-    box-shadow: 0 0 0px 1px rgba(255,0,74,0.75) !important;
+    box-shadow: inset 0 0 0px 1px rgba(255,0,74,0.75) !important;
     border-color: rgb(255, 0, 74) !important;
 }
 
@@ -94,7 +94,6 @@ li.debug::before,
 li:empty::before { content: '<li>'; }
 blockquote.debug::before,
 blockquote:empty::before { content: '<blockquote>'; }
-
 
 img,
 video,
