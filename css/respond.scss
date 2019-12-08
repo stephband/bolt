@@ -94,6 +94,17 @@ $breakpoints:
 .y-center       { align-self: center !important; }
 .y-stretch      { align-self: stretch !important; }
 .y-baseline     { align-self: baseline !important; }
+.columns-2      { columns: 2 !important; }
+.columns-3      { columns: 3 !important; }
+.columns-4      { columns: 4 !important; }
+.columns-5      { columns: 5 !important; }
+.columns-6      { columns: 6 !important; }
+.columns-7      { columns: 7 !important; }
+.columns-8      { columns: 8 !important; }
+.columns-9      { columns: 9 !important; }
+.columns-10     { columns: 10 !important; }
+.columns-11     { columns: 11 !important; }
+.columns-12     { columns: 12 !important; }
 
 @each $breakpoint in $breakpoints {
 	@media screen and (max-width: #{nth($breakpoint, 2) - 0.001}) {
@@ -180,5 +191,16 @@ $breakpoints:
         .#{nth($breakpoint, 1)}y-center       { align-self: center !important; }
         .#{nth($breakpoint, 1)}y-stretch      { align-self: stretch !important; }
         .#{nth($breakpoint, 1)}y-baseline     { align-self: baseline !important; }
+        .#{nth($breakpoint, 1)}columns-2      { columns: 2 !important; }
+        .#{nth($breakpoint, 1)}columns-3      { columns: 3 !important; }
+        .#{nth($breakpoint, 1)}columns-4      { columns: 4 !important; }
+        .#{nth($breakpoint, 1)}columns-5      { columns: 5 !important; }
+        .#{nth($breakpoint, 1)}columns-6      { columns: 6 !important; }
+        .#{nth($breakpoint, 1)}columns-7      { columns: 7 !important; }
+        .#{nth($breakpoint, 1)}columns-8      { columns: 8 !important; }
+        .#{nth($breakpoint, 1)}columns-9      { columns: 9 !important; }
+        .#{nth($breakpoint, 1)}columns-10     { columns: 10 !important; }
+        .#{nth($breakpoint, 1)}columns-11     { columns: 11 !important; }
+        .#{nth($breakpoint, 1)}columns-12     { columns: 12 !important; }
 	}
 }
