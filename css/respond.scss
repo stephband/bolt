@@ -18,6 +18,17 @@ $breakpoints:
    meanings, now, in Bolt – base class and modifier – which is a bad idea. */
 /*().block          { display: block !important; }*/
 .grid           { display: grid !important; }
+.grid-2         { grid-template-columns: repeat(2, 1fr); }
+.grid-3         { grid-template-columns: repeat(3, 1fr); }
+.grid-4         { grid-template-columns: repeat(4, 1fr); }
+.grid-5         { grid-template-columns: repeat(5, 1fr); }
+.grid-6         { grid-template-columns: repeat(6, 1fr); }
+.grid-7         { grid-template-columns: repeat(7, 1fr); }
+.grid-8         { grid-template-columns: repeat(8, 1fr); }
+.grid-9         { grid-template-columns: repeat(9, 1fr); }
+.grid-10        { grid-template-columns: repeat(10, 1fr); }
+.grid-11        { grid-template-columns: repeat(11, 1fr); }
+.grid-12        { grid-template-columns: repeat(12, 1fr); }
 .inline         { display: inline-block !important; }
 .left           { float: left !important; clear: left; }
 .right          { float: right !important; clear: right; }
@@ -115,6 +126,17 @@ $breakpoints:
 		.#{nth($breakpoint, 1)}hidden         { display: none !important; }
 		.#{nth($breakpoint, 1)}block          { display: block !important; }
         .#{nth($breakpoint, 1)}grid           { display: grid !important; }
+        .#{nth($breakpoint, 1)}grid-2         { grid-template-columns: repeat(2, 1fr); }
+        .#{nth($breakpoint, 1)}grid-3         { grid-template-columns: repeat(3, 1fr); }
+        .#{nth($breakpoint, 1)}grid-4         { grid-template-columns: repeat(4, 1fr); }
+        .#{nth($breakpoint, 1)}grid-5         { grid-template-columns: repeat(5, 1fr); }
+        .#{nth($breakpoint, 1)}grid-6         { grid-template-columns: repeat(6, 1fr); }
+        .#{nth($breakpoint, 1)}grid-7         { grid-template-columns: repeat(7, 1fr); }
+        .#{nth($breakpoint, 1)}grid-8         { grid-template-columns: repeat(8, 1fr); }
+        .#{nth($breakpoint, 1)}grid-9         { grid-template-columns: repeat(9, 1fr); }
+        .#{nth($breakpoint, 1)}grid-10        { grid-template-columns: repeat(10, 1fr); }
+        .#{nth($breakpoint, 1)}grid-11        { grid-template-columns: repeat(11, 1fr); }
+        .#{nth($breakpoint, 1)}grid-12        { grid-template-columns: repeat(12, 1fr); }
 		.#{nth($breakpoint, 1)}inline         { display: inline-block !important; }
 		.#{nth($breakpoint, 1)}left           { float: left !important; clear: left; }
 		.#{nth($breakpoint, 1)}right          { float: right !important; clear: right; }

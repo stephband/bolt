@@ -46,6 +46,12 @@
 	/* Center the dialog vertically, working in tandem
 	   with the :before rule of .dialog-layer. */
 	vertical-align: middle;
+
+    /* Act as position parent */
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
 }
 
 body > .dialog-layer {
@@ -71,7 +77,10 @@ Styleguide: 4.dialog
 	cursor: default;
 
 	/* Act as position parent */
-	position: relative;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
 
 	padding: 0.75rem;
 	margin: 0;
