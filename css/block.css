@@ -211,16 +211,16 @@ Styleguide: 1.1.toggle-block
 
 
 /*
-.swipe-block
+.slides-grid
 
-Markup: <div class="swipe-block block swipeable swipeable">
-    <div class="block switchable" id="slide-0">
+Markup: <div class="slides-grid grid" swipeable>
+    <div class="block" switchable id="slide-0">
         <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 1" draggable="false" />
     </div
-    ><div class="block switchable" id="slide-1">
+    ><div class="block" switchable id="slide-1">
         <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 2" draggable="false" />
     </div
-    ><div class="block switchable" id="slide-2">
+    ><div class="block" switchable id="slide-2">
         <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 3" draggable="false" />
     </div>
 </div>
@@ -229,7 +229,7 @@ Styleguide: 4.slides
 */
 
 
-.swipe-block {
+.slides-grid {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 100%;
@@ -240,7 +240,7 @@ Styleguide: 4.slides
     justify-items: center;
 }
 
-.swipe-block > .block {
+.slides-grid > .block {
     width: 100%;
     height: auto;
     max-width: none;
@@ -248,14 +248,14 @@ Styleguide: 4.slides
     margin-right: 0;
 }
 
-.swipe-block > .block,
-.swipe-block > .block:focus,
-.swipe-block > .block > img,
-.swipe-block > .block > img:focus {
+.slides-grid > .block,
+.slides-grid > .block:focus,
+.slides-grid > .block > img,
+.slides-grid > .block > img:focus {
 	outline: none;
 }
 
-.js .swipe-block {
+.js .slides-grid {
 	/* A nice bit of hardware acceleration should help the transitions run
 	   smoothly. */
 	-webkit-transform: translate3d(0,0,0);
@@ -277,7 +277,7 @@ Styleguide: 4.slides
 }
 
 @media print {
-	.js .swipe-block {
+	.js .slides-grid {
 		position: static;
 		transition: none !important;
 	}
