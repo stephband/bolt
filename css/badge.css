@@ -9,7 +9,7 @@
     white-space: nowrap;
     color: white;
     background-color: black;
-    border-radius: 0.6em;
+    border-radius: 1rem;
 }
 
 * > .badge {
