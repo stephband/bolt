@@ -167,8 +167,8 @@ Styleguide: 4.thumb.close-thumb
 	top: 50%;
 	left: 50%;
 	margin-top: -1px;
-	margin-left: -0.625rem;
-	width: 1.25rem;
+	margin-left: -0.625em;
+	width: 1.25em;
 	height: 0;
 	border-top: 1px solid currentcolor;
 	border-bottom: 1px solid currentcolor;
