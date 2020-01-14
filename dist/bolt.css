@@ -20,6 +20,34 @@
 	display: none !important;
 }
 
+/* Make fullscreen elements fill the screen */
+
+:-webkit-full-screen {
+	width: 100vw !important;
+	height: 100vh !important;
+	margin: 0 !important;
+}
+
+:-moz-full-screen {
+	width: 100vw !important;
+	height: 100vh !important;
+	margin: 0 !important;
+}
+
+:-ms-fullscreen {
+	width: 100vw !important;
+	height: 100vh !important;
+	margin: 0 !important;
+}
+
+:fullscreen {
+	width: 100vw !important;
+	height: 100vh !important;
+	margin: 0 !important;
+}
+
+/* Normalise elements */
+
 html, body, div, span,
 object, iframe, canvas, img, svg, audio, video, track, math,
 h1, h2, h3, h4, h5, h6, hr, p, blockquote, pre,
@@ -27,7 +55,7 @@ a, abbr, address, code, time,
 br, del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, details, dialog, figure, figcaption, footer, header,
-nav, section, summary,
+nav, main, section, summary,
 form, fieldset, label, legend, input, output, button, select, textarea,
 progress, meter,
 ::before, ::after {
@@ -50,22 +78,10 @@ progress, meter,
 
 html,
 :root {
-	height: 100%;
-
-	/* Corrects text resizing oddly in IE6/7 when body font-size is set using em units
-	   http://clagnut.com/blog/348/#c790 */
-	font-size: 100%;
-	line-height: 1.15;
-
 	/* Prevents iOS text size adjust after orientation change, without disabling user zoom
 	   www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
-
-	/* Setting a background on <html> means that a background
-	   on <body> does not get set on <html>. Win. */
-	color: #000000;
-	background-color: white;
 }
 
 body {
@@ -96,13 +112,20 @@ video {
 
 p,
 dl,
+input,
 menu,
 ol,
 ul,
 dd,
 pre {
 	/* margins set differently in IE6/7, Chrome */
-	margin: 0;
+	margin: auto;
+}
+
+hr {
+    /* Things collapse to 0 width when they are children of grids. Margin 0
+       avoids this. */
+    margin: 0;
 }
 
 code,
@@ -120,7 +143,7 @@ menu,
 ol,
 ul {
 	/* paddings set differently in IE6/7 */
-	padding: 0 0 0 1.25em;
+	padding: 0;
 }
 
 a {
@@ -180,10 +203,15 @@ img,
 svg,
 canvas,
 video {
-	height: auto;
+    /* Prevent media from overflowing parent by default */
+    max-width: 100%;
+    height: auto;
 }
 
 img {
+    /* Don't stretch images */
+    object-fit: cover;
+
 	/* Improves image quality when scaled in IE7
 	   code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
 	-ms-interpolation-mode: bicubic;
@@ -207,7 +235,14 @@ audio:not([controls]) {
 }
 
 figure {
-	margin: 0;
+	margin: auto;
+}
+
+figure > img,
+figure > svg,
+figure > canvas,
+figure > video {
+    width: 100%;
 }
 
 table {
@@ -353,8 +388,8 @@ body {
 }
 
 @media screen and (min-aspect-ratio: 3/1) {
-	/* Enforce an aspect ration of max 3:1 (which should comfortably
-	   accomodate 16:9 screens minus URL/status bars) */
+	/* Enforce an aspect ratio of max 3:1 (which should comfortably
+	   accomodate 16:9 screens minus URL and status bars) */
 	body {
 		min-height: 33.3333vw;
 	}
@@ -459,6 +494,10 @@ button,
 	display: inline-block;
 	position: relative;
 
+	/* Has it's own stacking context, to prevent icons and masked inputs
+	   overflowing stacks outside the button */
+	z-index: 0;
+
 	width: auto;
 	height: auto;
 	/* button elements ignore line-height, centering text automaticaly. */
@@ -470,6 +509,8 @@ button,
 	text-overflow: ellipsis;
 	text-align: center;
 	text-decoration: none;
+	/* Overrides default browser style on input type=submit (white-space: pre) */
+	white-space: normal;
 
 	background-repeat: no-repeat;
 	border-width: 0;
@@ -581,7 +622,9 @@ Styleguide: 3.select-button
 
 .select-button {
 	display: block;
-	padding: 0;
+	/* There should never be padding on select-button, it's padding should be
+	   managed by the select within. */
+	padding: 0 !important;
 }
 
 .select-button > select {
@@ -590,9 +633,11 @@ Styleguide: 3.select-button
 	/* This is the native select, we're making everything but the text invisible
 	   so we can see the button styles in the wrapper. */
 	width: calc(100% + 2px);
+	max-width: none;
 	height: calc(100% + 2px);
 	margin: -1px;
-	padding: 0;
+	padding-top: 0;
+	padding-bottom: 0;
 	outline: none;
 	border: 1px solid transparent;
 	border-radius: inherit;
@@ -609,7 +654,7 @@ Styleguide: 3.select-button
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 2.4375rem;
+	width: 2.4375rem; /* Match-01 */
 	height: 100%;
 	border-width: 0;
 	border-left-width: inherit;
@@ -655,7 +700,7 @@ Styleguide: 3.select-button
 
 	/* Remove select styling */
 	.select-button > select {
-		padding-right: 2em; /* Match-01 */
+		padding-right: 2.4375rem; /* Match-01 */
 		/* inside @supports so that iOS <= 8 display the native arrow */
 		background: none; /* Match-04 */
 		/* inside @supports so that Android <= 4.3 display the native arrow */
@@ -693,6 +738,36 @@ Styleguide: 3.checkbox-button
 }
 
 /*
+.toggle-button
+
+Markup: <a class="toggle-button button" href="#id">Open</a>
+
+Styleguide: 3.toggle-button
+*/
+
+.toggle-button {
+	padding-right: 1.875rem;
+}
+
+.toggle-button::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	right: 0.75rem;
+	width: 0.5625rem;
+	height: 0.5625rem;
+	border-right: 1px solid currentcolor;
+	border-bottom: 1px solid currentcolor;
+	transform: translate3d(-20%,-50%,0) rotate(-45deg);
+	transition: transform 0.2s linear;
+	margin-top: -0.75rem;
+}
+
+.toggle-button.on::after {
+	transform: translate3d(0,-70.7%,0) rotate(45deg);
+}
+
+/*
 .thumb
 
 Base class for thumbnails.
@@ -715,6 +790,7 @@ Styleguide: 4.thumb
 	display: inline-block;
 	vertical-align: top;
 	overflow: hidden;
+	position: relative;
 
 	/* Nullify padding that may have been put there by other
 	   styling, say for example by <button class="thumb"> */
@@ -727,6 +803,7 @@ Styleguide: 4.thumb
 	   the background image with the text-indent. */
 	padding-top: 4rem;
 	height: 0;
+	min-height: 0;
 	width: 4rem;
 
 	/* Keep top of text safely away from the bottom of
@@ -750,6 +827,20 @@ Styleguide: 4.thumb
 	color: inherit;
 }
 
+.thumb > svg,
+.thumb > iframe {
+    /* Make media fill thumbs. */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.thumb.block {
+	overflow: hidden;
+}
+
 @media print {
 	.thumb {
 		/* Encourage webkit to print background image. */
@@ -757,16 +848,67 @@ Styleguide: 4.thumb
 	}
 }
 
+.thumb-1\:2,
+.thumb-2\:3,
+.thumb-3\:4,
+.thumb-4\:5,
 .thumb-1\:1,
+.thumb-5\:4,
 .thumb-4\:3,
-.thumb-16\:9 {
+.thumb-3\:2,
+.thumb-16\:9,
+.thumb-2\:1 {
 	background-size: contain;
 	width: 100%;
 }
 
+.thumb-2\:3  { padding-top: 150%; }
+.thumb-3\:4  { padding-top: 133.333333%; }
+.thumb-4\:5  { padding-top: 125%; }
 .thumb-1\:1  { padding-top: 100%; }
+.thumb-5\:4  { padding-top: 80%; }
 .thumb-4\:3  { padding-top: 75%; }
+.thumb-3\:2  { padding-top: 66.666667%; }
 .thumb-16\:9 { padding-top: 56.25%; }
+.thumb-2\:1  { padding-top: 50%; }
+
+
+/*
+.burger-thumb
+
+Markup: <a class="burger-thumb thumb" href="#">Navigation</a>
+
+Styleguide: 4.thumb.button-thumb
+*/
+
+.burger-thumb {
+    padding-top: 3.75rem;
+    width: 3.75rem;
+}
+
+.burger-thumb.on {
+    color: black;
+    background-color:  #e6e6e6;
+    background-color: var(--color-grey-5);
+    outline-width: 0;
+}
+
+.burger-thumb::before,
+.burger-thumb::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 2px);
+    left: 32%;
+    width: 36%;
+    height: 9px;
+    border-top: 3px solid currentcolor;
+    border-bottom: 3px solid currentcolor;
+}
+
+.burger-thumb::before {
+    top: calc(50% - 8px);
+    border-top: 3px solid currentcolor;
+}
 
 
 /*
@@ -793,8 +935,8 @@ Styleguide: 4.thumb.close-thumb
 	top: 50%;
 	left: 50%;
 	margin-top: -1px;
-	margin-left: -0.625rem;
-	width: 1.25rem;
+	margin-left: -0.625em;
+	width: 1.25em;
 	height: 0;
 	border-top: 1px solid currentcolor;
 	border-bottom: 1px solid currentcolor;
@@ -970,7 +1112,7 @@ Styleguide: 4.bubble
 	position: absolute;
 	width: 1.25rem;
 	height: 1.25rem;
-	transform: rotate(45deg);
+	transform: rotate(45deg) translate(0, -1px);
 	background-color: inherit;
 	border-color: inherit;
 	border-width: inherit;
@@ -1027,13 +1169,13 @@ Styleguide: 4.bubble
 	box-shadow: 0px 3px 4px -2px rgba(0,0,0,0.3);
 }
 
-.right-top-bubble::after,
-.right-bottom-bubble::after {
+.left-top-bubble::after,
+.left-bottom-bubble::after {
 	left: 83.3333%;
 }
 
-.left-top-bubble::after,
-.left-bottom-bubble::after {
+.right-top-bubble::after,
+.right-bottom-bubble::after {
 	left: 16.6667%;
 }
 
@@ -1081,7 +1223,7 @@ Styleguide: 4.bubble
 			transform: translate3d(0, 1.75rem, 0);
 }
 
-@media screen and (max-width: 31.9999em) {
+@media screen and (max-width: 31.999em) {
 	.js .bubble {
 		/* Override offset given to it by JS when the
 		   screen is too small. */
@@ -1109,25 +1251,25 @@ Styleguide: 4.bubble
 		        transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
 	}
 
-	.js .left-top-bubble {
+	.js .right-top-bubble {
 		-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
 		    -ms-transform:  translateX(-16.6667%) translateY(-100%) translateY(-1.5rem);
 		        transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
 	}
 
-	.js .left-top-bubble.active {
+	.js .right-top-bubble.active {
 		-webkit-transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
 		    -ms-transform:  translateX(-16.6667%) translateY(-100%) translateY(-1.75rem);
 		        transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
 	}
 
-	.js .right-top-bubble {
+	.js .left-top-bubble {
 		-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
 		    -ms-transform:  translateX(-83.3333%) translateY(-100%) translateY(-1.5rem);
 		        transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
 	}
 
-	.js .right-top-bubble.active {
+	.js .left-top-bubble.active {
 		-webkit-transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
 		    -ms-transform:  translateX(-83.3333%) translateY(-100%) translateY(-1.75rem);
 		        transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
@@ -1145,25 +1287,25 @@ Styleguide: 4.bubble
 		        transform: translate3d(-50%, 1.75rem, 0);
 	}
 
-	.js .right-bottom-bubble {
+	.js .left-bottom-bubble {
 		-webkit-transform: translate3d(-83.3333%, 1.5rem, 0);
 		    -ms-transform:   translate(-83.3333%, 1.5rem);
 		        transform: translate3d(-83.3333%, 1.5rem, 0);
 	}
 
-	.js .right-bottom-bubble.active {
+	.js .left-bottom-bubble.active {
 		-webkit-transform: translate3d(-83.3333%, 1.75rem, 0);
 		    -ms-transform:   translate(-83.3333%, 1.75rem);
 		        transform: translate3d(-83.3333%, 1.75rem, 0);
 	}
 
-	.js .left-bottom-bubble {
+	.js .right-bottom-bubble {
 		-webkit-transform: translate3d(-16.6667%, 1.5rem, 0);
 		    -ms-transform:   translate(-16.6667%, 1.5rem);
 		        transform: translate3d(-16.6667%, 1.5rem, 0);
 	}
 
-	.js .left-bottom-bubble.active {
+	.js .right-bottom-bubble.active {
 		-webkit-transform: translate3d(-16.6667%, 1.75rem, 0);
 		    -ms-transform:   translate(-16.6667%, 1.75rem);
 		        transform: translate3d(-16.6667%, 1.75rem, 0);
@@ -1200,10 +1342,14 @@ Forms.
 Styleguide: 3
 */
 
+/* Edge fails to update styles for changed disabled properties. This rule
+   targetting the attribute rather than the pseudo-selector keeps the
+   pseudo-selectors up-to-date.
+   https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11295231/
+*/
+[disabled] ~ _ {}
 
 /*
-It is time to look at these pseudo selectors, which now have broad support:
-
 :enabled
 :disabled
 :required
@@ -1243,7 +1389,7 @@ fieldset {
 fieldset {
 	/* Reset padding, margin, border */
 	padding: 0;
-	margin: 0;
+	margin: auto;
 	border: 0;
 }
 
@@ -1294,7 +1440,7 @@ textarea {
 	   rhythm when inputs stack up. It also has the effect of removing the
 	   annoying extra margin-bottom that textareas have in webkit. */
 	vertical-align: middle;
-	margin: 0;
+	margin: auto;
 
 	/* Font size is not automaticlly inherited in all browsers. */
 	font-family: inherit;
@@ -1377,7 +1523,6 @@ textarea,
 	background-color: white;
 }
 
-textarea,
 [type="tel"],
 [type="url"],
 [type="date"],
@@ -1388,7 +1533,11 @@ textarea,
 [type="email"],
 [type="number"],
 [type="search"],
-[type="password"],
+[type="password"] {
+	text-indent: 0.5625rem;
+}
+
+textarea,
 .select-button > select {
 	padding-left: 0.5625rem;
 	padding-right: 0.5625rem;
@@ -1577,7 +1726,7 @@ input[type='file'] {
 }
 
 .required::after {
-	content: ' *';
+	content: '\00a0*';
 	color: #e62b24;
 }
 
@@ -1598,20 +1747,16 @@ input[type='file'] {
 	box-shadow: none;
 }
 
-/* Legacy */
-input.error,
-textarea.error,
-/* ------ */
+:root:not(.js) input:invalid,
+:root:not(.js) select:invalid,
+:root:not(.js) textarea:invalid,
 .validated input:invalid,
 .validated select:invalid,
 .validated textarea:invalid,
 input.validated:invalid,
 select.validated:invalid,
 textarea.validated:invalid {
-	-webkit-box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
-	-moz-box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
 	box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
-
 	border-color: #d61729 !important;
 }
 
@@ -1626,16 +1771,13 @@ textarea:focus,
 input.validated:focus,
 select.validated:focus,
 textarea.validated:focus,
+.masked:focus + .focus-label:before,
 .masked:focus + .checkbox-label:before,
 .masked:focus + .radio-label:before {
 	/* In Webkit, outline doesn't fit the border curves, and in FF outline
 	   is ugly. Lets recreate it with box-shadow */
 	outline: none;
-
-	-webkit-box-shadow: 0 0 5px 2px hsla(200,56%,49%,0.8), inset 0 0 0.5rem hsla(200,65%,60%,0.6);
-	   -moz-box-shadow: 0 0 5px 2px hsla(200,56%,49%,0.8), inset 0 0 0.5rem hsla(200,65%,60%,0.6);
-	        box-shadow: 0 0 5px 2px hsla(200,56%,49%,0.8), inset 0 0 0.5rem hsla(200,65%,60%,0.6);
-
+	box-shadow: 0 0 5px 2px hsla(200,56%,49%,0.8), inset 0 0 0.5rem hsla(200,65%,60%,0.6);
 	border-color: #2c9bd3 !important;
 }
 
@@ -1791,6 +1933,12 @@ button,
 	height: 0.75rem;
 	background: #2B3134;
 	border: none;
+	border-radius: 0.375rem;
+}
+
+[type="range"]::-moz-range-progress {
+	height: 0.75em;
+	background-color: #2B3134;
 	border-radius: 0.375rem;
 }
 
@@ -2041,10 +2189,6 @@ label > [type="radio"] {
 	line-height: inherit;
 }
 
-label.error_label {
-	display: block;
-}
-
 * + label,
 fieldset + input,
 fieldset + fieldset {
@@ -2074,7 +2218,6 @@ Markup: <input type="checkbox" class="masked" id="checkbox-1" />
 Styleguide: 3.checkbox-label
 */
 
-.text-label,
 .radio-label,
 .checkbox-label {
 	position: relative;
@@ -2082,43 +2225,12 @@ Styleguide: 3.checkbox-label
 	padding-top: 0.5rem;
 	padding-bottom: 0.5rem;
 	min-height: 2.5rem;
+	text-align: left;
 }
 
 .right-label {
 	padding-left: 0;
 	padding-right: 3rem;
-}
-
-.text-label {
-	display: block;
-	padding-top: 0.125rem;
-	padding-bottom: 0.1875rem;
-	line-height: 2.5rem;
-	vertical-align: baseline;
-}
-
-.text-label > .text-span,
-.text-label > input {
-	display: block;
-}
-
-@media all and (min-width: 40em) {
-	.text-label {
-		display: inline-block;
-	}
-
-	.text-label > .text-span {
-		display: inline-block;
-		min-width: 33.3333%;
-	}
-
-	.text-label > input {
-		display: inline-block;
-		width: 33.3333%;
-		height: 2.5rem;
-		line-height: 2.25rem;
-		margin-left: 0.5rem;
-	}
 }
 
 .radio-label > input,
@@ -2144,9 +2256,9 @@ Styleguide: 3.checkbox-label
 .checkbox-label::after {
 	content: '';
 	position: absolute;
-	top: 50%;
+	top: 0.5625rem;
 	left: 0;
-	margin-top: -0.75rem;
+	margin-top: 0;
 	width: 1.5rem;
 	height: 1.5rem;
 	box-sizing: border-box;
@@ -2178,13 +2290,13 @@ Styleguide: 3.checkbox-label
 	display: none;
 }
 
-.masked[type="radio"]:checked + .radio-label::after,
-.masked[type="checkbox"]:checked + .checkbox-label::after {
+.masked:checked + .radio-label::after,
+.masked:checked + .checkbox-label::after {
 	display: block;
 }
 
 .radio-label::after {
-	top: 0.875rem;
+	top: 0.9375rem;
 	left: 0.375rem;
 	width: 0.75rem;
 	height: 0.75rem;
@@ -2205,6 +2317,15 @@ Styleguide: 3.checkbox-label
 	opacity: 0;
 	cursor: pointer;
 }
+
+.masked + .checkbox-label,
+.masked + .radio-label {
+    margin-top: 0;
+}
+
+/* .yes-radio-label
+   .no-radio-label
+*/
 
 .yes-radio-label::before,
 .no-radio-label::before {
@@ -2246,6 +2367,69 @@ Styleguide: 3.checkbox-label
 }
 
 /*
+.error-label
+*/
+
+/*
+.help-label
+*/
+
+.error-label {
+	color: #d0153e;
+}
+
+.col-1 + .error-label,  .col-1 + .help-label  { grid-column-start: 1; }
+.col-2 + .error-label,  .col-2 + .help-label  { grid-column-start: 2; }
+.col-3 + .error-label,  .col-3 + .help-label  { grid-column-start: 3; }
+.col-4 + .error-label,  .col-4 + .help-label  { grid-column-start: 4; }
+.col-5 + .error-label,  .col-5 + .help-label  { grid-column-start: 5; }
+.col-6 + .error-label,  .col-6 + .help-label  { grid-column-start: 6; }
+.col-7 + .error-label,  .col-7 + .help-label  { grid-column-start: 7; }
+.col-8 + .error-label,  .col-8 + .help-label  { grid-column-start: 8; }
+.col-9 + .error-label,  .col-9 + .help-label  { grid-column-start: 9; }
+.col-10 + .error-label, .col-10 + .help-label { grid-column-start: 10; }
+.col-11 + .error-label, .col-11 + .help-label { grid-column-start: 11; }
+.col-12 + .error-label, .col-12 + .help-label { grid-column-start: 12; }
+
+.span-1 + .error-label,  .span-1 + .help-label  { grid-column-end: span 1; }
+.span-2 + .error-label,  .span-2 + .help-label  { grid-column-end: span 2; }
+.span-3 + .error-label,  .span-3 + .help-label  { grid-column-end: span 3; }
+.span-4 + .error-label,  .span-4 + .help-label  { grid-column-end: span 4; }
+.span-5 + .error-label,  .span-5 + .help-label  { grid-column-end: span 5; }
+.span-6 + .error-label,  .span-6 + .help-label  { grid-column-end: span 6; }
+.span-7 + .error-label,  .span-7 + .help-label  { grid-column-end: span 7; }
+.span-8 + .error-label,  .span-8 + .help-label  { grid-column-end: span 8; }
+.span-9 + .error-label,  .span-9 + .help-label  { grid-column-end: span 9; }
+.span-10 + .error-label, .span-10 + .help-label { grid-column-end: span 10; }
+.span-11 + .error-label, .span-11 + .help-label { grid-column-end: span 11; }
+.span-12 + .error-label, .span-12 + .help-label { grid-column-end: span 12; }
+
+.row-1  + .error-label, .row-1  + .help-label { grid-row-start: 1; }
+.row-2  + .error-label, .row-2  + .help-label { grid-row-start: 2; }
+.row-3  + .error-label, .row-3  + .help-label { grid-row-start: 3; }
+.row-4  + .error-label, .row-4  + .help-label { grid-row-start: 4; }
+.row-5  + .error-label, .row-5  + .help-label { grid-row-start: 5; }
+.row-6  + .error-label, .row-6  + .help-label { grid-row-start: 6; }
+.row-7  + .error-label, .row-7  + .help-label { grid-row-start: 7; }
+.row-8  + .error-label, .row-8  + .help-label { grid-row-start: 8; }
+.row-9  + .error-label, .row-9  + .help-label { grid-row-start: 9; }
+.row-10 + .error-label, .row-10 + .help-label { grid-row-start: 10; }
+.row-11 + .error-label, .row-11 + .help-label { grid-row-start: 11; }
+.row-12 + .error-label, .row-12 + .help-label { grid-row-start: 12; }
+.row-13 + .error-label, .row-13 + .help-label { grid-row-start: 13; }
+.row-14 + .error-label, .row-14 + .help-label { grid-row-start: 14; }
+.row-15 + .error-label, .row-15 + .help-label { grid-row-start: 15; }
+.row-16 + .error-label, .row-16 + .help-label { grid-row-start: 16; }
+.row-17 + .error-label, .row-17 + .help-label { grid-row-start: 17; }
+.row-18 + .error-label, .row-18 + .help-label { grid-row-start: 18; }
+
+.error-label + .help-label {
+    /* Hide help while there are errors. Errors disappear when you start
+       typing anyway, so help is still available. */
+    display: none;
+}
+
+/*
 table
 
 Markup: <table>
@@ -2276,18 +2460,18 @@ td {
 
 th:first-child,
 td:first-child {
-	padding-left: 0.9375rem;
+	padding-left: 0;
 }
 
 th:last-child,
 td:last-child {
-	padding-right: 0.9375rem;
+	padding-right: 0;
 }
 
 thead > tr > th,
 thead > tr > td {
-    padding-top:    0.875rem;
-	padding-bottom: 0.875rem;
+    padding-top:    0.75rem;
+	padding-bottom: 0.375rem;
 	vertical-align: bottom;
 }
 
@@ -2296,33 +2480,17 @@ thead > tr:last-child > td {
 	padding-bottom: 0.375rem;
 }
 
-thead + tbody > tr:first-child > th,
-thead + tbody > tr:first-child > td {
-	border-top: 1px solid hsl(198, 10%, 75%);
-}
-
 tbody > tr > th,
 tbody > tr > td {
-    /* Compensate for border-top */
-    padding-top:    0.8125rem;
-	padding-bottom: 0.875rem;
+	line-height:    1.5rem;
+    padding-top:    0.1875rem;
+	padding-bottom: 0.1875rem;
 	vertical-align: middle;
-}
-
-tbody > tr + tr > th,
-tbody > tr + tr > td {
-	border-top: 1px solid hsl(198, 10%, 85%);
-}
-
-tbody + tfoot > tr > th,
-tbody + tfoot > tr > td {
-	border-top: 1px solid hsl(198, 10%, 75%);
 }
 
 tfoot > tr > th,
 tfoot > tr > td {
-    /* Compensate for border-top */
-    padding-top:    0.8125rem;
+    padding-top:    0.875rem;
 	padding-bottom: 0.875rem;
 	vertical-align: top;
 }
@@ -2333,6 +2501,79 @@ table {
 	margin-right: 0;
 	table-layout:fixed;
 }
+
+
+
+/*
+.lined-table
+
+Markup: <table class="lined-table">
+  <thead>
+    <tr><th></th><th>1</th><th>2</th><th>3</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>English</th><td>One</td><td>Two</td><td>Three</td></tr>
+    <tr><th>Français</th><td>Un</td><td>Deux</td><td>Trois</td></tr>
+    <tr><th>Italiano</th><td>Uno</td><td>Due</td><td>Tre</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><th>Notes</th><td>Small</td><th>Medium</td><td>Large</td></tr>
+  </tfoot>
+</table>
+
+Styleguide: 4.table
+*/
+
+
+.lined-table th,
+.lined-table td {
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+}
+
+.lined-table th:first-child,
+.lined-table td:first-child {
+	padding-left: 1.25rem;
+}
+
+.lined-table th:last-child,
+.lined-table td:last-child {
+	padding-right: 1.25rem;
+}
+
+.lined-table > thead > tr > th,
+.lined-table > thead > tr > td {
+    /* Compensate for border-top */
+    padding-top:    0.625rem;
+	padding-bottom: 0.375rem;
+}
+
+.lined-table > thead + tbody > tr:first-child > th,
+.lined-table > thead + tbody > tr:first-child > td {
+    padding-bottom: 0.875rem;
+	border-top-width: 0;
+}
+
+.lined-table > thead > tr:last-child > th,
+.lined-table > thead > tr:last-child > td {
+	padding-bottom: 0.375rem;
+}
+
+.lined-table > tbody > tr > th,
+.lined-table > tbody > tr > td {
+    /* Compensate for border-top */
+    padding-top:    0.8125rem;
+	padding-bottom: 0.875rem;
+}
+
+.lined-table > tfoot > tr > th,
+.lined-table > tfoot > tr > td {
+    /* Compensate for border-top */
+    padding-top:    0.8125rem;
+	padding-bottom: 0.875rem;
+	vertical-align: top;
+}
+
 
 
 /*
@@ -2354,6 +2595,12 @@ Markup: <table class="striped-table">
 
 Styleguide: 4.table-striped
 */
+
+.striped-table > tbody > tr > th,
+.striped-table > tbody > tr > td {
+    padding-top:    0.875rem;
+	padding-bottom: 0.875rem;
+}
 
 .striped-table > tbody > tr:nth-child(2n) > th,
 .striped-table > tbody > tr:nth-child(2n) > td {
@@ -2398,6 +2645,9 @@ Styleguide: 1.1
 	vertical-align: top;
 	overflow: visible;
 
+	/* Set them up to place nice as flexboxes. */
+	justify-content: center;
+
 	/* Negate possible spacing when .block is used on something typographic like
 	   a <p>, for example. Also, make blocks behave as centered wraps by default. */
 	margin: 0 auto;
@@ -2432,6 +2682,53 @@ Styleguide: 1.1.inline-block
 
 
 /*
+.flex-block
+
+Styleguide: 1.1.flex
+*/
+
+.flex-block {
+	display: flex;
+	/* width: 100%; */
+}
+
+.n-flex-block { flex-direction: column-reverse; }
+.s-flex-block { flex-direction: column; }
+.e-flex-block { flex-direction: row; }
+.w-flex-block { flex-direction: row-reverse; }
+
+/* Keep focus box-shadows over the top of their siblings */
+.flex-block > * { z-index: 0; }
+.flex-block > .select-button { z-index: 1; }
+.flex-block > *:focus { z-index: 2; }
+
+.wrap         { flex-wrap: wrap; }
+.no-wrap      { flex-wrap: nowrap; }
+
+.flex-1\/2 { flex: 0 0 50%; }
+.flex-1\/3 { flex: 0 0 33.333333333%; }
+.flex-2\/3 { flex: 0 0 66.666666667%; }
+.flex-1\/4 { flex: 0 0 25%; }
+.flex-3\/4 { flex: 0 0 75%; }
+.flex-1\/5 { flex: 0 0 20%; }
+.flex-2\/5 { flex: 0 0 40%; }
+.flex-3\/5 { flex: 0 0 60%; }
+.flex-4\/5 { flex: 0 0 80%; }
+.flex-1\/6 { flex: 0 0 16.666666667%; }
+.flex-5\/6 { flex: 0 0 83.333333333%; }
+.flex-1\/7 { flex: 0 0 14.285714286%; }
+.flex-2\/7 { flex: 0 0 28.571428571%; }
+.flex-3\/7 { flex: 0 0 42.857142857%; }
+.flex-4\/7 { flex: 0 0 57.142857143%; }
+.flex-5\/7 { flex: 0 0 71.428571429%; }
+.flex-6\/7 { flex: 0 0 85.714285714%; }
+.flex-1\/8 { flex: 0 0 12.5%; }
+.flex-3\/8 { flex: 0 0 37.5%; }
+.flex-5\/8 { flex: 0 0 62.5%; }
+.flex-7\/8 { flex: 0 0 87.5%; }
+
+
+/*
 .tab-block
 
 A block animated to behave as a tab that fades to reveal content when the class
@@ -2441,40 +2738,27 @@ Styleguide: 4.tab-block
 */
 
 .js .tab-block {
-	display: inline-block;
 	position: relative;
 	width: 100%;
-	vertical-align: top;
-
-	/* Give all tabs the same origin despite being consecutive inline-blocks.
-	   Requires spaceless HTML. */
-	margin-right: -100% !important;
 
 	visibility: hidden;
 	opacity: 0;
 	z-index: 1;
 
-	-webkit-transition-property: opacity, visibility;
-	        transition-property: opacity, visibility;
-	-webkit-transition-duration: 120ms;
-	        transition-duration: 120ms;
-	-webkit-transition-timing-function: ease-in;
-	        transition-timing-function: ease-in;
+	transition-property: opacity, visibility;
+	transition-duration: 120ms;
+	transition-timing-function: ease-in;
 
 	/* A nice bit of hardware acceleration should help the transitions run
 	   smoothly. */
-	-webkit-transform: translate3d(0,0,0);
-	    -ms-transform: translate3d(0,0,0);
-	        transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
 }
 
 .js .tab-block.active {
 	visibility: visible;
 	opacity: 1;
 	z-index: 2;
-
-	-webkit-transition-timing-function: ease-out;
-	        transition-timing-function: ease-out;
+	transition-timing-function: ease-out;
 }
 
 .js .tab-block.active {
@@ -2509,6 +2793,7 @@ Styleguide: 1.1.toggle-block
 		max-height 400ms cubic-bezier(0, 0.5, 0.33, 1),
 		padding-top 400ms cubic-bezier(0.8, 0, 0.8, 0),
 		padding-bottom 400ms cubic-bezier(0.48, 0.85, 0.8, 1),
+		margin-top 400ms cubic-bezier(0.77, 0, 0.79, 0.78),
 		margin-bottom 400ms cubic-bezier(0, 0.5, 0.33, 1),
 		opacity 400ms linear,
 		border-color 400ms linear,
@@ -2529,7 +2814,8 @@ Styleguide: 1.1.toggle-block
 		max-height 400ms cubic-bezier(0.4, 0, 1, 0.32),
 		padding-top 400ms cubic-bezier(0.2, 1, 0.2, 1),
 		padding-bottom 400ms cubic-bezier(0.6, 0.9, 0.7, 1),
-		margin-bottom 400ms cubic-bezier(0.4, 0, 1, 0.32),
+		margin-top 400ms cubic-bezier(0, 0.62, 0.35, 0.82),
+		margin-bottom 400ms cubic-bezier(0, 0.4, 1, 0.32),
 		opacity 400ms linear,
 		border-color 400ms linear,
 		background-color 200ms linear,
@@ -2538,16 +2824,16 @@ Styleguide: 1.1.toggle-block
 
 
 /*
-.swipe-block
+.slides-grid
 
-Markup: <div class="swipe-block block swipeable swipeable">
-    <div class="slock switchable" id="slide-0">
+Markup: <div class="slides-grid grid" swipeable>
+    <div class="block" switchable id="slide-0">
         <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 1" draggable="false" />
     </div
-    ><div class="block switchable" id="slide-1">
+    ><div class="block" switchable id="slide-1">
         <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 2" draggable="false" />
     </div
-    ><div class="block switchable" id="slide-2">
+    ><div class="block" switchable id="slide-2">
         <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 3" draggable="false" />
     </div>
 </div>
@@ -2555,38 +2841,34 @@ Markup: <div class="swipe-block block swipeable swipeable">
 Styleguide: 4.slides
 */
 
-.swipe-block {
-	white-space: nowrap;
+
+.slides-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    grid-gap: 0;
+    align-content: center;
+    justify-content: start;
+    align-items: center;
+    justify-items: center;
 }
 
-.swipe-block > .block {
-	display: inline-block;
-	margin-left: 0;
-	margin-right: 0;
-	width: 100%;
+.slides-grid > .block {
+    width: 100%;
+    height: auto;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
 }
 
-.swipe-block > img,
-.swipe-block > .block > img {
-	width: 100%;
-	height: auto;
-	max-width: none;
-	object-fit: contain;
-	object-position: 50% 50%;
-}
-
-.swipe-block > .block,
-.swipe-block > .block:focus,
-.swipe-block > .block > img,
-.swipe-block > .block > img:focus {
+.slides-grid > .block,
+.slides-grid > .block:focus,
+.slides-grid > .block > img,
+.slides-grid > .block > img:focus {
 	outline: none;
 }
 
-.swipe-block > .block + .block {
-	margin-left: 0;
-}
-
-.js .swipe-block {
+.js .slides-grid {
 	/* A nice bit of hardware acceleration should help the transitions run
 	   smoothly. */
 	-webkit-transform: translate3d(0,0,0);
@@ -2608,58 +2890,10 @@ Styleguide: 4.slides
 }
 
 @media print {
-	.js .swipe-block {
+	.js .slides-grid {
 		position: static;
 		transition: none !important;
 	}
-}
-/*
-.flex
-
-Styleguide: 1.1.flex
-*/
-
-.flex,
-.index > .flex {
-	display: flex;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: stretch;
-	align-content: stretch;
-}
-
-.n-flex { flex-direction: column-reverse; }
-.s-flex { flex-direction: column; }
-.e-flex { flex-direction: row; }
-.w-flex { flex-direction: row-reverse; }
-/*
-.n-flex > .box,
-.s-flex > .box { width: 100%; }
-*/
-.start-flex   { justify-content: flex-start; }
-.end-flex     { justify-content: flex-end; }
-.justify-flex { justify-content: space-between; }
-.grid-flex    { justify-content: space-around; }
-.spaced-flex  { justify-content: space-evenly; }
-
-.flex.wrap    { flex-wrap: wrap; }
-.flex.no-wrap { flex-wrap: nowrap; }
-
-
-/* .box */
-
-.box {
-	position: relative;
-}
-
-.box-0 {
-	flex-grow: 0;
-	flex-shrink: 0;
-}
-
-.box-1 {
-	flex-grow: 1;
-	flex-shrink: 1;
 }
 
 /*
@@ -2725,8 +2959,6 @@ Styleguide: 1.3
 	   -moz-box-sizing: content-box;
 	        box-sizing: content-box;
 }
-
-.scroll-layer > .layer {}
 
 /*
 Typography.
@@ -2796,7 +3028,7 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0;
+	margin: 0 auto;
 }
 
 h1,
@@ -2821,27 +3053,26 @@ hr {
 	background-color: currentcolor;
 }
 
+ul                { list-style-type: disc; }
+ol                {
+	list-style-type: decimal;
+	/* Chrome renders them outside by default, causing a
+	   difference between FF and Chrome */
+	list-style-position: inside;
+}
 
 dl {
-	/* Clearfix, because children of definition list are floated. */
-	zoom: 1;
+    display: grid;
+    grid-column-gap: 1.125rem;
+    grid-template-columns: max-content 1fr;
+    grid-auto-columns: 1fr;
+	align-items: flex-end;
 }
 
-dl::after {
-	/* Clearfix, because children of definition list are floated. */
-	content: " ";
-	visibility: hidden;
-	display: block;
-	clear: both;
-	font-size: 0;
-	height: 0;
+dl > dt {
+    grid-column: 1 / span 1;
+	max-width: 40vw;
 }
-
-dt                { float: left; clear: both; text-align: right; width: 22.75%; font-weight: bold; }
-dd                { float: right; text-align: left; width: 74.25%; }
-
-ul                { list-style-type: disc; }
-ol                { list-style-type: decimal; }
 
 blockquote        { font-style: italic; font-family: Georgia, serif; }
 blockquote::before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
@@ -2922,10 +3153,74 @@ table             {width: 100%;}
 tfoot             { font-style: italic; }
 caption           { background-color: inherit; }
 
+
+
+
+
+
+
+dd                { margin: 0; }
+ul,
+ol,
+dl,
+blockquote        { margin-top: 1.25rem; }
+li                { margin-bottom: 0;}
+
+blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
+
+/* Inline elements */
+
+sup,
+sub               { font-size: 0.6em; line-height: 0; }
+
+abbr              { letter-spacing: 0.1em; }
+
+/* Tables */
+
+th,
+td,
+caption           { padding: 4px 10px 4px 5px; }
+
+/* Indentation */
+
+ul,
+ol                { margin-left: 0; }
+
+blockquote        { margin-left: 2.6667em; }
+
+
+
 /* Classes */
 
-.last             { margin-bottom: 0; }
-.note             { font-style: italic; }
+.left             { margin: 0.75em 1em 0.75em 0; }
+.right            { margin: 0.75em 0 0.75em 1em; }
+.note             { font-size: 0.9167em; line-height: 1.8181; font-style: italic; }
+
+.tag-code::before { content: '<'; margin-right: -0.1em; }
+.tag-code::after  { content: '>'; margin-left: -0.1em; }
+
+.wrap             { white-space: normal; }
+.no-wrap          { white-space: nowrap; text-overflow: ellipsis; }
+.break-wrap       { white-space: normal; overflow-wrap: break-word; }
+.line-wrap        { white-space: pre; }
+
+/* Modifiers */
+
+.uppercase-text   { text-transform: uppercase !important; }
+
+/*
+Text sizing. Viewport equivalent sizes:
+
+Viewport  1rem
+––––––––––––––
+1600      1vw
+800       2vw
+533.333   3vw
+400       4vw
+320       5vw
+–––––––––––––
+
+*/
 
 /*
 .text-1, h1
@@ -3051,51 +3346,12 @@ p + pre,  .text-8 + pre, pre + p,  pre + .text-8 { margin-top: 1.25rem; }
 p + form,     .text-8 + form     { margin-top: 0.5rem; }
 p + fieldset, .text-8 + fieldset { margin-top: 2rem; }
 
-dd                { margin: 0; }
-ul,
-ol,
-dl,
-blockquote        { margin-top: 1.25rem; }
-li                { margin-bottom: 0;}
-
-blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
-
-/*pre,
-address           { margin-top: 1.3333em; }*/
-
-/* Inline elements */
-
-sup,
-sub               { font-size: 0.6em; line-height: 0; }
-
-abbr              { letter-spacing: 0.1em; }
-
-/* Tables */
-
-th,
-td,
-caption           { padding: 4px 10px 4px 5px; }
-
-/* Indentation */
-
-ul,
-ol                { margin-left: 0; }
-
-blockquote        { margin-left: 2.6667em; }
-
-
-/* Classes */
-
-.left             { margin: 0.75em 1em 0.75em 0; }
-.right            { margin: 0.75em 0 0.75em 1em; }
-.note             { font-size: 0.9167em; line-height: 1.8181; }
-.uppercase-text   { text-transform: uppercase; }
-.html-tag::before { content: '<'; margin-right: -0.1em; }
-.html-tag::after  { content: '>'; margin-left: -0.1em; }
-
-.wrap             { white-space: normal; }
-.no-wrap          { white-space: nowrap; text-overflow: ellipsis; }
-.line-wrap        { white-space: pre; }
+.light-text     { font-weight: 300 !important; }
+.normal-text    { font-weight: 400 !important; }
+.book-text      { font-weight: 450 !important; }
+.medium-text    { font-weight: 500 !important; }
+.semi-text      { font-weight: 600 !important; }
+.bold-text      { font-weight: 700 !important; }
 
 /* Selection */
 
@@ -3137,12 +3393,12 @@ Styleguide: 5.color-2
 .current-bg   { background-color: currentcolor; }
 .current-fill { fill: currentcolor; }
 
-:root { --white-color: white; }
+:root       { --white: white; }
 .white-fg   { color: white; }
 .white-bg   { background-color: white; }
 .white-fill { fill: white; }
 
-:root { --black-color: black; }
+:root       { --black: black; }
 .black-fg   { color: black; }
 .black-bg   { background-color: black; }
 .black-fill { fill: black; }
@@ -3186,14 +3442,30 @@ Styleguide: 5.hidden
 }
 
 /*
-.shown
+.active-hidden
 
-Show element.
+Hide an element when its parent has class <code>active</code>.
 
-Styleguide: 5.hidden-shown
+Styleguide: 5.active-hidden
 */
 
-.shown {}
+.active-hidden.active,
+.active > .active-hidden {
+	display: none !important;
+}
+
+/*
+.active-shown
+
+Show an element when its parent has class <code>active</code>.
+
+Styleguide: 5.active-shown
+*/
+
+:not(.active) > .active-shown:not(.active) {
+	display: none !important;
+}
+
 
 /*
 .on-hidden
@@ -3203,6 +3475,7 @@ Hide an element when its parent has class <code>on</code>.
 Styleguide: 5.on-hidden
 */
 
+.on-hidden.on,
 .on > .on-hidden {
 	display: none !important;
 }
@@ -3215,7 +3488,82 @@ Show an element when its parent has class <code>on</code>.
 Styleguide: 5.on-shown
 */
 
-:not(.on) > .on-shown {
+:not(.on) > .on-shown:not(.on) {
+	display: none !important;
+}
+
+/*
+.requested-hidden
+
+Hide an element when its parent has class <code>requested</code>.
+
+Styleguide: 5.requested-hidden
+*/
+
+.requested-hidden.requested,
+.requested > .requested-hidden {
+	display: none !important;
+}
+
+/*
+.requested-shown
+
+Show an element when its parent has class <code>requested</code>.
+
+Styleguide: 5.requested-shown
+*/
+
+:not(.requested) > .requested-shown:not(.requested) {
+	display: none !important;
+}
+
+/*
+.fullscreen-hidden
+
+Hide an element when in fullscreen mode.
+
+Styleguide: 5.fullscreen-hidden
+*/
+
+.fullscreen-hidden:-webkit-full-screen,
+:-webkit-full-screen .fullscreen-hidden {
+	display: none !important;
+}
+
+.fullscreen-hidden:-moz-full-screen,
+:-moz-full-screen .fullscreen-hidden {
+	display: none !important;
+}
+
+.fullscreen-hidden:-ms-fullscreen,
+:-ms-fullscreen .fullscreen-hidden {
+	display: none !important;
+}
+
+.fullscreen-hidden:fullscreen,
+:fullscreen .fullscreen-hidden {
+	display: none !important;
+}
+
+/*
+.fullscreen-shown
+
+Styleguide: 5.fullscreen-shown
+*/
+
+:not(:-webkit-full-screen) > .fullscreen-shown:not(:-webkit-full-screen) {
+	display: none !important;
+}
+
+:not(:-moz-full-screen) > .fullscreen-shown:not(:-moz-full-screen) {
+	display: none !important;
+}
+
+:not(:-ms-fullscreen) > .fullscreen-shown:not(:-ms-fullscreen) {
+	display: none !important;
+}
+
+:not(:fullscreen) > .fullscreen-shown:not(:fullscreen) {
 	display: none !important;
 }
 
@@ -3231,15 +3579,12 @@ Styleguide: 5.masked
 	opacity: 0 !important;
 
 	/* Width and height 0 cause browser validation bubbles to dissappear. */
-	width: 12px !important;
-	height: 12px !important;
-
-	/* Make it take up no space. */
-	margin-bottom: -12px !important;
-	margin-right: -12px !important;
+	width: 1px !important;
+	height: 1px !important;
 
 	/* Position it so that the validation message appears in the correct place */
-	top: 12px !important;
+	margin-top: 2.5rem !important;
+	margin-left: 0.75rem !important;
 }
 
 /*
@@ -3249,7 +3594,7 @@ Styleguide: 5.disabled
 */
 
 .disabled,
-.js input.disabled {
+:disabled {
 	opacity: 0.4;
 }
 
@@ -3278,8 +3623,8 @@ Styleguide: 5.requested
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	margin-left: -1.25rem;
-	margin-top: -1.25rem;
+	margin-left: -0.9375rem;
+	margin-top: -0.9375rem;
 	height: 1.875rem;
 	width: 1.875rem;
 	opacity: 1;
@@ -3294,15 +3639,15 @@ Styleguide: 5.requested
 }
 
 /*
-.notransition
+.no-transition
 
 Cancel transitions on an element and all descendents.
 
-Styleguide: 5.notransition
+Styleguide: 5.no-transition
 */
 
-.notransition,
-.notransition * {
+.no-transition,
+.no-transition * {
 	-webkit-transition: none !important;
 	   -moz-transition: none !important;
 	     -o-transition: all 0 linear 0 !important;
@@ -3345,6 +3690,7 @@ Styleguide: 5.sticky
 */
 
 .sticky {
+	position: -webkit-sticky !important;
 	position: sticky !important;
 	top: 0;
 }
@@ -3581,9 +3927,8 @@ sed souvent suckum in internet explorum.
 Styleguide: 5.scroll-4
 */
 
-.noscroll,
 .no-scroll { overflow: hidden !important; }
-@media screen and (max-width: 29.9999em) {
+@media screen and (max-width: 29.999em) {
 		.\@1-shown {
 				display: none !important;
 		}
@@ -3607,7 +3952,7 @@ Styleguide: 5.scroll-4
 		}
 }
 
-@media screen and (max-width: 49.9999em) {
+@media screen and (max-width: 49.999em) {
 		.\@2-shown {
 				display: none !important;
 		}
@@ -3631,7 +3976,7 @@ Styleguide: 5.scroll-4
 		}
 }
 
-@media screen and (max-width: 69.9999em) {
+@media screen and (max-width: 69.999em) {
 		.\@3-shown {
 				display: none !important;
 		}
@@ -6590,113 +6935,4 @@ Styleguide: 1.span-n
 		.\@3-span-1\/n:nth-last-child(9):first-child {
 				width: 11.11111%;
 		}
-}
-
-.dialog-layer {
-	background-image: none;
-	background-color: rgba(31, 32, 33, 0.746094);
-	opacity: 0;
-	visibility: hidden;
-	transition:
-		visibility 0.3s linear,
-		opacity 0.3s linear;
-	z-index: 6;
-	cursor: pointer;
-}
-
-.dialog-layer.active {
-	opacity: 1;
-	visibility: visible;
-}
-
-.middle,
-.dialog-layer {
-	/* Center inline-block contents horizontally */
-	text-align: center;
-}
-
-.middle::before,
-.dialog-layer::before {
-	/* Center inline-block contents vertically. Note that to
-	   keep .dialog centered horizontally there should be no
-	   space in front of the .dialog box. */
-	display: inline-block;
-	content: '';
-	height: 100%;
-	width: 0;
-	vertical-align: middle;
-}
-
-.middle > .block,
-.dialog-layer > .dialog {
-	text-align: left;
-
-	/* Use inline-block to make dialog collapse
-	   to the width of its contents. */
-	display: inline-block;
-
-	/* Center the dialog vertically, working in tandem
-	   with the :before rule of .dialog-layer. */
-	vertical-align: middle;
-}
-
-body > .dialog-layer {
-	position: fixed;
-}
-
-
-/*
-.dialog
-
-Markup: <div class="block" style="height: 7.5rem;">
-  <div class="dialog-layer layer">
-    <div class="dialog">
-      <h1>Hello</h1>
-    </div>
-  </div>
-</div>
-
-Styleguide: 4.dialog
-*/
-
-.dialog {
-	/* Act as position parent */
-	position: relative;
-
-	padding: 0.75rem;
-	margin: 0;
-	max-width: 72%;
-
-	/* But let's make sure it doesn't touch the top or
-	   bottom. */
-	max-height: calc(100% - 4.5rem);
-
-	background-color: white;
-
-	-webkit-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
-	   -moz-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
-	        box-shadow: 0 2px 24px rgba(0,0,0,0.6);
-}
-
-.dialog > img,
-.dialog > svg,
-.dialog > video,
-.dialog > canvas,
-.dialog > object,
-.dialog > embed,
-.dialog > iframe {
-	/* Don't allow media to break out of container bounds. */
-	width: 100%;
-	max-width: none;
-	object-fit: contain;
-	object-position: 50% 50%;
-}
-
-.dialog > img,
-.dialog > svg,
-.dialog > video,
-.dialog > canvas {
-	/* Allow images to rescale freely. */
-	height: auto;
-	max-height: calc(100vh - 6rem);
 }
