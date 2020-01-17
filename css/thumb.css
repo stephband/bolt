@@ -234,6 +234,28 @@ Styleguide: 4.thumb.prev-thumb
 }
 
 /*
+
+*/
+
+
+.add-thumb::before,
+.add-thumb::after,
+.remove-thumb::before {
+	position: absolute;
+	top: 50%;
+	left: 20%;
+	content: '';
+	margin-top: -0.0625em;
+	height: 0.125em;
+	width: 60%;
+	background-color: currentcolor;
+}
+
+.add-thumb::after {
+	transform: rotate(90deg);
+}
+
+/*
 .fb-thumb
 
 Markup: <a class="fb-thumb thumb" href="/">Facebook</a>
