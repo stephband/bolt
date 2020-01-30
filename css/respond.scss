@@ -17,6 +17,7 @@ $breakpoints:
 /* Removed because we have projects that override .block - it sort of has two
    meanings, now, in Bolt – base class and modifier – which is a bad idea. */
 /*().block          { display: block !important; }*/
+.flex           { display: flex !important; }
 .grid           { display: grid !important; }
 .grid-2         { grid-template-columns: repeat(2, 1fr); }
 .grid-3         { grid-template-columns: repeat(3, 1fr); }
@@ -125,6 +126,7 @@ $breakpoints:
 	@media screen and (min-width: #{nth($breakpoint, 2)}) {
 		.#{nth($breakpoint, 1)}hidden         { display: none !important; }
 		.#{nth($breakpoint, 1)}block          { display: block !important; }
+		.#{nth($breakpoint, 1)}flex           { display: flex !important; }
         .#{nth($breakpoint, 1)}grid           { display: grid !important; }
         .#{nth($breakpoint, 1)}grid-2         { grid-template-columns: repeat(2, 1fr); }
         .#{nth($breakpoint, 1)}grid-3         { grid-template-columns: repeat(3, 1fr); }
