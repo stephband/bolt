@@ -240,19 +240,12 @@ Styleguide: 4.slides
     justify-items: center;
 }
 
-.slides-grid > .block {
+.slides-grid > * {
     width: 100%;
     height: auto;
     max-width: none;
     margin-left: 0;
     margin-right: 0;
-}
-
-.slides-grid > .block,
-.slides-grid > .block:focus,
-.slides-grid > .block > img,
-.slides-grid > .block > img:focus {
-	outline: none;
 }
 
 .js .slides-grid {
