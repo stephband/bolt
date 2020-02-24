@@ -214,7 +214,8 @@ img {
 
 	/* Improves image quality when scaled in IE7
 	   code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
-	-ms-interpolation-mode: bicubic;
+    -ms-interpolation-mode: bicubic;
+    object-position: 50% t;
 }
 
 svg {

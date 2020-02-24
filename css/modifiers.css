@@ -1,26 +1,18 @@
 /*
 Modifiers.
-
-Styleguide: 5
 */
 
 /*
 .active
-
 Modify a two-state component to represent active state.
-
-Styleguide: 5.active
 */
 
 .active {}
 
 /*
 .on
-
 Modify a link or button that references a two-state component to represent
 active state.
-
-Styleguide: 5.on
 */
 
 .on {}
@@ -29,8 +21,6 @@ Styleguide: 5.on
 .hidden
 
 Hide element.
-
-Styleguide: 5.hidden
 */
 
 .hidden {
@@ -38,11 +28,19 @@ Styleguide: 5.hidden
 }
 
 /*
+.print-hidden
+Hide an element on printed page.
+*/
+
+@media print {
+	.print-hidden {
+		display: none !important;
+	}
+}
+
+/*
 .active-hidden
-
 Hide an element when its parent has class <code>active</code>.
-
-Styleguide: 5.active-hidden
 */
 
 .active-hidden.active,
@@ -52,10 +50,7 @@ Styleguide: 5.active-hidden
 
 /*
 .active-shown
-
 Show an element when its parent has class <code>active</code>.
-
-Styleguide: 5.active-shown
 */
 
 :not(.active) > .active-shown:not(.active) {
@@ -65,10 +60,7 @@ Styleguide: 5.active-shown
 
 /*
 .on-hidden
-
 Hide an element when its parent has class <code>on</code>.
-
-Styleguide: 5.on-hidden
 */
 
 .on-hidden.on,
@@ -78,10 +70,7 @@ Styleguide: 5.on-hidden
 
 /*
 .on-shown
-
 Show an element when its parent has class <code>on</code>.
-
-Styleguide: 5.on-shown
 */
 
 :not(.on) > .on-shown:not(.on) {
@@ -90,10 +79,7 @@ Styleguide: 5.on-shown
 
 /*
 .requested-hidden
-
 Hide an element when its parent has class <code>requested</code>.
-
-Styleguide: 5.requested-hidden
 */
 
 .requested-hidden.requested,
@@ -103,10 +89,7 @@ Styleguide: 5.requested-hidden
 
 /*
 .requested-shown
-
 Show an element when its parent has class <code>requested</code>.
-
-Styleguide: 5.requested-shown
 */
 
 :not(.requested) > .requested-shown:not(.requested) {
@@ -115,10 +98,7 @@ Styleguide: 5.requested-shown
 
 /*
 .fullscreen-hidden
-
 Hide an element when in fullscreen mode.
-
-Styleguide: 5.fullscreen-hidden
 */
 
 .fullscreen-hidden:-webkit-full-screen,
@@ -143,8 +123,6 @@ Styleguide: 5.fullscreen-hidden
 
 /*
 .fullscreen-shown
-
-Styleguide: 5.fullscreen-shown
 */
 
 :not(:-webkit-full-screen) > .fullscreen-shown:not(:-webkit-full-screen) {
@@ -165,8 +143,6 @@ Styleguide: 5.fullscreen-shown
 
 /*
 .masked
-
-Styleguide: 5.masked
 */
 
 .masked {
@@ -185,8 +161,6 @@ Styleguide: 5.masked
 
 /*
 .disabled
-
-Styleguide: 5.disabled
 */
 
 .disabled,
@@ -196,12 +170,11 @@ Styleguide: 5.disabled
 
 /*
 .requested
-
 Add <code>::after</code> content representing a loading animation.
 
-Markup: <div class="requested" style="height: 7.5rem;">
-
-Styleguide: 5.requested
+```html
+<div class="requested" style="height: 7.5rem;">
+```
 */
 
 @-webkit-keyframes rotation {
@@ -236,10 +209,7 @@ Styleguide: 5.requested
 
 /*
 .no-transition
-
 Cancel transitions on an element and all descendents.
-
-Styleguide: 5.no-transition
 */
 
 .no-transition,
@@ -252,10 +222,7 @@ Styleguide: 5.no-transition
 
 /*
 .clear
-
 The clearfix hack.
-
-Styleguide: 5.float-clear
 */
 
 .clear::after {
@@ -270,8 +237,6 @@ Styleguide: 5.float-clear
 
 /*
 .fixed
-
-Styleguide: 5.fixed
 */
 
 .fixed {
@@ -281,8 +246,6 @@ Styleguide: 5.fixed
 
 /*
 .sticky
-
-Styleguide: 5.sticky
 */
 
 .sticky {
@@ -294,80 +257,60 @@ Styleguide: 5.sticky
 
 /*
 .left
-
-Styleguide: 5.float-left
 */
 
 .left { float: left; clear: left; }
 
 /*
 .right
-
-Styleguide: 5.float-right
 */
 
 .right { float: right; clear: right; }
 
 /*
 .top-align
-
-Styleguide: 5.align-1
 */
 
 .top-align      { vertical-align: top !important; }
 
 /*
 .bottom-align
-
-Styleguide: 5.align-2
 */
 
 .bottom-align   { vertical-align: bottom !important; }
 
 /*
 .middle-align
-
-Styleguide: 5.align-3
 */
 
 .middle-align   { vertical-align: middle !important; }
 
 /*
 .baseline-align
-
-Styleguide: 5.align-4
 */
 
 .baseline-align { vertical-align: baseline !important; }
 
 /*
 .left-align
-
-Styleguide: 5.align-5
 */
 
 .left-align     { text-align: left !important; }
 
 /*
 .right-align
-
-Styleguide: 5.align-6
 */
 
 .right-align    { text-align: right !important; }
 
 /*
 .center-align
-
-Styleguide: 5.align-7
 */
 
 .center-align   { text-align: center !important; }
 
 /*
 .justify-align
-
-Styleguide: 5.align-8
 */
 
 .justify-align  { text-align: justify !important; }
@@ -379,7 +322,7 @@ Styleguide: 5.align-8
 Set <code>overflow: auto;</code> and force display of scrollbars when
 scrollable.
 
-Markup: <pre class="scroll" style="height: 7.5rem;">
+<pre class="scroll" style="height: 7.5rem;">
 Crunchum ipsum dolor sit coder void, constructor function,
 sed do while loop python orientation semi colon incident.
 Duis aute irure indent tabs or spaces velit esse cilium
@@ -388,8 +331,6 @@ error memorandum qui officia nostrud operating system
 alertus. Standards code est pulchra on chromium et foxus
 sed souvent suckum in internet explorum.
 </pre>
-
-Styleguide: 5.scroll
 */
 
 .scroll {
@@ -448,7 +389,7 @@ Styleguide: 5.scroll
 
 Attempts to hide scrollbars where possible (Chrome, Safari, Opera).
 
-Markup: <pre class="hidden-scroll scroll" style="height: 7.5rem;">
+<pre class="hidden-scroll scroll" style="height: 7.5rem;">
 Crunchum ipsum dolor sit coder void, constructor function,
 sed do while loop python orientation semi colon incident.
 Duis aute irure indent tabs or spaces velit esse cilium
@@ -457,8 +398,6 @@ error memorandum qui officia nostrud operating system
 alertus. Standards code est pulchra on chromium et foxus
 sed souvent suckum in internet explorum.
 </pre>
-
-Styleguide: 5.scroll-1
 */
 
 .hidden-scroll::-webkit-scrollbar {
@@ -470,7 +409,7 @@ Styleguide: 5.scroll-1
 
 Hides vertical overflow.
 
-Markup: <pre class="x-scroll scroll" style="height: 7.5rem;">
+<pre class="x-scroll scroll" style="height: 7.5rem;">
 Crunchum ipsum dolor sit coder void, constructor function,
 sed do while loop python orientation semi colon incident.
 Duis aute irure indent tabs or spaces velit esse cilium
@@ -479,8 +418,6 @@ error memorandum qui officia nostrud operating system
 alertus. Standards code est pulchra on chromium et foxus
 sed souvent suckum in internet explorum.
 </pre>
-
-Styleguide: 5.scroll-2
 */
 
 .x-scroll  { overflow-y: hidden; }
@@ -490,7 +427,7 @@ Styleguide: 5.scroll-2
 
 Hides horizontal overflow.
 
-Markup: <pre class="y-scroll scroll" style="height: 7.5rem;">
+<pre class="y-scroll scroll" style="height: 7.5rem;">
 Crunchum ipsum dolor sit coder void, constructor function,
 sed do while loop python orientation semi colon incident.
 Duis aute irure indent tabs or spaces velit esse cilium
@@ -510,7 +447,7 @@ Styleguide: 5.scroll-3
 
 Hides overflow.
 
-Markup: <pre class="no-scroll" style="height: 7.5rem;">
+<pre class="no-scroll" style="height: 7.5rem;">
 Crunchum ipsum dolor sit coder void, constructor function,
 sed do while loop python orientation semi colon incident.
 Duis aute irure indent tabs or spaces velit esse cilium

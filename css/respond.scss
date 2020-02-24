@@ -228,3 +228,9 @@ $breakpoints:
         .#{nth($breakpoint, 1)}columns-12     { columns: 12 !important; }
 	}
 }
+
+@media print {
+	.print-hidden {
+		display: none !important;
+	}
+}
