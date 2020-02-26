@@ -10,26 +10,49 @@ This file is generated via SASS. To generate it, run `npm run sass`.
 // $breakpoints: prefix, min-width, grid count, gutter, space
 $breakpoints:
 	'\\@1-' 30em,
-	'\\@2-' 50em,
-	'\\@3-' 70em !default;
+	'\\@2-' 60em,
+	'\\@3-' 90em !default;
 
 /**
 .hidden
 
-Forces `display: none !important`.
+Forces `display: none`. This class is also available with breakpoint prefixes
+(`@1-`, `@2-`, ...).
 
 ```html
 <a class="hidden" href="...">Link</a>
-```
-
-This class may also be used with a breakpoint prefix.
-
-```html
 <a class="@2-hidden" href="...">Link</a>
 ```
 **/
 
 .hidden         { display: none !important; }
+
+/**
+.print-hidden
+Hide element on printed page.
+```html
+<nav class="print-hidden">...</nav>
+```
+**/
+
+@media print {
+	.print-hidden {
+		display: none !important;
+	}
+}
+
+/**
+.shown
+
+Forces `display: none` below a given breakpoint. This class is only available
+with breakpoint prefixes (`@1-`, `@2-`, ...).
+
+```html
+<a class="@1-shown" href="...">Link</a>
+```
+**/
+
+
 /* Removed because we have projects that override .block - it sort of has two
    meanings, now, in Bolt – base class and modifier – which is a bad idea. */
 /*().block          { display: block !important; }*/
@@ -48,8 +71,7 @@ This class may also be used with a breakpoint prefix.
 
 /**
 .flex
-
-Applies `display: flex !important`. This class may also be used with a
+Applies `display: flex`. This class may also be used with a
 breakpoint prefix.
 **/
 
@@ -57,12 +79,25 @@ breakpoint prefix.
 
 /**
 .grid
-
-Applies `display: grid !important`. This class may also be used with a
+Applies `display: grid`. This class may also be used with a
 breakpoint prefix.
 **/
 
 .grid           { display: grid !important; }
+
+/**
+.grid-n
+Applies a grid of `n` equal columns, where `n` may be `2-12`. These classes may
+also be used with breakpoint prefixes.
+
+```html
+<section class="grid grid-2">
+	<div>Crunchum Ipsum</div>
+	<div>Crunchum Ipsum</div>
+</section>
+```
+**/
+
 .grid-2         { grid-template-columns: repeat(2, 1fr); }
 .grid-3         { grid-template-columns: repeat(3, 1fr); }
 .grid-4         { grid-template-columns: repeat(4, 1fr); }
@@ -74,6 +109,17 @@ breakpoint prefix.
 .grid-10        { grid-template-columns: repeat(10, 1fr); }
 .grid-11        { grid-template-columns: repeat(11, 1fr); }
 .grid-12        { grid-template-columns: repeat(12, 1fr); }
+
+/**
+.x-n
+Forces element to start at column `n` of a grid.
+```html
+<section class="grid">
+	<div class="x-2">Crunchum Ipsum</div>
+</section>
+```
+**/
+
 .x-1            { grid-column-start: 1 !important; }
 .x-2            { grid-column-start: 2 !important; }
 .x-3            { grid-column-start: 3 !important; }
@@ -86,6 +132,17 @@ breakpoint prefix.
 .x-10           { grid-column-start: 10 !important; }
 .x-11           { grid-column-start: 11 !important; }
 .x-12           { grid-column-start: 12 !important; }
+
+/**
+.xspan-n
+Forces element to span `n` columns of a grid.
+```html
+<section class="grid">
+	<div class="x-1 xspan-2">Crunchum Ipsum</div>
+</section>
+```
+**/
+
 .xspan-1       { grid-column-end: span 1 !important; }
 .xspan-2       { grid-column-end: span 2 !important; }
 .xspan-3       { grid-column-end: span 3 !important; }
@@ -99,10 +156,32 @@ breakpoint prefix.
 .xspan-11      { grid-column-end: span 11 !important; }
 .xspan-12      { grid-column-end: span 12 !important; }
 .xspan--1      { grid-column-end: span -1 !important; }
+
+/**
+.x-start .x-end .x-center .x-stretch
+Justify element within a grid cell.
+```html
+<section class="grid">
+	<div class="x-1 x-end">Crunchum Ipsum</div>
+</section>
+```
+**/
+
 .x-end          { justify-self: end !important; }
 .x-start        { justify-self: start !important; }
 .x-center       { justify-self: center !important; }
 .x-stretch      { justify-self: stretch !important; }
+
+/**
+.y-n
+Forces element to start at row `n` of a grid.
+```html
+<section class="grid">
+	<div class="y-2">Crunchum Ipsum</div>
+</section>
+```
+**/
+
 .y-1            { grid-row-start: 1 !important; }
 .y-2            { grid-row-start: 2 !important; }
 .y-3            { grid-row-start: 3 !important; }
@@ -121,6 +200,17 @@ breakpoint prefix.
 .y-16           { grid-row-start: 16 !important; }
 .y-17           { grid-row-start: 17 !important; }
 .y-18           { grid-row-start: 18 !important; }
+
+/**
+.yspan-n
+Span `n` rows of a grid.
+```html
+<section class="grid">
+	<div class="y-1 yspan-2">Crunchum Ipsum</div>
+</section>
+```
+**/
+
 .yspan-1       { grid-row-end: span 1 !important; }
 .yspan-2       { grid-row-end: span 2 !important; }
 .yspan-3       { grid-row-end: span 3 !important; }
@@ -134,6 +224,17 @@ breakpoint prefix.
 .yspan-11      { grid-row-end: span 11 !important; }
 .yspan-12      { grid-row-end: span 12 !important; }
 .yspan--1      { grid-row-end: span -1 !important; }
+
+/**
+.y-start .y-end .y-center .y-stretch .y-baseline
+Align element within a grid cell.
+```html
+<section class="grid">
+	<div class="y-1 y-end">Crunchum Ipsum</div>
+</section>
+```
+**/
+
 .y-end          { align-self: end !important; }
 .y-start        { align-self: start !important; }
 .y-center       { align-self: center !important; }
@@ -260,11 +361,5 @@ breakpoint prefix.
         .#{nth($breakpoint, 1)}columns-10     { columns: 10 !important; }
         .#{nth($breakpoint, 1)}columns-11     { columns: 11 !important; }
         .#{nth($breakpoint, 1)}columns-12     { columns: 12 !important; }
-	}
-}
-
-@media print {
-	.print-hidden {
-		display: none !important;
 	}
 }
