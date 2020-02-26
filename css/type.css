@@ -184,11 +184,11 @@ q::before,
 q::after           { content: ''; content: none; }
 
 abbr              { letter-spacing: 0.1em; }
-del               { opacity: 0.5; filter: alpha(opacity=50%); text-decoration: line-through; }
+del               { opacity: 0.5; text-decoration: line-through; }
 
 /* Tables */
 
-table             {width: 100%;}
+table             { width: 100%; }
 tfoot             { font-style: italic; }
 caption           { background-color: inherit; }
 

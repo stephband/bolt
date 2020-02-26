@@ -1,11 +1,5 @@
-/*
-Components.
 
-Styleguide: 4
-*/
-
-
-/*
+/**
 .button
 
 Inline-block with padding and centered text ready to be styled as a button.
@@ -14,10 +8,10 @@ Both the <code class="html-tag">button</code> element and the class
 <code>button</code> have this base style. The <code>button</code> class can
 also be used on labels wrapping various form elements.
 
-Markup: <a class="button" href="#something">Link to something</a>
-
-Styleguide: 4.button
-*/
+```html
+<a class="button" href="#something">Link to something</a>
+```
+**/
 
 button {
 	/* buttons have standard padding that needs to be avoided. */
@@ -114,12 +108,12 @@ button.loading,
 File inputs can be wrapped in buttons for custom styling. The caveat: there is
 no way to display the selected file name if you do this.
 
-Markup: <label class="button" for="file-input">
+```html
+<label class="button" for="file-input">
   Select file...
   <input type="file" id="file-input" />
 </label>
-
-Styleguid forms.button
+```
 */
 
 .thumb > select,
@@ -153,19 +147,19 @@ Styleguid forms.button
 }
 
 
-/*
+/**
 .select-button
 
-Markup: <label class="select-button button">
+```html
+<label class="select-button button">
   <select>
     <option value="1">One</option>
     <option value="2">Two</option>
     <option value="3">Three</option>
   </select>
 </label>
-
-Styleguide: 3.select-button
-*/
+```
+**/
 
 .select-button {
 	display: block;
@@ -236,9 +230,10 @@ Styleguide: 3.select-button
 	pointer-events: none;
 }
 
-@supports ( -webkit-appearance: none ) or ( appearance: none )
-	/* Firefox <= 34 has a false positive on @supports( -moz-appearance: none )
-	   @supports ( mask-type: alpha ) is Firefox 35+ */
+/* Firefox <= 34 has a false positive on @supports( -moz-appearance: none )
+   @supports ( mask-type: alpha ) is Firefox 35+ */
+@supports ( -webkit-appearance: none )
+	or ( appearance: none )
 	or ( ( -moz-appearance: none ) and ( mask-type: alpha ) ) {
 	/* Show custom arrow */
 	.select-button::after {
@@ -259,23 +254,23 @@ Styleguide: 3.select-button
 	}
 }
 
-/*
+/**
 .radio-button
 
-Markup: <input class="masked" type="radio" id="radio-2" />
+```html
+<input class="masked" type="radio" id="radio-2" />
 <label class="radio-button button" for="radio-2">Choose me!</label>
+```
+**/
 
-Styleguide: 3.radio-button
-*/
-
-/*
+/**
 .checkbox-button
 
-Markup: <input class="masked" type="checkbox" id="checkbox-2" />
+```html
+<input class="masked" type="checkbox" id="checkbox-2" />
 <label class="checkbox-button button" for="checkbox-2">Choose me!</label>
-
-Styleguide: 3.checkbox-button
-*/
+```
+**/
 
 .radio-button,
 .checkbox-button {
@@ -284,13 +279,13 @@ Styleguide: 3.checkbox-button
 	/*overflow: visible;*/
 }
 
-/*
+/**
 .toggle-button
 
-Markup: <a class="toggle-button button" href="#id">Open</a>
-
-Styleguide: 3.toggle-button
-*/
+```html
+<a class="toggle-button button" href="#id">Open</a>
+```
+**/
 
 .toggle-button {
 	padding-right: 1.875rem;
