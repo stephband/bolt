@@ -1,35 +1,54 @@
 
-/*
-.black-fg, .black-bg
 
-Markup: <p class="text-5 black-fg white-bg">Black</p>
-<p class="text-5 white-fg black-bg">Black</p>
+/**
+.transparent-fg, .transparent-bg
 
-Styleguide: 5.color-1
-*/
-
-/*
-.white-fg, .white-bg
-
-Markup: <p class="text-5 white-fg black-bg">White</p>
-<p class="text-5 black-fg white-bg">White</p>
-
-Styleguide: 5.color-2
-*/
+```html
+<p class="text-5 transparent-fg white-bg">Transparent</p>
+<p class="text-5 white-fg transparent-bg">Transparent</p>
+```
+**/
 
 .transparent-fg { color: transparent; }
 .transparent-bg { background-color: transparent; }
+
+/**
+.current-fg, .current-bg, var(--black)
+
+```html
+<p class="text-5 current-fg white-bg">Current</p>
+<p class="text-5 white-fg current-bg">Current</p>
+```
+**/
 
 .current-fg   { color: currentcolor; }
 .current-bg   { background-color: currentcolor; }
 .current-fill { fill: currentcolor; }
 
-:root       { --white: white; }
-.white-fg   { color: white; }
-.white-bg   { background-color: white; }
-.white-fill { fill: white; }
+/**
+.black-fg, .black-bg
+
+```html
+<p class="text-5 black-fg white-bg">Black</p>
+<p class="text-5 white-fg black-bg">Black</p>
+```
+**/
 
 :root       { --black: black; }
 .black-fg   { color: black; }
 .black-bg   { background-color: black; }
 .black-fill { fill: black; }
+
+/**
+.white-fg, .white-bg
+
+```html
+<p class="text-5 white-fg black-bg">White</p>
+<p class="text-5 black-fg white-bg">White</p>
+```
+**/
+
+:root       { --white: white; }
+.white-fg   { color: white; }
+.white-bg   { background-color: white; }
+.white-fill { fill: white; }

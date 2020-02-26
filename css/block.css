@@ -1,23 +1,14 @@
-/*
-Layout.
 
-Styleguide: 1
-*/
-
-/*
+/**
 .block
 
-<p>For layout. There are two ways a <code>.block</code> can be styled: as a
-<code>block</code>, for a vertical layout, or as <code>inline-block</code>, for
-a horizontal layout. <code>block</code> by default, obviously.</p>
-<p>Any <code>.block</code> child of a <code>.grid-block</code> becomes an
-inline-block. Grid layout can be designed by adding
-<code>.grid-<i>n</i>/<i>d</i></code> classes to those children.</p>
-<p>Applied to a media tag like img, svg, video and canvas, <code>.block</code>
-will scale the element to fill the available width.</p>
+For layout. There are two ways a `.block` can be styled: as a
+`block`, for a vertical layout, or as `inline-block`, for
+a horizontal layout. `block` by default, obviously.
 
-Styleguide: 1.1
-*/
+Applied to a media tag like img, svg, video and canvas, `.block`
+will scale the element to fill the available width.
+**/
 
 .block {
 	display: block;
@@ -57,22 +48,18 @@ hr.block {
 }
 
 
-/*
+/**
 .inline-block
-
-Styleguide: 1.1.inline-block
-*/
+**/
 
 .inline-block {
 	display: inline-block;
 }
 
 
-/*
+/**
 .flex-block
-
-Styleguide: 1.1.flex
-*/
+**/
 
 .flex-block {
 	display: flex;
@@ -115,14 +102,14 @@ Styleguide: 1.1.flex
 .flex-7\/8 { flex: 0 0 87.5%; }
 
 
-/*
+/**
 .tab-block
 
+```html
 A block animated to behave as a tab that fades to reveal content when the class
-<code>active</code> is added.
-
-Styleguide: 4.tab-block
-*/
+`active` is added.
+```
+**/
 
 .js .tab-block {
 	position: relative;
@@ -153,22 +140,22 @@ Styleguide: 4.tab-block
 }
 
 
-/*
+/**
 .toggle-block
 
 A block animated to behave like a drawer that reveals content when the class
-<code>active</code> is added. Note in this example the class <code>toggle</code>
-is an action class that gives the block <code>active</code> when a link that
+`active` is added. Note in this example the class `toggle`
+is an action class that gives the block `active` when a link that
 references it is clicked.
 
-Markup: <a href="#some-stuff">Click to show</a>
+```html
+<a href="#some-stuff">Click to show</a>
 <div class="toggle-block block toggle" id="some-stuff">
   <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop
   python orientation semi colon incident. Duis aute irure indent tabs or
   spaces velit esse cilium buntum how crunchy duntum.</p>
 </div>
-
-Styleguide: 1.1.toggle-block
+```
 */
 
 .toggle-block {
@@ -210,10 +197,11 @@ Styleguide: 1.1.toggle-block
 }
 
 
-/*
+/**
 .slides-grid
 
-Markup: <div class="slides-grid grid" swipeable>
+```html
+<div class="slides-grid grid" swipeable>
     <div class="block" switchable id="slide-0">
         <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 1" draggable="false" />
     </div
@@ -224,8 +212,7 @@ Markup: <div class="slides-grid grid" swipeable>
         <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 3" draggable="false" />
     </div>
 </div>
-
-Styleguide: 4.slides
+```
 */
 
 

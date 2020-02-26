@@ -13,11 +13,55 @@ $breakpoints:
 	'\\@2-' 50em,
 	'\\@3-' 70em !default;
 
+/**
+.hidden
+
+Forces `display: none !important`.
+
+```html
+<a class="hidden" href="...">Link</a>
+```
+
+This class may also be used with a breakpoint prefix.
+
+```html
+<a class="@2-hidden" href="...">Link</a>
+```
+**/
+
 .hidden         { display: none !important; }
 /* Removed because we have projects that override .block - it sort of has two
    meanings, now, in Bolt – base class and modifier – which is a bad idea. */
 /*().block          { display: block !important; }*/
+
+.inline         { display: inline-block !important; }
+.left           { float: left !important; clear: left; }
+.right          { float: right !important; clear: right; }
+.top-align      { vertical-align: top !important; }
+.bottom-align   { vertical-align: bottom !important; }
+.middle-align   { vertical-align: middle !important; }
+.baseline-align { vertical-align: baseline !important; }
+.left-align     { text-align: left !important; }
+.right-align    { text-align: right !important; }
+.center-align   { text-align: center !important; }
+.justify-align  { text-align: justify !important; }
+
+/**
+.flex
+
+Applies `display: flex !important`. This class may also be used with a
+breakpoint prefix.
+**/
+
 .flex           { display: flex !important; }
+
+/**
+.grid
+
+Applies `display: grid !important`. This class may also be used with a
+breakpoint prefix.
+**/
+
 .grid           { display: grid !important; }
 .grid-2         { grid-template-columns: repeat(2, 1fr); }
 .grid-3         { grid-template-columns: repeat(3, 1fr); }
@@ -30,17 +74,6 @@ $breakpoints:
 .grid-10        { grid-template-columns: repeat(10, 1fr); }
 .grid-11        { grid-template-columns: repeat(11, 1fr); }
 .grid-12        { grid-template-columns: repeat(12, 1fr); }
-.inline         { display: inline-block !important; }
-.left           { float: left !important; clear: left; }
-.right          { float: right !important; clear: right; }
-.top-align      { vertical-align: top !important; }
-.bottom-align   { vertical-align: bottom !important; }
-.middle-align   { vertical-align: middle !important; }
-.baseline-align { vertical-align: baseline !important; }
-.left-align     { text-align: left !important; }
-.right-align    { text-align: right !important; }
-.center-align   { text-align: center !important; }
-.justify-align  { text-align: justify !important; }
 .x-1            { grid-column-start: 1 !important; }
 .x-2            { grid-column-start: 2 !important; }
 .x-3            { grid-column-start: 3 !important; }
@@ -106,6 +139,7 @@ $breakpoints:
 .y-center       { align-self: center !important; }
 .y-stretch      { align-self: stretch !important; }
 .y-baseline     { align-self: baseline !important; }
+
 .columns-2      { columns: 2 !important; }
 .columns-3      { columns: 3 !important; }
 .columns-4      { columns: 4 !important; }

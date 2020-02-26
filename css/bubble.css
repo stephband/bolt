@@ -1,11 +1,9 @@
 
-/*
+/**
 .bubble
 
 A tip bubble, speech bubble, description bubble or what-have-you.
-
-Styleguide: 4.bubble
-*/
+**/
 
 .bubble {
 	top: 0;
