@@ -1,15 +1,18 @@
 
-/*
+/**
 .layer
 
-<p>An absolutely positioned block that fills it's position parent.</p>
-<p>Typically, used behind a .dialog to cover the page. layers are absolutely positioned, so they are not in the flow. By default a layer is scrollable, in case the content put inside it is too big for it.</p>
+An absolutely positioned block that fills it's position parent.
 
-Markup: <div class="block" style="height: 200px">
+Typically, used behind a .dialog to cover the page. layers are absolutely
+positioned, so they are not in the flow. By default a layer is scrollable,
+in case the content put inside it is too big for it.
+
+```html
+<div class="block" style="height: 200px">
   <div class="layer white-fg black-bg">Layer</div>
 </div>
-
-Styleguide: 1.3
+```
 */
 
 .layer {

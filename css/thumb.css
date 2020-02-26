@@ -1,21 +1,21 @@
 
-/*
+/**
 .thumb
 
 Base class for thumbnails.
-A <code>.thumb</code> is an icon or avatar or other image.
-A <code>.thumb</code> hides text content by pushing it outside the hidden overflow, displaying only it's <code>background-image</code>.
-The user cannot interact with a <code>background-image</code> in the way they can with an <code>&lt;img/&gt;</code>).
-This should be the main consideration when deciding to use a <code>.thumb</code> or an <code>&lt;img/&gt;</code>.
+A `.thumb` is an icon or avatar or other image.
+A `.thumb` hides text content by pushing it outside the hidden overflow, displaying only it's `background-image`.
+The user cannot interact with a `background-image` in the way they can with an `&lt;img/&gt;`).
+This should be the main consideration when deciding to use a `.thumb` or an `&lt;img/&gt;`.
 Thumb is in essence an image replacement technique.
 
 A default thumb is a square of 64x64px. Add an image by defining a
-<code>background-image</code>. The image is centered and 'cropped' via
-<code>background-size</code> and <code>background-position</code>.
+`background-image`. The image is centered and 'cropped' via
+`background-size` and `background-position`.
 
-Markup: <a class="thumb" href="#" style="background-image: url('//source.unsplash.com/category/nature/128x80')">Thumb text</a>
-
-Styleguide: 4.thumb
+```html
+<a class="thumb" href="#" style="background-image: url('//source.unsplash.com/category/nature/128x80')">Thumb text</a>
+```
 */
 
 .thumb {
@@ -105,12 +105,12 @@ Styleguide: 4.thumb
 .thumb-2\:1  { padding-top: 50%; }
 
 
-/*
+/**
 .burger-thumb
 
-Markup: <a class="burger-thumb thumb" href="#">Navigation</a>
-
-Styleguide: 4.thumb.button-thumb
+```html
+<a class="burger-thumb thumb" href="#">Navigation</a>
+```
 */
 
 .burger-thumb {
@@ -143,12 +143,12 @@ Styleguide: 4.thumb.button-thumb
 }
 
 
-/*
+/**
 .close-thumb
 
-Markup: <a class="close-thumb thumb" href="#">Close</a>
-
-Styleguide: 4.thumb.close-thumb
+```html
+<a class="close-thumb thumb" href="#">Close</a>
+```
 */
 
 .close-thumb {
@@ -189,10 +189,10 @@ Styleguide: 4.thumb.close-thumb
 
 Navigation thumbs for slideshows.
 
-Markup: <a class="prev-thumb thumb">Previous</a>
+```html
+<a class="prev-thumb thumb">Previous</a>
 <a class="next-thumb thumb">Next</a>
-
-Styleguide: 4.thumb.prev-thumb
+```
 */
 
 .prev-thumb,

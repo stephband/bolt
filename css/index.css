@@ -1,4 +1,4 @@
-/*
+/**
 .index
 
 Applied to <code class="html-tag">ul</code>, <code class="html-tag">ol</code>
@@ -6,12 +6,12 @@ and <code class="html-tag">dl</code> elements to zero their default typographic
 style. Child <code class="html-tag">li</code>s are blocks, but they are set up
 to play nice as inline-blocks too.
 
-Markup: <ul class="index">
+```html
+<ul class="index">
   <li>One</li>
   <li>Two</li>
 </ul>
-
-Styleguide: 1.2
+```
 */
 
 .index {
@@ -39,17 +39,17 @@ Styleguide: 1.2
 }
 
 
-/*
+/**
 .inline-index
 
-Markup: <ul class="inline-index index">
+```html
+<ul class="inline-index index">
    <li><a class="button" href="#">One</a></li
   ><li><a class="button" href="#">Two</a></li
   ><li><a class="button" href="#">Three</a></li
   ><li><a class="button" href="#">Four</a></li>
 </ul>
-
-Styleguide: 1.2.inline-index
+```
 */
 
 .inline-index > li {

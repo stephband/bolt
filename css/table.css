@@ -2,7 +2,8 @@
 /*
 table
 
-Markup: <table>
+```html
+<table>
   <thead>
     <tr><th></th><th>1</th><th>2</th><th>3</th></tr>
   </thead>
@@ -15,8 +16,7 @@ Markup: <table>
     <tr><th>Notes</th><td>Small</td><th>Medium</td><td>Large</td></tr>
   </tfoot>
 </table>
-
-Styleguide: 4.table
+```
 */
 
 th,

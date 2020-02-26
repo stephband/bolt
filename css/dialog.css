@@ -59,18 +59,18 @@ body > .dialog-layer {
 }
 
 
-/*
+/**
 .dialog
 
-Markup: <div class="block" style="height: 7.5rem;">
+```html
+<div class="block" style="height: 7.5rem;">
   <div class="dialog-layer layer">
     <div class="dialog">
       <h1>Hello</h1>
     </div>
   </div>
 </div>
-
-Styleguide: 4.dialog
+```
 */
 
 .dialog {
