@@ -9,10 +9,15 @@ This file is generated via SASS. To generate it, run `npm run sass`.
 
 // $breakpoints: prefix, min-width, grid count, gutter, space
 $breakpoints:
-	''      0em  6 1.5em,
-	'\\@1-' 50em 6 1.5em,
-	'\\@2-' 70em 9 2.8125em,
-	'\\@3-' 90em 9 3.75em !default;
+	''      0em  6 1.5em 1.5em,
+	'\\@1-' 50em 6 1.5em 1.5em,
+	'\\@2-' 70em 9 2.8125em 1.875em,
+	'\\@3-' 90em 9 3.75em 1.875em !default;
+
+:root {
+	--column-gap: 1.5em;
+	--row-gap: 1.5em;
+}
 
 /**
 .hidden
@@ -260,6 +265,11 @@ Align element within a grid cell.
 .columns-12     { columns: 12 !important; }
 
 @each $breakpoint in $breakpoints {
+	:root       {
+		--column-gap: #{nth($breakpoint, 4)};
+		--row-gap: #{nth($breakpoint, 5)};
+	}
+
 	@media screen and (max-width: #{nth($breakpoint, 2) - 0.001}) {
 		.#{nth($breakpoint, 1)}shown          { display: none !important; }
 	}
@@ -268,23 +278,18 @@ Align element within a grid cell.
 		.#{nth($breakpoint, 1)}hidden         { display: none !important; }
 		.#{nth($breakpoint, 1)}block          { display: block !important; }
 		.#{nth($breakpoint, 1)}flex           { display: flex !important; }
-        .#{nth($breakpoint, 1)}grid           { display: grid !important; }
-		.grid,
-		.#{nth($breakpoint, 1)}grid {
-        	grid-column-gap: #{nth($breakpoint, 4)};
-        	grid-row-gap: #{nth($breakpoint, 5)};
-		}
-        .#{nth($breakpoint, 1)}grid-2         { grid-template-columns: repeat(2, calc((100% / 2) - (#{nth($breakpoint, 4)} * 1 / 2))); }
-        .#{nth($breakpoint, 1)}grid-3         { grid-template-columns: repeat(3, calc((100% / 3) - (#{nth($breakpoint, 4)} * 2 / 3))); }
-        .#{nth($breakpoint, 1)}grid-4         { grid-template-columns: repeat(4, calc((100% / 4) - (#{nth($breakpoint, 4)} * 3 / 4))); }
-        .#{nth($breakpoint, 1)}grid-5         { grid-template-columns: repeat(5, calc((100% / 5) - (#{nth($breakpoint, 4)} * 4 / 5))); }
-        .#{nth($breakpoint, 1)}grid-6         { grid-template-columns: repeat(6, calc((100% / 6) - (#{nth($breakpoint, 4)} * 5 / 6))); }
-        .#{nth($breakpoint, 1)}grid-7         { grid-template-columns: repeat(7, calc((100% / 7) - (#{nth($breakpoint, 4)} * 6 / 7))); }
-        .#{nth($breakpoint, 1)}grid-8         { grid-template-columns: repeat(8, calc((100% / 8) - (#{nth($breakpoint, 4)} * 7 / 8))); }
-        .#{nth($breakpoint, 1)}grid-9         { grid-template-columns: repeat(9, calc((100% / 9) - (#{nth($breakpoint, 4)} * 8 / 9))); }
-        .#{nth($breakpoint, 1)}grid-10        { grid-template-columns: repeat(10, calc((100% / 10) - (#{nth($breakpoint, 4)} * 9 / 10))); }
-        .#{nth($breakpoint, 1)}grid-11        { grid-template-columns: repeat(11, calc((100% / 11) - (#{nth($breakpoint, 4)} * 10 / 11))); }
-        .#{nth($breakpoint, 1)}grid-12        { grid-template-columns: repeat(12, calc((100% / 12) - (#{nth($breakpoint, 4)} * 11 / 12))); }
+        .#{nth($breakpoint, 1)}grid           { display: grid !important; column-gap: var(--column-gap); row-gap: var(--row-gap); }
+        .#{nth($breakpoint, 1)}grid-2         { grid-template-columns: repeat(2, calc((100% / 2) - (var(--column-gap) * 1 / 2))); }
+        .#{nth($breakpoint, 1)}grid-3         { grid-template-columns: repeat(3, calc((100% / 3) - (var(--column-gap) * 2 / 3))); }
+        .#{nth($breakpoint, 1)}grid-4         { grid-template-columns: repeat(4, calc((100% / 4) - (var(--column-gap) * 3 / 4))); }
+        .#{nth($breakpoint, 1)}grid-5         { grid-template-columns: repeat(5, calc((100% / 5) - (var(--column-gap) * 4 / 5))); }
+        .#{nth($breakpoint, 1)}grid-6         { grid-template-columns: repeat(6, calc((100% / 6) - (var(--column-gap) * 5 / 6))); }
+        .#{nth($breakpoint, 1)}grid-7         { grid-template-columns: repeat(7, calc((100% / 7) - (var(--column-gap) * 6 / 7))); }
+        .#{nth($breakpoint, 1)}grid-8         { grid-template-columns: repeat(8, calc((100% / 8) - (var(--column-gap) * 7 / 8))); }
+        .#{nth($breakpoint, 1)}grid-9         { grid-template-columns: repeat(9, calc((100% / 9) - (var(--column-gap) * 8 / 9))); }
+        .#{nth($breakpoint, 1)}grid-10        { grid-template-columns: repeat(10, calc((100% / 10) - (var(--column-gap) * 9 / 10))); }
+        .#{nth($breakpoint, 1)}grid-11        { grid-template-columns: repeat(11, calc((100% / 11) - (var(--column-gap) * 10 / 11))); }
+        .#{nth($breakpoint, 1)}grid-12        { grid-template-columns: repeat(12, calc((100% / 12) - (var(--column-gap) * 11 / 12))); }
 		.#{nth($breakpoint, 1)}inline         { display: inline-block !important; }
 		.#{nth($breakpoint, 1)}left           { float: left !important; clear: left; }
 		.#{nth($breakpoint, 1)}right          { float: right !important; clear: right; }
