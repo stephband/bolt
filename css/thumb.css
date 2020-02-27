@@ -33,10 +33,10 @@ A default thumb is a square of 64x64px. Add an image by defining a
 	/* Hide overflowing text. This technique is better
 	   than using -ve text-indent because IE7 moves
 	   the background image with the text-indent. */
-	padding-top: 4rem;
+	padding-top: 2.8125em;
 	height: 0;
 	min-height: 0;
-	width: 4rem;
+	width: 2.8125em;
 
 	/* Keep top of text safely away from the bottom of
 	   the thumb. */

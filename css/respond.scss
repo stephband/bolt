@@ -10,8 +10,8 @@ This file is generated via SASS. To generate it, run `npm run sass`.
 // $breakpoints: prefix, min-width, grid count, gutter, space
 $breakpoints:
 	''      0em  6 1.5em,
-	'\\@1-' 30em 6 1.5em,
-	'\\@2-' 60em 9 2.8125em,
+	'\\@1-' 50em 6 1.5em,
+	'\\@2-' 70em 9 2.8125em,
 	'\\@3-' 90em 9 3.75em !default;
 
 /**
@@ -164,7 +164,7 @@ Forces element to span `n` columns of a grid.
 .xspan--1      { grid-column-end: span -1 !important; }
 
 /**
-.x-start .x-end .x-center .x-stretch
+.x-start .x-end .x-center .x-stretch .x-bleed
 Justify element within a grid cell.
 ```html
 <section class="grid">
@@ -325,6 +325,12 @@ Align element within a grid cell.
         .#{nth($breakpoint, 1)}x-start        { justify-self: start !important; }
         .#{nth($breakpoint, 1)}x-center       { justify-self: center !important; }
         .#{nth($breakpoint, 1)}x-stretch      { justify-self: stretch !important; }
+		.#{nth($breakpoint, 1)}x-bleed        {
+			justify-self: stretch !important;
+			margin-left: -#{nth($breakpoint, 4) / 2};
+			margin-right: -#{nth($breakpoint, 4) / 2};
+			width: calc(100% + #{nth($breakpoint, 4)});
+		}
 		.#{nth($breakpoint, 1)}y-1            { grid-row-start: 1 !important; }
 		.#{nth($breakpoint, 1)}y-2            { grid-row-start: 2 !important; }
 		.#{nth($breakpoint, 1)}y-3            { grid-row-start: 3 !important; }

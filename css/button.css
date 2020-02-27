@@ -2,6 +2,8 @@
 /**
 .button
 
+<a class="button" href="#">Button text</a>
+
 Inline-block with padding and centered text ready to be styled as a button.
 It has no <code>background</code> or <code>border-radius</code> by default.
 Both the <code class="html-tag">button</code> element and the class
@@ -9,7 +11,7 @@ Both the <code class="html-tag">button</code> element and the class
 also be used on labels wrapping various form elements.
 
 ```html
-<a class="button" href="#something">Link to something</a>
+<a class="button" href="#">Button text</a>
 ```
 **/
 
@@ -105,8 +107,10 @@ button.loading,
 /*
 .button > input[type="file"]
 
-File inputs can be wrapped in buttons for custom styling. The caveat: there is
-no way to display the selected file name if you do this.
+<label class="button" for="file-input">
+  Select file...
+  <input type="file" id="file-input" />
+</label>
 
 ```html
 <label class="button" for="file-input">
@@ -114,6 +118,9 @@ no way to display the selected file name if you do this.
   <input type="file" id="file-input" />
 </label>
 ```
+
+File inputs can be wrapped in buttons for custom styling. The caveat: there is
+no way to display the selected file name if you do this.
 */
 
 .thumb > select,
@@ -149,6 +156,14 @@ no way to display the selected file name if you do this.
 
 /**
 .select-button
+
+<label class="select-button button">
+  <select>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+</label>
 
 ```html
 <label class="select-button button">
@@ -257,6 +272,9 @@ no way to display the selected file name if you do this.
 /**
 .radio-button
 
+<input class="masked" type="radio" id="radio-2" />
+<label class="radio-button button" for="radio-2">Choose me!</label>
+
 ```html
 <input class="masked" type="radio" id="radio-2" />
 <label class="radio-button button" for="radio-2">Choose me!</label>
@@ -265,6 +283,9 @@ no way to display the selected file name if you do this.
 
 /**
 .checkbox-button
+
+<input class="masked" type="checkbox" id="checkbox-2" />
+<label class="checkbox-button button" for="checkbox-2">Choose me!</label>
 
 ```html
 <input class="masked" type="checkbox" id="checkbox-2" />
@@ -281,6 +302,8 @@ no way to display the selected file name if you do this.
 
 /**
 .toggle-button
+
+<a class="toggle-button button" href="#id">Open</a>
 
 ```html
 <a class="toggle-button button" href="#id">Open</a>

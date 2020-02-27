@@ -3,9 +3,10 @@
 /**
 .transparent-fg, .transparent-bg
 
+<p class="thumb transparent-bg">Transparent</p>
+
 ```html
-<p class="text-5 transparent-fg white-bg">Transparent</p>
-<p class="text-5 white-fg transparent-bg">Transparent</p>
+<p class="thumb transparent-bg">Transparent</p>
 ```
 **/
 
@@ -15,9 +16,10 @@
 /**
 .current-fg, .current-bg, var(--black)
 
+<p class="thumb current-bg">Current color</p>
+
 ```html
-<p class="text-5 current-fg white-bg">Current</p>
-<p class="text-5 white-fg current-bg">Current</p>
+<p class="thumb current-bg">Current</p>
 ```
 **/
 
@@ -28,9 +30,10 @@
 /**
 .black-fg, .black-bg
 
+<p class="thumb black-bg">Black</p>
+
 ```html
-<p class="text-5 black-fg white-bg">Black</p>
-<p class="text-5 white-fg black-bg">Black</p>
+<p class="thumb black-bg">Black</p>
 ```
 **/
 
@@ -42,9 +45,10 @@
 /**
 .white-fg, .white-bg
 
+<p class="thumb white-bg">White</p>
+
 ```html
-<p class="text-5 white-fg black-bg">White</p>
-<p class="text-5 black-fg white-bg">White</p>
+<p class="thumb white-bg">White</p>
 ```
 **/
 

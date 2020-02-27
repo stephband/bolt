@@ -71,17 +71,60 @@ option {
 
 
 /**
-input
+input[type="text"]
+
+<label>Text</label>
+<input type="text" value="text" />
 
 ```html
 <label>Text</label>
 <input type="text" value="text" />
+```
+**/
+
+/**
+input[type="password"]
+
 <label>Password</label>
 <input type="password" value="password" />
+
+```html
+<label>Password</label>
+<input type="password" value="password" />
+```
+**/
+
+/**
+input[type="number"]
+
 <label>Number</label>
 <input type="number" value="0" />
+
+```html
+<label>Number</label>
+<input type="number" value="0" />
+```
+**/
+
+/**
+input[type="range"]
+
 <label>Range</label>
 <input type="range" value="0" />
+
+```html
+<label>Range</label>
+<input type="range" value="0" />
+```
+**/
+
+/**
+input[type="url"]
+
+<label>URL</label>
+<input type="url" value="http://stephen.band/bolt" />
+
+```html
 <label>URL</label>
 <input type="url" value="http://stephen.band/bolt" />
 ```
