@@ -2,19 +2,23 @@
 /**
 Grid
 
-<div class="grid">
-	<p class="x-1 y-3">3</p>
-	<p class="x-1 y-1">1</p>
-	<p class="x-1 y-2">2</p>
-</div>
-
 ```html
-<div class="grid">
-	<p class="x-1 y-3">3</p>
-	<p class="x-1 y-1">1</p>
-	<p class="x-1 y-2">2</p>
+<div class="3-grid grid">
+	<p class="x-3 y-3 x-atretch blue-bg">3,3</p>
+	<p class="x-1 y-1 x-start blue-bg">1,3</p>
+	<p class="x-2 y-2 x-end blue-bg">2,3</p>
+	<p class="x-1 y-3 x-stretch lime-bg">1,3</p>
+	<p class="x-2 y-3 x-stretch yellow-bg">2,3</p>
 </div>
 ```
+
+<div class="3-grid grid">
+	<p class="x-3 y-3 x-atretch blue-bg">3,3</p>
+	<p class="x-1 y-1 x-start blue-bg">1,3</p>
+	<p class="x-2 y-2 x-end blue-bg">2,3</p>
+	<p class="x-1 y-3 x-stretch lime-bg">1,3</p>
+	<p class="x-2 y-3 x-stretch yellow-bg">2,3</p>
+</div>
 **/
 
 // $breakpoints: prefix, min-width, grid count, gutter, space
@@ -25,16 +29,22 @@ $breakpoints:
 	'\\@3-' 90em 9 3.75em 1.875em !default;
 
 :root {
+	/**
+	--column-gap
+	Define the horizontal grid gap.
+	**/
 	--column-gap: 1.5em;
+
+	/**
+	--row-gap
+	Define the vertical grid gap.
+	**/
 	--row-gap: 1.5em;
 }
 
-
-
 /**
 .grid
-Applies `display: grid`. This class may also be used with a
-breakpoint prefix.
+Applies `display: grid`.
 **/
 
 .grid           {
@@ -45,38 +55,55 @@ breakpoint prefix.
 
 
 /**
-.grid-n
-Applies a grid of `n` equal columns, where `n` may be `2-12`. These classes may
-also be used with breakpoint prefixes.
-
-```html
-<section class="grid grid-2">
-	<div>Crunchum Ipsum</div>
-	<div>Crunchum Ipsum</div>
-</section>
-```
+.2-grid
+Applies a grid template of 2 equal columns.
 **/
 
-.grid-2         { grid-template-columns: repeat(2, 1fr); }
-.grid-3         { grid-template-columns: repeat(3, 1fr); }
-.grid-4         { grid-template-columns: repeat(4, 1fr); }
-.grid-5         { grid-template-columns: repeat(5, 1fr); }
-.grid-6         { grid-template-columns: repeat(6, 1fr); }
-.grid-7         { grid-template-columns: repeat(7, 1fr); }
-.grid-8         { grid-template-columns: repeat(8, 1fr); }
-.grid-9         { grid-template-columns: repeat(9, 1fr); }
-.grid-10        { grid-template-columns: repeat(10, 1fr); }
-.grid-11        { grid-template-columns: repeat(11, 1fr); }
-.grid-12        { grid-template-columns: repeat(12, 1fr); }
+/**
+.3-grid
+Applies a grid template of 3 equal columns.
+**/
 
 /**
-.x-n
-Forces element to start at column `n` of a grid.
-```html
-<section class="grid">
-	<div class="x-2">Crunchum Ipsum</div>
-</section>
-```
+.4-grid
+Applies a grid template of 4 equal columns.
+**/
+
+/**
+.5-grid
+Applies a grid template of 5 equal columns.
+**/
+
+/**
+.6-grid
+Applies a grid template of 6 equal columns.
+**/
+
+.\32 -grid         { grid-template-columns: repeat(2, 1fr); }
+.\33 -grid         { grid-template-columns: repeat(3, 1fr); }
+.\34 -grid         { grid-template-columns: repeat(4, 1fr); }
+.\35 -grid         { grid-template-columns: repeat(5, 1fr); }
+.\36 -grid         { grid-template-columns: repeat(6, 1fr); }
+.\37 -grid         { grid-template-columns: repeat(7, 1fr); }
+.\38 -grid         { grid-template-columns: repeat(8, 1fr); }
+.\39 -grid         { grid-template-columns: repeat(9, 1fr); }
+.\31 0-grid        { grid-template-columns: repeat(10, 1fr); }
+.\31 1-grid        { grid-template-columns: repeat(11, 1fr); }
+.\31 2-grid        { grid-template-columns: repeat(12, 1fr); }
+
+/**
+.x-1
+Places a grid child at column 1.
+**/
+
+/**
+.x-2
+Places a grid child at column 2.
+**/
+
+/**
+.x-3
+Places a grid child at column 3.
 **/
 
 .x-1            { grid-column-start: 1 !important; }
@@ -93,13 +120,18 @@ Forces element to start at column `n` of a grid.
 .x-12           { grid-column-start: 12 !important; }
 
 /**
-.xspan-n
-Forces element to span `n` columns of a grid.
-```html
-<section class="grid">
-	<div class="x-1 xspan-2">Crunchum Ipsum</div>
-</section>
-```
+.xspan-1
+Makes a grid child span 1 columns.
+**/
+
+/**
+.xspan-2
+Makes a grid child span 2 columns.
+**/
+
+/**
+.xspan-3
+Makes a grid child span 3 columns.
 **/
 
 .xspan-1       { grid-column-end: span 1 !important; }
@@ -117,28 +149,59 @@ Forces element to span `n` columns of a grid.
 .xspan--1      { grid-column-end: span -1 !important; }
 
 /**
-.x-start .x-end .x-center .x-stretch .x-bleed
-Justify element within a grid cell.
-```html
-<section class="grid">
-	<div class="x-1 x-end">Crunchum Ipsum</div>
-</section>
-```
+.x-start
+Justifies a grid child to the start of a grid cell.
 **/
 
 .x-end          { justify-self: end !important; }
+
+/**
+.x-end
+Justifies a grid child to the end of a grid cell.
+**/
+
 .x-start        { justify-self: start !important; }
+
+/**
+.x-center
+Justifies a grid child to the center of a grid cell.
+**/
+
 .x-center       { justify-self: center !important; }
+
+/**
+.x-stretch
+Justifies a grid child to fill a grid cell.
+**/
+
 .x-stretch      { justify-self: stretch !important; }
 
 /**
-.y-n
-Forces element to start at row `n` of a grid.
-```html
-<section class="grid">
-	<div class="y-2">Crunchum Ipsum</div>
-</section>
-```
+.x-bleed
+Justifies a grid child to fill a grid cell plus half of the grid-gap on
+each side.
+**/
+
+.x-bleed {
+	justify-self: stretch !important;
+	margin-left: calc(var(--column-gap) / -2);
+	margin-right: calc(var(--column-gap) / -2);
+	width: calc(100% + var(--column-gap));
+}
+
+/**
+.y-1
+Places a grid child at row 1.
+**/
+
+/**
+.y-2
+Places a grid child at row 2.
+**/
+
+/**
+.y-3
+Places a grid child at row 3.
 **/
 
 .y-1            { grid-row-start: 1 !important; }
@@ -161,13 +224,18 @@ Forces element to start at row `n` of a grid.
 .y-18           { grid-row-start: 18 !important; }
 
 /**
-.yspan-n
-Span `n` rows of a grid.
-```html
-<section class="grid">
-	<div class="y-1 yspan-2">Crunchum Ipsum</div>
-</section>
-```
+.yspan-1
+Makes a grid child span 1 rows.
+**/
+
+/**
+.yspan-2
+Makes a grid child span 2 rows.
+**/
+
+/**
+.yspan-3
+Makes a grid child span 3 rows.
 **/
 
 .yspan-1       { grid-row-end: span 1 !important; }
@@ -185,19 +253,37 @@ Span `n` rows of a grid.
 .yspan--1      { grid-row-end: span -1 !important; }
 
 /**
-.y-start .y-end .y-center .y-stretch .y-baseline
-Align element within a grid cell.
-```html
-<section class="grid">
-	<div class="y-1 y-end">Crunchum Ipsum</div>
-</section>
-```
+.x-start
+Aligns a grid child to the start of a grid cell.
 **/
 
-.y-end          { align-self: end !important; }
 .y-start        { align-self: start !important; }
+
+/**
+.y-end
+Aligns a grid child to the end of a grid cell.
+**/
+.y-end          { align-self: end !important; }
+
+/**
+.y-center
+Aligns a grid child to the center of a grid cell.
+**/
+
 .y-center       { align-self: center !important; }
+
+/**
+.y-stretch
+Aligns a grid child to fill a grid cell.
+**/
+
 .y-stretch      { align-self: stretch !important; }
+
+/**
+.y-baseline
+Aligns a grid child to the baseline of a grid cell.
+**/
+
 .y-baseline     { align-self: baseline !important; }
 
 .columns-2      { columns: 2 !important; }
@@ -220,17 +306,17 @@ Align element within a grid cell.
 
 	@media screen and (min-width: #{nth($breakpoint, 2)}) {
         .#{nth($breakpoint, 1)}grid           { display: grid !important; column-gap: var(--column-gap); row-gap: var(--row-gap); }
-        .#{nth($breakpoint, 1)}grid-2         { grid-template-columns: repeat(2, calc((100% / 2) - (var(--column-gap) * 1 / 2))); }
-        .#{nth($breakpoint, 1)}grid-3         { grid-template-columns: repeat(3, calc((100% / 3) - (var(--column-gap) * 2 / 3))); }
-        .#{nth($breakpoint, 1)}grid-4         { grid-template-columns: repeat(4, calc((100% / 4) - (var(--column-gap) * 3 / 4))); }
-        .#{nth($breakpoint, 1)}grid-5         { grid-template-columns: repeat(5, calc((100% / 5) - (var(--column-gap) * 4 / 5))); }
-        .#{nth($breakpoint, 1)}grid-6         { grid-template-columns: repeat(6, calc((100% / 6) - (var(--column-gap) * 5 / 6))); }
-        .#{nth($breakpoint, 1)}grid-7         { grid-template-columns: repeat(7, calc((100% / 7) - (var(--column-gap) * 6 / 7))); }
-        .#{nth($breakpoint, 1)}grid-8         { grid-template-columns: repeat(8, calc((100% / 8) - (var(--column-gap) * 7 / 8))); }
-        .#{nth($breakpoint, 1)}grid-9         { grid-template-columns: repeat(9, calc((100% / 9) - (var(--column-gap) * 8 / 9))); }
-        .#{nth($breakpoint, 1)}grid-10        { grid-template-columns: repeat(10, calc((100% / 10) - (var(--column-gap) * 9 / 10))); }
-        .#{nth($breakpoint, 1)}grid-11        { grid-template-columns: repeat(11, calc((100% / 11) - (var(--column-gap) * 10 / 11))); }
-        .#{nth($breakpoint, 1)}grid-12        { grid-template-columns: repeat(12, calc((100% / 12) - (var(--column-gap) * 11 / 12))); }
+        .#{nth($breakpoint, 1)}\32 -grid         { grid-template-columns: repeat(2, calc((100% / 2) - (var(--column-gap) * 1 / 2))); }
+        .#{nth($breakpoint, 1)}\33 -grid         { grid-template-columns: repeat(3, calc((100% / 3) - (var(--column-gap) * 2 / 3))); }
+        .#{nth($breakpoint, 1)}\34 -grid         { grid-template-columns: repeat(4, calc((100% / 4) - (var(--column-gap) * 3 / 4))); }
+        .#{nth($breakpoint, 1)}\35 -grid         { grid-template-columns: repeat(5, calc((100% / 5) - (var(--column-gap) * 4 / 5))); }
+        .#{nth($breakpoint, 1)}\36 -grid         { grid-template-columns: repeat(6, calc((100% / 6) - (var(--column-gap) * 5 / 6))); }
+        .#{nth($breakpoint, 1)}\37 -grid         { grid-template-columns: repeat(7, calc((100% / 7) - (var(--column-gap) * 6 / 7))); }
+        .#{nth($breakpoint, 1)}\38 -grid         { grid-template-columns: repeat(8, calc((100% / 8) - (var(--column-gap) * 7 / 8))); }
+        .#{nth($breakpoint, 1)}\39 -grid         { grid-template-columns: repeat(9, calc((100% / 9) - (var(--column-gap) * 8 / 9))); }
+        .#{nth($breakpoint, 1)}\31 0-grid        { grid-template-columns: repeat(10, calc((100% / 10) - (var(--column-gap) * 9 / 10))); }
+        .#{nth($breakpoint, 1)}\31 1-grid        { grid-template-columns: repeat(11, calc((100% / 11) - (var(--column-gap) * 10 / 11))); }
+        .#{nth($breakpoint, 1)}\31 2-grid        { grid-template-columns: repeat(12, calc((100% / 12) - (var(--column-gap) * 11 / 12))); }
 		.#{nth($breakpoint, 1)}x-1            { grid-column-start: 1 !important; }
 		.#{nth($breakpoint, 1)}x-2            { grid-column-start: 2 !important; }
 		.#{nth($breakpoint, 1)}x-3            { grid-column-start: 3 !important; }
@@ -262,9 +348,9 @@ Align element within a grid cell.
         .#{nth($breakpoint, 1)}x-stretch      { justify-self: stretch !important; }
 		.#{nth($breakpoint, 1)}x-bleed        {
 			justify-self: stretch !important;
-			margin-left: -#{nth($breakpoint, 4) / 2};
-			margin-right: -#{nth($breakpoint, 4) / 2};
-			width: calc(100% + #{nth($breakpoint, 4)});
+			margin-left:  calc(var(--column-gap) / -2);
+			margin-right: calc(var(--column-gap) / -2);
+			width:        calc(100% + var(--column-gap));
 		}
 		.#{nth($breakpoint, 1)}y-1            { grid-row-start: 1 !important; }
 		.#{nth($breakpoint, 1)}y-2            { grid-row-start: 2 !important; }

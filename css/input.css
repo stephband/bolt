@@ -77,61 +77,81 @@ option {
 /**
 input[type="text"]
 
-<label>Text</label>
-<input type="text" value="text" />
-
 ```html
-<label>Text</label>
-<input type="text" value="text" />
+<form>
+	<label>Text</label>
+	<input type="text" value="text" />
+</form>
 ```
+
+<form>
+	<label>Text</label>
+	<input type="text" value="text" />
+</form>
 **/
 
 /**
 input[type="password"]
 
-<label>Password</label>
-<input type="password" value="password" />
-
 ```html
-<label>Password</label>
-<input type="password" value="password" />
+<form>
+	<label>Password</label>
+	<input type="password" value="password" />
+</form>
 ```
+
+<form>
+	<label>Password</label>
+	<input type="password" value="password" />
+</form>
 **/
 
 /**
 input[type="number"]
 
-<label>Number</label>
-<input type="number" value="0" />
-
 ```html
-<label>Number</label>
-<input type="number" value="0" />
+<form>
+	<label>Number</label>
+	<input type="number" value="0" />
+</form>
 ```
+
+<form>
+	<label>Number</label>
+	<input type="number" value="0" />
+</form>
 **/
 
 /**
 input[type="range"]
 
-<label>Range</label>
-<input type="range" value="0" />
-
 ```html
-<label>Range</label>
-<input type="range" value="0" />
+<form>
+	<label>Range</label>
+	<input type="range" value="0" />
+</form>
 ```
+
+<form>
+	<label>Range</label>
+	<input type="range" value="0" />
+</form>
 **/
 
 /**
 input[type="url"]
 
-<label>URL</label>
-<input type="url" value="http://stephen.band/bolt" />
-
 ```html
-<label>URL</label>
-<input type="url" value="http://stephen.band/bolt" />
+<form>
+	<label>URL</label>
+	<input type="url" value="http://stephen.band/bolt" />
+</form>
 ```
+
+<form>
+	<label>URL</label>
+	<input type="url" value="http://stephen.band/bolt" />
+</form>
 **/
 
 label,
@@ -821,14 +841,17 @@ textarea.empty + .placeholder {
 /*
 .uni-form
 
-A form containing one single field and a button.
-
-Markup: <form action="{{ url }}" method="post" class="uni-form">
+```html
+<form action="url" method="post" class="uni-form">
   <input type="email" class="small-input" placeholder="arthur.dent@sc.corp" />
   <input type="submit" class="action-button button" value="Send" />
 </form>
+```
 
-Styleguide: 3.uni-form
+<form action="url" method="post" class="uni-form">
+  <input type="email" class="small-input" placeholder="arthur.dent@sc.corp" />
+  <input type="submit" class="action-button button" value="Send" />
+</form>
 */
 
 .uni-form > input,

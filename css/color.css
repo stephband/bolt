@@ -5,11 +5,11 @@ Colour
 /**
 .transparent-fg, .transparent-bg
 
-<p class="thumb transparent-bg">Transparent</p>
-
 ```html
 <p class="thumb transparent-bg">Transparent</p>
 ```
+
+<p class="thumb transparent-bg">Transparent</p>
 **/
 
 .transparent-fg { color: transparent; }
@@ -18,11 +18,11 @@ Colour
 /**
 .current-fg, .current-bg, var(--black)
 
-<p class="thumb current-bg">Current color</p>
-
 ```html
 <p class="thumb current-bg">Current</p>
 ```
+
+<p class="thumb current-bg">Current color</p>
 **/
 
 .current-fg   { color: currentcolor; }
@@ -32,11 +32,11 @@ Colour
 /**
 .black-fg, .black-bg
 
-<p class="thumb black-bg">Black</p>
-
 ```html
 <p class="thumb black-bg">Black</p>
 ```
+
+<p class="thumb black-bg">Black</p>
 **/
 
 :root       { --black: black; }
@@ -47,11 +47,11 @@ Colour
 /**
 .white-fg, .white-bg
 
-<p class="thumb white-bg">White</p>
-
 ```html
 <p class="thumb white-bg">White</p>
 ```
+
+<p class="thumb white-bg">White</p>
 **/
 
 :root       { --white: white; }
