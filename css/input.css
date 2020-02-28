@@ -1,4 +1,8 @@
 
+/**
+Forms
+**/
+
 /* Edge fails to update styles for changed disabled properties. This rule
    targetting the attribute rather than the pseudo-selector keeps the
    pseudo-selectors up-to-date.

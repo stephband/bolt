@@ -1,0 +1,60 @@
+
+/**
+Component title
+
+<div>Component example HTML</div>
+
+```html
+<div>Component example HTML</div>
+```
+
+Component description
+**/
+
+/**
+.component
+
+<div class="component"></div>
+
+```html
+<div class="component"></div>
+```
+**/
+
+.component {
+    /* Style */
+}
+
+.component > .child {
+    /* Layout of dependents */
+}
+
+.component > .child + .child {
+    /* Layout of dependents relative to one another */
+}
+
+:not(.touch-device) .component:hover {
+    /* Hover style excluding touch devices, whose simulated hover state
+       is persistent */
+}
+
+:not(.touch-device) .component:focus {
+    /* Focus style excluding touch devices, whose focus state is
+       persistent */
+}
+
+* + .component {
+    /* Default spacing */
+    margin-top: 0;
+}
+
+.class + .component {
+    /* Sibling-specific spacing */
+    margin-top: 0;
+}
+
+@media (min-width: 30em) {
+    .component {
+        /* ... */
+    }
+}
