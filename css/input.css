@@ -78,10 +78,8 @@ option {
 input[type="text"]
 
 ```html
-<form>
-	<label>Text</label>
-	<input type="text" value="text" />
-</form>
+<label>Text</label>
+<input type="text" value="text" />
 ```
 
 <form>
@@ -94,10 +92,8 @@ input[type="text"]
 input[type="password"]
 
 ```html
-<form>
-	<label>Password</label>
-	<input type="password" value="password" />
-</form>
+<label>Password</label>
+<input type="password" value="password" />
 ```
 
 <form>
@@ -110,10 +106,8 @@ input[type="password"]
 input[type="number"]
 
 ```html
-<form>
-	<label>Number</label>
-	<input type="number" value="0" />
-</form>
+<label>Number</label>
+<input type="number" value="0" />
 ```
 
 <form>
@@ -126,10 +120,8 @@ input[type="number"]
 input[type="range"]
 
 ```html
-<form>
-	<label>Range</label>
-	<input type="range" value="0" />
-</form>
+<label>Range</label>
+<input type="range" value="0" />
 ```
 
 <form>
@@ -142,10 +134,8 @@ input[type="range"]
 input[type="url"]
 
 ```html
-<form>
-	<label>URL</label>
-	<input type="url" value="http://stephen.band/bolt" />
-</form>
+<label>URL</label>
+<input type="url" value="http://stephen.band/bolt" />
 ```
 
 <form>

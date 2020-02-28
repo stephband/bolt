@@ -6,17 +6,15 @@ Buttons
 /**
 .button
 
-Inline-block with padding and centered text ready to be styled as a button.
-It has no <code>background</code> or <code>border-radius</code> by default.
-Both the <code class="html-tag">button</code> element and the class
-<code>button</code> have this base style. The <code>button</code> class can
-also be used on labels wrapping various form elements.
-
 ```html
+<button type="button">Button text</button>
 <a class="button" href="#">Button text</a>
 ```
 
+<div>
+<button type="button">Button text</button>
 <a class="button" href="#">Button text</a>
+</div>
 **/
 
 button {
@@ -271,37 +269,6 @@ no way to display the selected file name if you do this.
 		   -moz-appearance: none;
 		        appearance: none;
 	}
-}
-
-/**
-.radio-button
-
-```html
-<input class="masked" type="radio" id="radio-2" />
-<label class="radio-button button" for="radio-2">Choose me!</label>
-```
-
-<input class="masked" type="radio" id="radio-2" />
-<label class="radio-button button" for="radio-2">Choose me!</label>
-**/
-
-/**
-.checkbox-button
-
-```html
-<input class="masked" type="checkbox" id="checkbox-2" />
-<label class="checkbox-button button" for="checkbox-2">Choose me!</label>
-```
-
-<input class="masked" type="checkbox" id="checkbox-2" />
-<label class="checkbox-button button" for="checkbox-2">Choose me!</label>
-**/
-
-.radio-button,
-.checkbox-button {
-	/* A hidden overflow would hide the browser generated error messages.
-	   No no no. Make sure it's visible. */
-	/*overflow: visible;*/
 }
 
 /**
