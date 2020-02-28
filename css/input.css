@@ -82,7 +82,7 @@ input[type="text"]
 <input type="text" value="text" />
 ```
 
-<form>
+<form validateable>
 	<label>Text</label>
 	<input type="text" value="text" />
 </form>
@@ -96,9 +96,23 @@ input[type="password"]
 <input type="password" value="password" />
 ```
 
-<form>
+<form validateable>
 	<label>Password</label>
 	<input type="password" value="password" />
+</form>
+**/
+
+/**
+input[type="url"]
+
+```html
+<label>URL</label>
+<input type="url" value="http://stephen.band/bolt" />
+```
+
+<form validateable>
+	<label>URL</label>
+	<input type="url" value="http://stephen.band/bolt" />
 </form>
 **/
 
@@ -110,7 +124,7 @@ input[type="number"]
 <input type="number" value="0" />
 ```
 
-<form>
+<form validateable>
 	<label>Number</label>
 	<input type="number" value="0" />
 </form>
@@ -124,23 +138,9 @@ input[type="range"]
 <input type="range" value="0" />
 ```
 
-<form>
+<form validateable>
 	<label>Range</label>
 	<input type="range" value="0" />
-</form>
-**/
-
-/**
-input[type="url"]
-
-```html
-<label>URL</label>
-<input type="url" value="http://stephen.band/bolt" />
-```
-
-<form>
-	<label>URL</label>
-	<input type="url" value="http://stephen.band/bolt" />
 </form>
 **/
 

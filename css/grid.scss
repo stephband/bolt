@@ -28,20 +28,6 @@ $breakpoints:
 	'\\@2-' 70em 9 2.8125em 1.875em,
 	'\\@3-' 90em 9 3.75em 1.875em !default;
 
-:root {
-	/**
-	--column-gap
-	Define the horizontal grid gap.
-	**/
-	--column-gap: 1.5em;
-
-	/**
-	--row-gap
-	Define the vertical grid gap.
-	**/
-	--row-gap: 1.5em;
-}
-
 /**
 .grid
 Applies `display: grid`.
@@ -298,13 +284,22 @@ Aligns a grid child to the baseline of a grid cell.
 .columns-11     { columns: 11 !important; }
 .columns-12     { columns: 12 !important; }
 
+:root {
+	/**
+	--column-gap
+	Define the horizontal grid gap.
+	**/
+	--column-gap: 1.5em;
+
+	/**
+	--row-gap
+	Define the vertical grid gap.
+	**/
+	--row-gap: 1.5em;
+}
+
 @each $breakpoint in $breakpoints {
 	@media (min-width: #{nth($breakpoint, 2)}) {
-		:root       {
-			--column-gap: #{nth($breakpoint, 4)};
-			--row-gap: #{nth($breakpoint, 5)};
-		}
-
         .#{nth($breakpoint, 1)}grid           { display: grid !important; column-gap: var(--column-gap); row-gap: var(--row-gap); }
         .#{nth($breakpoint, 1)}\32 -grid         { grid-template-columns: repeat(2, calc((100% / 2) - (var(--column-gap) * 1 / 2))); }
         .#{nth($breakpoint, 1)}\33 -grid         { grid-template-columns: repeat(3, calc((100% / 3) - (var(--column-gap) * 2 / 3))); }
@@ -399,5 +394,10 @@ Aligns a grid child to the baseline of a grid cell.
         .#{nth($breakpoint, 1)}columns-10     { columns: 10 !important; }
         .#{nth($breakpoint, 1)}columns-11     { columns: 11 !important; }
         .#{nth($breakpoint, 1)}columns-12     { columns: 12 !important; }
+	}
+
+	:root       {
+		--column-gap: #{nth($breakpoint, 4)};
+		--row-gap: #{nth($breakpoint, 5)};
 	}
 }

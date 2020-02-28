@@ -34,12 +34,12 @@ fieldset + fieldset {
 
 ```html
 <input type="checkbox" class="masked" id="checkbox-1" />
-<label class="checkbox-label" for="checkbox-1">Yes, choose me!</label>
+<label class="checkbox-label" for="checkbox-1">Choose me</label>
 ```
 
-<form>
+<form validateable>
 <input type="checkbox" class="masked" id="checkbox-1" />
-<label class="checkbox-label" for="checkbox-1">Yes, choose me!</label>
+<label class="checkbox-label" for="checkbox-1">Choose me</label>
 </form>
 */
 
@@ -48,12 +48,12 @@ fieldset + fieldset {
 
 ```html
 <input type="radio" class="masked" id="radio-1" />
-<label class="radio-label" for="radio-1">Yes, choose me!</label>
+<label class="radio-label" for="radio-1">Choose me</label>
 ```
 
-<form>
+<form validateable>
 <input type="radio" class="masked" id="radio-1" />
-<label class="radio-label" for="radio-1">Yes, choose me!</label>
+<label class="radio-label" for="radio-1">Choose me</label>
 </form>
 */
 
@@ -170,7 +170,7 @@ fieldset + fieldset {
 <label class="yes-radio-label radio-label" for="yes-radio-1">Yes</label>
 ```
 
-<form>
+<form validateable>
 <input type="radio" class="masked" id="yes-radio-1" />
 <label class="yes-radio-label radio-label" for="yes-radio-1">Yes</label>
 </form>
@@ -184,7 +184,7 @@ fieldset + fieldset {
 <label class="no-radio-label radio-label" for="no-radio-1">No</label>
 ```
 
-<form>
+<form validateable>
 <input type="radio" class="masked" id="no-radio-1" />
 <label class="no-radio-label radio-label" for="no-radio-1">No</label>
 </form>
@@ -231,10 +231,30 @@ fieldset + fieldset {
 
 /**
 .error-label
+
+```html
+<input type="text" value="" required />
+<label class="error-label">Field is required</label>
+```
+
+<form validateable>
+<input type="text" value="" required />
+<label class="error-label">Field is required</label>
+</form>
 **/
 
 /**
 .help-label
+
+```html
+<input type="text" value="" required />
+<label class="help-label">Write something in the field</label>
+```
+
+<form validateable>
+<input type="text" value="" required />
+<label class="help-label">Write something in the field</label>
+</form>
 **/
 
 .error-label {
