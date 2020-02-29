@@ -78,13 +78,13 @@ option {
 input[type="text"]
 
 ```html
-<label>Text</label>
-<input type="text" value="text" />
+<label for="text-input">Text</label>
+<input type="text" placeholder="Enter text" id="text-input" />
 ```
 
 <form validateable>
-	<label>Text</label>
-	<input type="text" value="text" />
+	<label for="text-input">Text</label>
+	<input type="text" placeholder="Enter text" id="text-input" />
 </form>
 **/
 
@@ -92,13 +92,13 @@ input[type="text"]
 input[type="password"]
 
 ```html
-<label>Password</label>
-<input type="password" value="password" />
+<label for="password-input">Password</label>
+<input type="password" placeholder="Enter password" id="password-input" />
 ```
 
 <form validateable>
-	<label>Password</label>
-	<input type="password" value="password" />
+	<label for="password-input">Password</label>
+	<input type="password" placeholder="Enter password" id="password-input" />
 </form>
 **/
 
@@ -106,13 +106,13 @@ input[type="password"]
 input[type="url"]
 
 ```html
-<label>URL</label>
-<input type="url" value="http://stephen.band/bolt" />
+<label for="url-input">URL</label>
+<input type="url" placeholder="http://cruncher.ch/" id="url-input" />
 ```
 
 <form validateable>
-	<label>URL</label>
-	<input type="url" value="http://stephen.band/bolt" />
+	<label for="url-input">URL</label>
+	<input type="url" placeholder="http://cruncher.ch/" id="url-input" />
 </form>
 **/
 
@@ -120,13 +120,13 @@ input[type="url"]
 input[type="number"]
 
 ```html
-<label>Number</label>
-<input type="number" value="0" />
+<label for="number-input">Number</label>
+<input type="number" placeholder="100" id="number-input" />
 ```
 
 <form validateable>
-	<label>Number</label>
-	<input type="number" value="0" />
+	<label for="number-input">Number</label>
+	<input type="number" placeholder="100" id="number-input" />
 </form>
 **/
 
@@ -134,13 +134,13 @@ input[type="number"]
 input[type="range"]
 
 ```html
-<label>Range</label>
-<input type="range" value="0" />
+<label for="range-input">Range</label>
+<input type="range" value="0" id="range-input" />
 ```
 
 <form validateable>
-	<label>Range</label>
-	<input type="range" value="0" />
+	<label for="range-input">Range</label>
+	<input type="range" value="0" id="range-input" />
 </form>
 **/
 
@@ -154,7 +154,7 @@ textarea {
 	   rhythm when inputs stack up. It also has the effect of removing the
 	   annoying extra margin-bottom that textareas have in webkit. */
 	vertical-align: middle;
-	margin: auto;
+	margin: 0;
 
 	/* Font size is not automaticlly inherited in all browsers. */
 	font-family: inherit;
@@ -519,10 +519,120 @@ select:focus {
 	outline-offset: -3px;
 }
 
-.error_label {
-	white-space: nowrap;
-	line-height: 1.6667;
-	color: #dd3300;
+
+/**
+.select-button
+
+```html
+<label class="select-button button">
+  <select>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+</label>
+```
+
+<label class="select-button button">
+  <select>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+</label>
+**/
+
+.select-button {
+	display: block;
+	/* There should never be padding on select-button, it's padding should be
+	   managed by the select within. */
+	padding: 0 !important;
+}
+
+.select-button > select {
+	display: block;
+
+	/* This is the native select, we're making everything but the text invisible
+	   so we can see the button styles in the wrapper. */
+	width: calc(100% + 2px);
+	max-width: none;
+	height: calc(100% + 2px);
+	margin: -1px;
+	padding-top: 0;
+	padding-bottom: 0;
+	outline: none;
+	border: 1px solid transparent;
+	border-radius: inherit;
+
+	/* Prefixed box-sizing rules necessary for older browsers */
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
+.select-button::before {
+	content: '';
+	box-sizing: border-box;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 2.4375rem; /* Match-01 */
+	height: 100%;
+	border-width: 0;
+	border-left-width: inherit;
+	border-style: inherit;
+	border-color: inherit;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-right-radius: inherit;
+	border-bottom-right-radius: inherit;
+	pointer-events: none;
+}
+
+.select-button::after {
+	/* Custom arrow sits on top of the select - could be an image, SVG, icon
+	   font, etc. or the arrow could just baked into the bg image on the select. */
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: 0.875rem;
+	height: 0;
+	margin-top: -3px;
+	border-top: 6px solid currentcolor;
+	border-left: 6px solid rgba(0, 0, 0, 0);
+	border-right: 6px solid rgba(0, 0, 0, 0);
+	-webkit-transition: transform 200ms linear;
+	transition: transform 200ms linear;
+	z-index: 2;
+
+	/* These hacks make the select behind the arrow clickable in some browsers */
+	pointer-events: none;
+	display: none;
+	pointer-events: none;
+}
+
+/* Firefox <= 34 has a false positive on @supports( -moz-appearance: none )
+   @supports ( mask-type: alpha ) is Firefox 35+ */
+@supports ( -webkit-appearance: none )
+	or ( appearance: none )
+	or ( ( -moz-appearance: none ) and ( mask-type: alpha ) ) {
+	/* Show custom arrow */
+	.select-button::after {
+		display: block;
+	}
+
+	/* Remove select styling */
+	.select-button > select {
+		padding-right: 2.4375rem; /* Match-01 */
+		/* inside @supports so that iOS <= 8 display the native arrow */
+		background: none; /* Match-04 */
+		/* inside @supports so that Android <= 4.3 display the native arrow */
+		border-width: 1px; /* Match-05 */
+
+		-webkit-appearance: none;
+		   -moz-appearance: none;
+		        appearance: none;
+	}
 }
 
 

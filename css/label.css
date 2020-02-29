@@ -233,13 +233,13 @@ fieldset + fieldset {
 .error-label
 
 ```html
-<input type="text" value="" required />
-<label class="error-label">Field is required</label>
+<input type="text" required id="required-input" />
+<label class="error-label" for="required-input">Field is required</label>
 ```
 
 <form validateable>
-<input type="text" value="" required />
-<label class="error-label">Field is required</label>
+<input type="text" required id="required-input" />
+<label class="error-label" for="required-input">Field is required</label>
 </form>
 **/
 
@@ -247,64 +247,77 @@ fieldset + fieldset {
 .help-label
 
 ```html
-<input type="text" value="" required />
-<label class="help-label">Write something in the field</label>
+<input type="text" required id="help-input" />
+<label class="help-label" for="help-input">Write something in the field</label>
 ```
 
 <form validateable>
-<input type="text" value="" required />
-<label class="help-label">Write something in the field</label>
+<input type="text" required id="help-input" />
+<label class="help-label" for="help-input">Write something in the field</label>
 </form>
 **/
+
+.error-label,
+.help-label {
+	display: block;
+}
 
 .error-label {
 	color: #d0153e;
 }
 
-.col-1 + .error-label,  .col-1 + .help-label  { grid-column-start: 1; }
-.col-2 + .error-label,  .col-2 + .help-label  { grid-column-start: 2; }
-.col-3 + .error-label,  .col-3 + .help-label  { grid-column-start: 3; }
-.col-4 + .error-label,  .col-4 + .help-label  { grid-column-start: 4; }
-.col-5 + .error-label,  .col-5 + .help-label  { grid-column-start: 5; }
-.col-6 + .error-label,  .col-6 + .help-label  { grid-column-start: 6; }
-.col-7 + .error-label,  .col-7 + .help-label  { grid-column-start: 7; }
-.col-8 + .error-label,  .col-8 + .help-label  { grid-column-start: 8; }
-.col-9 + .error-label,  .col-9 + .help-label  { grid-column-start: 9; }
-.col-10 + .error-label, .col-10 + .help-label { grid-column-start: 10; }
-.col-11 + .error-label, .col-11 + .help-label { grid-column-start: 11; }
-.col-12 + .error-label, .col-12 + .help-label { grid-column-start: 12; }
+* + .error-label {
+	margin-top: 0.375em;
+}
 
-.span-1 + .error-label,  .span-1 + .help-label  { grid-column-end: span 1; }
-.span-2 + .error-label,  .span-2 + .help-label  { grid-column-end: span 2; }
-.span-3 + .error-label,  .span-3 + .help-label  { grid-column-end: span 3; }
-.span-4 + .error-label,  .span-4 + .help-label  { grid-column-end: span 4; }
-.span-5 + .error-label,  .span-5 + .help-label  { grid-column-end: span 5; }
-.span-6 + .error-label,  .span-6 + .help-label  { grid-column-end: span 6; }
-.span-7 + .error-label,  .span-7 + .help-label  { grid-column-end: span 7; }
-.span-8 + .error-label,  .span-8 + .help-label  { grid-column-end: span 8; }
-.span-9 + .error-label,  .span-9 + .help-label  { grid-column-end: span 9; }
-.span-10 + .error-label, .span-10 + .help-label { grid-column-end: span 10; }
-.span-11 + .error-label, .span-11 + .help-label { grid-column-end: span 11; }
-.span-12 + .error-label, .span-12 + .help-label { grid-column-end: span 12; }
+* + .help-label {
+	margin-top: 0.375em;
+}
 
-.row-1  + .error-label, .row-1  + .help-label { grid-row-start: 1; }
-.row-2  + .error-label, .row-2  + .help-label { grid-row-start: 2; }
-.row-3  + .error-label, .row-3  + .help-label { grid-row-start: 3; }
-.row-4  + .error-label, .row-4  + .help-label { grid-row-start: 4; }
-.row-5  + .error-label, .row-5  + .help-label { grid-row-start: 5; }
-.row-6  + .error-label, .row-6  + .help-label { grid-row-start: 6; }
-.row-7  + .error-label, .row-7  + .help-label { grid-row-start: 7; }
-.row-8  + .error-label, .row-8  + .help-label { grid-row-start: 8; }
-.row-9  + .error-label, .row-9  + .help-label { grid-row-start: 9; }
-.row-10 + .error-label, .row-10 + .help-label { grid-row-start: 10; }
-.row-11 + .error-label, .row-11 + .help-label { grid-row-start: 11; }
-.row-12 + .error-label, .row-12 + .help-label { grid-row-start: 12; }
-.row-13 + .error-label, .row-13 + .help-label { grid-row-start: 13; }
-.row-14 + .error-label, .row-14 + .help-label { grid-row-start: 14; }
-.row-15 + .error-label, .row-15 + .help-label { grid-row-start: 15; }
-.row-16 + .error-label, .row-16 + .help-label { grid-row-start: 16; }
-.row-17 + .error-label, .row-17 + .help-label { grid-row-start: 17; }
-.row-18 + .error-label, .row-18 + .help-label { grid-row-start: 18; }
+.x-1 + .error-label,  .x-1 + .help-label  { grid-column-start: 1; }
+.x-2 + .error-label,  .x-2 + .help-label  { grid-column-start: 2; }
+.x-3 + .error-label,  .x-3 + .help-label  { grid-column-start: 3; }
+.x-4 + .error-label,  .x-4 + .help-label  { grid-column-start: 4; }
+.x-5 + .error-label,  .x-5 + .help-label  { grid-column-start: 5; }
+.x-6 + .error-label,  .x-6 + .help-label  { grid-column-start: 6; }
+.x-7 + .error-label,  .x-7 + .help-label  { grid-column-start: 7; }
+.x-8 + .error-label,  .x-8 + .help-label  { grid-column-start: 8; }
+.x-9 + .error-label,  .x-9 + .help-label  { grid-column-start: 9; }
+.x-10 + .error-label, .x-10 + .help-label { grid-column-start: 10; }
+.x-11 + .error-label, .x-11 + .help-label { grid-column-start: 11; }
+.x-12 + .error-label, .x-12 + .help-label { grid-column-start: 12; }
+
+.xspan-1 + .error-label,  .xspan-1 + .help-label  { grid-column-end: span 1; }
+.xspan-2 + .error-label,  .xspan-2 + .help-label  { grid-column-end: span 2; }
+.xspan-3 + .error-label,  .xspan-3 + .help-label  { grid-column-end: span 3; }
+.xspan-4 + .error-label,  .xspan-4 + .help-label  { grid-column-end: span 4; }
+.xspan-5 + .error-label,  .xspan-5 + .help-label  { grid-column-end: span 5; }
+.xspan-6 + .error-label,  .xspan-6 + .help-label  { grid-column-end: span 6; }
+.xspan-7 + .error-label,  .xspan-7 + .help-label  { grid-column-end: span 7; }
+.xspan-8 + .error-label,  .xspan-8 + .help-label  { grid-column-end: span 8; }
+.xspan-9 + .error-label,  .xspan-9 + .help-label  { grid-column-end: span 9; }
+.xspan-10 + .error-label, .xspan-10 + .help-label { grid-column-end: span 10; }
+.xspan-11 + .error-label, .xspan-11 + .help-label { grid-column-end: span 11; }
+.xspan-12 + .error-label, .xspan-12 + .help-label { grid-column-end: span 12; }
+
+.y-1  + .error-label, .y-1  + .help-label { grid-row-start: 1; }
+.y-2  + .error-label, .y-2  + .help-label { grid-row-start: 2; }
+.y-3  + .error-label, .y-3  + .help-label { grid-row-start: 3; }
+.y-4  + .error-label, .y-4  + .help-label { grid-row-start: 4; }
+.y-5  + .error-label, .y-5  + .help-label { grid-row-start: 5; }
+.y-6  + .error-label, .y-6  + .help-label { grid-row-start: 6; }
+.y-7  + .error-label, .y-7  + .help-label { grid-row-start: 7; }
+.y-8  + .error-label, .y-8  + .help-label { grid-row-start: 8; }
+.y-9  + .error-label, .y-9  + .help-label { grid-row-start: 9; }
+.y-10 + .error-label, .y-10 + .help-label { grid-row-start: 10; }
+.y-11 + .error-label, .y-11 + .help-label { grid-row-start: 11; }
+.y-12 + .error-label, .y-12 + .help-label { grid-row-start: 12; }
+.y-13 + .error-label, .y-13 + .help-label { grid-row-start: 13; }
+.y-14 + .error-label, .y-14 + .help-label { grid-row-start: 14; }
+.y-15 + .error-label, .y-15 + .help-label { grid-row-start: 15; }
+.y-16 + .error-label, .y-16 + .help-label { grid-row-start: 16; }
+.y-17 + .error-label, .y-17 + .help-label { grid-row-start: 17; }
+.y-18 + .error-label, .y-18 + .help-label { grid-row-start: 18; }
 
 .error-label + .help-label {
     /* Hide help while there are errors. Errors disappear when you start

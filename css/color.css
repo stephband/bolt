@@ -3,7 +3,7 @@ Colour
 **/
 
 /**
-.transparent-fg, .transparent-bg
+.transparent-fg .transparent-bg
 
 ```html
 <p class="thumb transparent-bg">Transparent</p>
@@ -16,7 +16,7 @@ Colour
 .transparent-bg { background-color: transparent; }
 
 /**
-.current-fg, .current-bg, var(--black)
+.current-fg .current-bg
 
 ```html
 <p class="thumb current-bg">Current</p>
@@ -30,7 +30,7 @@ Colour
 .current-fill { fill: currentcolor; }
 
 /**
-.black-fg, .black-bg
+.black-fg .black-bg
 
 ```html
 <p class="thumb black-bg">Black</p>
@@ -45,7 +45,7 @@ Colour
 .black-fill { fill: black; }
 
 /**
-.white-fg, .white-bg
+.white-fg .white-bg
 
 ```html
 <p class="thumb white-bg">White</p>
