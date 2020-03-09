@@ -1,19 +1,21 @@
 
 /**
-.switch
+.switch-label
 
 ```html
 <input class="masked" type="checkbox" value="something" id="switch-input" />
-<label class="switch" for="switch-input">Turn me on</label>
+<label class="switch-label" for="switch-input">Turn me on</label>
 ```
 
 <form>
 <input class="masked" type="checkbox" value="something" id="switch-input" />
-<label class="switch" for="switch-input">Turn me on</label>
+<label class="switch-label" for="switch-input">Turn me on</label>
 </form>
 **/
 
-.switch {
+.switch-label::before {
+    content: '';
+    position: absolute;
     background-color: #cccccc;
     box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
     border-radius: 0.625rem;
@@ -22,15 +24,17 @@
     overflow: hidden;
     width: 2.5rem;
     height: 1.25rem;
+    top: 0;
+    left: 0;
     position: relative;
     transition: background-color 0.16s linear;
 }
 
-:checked + .switch {
+:checked + .switch-label::before {
     background-color: #a22d08;
 }
 
-.switch::before {
+.switch-label::after {
     content: '';
     position: absolute;
     width: 1rem;
@@ -43,10 +47,10 @@
     transition: 0.16s left ease-out;
 }
 
-:checked + .switch::before {
+:checked + .switch-label::after {
     left: 1.375rem;
 }
 
-.switch + label {
+.switch-label + label {
     margin-top: 0.625rem;
 }
