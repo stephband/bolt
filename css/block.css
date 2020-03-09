@@ -103,44 +103,6 @@ hr.block {
 
 
 /**
-.tab-block
-
-```html
-A block animated to behave as a tab that fades to reveal content when the class
-`active` is added.
-```
-**/
-
-.js .tab-block {
-	position: relative;
-	width: 100%;
-
-	visibility: hidden;
-	opacity: 0;
-	z-index: 1;
-
-	transition-property: opacity, visibility;
-	transition-duration: 120ms;
-	transition-timing-function: ease-in;
-
-	/* A nice bit of hardware acceleration should help the transitions run
-	   smoothly. */
-	transform: translate3d(0,0,0);
-}
-
-.js .tab-block.active {
-	visibility: visible;
-	opacity: 1;
-	z-index: 2;
-	transition-timing-function: ease-out;
-}
-
-.js .tab-block.active {
-	z-index: 2;
-}
-
-
-/**
 .toggle-block
 
 A block animated to behave like a drawer that reveals content when the class

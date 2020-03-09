@@ -4,29 +4,29 @@ Grid
 
 ```html
 <div class="3-grid grid">
-	<p class="x-3 y-3 x-atretch blue-bg">3,3</p>
-	<p class="x-1 y-1 x-start blue-bg">1,3</p>
-	<p class="x-2 y-2 x-end blue-bg">2,3</p>
-	<p class="x-1 y-3 x-stretch lime-bg">1,3</p>
-	<p class="x-2 y-3 x-stretch yellow-bg">2,3</p>
+    <p class="x-3 y-3 x-atretch blue-bg">3,3</p>
+    <p class="x-1 y-1 x-start blue-bg">1,3</p>
+    <p class="x-2 y-2 x-end blue-bg">2,3</p>
+    <p class="x-1 y-3 x-stretch lime-bg">1,3</p>
+    <p class="x-2 y-3 x-stretch yellow-bg">2,3</p>
 </div>
 ```
 
 <div class="3-grid grid">
-	<p class="x-3 y-3 x-atretch blue-bg">3,3</p>
-	<p class="x-1 y-1 x-start blue-bg">1,3</p>
-	<p class="x-2 y-2 x-end blue-bg">2,3</p>
-	<p class="x-1 y-3 x-stretch lime-bg">1,3</p>
-	<p class="x-2 y-3 x-stretch yellow-bg">2,3</p>
+    <p class="x-3 y-3 x-atretch blue-bg">3,3</p>
+    <p class="x-1 y-1 x-start blue-bg">1,3</p>
+    <p class="x-2 y-2 x-end blue-bg">2,3</p>
+    <p class="x-1 y-3 x-stretch lime-bg">1,3</p>
+    <p class="x-2 y-3 x-stretch yellow-bg">2,3</p>
 </div>
 **/
 
 // $breakpoints: prefix, min-width, grid count, gutter, space
 $breakpoints:
-	''      0em  6 1.5em 1.5em,
-	'\\@1-' 50em 6 1.5em 1.5em,
-	'\\@2-' 70em 9 2.8125em 1.875em,
-	'\\@3-' 90em 9 3.75em 1.875em !default;
+    ''      0em  6 1.5em 1.5em,
+    '\\@1-' 50em 6 1.5em 1.5em,
+    '\\@2-' 70em 9 2.8125em 1.875em,
+    '\\@3-' 90em 9 3.75em 1.875em !default;
 
 /**
 .grid
@@ -34,9 +34,9 @@ Applies `display: grid`.
 **/
 
 .grid           {
-	display: grid !important;
-	grid-column-gap: 1.875rem;
-	grid-row-gap: 1.875rem;
+    display: grid !important;
+    grid-column-gap: 1.875rem;
+    grid-row-gap: 1.875rem;
 }
 
 
@@ -139,28 +139,40 @@ Makes a grid child span 3 columns.
 Justifies a grid child to the start of a grid cell.
 **/
 
-.x-end          { justify-self: end !important; margin-right: 0; }
+.x-end          {
+    justify-self: end !important;
+    margin-right: 0;
+}
 
 /**
 .x-end
 Justifies a grid child to the end of a grid cell.
 **/
 
-.x-start        { justify-self: start !important; margin-left: 0; }
+.x-start        {
+    justify-self: start !important;
+    margin-left: 0;
+}
 
 /**
 .x-center
 Justifies a grid child to the center of a grid cell.
 **/
 
-.x-center       { justify-self: center !important; }
+.x-center       {
+    justify-self: center !important;
+}
 
 /**
 .x-stretch
 Justifies a grid child to fill a grid cell.
 **/
 
-.x-stretch      { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
+.x-stretch      {
+    justify-self: stretch !important;
+    margin-left: 0;
+    margin-right: 0;
+}
 
 /**
 .x-bleed
@@ -169,10 +181,10 @@ each side.
 **/
 
 .x-bleed {
-	justify-self: stretch !important;
-	margin-left: calc(var(--column-gap) / -2);
-	margin-right: calc(var(--column-gap) / -2);
-	width: calc(100% + var(--column-gap));
+    justify-self: stretch !important;
+    margin-left: calc(var(--column-gap) / -2);
+    margin-right: calc(var(--column-gap) / -2);
+    width: calc(100% + var(--column-gap));
 }
 
 /**
@@ -285,21 +297,21 @@ Aligns a grid child to the baseline of a grid cell.
 .columns-12     { columns: 12 !important; }
 
 :root {
-	/**
-	--column-gap
-	Define the horizontal grid gap.
-	**/
-	--column-gap: 1.5em;
+    /**
+    --column-gap
+    Define the horizontal grid gap.
+    **/
+    --column-gap: 1.5em;
 
-	/**
-	--row-gap
-	Define the vertical grid gap.
-	**/
-	--row-gap: 1.5em;
+    /**
+    --row-gap
+    Define the vertical grid gap.
+    **/
+    --row-gap: 1.5em;
 }
 
 @each $breakpoint in $breakpoints {
-	@media (min-width: #{nth($breakpoint, 2)}) {
+    @media (min-width: #{nth($breakpoint, 2)}) {
         .#{nth($breakpoint, 1)}grid           { display: grid !important; column-gap: var(--column-gap); row-gap: var(--row-gap); }
         .#{nth($breakpoint, 1)}\32 -grid         { grid-template-columns: repeat(2, calc((100% / 2) - (var(--column-gap) * 1 / 2))); }
         .#{nth($breakpoint, 1)}\33 -grid         { grid-template-columns: repeat(3, calc((100% / 3) - (var(--column-gap) * 2 / 3))); }
@@ -312,71 +324,71 @@ Aligns a grid child to the baseline of a grid cell.
         .#{nth($breakpoint, 1)}\31 0-grid        { grid-template-columns: repeat(10, calc((100% / 10) - (var(--column-gap) * 9 / 10))); }
         .#{nth($breakpoint, 1)}\31 1-grid        { grid-template-columns: repeat(11, calc((100% / 11) - (var(--column-gap) * 10 / 11))); }
         .#{nth($breakpoint, 1)}\31 2-grid        { grid-template-columns: repeat(12, calc((100% / 12) - (var(--column-gap) * 11 / 12))); }
-		.#{nth($breakpoint, 1)}x-1            { grid-column-start: 1 !important; }
-		.#{nth($breakpoint, 1)}x-2            { grid-column-start: 2 !important; }
-		.#{nth($breakpoint, 1)}x-3            { grid-column-start: 3 !important; }
-		.#{nth($breakpoint, 1)}x-4            { grid-column-start: 4 !important; }
-		.#{nth($breakpoint, 1)}x-5            { grid-column-start: 5 !important; }
-		.#{nth($breakpoint, 1)}x-6            { grid-column-start: 6 !important; }
-		.#{nth($breakpoint, 1)}x-7            { grid-column-start: 7 !important; }
-		.#{nth($breakpoint, 1)}x-8            { grid-column-start: 8 !important; }
-		.#{nth($breakpoint, 1)}x-9            { grid-column-start: 9 !important; }
-		.#{nth($breakpoint, 1)}x-10           { grid-column-start: 10 !important; }
-		.#{nth($breakpoint, 1)}x-11           { grid-column-start: 11 !important; }
-		.#{nth($breakpoint, 1)}x-12           { grid-column-start: 12 !important; }
-		.#{nth($breakpoint, 1)}xspan-1       { grid-column-end: span 1 !important; }
-		.#{nth($breakpoint, 1)}xspan-2       { grid-column-end: span 2 !important; }
-		.#{nth($breakpoint, 1)}xspan-3       { grid-column-end: span 3 !important; }
-		.#{nth($breakpoint, 1)}xspan-4       { grid-column-end: span 4 !important; }
-		.#{nth($breakpoint, 1)}xspan-5       { grid-column-end: span 5 !important; }
-		.#{nth($breakpoint, 1)}xspan-6       { grid-column-end: span 6 !important; }
-		.#{nth($breakpoint, 1)}xspan-7       { grid-column-end: span 7 !important; }
-		.#{nth($breakpoint, 1)}xspan-8       { grid-column-end: span 8 !important; }
-		.#{nth($breakpoint, 1)}xspan-9       { grid-column-end: span 9 !important; }
-		.#{nth($breakpoint, 1)}xspan-10      { grid-column-end: span 10 !important; }
-		.#{nth($breakpoint, 1)}xspan-11      { grid-column-end: span 11 !important; }
-		.#{nth($breakpoint, 1)}xspan-12      { grid-column-end: span 12 !important; }
+        .#{nth($breakpoint, 1)}x-1            { grid-column-start: 1 !important; }
+        .#{nth($breakpoint, 1)}x-2            { grid-column-start: 2 !important; }
+        .#{nth($breakpoint, 1)}x-3            { grid-column-start: 3 !important; }
+        .#{nth($breakpoint, 1)}x-4            { grid-column-start: 4 !important; }
+        .#{nth($breakpoint, 1)}x-5            { grid-column-start: 5 !important; }
+        .#{nth($breakpoint, 1)}x-6            { grid-column-start: 6 !important; }
+        .#{nth($breakpoint, 1)}x-7            { grid-column-start: 7 !important; }
+        .#{nth($breakpoint, 1)}x-8            { grid-column-start: 8 !important; }
+        .#{nth($breakpoint, 1)}x-9            { grid-column-start: 9 !important; }
+        .#{nth($breakpoint, 1)}x-10           { grid-column-start: 10 !important; }
+        .#{nth($breakpoint, 1)}x-11           { grid-column-start: 11 !important; }
+        .#{nth($breakpoint, 1)}x-12           { grid-column-start: 12 !important; }
+        .#{nth($breakpoint, 1)}xspan-1       { grid-column-end: span 1 !important; }
+        .#{nth($breakpoint, 1)}xspan-2       { grid-column-end: span 2 !important; }
+        .#{nth($breakpoint, 1)}xspan-3       { grid-column-end: span 3 !important; }
+        .#{nth($breakpoint, 1)}xspan-4       { grid-column-end: span 4 !important; }
+        .#{nth($breakpoint, 1)}xspan-5       { grid-column-end: span 5 !important; }
+        .#{nth($breakpoint, 1)}xspan-6       { grid-column-end: span 6 !important; }
+        .#{nth($breakpoint, 1)}xspan-7       { grid-column-end: span 7 !important; }
+        .#{nth($breakpoint, 1)}xspan-8       { grid-column-end: span 8 !important; }
+        .#{nth($breakpoint, 1)}xspan-9       { grid-column-end: span 9 !important; }
+        .#{nth($breakpoint, 1)}xspan-10      { grid-column-end: span 10 !important; }
+        .#{nth($breakpoint, 1)}xspan-11      { grid-column-end: span 11 !important; }
+        .#{nth($breakpoint, 1)}xspan-12      { grid-column-end: span 12 !important; }
         .#{nth($breakpoint, 1)}xspan--1      { grid-column-end: span -1 !important; }
         .#{nth($breakpoint, 1)}x-end          { justify-self: end !important; margin-right: 0; }
         .#{nth($breakpoint, 1)}x-start        { justify-self: start !important; margin-left: 0; }
         .#{nth($breakpoint, 1)}x-center       { justify-self: center !important; }
         .#{nth($breakpoint, 1)}x-stretch      { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
-		.#{nth($breakpoint, 1)}x-bleed        {
-			justify-self: stretch !important;
-			margin-left:  calc(var(--column-gap) / -2);
-			margin-right: calc(var(--column-gap) / -2);
-			width:        calc(100% + var(--column-gap));
-		}
-		.#{nth($breakpoint, 1)}y-1            { grid-row-start: 1 !important; }
-		.#{nth($breakpoint, 1)}y-2            { grid-row-start: 2 !important; }
-		.#{nth($breakpoint, 1)}y-3            { grid-row-start: 3 !important; }
-		.#{nth($breakpoint, 1)}y-4            { grid-row-start: 4 !important; }
-		.#{nth($breakpoint, 1)}y-5            { grid-row-start: 5 !important; }
-		.#{nth($breakpoint, 1)}y-6            { grid-row-start: 6 !important; }
-		.#{nth($breakpoint, 1)}y-7            { grid-row-start: 7 !important; }
-		.#{nth($breakpoint, 1)}y-8            { grid-row-start: 8 !important; }
-		.#{nth($breakpoint, 1)}y-9            { grid-row-start: 9 !important; }
-		.#{nth($breakpoint, 1)}y-10           { grid-row-start: 10 !important; }
-		.#{nth($breakpoint, 1)}y-11           { grid-row-start: 11 !important; }
-		.#{nth($breakpoint, 1)}y-12           { grid-row-start: 12 !important; }
-		.#{nth($breakpoint, 1)}y-13           { grid-row-start: 13 !important; }
-		.#{nth($breakpoint, 1)}y-14           { grid-row-start: 14 !important; }
-		.#{nth($breakpoint, 1)}y-15           { grid-row-start: 15 !important; }
-		.#{nth($breakpoint, 1)}y-16           { grid-row-start: 16 !important; }
-		.#{nth($breakpoint, 1)}y-17           { grid-row-start: 17 !important; }
-		.#{nth($breakpoint, 1)}y-18           { grid-row-start: 18 !important; }
+        .#{nth($breakpoint, 1)}x-bleed        {
+            justify-self: stretch !important;
+            margin-left:  calc(var(--column-gap) / -2);
+            margin-right: calc(var(--column-gap) / -2);
+            width:        calc(100% + var(--column-gap));
+        }
+        .#{nth($breakpoint, 1)}y-1            { grid-row-start: 1 !important; }
+        .#{nth($breakpoint, 1)}y-2            { grid-row-start: 2 !important; }
+        .#{nth($breakpoint, 1)}y-3            { grid-row-start: 3 !important; }
+        .#{nth($breakpoint, 1)}y-4            { grid-row-start: 4 !important; }
+        .#{nth($breakpoint, 1)}y-5            { grid-row-start: 5 !important; }
+        .#{nth($breakpoint, 1)}y-6            { grid-row-start: 6 !important; }
+        .#{nth($breakpoint, 1)}y-7            { grid-row-start: 7 !important; }
+        .#{nth($breakpoint, 1)}y-8            { grid-row-start: 8 !important; }
+        .#{nth($breakpoint, 1)}y-9            { grid-row-start: 9 !important; }
+        .#{nth($breakpoint, 1)}y-10           { grid-row-start: 10 !important; }
+        .#{nth($breakpoint, 1)}y-11           { grid-row-start: 11 !important; }
+        .#{nth($breakpoint, 1)}y-12           { grid-row-start: 12 !important; }
+        .#{nth($breakpoint, 1)}y-13           { grid-row-start: 13 !important; }
+        .#{nth($breakpoint, 1)}y-14           { grid-row-start: 14 !important; }
+        .#{nth($breakpoint, 1)}y-15           { grid-row-start: 15 !important; }
+        .#{nth($breakpoint, 1)}y-16           { grid-row-start: 16 !important; }
+        .#{nth($breakpoint, 1)}y-17           { grid-row-start: 17 !important; }
+        .#{nth($breakpoint, 1)}y-18           { grid-row-start: 18 !important; }
         .#{nth($breakpoint, 1)}yspan-1       { grid-row-end: span 1 !important; }
-		.#{nth($breakpoint, 1)}yspan-2       { grid-row-end: span 2 !important; }
-		.#{nth($breakpoint, 1)}yspan-3       { grid-row-end: span 3 !important; }
-		.#{nth($breakpoint, 1)}yspan-4       { grid-row-end: span 4 !important; }
-		.#{nth($breakpoint, 1)}yspan-5       { grid-row-end: span 5 !important; }
-		.#{nth($breakpoint, 1)}yspan-6       { grid-row-end: span 6 !important; }
-		.#{nth($breakpoint, 1)}yspan-7       { grid-row-end: span 7 !important; }
-		.#{nth($breakpoint, 1)}yspan-8       { grid-row-end: span 8 !important; }
-		.#{nth($breakpoint, 1)}yspan-9       { grid-row-end: span 9 !important; }
-		.#{nth($breakpoint, 1)}yspan-10      { grid-row-end: span 10 !important; }
-		.#{nth($breakpoint, 1)}yspan-11      { grid-row-end: span 11 !important; }
-		.#{nth($breakpoint, 1)}yspan-12      { grid-row-end: span 12 !important; }
+        .#{nth($breakpoint, 1)}yspan-2       { grid-row-end: span 2 !important; }
+        .#{nth($breakpoint, 1)}yspan-3       { grid-row-end: span 3 !important; }
+        .#{nth($breakpoint, 1)}yspan-4       { grid-row-end: span 4 !important; }
+        .#{nth($breakpoint, 1)}yspan-5       { grid-row-end: span 5 !important; }
+        .#{nth($breakpoint, 1)}yspan-6       { grid-row-end: span 6 !important; }
+        .#{nth($breakpoint, 1)}yspan-7       { grid-row-end: span 7 !important; }
+        .#{nth($breakpoint, 1)}yspan-8       { grid-row-end: span 8 !important; }
+        .#{nth($breakpoint, 1)}yspan-9       { grid-row-end: span 9 !important; }
+        .#{nth($breakpoint, 1)}yspan-10      { grid-row-end: span 10 !important; }
+        .#{nth($breakpoint, 1)}yspan-11      { grid-row-end: span 11 !important; }
+        .#{nth($breakpoint, 1)}yspan-12      { grid-row-end: span 12 !important; }
         .#{nth($breakpoint, 1)}yspan--1      { grid-row-end: span -1 !important; }
         .#{nth($breakpoint, 1)}y-end          { align-self: end !important; }
         .#{nth($breakpoint, 1)}y-start        { align-self: start !important; }
@@ -394,10 +406,10 @@ Aligns a grid child to the baseline of a grid cell.
         .#{nth($breakpoint, 1)}columns-10     { columns: 10 !important; }
         .#{nth($breakpoint, 1)}columns-11     { columns: 11 !important; }
         .#{nth($breakpoint, 1)}columns-12     { columns: 12 !important; }
-	}
+    }
 
-	:root       {
-		--column-gap: #{nth($breakpoint, 4)};
-		--row-gap: #{nth($breakpoint, 5)};
-	}
+    :root       {
+        --column-gap: #{nth($breakpoint, 4)};
+        --row-gap: #{nth($breakpoint, 5)};
+    }
 }

@@ -1,0 +1,31 @@
+/**
+.tag
+
+```html
+<input class="masked" type="checkbox" value="something" id="tag-input" />
+<label class="tag" for="tag-input">Turn me on</label>
+```
+
+<form>
+<input class="masked" type="checkbox" value="1" id="tag-input" />
+<label class="tag" for="tag-input">Turn me on</label>
+</form>
+**/
+
+.tag {
+    font-size: 0.625rem;
+    background-color: #bbbbbb;
+    border-radius: 0.625rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    line-height: 1.125rem;
+}
+
+:checked + .tag {
+    color: white;
+    background-color: #a22d08;
+}
+
+.tag + label {
+    margin-top: 0.625rem;
+}
