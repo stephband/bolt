@@ -13,6 +13,12 @@
 </form>
 **/
 
+.switch-label {
+    display: block;
+    position: relative;
+    padding-right: 3rem;
+}
+
 .switch-label::before {
     content: '';
     position: absolute;
@@ -26,7 +32,6 @@
     height: 1.25rem;
     top: 0;
     left: 0;
-    position: relative;
     transition: background-color 0.16s linear;
 }
 
@@ -53,4 +58,28 @@
 
 .switch-label + label {
     margin-top: 0.625rem;
+}
+
+/**
+.right-switch-label
+
+```html
+<input class="masked" type="checkbox" value="something" id="switch-input-2" />
+<label class="right-switch-label switch-label" for="switch-input-2">Turn me on</label>
+```
+
+<form>
+<input class="masked" type="checkbox" value="something" id="switch-input-2" />
+<label class="right-switch-label switch-label" for="switch-input-2">Turn me on</label>
+</form>
+**/
+
+.right-switch-label::before {
+    left: auto;
+    right: 0;
+}
+
+.right-switch-label::after {
+    left: auto;
+    right: 0.125rem;
 }
