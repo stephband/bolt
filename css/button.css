@@ -127,9 +127,7 @@ no way to display the selected file name if you do this.
 
 .thumb > select,
 .button > input[type="file"],
-.button > input[type="submit"],
-.radio-button > input[type="radio"],
-.checkbox-button > input[type="checkbox"] {
+.button > input[type="submit"] {
 	position: absolute;
 	display: block;
 	top: 0;
@@ -147,10 +145,7 @@ no way to display the selected file name if you do this.
 
 .js .thumb > select,
 .js .button > input[type="file"],
-.js .button > input[type="submit"],
-/*.js .select-button > select,*/
-.js .radio-button > input[type="radio"],
-.js .checkbox-button > input[type="checkbox"] {
+.js .button > input[type="submit"] {
 	-webkit-appearance: none;
 	opacity: 0;
 }

@@ -29,6 +29,7 @@ fieldset + fieldset {
 	margin-top: 0;
 }
 
+
 /**
 .checkbox-label
 
@@ -70,18 +71,6 @@ fieldset + fieldset {
 .right-label {
 	padding-left: 0;
 	padding-right: 3rem;
-}
-
-.radio-label > input,
-.checkbox-label > input {
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-.right-label > input {
-	left: auto;
-	right: 0;
 }
 
 .dialog > .radio-label,
@@ -146,15 +135,6 @@ fieldset + fieldset {
 .checkbox-label::after {
 	content: '✓';
 	text-align: center;
-}
-
-.radio-label > input,
-.checkbox-label > input {
-	position: absolute;
-	top: 0;
-	left: 0;
-	opacity: 0;
-	cursor: pointer;
 }
 
 .masked + .checkbox-label,
