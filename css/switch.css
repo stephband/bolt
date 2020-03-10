@@ -16,20 +16,21 @@
 .switch-label {
     display: block;
     position: relative;
-    padding-right: 3rem;
+    padding-left: 3.75em;
 }
 
 .switch-label::before {
     content: '';
     position: absolute;
     background-color: #cccccc;
-    box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
-    border-radius: 0.625rem;
+    box-shadow: inset 0 0.125em 0.5em rgba(0,0,0,0.3);
+    border-radius: 0.7em;
     padding: 0;
-    padding-top: 1.25rem;
+    padding-top: 1.4em;
     overflow: hidden;
-    width: 2.5rem;
-    height: 1.25rem;
+    width: 2.625em;
+    height: 1.4em;
+    /* Depends on default label line-height. */
     top: 0;
     left: 0;
     transition: background-color 0.16s linear;
@@ -42,23 +43,27 @@
 .switch-label::after {
     content: '';
     position: absolute;
-    width: 1rem;
-    height: 1rem;
-    top: 0.125rem;
-    left: 0.125rem;
+    width: 1.1em;
+    height: 1.1em;
+    /* Depends on default label line-height and height of control. */
+    top: 0.15em;
+    left: 0.15em;
     border-radius: 50%;
     background-color: white;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    transition: 0.16s left ease-out;
+    box-shadow: 0 0.15em 0.3125em rgba(0,0,0,0.333);
+    transition:
+        0.16s left ease-out,
+        0.16s right ease-out;
 }
 
 :checked + .switch-label::after {
-    left: 1.375rem;
+    left: 1.375em;
 }
 
 .switch-label + label {
-    margin-top: 0.625rem;
+    margin-top: 0.625em;
 }
+
 
 /**
 .right-switch-label
@@ -74,6 +79,11 @@
 </form>
 **/
 
+.right-switch-label {
+    padding-left: 0;
+    padding-right: 3.75em;
+}
+
 .right-switch-label::before {
     left: auto;
     right: 0;
@@ -81,5 +91,10 @@
 
 .right-switch-label::after {
     left: auto;
-    right: 0.125rem;
+    right: 1.375em;
+}
+
+:checked + .right-switch-label::after {
+    left: auto;
+    right: 0.15em;
 }
