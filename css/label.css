@@ -142,6 +142,11 @@ fieldset + fieldset {
     margin-top: 0;
 }
 
+.masked:disabled + .checkbox-label,
+.masked:disabled + .radio-label {
+    opacity: 0.4;
+}
+
 /**
 .yes-radio-label
 

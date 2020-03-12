@@ -175,7 +175,6 @@ no way to display the selected file name if you do this.
 	border-bottom: 1px solid currentcolor;
 	transform: translate3d(-20%,-50%,0) rotate(-45deg);
 	transition: transform 0.2s linear;
-	margin-top: -0.75rem;
 }
 
 .toggle-button.on::after {
