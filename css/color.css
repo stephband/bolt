@@ -1,9 +1,17 @@
+
 /**
 Colour
+
+Colour classes set `color`, `background-color`, `stroke` and `fill`,
+and variables are available to set colors in CSS:
+
+- `.white-fg` sets color or stroke to white
+- `.black-bg` sets background-color or fill to black
+- `var(--black)` sets the color black in CSS
 **/
 
 /**
-.transparent-fg .transparent-bg
+.transparent-bg
 
 ```html
 <p class="thumb transparent-bg">Transparent</p>
@@ -16,7 +24,7 @@ Colour
 .transparent-bg { background-color: transparent; }
 
 /**
-.current-fg .current-bg
+.current-bg
 
 ```html
 <p class="thumb current-bg">Current</p>
@@ -25,12 +33,11 @@ Colour
 <p class="thumb current-bg">Current color</p>
 **/
 
-.current-fg   { color: currentcolor; }
-.current-bg   { background-color: currentcolor; }
-.current-fill { fill: currentcolor; }
+.current-fg   { color: currentcolor; stroke: currentcolor; }
+.current-bg   { background-color: currentcolor; fill: currentcolor; }
 
 /**
-.black-fg .black-bg
+.black-bg
 
 ```html
 <p class="thumb black-bg">Black</p>
@@ -40,12 +47,11 @@ Colour
 **/
 
 :root       { --black: black; }
-.black-fg   { color: black; }
-.black-bg   { background-color: black; }
-.black-fill { fill: black; }
+.black-fg   { color: black; stroke: black; }
+.black-bg   { background-color: black; fill: black; }
 
 /**
-.white-fg .white-bg
+.white-bg
 
 ```html
 <p class="thumb white-bg">White</p>
@@ -55,6 +61,5 @@ Colour
 **/
 
 :root       { --white: white; }
-.white-fg   { color: white; }
-.white-bg   { background-color: white; }
-.white-fill { fill: white; }
+.white-fg   { color: white; stroke: white; }
+.white-bg   { background-color: white; fill: white; }
