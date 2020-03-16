@@ -5,7 +5,7 @@ Colour
 Colour classes set `color`, `background-color`, `stroke` and `fill`,
 and variables are available to set colors in CSS:
 
-- `.white-fg` sets color or stroke to white
+- `.black-fg` sets color or stroke to black
 - `.black-bg` sets background-color or fill to black
 - `var(--black)` sets the color black in CSS
 **/
