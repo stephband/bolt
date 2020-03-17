@@ -6,6 +6,27 @@ Forms
 :root {
 
 	/**
+	--label-font-size
+	Font size of labels
+	**/
+
+	--label-font-size: inherit;
+
+	/**
+	--label-line-height
+	Line height of labels
+	**/
+
+	--label-line-height: inherit;
+
+	/**
+	--label-color
+	Colour of labels
+	**/
+
+	--label-color: inherit;
+
+	/**
 	--input-font-size
 	Font size of inputs, selects and textareas
 	**/
@@ -84,7 +105,7 @@ Forms
 
 	/**
 	--input-height
-	Height of inputs, selects and textareas
+	Height of inputs and selects
 	**/
 
 	--input-height: 3em;
@@ -107,6 +128,57 @@ Forms
 	*/
 
 	--input-label-margin: 0;
+
+
+	/*
+	--checkbox-width
+	Border width of simulated checkboxes
+	*/
+
+	--checkbox-width: 1.5rem;
+
+	/*
+	--checkbox-border-width
+	Border width of simulated checkboxes
+	*/
+
+	--checkbox-border-width: var(--input-border-width);
+
+	/*
+	--checkbox-border-radius
+	Border radius of simulated checkboxes
+	*/
+
+	--checkbox-border-radius: 0;
+
+	/*
+	--radio-width
+	Width of radio check mark
+	*/
+
+	--radio-width: 1.5rem;
+
+	/*
+	--radio-border-width
+	Border width of simulated radio buttons
+	*/
+
+	--radio-border-width: var(--input-border-width);
+
+	/*
+	--radio-check-width
+	Width of radio check mark
+	*/
+
+	--radio-check-width: 0.75rem;
+
+	/*
+	--radio-check-color
+	Color of radio check mark
+	*/
+
+	--radio-check-color: currentcolor;
+
 
 	/**
 	--focus-background-color
