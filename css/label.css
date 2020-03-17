@@ -100,10 +100,10 @@ fieldset + fieldset {
 	top: 0.5625rem;
 	width: var(--checkbox-width);
 	height: var(--checkbox-width);
+	border-radius: var(--checkbox-border-radius);
 }
 
-.radio-label::before,
-.radio-label::after {
+.radio-label::before {
 	top: 0.5625rem;
 	width: var(--radio-width);
 	height: var(--radio-width);
@@ -117,17 +117,12 @@ fieldset + fieldset {
 
 .radio-label::before,
 .checkbox-label::before {
-	background-color: white;
+	background-color: var(--input-background-color);
 	border: var(--checkbox-border-width) solid var(--checkbox-border-color);
 }
 
 .radio-label::before {
 	border-radius: calc(0.5 * var(--radio-width));
-}
-
-.checkbox-label::before,
-.checkbox-label::after {
-	border-radius: var(--checkbox-border-radius);
 }
 
 .radio-label::after,
