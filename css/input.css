@@ -129,10 +129,9 @@ Forms
 
 	--input-label-margin: 0;
 
-
 	/**
 	--checkbox-width
-	Border width of simulated checkboxes
+	Size of simulated checkboxes
 	**/
 
 	--checkbox-width: 1.5rem;
@@ -153,7 +152,7 @@ Forms
 
 	/**
 	--radio-width
-	Width of radio check mark
+	Size of simulated radio buttons
 	**/
 
 	--radio-width: 1.5rem;
@@ -167,7 +166,7 @@ Forms
 
 	/**
 	--radio-check-width
-	Width of radio check mark
+	Size of radio check mark
 	**/
 
 	--radio-check-width: 0.75rem;
