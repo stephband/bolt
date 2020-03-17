@@ -3,6 +3,155 @@
 Forms
 **/
 
+:root {
+
+	/**
+	--input-font-size
+	Font size of inputs, selects and textareas
+	**/
+
+	--input-font-size: inherit;
+
+	/**
+	--input-line-height
+	Line height of textareas
+	**/
+
+	--input-line-height: inherit;
+
+	/**
+	--input-background-color
+	Background colour of input, select and textareas
+	**/
+
+	--input-background-color: white;
+
+	/**
+	--input-border-color
+	Border colour of inputs, selects and textareas
+	**/
+
+    --input-border-color: currentcolor;
+
+	/**
+	--input-border-width
+	Border width of inputs, selects and textareas
+	**/
+
+	--input-border-width: 1px;
+
+	/**
+	--input-border-radius
+	Border radius of inputs, selects and textareas
+	**/
+
+	--input-border-radius: 0;
+
+	/**
+	--input-box-shadow
+	Box shadow of inputs, selects and textareas
+	**/
+
+	--input-box-shadow: none;
+
+	/**
+	--input-padding-left
+	Indentation of inputs, padding of selects and textareas
+	**/
+
+    --input-padding-left: 0.5em;
+
+	/**
+	--input-padding-right
+	Right padding of inputs, selects and textareas
+	**/
+
+	--input-padding-right: 0.5em;
+
+	/**
+	--input-padding-top
+	Top padding of textareas
+	**/
+
+    --input-padding-top: 0;
+
+	/**
+	--input-padding-bottom
+	Bottom padding of textareas
+	**/
+
+	--input-padding-bottom: 0;
+
+	/**
+	--input-height
+	Height of inputs, selects and textareas
+	**/
+
+	--input-height: 3em;
+
+	/**
+	--input-color
+	Text colour of inputs, selects and textareas
+	**/
+
+	--input-color: inherit;
+
+	/*
+	--input-label-margin
+	*/
+
+	--input-label-margin: 0;
+
+	/*
+	--input-label-margin
+	*/
+
+	--input-label-margin: 0;
+
+	/**
+	--focus-background-color
+	Background colour of focused inputs, selects and textareas
+	**/
+
+	--focus-background-color: var(--input-background-color);
+
+	/**
+	--focus-border-color
+	Border colour of focused inputs, selects and textareas
+	**/
+
+	--focus-border-color: #2c9bd3;
+
+	/**
+	--focus-box-shadow
+	Boc shadow of focused inputs, selects and textareas
+	**/
+
+	--focus-box-shadow: 0 0 5px 2px hsla(200,56%,49%,0.8), inset 0 0 0.5rem hsla(200,65%,60%,0.6);
+
+	/**
+	--invalid-background-color
+	Background colour of invalid inputs, selects and textareas
+	**/
+
+	--invalid-background-color: var(--input-background-color);
+
+	/**
+	--invalid-border-color
+	Border colour of invalid inputs, selects and textareas
+	**/
+
+	--invalid-border-color: rgba(214,23,41);
+
+	/**
+	--invalid-box-shadow
+	Box shadow of invalid inputs, selects and textareas
+	**/
+
+	--invalid-box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
+}
+
+
 /* Edge fails to update styles for changed disabled properties. This rule
    targetting the attribute rather than the pseudo-selector keeps the
    pseudo-selectors up-to-date.
@@ -173,27 +322,25 @@ textarea {
 }
 
 input,
-button,
 select,
-textarea {
+textarea,
+.select-button {
 	/* iOS has padding in the UA stylesheet. */
-	padding-top: 0;
-	padding-bottom: 0;
-	color: inherit;
+	padding-top: var(--input-padding-top);
+	padding-bottom: var(--input-padding-bottom);
 }
 
 input,
 button,
 textarea {
-	/* Firefox OS adds a background gradient to things. No no no. Don't apply
-	   to selects as it causes them to be rendered old-style in FF desktop */
+	/* Firefox OS (now KaiOS) adds a background gradient to things. No no no.
+	   Don't apply to selects as it causes them to be rendered old-style in
+	   FF desktop */
 	background-image: none;
 }
 
-input,
-button,
 select {
-	height: 2.8125rem;
+	height: var(--input-height);
 }
 
 input,
@@ -233,8 +380,10 @@ textarea,
 [type="search"],
 [type="password"],
 .select-button {
-	border: 1px solid #cecece;
-	background-color: white;
+	color: var(--input-color);
+	border: var(--input-border-width) solid var(--input-border-color);
+	border-radius: var(--input-border-radius);
+	background-color: var(--input-background-color);
 }
 
 [type="tel"],
@@ -248,13 +397,27 @@ textarea,
 [type="number"],
 [type="search"],
 [type="password"] {
-	text-indent: 0.5625rem;
+	text-indent: calc(var(--input-padding-left) - var(--input-border-width));
+}
+
+textarea {
+	padding-left: calc(var(--input-padding-left) - var(--input-border-width));
+	padding-right: calc(var(--input-padding-left) - var(--input-border-width));
 }
 
 textarea,
-.select-button > select {
-	padding-left: 0.5625rem;
-	padding-right: 0.5625rem;
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="number"],
+[type="search"],
+[type="password"] {
+	font-size: var(--input-font-size);
 }
 
 [type="tel"],
@@ -271,22 +434,9 @@ textarea,
 [type="password"],
 .select-button {
 	/* Compensate for border */
-	line-height: 2.6875rem;
-}
-
-textarea,
-[type="tel"],
-[type="url"],
-[type="date"],
-[type="text"],
-[type="time"],
-[type="week"],
-[type="month"],
-[type="email"],
-[type="number"],
-[type="search"],
-[type="password"] {
-	font-size: 1rem;
+	line-height: calc(var(--input-height) - 2 * var(--input-border-width));
+	padding-top: 0;
+	padding-bottom: 0;
 }
 
 input[type='date'],
@@ -305,10 +455,10 @@ input[type='month'] {
 }
 
 textarea {
-	min-height: 6.6667em;
-	line-height: 1.25rem;
-	padding-top: 0.625rem;
-	padding-bottom: 0.3125rem;
+	min-height: calc(var(--input-padding-top) + var(--input-padding-bottom) + 4 * var(--input-line-height));
+	line-height: var(--input-line-height);
+	padding-top: var(--input-padding-top);
+	padding-bottom: var(--input-padding-bottom);
 
 	/* IE is set to overflow: scroll by default */
 	overflow: auto;
@@ -470,8 +620,8 @@ input[type='file'] {
 input.validated:invalid,
 select.validated:invalid,
 textarea.validated:invalid {
-	box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
-	border-color: #d61729 !important;
+	box-shadow: var(--invalid-box-shadow);
+	border-color: var(--invalid-border-color) !important;
 }
 
 
@@ -491,8 +641,8 @@ textarea.validated:focus,
 	/* In Webkit, outline doesn't fit the border curves, and in FF outline
 	   is ugly. Lets recreate it with box-shadow */
 	outline: none;
-	box-shadow: 0 0 5px 2px hsla(200,56%,49%,0.8), inset 0 0 0.5rem hsla(200,65%,60%,0.6);
-	border-color: #2c9bd3 !important;
+	box-shadow: var(--focus-box-shadow);
+	border-color: var(--focus-border-color) !important;
 }
 
 @media screen { @media (min-width: 0px) {
@@ -551,23 +701,23 @@ select:focus {
 
 .select-button > select {
 	display: block;
+	max-width: none;
 
 	/* This is the native select, we're making everything but the text invisible
 	   so we can see the button styles in the wrapper. */
-	width: calc(100% + 2px);
-	max-width: none;
-	height: calc(100% + 2px);
-	margin: -1px;
+	width: calc(100% + 2 * var(--input-border-width));
+	height: calc(100% + 2 * var(--input-border-width));
+	margin: calc(-1 * var(--input-border-width));
 	padding-top: 0;
 	padding-bottom: 0;
+	padding-left: calc(var(--input-padding-left) - var(--input-border-width));
+	padding-right: calc(var(--input-padding-left) - var(--input-border-width));
 	outline: none;
-	border: 1px solid transparent;
+	border: var(--input-border-width) solid transparent;
 	border-radius: inherit;
 
 	/* Prefixed box-sizing rules necessary for older browsers */
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .select-button::before {
