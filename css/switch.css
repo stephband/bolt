@@ -52,18 +52,17 @@
     width: 1.1em;
     height: 1.1em;
     /* Depends on default label line-height and height of control. */
-    top: 0.15em;
-    left: 0.15em;
+    top: 0;
+    left: 0;
+    transform: translate(0.15em, 0.15em);
     border-radius: 50%;
     background-color: white;
     box-shadow: 0 0.15em 0.3125em rgba(0,0,0,0.333);
-    transition:
-        0.16s left ease-out,
-        0.16s right ease-out;
+    transition: 0.16s transform ease-out;
 }
 
 :checked + .switch-label::after {
-    left: 1.375em;
+    transform: translate(1.375em, 0.15em);
 }
 
 .switch-label + label {
@@ -98,9 +97,4 @@
 .right-switch-label::after {
     left: auto;
     right: 1.375em;
-}
-
-:checked + .right-switch-label::after {
-    left: auto;
-    right: 0.15em;
 }
