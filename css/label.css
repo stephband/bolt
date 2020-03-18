@@ -64,13 +64,14 @@ fieldset + fieldset {
 .radio-label,
 .checkbox-label {
 	color: inherit;
-	font-size: inherit;
+	font-size: var(--checkbox-font-size);
+	line-height: var(--checkbox-line-height);
 	font-weight: inherit;
 	position: relative;
 	padding-left: 2.25rem;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-	min-height: 2.5rem;
+	padding-top: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
+	padding-bottom: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
+	min-height: var(--input-height);
 	text-align: left;
 }
 
@@ -104,7 +105,7 @@ fieldset + fieldset {
 }
 
 .radio-label::before {
-	top: 0.5625rem;
+	top: calc(0.5 * (var(--input-height) - var(--radio-width)));
 	width: var(--radio-width);
 	height: var(--radio-width);
 }
@@ -136,8 +137,8 @@ fieldset + fieldset {
 }
 
 .radio-label::after {
-	top: 0.9375rem;
-	left: 0.375rem;
+	top: calc(0.5 * (var(--input-height) - var(--radio-check-width)));
+	left: calc(0.5 * (var(--radio-width) - var(--radio-check-width)));
 	width: var(--radio-check-width);
 	height: var(--radio-check-width);
 	background-color: var(--radio-check-color);
@@ -159,7 +160,7 @@ fieldset + fieldset {
     opacity: 0.4;
 }
 
-/**
+/*
 .yes-radio-label
 
 ```html
@@ -173,7 +174,7 @@ fieldset + fieldset {
 </form>
 */
 
-/**
+/*
 .no-radio-label
 
 ```html

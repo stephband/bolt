@@ -130,6 +130,20 @@ Forms
 	--input-label-margin: 0;
 
 	/**
+	--checkbox-font-size
+	Font size of checkbox labels
+	**/
+
+	--checkbox-font-size: inherit;
+
+	/**
+	--checkbox-line-height
+	Line height of checkbox labels
+	**/
+
+	--checkbox-line-height: inherit;
+
+	/**
 	--checkbox-width
 	Size of simulated checkboxes
 	**/
