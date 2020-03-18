@@ -16,7 +16,13 @@
 .switch-label {
     display: block;
     position: relative;
-    padding-left: 3.75em;
+	font-size: var(--checkbox-font-size);
+	line-height: var(--checkbox-line-height);
+	font-weight: inherit;
+    padding-left: 3.75rem;
+	padding-top: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
+	padding-bottom: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
+	min-height: var(--input-height);
 }
 
 .switch-label::before {
