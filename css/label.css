@@ -4,6 +4,7 @@ label {
 	line-height: var(--label-line-height);
 	color: var(--label-color);
 
+	display: block;
 	max-width: 100%;
 	width: auto;
 	height: auto;
@@ -73,16 +74,6 @@ fieldset + fieldset {
 	padding-bottom: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
 	min-height: var(--input-height);
 	text-align: left;
-}
-
-.right-label {
-	padding-left: 0;
-	padding-right: 3rem;
-}
-
-.dialog > .radio-label,
-.dialog > .checkbox-label {
-	display: block;
 }
 
 .radio-label::before,
