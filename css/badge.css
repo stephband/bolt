@@ -3,8 +3,22 @@ Badges
 **/
 
 :root {
+    /**
+    --badge-font-size
+    Font size of badge
+    **/
     --badge-font-size: 0.75rem;
+
+    /**
+    --badge-width
+    Min width, height and line-height of badge
+    **/
     --badge-width: 1.125rem;
+
+    /**
+    --badge-background
+    Background of badge
+    **/
     --badge-background: black;
 }
 
