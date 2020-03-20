@@ -2,6 +2,12 @@
 Badges
 **/
 
+:root {
+    --badge-font-size: 0.75rem;
+    --badge-width: 1.125rem;
+    --badge-background: black;
+}
+
 /**
 .badge
 
@@ -13,17 +19,18 @@ Badges
 **/
 
 .badge {
-    font-size: 0.75rem;
-    line-height: 1.2em;
-    min-width: 1.2em;
-    padding: 0;
-    padding-left: 0.3125em;
-    padding-right: 0.3125em;
+    font-size: var(--badge-font-size);
+    line-height: var(--badge-width);
+    min-width: var(--badge-width);
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
     text-align: center;
     white-space: nowrap;
     color: white;
-    background-color: black;
-    border-radius: 1rem;
+    background: var(--badge-background);
+    border-radius: calc(0.5 * var(--badge-width));
 }
 
 * > .badge {
