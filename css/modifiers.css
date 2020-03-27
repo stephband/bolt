@@ -208,6 +208,18 @@ Add <code>::after</code> content representing a loading animation.
 }
 
 /**
+.no-select
+Prohibit user selection.
+**/
+
+.no-select {
+	-webkit-touch-callout: none !important;
+	  -webkit-user-select: none !important;
+	      -ms-user-select: none !important;
+	          user-select: none !important;
+}
+
+/**
 .no-transition
 Cancel transitions on an element and all descendents.
 **/
