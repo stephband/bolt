@@ -23,6 +23,8 @@
 	padding-top: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
 	padding-bottom: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
 	min-height: var(--input-height);
+
+    --switch-handle-x: 0;
 }
 
 .switch-label::before {
@@ -42,10 +44,6 @@
     transition: background-color 0.16s linear;
 }
 
-:checked + .switch-label::before {
-    background-color: #a22d08;
-}
-
 .switch-label::after {
     content: '';
     position: absolute;
@@ -55,16 +53,25 @@
     top: 0;
     left: 0;
     transform: translate(0.15em, 0.15em);
+    transform: translate(calc(0.15em + var(--switch-handle-x) * 1.225em), 0.15em);
     border-radius: 50%;
     background-color: white;
     box-shadow: 0 0.15em 0.3125em rgba(0,0,0,0.333);
     transition: 0.16s transform ease-out;
 }
 
-:checked + .switch-label::after {
-    transform: translate(1.375em, 0.15em);
+:checked + .switch-label {
+    --switch-handle-x: 1;
 }
 
+:checked + .switch-label::before {
+    background-color: #a22d08;
+}
+/*
+:checked + .switch-label::after {
+    transform: translate(calc(0.15em + var(--switch-handle-x) * 1.225em), 0.15em);
+}
+*/
 .switch-label + label {
     margin-top: 0.625em;
 }
