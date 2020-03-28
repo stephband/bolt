@@ -60,6 +60,10 @@
     transition: 0.16s transform ease-out;
 }
 
+.switch-label.gestured::after {
+    transition: none;
+}
+
 :checked + .switch-label {
     --switch-handle-x: 1;
 }
