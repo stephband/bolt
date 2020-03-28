@@ -23,7 +23,6 @@
 	padding-top: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
 	padding-bottom: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
 	min-height: var(--input-height);
-
     --switch-handle-x: 0;
 }
 

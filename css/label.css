@@ -9,6 +9,8 @@ label {
 	width: auto;
 	height: auto;
 	border: 0;
+
+	-webkit-tap-highlight-color: transparent;
 }
 
 label[for] {
