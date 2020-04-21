@@ -2,7 +2,6 @@
 Buttons
 **/
 
-
 /**
 .button
 
@@ -21,6 +20,7 @@ button {
 	/* buttons have standard padding that needs to be avoided. */
 	padding-top: 0;
 	padding-bottom: 0;
+
 	/* And they don't automatically inherit font styles. */
 	font-size: inherit;
 	font-family: inherit;
@@ -31,7 +31,7 @@ button {
 	        hyphens: none;
 
 	color: inherit;
-	background-color: transparent;
+	background: transparent;
 }
 
 button,

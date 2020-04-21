@@ -1,5 +1,38 @@
 
 /**
+Bubbles
+**/
+
+:root {
+    /**
+    --bubble-font-size
+    Font size of badge
+    **/
+    --bubble-font-size: 1rem;
+
+    /**
+    --bubble-background
+    Background of bubble
+    **/
+    --bubble-background: #dbe9ee;
+
+    /**
+    --bubble-border-color
+    **/
+    --bubble-border-color: #cadce3;
+
+    /**
+    --bubble-border-width
+    **/
+    --bubble-border-width: 0.125rem;
+
+    /**
+    --bubble-border-radius
+    **/
+    --bubble-border-radius: 0.25rem;
+}
+
+/**
 .bubble
 
 A tip bubble, speech bubble, description bubble or what-have-you.
@@ -12,16 +45,18 @@ A tip bubble, speech bubble, description bubble or what-have-you.
 	   do that where it's container is smaller than
 	   left + 320, so give it a negative right. */
 	right: -20rem;
-	font-size: 1rem;
+	font-size: var(--bubble-font-size);
 	padding-top: 0.75rem;
 	padding-bottom: 0.75rem;
 	padding-left: 1.25rem;
 	padding-right: 1.25rem;
 	width: 92%;
 	max-width: 92%;
-	border-radius: 0.25rem;
 	border: 0.125rem solid #cadce3;
-	background-color: #dbe9ee;
+	border-width: var(--bubble-border-width);
+	border-color: var(--bubble-border-color);
+	background:   var(--bubble-background);
+	border-radius: var(--bubble-border-radius);
 	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 
