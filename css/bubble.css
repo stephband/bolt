@@ -3,35 +3,6 @@
 Bubbles
 **/
 
-:root {
-    /**
-    --bubble-font-size
-    Font size of badge
-    **/
-    --bubble-font-size: 1rem;
-
-    /**
-    --bubble-background
-    Background of bubble
-    **/
-    --bubble-background: #dbe9ee;
-
-    /**
-    --bubble-border-color
-    **/
-    --bubble-border-color: #cadce3;
-
-    /**
-    --bubble-border-width
-    **/
-    --bubble-border-width: 0.125rem;
-
-    /**
-    --bubble-border-radius
-    **/
-    --bubble-border-radius: 0.25rem;
-}
-
 /**
 .bubble
 

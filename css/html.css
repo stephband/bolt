@@ -154,7 +154,7 @@ a {
 	-webkit-text-decoration-skip: objects;
 }
 
-a:focus {
+:focus {
 	/* Outline displays oddly in Chrome */
 	outline: thin dotted;
 }

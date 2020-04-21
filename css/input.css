@@ -208,10 +208,13 @@ Forms
 
 	/**
 	--focus-box-shadow
-	Boc shadow of focused inputs, selects and textareas
+	Box shadow of focused links, inputs, selects and textareas
 	**/
 
-	--focus-box-shadow: 0 0 5px 2px hsla(200,56%,49%,0.8), inset 0 0 0.5rem hsla(200,65%,60%,0.6);
+	--focus-box-shadow:
+		0 0 5px 2px hsla(200,56%,49%,0.8),
+		inset 0 0 0 1px hsl(200,56%,49%),
+		inset 0 0 0.5rem hsla(200,65%,60%,0.6);
 
 	/**
 	--invalid-background-color
@@ -555,8 +558,7 @@ textarea {
 	resize: vertical;
 
 	/* Make sure the bottom right corner doesn't clip the resize icon */
-	-webkit-border-radius-bottomright:  0 !important;
-	   -moz-border-bottom-right-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
 }
 
 input + select,
