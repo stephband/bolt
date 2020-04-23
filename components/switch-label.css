@@ -19,62 +19,80 @@
 	font-size: var(--checkbox-font-size);
 	line-height: var(--checkbox-line-height);
 	font-weight: inherit;
-    padding-left: 3.75rem;
+    padding-left: calc(var(--switch-width) + 1em);
 	padding-top: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
 	padding-bottom: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
 	min-height: var(--input-height);
-    --switch-handle-x: 0;
+    color: inherit;
 }
 
 .switch-label::before {
     content: '';
     position: absolute;
-    background-color: #cccccc;
-    box-shadow: inset 0 0.125em 0.5em rgba(0,0,0,0.3);
-    border-radius: 0.7em;
-    padding: 0;
-    padding-top: 1.4em;
-    overflow: hidden;
-    width: 2.625em;
-    height: 1.4em;
-    /* Depends on default label line-height. */
-    top: 0;
     left: 0;
-    transition: background-color 0.16s linear;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: var(--switch-width);
+    height: var(--switch-height);
+    padding: 0;
+    overflow: hidden;
+    background: var(--switch-background);
+    /* Border for the outline  renders much more reliably than box-shadow
+       in Safari, as it is constrained to whole px values */
+    border: var(--switch-border);
+    border-radius: calc(0.5 * var(--switch-height));
+    box-shadow: var(--switch-box-shadow);
+    transition: background 0.16s linear;
 }
 
 .switch-label::after {
     content: '';
     position: absolute;
-    width: 1.1em;
-    height: 1.1em;
-    /* Depends on default label line-height and height of control. */
-    top: 0;
+    width: var(--switch-handle-width);
+    height: var(--switch-handle-width);
+    top: 50%;
     left: 0;
-    transform: translate(0.15em, 0.15em);
-    transform: translate(calc(0.15em + var(--switch-handle-x) * 1.225em), 0.15em);
+    transform: translate(
+        calc(0.5 * var(--switch-height) - 0.5 * var(--switch-handle-width)),
+        -50%
+    );
+    border: var(--switch-handle-border);
     border-radius: 50%;
     background-color: white;
-    box-shadow: 0 0.15em 0.3125em rgba(0,0,0,0.333);
+    box-shadow: var(--switch-handle-box-shadow);
     transition: 0.16s transform ease-out;
 }
 
-.switch-label.gestured::after {
-    transition: none;
-}
-
-:checked + .switch-label {
-    --switch-handle-x: 1;
-}
-
 :checked + .switch-label::before {
-    background-color: #a22d08;
+    background: var(--switch-background-checked);
+    border: var(--switch-border-checked);
 }
-/*
+
 :checked + .switch-label::after {
-    transform: translate(calc(0.15em + var(--switch-handle-x) * 1.225em), 0.15em);
+    transform: translate(
+        calc(var(--switch-width) - 0.5 * var(--switch-height) - 0.5 * var(--switch-handle-width)),
+        -50%
+    );
 }
-*/
+
+:disabled + .switch-label {
+   opacity: 0.6
+}
+
+:focus + .switch-label::before{
+    border-color: var(--focus-border-color);
+    box-shadow: var(--focus-box-shadow);
+}
+
+.switch-label.gesturing::after {
+    /* Enables swipe interaction when switch-label.js is included */
+    transition: none;
+    transform:
+        translate(calc(0.5 * var(--switch-height) - 0.5 * var(--switch-handle-width) + var(--switch-handle-gesture-x) * (
+            var(--switch-width) - var(--switch-height)
+        )), -50%);
+}
+
 .switch-label + label {
     margin-top: 0.625em;
 }
@@ -110,7 +128,7 @@
 
 .right-switch-label {
     padding-left: 0;
-    padding-right: 3.75em;
+    padding-right: calc(var(--switch-width) + 1em);
 }
 
 .right-switch-label::before {
@@ -120,5 +138,5 @@
 
 .right-switch-label::after {
     left: auto;
-    right: 1.375em;
+    right: calc(var(--switch-width) - var(--switch-handle-width));
 }
