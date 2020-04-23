@@ -4,8 +4,6 @@
 import { limit } from '../../fn/module.js';
 import { attribute, closest, gestures, style, trigger } from '../../dom/module.js';
 
-console.log('WOOOOO')
-
 var selector     = '.switch-label';
 var swipeRangePx = 40;
 
