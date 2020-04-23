@@ -312,7 +312,14 @@ Aligns a grid child to the baseline of a grid cell.
 
 @each $breakpoint in $breakpoints {
     @media (min-width: #{nth($breakpoint, 2)}) {
-        .#{nth($breakpoint, 1)}grid           { display: grid !important; column-gap: var(--column-gap); row-gap: var(--row-gap); }
+        .#{nth($breakpoint, 1)}grid           {
+            display: grid !important;
+            grid-auto-flow: column;
+            grid-auto-columns: minmax(0, 1fr);
+            column-gap: var(--column-gap);
+            row-gap: var(--row-gap);
+        }
+
         .#{nth($breakpoint, 1)}\32 -grid         { grid-template-columns: repeat(2, calc((100% / 2) - (var(--column-gap) * 1 / 2))); }
         .#{nth($breakpoint, 1)}\33 -grid         { grid-template-columns: repeat(3, calc((100% / 3) - (var(--column-gap) * 2 / 3))); }
         .#{nth($breakpoint, 1)}\34 -grid         { grid-template-columns: repeat(4, calc((100% / 4) - (var(--column-gap) * 3 / 4))); }
