@@ -48,213 +48,291 @@
 
 
     /**
+    --button-font-size
+    **/
+    --button-font-size: inherit;
+
+    /**
+    --button-line-height
+    **/
+    --button-line-height: 2em;
+
+    /**
+    --button-color
+    **/
+    --button-color: black;
+
+    /**
+    --button-background
+    **/
+    --button-background: white;
+
+    /**
+    --button-border-color
+    **/
+    --button-border-color: transparent;
+
+    /**
+    --button-padding-top
+    **/
+    --button-padding-top: 0.5em;
+
+    /**
+    --button-padding-bottom
+    **/
+    --button-padding-bottom: var(--button-padding-top);
+
+    /**
+    --button-padding-left
+    **/
+    --button-padding-left: 0.5625em;
+
+    /**
+    --button-padding-right
+    **/
+    --button-padding-right: var(--button-padding-left);
+
+
+    /**
+    --menu-button-font-size
+    **/
+    --menu-button-font-size: inherit;
+
+    /**
+    --menu-button-line-height
+    **/
+    --menu-button-line-height: inherit;
+
+    /**
+    --menu-button-color
+    **/
+    --menu-button-color: black;
+
+    /**
+    --menu-button-background
+    **/
+    --menu-button-background: white;
+
+    /**
+    --menu-button-border-color
+    **/
+    --menu-button-border-color: currentcolor;
+
+    /**
+    --menu-button-padding-top
+    **/
+    --menu-button-padding-top: 0.5em;
+
+    /**
+    --menu-button-padding-bottom
+    **/
+    --menu-button-padding-bottom: var(--menu-button-padding-top);
+
+    /**
+    --menu-button-padding-left
+    **/
+    --menu-button-padding-left: 1em;
+
+    /**
+    --menu-button-padding-right
+    **/
+    --menu-button-padding-right: var(--menu-button-padding-left);
+
+
+    /**
     --input-font-size
     Font size of inputs, selects and textareas
     **/
-
     --input-font-size: inherit;
 
     /**
     --input-line-height
     Line height of textareas
     **/
-
     --input-line-height: inherit;
 
     /**
     --input-background-color
     Background colour of input, select and textareas
     **/
-
     --input-background-color: white;
 
     /**
     --input-border-color
     Border colour of inputs, selects and textareas
     **/
-
     --input-border-color: currentcolor;
 
     /**
     --input-border-width
     Border width of inputs, selects and textareas
     **/
-
     --input-border-width: 1px;
 
     /**
     --input-border-radius
     Border radius of inputs, selects and textareas
     **/
-
     --input-border-radius: 0;
 
     /**
     --input-box-shadow
     Box shadow of inputs, selects and textareas
     **/
-
     --input-box-shadow: none;
 
     /**
     --input-padding-left
     Indentation of inputs, padding of selects and textareas
     **/
-
     --input-padding-left: 0.5em;
 
     /**
     --input-padding-right
     Right padding of inputs, selects and textareas
     **/
-
     --input-padding-right: 0.5em;
 
     /**
     --input-padding-top
     Top padding of textareas
     **/
-
     --input-padding-top: 0;
 
     /**
     --input-padding-bottom
     Bottom padding of textareas
     **/
-
     --input-padding-bottom: 0;
 
     /**
     --input-height
     Height of inputs and selects
     **/
-
     --input-height: 3em;
 
     /**
     --input-color
     Text colour of inputs, selects and textareas
     **/
-
     --input-color: inherit;
 
-    /*
-    --input-label-margin
-    */
-
-    --input-label-margin: 0;
-
-    /*
-    --input-label-margin
-    */
-
-    --input-label-margin: 0;
+    /**
+    --input-margin
+    **/
+    --input-margin: 1em;
 
 
     /**
     --label-font-size
     Font size of labels
     **/
-
     --label-font-size: inherit;
 
     /**
     --label-line-height
     Line height of labels
     **/
-
     --label-line-height: inherit;
 
     /**
     --label-color
     Colour of labels
     **/
-
     --label-color: inherit;
+
+    /**
+    --label-margin
+    **/
+    --label-margin: 0;
+
+    /**
+    --label-input-margin
+    **/
+    --label-input-margin: 0;
+
+
+    /**
+    --fieldset-margin
+    **/
+    --fieldset-margin: 2rem;
+
+    /**
+    --fieldset-input-margin
+    **/
+    --fieldset-input-margin: 2rem;
 
 
     /**
     --checkbox-font-size
     Font size of checkbox labels
     **/
-
     --checkbox-font-size: inherit;
 
     /**
     --checkbox-line-height
     Line height of checkbox labels
     **/
-
     --checkbox-line-height: inherit;
 
     /**
     --checkbox-width
     Size of simulated checkboxes
     **/
-
     --checkbox-width: 1.5rem;
 
     /**
     --checkbox-border-width
     Border width of simulated checkboxes
     **/
-
     --checkbox-border-width: var(--input-border-width);
 
     /**
     --checkbox-border-radius
     Border radius of simulated checkboxes
     **/
-
     --checkbox-border-radius: 0;
 
     /**
     --radio-width
     Size of simulated radio buttons
     **/
-
     --radio-width: 1.5rem;
 
     /**
     --radio-border-width
     Border width of simulated radio buttons
     **/
-
     --radio-border-width: var(--input-border-width);
 
     /**
     --radio-check-width
     Size of radio check mark
     **/
-
     --radio-check-width: 0.75rem;
 
     /**
     --radio-check-color
     Color of radio check mark
     **/
-
     --radio-check-color: currentcolor;
 
     /**
     --focus-background-color
     Background colour of focused inputs, selects and textareas
     **/
-
     --focus-background-color: var(--input-background-color);
 
     /**
     --focus-border-color
     Border colour of focused inputs, selects and textareas
     **/
-
     --focus-border-color: #2c9bd3;
 
     /**
     --focus-box-shadow
     Box shadow of focused links, inputs, selects and textareas
     **/
-
     --focus-box-shadow:
         0 0 5px 2px hsla(200,56%,49%,0.8),
         inset 0 0 0 1px hsl(200,56%,49%),
@@ -264,28 +342,31 @@
     --invalid-background-color
     Background colour of invalid inputs, selects and textareas
     **/
-
     --invalid-background-color: var(--input-background-color);
 
     /**
     --invalid-border-color
     Border colour of invalid inputs, selects and textareas
     **/
-
     --invalid-border-color: rgba(214,23,41);
 
     /**
     --invalid-box-shadow
     Box shadow of invalid inputs, selects and textareas
     **/
-
     --invalid-box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
+
+
+    /**
+    --disabled-filter
+    **/
+    --disabled-filter: opacity(0.4);
+
 
     /**
     --switch-background
     Background of switches
     **/
-
     --switch-background: #cccccc;
     --switch-background-checked: #a22d08;
     --switch-width: 2.625em;

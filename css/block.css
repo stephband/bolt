@@ -29,7 +29,6 @@ will scale the element to fill the available width.
 	/* Negate possible spacing when .block is used on something typographic like
 	   a <p>, for example. Also, make blocks behave as centered wraps by default. */
 	margin: 0 auto;
-	padding: 0;
 }
 
 .block > img,

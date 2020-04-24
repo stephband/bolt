@@ -25,10 +25,16 @@ label > [type="radio"] {
 	line-height: inherit;
 }
 
-* + label,
-fieldset + input,
-fieldset + fieldset {
-	margin-top: 2rem;
+* + label {
+	margin-top: var(--label-margin);
+}
+
+* + fieldset {
+	margin-top: var(--fieldset-margin);
+}
+
+fieldset + input {
+	margin-top: var(--fieldset-input-margin);
 }
 
 .hidden + label {
@@ -148,9 +154,19 @@ fieldset + fieldset {
     margin-top: 0;
 }
 
+label + .masked + .radio-label,
+label + .masked + .checkbox-label {
+	margin-top: var(--label-input-margin);
+}
+
+input + .masked + .radio-label,
+.button + .masked + .checkbox-label {
+	margin-top: var(--input-margin);
+}
+
 .masked:disabled + .checkbox-label,
 .masked:disabled + .radio-label {
-    opacity: 0.4;
+	filter: var(--disabled-filter);
 }
 
 /*

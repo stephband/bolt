@@ -39,16 +39,21 @@ button,
 	display: inline-block;
 	position: relative;
 
-	/* Has it's own stacking context, to prevent icons and masked inputs
+	/* Has it's own stacking context to prevent icons and masked inputs
 	   overflowing stacks outside the button */
 	z-index: 0;
 
+	font-size: var(--button-font-size);
+	line-height: var(--button-line-height);
+	padding-top: var(--button-padding-top);
+	padding-bottom: var(--button-padding-bottom);
+	padding-left: var(--button-padding-left);
+	padding-right: var(--button-padding-right);
+
 	width: auto;
 	height: auto;
-	/* button elements ignore line-height, centering text automaticaly. */
-	line-height: 2em;
-	padding-left: 0.5625rem;
-	padding-right: 0.5625rem;
+	min-height: calc(var(--button-padding-top) + var(--button-padding-bottom) + var(--button-line-height));
+
 	vertical-align: baseline;
 
 	text-overflow: ellipsis;
@@ -58,20 +63,15 @@ button,
 	white-space: normal;
 
 	background-repeat: no-repeat;
+	background-clip: padding-box;
+	background-origin: padding-box;
+
 	border-width: 0;
+	border-radius: var(--button-border-radius);
 
-	-webkit-background-clip: padding-box;
-	   -moz-background-clip: padding-box;
-	    -ms-background-clip: padding-box;
-	     -o-background-clip: padding-box;
-	        background-clip: padding-box;
-
-	-webkit-background-origin: padding-box;
-	   -moz-background-origin: padding;
-	   -moz-background-origin: padding-box;
-	    -ms-background-origin: padding-box;
-	     -o-background-origin: padding-box;
-	        background-origin: padding-box;
+    transition:
+        background-color 120ms linear,
+        color 120ms linear;
 }
 
 .button:hover,

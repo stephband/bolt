@@ -1,0 +1,21 @@
+/**
+.menu-button
+
+```html
+<a class="menu-button button" href="#">2. S'organiser</a>
+```
+
+<a class="menu-button button" href="#">2. S'organiser</a>
+**/
+
+.menu-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.menu-button + .menu-button {
+    border-top: 1px solid var(--button-border-color);
+}

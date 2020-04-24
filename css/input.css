@@ -3,248 +3,13 @@
 Forms
 **/
 
-:root {
-
-	/**
-	--label-font-size
-	Font size of labels
-	**/
-
-	--label-font-size: inherit;
-
-	/**
-	--label-line-height
-	Line height of labels
-	**/
-
-	--label-line-height: inherit;
-
-	/**
-	--label-color
-	Colour of labels
-	**/
-
-	--label-color: inherit;
-
-	/**
-	--input-font-size
-	Font size of inputs, selects and textareas
-	**/
-
-	--input-font-size: inherit;
-
-	/**
-	--input-line-height
-	Line height of textareas
-	**/
-
-	--input-line-height: inherit;
-
-	/**
-	--input-background-color
-	Background colour of input, select and textareas
-	**/
-
-	--input-background-color: white;
-
-	/**
-	--input-border-color
-	Border colour of inputs, selects and textareas
-	**/
-
-    --input-border-color: currentcolor;
-
-	/**
-	--input-border-width
-	Border width of inputs, selects and textareas
-	**/
-
-	--input-border-width: 1px;
-
-	/**
-	--input-border-radius
-	Border radius of inputs, selects and textareas
-	**/
-
-	--input-border-radius: 0;
-
-	/**
-	--input-box-shadow
-	Box shadow of inputs, selects and textareas
-	**/
-
-	--input-box-shadow: none;
-
-	/**
-	--input-padding-left
-	Indentation of inputs, padding of selects and textareas
-	**/
-
-    --input-padding-left: 0.5em;
-
-	/**
-	--input-padding-right
-	Right padding of inputs, selects and textareas
-	**/
-
-	--input-padding-right: 0.5em;
-
-	/**
-	--input-padding-top
-	Top padding of textareas
-	**/
-
-    --input-padding-top: 0;
-
-	/**
-	--input-padding-bottom
-	Bottom padding of textareas
-	**/
-
-	--input-padding-bottom: 0;
-
-	/**
-	--input-height
-	Height of inputs and selects
-	**/
-
-	--input-height: 3em;
-
-	/**
-	--input-color
-	Text colour of inputs, selects and textareas
-	**/
-
-	--input-color: inherit;
-
-	/*
-	--input-label-margin
-	*/
-
-	--input-label-margin: 0;
-
-	/*
-	--input-label-margin
-	*/
-
-	--input-label-margin: 0;
-
-	/**
-	--checkbox-font-size
-	Font size of checkbox labels
-	**/
-
-	--checkbox-font-size: inherit;
-
-	/**
-	--checkbox-line-height
-	Line height of checkbox labels
-	**/
-
-	--checkbox-line-height: inherit;
-
-	/**
-	--checkbox-width
-	Size of simulated checkboxes
-	**/
-
-	--checkbox-width: 1.5rem;
-
-	/**
-	--checkbox-border-width
-	Border width of simulated checkboxes
-	**/
-
-	--checkbox-border-width: var(--input-border-width);
-
-	/**
-	--checkbox-border-radius
-	Border radius of simulated checkboxes
-	**/
-
-	--checkbox-border-radius: 0;
-
-	/**
-	--radio-width
-	Size of simulated radio buttons
-	**/
-
-	--radio-width: 1.5rem;
-
-	/**
-	--radio-border-width
-	Border width of simulated radio buttons
-	**/
-
-	--radio-border-width: var(--input-border-width);
-
-	/**
-	--radio-check-width
-	Size of radio check mark
-	**/
-
-	--radio-check-width: 0.75rem;
-
-	/**
-	--radio-check-color
-	Color of radio check mark
-	**/
-
-	--radio-check-color: currentcolor;
-
-	/**
-	--focus-background-color
-	Background colour of focused inputs, selects and textareas
-	**/
-
-	--focus-background-color: var(--input-background-color);
-
-	/**
-	--focus-border-color
-	Border colour of focused inputs, selects and textareas
-	**/
-
-	--focus-border-color: #2c9bd3;
-
-	/**
-	--focus-box-shadow
-	Box shadow of focused links, inputs, selects and textareas
-	**/
-
-	--focus-box-shadow:
-		0 0 5px 2px hsla(200,56%,49%,0.8),
-		inset 0 0 0 1px hsl(200,56%,49%),
-		inset 0 0 0.5rem hsla(200,65%,60%,0.6);
-
-	/**
-	--invalid-background-color
-	Background colour of invalid inputs, selects and textareas
-	**/
-
-	--invalid-background-color: var(--input-background-color);
-
-	/**
-	--invalid-border-color
-	Border colour of invalid inputs, selects and textareas
-	**/
-
-	--invalid-border-color: rgba(214,23,41);
-
-	/**
-	--invalid-box-shadow
-	Box shadow of invalid inputs, selects and textareas
-	**/
-
-	--invalid-box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
-}
-
-
-/* Edge fails to update styles for changed disabled properties. This rule
+/* IE/Edge fails to update styles for changed disabled properties. This rule
    targetting the attribute rather than the pseudo-selector keeps the
    pseudo-selectors up-to-date.
    https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11295231/
 */
 [disabled] ~ _ {}
+
 
 /*
 :enabled
@@ -534,11 +299,17 @@ input[type='month'] {
 }
 
 /* Make search fields appear as other inputs in WebKit. */
-@media (-webkit-min-device-pixel-ratio:0) {
+@media (-webkit-min-device-pixel-ratio: 0) {
 	[type="search"] {
 		-webkit-appearance: textfield;
-		padding-left: 0.1875rem;
+		padding-left: 0;
 	}
+}
+
+/* Position the 'x' cancel button */
+[type="search"]::-webkit-search-cancel-button {
+    position: relative;
+    right: 0.5em;
 }
 
 textarea {

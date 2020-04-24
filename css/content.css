@@ -1,0 +1,11 @@
+/*
+.after, .before
+*/
+
+.after::after,
+.before::before {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+}
