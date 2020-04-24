@@ -1,0 +1,87 @@
+
+/**
+.radio-button
+
+```html
+<input class="masked" type="radio" name="radio-button" value="on" id="radio-button-on" />
+<label class="radio-button button" for="radio-button-on">Turn me on</label>
+<input class="masked" type="radio" name="radio-button" value="off" id="radio-button-off" />
+<label class="radio-button button" for="radio-button-off">Turn me off</label>
+```
+
+<form>
+<input class="masked" type="radio" name="radio-button" value="on" id="radio-button-on" />
+<label class="radio-button button" for="radio-button-on">Turn me on</label>
+<input class="masked" type="radio" name="radio-button" value="off" id="radio-button-off" />
+<label class="radio-button button" for="radio-button-off">Turn me off</label>
+</form>
+**/
+
+.radio-button {
+    display: block;
+    text-align: left;
+    font-size: var(--input-font-size);
+    padding-left: var(--input-padding-left);
+    padding-right: 3.75em;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
+    min-height: 2.4em;
+    color: var(--input-color);
+    background-color: var(--bleach-violet);
+    border: var(--input-border-width) solid var(--bleach-violet);
+}
+
+.radio-button::before,
+.radio-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    box-sizing: border-box;
+}
+
+.radio-button::before {
+    right: var(--input-padding-right);
+    width: var(--radio-width);
+    height: var(--radio-width);
+    margin-top: calc(-0.5 * var(--radio-width));
+    background-color: var(--input-background-color);
+    border: var(--checkbox-border-width) solid var(--checkbox-border-color);
+    border-radius: calc(0.5 * var(--radio-width));
+}
+
+.radio-button::after {
+    display: none;
+    right: calc(var(--input-padding-right) + 0.5 * (var(--radio-width) - var(--radio-check-width)));
+    width: var(--radio-check-width);
+    height: var(--radio-check-width);
+    margin-top: calc(-0.5 * var(--radio-check-width));
+    background-color: var(--radio-check-color);
+    border-radius: calc(0.5 * var(--radio-check-width));
+}
+
+.masked + .radio-button {
+    margin-top: 0;
+}
+
+:checked + .radio-button::after {
+    display: block;
+}
+
+:focus + .radio-button {
+    box-shadow: var(--focus-box-shadow);
+    border-color: var(--focus-border-color);
+    /* Make focus shadow appear over other elements. */
+    z-index: 1;
+}
+
+:disabled + .radio-button {
+    opacity: 0.4;
+}
+
+* + .masked + .radio-button {
+    margin-top: 0.44444444em;
+}
+
+p + .masked + .radio-button {
+    margin-top: 1.66666667em;
+}

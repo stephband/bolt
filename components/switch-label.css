@@ -107,7 +107,7 @@
 
 .radio-label + .masked + .switch-label,
 .switch-label + .masked + .switch-label
-.checkbox-label + .masked + .switch-label {
+.check-label + .masked + .switch-label {
     margin-top: 0.33333333em;
 }
 

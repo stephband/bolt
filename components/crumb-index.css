@@ -1,14 +1,15 @@
-/*
+/**
 .crumb-index
 
-Markup: <ul class="crumb-index index">
-   <li><a href="#path">path</a></li
-  ><li><a href="#to">to</a></li
-  ><li><a href="#document">document</a></li>
+```html
+<ul class="crumb-index index">
+     <li><a href="#path">path</a></li
+    ><li><a href="#to">to</a></li
+    ><li><a href="#document">document</a></li>
 </ul>
+```
 
-Styleguide: 1.2.crumb-index
-*/
+**/
 
 .crumb-index,
 .crumb-index > li {

@@ -1,0 +1,127 @@
+
+/**
+.check-label
+
+```html
+<input type="checkbox" class="masked" id="checkbox-1" />
+<label class="check-label" for="checkbox-1">Choose me</label>
+```
+
+<form validateable>
+<input type="checkbox" class="masked" id="checkbox-1" />
+<label class="check-label" for="checkbox-1">Choose me</label>
+</form>
+*/
+
+/**
+.radio-label
+
+```html
+<input type="radio" class="masked" id="radio-1" />
+<label class="radio-label" for="radio-1">Choose me</label>
+```
+
+<form validateable>
+<input type="radio" class="masked" id="radio-1" />
+<label class="radio-label" for="radio-1">Choose me</label>
+</form>
+*/
+
+.radio-label,
+.check-label {
+	color: inherit;
+	font-size: var(--checkbox-font-size);
+	line-height: var(--checkbox-line-height);
+	font-weight: inherit;
+	position: relative;
+	padding-left: 2.25rem;
+	padding-top: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
+	padding-bottom: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
+	min-height: var(--input-height);
+	text-align: left;
+}
+
+.radio-label::before,
+.radio-label::after,
+.check-label::before,
+.check-label::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	margin-top: 0;
+	box-sizing: border-box;
+}
+
+.check-label::before,
+.check-label::after {
+	top: 0.5625rem;
+	width: var(--checkbox-width);
+	height: var(--checkbox-width);
+	border-radius: var(--checkbox-border-radius);
+}
+
+.radio-label::before {
+	top: calc(0.5 * (var(--input-height) - var(--radio-width)));
+	width: var(--radio-width);
+	height: var(--radio-width);
+}
+
+.right-label::before,
+.right-label::after {
+	left: auto;
+	right: 0;
+}
+
+.radio-label::before,
+.check-label::before {
+	background-color: var(--input-background-color);
+	border: var(--checkbox-border-width) solid var(--checkbox-border-color);
+}
+
+.radio-label::before {
+	border-radius: calc(0.5 * var(--radio-width));
+}
+
+.radio-label::after,
+.check-label::after {
+	display: none;
+}
+
+.masked:checked + .radio-label::after,
+.masked:checked + .check-label::after {
+	display: block;
+}
+
+.radio-label::after {
+	top: calc(0.5 * (var(--input-height) - var(--radio-check-width)));
+	left: calc(0.5 * (var(--radio-width) - var(--radio-check-width)));
+	width: var(--radio-check-width);
+	height: var(--radio-check-width);
+	background-color: var(--radio-check-color);
+	border-radius: calc(0.5 * var(--radio-check-width));
+}
+
+.check-label::after {
+	content: '✓';
+	text-align: center;
+}
+
+.masked + .check-label,
+.masked + .radio-label {
+    margin-top: 0;
+}
+
+label + .masked + .radio-label,
+label + .masked + .check-label {
+	margin-top: var(--label-input-margin);
+}
+
+input + .masked + .radio-label,
+.button + .masked + .check-label {
+	margin-top: var(--input-margin);
+}
+
+.masked:disabled + .check-label,
+.masked:disabled + .radio-label {
+	filter: var(--disabled-filter);
+}

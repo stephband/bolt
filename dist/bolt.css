@@ -579,7 +579,7 @@ Styleguid forms.button
 .button > input[type="file"],
 .button > input[type="submit"],
 .radio-button > input[type="radio"],
-.checkbox-button > input[type="checkbox"] {
+.check-button > input[type="checkbox"] {
 	position: absolute;
 	display: block;
 	top: 0;
@@ -600,7 +600,7 @@ Styleguid forms.button
 .js .button > input[type="submit"],
 /*.js .select-button > select,*/
 .js .radio-button > input[type="radio"],
-.js .checkbox-button > input[type="checkbox"] {
+.js .check-button > input[type="checkbox"] {
 	-webkit-appearance: none;
 	opacity: 0;
 }
@@ -722,16 +722,16 @@ Styleguide: 3.radio-button
 */
 
 /*
-.checkbox-button
+.check-button
 
 Markup: <input class="masked" type="checkbox" id="checkbox-2" />
-<label class="checkbox-button button" for="checkbox-2">Choose me!</label>
+<label class="check-button button" for="checkbox-2">Choose me!</label>
 
-Styleguide: 3.checkbox-button
+Styleguide: 3.check-button
 */
 
 .radio-button,
-.checkbox-button {
+.check-button {
 	/* A hidden overflow would hide the browser generated error messages.
 	   No no no. Make sure it's visible. */
 	/*overflow: visible;*/
@@ -1772,7 +1772,7 @@ input.validated:focus,
 select.validated:focus,
 textarea.validated:focus,
 .masked:focus + .focus-label:before,
-.masked:focus + .checkbox-label:before,
+.masked:focus + .check-label:before,
 .masked:focus + .radio-label:before {
 	/* In Webkit, outline doesn't fit the border curves, and in FF outline
 	   is ugly. Lets recreate it with box-shadow */
@@ -2210,16 +2210,16 @@ Styleguide: 3.radio-label
 */
 
 /*
-.checkbox-label
+.check-label
 
 Markup: <input type="checkbox" class="masked" id="checkbox-1" />
-<label class="checkbox-label" for="checkbox-1">Yes, choose me!</label>
+<label class="check-label" for="checkbox-1">Yes, choose me!</label>
 
-Styleguide: 3.checkbox-label
+Styleguide: 3.check-label
 */
 
 .radio-label,
-.checkbox-label {
+.check-label {
 	position: relative;
 	padding-left: 2.25rem;
 	padding-top: 0.5rem;
@@ -2234,7 +2234,7 @@ Styleguide: 3.checkbox-label
 }
 
 .radio-label > input,
-.checkbox-label > input {
+.check-label > input {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -2246,14 +2246,14 @@ Styleguide: 3.checkbox-label
 }
 
 .dialog > .radio-label,
-.dialog > .checkbox-label {
+.dialog > .check-label {
 	display: block;
 }
 
 .radio-label::before,
 .radio-label::after,
-.checkbox-label::before,
-.checkbox-label::after {
+.check-label::before,
+.check-label::after {
 	content: '';
 	position: absolute;
 	top: 0.5625rem;
@@ -2271,7 +2271,7 @@ Styleguide: 3.checkbox-label
 }
 
 .radio-label::before,
-.checkbox-label::before {
+.check-label::before {
 	background-color: white;
 	border: 1px solid #cccccc;
 }
@@ -2280,18 +2280,18 @@ Styleguide: 3.checkbox-label
 	border-radius: 1rem;
 }
 
-.checkbox-label::before,
-.checkbox-label::after {
+.check-label::before,
+.check-label::after {
 	border-radius: 0;
 }
 
 .radio-label::after,
-.checkbox-label::after {
+.check-label::after {
 	display: none;
 }
 
 .masked:checked + .radio-label::after,
-.masked:checked + .checkbox-label::after {
+.masked:checked + .check-label::after {
 	display: block;
 }
 
@@ -2304,13 +2304,13 @@ Styleguide: 3.checkbox-label
 	border-radius: 0.375rem;
 }
 
-.checkbox-label::after {
+.check-label::after {
 	content: '✓';
 	text-align: center;
 }
 
 .radio-label > input,
-.checkbox-label > input {
+.check-label > input {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -2318,7 +2318,7 @@ Styleguide: 3.checkbox-label
 	cursor: pointer;
 }
 
-.masked + .checkbox-label,
+.masked + .check-label,
 .masked + .radio-label {
     margin-top: 0;
 }

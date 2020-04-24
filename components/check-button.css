@@ -1,0 +1,78 @@
+
+/**
+.check-button
+
+```html
+<input class="masked" type="checkbox" value="something" id="check-button-input" />
+<label class="check-button button" for="check-button-input">Turn me on</label>
+```
+
+<form>
+<input class="masked" type="checkbox" value="something" id="check-button-input" />
+<label class="check-button button" for="check-button-input">Turn me on</label>
+</form>
+**/
+
+.check-button {
+    display: block;
+    text-align: left;
+    font-size: var(--input-font-size);
+    padding-left: var(--input-padding-left);
+    padding-right: 3.33333333em;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
+    min-height: 2.4em;
+    color: var(--input-color);
+    background-color: var(--bleach-violet);
+    border: var(--input-border-width) solid transparent;
+}
+
+.check-button::before,
+.check-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: var(--input-padding-right);
+    margin-top: calc(-0.5 * var(--checkbox-width));
+    width: var(--checkbox-width);
+    height: var(--checkbox-width);
+    box-sizing: border-box;
+}
+
+.check-button::before {
+    background-color: var(--input-background-color);
+    border: var(--checkbox-border-width) solid var(--checkbox-border-color);
+    border-radius: var(--checkbox-border-radius);
+}
+
+.check-button::after {
+    display: none;
+    content: '';
+    text-align: center;
+    background-image: url('/static/images/icons.svg');
+    background-size: 4.44444444em auto;
+    background-position: center -8.16666667em;
+}
+
+.masked + .check-button {
+    margin-top: 0;
+}
+
+:checked + .check-button::after {
+    display: block;
+}
+
+:disabled + .check-button {
+    opacity: 0.4;
+}
+
+:focus + .check-button {
+    box-shadow: var(--focus-box-shadow);
+    border-color: var(--focus-border-color);
+    /* Make focus shadow appear over other elements. */
+    z-index: 1;
+}
+
+* + .masked + .check-button {
+    margin-top: 0.4em;;
+}
