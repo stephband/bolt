@@ -32,20 +32,30 @@ function switchOff(label) {
 gestures({ selector: selector, threshold: 4 }, document)
 .each(function(events) {
     // First event is touchstart or mousedown
-    var e = events.shift();
-    var label = closest(selector, e.target);
+    var e0     = events.shift();
+    var latest = events.latest();
+    var e1     = latest.shift();
+    var x0     = e0.clientX;
+    var y0     = e0.clientY;
+    var x1     = e1.clientX;
+    var y1     = e1.clientY;
 
-    var x0 = e.pageX;
-    var y0 = e.pageY;
-    var dx;
+    // If the gesture is more vertical than horizontal, don't count it
+    // as a swipe. Stop the stream and get out of here.
+    if (Math.abs(x1 - x0) < Math.abs(y1 - y0)) {
+        events.stop();
+        return;
+    }
+
+    var label = closest(selector, e0.target);
     var state = switchState(label);
     var x = state ? 1 : 0 ;
+    var dx;
 
     label.classList.add('no-select');
     label.classList.add('gesturing');
 
-    events
-    .each(function (e) {
+    latest.each(function (e) {
         dx = e.pageX - x0;
 
         var rx = limit(0, 1, x + dx / swipeRangePx);
