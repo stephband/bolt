@@ -94,52 +94,6 @@
 
 
     /**
-    --menu-button-font-size
-    **/
-    --menu-button-font-size: inherit;
-
-    /**
-    --menu-button-line-height
-    **/
-    --menu-button-line-height: inherit;
-
-    /**
-    --menu-button-color
-    **/
-    --menu-button-color: black;
-
-    /**
-    --menu-button-background
-    **/
-    --menu-button-background: white;
-
-    /**
-    --menu-button-border-color
-    **/
-    --menu-button-border-color: currentcolor;
-
-    /**
-    --menu-button-padding-top
-    **/
-    --menu-button-padding-top: 0.5em;
-
-    /**
-    --menu-button-padding-bottom
-    **/
-    --menu-button-padding-bottom: var(--menu-button-padding-top);
-
-    /**
-    --menu-button-padding-left
-    **/
-    --menu-button-padding-left: 1em;
-
-    /**
-    --menu-button-padding-right
-    **/
-    --menu-button-padding-right: var(--menu-button-padding-left);
-
-
-    /**
     --input-font-size
     Font size of inputs, selects and textareas
     **/
