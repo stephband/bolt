@@ -28,7 +28,7 @@
     "build-css":    "npm run build-sass && node build-css.js dist/bolt.min.css",
     "build-module": "rollup ./module.js --o dist/bolt.module.js --f esm",
     "build-docs":   "npm run build-sass && npm run serve && node ../fn/render-html.js http://127.0.0.1:8080/index.template.html ./index.html 4 && npm run serve-kill",
-    "publish":      "git pull origin master && npm run build-css && npm run build-module && git add dist/* && git commit -am 'Build version 2.0.0' && git push"
+    "publish":      "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Build version 2.0.0' && git push"
   },
 
   "style": [
