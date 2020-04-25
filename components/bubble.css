@@ -6,7 +6,11 @@ Bubbles
 /**
 .bubble
 
-A tip bubble, speech bubble, description bubble or what-have-you.
+```html
+<aside class="bubble">
+Crunchum Ipsum.
+</aside>
+```
 **/
 
 .bubble {

@@ -1,24 +1,23 @@
 /**
-.crumb-index
+.crumbs-index
 
 ```html
-<ul class="crumb-index index">
+<ul class="crumbs-index index">
      <li><a href="#path">path</a></li
     ><li><a href="#to">to</a></li
     ><li><a href="#document">document</a></li>
 </ul>
 ```
-
 **/
 
-.crumb-index,
-.crumb-index > li {
+.crumbs-index,
+.crumbs-index > li {
 	display: inline-block;
 	white-space: nowrap;
 	line-height: 1.25rem;
 }
 
-.crumb-index > li + li::before {
+.crumbs-index > li + li::before {
 	content: ">";
 	display: inline-block;
 	vertical-align: baseline;
@@ -26,10 +25,10 @@
 	text-align: center;
 }
 
-.crumb-index > li > a {
+.crumbs-index > li > a {
 	text-decoration: none;
 }
 
-.crumb-index > li:last-child > a {
+.crumbs-index > li:last-child > a {
 	color: blue;
 }

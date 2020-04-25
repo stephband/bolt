@@ -1,18 +1,17 @@
 /**
-Badges
+Badges.
 **/
 
 /**
 .badge
 
 ```html
-<div class="badge">3</div>
+<span class="badge">3</span>
 ```
-
-<div class="badge">3</div>
 **/
 
 .badge {
+    display: inline-block;
     font-size: var(--badge-font-size);
     line-height: var(--badge-width);
     min-width: var(--badge-width);
@@ -27,7 +26,8 @@ Badges
     border-radius: calc(0.5 * var(--badge-width));
 }
 
-* > .badge {
+.button > .badge,
+.thumb > .badge {
     position: absolute;
     top: 0;
     right: 0;

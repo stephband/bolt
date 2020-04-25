@@ -1,6 +1,6 @@
 
 /**
-Forms
+Forms.
 **/
 
 /* IE/Edge fails to update styles for changed disabled properties. This rule
@@ -81,11 +81,6 @@ input[type="text"]
 <label for="text-input">Text</label>
 <input type="text" placeholder="Enter text" id="text-input" />
 ```
-
-<form validateable>
-	<label for="text-input">Text</label>
-	<input type="text" placeholder="Enter text" id="text-input" />
-</form>
 **/
 
 /**
@@ -95,11 +90,6 @@ input[type="password"]
 <label for="password-input">Password</label>
 <input type="password" placeholder="Enter password" id="password-input" />
 ```
-
-<form validateable>
-	<label for="password-input">Password</label>
-	<input type="password" placeholder="Enter password" id="password-input" />
-</form>
 **/
 
 /**
@@ -109,11 +99,6 @@ input[type="url"]
 <label for="url-input">URL</label>
 <input type="url" placeholder="http://cruncher.ch/" id="url-input" />
 ```
-
-<form validateable>
-	<label for="url-input">URL</label>
-	<input type="url" placeholder="http://cruncher.ch/" id="url-input" />
-</form>
 **/
 
 /**
@@ -123,11 +108,6 @@ input[type="number"]
 <label for="number-input">Number</label>
 <input type="number" placeholder="100" id="number-input" />
 ```
-
-<form validateable>
-	<label for="number-input">Number</label>
-	<input type="number" placeholder="100" id="number-input" />
-</form>
 **/
 
 /**
@@ -137,11 +117,6 @@ input[type="range"]
 <label for="range-input">Range</label>
 <input type="range" value="0" id="range-input" />
 ```
-
-<form validateable>
-	<label for="range-input">Range</label>
-	<input type="range" value="0" id="range-input" />
-</form>
 **/
 
 label,

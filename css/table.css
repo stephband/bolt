@@ -17,20 +17,6 @@ table
   </tfoot>
 </table>
 ```
-
-<table>
-  <thead>
-    <tr><th></th><th>1</th><th>2</th><th>3</th></tr>
-  </thead>
-  <tbody>
-    <tr><th>English</th><td>One</td><td>Two</td><td>Three</td></tr>
-    <tr><th>Français</th><td>Un</td><td>Deux</td><td>Trois</td></tr>
-    <tr><th>Italiano</th><td>Uno</td><td>Due</td><td>Tre</td></tr>
-  </tbody>
-  <tfoot>
-    <tr><th>Notes</th><td>Small</td><th>Medium</td><td>Large</td></tr>
-  </tfoot>
-</table>
 **/
 
 th,
@@ -106,20 +92,6 @@ table {
   </tfoot>
 </table>
 ```
-
-<table class="lined-table">
-  <thead>
-    <tr><th></th><th>1</th><th>2</th><th>3</th></tr>
-  </thead>
-  <tbody>
-    <tr><th>English</th><td>One</td><td>Two</td><td>Three</td></tr>
-    <tr><th>Français</th><td>Un</td><td>Deux</td><td>Trois</td></tr>
-    <tr><th>Italiano</th><td>Uno</td><td>Due</td><td>Tre</td></tr>
-  </tbody>
-  <tfoot>
-    <tr><th>Notes</th><td>Small</td><th>Medium</td><td>Large</td></tr>
-  </tfoot>
-</table>
 */
 
 
@@ -191,20 +163,6 @@ table {
   </tfoot>
 </table>
 ```
-
-<table class="striped-table">
-  <thead>
-    <tr><th></th><th>1</th><th>2</th><th>3</th></tr>
-  </thead>
-  <tbody>
-    <tr><th>English</th><td>One</td><td>Two</td><td>Three</td></tr>
-    <tr><th>Français</th><td>Un</td><td>Deux</td><td>Trois</td></tr>
-    <tr><th>Italiano</th><td>Uno</td><td>Due</td><td>Tre</td></tr>
-  </tbody>
-  <tfoot>
-    <tr><th>Notes</th><td>Small</td><th>Medium</td><td>Large</td></tr>
-  </tfoot>
-</table>
 **/
 
 .striped-table > tbody > tr > th,

@@ -6,11 +6,6 @@
 <input type="checkbox" class="masked" id="checkbox-1" />
 <label class="check-label" for="checkbox-1">Choose me</label>
 ```
-
-<form validateable>
-<input type="checkbox" class="masked" id="checkbox-1" />
-<label class="check-label" for="checkbox-1">Choose me</label>
-</form>
 */
 
 /**
@@ -20,11 +15,6 @@
 <input type="radio" class="masked" id="radio-1" />
 <label class="radio-label" for="radio-1">Choose me</label>
 ```
-
-<form validateable>
-<input type="radio" class="masked" id="radio-1" />
-<label class="radio-label" for="radio-1">Choose me</label>
-</form>
 */
 
 .radio-label,
@@ -104,6 +94,7 @@
 .check-label::after {
 	content: '✓';
 	text-align: center;
+	line-height: var(--checkbox-width);
 }
 
 .masked + .check-label,

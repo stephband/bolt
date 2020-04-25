@@ -49,11 +49,6 @@ fieldset + input {
 <input type="text" required id="required-input" />
 <label class="error-label" for="required-input">Field is required</label>
 ```
-
-<form validateable>
-<input type="text" required id="required-input" />
-<label class="error-label" for="required-input">Field is required</label>
-</form>
 **/
 
 /**
@@ -63,11 +58,6 @@ fieldset + input {
 <input type="text" required id="help-input" />
 <label class="help-label" for="help-input">Write something in the field</label>
 ```
-
-<form validateable>
-<input type="text" required id="help-input" />
-<label class="help-label" for="help-input">Write something in the field</label>
-</form>
 **/
 
 .error-label,

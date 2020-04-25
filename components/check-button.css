@@ -6,11 +6,6 @@
 <input class="masked" type="checkbox" value="something" id="check-button-input" />
 <label class="check-button button" for="check-button-input">Turn me on</label>
 ```
-
-<form>
-<input class="masked" type="checkbox" value="something" id="check-button-input" />
-<label class="check-button button" for="check-button-input">Turn me on</label>
-</form>
 **/
 
 .check-button {

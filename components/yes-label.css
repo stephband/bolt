@@ -5,11 +5,6 @@
 <input type="radio" class="masked" id="yes-radio-1" />
 <label class="yes-radio-label radio-label" for="yes-radio-1">Yes</label>
 ```
-
-<form validateable>
-<input type="radio" class="masked" id="yes-radio-1" />
-<label class="yes-radio-label radio-label" for="yes-radio-1">Yes</label>
-</form>
 */
 
 /*
@@ -19,11 +14,6 @@
 <input type="radio" class="masked" id="no-radio-1" />
 <label class="no-radio-label radio-label" for="no-radio-1">No</label>
 ```
-
-<form validateable>
-<input type="radio" class="masked" id="no-radio-1" />
-<label class="no-radio-label radio-label" for="no-radio-1">No</label>
-</form>
 */
 
 .yes-radio-label::before,

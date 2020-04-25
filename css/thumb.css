@@ -1,5 +1,9 @@
 
 /**
+Thumbs.
+**/
+
+/**
 .thumb
 
 Base class for thumbnails.
@@ -149,7 +153,7 @@ A default thumb is a square of 64x64px. Add an image by defining a
 ```html
 <a class="close-thumb thumb" href="#">Close</a>
 ```
-*/
+**/
 
 .close-thumb {
 	width: 2.5rem;
@@ -183,7 +187,7 @@ A default thumb is a square of 64x64px. Add an image by defining a
 	transform: rotate(-45deg);
 }
 
-/*
+/**
 .prev-thumb<br/>
 .next-thumb
 
@@ -193,7 +197,7 @@ Navigation thumbs for slideshows.
 <a class="prev-thumb thumb">Previous</a>
 <a class="next-thumb thumb">Next</a>
 ```
-*/
+**/
 
 .prev-thumb,
 .next-thumb {

@@ -1,164 +1,1761 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<!--
-	    What should go in a <head>?
-	    https://github.com/joshbuchea/HEAD
+<!DOCTYPE html><html lang="en" is="sparky" class="js"><head>
+    <meta charset="utf-8">
 
-		How should I approach image alt text?
-		https://axesslab.com/alt-texts/
-	 -->
+    <meta name="author" content="@">
+    <meta name="description" content="Documentation for . A front-end toolkit of classes and evented behaviours.">
+    <meta name="viewport" content="width=device-width">
 
-	<meta charset="utf-8" />
-	<meta name="author" content="" />
-	<meta name="description" content="" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
 
-	<title>Bolt</title>
-
-	<!-- Bolt requires class 'js' to support advanced js-only styles -->
     <script>
-    document.documentElement.className = 'js content-loading loading';
+    document.documentElement.className += ' js content-loading loading';
     window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
     window.addEventListener('load', () => document.documentElement.classList.remove('loading'));
+    window.DEBUG = false;
     </script>
 
-	<link rel="icon" type="image/png" href="images/favicon.png" />
-	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="images/logo-64x64.ico">
+    <link rel="icon" type="image/png" href="images/logo-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/logo-64x64.png" sizes="64x64">
+    <link rel="icon" type="image/png" href="images/logo-128x128.png" sizes="128x128">
 
-	<link rel="stylesheet" href="css/html.css" />
-	<link rel="stylesheet" href="css/svg.css" />
-	<link rel="stylesheet" href="css/body.css" />
-	<link rel="stylesheet" href="css/input.css" />
-	<link rel="stylesheet" href="css/label.css" />
-	<link rel="stylesheet" href="css/block.css" />
-	<link rel="stylesheet" href="css/index.css" />
-	<link rel="stylesheet" href="css/layer.css" />
-	<link rel="stylesheet" href="css/card.css" />
-	<link rel="stylesheet" href="css/button.css" />
-	<link rel="stylesheet" href="css/thumb.css" />
-	<link rel="stylesheet" href="css/type.css" />
-	<link rel="stylesheet" href="css/text.css" />
-	<link rel="stylesheet" href="css/color.css" />
-	<link rel="stylesheet" href="css/modifiers.css" />
-    <link rel="stylesheet" href="components/grid/grid.css" />
-	<link rel="stylesheet" href="components/dialog/dialog.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700">
 
-	<style>
-		body {
-			padding-top: 1.875rem;
-			color: #17397b;
-			color: #005477;
-			color: #005071;
-			/*color: #132673;*/
-		}
-		body > .grid-block {
-			max-width: 80rem;
-			margin-left: 1.5625rem;
-			margin-right: 1.5625rem;
-		}
-body > .grid-block + .grid-block {
-	margin-top: 3.75rem;
-}
+    
+        <link rel="stylesheet" href="css/html.css">
+    
+        <link rel="stylesheet" href="css/svg.css">
+    
+        <link rel="stylesheet" href="css/root.css">
+    
+        <link rel="stylesheet" href="css/body.css">
+    
+        <link rel="stylesheet" href="css/fonts.css">
+    
+        <link rel="stylesheet" href="css/type.css">
+    
+        <link rel="stylesheet" href="css/content.css">
+    
+        <link rel="stylesheet" href="css/input.css">
+    
+        <link rel="stylesheet" href="css/label.css">
+    
+        <link rel="stylesheet" href="components/check-label.css">
+    
+        <link rel="stylesheet" href="components/switch-label.css">
+    
+        <link rel="stylesheet" href="css/button.css">
+    
+        <link rel="stylesheet" href="components/check-button.css">
+    
+        <link rel="stylesheet" href="components/menu-button.css">
+    
+        <link rel="stylesheet" href="components/radio-button.css">
+    
+        <link rel="stylesheet" href="components/select-button.css">
+    
+        <link rel="stylesheet" href="components/toggle-button.css">
+    
+        <link rel="stylesheet" href="css/thumb.css">
+    
+        <link rel="stylesheet" href="css/progress.css">
+    
+        <link rel="stylesheet" href="css/table.css">
+    
+        <link rel="stylesheet" href="css/index.css">
+    
+        <link rel="stylesheet" href="components/crumbs-index.css">
+    
+        <link rel="stylesheet" href="css/layer.css">
+    
+        <link rel="stylesheet" href="css/badge.css">
+    
+        <link rel="stylesheet" href="css/card.css">
+    
+        <link rel="stylesheet" href="css/block.css">
+    
+        <link rel="stylesheet" href="css/color.css">
+    
+        <link rel="stylesheet" href="css/text.css">
+    
+        <link rel="stylesheet" href="css/modifiers.css">
+    
+        <link rel="stylesheet" href="css/respond.css">
+    
+        <link rel="stylesheet" href="css/grid.css">
+    
+        <link rel="stylesheet" href="css/device.css">
+    
+        <link rel="stylesheet" href="css/var.css">
+    
 
-a {
-	text-decoration: none;
-}
+    <link rel="stylesheet" href="../dom/css/dom.css">
+    <link rel="stylesheet" href="../fn/css/prism-cruncher.css">
+    <link rel="stylesheet" href="../fn/css/tests.css">
+    <link rel="stylesheet" href="../fn/css/docs.css">
+    <link rel="stylesheet" href="../fn/css/respond.css">
+<template id="header-template" title="../fn/">
+    <h1>{[title]} <span class="doctext-06">{[version]}</span></h1>
 
-code {
-	font-weight: 300;
-	font-size: 1rem;
-}
+    <p class="doctext-08">
+        {[description]}
+    </p>
 
-		.grid-block > .grid-block { margin-top: 1.25rem; }
-	</style>
-</head>
+    <ul class="link-index index">
+        <li><strong>repo:</strong> <a href="{[repository.url]}">{[repository.url]}</a></li>
+        <li><strong>bugs:</strong> <a href="{[bugs.url]}">{[bugs.url]}</a></li>
+    </ul>
+</template><template id="title-template" title="../fn/">
+    <h3 class="doctext-04" build-fn="after:body">{[name]}</h3>
+</template><template id="h2-template" title="../fn/">
+    <header class="x-1 xspan-4 @1-x-1 @2-x-2">
+        <h2 class="doctext-02">
+            <a href="#{[id]}">
+                <code class="language-js" build-fn="append:title" style="color: inherit;"></code>
+            </a>
+        </h2>
+    </header>
 
-<body>
-	<header class="grid-block block">
-		<h1 class="block">Bolt.</h1>
-	</header>
+    <div class="x-1 xspan-3 @2-x-2" build-fn="append:body"></div>
+</template><template id="attribute-template" title="../fn/">
+    <article build-fn="append:body" class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="attribute-{[id]}">
+        <h3 class="doctext-05">
+            <a href="#attribute-{[id]}">
+                <code class="token language-js">[<span build-fn="append:title"></span>]</code>
+            </a>
+        </h3>
+    </article>
+</template><template id="constructor-template" title="../fn/">
+    <article class="function-doc-toggle-block doc-toggle-block toggle-block block xspan-3" toggleable="" id="{[0.id]}">
+        <h3 build-fn="get:0 after:body" class="doctext-05 dot-indent">
+            <a href="#{[id]}">
+                <code class="property language-js">"{[name|lowercase]}"</code>
+            </a>
+        </h3>
 
-	<div class="grid-block block">
-		<article class="grid-block block grid-1/6">
-			<h2 class="block grid-1/1">Base.</h2
-			><a class="grid-1/1 block" href="styleguide/section-block.html"><code>.block</code></a
-			><!--a class="grid-1/1 block" href="styleguide/section-block.html"><code>.toggle-block</code></a
-			--><a class="grid-1/1 block" href="styleguide/section-bubble.html"><code>.bubble</code></a
-			><a class="grid-1/1 block" href="styleguide/section-button.html"><code>.button</code></a
-			><a class="grid-1/1 block" href="styleguide/section-card.html"><code>.card</code></a
-			><a class="grid-1/1 block" href="styleguide/section-block.html"><code>.flex</code></a
-			><a class="grid-1/1 block" href="styleguide/section-index.html"><code>.index</code></a
-			><!--a class="grid-1/1 block" href="styleguide/section-index.html"><code>.grid-index</code></a
-			--><a class="grid-1/1 block" href="styleguide/section-layer.html"><code>.layer</code></a
-			><a class="grid-1/1 block" href="styleguide/section-thumb.html"><code>.thumb</code></a>
-		</article
+        <template build-src="/fn/templates.html#property-method-template"></template>
+    </article>
+</template><template id="method-template" title="../fn/">
+    <article build-fn="append:body" class="method-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="method-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#method-{[id]}">
+                <code build-fn="append:title" class="function language-js"></code>
+            </a>
+        </h3>
+    </article>
+</template><template id="property-template" title="../fn/">
+    <article build-fn="append:body" class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="property-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#property-{[id]}">
+                <code build-fn="append:title" class="property language-js"></code>
+            </a>
+        </h3>
+    </article>
+</template><template id="class-template" title="../fn/">
+    <article build-fn="append:body" class="class-doc-toggle-block doc-toggle-block toggle-block block class-grid grid @2-9-grid" toggleable="" id="class-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#class-{[id]}">
+                <code build-fn="append:title" class=""></code>
+            </a>
+        </h3>
+    </article>
+</template><template id="component-template" title="../fn/">
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-{[0.id]}">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 build-fn="after:'0.body'" class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 {[0.prefix|is:'.'|yesno:'dot-indent','']}">
+                <a build-fn="append:'0.title'" class="doctoggle-button button" href="#component-{[0.id]}"></a>
+            </h3>
+        </header>
 
-		><article class="grid-block block grid-1/6">
-			<h2 class="block grid-1/1">Grid.</h2
-			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-block</code></a
-			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-<i>n</i>/<i>d</i></code></a
-			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-left-<i>n</i>/<i>d</i></code></a
-			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-right-<i>n</i>/<i>d</i></code></a
-			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-index</code></a
-			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-index-<i>n</i>/<i>d</i></code></a
-			><a class="block grid-1/1" href="styleguide/section-grid.html"><code>.grid-index-1/<i>n</i></code></a>
-		</article
+        <section build-fn="rest:1 each" class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+                <code build-fn="append:title" class=""></code>
+            </h4>
 
-		><article class="grid-block block grid-1/6">
-			<h2 class="block grid-1/1">Text.</h2
-			><a class="block grid-1/1" href="styleguide/section-text.html"><code>h1, .text-1</code></a
-			><a class="block grid-1/1" href="styleguide/section-text.html"><code>h2, .text-2</code></a
-			><a class="block grid-1/1" href="styleguide/section-text.html"><code>h3, .text-3</code></a
-			><a class="block grid-1/1" href="styleguide/section-text.html"><code>h4, .text-4</code></a
-			><a class="block grid-1/1" href="styleguide/section-text.html"><code>h5, .text-5</code></a
-			><a class="block grid-1/1" href="styleguide/section-text.html"><code>h6, .text-6</code></a
-			><a class="block grid-1/1" href="styleguide/section-text.html"><code>body, .text-8</code></a>
-		</article
+            <div class="block x-3 xspan-3 y-baseline" build-fn="append:example"></div>
+            <div class="block x-6 xspan-3 y-start" build-fn="append:body"></div>
+        </section>
+    </section>
+</template><template id="function-template" title="../fn/">
+    <article build-fn="append:body" class="function-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="function-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#function-{[id]}">
+                <code build-fn="append:title" class="function language-js"></code>
+            </a>
+        </h3>
+    </article>
+</template><template id="fn-template" title="../fn/">
+    <article build-fn="append:body" class="fn-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="fn-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#fn-{[id]}">
+                <code build-fn="append:title" class="language-js"></code>
+            </a>
+        </h3>
+    </article>
+</template><template id="section-template" title="../fn/">
+    <article build-fn="append:body" class="section-doc-toggle-block doc-toggle-block toggle-block block active" id="section-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <code build-fn="append:title" class="function language-js"></code>
+        </h3>
+    </article>
+</template><template id="body-template" title="../fn/">
+    <article build-fn="append:body" class="body-doc-toggle-block doc-toggle-block toggle-block block active" id="{[id]}"></article>
+</template><template id="property-method-template" title="../fn/">
+    <section class="x-1 xspan-2 @1-x-1 @2-x-2">
+        <template build-fn="filter-property each" build-src="/fn/templates.html#{[type]}-template"></template>
+    </section>
 
-		><article class="grid-block block grid-1/6">
-			<h2 class="block grid-1/1">Forms.</h2
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>label</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>input</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>textarea</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>select</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.select-button</code></a></li
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.radio-button</code></a></li
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.check-button</code></a></li>
-		</article
+    <section class="x-1 xspan-2 @1-x-3 @2-x-4">
+        <template build-fn="filter-method each" build-src="/fn/templates.html#{[type]}-template"></template>
+    </section>
+</template></head>
 
-		><div class="grid-block block grid-1/6">
-			<h2 class="block grid-1/1">Helpers.</h2
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.shown</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.hidden</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.masked</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.disabled</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.fixed</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.top-align</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.middle-align</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.bottom-align</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.baseline-align</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.left-align</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.justify-align</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.center-align</code></a
-			><a class="block grid-1/1" href="styleguide/section-xforms.html"><code>.right-align</code></a
-			><a class="block grid-1/2" href="styleguide/section-xforms.html"><code>.left</code></a
-			><a class="block grid-1/2" href="styleguide/section-xforms.html"><code>.right</code></a
-			><a class="block grid-1/4" href="styleguide/section-xforms.html"><code>.tl</code></a
-			><a class="block grid-1/4" href="styleguide/section-xforms.html"><code>.tr</code></a
-			><a class="block grid-1/4" href="styleguide/section-xforms.html"><code>.bl</code></a
-			><a class="block grid-1/4" href="styleguide/section-xforms.html"><code>.br</code></a>
-			</ul>
-		</div
+<body class="grid 3-grid @1-6-grid @2-9-grid" style="row-gap: 60px;">
+    
+        <header class="x-1 xspan-3 @1-x-2 @1-xspan-4 @2-x-3" id="header">
+            <h1>Bolt.</h1>
 
-		><article class="grid-block block grid-1/6">
-			<h2 class="block grid-1/1">Breakpoints.</h2
-			><a class="block grid-1/1" href="styleguide/section-actions.html"><code>.@1-</code></a
-			><a class="block grid-1/1" href="styleguide/section-actions.html"><code>.@2-</code></a>
-		</article>
-	</div>
+            <p class="doctext-08">Version 2.1.0</p>
 
-	<script src="js/jquery-2.1.4.js"></script>
-	<script src="package/js/bolt-0.9.8.js"></script>
-</body>
-</html>
+            <ul class="link-index index">
+                <li><strong>repo:</strong> <a href="https://github.com/stephband/bolt.git">https://github.com/stephband/bolt.git</a></li>
+                <li><strong>bugs:</strong> <a href="https://github.com/stephband/bolt/issues/">https://github.com/stephband/bolt/issues/</a></li>
+            </ul>
+        </header>
+    
+
+    <!--section class="x-1 xspan-3 @1-x-2 @2-x-3" id="get-started" locateable>
+        <h2 class="doctext-02">Get started</h2>
+        <p>Build the library, and this documentation.</p>
+        <pre><code>npm install
+npm run build</code></pre>
+
+        <h2 class="doctext-02">Project structure</h2>
+        <h3 class="doctext-05"><code class="current-fg">css/</code></h3>
+        <p>Base classes.</p>
+        <h3 class="doctext-05"><code class="current-fg">components/</code></h3>
+        <p>Components.</p>
+
+        <h2 class="doctext-02">Write a component</h2>
+        <p>Find and duplicate the component template&hellip;</p>
+        <p class="doctext-05"><code class="current-fg">components/_component.css</code></p>
+    </section-->
+
+    <section class="x-1 xspan-3 @1-xspan-6 @2-xspan-9" id="components" locateable="">
+        <!--header class="grid @1-6-grid @2-9-grid">
+            <h2 class="x-1 x-start y-1 xspan-2 @1-x-2 @2-x-3 y-baseline doctext-02">Components</h2>
+            <button type="button" class="x-3 x-end y-1 y-baseline @1-x-4 @2-x-5 doctext-09" name="activate-toggle-blocks" value="#components">Show all</button>
+        </header-->
+
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-colour">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-colour">Colour.</a>
+            </h3><p>Colour classes set <code>color</code>, <code>background-color</code>, <code>stroke</code> and <code>fill</code>,
+and variables are available to set colors in CSS:</p>
+<ul>
+<li><code>.black-fg</code> sets color or stroke to black</li>
+<li><code>.black-bg</code> sets background-color or fill to black</li>
+<li><code>var(--black)</code> sets the color black in CSS</li>
+</ul>
+
+        </header>
+
+        <section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.transparent-bg</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><p class="thumb transparent-bg">Transparent</p></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>thumb transparent-bg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Transparent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.current-bg</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><p class="thumb current-bg">Current</p></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>thumb current-bg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Current<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.black-bg</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><p class="thumb black-bg">Black</p></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>thumb black-bg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Black<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.white-bg</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><p class="thumb white-bg">White</p></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>thumb white-bg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>White<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section>
+    </section>
+
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-text">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-text">Text.</a>
+            </h3>
+        </header>
+
+        <section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.text-01, h1</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><p class="text-01">Crunchum ipsum</p></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-01<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Crunchum ipsum<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.text-02, h2</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><p class="text-02">Crunchum ipsum dolor sit coder void</p></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-02<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Crunchum ipsum dolor sit coder void<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.text-03, h3</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><p class="text-03">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-03<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.text-04, h4</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><p class="text-04">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-04<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.text-05, h5</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><p class="text-05">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-05<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.text-06, h6</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><p class="text-06">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-06<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.text-07, code</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><p class="text-07">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-07<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.text-08, body</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><p class="text-08">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
+<p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-08<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section>
+    </section>
+
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-elements">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-elements">Elements.</a>
+            </h3>
+        </header>
+
+        <section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">progress</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><progress value="0.6125"></progress></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>progress</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0.6125<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>progress</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>By default browsers render progress elements as platform-specific bars.
+Here, we equalise their look and feel.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">table</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><table>
+  <thead>
+    <tr><th></th><th>1</th><th>2</th><th>3</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>English</th><td>One</td><td>Two</td><td>Three</td></tr>
+    <tr><th>Français</th><td>Un</td><td>Deux</td><td>Trois</td></tr>
+    <tr><th>Italiano</th><td>Uno</td><td>Due</td><td>Tre</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><th>Notes</th><td>Small</td><th>Medium</th><td>Large</td></tr>
+  </tfoot>
+</table></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thead</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>thead</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tbody</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>English<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>One<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Two<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Three<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Français<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Un<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Deux<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Trois<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Italiano<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Uno<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Due<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Tre<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tbody</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tfoot</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Notes<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Small<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Medium<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Large<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tfoot</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.striped-table</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><table class="striped-table">
+  <thead>
+    <tr><th></th><th>1</th><th>2</th><th>3</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>English</th><td>One</td><td>Two</td><td>Three</td></tr>
+    <tr><th>Français</th><td>Un</td><td>Deux</td><td>Trois</td></tr>
+    <tr><th>Italiano</th><td>Uno</td><td>Due</td><td>Tre</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><th>Notes</th><td>Small</td><th>Medium</th><td>Large</td></tr>
+  </tfoot>
+</table></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>striped-table<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thead</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>thead</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tbody</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>English<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>One<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Two<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Three<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Français<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Un<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Deux<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Trois<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Italiano<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Uno<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Due<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Tre<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tbody</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tfoot</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Notes<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Small<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Medium<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>Large<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tfoot</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section>
+    </section>
+
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-forms">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-forms">Forms.</a>
+            </h3>
+        </header>
+
+        <section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">input[type="text"]</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><label for="text-input">Text</label>
+<input type="text" placeholder="Enter text" id="text-input"></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-input<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Enter text<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-input<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">input[type="password"]</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><label for="password-input">Password</label>
+<input type="password" placeholder="Enter password" id="password-input"></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password-input<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Password<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Enter password<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password-input<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">input[type="url"]</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><label for="url-input">URL</label>
+<input type="url" placeholder="http://cruncher.ch/" id="url-input"></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url-input<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>URL<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://cruncher.ch/<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url-input<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">input[type="number"]</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><label for="number-input">Number</label>
+<input type="number" placeholder="100" id="number-input"></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>number-input<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Number<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>number<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>number-input<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">input[type="range"]</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><label for="range-input">Range</label>
+<input type="range" value="0" id="range-input"></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>range-input<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Range<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>range<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>range-input<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.error-label</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><input type="text" required="" id="required-input">
+<label class="error-label" for="required-input">Field is required</label></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">required</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>required-input<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>error-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>required-input<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Field is required<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.help-label</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><input type="text" required="" id="help-input">
+<label class="help-label" for="help-input">Write something in the field</label></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">required</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>help-input<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>help-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>help-input<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Write something in the field<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.check-label</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><input type="checkbox" class="masked" id="checkbox-1">
+<label class="check-label" for="checkbox-1">Choose me</label></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox-1<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>check-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox-1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Choose me<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.radio-label</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><input type="radio" class="masked" id="radio-1">
+<label class="radio-label" for="radio-1">Choose me</label></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-1<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Choose me<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.check-button</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><input class="masked" type="checkbox" value="something" id="check-button-input">
+<label class="check-button button" for="check-button-input">Turn me on</label></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>something<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>check-button-input<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>check-button button<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>check-button-input<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.radio-button</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><input class="masked" type="radio" name="radio-button" value="on" id="radio-button-on">
+<label class="radio-button button" for="radio-button-on">Turn me on</label>
+<input class="masked" type="radio" name="radio-button" value="off" id="radio-button-off">
+<label class="radio-button button" for="radio-button-off">Turn me off</label></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>on<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button-on<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button button<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button-on<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>off<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button-off<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button button<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button-off<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Turn me off<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.switch-label</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><input class="masked" type="checkbox" value="something" id="switch-input">
+<label class="switch-label" for="switch-input">Turn me on</label></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>something<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.right-switch-label</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><input class="masked" type="checkbox" value="something" id="switch-input-2">
+<label class="right-switch-label switch-label" for="switch-input-2">Turn me on</label></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>something<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input-2<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-switch-label switch-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input-2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section>
+    </section>
+
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-grid">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-grid">Grid.</a>
+            </h3><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>3-grid grid<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3 y-3 x-stretch black-bg white-fg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>3,3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-1 x-start black-bg white-fg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>1,3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 y-2 x-end black-bg white-fg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>2,3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-3 x-stretch black-bg white-fg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>1,3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 y-3 x-stretch black-bg white-fg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>2,3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+
+        </header>
+
+        <section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.grid</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Applies <code>display: grid</code>.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.2-grid</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Applies a grid template of 2 equal columns.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.3-grid</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Applies a grid template of 3 equal columns.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.4-grid</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Applies a grid template of 4 equal columns.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.5-grid</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Applies a grid template of 5 equal columns.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.6-grid</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Applies a grid template of 6 equal columns.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.x-1</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Places a grid child at column 1.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.x-2</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Places a grid child at column 2.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.x-3</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Places a grid child at column 3.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.xspan-1</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Makes a grid child span 1 columns.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.xspan-2</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Makes a grid child span 2 columns.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.xspan-3</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Makes a grid child span 3 columns.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.x-start</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Justifies a grid child to the start of a grid cell.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.x-end</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Justifies a grid child to the end of a grid cell.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.x-center</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Justifies a grid child to the center of a grid cell.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.x-stretch</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Justifies a grid child to fill a grid cell.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.x-bleed</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Justifies a grid child to fill a grid cell plus half of the grid-gap on
+each side.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.y-1</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Places a grid child at row 1.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.y-2</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Places a grid child at row 2.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.y-3</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Places a grid child at row 3.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.yspan-1</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Makes a grid child span 1 rows.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.yspan-2</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Makes a grid child span 2 rows.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.yspan-3</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Makes a grid child span 3 rows.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.x-start</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Aligns a grid child to the start of a grid cell.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.y-end</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Aligns a grid child to the end of a grid cell.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.y-center</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Aligns a grid child to the center of a grid cell.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.y-stretch</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Aligns a grid child to fill a grid cell.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.y-baseline</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Aligns a grid child to the baseline of a grid cell.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--column-gap</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Define the horizontal grid gap.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--row-gap</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Define the vertical grid gap.</p>
+</div>
+        </section>
+    </section>
+
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-badges">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-badges">Badges.</a>
+            </h3>
+        </header>
+
+        <section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.badge</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><span class="badge">3</span></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>badge<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section>
+    </section>
+
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-buttons">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-buttons">Buttons.</a>
+            </h3>
+        </header>
+
+        <section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.button</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><button type="button">Button text</button>
+<a class="button" href="#">Button text</a></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Button text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Button text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.menu-button</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><a class="menu-button button" href="#">2. S'organiser</a></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>menu-button button<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>2. S'organiser<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.toggle-button</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><a class="toggle-button button" href="#id">Open</a></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>toggle-button button<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#id<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Open<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section>
+    </section>
+
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-blocks">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-blocks">Blocks.</a>
+            </h3>
+        </header>
+
+        <section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.block</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>For layout. There are two ways a <code>.block</code> can be styled: as a
+<code>block</code>, for a vertical layout, or as <code>inline-block</code>, for
+a horizontal layout. <code>block</code> by default, obviously.</p>
+<p>Applied to a media tag like img, svg, video and canvas, <code>.block</code>
+will scale the element to fill the available width.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.inline-block</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.flex-block</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.toggle-block</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><a href="#some-stuff">Click to show</a>
+<div class="toggle-block block toggle" id="some-stuff">
+  <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop
+  python orientation semi colon incident. Duis aute irure indent tabs or
+  spaces velit esse cilium buntum how crunchy duntum.</p>
+</div></div>
+            <div class="block x-6 xspan-3 y-start"><p>A block animated to behave like a drawer that reveals content when the class
+<code>active</code> is added. Note in this example the class <code>toggle</code>
+is an action class that gives the block <code>active</code> when a link that
+references it is clicked.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#some-stuff<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Click to show<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>toggle-block block toggle<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>some-stuff<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop
+  python orientation semi colon incident. Duis aute irure indent tabs or
+  spaces velit esse cilium buntum how crunchy duntum.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.slides-grid</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><div class="slides-grid grid" swipeable="">
+    <div class="block" switchable="" id="slide-0">
+        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 1" draggable="false">
+    </div><div class="block" switchable="" id="slide-1">
+        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 2" draggable="false">
+    </div><div class="block" switchable="" id="slide-2">
+        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 3" draggable="false">
+    </div>
+</div></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slides-grid grid<span class="token punctuation">"</span></span> <span class="token attr-name">swipeable</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>block<span class="token punctuation">"</span></span> <span class="token attr-name">switchable</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slide-0<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>block<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>//source.unsplash.com/category/nature/1300x620<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Image 1<span class="token punctuation">"</span></span> <span class="token attr-name">draggable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span>
+    <span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>block<span class="token punctuation">"</span></span> <span class="token attr-name">switchable</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slide-1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>block<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>//source.unsplash.com/category/nature/1300x620<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Image 2<span class="token punctuation">"</span></span> <span class="token attr-name">draggable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span>
+    <span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>block<span class="token punctuation">"</span></span> <span class="token attr-name">switchable</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slide-2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>block<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>//source.unsplash.com/category/nature/1300x620<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Image 3<span class="token punctuation">"</span></span> <span class="token attr-name">draggable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section>
+    </section>
+
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-lists">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-lists">Lists.</a>
+            </h3>
+        </header>
+
+        <section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.index</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><ul class="index">
+  <li>One</li>
+  <li>Two</li>
+</ul></div>
+            <div class="block x-6 xspan-3 y-start"><p>Applied to <code class="html-tag">ul</code>, <code class="html-tag">ol</code>
+and <code class="html-tag">dl</code> elements to zero their default typographic
+style. Child <code class="html-tag">li</code>s are blocks, but they are set up
+to play nice as inline-blocks too.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>index<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>One<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>Two<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.inline-index</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><ul class="inline-index index">
+   <li><a class="button" href="#">One</a></li><li><a class="button" href="#">Two</a></li><li><a class="button" href="#">Three</a></li><li><a class="button" href="#">Four</a></li>
+</ul></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>inline-index index<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>One<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span>
+  <span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Two<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span>
+  <span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Three<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span>
+  <span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Four<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.crumbs-index</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><ul class="crumbs-index index">
+     <li><a href="#path">path</a></li><li><a href="#to">to</a></li><li><a href="#document">document</a></li>
+</ul></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>crumbs-index index<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#path<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>path<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span>
+    <span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#to<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>to<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span>
+    <span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#document<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section>
+    </section>
+
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-thumbs">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-thumbs">Thumbs.</a>
+            </h3>
+        </header>
+
+        <section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.thumb</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><a class="thumb" href="#" style="background-image: url('//source.unsplash.com/category/nature/128x80')">Thumb text</a></div>
+            <div class="block x-6 xspan-3 y-start"><p>Base class for thumbnails.
+A <code>.thumb</code> is an icon or avatar or other image.
+A <code>.thumb</code> hides text content by pushing it outside the hidden overflow, displaying only it’s <code>background-image</code>.
+The user cannot interact with a <code>background-image</code> in the way they can with an <code>&amp;lt;img/&amp;gt;</code>).
+This should be the main consideration when deciding to use a <code>.thumb</code> or an <code>&amp;lt;img/&amp;gt;</code>.
+Thumb is in essence an image replacement technique.</p>
+<p>A default thumb is a square of 64x64px. Add an image by defining a
+<code>background-image</code>. The image is centered and ‘cropped’ via
+<code>background-size</code> and <code>background-position</code>.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>thumb<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token url">url('//source.unsplash.com/category/nature/128x80')</span></span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Thumb text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.burger-thumb</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><a class="burger-thumb thumb" href="#">Navigation</a></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>burger-thumb thumb<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Navigation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.close-thumb</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><a class="close-thumb thumb" href="#">Close</a></div>
+            <div class="block x-6 xspan-3 y-start"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>close-thumb thumb<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Close<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.prev-thumb</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><a class="prev-thumb thumb">Previous</a>
+<a class="next-thumb thumb">Next</a></div>
+            <div class="block x-6 xspan-3 y-start"><br>
+.next-thumb
+
+<p>Navigation thumbs for slideshows.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prev-thumb thumb<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Previous<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>next-thumb thumb<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Next<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section>
+    </section>
+
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-before-and-after">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-before-and-after">Before and After.</a>
+            </h3>
+        </header>
+
+        
+    </section>
+
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-modifiers">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-modifiers">Modifiers.</a>
+            </h3>
+        </header>
+
+        <section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.print-hidden</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Hide an element on printed page.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.fullscreen-hidden</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Hide an element when inside an element in fullscreen mode.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.fullscreen-shown</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Hide an element when not in fullscreen mode.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.masked</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.disabled</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.requested</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><div class="requested" style="height: 7.5rem;"></div></div>
+            <div class="block x-6 xspan-3 y-start"><p>Add <code>::after</code> content representing a loading animation.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>requested<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">height</span><span class="token punctuation">:</span> 7.5rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.no-select</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Prohibit user selection.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.no-transition</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Cancel transitions on an element and all descendents.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.clear</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>The clearfix hack.</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.hidden-scroll</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><pre class="hidden-scroll scroll" style="height: 7.5rem;">Crunchum ipsum dolor sit coder void, constructor function,
+sed do while loop python orientation semi colon incident.
+Duis aute irure indent tabs or spaces velit esse cilium
+buntum how crunchy duntum. Excepteur tranquilis syntax
+error memorandum qui officia nostrud operating system
+alertus. Standards code est pulchra on chromium et foxus
+sed souvent suckum in internet explorum.
+</pre></div>
+            <div class="block x-6 xspan-3 y-start"><p>Attempts to hide scrollbars where possible (Chrome, Safari, Opera).</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pre</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hidden-scroll scroll<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">height</span><span class="token punctuation">:</span> 7.5rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+Crunchum ipsum dolor sit coder void, constructor function,
+sed do while loop python orientation semi colon incident.
+Duis aute irure indent tabs or spaces velit esse cilium
+buntum how crunchy duntum. Excepteur tranquilis syntax
+error memorandum qui officia nostrud operating system
+alertus. Standards code est pulchra on chromium et foxus
+sed souvent suckum in internet explorum.
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pre</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.no-scroll</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><pre class="no-scroll" style="height: 7.5rem;">Crunchum ipsum dolor sit coder void, constructor function,
+sed do while loop python orientation semi colon incident.
+Duis aute irure indent tabs or spaces velit esse cilium
+buntum how crunchy duntum. Excepteur tranquilis syntax
+error memorandum qui officia nostrud operating system
+alertus. Standards code est pulchra on chromium et foxus
+sed souvent suckum in internet explorum.
+</pre></div>
+            <div class="block x-6 xspan-3 y-start"><p>Hides overflow.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pre</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>no-scroll<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">height</span><span class="token punctuation">:</span> 7.5rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+Crunchum ipsum dolor sit coder void, constructor function,
+sed do while loop python orientation semi colon incident.
+Duis aute irure indent tabs or spaces velit esse cilium
+buntum how crunchy duntum. Excepteur tranquilis syntax
+error memorandum qui officia nostrud operating system
+alertus. Standards code est pulchra on chromium et foxus
+sed souvent suckum in internet explorum.
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pre</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.hidden</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><a class="hidden" href="...">Link</a>
+<a class="@2-hidden" href="...">Link</a></div>
+            <div class="block x-6 xspan-3 y-start"><p>Forces <code>display: none</code>. This class is also available with breakpoint prefixes
+(<code>@1-</code>, <code>@2-</code>, …).</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hidden<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Link<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@2-hidden<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Link<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.print-hidden</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><nav class="print-hidden">...</nav></div>
+            <div class="block x-6 xspan-3 y-start"><p>Hide element on printed page.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>nav</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>print-hidden<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>nav</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.shown</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline"><a class="@1-shown" href="...">Link</a></div>
+            <div class="block x-6 xspan-3 y-start"><p>Forces <code>display: none</code> below a given breakpoint. This class is only available
+with breakpoint prefixes (<code>@1-</code>, <code>@2-</code>, …).</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@1-shown<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Link<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 dot-indent">
+                <code class="">.flex</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Applies <code>display: flex</code>. This class may also be used with a
+breakpoint prefix.</p>
+</div>
+        </section>
+    </section>
+
+    </section>
+
+    <section class="x-1 xspan-3 @1-xspan-6 @2-xspan-9" id="variables" locateable="">
+        
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-variables">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 class="x-1 xspan-3 @1-x-2 @2-x-3 doctext-03 ">
+                <a class="doctoggle-button button" href="#component-variables">Variables.</a>
+            </h3>
+        </header>
+
+        <section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--badge-font-size</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Font size of badge</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--badge-width</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Min width, height and line-height of badge</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--badge-background</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Background of badge</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--bubble-font-size</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Font size of badge</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--bubble-background</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Background of bubble</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--bubble-border-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--bubble-border-width</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--bubble-border-radius</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--button-font-size</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--button-line-height</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--button-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--button-background</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--button-border-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--button-padding-top</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--button-padding-bottom</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--button-padding-left</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--button-padding-right</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-font-size</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Font size of inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-line-height</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Line height of textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-background-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Background colour of input, select and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-border-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Border colour of inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-border-width</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Border width of inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-border-radius</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Border radius of inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-box-shadow</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Box shadow of inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-padding-left</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Indentation of inputs, padding of selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-padding-right</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Right padding of inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-padding-top</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Top padding of textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-padding-bottom</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Bottom padding of textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-height</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Height of inputs and selects</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Text colour of inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--input-margin</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--label-font-size</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Font size of labels</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--label-line-height</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Line height of labels</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--label-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Colour of labels</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--label-margin</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--label-input-margin</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--fieldset-margin</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--fieldset-input-margin</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--checkbox-font-size</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Font size of checkbox labels</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--checkbox-line-height</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Line height of checkbox labels</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--checkbox-width</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Size of simulated checkboxes</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--checkbox-border-width</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Border width of simulated checkboxes</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--checkbox-border-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--checkbox-border-radius</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Border radius of simulated checkboxes</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--radio-width</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Size of simulated radio buttons</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--radio-border-width</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Border width of simulated radio buttons</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--radio-check-width</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Size of radio check mark</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--radio-check-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Color of radio check mark</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--focus-background-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Background colour of focused inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--focus-border-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Border colour of focused inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--focus-box-shadow</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Box shadow of focused links, inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--invalid-background-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Background colour of invalid inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--invalid-border-color</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Border colour of invalid inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--invalid-box-shadow</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Box shadow of invalid inputs, selects and textareas</p>
+</div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--disabled-filter</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"></div>
+        </section><section class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start xspan-3 @2-xspan-2 @2-x-end doctext-05 ">
+                <code class="">--switch-background</code>
+            </h4>
+
+            <div class="block x-3 xspan-3 y-baseline">undefined</div>
+            <div class="block x-6 xspan-3 y-start"><p>Background of switches</p>
+</div>
+        </section>
+    </section>
+
+    </section>
+
+    <!-- Build document -->
+    
+
+    <!-- Document interactivity -->
+    <script type="module">
+        import '../dom/js/device.js';
+        import '../dom/js/toggleable.js';
+        import '../dom/js/locateable.js';
+        import * as Fn from './module.js';
+        window.Fn = Fn;
+    </script>
+
+</body></html>

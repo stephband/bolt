@@ -5,9 +5,7 @@ progress
 <progress value="0.6125"></progress>
 ```
 
-<progress value="0.6125"></progress>
-
-By default progress elements are rendered as platform-specific progress bars.
+By default browsers render progress elements as platform-specific bars.
 Here, we equalise their look and feel.
 **/
 

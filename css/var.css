@@ -1,3 +1,7 @@
+/**
+Variables.
+**/
+
 :root {
 
     /**
@@ -227,7 +231,7 @@
     --checkbox-line-height
     Line height of checkbox labels
     **/
-    --checkbox-line-height: inherit;
+    --checkbox-line-height: 1em;
 
     /**
     --checkbox-width
@@ -240,6 +244,11 @@
     Border width of simulated checkboxes
     **/
     --checkbox-border-width: var(--input-border-width);
+
+    /**
+    --checkbox-border-color
+    **/
+    --checkbox-border-color: var(--input-border-color);
 
     /**
     --checkbox-border-radius

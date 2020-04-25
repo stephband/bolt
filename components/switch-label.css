@@ -6,11 +6,6 @@
 <input class="masked" type="checkbox" value="something" id="switch-input" />
 <label class="switch-label" for="switch-input">Turn me on</label>
 ```
-
-<form>
-<input class="masked" type="checkbox" value="something" id="switch-input" />
-<label class="switch-label" for="switch-input">Turn me on</label>
-</form>
 **/
 
 .switch-label {
@@ -119,11 +114,6 @@
 <input class="masked" type="checkbox" value="something" id="switch-input-2" />
 <label class="right-switch-label switch-label" for="switch-input-2">Turn me on</label>
 ```
-
-<form>
-<input class="masked" type="checkbox" value="something" id="switch-input-2" />
-<label class="right-switch-label switch-label" for="switch-input-2">Turn me on</label>
-</form>
 **/
 
 .right-switch-label {

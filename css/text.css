@@ -1,4 +1,8 @@
 
+/**
+Text.
+**/
+
 /*
 Text sizing. Viewport equivalent sizes:
 
@@ -14,88 +18,96 @@ Viewport  1rem
 */
 
 /**
-.text-1, h1
+.text-01, h1
 
 ```html
-<p class="text-1">Crunchum ipsum</p>
+<p class="text-01">Crunchum ipsum</p>
 ```
 **/
 
 /**
-.text-2, h2
+.text-02, h2
 
 ```html
-<p class="text-2">Crunchum ipsum dolor sit coder void</p>
+<p class="text-02">Crunchum ipsum dolor sit coder void</p>
 ```
 **/
 
 /**
-.text-3, h3
+.text-03, h3
 
 ```html
-<p class="text-3">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p>
+<p class="text-03">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p>
 ```
 **/
 
 /**
-.text-4, h4
+.text-04, h4
 
 ```html
-<p class="text-4">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
+<p class="text-04">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 ```
 **/
 
 /**
-.text-5, h5
+.text-05, h5
 
 ```html
-<p class="text-5">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
+<p class="text-05">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 ```
 **/
 
 /**
-.text-6, h6
+.text-06, h6
 
 ```html
-<p class="text-6">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
+<p class="text-06">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
 ```
 **/
 
 /**
-.text-8, body
+.text-07, code
 
 ```html
-<p class="text-8">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
+<p class="text-07">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
+```
+**/
+
+/**
+.text-08, body
+
+```html
+<p class="text-08">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
 <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
 ```
 **/
 
-.text-1, h1,
-.text-2, h2,
-.text-3, h3,
-.text-4, h4,
-.text-5, h5,
-.text-6, h6,
-.text-8, body {
+.text-01, h1,
+.text-02, h2,
+.text-03, h3,
+.text-04, h4,
+.text-05, h5,
+.text-06, h6,
+.text-08, body {
 	font-family: Helvetica, Arial, sans-serif;
 	font-style: none;
 	text-transform: none;
 }
 
-.text-7, code     {
-	font-family: Courier, monospace;
+.text-07, code     {
+	font-family: FiraMono, Courier, monospace;
 	font-style: normal;
 	text-transform: none;
 }
 
-.text-1, h1       { font-size: 2.5rem;   line-height: 2.625rem; font-weight: 700; }
-.text-2, h2       { font-size: 1.5rem;   line-height: 1.625rem; font-weight: 700; }
-.text-3, h3       { font-size: 1.25rem;  line-height: 1.5rem;   font-weight: 700; }
-.text-4, h4       { font-size: 1rem;     line-height: 1.5rem;   font-weight: 700; }
-.text-5, h5       { font-size: 1rem;     line-height: 1.375rem; font-weight: 700; }
-.text-6, h6       { font-size: 1.125rem; line-height: 1.5rem;   font-weight: 300; }
-.text-7           { font-size: 0.875rem; line-height: 1.5rem;   font-weight: 400; }
-.text-8, body     { font-size: 1rem;     line-height: 1.5625rem;   font-weight: 400; }
+.text-01, h1       { font-size: 2.5rem;   line-height: 2.625rem; font-weight: 700; }
+.text-02, h2       { font-size: 1.5rem;   line-height: 1.625rem; font-weight: 700; }
+.text-03, h3       { font-size: 1.25rem;  line-height: 1.5rem;   font-weight: 700; }
+.text-04, h4       { font-size: 1rem;     line-height: 1.5rem;   font-weight: 700; }
+.text-05, h5       { font-size: 1rem;     line-height: 1.375rem; font-weight: 700; }
+.text-06, h6       { font-size: 1.125rem; line-height: 1.5rem;   font-weight: 300; }
+.text-07           { font-size: 0.875rem; line-height: 1.5rem;   font-weight: 400; }
+.text-08, body     { font-size: 1rem;     line-height: 1.5625rem;   font-weight: 400; }
 
 
 /* Vertical typographic spacings pairs.
@@ -103,39 +115,39 @@ Viewport  1rem
    specificity of that selector by 1, making it override
    '.class + tag' but not '.class + .class'). */
 
-*  + h1, * + .text-1                                            { margin-top: 2.5rem; }
-*  + h2, * + .text-2                                            { margin-top: 2.5rem; }
-p  + h2, .text-8 + .text-2, body p + .text-2, .text-8 + .text-2 { margin-top: 2.5rem; }
-*  + h3, * + .text-3                                            { margin-top: 1.25rem; }
-h2 + h3, .text-2 + h3,   body h2 + .text-3,   .text-2 + .text-3 { margin-top: 1.5625rem; }
-p  + h3, .text-8 + h3,  body p  + .text-3,  .text-8 + .text-3,
-dl + h3, dl + .text-3,
-ul + h3, ul + .text-3                                          { margin-top: 2.5rem; }
-*  + h4,  * + .text-4                                           { margin-top: 1.25rem; }
-h1 + h4,  .text-1 + h4,  body h1 + .text-4,  .text-1 + .text-4,
-h2 + h4,  .text-2 + h4,  body h2 + .text-4,  .text-2 + .text-4  { margin-top: 1.625rem; }
-h3 + h4,  .text-3 + h4,  body h3 + .text-4,  .text-3 + .text-4  { margin-top: 1.125rem; }
-p  + h4,  .text-8 + h4,  body p  + .text-4,  .text-8 + .text-4,
-dl + h4,  dl + .text-4,
-ul + h4,  ul + .text-4                                          { margin-top: 2.5rem; }
-*  + h5,  * + .text-5                                           { margin-top: 1.25rem; }
-h2 + h5,  .text-2 + h5,  body h2 + .text-5,  .text-2 + .text-5  { margin-top: 1.25rem; }
-h4 + h5,  .text-4 + h5,  body h4 + .text-5,  .text-4 + .text-5,
-p  + h5,  .text-8 + h5,  body p  + .text-5,  .text-8 + .text-5  { margin-top: 0.9375rem; }
-*  + p,   * + .text-8                                           { margin-top: 0.625rem; }
-h1 + p,   .text-1 + p,   body h1 + .text-8,  .text-1 + .text-8  { margin-top: 2.1875rem; }
-h3 + p,   .text-3 + p,   body h3 + .text-8,  .text-3 + .text-8  { margin-top: 0.625rem; }
-h5 + p,   .text-5 + p,   body h5 + .text-8,  .text-5 + .text-8,
-h5 + ul,  .text-5 + ul                                          { margin-top: 0; }
-p  + p,   .text-8 + p,   body p  + .text-8,  .text-8 + .text-8  { margin-top: 0.9375rem; }
+*  + h1, * + .text-01                                            { margin-top: 2.5rem; }
+*  + h2, * + .text-02                                            { margin-top: 2.5rem; }
+p  + h2, .text-08 + .text-02, body p + .text-02, .text-08 + .text-02 { margin-top: 2.5rem; }
+*  + h3, * + .text-03                                            { margin-top: 1.25rem; }
+h2 + h3, .text-02 + h3,   body h2 + .text-03,   .text-02 + .text-03 { margin-top: 1.5625rem; }
+p  + h3, .text-08 + h3,  body p  + .text-03,  .text-08 + .text-03,
+dl + h3, dl + .text-03,
+ul + h3, ul + .text-03                                          { margin-top: 2.5rem; }
+*  + h4,  * + .text-04                                           { margin-top: 1.25rem; }
+h1 + h4,  .text-01 + h4,  body h1 + .text-04,  .text-01 + .text-04,
+h2 + h4,  .text-02 + h4,  body h2 + .text-04,  .text-02 + .text-04  { margin-top: 1.625rem; }
+h3 + h4,  .text-03 + h4,  body h3 + .text-04,  .text-03 + .text-04  { margin-top: 1.125rem; }
+p  + h4,  .text-08 + h4,  body p  + .text-04,  .text-08 + .text-04,
+dl + h4,  dl + .text-04,
+ul + h4,  ul + .text-04                                          { margin-top: 2.5rem; }
+*  + h5,  * + .text-05                                           { margin-top: 1.25rem; }
+h2 + h5,  .text-02 + h5,  body h2 + .text-05,  .text-02 + .text-05  { margin-top: 1.25rem; }
+h4 + h5,  .text-04 + h5,  body h4 + .text-05,  .text-04 + .text-05,
+p  + h5,  .text-08 + h5,  body p  + .text-05,  .text-08 + .text-05  { margin-top: 0.9375rem; }
+*  + p,   * + .text-08                                           { margin-top: 0.625rem; }
+h1 + p,   .text-01 + p,   body h1 + .text-08,  .text-01 + .text-08  { margin-top: 2.1875rem; }
+h3 + p,   .text-03 + p,   body h3 + .text-08,  .text-03 + .text-08  { margin-top: 0.625rem; }
+h5 + p,   .text-05 + p,   body h5 + .text-08,  .text-05 + .text-08,
+h5 + ul,  .text-05 + ul                                          { margin-top: 0; }
+p  + p,   .text-08 + p,   body p  + .text-08,  .text-08 + .text-08  { margin-top: 0.9375rem; }
 
 
-h2 + ul,   .text-2 + ul { margin-top: 1.875rem; }
-h3 + ul,   .text-3 + ul { margin-top: 1.25rem; }
-p + pre,  .text-8 + pre, pre + p,  pre + .text-8 { margin-top: 1.25rem; }
+h2 + ul,   .text-02 + ul { margin-top: 1.875rem; }
+h3 + ul,   .text-03 + ul { margin-top: 1.25rem; }
+p + pre,  .text-08 + pre, pre + p,  pre + .text-08 { margin-top: 1.25rem; }
 
-p + form,     .text-8 + form     { margin-top: 0.5rem; }
-p + fieldset, .text-8 + fieldset { margin-top: 2rem; }
+p + form,     .text-08 + form     { margin-top: 0.5rem; }
+p + fieldset, .text-08 + fieldset { margin-top: 2rem; }
 
 .light-text     { font-weight: 300 !important; }
 .normal-text    { font-weight: 400 !important; }

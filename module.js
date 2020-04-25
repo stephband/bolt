@@ -1,1 +1,1 @@
-import 'components/switch-label.js';
+import './components/switch-label.js';

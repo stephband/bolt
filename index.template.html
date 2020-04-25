@@ -31,16 +31,15 @@
     <link rel="stylesheet" href="../fn/css/prism-cruncher.css" />
     <link rel="stylesheet" href="../fn/css/tests.css" />
     <link rel="stylesheet" href="../fn/css/docs.css" />
-    <link rel="stylesheet" href="../fn/css/theme.css" />
     <link rel="stylesheet" href="../fn/css/respond.css" />
 </head>
 
 <body class="grid 3-grid @1-6-grid @2-9-grid" style="row-gap: 60px;">
-    <template build-fn="fetch:'../../package.json'">
+    <template build-fn="fetch:package.json">
         <header class="x-1 xspan-3 @1-x-2 @1-xspan-4 @2-x-3" id="header">
-            <h1>Move <span class="doctext-02 light-text">{[version]}</span></h1>
+            <h1>Bolt.</h1>
 
-            <p class="doctext-08">The Plan Your Move front-end component library.</p>
+            <p class="doctext-08">Version {[version]}</p>
 
             <ul class="link-index index">
                 <li><strong>repo:</strong> <a href="{[repository.url]}">{[repository.url]}</a></li>
@@ -49,74 +48,67 @@
         </header>
     </template>
 
-    <section class="x-1 xspan-3 @1-x-2 @2-x-3" id="get-started" locateable>
+    <!--section class="x-1 xspan-3 @1-x-2 @2-x-3" id="get-started" locateable>
         <h2 class="doctext-02">Get started</h2>
         <p>Build the library, and this documentation.</p>
         <pre><code>npm install
-    npm run build</code></pre>
+npm run build</code></pre>
 
         <h2 class="doctext-02">Project structure</h2>
-        <h3 class="doctext-05"><code class="current-fg">source/</code></h3>
-        <p>Source files for preprocessing modules.</p>
-        <h3 class="doctext-05"><code class="current-fg">static/</code></h3>
-        <p>Destination for build files, location of Django static files.</p>
+        <h3 class="doctext-05"><code class="current-fg">css/</code></h3>
+        <p>Base classes.</p>
+        <h3 class="doctext-05"><code class="current-fg">components/</code></h3>
+        <p>Components.</p>
 
         <h2 class="doctext-02">Write a component</h2>
         <p>Find and duplicate the component template&hellip;</p>
-        <p class="doctext-05"><code class="current-fg">static/components/component.css</code></p>
-    </section>
+        <p class="doctext-05"><code class="current-fg">components/_component.css</code></p>
+    </section-->
 
     <section class="x-1 xspan-3 @1-xspan-6 @2-xspan-9" id="components" locateable>
-        <header class="grid @1-6-grid @2-9-grid">
+        <!--header class="grid @1-6-grid @2-9-grid">
             <h2 class="x-1 x-start y-1 xspan-2 @1-x-2 @2-x-3 y-baseline doctext-02">Components</h2>
             <button type="button" class="x-3 x-end y-1 y-baseline @1-x-4 @2-x-5 doctext-09" name="activate-toggle-blocks" value="#components">Show all</button>
-        </header>
+        </header-->
 
+        <template build-fn="docs: './css/color.css'" build-src="../fn/templates.html#component-template"></template>
+        <template build-fn="docs: './css/text.css'" build-src="../fn/templates.html#component-template"></template>
         <template build-fn="docs:
-                '../bolt/css/color.css',
-                '../components/color.css'" build-src="../fn/templates.html#component-template"></template>
+            './css/elements.css',
+            './css/progress.css',
+            './css/table.css'" build-src="../fn/templates.html#component-template"></template>
         <template build-fn="docs:
-                '../components/text.css'" build-src="../fn/templates.html#component-template"></template>
+            './css/input.css',
+            './css/label.css',
+            './components/check-label.css',
+            './components/check-button.css',
+            './components/radio-button.css',
+            './components/switch-label.css'" build-src="../fn/templates.html#component-template"></template>
         <template build-fn="docs:
-                '../bolt/css/elements.css',
-                '../bolt/css/progress.css',
-                '../bolt/css/table.css'" build-src="../fn/templates.html#component-template"></template>
+            './sass/grid.scss'" build-src="../fn/templates.html#component-template"></template>
         <template build-fn="docs:
-                '../bolt/css/input.css',
-                '../components/input.css',
-                '../bolt/css/label.css',
-                '../components/label.css',
-                '../components/check-button.css',
-                '../components/radio-button.css',
-                '../components/number-button.css',
-                '../bolt/components/switch-label.css',
-                '../components/check-toggle-block.css',
-                '../components/fieldset-box.css',
-                '../components/date-input.css'" build-src="../fn/templates.html#component-template"></template>
+            './css/badge.css'" build-src="../fn/templates.html#component-template"></template>
         <template build-fn="docs:
-                '../bolt/css/grid.scss'" build-src="../fn/templates.html#component-template"></template>
+            './css/button.css',
+            './components/menu-button.css',
+            './components/toggle-button.css'" build-src="../fn/templates.html#component-template"></template>
         <template build-fn="docs:
-                '../bolt/css/badge.css','../components/badge.css'" build-src="../fn/templates.html#component-template"></template>
+            './css/block.css'" build-src="../fn/templates.html#component-template"></template>
         <template build-fn="docs:
-                '../bolt/css/button.css',
-                '../components/button.css'" build-src="../fn/templates.html#component-template"></template>
+            './css/index.css',
+            './components/crumbs-index.css'" build-src="../fn/templates.html#component-template"></template>
         <template build-fn="docs:
-                '../components/box.css',
-                '../components/link-box.css',
-                '../components/text-box.css',
-                '../components/toggle-block.css'" build-src="../fn/templates.html#component-template"></template>
+            './css/thumb.css'" build-src="../fn/templates.html#component-template"></template>
         <template build-fn="docs:
-                '../components/menu.css'" build-src="../fn/templates.html#component-template"></template>
+            './css/content.css'" build-src="../fn/templates.html#component-template"></template>
         <template build-fn="docs:
-                '../components/nav.css'" build-src="../fn/templates.html#component-template"></template>
-        <template build-fn="docs:
-                '../components/slides.css'" build-src="../fn/templates.html#component-template"></template>
-        <template build-fn="docs:
-                '../components/steps.css'" build-src="../fn/templates.html#component-template"></template>
-        <template build-fn="docs:
-                '../components/tabs.css'" build-src="../fn/templates.html#component-template"></template>
+            './css/modifiers.css',
+            './sass/respond.scss'" build-src="../fn/templates.html#component-template"></template>
     </section>
 
+    <section class="x-1 xspan-3 @1-xspan-6 @2-xspan-9" id="variables" locateable>
+        <template build-fn="docs: './css/var.css'" build-src="../fn/templates.html#component-template"></template>
+    </section>
 
     <!-- Build document -->
     <script type="module" build-remove>

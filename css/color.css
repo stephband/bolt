@@ -1,6 +1,6 @@
 
 /**
-Colour
+Colour.
 
 Colour classes set `color`, `background-color`, `stroke` and `fill`,
 and variables are available to set colors in CSS:
@@ -16,8 +16,6 @@ and variables are available to set colors in CSS:
 ```html
 <p class="thumb transparent-bg">Transparent</p>
 ```
-
-<p class="thumb transparent-bg">Transparent</p>
 **/
 
 .transparent-fg { color: transparent; }
@@ -29,8 +27,6 @@ and variables are available to set colors in CSS:
 ```html
 <p class="thumb current-bg">Current</p>
 ```
-
-<p class="thumb current-bg">Current color</p>
 **/
 
 .current-fg   { color: currentcolor; stroke: currentcolor; }
@@ -42,8 +38,6 @@ and variables are available to set colors in CSS:
 ```html
 <p class="thumb black-bg">Black</p>
 ```
-
-<p class="thumb black-bg">Black</p>
 **/
 
 :root       { --black: black; }
@@ -56,8 +50,6 @@ and variables are available to set colors in CSS:
 ```html
 <p class="thumb white-bg">White</p>
 ```
-
-<p class="thumb white-bg">White</p>
 **/
 
 :root       { --white: white; }

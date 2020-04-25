@@ -1,6 +1,6 @@
-/*
-.after, .before
-*/
+/**
+Before and After.
+**/
 
 .after::after,
 .before::before {

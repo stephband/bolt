@@ -11,14 +11,6 @@
   </select>
 </label>
 ```
-
-<label class="select-button button">
-  <select>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
-  </select>
-</label>
 **/
 
 .select-button {

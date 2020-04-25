@@ -8,13 +8,6 @@
 <input class="masked" type="radio" name="radio-button" value="off" id="radio-button-off" />
 <label class="radio-button button" for="radio-button-off">Turn me off</label>
 ```
-
-<form>
-<input class="masked" type="radio" name="radio-button" value="on" id="radio-button-on" />
-<label class="radio-button button" for="radio-button-on">Turn me on</label>
-<input class="masked" type="radio" name="radio-button" value="off" id="radio-button-off" />
-<label class="radio-button button" for="radio-button-off">Turn me off</label>
-</form>
 **/
 
 .radio-button {

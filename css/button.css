@@ -1,5 +1,5 @@
 /**
-Buttons
+Buttons.
 **/
 
 /**
@@ -9,11 +9,6 @@ Buttons
 <button type="button">Button text</button>
 <a class="button" href="#">Button text</a>
 ```
-
-<div>
-<button type="button">Button text</button>
-<a class="button" href="#">Button text</a>
-</div>
 **/
 
 button {
@@ -115,11 +110,6 @@ button.loading,
   <input type="file" id="file-input" />
 </label>
 ```
-
-<label class="button" for="file-input">
-  Select file...
-  <input type="file" id="file-input" />
-</label>
 
 File inputs can be wrapped in buttons for custom styling. The caveat: there is
 no way to display the selected file name if you do this.
