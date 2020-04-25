@@ -72,7 +72,7 @@ breakpoint prefix.
 
     @media screen and (min-width: #{nth($breakpoint, 2)}) {
         .#{nth($breakpoint, 1)}hidden         { display: none !important; }
-        .#{nth($breakpoint, 1)}block          { display: block !important; }
+        /*.#{nth($breakpoint, 1)}block          { display: block !important; }*/
         .#{nth($breakpoint, 1)}flex           { display: flex !important; }
         .#{nth($breakpoint, 1)}inline         { display: inline-block !important; }
         .#{nth($breakpoint, 1)}left           { float: left !important; clear: left; }

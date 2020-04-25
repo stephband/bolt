@@ -69,7 +69,7 @@ breakpoint prefix.
 @media screen and (max-width: -0.001em) { .shown { display: none !important; } }
 
 @media screen and (min-width: 0em) { .hidden { display: none !important; }
-    .block { display: block !important; }
+    /*.block          { display: block !important; }*/
     .flex { display: flex !important; }
     .inline { display: inline-block !important; }
     .left { float: left !important; clear: left; }
@@ -86,7 +86,7 @@ breakpoint prefix.
 @media screen and (max-width: 49.999em) { .\@1-shown { display: none !important; } }
 
 @media screen and (min-width: 50em) { .\@1-hidden { display: none !important; }
-    .\@1-block { display: block !important; }
+    /*.\@1-block          { display: block !important; }*/
     .\@1-flex { display: flex !important; }
     .\@1-inline { display: inline-block !important; }
     .\@1-left { float: left !important; clear: left; }
@@ -103,7 +103,7 @@ breakpoint prefix.
 @media screen and (max-width: 69.999em) { .\@2-shown { display: none !important; } }
 
 @media screen and (min-width: 70em) { .\@2-hidden { display: none !important; }
-    .\@2-block { display: block !important; }
+    /*.\@2-block          { display: block !important; }*/
     .\@2-flex { display: flex !important; }
     .\@2-inline { display: inline-block !important; }
     .\@2-left { float: left !important; clear: left; }
@@ -120,7 +120,7 @@ breakpoint prefix.
 @media screen and (max-width: 89.999em) { .\@3-shown { display: none !important; } }
 
 @media screen and (min-width: 90em) { .\@3-hidden { display: none !important; }
-    .\@3-block { display: block !important; }
+    /*.\@3-block          { display: block !important; }*/
     .\@3-flex { display: flex !important; }
     .\@3-inline { display: inline-block !important; }
     .\@3-left { float: left !important; clear: left; }

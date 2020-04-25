@@ -4,9 +4,6 @@ progress
 ```html
 <progress value="0.6125"></progress>
 ```
-
-By default browsers render progress elements as platform-specific bars.
-Here, we equalise their look and feel.
 **/
 
 /* Use [value] to select determinate progress bars. */
