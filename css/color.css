@@ -1,14 +1,16 @@
 
 /**
 Colour.
+**/
 
+/*
 Colour classes set `color`, `background-color`, `stroke` and `fill`,
 and variables are available to set colors in CSS:
 
 - `.black-fg` sets color or stroke to black
 - `.black-bg` sets background-color or fill to black
 - `var(--black)` sets the color black in CSS
-**/
+*/
 
 /**
 .transparent-bg
