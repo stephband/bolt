@@ -75,9 +75,6 @@
 .check-button::after {
     display: none;
     text-align: center;
-    background-image: url('/static/images/icons.svg');
-    background-size: 4.44444444em auto;
-    background-position: center -8.16666667em;
 }
 
 .radio-button::after {
