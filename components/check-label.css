@@ -117,6 +117,44 @@ input + .masked + .radio-label,
 	filter: var(--disabled-filter);
 }
 
+
+/**
+.right-check-label
+
+```html
+<input type="checkbox" class="masked" id="checkbox-2" />
+<label class="right-check-label check-label" for="checkbox-2">Choose me</label>
+```
+*/
+
+/**
+.right-radio-label
+
+```html
+<input type="radio" class="masked" id="radio-2" />
+<label class="right-radio-label radio-label" for="radio-2">Choose me</label>
+```
+*/
+
+.right-radio-label,
+.right-check-label {
+	padding-left: 0;
+    padding-right: 2.5em;
+}
+
+.right-radio-label::before,
+.right-radio-label::after,
+.right-check-label::before,
+.right-check-label::after {
+	left: auto;
+	right: 0;
+}
+
+.right-radio-label::after {
+    right: calc(0.5 * (var(--radio-width) - var(--radio-check-width)));
+}
+
+
 :root {
     /**
     --check-font-size
