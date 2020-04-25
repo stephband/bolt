@@ -24,8 +24,8 @@
     display: block;
     text-align: left;
     font-size: var(--input-font-size);
-    padding-left: var(--input-padding-left);
-    padding-right: 3.33333333em;
+    padding-left: 3.33333333em;
+    padding-right: var(--input-padding-right);
     padding-top: 0.6em;
     padding-bottom: 0.6em;
     min-height: 2.4em;
@@ -46,7 +46,8 @@
 
 .check-button::before,
 .check-button::after {
-    right: var(--input-padding-right);
+    left: var(--input-padding-left);
+    right: auto;
     margin-top: calc(-0.5 * var(--check-width));
     width: var(--check-width);
     height: var(--check-width);
@@ -63,7 +64,8 @@
 }
 
 .radio-button::before {
-    right: var(--input-padding-right);
+    left: var(--input-padding-left);
+    right: auto;
     width: var(--radio-width);
     height: var(--radio-width);
     margin-top: calc(-0.5 * var(--radio-width));
@@ -118,4 +120,42 @@
 * + .masked + .check-button,
 * + .masked + .radio-button {
     margin-top: var(--input-margin);
+}
+
+
+
+
+
+/**
+.right-check-button
+
+```html
+<input class="masked" type="checkbox" value="something" id="right-button-input" />
+<label class="right-check-button check-button button" for="right-button-input">Turn me on</label>
+```
+**/
+
+
+/**
+.right-radio-button
+
+```html
+<input class="masked" type="radio" name="radio-button" value="on" id="radio-button-on" />
+<label class="right-radio-button radio-button button" for="radio-button-on">Turn me on</label>
+<input class="masked" type="radio" name="radio-button" value="off" id="radio-button-off" />
+<label class="right-radio-button radio-button button" for="radio-button-off">Turn me off</label>
+```
+**/
+
+.right-check-button,
+.right-radio-button {
+    padding-left: var(--input-padding-left);
+    padding-right: 3.33333333em;
+}
+
+.right-check-button::before,
+.right-check-button::after,
+.right-radio-button::before {
+    left: auto;
+    right: var(--input-padding-right);
 }
