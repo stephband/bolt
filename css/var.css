@@ -22,7 +22,7 @@
     --input-border-color
     Border colour of inputs, selects and textareas
     **/
-    --input-border-color: currentcolor;
+    --input-border-color: #bbbbbb;
 
     /**
     --input-border-width
@@ -34,7 +34,7 @@
     --input-border-radius
     Border radius of inputs, selects and textareas
     **/
-    --input-border-radius: 0;
+    --input-border-radius: 0.1875rem;
 
     /**
     --input-box-shadow
@@ -44,15 +44,13 @@
 
     /**
     --input-padding-left
-    Indentation of inputs, padding of selects and textareas
     **/
-    --input-padding-left: 0.5em;
+    --input-padding-left: 0.5625rem;
 
     /**
     --input-padding-right
-    Right padding of inputs, selects and textareas
     **/
-    --input-padding-right: 0.5em;
+    --input-padding-right: 0.5625rem;
 
     /**
     --input-padding-top
@@ -70,7 +68,7 @@
     --input-height
     Height of inputs and selects
     **/
-    --input-height: 3em;
+    --input-height: 2.8125rem;
 
     /**
     --input-color
@@ -88,29 +86,29 @@
     --label-font-size
     Font size of labels
     **/
-    --label-font-size: inherit;
+    --label-font-size: 1rem;
 
     /**
     --label-line-height
     Line height of labels
     **/
-    --label-line-height: inherit;
+    --label-line-height: 1.5rem;
 
     /**
     --label-color
     Colour of labels
     **/
-    --label-color: inherit;
+    --label-color: #444444;
 
     /**
     --label-margin
     **/
-    --label-margin: 0;
+    --label-margin: 1.125rem;
 
     /**
     --label-input-margin
     **/
-    --label-input-margin: 0;
+    --label-input-margin: 0.1875rem;
 
 
     /**

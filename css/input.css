@@ -80,6 +80,14 @@ input[type="text"]
 ```html
 <label for="text-input">Text</label>
 <input type="text" placeholder="Enter text" id="text-input" />
+
+<label class="required-after after" for="required-input">Required</label>
+<input type="text" required placeholder="Enter text" id="text-input" />
+<label class="help-label text-09" for="required-input">Help text</label>
+
+<label class="required-after after" for="error-input">Error</label>
+<input type="text" required placeholder="Enter text" id="text-input" />
+<label class="error-label text-09" for="error-input">This field is required</label>
 ```
 **/
 
@@ -427,9 +435,14 @@ input[type='file'] {
 	border: none;
 }
 
-.required::after {
+.required-before::before {
 	content: '\00a0*';
-	color: #e62b24;
+	color: var(--red);
+}
+
+.required-after::after {
+	content: '\00a0*';
+	color: var(--red);
 }
 
 /* Focus and error styles */

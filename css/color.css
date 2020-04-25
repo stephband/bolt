@@ -57,3 +57,16 @@ and variables are available to set colors in CSS:
 :root       { --white: white; }
 .white-fg   { color: white; stroke: white; }
 .white-bg   { background-color: white; fill: white; }
+
+/**
+.red-bg
+
+```html
+<p class="thumb red-bg">Red</p>
+```
+**/
+
+:root       { --red: #e62b24; }
+.red-fg     { color: #e62b24; stroke: #e62b24; }
+.red-bg     { background-color: #e62b24; fill: #e62b24; }
+

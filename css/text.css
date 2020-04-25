@@ -88,7 +88,8 @@ Viewport  1rem
 .text-04, h4,
 .text-05, h5,
 .text-06, h6,
-.text-08, body {
+.text-08, body,
+.text-09 {
 	font-family: Helvetica, Arial, sans-serif;
 	font-style: none;
 	text-transform: none;
@@ -100,14 +101,15 @@ Viewport  1rem
 	text-transform: none;
 }
 
-.text-01, h1       { font-size: 2.5rem;   line-height: 2.625rem; font-weight: 700; }
-.text-02, h2       { font-size: 1.5rem;   line-height: 1.625rem; font-weight: 700; }
-.text-03, h3       { font-size: 1.25rem;  line-height: 1.5rem;   font-weight: 700; }
-.text-04, h4       { font-size: 1rem;     line-height: 1.5rem;   font-weight: 700; }
-.text-05, h5       { font-size: 1rem;     line-height: 1.375rem; font-weight: 700; }
-.text-06, h6       { font-size: 1.125rem; line-height: 1.5rem;   font-weight: 300; }
-.text-07           { font-size: 0.875rem; line-height: 1.5rem;   font-weight: 400; }
-.text-08, body     { font-size: 1rem;     line-height: 1.5625rem;   font-weight: 400; }
+.text-01, h1       { font-size: 2.5rem;    line-height: 2.625rem; font-weight: 700; }
+.text-02, h2       { font-size: 1.5rem;    line-height: 1.625rem; font-weight: 700; }
+.text-03, h3       { font-size: 1.25rem;   line-height: 1.5rem;   font-weight: 700; }
+.text-04, h4       { font-size: 1rem;      line-height: 1.5rem;   font-weight: 700; }
+.text-05, h5       { font-size: 1rem;      line-height: 1.375rem; font-weight: 700; }
+.text-06, h6       { font-size: 1.125rem;  line-height: 1.5rem;   font-weight: 300; }
+.text-07           { font-size: 0.9375rem; line-height: 1.5rem;   font-weight: 400; }
+.text-08, body     { font-size: 1rem;      line-height: 1.5rem;   font-weight: 400; }
+.text-09           { font-size: 0.9375rem; line-height: 1.5rem;   font-weight: 400; }
 
 
 /* Vertical typographic spacings pairs.

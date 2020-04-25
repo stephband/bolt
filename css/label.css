@@ -41,32 +41,13 @@ fieldset + input {
 	margin-top: 0;
 }
 
-
-/**
-.error-label
-
-```html
-<input type="text" required id="required-input" />
-<label class="error-label" for="required-input">Field is required</label>
-```
-**/
-
-/**
-.help-label
-
-```html
-<input type="text" required id="help-input" />
-<label class="help-label" for="help-input">Write something in the field</label>
-```
-**/
-
 .error-label,
 .help-label {
 	display: block;
 }
 
 .error-label {
-	color: #d0153e;
+	color: var(--red);
 }
 
 * + .error-label {
