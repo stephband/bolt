@@ -27,6 +27,7 @@ Crunchum Ipsum.
     padding-right: 1.25rem;
     width: 92%;
     max-width: 92%;
+    color: var(--bubble-color);
     border: 0.125rem solid #cadce3;
     border-width: var(--bubble-border-width);
     border-color: var(--bubble-border-color);
@@ -232,4 +233,37 @@ Crunchum Ipsum.
     .js .bottom-right-bubble.active {
         transform: translate3d(1.25rem, -16.6666667%, 0);
     }
+}
+
+
+:root {
+    /**
+    --bubble-font-size
+    **/
+    --bubble-font-size: 1rem;
+
+    /**
+    --bubble-background
+    **/
+    --bubble-background: black;
+
+    /**
+    --bubble-border-color
+    **/
+    --bubble-border-color: black;
+
+    /**
+    --bubble-border-width
+    **/
+    --bubble-border-width: 0.125rem;
+
+    /**
+    --bubble-border-radius
+    **/
+    --bubble-border-radius: 0.25rem;
+
+    /**
+    --bubble-color
+    **/
+    --bubble-color: white;
 }

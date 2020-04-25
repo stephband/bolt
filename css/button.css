@@ -139,3 +139,50 @@ no way to display the selected file name if you do this.
 	-webkit-appearance: none;
 	opacity: 0;
 }
+
+:root {
+    /**
+    --button-font-size
+    **/
+    --button-font-size: inherit;
+
+    /**
+    --button-line-height
+    **/
+    --button-line-height: 2em;
+
+    /**
+    --button-color
+    **/
+    --button-color: black;
+
+    /**
+    --button-background
+    **/
+    --button-background: white;
+
+    /**
+    --button-border-color
+    **/
+    --button-border-color: transparent;
+
+    /**
+    --button-padding-top
+    **/
+    --button-padding-top: 0.5em;
+
+    /**
+    --button-padding-bottom
+    **/
+    --button-padding-bottom: var(--button-padding-top);
+
+    /**
+    --button-padding-left
+    **/
+    --button-padding-left: 0.5625em;
+
+    /**
+    --button-padding-right
+    **/
+    --button-padding-right: var(--button-padding-left);
+}

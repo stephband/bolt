@@ -34,3 +34,20 @@ Badges.
     margin-top: -0.6em;
     margin-right: -0.6em;
 }
+
+:root {
+    /**
+    --badge-font-size
+    **/
+    --badge-font-size: 0.75rem;
+
+    /**
+    --badge-width
+    **/
+    --badge-width: 1.5em;
+
+    /**
+    --badge-background
+    **/
+    --badge-background: black;
+}

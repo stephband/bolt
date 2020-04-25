@@ -116,3 +116,64 @@ input + .masked + .radio-label,
 .masked:disabled + .radio-label {
 	filter: var(--disabled-filter);
 }
+
+:root {
+    /**
+    --checkbox-font-size
+    Font size of checkbox labels
+    **/
+    --checkbox-font-size: inherit;
+
+    /**
+    --checkbox-line-height
+    Line height of checkbox labels
+    **/
+    --checkbox-line-height: 1em;
+
+    /**
+    --checkbox-width
+    Size of simulated checkboxes
+    **/
+    --checkbox-width: 1.5rem;
+
+    /**
+    --checkbox-border-width
+    Border width of simulated checkboxes
+    **/
+    --checkbox-border-width: var(--input-border-width);
+
+    /**
+    --checkbox-border-color
+    **/
+    --checkbox-border-color: var(--input-border-color);
+
+    /**
+    --checkbox-border-radius
+    Border radius of simulated checkboxes
+    **/
+    --checkbox-border-radius: 0;
+
+    /**
+    --radio-width
+    Size of simulated radio buttons
+    **/
+    --radio-width: 1.5rem;
+
+    /**
+    --radio-border-width
+    Border width of simulated radio buttons
+    **/
+    --radio-border-width: var(--input-border-width);
+
+    /**
+    --radio-check-width
+    Size of radio check mark
+    **/
+    --radio-check-width: 0.75rem;
+
+    /**
+    --radio-check-color
+    Color of radio check mark
+    **/
+    --radio-check-color: currentcolor;
+}

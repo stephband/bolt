@@ -130,3 +130,66 @@
     left: auto;
     right: calc(var(--switch-width) - var(--switch-handle-width));
 }
+
+
+:root {
+    /**
+    --switch-background
+    **/
+    --switch-background: #cccccc;
+
+    /**
+    --switch-background-checked
+    **/
+    --switch-background-checked: #a22d08;
+
+    /**
+    --switch-width
+    **/
+    --switch-width: 2.625em;
+
+    /**
+    --switch-height
+    **/
+    --switch-height: 1.4em;
+
+    /**
+    --switch-border
+    **/
+	--switch-border: 0 solid currentcolor;
+
+    /**
+    --switch-border-checked
+    **/
+    --switch-border-checked: 0 solid currentcolor;
+
+    /**
+    --switch-box-shadow
+    **/
+    --switch-box-shadow: inset 0 0.125em 0.5em rgba(0,0,0,0.3);
+
+    /**
+    --switch-handle-background
+    **/
+    --switch-handle-background: white;
+
+    /**
+    --switch-handle-width
+    **/
+    --switch-handle-width: 1.1em;
+
+    /**
+    --switch-handle-border
+    **/
+    --switch-handle-border: 1px solid currentcolor;
+
+    /**
+    --switch-handle-border-checked
+    **/
+    --switch-handle-border-checked: var(--switch-handle-border);
+
+    /**
+    --switch-handle-box-shadow
+    **/
+    --switch-handle-box-shadow: 0 0.15em 0.3125em rgba(0,0,0,0.333);
+}
