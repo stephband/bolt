@@ -28,6 +28,12 @@ Slides
     </div>
 </section>
 ```
+
+Note that slides require:
+
+```js
+import './components/slides.js';
+```
 **/
 
 /**
