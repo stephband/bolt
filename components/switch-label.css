@@ -11,12 +11,12 @@
 .switch-label {
     display: block;
     position: relative;
-	font-size: var(--checkbox-font-size);
-	line-height: var(--checkbox-line-height);
+	font-size: var(--check-font-size);
+	line-height: var(--check-line-height);
 	font-weight: inherit;
     padding-left: calc(var(--switch-width) + 1em);
-	padding-top: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
-	padding-bottom: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
+	padding-top: calc(0.5 * (var(--input-height) - var(--check-line-height)));
+	padding-bottom: calc(0.5 * (var(--input-height) - var(--check-line-height)));
 	min-height: var(--input-height);
     color: inherit;
 }

@@ -20,13 +20,13 @@
 .radio-label,
 .check-label {
 	color: inherit;
-	font-size: var(--checkbox-font-size);
-	line-height: var(--checkbox-line-height);
+	font-size: var(--check-font-size);
+	line-height: var(--check-line-height);
 	font-weight: inherit;
 	position: relative;
 	padding-left: 2.25rem;
-	padding-top: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
-	padding-bottom: calc(0.5 * (var(--input-height) - var(--checkbox-line-height)));
+	padding-top: calc(0.5 * (var(--input-height) - var(--check-line-height)));
+	padding-bottom: calc(0.5 * (var(--input-height) - var(--check-line-height)));
 	min-height: var(--input-height);
 	text-align: left;
 }
@@ -45,9 +45,9 @@
 .check-label::before,
 .check-label::after {
 	top: 0.5625rem;
-	width: var(--checkbox-width);
-	height: var(--checkbox-width);
-	border-radius: var(--checkbox-border-radius);
+	width: var(--check-width);
+	height: var(--check-width);
+	border-radius: var(--check-border-radius);
 }
 
 .radio-label::before {
@@ -65,7 +65,7 @@
 .radio-label::before,
 .check-label::before {
 	background-color: var(--input-background-color);
-	border: var(--checkbox-border-width) solid var(--checkbox-border-color);
+	border: var(--check-border-width) solid var(--check-border-color);
 }
 
 .radio-label::before {
@@ -94,7 +94,7 @@
 .check-label::after {
 	content: '✓';
 	text-align: center;
-	line-height: var(--checkbox-width);
+	line-height: var(--check-width);
 }
 
 .masked + .check-label,
@@ -119,39 +119,39 @@ input + .masked + .radio-label,
 
 :root {
     /**
-    --checkbox-font-size
+    --check-font-size
     Font size of checkbox labels
     **/
-    --checkbox-font-size: inherit;
+    --check-font-size: inherit;
 
     /**
-    --checkbox-line-height
+    --check-line-height
     Line height of checkbox labels
     **/
-    --checkbox-line-height: 1em;
+    --check-line-height: 1em;
 
     /**
-    --checkbox-width
+    --check-width
     Size of simulated checkboxes
     **/
-    --checkbox-width: 1.5rem;
+    --check-width: 1.5rem;
 
     /**
-    --checkbox-border-width
+    --check-border-width
     Border width of simulated checkboxes
     **/
-    --checkbox-border-width: var(--input-border-width);
+    --check-border-width: var(--input-border-width);
 
     /**
-    --checkbox-border-color
+    --check-border-color
     **/
-    --checkbox-border-color: var(--input-border-color);
+    --check-border-color: var(--input-border-color);
 
     /**
-    --checkbox-border-radius
+    --check-border-radius
     Border radius of simulated checkboxes
     **/
-    --checkbox-border-radius: 0;
+    --check-border-radius: 0;
 
     /**
     --radio-width

@@ -38,7 +38,7 @@
     height: var(--radio-width);
     margin-top: calc(-0.5 * var(--radio-width));
     background-color: var(--input-background-color);
-    border: var(--checkbox-border-width) solid var(--checkbox-border-color);
+    border: var(--check-border-width) solid var(--check-border-color);
     border-radius: calc(0.5 * var(--radio-width));
 }
 

@@ -28,16 +28,16 @@
     position: absolute;
     top: 50%;
     right: var(--input-padding-right);
-    margin-top: calc(-0.5 * var(--checkbox-width));
-    width: var(--checkbox-width);
-    height: var(--checkbox-width);
+    margin-top: calc(-0.5 * var(--check-width));
+    width: var(--check-width);
+    height: var(--check-width);
     box-sizing: border-box;
 }
 
 .check-button::before {
     background-color: var(--input-background-color);
-    border: var(--checkbox-border-width) solid var(--checkbox-border-color);
-    border-radius: var(--checkbox-border-radius);
+    border: var(--check-border-width) solid var(--check-border-color);
+    border-radius: var(--check-border-radius);
 }
 
 .check-button::after {
