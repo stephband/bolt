@@ -2,7 +2,7 @@
 import '../../dom/js/switchable.js';
 import '../../dom/js/swipeable.js';
 import { cache, get, last } from '../../fn/module.js';
-import { append, before, box, children, classes, closest, events, find, isTargetEvent, matches, next, previous as prev, query, style } from '../../dom/module.js';
+import { append, before, rect, children, classes, closest, events, find, isTargetEvent, matches, next, previous as prev, query, style } from '../../dom/module.js';
 
 const maxDuration = 0.5;
 
@@ -41,13 +41,13 @@ function requestFrame(n, fn) {
 
 function update(parent, node) {
     var cl = classes(parent);
-    var rect = box(node);
+    var box = rect(node);
 
     // Slides not visible will bork
-    if (!rect) { return; }
+    if (!box) { return; }
 
-    var l1 = rect.left;
-    var l2 = box(parent).left;
+    var l1 = box.left;
+    var l2 = rect(parent).left;
     var l  = l1 - l2 - style('margin-left', node);
 
     cl.add('no-transition');

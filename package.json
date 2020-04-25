@@ -63,12 +63,12 @@
     "components/bubble.css",
     "css/card.css",
     "css/block.css",
-    "css/slides.css",
     "css/color.css",
     "css/text.css",
     "css/modifiers.css",
     "css/respond.css",
     "css/grid.css",
+    "components/slides.css",
     "css/device.css",
     "css/var.css"
   ]

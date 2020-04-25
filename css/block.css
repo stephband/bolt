@@ -109,14 +109,9 @@ hr.block {
 /**
 .toggle-block
 
-A block animated to behave like a drawer that reveals content when the class
-`active` is added. Note in this example the class `toggle`
-is an action class that gives the block `active` when a link that
-references it is clicked.
-
 ```html
 <a href="#some-stuff">Click to show</a>
-<div class="toggle-block block toggle" id="some-stuff">
+<div class="toggle-block block toggle" toggleable id="some-stuff">
   <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop
   python orientation semi colon incident. Duis aute irure indent tabs or
   spaces velit esse cilium buntum how crunchy duntum.</p>

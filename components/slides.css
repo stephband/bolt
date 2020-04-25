@@ -53,7 +53,6 @@ Slides container block.
 .slides-block > .thumb {
     position: absolute;
     top: 50%;
-    margin-top: -1.25rem;
     color: var(--partgrey-color);
     z-index: 2;
 }
@@ -63,44 +62,33 @@ Slides container block.
     margin-top: -40px;
 }
 
-.captioned-slides-block > .prev-thumb,
-.captioned-slides-block > .next-thumb {
-    margin-top: 0px;
+.slides-block > .prev-thumb {
+    left: 0.25rem;
 }
 
-.slides-block > .prev-thumb { left: 0.25rem; }
-.slides-block > .next-thumb { right: 0.25rem; }
-
-
-
-
-
-.slides-block > .close-thumb {
-    margin-top: 0;
-    top: 0.625rem;
-    right: 0.625rem;
-    background-color: transparent;
+.slides-block > .next-thumb {
+    right: 0.25rem;
 }
 
-.slides-block > .close-thumb::before,
-.slides-block > .close-thumb::after {
-    border-top-width: 1px;
-    border-bottom-width: 0;
-    width: 1.875rem;
-}
 
 .slides-block > .dots-block {
+    position: absolute;
+    bottom: 1.875rem;
+    left: 0;
+    right: 0;
     margin-top: 1.125rem;
 }
 
-.captioned-slides-block {
-    /* Make room for absolutely positioned captions */
-    padding-top: 5rem;
-}
-
 @media (min-width: 43.75em) {
-    .slides-block > .prev-thumb { left: 5%;  margin-left: -1.875rem;  }
-    .slides-block > .next-thumb { right: 5%; margin-right: -1.875rem; }
+    .slides-block > .prev-thumb {
+        left: 5%;
+        margin-left: -1.875rem;
+    }
+
+    .slides-block > .next-thumb {
+        right: 5%;
+        margin-right: -1.875rem;
+    }
 }
 
 
@@ -163,36 +151,9 @@ Slides container block.
 }
 
 
-
-.slides-block > .dots-block {
-    position: absolute;
-    bottom: 1.875rem;
-    left: 0;
-    right: 0;
-}
-
-
-
-
-
-/**
+/*
 .slides-grid
-
-```html
-<div class="slides-grid grid" swipeable>
-    <div class="block" switchable id="slide-0">
-        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 1" draggable="false" />
-    </div
-    ><div class="block" switchable id="slide-1">
-        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 2" draggable="false" />
-    </div
-    ><div class="block" switchable id="slide-2">
-        <img class="block" src="//source.unsplash.com/category/nature/1300x620" alt="Image 3" draggable="false" />
-    </div>
-</div>
-```
 */
-
 
 .slides-grid {
     display: grid;
@@ -239,38 +200,6 @@ Slides container block.
 		position: static;
 		transition: none !important;
 	}
-}
-
-
-
-
-
-
-/**
-.slides-grid
-Grid containing blocks layed out horizontally.
-**/
-
-.slides-grid {
-    column-gap: 0;
-}
-
-.slides-grid > .block {
-    display: inline-grid;
-    align-content: center;
-    justify-content: stretch;
-}
-
-/* Active slides */
-
-.slides-grid > .block.active {
-    z-index: 2;
-}
-
-/* Post-active slides */
-
-.slides-grid > .block.active ~ .block {
-
 }
 
 
