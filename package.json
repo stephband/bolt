@@ -63,6 +63,7 @@
     "components/bubble.css",
     "css/card.css",
     "css/block.css",
+    "css/slides.css",
     "css/color.css",
     "css/text.css",
     "css/modifiers.css",
