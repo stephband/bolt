@@ -26,6 +26,7 @@
 
 	/* Compensate for border */
 	line-height: calc(var(--input-height) - 2 * var(--input-border-width));
+	min-height: var(--input-height);
 }
 
 .select-button > select {
@@ -44,8 +45,6 @@
 	outline: none;
 	border: var(--input-border-width) solid transparent;
 	border-radius: inherit;
-
-	/* Prefixed box-sizing rules necessary for older browsers */
 	box-sizing: border-box;
 }
 

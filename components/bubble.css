@@ -27,6 +27,7 @@ Crunchum Ipsum.
     padding-right: 1.25rem;
     width: 92%;
     max-width: 92%;
+    min-height: calc(2 * var(--bubble-border-width) + 2 * 0.75rem + var(--bubble-line-height));
     color: var(--bubble-color);
     border: 0.125rem solid #cadce3;
     border-width: var(--bubble-border-width);
@@ -110,7 +111,7 @@ Crunchum Ipsum.
 
 .bottom-left-bubble::before,
 .bottom-right-bubble::before {
-    top: 16.6667%;
+    top: var(--bubble-pointer-y);
 }
 
 .js .bubble {
@@ -225,13 +226,20 @@ Crunchum Ipsum.
         transform: translate3d(1.25rem, -50%, 0);
     }
 
+    .js .bottom-left-bubble {
+        transform: translate3d(-100%, calc(-1 * var(--bubble-pointer-y)), 0);
+    }
+
+    .js .bottom-left-bubble.active {
+        transform: translate3d(calc(-100% - 0.25rem), calc(-1 * var(--bubble-pointer-y)), 0);
+    }
+
     .js .bottom-right-bubble {
-        /* Make room for the .bubble::before point. */
-        transform: translate3d(0.9375rem, -16.6666667%, 0);
+        transform: translate3d(0.9375rem, calc(-1 * var(--bubble-pointer-y)), 0);
     }
 
     .js .bottom-right-bubble.active {
-        transform: translate3d(1.25rem, -16.6666667%, 0);
+        transform: translate3d(1.25rem, calc(-1 * var(--bubble-pointer-y)), 0);
     }
 }
 
@@ -241,6 +249,11 @@ Crunchum Ipsum.
     --bubble-font-size
     **/
     --bubble-font-size: 1rem;
+
+    /**
+    --bubble-line-height
+    **/
+    --bubble-line-height: 1.5rem;
 
     /**
     --bubble-background
@@ -266,4 +279,9 @@ Crunchum Ipsum.
     --bubble-color
     **/
     --bubble-color: white;
+
+    /**
+    --bubble-pointer-y
+    **/
+    --bubble-pointer-y: 1.5rem;
 }

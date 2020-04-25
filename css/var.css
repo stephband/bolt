@@ -10,7 +10,7 @@
     --input-line-height
     Line height of textareas
     **/
-    --input-line-height: inherit;
+    --input-line-height: 1.5rem;
 
     /**
     --input-background-color
@@ -51,18 +51,6 @@
     --input-padding-right
     **/
     --input-padding-right: 0.5625rem;
-
-    /**
-    --input-padding-top
-    Top padding of textareas
-    **/
-    --input-padding-top: 0;
-
-    /**
-    --input-padding-bottom
-    Bottom padding of textareas
-    **/
-    --input-padding-bottom: 0;
 
     /**
     --input-height

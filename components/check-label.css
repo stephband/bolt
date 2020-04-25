@@ -166,7 +166,7 @@ input + .masked + .radio-label,
     --check-line-height
     Line height of checkbox labels
     **/
-    --check-line-height: 1em;
+    --check-line-height: 1.5rem;
 
     /**
     --check-width
@@ -195,7 +195,7 @@ input + .masked + .radio-label,
     --radio-width
     Size of simulated radio buttons
     **/
-    --radio-width: 1.5rem;
+    --radio-width: 1.625rem;
 
     /**
     --radio-border-width

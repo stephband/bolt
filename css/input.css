@@ -92,11 +92,39 @@ input[type="text"]
 **/
 
 /**
+input[type="number"]
+
+```html
+<label for="number-input">Number</label>
+<input type="number" placeholder="100" id="number-input" />
+```
+**/
+
+/**
 input[type="password"]
 
 ```html
 <label for="password-input">Password</label>
 <input type="password" placeholder="Enter password" id="password-input" />
+```
+**/
+
+/**
+input[type="search"]
+
+```html
+<label for="search">Search</label>
+<input type="search" id="search" name="search" />
+```
+**/
+
+
+/**
+input[type="tel"]
+
+```html
+<label for="tel">Tel</label>
+<input type="tel" id="tel" name="tel" />
 ```
 **/
 
@@ -110,20 +138,20 @@ input[type="url"]
 **/
 
 /**
-input[type="number"]
-
-```html
-<label for="number-input">Number</label>
-<input type="number" placeholder="100" id="number-input" />
-```
-**/
-
-/**
 input[type="range"]
 
 ```html
 <label for="range-input">Range</label>
 <input type="range" value="0" id="range-input" />
+```
+**/
+
+/**
+textarea
+
+```html
+<label for="textarea">textarea</label>
+<textarea id="textarea" name="textarea"></textarea>
 ```
 **/
 
@@ -159,8 +187,8 @@ input,
 select,
 textarea {
 	/* iOS has padding in the UA stylesheet. */
-	padding-top: var(--input-padding-top);
-	padding-bottom: var(--input-padding-bottom);
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
 
 input,
@@ -243,11 +271,6 @@ textarea,
 	text-indent: calc(var(--input-padding-left) - var(--input-border-width));
 }
 
-textarea {
-	padding-left: calc(var(--input-padding-left) - var(--input-border-width));
-	padding-right: calc(var(--input-padding-left) - var(--input-border-width));
-}
-
 textarea,
 [type="tel"],
 [type="url"],
@@ -303,10 +326,13 @@ input[type='month'] {
 }
 
 textarea {
-	min-height: calc(var(--input-padding-top) + var(--input-padding-bottom) + 4 * var(--input-line-height));
+	min-height: calc(var(--input-height) + 4 * var(--input-line-height));
 	line-height: var(--input-line-height);
-	padding-top: var(--input-padding-top);
-	padding-bottom: var(--input-padding-bottom);
+	padding-left: calc(var(--input-padding-left) - var(--input-border-width));
+	padding-right: calc(var(--input-padding-left) - var(--input-border-width));
+	/* Nudged up by 1px to make it look more even. */
+	padding-top: calc(0.5 * (var(--input-height) - var(--input-line-height) - 2 * var(--input-border-width)) - 1px);
+	padding-bottom: calc(0.5 * (var(--input-height) - var(--input-line-height) - 2 * var(--input-border-width)) + 1px);
 
 	/* IE is set to overflow: scroll by default */
 	overflow: auto;

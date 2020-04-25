@@ -82,6 +82,14 @@ Viewport  1rem
 ```
 **/
 
+/**
+.text-09
+
+```html
+<p class="text-09">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
+```
+**/
+
 .text-01, h1,
 .text-02, h2,
 .text-03, h3,
