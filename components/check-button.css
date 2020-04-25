@@ -74,7 +74,9 @@
 
 .check-button::after {
     display: none;
-    text-align: center;
+	content: '✓';
+	text-align: center;
+	line-height: var(--check-width);
 }
 
 .radio-button::after {
