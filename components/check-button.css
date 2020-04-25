@@ -8,7 +8,19 @@
 ```
 **/
 
-.check-button {
+/**
+.radio-button
+
+```html
+<input class="masked" type="radio" name="radio-button" value="on" id="radio-button-on" />
+<label class="radio-button button" for="radio-button-on">Turn me on</label>
+<input class="masked" type="radio" name="radio-button" value="off" id="radio-button-off" />
+<label class="radio-button button" for="radio-button-off">Turn me off</label>
+```
+**/
+
+.check-button,
+.radio-button {
     display: block;
     text-align: left;
     font-size: var(--input-font-size);
@@ -18,42 +30,71 @@
     padding-bottom: 0.6em;
     min-height: 2.4em;
     color: var(--input-color);
-    background-color: var(--bleach-violet);
+    background-color: #eeeeee;
     border: var(--input-border-width) solid transparent;
 }
 
 .check-button::before,
-.check-button::after {
+.check-button::after,
+.radio-button::before,
+.radio-button::after {
     content: '';
     position: absolute;
     top: 50%;
+    box-sizing: border-box;
+}
+
+.check-button::before,
+.check-button::after {
     right: var(--input-padding-right);
     margin-top: calc(-0.5 * var(--check-width));
     width: var(--check-width);
     height: var(--check-width);
-    box-sizing: border-box;
+}
+
+.check-button::before,
+.radio-button::before {
+    background-color: var(--input-background-color);
+    border: var(--check-border-width) solid var(--check-border-color);
 }
 
 .check-button::before {
-    background-color: var(--input-background-color);
-    border: var(--check-border-width) solid var(--check-border-color);
     border-radius: var(--check-border-radius);
+}
+
+.radio-button::before {
+    right: var(--input-padding-right);
+    width: var(--radio-width);
+    height: var(--radio-width);
+    margin-top: calc(-0.5 * var(--radio-width));
+    border-radius: calc(0.5 * var(--radio-width));
 }
 
 .check-button::after {
     display: none;
-    content: '';
     text-align: center;
     background-image: url('/static/images/icons.svg');
     background-size: 4.44444444em auto;
     background-position: center -8.16666667em;
 }
 
-.masked + .check-button {
+.radio-button::after {
+    display: none;
+    right: calc(var(--input-padding-right) + 0.5 * (var(--radio-width) - var(--radio-check-width)));
+    width: var(--radio-check-width);
+    height: var(--radio-check-width);
+    margin-top: calc(-0.5 * var(--radio-check-width));
+    background-color: var(--radio-check-color);
+    border-radius: calc(0.5 * var(--radio-check-width));
+}
+
+.masked + .check-button,
+.masked + .radio-button {
     margin-top: 0;
 }
 
-:checked + .check-button::after {
+:checked + .check-button::after,
+:checked + .radio-button::after {
     display: block;
 }
 
@@ -61,13 +102,20 @@
     opacity: 0.4;
 }
 
-:focus + .check-button {
+:focus + .check-button,
+:focus + .radio-button {
     box-shadow: var(--focus-box-shadow);
     border-color: var(--focus-border-color);
     /* Make focus shadow appear over other elements. */
     z-index: 1;
 }
 
-* + .masked + .check-button {
-    margin-top: 0.4em;;
+:disabled + .check-button,
+:disabled + .radio-button {
+    filter: var(--disabled-filter);
+}
+
+* + .masked + .check-button,
+* + .masked + .radio-button {
+    margin-top: var(--input-margin);
 }

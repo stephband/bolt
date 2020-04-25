@@ -50,8 +50,6 @@
     
         <link rel="stylesheet" href="components/menu-button.css">
     
-        <link rel="stylesheet" href="components/radio-button.css">
-    
         <link rel="stylesheet" href="components/select-button.css">
     
         <link rel="stylesheet" href="components/toggle-button.css">
@@ -98,6 +96,11 @@
     <link rel="stylesheet" href="../fn/css/tests.css">
     <link rel="stylesheet" href="../fn/css/docs.css">
     <link rel="stylesheet" href="../fn/css/respond.css">
+
+    <style>
+        .bolt-fg { color: #005477; }
+        .bolt-bg { background-color: #005477; }
+    </style>
 <template id="header-template" title="../fn/">
     <h1>{[title]} <span class="doctext-06">{[version]}</span></h1>
 
@@ -535,6 +538,30 @@ npm run build</code></pre>
                 </div>
             
                 <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                    <a href="#switch-label"><code>.switch-label</code></a>
+                </h4>
+                <div class="x-3 xspan-2 x-stretch y-baseline block"><input class="masked" type="checkbox" value="something" id="switch-input">
+<label class="switch-label" for="switch-input">Turn me on</label></div>
+                <div class="x-5 x-stretch block">
+                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem;" popable="" id="switch-label"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>something<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>To make switches swipeable:</p>
+<pre><code class="language-js"><span class="token keyword">import</span> <span class="token string">'./components/switch-label.js'</span><span class="token punctuation">;</span></code></pre>
+</div>
+                </div>
+            
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                    <a href="#right-switch-label"><code>.right-switch-label</code></a>
+                </h4>
+                <div class="x-3 xspan-2 x-stretch y-baseline block"><input class="masked" type="checkbox" value="something" id="switch-input-2">
+<label class="right-switch-label switch-label" for="switch-input-2">Turn me on</label></div>
+                <div class="x-5 x-stretch block">
+                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem;" popable="" id="right-switch-label"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>something<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input-2<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-switch-label switch-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input-2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
+</div>
+                </div>
+            
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
                     <a href="#check-button"><code>.check-button</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><input class="masked" type="checkbox" value="something" id="check-button-input">
@@ -561,28 +588,6 @@ npm run build</code></pre>
                 </div>
             
                 <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#switch-label"><code>.switch-label</code></a>
-                </h4>
-                <div class="x-3 xspan-2 x-stretch y-baseline block"><input class="masked" type="checkbox" value="something" id="switch-input">
-<label class="switch-label" for="switch-input">Turn me on</label></div>
-                <div class="x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem;" popable="" id="switch-label"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>something<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
-</div>
-                </div>
-            
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#right-switch-label"><code>.right-switch-label</code></a>
-                </h4>
-                <div class="x-3 xspan-2 x-stretch y-baseline block"><input class="masked" type="checkbox" value="something" id="switch-input-2">
-<label class="right-switch-label switch-label" for="switch-input-2">Turn me on</label></div>
-                <div class="x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem;" popable="" id="right-switch-label"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>something<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input-2<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-switch-label switch-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input-2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
-</div>
-                </div>
-            
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
                     <a href="#select-button"><code>.select-button</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><label class="select-button button">
@@ -601,14 +606,6 @@ npm run build</code></pre>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span></code></pre>
 </div>
-                </div>
-            
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
-                    <a href="#variables"><code>Variables.</code></a>
-                </h4>
-                <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
-                <div class="x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem;" popable="" id="variables"></div>
                 </div>
             
         </section>
@@ -1897,6 +1894,7 @@ breakpoint prefix.</p>
         import '../dom/js/toggleable.js';
         import '../dom/js/popable.js';
         import '../dom/js/locateable.js';
+        import './components/switch-label.js';
         import './variables.js';
     </script>
 

@@ -6,6 +6,12 @@
 <input class="masked" type="checkbox" value="something" id="switch-input" />
 <label class="switch-label" for="switch-input">Turn me on</label>
 ```
+
+To make switches swipeable:
+
+```js
+import './components/switch-label.js';
+```
 **/
 
 .switch-label {
@@ -136,37 +142,37 @@
     /**
     --switch-background
     **/
-    --switch-background: #cccccc;
+    --switch-background: #eeeeee;
 
     /**
     --switch-background-checked
     **/
-    --switch-background-checked: #a22d08;
+    --switch-background-checked: #005477;
 
     /**
     --switch-width
     **/
-    --switch-width: 2.625em;
+    --switch-width: 3.1875em;
 
     /**
     --switch-height
     **/
-    --switch-height: 1.4em;
+    --switch-height: 1.875rem;
 
     /**
     --switch-border
     **/
-	--switch-border: 0 solid currentcolor;
+	--switch-border: none;
 
     /**
     --switch-border-checked
     **/
-    --switch-border-checked: 0 solid currentcolor;
+    --switch-border-checked: var(--switch-border);
 
     /**
     --switch-box-shadow
     **/
-    --switch-box-shadow: inset 0 0.125em 0.5em rgba(0,0,0,0.3);
+    --switch-box-shadow: inset 0 0.125rem 0.5em rgba(0,0,0,0.2);
 
     /**
     --switch-handle-background
@@ -176,12 +182,12 @@
     /**
     --switch-handle-width
     **/
-    --switch-handle-width: 1.1em;
+    --switch-handle-width: 1.5rem;
 
     /**
     --switch-handle-border
     **/
-    --switch-handle-border: 1px solid currentcolor;
+    --switch-handle-border: none;
 
     /**
     --switch-handle-border-checked
@@ -191,5 +197,5 @@
     /**
     --switch-handle-box-shadow
     **/
-    --switch-handle-box-shadow: 0 0.15em 0.3125em rgba(0,0,0,0.333);
+    --switch-handle-box-shadow: 0 0.125rem 0.25rem 0.0625rem rgba(0,0,0,0.25);
 }

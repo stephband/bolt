@@ -50,7 +50,6 @@
     "css/button.css",
     "components/check-button.css",
     "components/menu-button.css",
-    "components/radio-button.css",
     "components/select-button.css",
     "components/toggle-button.css",
     "components/pill-input.css",

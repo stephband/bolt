@@ -32,6 +32,11 @@
     <link rel="stylesheet" href="../fn/css/tests.css" />
     <link rel="stylesheet" href="../fn/css/docs.css" />
     <link rel="stylesheet" href="../fn/css/respond.css" />
+
+    <style>
+        .bolt-fg { color: #005477; }
+        .bolt-bg { background-color: #005477; }
+    </style>
 </head>
 
 <body class="grid 3-grid @1-6-grid @2-9-grid" style="row-gap: 60px;">
@@ -77,9 +82,8 @@ npm run build</code></pre>
             './css/input.css',
             './css/label.css',
             './components/check-label.css',
-            './components/check-button.css',
-            './components/radio-button.css',
             './components/switch-label.css',
+            './components/check-button.css',
             './components/select-button.css',
             './css/var.css'" build-src="../fn/templates.html#css-template"></template>
         <template build-fn="docs:
@@ -118,6 +122,7 @@ npm run build</code></pre>
         import '../dom/js/toggleable.js';
         import '../dom/js/popable.js';
         import '../dom/js/locateable.js';
+        import './components/switch-label.js';
         import './variables.js';
     </script>
 </body>
