@@ -82,7 +82,8 @@
 
 .radio-button::after {
     display: none;
-    right: calc(var(--input-padding-right) + 0.5 * (var(--radio-width) - var(--radio-check-width)));
+    left: calc(var(--input-padding-left) + 0.5 * (var(--radio-width) - var(--radio-check-width)));
+    right: auto;
     width: var(--radio-check-width);
     height: var(--radio-check-width);
     margin-top: calc(-0.5 * var(--radio-check-width));
@@ -140,10 +141,10 @@
 .right-radio-button
 
 ```html
-<input class="masked" type="radio" name="radio-button" value="on" id="radio-button-on" />
-<label class="right-radio-button radio-button button" for="radio-button-on">Turn me on</label>
-<input class="masked" type="radio" name="radio-button" value="off" id="radio-button-off" />
-<label class="right-radio-button radio-button button" for="radio-button-off">Turn me off</label>
+<input class="masked" type="radio" name="right-radio-button" value="on" id="right-radio-button-on" />
+<label class="right-radio-button radio-button button" for="right-radio-button-on">Turn me on</label>
+<input class="masked" type="radio" name="right-radio-button" value="off" id="right-radio-button-off" />
+<label class="right-radio-button radio-button button" for="right-radio-button-off">Turn me off</label>
 ```
 **/
 
@@ -158,4 +159,9 @@
 .right-radio-button::before {
     left: auto;
     right: var(--input-padding-right);
+}
+
+.right-radio-button::after {
+    left: auto;
+    right: calc(var(--input-padding-right) + 0.5 * (var(--radio-width) - var(--radio-check-width)));
 }
