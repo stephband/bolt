@@ -23,10 +23,6 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" />
 
-    <template build-fn="get:style each">
-        <link rel="stylesheet" href="{[.]}" />
-    </template>
-
     <style>
         .bolt-fg { color: #005477; }
         .bolt-bg { background-color: #005477; }
@@ -38,6 +34,10 @@
             background-color: rgba(127, 127, 127, 0.15);
         }
     </style>
+
+    <template build-fn="get:style each">
+        <link rel="stylesheet" href="{[.]}" />
+    </template>
 
     <link rel="stylesheet" href="../dom/css/dom.css" />
     <link rel="stylesheet" href="../fn/css/prism-cruncher.css" />
