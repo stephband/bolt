@@ -56,7 +56,6 @@ button[type="button"],
     /* Overrides default browser style on input type=submit (white-space: pre) */
     white-space: normal;
 
-    background-color: #eeeeee;
     background-repeat: no-repeat;
     background-clip: padding-box;
     background-origin: padding-box;
