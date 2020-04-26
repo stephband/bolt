@@ -461,16 +461,6 @@ input[type='file'] {
 	border: none;
 }
 
-.required-before::before {
-	content: '\00a0*';
-	color: var(--red);
-}
-
-.required-after::after {
-	content: '\00a0*';
-	color: var(--red);
-}
-
 /* Focus and error styles */
 
 /* IE hates having border-color applied to select boxes. It forces
