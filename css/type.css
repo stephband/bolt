@@ -1,55 +1,55 @@
 
 html {
-	font-size: 100%; /* 16px, normally */
+    font-size: 100%; /* 16px, normally */
 }
 
 body {
-	/* Enable kerning in FF and WebKit. */
-	text-rendering: optimizeLegibility;
+    /* Enable kerning in FF and WebKit. */
+    text-rendering: optimizeLegibility;
 }
 
 pre,
 code,
 kbd,
 samp {
-	/* Corrects font family set oddly in IE6, S4/5, Chrome
-	   en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
-	font-family: monospace, serif;
-	font-family: Monaco, 'Lucida Console', monospace;
+    /* Corrects font family set oddly in IE6, S4/5, Chrome
+       en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
+    font-family: monospace, serif;
+    font-family: Monaco, 'Lucida Console', monospace;
 }
 
 code,
 kbd,
 samp {
-	white-space: nowrap;
+    white-space: nowrap;
 }
 
 pre {
-	/* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */
-	white-space: pre; /* CSS2 */
-	white-space: pre-wrap; /* CSS2.1 */
-	/*white-space: pre-line; /* CSS3 (and 2.1 as well, actually) */
-	word-wrap: break-word; /* IE */
+    /* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */
+    white-space: pre; /* CSS2 */
+    white-space: pre-wrap; /* CSS2.1 */
+    /*white-space: pre-line; /* CSS3 (and 2.1 as well, actually) */
+    word-wrap: break-word; /* IE */
 }
 
 pre > code {
-	line-height: inherit;
-	white-space: inherit;
+    line-height: inherit;
+    white-space: inherit;
 }
 
 a:focus,
 a:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 a {
-	text-decoration: underline;
-	color: inherit;
+    text-decoration: underline;
+    color: inherit;
 }
 
 [href] {
-	/* j.mp/webkit-tap-highlight-color */
-	-webkit-tap-highlight-color: rgba(0,0,0,0.25);
+    /* j.mp/webkit-tap-highlight-color */
+    -webkit-tap-highlight-color: rgba(0,0,0,0.25);
 }
 
 /* Block elements */
@@ -61,7 +61,7 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0 auto;
+    margin: 0 auto;
 }
 
 h1,
@@ -70,28 +70,28 @@ h3,
 h4,
 h5,
 h6 {
-	font-weight: normal;
-	-webkit-hyphens: none;
-	   -moz-hyphens: none;
-	    -ms-hyphens: none;
-	        hyphens: none;
+    font-weight: normal;
+    -webkit-hyphens: none;
+       -moz-hyphens: none;
+        -ms-hyphens: none;
+            hyphens: none;
 }
 
 hr {
-	/* IE9 does not properly get border-color for <hr>s that
-	   have border-width > 1px. Use background-color. */
-	height: 1px;
-	border-width: 0;
-	margin-bottom: -1px;
-	background-color: currentcolor;
+    /* IE9 does not properly get border-color for <hr>s that
+       have border-width > 1px. Use background-color. */
+    height: 1px;
+    border-width: 0;
+    margin-bottom: -1px;
+    background-color: currentcolor;
 }
 
 ul                { list-style-type: disc; }
 ol                {
-	list-style-type: decimal;
-	/* Chrome renders them outside by default, causing a
-	   difference between FF and Chrome */
-	list-style-position: inside;
+    list-style-type: decimal;
+    /* Chrome renders them outside by default, causing a
+       difference between FF and Chrome */
+    list-style-position: inside;
 }
 
 dl {
@@ -99,12 +99,12 @@ dl {
     grid-column-gap: 1.125rem;
     grid-template-columns: max-content 1fr;
     grid-auto-columns: 1fr;
-	align-items: flex-end;
+    align-items: flex-end;
 }
 
 dl > dt {
     grid-column: 1 / span 1;
-	max-width: 40vw;
+    max-width: 40vw;
 }
 
 blockquote        { font-style: italic; font-family: Georgia, serif; }
@@ -124,11 +124,11 @@ li:empty,
 dt:empty,
 dd:empty,
 blockquote:empty {
-	/* Hide any typographic block that is empty. This is a bit
-	   contraversial, but helps correct style errors in blocks
-	   of user input where the HTML has ended up being dodgy -
-	   perhaps thanks to a CMS editor, for example. */
-	display: none;
+    /* Hide any typographic block that is empty. This is a bit
+       contraversial, but helps correct style errors in blocks
+       of user input where the HTML has ended up being dodgy -
+       perhaps thanks to a CMS editor, for example. */
+    display: none;
 }
 
 p > img,
@@ -152,8 +152,8 @@ dd > canvas,
 dd > object,
 dd > embed,
 dd > iframe {
-	/* Don't allow media to break out of container bounds. */
-	max-width: 100%;
+    /* Don't allow media to break out of container bounds. */
+    max-width: 100%;
 }
 
 /* Inline elements */
@@ -232,8 +232,17 @@ blockquote        { margin-left: 2.6667em; }
 .tag-code::before { content: '<'; margin-right: -0.1em; }
 .tag-code::after  { content: '>'; margin-left: -0.1em; }
 
-.wrap             { white-space: normal; }
-.no-wrap          { white-space: nowrap; text-overflow: ellipsis; }
+.wrap {
+    white-space: normal;
+    flex-wrap: wrap;
+}
+
+.no-wrap {
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
 .break-wrap       { white-space: normal; overflow-wrap: break-word; }
 .line-wrap        { white-space: pre; }
 

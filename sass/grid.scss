@@ -64,8 +64,7 @@ Applies a grid template of 6 equal columns.
 .\31 2-grid        { grid-template-columns: repeat(12, 1fr); }
 
 /**
-.x-1, .x-2 … .x-12
-.xspan-2, .xspan-3 … .xspan-12
+.x-1 … 12, .xspan-2 … 12, .x-start, .x-center, .x-end, .x-stretch, .x-bleed
 
 ```html
 <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
@@ -74,8 +73,16 @@ Applies a grid template of 6 equal columns.
     <button class="x-3">x-3</button>
     <button class="x-1 xspan-2">xspan-2</button>
     <button class="x-1 xspan-3">xspan-3</button>
+    <button class="x-1 x-start y-4">x-start</button>
+    <button class="x-2 x-center y-4">x-center</button>
+    <button class="x-3 x-end y-4">x-end</button>
+    <button class="x-1 x-stretch y-5">x-stretch</button>
+    <button class="x-2 x-bleed y-5">x-bleed</button>
 </div>
 ```
+
+Note that `.x-bleed`, which stretches an element half the way over the grid gap,
+depends on `column-gap` having been set via the custom property `--column-gap`.
 **/
 
 .x-1            { grid-column-start: 1 !important; }
@@ -105,25 +112,6 @@ Applies a grid template of 6 equal columns.
 .xspan-12      { grid-column-end: span 12 !important; }
 .xspan--1      { grid-column-end: span -1 !important; }
 
-/**
-.x-start, .x-center, .x-end
-.x-stretch, .x-bleed
-
-```html
-<div class="grid" style="--column-gap: 0.9375rem">
-    <button class="x-1 x-start">x-start</button>
-    <button class="x-2 x-center">x-center</button>
-    <button class="x-3 x-end">x-end</button>
-    <button class="x-1 x-stretch">x-stretch</button>
-    <button class="x-2 x-bleed">x-bleed</button>
-    <button class="x-3 x-bleed">x-bleed</button>
-</div>
-```
-
-Note that `.x-bleed`, which stretches an element half the way over the grid gap,
-depends on `column-gap` having been set via the custom property `--column-gap`.
-**/
-
 .x-start        {
     justify-self: start !important;
     margin-left: 0;
@@ -152,16 +140,20 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 }
 
 /**
-.y-1, .y-2 … .y-18
-.yspan-2, .yspan-3 … .yspan-12
+.y-1 … 18, .yspan-2 … 12, .y-start, .y-center, .y-end, .y-stretch, y-baseline
 
 ```html
 <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
-    <button class="y-1">y-1</button>
-    <button class="y-2">y-2</button>
-    <button class="y-3">y-3</button>
-    <button class="y-1 yspan-2">yspan-2</button>
-    <button class="y-1 yspan-3">yspan-3</button>
+    <button class="x-1 y-1">y-1</button>
+    <button class="x-1 y-2">y-2</button>
+    <button class="x-1 y-3">y-3</button>
+    <button class="x-2 y-1 yspan-2">yspan-2</button>
+    <button class="x-3 y-1 yspan-3">yspan-3</button>
+    <button class="x-1 y-4 y-start">y-start</button>
+    <button class="x-1 y-5 y-center">y-center</button>
+    <button class="x-1 y-6 y-end">y-end</button>
+    <button class="x-2 y-4 y-stretch">y-stretch</button>
+    <button class="x-3 y-4 y-baseline">y-baseline</button>
 </div>
 ```
 **/
@@ -201,21 +193,6 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 .yspan-12      { grid-row-end: span 12 !important; }
 .yspan--1      { grid-row-end: span -1 !important; }
 
-/**
-.y-start, .y-center, .y-end
-.y-stretch, y-baseline
-
-```html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; height: 15rem;">
-    <button class="y-1 y-start">y-start</button>
-    <button class="y-2 y-center">y-center</button>
-    <button class="y-3 y-end">y-end</button>
-    <button class="y-1 y-stretch">y-stretch</button>
-    <button class="y-1 y-baseline">y-baseline</button>
-</div>
-```
-**/
-
 .y-start        { align-self: start !important; }
 .y-center       { align-self: center !important; }
 .y-end          { align-self: end !important; }
@@ -252,7 +229,9 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
     @media (min-width: #{nth($breakpoint, 2)}) {
         .#{nth($breakpoint, 1)}grid           {
             display: grid !important;
+            /* Horizontal layout */
             grid-auto-flow: column;
+            /* Create equal columns by default. */
             grid-auto-columns: minmax(0, 1fr);
             column-gap: var(--column-gap);
             row-gap: var(--row-gap);

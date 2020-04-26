@@ -19,17 +19,23 @@ Slides
             <img src="images/scotland-4.jpg" alt="title" draggable="false" />
             <figcaption class="text-09">Slide 3</figcaption>
         </figure>
+
+        <figure class="block active y-stretch" id="slides-1-slide-4" switchable>
+            <img src="images/glacier-de-moiry.jpg" alt="title" draggable="false" />
+            <figcaption class="text-09">Slide 4</figcaption>
+        </figure>
     </div>
 
     <div class="slides-dots-block dots-block block">
         <a class="x-1 dot-thumb thumb" href="slides-1-slide-1">1</a>
         <a class="x-2 dot-thumb thumb" href="slides-1-slide-2">2</a>
         <a class="x-3 dot-thumb thumb" href="slides-1-slide-3">3</a>
+        <a class="x-4 dot-thumb thumb" href="slides-1-slide-4">4</a>
     </div>
 </section>
 ```
 
-Note that slides require:
+Slides require some JS:
 
 ```js
 import './components/slides.js';
