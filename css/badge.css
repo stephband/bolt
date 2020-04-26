@@ -26,7 +26,6 @@ Badges.
     border-radius: calc(0.5 * var(--badge-width));
 }
 
-.button > .badge,
 .thumb > .badge {
     position: absolute;
     top: 0;
