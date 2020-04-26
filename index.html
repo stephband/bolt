@@ -21,6 +21,18 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700">
 
+    <style>
+        .bolt-fg { color: #005477; }
+        .bolt-bg { background-color: #005477; }
+
+        /* Render some elements visible, just in this styleguide */
+        button:not([type]),
+        [type="button"],
+        .button {
+            background-color: rgba(127, 127, 127, 0.15);
+        }
+    </style>
+
     
         <link rel="stylesheet" href="css/html.css">
     
@@ -52,8 +64,6 @@
     
         <link rel="stylesheet" href="components/select-button.css">
     
-        <link rel="stylesheet" href="components/toggle-button.css">
-    
         <link rel="stylesheet" href="components/pill-input.css">
     
         <link rel="stylesheet" href="css/thumb.css">
@@ -72,7 +82,7 @@
     
         <link rel="stylesheet" href="components/bubble.css">
     
-        <link rel="stylesheet" href="css/card.css">
+        <link rel="stylesheet" href="components/card.css">
     
         <link rel="stylesheet" href="css/block.css">
     
@@ -86,6 +96,10 @@
     
         <link rel="stylesheet" href="css/grid.css">
     
+        <link rel="stylesheet" href="components/toggle-button.css">
+    
+        <link rel="stylesheet" href="components/toggle-block.css">
+    
         <link rel="stylesheet" href="components/slides.css">
     
         <link rel="stylesheet" href="css/device.css">
@@ -98,18 +112,6 @@
     <link rel="stylesheet" href="../fn/css/tests.css">
     <link rel="stylesheet" href="../fn/css/docs.css">
     <link rel="stylesheet" href="../fn/css/respond.css">
-
-    <style>
-        .bolt-fg { color: #005477; }
-        .bolt-bg { background-color: #005477; }
-
-        /* Render some elements visible */
-        button,
-        button[type="button"],
-        .button {
-            background-color: rgba(127 127 127 0.3);
-        }
-    </style>
 <template id="header-template" title="../fn/">
     <h1>{[title]} <span class="doctext-06">{[version]}</span></h1>
 
@@ -202,8 +204,8 @@
 
         <section build-fn="rest:1 filter-not-var" class="x-1 xspan-5 y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-{[0.id]}">
             <template build-fn="each">
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
-                    <a href="#{[id]}" title="Show HTML markup"><code build-fn="append:title"></code></a>
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']} right-align">
+                    <a href="#{[id]}" title="Show HTML markup"><code build-fn="title-replace-comma-br append:title"></code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block" build-fn="prepend:example"></div>
                 <div class="x-5 x-stretch block">
@@ -302,8 +304,8 @@ npm run build</code></pre>
 
         <section class="x-1 xspan-5 y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-text-01-h1">
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#text-01-h1" title="Show HTML markup"><code>.text-01, h1</code></a>
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
+                    <a href="#text-01-h1" title="Show HTML markup"><code>.text-01<br> h1</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="text-01">Crunchum ipsum</p></div>
                 <div class="x-5 x-stretch block">
@@ -311,8 +313,8 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#text-02-h2" title="Show HTML markup"><code>.text-02, h2</code></a>
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
+                    <a href="#text-02-h2" title="Show HTML markup"><code>.text-02<br> h2</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="text-02">Crunchum ipsum dolor sit coder void</p></div>
                 <div class="x-5 x-stretch block">
@@ -320,8 +322,8 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#text-03-h3" title="Show HTML markup"><code>.text-03, h3</code></a>
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
+                    <a href="#text-03-h3" title="Show HTML markup"><code>.text-03<br> h3</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="text-03">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p></div>
                 <div class="x-5 x-stretch block">
@@ -329,8 +331,8 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#text-04-h4" title="Show HTML markup"><code>.text-04, h4</code></a>
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
+                    <a href="#text-04-h4" title="Show HTML markup"><code>.text-04<br> h4</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="text-04">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
                 <div class="x-5 x-stretch block">
@@ -338,8 +340,8 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#text-05-h5" title="Show HTML markup"><code>.text-05, h5</code></a>
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
+                    <a href="#text-05-h5" title="Show HTML markup"><code>.text-05<br> h5</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="text-05">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
                 <div class="x-5 x-stretch block">
@@ -347,8 +349,8 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#text-06-h6" title="Show HTML markup"><code>.text-06, h6</code></a>
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
+                    <a href="#text-06-h6" title="Show HTML markup"><code>.text-06<br> h6</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="text-06">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
                 <div class="x-5 x-stretch block">
@@ -356,8 +358,8 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#text-07-code" title="Show HTML markup"><code>.text-07, code</code></a>
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
+                    <a href="#text-07-code" title="Show HTML markup"><code>.text-07<br> code</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="text-07">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
                 <div class="x-5 x-stretch block">
@@ -365,8 +367,8 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#text-08-body" title="Show HTML markup"><code>.text-08, body</code></a>
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
+                    <a href="#text-08-body" title="Show HTML markup"><code>.text-08<br> body</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="text-08">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
 <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p></div>
@@ -376,7 +378,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#text-09" title="Show HTML markup"><code>.text-09</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="text-09">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p></div>
@@ -402,7 +404,7 @@ npm run build</code></pre>
 
         <section class="x-1 xspan-5 y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-transparent-bg">
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#transparent-bg" title="Show HTML markup"><code>.transparent-bg</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="thumb transparent-bg">Transparent</p></div>
@@ -411,7 +413,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#current-bg" title="Show HTML markup"><code>.current-bg</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="thumb current-bg">Current</p></div>
@@ -420,7 +422,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#black-bg" title="Show HTML markup"><code>.black-bg</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="thumb black-bg">Black</p></div>
@@ -429,7 +431,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#white-bg" title="Show HTML markup"><code>.white-bg</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="thumb white-bg">White</p></div>
@@ -438,7 +440,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#red-bg" title="Show HTML markup"><code>.red-bg</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><p class="thumb red-bg">Red</p></div>
@@ -464,7 +466,7 @@ npm run build</code></pre>
 
         <section class="x-1 xspan-5 y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-input-type-text">
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#input-type-text" title="Show HTML markup"><code>input[type="text"]</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><label for="text-input">Text</label>
@@ -491,7 +493,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#input-type-number" title="Show HTML markup"><code>input[type="number"]</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><label for="number-input">Number</label>
@@ -502,7 +504,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#input-type-password" title="Show HTML markup"><code>input[type="password"]</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><label for="password-input">Password</label>
@@ -513,7 +515,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#input-type-search" title="Show HTML markup"><code>input[type="search"]</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><label for="search">Search</label>
@@ -524,7 +526,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#input-type-tel" title="Show HTML markup"><code>input[type="tel"]</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><label for="tel">Tel</label>
@@ -535,7 +537,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#input-type-url" title="Show HTML markup"><code>input[type="url"]</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><label for="url-input">URL</label>
@@ -546,7 +548,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#input-type-range" title="Show HTML markup"><code>input[type="range"]</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><label for="range-input">Range</label>
@@ -557,7 +559,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#textarea" title="Show HTML markup"><code>textarea</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><label for="textarea">textarea</label>
@@ -568,7 +570,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#check-label" title="Show HTML markup"><code>.check-label</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><input type="checkbox" class="masked" id="checkbox-1">
@@ -579,7 +581,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#radio-label" title="Show HTML markup"><code>.radio-label</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><input type="radio" class="masked" id="radio-1">
@@ -590,7 +592,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#right-check-label" title="Show HTML markup"><code>.right-check-label</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><input type="checkbox" class="masked" id="checkbox-2">
@@ -601,7 +603,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#right-radio-label" title="Show HTML markup"><code>.right-radio-label</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><input type="radio" class="masked" id="radio-2">
@@ -612,7 +614,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#switch-label" title="Show HTML markup"><code>.switch-label</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><input class="masked" type="checkbox" value="something" id="switch-input">
@@ -625,7 +627,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#right-switch-label" title="Show HTML markup"><code>.right-switch-label</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><input class="masked" type="checkbox" value="something" id="switch-input-2">
@@ -636,7 +638,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#check-button" title="Show HTML markup"><code>.check-button</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><input class="masked" type="checkbox" value="something" id="check-button-input">
@@ -647,7 +649,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#radio-button" title="Show HTML markup"><code>.radio-button</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><input class="masked" type="radio" name="radio-button" value="on" id="radio-button-on">
@@ -662,7 +664,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#right-check-button" title="Show HTML markup"><code>.right-check-button</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><input class="masked" type="checkbox" value="something" id="right-button-input">
@@ -673,7 +675,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#right-radio-button" title="Show HTML markup"><code>.right-radio-button</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><input class="masked" type="radio" name="right-radio-button" value="on" id="right-radio-button-on">
@@ -688,7 +690,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#select-button" title="Show HTML markup"><code>.select-button</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><label class="select-button button">
@@ -709,7 +711,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#range-control" title="Show HTML markup"><code>range-control</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><range-control min="0" max="1" value="0.5"></range-control></div>
@@ -718,7 +720,7 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#rotary-control" title="Show HTML markup"><code>rotary-control</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><rotary-control></rotary-control></div>
@@ -1032,7 +1034,7 @@ npm run build</code></pre>
 
         <section class="x-1 xspan-5 y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-grid">
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#grid" title="Show HTML markup"><code>.grid</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
@@ -1050,8 +1052,8 @@ npm run build</code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#x-1-x-2-x-12" title="Show HTML markup"><code>.x-1, .x-2 … .x-12</code></a>
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
+                    <a href="#x-1-12-xspan-2-12-x-start-x-center-x-end-x-stretch-x-bleed" title="Show HTML markup"><code>.x-1 … 12<br> .xspan-2 … 12<br> .x-start<br> .x-center<br> .x-end<br> .x-stretch<br> .x-bleed</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
     <button class="x-1">x-1</button>
@@ -1059,85 +1061,57 @@ npm run build</code></pre>
     <button class="x-3">x-3</button>
     <button class="x-1 xspan-2">xspan-2</button>
     <button class="x-1 xspan-3">xspan-3</button>
+    <button class="x-1 x-start y-4">x-start</button>
+    <button class="x-2 x-center y-4">x-center</button>
+    <button class="x-3 x-end y-4">x-end</button>
+    <button class="x-1 x-stretch y-5">x-stretch</button>
+    <button class="x-2 x-bleed y-5">x-bleed</button>
 </div></div>
                 <div class="x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="x-1-x-2-x-12"><p>.xspan-2, .xspan-3 … .xspan-12</p>
-<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>grid<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">--column-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span> <span class="token property">--row-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="x-1-12-xspan-2-12-x-start-x-center-x-end-x-stretch-x-bleed"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>grid<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">--column-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span> <span class="token property">--row-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 xspan-2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>xspan-2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 xspan-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>xspan-3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
-</div>
-                </div>
-            
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#x-start-x-center-x-end" title="Show HTML markup"><code>.x-start, .x-center, .x-end</code></a>
-                </h4>
-                <div class="x-3 xspan-2 x-stretch y-baseline block"><div class="grid" style="--column-gap: 0.9375rem">
-    <button class="x-1 x-start">x-start</button>
-    <button class="x-2 x-center">x-center</button>
-    <button class="x-3 x-end">x-end</button>
-    <button class="x-1 x-stretch">x-stretch</button>
-    <button class="x-2 x-bleed">x-bleed</button>
-    <button class="x-3 x-bleed">x-bleed</button>
-</div></div>
-                <div class="x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="x-start-x-center-x-end"><p>.x-stretch, .x-bleed</p>
-<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>grid<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">--column-gap</span><span class="token punctuation">:</span> 0.9375rem</span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 x-start<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-start<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 x-center<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-center<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3 x-end<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-end<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 x-stretch<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-stretch<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 x-bleed<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-bleed<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3 x-bleed<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-bleed<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 x-start y-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-start<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 x-center y-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-center<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3 x-end y-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-end<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 x-stretch y-5<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-stretch<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 x-bleed y-5<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>x-bleed<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
 <p>Note that <code>.x-bleed</code>, which stretches an element half the way over the grid gap,
 depends on <code>column-gap</code> having been set via the custom property <code>--column-gap</code>.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#y-1-y-2-y-18" title="Show HTML markup"><code>.y-1, .y-2 … .y-18</code></a>
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
+                    <a href="#y-1-18-yspan-2-12-y-start-y-center-y-end-y-stretch-y-baseline" title="Show HTML markup"><code>.y-1 … 18<br> .yspan-2 … 12<br> .y-start<br> .y-center<br> .y-end<br> .y-stretch<br> y-baseline</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
-    <button class="y-1">y-1</button>
-    <button class="y-2">y-2</button>
-    <button class="y-3">y-3</button>
-    <button class="y-1 yspan-2">yspan-2</button>
-    <button class="y-1 yspan-3">yspan-3</button>
+    <button class="x-1 y-1">y-1</button>
+    <button class="x-1 y-2">y-2</button>
+    <button class="x-1 y-3">y-3</button>
+    <button class="x-2 y-1 yspan-2">yspan-2</button>
+    <button class="x-3 y-1 yspan-3">yspan-3</button>
+    <button class="x-1 y-4 y-start">y-start</button>
+    <button class="x-1 y-5 y-center">y-center</button>
+    <button class="x-1 y-6 y-end">y-end</button>
+    <button class="x-2 y-4 y-stretch">y-stretch</button>
+    <button class="x-3 y-4 y-baseline">y-baseline</button>
 </div></div>
                 <div class="x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="y-1-y-2-y-18"><p>.yspan-2, .yspan-3 … .yspan-12</p>
-<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>grid<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">--column-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span> <span class="token property">--row-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>y-1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>y-2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>y-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>y-1 yspan-2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>yspan-2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>y-1 yspan-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>yspan-3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
-</div>
-                </div>
-            
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#y-start-y-center-y-end" title="Show HTML markup"><code>.y-start, .y-center, .y-end</code></a>
-                </h4>
-                <div class="x-3 xspan-2 x-stretch y-baseline block"><div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; height: 15rem;">
-    <button class="y-1 y-start">y-start</button>
-    <button class="y-2 y-center">y-center</button>
-    <button class="y-3 y-end">y-end</button>
-    <button class="y-1 y-stretch">y-stretch</button>
-    <button class="y-1 y-baseline">y-baseline</button>
-</div></div>
-                <div class="x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="y-start-y-center-y-end"><p>.y-stretch, y-baseline</p>
-<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>grid<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">--column-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span> <span class="token property">--row-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span> <span class="token property">height</span><span class="token punctuation">:</span> 15rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>y-1 y-start<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-start<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>y-2 y-center<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-center<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>y-3 y-end<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-end<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>y-1 y-stretch<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-stretch<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>y-1 y-baseline<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-baseline<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="y-1-18-yspan-2-12-y-start-y-center-y-end-y-stretch-y-baseline"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>grid<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">--column-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span> <span class="token property">--row-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 y-1 yspan-2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>yspan-2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3 y-1 yspan-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>yspan-3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-4 y-start<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-start<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-5 y-center<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-center<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-6 y-end<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-end<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 y-4 y-stretch<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-stretch<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3 y-4 y-baseline<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>y-baseline<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
 </div>
                 </div>
@@ -1171,7 +1145,7 @@ depends on <code>column-gap</code> having been set via the custom property <code
 
         <section class="x-1 xspan-5 y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-buttons">
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#buttons" title="Show HTML markup"><code>Buttons.</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1179,7 +1153,7 @@ depends on <code>column-gap</code> having been set via the custom property <code
                     <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="buttons"></div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#button" title="Show HTML markup"><code>.button</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><button type="button">Button</button>
@@ -1190,7 +1164,7 @@ depends on <code>column-gap</code> having been set via the custom property <code
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#menu-button" title="Show HTML markup"><code>.menu-button</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><a class="menu-button button" href="#">Menu button</a>
@@ -1203,7 +1177,7 @@ depends on <code>column-gap</code> having been set via the custom property <code
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#toggle-button" title="Show HTML markup"><code>.toggle-button</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><a class="toggle-button button" href="#id">Open</a></div>
@@ -1212,7 +1186,7 @@ depends on <code>column-gap</code> having been set via the custom property <code
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#thumbs" title="Show HTML markup"><code>Thumbs.</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1220,7 +1194,7 @@ depends on <code>column-gap</code> having been set via the custom property <code
                     <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="thumbs"></div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#thumb" title="Show HTML markup"><code>.thumb</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><a class="thumb" href="#" style="background-image: url('//source.unsplash.com/category/nature/128x80')">Thumb text</a></div>
@@ -1233,7 +1207,7 @@ overflow, and only the <code>background-image</code>, centered and ‘cropped’
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#burger-thumb" title="Show HTML markup"><code>.burger-thumb</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><a class="burger-thumb thumb" href="#">Navigation</a></div>
@@ -1242,7 +1216,7 @@ overflow, and only the <code>background-image</code>, centered and ‘cropped’
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#close-thumb" title="Show HTML markup"><code>.close-thumb</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><a class="close-thumb thumb" href="#">Close</a></div>
@@ -1251,35 +1225,35 @@ overflow, and only the <code>background-image</code>, centered and ‘cropped’
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#add-thumb" title="Show HTML markup"><code>.add-thumb</code></a>
                 </h4>
-                <div class="x-3 xspan-2 x-stretch y-baseline block"><button class="add-thumb thumb">Add</button></div>
+                <div class="x-3 xspan-2 x-stretch y-baseline block"><button type="button" class="add-thumb thumb">Add</button></div>
                 <div class="x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="add-thumb"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>add-thumb thumb<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Add<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span></code></pre>
+                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="add-thumb"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>add-thumb thumb<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Add<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span></code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#subtract-thumb" title="Show HTML markup"><code>.subtract-thumb</code></a>
                 </h4>
-                <div class="x-3 xspan-2 x-stretch y-baseline block"><button class="subtract-thumb thumb">Subtract</button></div>
+                <div class="x-3 xspan-2 x-stretch y-baseline block"><button type="button" class="subtract-thumb thumb">Subtract</button></div>
                 <div class="x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="subtract-thumb"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>subtract-thumb thumb<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Subtract<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span></code></pre>
+                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="subtract-thumb"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>subtract-thumb thumb<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Subtract<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span></code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#remove-thumb" title="Show HTML markup"><code>.remove-thumb</code></a>
                 </h4>
-                <div class="x-3 xspan-2 x-stretch y-baseline block"><button class="remove-thumb thumb" href="#">Remove</button></div>
+                <div class="x-3 xspan-2 x-stretch y-baseline block"><button type="button" class="remove-thumb thumb" href="#">Remove</button></div>
                 <div class="x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="remove-thumb"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>remove-thumb thumb<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Remove<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span></code></pre>
+                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="remove-thumb"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>remove-thumb thumb<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Remove<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span></code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#prev-thumb-next-thumb" title="Show HTML markup"><code>.prev-thumb, .next-thumb</code></a>
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
+                    <a href="#prev-thumb-next-thumb" title="Show HTML markup"><code>.prev-thumb<br> .next-thumb</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><a class="prev-thumb thumb">Previous</a>
 <a class="next-thumb thumb">Next</a></div>
@@ -1290,7 +1264,7 @@ overflow, and only the <code>background-image</code>, centered and ‘cropped’
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#thumb-2" title="Show HTML markup"><code>thumb-2: 1</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><a class="thumb thumb-2:1" href="#" style="background-image: url('images/scotland-3.jpg')">Thumb text</a></div>
@@ -1299,7 +1273,7 @@ overflow, and only the <code>background-image</code>, centered and ‘cropped’
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#thumb-16" title="Show HTML markup"><code>thumb-16: 9</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><a class="thumb thumb-16:9" href="#" style="background-image: url('images/scotland-4.jpg')">Thumb text</a></div>
@@ -1308,7 +1282,7 @@ overflow, and only the <code>background-image</code>, centered and ‘cropped’
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#thumb-3" title="Show HTML markup"><code>thumb-3: 2</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><a class="thumb thumb-3:2" href="#" style="background-image: url('images/scotland-2.jpg')">Thumb text</a></div>
@@ -1317,7 +1291,7 @@ overflow, and only the <code>background-image</code>, centered and ‘cropped’
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#lists" title="Show HTML markup"><code>Lists.</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1325,7 +1299,7 @@ overflow, and only the <code>background-image</code>, centered and ‘cropped’
                     <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="lists"></div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#index" title="Show HTML markup"><code>.index</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><ul class="index">
@@ -1344,7 +1318,7 @@ to play nice as inline-blocks too.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#inline-index" title="Show HTML markup"><code>.inline-index</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><ul class="inline-index index">
@@ -1360,7 +1334,7 @@ to play nice as inline-blocks too.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#crumbs-index" title="Show HTML markup"><code>.crumbs-index</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><ul class="crumbs-index index">
@@ -1375,7 +1349,7 @@ to play nice as inline-blocks too.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#progress" title="Show HTML markup"><code>progress</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><progress value="0.6125"></progress></div>
@@ -1384,7 +1358,7 @@ to play nice as inline-blocks too.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#table" title="Show HTML markup"><code>table</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><table>
@@ -1417,7 +1391,7 @@ to play nice as inline-blocks too.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#striped-table" title="Show HTML markup"><code>.striped-table</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><table class="striped-table">
@@ -1450,7 +1424,7 @@ to play nice as inline-blocks too.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#badges" title="Show HTML markup"><code>Badges.</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1458,7 +1432,7 @@ to play nice as inline-blocks too.</p>
                     <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="badges"></div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#badge" title="Show HTML markup"><code>.badge</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><span class="badge">3</span></div>
@@ -1562,7 +1536,7 @@ to play nice as inline-blocks too.</p>
 
         <section class="x-1 xspan-5 y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-block">
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#block" title="Show HTML markup"><code>.block</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1575,7 +1549,7 @@ will scale the element to fill the available width.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#inline-block" title="Show HTML markup"><code>.inline-block</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1583,7 +1557,7 @@ will scale the element to fill the available width.</p>
                     <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="inline-block"></div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#flex-block" title="Show HTML markup"><code>.flex-block</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1591,26 +1565,7 @@ will scale the element to fill the available width.</p>
                     <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="flex-block"></div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
-                    <a href="#toggle-block" title="Show HTML markup"><code>.toggle-block</code></a>
-                </h4>
-                <div class="x-3 xspan-2 x-stretch y-baseline block"><a href="#some-stuff">Click to show</a>
-<div class="toggle-block block toggle" toggleable="" id="some-stuff">
-  <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop
-  python orientation semi colon incident. Duis aute irure indent tabs or
-  spaces velit esse cilium buntum how crunchy duntum.</p>
-</div></div>
-                <div class="x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="toggle-block"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#some-stuff<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Click to show<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>toggle-block block toggle<span class="token punctuation">"</span></span> <span class="token attr-name">toggleable</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>some-stuff<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop
-  python orientation semi colon incident. Duis aute irure indent tabs or
-  spaces velit esse cilium buntum how crunchy duntum.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
-</div>
-                </div>
-            
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 ">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05   right-align">
                     <a href="#slides" title="Show HTML markup"><code>Slides</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><section class="slides-block block no-scroll" fullscreenable="" id="slides-1">
@@ -1629,12 +1584,18 @@ will scale the element to fill the available width.</p>
             <img src="images/scotland-4.jpg" alt="title" draggable="false">
             <figcaption class="text-09">Slide 3</figcaption>
         </figure>
+
+        <figure class="block active y-stretch" id="slides-1-slide-4" switchable="">
+            <img src="images/glacier-de-moiry.jpg" alt="title" draggable="false">
+            <figcaption class="text-09">Slide 4</figcaption>
+        </figure>
     </div>
 
     <div class="slides-dots-block dots-block block">
         <a class="x-1 dot-thumb thumb" href="slides-1-slide-1">1</a>
         <a class="x-2 dot-thumb thumb" href="slides-1-slide-2">2</a>
         <a class="x-3 dot-thumb thumb" href="slides-1-slide-3">3</a>
+        <a class="x-4 dot-thumb thumb" href="slides-1-slide-4">4</a>
     </div>
 </section></div>
                 <div class="x-5 x-stretch block">
@@ -1654,20 +1615,26 @@ will scale the element to fill the available width.</p>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>images/scotland-4.jpg<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>title<span class="token punctuation">"</span></span> <span class="token attr-name">draggable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>figcaption</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-09<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Slide 3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>figcaption</span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>figure</span><span class="token punctuation">&gt;</span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>figure</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>block active y-stretch<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slides-1-slide-4<span class="token punctuation">"</span></span> <span class="token attr-name">switchable</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>images/glacier-de-moiry.jpg<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>title<span class="token punctuation">"</span></span> <span class="token attr-name">draggable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>figcaption</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-09<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Slide 4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>figcaption</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>figure</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
 
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slides-dots-block dots-block block<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 dot-thumb thumb<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slides-1-slide-1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 dot-thumb thumb<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slides-1-slide-2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3 dot-thumb thumb<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slides-1-slide-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-4 dot-thumb thumb<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slides-1-slide-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>section</span><span class="token punctuation">&gt;</span></span></code></pre>
-<p>Note that slides require:</p>
+<p>Slides require some JS:</p>
 <pre><code class="language-js"><span class="token keyword">import</span> <span class="token string">'./components/slides.js'</span><span class="token punctuation">;</span></code></pre>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#slides-block" title="Show HTML markup"><code>.slides-block</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1676,7 +1643,7 @@ will scale the element to fill the available width.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#dots-block" title="Show HTML markup"><code>.dots-block</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1685,7 +1652,7 @@ will scale the element to fill the available width.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#dot-thumb" title="Show HTML markup"><code>.dot-thumb</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1728,7 +1695,7 @@ will scale the element to fill the available width.</p>
 
         <section class="x-1 xspan-5 y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-print-hidden">
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#print-hidden" title="Show HTML markup"><code>.print-hidden</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1737,7 +1704,7 @@ will scale the element to fill the available width.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#fullscreen-hidden" title="Show HTML markup"><code>.fullscreen-hidden</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1746,7 +1713,7 @@ will scale the element to fill the available width.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#fullscreen-shown" title="Show HTML markup"><code>.fullscreen-shown</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1755,7 +1722,7 @@ will scale the element to fill the available width.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#masked" title="Show HTML markup"><code>.masked</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1763,7 +1730,7 @@ will scale the element to fill the available width.</p>
                     <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="masked"></div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#disabled" title="Show HTML markup"><code>.disabled</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1771,7 +1738,7 @@ will scale the element to fill the available width.</p>
                     <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="disabled"></div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#requested" title="Show HTML markup"><code>.requested</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><div class="requested" style="height: 7.5rem;"></div></div>
@@ -1781,7 +1748,7 @@ will scale the element to fill the available width.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#no-select" title="Show HTML markup"><code>.no-select</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1790,7 +1757,7 @@ will scale the element to fill the available width.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#no-transition" title="Show HTML markup"><code>.no-transition</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1799,7 +1766,7 @@ will scale the element to fill the available width.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#clear" title="Show HTML markup"><code>.clear</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1808,7 +1775,7 @@ will scale the element to fill the available width.</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#hidden-scroll" title="Show HTML markup"><code>.hidden-scroll</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><pre class="hidden-scroll scroll" style="height: 7.5rem;">Crunchum ipsum dolor sit coder void, constructor function,
@@ -1833,7 +1800,7 @@ sed souvent suckum in internet explorum.
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#no-scroll" title="Show HTML markup"><code>.no-scroll</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><pre class="no-scroll" style="height: 7.5rem;">Crunchum ipsum dolor sit coder void, constructor function,
@@ -1858,7 +1825,7 @@ sed souvent suckum in internet explorum.
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#hidden" title="Show HTML markup"><code>.hidden</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><a class="hidden" href="...">Link</a>
@@ -1871,7 +1838,7 @@ sed souvent suckum in internet explorum.
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#print-hidden" title="Show HTML markup"><code>.print-hidden</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><nav class="print-hidden">...</nav></div>
@@ -1881,7 +1848,7 @@ sed souvent suckum in internet explorum.
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#shown" title="Show HTML markup"><code>.shown</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"><a class="@1-shown" href="...">Link</a></div>
@@ -1892,7 +1859,7 @@ with breakpoint prefixes (<code>@1-</code>, <code>@2-</code>, …).</p>
 </div>
                 </div>
             
-                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 dot-indent">
+                <h4 class="x-1 xspan-2 x-end y-baseline doctext-05 right-align dot-indent">
                     <a href="#flex" title="Show HTML markup"><code>.flex</code></a>
                 </h4>
                 <div class="x-3 xspan-2 x-stretch y-baseline block"></div>
@@ -1945,12 +1912,7 @@ breakpoint prefix.</p>
 
     <!-- Document interactivity -->
     <script type="module">
-        import '../dom/js/device.js';
-        import '../dom/js/toggleable.js';
-        import '../dom/js/popable.js';
-        import '../dom/js/locateable.js';
-        import './components/switch-label.js';
-        import './components/slides.js';
+        import './module.js';
         import './elements/range-control.js';
         import './elements/rotary-control.js';
 
