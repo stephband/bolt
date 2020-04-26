@@ -18,7 +18,7 @@ Viewport  1rem
 */
 
 /**
-.text-01, h1
+h1, .text-01
 
 ```html
 <p class="text-01">Crunchum ipsum</p>
@@ -26,7 +26,7 @@ Viewport  1rem
 **/
 
 /**
-.text-02, h2
+h2, .text-02
 
 ```html
 <p class="text-02">Crunchum ipsum dolor sit coder void</p>
@@ -34,7 +34,7 @@ Viewport  1rem
 **/
 
 /**
-.text-03, h3
+h3, .text-03
 
 ```html
 <p class="text-03">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p>
@@ -42,7 +42,7 @@ Viewport  1rem
 **/
 
 /**
-.text-04, h4
+h4, .text-04
 
 ```html
 <p class="text-04">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
@@ -50,7 +50,7 @@ Viewport  1rem
 **/
 
 /**
-.text-05, h5
+h5, .text-05
 
 ```html
 <p class="text-05">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
@@ -58,7 +58,7 @@ Viewport  1rem
 **/
 
 /**
-.text-06, h6
+h6, .text-06
 
 ```html
 <p class="text-06">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
@@ -66,7 +66,7 @@ Viewport  1rem
 **/
 
 /**
-.text-07, code
+code, .text-07
 
 ```html
 <p class="text-07">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p>
@@ -74,7 +74,7 @@ Viewport  1rem
 **/
 
 /**
-.text-08, body
+body, .text-08
 
 ```html
 <p class="text-08">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>

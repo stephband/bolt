@@ -61,9 +61,6 @@ hr.block {
 }
 
 
-/**
-.flex-block
-**/
 
 .n-flex-block { flex-direction: column-reverse; }
 .s-flex-block { flex-direction: column; }
