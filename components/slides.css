@@ -1,6 +1,6 @@
 
 /**
-Slides
+.slides-block, .slides-grid
 
 ```html
 <section class="slides-block block no-scroll" fullscreenable id="slides-1">
@@ -40,11 +40,6 @@ Slides require some JS:
 ```js
 import './components/slides.js';
 ```
-**/
-
-/**
-.slides-block
-Slides container block.
 **/
 
 .slides-block {
