@@ -51,7 +51,6 @@
     "components/check-button.css",
     "components/menu-button.css",
     "components/select-button.css",
-    "components/toggle-button.css",
     "components/pill-input.css",
     "css/thumb.css",
     "css/progress.css",
@@ -68,6 +67,8 @@
     "css/modifiers.css",
     "css/respond.css",
     "css/grid.css",
+    "components/toggle-button.css",
+    "components/toggle-block.css",
     "components/slides.css",
     "css/device.css",
     "css/var.css"
