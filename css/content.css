@@ -9,3 +9,17 @@ Before and After.
     width: 1em;
     height: 1em;
 }
+
+/*
+.required-before, .required-after
+*/
+
+.required-before::before {
+	content: '\00a0*';
+	color: var(--red);
+}
+
+.required-after::after {
+	content: '\00a0*';
+	color: var(--red);
+}
