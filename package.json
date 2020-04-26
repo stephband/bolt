@@ -1,7 +1,7 @@
 {
   "name": "bolt",
   "description": "A front-end toolkit of classes and evented behaviours.",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "author": "@stephband",
 
   "repository": {
@@ -32,7 +32,7 @@
     "build-css":    "npm run build-sass && node build-css.js dist/bolt.min.css",
     "build-module": "rollup ./module.js --o dist/bolt.module.js --f esm",
     "build-docs":   "npm run serve && node ../fn/render-html.js http://127.0.0.1:8080/bolt/index.template.html ./index.html 4 && npm run serve-kill",
-    "publish":      "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.0' && git push"
+    "publish":      "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.1' && git push"
   },
 
   "style": [
