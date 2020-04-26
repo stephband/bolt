@@ -2,12 +2,16 @@
 .menu-button
 
 ```html
-<a class="menu-button button" href="#">2. S'organiser</a>
+<a class="menu-button button" href="#">Menu button</a>
+<a class="menu-button button" href="#">Menu button</a>
+<a class="menu-button button" href="#">Menu button</a>
 ```
 **/
 
 .menu-button {
-    display: block;
+    display: grid;
+    justify-content: start;
+    justify-items: start;
     width: 100%;
     text-align: left;
     border-width: 0;

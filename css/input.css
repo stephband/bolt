@@ -552,7 +552,6 @@ select:focus {
    Use pure attribute selectors because they are weak, and classes
    are able to override them. Pure attribute selectors are a known
    performance drag, so keep them to a minimum. */
-button,
 [type="button"],
 [type="reset"],
 [type="submit"] {

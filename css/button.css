@@ -6,64 +6,63 @@ Buttons.
 .button
 
 ```html
-<button type="button">Button text</button>
-<a class="button" href="#">Button text</a>
+<button type="button">Button</button>
+<a class="button" href="#buttons">Link</a>
 ```
 **/
 
 button {
-	/* buttons have standard padding that needs to be avoided. */
-	padding-top: 0;
-	padding-bottom: 0;
+    /* And they don't automatically inherit font styles. */
+    font-size: inherit;
+    font-family: inherit;
 
-	/* And they don't automatically inherit font styles. */
-	font-size: inherit;
-	font-family: inherit;
+    -ms-hyphens: none;
+        hyphens: none;
 
-	-webkit-hyphens: none;
-	   -moz-hyphens: none;
-	    -ms-hyphens: none;
-	        hyphens: none;
-
-	color: inherit;
-	background: transparent;
+    color: inherit;
+    background: transparent;
 }
 
 button,
+button[type="button"],
 .button {
-	display: inline-block;
-	position: relative;
+    /* Making buttons a grid helps layout internal icons, and also
+       equalises the baseline of button and a.button elements. */
+    display: inline-grid;
+    align-content: center;
+    align-items: center;
+    position: relative;
 
-	/* Has it's own stacking context to prevent icons and masked inputs
-	   overflowing stacks outside the button */
-	z-index: 0;
+    /* Has it's own stacking context to prevent absolutely positioned children
+       overflowing stacks outside the button */
+    z-index: 0;
 
-	font-size: var(--button-font-size);
-	line-height: var(--button-line-height);
-	padding-top: var(--button-padding-top);
-	padding-bottom: var(--button-padding-bottom);
-	padding-left: var(--button-padding-left);
-	padding-right: var(--button-padding-right);
+    font-size: var(--button-font-size);
+    line-height: var(--button-line-height);
+    padding-top: calc(0.5 * (var(--button-height) - var(--button-line-height)) - var(--button-border-width));
+    padding-bottom: calc(0.5 * (var(--button-height) - var(--button-line-height)) - var(--button-border-width));
+    padding-left: var(--button-padding-left);
+    padding-right: var(--button-padding-right);
 
-	width: auto;
-	height: auto;
-	min-height: calc(var(--button-padding-top) + var(--button-padding-bottom) + var(--button-line-height));
+    width: auto;
+    height: auto;
+    min-height: var(--button-height);
 
-	vertical-align: baseline;
+    vertical-align: baseline;
 
-	text-overflow: ellipsis;
-	text-align: center;
-	text-decoration: none;
-	/* Overrides default browser style on input type=submit (white-space: pre) */
-	white-space: normal;
+    text-overflow: ellipsis;
+    text-align: center;
+    text-decoration: none;
+    /* Overrides default browser style on input type=submit (white-space: pre) */
+    white-space: normal;
 
-	background-color: #eeeeee;
-	background-repeat: no-repeat;
-	background-clip: padding-box;
-	background-origin: padding-box;
+    background-color: #eeeeee;
+    background-repeat: no-repeat;
+    background-clip: padding-box;
+    background-origin: padding-box;
 
-	border-width: 0;
-	border-radius: var(--button-border-radius);
+    border-width: 0;
+    border-radius: var(--button-border-radius);
 
     transition:
         background-color 120ms linear,
@@ -72,34 +71,34 @@ button,
 
 .button:hover,
 .button:focus {
-	/* If button is link, it may have hover styles. */
-	text-decoration: none;
+    /* If button is link, it may have hover styles. */
+    text-decoration: none;
 }
 
 button:hover,
 .button[href]:hover {
-	/* Hover styles for button and [href] */
+    /* Hover styles for button and [href] */
 }
 
 button.loading,
 .button.loading {
-	opacity: 0.4;
+    opacity: 0.4;
 }
 
 .button > input[type="radio"],
 .button > input[type="checkbox"] {
-	display: inline;
-	height: auto;
-	vertical-align: baseline;
-	margin-right: 0.5em;
-	/* Stop radio's left edges getting cut off inside buttons. */
-	margin-left: 1px;
+    display: inline;
+    height: auto;
+    vertical-align: baseline;
+    margin-right: 0.5em;
+    /* Stop radio's left edges getting cut off inside buttons. */
+    margin-left: 1px;
 }
 
 
 .button > small:first-child {
-	display: inline-block;
-	margin-right: 0.25em;
+    display: inline-block;
+    margin-right: 0.25em;
 }
 
 /*
@@ -119,26 +118,26 @@ no way to display the selected file name if you do this.
 .thumb > select,
 .button > input[type="file"],
 .button > input[type="submit"] {
-	position: absolute;
-	display: block;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	width: 100%;
-	height: 100%;
-	padding: 0;
-	margin: 0;
-	border: 0;
-	cursor: pointer;
-	z-index: 2;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    cursor: pointer;
+    z-index: 2;
 }
 
 .js .thumb > select,
 .js .button > input[type="file"],
 .js .button > input[type="submit"] {
-	-webkit-appearance: none;
-	opacity: 0;
+    -webkit-appearance: none;
+    opacity: 0;
 }
 
 :root {
@@ -148,9 +147,14 @@ no way to display the selected file name if you do this.
     --button-font-size: inherit;
 
     /**
+    --button-height
+    **/
+    --button-height: 3rem;
+
+    /**
     --button-line-height
     **/
-    --button-line-height: 2em;
+    --button-line-height: 1.5rem;
 
     /**
     --button-color
@@ -168,14 +172,14 @@ no way to display the selected file name if you do this.
     --button-border-color: transparent;
 
     /**
-    --button-padding-top
+    --button-border-width
     **/
-    --button-padding-top: 0.5em;
+    --button-border-width: 0.0625rem;
 
     /**
-    --button-padding-bottom
+    --button-border-radius
     **/
-    --button-padding-bottom: var(--button-padding-top);
+    --button-border-radius: 0.3125rem;
 
     /**
     --button-padding-left

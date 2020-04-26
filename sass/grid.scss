@@ -7,15 +7,16 @@ Grid.
 
 /**
 .grid
+
 ```html
-<div class="grid">
-    <p class="x-3 y-3 x-stretch black-bg white-fg">3,3</p>
-    <p class="x-1 y-1 x-start black-bg white-fg">1,3</p>
-    <p class="x-2 y-2 x-end black-bg white-fg">2,3</p>
-    <p class="x-1 y-3 x-stretch black-bg white-fg">1,3</p>
-    <p class="x-2 y-3 x-stretch black-bg white-fg">2,3</p>
+<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
+    <button>&nbsp;</button>
+    <button>&nbsp;</button>
+    <button>&nbsp;</button>
 </div>
 ```
+
+Creates a grid with horizontal flow and equal width columns.
 **/
 
 .grid           {
@@ -25,27 +26,27 @@ Grid.
 }
 
 
-/**
+/*
 .2-grid
 Applies a grid template of 2 equal columns.
 **/
 
-/**
+/*
 .3-grid
 Applies a grid template of 3 equal columns.
 **/
 
-/**
+/*
 .4-grid
 Applies a grid template of 4 equal columns.
 **/
 
-/**
+/*
 .5-grid
 Applies a grid template of 5 equal columns.
 **/
 
-/**
+/*
 .6-grid
 Applies a grid template of 6 equal columns.
 **/
@@ -63,18 +64,18 @@ Applies a grid template of 6 equal columns.
 .\31 2-grid        { grid-template-columns: repeat(12, 1fr); }
 
 /**
-.x-1
-Places a grid child at column 1.
-**/
+.x-1, .x-2 … .x-12
+.xspan-2, .xspan-3 … .xspan-12
 
-/**
-.x-2
-Places a grid child at column 2.
-**/
-
-/**
-.x-3
-Places a grid child at column 3.
+```html
+<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
+    <button class="x-1">x-1</button>
+    <button class="x-2">x-2</button>
+    <button class="x-3">x-3</button>
+    <button class="x-1 xspan-2">xspan-2</button>
+    <button class="x-1 xspan-3">xspan-3</button>
+</div>
+```
 **/
 
 .x-1            { grid-column-start: 1 !important; }
@@ -89,21 +90,6 @@ Places a grid child at column 3.
 .x-10           { grid-column-start: 10 !important; }
 .x-11           { grid-column-start: 11 !important; }
 .x-12           { grid-column-start: 12 !important; }
-
-/**
-.xspan-1
-Makes a grid child span 1 columns.
-**/
-
-/**
-.xspan-2
-Makes a grid child span 2 columns.
-**/
-
-/**
-.xspan-3
-Makes a grid child span 3 columns.
-**/
 
 .xspan-1       { grid-column-end: span 1 !important; }
 .xspan-2       { grid-column-end: span 2 !important; }
@@ -120,18 +106,22 @@ Makes a grid child span 3 columns.
 .xspan--1      { grid-column-end: span -1 !important; }
 
 /**
-.x-start
-Justifies a grid child to the start of a grid cell.
-**/
+.x-start, .x-center, .x-end
+.x-stretch, .x-bleed
 
-.x-end          {
-    justify-self: end !important;
-    margin-right: 0;
-}
+```html
+<div class="grid" style="--column-gap: 0.9375rem">
+    <button class="x-1 x-start">x-start</button>
+    <button class="x-2 x-center">x-center</button>
+    <button class="x-3 x-end">x-end</button>
+    <button class="x-1 x-stretch">x-stretch</button>
+    <button class="x-2 x-bleed">x-bleed</button>
+    <button class="x-3 x-bleed">x-bleed</button>
+</div>
+```
 
-/**
-.x-end
-Justifies a grid child to the end of a grid cell.
+Note that `.x-bleed`, which stretches an element half the way over the grid gap,
+depends on `column-gap` having been set via the custom property `--column-gap`.
 **/
 
 .x-start        {
@@ -139,19 +129,14 @@ Justifies a grid child to the end of a grid cell.
     margin-left: 0;
 }
 
-/**
-.x-center
-Justifies a grid child to the center of a grid cell.
-**/
-
 .x-center       {
     justify-self: center !important;
 }
 
-/**
-.x-stretch
-Justifies a grid child to fill a grid cell.
-**/
+.x-end          {
+    justify-self: end !important;
+    margin-right: 0;
+}
 
 .x-stretch      {
     justify-self: stretch !important;
@@ -159,32 +144,26 @@ Justifies a grid child to fill a grid cell.
     margin-right: 0;
 }
 
-/**
-.x-bleed
-Justifies a grid child to fill a grid cell plus half of the grid-gap on
-each side.
-**/
-
 .x-bleed {
     justify-self: stretch !important;
     margin-left: calc(var(--column-gap) / -2);
     margin-right: calc(var(--column-gap) / -2);
-    width: calc(100% + var(--column-gap));
+    width: auto;/*calc(100% + var(--column-gap));*/
 }
 
 /**
-.y-1
-Places a grid child at row 1.
-**/
+.y-1, .y-2 … .y-18
+.yspan-2, .yspan-3 … .yspan-12
 
-/**
-.y-2
-Places a grid child at row 2.
-**/
-
-/**
-.y-3
-Places a grid child at row 3.
+```html
+<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
+    <button class="y-1">y-1</button>
+    <button class="y-2">y-2</button>
+    <button class="y-3">y-3</button>
+    <button class="y-1 yspan-2">yspan-2</button>
+    <button class="y-1 yspan-3">yspan-3</button>
+</div>
+```
 **/
 
 .y-1            { grid-row-start: 1 !important; }
@@ -206,20 +185,7 @@ Places a grid child at row 3.
 .y-17           { grid-row-start: 17 !important; }
 .y-18           { grid-row-start: 18 !important; }
 
-/**
-.yspan-1
-Makes a grid child span 1 rows.
-**/
 
-/**
-.yspan-2
-Makes a grid child span 2 rows.
-**/
-
-/**
-.yspan-3
-Makes a grid child span 3 rows.
-**/
 
 .yspan-1       { grid-row-end: span 1 !important; }
 .yspan-2       { grid-row-end: span 2 !important; }
@@ -236,37 +202,24 @@ Makes a grid child span 3 rows.
 .yspan--1      { grid-row-end: span -1 !important; }
 
 /**
-.x-start
-Aligns a grid child to the start of a grid cell.
+.y-start, .y-center, .y-end
+.y-stretch, y-baseline
+
+```html
+<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; height: 15rem;">
+    <button class="y-1 y-start">y-start</button>
+    <button class="y-2 y-center">y-center</button>
+    <button class="y-3 y-end">y-end</button>
+    <button class="y-1 y-stretch">y-stretch</button>
+    <button class="y-1 y-baseline">y-baseline</button>
+</div>
+```
 **/
 
 .y-start        { align-self: start !important; }
-
-/**
-.y-end
-Aligns a grid child to the end of a grid cell.
-**/
-.y-end          { align-self: end !important; }
-
-/**
-.y-center
-Aligns a grid child to the center of a grid cell.
-**/
-
 .y-center       { align-self: center !important; }
-
-/**
-.y-stretch
-Aligns a grid child to fill a grid cell.
-**/
-
+.y-end          { align-self: end !important; }
 .y-stretch      { align-self: stretch !important; }
-
-/**
-.y-baseline
-Aligns a grid child to the baseline of a grid cell.
-**/
-
 .y-baseline     { align-self: baseline !important; }
 
 .columns-2      { columns: 2 !important; }
