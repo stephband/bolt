@@ -2,7 +2,7 @@
 import { Observer, nothing, requestTick } from '../../fn/module.js';
 import { evaluate, inputEvent, invert, transform, transformOutput, transformTick, transformUnit  } from './control.js';
 import { element } from '../../dom/module.js';
-import Sparky, { mount } from '../../sparky/module.js';
+import Sparky, { mount, config } from '../../sparky/module.js';
 
 const DEBUG = false;//window.DEBUG === undefined || window.DEBUG;
 
@@ -15,7 +15,7 @@ const defaults = {
     max:    1
 };
 
-const mountSettings = {
+const mountSettings = Object.assign({}, config, {
     mount: function(node, options) {
         // Does the node have Sparkyfiable attributes?
         const attrFn = node.getAttribute(options.attributeFn);
@@ -36,7 +36,7 @@ const mountSettings = {
 
     attributePrefix:  ':',
     attributeFn:      'fn'
-};
+});
 
 function createTicks(data, tokens) {
     return tokens ?
@@ -52,6 +52,7 @@ function createTicks(data, tokens) {
         .map((value) => {
             // Freeze to tell mounter it's immutable, prevents
             // unnecessary observing
+            console.log(value, invert(data.transform, value, data.min, data.max), transformTick(data.unit, value));
             return Object.freeze({
                 root:         data,
                 value:        value,

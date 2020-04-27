@@ -2,13 +2,13 @@
 import { Observer, requestTick, nothing } from '../../fn/module.js';
 import { evaluate, inputEvent, transform, invert, transformOutput, transformTick, transformUnit  } from './control.js';
 import { element } from '../../dom/module.js';
-import Sparky, { mount } from '../../sparky/module.js';
+import Sparky, { mount, config } from '../../sparky/module.js';
 
 const DEBUG = false;//true;
 
 const assign = Object.assign;
 
-const settings = {
+const settings = Object.assign({}, config, {
     mount: function(node, options) {
         // Does the node have Sparkyfiable attributes?
         const attrFn = node.getAttribute(options.attributeFn);
@@ -29,7 +29,7 @@ const settings = {
 
     attributePrefix:  ':',
     attributeFn:      'fn'
-};
+});
 
 function createTicks(data, tokens) {
     return tokens ?

@@ -30,7 +30,7 @@
     "serve-kill":   "kill $(lsof -t -i:8080)",
     "build-sass":   "node-sass --output-style compact --indent-width 4 ./sass/grid.scss ./css/grid.css && node-sass --output-style compact --indent-width 4 ./sass/respond.scss ./css/respond.css",
     "build-css":    "npm run build-sass && node build-css.js dist/bolt.min.css",
-    "build-module": "rollup ./module.js --o dist/bolt.module.js --f esm",
+    "build-module": "rollup ./module.js --o dist/bolt.js --f esm",
     "build-docs":   "npm run serve && node ../fn/render-html.js http://127.0.0.1:8080/bolt/index.template.html ./index.html 4 && npm run serve-kill",
     "publish":      "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.1' && git push"
   },
