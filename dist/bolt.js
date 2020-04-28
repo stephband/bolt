@@ -4269,28 +4269,28 @@ const runit = /(\d*\.?\d+)(r?em|vw|vh)/;
 //var rpercent = /(\d*\.?\d+)%/;
 
 const units = {
-	em: function(n) {
-		return getFontSize() * n;
-	},
+    em: function(n) {
+        return getFontSize() * n;
+    },
 
-	rem: function(n) {
-		return getFontSize() * n;
-	},
+    rem: function(n) {
+        return getFontSize() * n;
+    },
 
-	vw: function(n) {
-		return window.innerWidth * n / 100;
-	},
+    vw: function(n) {
+        return window.innerWidth * n / 100;
+    },
 
-	vh: function(n) {
-		return window.innerHeight * n / 100;
-	}
+    vh: function(n) {
+        return window.innerHeight * n / 100;
+    }
 };
 
 let fontSize;
 
 function getFontSize() {
-	return fontSize ||
-		(fontSize = style("font-size", document.documentElement), 10);
+    return fontSize ||
+        (fontSize = style("font-size", document.documentElement), 10);
 }
 
 /**
@@ -4300,17 +4300,17 @@ Takes a string of the form '10rem', '100vw' or '100vh' and returns a number in p
 */
 
 const parseValue = overload(toType, {
-	'number': id,
+    'number': id,
 
-	'string': function(string) {
-		var data = runit.exec(string);
+    'string': function(string) {
+        var data = runit.exec(string);
 
-		if (data) {
-			return units[data[2]](parseFloat(data[1]));
-		}
+        if (data) {
+            return units[data[2]](parseFloat(data[1]));
+        }
 
-		throw new Error('dom: "' + string + '" cannot be parsed as rem, em, vw or vh units.');
-	}
+        throw new Error('dom: "' + string + '" cannot be parsed as rem, em, vw or vh units.');
+    }
 });
 
 const rules = [];
@@ -5451,7 +5451,7 @@ function changedTouch(e, data) {
 	// Chrome Android (at least) includes touches that have not
 	// changed in e.changedTouches. That's a bit annoying. Check
 	// that this touch has changed.
-	if (touch.pageX === data.pageX && touch.pageY === data.pageY) { return; }
+	if (touch.clientX === data.clientX && touch.clientY === data.clientY) { return; }
 
 	return touch;
 }
@@ -5511,8 +5511,8 @@ function touchstart(e, push, options) {
 	// movestart, move and moveend event objects.
 	var event = {
 		target:     touch.target,
-		pageX:      touch.pageX,
-		pageY:      touch.pageY,
+		clientX:      touch.clientX,
+		clientY:      touch.clientY,
 		identifier: touch.identifier,
 
 		// The only way to make handlers individually unbindable is by
@@ -5544,8 +5544,8 @@ function removeTouch(events) {
 }
 
 function checkThreshold(e, events, touch, removeHandlers, push, options) {
-	var distX = touch.pageX - events[0].pageX;
-	var distY = touch.pageY - events[0].pageY;
+	var distX = touch.clientX - events[0].clientX;
+	var distY = touch.clientY - events[0].clientY;
 	var threshold = parseValue(options.threshold);
 
 	// Do nothing if the threshold has not been crossed.
@@ -6950,17 +6950,17 @@ gestures({ selector: selector$2, threshold: 4 }, document)
 	classy.add('no-transition');
 
 	var ax = x;
-    var x0 = e.pageX;
-	var y0 = e.pageY;
+    var x0 = e.clientX;
+	var y0 = e.clientY;
 
 	// TEMP: keep it around to use the last one in .done().
 	var x1, y1;
 
 	stream.map(function(e) {
-		x1 = e.pageX;
-		y1 = e.pageY;
+		x1 = e.clientX;
+		y1 = e.clientY;
 
-		var diffX = e.pageX - x0;
+		var diffX = e.clientX - x0;
 		ax = x + diffX;
 		var tx = ax > 0 ?
 				eMax ? elasticEase(ax / elasticDistance) * elasticDistance - x :
