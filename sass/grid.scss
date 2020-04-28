@@ -237,6 +237,10 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
             row-gap: var(--row-gap);
         }
 
+        .#{nth($breakpoint, 1)}start-y-grid         {
+            align-content: start;
+        }
+
         .#{nth($breakpoint, 1)}\32 x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
         .#{nth($breakpoint, 1)}\33 x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
         .#{nth($breakpoint, 1)}\34 x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }

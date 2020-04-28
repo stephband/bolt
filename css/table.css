@@ -165,10 +165,20 @@ table {
 ```
 **/
 
+.striped-table th:first-child,
+.striped-table td:first-child {
+    padding-left: 0.75rem;
+}
+
+.striped-table th:last-child,
+.striped-table td:last-child {
+    padding-right: 0.75rem;
+}
+
 .striped-table > tbody > tr > th,
 .striped-table > tbody > tr > td {
-    padding-top:    0.875rem;
-    padding-bottom: 0.875rem;
+    padding-top:    0.75rem;
+    padding-bottom: 0.75rem;
 }
 
 .striped-table > tbody > tr:nth-child(2n) > th,
