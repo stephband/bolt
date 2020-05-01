@@ -1,0 +1,18 @@
+
+code.block,
+pre > code {
+    display: block;
+    font-size: 0.8125rem;
+    padding-left: 0.75rem;
+    padding-top: 0.5625rem;
+    padding-bottom: 0.5625rem;
+    padding-right: 0.75rem;
+    width: 100%;
+    /*color: white;*/
+    /*border-bottom-left-radius: 0;*/
+    /*margin-top: 0.75rem;*/
+    overflow: auto;
+    box-shadow: inset -18px 4px 110px -20px rgba(0,0,0,0.1);
+    color: var(--color);
+    background-color: --var(black);
+}

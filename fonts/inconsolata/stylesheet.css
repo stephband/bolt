@@ -3,7 +3,7 @@
 
 
 @font-face {
-    font-family: 'inconsolatamedium';
+    font-family: 'Inconsolata';
     src: url('inconsolata-webfont.woff2') format('woff2'),
          url('inconsolata-webfont.woff') format('woff');
     font-weight: normal;

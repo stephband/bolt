@@ -237,17 +237,21 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
             row-gap: var(--row-gap);
         }
 
-        .#{nth($breakpoint, 1)}\32 -grid         { grid-template-columns: repeat(2, calc((100% / 2) - (var(--column-gap) * 1 / 2))); }
-        .#{nth($breakpoint, 1)}\33 -grid         { grid-template-columns: repeat(3, calc((100% / 3) - (var(--column-gap) * 2 / 3))); }
-        .#{nth($breakpoint, 1)}\34 -grid         { grid-template-columns: repeat(4, calc((100% / 4) - (var(--column-gap) * 3 / 4))); }
-        .#{nth($breakpoint, 1)}\35 -grid         { grid-template-columns: repeat(5, calc((100% / 5) - (var(--column-gap) * 4 / 5))); }
-        .#{nth($breakpoint, 1)}\36 -grid         { grid-template-columns: repeat(6, calc((100% / 6) - (var(--column-gap) * 5 / 6))); }
-        .#{nth($breakpoint, 1)}\37 -grid         { grid-template-columns: repeat(7, calc((100% / 7) - (var(--column-gap) * 6 / 7))); }
-        .#{nth($breakpoint, 1)}\38 -grid         { grid-template-columns: repeat(8, calc((100% / 8) - (var(--column-gap) * 7 / 8))); }
-        .#{nth($breakpoint, 1)}\39 -grid         { grid-template-columns: repeat(9, calc((100% / 9) - (var(--column-gap) * 8 / 9))); }
-        .#{nth($breakpoint, 1)}\31 0-grid        { grid-template-columns: repeat(10, calc((100% / 10) - (var(--column-gap) * 9 / 10))); }
-        .#{nth($breakpoint, 1)}\31 1-grid        { grid-template-columns: repeat(11, calc((100% / 11) - (var(--column-gap) * 10 / 11))); }
-        .#{nth($breakpoint, 1)}\31 2-grid        { grid-template-columns: repeat(12, calc((100% / 12) - (var(--column-gap) * 11 / 12))); }
+        .#{nth($breakpoint, 1)}start-y-grid         {
+            align-content: start;
+        }
+
+        .#{nth($breakpoint, 1)}\32 x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
+        .#{nth($breakpoint, 1)}\33 x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
+        .#{nth($breakpoint, 1)}\34 x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
+        .#{nth($breakpoint, 1)}\35 x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
+        .#{nth($breakpoint, 1)}\36 x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
+        .#{nth($breakpoint, 1)}\37 x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
+        .#{nth($breakpoint, 1)}\38 x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
+        .#{nth($breakpoint, 1)}\39 x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
+        .#{nth($breakpoint, 1)}\31 0x-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+        .#{nth($breakpoint, 1)}\31 1x-grid { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+        .#{nth($breakpoint, 1)}\31 2x-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
         .#{nth($breakpoint, 1)}x-1            { grid-column-start: 1 !important; }
         .#{nth($breakpoint, 1)}x-2            { grid-column-start: 2 !important; }
         .#{nth($breakpoint, 1)}x-3            { grid-column-start: 3 !important; }

@@ -271,6 +271,20 @@ textarea,
 	text-indent: calc(var(--input-padding-left) - var(--input-border-width));
 }
 
+.right-align[type="tel"],
+.right-align[type="url"],
+.right-align[type="date"],
+.right-align[type="text"],
+.right-align[type="time"],
+.right-align[type="week"],
+.right-align[type="month"],
+.right-align[type="email"],
+.right-align[type="number"],
+.right-align[type="search"],
+.right-align[type="password"] {
+	padding-right: calc(var(--input-padding-left) - var(--input-border-width));
+}
+
 textarea,
 [type="tel"],
 [type="url"],
@@ -300,8 +314,8 @@ textarea,
 [type="password"] {
 	/* Compensate for border */
 	line-height: calc(var(--input-height) - 2 * var(--input-border-width));
-	padding-top: 0;
-	padding-bottom: 0;
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
 
 input[type='date'],

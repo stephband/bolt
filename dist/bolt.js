@@ -110,6 +110,25 @@ function curry(fn, muteable, arity) {
 
 var curry$1 = curry;
 
+/**
+ready(fn)
+Calls `fn` on DOM content load, or if later than content load, immediately
+(on the next tick).
+*/
+
+const ready = new Promise(function(accept, reject) {
+	function handle(e) {
+		document.removeEventListener('DOMContentLoaded', handle);
+		window.removeEventListener('load', handle);
+		accept(e);
+	}
+
+	document.addEventListener('DOMContentLoaded', handle);
+	window.addEventListener('load', handle);
+});
+
+var ready$1 = ready.then.bind(ready);
+
 /*
 rest(n, array)
 */
@@ -602,6 +621,19 @@ curry$1(invoke, true);
 const is = Object.is || function is(a, b) { return a === b; };
 
 curry$1(is, true);
+
+/**
+isDefined(value)
+Check for value – where `value` is `undefined`, `NaN` or `null`, returns
+`false`, otherwise `true`.
+*/
+
+
+function isDefined(value) {
+    // !!value is a fast out for non-zero numbers, non-empty strings
+    // and other objects, the rest checks for 0, '', etc.
+    return !!value || (value !== undefined && value !== null && !Number.isNaN(value));
+}
 
 function latest(source) {
     var value = source.shift();
@@ -2757,6 +2789,19 @@ function unite(array, object) {
     .concat(values);
 }
 
+/*
+last(array)
+Gets the last value from an array.
+*/
+
+function last(array) {
+    if (typeof array.length === 'number') {
+        return array[array.length - 1];
+    }
+
+    // Todo: handle Fns and Streams
+}
+
 function sum(a, b) { return b + a; }
 function multiply(a, b) { return b * a; }
 function pow(n, x) { return Math.pow(x, n); }
@@ -2829,6 +2874,26 @@ function mod(d, n) {
 }
 
 curry$1(mod);
+
+/*
+toPolar(cartesian)
+*/
+
+function toPolar(cartesian) {
+    var x = cartesian[0];
+    var y = cartesian[1];
+
+    return [
+        // Distance
+        x === 0 ?
+            Math.abs(y) :
+        y === 0 ?
+            Math.abs(x) :
+            Math.sqrt(x*x + y*y) ,
+        // Angle
+        Math.atan2(x, y)
+    ];
+}
 
 // Cubic bezier function (originally translated from
 
@@ -4124,25 +4189,6 @@ const add = curry$1(function (a, b) {
 });
 
 /**
-ready(fn)
-Calls `fn` on DOM content load, or if later than content load, immediately
-(on the next tick).
-*/
-
-const ready = new Promise(function(accept, reject) {
-	function handle(e) {
-		document.removeEventListener('DOMContentLoaded', handle);
-		window.removeEventListener('load', handle);
-		accept(e);
-	}
-
-	document.addEventListener('DOMContentLoaded', handle);
-	window.addEventListener('load', handle);
-});
-
-var ready$1 = ready.then.bind(ready);
-
-/**
 style(property, node)
 
 Returns the computed style `property` of `node`.
@@ -4223,28 +4269,28 @@ const runit = /(\d*\.?\d+)(r?em|vw|vh)/;
 //var rpercent = /(\d*\.?\d+)%/;
 
 const units = {
-	em: function(n) {
-		return getFontSize() * n;
-	},
+    em: function(n) {
+        return getFontSize() * n;
+    },
 
-	rem: function(n) {
-		return getFontSize() * n;
-	},
+    rem: function(n) {
+        return getFontSize() * n;
+    },
 
-	vw: function(n) {
-		return window.innerWidth * n / 100;
-	},
+    vw: function(n) {
+        return window.innerWidth * n / 100;
+    },
 
-	vh: function(n) {
-		return window.innerHeight * n / 100;
-	}
+    vh: function(n) {
+        return window.innerHeight * n / 100;
+    }
 };
 
 let fontSize;
 
 function getFontSize() {
-	return fontSize ||
-		(fontSize = style("font-size", document.documentElement), 10);
+    return fontSize ||
+        (fontSize = style("font-size", document.documentElement), 10);
 }
 
 /**
@@ -4254,17 +4300,17 @@ Takes a string of the form '10rem', '100vw' or '100vh' and returns a number in p
 */
 
 const parseValue = overload(toType, {
-	'number': id,
+    'number': id,
 
-	'string': function(string) {
-		var data = runit.exec(string);
+    'string': function(string) {
+        var data = runit.exec(string);
 
-		if (data) {
-			return units[data[2]](parseFloat(data[1]));
-		}
+        if (data) {
+            return units[data[2]](parseFloat(data[1]));
+        }
 
-		throw new Error('dom: "' + string + '" cannot be parsed as rem, em, vw or vh units.');
-	}
+        throw new Error('dom: "' + string + '" cannot be parsed as rem, em, vw or vh units.');
+    }
 });
 
 const rules = [];
@@ -4527,6 +4573,39 @@ var text = document.createTextNode('');
 
 pre.appendChild(text);
 
+// Types
+
+
+// Links
+
+function prefixSlash(str) {
+	// Prefixes a slash when there is not an existing one
+	return (/^\//.test(str) ? '' : '/') + str ;
+}
+
+/**
+isInternalLink(node)
+
+Returns `true` if the `href` of `node` points to a resource on the same domain
+as the current document.
+*/
+
+function isInternalLink(node) {
+	var location = window.location;
+
+		// IE does not give us a .hostname for links to
+		// xxx.xxx.xxx.xxx URLs. file:// URLs don't have a hostname
+		// anywhere. This logic is not foolproof, it will let through
+		// links to different protocols for example
+	return (!node.hostname ||
+		// IE gives us the port on node.host, even where it is not
+		// specified. Use node.hostname
+		location.hostname === node.hostname) &&
+		// IE gives us node.pathname without a leading slash, so
+		// add one before comparing
+		location.pathname === prefixSlash(node.pathname);
+}
+
 function attribute(name, node) {
 	return node.getAttribute && node.getAttribute(name) || undefined ;
 }
@@ -4591,13 +4670,49 @@ function find$2(selector, node) {
 	return node.querySelector(selector);
 }
 
-curry$1(find$2, true);
+var find$3 = curry$1(find$2, true);
 
 function select(selector, node) {
 	return toArray(node.querySelectorAll(selector));
 }
 
-curry$1(select, true);
+var query = curry$1(select, true);
+
+function get$2(id) {
+    return document.getElementById(id) || undefined;
+}
+
+/**
+next(node)
+Returns the next sibling element node, or `undefined`.
+*/
+
+function next(node) {
+	return node.nextElementSibling || undefined;
+}
+
+/**
+previous(node)
+Returns the previous sibling element node, or `undefined`.
+*/
+
+function previous(node) {
+	return node.previousElementSibling || undefined;
+}
+
+/**
+children(node)
+
+Returns an array of child elements of `node`.
+*/
+
+function children(node) {
+	// In IE and Safari, document fragments do not have .children, fall back to
+	// querySelectorAll.
+
+	// TOIDO: BUg in selector!!!
+	return toArray(node.children || node.querySelectorAll('*'));
+}
 
 /**
 assign(node, properties)
@@ -4672,7 +4787,7 @@ function append$1(target, node) {
     return target.lastChild;
 }
 
-curry$1(append$1, true);
+var append$2 = curry$1(append$1, true);
 
 /**
 prepend(target, node)
@@ -4816,7 +4931,7 @@ function validateTag(tag) {
 	}
 }
 
-overload(toTypes, {
+var create$1 = overload(toTypes, {
 	'string string': construct,
 
 	'string object': function(tag, content) {
@@ -4841,6 +4956,32 @@ overload(toTypes, {
 		throw new Error('create(tag, content) does not accept argument types "' + Array.prototype.map.apply(arguments, toType).join(' ') + '"');
 	}
 });
+
+/**
+identify(node)
+
+Returns the id of `node`, or where `node` has no id, a random id is generated,
+checked against the DOM for uniqueness, set on `node` and returned:
+
+```
+// Get ids of all buttons in document
+select('button', document)
+.map(identify)
+.forEach((id) => ...)
+```
+*/
+
+function identify(node) {
+	var id = node.id;
+
+	if (!id) {
+		do { id = Math.ceil(Math.random() * 100000); }
+		while (document.getElementById(id));
+		node.id = id;
+	}
+
+	return id;
+}
 
 /** DOM Mutation */
 
@@ -5141,6 +5282,10 @@ function isPrimaryButton(e) {
 	return (e.which === 1 && !e.ctrlKey && !e.altKey && !e.shiftKey);
 }
 
+function isTargetEvent(e) {
+	return e.target === e.currentTarget;
+}
+
 
 // -----------------
 
@@ -5306,7 +5451,7 @@ function changedTouch(e, data) {
 	// Chrome Android (at least) includes touches that have not
 	// changed in e.changedTouches. That's a bit annoying. Check
 	// that this touch has changed.
-	if (touch.pageX === data.pageX && touch.pageY === data.pageY) { return; }
+	if (touch.clientX === data.clientX && touch.clientY === data.clientY) { return; }
 
 	return touch;
 }
@@ -5366,8 +5511,8 @@ function touchstart(e, push, options) {
 	// movestart, move and moveend event objects.
 	var event = {
 		target:     touch.target,
-		pageX:      touch.pageX,
-		pageY:      touch.pageY,
+		clientX:      touch.clientX,
+		clientY:      touch.clientY,
 		identifier: touch.identifier,
 
 		// The only way to make handlers individually unbindable is by
@@ -5399,8 +5544,8 @@ function removeTouch(events) {
 }
 
 function checkThreshold(e, events, touch, removeHandlers, push, options) {
-	var distX = touch.pageX - events[0].pageX;
-	var distY = touch.pageY - events[0].pageY;
+	var distX = touch.clientX - events[0].clientX;
+	var distY = touch.clientY - events[0].clientY;
 	var threshold = parseValue(options.threshold);
 
 	// Do nothing if the threshold has not been crossed.
@@ -5756,7 +5901,802 @@ const delegate$1 = curry$1(delegate, true);
 const animate$1 = curry$1(animate, true);
 const transition$1 = curry$1(transition, true);
 
-var selector     = '.switch-label';
+const config$1 = {
+    simulatedEventDelay: 0.08,
+    keyClass:   'key-device',
+    mouseClass: 'mouse-device',
+    touchClass: 'touch-device'
+};
+
+var on$2         = events$1.on;
+var list       = classes(document.documentElement);
+var currentClass, timeStamp;
+
+function updateClass(newClass) {
+    // We are already in mouseClass state, nothing to do
+    if (currentClass === newClass) { return; }
+    list.remove(currentClass);
+    list.add(newClass);
+    currentClass = newClass;
+}
+
+function mousedown$1(e) {
+    // If we are within simulatedEventDelay of a touchend event, ignore
+    // mousedown as it's likely a simulated event. Reset timeStamp to
+    // gaurantee that we only block one mousedown at most.
+    if (e.timeStamp < timeStamp + config$1.simulatedEventDelay * 1000) { return; }
+    timeStamp = undefined;
+    updateClass(config$1.mouseClass);
+}
+
+function keydown(e) {
+    // If key is not tab, enter or escape do nothing
+    if ([9, 13, 27].indexOf(e.keyCode) === -1) { return; }
+    updateClass(config$1.keyClass);
+}
+
+function touchend$1(e) {
+    timeStamp = e.timeStamp;
+    updateClass(config$1.touchClass);
+}
+
+on$2(document, 'mousedown', mousedown$1);
+on$2(document, 'keydown', keydown);
+on$2(document, 'touchend', touchend$1);
+
+var on$3        = events$1.on;
+var off$2       = events$1.off;
+
+var location  = window.location;
+var id$1        = location.hash;
+
+var store     = new WeakMap();
+
+var apply$1 = curry$1(function apply(node, fn) {
+	return fn(node);
+});
+
+const config$2 = {
+	activeClass: 'active',
+	onClass:     'on',
+	cache:       true
+};
+
+const matchers = [];
+const handlers = [];
+
+
+function findButtons(id) {
+	return query('[href$="#' + id + '"]', document.body)
+	.filter(overload(tag, {
+		a:       isInternalLink,
+		default: function() { return true; }
+	}))
+	.concat(query('[data-href="#' + id + '"]', document));
+}
+
+function getData(node) {
+	var data = store.get(node);
+	if (!data) {
+		data = {};
+		store.set(node, data);
+	}
+	return data;
+}
+
+function cacheData(target) {
+	var data = getData(target);
+	var id   = target.id;
+
+	if (!data.node) { data.node = target; }
+	if (!data.buttons) { data.buttons =  id && findButtons(id); }
+
+	return data;
+}
+
+function getButtons(data) {
+	return ( data.buttons) || (data.node.id && findButtons(data.node.id));
+}
+
+// Listen to activate events
+
+function defaultActivate() {
+	var data = this.data || cacheData(this.target);
+	var buttons;
+
+	// Don't do anything if elem is already active
+	if (data.active) { return; }
+	data.active = true;
+	this.preventDefault();
+
+	classes(data.node).add(config$2.activeClass);
+	buttons = getButtons(data);
+
+	if (buttons) {
+		buttons.forEach(function(node) {
+			classes(node).add(config$2.onClass);
+		});
+	}
+}
+
+function defaultDeactivate() {
+	var data = this.data || cacheData(this.target);
+	var buttons;
+
+	// Don't do anything if elem is already inactive
+	if (!data.active) { return; }
+	data.active = false;
+	this.preventDefault();
+
+	classes(data.node).remove(config$2.activeClass);
+	buttons = getButtons(data);
+
+	if (buttons) {
+		buttons.forEach(function(node) {
+			classes(node).remove(config$2.onClass);
+		});
+	}
+}
+
+/*
+dom-activate
+
+<p>When a <code>dom-activate</code> event is triggered on an element
+with a behaviour attribute, and if that event bubbles to
+<code>document</code> without being prevented&hellip;</p>
+
+<ol>
+    <li>the class <code>active</code> is added to the target</li>
+    <li>the class <code>on</code> is added to all links that
+    reference the element by hash ref</li>
+</ol>
+
+<p>To programmatically activate a `popable`, `toggleable` or
+`switchable`:</p>
+
+```trigger('dom-activate', element);```
+*/
+
+on$3(document, 'dom-activate', function(e) {
+	if (e.defaultPrevented) { return; }
+
+	var data = cacheData(e.target);
+
+	// Don't do anything if elem is already active
+	if (data.active) {
+		e.preventDefault();
+		return;
+	}
+
+	e.data    = data;
+	e.default = defaultActivate;
+});
+
+/*
+dom-deactivate
+
+<p>When a <code>dom-deactivate</code> event is triggered on an
+element with a behaviour attribute, and if that event bubbles to
+<code>document</code> without being prevented&hellip;</p>
+
+<ol>
+    <li>the class <code>active</code> is removed from the target</li>
+    <li>the class <code>on</code> is removed from all links that
+    reference the element by hash ref</li>
+</ol>
+
+<p>To programmatically deactivate a `popable`, `toggleable` or
+`switchable`:</p>
+
+```trigger('dom-deactivate', element);```
+*/
+
+on$3(document, 'dom-deactivate', function(e) {
+	if (e.defaultPrevented) { return; }
+	var data = cacheData(e.target);
+
+	// Don't do anything if elem is already inactive
+	if (!data.active) {
+		e.preventDefault();
+		return;
+	}
+
+	e.data    = data;
+	e.default = defaultDeactivate;
+});
+
+
+// Listen to clicks
+
+var triggerActivate = trigger$2('dom-activate');
+
+var nodeCache = {};
+
+var dialogs = {};
+
+var targets = {
+	dialog: function(e) {
+		var href = e.delegateTarget.getAttribute('data-href') || e.delegateTarget.hash || e.delegateTarget.href;
+
+		//Todo: more reliable way of getting id from a hash ref
+		var id = href.substring(1);
+		var fragment;
+
+//			if (!id) { return loadResource(e, href); }
+
+//			if (parts = /([\w-]+)\/([\w-]+)/.exec(id)) {
+//				id = parts[1];
+//			}
+
+		var node = nodeCache[id] || (nodeCache[id] = document.getElementById(id));
+
+//			if (!node) { return loadResource(e, href); }
+
+		e.preventDefault();
+
+		// If the node is html hidden inside a text/html script tag,
+		// extract the html.
+		if (node.getAttribute && node.getAttribute('type') === 'text/html') {
+			// Todo: trim whitespace from html?
+			fragment = create$1('fragment', node.innerHTML);
+		}
+
+		// If it's a template...
+		if (node.tagName && node.tagName.toLowerCase() === 'template') {
+			// If it is not inert (like in IE), remove it from the DOM to
+			// stop ids in it clashing with ids in the rendered result.
+			if (!node.content) { remove$2(node); }
+			fragment = fragmentFromContent(node);
+		}
+
+		var dialog = dialogs[id] || (dialogs[id] = createDialog(fragment));
+		events$1.trigger(dialog, 'dom-activate');
+	}
+};
+
+//	var rImage   = /\.(?:png|jpeg|jpg|gif|PNG|JPEG|JPG|GIF)$/;
+//	var rYouTube = /youtube\.com/;
+
+function createDialog(content) {
+	var layer = create$1('div', { class: 'dialog-layer layer' });
+	var dialog = create$1('div', { class: 'dialog popable' });
+	var button = create$1('button', { class: 'close-thumb thumb' });
+
+	append$2(dialog, content);
+	append$2(layer, dialog);
+	append$2(layer, button);
+	append$2(document.body, layer);
+
+	return dialog;
+}
+
+//	function loadResource(e, href) {
+//		var link = e.currentTarget;
+//		var path = link.pathname;
+//		var node, elem, dialog;
+//
+//		if (rImage.test(link.pathname)) {
+//			e.preventDefault();
+//			img = new Image();
+//			dialog = createDialog();
+//			var classes = dom.classes(dialog);
+//			classes.add('loading');
+//			dom.append(dialog, img);
+//			on(img, 'load', function() {
+//				classes.remove('loading');
+//			});
+//			img.src = href;
+//			return;
+//		}
+//
+//		if (rYouTube.test(link.hostname)) {
+//			e.preventDefault();
+//
+//			// We don't need a loading indicator because youtube comes with
+//			// it's own.
+//			elem = dom.create('iframe', {
+//				src:             href,
+//				class:           "youtube_iframe",
+//				width:           "560",
+//				height:          "315",
+//				frameborder:     "0",
+//				allowfullscreen: true
+//			});
+//
+//			node = elem[0];
+//			elem.dialog('lightbox');
+//			return;
+//		}
+//	}
+
+function preventClick(e) {
+	// Prevent the click that follows the mousedown. The preventDefault
+	// handler unbinds itself as soon as the click is heard.
+	if (e.type === 'mousedown') {
+		on$3(e.currentTarget, 'click', function prevent(e) {
+			off$2(e.currentTarget, 'click', prevent);
+			e.preventDefault();
+		});
+	}
+}
+
+function isIgnorable(e) {
+	// Default is prevented indicates that this link has already
+	// been handled. Save ourselves the overhead of further handling.
+	if (e.defaultPrevented) { return true; }
+
+	// Ignore mousedowns on any button other than the left (or primary)
+	// mouse button, or when a modifier key is pressed.
+	if (!isPrimaryButton(e)) { return true; }
+
+	// Ignore key presses other than the enter key
+	if ((e.type === 'keydown' || e.type === 'keyup') && e.keyCode !== 13) { return true; }
+}
+
+function getHash(node) {
+	return (isDefined(node.hash) ?
+		node.hash :
+		node.getAttribute('href')
+	).substring(1);
+}
+
+function sum$1(total, n) {
+    return total + !!n;
+}
+
+function activateHref(e) {
+	if (isIgnorable(e)) { return; }
+
+	// Check whether the link points to something on this page
+	if (e.delegateTarget.hostname && !isInternalLink(e.delegateTarget)) { return; }
+
+	// Does it point to an id?
+	var id = getHash(e.delegateTarget);
+	if (!id) { return; }
+
+	// Does it point to a node?
+	var node = document.getElementById(id);
+	if (!node) { return; }
+
+    // Is the node handleable
+    var handleCount = handlers.map(apply$1(node)).reduce(sum$1, 0);
+	if (handleCount) {
+        e.preventDefault();
+        return;
+    }
+
+	// Is the node activateable?
+	if (!matchers.find(apply$1(node))) { return; }
+
+	e.preventDefault();
+
+	if (e.type === 'mousedown') {
+		preventClick(e);
+	}
+
+	// TODO: This doesnt seem to set relatedTarget
+	// trigger(node, 'dom-activate', { relatedTarget: e.delegateTarget });
+	var a = Event$1('dom-activate', { relatedTarget: e.delegateTarget });
+	node.dispatchEvent(a);
+}
+
+function activateTarget(e) {
+	var target = e.delegateTarget.target;
+
+	if (isIgnorable(e)) { return; }
+
+	// If the target is not listed, ignore
+	if (!targets[target]) { return; }
+	return targets[target](e);
+}
+
+// Clicks on buttons toggle activate on their hash
+on$3(document, 'click', delegate$1('a[href]', activateHref));
+
+// Clicks on buttons toggle activate on their targets
+on$3(document, 'click', delegate$1('a[target]', activateTarget));
+
+// Document setup
+ready$1(function() {
+	// Setup all things that should start out active
+	query('.' + config$2.activeClass, document).forEach(triggerActivate);
+});
+
+on$3(window, 'load', function() {
+	// Activate the node that corresponds to the hashref in
+	// location.hash, checking if it's an alphanumeric id selector
+	// (not a hash bang, which google abuses for paths in old apps)
+	if (!id$1 || !(/^#\S+$/.test(id$1))) { return; }
+
+	// Catch errors, as id may nonetheless be an invalid selector
+	try {
+		query(id$1, document).forEach(triggerActivate);
+	}
+	catch(e) {
+		console.warn('dom: Cannot activate ' + id$1, e.message);
+	}
+});
+
+/**
+toggleable
+
+An element with the `toggleable` attribute is activated and deactivated when
+a link that references it is clicked.
+
+An active `toggleable` has the class `"active"`, and links to it have the
+class `"on"`.
+
+With a little hide/show style, a toggleable can be used to make menus, drawers,
+accordions and so on.
+**/
+
+// Define
+
+var match = matches$2('.toggleable, [toggleable]');
+
+// Functions
+
+var on$4      = events$1.on;
+//var off     = events.off;
+var trigger$3 = events$1.trigger;
+
+var actives = [];
+
+function getHash$1(node) {
+	return (node.hash ?
+		node.hash :
+		node.getAttribute('href')
+	).substring(1);
+}
+
+function click(e) {
+	// A prevented default means this link has already been handled.
+	if (e.defaultPrevented) { return; }
+	if (!isPrimaryButton(e)) { return; }
+
+	var node = closest$1('a[href]', e.target);
+	if (!node) { return; }
+	if (node.hostname && !isInternalLink(node)) { return; }
+
+	// Does it point to an id?
+	var id = getHash$1(node);
+	if (!id) { return; }
+	if (actives.indexOf(id) === -1) { return; }
+
+	trigger$3(get$2(id), 'dom-deactivate', {
+		relatedTarget: node
+	});
+
+	e.preventDefault();
+}
+
+function activate(e) {
+	// Use method detection - e.defaultPrevented is not set in time for
+	// subsequent listeners on the same node
+	if (!e.default) { return; }
+
+	var target = e.target;
+	if (!match(target)) { return; }
+
+	actives.push(identify(target));
+	e.default();
+}
+
+function deactivate(e, data, fn) {
+	if (!e.default) { return; }
+
+	var target = e.target;
+	if (!match(target)) { return; }
+
+	remove$1(actives, target.id);
+	e.default();
+}
+
+on$4(document.documentElement, 'click', click);
+on$4(document, 'dom-activate', activate);
+on$4(document, 'dom-deactivate', deactivate);
+
+matchers.push(match);
+
+var trigger$4 = events$1.trigger;
+var match$1   = matches$2('.popable, [popable]');
+var timeStamp$1 = 0;
+
+function activate$1(e) {
+	// Use method detection - e.defaultPrevented is not set in time for
+	// subsequent listeners on the same node
+	if (!e.default) { return; }
+
+	const node = e.target;
+	if (!match$1(node)) { return; }
+
+	// Make user actions outside node deactivate the node
+
+	requestAnimationFrame(function() {
+		function click(e) {
+			// Ignore clicks that follow clicks with the same timeStamp – this
+			// is true of clicks simulated by browsers on inputs when a label
+			// with a corresponding for="id" is clicked. In old Safari the order
+			// of thiese simulations with respoect to input and change events
+			// does not match other browsers and in rare cases causing Sparky
+			// to redo it's rendering
+			if (e.timeStamp === timeStamp$1) { return; }
+			timeStamp$1 = e.timeStamp;
+
+			if (node.contains(e.target) || node === e.target) { return; }
+			trigger$4(node, 'dom-deactivate');
+		}
+
+		function deactivate(e) {
+			if (node !== e.target) { return; }
+			if (e.defaultPrevented) { return; }
+			document.removeEventListener('click', click);
+			document.documentElement.removeEventListener('dom-deactivate', deactivate);
+		}
+
+		document.addEventListener('click', click);
+		document.documentElement.addEventListener('dom-deactivate', deactivate);
+	});
+
+	e.default();
+}
+
+function deactivate$1(e) {
+	if (!e.default) { return; }
+
+	var target = e.target;
+	if (!match$1(target)) { return; }
+	e.default();
+}
+
+document.addEventListener('dom-activate', activate$1);
+document.addEventListener('dom-deactivate', deactivate$1);
+matchers.push(match$1);
+
+/*
+Element.scrollIntoView()
+
+Monkey patches Element.scrollIntoView to support smooth scrolling options.
+https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
+*/
+
+// Duration and easing of scroll animation
+const config$3 = {
+    scrollDuration: 0.3,
+    scrollDurationPerHeight: 0.125,
+    scrollTransform: exponentialOut$1(3)
+};
+
+let cancel = noop;
+
+function scrollToNode(target, behavior) {
+    const scrollPaddingTop = parseInt(getComputedStyle(document.documentElement).scrollPaddingTop, 10);
+    const coords = offset$1(document.scrollingElement, target);
+    const scrollHeight = document.scrollingElement.scrollHeight;
+    const scrollBoxHeight = document.scrollingElement === document.body ?
+        // We cannot gaurantee that body height is 100%. Use the window
+        // innerHeight instead.
+        window.innerHeight :
+        rect(document.scrollingElement).height ;
+
+    const top = (coords[1] - scrollPaddingTop) > (scrollHeight - scrollBoxHeight) ?
+        scrollHeight - scrollBoxHeight :
+        (coords[1] - scrollPaddingTop) ;
+
+    cancel();
+
+    const scrollTop = top < 0 ?
+        0 :
+    top > scrollHeight - scrollBoxHeight ?
+        scrollHeight - scrollBoxHeight :
+    top ;
+
+    if (behavior === 'smooth') {
+        const scrollDuration = config$3.scrollDuration
+            + config$3.scrollDurationPerHeight
+            * Math.abs(scrollTop - document.scrollingElement.scrollTop)
+            / scrollBoxHeight ;
+
+        cancel = animate$1(scrollDuration, config$3.scrollTransform, 'scrollTop', document.scrollingElement, scrollTop);
+    }
+    else {
+        document.scrollingElement.scrollTop = scrollTop ;
+    }
+}
+
+if (!features.scrollBehavior) {
+    // Get the methoid from HTMLElement - in some browsers it is here rather
+    // than on Element
+    const constructor    = 'scrollIntoView' in Element.prototype ? Element : HTMLElement ;
+    const scrollIntoView = constructor.scrollIntoView;
+
+    constructor.prototype.scrollIntoView = function(options) {
+        if (typeof options === 'object') {
+            if (options.block && options.block !== 'start') {
+                console.warn('Element.scrollIntoView polyfill only supports options.block value "start"');
+            }
+
+            if (options.inline) {
+                console.warn('Element.scrollIntoView polyfill does not support options.inline... add support!');
+            }
+
+            scrollToNode(this, options.behavior);
+        }
+        else {
+            scrollIntoView.apply(this, arguments);
+        }
+    };
+}
+
+const selector = ".locateable, [locateable]";
+const byTop    = by$1(get$1('top'));
+const nothing$3  = {};
+const scrollOptions = {
+    // Overridden on window load
+    behavior: 'auto',
+    block: 'start'
+};
+
+const config$4 = {
+    scrollIdleDuration: 0.18
+};
+
+let hashTime     = -Infinity;
+let frameTime    = -Infinity;
+let scrollTop$1    = document.scrollingElement.scrollTop;
+let locateables, locatedNode, scrollPaddingTop, frame;
+
+
+function queryLinks(id) {
+	return query('a[href$="#' + id + '"]', document.body)
+	.filter(isInternalLink);
+}
+
+function addOn(node) {
+    node.classList.add('on');
+}
+
+function removeOn(node) {
+    node.classList.remove('on');
+}
+
+function locate(node) {
+    node.classList.add('located');
+    queryLinks(node.id).forEach(addOn);
+    locatedNode = node;
+}
+
+function unlocate() {
+    if (!locatedNode) { return; }
+    locatedNode.classList.remove('located');
+    queryLinks(locatedNode.id).forEach(removeOn);
+    locatedNode = undefined;
+}
+
+function update$3(time) {
+    frame = undefined;
+
+    // Update things that rarely change only when we have not updated recently
+    if (frameTime < time - config$4.scrollIdleDuration * 1000) {
+        locateables = query(selector, document);
+        scrollPaddingTop = parseInt(getComputedStyle(document.documentElement).scrollPaddingTop, 10);
+    }
+
+    frameTime = time;
+
+    const boxes = locateables.map(rect).sort(byTop);
+    let  n = -1;
+
+    while (boxes[++n]) {
+        // Stop on locateable lower than the break
+        if (boxes[n].top > scrollPaddingTop + 1) {
+            break;
+        }
+    }
+
+    --n;
+
+    // Before the first or after the last locateable. (The latter
+    // should not be possible according to the above while loop)
+    if (n < 0 || n >= boxes.length) {
+        if (locatedNode) {
+            unlocate();
+            window.history.replaceState(nothing$3, '', '#');
+        }
+
+        return;
+    }
+
+    var node = locateables[n];
+
+    if (locatedNode && node === locatedNode) {
+        return;
+    }
+
+    unlocate();
+    locate(node);
+    window.history.replaceState(nothing$3, '', '#' + node.id);
+}
+
+function scroll$1(e) {
+
+    const aMomentAgo = e.timeStamp - config$4.scrollIdleDuration * 1000;
+
+    // Keep a record of scrollTop in order to restore it in Safari,
+    // where popstate and hashchange are preceeded by a scroll jump
+    scrollTop$1 = document.scrollingElement.scrollTop;
+
+    // For a moment after the last hashchange dont update while
+    // smooth scrolling settles to the right place.
+    if (hashTime > aMomentAgo) {
+        hashTime = e.timeStamp;
+        return;
+    }
+
+    // Is frame already cued?
+    if (frame) {
+        return;
+    }
+
+    frame = requestAnimationFrame(update$3);
+}
+
+function popstate(e) {
+
+    // Record the timeStamp
+    hashTime = e.timeStamp;
+
+    // Remove current located
+    unlocate();
+
+    const hash = window.location.hash;
+    const id   = hash.slice(1);
+    if (!id) {
+        if (!features.scrollBehavior) {
+            // In Safari, popstate and hashchange are preceeded by scroll jump -
+            // restore previous scrollTop.
+            document.scrollingElement.scrollTop = scrollTop$1;
+
+            // Then animate
+            document.body.scrollIntoView(scrollOptions);
+        }
+
+        return;
+    }
+
+    // Is there a node with that id?
+    const node = document.getElementById(id);
+    if (!node) { return; }
+
+    // The page is on the move
+    locate(node);
+
+    // Implement smooth scroll for browsers that do not have it
+    if (!features.scrollBehavior) {
+        // In Safari, popstate and hashchange are preceeded by scroll jump -
+        // restore previous scrollTop.
+        document.scrollingElement.scrollTop = scrollTop$1;
+
+        // Then animate
+        node.scrollIntoView(scrollOptions);
+    }
+}
+
+function load(e) {
+    popstate(e);
+    scroll$1(e);
+
+    // Start listening to popstate and scroll
+    window.addEventListener('popstate', popstate);
+    window.addEventListener('scroll', scroll$1);
+
+    // Scroll smoothly from now on
+    scrollOptions.behavior = 'smooth';
+}
+
+window.addEventListener('load', load);
+
+var selector$1     = '.switch-label';
 var swipeRangePx = 40;
 
 function switchState(label) {
@@ -5781,7 +6721,7 @@ function switchOff(label) {
     trigger$2('change', input);
 }
 
-gestures({ selector: selector, threshold: 4 }, document)
+gestures({ selector: selector$1, threshold: 4 }, document)
 .each(function(events) {
     // First event is touchstart or mousedown
     var e0     = events.shift();
@@ -5799,7 +6739,7 @@ gestures({ selector: selector, threshold: 4 }, document)
         return;
     }
 
-    var label = closest$1(selector, e0.target);
+    var label = closest$1(selector$1, e0.target);
     var state = switchState(label);
     var x = state ? 1 : 0 ;
     var dx;
@@ -5828,3 +6768,401 @@ gestures({ selector: selector, threshold: 4 }, document)
         label.style.removeProperty('--switch-handle-gesture-x');
     });
 });
+
+/**
+switchable
+
+A `switchable` is given the class `"active"` when a link that references
+it is clicked, and all links to it are given the class `"on"`. In any group of
+siblings with the `switchable` attribute, exactly one is always active.
+
+Switchables can be used to make tabs, slideshows, accordions and so on.
+
+```html
+<nav>
+    <a class="tab-button button on" href="#tab-1">1</a>
+    <a class="tab-button button" href="#tab-2">2</a>
+    <a class="tab-button button" href="#tab-3">3</a>
+</nav>
+
+<section class="tab-block block active" switchable id="tab-1">
+    Tab 1
+</section>
+
+<section class="tab-block block" switchable id="tab-2">
+    Tab 2
+</section>
+
+<section class="tab-block block" switchable id="tab-3">
+    Tab 3
+</section>
+```
+**/
+
+// Define
+
+var match$2   = matches$2('.switchable, [switchable]');
+var on$5      = events$1.on;
+var triggerDeactivate = trigger$2('dom-deactivate');
+
+function activate$2(e) {
+	if (!e.default) { return; }
+
+	var target = e.target;
+	if (!match$2(target)) { return; }
+
+	var nodes = children(target.parentNode).filter(match$2);
+	var i     = nodes.indexOf(target);
+
+	nodes.splice(i, 1);
+	var active = nodes.filter(matches$2('.active'));
+
+	e.default();
+
+	// Deactivate the previous active pane AFTER this pane has been
+	// activated. It's important for panes who's style depends on the
+	// current active pane, eg: .slide.active ~ .slide
+	active.forEach(triggerDeactivate);
+}
+
+function deactivate$2(e) {
+	if (!e.default) { return; }
+
+	var target = e.target;
+	if (!match$2(target)) { return; }
+
+	e.default();
+}
+
+on$5(document, 'dom-activate', activate$2);
+on$5(document, 'dom-deactivate', deactivate$2);
+matchers.push(match$2);
+
+const selector$2 = '.swipeable, [swipeable]';
+
+var on$6       = events$1.on;
+var trigger$5  = events$1.trigger;
+var tau      = Math.PI * 2;
+
+var elasticDistance = 800;
+
+var rspaces$1 = /\s+/;
+
+function elasticEase(n) {
+	return Math.atan(n) / Math.PI ;
+}
+
+function xMinFromChildren(node) {
+	var child = last(children(node).filter(matches$2('.switchable, [switchable]')));
+
+	// Get the right-most x of the last switchable child's right-most edge
+	var w1 = child.offsetLeft + child.clientWidth;
+	var w2 = node.parentNode.clientWidth;
+	return w2 - w1;
+}
+
+function swipe(node, angle) {
+	angle = curriedWrap(0, tau, angle || 0);
+
+	// If angle is rightwards
+	var prop = (angle > tau * 1 / 8 && angle < tau * 3 / 8) ?
+		'previousElementSibling' :
+		// If angle is leftwards
+		(angle > tau * 5 / 8 && angle < tau * 7 / 8) ?
+			'nextElementSibling' :
+			false;
+
+	if (!prop) { return; }
+
+	var kids = children(node);
+
+	// it is entirely possible there are no active children – the initial
+	// HTML may not specify an active child – in which case we assume the
+	// first child is displayed
+	var active = kids.find(matches$2('.active')) || kids[0];
+
+	if (active[prop]) {
+		trigger$5(active[prop], 'dom-activate');
+	}
+	else {
+		transform(node, active);
+	}
+}
+
+function transform(node, active) {
+	var l1 = rect(node).left;
+	var l2 = rect(active).left;
+
+	// Round the translation - without rounding images and text become
+	// slightly fuzzy as they are antialiased.
+	var l  = Math.round(l1 - l2 - style$1('margin-left', active));
+	node.style.transform = 'translate3d(' + l + 'px, 0px, 0px)';
+}
+
+function update$4(swipeable, node) {
+	var pos = rect(node);
+
+	// node may not be visible, in which case we can't update
+	if (!pos) { return; }
+
+	var l1 = pos.left;
+	var l2 = rect(swipeable).left;
+	var l  = l1 - l2 - style$1('margin-left', node);
+
+	swipeable.style.transform = 'translate3d(' + (-l) + 'px, 0px, 0px)';
+}
+
+
+gestures({ selector: selector$2, threshold: 4 }, document)
+.each(function touch(stream) {
+	// First event is touchstart or mousedown
+	var e = stream.shift();
+
+	if (e.defaultPrevented) { return; }
+
+	var node = closest$1(selector$2, e.target);
+	var classy = classes(node);
+	var transform = style$1('transform', node);
+
+	transform = !transform || transform === 'none' ? '' : transform ;
+
+	var x = style$1('transform:translateX', node);
+
+	// Elastic flags and limits
+	var eMin = false;
+	var eMax = false;
+	var xMin = attribute$1('data-slide-min', node);
+	var xMax = attribute$1('data-slide-max', node);
+
+	if (!xMin && !xMax) {
+		eMin = true;
+		eMax = true;
+		xMin = xMinFromChildren(node);
+		xMax = 0;
+	}
+	else {
+		eMin = /elastic/.test(xMin);
+		eMax = /elastic/.test(xMax);
+		xMin = parseFloat(xMin) || 0;
+		xMax = parseFloat(xMax) || 0;
+	}
+
+	classy.add('no-transition');
+
+	var ax = x;
+    var x0 = e.clientX;
+	var y0 = e.clientY;
+
+	// TEMP: keep it around to use the last one in .done().
+	var x1, y1;
+
+	stream.map(function(e) {
+		x1 = e.clientX;
+		y1 = e.clientY;
+
+		var diffX = e.clientX - x0;
+		ax = x + diffX;
+		var tx = ax > 0 ?
+				eMax ? elasticEase(ax / elasticDistance) * elasticDistance - x :
+				xMax :
+			ax < xMin ?
+				eMin ? elasticEase((ax - xMin) / elasticDistance) * elasticDistance + xMin - x :
+				xMin :
+			diffX ;
+
+		return transform + ' translate3d(' + tx + 'px, 0px, 0px)';
+	})
+	.each(set$1('transform', node.style))
+	.done(function() {
+		classy.remove('no-transition');
+
+		// Todo: Watch out, this may interfere with slides
+		var xSnaps = attribute$1('data-slide-snap', node);
+		var tx;
+
+		if (xSnaps) {
+			xSnaps = xSnaps.split(rspaces$1).map(parseFloat);
+
+			// Get closest x from list of snaps
+			tx = xSnaps.reduce(function(prev, curr) {
+				return Math.abs(curr - ax) < Math.abs(prev - ax) ?
+					curr : prev ;
+			});
+
+			node.style.transform = transform + ' translate3d(' + tx + 'px, 0px, 0px)';
+		}
+
+		//var x = data.x;
+		//var y = data.y;
+		//var w = node.offsetWidth;
+		//var h = node.offsetHeight;
+		var polar = toPolar([x1 - x0, y1 - y0]);
+
+		// Todo: check if swipe has enough velocity and distance
+		//x/w > settings.threshold || e.velocityX * x/w * settings.sensitivity > 1
+		swipe(node, polar[1]);
+	});
+});
+
+on$6(document, 'dom-activate', function activate(e) {
+	// Use method detection - e.defaultPrevented is not set in time for
+	// subsequent listeners on the same node
+	if (!e.default) { return; }
+
+	var node   = e.target;
+	var parent = node.parentNode;
+
+	if (!matches$2(selector$2, parent)) { return; }
+
+	var classy = classes(parent);
+	classy.remove('no-transition');
+	// Force recalc
+	// TODO: check if this gets removed by JS minifier
+	document.documentElement.clientWidth;
+	e.preventDefault();
+	update$4(parent, node);
+});
+
+on$6(window, 'resize', function resize() {
+	// Update swipeable positions
+	query(selector$2, document).forEach(function(swipeable) {
+		var node = children(swipeable).find(matches$2('.active'));
+		if (!node) { return; }
+		var classy = classes(swipeable);
+		classy.add('no-transition');
+		update$4(swipeable, node);
+		// Force recalc
+		// TODO: check if this gets removed by JS minifier
+		document.documentElement.clientWidth;
+		classy.remove('no-transition');
+	});
+});
+
+const maxDuration = 0.5;
+
+function updateSlideshowHrefs(node) {
+    var block = closest$1('.slides-block', node);
+    if (!block) { return; }
+
+    var prevSlide = previous(node) || last(query('.switchable', block));
+    var nextSlide = next(node) || query('.switchable', block)[0];
+    var prevThumb = query('.prev-thumb', block);
+    var nextThumb = query('.next-thumb', block);
+
+    prevThumb.forEach(function(node) {
+        node.href = '#' + prevSlide.id;
+    });
+
+    nextThumb.forEach(function(node) {
+        node.href = '#' + nextSlide.id;
+    });
+}
+
+function requestFrame$1(n, fn) {
+    var frame;
+
+    function request() {
+        frame = requestAnimationFrame(--n > 0 ? request : fn);
+    }
+
+    function cancel() {
+        cancelAnimationFrame(frame);
+    }
+
+    request();
+    return cancel;
+}
+
+function update$5(parent, node) {
+    var cl = classes(parent);
+    var box = rect(node);
+
+    // Slides not visible will bork
+    if (!box) { return; }
+
+    var l1 = box.left;
+    var l2 = rect(parent).left;
+    var l  = l1 - l2 - style$1('margin-left', node);
+
+    cl.add('no-transition');
+    parent.style.transform = 'translate(' + (-l) + 'px, 0px)';
+
+    // The above may not have taken place inside a frame, in which case the
+    // DOM will refresh at the same time as the coming frame.. so we need
+    // the frame after that to teardown.
+    requestFrame$1(2, function() {
+        cl.remove('no-transition');
+    });
+}
+
+function shuffle(view, slides, parent, node) {
+    clearTimeout(view.timer);
+    events$1.off(parent, 'transitionend', view.transitionend);
+
+    var i = slides.indexOf(node);
+    var movers;
+
+    if (i < 2) {
+        movers = slides.splice(i - 2);
+        movers.forEach(before$1(slides[0]));
+        update$5(parent, node);
+    }
+    else if (i + 3 > slides.length) {
+        movers = slides.splice(0, 2 - (slides.length - i - 1));
+        movers.forEach(append$2(parent));
+        update$5(parent, node);
+    }
+
+    // Regenerate the prev / next button hrefs
+    updateSlideshowHrefs(node);
+}
+
+var getView = cache(function(parent) {
+    return {};
+});
+
+// Move slides around the DOM to give the feel of a continuous slideshow
+events$1('dom-activate', document)
+.map(get$1('target'))
+.dedup()
+.filter(matches$2('.switchable, [switchable]'))
+.each(function(node) {
+    var parent = node.parentNode;
+    var view   = getView(parent);
+
+    if (!matches$2('.swipeable, [swipeable]', parent)) { return; }
+
+    var slides = children(parent).filter(matches$2('.switchable, [switchable]'));
+
+    if (slides.length < 3) {
+        console.warn("Slides: Not enough slides to create 'infinite' slideshow.");
+        updateSlideshowHrefs(node);
+        return;
+    }
+
+    function transitionend(e) {
+        if (!isTargetEvent(e)) { return; }
+        shuffle(view, slides, parent, node);
+    }
+
+    clearTimeout(view.timer);
+    view.timer = setTimeout(shuffle, maxDuration * 1000, view, slides, parent, node);
+
+    events$1.off(parent, 'transitionend', view.transitionend);
+    view.transitionend = transitionend;
+    events$1.on(parent, 'transitionend', view.transitionend);
+});
+
+function updateBlock(block) {
+    var parent = find$3('.swipeable, [swipeable]', block);
+    var node   = find$3('.active', block);
+    update$5(parent, node);
+}
+
+// Reposition slides when window resizes
+events$1('resize', window)
+.wait(0.333333)
+.flatMap(function() {
+    return query('.slides-block', document);
+})
+.each(updateBlock);
