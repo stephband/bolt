@@ -241,7 +241,7 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 
 :root { /** --column-gap Define the horizontal grid gap. */ --column-gap: 1.5em; /** --row-gap Define the vertical grid gap. */ --row-gap: 1.5em; }
 
-@media (min-width: 0em) { .grid { display: grid !important; /* Horizontal layout */ grid-auto-flow: column; /* Create equal columns by default. */ grid-auto-columns: minmax(0, 1fr); column-gap: var(--column-gap); row-gap: var(--row-gap); }
+@media (min-width: 0em) { .grid { display: grid !important; /* Horizontal layout */ grid-auto-flow: row; /* Create equal columns by default. */ grid-auto-columns: minmax(0, 1fr); column-gap: var(--column-gap); row-gap: var(--row-gap); }
     .start-y-grid { align-content: start; }
     .\32 x-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .\33 x-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -334,7 +334,7 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 
 :root { --column-gap: 1.5em; --row-gap: 1.5em; }
 
-@media (min-width: 50em) { .\@1-grid { display: grid !important; /* Horizontal layout */ grid-auto-flow: column; /* Create equal columns by default. */ grid-auto-columns: minmax(0, 1fr); column-gap: var(--column-gap); row-gap: var(--row-gap); }
+@media (min-width: 50em) { .\@1-grid { display: grid !important; /* Horizontal layout */ grid-auto-flow: row; /* Create equal columns by default. */ grid-auto-columns: minmax(0, 1fr); column-gap: var(--column-gap); row-gap: var(--row-gap); }
     .\@1-start-y-grid { align-content: start; }
     .\@1-\32 x-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .\@1-\33 x-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -427,7 +427,7 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 
 :root { --column-gap: 1.5em; --row-gap: 1.5em; }
 
-@media (min-width: 70em) { .\@2-grid { display: grid !important; /* Horizontal layout */ grid-auto-flow: column; /* Create equal columns by default. */ grid-auto-columns: minmax(0, 1fr); column-gap: var(--column-gap); row-gap: var(--row-gap); }
+@media (min-width: 70em) { .\@2-grid { display: grid !important; /* Horizontal layout */ grid-auto-flow: row; /* Create equal columns by default. */ grid-auto-columns: minmax(0, 1fr); column-gap: var(--column-gap); row-gap: var(--row-gap); }
     .\@2-start-y-grid { align-content: start; }
     .\@2-\32 x-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .\@2-\33 x-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -520,7 +520,7 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 
 :root { --column-gap: 2.8125em; --row-gap: 1.875em; }
 
-@media (min-width: 90em) { .\@3-grid { display: grid !important; /* Horizontal layout */ grid-auto-flow: column; /* Create equal columns by default. */ grid-auto-columns: minmax(0, 1fr); column-gap: var(--column-gap); row-gap: var(--row-gap); }
+@media (min-width: 90em) { .\@3-grid { display: grid !important; /* Horizontal layout */ grid-auto-flow: row; /* Create equal columns by default. */ grid-auto-columns: minmax(0, 1fr); column-gap: var(--column-gap); row-gap: var(--row-gap); }
     .\@3-start-y-grid { align-content: start; }
     .\@3-\32 x-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .\@3-\33 x-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }

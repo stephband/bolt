@@ -230,7 +230,7 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
         .#{nth($breakpoint, 1)}grid           {
             display: grid !important;
             /* Horizontal layout */
-            grid-auto-flow: column;
+            grid-auto-flow: row;
             /* Create equal columns by default. */
             grid-auto-columns: minmax(0, 1fr);
             column-gap: var(--column-gap);
