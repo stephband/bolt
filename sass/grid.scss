@@ -19,49 +19,30 @@ Grid.
 Creates a grid with horizontal flow and equal width columns.
 **/
 
-.grid           {
-    display: grid !important;
-    grid-column-gap: 1.875rem;
-    grid-row-gap: 1.875rem;
-}
-
-
 /*
-.2-grid
+.2x-grid
 Applies a grid template of 2 equal columns.
 **/
 
 /*
-.3-grid
+.3x-grid
 Applies a grid template of 3 equal columns.
 **/
 
 /*
-.4-grid
+.4x-grid
 Applies a grid template of 4 equal columns.
 **/
 
 /*
-.5-grid
+.5x-grid
 Applies a grid template of 5 equal columns.
 **/
 
 /*
-.6-grid
+.6x-grid
 Applies a grid template of 6 equal columns.
 **/
-
-.\32 -grid         { grid-template-columns: repeat(2, 1fr); }
-.\33 -grid         { grid-template-columns: repeat(3, 1fr); }
-.\34 -grid         { grid-template-columns: repeat(4, 1fr); }
-.\35 -grid         { grid-template-columns: repeat(5, 1fr); }
-.\36 -grid         { grid-template-columns: repeat(6, 1fr); }
-.\37 -grid         { grid-template-columns: repeat(7, 1fr); }
-.\38 -grid         { grid-template-columns: repeat(8, 1fr); }
-.\39 -grid         { grid-template-columns: repeat(9, 1fr); }
-.\31 0-grid        { grid-template-columns: repeat(10, 1fr); }
-.\31 1-grid        { grid-template-columns: repeat(11, 1fr); }
-.\31 2-grid        { grid-template-columns: repeat(12, 1fr); }
 
 /**
 .x-1 … 12, .2x … 12, .x-start, .x-center, .x-end, .x-stretch, .x-bleed
@@ -85,60 +66,6 @@ Note that `.x-bleed`, which stretches an element half the way over the grid gap,
 depends on `column-gap` having been set via the custom property `--column-gap`.
 **/
 
-.x-1            { grid-column-start: 1 !important; }
-.x-2            { grid-column-start: 2 !important; }
-.x-3            { grid-column-start: 3 !important; }
-.x-4            { grid-column-start: 4 !important; }
-.x-5            { grid-column-start: 5 !important; }
-.x-6            { grid-column-start: 6 !important; }
-.x-7            { grid-column-start: 7 !important; }
-.x-8            { grid-column-start: 8 !important; }
-.x-9            { grid-column-start: 9 !important; }
-.x-10           { grid-column-start: 10 !important; }
-.x-11           { grid-column-start: 11 !important; }
-.x-12           { grid-column-start: 12 !important; }
-
-.1x       { grid-column-end: span 1 !important; }
-.2x       { grid-column-end: span 2 !important; }
-.3x       { grid-column-end: span 3 !important; }
-.4x       { grid-column-end: span 4 !important; }
-.5x       { grid-column-end: span 5 !important; }
-.6x       { grid-column-end: span 6 !important; }
-.7x       { grid-column-end: span 7 !important; }
-.8x       { grid-column-end: span 8 !important; }
-.9x       { grid-column-end: span 9 !important; }
-.10x      { grid-column-end: span 10 !important; }
-.11x      { grid-column-end: span 11 !important; }
-.12x      { grid-column-end: span 12 !important; }
-.xspan--1      { grid-column-end: span -1 !important; }
-
-.x-start        {
-    justify-self: start !important;
-    margin-left: 0;
-}
-
-.x-center       {
-    justify-self: center !important;
-}
-
-.x-end          {
-    justify-self: end !important;
-    margin-right: 0;
-}
-
-.x-stretch      {
-    justify-self: stretch !important;
-    margin-left: 0;
-    margin-right: 0;
-}
-
-.x-bleed {
-    justify-self: stretch !important;
-    margin-left: calc(var(--column-gap) / -2);
-    margin-right: calc(var(--column-gap) / -2);
-    width: auto;/*calc(100% + var(--column-gap));*/
-}
-
 /**
 .y-1 … 18, .2y … 12, .y-start, .y-center, .y-end, .y-stretch, y-baseline
 
@@ -158,186 +85,146 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 ```
 **/
 
-.y-1            { grid-row-start: 1 !important; }
-.y-2            { grid-row-start: 2 !important; }
-.y-3            { grid-row-start: 3 !important; }
-.y-4            { grid-row-start: 4 !important; }
-.y-5            { grid-row-start: 5 !important; }
-.y-6            { grid-row-start: 6 !important; }
-.y-7            { grid-row-start: 7 !important; }
-.y-8            { grid-row-start: 8 !important; }
-.y-9            { grid-row-start: 9 !important; }
-.y-10           { grid-row-start: 10 !important; }
-.y-11           { grid-row-start: 11 !important; }
-.y-12           { grid-row-start: 12 !important; }
-.y-13           { grid-row-start: 13 !important; }
-.y-14           { grid-row-start: 14 !important; }
-.y-15           { grid-row-start: 15 !important; }
-.y-16           { grid-row-start: 16 !important; }
-.y-17           { grid-row-start: 17 !important; }
-.y-18           { grid-row-start: 18 !important; }
+/**
+--column-gap
+Define the horizontal grid gap.
+**/
 
-
-
-.1y       { grid-row-end: span 1 !important; }
-.2y       { grid-row-end: span 2 !important; }
-.3y       { grid-row-end: span 3 !important; }
-.4y       { grid-row-end: span 4 !important; }
-.5y       { grid-row-end: span 5 !important; }
-.6y       { grid-row-end: span 6 !important; }
-.7y       { grid-row-end: span 7 !important; }
-.8y       { grid-row-end: span 8 !important; }
-.9y       { grid-row-end: span 9 !important; }
-.10y      { grid-row-end: span 10 !important; }
-.11y      { grid-row-end: span 11 !important; }
-.12y      { grid-row-end: span 12 !important; }
-.yspan--1      { grid-row-end: span -1 !important; }
-
-.y-start        { align-self: start !important; }
-.y-center       { align-self: center !important; }
-.y-end          { align-self: end !important; }
-.y-stretch      { align-self: stretch !important; }
-.y-baseline     { align-self: baseline !important; }
-
-.columns-2      { columns: 2 !important; }
-.columns-3      { columns: 3 !important; }
-.columns-4      { columns: 4 !important; }
-.columns-5      { columns: 5 !important; }
-.columns-6      { columns: 6 !important; }
-.columns-7      { columns: 7 !important; }
-.columns-8      { columns: 8 !important; }
-.columns-9      { columns: 9 !important; }
-.columns-10     { columns: 10 !important; }
-.columns-11     { columns: 11 !important; }
-.columns-12     { columns: 12 !important; }
-
-:root {
-    /**
-    --column-gap
-    Define the horizontal grid gap.
-    **/
-    --column-gap: 1.5em;
-
-    /**
-    --row-gap
-    Define the vertical grid gap.
-    **/
-    --row-gap: 1.5em;
-}
+/**
+--row-gap
+Define the vertical grid gap.
+**/
 
 @each $breakpoint in $breakpoints {
-    @media (min-width: #{nth($breakpoint, 2)}) {
-        .#{nth($breakpoint, 1)}grid           {
-            display: grid !important;
-            /* Horizontal layout */
-            grid-auto-flow: row;
-            /* Create equal columns by default. */
-            grid-auto-columns: minmax(0, 1fr);
-            column-gap: var(--column-gap);
-            row-gap: var(--row-gap);
-        }
-
-        .#{nth($breakpoint, 1)}start-y-grid         {
-            align-content: start;
-        }
-
-        .#{nth($breakpoint, 1)}\32 x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
-        .#{nth($breakpoint, 1)}\33 x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
-        .#{nth($breakpoint, 1)}\34 x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
-        .#{nth($breakpoint, 1)}\35 x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
-        .#{nth($breakpoint, 1)}\36 x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
-        .#{nth($breakpoint, 1)}\37 x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
-        .#{nth($breakpoint, 1)}\38 x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
-        .#{nth($breakpoint, 1)}\39 x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-        .#{nth($breakpoint, 1)}\31 0x-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
-        .#{nth($breakpoint, 1)}\31 1x-grid { grid-template-columns: repeat(11, minmax(0, 1fr)); }
-        .#{nth($breakpoint, 1)}\31 2x-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-        .#{nth($breakpoint, 1)}x-1            { grid-column-start: 1 !important; }
-        .#{nth($breakpoint, 1)}x-2            { grid-column-start: 2 !important; }
-        .#{nth($breakpoint, 1)}x-3            { grid-column-start: 3 !important; }
-        .#{nth($breakpoint, 1)}x-4            { grid-column-start: 4 !important; }
-        .#{nth($breakpoint, 1)}x-5            { grid-column-start: 5 !important; }
-        .#{nth($breakpoint, 1)}x-6            { grid-column-start: 6 !important; }
-        .#{nth($breakpoint, 1)}x-7            { grid-column-start: 7 !important; }
-        .#{nth($breakpoint, 1)}x-8            { grid-column-start: 8 !important; }
-        .#{nth($breakpoint, 1)}x-9            { grid-column-start: 9 !important; }
-        .#{nth($breakpoint, 1)}x-10           { grid-column-start: 10 !important; }
-        .#{nth($breakpoint, 1)}x-11           { grid-column-start: 11 !important; }
-        .#{nth($breakpoint, 1)}x-12           { grid-column-start: 12 !important; }
-        .#{nth($breakpoint, 1)}1x       { grid-column-end: span 1 !important; }
-        .#{nth($breakpoint, 1)}2x       { grid-column-end: span 2 !important; }
-        .#{nth($breakpoint, 1)}3x       { grid-column-end: span 3 !important; }
-        .#{nth($breakpoint, 1)}4x       { grid-column-end: span 4 !important; }
-        .#{nth($breakpoint, 1)}5x       { grid-column-end: span 5 !important; }
-        .#{nth($breakpoint, 1)}6x       { grid-column-end: span 6 !important; }
-        .#{nth($breakpoint, 1)}7x       { grid-column-end: span 7 !important; }
-        .#{nth($breakpoint, 1)}8x       { grid-column-end: span 8 !important; }
-        .#{nth($breakpoint, 1)}9x       { grid-column-end: span 9 !important; }
-        .#{nth($breakpoint, 1)}10x      { grid-column-end: span 10 !important; }
-        .#{nth($breakpoint, 1)}11x      { grid-column-end: span 11 !important; }
-        .#{nth($breakpoint, 1)}12x      { grid-column-end: span 12 !important; }
-        .#{nth($breakpoint, 1)}xspan--1      { grid-column-end: span -1 !important; }
-        .#{nth($breakpoint, 1)}x-end          { justify-self: end !important; margin-right: 0; }
-        .#{nth($breakpoint, 1)}x-start        { justify-self: start !important; margin-left: 0; }
-        .#{nth($breakpoint, 1)}x-center       { justify-self: center !important; }
-        .#{nth($breakpoint, 1)}x-stretch      { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
-        .#{nth($breakpoint, 1)}x-bleed        {
-            justify-self: stretch !important;
-            margin-left:  calc(var(--column-gap) / -2);
-            margin-right: calc(var(--column-gap) / -2);
-            width:        calc(100% + var(--column-gap));
-        }
-        .#{nth($breakpoint, 1)}y-1            { grid-row-start: 1 !important; }
-        .#{nth($breakpoint, 1)}y-2            { grid-row-start: 2 !important; }
-        .#{nth($breakpoint, 1)}y-3            { grid-row-start: 3 !important; }
-        .#{nth($breakpoint, 1)}y-4            { grid-row-start: 4 !important; }
-        .#{nth($breakpoint, 1)}y-5            { grid-row-start: 5 !important; }
-        .#{nth($breakpoint, 1)}y-6            { grid-row-start: 6 !important; }
-        .#{nth($breakpoint, 1)}y-7            { grid-row-start: 7 !important; }
-        .#{nth($breakpoint, 1)}y-8            { grid-row-start: 8 !important; }
-        .#{nth($breakpoint, 1)}y-9            { grid-row-start: 9 !important; }
-        .#{nth($breakpoint, 1)}y-10           { grid-row-start: 10 !important; }
-        .#{nth($breakpoint, 1)}y-11           { grid-row-start: 11 !important; }
-        .#{nth($breakpoint, 1)}y-12           { grid-row-start: 12 !important; }
-        .#{nth($breakpoint, 1)}y-13           { grid-row-start: 13 !important; }
-        .#{nth($breakpoint, 1)}y-14           { grid-row-start: 14 !important; }
-        .#{nth($breakpoint, 1)}y-15           { grid-row-start: 15 !important; }
-        .#{nth($breakpoint, 1)}y-16           { grid-row-start: 16 !important; }
-        .#{nth($breakpoint, 1)}y-17           { grid-row-start: 17 !important; }
-        .#{nth($breakpoint, 1)}y-18           { grid-row-start: 18 !important; }
-        .#{nth($breakpoint, 1)}1y       { grid-row-end: span 1 !important; }
-        .#{nth($breakpoint, 1)}2y       { grid-row-end: span 2 !important; }
-        .#{nth($breakpoint, 1)}3y       { grid-row-end: span 3 !important; }
-        .#{nth($breakpoint, 1)}4y       { grid-row-end: span 4 !important; }
-        .#{nth($breakpoint, 1)}5y       { grid-row-end: span 5 !important; }
-        .#{nth($breakpoint, 1)}6y       { grid-row-end: span 6 !important; }
-        .#{nth($breakpoint, 1)}7y       { grid-row-end: span 7 !important; }
-        .#{nth($breakpoint, 1)}8y       { grid-row-end: span 8 !important; }
-        .#{nth($breakpoint, 1)}9y       { grid-row-end: span 9 !important; }
-        .#{nth($breakpoint, 1)}10y      { grid-row-end: span 10 !important; }
-        .#{nth($breakpoint, 1)}11y      { grid-row-end: span 11 !important; }
-        .#{nth($breakpoint, 1)}12y      { grid-row-end: span 12 !important; }
-        .#{nth($breakpoint, 1)}yspan--1      { grid-row-end: span -1 !important; }
-        .#{nth($breakpoint, 1)}y-end          { align-self: end !important; }
-        .#{nth($breakpoint, 1)}y-start        { align-self: start !important; }
-        .#{nth($breakpoint, 1)}y-center       { align-self: center !important; }
-        .#{nth($breakpoint, 1)}y-stretch      { align-self: stretch !important; }
-        .#{nth($breakpoint, 1)}y-baseline     { align-self: baseline !important; }
-        .#{nth($breakpoint, 1)}columns-2      { columns: 2 !important; }
-        .#{nth($breakpoint, 1)}columns-3      { columns: 3 !important; }
-        .#{nth($breakpoint, 1)}columns-4      { columns: 4 !important; }
-        .#{nth($breakpoint, 1)}columns-5      { columns: 5 !important; }
-        .#{nth($breakpoint, 1)}columns-6      { columns: 6 !important; }
-        .#{nth($breakpoint, 1)}columns-7      { columns: 7 !important; }
-        .#{nth($breakpoint, 1)}columns-8      { columns: 8 !important; }
-        .#{nth($breakpoint, 1)}columns-9      { columns: 9 !important; }
-        .#{nth($breakpoint, 1)}columns-10     { columns: 10 !important; }
-        .#{nth($breakpoint, 1)}columns-11     { columns: 11 !important; }
-        .#{nth($breakpoint, 1)}columns-12     { columns: 12 !important; }
+@media (min-width: #{nth($breakpoint, 2)}) {
+    .#{nth($breakpoint, 1)}grid           {
+        display: grid !important;
+        /* Horizontal layout */
+        grid-auto-flow: row;
+        /* Create equal columns by default. */
+        grid-auto-columns: minmax(0, 1fr);
+        column-gap: var(--column-gap);
+        row-gap: var(--row-gap);
     }
 
-    :root       {
+    .#{nth($breakpoint, 1)}start-y-grid         {
+        align-content: start;
+    }
+
+    .#{nth($breakpoint, 1)}\32 x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\33 x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\34 x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\35 x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\36 x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\37 x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\38 x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\39 x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\31 0x-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\31 1x-grid { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\31 2x-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+
+    .#{nth($breakpoint, 1)}x-1         { grid-column-start: 1 !important; }
+    .#{nth($breakpoint, 1)}x-2         { grid-column-start: 2 !important; }
+    .#{nth($breakpoint, 1)}x-3         { grid-column-start: 3 !important; }
+    .#{nth($breakpoint, 1)}x-4         { grid-column-start: 4 !important; }
+    .#{nth($breakpoint, 1)}x-5         { grid-column-start: 5 !important; }
+    .#{nth($breakpoint, 1)}x-6         { grid-column-start: 6 !important; }
+    .#{nth($breakpoint, 1)}x-7         { grid-column-start: 7 !important; }
+    .#{nth($breakpoint, 1)}x-8         { grid-column-start: 8 !important; }
+    .#{nth($breakpoint, 1)}x-9         { grid-column-start: 9 !important; }
+    .#{nth($breakpoint, 1)}x-10        { grid-column-start: 10 !important; }
+    .#{nth($breakpoint, 1)}x-11        { grid-column-start: 11 !important; }
+    .#{nth($breakpoint, 1)}x-12        { grid-column-start: 12 !important; }
+
+    .#{nth($breakpoint, 1)}\31 x       { grid-column-end: span 1 !important; }
+    .#{nth($breakpoint, 1)}\32 x       { grid-column-end: span 2 !important; }
+    .#{nth($breakpoint, 1)}\33 x       { grid-column-end: span 3 !important; }
+    .#{nth($breakpoint, 1)}\34 x       { grid-column-end: span 4 !important; }
+    .#{nth($breakpoint, 1)}\35 x       { grid-column-end: span 5 !important; }
+    .#{nth($breakpoint, 1)}\36 x       { grid-column-end: span 6 !important; }
+    .#{nth($breakpoint, 1)}\37 x       { grid-column-end: span 7 !important; }
+    .#{nth($breakpoint, 1)}\38 x       { grid-column-end: span 8 !important; }
+    .#{nth($breakpoint, 1)}\39 x       { grid-column-end: span 9 !important; }
+    .#{nth($breakpoint, 1)}\31 0x      { grid-column-end: span 10 !important; }
+    .#{nth($breakpoint, 1)}\31 1x      { grid-column-end: span 11 !important; }
+    .#{nth($breakpoint, 1)}\31 2x      { grid-column-end: span 12 !important; }
+
+    .#{nth($breakpoint, 1)}x-end          { justify-self: end !important; margin-right: 0; }
+    .#{nth($breakpoint, 1)}x-start        { justify-self: start !important; margin-left: 0; }
+    .#{nth($breakpoint, 1)}x-center       { justify-self: center !important; }
+    .#{nth($breakpoint, 1)}x-stretch      { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
+    .#{nth($breakpoint, 1)}x-bleed        {
+        justify-self: stretch !important;
+        margin-left:  calc(var(--column-gap) / -2);
+        margin-right: calc(var(--column-gap) / -2);
+        width:        calc(100% + var(--column-gap));
+    }
+
+    .#{nth($breakpoint, 1)}\32 y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\33 y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\34 y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\35 y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\36 y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\37 y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\38 y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\39 y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\31 0y-grid { grid-template-rows: repeat(10, minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\31 1y-grid { grid-template-rows: repeat(11, minmax(0, 1fr)); }
+    .#{nth($breakpoint, 1)}\31 2y-grid { grid-template-rows: repeat(12, minmax(0, 1fr)); }
+
+    .#{nth($breakpoint, 1)}y-1         { grid-row-start: 1 !important; }
+    .#{nth($breakpoint, 1)}y-2         { grid-row-start: 2 !important; }
+    .#{nth($breakpoint, 1)}y-3         { grid-row-start: 3 !important; }
+    .#{nth($breakpoint, 1)}y-4         { grid-row-start: 4 !important; }
+    .#{nth($breakpoint, 1)}y-5         { grid-row-start: 5 !important; }
+    .#{nth($breakpoint, 1)}y-6         { grid-row-start: 6 !important; }
+    .#{nth($breakpoint, 1)}y-7         { grid-row-start: 7 !important; }
+    .#{nth($breakpoint, 1)}y-8         { grid-row-start: 8 !important; }
+    .#{nth($breakpoint, 1)}y-9         { grid-row-start: 9 !important; }
+    .#{nth($breakpoint, 1)}y-10        { grid-row-start: 10 !important; }
+    .#{nth($breakpoint, 1)}y-11        { grid-row-start: 11 !important; }
+    .#{nth($breakpoint, 1)}y-12        { grid-row-start: 12 !important; }
+    .#{nth($breakpoint, 1)}y-13        { grid-row-start: 13 !important; }
+    .#{nth($breakpoint, 1)}y-14        { grid-row-start: 14 !important; }
+    .#{nth($breakpoint, 1)}y-15        { grid-row-start: 15 !important; }
+    .#{nth($breakpoint, 1)}y-16        { grid-row-start: 16 !important; }
+    .#{nth($breakpoint, 1)}y-17        { grid-row-start: 17 !important; }
+    .#{nth($breakpoint, 1)}y-18        { grid-row-start: 18 !important; }
+
+    .#{nth($breakpoint, 1)}\31 y       { grid-row-end: span 1 !important; }
+    .#{nth($breakpoint, 1)}\32 y       { grid-row-end: span 2 !important; }
+    .#{nth($breakpoint, 1)}\33 y       { grid-row-end: span 3 !important; }
+    .#{nth($breakpoint, 1)}\34 y       { grid-row-end: span 4 !important; }
+    .#{nth($breakpoint, 1)}\35 y       { grid-row-end: span 5 !important; }
+    .#{nth($breakpoint, 1)}\36 y       { grid-row-end: span 6 !important; }
+    .#{nth($breakpoint, 1)}\37 y       { grid-row-end: span 7 !important; }
+    .#{nth($breakpoint, 1)}\38 y       { grid-row-end: span 8 !important; }
+    .#{nth($breakpoint, 1)}\39 y       { grid-row-end: span 9 !important; }
+    .#{nth($breakpoint, 1)}\31 0y      { grid-row-end: span 10 !important; }
+    .#{nth($breakpoint, 1)}\31 1y      { grid-row-end: span 11 !important; }
+    .#{nth($breakpoint, 1)}\31 2y      { grid-row-end: span 12 !important; }
+
+    .#{nth($breakpoint, 1)}y-end          { align-self: end !important; }
+    .#{nth($breakpoint, 1)}y-start        { align-self: start !important; }
+    .#{nth($breakpoint, 1)}y-center       { align-self: center !important; }
+    .#{nth($breakpoint, 1)}y-stretch      { align-self: stretch !important; }
+    .#{nth($breakpoint, 1)}y-baseline     { align-self: baseline !important; }
+
+    .#{nth($breakpoint, 1)}columns-2      { columns: 2 !important; }
+    .#{nth($breakpoint, 1)}columns-3      { columns: 3 !important; }
+    .#{nth($breakpoint, 1)}columns-4      { columns: 4 !important; }
+    .#{nth($breakpoint, 1)}columns-5      { columns: 5 !important; }
+    .#{nth($breakpoint, 1)}columns-6      { columns: 6 !important; }
+    .#{nth($breakpoint, 1)}columns-7      { columns: 7 !important; }
+    .#{nth($breakpoint, 1)}columns-8      { columns: 8 !important; }
+    .#{nth($breakpoint, 1)}columns-9      { columns: 9 !important; }
+    .#{nth($breakpoint, 1)}columns-10     { columns: 10 !important; }
+    .#{nth($breakpoint, 1)}columns-11     { columns: 11 !important; }
+    .#{nth($breakpoint, 1)}columns-12     { columns: 12 !important; }
+
+    :root {
         --column-gap: #{nth($breakpoint, 4)};
         --row-gap: #{nth($breakpoint, 5)};
     }
+}
 }
