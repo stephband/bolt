@@ -71,18 +71,18 @@ fieldset + input {
 .x-11 + .error-label, .x-11 + .help-label { grid-column-start: 11; }
 .x-12 + .error-label, .x-12 + .help-label { grid-column-start: 12; }
 
-.xspan-1 + .error-label,  .xspan-1 + .help-label  { grid-column-end: span 1; }
-.xspan-2 + .error-label,  .xspan-2 + .help-label  { grid-column-end: span 2; }
-.xspan-3 + .error-label,  .xspan-3 + .help-label  { grid-column-end: span 3; }
-.xspan-4 + .error-label,  .xspan-4 + .help-label  { grid-column-end: span 4; }
-.xspan-5 + .error-label,  .xspan-5 + .help-label  { grid-column-end: span 5; }
-.xspan-6 + .error-label,  .xspan-6 + .help-label  { grid-column-end: span 6; }
-.xspan-7 + .error-label,  .xspan-7 + .help-label  { grid-column-end: span 7; }
-.xspan-8 + .error-label,  .xspan-8 + .help-label  { grid-column-end: span 8; }
-.xspan-9 + .error-label,  .xspan-9 + .help-label  { grid-column-end: span 9; }
-.xspan-10 + .error-label, .xspan-10 + .help-label { grid-column-end: span 10; }
-.xspan-11 + .error-label, .xspan-11 + .help-label { grid-column-end: span 11; }
-.xspan-12 + .error-label, .xspan-12 + .help-label { grid-column-end: span 12; }
+.1x + .error-label,  .1x + .help-label  { grid-column-end: span 1; }
+.2x + .error-label,  .2x + .help-label  { grid-column-end: span 2; }
+.3x + .error-label,  .3x + .help-label  { grid-column-end: span 3; }
+.4x + .error-label,  .4x + .help-label  { grid-column-end: span 4; }
+.5x + .error-label,  .5x + .help-label  { grid-column-end: span 5; }
+.6x + .error-label,  .6x + .help-label  { grid-column-end: span 6; }
+.7x + .error-label,  .7x + .help-label  { grid-column-end: span 7; }
+.8x + .error-label,  .8x + .help-label  { grid-column-end: span 8; }
+.9x + .error-label,  .9x + .help-label  { grid-column-end: span 9; }
+.10x + .error-label, .10x + .help-label { grid-column-end: span 10; }
+.11x + .error-label, .11x + .help-label { grid-column-end: span 11; }
+.12x + .error-label, .12x + .help-label { grid-column-end: span 12; }
 
 .y-1  + .error-label, .y-1  + .help-label { grid-row-start: 1; }
 .y-2  + .error-label, .y-2  + .help-label { grid-row-start: 2; }
