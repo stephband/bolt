@@ -40,7 +40,7 @@ Applies a grid template of 5 equal columns.
 Applies a grid template of 6 equal columns.
 **/
 /**
-.x-1 … 12, .2x … 12, .x-start, .x-center, .x-end, .x-stretch, .x-bleed
+.x-1 … x-12, .2x … .12x, .start-x, .center-x, .end-x, .stretch-x, .bleed-x
 
 ```html
 <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
@@ -49,18 +49,18 @@ Applies a grid template of 6 equal columns.
     <button class="x-3">x-3</button>
     <button class="x-1 2x">2x</button>
     <button class="x-1 3x">3x</button>
-    <button class="x-1 x-start y-4">x-start</button>
-    <button class="x-2 x-center y-4">x-center</button>
-    <button class="x-3 x-end y-4">x-end</button>
-    <button class="x-1 x-stretch y-5">x-stretch</button>
-    <button class="x-2 x-bleed y-5">x-bleed</button>
+    <button class="x-1 start-x y-4">start-x</button>
+    <button class="x-2 center-x y-4">center-x</button>
+    <button class="x-3 end-x y-4">end-x</button>
+    <button class="x-1 stretch-x y-5">stretch-x</button>
+    <button class="x-2 bleed-x y-5">bleed-x</button>
 </div>
 ```
 
-Note that `.x-bleed`, which stretches an element half the way over the grid gap,
+Note that `.bleed-x`, which stretches an element half the way over the grid gap,
 depends on `column-gap` having been set via the custom property `--column-gap`.
 **/
-/** .y-1 … 18, .2y … 12, .y-start, .y-center, .y-end, .y-stretch, y-baseline ```html <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;"> <button class="x-1 y-1">y-1</button> <button class="x-1 y-2">y-2</button> <button class="x-1 y-3">y-3</button> <button class="x-2 y-1 2y">2y</button> <button class="x-3 y-1 3y">3y</button> <button class="x-1 y-4 y-start">y-start</button> <button class="x-1 y-5 y-center">y-center</button> <button class="x-1 y-6 y-end">y-end</button> <button class="x-2 y-4 y-stretch">y-stretch</button> <button class="x-3 y-4 y-baseline">y-baseline</button> </div> ``` */
+/** .y-1 … .y-18, .2y … .12y, .start-y, .center-y, .end-y, .stretch-y, baseline-y ```html <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;"> <button class="x-1 y-1">y-1</button> <button class="x-1 y-2">y-2</button> <button class="x-1 y-3">y-3</button> <button class="x-2 y-1 2y">2y</button> <button class="x-3 y-1 3y">3y</button> <button class="x-1 y-4 start-y">start-y</button> <button class="x-1 y-5 center-y">center-y</button> <button class="x-1 y-6 end-y">end-y</button> <button class="x-2 y-4 stretch-y">stretch-y</button> <button class="x-3 y-4 baseline-y">baseline-y</button> </div> ``` */
 /**
 --column-gap
 Define the horizontal grid gap.
@@ -106,11 +106,11 @@ Define the vertical grid gap.
     .\31 0x { grid-column-end: span 10 !important; }
     .\31 1x { grid-column-end: span 11 !important; }
     .\31 2x { grid-column-end: span 12 !important; }
-    .x-end { justify-self: end !important; margin-right: 0; }
-    .x-start { justify-self: start !important; margin-left: 0; }
-    .x-center { justify-self: center !important; }
-    .x-stretch { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
-    .x-bleed { justify-self: stretch !important; margin-left: calc(var(--column-gap) / -2); margin-right: calc(var(--column-gap) / -2); width: calc(100% + var(--column-gap)); }
+    .end-x { justify-self: end !important; margin-right: 0; }
+    .start-x { justify-self: start !important; margin-left: 0; }
+    .center-x { justify-self: center !important; }
+    .stretch-x { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
+    .bleed-x { justify-self: stretch !important; margin-left: calc(var(--column-gap) / -2); margin-right: calc(var(--column-gap) / -2); width: calc(100% + var(--column-gap)); }
     .\32 y-grid { grid-template-rows: repeat(2, minmax(0, 1fr)); }
     .\33 y-grid { grid-template-rows: repeat(3, minmax(0, 1fr)); }
     .\34 y-grid { grid-template-rows: repeat(4, minmax(0, 1fr)); }
@@ -152,11 +152,11 @@ Define the vertical grid gap.
     .\31 0y { grid-row-end: span 10 !important; }
     .\31 1y { grid-row-end: span 11 !important; }
     .\31 2y { grid-row-end: span 12 !important; }
-    .y-end { align-self: end !important; }
-    .y-start { align-self: start !important; }
-    .y-center { align-self: center !important; }
-    .y-stretch { align-self: stretch !important; }
-    .y-baseline { align-self: baseline !important; }
+    .end-y { align-self: end !important; }
+    .start-y { align-self: start !important; }
+    .center-y { align-self: center !important; }
+    .stretch-y { align-self: stretch !important; }
+    .baseline-y { align-self: baseline !important; }
     .columns-2 { columns: 2 !important; }
     .columns-3 { columns: 3 !important; }
     .columns-4 { columns: 4 !important; }
@@ -207,11 +207,11 @@ Define the vertical grid gap.
     .\@1-\31 0x { grid-column-end: span 10 !important; }
     .\@1-\31 1x { grid-column-end: span 11 !important; }
     .\@1-\31 2x { grid-column-end: span 12 !important; }
-    .\@1-x-end { justify-self: end !important; margin-right: 0; }
-    .\@1-x-start { justify-self: start !important; margin-left: 0; }
-    .\@1-x-center { justify-self: center !important; }
-    .\@1-x-stretch { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
-    .\@1-x-bleed { justify-self: stretch !important; margin-left: calc(var(--column-gap) / -2); margin-right: calc(var(--column-gap) / -2); width: calc(100% + var(--column-gap)); }
+    .\@1-end-x { justify-self: end !important; margin-right: 0; }
+    .\@1-start-x { justify-self: start !important; margin-left: 0; }
+    .\@1-center-x { justify-self: center !important; }
+    .\@1-stretch-x { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
+    .\@1-bleed-x { justify-self: stretch !important; margin-left: calc(var(--column-gap) / -2); margin-right: calc(var(--column-gap) / -2); width: calc(100% + var(--column-gap)); }
     .\@1-\32 y-grid { grid-template-rows: repeat(2, minmax(0, 1fr)); }
     .\@1-\33 y-grid { grid-template-rows: repeat(3, minmax(0, 1fr)); }
     .\@1-\34 y-grid { grid-template-rows: repeat(4, minmax(0, 1fr)); }
@@ -253,11 +253,11 @@ Define the vertical grid gap.
     .\@1-\31 0y { grid-row-end: span 10 !important; }
     .\@1-\31 1y { grid-row-end: span 11 !important; }
     .\@1-\31 2y { grid-row-end: span 12 !important; }
-    .\@1-y-end { align-self: end !important; }
-    .\@1-y-start { align-self: start !important; }
-    .\@1-y-center { align-self: center !important; }
-    .\@1-y-stretch { align-self: stretch !important; }
-    .\@1-y-baseline { align-self: baseline !important; }
+    .\@1-end-y { align-self: end !important; }
+    .\@1-start-y { align-self: start !important; }
+    .\@1-center-y { align-self: center !important; }
+    .\@1-stretch-y { align-self: stretch !important; }
+    .\@1-baseline-y { align-self: baseline !important; }
     .\@1-columns-2 { columns: 2 !important; }
     .\@1-columns-3 { columns: 3 !important; }
     .\@1-columns-4 { columns: 4 !important; }
@@ -308,11 +308,11 @@ Define the vertical grid gap.
     .\@2-\31 0x { grid-column-end: span 10 !important; }
     .\@2-\31 1x { grid-column-end: span 11 !important; }
     .\@2-\31 2x { grid-column-end: span 12 !important; }
-    .\@2-x-end { justify-self: end !important; margin-right: 0; }
-    .\@2-x-start { justify-self: start !important; margin-left: 0; }
-    .\@2-x-center { justify-self: center !important; }
-    .\@2-x-stretch { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
-    .\@2-x-bleed { justify-self: stretch !important; margin-left: calc(var(--column-gap) / -2); margin-right: calc(var(--column-gap) / -2); width: calc(100% + var(--column-gap)); }
+    .\@2-end-x { justify-self: end !important; margin-right: 0; }
+    .\@2-start-x { justify-self: start !important; margin-left: 0; }
+    .\@2-center-x { justify-self: center !important; }
+    .\@2-stretch-x { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
+    .\@2-bleed-x { justify-self: stretch !important; margin-left: calc(var(--column-gap) / -2); margin-right: calc(var(--column-gap) / -2); width: calc(100% + var(--column-gap)); }
     .\@2-\32 y-grid { grid-template-rows: repeat(2, minmax(0, 1fr)); }
     .\@2-\33 y-grid { grid-template-rows: repeat(3, minmax(0, 1fr)); }
     .\@2-\34 y-grid { grid-template-rows: repeat(4, minmax(0, 1fr)); }
@@ -354,11 +354,11 @@ Define the vertical grid gap.
     .\@2-\31 0y { grid-row-end: span 10 !important; }
     .\@2-\31 1y { grid-row-end: span 11 !important; }
     .\@2-\31 2y { grid-row-end: span 12 !important; }
-    .\@2-y-end { align-self: end !important; }
-    .\@2-y-start { align-self: start !important; }
-    .\@2-y-center { align-self: center !important; }
-    .\@2-y-stretch { align-self: stretch !important; }
-    .\@2-y-baseline { align-self: baseline !important; }
+    .\@2-end-y { align-self: end !important; }
+    .\@2-start-y { align-self: start !important; }
+    .\@2-center-y { align-self: center !important; }
+    .\@2-stretch-y { align-self: stretch !important; }
+    .\@2-baseline-y { align-self: baseline !important; }
     .\@2-columns-2 { columns: 2 !important; }
     .\@2-columns-3 { columns: 3 !important; }
     .\@2-columns-4 { columns: 4 !important; }
@@ -409,11 +409,11 @@ Define the vertical grid gap.
     .\@3-\31 0x { grid-column-end: span 10 !important; }
     .\@3-\31 1x { grid-column-end: span 11 !important; }
     .\@3-\31 2x { grid-column-end: span 12 !important; }
-    .\@3-x-end { justify-self: end !important; margin-right: 0; }
-    .\@3-x-start { justify-self: start !important; margin-left: 0; }
-    .\@3-x-center { justify-self: center !important; }
-    .\@3-x-stretch { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
-    .\@3-x-bleed { justify-self: stretch !important; margin-left: calc(var(--column-gap) / -2); margin-right: calc(var(--column-gap) / -2); width: calc(100% + var(--column-gap)); }
+    .\@3-end-x { justify-self: end !important; margin-right: 0; }
+    .\@3-start-x { justify-self: start !important; margin-left: 0; }
+    .\@3-center-x { justify-self: center !important; }
+    .\@3-stretch-x { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
+    .\@3-bleed-x { justify-self: stretch !important; margin-left: calc(var(--column-gap) / -2); margin-right: calc(var(--column-gap) / -2); width: calc(100% + var(--column-gap)); }
     .\@3-\32 y-grid { grid-template-rows: repeat(2, minmax(0, 1fr)); }
     .\@3-\33 y-grid { grid-template-rows: repeat(3, minmax(0, 1fr)); }
     .\@3-\34 y-grid { grid-template-rows: repeat(4, minmax(0, 1fr)); }
@@ -455,11 +455,11 @@ Define the vertical grid gap.
     .\@3-\31 0y { grid-row-end: span 10 !important; }
     .\@3-\31 1y { grid-row-end: span 11 !important; }
     .\@3-\31 2y { grid-row-end: span 12 !important; }
-    .\@3-y-end { align-self: end !important; }
-    .\@3-y-start { align-self: start !important; }
-    .\@3-y-center { align-self: center !important; }
-    .\@3-y-stretch { align-self: stretch !important; }
-    .\@3-y-baseline { align-self: baseline !important; }
+    .\@3-end-y { align-self: end !important; }
+    .\@3-start-y { align-self: start !important; }
+    .\@3-center-y { align-self: center !important; }
+    .\@3-stretch-y { align-self: stretch !important; }
+    .\@3-baseline-y { align-self: baseline !important; }
     .\@3-columns-2 { columns: 2 !important; }
     .\@3-columns-3 { columns: 3 !important; }
     .\@3-columns-4 { columns: 4 !important; }
