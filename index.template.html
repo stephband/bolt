@@ -3,6 +3,10 @@
 <head build-fn="fetch:package.json">
     <template build-src="/fn/templates.html#head-template"></template>
 
+    <script build-remove title="debug">
+    window.DEBUG = true;
+    </script>
+
     <style>
         .bolt-fg { color: #005477; }
         .bolt-bg { background-color: #005477; }
@@ -132,7 +136,7 @@ npm run build</code></pre>
     <script type="module">
         import './module.js';
         import './elements/range-control.js';
-        import './elements/rotary-control.js';
+        //import './elements/rotary-control.js';
 
         // Make the document interactive
         import './documentation.js';
