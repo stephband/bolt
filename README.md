@@ -11,8 +11,8 @@ A library of front end classes. <a href="http://stephen.band/bolt">Bolt</a> sets
 
 ## Latest build 2.0.0
 
-* <a href="http://stephen.band/bolt/dist/bolt.css">http://stephen.band/bolt/dist/bolt.css</a> (~125k)
-* <a href="http://stephen.band/bolt/dist/bolt.min.css">http://stephen.band/bolt/dist/bolt.min.css</a> (~85k)
+* <a href="http://stephen.band/bolt/style.min.css">http://stephen.band/bolt/style.min.css</a> (~125k)
+* <a href="http://stephen.band/bolt/style.min.css">http://stephen.band/bolt/style.min.css</a> (~85k)
 
 ## Getting started
 
