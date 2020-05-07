@@ -60,7 +60,7 @@ Applies a grid template of 6 equal columns.
 Note that `.bleed-x`, which stretches an element half the way over the grid gap,
 depends on `column-gap` having been set via the custom property `--column-gap`.
 **/
-/** .y-1 … .y-18, .2y … .12y, .start-y, .center-y, .end-y, .stretch-y, baseline-y ```html <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;"> <button class="x-1 y-1">y-1</button> <button class="x-1 y-2">y-2</button> <button class="x-1 y-3">y-3</button> <button class="x-2 y-1 2y">2y</button> <button class="x-3 y-1 3y">3y</button> <button class="x-1 y-4 start-y">start-y</button> <button class="x-1 y-5 center-y">center-y</button> <button class="x-1 y-6 end-y">end-y</button> <button class="x-2 y-4 stretch-y">stretch-y</button> <button class="x-3 y-4 baseline-y">baseline-y</button> </div> ``` */
+/** .y-1 … .y-18, .2y … .12y, .start-y, .center-y, .end-y, .stretch-y, .baseline-y ```html <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;"> <button class="x-1 y-1">y-1</button> <button class="x-1 y-2">y-2</button> <button class="x-1 y-3">y-3</button> <button class="x-2 y-1 2y">2y</button> <button class="x-3 y-1 3y">3y</button> <button class="x-1 y-4 start-y">start-y</button> <button class="x-1 y-5 center-y">center-y</button> <button class="x-1 y-6 end-y">end-y</button> <button class="x-2 y-4 stretch-y">stretch-y</button> <button class="x-3 y-4 baseline-y">baseline-y</button> </div> ``` */
 /**
 --column-gap
 Define the horizontal grid gap.
