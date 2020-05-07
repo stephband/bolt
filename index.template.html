@@ -1,27 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head build-fn="fetch:package.json">
-    <meta charset="utf-8" />
-
-    <meta name="author" content="@{[author.twitter]}" />
-    <meta name="description" content="Documentation for {[title]}. {[description]}" />
-    <meta name="viewport" content="width=device-width" />
-
-    <title>{[title]}</title>
-
-    <script>
-    document.documentElement.className += ' js content-loading loading';
-    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
-    window.addEventListener('load', () => document.documentElement.classList.remove('loading'));
-    window.DEBUG = false;
-    </script>
-
-    <link rel="shortcut icon" href="images/logo-64x64.ico" />
-    <link rel="icon" type="image/png" href="images/logo-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="images/logo-64x64.png" sizes="64x64">
-    <link rel="icon" type="image/png" href="images/logo-128x128.png" sizes="128x128">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" />
+    <template build-src="/fn/templates.html#head-template"></template>
 
     <style>
         .bolt-fg { color: #005477; }
@@ -155,6 +135,6 @@ npm run build</code></pre>
         import './elements/rotary-control.js';
 
         // Make the document interactive
-        import './variables.js';
+        import './documentation.js';
     </script>
 </body>
