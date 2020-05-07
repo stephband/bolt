@@ -616,7 +616,7 @@ function invoke(name, values, object) {
     return object[name].apply(object, values);
 }
 
-curry$1(invoke, true);
+var invoke$1 = curry$1(invoke, true);
 
 const is = Object.is || function is(a, b) { return a === b; };
 
@@ -5855,6 +5855,14 @@ function animate(duration, transform, name, object, value) {
 	);
 }
 
+function isValid(node) {
+	return node.validity ? node.validity.valid : true ;
+}
+
+function validate(node) {
+    return node.checkValidity ? node.checkValidity() : true ;
+}
+
 const define$2 = Object.defineProperties;
 
 define$2({
@@ -6696,6 +6704,156 @@ function load(e) {
 
 window.addEventListener('load', load);
 
+var isValidateable = matches$2('.validateable, .validateable input, .validateable textarea, .validateable select, [validateable], [validateable] input, [validateable] textarea, [validateable] select');
+
+var types$1 = {
+	patternMismatch: 'pattern',
+	rangeOverflow:   'max',
+	rangeUnderflow:  'min',
+	stepMismatch:    'step',
+	tooLong:         'maxlength',
+	typeMismatch:    'type',
+	valueMissing:    'required'
+};
+
+const config$5 = {
+    // Class added to labels displaying errors
+	errorLabelClass: 'error-label',
+
+	// Class added to validated nodes (note: not valid nodes, necessarily,
+	// but nodes that have been validated at least once).
+	validatedInputClass:  'validated',
+
+	// Prefix for input attributes containing node specific validation messages.
+    // Example: data-validation-max="You have gone too far"
+    messageAttributePrefix: 'data-validation-',
+
+	// Global object for validation messages, overiding the browser defaults.
+	messages: {
+		// pattern:
+		// max:
+		// min:
+		// step:
+		// maxlength:
+		// type:
+		// required:
+	},
+
+    // Given an input, select or textarea (that may have been augmented in some
+    // way such that it is not the node that an error should be attached to),
+    // selectNode() should return the node that the error should follow.
+    selectNode: id
+};
+
+function negate(fn) {
+	return function() {
+		return !fn.apply(this, arguments);
+	};
+}
+
+function isShowingMessage(input) {
+    var node = config$5.selectNode(input);
+	return node.nextElementSibling
+		&& matches$2('.' + config$5.errorLabelClass.trim().split(/\s+/).join('.'), node.nextElementSibling);
+}
+
+function toError(node) {
+	var validity = node.validity;
+	var prefix   = config$5.messageAttributePrefix;
+	var messages = config$5.messages;
+	var name;
+
+	for (name in validity) {
+		if (name !== 'valid' && validity[name]) {
+			return {
+				type: name,
+				attr: types$1[name],
+				name: node.name,
+				text: (prefix && node.getAttribute(prefix + types$1[name]))
+					|| (messages && messages[types$1[name]])
+					|| node.validationMessage,
+				node: node
+			};
+		}
+	}
+}
+
+function renderError(error) {
+	var input = error.node;
+    var node  = config$5.selectNode(input);
+
+	// Find the last error
+	while (node.nextElementSibling && matches$2('.' + config$5.errorLabelClass.trim().split(/\s+/).join('.'), node.nextElementSibling)) {
+		node = node.nextElementSibling;
+	}
+
+	var label = create$1('label', {
+		textContent: error.text,
+		for:         input.id,
+		class:       config$5.errorLabelClass
+	});
+
+	after$1(node, label);
+
+	if (error.type === 'customError') {
+		input.setCustomValidity(error.text);
+
+		events$1('input', input)
+		.take(1)
+		.each(function(e) {
+			e.target.setCustomValidity('');
+		});
+	}
+}
+
+function addValidatedClass(input) {
+	classes(input).add(config$5.validatedInputClass);
+}
+
+function removeMessages(input) {
+	var node = config$5.selectNode(input);
+
+	while ((node = next(node)) && matches$2('.' + config$5.errorLabelClass.trim().split(/\s+/).join('.'), node)) {
+		remove$2(node);
+	}
+}
+
+events$1('input dom-update', document)
+.map(get$1('target'))
+.filter(isValidateable)
+// This came from somewhere - is it for nullifying custom messages? Todo: review.
+.tap(invoke$1('setCustomValidity', ['']))
+.filter(isValid)
+.each(removeMessages);
+
+events$1('focusout', document)
+.map(get$1('target'))
+.filter(isValidateable)
+.each(validate);
+
+events$1('submit', document)
+.map(get$1('target'))
+.filter(isValidateable)
+.each(addValidatedClass);
+
+// Add event in capture phase
+document.addEventListener(
+	'invalid',
+
+	// Push to stream
+	Stream$1.of()
+	.map(get$1('target'))
+	.filter(isValidateable)
+	.tap(addValidatedClass)
+	.filter(negate(isShowingMessage))
+	.map(toError)
+	.each(renderError)
+	.push,
+
+	// Capture phase
+	true
+);
+
 var selector$1     = '.switch-label';
 var swipeRangePx = 40;
 
@@ -7166,3 +7324,35 @@ events$1('resize', window)
     return query('.slides-block', document);
 })
 .each(updateBlock);
+
+events$1('dom-activate', document)
+.map(get$1('target'))
+.filter(matches$2('.toggle-block'))
+.each(function(node) {
+    const box = node.getBoundingClientRect();
+    const lastChild = last(node.children);
+    const bottom = lastChild && lastChild.getBoundingClientRect().bottom;
+    const height = box.height + bottom - box.top;
+    node.style.maxHeight = height + 'px';
+
+    events$1('transitionend', node)
+    .each(function(e) {
+        node.style.maxHeight = '';
+    });
+});
+
+events$1('dom-deactivate', document)
+.map(get$1('target'))
+.filter(matches$2('.toggle-block'))
+.each(function(node) {
+    const box = node.getBoundingClientRect();
+    node.style.transition = 'none';
+    node.style.maxHeight = box.height + 'px';
+
+    requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+            node.style.transition = '';
+            node.style.maxHeight = '';
+        });
+    });
+});

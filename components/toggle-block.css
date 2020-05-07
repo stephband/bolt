@@ -26,12 +26,12 @@
         background-color 200ms linear,
         visibility 400ms linear;
 }
-
+/*
 .toggle-block:not(.active) {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }
-
+*/
 .toggle-block.active {
     max-height: 100rem;
     opacity: 1;
@@ -49,6 +49,7 @@
 }
 
 * > .toggle-block {
+    max-height: 1.5rem;
     /* Toggle blocks hide overflow. Make them bigger than they appear to be
        so that inner elements' focus rings and box-shadows are not truncated. */
     margin: -0.75rem;
@@ -57,6 +58,7 @@
 }
 
 .content-loading .toggle-block,
-.content-loading.active .toggle-block {
+.content-loading .toggle-block.active {
+    /* No transition during page load */
     transition: none;
 }
