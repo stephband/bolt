@@ -25,9 +25,10 @@
   "module": "module.js",
   "scripts": {
     "lint": "eslint modules/*.js",
+    "build": "npm run build-module && npm run build-css && npm run build-docs",
     "build-sass": "node-sass --output-style compact --indent-width 4 ./sass/grid.scss ./css/grid.css && node-sass --output-style compact --indent-width 4 ./sass/respond.scss ./css/respond.css",
     "build-module": "rollup ./module.js --o ./module.rolled.js --f esm",
-    "build-css": "npm run build-sass && node ../fn/build-css.js package.json style.min.css",
+    "build-css": "node ../fn/build-css.js package.json style.min.css",
     "build-docs": "node ../fn/build-html.js index.template.html index.html",
     "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.1' && git push"
   },
