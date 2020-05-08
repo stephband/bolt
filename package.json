@@ -1,74 +1,72 @@
 {
-    "name": "bolt",
-    "description": "A front-end toolkit of classes and evented behaviours.",
-    "version": "2.1.1",
-    "author": {
-      "name": "stephband",
-      "url": "http://stephen.band",
-      "twitter": "@stephband"
-    },
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/stephband/bolt.git"
-    },
-    "bugs": {
-      "url": "https://github.com/stephband/bolt/issues/"
-    },
-    "license": "MIT",
-    "devDependencies": {
-      "clean-css": "^4.2.3",
-      "eslint": "^6.5.0",
-      "node-sass": "^4.13.1",
-      "rollup": "^1.32.1",
-      "http-server": "^0.12.1"
-    },
-    "homepage": "http://stephen.band/bolt/",
-    "docs": "http://stephen.band/bolt/",
-    "module": "module.js",
-    "scripts": {
-      "lint": "eslint modules/*.js",
-      "build-sass": "node-sass --output-style compact --indent-width 4 ./sass/grid.scss ./css/grid.css && node-sass --output-style compact --indent-width 4 ./sass/respond.scss ./css/respond.css",
-      "build-module": "rollup ./module.js --o ./module.rolled.js --f esm",
-      "build-css": "npm run build-sass && node ../fn/build-css.js package.json style.min.css",
-      "build-docs": "node ../fn/build-html.js index.template.html index.html",
-      "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.1' && git push"
-    },
-    "style": [
-      "css/html.css",
-      "css/svg.css",
-      "css/root.css",
-      "css/body.css",
-      "css/type.css",
-      "css/code.css",
-      "css/content.css",
-      "css/input.css",
-      "css/label.css",
-      "css/button.css",
-      "css/thumb.css",
-      "css/progress.css",
-      "css/table.css",
-      "css/index.css",
-      "css/layer.css",
-      "css/badge.css",
-      "css/block.css",
-      "css/color.css",
-      "css/text.css",
-      "css/modifiers.css",
-      "css/respond.css",
-      "css/grid.css",
-      "css/device.css",
-      "css/var.css",
-      "components/check-label.css",
-      "components/switch-label.css",
-      "components/check-button.css",
-      "components/menu-button.css",
-      "components/select-button.css",
-      "components/pill-input.css",
-      "components/crumbs-index.css",
-      "components/toggle-button.css",
-      "components/toggle-block.css",
-      "components/bubble.css",
-      "components/card.css",
-      "components/slides.css"
-    ]
+  "name": "bolt",
+  "description": "A front-end toolkit of classes and evented behaviours.",
+  "version": "2.1.1",
+  "author": {
+    "name": "stephband",
+    "url": "http://stephen.band",
+    "twitter": "@stephband"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephband/bolt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stephband/bolt/issues/"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^6.5.0",
+    "node-sass": "^4.13.1",
+    "rollup": "^1.32.1"
+  },
+  "homepage": "http://stephen.band/bolt/",
+  "docs": "http://stephen.band/bolt/",
+  "module": "module.js",
+  "scripts": {
+    "lint": "eslint modules/*.js",
+    "build-sass": "node-sass --output-style compact --indent-width 4 ./sass/grid.scss ./css/grid.css && node-sass --output-style compact --indent-width 4 ./sass/respond.scss ./css/respond.css",
+    "build-module": "rollup ./module.js --o ./module.rolled.js --f esm",
+    "build-css": "npm run build-sass && node ../fn/build-css.js package.json style.min.css",
+    "build-docs": "node ../fn/build-html.js index.template.html index.html",
+    "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.1' && git push"
+  },
+  "style": [
+    "css/html.css",
+    "css/svg.css",
+    "css/root.css",
+    "css/body.css",
+    "css/type.css",
+    "css/code.css",
+    "css/content.css",
+    "css/input.css",
+    "css/label.css",
+    "css/button.css",
+    "css/thumb.css",
+    "css/progress.css",
+    "css/table.css",
+    "css/index.css",
+    "css/layer.css",
+    "css/badge.css",
+    "css/block.css",
+    "css/color.css",
+    "css/text.css",
+    "css/modifiers.css",
+    "css/respond.css",
+    "css/grid.css",
+    "css/device.css",
+    "css/var.css",
+    "components/check-label.css",
+    "components/switch-label.css",
+    "components/check-button.css",
+    "components/menu-button.css",
+    "components/select-button.css",
+    "components/pill-input.css",
+    "components/crumbs-index.css",
+    "components/toggle-button.css",
+    "components/toggle-block.css",
+    "components/bubble.css",
+    "components/card.css",
+    "components/slides.css"
+  ]
 }
