@@ -27,12 +27,10 @@
     "module": "module.js",
     "scripts": {
       "lint": "eslint modules/*.js",
-      "serve": "npx http-server ../ -p 8080 &",
-      "serve-kill": "kill $(lsof -t -i:8080)",
       "build-sass": "node-sass --output-style compact --indent-width 4 ./sass/grid.scss ./css/grid.css && node-sass --output-style compact --indent-width 4 ./sass/respond.scss ./css/respond.css",
-      "build-css": "npm run build-sass && node ../bolt/build-css.js ./style.min.css ../bolt/package.json",
       "build-module": "rollup ./module.js --o ./module.rolled.js --f esm",
-      "build-docs": "npm run serve && node ../fn/render-html.js http://127.0.0.1:8080/bolt/index.template.html ./index.html 4 && npm run serve-kill",
+      "build-css": "npm run build-sass && node ../fn/build-css.js package.json style.min.css",
+      "build-docs": "node ../fn/build-html.js index.template.html index.html",
       "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.1' && git push"
     },
     "style": [
