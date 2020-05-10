@@ -89,7 +89,7 @@
     width: var(--radio-check-width);
     height: var(--radio-check-width);
     margin-top: calc(-0.5 * var(--radio-check-width));
-    background-color: var(--radio-check-color);
+    background-color: var(--check-color);
     border-radius: calc(0.5 * var(--radio-check-width));
 }
 
