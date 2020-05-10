@@ -8,9 +8,6 @@
     </script>
 
     <style>
-        .bolt-fg { color: #005477; }
-        .bolt-bg { background-color: #005477; }
-
         /* Render some elements visible, just in this styleguide */
         button:not([type]),
         [type="button"],
@@ -31,18 +28,9 @@
 </head>
 
 <body class="grid 3-grid @1-6-grid @2-9-grid" style="row-gap: 60px;">
-    <template build-fn="fetch:package.json">
-        <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
-            <h1>Bolt.</h1>
-
-            <p class="doctext-08">Version {[version]}</p>
-
-            <ul class="link-index index">
-                <li><strong>repo:</strong> <a href="{[repository.url]}">{[repository.url]}</a></li>
-                <li><strong>bugs:</strong> <a href="{[bugs.url]}">{[bugs.url]}</a></li>
-            </ul>
-        </header>
-    </template>
+    <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header"></header>
+        <template build-fn="fetch:package.json" build-src="fn/templates.html#header-template"></template>
+    </header>
 
     <!--section class="x-1 3x @1-x-2 @2-x-3" id="get-started" locateable>
         <h2 class="doctext-02">Get started</h2>

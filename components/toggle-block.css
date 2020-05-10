@@ -46,7 +46,7 @@
        are not truncated. 1rem is enough for the bullets. */
     margin: -1rem;
     padding: 1rem;
-    width: calc(100% + 2rem);
+    width: auto;
 }
 
 .content-loading .toggle-block,
