@@ -114,17 +114,13 @@ npm run build</code></pre>
     </template>
 
     <!-- Build document -->
-    <script type="module" build-remove>
-        import '../fn/docs-build.js';
-    </script>
+    <script type="module" src="fn/docs-build.js" build-remove></script>
 
     <!-- Document interactivity -->
     <script type="module">
         import './module.js';
         import './elements/range-control.js';
-        //import './elements/rotary-control.js';
-
-        // Make the document interactive
+        import './bolt/module.js';
         import './documentation.js';
     </script>
 </body>

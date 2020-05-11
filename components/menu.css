@@ -1,0 +1,41 @@
+/**
+.menu-block, .menu-button
+
+```html
+<div class="menu-block block">
+    <a class="menu-button button" href="#">Menu button</a>
+    <a class="menu-button button" href="#">Menu button</a>
+    <a class="menu-button button" href="#">Menu button</a>
+</div>
+```
+**/
+
+/**
+.menu-index, .menu-button
+
+```html
+<ul class="menu-index index">
+    <li><a class="menu-button button" href="#">Menu button</a></li>
+    <li><a class="menu-button button" href="#">Menu button</a></li>
+    <li><a class="menu-button button" href="#">Menu button</a></li>
+</ul>
+```
+**/
+
+
+
+/* .menu-button */
+
+.menu-button {
+    display: grid;
+    justify-content: start;
+    justify-items: start;
+    width: 100%;
+    text-align: left;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.menu-button + .menu-button {
+    border-top: 1px solid var(--button-border-color);
+}
