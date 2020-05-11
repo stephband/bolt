@@ -1,5 +1,6 @@
-import { get } from '../fn/module.js';
-import { events, matches, select, style } from  '../dom/module.js';
+
+import { get, overload } from '../fn/module.js';
+import { events, matches, select, trigger } from  '../dom/module.js';
 
 events('input change', document)
 .map(get('target'))
@@ -18,3 +19,21 @@ setTimeout(function() {
     });
 }, 5000);
 
+// Delegate clicks on buttons to their named actions
+events('click', document)
+.filter(e => !e.defaultPrevented)
+.map(e => (e.target.closest('button[name]') || undefined))
+.each(overload(get('name'), {
+    'activate-toggle-blocks': function(button) {
+        const selector = button.value;
+        select(selector, document)
+        .forEach(function(node) {
+            select('[toggleable]', node)
+            .forEach(trigger('dom-activate'));
+        })
+    },
+
+    default: function(button) {
+        console.log('No click handler for button name="' + button.name + '"');
+    }
+}));
