@@ -247,22 +247,22 @@ Navigation thumbs for slideshows.
 	position: absolute;
 	top: 50%;
 	content: '';
-	height: 1.875rem;
-	width: 1.875rem;
-	margin-top: -0.9375rem;
+	height: 36%;
+	width: 36%;
+	margin-top: -18%;
 	border-top: 1px solid currentcolor;
 	border-left: 1px solid currentcolor;
 }
 
 .prev-thumb::before {
 	left: 62.5%;
-	margin-left: -0.9375rem;
+	margin-left: -18%;
 	transform: rotate(-45deg);
 }
 
 .next-thumb::before {
 	right: 62.5%;
-	margin-right: -0.9375rem;
+	margin-right: -18%;
 	transform: rotate(135deg);
 }
 
