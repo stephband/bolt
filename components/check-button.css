@@ -27,13 +27,13 @@
     line-height: var(--input-line-height);
     padding-left: 3.33333333em;
     padding-right: var(--input-padding-right);
-    padding-top: calc(0.5 * (var(--input-height) - var(--input-line-height)) - var(--input-border-width));
-    padding-bottom: calc(0.5 * (var(--input-height) - var(--input-line-height)) - var(--input-border-width));
+    padding-top: calc(0.5 * (var(--input-height) - var(--input-line-height)) - var(--input-border-width, 1px));
+    padding-bottom: calc(0.5 * (var(--input-height) - var(--input-line-height)) - var(--input-border-width, 1px));
     min-height: var(--input-height);
     color: var(--input-color);
     background-color: #eeeeee;
     background-clip: border-box;
-    border: var(--input-border-width) solid transparent;
+    border: var(--input-border-width, 1px) solid transparent;
     border-radius: var(--input-border-radius);
 }
 
