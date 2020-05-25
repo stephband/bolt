@@ -5,22 +5,22 @@
 ```html
 <section class="slides-block block no-scroll" fullscreenable id="slides-1">
     <div class="slides-grid grid" swipeable>
-        <figure class="block active stretch-y" id="slides-1-slide-1" switchable>
+        <figure class="block active y-stretch" id="slides-1-slide-1" switchable>
             <img src="images/scotland-2.jpg" alt="title" draggable="false" />
             <figcaption class="text-09">Slide 1</figcaption>
         </figure>
 
-        <figure class="block active stretch-y" id="slides-1-slide-2" switchable>
+        <figure class="block active y-stretch" id="slides-1-slide-2" switchable>
             <img src="images/scotland-3.jpg" alt="title" draggable="false" />
             <figcaption class="text-09">Slide 2</figcaption>
         </figure>
 
-        <figure class="block active stretch-y" id="slides-1-slide-3" switchable>
+        <figure class="block active y-stretch" id="slides-1-slide-3" switchable>
             <img src="images/scotland-4.jpg" alt="title" draggable="false" />
             <figcaption class="text-09">Slide 3</figcaption>
         </figure>
 
-        <figure class="block active stretch-y" id="slides-1-slide-4" switchable>
+        <figure class="block active y-stretch" id="slides-1-slide-4" switchable>
             <img src="images/glacier-de-moiry.jpg" alt="title" draggable="false" />
             <figcaption class="text-09">Slide 4</figcaption>
         </figure>
