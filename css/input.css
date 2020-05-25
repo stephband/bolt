@@ -252,7 +252,7 @@ textarea,
 [type="search"],
 [type="password"] {
 	color: var(--input-color);
-	border: var(--input-border-width) solid var(--input-border-color);
+	border: var(--input-border-width, 1px) solid var(--input-border-color);
 	border-radius: var(--input-border-radius);
 	background-color: var(--input-background-color);
 }
@@ -268,7 +268,7 @@ textarea,
 [type="number"],
 [type="search"],
 [type="password"] {
-	text-indent: calc(var(--input-padding-left) - var(--input-border-width));
+	text-indent: calc(var(--input-padding-left) - var(--input-border-width, 1px));
 }
 
 .right-align[type="tel"],
@@ -282,7 +282,7 @@ textarea,
 .right-align[type="number"],
 .right-align[type="search"],
 .right-align[type="password"] {
-	padding-right: calc(var(--input-padding-left) - var(--input-border-width));
+	padding-right: calc(var(--input-padding-left) - var(--input-border-width, 1px));
 }
 
 textarea,
@@ -313,7 +313,7 @@ textarea,
 [type="search"],
 [type="password"] {
 	/* Compensate for border */
-	line-height: calc(var(--input-height) - 2 * var(--input-border-width));
+	line-height: calc(var(--input-height) - 2 * var(--input-border-width, 1px));
 	padding-top: 0px;
 	padding-bottom: 0px;
 }
@@ -342,11 +342,11 @@ input[type='month'] {
 textarea {
 	min-height: calc(var(--input-height) + 4 * var(--input-line-height));
 	line-height: var(--input-line-height);
-	padding-left: calc(var(--input-padding-left) - var(--input-border-width));
-	padding-right: calc(var(--input-padding-left) - var(--input-border-width));
+	padding-left: calc(var(--input-padding-left) - var(--input-border-width, 1px));
+	padding-right: calc(var(--input-padding-left) - var(--input-border-width, 1px));
 	/* Nudged up by 1px to make it look more even. */
-	padding-top: calc(0.5 * (var(--input-height) - var(--input-line-height) - 2 * var(--input-border-width)) - 1px);
-	padding-bottom: calc(0.5 * (var(--input-height) - var(--input-line-height) - 2 * var(--input-border-width)) + 1px);
+	padding-top: calc(0.5 * (var(--input-height) - var(--input-line-height) - 2 * var(--input-border-width, 1px)) - 1px);
+	padding-bottom: calc(0.5 * (var(--input-height) - var(--input-line-height) - 2 * var(--input-border-width, 1px)) + 1px);
 
 	/* IE is set to overflow: scroll by default */
 	overflow: auto;

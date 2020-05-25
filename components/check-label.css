@@ -178,7 +178,7 @@ input + .masked + .radio-label,
     --check-border-width
     Border width of simulated checkboxes
     **/
-    --check-border-width: var(--input-border-width);
+    --check-border-width: var(--input-border-width, 1px);
 
     /**
     --check-border-color
@@ -201,7 +201,7 @@ input + .masked + .radio-label,
     --radio-border-width
     Border width of simulated radio buttons
     **/
-    --radio-border-width: var(--input-border-width);
+    --radio-border-width: var(--input-border-width, 1px);
 
     /**
     --radio-check-width

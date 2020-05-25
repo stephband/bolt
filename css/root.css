@@ -1,11 +1,11 @@
 
 :root {
-	height: 100%;
+    height: 100%;
 
-	/* Setting a background on <html> means that a background
-	   on <body> does not get set on <html>. Win. */
-	color: #000000;
-	background-color: white;
+    /* Setting a background on <html> means that a background
+       on <body> does not get set on <html>. Win. */
+    color: #000000;
+    background-color: white;
 
     /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
     scroll-behavior: smooth;
@@ -19,7 +19,10 @@
 
        <script>
           document.documentElement.classList.add('loading');
-          window.addEventListener('load', () => document.documentElement.classList.remove('loading'));
+          // Wait for other load handlers to run first - Bolt does a few things on
+          // load (eg. locateable scrolls) and we want them to run before the loading
+          // class is removed.
+          window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
        </script>
     */
     scroll-behavior: auto;
