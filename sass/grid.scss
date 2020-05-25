@@ -45,7 +45,7 @@ Applies a grid template of 6 equal columns.
 **/
 
 /**
-.x-1 … x-12, .2x … .12x, .start-x, .center-x, .end-x, .stretch-x, .bleed-x
+.x-1 … x-12, .2x … .12x, .x-start, .x-center, .x-end, .x-stretch, .x-bleed
 
 ```html
 <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
@@ -54,20 +54,20 @@ Applies a grid template of 6 equal columns.
     <button class="x-3">x-3</button>
     <button class="x-1 2x">2x</button>
     <button class="x-1 3x">3x</button>
-    <button class="x-1 start-x y-4">start-x</button>
-    <button class="x-2 center-x y-4">center-x</button>
-    <button class="x-3 end-x y-4">end-x</button>
-    <button class="x-1 stretch-x y-5">stretch-x</button>
-    <button class="x-2 bleed-x y-5">bleed-x</button>
+    <button class="x-1 x-start y-4">x-start</button>
+    <button class="x-2 x-center y-4">x-center</button>
+    <button class="x-3 x-end y-4">x-end</button>
+    <button class="x-1 x-stretch y-5">x-stretch</button>
+    <button class="x-2 x-bleed y-5">x-bleed</button>
 </div>
 ```
 
-Note that `.bleed-x`, which stretches an element half the way over the grid gap,
+Note that `.x-bleed`, which stretches an element half the way over the grid gap,
 depends on `column-gap` having been set via the custom property `--column-gap`.
 **/
 
 /**
-.y-1 … .y-18, .2y … .12y, .start-y, .center-y, .end-y, .stretch-y, .baseline-y
+.y-1 … .y-18, .2y … .12y, .y-start, .y-center, .y-end, .y-stretch, .y-baseline
 
 ```html
 <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
@@ -76,11 +76,11 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
     <button class="x-1 y-3">y-3</button>
     <button class="x-2 y-1 2y">2y</button>
     <button class="x-3 y-1 3y">3y</button>
-    <button class="x-1 y-4 start-y">start-y</button>
-    <button class="x-1 y-5 center-y">center-y</button>
-    <button class="x-1 y-6 end-y">end-y</button>
-    <button class="x-2 y-4 stretch-y">stretch-y</button>
-    <button class="x-3 y-4 baseline-y">baseline-y</button>
+    <button class="x-1 y-4 y-start">y-start</button>
+    <button class="x-1 y-5 y-center">y-center</button>
+    <button class="x-1 y-6 y-end">y-end</button>
+    <button class="x-2 y-4 y-stretch">y-stretch</button>
+    <button class="x-3 y-4 y-baseline">y-baseline</button>
 </div>
 ```
 **/
@@ -107,7 +107,7 @@ Define the vertical grid gap.
         row-gap: var(--row-gap);
     }
 
-    .#{nth($breakpoint, 1)}start-y-grid         {
+    .#{nth($breakpoint, 1)}y-start-grid         {
         align-content: start;
     }
 
@@ -149,11 +149,11 @@ Define the vertical grid gap.
     .#{nth($breakpoint, 1)}\31 1x      { grid-column-end: span 11 !important; }
     .#{nth($breakpoint, 1)}\31 2x      { grid-column-end: span 12 !important; }
 
-    .#{nth($breakpoint, 1)}end-x          { justify-self: end !important; margin-right: 0; }
-    .#{nth($breakpoint, 1)}start-x        { justify-self: start !important; margin-left: 0; }
-    .#{nth($breakpoint, 1)}center-x       { justify-self: center !important; }
-    .#{nth($breakpoint, 1)}stretch-x      { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
-    .#{nth($breakpoint, 1)}bleed-x        {
+    .#{nth($breakpoint, 1)}x-end          { justify-self: end !important; margin-right: 0; }
+    .#{nth($breakpoint, 1)}x-start        { justify-self: start !important; margin-left: 0; }
+    .#{nth($breakpoint, 1)}x-center       { justify-self: center !important; }
+    .#{nth($breakpoint, 1)}x-stretch      { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
+    .#{nth($breakpoint, 1)}x-bleed        {
         justify-self: stretch !important;
         margin-left:  calc(var(--column-gap) / -2);
         margin-right: calc(var(--column-gap) / -2);
@@ -204,11 +204,11 @@ Define the vertical grid gap.
     .#{nth($breakpoint, 1)}\31 1y      { grid-row-end: span 11 !important; }
     .#{nth($breakpoint, 1)}\31 2y      { grid-row-end: span 12 !important; }
 
-    .#{nth($breakpoint, 1)}end-y          { align-self: end !important; }
-    .#{nth($breakpoint, 1)}start-y        { align-self: start !important; }
-    .#{nth($breakpoint, 1)}center-y       { align-self: center !important; }
-    .#{nth($breakpoint, 1)}stretch-y      { align-self: stretch !important; }
-    .#{nth($breakpoint, 1)}baseline-y     { align-self: baseline !important; }
+    .#{nth($breakpoint, 1)}y-end          { align-self: end !important; }
+    .#{nth($breakpoint, 1)}y-start        { align-self: start !important; }
+    .#{nth($breakpoint, 1)}y-center       { align-self: center !important; }
+    .#{nth($breakpoint, 1)}y-stretch      { align-self: stretch !important; }
+    .#{nth($breakpoint, 1)}y-baseline     { align-self: baseline !important; }
 
     .#{nth($breakpoint, 1)}columns-2      { columns: 2 !important; }
     .#{nth($breakpoint, 1)}columns-3      { columns: 3 !important; }
