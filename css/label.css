@@ -1,61 +1,68 @@
 
 label {
-	display: block;
-	max-width: 100%;
-	width: auto;
-	height: auto;
+    display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
 
-	font-size: var(--label-font-size);
-	line-height: var(--label-line-height);
-	color: var(--label-color);
+    font-size: var(--label-font-size);
+    line-height: var(--label-line-height);
+    color: var(--label-color);
 
-	border: 0;
-	-webkit-tap-highlight-color: transparent;
+    border: 0;
+    -webkit-tap-highlight-color: transparent;
 }
 
 label[for] {
-	/* Clickable stuff gets a pointer cursor... */
-	cursor: pointer;
+    /* Clickable stuff gets a pointer cursor... */
+    cursor: pointer;
 }
 
 label > [type="checkbox"],
 label > [type="radio"] {
-	/* checkboxes nested inside labels */
-	margin-right: 0.5rem;
-	line-height: inherit;
+    /* checkboxes nested inside labels */
+    margin-right: 0.5rem;
+    line-height: inherit;
+}
+
+label > .info-thumb {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.625rem;
+    right: 0;
 }
 
 * + label {
-	margin-top: var(--label-margin);
+    margin-top: var(--label-margin);
 }
 
 * + fieldset {
-	margin-top: var(--fieldset-margin);
+    margin-top: var(--fieldset-margin);
 }
 
 fieldset + input {
-	margin-top: var(--fieldset-input-margin);
+    margin-top: var(--fieldset-input-margin);
 }
 
 .hidden + label {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 .error-label,
 .help-label {
-	display: block;
+    display: block;
 }
 
 .error-label {
-	color: var(--red);
+    color: var(--red);
 }
 
 * + .error-label {
-	margin-top: 0.375em;
+    margin-top: 0.375em;
 }
 
 * + .help-label {
-	margin-top: 0.375em;
+    margin-top: 0.375em;
 }
 
 .x-1 + .error-label,  .x-1 + .help-label  { grid-column-start: 1; }
