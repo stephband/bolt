@@ -177,7 +177,6 @@ q                 { quotes: none; }
 q::before,
 q::after           { content: ''; content: none; }
 
-abbr              { letter-spacing: 0.1em; }
 del               { opacity: 0.5; text-decoration: line-through; }
 
 /* Tables */
@@ -206,7 +205,7 @@ blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
 sup,
 sub               { font-size: 0.6em; line-height: 0; }
 
-abbr              { letter-spacing: 0.1em; }
+abbr              { letter-spacing: 0.03125em; }
 
 /* Tables */
 
