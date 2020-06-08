@@ -9,10 +9,9 @@ A library of front end classes. <a href="http://stephen.band/bolt">Bolt</a> sets
 * No colour. Themes change between projects while layout techniques generally don't. Bolt focuses on layout techniques.
 * Styleguide generated from KSS comments.
 
-## Latest build 2.0.0
+## Latest build
 
-* <a href="http://stephen.band/bolt/style.min.css">http://stephen.band/bolt/style.min.css</a> (~125k)
-* <a href="http://stephen.band/bolt/style.min.css">http://stephen.band/bolt/style.min.css</a> (~85k)
+* <a href="http://stephen.band/bolt/style.min.css">http://stephen.band/bolt/style.min.css</a>
 
 ## Getting started
 
