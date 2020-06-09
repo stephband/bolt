@@ -475,6 +475,28 @@ input[type='file'] {
     border: none;
 }
 
+
+/**
+.masked
+**/
+
+.masked {
+    display: block !important;
+    opacity: 0 !important;
+
+    /* Width and height 0 cause browser validation bubbles to dissappear. */
+    width: 1px !important;
+    height: 1px !important;
+
+    /* Position it so that the validation message appears in the correct place */
+    position: relative;
+    top: calc(var(--input-margin) + var(--input-height), 2.5rem);
+    /*margin-top: 0 !important;*/
+    margin-bottom: -1px !important;
+    margin-left: var(--input-padding-left, 0.75rem) !important;
+}
+
+
 /* Focus and error styles */
 
 /* IE hates having border-color applied to select boxes. It forces
