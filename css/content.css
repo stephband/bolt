@@ -15,11 +15,11 @@ Before and After.
 */
 
 .required-before::before {
-	content: '\00a0*';
-	color: var(--red);
+    content: '\00a0*';
+    color: var(--red);
 }
 
 .required-after::after {
-	content: '\00a0*';
-	color: var(--red);
+    content: '\00a0*';
+    color: var(--red);
 }

@@ -20,13 +20,12 @@ Crunchum Ipsum.
        do that where it's container is smaller than
        left + 320, so give it a negative right. */
     right: -20rem;
+    max-width: 92vw;
     font-size: var(--bubble-font-size);
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
-    width: 92%;
-    max-width: 92%;
     min-height: calc(2 * var(--bubble-border-width) + 2 * 0.75rem + var(--bubble-line-height));
     color: var(--bubble-color);
     border: 0.125rem solid #cadce3;
@@ -148,10 +147,12 @@ Crunchum Ipsum.
 }
 
 @media screen and (max-width: 31.999em) {
-    .js .bubble {
+    .js body > .bubble {
         /* Override offset given to it by JS when the
            screen is too small. */
         left: 4% !important;
+        width: 92%;
+        max-width: 92%;
     }
 }
 

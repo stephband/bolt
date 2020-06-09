@@ -71,6 +71,47 @@
 
 
     /**
+    --range-height
+    **/
+    --range-height: var(--input-height);
+
+    /**
+    --range-track-height
+    **/
+    --range-track-height: 0.125rem;
+
+    /**
+    --range-track-background
+    **/
+    --range-track-background: var(--violet);
+
+    /**
+    --range-track-radius
+    **/
+    --range-track-radius: ;
+
+    /**
+    --range-thumb-width
+    **/
+    --range-thumb-width: 1.25rem;
+
+    /**
+    --range-thumb-height
+    **/
+    --range-thumb-border: 2px solid var(--violet);
+
+    /**
+    --range-thumb-background
+    **/
+    --range-thumb-background: white;
+
+    /**
+    --range-thumb-radius
+    **/
+    --range-thumb-radius: ;
+
+
+    /**
     --label-font-size
     Font size of labels
     **/
