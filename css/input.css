@@ -82,11 +82,11 @@ input[type="text"]
 <input type="text" placeholder="Enter text" id="text-input" />
 
 <label class="required-after after" for="required-input">Required</label>
-<input type="text" required placeholder="Enter text" id="text-input" />
+<input type="text" required placeholder="Enter text" id="required-input" />
 <label class="help-label text-09" for="required-input">Help text</label>
 
 <label class="required-after after" for="error-input">Error</label>
-<input type="text" required placeholder="Enter text" id="text-input" />
+<input type="text" required placeholder="Enter text" id="error-input" />
 <label class="error-label text-09" for="error-input">This field is required</label>
 ```
 **/

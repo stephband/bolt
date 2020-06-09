@@ -61,7 +61,8 @@ button,
     background-repeat: no-repeat;
     background-clip: padding-box;
     background-origin: padding-box;
-    border-width: 0;
+    border: 0 solid currentcolor;
+    border-width: var(--button-border-width);
     border-radius: var(--button-border-radius);
     transition:
         background-color 120ms linear,
