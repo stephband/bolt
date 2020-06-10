@@ -195,4 +195,14 @@
     --disabled-filter
     **/
     --disabled-filter: opacity(0.4);
+
+    /**
+    --error-font-size
+    **/
+    --error-font-size: 0.875rem;
+
+    /**
+    --help-font-size
+    **/
+    --help-font-size: 0.875rem;
 }
