@@ -97,58 +97,58 @@ import './components/slides.js';
 
 .slides-block:-webkit-full-screen {
     display: flex;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
-	align-content: stretch;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
     background-color: black;
 }
 
 .slides-block:-moz-full-screen {
     display: flex;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
-	align-content: stretch;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
     background-color: black;
 }
 
 .slides-block:-ms-fullscreen {
     display: flex;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
-	align-content: stretch;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
     background-color: black;
 }
 
 .slides-block:fullscreen {
     display: flex;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
-	align-content: stretch;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
     background-color: black;
 }
 
 .slides-block:-webkit-full-screen::before,
 .slides-block:-webkit-full-screen::after {
-	content: none;
+    content: none;
 }
 
 .slides-block:-moz-full-screen::before,
 .slides-block:-moz-full-screen::after {
-	content: none;
+    content: none;
 }
 
 .slides-block:-ms-fullscreen::before,
 .slides-block:-ms-fullscreen::after {
-	content: none;
+    content: none;
 }
 
 .slides-block:fullscreen::before,
 .slides-block:fullscreen::after {
-	content: none;
+    content: none;
 }
 
 
@@ -159,7 +159,8 @@ import './components/slides.js';
 .slides-grid {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 100%;
+    /* Must override grid-auto-columns from generated grid */
+    grid-auto-columns: 100% !important;
     grid-gap: 0;
     align-content: center;
     justify-content: start;
@@ -173,34 +174,35 @@ import './components/slides.js';
     max-width: none;
     margin-left: 0;
     margin-right: 0;
+    grid-row: 1 / span 1;
 }
 
 .js .slides-grid {
-	/* A nice bit of hardware acceleration should help the transitions run
-	   smoothly. */
-	-webkit-transform: translate3d(0,0,0);
-	    -ms-transform: translate3d(0,0,0);
-	        transform: translate3d(0,0,0);
+    /* A nice bit of hardware acceleration should help the transitions run
+       smoothly. */
+    -webkit-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
 
-	-webkit-touch-callout: none;
-	  -webkit-user-select: none;
-	     -moz-user-select: none;
-	      -ms-user-select: none;
-	          user-select: none;
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
 
-	-webkit-transition-property: transform;
-	        transition-property: transform;
-	-webkit-transition-duration: 333ms;
-	        transition-duration: 333ms;
-	-webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
-	        transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+    -webkit-transition-property: transform;
+            transition-property: transform;
+    -webkit-transition-duration: 333ms;
+            transition-duration: 333ms;
+    -webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+            transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
 }
 
 @media print {
-	.js .slides-grid {
-		position: static;
-		transition: none !important;
-	}
+    .js .slides-grid {
+        position: static;
+        transition: none !important;
+    }
 }
 
 
