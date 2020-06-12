@@ -10,6 +10,31 @@
 ```
 **/
 
+.menu-block {
+    /**
+    --padding-left
+    **/
+
+    /**
+    --padding-right
+    **/
+
+    --padding-left: 1.125rem;
+    --padding-right: 1.125rem;
+
+    padding-left: var(--padding-left, 1.125rem);
+    padding-right: var(--padding-right, 1.125rem);
+}
+
+.menu-block > .menu-button {
+    --button-padding-left: var(--padding-left);
+    --button-padding-right: var(--padding-right);
+
+    margin-left: calc(-1 * var(--padding-left));
+    margin-right: calc(-1 * var(--padding-right));
+}
+
+
 /**
 .menu-index, .menu-button
 
