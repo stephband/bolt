@@ -59,9 +59,11 @@ import './components/switch-label.js';
     );
     border: var(--switch-handle-border);
     border-radius: 50%;
-    background-color: white;
+    background-color: var(--switch-handle-background);
     box-shadow: var(--switch-handle-box-shadow);
-    transition: 0.16s transform ease-out;
+    transition:
+        0.16s background linear,
+        0.16s transform ease-out;
 }
 
 :checked + .switch-label::before {
@@ -70,6 +72,7 @@ import './components/switch-label.js';
 }
 
 :checked + .switch-label::after {
+    background-color: var(--switch-handle-background-checked);
     transform: translate(
         calc(var(--switch-width) - 0.5 * var(--switch-height) - 0.5 * var(--switch-handle-width)),
         -50%
