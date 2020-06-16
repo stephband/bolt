@@ -20,6 +20,7 @@ range-control
     --track-background: currentcolor;
     --track-border: none;
     --track-shadow: none;
+    --track-top: 1rem;
 
     --handle-width: 1.375rem;
     --handle-height: var(--handle-width);
@@ -29,6 +30,9 @@ range-control
 
     --tick-width: 0.125rem;
     --tick-height: var(--tick-width);
+    --tick-border: none;
+    --tick-background: currentcolor;
+    --tick-shadow: none;
     --tick-font-size: 0.5625rem;
     --tick-line-height: 0.9375rem;
     --tick-letter-spacing: -0.0125em;
@@ -46,9 +50,8 @@ range-control
         'input input input';
     grid-template-columns: 4fr 6fr min-content;
     grid-template-rows:
-        minmax(0.9375rem, min-content)
-        minmax(0.4375rem, min-content)
-        min-content;
+        min-content
+        minmax(1.5rem, min-content);
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -73,14 +76,33 @@ range-control
     top: 2px;
 }
 
+:host > .control-value {
+    grid-area: input;
+    position: absolute;
+    top: 0;
+    font-size: 18px;
+    text-align: center;
+    line-height: var(--handle-height);
+    width: var(--handle-width);
+    margin-left: calc(-0.5 * var(--handle-width));
+    color: white;
+    overflow: visible;
+    z-index: 1;
+    margin-top: calc(var(--track-top) + 0.5 * (23px - var(--handle-height)));
+    pointer-events: none;
+    background: transparent;
+}
+
 :host > .control-input {
     grid-area: input;
+    align-self: end;
 
     /* Make the range input slightly wider than the control
        to allow range thumb to line up with label text */
     width: calc(100% + 2 * var(--bleed));
     margin-left: calc(-1 * var(--bleed));
     margin-right: calc(-1 * var(--bleed));
+    margin-top: var(--track-top);
     z-index: 1;
 }
 
@@ -98,10 +120,10 @@ range-control
     /* Use margin to centre labels, not transform: translate, which has the
        side effect of blurring the text on pixel screens. */
     margin-left: -0.6875rem;
-    margin-top: calc(-1 * var(--tick-line-height));
+    /*margin-top: calc(-1 * var(--tick-line-height));*/
     width: 1.375rem;
     z-index: 0;
-    align-self: center;
+    align-self: start;
 }
 
 :host > span {
@@ -309,6 +331,7 @@ range-control
 
     /* Center content, even if it's wider than the label */
     display: block;
+
     font-size: var(--tick-font-size);
     line-height: var(--tick-line-height);
     letter-spacing: var(--tick-letter-spacing);
@@ -332,22 +355,16 @@ range-control
 
 .tick-label::after {
     content: '';
-    /*position: absolute;*/
+
     display: block;
     width: var(--tick-width);
     height: var(--tick-height);
     margin-left: auto;
     margin-right: auto;
 
-    /* Centre horizontally. Tick margin has a tendency to resolve to the
-       right-hand px, -0.1px encourages it left. */
-    /*left: 50%;
-    margin-left: calc(-0.5 * var(--tick-width) - 0.1px);*/
-
-    /* Move tick marks over range input below */
-    /*bottom: -3px;*/
-    /*height: 100%;*/
-    background-color: currentcolor;
+    border: var(--tick-border);
+    background: var(--tick-background);
+    box-shadow: var(--tick-shadow);
     border-radius: calc(0.5 * min(var(--tick-width), var(--tick-height)));
 }
 
@@ -357,6 +374,12 @@ range-control
 
 .tick-label:focus {
     color: var(--focus-color);
+}
+
+.tick-label:focus::after {
+    border: var(--tick-border-focus);
+    background: var(--tick-background-focus);
+    box-shadow: var(--tick-shadow-focus);
 }
 
 .tick-input:checked + .tick-label {

@@ -52,7 +52,7 @@ function createTicks(data, tokens) {
         .map((value) => {
             // Freeze to tell mounter it's immutable, prevents
             // unnecessary observing
-            console.log(value, invert(data.transform, value, data.min, data.max), transformTick(data.unit, value));
+            //console.log(value, invert(data.transform, value, data.min, data.max), transformTick(data.unit, value));
             return Object.freeze({
                 root:         data,
                 value:        value,
@@ -184,6 +184,11 @@ element('range-control', {
 
         const data     = this.data;
         const observer = Observer(data);
+
+        // Range control must have value
+        if (this.data.value === undefined) {
+            this.value = this.data.min;
+        }
 
         // Mount template
         mount(this.shadowRoot, mountSettings).push(data);
