@@ -1,6 +1,6 @@
 
 import { Observer, nothing, requestTick } from '../../fn/module.js';
-import { evaluate, inputEvent, invert, transform, transformOutput, transformTick, transformUnit  } from './control.js';
+import { evaluate, invert, transform, transformOutput, transformTick, transformUnit  } from './control.js';
 import { element } from '../../dom/module.js';
 import Sparky, { mount, config } from '../../sparky/module.js';
 
@@ -65,7 +65,7 @@ function createTicks(data, tokens) {
 
 element('range-control', {
 
-    shadow: '#range-control-template',
+    template: '#range-control-template',
 
     attributes: {
         min:       function(value) { this.min = value; },
@@ -179,7 +179,7 @@ element('range-control', {
         this.data = assign({}, defaults);
     },
 
-    connect: function() {
+    connect: function(shadow) {
         if (DEBUG) { console.log('<range-control> added to document', this.value, this.data); }
 
         const data     = this.data;
@@ -191,40 +191,26 @@ element('range-control', {
         }
 
         // Mount template
-        mount(this.shadowRoot, mountSettings).push(data);
+        mount(shadow, mountSettings).push(data);
 
         // Pick up input events and update scope - Sparky wont do this
         // currently as events are delegated to document, and these are in
         // a shadow DOM.
-        this.shadowRoot.addEventListener('input', (e) => {
+        shadow.addEventListener('input', (e) => {
             const data       = this.data;
             const inputValue = parseFloat(e.target.value);
 
             observer.inputValue = inputValue;
 
             const value = transform(data.transform, inputValue, data.min, data.max) ;
-            data.value = value;
 
-            observer.displayValue = transformOutput(data.unit, value);
-            observer.displayUnit  = transformUnit(data.unit, value);
+            this.value = value;
 
             if (e.target.checked) {
-                // Uncheck tick radio so that it may be chosen again
-                // Should not be necessary - target should become
-                // unchecked if value moves away
-                //e.target.checked = false;
-
                 // Focus the input
-                this.shadowRoot
+                shadow
                 .getElementById('input')
                 .focus();
-            }
-
-            // 'input' events are suppsed to traverse the shadow boundary
-            // but they do not. At least not in Chrome 2019 - a
-            if (!e.composed) {
-                console.warn('Custom element not allowing input event to traverse shadow boundary');
-                this.dispatchEvent(inputEvent);
             }
         });
     }

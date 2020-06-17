@@ -19,8 +19,6 @@ export const eventOptions = {
   //composed: false
 };
 
-export const inputEvent = new CustomEvent('input', eventOptions);
-
 export function transform(curve, value, min, max) {
     return denormalise[toCamelCase(curve)](min, max, value) ;
 }
