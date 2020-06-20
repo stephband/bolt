@@ -22,11 +22,19 @@ range-control
     --track-shadow: none;
     --track-top: 1rem;
 
+    --focus-track-background: currentcolor;
+    --focus-track-border: none;
+    --focus-track-shadow: none;
+
     --handle-width: 1.375rem;
     --handle-height: var(--handle-width);
-    --handle-border: 0.1875rem solid currentcolor;
     --handle-background: #B6B2B0 linear-gradient(hsl(192,0%,96.8%), hsl(192,0%,55%));
+    --handle-border: 0.1875rem solid currentcolor;
     --handle-shadow: inset 0 0 5px 1px hsla(198,30%,20%,0.6);
+
+    --focus-handle-background: #B6B2B0 linear-gradient(hsl(192,40%,96.8%), hsl(165,24%,55%));
+    --focus-handle-border: 0.1875rem solid currentcolor;
+    --focus-handle-shadow: inset 0 0 3px 1px hsla(192,77%,12%,0.63);
 
     --tick-width: 0.125rem;
     --tick-height: var(--tick-width);
@@ -38,8 +46,9 @@ range-control
     --tick-letter-spacing: -0.0125em;
     --tick-text-shadow: none;
 
-    --handle-shadow-focus: inset 0 0 3px 1px hsla(192,77%,12%,0.63);
-    --handle-background-focus: linear-gradient(hsl(192,40%,96.8%), hsl(165,24%,55%));
+    --focus-tick-background: var(--tick-background);
+    --focus-tick-border: none;
+    --focus-tick-shadow: none;
 
     --bleed: 0.1875rem;
 
@@ -141,6 +150,9 @@ range-control
     top: 1px;
 }
 
+:host(:focus) {
+    /*background-color: red;*/
+}
 
 
 /* Range inputs */
@@ -177,6 +189,12 @@ range-control
     box-shadow: var(--track-shadow);
 }
 
+:host(:focus) [type="range"]::-webkit-slider-runnable-track {
+    background: var(--focus-track-background);
+    border: var(--focus-track-border);
+    box-shadow: var(--focus-track-shadow);
+}
+
 [type="range"]::-moz-range-track {
     height: var(--track-height);
     background: var(--track-background);
@@ -190,6 +208,12 @@ range-control
     background: var(--track-background);
     border-radius: calc(0.5 * var(--track-height));
     box-shadow: var(--track-shadow);
+}
+
+:host(:focus) [type="range"]::-moz-range-track {
+    background: var(--focus-track-background);
+    border: var(--focus-track-border);
+    box-shadow: var(--focus-track-shadow);
 }
 
 [type=range]::-ms-track {
@@ -216,6 +240,13 @@ range-control
     border-radius: calc(0.5 * var(--track-height));
     box-shadow: var(--track-shadow);
 }
+
+:host(:focus) [type=range]::-ms-track {
+    background: var(--focus-track-background);
+    border: var(--focus-track-border);
+    box-shadow: var(--focus-track-shadow);
+}
+
 
 /* [type="range"] thumb */
 
@@ -249,6 +280,12 @@ range-control
     box-shadow: var(--handle-shadow-focus);
 }
 
+:host(:focus) [type="range"]::-webkit-slider-thumb {
+    background: var(--focus-handle-background);
+    border: var(--focus-handle-border);
+    box-shadow: var(--focus-handle-shadow);
+}
+
 [type="range"]::-moz-range-thumb {
     cursor: pointer;
     width:  var(--handle-width);
@@ -278,6 +315,11 @@ range-control
     box-shadow: var(--handle-shadow-focus);
 }
 
+:host(:focus) [type="range"]::-moz-range-thumb {
+    background: var(--focus-handle-background);
+    border: var(--focus-handle-border);
+    box-shadow: var(--focus-handle-shadow);
+}
 
 [type="range"]::-ms-thumb {
     cursor: pointer;
@@ -303,6 +345,12 @@ range-control
     border: var(--handle-border-focus);
     background: var(--handle-background-focus);
     box-shadow: var(--handle-shadow-focus);
+}
+
+:host(:focus) [type="range"]::-ms-thumb {
+    background: var(--focus-handle-background);
+    border: var(--focus-handle-border);
+    box-shadow: var(--focus-handle-shadow);
 }
 
 
@@ -367,7 +415,7 @@ range-control
     box-shadow: var(--tick-shadow);
     border-radius: calc(0.5 * min(var(--tick-width), var(--tick-height)));
 }
-
+/*
 .tick-label:hover {
     color: var(--focus-text-color);
 }
@@ -381,9 +429,26 @@ range-control
     background: var(--tick-background-focus);
     box-shadow: var(--tick-shadow-focus);
 }
+*/
 
 .tick-input:checked + .tick-label {
-    color: var(--focus-color);
+    color: var(--focus-tick-color);
+}
+
+.tick-input:checked + .tick-label::after {
+    background: var(--focus-tick-background);
+    border: var(--focus-tick-border);
+    box-shadow: var(--focus-tick-shadow);
+}
+
+:host(:focus) .tick-label {
+    color: var(--focus-tick-color);
+}
+
+:host(:focus) .tick-label::after {
+    background: var(--focus-tick-background);
+    border: var(--focus-tick-border);
+    box-shadow: var(--focus-tick-shadow);
 }
 
 

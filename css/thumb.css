@@ -273,54 +273,6 @@ Navigation thumbs for slideshows.
 }
 
 
-
-/*
-.fb-thumb
-
-Markup: <a class="fb-thumb thumb" href="/">Facebook</a>
-
-Styleguide: 4.thumb.social-thumb-1
-*/
-
-/*
-.tw-thumb
-
-Markup: <a class="tw-thumb thumb" href="/">Twitter</a>
-
-Styleguide: 4.thumb.social-thumb-2
-*/
-
-/*
-.in-thumb
-
-Markup: <a class="in-thumb thumb" href="/">Instagram</a>
-
-Styleguide: 4.thumb.social-thumb-3
-*/
-
-.fb-thumb,
-.tw-thumb,
-.in-thumb {
-    width: 1.875rem;
-    padding-top: 1.875rem;
-    background-size: 7.5rem auto;
-}
-
-.fb-thumb {
-    background-color: #3b5998;
-    background-position: 0 -8.8125rem;
-}
-
-.tw-thumb {
-    background-color: #55acee;
-    background-position: 0 -5.875rem;
-}
-
-.in-thumb {
-    background-color: #3f729b;
-    background-position: 0 -11.75rem;
-}
-
 /*
 .dot-thumb
 
