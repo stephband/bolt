@@ -1,8 +1,25 @@
 
-/*
-CSS Component template
-A template for structuring CSS components the Bolt way.
-*/
+/**
+Component title
+
+<div>Component example HTML</div>
+
+```html
+<div>Component example HTML</div>
+```
+
+Component description
+**/
+
+/**
+.component
+
+<div class="component"></div>
+
+```html
+<div class="component"></div>
+```
+**/
 
 .component {
     /* Style */
@@ -27,12 +44,12 @@ A template for structuring CSS components the Bolt way.
 }
 
 * + .component {
-    /* Default top or left margin spacing */
+    /* Default spacing */
     margin-top: 0;
 }
 
 .class + .component {
-    /* Context-specific top or left margin spacing */
+    /* Sibling-specific spacing */
     margin-top: 0;
 }
 
