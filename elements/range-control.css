@@ -129,7 +129,7 @@ range-control
     /* Use margin to centre labels, not transform: translate, which has the
        side effect of blurring the text on pixel screens. */
     margin-left: -0.6875rem;
-    /*margin-top: calc(-1 * var(--tick-line-height));*/
+
     width: 1.375rem;
     z-index: 0;
     align-self: start;
@@ -158,6 +158,8 @@ range-control
 /* Range inputs */
 
 [type="range"] {
+    cursor: pointer;
+
     -webkit-appearance: none !important;
     background-color: transparent;
     border-width: 0;
@@ -210,7 +212,10 @@ range-control
     box-shadow: var(--track-shadow);
 }
 
-:host(:focus) [type="range"]::-moz-range-track {
+[type="range"]:focus::-moz-range-track,
+[type="range"]:focus::-moz-range-progress,
+:host(:focus) [type="range"]::-moz-range-track,
+:host(:focus) [type="range"]::-moz-range-progress {
     background: var(--focus-track-background);
     border: var(--focus-track-border);
     box-shadow: var(--focus-track-shadow);
@@ -245,6 +250,7 @@ range-control
     background: var(--focus-track-background);
     border: var(--focus-track-border);
     box-shadow: var(--focus-track-shadow);
+    background: red;
 }
 
 
@@ -274,12 +280,7 @@ range-control
     box-shadow: var(--handle-shadow);
 }
 
-[type="range"]:focus::-webkit-slider-thumb {
-    border: var(--handle-border-focus);
-    background: var(--handle-background-focus);
-    box-shadow: var(--handle-shadow-focus);
-}
-
+[type="range"]:focus::-webkit-slider-thumb,
 :host(:focus) [type="range"]::-webkit-slider-thumb {
     background: var(--focus-handle-background);
     border: var(--focus-handle-border);
@@ -309,12 +310,7 @@ range-control
     box-shadow: var(--handle-shadow);
 }
 
-[type="range"]:focus::-moz-range-thumb {
-    border: var(--handle-border-focus);
-    background: var(--handle-background-focus);
-    box-shadow: var(--handle-shadow-focus);
-}
-
+[type="range"]:focus::-moz-range-thumb,
 :host(:focus) [type="range"]::-moz-range-thumb {
     background: var(--focus-handle-background);
     border: var(--focus-handle-border);
@@ -415,21 +411,6 @@ range-control
     box-shadow: var(--tick-shadow);
     border-radius: calc(0.5 * min(var(--tick-width), var(--tick-height)));
 }
-/*
-.tick-label:hover {
-    color: var(--focus-text-color);
-}
-
-.tick-label:focus {
-    color: var(--focus-color);
-}
-
-.tick-label:focus::after {
-    border: var(--tick-border-focus);
-    background: var(--tick-background-focus);
-    box-shadow: var(--tick-shadow-focus);
-}
-*/
 
 .tick-input:checked + .tick-label {
     color: var(--focus-tick-color);
@@ -441,10 +422,12 @@ range-control
     box-shadow: var(--focus-tick-shadow);
 }
 
+[type="range"]:focus ~ .tick-label,
 :host(:focus) .tick-label {
     color: var(--focus-tick-color);
 }
 
+[type="range"]:focus ~ .tick-label::after,
 :host(:focus) .tick-label::after {
     background: var(--focus-tick-background);
     border: var(--focus-tick-border);
@@ -499,18 +482,6 @@ range-control
 
 .control-input:focus ~ .control-output {
     color: var(--active-color);
-}
-
-.control-input:focus ~ .tick-label {
-    color: var(--focus-text-color);
-}
-
-.control-input:focus ~ .tick-label::after {
-    color: var(--active-color-muted);
-}
-
-.control-input:focus ~ .tick-input:checked + .tick-label {
-    color: var(--focus-color);
 }
 
 output > abbr {
