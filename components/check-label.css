@@ -19,82 +19,82 @@
 
 .radio-label,
 .check-label {
-	color: inherit;
-	font-size: var(--check-font-size);
-	line-height: var(--check-line-height);
-	font-weight: inherit;
-	position: relative;
-	padding-left: 2.25rem;
-	padding-top: calc(0.5 * (var(--input-height) - var(--check-line-height)));
-	padding-bottom: calc(0.5 * (var(--input-height) - var(--check-line-height)));
-	min-height: var(--input-height);
-	text-align: left;
+    color: inherit;
+    font-size: var(--check-font-size);
+    line-height: var(--check-line-height);
+    font-weight: inherit;
+    position: relative;
+    padding-left: 2.25rem;
+    padding-top: calc(0.5 * (var(--input-height) - var(--check-line-height)));
+    padding-bottom: calc(0.5 * (var(--input-height) - var(--check-line-height)));
+    min-height: var(--input-height);
+    text-align: left;
 }
 
 .radio-label::before,
 .radio-label::after,
 .check-label::before,
 .check-label::after {
-	content: '';
-	position: absolute;
-	left: 0;
-	margin-top: 0;
-	box-sizing: border-box;
+    content: '';
+    position: absolute;
+    left: 0;
+    margin-top: 0;
+    box-sizing: border-box;
 }
 
 .check-label::before,
 .check-label::after {
-	top: 0.5625rem;
-	width: var(--check-width);
-	height: var(--check-width);
-	border-radius: var(--check-border-radius);
+    top: calc(0.5 * (var(--input-height) - var(--check-width)));
+    width: var(--check-width);
+    height: var(--check-width);
+    border-radius: var(--check-border-radius);
 }
 
 .radio-label::before {
-	top: calc(0.5 * (var(--input-height) - var(--radio-width)));
-	width: var(--radio-width);
-	height: var(--radio-width);
+    top: calc(0.5 * (var(--input-height) - var(--radio-width)));
+    width: var(--radio-width);
+    height: var(--radio-width);
 }
 
 .right-label::before,
 .right-label::after {
-	left: auto;
-	right: 0;
+    left: auto;
+    right: 0;
 }
 
 .radio-label::before,
 .check-label::before {
-	background-color: var(--input-background-color);
-	border: var(--check-border-width) solid var(--check-border-color);
+    background-color: var(--input-background-color);
+    border: var(--check-border-width) solid var(--check-border-color);
 }
 
 .radio-label::before {
-	border-radius: calc(0.5 * var(--radio-width));
+    border-radius: calc(0.5 * var(--radio-width));
 }
 
 .radio-label::after,
 .check-label::after {
-	display: none;
+    display: none;
 }
 
 .masked:checked + .radio-label::after,
 .masked:checked + .check-label::after {
-	display: block;
+    display: block;
 }
 
 .radio-label::after {
-	top: calc(0.5 * (var(--input-height) - var(--radio-check-width)));
-	left: calc(0.5 * (var(--radio-width) - var(--radio-check-width)));
-	width: var(--radio-check-width);
-	height: var(--radio-check-width);
-	background-color: var(--check-color);
-	border-radius: calc(0.5 * var(--radio-check-width));
+    top: calc(0.5 * (var(--input-height) - var(--radio-check-width)));
+    left: calc(0.5 * (var(--radio-width) - var(--radio-check-width)));
+    width: var(--radio-check-width);
+    height: var(--radio-check-width);
+    background-color: var(--check-color);
+    border-radius: calc(0.5 * var(--radio-check-width));
 }
 
 .check-label::after {
-	content: '✓';
-	text-align: center;
-	line-height: var(--check-width);
+    content: var(--check-content);
+    text-align: center;
+    line-height: var(--check-width);
 }
 
 .masked + .check-label,
@@ -104,17 +104,17 @@
 
 label + .masked + .radio-label,
 label + .masked + .check-label {
-	margin-top: var(--label-input-margin);
+    margin-top: var(--label-input-margin);
 }
 
 input + .masked + .radio-label,
 .button + .masked + .check-label {
-	margin-top: var(--input-margin);
+    margin-top: var(--input-margin);
 }
 
 .masked:disabled + .check-label,
 .masked:disabled + .radio-label {
-	filter: var(--disabled-filter);
+    filter: var(--disabled-filter);
 }
 
 
@@ -138,7 +138,7 @@ input + .masked + .radio-label,
 
 .right-radio-label,
 .right-check-label {
-	padding-left: 0;
+    padding-left: 0;
     padding-right: 2.5em;
 }
 
@@ -146,8 +146,8 @@ input + .masked + .radio-label,
 .right-radio-label::after,
 .right-check-label::before,
 .right-check-label::after {
-	left: auto;
-	right: 0;
+    left: auto;
+    right: 0;
 }
 
 .right-radio-label::after {
@@ -190,6 +190,15 @@ input + .masked + .radio-label,
     Border radius of simulated checkboxes
     **/
     --check-border-radius: 0;
+
+    /**
+    --check-content
+    The actual check mark
+    **/
+    --check-content: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">\
+            <style>path{stroke:green;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;fill:none;}</style>\
+            <path d="M5 8 L7 11 L11 5"></path>\
+        </svg>');
 
     /**
     --radio-width

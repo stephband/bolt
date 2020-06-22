@@ -74,7 +74,7 @@ function updateValue(element, data, inputValue) {
 
 element('range-control', {
 
-    template: '#range-control-template',
+    template: '#range-control',
 
     attributes: {
         min:       function(value) { this.min = value; },
