@@ -150,10 +150,6 @@ range-control
     top: 1px;
 }
 
-:host(:focus) {
-    /*background-color: red;*/
-}
-
 
 /* Range inputs */
 
@@ -387,6 +383,8 @@ range-control
     /* Make ::after mark visible outside label*/
     overflow: visible;
     color: inherit;
+    border: none;
+    box-shadow: none;
 
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
@@ -410,6 +408,10 @@ range-control
     background: var(--tick-background);
     box-shadow: var(--tick-shadow);
     border-radius: calc(0.5 * min(var(--tick-width), var(--tick-height)));
+}
+
+.tick-label:focus {
+    outline: none;
 }
 
 .tick-input:checked + .tick-label {

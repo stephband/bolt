@@ -63,6 +63,15 @@ function createTicks(data, tokens) {
         nothing ;
 }
 
+function updateValue(element, data, inputValue) {
+    const observer   = Observer(data);
+    observer.inputValue = inputValue;
+
+    const value = transform(data.transform, inputValue, data.min, data.max) ;
+    element.value = value;
+}
+
+
 element('range-control', {
 
     template: '#range-control-template',
@@ -196,22 +205,20 @@ element('range-control', {
         // Pick up input events and update scope - Sparky wont do this
         // currently as events are delegated to document, and these are in
         // a shadow DOM.
+        shadow.addEventListener('mousedown', (e) => {
+            const target = e.target.closest('button') || e.target;
+            if (target.name !== 'control-tick') { return; }
+            updateValue(this, data, parseFloat(target.value));
+
+            // Refocus the input
+            shadow
+            .getElementById('input')
+            .focus();
+        });
+
         shadow.addEventListener('input', (e) => {
-            const data       = this.data;
-            const inputValue = parseFloat(e.target.value);
-
-            observer.inputValue = inputValue;
-
-            const value = transform(data.transform, inputValue, data.min, data.max) ;
-
-            this.value = value;
-
-            if (e.target.checked) {
-                // Focus the input
-                shadow
-                .getElementById('input')
-                .focus();
-            }
+            if (e.target.name !== 'control-input') { return; }
+            updateValue(this, data, parseFloat(e.target.value));
         });
     }
 })
