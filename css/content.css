@@ -51,7 +51,7 @@ a.before {
 .triangle-after::after {
     content: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">\
             <style>path{stroke-width:0;fill:currentcolor;}</style>\
-            <path d="M6 3.5 L11 8 L6 12.5 Z"></path>\
+            <path d="M7 4 L11 8 L7 12 Z"></path>\
         </svg>');
     vertical-align: -0.1875em;
 }
