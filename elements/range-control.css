@@ -102,7 +102,7 @@ range-control
     background: transparent;
 }
 
-:host > .control-input {
+:host > .input {
     grid-area: input;
     align-self: end;
 
@@ -115,14 +115,7 @@ range-control
     z-index: 1;
 }
 
-:host > .tick-input {
-    /* Hide tick input behind range control-input where it can do no harm. */
-    grid-area: input;
-    z-index: 0;
-    opacity: 0;
-}
-
-:host > .tick-label {
+:host > .tick {
     grid-area: input;
     position: relative;
 
@@ -366,7 +359,7 @@ range-control
 
 /* Ticks */
 
-.tick-label {
+.tick {
     cursor: pointer;
 
     /* Center content, even if it's wider than the label */
@@ -378,13 +371,14 @@ range-control
     text-shadow: var(--tick-text-shadow);
     text-align: center;
 
-    /*margin-top: 7px;*/
+    padding: 0;
 
     /* Make ::after mark visible outside label*/
     overflow: visible;
     color: inherit;
     border: none;
     box-shadow: none;
+    background-color: transparent;
 
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
@@ -395,7 +389,7 @@ range-control
                                     supported by Chrome and Opera */
 }
 
-.tick-label::after {
+.tick::after {
     content: '';
 
     display: block;
@@ -410,27 +404,17 @@ range-control
     border-radius: calc(0.5 * min(var(--tick-width), var(--tick-height)));
 }
 
-.tick-label:focus {
+.tick:focus {
     outline: none;
 }
 
-.tick-input:checked + .tick-label {
+[type="range"]:focus ~ .tick,
+:host(:focus) .tick {
     color: var(--focus-tick-color);
 }
 
-.tick-input:checked + .tick-label::after {
-    background: var(--focus-tick-background);
-    border: var(--focus-tick-border);
-    box-shadow: var(--focus-tick-shadow);
-}
-
-[type="range"]:focus ~ .tick-label,
-:host(:focus) .tick-label {
-    color: var(--focus-tick-color);
-}
-
-[type="range"]:focus ~ .tick-label::after,
-:host(:focus) .tick-label::after {
+[type="range"]:focus ~ .tick::after,
+:host(:focus) .tick::after {
     background: var(--focus-tick-background);
     border: var(--focus-tick-border);
     box-shadow: var(--focus-tick-shadow);
@@ -478,11 +462,11 @@ range-control
 
 /* Range input */
 
-.control-input:focus ~ .control-label {
+.input:focus ~ .control-label {
     color: var(--output-color);
 }
 
-.control-input:focus ~ .control-output {
+.input:focus ~ .control-output {
     color: var(--active-color);
 }
 
