@@ -1,14 +1,23 @@
 
-import { Observer, requestTick, nothing } from '../../fn/module.js';
-import { evaluate, inputEvent, transform, invert, transformOutput, transformTick, transformUnit  } from './control.js';
-import { element } from '../../dom/module.js';
+import { Observer } from '../../fn/module.js';
+import { clamp } from '../../fn/modules/maths/clamp.js';
+import { transform } from './control.js';
+import { element, gestures, trigger } from '../../dom/module.js';
 import Sparky, { mount, config } from '../../sparky/module.js';
+import { attributes, properties } from './attributes.js';
 
 const DEBUG = false;//true;
 
 const assign = Object.assign;
 
-const settings = Object.assign({}, config, {
+const defaults = {
+    path: './components/controls',
+    transform: 'linear',
+    min:    0,
+    max:    1
+};
+
+const mountSettings = Object.assign({}, config, {
     mount: function(node, options) {
         // Does the node have Sparkyfiable attributes?
         const attrFn = node.getAttribute(options.attributeFn);
@@ -31,190 +40,66 @@ const settings = Object.assign({}, config, {
     attributeFn:      'fn'
 });
 
-function createTicks(data, tokens) {
-    return tokens ?
-        tokens
-        .split(/\s+/)
-        .map(evaluate)
-        .filter((number) => {
-            // Filter ticks to min-max range, special-casing logarithmic-0
-            // which has a min greater than 0
-            return number >= (data.transform === 'logarithmic-zero' ? 0 : data.min)
-                && number <= data.max
-        })
-        .map((value) => {
-            const displayValue = transformTick(data.unit, value);
+const rangePxY = 320;
 
-            // Freeze to tell mounter it's immutable, prevents
-            // unnecessary observing
-            return Object.freeze({
-                root:        data,
-                value:       value,
-                tickValue:   invert(data.transform || 'linear', value, data.min, data.max),
-                displayValue: displayValue
-            });
-        }) :
-        nothing ;
+function updateValue(element, data, unitValue) {
+    const observer = Observer(data);
+    observer.unitValue = unitValue;
+    const value = transform(data.transform, unitValue, data.min, data.max) ;
+    element.value = value;
 }
 
 element('rotary-control', {
-    shadow: '#rotary-control-template',
-
-    attributes: {
-        min:       function(value) { this.min = value; },
-
-        max:       function(value) { this.max = value; },
-
-        value:     function(value) { this.value = value; },
-
-        prefix:    function(value) { this.data.prefix = value; },
-
-        transform: function(value) { this.data.transform = value; },
-
-        unit:      function(value) { this.data.unit = value; },
-
-        ticks: function(value) {
-            const data     = this.data;
-            const observer = Observer(data);
-            observer.ticks = createTicks(data, value);
-        }
-    },
-
-    properties: {
-        type: {
-            value: 'number',
-            enumerable: true
-        },
-
-        min: {
-            get: function() {
-                return this.data.min;
-            },
-
-            set: function(value) {
-                const data = this.data;
-                value = evaluate(value);
-
-                if (value === data.min) { return; }
-
-                const observer = Observer(data);
-                observer.min   = evaluate(value);
-
-                // Check for readiness
-                if (data.max === undefined || data.value === undefined) { return; }
-
-                observer.ticks = createTicks(data, this.getAttribute('ticks') || '');
-                observer.inputValue = invert(data.transform || 'linear', data.value, data.min, data.max);
-            },
-
-            enumerable: true
-        },
-
-        max: {
-            get: function() {
-                return this.data.max;
-            },
-
-            set: function(value) {
-                const data = this.data;
-                value = evaluate(value);
-
-                if (value === data.max) { return; }
-
-                const observer = Observer(data);
-                observer.max   = evaluate(value);
-
-                // Check for readiness
-                if (data.min === undefined || data.value === undefined) { return; }
-
-                observer.ticks = createTicks(data, this.getAttribute('ticks') || '');
-                observer.inputValue = invert(data.transform || 'linear', data.value, data.min, data.max);
-            },
-
-            enumerable: true
-        },
-
-        value: {
-            get: function() {
-                return this.data.value;
-            },
-
-            set: function(value) {
-                const data = this.data;
-                value = evaluate(value);
-
-                if (value === data.value) { return; }
-                data.value = value;
-
-                const observer = Observer(data);
-
-                if (data.max === undefined || data.min === undefined) { return; }
-
-                // Todo: set value is being called from within a Sparky frame,
-                // which is normal, but it's messing with the renderer cueing for
-                // range-control's inner Sparky mounting. I think cueing needs to
-                // improve, with data updates being done in one round and all
-                // render processes delayed by a tick. I'm not sure. Anyway, as
-                // a bodge job, we delay by a tick here. This may mean DOM update
-                // values are a frame behind. Investigate.
-                requestTick(() => {
-                    observer.displayValue = transformOutput(data.unit, value);
-                    observer.displayUnit  = transformUnit(data.unit, value);
-                    observer.inputValue  = invert(data.transform || 'linear', value, data.min, data.max);
-                });
-            },
-
-            enumerable: true
-        }
-    },
+    template: '#rotary-control',
+    attributes: attributes,
+    properties: properties,
 
     construct: function(shadow) {
-        const data = this.data = {
-            path: './components/controls'
-        };
+        this.data = assign({}, defaults);
     },
 
-    connect: function() {
-        if (DEBUG) { console.log('Element added to document', this); }
+    connect: function(shadow) {
+        if (DEBUG) { console.log('<range-control> added to document', this.value, this.data); }
 
-        const data     = this.data;
-        const observer = Observer(data);
+        const elem = this;
+        const data = this.data;
+        const knob = shadow.querySelector('.knob');
+
+        // Range control must have value
+        if (this.data.value === undefined) {
+            this.value = this.data.min;
+        }
 
         // Mount template
-        mount(this.shadowRoot, settings).push(data);
+        mount(shadow, mountSettings).push(data);
 
         // Pick up input events and update scope - Sparky wont do this
         // currently as events are delegated to document, and these are in
         // a shadow DOM.
-        this.shadowRoot.addEventListener('input', (e) => {
-            const data       = this.data;
-            const inputValue = parseFloat(e.target.value);
+        shadow.addEventListener('mousedown', (e) => {
+            const target = e.target.closest('[name]') || e.target;
+            if (target.name !== 'unit-value') { return; }
+            updateValue(elem, data, parseFloat(target.value));
+            trigger('input', elem);
+        });
 
-            observer.inputValue = inputValue;
+        gestures({ threshold: 1 }, knob)
+        .each(function(events) {
+            // First event is touchstart or mousedown
+            const e0     = events.shift();
+            const y0     = e0.clientY;
+            const y      = data.unitValue;
+            let dy;
 
-            const value = transform(data.transform || 'linear', inputValue, data.min, data.max) ;
-            data.value = value;
-
-            observer.displayValue = transformOutput(data.unit, value);
-            observer.displayUnit  = transformUnit(data.unit, value);
-
-            if (e.target.checked) {
-                // Uncheck tick radio so that it may be chosen again
-                // Should not be necessary - target should become
-                // unchecked if value moves away
-                //e.target.checked = false;
-
-                // Focus the input
-                this.shadowRoot
-                .getElementById('input')
-                .focus();
-            }
-
-            // Input events are suppsed to traverse the shadow boundary
-            // but they do not. At least not in Chrome 2019
-            if (!e.composed) {
-                this.dispatchEvent(inputEvent);
-            }
+            events
+            .latest()
+            .each(function (e) {
+                dy = y0 - e.clientY;
+                var ry = clamp(0, 1, y + dy / rangePxY);
+                elem.style.setProperty('--unit-value', ry);
+                updateValue(elem, data, ry);
+                trigger('input', elem);
+            });
         });
     }
 })

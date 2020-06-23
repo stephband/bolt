@@ -1,7 +1,7 @@
 
 /* Enabales left-right swipe gestures on .switch-label */
 
-import { limit } from '../../fn/module.js';
+import { clamp } from '../../fn/module.js';
 import { attribute, closest, gestures, style, trigger } from '../../dom/module.js';
 
 var selector     = '.switch-label';
@@ -56,9 +56,9 @@ gestures({ selector: selector, threshold: 4 }, document)
     label.classList.add('gesturing');
 
     latest.each(function (e) {
-        dx = e.pageX - x0;
+        dx = e.clientX - x0;
 
-        var rx = limit(0, 1, x + dx / swipeRangePx);
+        var rx = clamp(0, 1, x + dx / swipeRangePx);
         label.style.setProperty('--switch-handle-gesture-x', rx);
 
         if (rx >= 0.666667 && !state) {

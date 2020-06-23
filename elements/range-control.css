@@ -3,19 +3,11 @@
 range-control
 
 ```html
-<range-control min="0" max="1" value="0.5" ticks="0 0.25 0.5 0.75 1" unit="s">Range</range-control>
+<range-control min="0" max="1" ticks="0 0.25 0.5 0.75 1" unit="s">Range</range-control>
 ```
 **/
 
 :host {
-    --normal-color: hsl(192, 96%, 6%);
-    --active-color: hsl(201, 40%, 58%);
-    --active-color-muted: hsl(201, 24%, 43%);
-    --output-color: hsl(201, 31%, 50%);
-    --hover-color: #969ea2;
-    --focus-text-color: hsl(201, 21%, 53%);
-    --focus-color: hsl(165, 31%, 53%);
-
     --track-height: 0.1875rem;
     --track-background: currentcolor;
     --track-border: none;
@@ -50,6 +42,18 @@ range-control
     --focus-tick-border: none;
     --focus-tick-shadow: none;
 
+    --label-font-size: 1em;
+    --label-line-height: 1.2em;
+    --label-letter-spacing: -0.04em;
+    --label-color: black;
+    --label-shadow: none;
+
+    --output-font-size: 0.75rem;
+    --output-line-height: 1rem;
+    --output-letter-spacing: -0.04em;
+    --output-color: #46789a;
+    --output-shadow: none;
+
     --bleed: 0.1875rem;
 
     position: relative;
@@ -61,25 +65,18 @@ range-control
     grid-template-rows:
         min-content
         minmax(1.5rem, min-content);
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    /*max-width: 25rem;*/
     padding: 0;
-    /*overflow: hidden;*/
-    color: var(--normal-color);
 }
 
 :host > * {
     margin: 0;
 }
 
-:host > .control-output {
+:host > output {
     grid-area: output;
     order: 1;
     margin-left: auto;
     width: auto;
-    font-size: 0.8125rem;
     text-align: right;
     position: relative;
     top: 2px;
@@ -118,12 +115,6 @@ range-control
 :host > .tick {
     grid-area: input;
     position: relative;
-
-    /* Use margin to centre labels, not transform: translate, which has the
-       side effect of blurring the text on pixel screens. */
-    margin-left: -0.6875rem;
-
-    width: 1.375rem;
     z-index: 0;
     align-self: start;
 }
@@ -342,7 +333,6 @@ range-control
 /* [type="range"] focus */
 
 [type="range"]:focus {
-    color: var(--focus-color);
     outline: none;
     outline-width: 0 !important;
 }
@@ -372,6 +362,11 @@ range-control
     text-align: center;
 
     padding: 0;
+
+    /* Use margin to centre ticks, not transform: translate, which has the
+       side effect of blurring the text on pixel screens. */
+    margin-left: -0.6875rem;
+    width: 1.375rem;
 
     /* Make ::after mark visible outside label*/
     overflow: visible;
@@ -427,33 +422,34 @@ range-control
     align-self: end;
     font-size: 14px;
     line-height: 15px;
-    color: var(--output-color);
+    font-size: var(--label-font-size);
+    line-height: var(--label-line-height);
+    letter-spacing: var(--label-letter-spacing);
+    color: var(--label-color);
 }
 
 
 /* Value display */
 
-.control-output {
+output {
     align-self: end;
     font-family: 'Fira Mono', 'Andale Mono', monospace;
-    font-size: 0.6875rem;
-    line-height: 0.9375rem;
-    /* Doesnt seem to want to respect 15px auto height. Force. */
-    height: 0.9375rem;
+    font-size: var(--output-font-size, 0.75rem);
+    line-height: var(--output-line-height);
+    letter-spacing: var(--output-letter-spacing);
+    height: auto;
     white-space: pre;
-    color: #969ea2;
-    color: #4C565C;
     color: var(--output-color);
 }
 
-.control-output > abbr {
+output > abbr {
     font-size: 0.8em;
     margin-left: 0.125rem;
     vertical-align: baseline;
 }
 
 /*
-.control-output.changing {
+output.changing {
     color: #72B8A9 !important;
     transition: color 0ms linear;
 }
@@ -464,10 +460,6 @@ range-control
 
 .input:focus ~ .control-label {
     color: var(--output-color);
-}
-
-.input:focus ~ .control-output {
-    color: var(--active-color);
 }
 
 output > abbr {

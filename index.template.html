@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head build-fn="fetch:package.json">
-    <template build-src="/fn/templates.html#head-template"></template>
+    <template build-src="../fn/templates.html#head-template"></template>
 
     <script build-remove title="debug">
     window.DEBUG = true;
@@ -28,7 +28,7 @@
 
 <body class="grid 3-grid @1-6-grid @2-9-grid" style="row-gap: 60px;">
     <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header"></header>
-        <template build-fn="fetch:package.json" build-src="fn/templates.html#header-template"></template>
+        <template build-fn="fetch:package.json" build-src="../fn/templates.html#header-template"></template>
     </header>
 
     <!--section class="x-1 3x @1-x-2 @2-x-3" id="get-started" locateable>
@@ -63,7 +63,8 @@ npm run build</code></pre>
         './components/switch-label.css',
         './components/check-button.css',
         './components/select-button.css',
-        './elements/range-control.css'" build-src="../fn/templates.html#css-template"></template>
+        './elements/range-control.css',
+        './elements/rotary-control.css'" build-src="../fn/templates.html#css-template"></template>
     <template build-fn="docs:
         './sass/grid.scss'" build-src="../fn/templates.html#css-template"></template>
     <template build-fn="docs:
@@ -86,42 +87,84 @@ npm run build</code></pre>
         './css/modifiers.css',
         './sass/respond.scss'" build-src="../fn/templates.html#css-template"></template>
 
-    <template id="range-control-template">
-        <link rel="stylesheet" href="/bolt/elements/range-control.css" />
-        <input class="control-input" type="range" id="input" value="{[inputValue]}" min="0" max="1" step="any" />
-        <label class="control-label" for="input">
-            <slot></slot>
-        </label>
-        <output class="control-output">{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
-        <template fn="get:ticks each">
-            <input class="tick-input" type="radio" name="tick" id="tick-{[value]}" value="{[tickValue|float-string]}" :value="{[root.inputValue|float-string]}" />
-            <label class="tick-label" :style="left: calc(0.5rem + (100% - 1rem) * {[tickValue]});" :for="tick-{[value]}">{[displayValue]}</label>
-        </template>
-        <slot name="plugs"></slot>
-    </template>
-
-    <template id="rotary-control-template">
-        <link rel="stylesheet" href="/bolt/elements/rotary-control.css" />
-        <input class="control-input" type="range" id="input" value="{[inputValue]}" min="0" max="1" step="any" />
-        <label class="control-label" for="input" :style="transform: rotate({[inputValue|multiply:300|append:deg]});">
-            <slot></slot>
-        </label>
-        <output class="control-output">{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
-        <template fn="get:ticks each">
-            <input class="tick-input" type="radio" name="tick" id="tick-{[value]}" value="{[tickValue|float-string]}" :value="{[root.inputValue|float-string]}" />
-            <label class="tick-label" :style="left: calc(0.5rem + (100% - 1rem) * {[tickValue]});" :for="tick-{[value]}">{[displayValue]}</label>
-        </template>
-        <slot name="plugs"></slot>
-    </template>
-
     <!-- Build document -->
-    <script type="module" src="fn/docs-build.js" build-remove></script>
+    <script type="module" src="../fn/docs-build.js" build-remove></script>
+
+    <!-- Custom elements -->
+    <template id="range-control">
+        <link rel="stylesheet" href="/bolt/elements/range-control.css" />
+        <input class="input" type="range" id="input" name="control-input" value="{[unitValue]}" min="0" max="1" step="any" />
+        <label class="control-label" for="input"><slot></slot></label>
+        <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
+        <!--output class="control-value" :style="top: 0; left: calc((0.5 * var(--handle-width) - var(--bleed)) + var(--unit-value) * (100% + 2 * var(--bleed) - var(--handle-width)));">{[prefix]}{[unitValue|multiply:10|floatformat:0]}</output-->
+        <button class="tick" fn="get:ticks each" name="control-tick" value="{[tickValue|float-string]}" :style="left: calc((0.5 * var(--handle-width) - var(--bleed)) + {[tickValue]} * (100% + 2 * var(--bleed) - var(--handle-width)));">{[displayValue]}</button>
+        <slot name="plugs"></slot>
+    </template>
+
+    <template id="rotary-control">
+        <link rel="stylesheet" href="/bolt/elements/range-control.css" />
+        <link rel="stylesheet" href="/bolt/elements/rotary-control.css" />
+        <div class="knob" style="transform: rotate(calc(var(--rotation-start) + var(--unit-value) * var(--rotation-range)));"></div>
+        <label class="control-label" for="input"><slot></slot></label>
+        <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
+        <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" :style="transform: translate(-50%, -50%) rotate(calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range))) translate(0, var(--tick-distance));">
+            <span :style="transform: translate(-50%, 0) rotate(calc(-1 * (var(--rotation-start) + {[tickValue]} * var(--rotation-range)))) translate(calc({[tickValue|multiply:6.28318531|sin]} * -33%), 0);">{[displayValue]}</span>
+        </button>
+        <slot name="plugs"></slot>
+    </template>
+
+    <style>
+    range-control,
+    rotary-control {
+        --track-height: 0.125rem;
+        --track-background: black;
+        --track-top: 0.5625rem;
+
+        --focus-track-background: #46789a;
+        --focus-track-border: none;
+        --focus-track-shadow: none;
+
+        --handle-width: 1.5rem;
+        --handle-border: none;
+        --handle-background: black;
+        --handle-shadow: none;
+
+        --focus-handle-background: #46789a;
+        --focus-handle-border: none;
+        --focus-handle-shadow: none;
+
+        --focus-tick-color: #46789a;
+        --focus-tick-background: #46789a;
+        --focus-tick-border: none;
+        --focus-tick-shadow: none;
+
+        --bleed: 0.125rem;
+    }
+
+    range-control {
+        --tick-width: 1px;
+        --tick-height: 0.6875rem;
+    }
+
+    rotary-control {
+        --tick-width: 3px;
+        --tick-height: 3px;
+        --tick-border-radius: 50%;
+    }
+
+    range-control:focus,
+    rotary-control:focus {
+        box-shadow: none;
+    }
+    </style>
+
+    <script type="module" src="./elements/range-control.js"></script>
+    <script type="module" src="./elements/rotary-control.js"></script>
 
     <!-- Document interactivity -->
     <script type="module">
         import './module.js';
         import './elements/range-control.js';
-        import './bolt/module.js';
         import './documentation.js';
     </script>
 </body>
