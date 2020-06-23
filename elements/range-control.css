@@ -82,10 +82,11 @@ range-control
     top: 2px;
 }
 
-:host > .control-value {
+:host > .handle-output {
     grid-area: input;
     position: absolute;
     top: 0;
+    left: calc(0.5 * var(--handle-width) - var(--bleed) + var(--unit-value) * (100% + 2 * var(--bleed) - var(--handle-width)));
     font-size: 18px;
     text-align: center;
     line-height: var(--handle-height);
