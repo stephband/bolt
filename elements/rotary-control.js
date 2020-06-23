@@ -2,7 +2,7 @@
 import { Observer } from '../../fn/module.js';
 import { clamp } from '../../fn/modules/maths/clamp.js';
 import { transform } from './control.js';
-import { element, gestures, trigger } from '../../dom/module.js';
+import { element, gestures, parseValue, trigger } from '../../dom/module.js';
 import Sparky, { mount, config } from '../../sparky/module.js';
 import { attributes, properties } from './attributes.js';
 
@@ -39,8 +39,6 @@ const mountSettings = Object.assign({}, config, {
     attributePrefix:  ':',
     attributeFn:      'fn'
 });
-
-const rangePxY = 320;
 
 function updateValue(element, data, unitValue) {
     const observer = Observer(data);
@@ -86,16 +84,19 @@ element('rotary-control', {
         gestures({ threshold: 1 }, knob)
         .each(function(events) {
             // First event is touchstart or mousedown
-            const e0     = events.shift();
-            const y0     = e0.clientY;
-            const y      = data.unitValue;
+            const e0 = events.shift();
+            const y0 = e0.clientY;
+            const y  = data.unitValue;
+            const touchValue = getComputedStyle(elem).getPropertyValue('--touch-range');
+            const touchRange = parseValue(touchValue);
+
             let dy;
 
             events
             .latest()
             .each(function (e) {
                 dy = y0 - e.clientY;
-                var ry = clamp(0, 1, y + dy / rangePxY);
+                var ry = clamp(0, 1, y + dy / touchRange);
                 elem.style.setProperty('--unit-value', ry);
                 updateValue(elem, data, ry);
                 trigger('input', elem);

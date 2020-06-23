@@ -26,6 +26,34 @@ function createTicks(data, tokens) {
         nothing ;
 }
 
+function createSteps(data, tokens) {
+    if (!tokens) { return nothing; }
+
+    const values = tokens.split(/\s+/);
+
+    return values.length === 1 ?
+        nothing :
+        values
+        .map(evaluate)
+        .filter((number) => {
+            // Filter ticks to min-max range, special-casing logarithmic-0
+            // which travels to 0 whatever it's min value
+            return number >= (data.transform === 'linear-logarithmic' ? 0 : data.min)
+                && number <= data.max
+        })
+        .map((value) => {
+            // Freeze to tell mounter it's immutable, prevents
+            // unnecessary observing
+            //console.log(value, invert(data.transform, value, data.min, data.max), transformTick(data.unit, value));
+            return Object.freeze({
+                root:         data,
+                value:        value,
+                tickValue:    invert(data.transform || 'linear', value, data.min, data.max),
+                displayValue: transformTick(data.unit, value)
+            });
+        }) ;
+}
+
 export const attributes = {
     min:       function(value) { this.min = value; },
 
@@ -46,6 +74,15 @@ export const attributes = {
     },
 
     step: function(value) {
+        const data     = this.data;
+
+        // If step is ticks use ticks attribute as step value list
+        if (value === 'ticks') {
+            value = this.getAttribute('ticks') || '';
+        }
+
+        data.steps = createSteps(data, value);
+
         console.log('Todo: Attribute step not implemented yet');
     }
 };

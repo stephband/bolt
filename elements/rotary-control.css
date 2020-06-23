@@ -8,6 +8,8 @@ rotary-control
 **/
 
 :host {
+    --touch-range: 15rem;
+
     --knob-width: 3rem;
     --knob-background: black;
     --knob-border: none;
