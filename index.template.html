@@ -102,9 +102,8 @@ npm run build</code></pre>
     </template>
 
     <template id="rotary-control">
-        <link rel="stylesheet" href="/bolt/elements/range-control.css" />
         <link rel="stylesheet" href="/bolt/elements/rotary-control.css" />
-        <div class="knob" style="transform: rotate(calc(var(--rotation-start) + var(--unit-value) * var(--rotation-range)));"></div>
+        <div class="knob"></div>
         <label class="control-label" for="input"><slot></slot></label>
         <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
         <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" :style="transform: translate(-50%, -50%) rotate(calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range))) translate(0, var(--tick-distance));">

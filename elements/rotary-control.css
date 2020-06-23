@@ -37,8 +37,16 @@ rotary-control
     --tick-width: 0.1875rem;
     --tick-height: var(--tick-width);
     --tick-distance: 1.75rem;
+    --tick-color: black;
+    --tick-background: var(--tick-color);
+    --tick-border: none;
     --tick-border-radius: 50%;
     --tick-line-height: 0.75rem;
+    --tick-shadow: none;
+    --tick-font-size: 0.5625rem;
+    --tick-line-height: 0.75rem;
+    --tick-letter-spacing: -0.0125em;
+    --tick-text-shadow: none;
 
     position: relative;
     display: grid;
@@ -47,6 +55,10 @@ rotary-control
         'label plugs';
     grid-template-columns: 1fr min-content;
     grid-template-rows: calc(2 * var(--tick-distance) + 2 * var(--tick-width) + 2 * var(--tick-line-height)) min-content;
+    align-items: center;
+    justify-items: center;
+    align-content: start;
+    justify-content: center;
     width: calc(2 * var(--tick-distance) + 2 * var(--tick-width) + 2 * var(--tick-line-height));
 }
 
@@ -54,6 +66,12 @@ rotary-control
     --label-color: #46789a;
     --output-color: white;
     --knob-background: #46789a;
+    --tick-color: #46789a;
+    --tick-background: #46789a;
+}
+
+:host > * {
+    margin: 0;
 }
 
 :host > .knob {
@@ -69,6 +87,7 @@ rotary-control
     left: 50%;
     top:  50%;
     margin: 0;
+    outline-width: 0;
 }
 
 :host > .control-label {
@@ -86,7 +105,35 @@ rotary-control
 }
 
 
+/* label */
+
+label {
+    align-self: start;
+    font-size: var(--label-font-size);
+    line-height: var(--label-line-height);
+    letter-spacing: var(--label-letter-spacing);
+    color: var(--label-color);
+}
+
+
 /* output */
+
+output {
+    font-family: 'Fira Mono', 'Andale Mono', monospace;
+    font-size: var(--output-font-size, 0.75rem);
+    line-height: var(--output-line-height);
+    letter-spacing: var(--output-letter-spacing);
+    height: auto;
+    white-space: pre;
+    color: var(--output-color);
+}
+
+output > abbr {
+    font-size: 0.8em;
+    margin-left: 0.125em;
+    vertical-align: baseline;
+}
+
 
 /* knob */
 
@@ -97,6 +144,7 @@ rotary-control
     background: var(--knob-background);
     border: var(--knob-border);
     border-radius: 50%;
+    transform: rotate(calc(var(--rotation-start) + var(--unit-value) * var(--rotation-range)));
 }
 
 .knob::after {
@@ -117,12 +165,20 @@ rotary-control
 /* tick */
 
 .tick {
-    /* Temp override tick styles from range control */
+    cursor: pointer;
+    display: block;
+    padding: 0;
+    padding-top: var(--tick-height);
     width: var(--tick-width);
     height: var(--tick-height);
-    padding-top: var(--tick-height);
+    font-size: var(--tick-font-size);
+    line-height: var(--tick-line-height);
+    letter-spacing: var(--tick-letter-spacing);
+    text-shadow: var(--tick-text-shadow);
     background: var(--tick-background);
+    border: var(--tick-border);
     border-radius: var(--tick-border-radius);
+    color: var(--tick-color);
     overflow: visible;
 }
 

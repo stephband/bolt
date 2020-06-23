@@ -43,9 +43,12 @@ export const attributes = {
         const data     = this.data;
         const observer = Observer(data);
         observer.ticks = createTicks(data, value);
+    },
+
+    step: function(value) {
+        console.log('Todo: Attribute step not implemented yet');
     }
 };
-
 
 export const properties = {
     type: {
@@ -127,7 +130,7 @@ export const properties = {
             requestTick(() => {
                 observer.displayValue = transformOutput(data.unit, value);
                 observer.displayUnit  = transformUnit(data.unit, value);
-                observer.unitValue   = invert(data.transform || 'linear', value, data.min, data.max);
+                observer.unitValue    = invert(data.transform || 'linear', value, data.min, data.max);
                 this.style.setProperty('--unit-value', data.unitValue);
             });
         },
