@@ -22,6 +22,7 @@ function cache(fn) {
 
 /**
 curry(fn [, muteable, arity])
+Returns a function that wraps `fn` and makes it partially applicable.
 */
 const A     = Array.prototype;
 
@@ -129,9 +130,9 @@ const ready = new Promise(function(accept, reject) {
 
 var ready$1 = ready.then.bind(ready);
 
-/*
+/**
 rest(n, array)
-*/
+**/
 
 function rest(i, object) {
     if (object.slice) { return object.slice(i); }
@@ -215,7 +216,7 @@ function toArray(object) {
 const A$1 = Array.prototype;
 const S = String.prototype;
 
-/*
+/**
 by(fn, a, b)
 Compares `fn(a)` against `fn(b)` and returns `-1`, `0` or `1`. Useful for sorting
 objects by property:
@@ -223,7 +224,7 @@ objects by property:
 ```
 [{id: '2'}, {id: '1'}].sort(by(get('id')));  // [{id: '1'}, {id: '2'}]
 ```
-*/
+**/
 
 function by(fn, a, b) {
     const fna = fn(a);
@@ -231,9 +232,19 @@ function by(fn, a, b) {
     return fnb === fna ? 0 : fna > fnb ? 1 : -1 ;
 }
 
+/**
+byAlphabet(a, b)
+Compares `a` against `b` alphabetically using the current locale alphabet.
+**/
+
 function byAlphabet(a, b) {
     return S.localeCompare.call(a, b);
 }
+
+/**
+each(fn, array)
+Calls `fn` for each member in `array`.
+**/
 
 function each(fn, object) {
     // A stricter version of .forEach, where the callback fn
@@ -252,15 +263,32 @@ function each(fn, object) {
     return object;
 }
 
+/**
+map(fn, object)
+Delegates to `object.map` or `Array.map` to return a new collection of mapped
+values.
+**/
+
 function map(fn, object) {
     return object && object.map ? object.map(fn) : A$1.map.call(object, fn) ;
 }
+
+/**
+filter(fn, object)
+Delegates to `object.filter` or `Array.filter` to return a new collection of
+filtered objects.
+**/
 
 function filter(fn, object) {
     return object.filter ?
         object.filter(fn) :
         A$1.filter.call(object, fn) ;
 }
+
+/**
+reduce(fn, seed, object)
+Delegates to `object.reduce` or `Array.reduce` to return a reduced value.
+**/
 
 function reduce(fn, seed, object) {
     return object.reduce ?
@@ -271,6 +299,12 @@ function reduce(fn, seed, object) {
 function sort(fn, object) {
     return object.sort ? object.sort(fn) : A$1.sort.call(object, fn);
 }
+
+/**
+concat(array2, array1)
+Where JavaScript's Array.concat only works reliably on arrays, `concat`
+will glue together any old array-like object.
+**/
 
 function concat(array2, array1) {
     // A.concat only works with arrays - it does not flatten array-like
@@ -320,8 +354,8 @@ function exec(regex, fn, string) {
 
     // If string looks like a regex result, get rest of string
     // from latest index
-    if (string.input !== undefined && string.index !== undefined) {
-        data   = string;
+    if (typeof string !== 'string' && string.input !== undefined && string.index !== undefined) {
+        data = string;
         string = data.input.slice(
             string.index
             + string[0].length
@@ -346,7 +380,7 @@ function exec(regex, fn, string) {
     return output;
 }
 
-curry$1(exec, true);
+var exec$1 = curry$1(exec, true);
 
 function error(regex, reducers, string) {
     if (string.input !== undefined && string.index !== undefined) {
@@ -717,6 +751,18 @@ function overload(fn, map) {
         } ;
 }
 
+/**
+parseInt(string)
+Parse to integer without having to worry about the radix parameter,
+making it suitable, for example, to use in `array.map(parseInt)`.
+*/
+
+function parseInteger(object) {
+    return object === undefined ?
+        undefined :
+        parseInt(object, 10);
+}
+
 function apply(value, fn) {
     return fn(value);
 }
@@ -867,6 +913,33 @@ Returns `typeof object`.
 function toType(object) {
     return typeof object;
 }
+
+/**
+weakCache(fn)
+Returns a function that caches the return values of `fn()`
+against input values in a WeakMap, such that for each input value
+`fn` is only ever called once.
+*/
+
+function weakCache(fn) {
+    var map = new WeakMap();
+
+    return function weakCache(object) {
+
+        if (map.has(object)) {
+            return map.get(object);
+        }
+
+        var value = fn(object);
+        map.set(object, value);
+        return value;
+    };
+}
+
+/**
+prepend(string1, string2)
+Returns `str1 + str2`.
+**/
 
 function prepend(string1, string2) {
     return '' + string1 + string2;
@@ -2613,10 +2686,10 @@ Stream$1.throttle = function(timer) {
     });
 };
 
-/*
+/**
 remove(array, value)
 Remove `value` from `array`. Where `value` is not in `array`, does nothing.
-*/
+**/
 
 function remove(array, value) {
     if (array.remove) { array.remove(value); }
@@ -2630,17 +2703,21 @@ const nothing$1      = Object.freeze([]);
 { window.observeCount = 0; }
 const nothing$2 = Object.freeze([]);
 
-/*
-.append(str2, str1)
+/**
+append(str2, str1)
+Returns `str1 + str2`.
+**/
 
-Returns `str1 + str2` as string.
-*/
-
-function append(string1, string2) {
-    return '' + string2 + string1;
+function append(string2, string1) {
+    return '' + string1 + string2;
 }
 
 curry$1(append);
+
+/**
+prepad(chars, n, string)
+Pads `string` to `n` characters by prepending `chars`.
+**/
 
 function prepad(chars, n, value) {
     var string = value + '';
@@ -2657,6 +2734,11 @@ function prepad(chars, n, value) {
 
 curry$1(prepad);
 
+/**
+postpad(chars, n, string)
+Pads `string` to `n` characters by appending `chars`.
+**/
+
 function postpad(chars, n, value) {
     var string = value + '';
 
@@ -2668,6 +2750,18 @@ function postpad(chars, n, value) {
 }
 
 curry$1(postpad);
+
+/**
+toCamelCase(string)
+Capitalises any Letter following a `'-'` and removes the dash.
+**/
+
+function toCamelCase(string) {
+    // Be gracious in what we accept as input
+    return string.replace(/-(\w)?/g, function($0, letter) {
+        return letter ? letter.toUpperCase() : '';
+    });
+}
 
 function requestTime(s, fn) {
     return setTimeout(fn, s * 1000);
@@ -2681,11 +2775,11 @@ function ap(data, fns) {
 	}
 }
 
-/*
+/**
 insert(fn, array, object)
 Inserts `object` into `array` at the first index where the result of
 `fn(object)` is greater than `fn(array[index])`.
-*/
+**/
 
 const A$3 = Array.prototype;
 
@@ -2698,9 +2792,9 @@ function insert(fn, array, object) {
     return object;
 }
 
-/*
+/**
 take(n, array)
-*/
+**/
 
 function take(i, object) {
     if (object.slice) { return object.slice(0, i); }
@@ -2712,7 +2806,7 @@ function take(i, object) {
     return a;
 }
 
-/*
+/**
 update(create, destroy, fn, target, source)
 
 Returns a new array containing items that are either matched objects from
@@ -2720,7 +2814,7 @@ Returns a new array containing items that are either matched objects from
 new objects created by calling `create` on a `source` object. Any objects
 in `target` that are not matched to `source` objects are destroyed by calling
 `destroy` on them.
-*/
+**/
 
 const assign$2 = Object.assign;
 
@@ -2754,6 +2848,10 @@ function update(create, destroy, fn, target, source) {
 
     return output;
 }
+
+/**
+diff(array1, array2)
+**/
 
 function diff(array, object) {
     var values = toArray(array);
@@ -2789,10 +2887,10 @@ function unite(array, object) {
     .concat(values);
 }
 
-/*
+/**
 last(array)
 Gets the last value from an array.
-*/
+**/
 
 function last(array) {
     if (typeof array.length === 'number') {
@@ -2809,17 +2907,9 @@ function exp(n, x) { return Math.pow(n, x); }
 function log(n, x) { return Math.log(x) / Math.log(n); }
 function root(n, x) { return Math.pow(x, 1/n); }
 
-/*
-limit(min, max, n)
-*/
-
-function limit(min, max, n) {
-    return n > max ? max : n < min ? min : n;
-}
-
-/*
+/**
 wrap(min, max, n)
-*/
+**/
 
 function wrap(min, max, n) {
     return (n < min ? max : min) + (n - min) % (max - min);
@@ -2833,14 +2923,13 @@ const curriedPow   = curry$1(pow);
 const curriedExp   = curry$1(exp);
 const curriedLog   = curry$1(log);
 const curriedRoot  = curry$1(root);
-const curriedLimit = curry$1(limit);
 const curriedWrap  = curry$1(wrap);
 
-/*
+/**
 gcd(a, b)
 
 Returns the greatest common divider of a and b.
-*/
+**/
 
 function gcd(a, b) {
     return b ? gcd(b, a % b) : a;
@@ -2848,11 +2937,11 @@ function gcd(a, b) {
 
 const curriedGcd = curry$1(gcd);
 
-/*
+/**
 lcm(a, b)
 
 Returns the lowest common multiple of a and b.
-*/
+**/
 
 function lcm(a, b) {
     return a * b / gcd(a, b);
@@ -2860,13 +2949,23 @@ function lcm(a, b) {
 
 const curriedLcm = curry$1(lcm);
 
-/*
+/**
+clamp(min, max, n)
+**/
+
+function clamp(min, max, n) {
+    return n > max ? max : n < min ? min : n;
+}
+
+var clamp$1 = curry$1(clamp);
+
+/**
 mod(divisor, n)
 
 JavaScript's modulu operator (`%`) uses Euclidean division, but for
 stuff that cycles through 0 the symmetrics of floored division are often
 are more useful. This function implements floored division.
-*/
+**/
 
 function mod(d, n) {
     var value = n % d;
@@ -2875,9 +2974,9 @@ function mod(d, n) {
 
 curry$1(mod);
 
-/*
+/**
 toPolar(cartesian)
-*/
+**/
 
 function toPolar(cartesian) {
     var x = cartesian[0];
@@ -3237,6 +3336,294 @@ function exponentialOut(e, x) {
     return 1 - Math.pow(1 - x, e);
 }
 
+// Time
+
+// Decimal places to round to when comparing times
+const precision = 9;
+
+// Find template tokens for replacement
+var rtoken = /([YZMDdhmswz]{2,4}|D|\+-)/g;
+function minutesToSeconds(n) { return n * 60; }
+function hoursToSeconds(n) { return n * 3600; }
+
+function secondsToMilliseconds(n) { return n * 1000; }
+function secondsToMinutes(n) { return n / 60; }
+function secondsToHours(n) { return n / 3600; }
+function secondsToDays(n) { return n / 86400; }
+function secondsToWeeks(n) { return n / 604800; }
+
+// Months and years are not fixed durations – these are approximate
+function secondsToMonths(n) { return n / 2629800; }
+function secondsToYears(n) { return n / 31557600; }
+
+
+function prefix(n) {
+	return n >= 10 ? '' : '0';
+}
+
+// Hours:   00-23 - 24 should be allowed according to spec
+// Minutes: 00-59 -
+// Seconds: 00-60 - 60 is allowed, denoting a leap second
+
+//                sign   hh       mm           ss
+var rtime     = /^([+-])?(\d{2,}):([0-5]\d)(?::((?:[0-5]\d|60)(?:.\d+)?))?$/;
+var rtimediff = /^([+-])?(\d{2,}):(\d{2,})(?::(\d{2,}(?:.\d+)?))?$/;
+
+/**
+parseTime(time)
+
+Where `time` is a string it is parsed as a time in ISO time format: as
+hours `'13'`, with minutes `'13:25'`, with seconds `'13:25:14'` or with
+decimal seconds `'13:25:14.001'`. Returns a number in seconds.
+
+```
+const time = parseTime('13:25:14.001');   // 48314.001
+```
+
+Where `time` is a number it is assumed to represent a time in seconds
+and is returned directly.
+
+```
+const time = parseTime(60);               // 60
+```
+**/
+
+const parseTime = overload(toType, {
+	number:  id,
+	string:  exec$1(rtime, createTime),
+	default: function(object) {
+		throw new Error('parseTime() does not accept objects of type ' + (typeof object));
+	}
+});
+
+const parseTimeDiff = overload(toType, {
+	number:  id,
+	string:  exec$1(rtimediff, createTime),
+	default: function(object) {
+		throw new Error('parseTime() does not accept objects of type ' + (typeof object));
+	}
+});
+
+
+function createTime(match, sign, hh, mm, sss) {
+	var time = hoursToSeconds(parseInt(hh, 10))
+        + (mm ? minutesToSeconds(parseInt(mm, 10))
+            + (sss ? parseFloat(sss, 10) : 0)
+        : 0) ;
+
+	return sign === '-' ? -time : time ;
+}
+
+function formatTimeString(string, time) {
+	return string.replace(rtoken, function($0) {
+		return timeFormatters[$0] ? timeFormatters[$0](time) : $0 ;
+	}) ;
+}
+
+function _formatTimeISO(time) {
+	var sign = time < 0 ? '-' : '' ;
+
+	if (time < 0) { time = -time; }
+
+	var hours = Math.floor(time / 3600);
+	var hh = prefix(hours) + hours ;
+	time = time % 3600;
+	if (time === 0) { return sign + hh + ':00'; }
+
+	var minutes = Math.floor(time / 60);
+	var mm = prefix(minutes) + minutes ;
+	time = time % 60;
+	if (time === 0) { return sign + hh + ':' + mm; }
+
+	var sss = prefix(time) + toMaxDecimals(precision, time);
+	return sign + hh + ':' + mm + ':' + sss;
+}
+
+function toMaxDecimals(precision, n) {
+	// Make some effort to keep rounding errors under control by fixing
+	// decimals and lopping off trailing zeros
+	return n.toFixed(precision).replace(/\.?0+$/, '');
+}
+
+/**
+formatTime(format, time)
+Formats `time`, an 'hh:mm:ss' time string or a number in seconds, to match
+`format`, a string that may contain the tokens:
+
+- `'±'`   Sign, renders '-' if time is negative, otherwise nothing
+- `'Y'`   Years, approx.
+- `'M'`   Months, approx.
+- `'MM'`  Months, remainder from years (max 12), approx.
+- `'w'`   Weeks
+- `'ww'`  Weeks, remainder from months (max 4)
+- `'d'`   Days
+- `'dd'`  Days, remainder from weeks (max 7)
+- `'h'`   Hours
+- `'hh'`  Hours, remainder from days (max 24), 2-digit format
+- `'m'`   Minutes
+- `'mm'`  Minutes, remainder from hours (max 60), 2-digit format
+- `'s'`   Seconds
+- `'ss'`  Seconds, remainder from minutes (max 60), 2-digit format
+- `'sss'` Seconds, remainder from minutes (max 60), fractional
+- `'ms'`  Milliseconds, remainder from seconds (max 1000), 3-digit format
+
+```
+const time = formatTime('±hh:mm:ss', 3600);   // 01:00:00
+```
+**/
+
+var timeFormatters = {
+	'±': function sign(time) {
+		return time < 0 ? '-' : '';
+	},
+
+	Y: function Y(time) {
+		time = time < 0 ? -time : time;
+		return Math.floor(secondsToYears(time));
+	},
+
+	M: function M(time) {
+		time = time < 0 ? -time : time;
+		return Math.floor(secondsToMonths(time));
+	},
+
+	MM: function MM(time) {
+		time = time < 0 ? -time : time;
+		return Math.floor(secondsToMonths(time % 31557600));
+	},
+
+	W: function W(time) {
+		time = time < 0 ? -time : time;
+		return Math.floor(secondsToWeeks(time));
+	},
+
+	WW: function WW(time) {
+		time = time < 0 ? -time : time;
+		return Math.floor(secondsToDays(time % 2629800));
+	},
+
+	d: function dd(time) {
+		time = time < 0 ? -time : time;
+		return Math.floor(secondsToDays(time));
+	},
+
+	dd: function dd(time) {
+		time = time < 0 ? -time : time;
+		return Math.floor(secondsToDays(time % 604800));
+	},
+
+	h: function hhh(time) {
+		time = time < 0 ? -time : time;
+		return Math.floor(secondsToHours(time));
+	},
+
+	hh: function hh(time) {
+		time = time < 0 ? -time : time;
+		var hours = Math.floor(secondsToHours(time % 86400));
+		return prefix(hours) + hours;
+	},
+
+	m: function mm(time) {
+		time = time < 0 ? -time : time;
+		var minutes = Math.floor(secondsToMinutes(time));
+		return prefix(minutes) + minutes;
+	},
+
+	mm: function mm(time) {
+		time = time < 0 ? -time : time;
+		var minutes = Math.floor(secondsToMinutes(time % 3600));
+		return prefix(minutes) + minutes;
+	},
+
+	s: function s(time) {
+		time = time < 0 ? -time : time;
+		return Math.floor(time);
+	},
+
+	ss: function ss(time) {
+		time = time < 0 ? -time : time;
+		var seconds = Math.floor(time % 60);
+		return prefix(seconds) + seconds;
+	},
+
+	sss: function sss(time) {
+		time = time < 0 ? -time : time;
+		var seconds = time % 60;
+		return prefix(seconds) + toMaxDecimals(precision, seconds);
+	},
+
+	ms: function ms(time) {
+		time = time < 0 ? -time : time;
+		var ms = Math.floor(secondsToMilliseconds(time % 1));
+		return ms >= 100 ? ms :
+			ms >= 10 ? '0' + ms :
+				'00' + ms;
+	}
+};
+
+const formatTime = curry$1(function(string, time) {
+	return string === 'ISO' ?
+		_formatTimeISO(parseTime(time)) :
+		formatTimeString(string, parseTime(time)) ;
+});
+
+/**
+addTime(time1, time2)
+
+Sums `time2` and `time1`, which may be 'hh:mm:sss' time strings or numbers in
+seconds, and returns time as a number in seconds. `time1` may contain hours
+outside the range 0-24 or minutes or seconds outside the range 0-60. For
+example, to add 75 minutes to a list of times you may write:
+
+```
+const laters = times.map(addTime('00:75'));
+```
+*/
+
+const addTime = curry$1(function(time1, time2) {
+	return parseTime(time2) + parseTimeDiff(time1);
+});
+
+const subTime = curry$1(function(time1, time2) {
+	return parseTime(time2) - parseTimeDiff(time1);
+});
+
+const diffTime = curry$1(function(time1, time2) {
+	return parseTime(time1) - parseTime(time2);
+});
+
+/**
+floorTime(token, time)
+
+Floors time to the start of the nearest `token`, where `token` is one of:
+
+- `'w'`   Week
+- `'d'`   Day
+- `'h'`   Hour
+- `'m'`   Minute
+- `'s'`   Second
+- `'ms'`  Millisecond
+
+`time` may be an ISO time string or a time in seconds. Returns a time in seconds.
+
+```
+const hourCounts = times.map(floorTime('h'));
+```
+**/
+
+var _floorTime = choose({
+	w:  function(time) { return time - mod(604800, time); },
+	d:  function(time) { return time - mod(86400, time); },
+	h:  function(time) { return time - mod(3600, time); },
+	m:  function(time) { return time - mod(60, time); },
+	s:  function(time) { return time - mod(1, time); },
+	ms: function(time) { return time - mod(0.001, time); }
+});
+
+const floorTime = curry$1(function(token, time) {
+	return _floorTime(token, parseTime(time));
+});
+
 function createOrdinals(ordinals) {
 	var array = [], n = 0;
 
@@ -3290,14 +3677,15 @@ var rdatediff = /^([+-])?(\d{2,})(?:-(\d{2,})(?:-(\d{2,}))?)?(?:([T-])|$)/;
 
 /**
 parseDate(date)
+
 Parse a date, where, `date` may be:
 
 - a string in ISO date format
 - a number in seconds UNIX time
 - a date object
 
-Returns a date object, or *the* date object, if it validates.
-*/
+Returns a date object (or *the* date object, if it represents a valid date).
+**/
 
 const parseDate = overload(toType, {
 	number:  secondsToDate,
@@ -3312,9 +3700,10 @@ const parseDate = overload(toType, {
 
 /**
 parseDateLocal(date)
+
 As `parseDate(date)`, but returns a date object with local time set to the
-result of the parse (or the original date object, if it validates).
-*/
+result of the parse.
+**/
 
 const parseDateLocal = overload(toType, {
 	number:  secondsToDate,
@@ -3369,18 +3758,8 @@ function createDateLocal(year, month, day, hour, minute, second, ms, zone) {
 		new Date(year) ;
 }
 
-function exec$1(regex, fn, error) {
-	return function exec(string) {
-		var parts = regex.exec(string);
-		if (!parts && error) { throw error; }
-		return parts ?
-			fn.apply(null, parts) :
-			undefined ;
-	};
-}
-
 function secondsToDate(n) {
-	return new Date(secondsToMilliseconds(n));
+	return new Date(n * 1000);
 }
 
 function setTimeZoneOffset(sign, hour, minute, date) {
@@ -3479,7 +3858,7 @@ var options = {
 	//timeZoneName:  'short'
 };
 
-var rtoken    = /([YZMDdhmswz]{2,4}|D|\+-)/g;
+var rtoken$1    = /([YZMDdhmswz]{2,4}|D|\+-)/g;
 var rusdate   = /\w{3,}|\d+/g;
 var rdatejson = /^"(-?\d{4,}-\d\d-\d\d)/;
 
@@ -3522,7 +3901,7 @@ function _formatDate(string, timezone, locale, date) {
 	var data    = toLocaleComponents(timezone, locale, date);
 	var formats = componentFormatters;
 
-	return string.replace(rtoken, function($0) {
+	return string.replace(rtoken$1, function($0) {
 		return formats[$0] ?
 			formats[$0](data, lang) :
 			$0 ;
@@ -3530,15 +3909,53 @@ function _formatDate(string, timezone, locale, date) {
 }
 
 /**
-formatDateLocal(format, locale, date)
+formatDate(format, locale, timezone, date)
+Formats `date`, an ISO string or number in seconds or a JS date object,
+to the format of the string `format`. The format string may contain the tokens:
+
+- `'YYYY'` years
+- `'YY'`   2-digit year
+- `'MM'`   month, 2-digit
+- `'MMM'`  month, 3-letter
+- `'MMMM'` month, full name
+- `'D'`    day of week
+- `'DD'`   day of week, two-digit
+- `'DDD'`  weekday, 3-letter
+- `'DDDD'` weekday, full name
+- `'hh'`   hours
+- `'mm'`   minutes
+- `'ss'`   seconds
+
+The `locale` string may be `'en'` or `'fr'`. The `'timezone'` parameter is
+either `'UTC'` or an IANA timezone such as '`Europe/Zurich`'
+([timezones on Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)).
+
+```
+const date = formatDate('YYYY', 'en', 'UTC', new Date());   // 2020
+```
 */
 
-function formatDateLocal(string, locale, date) {
+const formatDate = curry$1(function (format, locale, timezone, date) {
+	return format === 'ISO' ?
+		formatDateISO(parseDate(date)) :
+	timezone === 'local' ?
+		formatDateLocal(format, locale, date) :
+	_formatDate(format, timezone, locale, parseDate(date)) ;
+});
+
+/**
+formatDateLocal(format, locale, date)
+
+As `formatDate(date)`, but returns a date object with local time set to the
+result of the parse.
+**/
+
+function formatDateLocal(format, locale, date) {
 	var formatters = dateFormatters;
 	var lang = locale.slice(0, 2);
 
 	// Use date formatters to get time as current local time
-	return string.replace(rtoken, function($0) {
+	return format.replace(rtoken$1, function($0) {
 		return formatters[$0] ? formatters[$0](date, lang) : $0 ;
 	});
 }
@@ -3554,26 +3971,29 @@ function formatDateISO(date) {
 }
 
 
+
 // Time operations
 
 var days   = {
 	mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6, sun: 0
 };
 
-var dayMap = [6,0,1,2,3,4,5];
 
-/**
+
+/*
 toDay(date)
 Returns day of week as a number, where monday is `0`.
 */
+
+const dayMap = [6,0,1,2,3,4,5];
 
 function toDay(date) {
 	return dayMap[date.getDay()];
 }
 
-/**
+/*
 cloneDate(date)
-Returns new date object set to same time.
+Returns new date object set to same date.
 */
 
 function cloneDate(date) {
@@ -3586,7 +4006,7 @@ function addDateComponents(sign, yy, mm, dd, date) {
 	if (!mm) { return; }
 
 	// Adding and subtracting months can give weird results with the JS
-	// date object. For example, taking a montha way from 2018-03-31 results
+	// date object. For example, taking a month away from 2018-03-31 results
 	// in 2018-03-03 (or the 31st of February), whereas adding a month on to
 	// 2018-05-31 results in the 2018-07-01 (31st of June).
 	//
@@ -3744,7 +4164,8 @@ const diffDateDays = curry$1(_diffDateDays);
 
 /**
 floorDate(token, date)
-Floors date to the start of nearest calendar point in time indicated by `token`:
+Floors date to the start of nearest calendar point in increment indicated
+by `token`:
 
 - `'Y'`   Year
 - `'M'`   Month
@@ -3762,319 +4183,12 @@ Floors date to the start of nearest calendar point in time indicated by `token`:
 - `'sun'` Sunday
 
 ```
-const dayCounts = times.map(floorTime('days'));
+const dayCounts = times.map(floorDate('d'));
 ```
 */
 
 const floorDate = curry$1(function(token, date) {
 	return _floorDate(token, parseDate(date));
-});
-
-/**
-formatDate(locale, timezone, format, date)
-Formats `date` (a string or number or date accepted by `parseDate(date)`)
-to the format of the string `format`. The format string may contain the tokens:
-
-- `'YYYY'` years
-- `'YY'`   2-digit year
-- `'MM'`   month, 2-digit
-- `'MMM'`  month, 3-letter
-- `'MMMM'` month, full name
-- `'D'`    day of week
-- `'DD'`   day of week, two-digit
-- `'DDD'`  weekday, 3-letter
-- `'DDDD'` weekday, full name
-- `'hh'`   hours
-- `'mm'`   minutes
-- `'ss'`   seconds
-
-```
-const date = formatDate('en', '', 'YYYY', new Date());   // 2020
-```
-*/
-
-const formatDate = curry$1(function (timezone, locale, format, date) {
-	return format === 'ISO' ?
-		formatDateISO(parseDate(date)) :
-	timezone === 'local' ?
-		formatDateLocal(format, locale, date) :
-	_formatDate(format, timezone, locale, parseDate(date)) ;
-});
-
-
-// Time
-
-// Decimal places to round to when comparing times
-var precision = 9;
-function minutesToSeconds(n) { return n * 60; }
-function hoursToSeconds(n) { return n * 3600; }
-
-function secondsToMilliseconds(n) { return n * 1000; }
-function secondsToMinutes(n) { return n / 60; }
-function secondsToHours(n) { return n / 3600; }
-function secondsToDays(n) { return n / 86400; }
-function secondsToWeeks(n) { return n / 604800; }
-
-// Months and years are not fixed durations – these are approximate
-function secondsToMonths(n) { return n / 2629800; }
-function secondsToYears(n) { return n / 31557600; }
-
-
-function prefix(n) {
-	return n >= 10 ? '' : '0';
-}
-
-// Hours:   00-23 - 24 should be allowed according to spec
-// Minutes: 00-59 -
-// Seconds: 00-60 - 60 is allowed, denoting a leap second
-
-//                sign   hh       mm           ss
-var rtime     = /^([+-])?(\d{2,}):([0-5]\d)(?::((?:[0-5]\d|60)(?:.\d+)?))?$/;
-var rtimediff = /^([+-])?(\d{2,}):(\d{2,})(?::(\d{2,}(?:.\d+)?))?$/;
-
-/**
-parseTime(time)
-
-Where `time` is a string it is parsed as a time in ISO time format: as
-hours `'13'`, with minutes `'13:25'`, with seconds `'13:25:14'` or with
-decimal seconds `'13:25:14.001'`. Returns a number in seconds.
-
-```
-const time = parseTime('13:25:14.001');   // 48314.001
-```
-
-Where `time` is a number it is assumed to represent a time in seconds
-and is returned directly.
-
-```
-const time = parseTime(60);               // 60
-```
-*/
-
-const parseTime = overload(toType, {
-	number:  id,
-	string:  exec$1(rtime, createTime),
-	default: function(object) {
-		throw new Error('parseTime() does not accept objects of type ' + (typeof object));
-	}
-});
-
-var parseTimeDiff = overload(toType, {
-	number:  id,
-	string:  exec$1(rtimediff, createTime),
-	default: function(object) {
-		throw new Error('parseTime() does not accept objects of type ' + (typeof object));
-	}
-});
-
-var _floorTime = choose({
-	week:   function(time) { return time - mod(604800, time); },
-	day:    function(time) { return time - mod(86400, time); },
-	hour:   function(time) { return time - mod(3600, time); },
-	minute: function(time) { return time - mod(60, time); },
-	second: function(time) { return time - mod(1, time); }
-});
-
-
-function createTime(match, sign, hh, mm, sss) {
-	var time = hoursToSeconds(parseInt(hh, 10))
-        + (mm ? minutesToSeconds(parseInt(mm, 10))
-            + (sss ? parseFloat(sss, 10) : 0)
-        : 0) ;
-
-	return sign === '-' ? -time : time ;
-}
-
-function formatTimeString(string, time) {
-	return string.replace(rtoken, function($0) {
-		return timeFormatters[$0] ? timeFormatters[$0](time) : $0 ;
-	}) ;
-}
-
-function _formatTimeISO(time) {
-	var sign = time < 0 ? '-' : '' ;
-
-	if (time < 0) { time = -time; }
-
-	var hours = Math.floor(time / 3600);
-	var hh = prefix(hours) + hours ;
-	time = time % 3600;
-	if (time === 0) { return sign + hh + ':00'; }
-
-	var minutes = Math.floor(time / 60);
-	var mm = prefix(minutes) + minutes ;
-	time = time % 60;
-	if (time === 0) { return sign + hh + ':' + mm; }
-
-	var sss = prefix(time) + toMaxDecimals(precision, time);
-	return sign + hh + ':' + mm + ':' + sss;
-}
-
-function toMaxDecimals(precision, n) {
-	// Make some effort to keep rounding errors under control by fixing
-	// decimals and lopping off trailing zeros
-	return n.toFixed(precision).replace(/\.?0+$/, '');
-}
-
-/**
-formatTime(format, time)
-Formats `time` (an 'hh:mm:sss' time string or a number in seconds) to match
-`format`, a string that may contain the tokens:
-
-- `'±'`   Sign, renders '-' if time is negative, otherwise nothing
-- `'Y'`   Years, approx.
-- `'M'`   Months, approx.
-- `'MM'`  Months, remainder from years (max 12), approx.
-- `'w'`   Weeks
-- `'ww'`  Weeks, remainder from months (max 4)
-- `'d'`   Days
-- `'dd'`  Days, remainder from weeks (max 7)
-- `'h'`   Hours
-- `'hh'`  Hours, remainder from days (max 24), 2-digit format
-- `'m'`   Minutes
-- `'mm'`  Minutes, remainder from hours (max 60), 2-digit format
-- `'s'`   Seconds
-- `'ss'`  Seconds, remainder from minutes (max 60), 2-digit format
-- `'sss'` Seconds, remainder from minutes (max 60), fractional
-- `'ms'`  Milliseconds, remainder from seconds (max 1000), 3-digit format
-
-```
-const time = formatTime('±hh:mm:ss', 3600);   // 01:00:00
-```
-*/
-
-var timeFormatters = {
-	'±': function sign(time) {
-		return time < 0 ? '-' : '';
-	},
-
-	Y: function Y(time) {
-		time = time < 0 ? -time : time;
-		return Math.floor(secondsToYears(time));
-	},
-
-	M: function M(time) {
-		time = time < 0 ? -time : time;
-		return Math.floor(secondsToMonths(time));
-	},
-
-	MM: function MM(time) {
-		time = time < 0 ? -time : time;
-		return Math.floor(secondsToMonths(time % 31557600));
-	},
-
-	W: function W(time) {
-		time = time < 0 ? -time : time;
-		return Math.floor(secondsToWeeks(time));
-	},
-
-	WW: function WW(time) {
-		time = time < 0 ? -time : time;
-		return Math.floor(secondsToDays(time % 2629800));
-	},
-
-	d: function dd(time) {
-		time = time < 0 ? -time : time;
-		return Math.floor(secondsToDays(time));
-	},
-
-	dd: function dd(time) {
-		time = time < 0 ? -time : time;
-		return Math.floor(secondsToDays(time % 604800));
-	},
-
-	h: function hhh(time) {
-		time = time < 0 ? -time : time;
-		return Math.floor(secondsToHours(time));
-	},
-
-	hh: function hh(time) {
-		time = time < 0 ? -time : time;
-		var hours = Math.floor(secondsToHours(time % 86400));
-		return prefix(hours) + hours;
-	},
-
-	m: function mm(time) {
-		time = time < 0 ? -time : time;
-		var minutes = Math.floor(secondsToMinutes(time));
-		return prefix(minutes) + minutes;
-	},
-
-	mm: function mm(time) {
-		time = time < 0 ? -time : time;
-		var minutes = Math.floor(secondsToMinutes(time % 3600));
-		return prefix(minutes) + minutes;
-	},
-
-	s: function s(time) {
-		time = time < 0 ? -time : time;
-		return Math.floor(time);
-	},
-
-	ss: function ss(time) {
-		time = time < 0 ? -time : time;
-		var seconds = Math.floor(time % 60);
-		return prefix(seconds) + seconds;
-	},
-
-	sss: function sss(time) {
-		time = time < 0 ? -time : time;
-		var seconds = time % 60;
-		return prefix(seconds) + toMaxDecimals(precision, seconds);
-	},
-
-	ms: function ms(time) {
-		time = time < 0 ? -time : time;
-		var ms = Math.floor(secondsToMilliseconds(time % 1));
-		return ms >= 100 ? ms :
-			ms >= 10 ? '0' + ms :
-				'00' + ms;
-	}
-};
-
-const formatTime = curry$1(function(string, time) {
-	return string === 'ISO' ?
-		_formatTimeISO(parseTime(time)) :
-		formatTimeString(string, parseTime(time)) ;
-});
-
-/**
-addTime(time1, time2)
-Sums `time2` and `time1`, returning UNIX time as a number in seconds.
-If `time1` is a string, it is parsed as a duration, where numbers
-are accepted outside the bounds of 0-24 hours or 0-60 minutes or seconds.
-For example, to add 72 minutes to a list of times:
-
-```
-const laters = times.map(addTime('00:72'));
-```
-*/
-
-const addTime = curry$1(function(time1, time2) {
-	return parseTime(time2) + parseTimeDiff(time1);
-});
-
-const subTime = curry$1(function(time1, time2) {
-	return parseTime(time2) - parseTimeDiff(time1);
-});
-
-const diffTime = curry$1(function(time1, time2) {
-	return parseTime(time1) - parseTime(time2);
-});
-
-/**
-floorTime(token, time)
-Floors `time` to the nearest `token`, where `token` is one of: `'week'`, `'day'`,
-`'hour'`, `'minute'` or `'second'`. `time` may be an ISO time string or a time
-in seconds. Returns a time in seconds.
-
-```
-const hourCounts = times.map(floorTime('hour'));
-```
-*/
-
-const floorTime = curry$1(function(token, time) {
-	return _floorTime(token, parseTime(time));
 });
 
 var rcomment = /\s*\/\*([\s\S]*)\*\/\s*/;
@@ -4564,6 +4678,186 @@ var features = define$1({
 });
 
 /**
+assign(node, properties)
+
+Assigns each property of `properties` to `node`, as a property where that
+property exists in `node`, otherwise as an attribute.
+
+If `properties` has a property `'children'` it must be an array of nodes;
+they are appended to 'node'.
+
+The property `'html'` is treated as an alias of `'innerHTML'`. The property
+`'tag'` is treated as an alias of `'tagName'` (which is ignored, as
+`node.tagName` is read-only). The property `'is'` is also ignored.
+*/
+
+const assignProperty = overload(id, {
+	// Ignore read-only properties or attributes
+	is: noop,
+	tag: noop,
+
+	html: function(name, node, content) {
+		node.innerHTML = content;
+	},
+
+	children: function(name, node, content) {
+		// Empty the node and append children
+		node.innerHTML = '';
+		content.forEach((child) => { node.appendChild(child); });
+	},
+
+	// SVG points property must be set as string attribute - SVG elements
+	// have a read-only API exposed at .points
+	points: setAttribute,
+
+	default: function(name, node, content) {
+		if (name in node) {
+			node[name] = content;
+		}
+		else {
+			node.setAttribute(name, content);
+		}
+	}
+});
+
+function setAttribute(name, node, content) {
+	node.setAttribute(name, content);
+}
+
+function assign$4(node, attributes) {
+	var names = Object.keys(attributes);
+	var n = names.length;
+
+	while (n--) {
+		assignProperty(names[n], node, attributes[names[n]]);
+	}
+
+	return node;
+}
+
+var assign$5 = curry$1(assign$4, true);
+
+const svgNamespace = 'http://www.w3.org/2000/svg';
+const div = document.createElement('div');
+
+
+// Constructors
+
+const construct = overload(id, {
+    comment: function(tag, text) {
+        return document.createComment(text || '');
+    },
+
+    fragment: function(tag, html) {
+        var fragment = document.createDocumentFragment();
+
+        if (html) {
+            div.innerHTML = html;
+            const nodes = div.childNodes;
+            while (nodes[0]) {
+                fragment.appendChild(nodes[0]);
+            }
+        }
+
+        return fragment;
+    },
+
+    text: function (tag, text) {
+        return document.createTextNode(text || '');
+    },
+
+    circle:   constructSVG,
+    ellipse:  constructSVG,
+    g:        constructSVG,
+    glyph:    constructSVG,
+    image:    constructSVG,
+    line:     constructSVG,
+    rect:     constructSVG,
+    use:      constructSVG,
+    path:     constructSVG,
+    pattern:  constructSVG,
+    polygon:  constructSVG,
+    polyline: constructSVG,
+    svg:      constructSVG,
+    default:  constructHTML
+});
+
+function constructSVG(tag, html) {
+    var node = document.createElementNS(svgNamespace, tag);
+
+    if (html) {
+        node.innerHTML = html;
+    }
+
+    return node;
+}
+
+function constructHTML(tag, html) {
+    var node = document.createElement(tag);
+
+    if (html) {
+        node.innerHTML = html;
+    }
+
+    return node;
+}
+
+
+/**
+create(tag, content)
+
+Constructs and returns a new DOM node.
+
+- If `tag` is `"text"` a text node is created.
+- If `tag` is `"fragment"` a fragment is created.
+- If `tag` is `"comment"` a comment is created.
+- If `tag` is any other string the element `<tag></tag>` is created.
+- Where `tag` is an object, it must have a `"tag"` or `"tagName"` property.
+A node is created according to the above rules for tag strings, and other
+properties of the object are assigned with dom's `assign(node, object)` function.
+
+If `content` is a string it is set as text content on a text or comment node,
+or as inner HTML on an element or fragment. It may also be an object of
+properties which are assigned with dom's `assign(node, properties)` function.
+*/
+
+function toTypes() {
+    return Array.prototype.map.call(arguments, toType).join(' ');
+}
+
+function validateTag(tag) {
+    if (typeof tag !== 'string') {
+        throw new Error('create(object, content) object must have string property .tag or .tagName');
+    }
+}
+
+var create$1 = overload(toTypes, {
+    'string string': construct,
+
+    'string object': function(tag, content) {
+        return assign$5(construct(tag, ''), content);
+    },
+
+    'object string': function(properties, text) {
+        const tag = properties.tag || properties.tagName;
+        validateTag(tag);
+        // Warning: text is set before properties, but text should override
+        // html or innerHTML property, ie, be set after.
+        return assign$5(construct(tag, text), properties);
+    },
+
+    'object object': function(properties, content) {
+        const tag = properties.tag || properties.tagName;
+        validateTag(tag);
+        return assign$5(assign$5(construct(tag, ''), properties), content);
+    },
+
+    default: function() {
+        throw new Error('create(tag, content) does not accept argument types "' + Array.prototype.map.apply(arguments, toType).join(' ') + '"');
+    }
+});
+
+/**
 escape(string)
 Escapes `string` for setting safely as HTML.
 */
@@ -4715,64 +5009,6 @@ function children(node) {
 }
 
 /**
-assign(node, properties)
-
-Assigns each property of `properties` to `node`, as a property where that
-property exists in `node`, otherwise as an attribute.
-
-If `properties` has a property `'children'` it must be an array of nodes;
-they are appended to 'node'.
-
-The property `'html'` is treated as an alias of `'innerHTML'`. The property
-`'tag'` is treated as an alias of `'tagName'` (which is ignored, as
-`node.tagName` is read-only). The property `'is'` is also ignored.
-*/
-
-const assignProperty = overload(id, {
-	// Ignore read-only properties or attributes
-	is: noop,
-	tag: noop,
-
-	html: function(name, node, content) {
-		node.innerHTML = content;
-	},
-
-	children: function(name, node, content) {
-		// Empty the node and append children
-		node.innerHTML = '';
-		content.forEach((child) => { node.appendChild(child); });
-	},
-
-	// SVG points property must be set as string attribute - SVG elements
-	// have a read-only API exposed at .points
-	points: setAttribute,
-
-	default: function(name, node, content) {
-		if (name in node) {
-			node[name] = content;
-		}
-		else {
-			node.setAttribute(name, content);
-		}
-	}
-});
-
-function setAttribute(name, node, content) {
-	node.setAttribute(name, content);
-}
-
-function assign$4(node, attributes) {
-	var names = Object.keys(attributes);
-	var n = names.length;
-
-	while (n--) {
-		assignProperty(names[n], node, attributes[names[n]]);
-	}
-}
-
-var assign$5 = curry$1(assign$4, true);
-
-/**
 append(target, node)
 
 Appends `node`, which may be a string or DOM node, to `target`. Returns `node`.
@@ -4836,126 +5072,6 @@ features.textareaPlaceholderSet ?
 
 		return clone;
 	} ;
-
-const svgNamespace = 'http://www.w3.org/2000/svg';
-const div = document.createElement('div');
-
-
-// Constructors
-
-const construct = overload(id, {
-	comment: function(tag, text) {
-		return document.createComment(text || '');
-	},
-
-	fragment: function(tag, html) {
-		var fragment = document.createDocumentFragment();
-
-		if (html) {
-			div.innerHTML = html;
-			const nodes = div.childNodes;
-			while (nodes[0]) {
-				fragment.appendChild(nodes[0]);
-			}
-		}
-
-		return fragment;
-	},
-
-	text: function (tag, text) {
-		return document.createTextNode(text || '');
-	},
-
-	circle:   constructSVG,
-	ellipse:  constructSVG,
-	g:        constructSVG,
-	glyph:    constructSVG,
-	image:    constructSVG,
-	line:     constructSVG,
-	rect:     constructSVG,
-	use:      constructSVG,
-	path:     constructSVG,
-	pattern:  constructSVG,
-	polygon:  constructSVG,
-	polyline: constructSVG,
-	svg:      constructSVG,
-	default:  constructHTML
-});
-
-function constructSVG(tag, html) {
-	var node = document.createElementNS(svgNamespace, tag);
-
-	if (html) {
-		node.innerHTML = html;
-	}
-
-	return node;
-}
-
-function constructHTML(tag, html) {
-	var node = document.createElement(tag);
-
-	if (html) {
-		node.innerHTML = html;
-	}
-
-	return node;
-}
-
-
-/**
-create(tag, content)
-
-Constructs and returns a new DOM node.
-
-- If `tag` is `"text"` a text node is created.
-- If `tag` is `"fragment"` a fragment is created.
-- If `tag` is `"comment"` a comment is created.
-- If `tag` is any other string the element `<tag></tag>` is created.
-- Where `tag` is an object, it must have a `"tag"` or `"tagName"` property.
-A node is created according to the above rules for tag strings, and other
-properties of the object are assigned with dom's `assign(node, object)` function.
-
-If `content` is a string it is set as text content on a text or comment node,
-or as inner HTML on an element or fragment. It may also be an object of
-properties which are assigned with dom's `assign(node, properties)` function.
-*/
-
-function toTypes() {
-	return Array.prototype.map.call(arguments, toType).join(' ');
-}
-
-function validateTag(tag) {
-	if (typeof tag !== 'string') {
-		throw new Error('create(object, content) object must have string property .tag or .tagName');
-	}
-}
-
-var create$1 = overload(toTypes, {
-	'string string': construct,
-
-	'string object': function(tag, content) {
-		return assign$5(construct(tag, ''), content);
-	},
-
-	'object string': function(properties, text) {
-		const tag = properties.tag || properties.tagName;
-		validateTag(tag);
-		// Warning: text is set before properties, but text should override
-		// html or innerHTML property, ie, be set after.
-		return assign$5(construct(tag, text), properties);
-	},
-
-	'object object': function(properties, content) {
-		const tag = properties.tag || properties.tagName;
-		validateTag(tag);
-		return assign$5(assign$5(construct(tag, ''), properties), content);
-	},
-
-	default: function() {
-		throw new Error('create(tag, content) does not accept argument types "' + Array.prototype.map.apply(arguments, toType).join(' ') + '"');
-	}
-});
 
 /**
 identify(node)
@@ -5388,313 +5504,313 @@ function trigger(node, type, properties) {
 }
 
 const config = {
-	// Number of pixels, or string CSS length, that a pressed pointer travels
-	// before gesture is started.
-	threshold: 4,
+    // Number of pixels, or string CSS length, that a pressed pointer travels
+    // before gesture is started.
+    threshold: 4,
 
-	ignoreTags: {
-		textarea: true,
-		input: true,
-		select: true,
-		button: true
-	}
+    ignoreTags: {
+        textarea: true,
+        input: true,
+        select: true,
+        button: true
+    }
 };
 
 var mouseevents = {
-	move:   'mousemove',
-	cancel: 'mouseup dragstart',
-	end:    'mouseup'
+    move:   'mousemove',
+    cancel: 'mouseup dragstart',
+    end:    'mouseup'
 };
 
 var touchevents = {
-	// Todo: why do we need passive: false? On iOS scrolling can be blocked with
-	// touch-action: none... do we want to block on any arbitrary thing that we
-	// gesture on or leave it to be explicitly set in CSS?
-	move:   { type: 'touchmove', passive: false },
-	cancel: 'touchend',
-	end:    'touchend'
+    // Todo: why do we need passive: false? On iOS scrolling can be blocked with
+    // touch-action: none... do we want to block on any arbitrary thing that we
+    // gesture on or leave it to be explicitly set in CSS?
+    move:   { type: 'touchmove', passive: false },
+    cancel: 'touchend',
+    end:    'touchend'
 };
 
 const assign$8 = Object.assign;
 
 function isIgnoreTag(e) {
-	var tag = e.target.tagName;
-	return tag && !!config.ignoreTags[tag.toLowerCase()];
+    var tag = e.target.tagName;
+    return tag && !!config.ignoreTags[tag.toLowerCase()];
 }
 
 function identifiedTouch(touchList, id) {
-	var i, l;
+    var i, l;
 
-	if (touchList.identifiedTouch) {
-		return touchList.identifiedTouch(id);
-	}
+    if (touchList.identifiedTouch) {
+        return touchList.identifiedTouch(id);
+    }
 
-	// touchList.identifiedTouch() does not exist in
-	// webkit yet… we must do the search ourselves...
+    // touchList.identifiedTouch() does not exist in
+    // webkit yet… we must do the search ourselves...
 
-	i = -1;
-	l = touchList.length;
+    i = -1;
+    l = touchList.length;
 
-	while (++i < l) {
-		if (touchList[i].identifier === id) {
-			return touchList[i];
-		}
-	}
+    while (++i < l) {
+        if (touchList[i].identifier === id) {
+            return touchList[i];
+        }
+    }
 }
 
 function changedTouch(e, data) {
-	var touch = identifiedTouch(e.changedTouches, data.identifier);
+    var touch = identifiedTouch(e.changedTouches, data.identifier);
 
-	// This isn't the touch you're looking for.
-	if (!touch) { return; }
+    // This isn't the touch you're looking for.
+    if (!touch) { return; }
 
-	// Chrome Android (at least) includes touches that have not
-	// changed in e.changedTouches. That's a bit annoying. Check
-	// that this touch has changed.
-	if (touch.clientX === data.clientX && touch.clientY === data.clientY) { return; }
+    // Chrome Android (at least) includes touches that have not
+    // changed in e.changedTouches. That's a bit annoying. Check
+    // that this touch has changed.
+    if (touch.clientX === data.clientX && touch.clientY === data.clientY) { return; }
 
-	return touch;
+    return touch;
 }
 
 function preventOne(e) {
-	e.preventDefault();
-	e.currentTarget.removeEventListener(e.type, preventOne);
+    e.preventDefault();
+    e.currentTarget.removeEventListener(e.type, preventOne);
 }
 
 function preventOneClick(e) {
-	e.currentTarget.addEventListener('click', preventOne);
+    e.currentTarget.addEventListener('click', preventOne);
 }
 
 
 // Handlers that decide when the first movestart is triggered
 
 function mousedown(e, push, options) {
-	// Ignore non-primary buttons
-	if (!isPrimaryButton(e)) { return; }
+    // Ignore non-primary buttons
+    if (!isPrimaryButton(e)) { return; }
 
-	// Ignore form and interactive elements
-	if (isIgnoreTag(e)) { return; }
+    // Ignore form and interactive elements
+    if (isIgnoreTag(e)) { return; }
 
-	// Check target matches selector
-	if (options.selector && !e.target.closest(options.selector)) { return; }
+    // Check target matches selector
+    if (options.selector && !e.target.closest(options.selector)) { return; }
 
-	on(document, mouseevents.move, mousemove, [e], push, options);
-	on(document, mouseevents.cancel, mouseend, [e]);
+    on(document, mouseevents.move, mousemove, [e], push, options);
+    on(document, mouseevents.cancel, mouseend, [e]);
 }
 
 function mousemove(e, events, push, options){
-	events.push(e);
-	checkThreshold(e, events, e, removeMouse, push, options);
+    events.push(e);
+    checkThreshold(e, events, e, removeMouse, push, options);
 }
 
 function mouseend(e, data) {
-	removeMouse();
+    removeMouse();
 }
 
 function removeMouse() {
-	off(document, mouseevents.move, mousemove);
-	off(document, mouseevents.cancel, mouseend);
+    off(document, mouseevents.move, mousemove);
+    off(document, mouseevents.cancel, mouseend);
 }
 
 function touchstart(e, push, options) {
-	// Ignore form and interactive elements
-	if (isIgnoreTag(e)) { return; }
+    // Ignore form and interactive elements
+    if (isIgnoreTag(e)) { return; }
 
-	// Check target matches selector
-	if (options.selector && !e.target.closest(options.selector)) { return; }
+    // Check target matches selector
+    if (options.selector && !e.target.closest(options.selector)) { return; }
 
-	var touch = e.changedTouches[0];
+    var touch = e.changedTouches[0];
 
-	// iOS live updates the touch objects whereas Android gives us copies.
-	// That means we can't trust the touchstart object to stay the same,
-	// so we must copy the data. This object acts as a template for
-	// movestart, move and moveend event objects.
-	var event = {
-		target:     touch.target,
-		clientX:      touch.clientX,
-		clientY:      touch.clientY,
-		identifier: touch.identifier,
+    // iOS live updates the touch objects whereas Android gives us copies.
+    // That means we can't trust the touchstart object to stay the same,
+    // so we must copy the data. This object acts as a template for
+    // movestart, move and moveend event objects.
+    var event = {
+        target:     touch.target,
+        clientX:      touch.clientX,
+        clientY:      touch.clientY,
+        identifier: touch.identifier,
 
-		// The only way to make handlers individually unbindable is by
-		// making them unique. This is a crap place to put them, but it
-		// will work.
-		touchmove:  function() { touchmove.apply(this, arguments); },
-		touchend:   function() { touchend.apply(this, arguments); }
-	};
+        // The only way to make handlers individually unbindable is by
+        // making them unique. This is a crap place to put them, but it
+        // will work.
+        touchmove:  function() { touchmove.apply(this, arguments); },
+        touchend:   function() { touchend.apply(this, arguments); }
+    };
 
-	on(document, touchevents.move, event.touchmove, [event], push, options);
-	on(document, touchevents.cancel, event.touchend, [event]);
+    on(document, touchevents.move, event.touchmove, [event], push, options);
+    on(document, touchevents.cancel, event.touchend, [event]);
 }
 
 function touchmove(e, events, push, options) {
-	var touch = changedTouch(e, events[0]);
-	if (!touch) { return; }
-	checkThreshold(e, events, touch, removeTouch, push, options);
+    var touch = changedTouch(e, events[0]);
+    if (!touch) { return; }
+    checkThreshold(e, events, touch, removeTouch, push, options);
 }
 
 function touchend(e, events) {
-	var touch = identifiedTouch(e.changedTouches, events[0].identifier);
-	if (!touch) { return; }
-	removeTouch(events);
+    var touch = identifiedTouch(e.changedTouches, events[0].identifier);
+    if (!touch) { return; }
+    removeTouch(events);
 }
 
 function removeTouch(events) {
-	off(document, touchevents.move, events[0].touchmove);
-	off(document, touchevents.cancel, events[0].touchend);
+    off(document, touchevents.move, events[0].touchmove);
+    off(document, touchevents.cancel, events[0].touchend);
 }
 
 function checkThreshold(e, events, touch, removeHandlers, push, options) {
-	var distX = touch.clientX - events[0].clientX;
-	var distY = touch.clientY - events[0].clientY;
-	var threshold = parseValue(options.threshold);
+    var distX = touch.clientX - events[0].clientX;
+    var distY = touch.clientY - events[0].clientY;
+    var threshold = parseValue(options.threshold);
 
-	// Do nothing if the threshold has not been crossed.
-	if ((distX * distX) + (distY * distY) < (threshold * threshold)) {
-		return;
-	}
+    // Do nothing if the threshold has not been crossed.
+    if ((distX * distX) + (distY * distY) < (threshold * threshold)) {
+        return;
+    }
 
-	var node = events[0].target;
+    var node = events[0].target;
 
-	// Unbind handlers that tracked the touch or mouse up till now.
-	removeHandlers(events);
-	push(touches(node, events));
+    // Unbind handlers that tracked the touch or mouse up till now.
+    removeHandlers(events);
+    push(touches(node, events));
 }
 
 
 // Handlers that control what happens following a movestart
 
 function activeMousemove(e, data, push) {
-	data.touch = e;
-	data.timeStamp = e.timeStamp;
-	push(e);
+    data.touch = e;
+    data.timeStamp = e.timeStamp;
+    push(e);
 }
 
 function activeMouseend(e, data, stop) {
-	removeActiveMouse();
-	stop();
+    removeActiveMouse();
+    stop();
 }
 
 function removeActiveMouse() {
-	off(document, mouseevents.end, preventOneClick);
-	off(document, mouseevents.move, activeMousemove);
-	off(document, mouseevents.cancel, activeMouseend);
+    off(document, mouseevents.end, preventOneClick);
+    off(document, mouseevents.move, activeMousemove);
+    off(document, mouseevents.cancel, activeMouseend);
 }
 
 function activeTouchmove(e, data, push) {
-	var touch = changedTouch(e, data);
+    var touch = changedTouch(e, data);
 
-	if (!touch) { return; }
+    if (!touch) { return; }
 
-	// Stop the interface from scrolling
-	e.preventDefault();
+    // Stop the interface from scrolling
+    e.preventDefault();
 
-	data.touch = touch;
-	data.timeStamp = e.timeStamp;
-	push(touch);
+    data.touch = touch;
+    data.timeStamp = e.timeStamp;
+    push(touch);
 }
 
 function activeTouchend(e, data, stop) {
-	var touch  = identifiedTouch(e.changedTouches, data.identifier);
+    var touch  = identifiedTouch(e.changedTouches, data.identifier);
 
-	// This isn't the touch you're looking for.
-	if (!touch) { return; }
-	removeActiveTouch(data);
-	stop();
+    // This isn't the touch you're looking for.
+    if (!touch) { return; }
+    removeActiveTouch(data);
+    stop();
 }
 
 function removeActiveTouch(data) {
-	off(document, touchevents.move, data.activeTouchmove);
-	off(document, touchevents.end, data.activeTouchend);
+    off(document, touchevents.move, data.activeTouchmove);
+    off(document, touchevents.end, data.activeTouchend);
 }
 
 function touches(node, events) {
-	return events[0].identifier === undefined ?
-		Stream$1(function MouseSource(push, stop) {
-			var data = {
-				target: node,
-				touch: undefined
-			};
+    return events[0].identifier === undefined ?
+        Stream$1(function MouseSource(push, stop) {
+            var data = {
+                target: node,
+                touch: undefined
+            };
 
-			// Todo: Should Stream, perhaps, take { buffer } as a source
-			// property, allowing us to return any old buffer (as long as
-			// it has .shift())? Or are we happy pushing in, which causes
-			// a bit of internal complexity in Stream?
-			push.apply(null, events);
+            // Todo: Should Stream, perhaps, take { buffer } as a source
+            // property, allowing us to return any old buffer (as long as
+            // it has .shift())? Or are we happy pushing in, which causes
+            // a bit of internal complexity in Stream?
+            push.apply(null, events);
 
-			// We're dealing with a mouse event.
-			// Stop click from propagating at the end of a move
-			on(document, mouseevents.end, preventOneClick);
-			on(document, mouseevents.move, activeMousemove, data, push);
-			on(document, mouseevents.cancel, activeMouseend, data, stop);
+            // We're dealing with a mouse event.
+            // Stop click from propagating at the end of a move
+            on(document, mouseevents.end, preventOneClick);
+            on(document, mouseevents.move, activeMousemove, data, push);
+            on(document, mouseevents.cancel, activeMouseend, data, stop);
 
-			return {
-				stop: function() {
-					removeActiveMouse();
-					stop();
-				}
-			};
-		}):
+            return {
+                stop: function() {
+                    removeActiveMouse();
+                    stop();
+                }
+            };
+        }):
 
-		Stream$1(function TouchSource(push, stop) {
-			var data = {
-				target: node,
-				touch: undefined,
-				identifier: events[0].identifier
-			};
+        Stream$1(function TouchSource(push, stop) {
+            var data = {
+                target: node,
+                touch: undefined,
+                identifier: events[0].identifier
+            };
 
-			push.apply(null, events);
+            push.apply(null, events);
 
-			// Track a touch
-			// In order to unbind correct handlers they have to be unique
-			data.activeTouchmove = function (e) { activeTouchmove(e, data, push); };
-			data.activeTouchend = function (e) { activeTouchend(e, data, stop); };
+            // Track a touch
+            // In order to unbind correct handlers they have to be unique
+            data.activeTouchmove = function (e) { activeTouchmove(e, data, push); };
+            data.activeTouchend = function (e) { activeTouchend(e, data, stop); };
 
-			// We're dealing with a touch.
-			on(document, touchevents.move, data.activeTouchmove);
-			on(document, touchevents.end, data.activeTouchend);
+            // We're dealing with a touch.
+            on(document, touchevents.move, data.activeTouchmove);
+            on(document, touchevents.end, data.activeTouchend);
 
-			return {
-				stop: function () {
-					removeActiveTouch(data);
-					stop();
-				}
-			};
-		});
+            return {
+                stop: function () {
+                    removeActiveTouch(data);
+                    stop();
+                }
+            };
+        });
 }
 
 function gestures(options, node) {
-	// Support legacy signature gestures(node)
-	if (!node) {
-		console.trace('Deprecated gestures(node), now gestures(options, node)');
-	}
+    // Support legacy signature gestures(node)
+    if (!node) {
+        console.trace('Deprecated gestures(node), now gestures(options, node)');
+    }
 
-	options = node ?
-		options ? assign$8({}, config, options) : config :
-		config ;
-	node = node ?
-		node :
-		options ;
+    options = node ?
+        options ? assign$8({}, config, options) : config :
+        config ;
+    node = node ?
+        node :
+        options ;
 
-	return new Stream$1(function(push, stop) {
-		function mouseHandler(e) {
-			mousedown(e, push, options);
-		}
+    return new Stream$1(function(push, stop) {
+        function mouseHandler(e) {
+            mousedown(e, push, options);
+        }
 
-		function touchHandler(e) {
-			touchstart(e, push, options);
-		}
+        function touchHandler(e) {
+            touchstart(e, push, options);
+        }
 
-		on(node, 'mousedown', mouseHandler);
-		on(node, 'touchstart', touchHandler);
+        on(node, 'mousedown', mouseHandler);
+        on(node, 'touchstart', touchHandler);
 
-		return {
-			stop: function() {
-				off(node, 'mousedown', mouseHandler);
-				off(node, 'touchstart', touchHandler);
-				stop();
-			}
-		};
-	});
+        return {
+            stop: function() {
+                off(node, 'mousedown', mouseHandler);
+                off(node, 'touchstart', touchHandler);
+                stop();
+            }
+        };
+    });
 }
 
 // trigger('type', node)
@@ -6477,19 +6593,19 @@ const config$3 = {
 
 let cancel = noop;
 
-function scrollToNode(target, behavior) {
-    const scrollPaddingTop = parseInt(getComputedStyle(document.documentElement).scrollPaddingTop, 10);
-    const coords = offset$1(document.scrollingElement, target);
-    const scrollHeight = document.scrollingElement.scrollHeight;
-    const scrollBoxHeight = document.scrollingElement === document.body ?
+function scrollToNode(target, scrollParent, behavior) {
+    const scrollPaddingTop = parseInt(getComputedStyle(scrollParent).scrollPaddingTop, 10);
+    const coords = offset$1(scrollParent, target);
+    const scrollHeight = scrollParent.scrollHeight;
+    const scrollBoxHeight = scrollParent === document.body ?
         // We cannot gaurantee that body height is 100%. Use the window
         // innerHeight instead.
         window.innerHeight :
-        rect(document.scrollingElement).height ;
+        rect(scrollParent).height ;
 
     const top = (coords[1] - scrollPaddingTop) > (scrollHeight - scrollBoxHeight) ?
         scrollHeight - scrollBoxHeight :
-        (coords[1] - scrollPaddingTop) ;
+        (scrollParent.scrollTop + coords[1] - scrollPaddingTop) ;
 
     cancel();
 
@@ -6502,18 +6618,20 @@ function scrollToNode(target, behavior) {
     if (behavior === 'smooth') {
         const scrollDuration = config$3.scrollDuration
             + config$3.scrollDurationPerHeight
-            * Math.abs(scrollTop - document.scrollingElement.scrollTop)
+            * Math.abs(scrollTop - scrollParent.scrollTop)
             / scrollBoxHeight ;
 
-        cancel = animate$1(scrollDuration, config$3.scrollTransform, 'scrollTop', document.scrollingElement, scrollTop);
+        cancel = animate$1(scrollDuration, config$3.scrollTransform, 'scrollTop', scrollParent, scrollTop);
     }
     else {
-        document.scrollingElement.scrollTop = scrollTop ;
+        scrollParent.scrollTop = scrollTop ;
     }
 }
 
 if (!features.scrollBehavior) {
-    // Get the methoid from HTMLElement - in some browsers it is here rather
+    console.log('Polyfilling Element.scrollIntoView(options).');
+
+    // Get the method from HTMLElement - in some browsers it is here rather
     // than on Element
     const constructor    = 'scrollIntoView' in Element.prototype ? Element : HTMLElement ;
     const scrollIntoView = constructor.scrollIntoView;
@@ -6528,7 +6646,20 @@ if (!features.scrollBehavior) {
                 console.warn('Element.scrollIntoView polyfill does not support options.inline... add support!');
             }
 
-            scrollToNode(this, options.behavior);
+            let scrollParent = this;
+
+            while((scrollParent = scrollParent.parentNode)) {
+                if (scrollParent === document.body || scrollParent === document.documentElement) {
+                    scrollParent = document.scrollingElement;
+                    break;
+                }
+
+                if (scrollParent.scrollHeight > scrollParent.clientHeight) {
+                    break;
+                }
+            }
+
+            scrollToNode(this, scrollParent, options.behavior);
         }
         else {
             scrollIntoView.apply(this, arguments);
@@ -6549,10 +6680,11 @@ const config$4 = {
     scrollIdleDuration: 0.18
 };
 
-let hashTime     = -Infinity;
+let hashTime     = 0;
 let frameTime    = -Infinity;
+let scrollLeft   = document.scrollingElement.scrollLeft;
 let scrollTop$1    = document.scrollingElement.scrollTop;
-let locateables, locatedNode, scrollPaddingTop, frame;
+let locateables, locatedNode, scrollPaddingLeft, scrollPaddingTop, frame;
 
 
 function queryLinks(id) {
@@ -6587,7 +6719,8 @@ function update$3(time) {
     // Update things that rarely change only when we have not updated recently
     if (frameTime < time - config$4.scrollIdleDuration * 1000) {
         locateables = query(selector, document);
-        scrollPaddingTop = parseInt(getComputedStyle(document.documentElement).scrollPaddingTop, 10);
+        scrollPaddingLeft = parseInt(getComputedStyle(document.documentElement).scrollPaddingLeft, 10);
+        scrollPaddingTop  = parseInt(getComputedStyle(document.documentElement).scrollPaddingTop, 10);
     }
 
     frameTime = time;
@@ -6624,15 +6757,17 @@ function update$3(time) {
     unlocate();
     locate(node);
     window.history.replaceState(nothing$3, '', '#' + node.id);
+    trigger$2('hashchange', window);
 }
 
 function scroll$1(e) {
 
-    const aMomentAgo = e.timeStamp - config$4.scrollIdleDuration * 1000;
-
     // Keep a record of scrollTop in order to restore it in Safari,
     // where popstate and hashchange are preceeded by a scroll jump
-    scrollTop$1 = document.scrollingElement.scrollTop;
+    scrollLeft = document.scrollingElement.scrollLeft;
+    scrollTop$1  = document.scrollingElement.scrollTop;
+
+    const aMomentAgo = e.timeStamp - config$4.scrollIdleDuration * 1000;
 
     // For a moment after the last hashchange dont update while
     // smooth scrolling settles to the right place.
@@ -6649,6 +6784,111 @@ function scroll$1(e) {
     frame = requestAnimationFrame(update$3);
 }
 
+const store$1 = weakCache(function(node) {
+    return {
+        node: node
+    };
+});
+
+function updateElement(time, data) {
+    data.frame = undefined;
+
+    // Update things that rarely change only when we have not updated recently
+    if (frameTime < time - config$4.scrollIdleDuration * 1000) {
+        data.box               = rect(data.node);
+        data.locateables       = query(selector, data.node);
+
+        // scrollPaddingN may compute to "auto", which parses as NaN.
+        // Default to 0.
+        data.scrollPaddingLeft = parseInt(getComputedStyle(data.node).scrollPaddingLeft, 10) || 0;
+        data.scrollPaddingTop  = parseInt(getComputedStyle(data.node).scrollPaddingTop, 10) || 0;
+    }
+
+    frameTime = time;
+
+    const boxes = data.locateables.map(rect).sort(byTop);
+    let n = -1;
+    let node;
+
+    while (boxes[++n]) {
+        // Stop on locateable lower than the break
+        if ((boxes[n].top - data.box.top) > data.scrollPaddingTop + 1
+        || (boxes[n].left - data.box.left) > data.scrollPaddingLeft + 1) {
+            break;
+        }
+
+        node = data.locateables[n];
+    }
+
+    // Check that node and locateNode are different before continueing
+    if (node === locatedNode) {
+        return;
+    }
+
+    // Before the first or after the last locateable. (The latter
+    // should not be possible according to the above while loop)
+    unlocate();
+
+    if (node) {
+        locate(node);
+        window.history.replaceState(nothing$3, '', '#' + node.id);
+        trigger$2('hashchange', window);
+        return;
+    }
+
+    window.history.replaceState(nothing$3, '', '#');
+}
+
+function scrollElement(e) {
+    if (e.target === document) {
+        return false;
+    }
+
+    const data = store$1(e.target);
+
+    // Keep a record of scrollTop in order to restore it in Safari,
+    // where popstate and hashchange are preceeded by a scroll jump
+    data.scrollLeft = e.target.scrollLeft;
+    data.scrollTop  = e.target.scrollTop;
+
+    const aMomentAgo = e.timeStamp - config$4.scrollIdleDuration * 1000;
+
+    // For a moment after the last hashchange dont update while
+    // smooth scrolling settles to the right place.
+    if (hashTime > aMomentAgo) {
+        hashTime = e.timeStamp;
+        return;
+    }
+
+    // Is frame already cued?
+    if (data.frame) { return; }
+
+    // Cue an update
+    data.frame = requestAnimationFrame((time) => updateElement(time, data));
+}
+
+function restoreScroll(node) {
+    var scrollParent = node;
+
+    while ((scrollParent = scrollParent.parentNode)) {
+        if (scrollParent === document.body || scrollParent === document.documentElement) {
+            // Todo: generalise scrollingElement to use data object too
+            document.scrollingElement.scrollLeft = scrollLeft;
+            document.scrollingElement.scrollTop  = scrollTop$1;
+            return;
+        }
+
+        if (scrollParent.scrollHeight > scrollParent.clientHeight) {
+            break;
+        }
+    }
+
+    var data = store$1(scrollParent);
+
+    scrollParent.scrollLeft = data.scrollLeft;
+    scrollParent.scrollTop  = data.scrollTop;
+}
+
 function popstate(e) {
 
     // Record the timeStamp
@@ -6659,11 +6899,12 @@ function popstate(e) {
 
     const hash = window.location.hash;
     const id   = hash.slice(1);
+
     if (!id) {
         if (!features.scrollBehavior) {
             // In Safari, popstate and hashchange are preceeded by scroll jump -
             // restore previous scrollTop.
-            document.scrollingElement.scrollTop = scrollTop$1;
+            restoreScroll(document.body);
 
             // Then animate
             document.body.scrollIntoView(scrollOptions);
@@ -6683,7 +6924,7 @@ function popstate(e) {
     if (!features.scrollBehavior) {
         // In Safari, popstate and hashchange are preceeded by scroll jump -
         // restore previous scrollTop.
-        document.scrollingElement.scrollTop = scrollTop$1;
+        restoreScroll(node);
 
         // Then animate
         node.scrollIntoView(scrollOptions);
@@ -6691,12 +6932,22 @@ function popstate(e) {
 }
 
 function load(e) {
+    // Is there a node with that id?
+    const node = document.getElementById(window.location.hash.slice(1));
+    if (node) {
+        node.scrollIntoView(scrollOptions);
+    }
+
     popstate(e);
     scroll$1(e);
 
     // Start listening to popstate and scroll
     window.addEventListener('popstate', popstate);
     window.addEventListener('scroll', scroll$1);
+
+    // Capture scroll events in capture phase, as scroll events from elements
+    // other than document do not bubble
+    window.addEventListener('scroll', scrollElement, true);
 
     // Scroll smoothly from now on
     scrollOptions.behavior = 'smooth';
@@ -6906,9 +7157,9 @@ gestures({ selector: selector$1, threshold: 4 }, document)
     label.classList.add('gesturing');
 
     latest.each(function (e) {
-        dx = e.pageX - x0;
+        dx = e.clientX - x0;
 
-        var rx = curriedLimit(0, 1, x + dx / swipeRangePx);
+        var rx = clamp$1(0, 1, x + dx / swipeRangePx);
         label.style.setProperty('--switch-handle-gesture-x', rx);
 
         if (rx >= 0.666667 && !state) {
@@ -7325,14 +7576,19 @@ events$1('resize', window)
 })
 .each(updateBlock);
 
-events$1('dom-activate', document)
+events$1('dom-activate', document.body)
 .map(get$1('target'))
 .filter(matches$2('.toggle-block'))
 .each(function(node) {
-    const box = node.getBoundingClientRect();
+    const box       = node.getBoundingClientRect();
+    const computed  = getComputedStyle(node);
     const lastChild = last(node.children);
-    const bottom = lastChild && lastChild.getBoundingClientRect().bottom;
-    const height = box.height + bottom - box.top;
+    const bottom    = lastChild && lastChild.getBoundingClientRect().bottom;
+    const height    = parseInteger(computed.paddingBottom)
+        + parseInteger(computed.borderBottomWidth)
+        + bottom
+        - box.top;
+
     node.style.maxHeight = height + 'px';
 
     events$1('transitionend', node)
@@ -7341,18 +7597,42 @@ events$1('dom-activate', document)
     });
 });
 
-events$1('dom-deactivate', document)
+const measure = choose({
+    // Set maxHeight equal to height
+    maxHeight: (node) => node.clientHeight + 'px',
+
+    // Set all others to their computed values
+    default: (node, style, property) => style[property]
+});
+
+events$1('dom-deactivate', document.body)
 .map(get$1('target'))
 .filter(matches$2('.toggle-block'))
 .each(function(node) {
-    const box = node.getBoundingClientRect();
-    node.style.transition = 'none';
-    node.style.maxHeight = box.height + 'px';
+    const style = node.getAttribute('style');
+    const computed = getComputedStyle(node);
 
+    // Warning: this gets the transition-property before the class active has
+    // been removed, which is not strictly speaking the intention. Ideally we
+    // want computed styles from before, and transition-property from after.
+    // Computed style is a live object, though. Handling this case risks being
+    // expensive. So let us assume for the time being that transition-property
+    // before and after class active are the same.
+    const properties = computed['transition-property']
+        .split(/\s*,\s*/)
+        .map(toCamelCase);
+
+    node.style.transition = 'none';
+    properties.forEach((property) => node.style[property] = measure(property, node, computed, property));
+
+    // Wait until the next frame to prevent
     requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-            node.style.transition = '';
-            node.style.maxHeight = '';
-        });
+        // Replace initial state of style attribute, if it's null remove it
+        if (style) {
+            node.setAttribute('style', style);
+        }
+        else {
+            node.removeAttribute('style');
+        }
     });
 });
