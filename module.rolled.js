@@ -387,7 +387,7 @@ function error(regex, reducers, string) {
         string = string.input;
     }
 
-    throw new Error('Cannot parse invalid string "' + string + '"');
+    throw new Error('Cannot parse string "' + string + '"');
 }
 
 function reduce$1(reducers, acc, tokens) {
@@ -702,6 +702,7 @@ var nothing = Object.freeze({
     // Standard array methods
     shift: noop,
     push:  noop,
+    join:  function() { return ''; },
 
     // Stream methods
     start: noop,
@@ -762,6 +763,49 @@ function parseInteger(object) {
         undefined :
         parseInt(object, 10);
 }
+
+/**
+parseValue(units, string)
+
+Parse `string` as a value with a unit (such as `"3px"`). Parameter `units` is an
+object of functions keyed by the unit postfix. It may also have a `catch`
+function.
+
+```js=
+const value = parseValue({
+    px: function(n) {
+        return n;
+    },
+
+    catch: function(string) {
+        if (typeof string === 'number') {
+            return string;
+        }
+
+        throw new Error('Cannot parse px value');
+    }
+}, '36px');
+```
+**/
+
+// Be generous in what we accept, space-wise
+const runit = /^\s*(-?\d*\.?\d+)(\w+|%)?\s*$/;
+
+function parseValue(units, string) {
+    var entry = runit.exec(string);
+
+    if (!entry || !units[entry[2]]) {
+        if (!units.catch) {
+            throw new Error('Cannot parse value "' + string + '"');
+        }
+
+        return units.catch(string);
+    }
+
+    return units[entry[2]](parseFloat(entry[1]));
+}
+
+var parseVal = curry$1(parseValue);
 
 function apply(value, fn) {
     return fn(value);
@@ -4302,214 +4346,56 @@ const add = curry$1(function (a, b) {
     return a + b;
 });
 
+const assign$4      = Object.assign;
+const CustomEvent = window.CustomEvent;
+
+const defaults    = {
+	// The event bubbles (false by default)
+	// https://developer.mozilla.org/en-US/docs/Web/API/Event/Event
+	bubbles: true,
+
+	// The event may be cancelled (false by default)
+	// https://developer.mozilla.org/en-US/docs/Web/API/Event/Event
+	cancelable: true
+
+	// Trigger listeners outside of a shadow root (false by default)
+	// https://developer.mozilla.org/en-US/docs/Web/API/Event/composed
+	//composed: false
+};
+
 /**
-style(property, node)
+Event(type, properties)
 
-Returns the computed style `property` of `node`.
-
-    style('transform', node);            // returns transform
-
-If `property` is of the form `"property:name"`, a named aspect of the property
-is returned.
-
-    style('transform:rotate', node);     // returns rotation, as a number, in radians
-    style('transform:scale', node);      // returns scale, as a number
-    style('transform:translateX', node); // returns translation, as a number, in px
-    style('transform:translateY', node); // returns translation, as a number, in px
+Creates a CustomEvent of type `type`.
+Additionally, `properties` are assigned to the event object.
 */
 
-var rpx          = /px$/;
-var styleParsers = {
-	"transform:translateX": function(node) {
-		var matrix = computedStyle('transform', node);
-		if (!matrix || matrix === "none") { return 0; }
-		var values = valuesFromCssFn(matrix);
-		return parseFloat(values[4]);
-	},
+function Event$1(type, options) {
+	let settings;
 
-	"transform:translateY": function(node) {
-		var matrix = computedStyle('transform', node);
-		if (!matrix || matrix === "none") { return 0; }
-		var values = valuesFromCssFn(matrix);
-		return parseFloat(values[5]);
-	},
-
-	"transform:scale": function(node) {
-		var matrix = computedStyle('transform', node);
-		if (!matrix || matrix === "none") { return 0; }
-		var values = valuesFromCssFn(matrix);
-		var a = parseFloat(values[0]);
-		var b = parseFloat(values[1]);
-		return Math.sqrt(a * a + b * b);
-	},
-
-	"transform:rotate": function(node) {
-		var matrix = computedStyle('transform', node);
-		if (!matrix || matrix === "none") { return 0; }
-		var values = valuesFromCssFn(matrix);
-		var a = parseFloat(values[0]);
-		var b = parseFloat(values[1]);
-		return Math.atan2(b, a);
+	if (typeof type === 'object') {
+		settings = assign$4({}, defaults, type);
+		type = settings.type;
 	}
-};
 
-function valuesFromCssFn(string) {
-	return string.split('(')[1].split(')')[0].split(/\s*,\s*/);
+	if (options && options.detail) {
+		if (settings) {
+			settings.detail = options.detail;
+		}
+		else {
+			settings = assign$4({ detail: options.detail }, defaults);
+		}
+	}
+
+	var event = new CustomEvent(type, settings || defaults);
+
+	if (options) {
+		delete options.detail;
+		assign$4(event, options);
+	}
+
+	return event;
 }
-
-function computedStyle(name, node) {
-	return window.getComputedStyle ?
-		window
-		.getComputedStyle(node, null)
-		.getPropertyValue(name) :
-		0 ;
-}
-
-function style(name, node) {
-    // If name corresponds to a custom property name in styleParsers...
-    if (styleParsers[name]) { return styleParsers[name](node); }
-
-    var value = computedStyle(name, node);
-
-    // Pixel values are converted to number type
-    return typeof value === 'string' && rpx.test(value) ?
-        parseFloat(value) :
-        value ;
-}
-
-// Units
-
-const runit = /(\d*\.?\d+)(r?em|vw|vh)/;
-//var rpercent = /(\d*\.?\d+)%/;
-
-const units = {
-    em: function(n) {
-        return getFontSize() * n;
-    },
-
-    rem: function(n) {
-        return getFontSize() * n;
-    },
-
-    vw: function(n) {
-        return window.innerWidth * n / 100;
-    },
-
-    vh: function(n) {
-        return window.innerHeight * n / 100;
-    }
-};
-
-let fontSize;
-
-function getFontSize() {
-    return fontSize ||
-        (fontSize = style("font-size", document.documentElement), 10);
-}
-
-/**
-parseValue(value)`
-
-Takes a string of the form '10rem', '100vw' or '100vh' and returns a number in pixels.
-*/
-
-const parseValue = overload(toType, {
-    'number': id,
-
-    'string': function(string) {
-        var data = runit.exec(string);
-
-        if (data) {
-            return units[data[2]](parseFloat(data[1]));
-        }
-
-        throw new Error('dom: "' + string + '" cannot be parsed as rem, em, vw or vh units.');
-    }
-});
-
-const rules = [];
-
-const types = overload(toType, {
-    'number':   id,
-    'string':   parseValue,
-    'function': function(fn) { return fn(); }
-});
-
-const tests = {
-    minWidth: function(value)  { return width >= types(value); },
-    maxWidth: function(value)  { return width <  types(value); },
-    minHeight: function(value) { return height >= types(value); },
-    maxHeight: function(value) { return height <  types(value); },
-    minScrollTop: function(value) { return scrollTop >= types(value); },
-    maxScrollTop: function(value) { return scrollTop <  types(value); },
-    minScrollBottom: function(value) { return (scrollHeight - height - scrollTop) >= types(value); },
-    maxScrollBottom: function(value) { return (scrollHeight - height - scrollTop) <  types(value); }
-};
-
-let width = window.innerWidth;
-let height = window.innerHeight;
-let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-
-function test(query) {
-    var keys = Object.keys(query);
-    var n = keys.length;
-    var key;
-
-    if (keys.length === 0) { return false; }
-
-    while (n--) {
-        key = keys[n];
-        if (!tests[key](query[key])) { return false; }
-    }
-
-    return true;
-}
-
-function update$2(e) {
-    var l = rules.length;
-    var rule;
-
-    // Run exiting rules
-    while (l--) {
-        rule = rules[l];
-
-        if (rule.state && !test(rule.query)) {
-            rule.state = false;
-            rule.exit && rule.exit(e);
-        }
-    }
-
-    l = rules.length;
-
-    // Run entering rules
-    while (l--) {
-        rule = rules[l];
-
-        if (!rule.state && test(rule.query)) {
-            rule.state = true;
-            rule.enter && rule.enter(e);
-        }
-    }
-}
-
-function scroll(e) {
-    scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    update$2(e);
-}
-
-function resize(e) {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-    update$2(e);
-}
-
-window.addEventListener('scroll', scroll);
-window.addEventListener('resize', resize);
-
-ready$1(update$2);
-document.addEventListener('DOMContentLoaded', update$2);
 
 /**
 prefix(string)
@@ -4677,6 +4563,438 @@ var features = define$1({
 	}
 });
 
+const assign$5  = Object.assign;
+const rspaces = /\s+/;
+
+function prefixType(type) {
+	return features.events[type] || type ;
+}
+
+
+// Handle event types
+
+// DOM click events may be simulated on inputs when their labels are
+// clicked. The tell-tale is they have the same timeStamp. Track click
+// timeStamps.
+var clickTimeStamp = 0;
+
+window.addEventListener('click', function(e) {
+	clickTimeStamp = e.timeStamp;
+});
+
+function listen(source, type) {
+	if (type === 'click') {
+		source.clickUpdate = function click(e) {
+			// Ignore clicks with the same timeStamp as previous clicks –
+			// they are likely simulated by the browser.
+			if (e.timeStamp <= clickTimeStamp) { return; }
+			source.update(e);
+		};
+
+		source.node.addEventListener(type, source.clickUpdate, source.options);
+		return source;
+	}
+
+	source.node.addEventListener(type, source.update, source.options);
+	return source;
+}
+
+function unlisten(source, type) {
+	source.node.removeEventListener(type, type === 'click' ?
+		source.clickUpdate :
+		source.update
+	);
+
+	return source;
+}
+
+/**
+events(type, node)
+
+Returns a mappable stream of events heard on `node`:
+
+    var stream = events('click', document.body);
+    .map(get('target'))
+    .each(function(node) {
+        // Do something with nodes
+    });
+
+Stopping the stream removes the event listeners:
+
+    stream.stop();
+*/
+
+function Source(notify, stop, type, options, node) {
+	const types  = type.split(rspaces).map(prefixType);
+	const buffer = [];
+
+	function update(value) {
+		buffer.push(value);
+		notify();
+	}
+
+	this._stop   = stop;
+	this.types   = types;
+	this.node    = node;
+	this.buffer  = buffer;
+	this.update  = update;
+	this.options = options;
+
+	// Potential hard-to-find error here if type has repeats, ie 'click click'.
+	// Lets assume nobody is dumb enough to do this, I dont want to have to
+	// check for that every time.
+	types.reduce(listen, this);
+}
+
+assign$5(Source.prototype, {
+	shift: function shiftEvent() {
+		const buffer = this.buffer;
+		return buffer.shift();
+	},
+
+	stop: function stopEvent() {
+		this.types.reduce(unlisten, this);
+		this._stop(this.buffer.length);
+	}
+});
+
+function events(type, node) {
+	let options;
+
+	if (typeof type === 'object') {
+		options = type;
+		type    = options.type;
+	}
+
+	return new Stream$1(function(notify, stop) {
+		return new Source(notify, stop, type, options, node)
+	});
+}
+
+
+/**
+isPrimaryButton(e)
+
+Returns `true` if user event is from the primary (normally the left or only)
+button of an input device. Use this to avoid listening to right-clicks.
+*/
+
+function isPrimaryButton(e) {
+	// Ignore mousedowns on any button other than the left (or primary)
+	// mouse button, or when a modifier key is pressed.
+	return (e.which === 1 && !e.ctrlKey && !e.altKey && !e.shiftKey);
+}
+
+function isTargetEvent(e) {
+	return e.target === e.currentTarget;
+}
+
+
+// -----------------
+
+const A$4 = Array.prototype;
+const eventsSymbol = Symbol('events');
+
+function applyTail(fn, args) {
+	return function() {
+		A$4.push.apply(arguments, args);
+		fn.apply(null, arguments);
+	};
+}
+
+function on(node, type, fn) {
+	var options;
+
+	if (typeof type === 'object') {
+		options = type;
+		type    = options.type;
+	}
+
+	var types   = type.split(rspaces);
+	var events  = node[eventsSymbol] || (node[eventsSymbol] = {});
+	var handler = arguments.length > 3 ? applyTail(fn, A$4.slice.call(arguments, 3)) : fn ;
+	var handlers, listener;
+	var n = -1;
+
+	while (++n < types.length) {
+		type = types[n];
+		handlers = events[type] || (events[type] = []);
+		listener = type === 'click' ?
+			function(e) {
+				// Ignore clicks with the same timeStamp as previous clicks –
+				// they are likely simulated by the browser on inputs when
+				// their labels are clicked
+				if (e.timeStamp <= clickTimeStamp) { return; }
+				handler(e);
+			} :
+			handler ;
+		handlers.push([fn, listener]);
+		node.addEventListener(type, listener, options);
+	}
+
+	return node;
+}
+
+function once(node, types, fn, data) {
+	on(node, types, function once() {
+		off(node, types, once);
+		fn.apply(null, arguments);
+	}, data);
+}
+
+function off(node, type, fn) {
+	var options;
+
+	if (typeof type === 'object') {
+		options = type;
+		type    = options.type;
+	}
+
+	var types   = type.split(rspaces);
+	var events  = node[eventsSymbol];
+	var handlers, i;
+
+	if (!events) { return node; }
+
+	var n = -1;
+	while (n++ < types.length) {
+		type = types[n];
+		handlers = events[type];
+		if (!handlers) { continue; }
+		i = handlers.length;
+		while (i--) {
+			if (handlers[i][0] === fn) {
+				node.removeEventListener(type, handlers[i][1]);
+				handlers.splice(i, 1);
+			}
+		}
+	}
+
+	return node;
+}
+
+/**
+trigger(type, node)
+
+Triggers event of `type` on `node`.
+
+```
+trigger('dom-activate', node);
+```
+*/
+
+function trigger(node, type, properties) {
+	// Don't cache events. It prevents you from triggering an event of a
+	// given type from inside the handler of another event of that type.
+	var event = Event$1(type, properties);
+	node.dispatchEvent(event);
+}
+
+/**
+style(property, node)
+
+Returns the computed style `property` of `node`.
+
+    style('transform', node);            // returns transform
+
+If `property` is of the form `"property:name"`, a named aspect of the property
+is returned.
+
+    style('transform:rotate', node);     // returns rotation, as a number, in radians
+    style('transform:scale', node);      // returns scale, as a number
+    style('transform:translateX', node); // returns translation, as a number, in px
+    style('transform:translateY', node); // returns translation, as a number, in px
+*/
+
+var rpx          = /px$/;
+var styleParsers = {
+	"transform:translateX": function(node) {
+		var matrix = computedStyle('transform', node);
+		if (!matrix || matrix === "none") { return 0; }
+		var values = valuesFromCssFn(matrix);
+		return parseFloat(values[4]);
+	},
+
+	"transform:translateY": function(node) {
+		var matrix = computedStyle('transform', node);
+		if (!matrix || matrix === "none") { return 0; }
+		var values = valuesFromCssFn(matrix);
+		return parseFloat(values[5]);
+	},
+
+	"transform:scale": function(node) {
+		var matrix = computedStyle('transform', node);
+		if (!matrix || matrix === "none") { return 0; }
+		var values = valuesFromCssFn(matrix);
+		var a = parseFloat(values[0]);
+		var b = parseFloat(values[1]);
+		return Math.sqrt(a * a + b * b);
+	},
+
+	"transform:rotate": function(node) {
+		var matrix = computedStyle('transform', node);
+		if (!matrix || matrix === "none") { return 0; }
+		var values = valuesFromCssFn(matrix);
+		var a = parseFloat(values[0]);
+		var b = parseFloat(values[1]);
+		return Math.atan2(b, a);
+	}
+};
+
+function valuesFromCssFn(string) {
+	return string.split('(')[1].split(')')[0].split(/\s*,\s*/);
+}
+
+function computedStyle(name, node) {
+	return window.getComputedStyle ?
+		window
+		.getComputedStyle(node, null)
+		.getPropertyValue(name) :
+		0 ;
+}
+
+function style(name, node) {
+    // If name corresponds to a custom property name in styleParsers...
+    if (styleParsers[name]) { return styleParsers[name](node); }
+
+    var value = computedStyle(name, node);
+
+    // Pixel values are converted to number type
+    return typeof value === 'string' && rpx.test(value) ?
+        parseFloat(value) :
+        value ;
+}
+
+// Units
+
+
+/* Track document font size */
+
+let fontSize;
+
+function getFontSize() {
+    return fontSize ||
+        (fontSize = style("font-size", document.documentElement));
+}
+
+events('resize', window).each(() => fontSize = undefined);
+
+
+/**
+parseValue(value)`
+Takes a string of the form '10rem', '100vw' or '100vh' and returns a number in pixels.
+*/
+
+const parseValue$1 = overload(toType, {
+    'number': id,
+
+    'string': parseVal({
+        em: function(n) {
+            return getFontSize() * n;
+        },
+
+        px: function(n) {
+            return n;
+        },
+
+        rem: function(n) {
+            return getFontSize() * n;
+        },
+
+        vw: function(n) {
+            return window.innerWidth * n / 100;
+        },
+
+        vh: function(n) {
+            return window.innerHeight * n / 100;
+        }
+    })
+});
+
+const rules = [];
+
+const types = overload(toType, {
+    'number':   id,
+    'string':   parseValue$1,
+    'function': function(fn) { return fn(); }
+});
+
+const tests = {
+    minWidth: function(value)  { return width >= types(value); },
+    maxWidth: function(value)  { return width <  types(value); },
+    minHeight: function(value) { return height >= types(value); },
+    maxHeight: function(value) { return height <  types(value); },
+    minScrollTop: function(value) { return scrollTop >= types(value); },
+    maxScrollTop: function(value) { return scrollTop <  types(value); },
+    minScrollBottom: function(value) { return (scrollHeight - height - scrollTop) >= types(value); },
+    maxScrollBottom: function(value) { return (scrollHeight - height - scrollTop) <  types(value); }
+};
+
+let width = window.innerWidth;
+let height = window.innerHeight;
+let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+
+function test(query) {
+    var keys = Object.keys(query);
+    var n = keys.length;
+    var key;
+
+    if (keys.length === 0) { return false; }
+
+    while (n--) {
+        key = keys[n];
+        if (!tests[key](query[key])) { return false; }
+    }
+
+    return true;
+}
+
+function update$2(e) {
+    var l = rules.length;
+    var rule;
+
+    // Run exiting rules
+    while (l--) {
+        rule = rules[l];
+
+        if (rule.state && !test(rule.query)) {
+            rule.state = false;
+            rule.exit && rule.exit(e);
+        }
+    }
+
+    l = rules.length;
+
+    // Run entering rules
+    while (l--) {
+        rule = rules[l];
+
+        if (!rule.state && test(rule.query)) {
+            rule.state = true;
+            rule.enter && rule.enter(e);
+        }
+    }
+}
+
+function scroll(e) {
+    scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    update$2(e);
+}
+
+function resize(e) {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    update$2(e);
+}
+
+window.addEventListener('scroll', scroll);
+window.addEventListener('resize', resize);
+
+ready$1(update$2);
+document.addEventListener('DOMContentLoaded', update$2);
+
 /**
 assign(node, properties)
 
@@ -4724,7 +5042,7 @@ function setAttribute(name, node, content) {
 	node.setAttribute(name, content);
 }
 
-function assign$4(node, attributes) {
+function assign$6(node, attributes) {
 	var names = Object.keys(attributes);
 	var n = names.length;
 
@@ -4735,7 +5053,7 @@ function assign$4(node, attributes) {
 	return node;
 }
 
-var assign$5 = curry$1(assign$4, true);
+var assign$7 = curry$1(assign$6, true);
 
 const svgNamespace = 'http://www.w3.org/2000/svg';
 const div = document.createElement('div');
@@ -4835,7 +5153,7 @@ var create$1 = overload(toTypes, {
     'string string': construct,
 
     'string object': function(tag, content) {
-        return assign$5(construct(tag, ''), content);
+        return assign$7(construct(tag, ''), content);
     },
 
     'object string': function(properties, text) {
@@ -4843,13 +5161,13 @@ var create$1 = overload(toTypes, {
         validateTag(tag);
         // Warning: text is set before properties, but text should override
         // html or innerHTML property, ie, be set after.
-        return assign$5(construct(tag, text), properties);
+        return assign$7(construct(tag, text), properties);
     },
 
     'object object': function(properties, content) {
         const tag = properties.tag || properties.tagName;
         validateTag(tag);
-        return assign$5(assign$5(construct(tag, ''), properties), content);
+        return assign$7(assign$7(construct(tag, ''), properties), content);
     },
 
     default: function() {
@@ -5225,284 +5543,6 @@ if (!NodeList.prototype.forEach) {
     console.warn('A polyfill for NodeList.forEach() is needed (https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach)');
 }
 
-const assign$6      = Object.assign;
-const CustomEvent = window.CustomEvent;
-
-const defaults    = {
-	// The event bubbles (false by default)
-	// https://developer.mozilla.org/en-US/docs/Web/API/Event/Event
-	bubbles: true,
-
-	// The event may be cancelled (false by default)
-	// https://developer.mozilla.org/en-US/docs/Web/API/Event/Event
-	cancelable: true
-
-	// Trigger listeners outside of a shadow root (false by default)
-	// https://developer.mozilla.org/en-US/docs/Web/API/Event/composed
-	//composed: false
-};
-
-/**
-Event(type, properties)
-
-Creates a CustomEvent of type `type`.
-Additionally, `properties` are assigned to the event object.
-*/
-
-function Event$1(type, options) {
-	let settings;
-
-	if (typeof type === 'object') {
-		settings = assign$6({}, defaults, type);
-		type = settings.type;
-	}
-
-	if (options && options.detail) {
-		if (settings) {
-			settings.detail = options.detail;
-		}
-		else {
-			settings = assign$6({ detail: options.detail }, defaults);
-		}
-	}
-
-	var event = new CustomEvent(type, settings || defaults);
-
-	if (options) {
-		delete options.detail;
-		assign$6(event, options);
-	}
-
-	return event;
-}
-
-const assign$7  = Object.assign;
-const rspaces = /\s+/;
-
-function prefixType(type) {
-	return features.events[type] || type ;
-}
-
-
-// Handle event types
-
-// DOM click events may be simulated on inputs when their labels are
-// clicked. The tell-tale is they have the same timeStamp. Track click
-// timeStamps.
-var clickTimeStamp = 0;
-
-window.addEventListener('click', function(e) {
-	clickTimeStamp = e.timeStamp;
-});
-
-function listen(source, type) {
-	if (type === 'click') {
-		source.clickUpdate = function click(e) {
-			// Ignore clicks with the same timeStamp as previous clicks –
-			// they are likely simulated by the browser.
-			if (e.timeStamp <= clickTimeStamp) { return; }
-			source.update(e);
-		};
-
-		source.node.addEventListener(type, source.clickUpdate, source.options);
-		return source;
-	}
-
-	source.node.addEventListener(type, source.update, source.options);
-	return source;
-}
-
-function unlisten(source, type) {
-	source.node.removeEventListener(type, type === 'click' ?
-		source.clickUpdate :
-		source.update
-	);
-
-	return source;
-}
-
-/**
-events(type, node)
-
-Returns a mappable stream of events heard on `node`:
-
-    var stream = events('click', document.body);
-    .map(get('target'))
-    .each(function(node) {
-        // Do something with nodes
-    });
-
-Stopping the stream removes the event listeners:
-
-    stream.stop();
-*/
-
-function Source(notify, stop, type, options, node) {
-	const types  = type.split(rspaces).map(prefixType);
-	const buffer = [];
-
-	function update(value) {
-		buffer.push(value);
-		notify();
-	}
-
-	this._stop   = stop;
-	this.types   = types;
-	this.node    = node;
-	this.buffer  = buffer;
-	this.update  = update;
-	this.options = options;
-
-	// Potential hard-to-find error here if type has repeats, ie 'click click'.
-	// Lets assume nobody is dumb enough to do this, I dont want to have to
-	// check for that every time.
-	types.reduce(listen, this);
-}
-
-assign$7(Source.prototype, {
-	shift: function shiftEvent() {
-		const buffer = this.buffer;
-		return buffer.shift();
-	},
-
-	stop: function stopEvent() {
-		this.types.reduce(unlisten, this);
-		this._stop(this.buffer.length);
-	}
-});
-
-function events(type, node) {
-	let options;
-
-	if (typeof type === 'object') {
-		options = type;
-		type    = options.type;
-	}
-
-	return new Stream$1(function(notify, stop) {
-		return new Source(notify, stop, type, options, node)
-	});
-}
-
-
-/**
-isPrimaryButton(e)
-
-Returns `true` if user event is from the primary (normally the left or only)
-button of an input device. Use this to avoid listening to right-clicks.
-*/
-
-function isPrimaryButton(e) {
-	// Ignore mousedowns on any button other than the left (or primary)
-	// mouse button, or when a modifier key is pressed.
-	return (e.which === 1 && !e.ctrlKey && !e.altKey && !e.shiftKey);
-}
-
-function isTargetEvent(e) {
-	return e.target === e.currentTarget;
-}
-
-
-// -----------------
-
-const A$4 = Array.prototype;
-const eventsSymbol = Symbol('events');
-
-function applyTail(fn, args) {
-	return function() {
-		A$4.push.apply(arguments, args);
-		fn.apply(null, arguments);
-	};
-}
-
-function on(node, type, fn) {
-	var options;
-
-	if (typeof type === 'object') {
-		options = type;
-		type    = options.type;
-	}
-
-	var types   = type.split(rspaces);
-	var events  = node[eventsSymbol] || (node[eventsSymbol] = {});
-	var handler = arguments.length > 3 ? applyTail(fn, A$4.slice.call(arguments, 3)) : fn ;
-	var handlers, listener;
-	var n = -1;
-
-	while (++n < types.length) {
-		type = types[n];
-		handlers = events[type] || (events[type] = []);
-		listener = type === 'click' ?
-			function(e) {
-				// Ignore clicks with the same timeStamp as previous clicks –
-				// they are likely simulated by the browser on inputs when
-				// their labels are clicked
-				if (e.timeStamp <= clickTimeStamp) { return; }
-				handler(e);
-			} :
-			handler ;
-		handlers.push([fn, listener]);
-		node.addEventListener(type, listener, options);
-	}
-
-	return node;
-}
-
-function once(node, types, fn, data) {
-	on(node, types, function once() {
-		off(node, types, once);
-		fn.apply(null, arguments);
-	}, data);
-}
-
-function off(node, type, fn) {
-	var options;
-
-	if (typeof type === 'object') {
-		options = type;
-		type    = options.type;
-	}
-
-	var types   = type.split(rspaces);
-	var events  = node[eventsSymbol];
-	var handlers, i;
-
-	if (!events) { return node; }
-
-	var n = -1;
-	while (n++ < types.length) {
-		type = types[n];
-		handlers = events[type];
-		if (!handlers) { continue; }
-		i = handlers.length;
-		while (i--) {
-			if (handlers[i][0] === fn) {
-				node.removeEventListener(type, handlers[i][1]);
-				handlers.splice(i, 1);
-			}
-		}
-	}
-
-	return node;
-}
-
-/**
-trigger(type, node)
-
-Triggers event of `type` on `node`.
-
-```
-trigger('dom-activate', node);
-```
-*/
-
-function trigger(node, type, properties) {
-	// Don't cache events. It prevents you from triggering an event of a
-	// given type from inside the handler of another event of that type.
-	var event = Event$1(type, properties);
-	node.dispatchEvent(event);
-}
-
 const config = {
     // Number of pixels, or string CSS length, that a pressed pointer travels
     // before gesture is started.
@@ -5662,7 +5702,7 @@ function removeTouch(events) {
 function checkThreshold(e, events, touch, removeHandlers, push, options) {
     var distX = touch.clientX - events[0].clientX;
     var distY = touch.clientY - events[0].clientY;
-    var threshold = parseValue(options.threshold);
+    var threshold = parseValue$1(options.threshold);
 
     // Do nothing if the threshold has not been crossed.
     if ((distX * distX) + (distY * distY) < (threshold * threshold)) {
