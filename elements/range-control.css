@@ -3,7 +3,7 @@
 range-control
 
 ```html
-<range-control min="0" max="1" ticks="0 0.25 0.5 0.75 1" unit="s">Range</range-control>
+<range-control min="0" max="1" ticks="0 0.25 0.5 0.75 1" unit="s" transform="quadratic">Range</range-control>
 ```
 **/
 
