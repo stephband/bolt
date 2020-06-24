@@ -5,7 +5,7 @@ import { element, trigger } from '../../dom/module.js';
 import Sparky, { mount, config } from '../../sparky/module.js';
 import { attributes, properties } from './attributes.js';
 
-const DEBUG = false;//window.DEBUG === undefined || window.DEBUG;
+const DEBUG = true;
 
 const assign = Object.assign;
 
@@ -54,22 +54,8 @@ element('range-control', {
     properties: properties,
 
     construct: function(shadow) {
-        this.data = assign({}, defaults);
-    },
-
-    connect: function(shadow) {
-        if (DEBUG) { console.log('<range-control> added to document', this.value, this.data); }
-
         const elem = this;
-        const data = this.data;
-
-        // Range control must have value
-        if (this.data.value === undefined) {
-            this.value = this.data.min;
-        }
-
-        // Mount template
-        mount(shadow, mountSettings).push(data);
+        const data = this.data = assign({}, defaults);
 
         // Pick up input events and update scope - Sparky wont do this
         // currently as events are delegated to document, and these are in
@@ -91,5 +77,22 @@ element('range-control', {
             if (e.target.name !== 'control-input') { return; }
             updateValue(elem, data, parseFloat(e.target.value));
         });
+
+        // Snap to position at the end of travel
+        shadow.addEventListener('change', (e) => {
+            if (e.target.name !== 'control-input') { return; }
+            if (!data.steps) { return; }
+            e.target.value = elem.data.unitValue;
+        });
+    },
+
+    connect: function(shadow) {
+        // Range control must have value
+        if (this.data.value === undefined) {
+            this.value = this.data.min;
+        }
+
+        // Mount template
+        mount(shadow, mountSettings).push(this.data);
     }
 })

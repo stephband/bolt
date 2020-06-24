@@ -3,16 +3,19 @@
 rotary-control
 
 ```html
-<rotary-control min="0" max="3" ticks="0 0.5 1 1.5 2 2.5 3" unit="s">Rotary</rotary-control>
+<rotary-control max="3" ticks="0 0.5 1 1.5 2 3" transform="cubic" unit="s">Rotary</rotary-control>
 ```
 **/
 
 :host {
+    /** --touch-range **/
     --touch-range: 15rem;
 
-    --knob-width: 3rem;
-    --knob-background: black;
-    --knob-border: none;
+    /** --touch-range **/
+    --handle-width: 3rem;
+    --handle-background: white;
+    --handle-border: 1px solid rgb(187, 187, 187);
+    --handle-shadow: 0 0.1875rem 0.375rem 0 rgba(0,0,0,0.2);
 
     --label-font-size: 1em;
     --label-line-height: 1.2em;
@@ -29,7 +32,7 @@ rotary-control
     --dot-width: 0.25rem;
     --dot-height: var(--dot-width);
     --dot-distance: 1.125rem;
-    --dot-background: white;
+    --dot-background: #46789a;
     --dot-border: none;
     --dot-shadow: none;
 
@@ -53,7 +56,7 @@ rotary-control
     position: relative;
     display: grid;
     grid-template-areas:
-        'knob knob'
+        'handle handle'
         'label plugs';
     grid-template-columns: 1fr min-content;
     grid-template-rows: calc(2 * var(--tick-distance) + 2 * var(--tick-width) + 2 * var(--tick-line-height)) min-content;
@@ -64,10 +67,15 @@ rotary-control
     width: calc(2 * var(--tick-distance) + 2 * var(--tick-width) + 2 * var(--tick-line-height));
 }
 
+:host * {
+    box-sizing: border-box;
+}
+
 :host(:focus) {
     --label-color: #46789a;
     --output-color: white;
-    --knob-background: #46789a;
+    --handle-background: #46789a;
+    --dot-background: white;
     --tick-color: #46789a;
     --tick-background: #46789a;
 }
@@ -76,15 +84,28 @@ rotary-control
     margin: 0;
 }
 
-:host > .knob {
-    grid-area: knob;
+:host::before {
+    content: '';
+    grid-area: handle;
     position: absolute;
-    left: calc(50% - 0.5 * var(--knob-width));
-    top:  calc(50% - 0.5 * var(--knob-width));
+    left: calc(50% - 0.5 * var(--handle-width));
+    top:  calc(50% - 0.5 * var(--handle-width));
+
+    width: var(--handle-width);
+    height: var(--handle-width);
+    box-shadow: var(--handle-shadow);
+    border-radius: 50%;
+}
+
+:host > .knob {
+    grid-area: handle;
+    position: absolute;
+    left: calc(50% - 0.5 * var(--handle-width));
+    top:  calc(50% - 0.5 * var(--handle-width));
 }
 
 :host > .tick {
-    grid-area: knob;
+    grid-area: handle;
     position: absolute;
     left: 50%;
     top:  50%;
@@ -98,12 +119,9 @@ rotary-control
 }
 
 :host > output {
-    grid-area: knob;
-    position: absolute;
-    left: 50%;
-    top:  50%;
-    transform: translate(-50%, -50%);
+    grid-area: handle;
     pointer-events: none;
+    z-index: 2;
 }
 
 
@@ -125,7 +143,9 @@ output {
     font-size: var(--output-font-size, 0.75rem);
     line-height: var(--output-line-height);
     letter-spacing: var(--output-letter-spacing);
+    width: var(--handle-width);
     height: auto;
+    text-align: center;
     white-space: pre;
     color: var(--output-color);
 }
@@ -141,12 +161,17 @@ output > abbr {
 
 .knob {
     cursor: pointer;
-    width: var(--knob-width);
-    height: var(--knob-width);
-    background: var(--knob-background);
-    border: var(--knob-border);
+    width: var(--handle-width);
+    height: var(--handle-width);
+    background: var(--handle-background);
+    border: var(--handle-border);
     border-radius: 50%;
-    transform: rotate(calc(var(--rotation-start) + var(--unit-value) * var(--rotation-range)));
+    transform: rotate3d(0, 0, 1, calc(var(--rotation-start) + var(--unit-value) * var(--rotation-range)));
+
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version */
 }
 
 .knob::after {
@@ -156,7 +181,7 @@ output > abbr {
     height: var(--dot-height);
     left: 50%;
     top: calc(50% + var(--dot-distance));
-    transform: translate(-50%, 0);
+    transform: translate3d(-50%, 0, 0);
     border-radius: 50%;
     background-color: var(--dot-background);
     border: var(--dot-border);
@@ -182,6 +207,11 @@ output > abbr {
     border-radius: var(--tick-border-radius);
     color: var(--tick-color);
     overflow: visible;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version */
 }
 
 .tick::after {
