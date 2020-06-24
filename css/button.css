@@ -3,7 +3,7 @@ Buttons.
 **/
 
 /**
-.button
+.button, button, [type="button"]
 
 ```html
 <button type="button">Button</button>
@@ -26,18 +26,68 @@ button {
 button,
 [type="button"],
 .button {
+    /**
+    --font-size
+    **/
+    --font-size: inherit;
+
+    /**
+    --height
+    **/
+    --height: 3rem;
+
+    /**
+    --line-height
+    **/
+    --line-height: 1.5rem;
+
+    /**
+    --color
+    **/
+    --color: black;
+
+    /**
+    --background
+    **/
+    --background: white;
+
+    /**
+    --border-color
+    **/
+    --border-color: transparent;
+
+    /**
+    --border-width
+    **/
+    --border-width: 0.0625rem;
+
+    /**
+    --border-radius
+    **/
+    --border-radius: 0.3125rem;
+
+    /**
+    --padding-left
+    **/
+    --padding-left: 0.5625em;
+
+    /**
+    --padding-right
+    **/
+    --padding-right: var(--padding-left);
+
     /* Making buttons a grid helps layout internal icons, and also
        equalises the baseline of button and a.button elements. */
     display: inline-block;
-    font-size: var(--button-font-size);
-    line-height: var(--button-line-height);
-    padding-top: calc(0.5 * (var(--button-height) - var(--button-line-height)) - var(--button-border-width));
-    padding-bottom: calc(0.5 * (var(--button-height) - var(--button-line-height)) - var(--button-border-width));
-    padding-left: var(--button-padding-left);
-    padding-right: var(--button-padding-right);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    padding-top: calc(0.5 * (var(--height) - var(--line-height)) - var(--border-width));
+    padding-bottom: calc(0.5 * (var(--height) - var(--line-height)) - var(--border-width));
+    padding-left: var(--padding-left);
+    padding-right: var(--padding-right);
     width: auto;
     height: auto;
-    min-height: var(--button-height);
+    min-height: var(--height);
     vertical-align: baseline;
     text-overflow: ellipsis;
     text-align: center;
@@ -62,9 +112,9 @@ button,
     background-clip: padding-box;
     background-origin: padding-box;
     border-style: solid;
-    border-width: var(--button-border-width);
-    border-color: var(--button-border-color);
-    border-radius: var(--button-border-radius);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
     transition:
         background-color 120ms linear,
         color 120ms linear;
@@ -141,54 +191,3 @@ no way to display the selected file name if you do this.
     opacity: 0;
 }
 
-:root {
-    /**
-    --button-font-size
-    **/
-    --button-font-size: inherit;
-
-    /**
-    --button-height
-    **/
-    --button-height: 3rem;
-
-    /**
-    --button-line-height
-    **/
-    --button-line-height: 1.5rem;
-
-    /**
-    --button-color
-    **/
-    --button-color: black;
-
-    /**
-    --button-background
-    **/
-    --button-background: white;
-
-    /**
-    --button-border-color
-    **/
-    --button-border-color: transparent;
-
-    /**
-    --button-border-width
-    **/
-    --button-border-width: 0.0625rem;
-
-    /**
-    --button-border-radius
-    **/
-    --button-border-radius: 0.3125rem;
-
-    /**
-    --button-padding-left
-    **/
-    --button-padding-left: 0.5625em;
-
-    /**
-    --button-padding-right
-    **/
-    --button-padding-right: var(--button-padding-left);
-}

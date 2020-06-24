@@ -27,8 +27,8 @@
 }
 
 .menu-block > .menu-button {
-    --button-padding-left: var(--padding-left);
-    --button-padding-right: var(--padding-right);
+    --padding-left: var(--padding-left);
+    --padding-right: var(--padding-right);
 
     margin-left: calc(-1 * var(--padding-left));
     margin-right: calc(-1 * var(--padding-right));
@@ -62,5 +62,5 @@
 }
 
 .menu-button + .menu-button {
-    border-top: 1px solid var(--button-border-color);
+    border-top: 1px solid var(--border-color);
 }
