@@ -179,7 +179,7 @@ npm run build</code></pre>
 
         </section>
 
-        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em;">
+        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
             <!--template-->
         </section>
     </section>
@@ -241,7 +241,7 @@ npm run build</code></pre>
 
         </section>
 
-        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em;">
+        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
             <!--template-->
         </section>
     </section>
@@ -521,15 +521,15 @@ npm run build</code></pre>
                 <h4 class="x-1 2x x-end y-baseline doctext-05   right-align">
                     <a href="#rotary-control-description" title="Show HTML markup"><code>rotary-control</code></a>
                 </h4>
-                <div class="x-3 2x x-stretch y-baseline block"><rotary-control min="0" max="3" ticks="0 0.5 1 1.5 2 2.5 3" unit="s" style="--unit-value:0;">Rotary</rotary-control></div>
+                <div class="x-3 2x x-stretch y-baseline block"><rotary-control max="3" ticks="0 0.5 1 1.5 2 3" transform="cubic" unit="s" style="--unit-value:0;">Rotary</rotary-control></div>
                 <div class="@2-x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="rotary-control-description"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rotary-control</span> <span class="token attr-name">min</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">max</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span> <span class="token attr-name">ticks</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0 0.5 1 1.5 2 2.5 3<span class="token punctuation">"</span></span> <span class="token attr-name">unit</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>s<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Rotary<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>rotary-control</span><span class="token punctuation">&gt;</span></span></code></pre>
+                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" id="rotary-control-description"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rotary-control</span> <span class="token attr-name">max</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span> <span class="token attr-name">ticks</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0 0.5 1 1.5 2 3<span class="token punctuation">"</span></span> <span class="token attr-name">transform</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cubic<span class="token punctuation">"</span></span> <span class="token attr-name">unit</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>s<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Rotary<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>rotary-control</span><span class="token punctuation">&gt;</span></span></code></pre>
 </div>
                 </div>
 
         </section>
 
-        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em;">
+        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
             <!--template-->
                 <label class="x-1 2x x-end y-baseline doctext-05 " for="doc-var-input-font-size">
                     <code style="color: #888888;">--input-font-size</code><span style="color: transparent;">:</span>
@@ -848,11 +848,17 @@ npm run build</code></pre>
                 </label>
                 <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--switch-border-checked" id="doc-var-switch-border-checked" type="text" placeholder="value">
                 <div class="x-4 2x" style="color: transparent;">;</div>
+<<<<<<< HEAD
 
                 <label class="x-1 2x x-end y-baseline doctext-05 " for="doc-var-switch-box-shadow">
                     <code style="color: #888888;">--switch-box-shadow</code><span style="color: transparent;">:</span>
+=======
+            
+                <label class="x-1 2x x-end y-baseline doctext-05 " for="doc-var-switch-shadow">
+                    <code style="color: #888888;">--switch-shadow</code><span style="color: transparent;">:</span>
+>>>>>>> bb7d0e0a36a1a51e1b8476e04f30a7118e87800d
                 </label>
-                <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--switch-box-shadow" id="doc-var-switch-box-shadow" type="text" placeholder="value">
+                <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--switch-shadow" id="doc-var-switch-shadow" type="text" placeholder="value">
                 <div class="x-4 2x" style="color: transparent;">;</div>
 
                 <label class="x-1 2x x-end y-baseline doctext-05 " for="doc-var-switch-handle-background">
@@ -878,11 +884,29 @@ npm run build</code></pre>
                 </label>
                 <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--switch-handle-border-checked" id="doc-var-switch-handle-border-checked" type="text" placeholder="value">
                 <div class="x-4 2x" style="color: transparent;">;</div>
+<<<<<<< HEAD
 
                 <label class="x-1 2x x-end y-baseline doctext-05 " for="doc-var-switch-handle-box-shadow">
                     <code style="color: #888888;">--switch-handle-box-shadow</code><span style="color: transparent;">:</span>
+=======
+            
+                <label class="x-1 2x x-end y-baseline doctext-05 " for="doc-var-switch-handle-shadow">
+                    <code style="color: #888888;">--switch-handle-shadow</code><span style="color: transparent;">:</span>
+>>>>>>> bb7d0e0a36a1a51e1b8476e04f30a7118e87800d
                 </label>
-                <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--switch-handle-box-shadow" id="doc-var-switch-handle-box-shadow" type="text" placeholder="value">
+                <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--switch-handle-shadow" id="doc-var-switch-handle-shadow" type="text" placeholder="value">
+                <div class="x-4 2x" style="color: transparent;">;</div>
+            
+                <label class="x-1 2x x-end y-baseline doctext-05 " for="doc-var-touch-range">
+                    <code style="color: #888888;">--touch-range </code><span style="color: transparent;">:</span>
+                </label>
+                <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--touch-range" id="doc-var-touch-range" type="text" placeholder="value">
+                <div class="x-4 2x" style="color: transparent;">;</div>
+            
+                <label class="x-1 2x x-end y-baseline doctext-05 " for="doc-var-touch-range">
+                    <code style="color: #888888;">--touch-range </code><span style="color: transparent;">:</span>
+                </label>
+                <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--touch-range" id="doc-var-touch-range" type="text" placeholder="value">
                 <div class="x-4 2x" style="color: transparent;">;</div>
 
         </section>
@@ -982,7 +1006,7 @@ depends on <code>column-gap</code> having been set via the custom property <code
 
         </section>
 
-        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em;">
+        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
             <!--template-->
                 <label class="x-1 2x x-end y-baseline doctext-05 " for="doc-var-column-gap">
                     <code style="color: #888888;">--column-gap</code><span style="color: transparent;">:</span>
@@ -1328,7 +1352,7 @@ to play nice as inline-blocks too.</p>
 
         </section>
 
-        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em;">
+        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
             <!--template-->
                 <label class="x-1 2x x-end y-baseline doctext-05 " for="doc-var-button-font-size">
                     <code style="color: #888888;">--font-size</code><span style="color: transparent;">:</span>
@@ -1543,7 +1567,7 @@ will scale the element to fill the available width.</p>
 
         </section>
 
-        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em;">
+        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
             <!--template-->
         </section>
     </section>
@@ -1584,7 +1608,7 @@ will scale the element to fill the available width.</p>
 
         </section>
 
-        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em;">
+        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
             <!--template-->
         </section>
     </section>
@@ -1767,7 +1791,7 @@ breakpoint prefix.</p>
 
         </section>
 
-        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em;">
+        <section class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
             <!--template-->
         </section>
     </section>
@@ -1792,8 +1816,8 @@ breakpoint prefix.</p>
         <div class="knob"></div>
         <label class="control-label" for="input"><slot></slot></label>
         <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
-        <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" :style="transform: translate(-50%, -50%) rotate(calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range))) translate(0, var(--tick-distance));">
-            <span :style="transform: translate(-50%, 0) rotate(calc(-1 * (var(--rotation-start) + {[tickValue]} * var(--rotation-range)))) translate(calc({[tickValue|multiply:6.28318531|sin]} * -33%), 0);">{[displayValue]}</span>
+        <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" :style="transform: translate3d(-50%, -50%, 0) rotate3d(0, 0, 1, calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range))) translate3d(0, var(--tick-distance), 0);">
+            <span :style="transform: translate3d(-50%, 0, 0) rotate3d(0, 0, 1, calc(-1 * (var(--rotation-start) + {[tickValue]} * var(--rotation-range)))) translate3d(calc({[tickValue|multiply:6.28318531|sin]} * -33%), 0, 0);">{[displayValue]}</span>
         </button>
         <slot name="plugs"></slot>
     </template>
@@ -1801,8 +1825,6 @@ breakpoint prefix.</p>
     <style>
     range-control,
     rotary-control {
-        --track-height: 0.125rem;
-        --track-background: black;
         --track-top: 0.5625rem;
 
         --focus-track-background: #46789a;
@@ -1810,9 +1832,6 @@ breakpoint prefix.</p>
         --focus-track-shadow: none;
 
         --handle-width: 1.5rem;
-        --handle-border: none;
-        --handle-background: black;
-        --handle-shadow: none;
 
         --focus-handle-background: #46789a;
         --focus-handle-border: none;
@@ -1832,6 +1851,8 @@ breakpoint prefix.</p>
     }
 
     rotary-control {
+        --handle-width: 3rem;
+
         --tick-width: 3px;
         --tick-height: 3px;
         --tick-border-radius: 50%;

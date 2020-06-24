@@ -17,13 +17,13 @@ import './components/switch-label.js';
 .switch-label {
     display: block;
     position: relative;
-	font-size: var(--check-font-size);
-	line-height: var(--check-line-height);
-	font-weight: inherit;
+    font-size: var(--check-font-size);
+    line-height: var(--check-line-height);
+    font-weight: inherit;
     padding-left: calc(var(--switch-width) + 1em);
-	padding-top: calc(0.5 * (var(--input-height) - var(--check-line-height)));
-	padding-bottom: calc(0.5 * (var(--input-height) - var(--check-line-height)));
-	min-height: var(--input-height);
+    padding-top: calc(0.5 * (var(--input-height) - var(--check-line-height)));
+    padding-bottom: calc(0.5 * (var(--input-height) - var(--check-line-height)));
+    min-height: var(--input-height);
     color: inherit;
 }
 
@@ -42,7 +42,7 @@ import './components/switch-label.js';
        in Safari, as it is constrained to whole px values */
     border: var(--switch-border);
     border-radius: calc(0.5 * var(--switch-height));
-    box-shadow: var(--switch-box-shadow);
+    box-shadow: var(--switch-shadow);
     transition: background 0.16s linear;
 }
 
@@ -60,7 +60,7 @@ import './components/switch-label.js';
     border: var(--switch-handle-border);
     border-radius: 50%;
     background-color: var(--switch-handle-background);
-    box-shadow: var(--switch-handle-box-shadow);
+    box-shadow: var(--switch-handle-shadow);
     transition:
         0.16s background linear,
         0.16s transform ease-out;
@@ -165,7 +165,7 @@ import './components/switch-label.js';
     /**
     --switch-border
     **/
-	--switch-border: none;
+    --switch-border: none;
 
     /**
     --switch-border-checked
@@ -173,14 +173,19 @@ import './components/switch-label.js';
     --switch-border-checked: var(--switch-border);
 
     /**
-    --switch-box-shadow
+    --switch-shadow
     **/
-    --switch-box-shadow: inset 0 0.125rem 0.5em rgba(0,0,0,0.2);
+    --switch-shadow: inset 0 0.125rem 0.5em rgba(0,0,0,0.2);
 
     /**
     --switch-handle-background
     **/
     --switch-handle-background: white;
+
+    /**
+    --switch-handle-background
+    **/
+    --switch-handle-background-checked: white;
 
     /**
     --switch-handle-width
@@ -198,7 +203,7 @@ import './components/switch-label.js';
     --switch-handle-border-checked: var(--switch-handle-border);
 
     /**
-    --switch-handle-box-shadow
+    --switch-handle-shadow
     **/
-    --switch-handle-box-shadow: 0 0.125rem 0.25rem 0.0625rem rgba(0,0,0,0.25);
+    --switch-handle-shadow: 0 0.125rem 0.25rem 0.0625rem rgba(0,0,0,0.25);
 }

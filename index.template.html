@@ -106,8 +106,8 @@ npm run build</code></pre>
         <div class="knob"></div>
         <label class="control-label" for="input"><slot></slot></label>
         <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
-        <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" :style="transform: translate(-50%, -50%) rotate(calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range))) translate(0, var(--tick-distance));">
-            <span :style="transform: translate(-50%, 0) rotate(calc(-1 * (var(--rotation-start) + {[tickValue]} * var(--rotation-range)))) translate(calc({[tickValue|multiply:6.28318531|sin]} * -33%), 0);">{[displayValue]}</span>
+        <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" :style="transform: translate3d(-50%, -50%, 0) rotate3d(0, 0, 1, calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range))) translate3d(0, var(--tick-distance), 0);">
+            <span :style="transform: translate3d(-50%, 0, 0) rotate3d(0, 0, 1, calc(-1 * (var(--rotation-start) + {[tickValue]} * var(--rotation-range)))) translate3d(calc({[tickValue|multiply:6.28318531|sin]} * -33%), 0, 0);">{[displayValue]}</span>
         </button>
         <slot name="plugs"></slot>
     </template>
@@ -115,8 +115,6 @@ npm run build</code></pre>
     <style>
     range-control,
     rotary-control {
-        --track-height: 0.125rem;
-        --track-background: black;
         --track-top: 0.5625rem;
 
         --focus-track-background: #46789a;
@@ -124,9 +122,6 @@ npm run build</code></pre>
         --focus-track-shadow: none;
 
         --handle-width: 1.5rem;
-        --handle-border: none;
-        --handle-background: black;
-        --handle-shadow: none;
 
         --focus-handle-background: #46789a;
         --focus-handle-border: none;
@@ -146,6 +141,8 @@ npm run build</code></pre>
     }
 
     rotary-control {
+        --handle-width: 3rem;
+
         --tick-width: 3px;
         --tick-height: 3px;
         --tick-border-radius: 50%;
