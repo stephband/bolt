@@ -183,6 +183,11 @@ import './components/switch-label.js';
     --switch-handle-background: white;
 
     /**
+    --switch-handle-background
+    **/
+    --switch-handle-background-checked: white;
+
+    /**
     --switch-handle-width
     **/
     --switch-handle-width: 1.5rem;
