@@ -544,7 +544,7 @@ textarea.validated:focus,
     /* In Webkit, outline doesn't fit the border curves, and in FF outline
        is ugly. Lets recreate it with box-shadow */
     outline: none;
-    box-shadow: var(--focus-box-shadow);
+    box-shadow: var(--focus-shadow);
     border-color: var(--focus-border-color) !important;
 }
 

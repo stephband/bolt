@@ -164,10 +164,10 @@
     --focus-border-color: #2c9bd3;
 
     /**
-    --focus-box-shadow
+    --focus-shadow
     Box shadow of focused links, inputs, selects and textareas
     **/
-    --focus-box-shadow:
+    --focus-shadow:
         0 0 5px 2px hsla(200,56%,49%,0.8),
         inset 0 0 0 1px hsl(200,56%,49%),
         inset 0 0 0.5rem hsla(200,65%,60%,0.6);

@@ -109,7 +109,7 @@
 
 :focus + .check-button,
 :focus + .radio-button {
-    box-shadow: var(--focus-box-shadow);
+    box-shadow: var(--focus-shadow);
     border-color: var(--focus-border-color);
     /* Make focus shadow appear over other elements. */
     z-index: 1;

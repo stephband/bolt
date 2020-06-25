@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head build-fn="fetch:package.json">
+    <template build-src="../fn/templates.html#head-template"></template>
+
+    <script build-remove title="debug">
+    window.DEBUG = true;
+    </script>
+
+    <style>
+        /* Render some elements visible, just in this styleguide */
+        button:not([type]),
+        [type="button"],
+        .button {
+            background-color: rgba(127, 127, 127, 0.15);
+        }
+    </style>
+
+    <link rel="stylesheet" href="style.min.css" />
+    <!--link rel="stylesheet" href="style.css" /-->
+
+    <link rel="stylesheet" href="../dom/css/dom.css" />
+    <link rel="stylesheet" href="../fn/css/prism-cruncher.css" />
+    <link rel="stylesheet" href="../fn/css/tests.css" />
+    <link rel="stylesheet" href="../fn/css/docs.css" />
+    <link rel="stylesheet" href="../fn/css/respond.css" />
+</head>
+
+<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
+    <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
+        <template build-fn="fetch:package.json" build-src="../fn/templates.html#header-template"></template>
+    </header>
+
+    <rotary-control class="x-3 2x x-stretch y-center" ticks="0 0.2 0.4 0.6 0.8 1">Ratio</rotary-control>
+
+    <!-- Build document -->
+    <script type="module" src="../fn/docs-build.js" build-remove></script>
+
+    <!-- Custom elements -->
+    <template id="rotary-control">
+        <link rel="stylesheet" href="/bolt/elements/rotary-control.css" />
+        <div class="knob"></div>
+        <label class="control-label" for="input"><slot></slot></label>
+        <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
+        <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" style="transform: rotate3d(0, 0, 1, calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range)));">
+            <span style="transform: translate3d(-50%, 0, 0) rotate3d(0, 0, 1, calc(-1 * (var(--rotation-start) + {[tickValue]} * var(--rotation-range)))) translate3d(calc({[tickValue|multiply:6.28318531|sin]} * -33%), 0, 0);">{[displayValue]}</span>
+        </button>
+        <slot name="plugs"></slot>
+    </template>
+
+    <script type="module" src="./elements/rotary-control.js"></script>
+
+    <!-- Document interactivity -->
+    <script type="module">
+        import './module.js';
+        import './documentation.js';
+    </script>
+</body>

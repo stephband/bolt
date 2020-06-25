@@ -41,7 +41,8 @@ const mountSettings = Object.assign({}, config, {
 });
 
 const gestureOptions = {
-    threshold: 1
+    threshold: 1,
+    selector: '.knob'
 };
 
 function updateValue(element, data, unitValue) {
@@ -72,9 +73,9 @@ element('rotary-control', {
             updateValue(elem, data, parseFloat(target.value));
         });
 
-        const knob = shadow.querySelector('.knob');
+        //const knob = shadow.querySelector('.knob');
 
-        gestures(gestureOptions, knob)
+        gestures(gestureOptions, shadow)
         .each(function(events) {
             // First event is touchstart or mousedown
             const e0 = events.shift();

@@ -1,6 +1,6 @@
 :focus {
     outline-width: 0;
-    box-shadow: var(--focus-box-shadow);
+    box-shadow: var(--focus-shadow);
     z-index: 1;
 }
 

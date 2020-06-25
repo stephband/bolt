@@ -85,7 +85,7 @@ import './components/switch-label.js';
 
 :focus + .switch-label::before{
     border-color: var(--focus-border-color);
-    box-shadow: var(--focus-box-shadow);
+    box-shadow: var(--focus-shadow);
 }
 
 .switch-label.gesturing::after {
