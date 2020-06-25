@@ -494,6 +494,11 @@ input[type='file'] {
     /*margin-top: 0 !important;*/
     margin-bottom: -1px !important;
     margin-left: var(--input-padding-left, 0.75rem) !important;
+
+    /* Firefox: force no rendering or it'll inherit the default widget
+      height of 18px not matter what. */;
+    -moz-appearance: none;
+
 }
 
 
