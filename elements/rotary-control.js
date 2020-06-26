@@ -17,7 +17,7 @@ const defaults = {
     max:    1
 };
 
-const mountSettings = Object.assign({}, config, {
+const mountOptions = Object.assign({}, config, {
     mount: function(node, options) {
         // Does the node have Sparkyfiable attributes?
         const attrFn = node.getAttribute(options.attributeFn);
@@ -42,7 +42,7 @@ const mountSettings = Object.assign({}, config, {
 
 const gestureOptions = {
     threshold: 1,
-    selector: '.knob'
+    selector: '.handle'
 };
 
 function updateValue(element, data, unitValue) {
@@ -73,8 +73,6 @@ element('rotary-control', {
             updateValue(elem, data, parseFloat(target.value));
         });
 
-        //const knob = shadow.querySelector('.knob');
-
         gestures(gestureOptions, shadow)
         .each(function(events) {
             // First event is touchstart or mousedown
@@ -103,6 +101,6 @@ element('rotary-control', {
         }
 
         // Mount template
-        mount(shadow, mountSettings).push(this.data);
+        mount(shadow, mountOptions).push(this.data);
     }
 })

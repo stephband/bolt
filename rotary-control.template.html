@@ -44,7 +44,7 @@
     <!-- Custom elements -->
     <template id="rotary-control">
         <link rel="stylesheet" href="/bolt/elements/rotary-control.css" />
-        <div class="knob"></div>
+        <div class="handle"></div>
         <label class="control-label" for="input"><slot></slot></label>
         <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
         <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" style="transform: rotate3d(0, 0, 1, calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range)));">

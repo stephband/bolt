@@ -130,7 +130,7 @@ smaller.
     z-index: 0;
 }
 
-:host > .knob {
+:host > .handle {
     grid-area: handle;
     z-index: 2;
 }
@@ -187,7 +187,7 @@ output > abbr {
 
 /* knob */
 
-.knob {
+.handle {
     cursor: pointer;
     cursor: ns-resize;
     width: var(--handle-width);
@@ -204,7 +204,7 @@ output > abbr {
               user-select: none; /* Non-prefixed version */
 }
 
-.knob::after {
+.handle::after {
     content: '';
     position: absolute;
     width: var(--dot-width);
