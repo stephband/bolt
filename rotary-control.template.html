@@ -14,6 +14,11 @@
         .button {
             background-color: rgba(127, 127, 127, 0.15);
         }
+
+        rotary-control {
+            min-width: 6rem;
+            max-width: 12rem;
+        }
     </style>
 
     <link rel="stylesheet" href="style.min.css" />
@@ -31,7 +36,7 @@
         <template build-fn="fetch:package.json" build-src="../fn/templates.html#header-template"></template>
     </header>
 
-    <rotary-control class="x-3 2x x-stretch y-center" ticks="0 0.2 0.4 0.6 0.8 1">Ratio</rotary-control>
+    <rotary-control class="x-3 1x x-stretch y-center" name="ratio" ticks="0 0.2 0.4 0.6 0.8 1">Ratio</rotary-control>
 
     <!-- Build document -->
     <script type="module" src="../fn/docs-build.js" build-remove></script>

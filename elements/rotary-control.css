@@ -3,20 +3,29 @@
 rotary-control
 
 ```html
-<rotary-control max="3" ticks="0 0.5 1 1.5 2 2.5 3" transform="cubic" unit="s">Rotary</rotary-control>
+<rotary-control name="rotary" max="3" ticks="0 0.5 1 1.5 2 2.5 3" transform="cubic" unit="s">Rotary</rotary-control>
 ```
 **/
+
+/*
+The CSS that makes this web component flexible may look a little funky. The
+width of the component dictates the size of the handle, track and tick radius,
+then those elements push the (automatic) height of the component. The ticks are
+normally layed out vertically before being transformed. They are usually the
+tallest element. If there are no ticks the component will collapse a bit
+smaller.
+*/
 
 :host {
     /** --touch-range **/
     --touch-range: 15rem;
 
-    --handle-width: calc(100% - 3.25rem);
+    --handle-width: calc(100% - 2 * var(--tick-height) - 4 * var(--tick-font-size) - 1.25rem);
     --handle-background: white;
     --handle-border: 1px solid rgb(187, 187, 187);
     --handle-shadow: 0 0.1875rem 0.375rem 0 rgba(0,0,0,0.2);
 
-    --track-width:  calc(var(--handle-width) + 0.375rem);
+    --track-width:  calc(var(--handle-width) + 0.75rem);
     --track-background:  white;
     --track-shadow: inset 0 0.25rem 0.5rem rgba(0,0,0,0.24);
 
@@ -44,15 +53,14 @@ rotary-control
 
     --tick-width: 0.1875rem;
     --tick-height: var(--tick-width);
-    --tick-radius: calc(0.5 * var(--track-width) + 0.125rem);
+    --tick-radius: calc(0.5 * var(--handle-width) + 0.625rem);
     --tick-color: black;
     --tick-background: var(--tick-color);
     --tick-border: none;
     --tick-border-radius: 50%;
-    --tick-line-height: 0.75rem;
     --tick-shadow: none;
-    --tick-font-size: 0.5625rem;
-    --tick-line-height: 0.75rem;
+    --tick-font-size: 0.625rem;
+    --tick-line-height: 0.9375rem;
     --tick-letter-spacing: -0.0125em;
     --tick-text-shadow: none;
 
@@ -62,6 +70,7 @@ rotary-control
         'handle handle'
         'label plugs';
     grid-template-columns: 1fr min-content;
+    grid-row-gap: 0.375rem;
     /*grid-template-rows: calc(2 * var(--tick-distance) + 2 * var(--tick-width) + 2 * var(--tick-line-height)) min-content;*/
     align-items: center;
     justify-items: center;
@@ -129,6 +138,7 @@ rotary-control
 :host > .tick {
     grid-area: handle;
     outline-width: 0;
+    z-index: 1;
 }
 
 :host > .control-label {
@@ -179,6 +189,7 @@ output > abbr {
 
 .knob {
     cursor: pointer;
+    cursor: ns-resize;
     width: var(--handle-width);
     height: 0;
     padding-top: calc(var(--handle-width) - 2px);
@@ -214,9 +225,10 @@ output > abbr {
     cursor: pointer;
 
     display: block;
-    padding: calc(2 * var(--tick-radius)) 0 0 0;
+    padding: calc(2 * var(--tick-radius) + var(--tick-line-height) + var(--tick-height)) 0 0 0;
     width: 0;
-    height: 0;
+    box-sizing: content-box;
+    height: auto;
     transform-origin: 50% 50%;
 
     font-size: var(--tick-font-size);
@@ -245,6 +257,7 @@ output > abbr {
     background: var(--tick-background);
     border: var(--tick-border);
     border-radius: var(--tick-border-radius);
+    transform: translate3d(-50%, 0, 0);
 }
 
 .tick::after {

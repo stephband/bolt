@@ -244,6 +244,8 @@ range-control
     -webkit-appearance: none !important;
 
     cursor: pointer;
+    cursor: ew-resize;
+
     width:  var(--handle-width);
     height: var(--handle-height);
 
@@ -273,6 +275,8 @@ range-control
 
 [type="range"]::-moz-range-thumb {
     cursor: pointer;
+    cursor: ew-resize;
+
     width:  var(--handle-width);
     height: var(--handle-width);
 
@@ -303,6 +307,8 @@ range-control
 
 [type="range"]::-ms-thumb {
     cursor: pointer;
+    cursor: ew-resize;
+
     width:  var(--handle-width);
     height: var(--handle-width);
 

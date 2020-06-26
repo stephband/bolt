@@ -736,6 +736,7 @@ select:focus {
     -webkit-appearance: none !important;
 
     cursor: pointer;
+    cursor: ew-resize;
 
     width: var(--range-thumb-width, 0.875rem);
     height: var(--range-thumb-height, var(--range-thumb-width, 0.875rem));
@@ -748,6 +749,7 @@ select:focus {
 
 [type="range"]::-moz-range-thumb {
     cursor: pointer;
+    cursor: ew-resize;
 
     width: var(--range-thumb-width, 0.875rem);
     height: var(--range-thumb-height, var(--range-thumb-width, 0.875rem));
@@ -760,6 +762,7 @@ select:focus {
 
 [type="range"]::-ms-thumb {
     cursor: pointer;
+    cursor: ew-resize;
 
     width: var(--range-thumb-width, 0.875rem);
     height: var(--range-thumb-height, var(--range-thumb-width, 0.875rem));

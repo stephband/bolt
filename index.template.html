@@ -106,15 +106,14 @@ npm run build</code></pre>
         <div class="knob"></div>
         <label class="control-label" for="input"><slot></slot></label>
         <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
-        <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" :style="transform: translate3d(-50%, -50%, 0) rotate3d(0, 0, 1, calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range))) translate3d(0, var(--tick-distance), 0);">
-            <span :style="transform: translate3d(-50%, 0, 0) rotate3d(0, 0, 1, calc(-1 * (var(--rotation-start) + {[tickValue]} * var(--rotation-range)))) translate3d(calc({[tickValue|multiply:6.28318531|sin]} * -33%), 0, 0);">{[displayValue]}</span>
+        <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" style="transform: rotate3d(0, 0, 1, calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range)));">
+            <span style="transform: translate3d(-50%, 0, 0) rotate3d(0, 0, 1, calc(-1 * (var(--rotation-start) + {[tickValue]} * var(--rotation-range)))) translate3d(calc({[tickValue|multiply:6.28318531|sin]} * -33%), 0, 0);">{[displayValue]}</span>
         </button>
         <slot name="plugs"></slot>
     </template>
 
     <style>
-    range-control,
-    rotary-control {
+    range-control {
         --track-top: 0.5625rem;
 
         --focus-track-background: #46789a;
@@ -138,14 +137,6 @@ npm run build</code></pre>
     range-control {
         --tick-width: 1px;
         --tick-height: 0.6875rem;
-    }
-
-    rotary-control {
-        --handle-width: 3rem;
-
-        --tick-width: 3px;
-        --tick-height: 3px;
-        --tick-border-radius: 50%;
     }
 
     range-control:focus,
