@@ -16,7 +16,6 @@ function createTicks(data, tokens) {
         .map((value) => {
             // Freeze to tell mounter it's immutable, prevents
             // unnecessary observing
-            //console.log(value, invert(data.transform, value, data.min, data.max), transformTick(data.unit, value));
             return Object.freeze({
                 root:         data,
                 value:        value,
@@ -85,6 +84,8 @@ export const attributes = {
                 data.ticksAttribute || '' :
                 data.stepsAttribute );
         }
+
+        this.style.setProperty('--unit-zero', invert(data.transform, 0, data.min, data.max));
     },
 
     ticks: function(value) {
@@ -131,15 +132,16 @@ export const properties = {
             const data = this.data;
             value = evaluate(value);
 
-            if (value === data.min) { return; }
-
             const observer = Observer(data);
             observer.min   = evaluate(value);
 
             // Check for readiness
-            if (data.max === undefined || data.value === undefined) { return; }
-
+            if (data.max === undefined) { return; }
             observer.ticks = createTicks(data, data.ticksAttribute);
+            this.style.setProperty('--unit-zero', invert(data.transform, 0, data.min, data.max));
+
+            // Check for readiness
+            if (data.value === undefined) { return; }
             observer.unitValue = invert(data.transform, data.value, data.min, data.max);
         },
 
@@ -155,15 +157,15 @@ export const properties = {
             const data = this.data;
             value = evaluate(value);
 
-            if (value === data.max) { return; }
-
             const observer = Observer(data);
             observer.max   = evaluate(value);
 
-            // Check for readiness
-            if (data.min === undefined || data.value === undefined) { return; }
-
+            if (data.min === undefined) { return; }
             observer.ticks = createTicks(data, data.ticksAttribute);
+            this.style.setProperty('--unit-zero', invert(data.transform, 0, data.min, data.max));
+
+            // Check for readiness
+            if (data.value === undefined) { return; }
             observer.unitValue = invert(data.transform, data.value, data.min, data.max);
         },
 
