@@ -18,7 +18,8 @@
   "devDependencies": {
     "eslint": "^6.5.0",
     "node-sass": "^4.13.1",
-    "rollup": "^1.32.1"
+    "rollup": "^1.32.1",
+    "madge": "^3.9.2"
   },
   "homepage": "http://stephen.band/bolt/",
   "docs": "http://stephen.band/bolt/",
@@ -30,6 +31,7 @@
     "build-module": "rollup ./module.js --o ./module.rolled.js --f esm",
     "build-css": "node ../fn/build-css.js style.css style.min.css",
     "build-docs": "node ../fn/build-html.js index.template.html index.html && node ../fn/build-html.js rotary-control.template.html rotary-control.html",
+    "graph": "madge --image ./module.svg ./module.js",
     "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.1' && git push"
   }
 }

@@ -1,0 +1,135 @@
+
+/* .slides-grid */
+
+:host {
+    --gap: 0px;
+    --align: end;
+
+    position: relative;
+    display: grid !important;
+    background-color: lightgrey;
+}
+
+:host > .hider {
+    grid-row: 1;
+    align-self: center;
+    justify-self: stretch;
+    margin-left: 0;
+    margin-right: 0;
+    z-index: 1;
+
+    background-color: pink;
+}
+
+:host > .thumb {
+    position: absolute;
+    top: 0;
+    z-index: 3;
+}
+
+:host > .thumb {
+    position: absolute;
+    top: 0;
+    z-index: 3;
+}
+
+:host > .prev-thumb {
+    left: 0;
+}
+
+:host > .next-thumb {
+    right: 0;
+}
+
+:host > nav {
+    grid-row: 2;
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 2;
+    background-color: red;
+}
+
+
+.hide-scroll {
+    overflow: hidden;
+}
+
+.hide-scroll > slot {
+        /* Hide any scroll bar by moving it out of overflow hidden parent */
+    padding-bottom: 20px;
+    margin-bottom: -20px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+slot {
+    display: grid;
+
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    grid-auto-rows: min-content;
+    grid-column-gap: var(--gap);
+
+    align-items: var(--align);
+    justify-items: center;
+
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    scroll-behavior: smooth;
+    overflow: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+
+    background-color: yellow;
+}
+
+slot::-webkit-scrollbar {
+    display: none;
+}
+
+slot::slotted(*) {
+    justify-self: stretch;
+    scroll-snap-align: start;
+
+    background-color: orange;
+}
+
+
+/*
+.dot-thumb
+
+Markup: <a class="dot-thumb thumb" href="/1">1</a>
+
+Styleguide: 4.thumb.dot-thumb
+*/
+
+.dot-thumb {
+    position: relative;
+    width: 1.25rem;
+    padding-top: 1.25rem;
+}
+
+.dot-thumb::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -0.3125rem;
+    margin-left: -0.3125rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border: 1px solid currentcolor;
+    border-radius: 50%;
+}
+
+.dot-thumb.on::before {
+    background-color: currentcolor;
+}
+
+
+
+.loading :host {
+    scroll-behavior: auto;
+}
