@@ -38,10 +38,6 @@ function createDots(elem, template) {
 element('slide-show', {
     template: '#slide-show',
 
-    attributes: {},
-
-    properties: {},
-
     construct: function(shadow) {
         const elem = this;
         //const data = weakCache(this);
