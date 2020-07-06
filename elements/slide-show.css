@@ -1,9 +1,22 @@
 
+@import '../css/html.css';
+@import '../css/thumb.css';
+
 /* .slides-grid */
 
 :host {
     --gap: 0px;
     --align: end;
+
+    --nav-margin-top: -3rem;
+
+    --dot-width: 0.625rem;
+    --dot-border: 1px solid currentcolor;
+    --dot-background: none;
+    --dot-shadow: none;
+    --dot-border-on: var(--dot-border);
+    --dot-background-on: currentcolor;
+    --dot-shadow-on: var(--dot-shadow);
 
     position: relative;
     display: grid !important;
@@ -27,12 +40,6 @@
     z-index: 3;
 }
 
-:host > .thumb {
-    position: absolute;
-    top: 0;
-    z-index: 3;
-}
-
 :host > .prev-thumb {
     left: 0;
 }
@@ -47,7 +54,7 @@
     margin-left: auto;
     margin-right: auto;
     z-index: 2;
-    background-color: red;
+    margin-top: var(--nav-margin-top);
 }
 
 
@@ -116,16 +123,20 @@ Styleguide: 4.thumb.dot-thumb
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -0.3125rem;
-    margin-left: -0.3125rem;
-    width: 0.625rem;
-    height: 0.625rem;
-    border: 1px solid currentcolor;
+    margin-top: calc(-0.5 * var(--dot-width));
+    margin-left: calc(-0.5 * var(--dot-width));
+    width: var(--dot-width);
+    height: var(--dot-width);
     border-radius: 50%;
+    background: var(--dot-background);
+    border: var(--dot-border);
+    box-shadow: var(--dot-shadow);
 }
 
 .dot-thumb.on::before {
-    background-color: currentcolor;
+    background: var(--dot-background-on);
+    border: var(--dot-border-on);
+    box-shadow: var(--dot-shadow-on);
 }
 
 

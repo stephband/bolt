@@ -15,6 +15,10 @@ const defaults = {
     max:    1
 };
 
+const onceOptions = {
+    once: true
+};
+
 function createDots(elem, template) {
     // Create a nav dot for each slide with an id
     Array.from(elem.children).reduce((prev, node) => {
@@ -31,7 +35,6 @@ function createDots(elem, template) {
     template.remove();
 }
 
-
 element('slide-show', {
     template: '#slide-show',
 
@@ -41,7 +44,7 @@ element('slide-show', {
 
     construct: function(shadow) {
         const elem = this;
-        const data = weakCache(this);
+        //const data = weakCache(this);
 
         /*shadow.querySelector('slot').addEventListener('scroll', (e) => {
             console.log('scroll', e);
@@ -53,30 +56,50 @@ element('slide-show', {
             createDots(elem, dot);
         }
 
-        console.log(elem.innerHTML);
-    },
-
-    connect: function(shadow) {
-        const elem = this;
         const slot = shadow.querySelector('slot');
-        //const data = weakCache(this);
 
-        events('scroll', slot)
-        .each(function(e) {
-            const elemLeft   = rect(elem).left;
+        let slide;
+
+        function activate(e) {
+            const elemRect = rect(elem);
+            const elemCentre = elemRect.left + elemRect.width / 2;
             const slides = elem.children;
-            let n = slides.length;
-            let slide;
 
-            while ((slide = slides[--n])) {
-                const left = rect(slide).left;
-                if (left <= elemLeft) {
+            let n = slides.length;
+            let newSlide;
+
+            while ((newSlide = slides[--n])) {
+                const left = rect(newSlide).left;
+                if (left <= elemCentre) {
                     break;
                 }
             }
 
-            const id = slide.id;
-            shadow.querySelector('[href="#' + id +'"]').classList.add('on');
+            if (newSlide === slide) { return; }
+
+            if (slide){
+                shadow.querySelector('[href="#' + slide.id +'"]').classList.remove('on');
+            }
+
+            slide = newSlide;
+            shadow.querySelector('[href="#' + slide.id +'"]').classList.add('on');
+        }
+
+        events('scroll', slot).each(activate);
+
+        // Wait for stylesheets to load to initiate first active nav thumb
+        const links = shadow.querySelectorAll('link');
+        links.forEach(function(node) {
+            let count = 0;
+            node.addEventListener('load', function(e) {
+                if (++count >= links.length) {
+                    activate();
+                }
+            }, onceOptions);
         });
+    },
+
+    connect: function(shadow) {
+        //const elem = this;
     }
 });
