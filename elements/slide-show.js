@@ -39,7 +39,6 @@ function testScrollBarWidth() {
     return scrollBarWidth;
 }
 
-
 function createDots(elem, template) {
     // Create a nav dot for each slide with an id
     Array.from(elem.children).reduce((prev, node) => {
@@ -101,7 +100,11 @@ element('slide-show', {
             activate(elem, shadow);
         });
 
-        slot.parentNode.style.setProperty("--scrollbar-width", testScrollBarWidth());
+        // Select the .hide-scroll wrapper element and apply margin bottom
+        const scrollBarWidth = testScrollBarWidth();
+        if (scrollBarWidth) {
+            slot.parentNode.style.setProperty('margin-bottom', '-' + scrollBarWidth + 'px');
+        }
     },
 
     load: activate

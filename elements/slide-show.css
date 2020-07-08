@@ -65,7 +65,8 @@
 .hide-scroll > slot {
     /* Hide any scroll bar by moving it out of overflow hidden parent */
     padding-bottom: 0;
-    margin-bottom: calc(-1 * var(--scrollbar-width));
+    /* Negative margin-bottom is set in slide-show.js */
+    margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
 }
