@@ -14,6 +14,46 @@ Crunchum Ipsum.
 **/
 
 .bubble {
+    /**
+    --font-size
+    **/
+    --font-size: 1rem;
+
+    /**
+    --line-height
+    **/
+    --line-height: 1.5rem;
+
+    /**
+    --background
+    **/
+    --background: black;
+
+    /**
+    --border-color
+    **/
+    --border-color: black;
+
+    /**
+    --border-width
+    **/
+    --border-width: 0.125rem;
+
+    /**
+    --border-radius
+    **/
+    --border-radius: 0.25rem;
+
+    /**
+    --color
+    **/
+    --color: white;
+
+    /**
+    --pointer-y
+    **/
+    --pointer-y: 1.5rem;
+
     top: 0;
     left: 0;
     /* We want the bubble to expand up to 320px, but it won't
@@ -21,18 +61,19 @@ Crunchum Ipsum.
        left + 320, so give it a negative right. */
     right: -20rem;
     max-width: 92vw;
-    font-size: var(--bubble-font-size);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
-    min-height: calc(2 * var(--bubble-border-width) + 2 * 0.75rem + var(--bubble-line-height));
-    color: var(--bubble-color);
+    min-height: calc(2 * var(--border-width) + 2 * 0.75rem + var(--line-height));
+    color: var(--color);
     border: 0.125rem solid #cadce3;
-    border-width: var(--bubble-border-width);
-    border-color: var(--bubble-border-color);
-    background:   var(--bubble-background);
-    border-radius: var(--bubble-border-radius);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    background:   var(--background);
+    border-radius: var(--border-radius);
     box-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 
@@ -110,7 +151,7 @@ Crunchum Ipsum.
 
 .bottom-left-bubble::before,
 .bottom-right-bubble::before {
-    top: var(--bubble-pointer-y);
+    top: var(--pointer-y);
 }
 
 .js .bubble {
@@ -228,61 +269,18 @@ Crunchum Ipsum.
     }
 
     .js .bottom-left-bubble {
-        transform: translate3d(-100%, calc(-1 * var(--bubble-pointer-y)), 0);
+        transform: translate3d(-100%, calc(-1 * var(--pointer-y)), 0);
     }
 
     .js .bottom-left-bubble.active {
-        transform: translate3d(calc(-100% - 0.25rem), calc(-1 * var(--bubble-pointer-y)), 0);
+        transform: translate3d(calc(-100% - 0.25rem), calc(-1 * var(--pointer-y)), 0);
     }
 
     .js .bottom-right-bubble {
-        transform: translate3d(0.9375rem, calc(-1 * var(--bubble-pointer-y)), 0);
+        transform: translate3d(0.9375rem, calc(-1 * var(--pointer-y)), 0);
     }
 
     .js .bottom-right-bubble.active {
-        transform: translate3d(1.25rem, calc(-1 * var(--bubble-pointer-y)), 0);
+        transform: translate3d(1.25rem, calc(-1 * var(--pointer-y)), 0);
     }
-}
-
-
-:root {
-    /**
-    --bubble-font-size
-    **/
-    --bubble-font-size: 1rem;
-
-    /**
-    --bubble-line-height
-    **/
-    --bubble-line-height: 1.5rem;
-
-    /**
-    --bubble-background
-    **/
-    --bubble-background: black;
-
-    /**
-    --bubble-border-color
-    **/
-    --bubble-border-color: black;
-
-    /**
-    --bubble-border-width
-    **/
-    --bubble-border-width: 0.125rem;
-
-    /**
-    --bubble-border-radius
-    **/
-    --bubble-border-radius: 0.25rem;
-
-    /**
-    --bubble-color
-    **/
-    --bubble-color: white;
-
-    /**
-    --bubble-pointer-y
-    **/
-    --bubble-pointer-y: 1.5rem;
 }
