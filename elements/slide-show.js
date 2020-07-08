@@ -101,7 +101,7 @@ element('slide-show', {
             activate(elem, shadow);
         });
 
-        slot.style.setProperty("--scrollbar-width", testScrollBarWidth());
+        slot.parentNode.style.setProperty("--scrollbar-width", testScrollBarWidth());
     },
 
     load: activate
