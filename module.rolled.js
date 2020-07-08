@@ -6567,50 +6567,50 @@ var match$1   = matches$2('.popable, [popable]');
 var timeStamp$1 = 0;
 
 function activate$1(e) {
-	// Use method detection - e.defaultPrevented is not set in time for
-	// subsequent listeners on the same node
-	if (!e.default) { return; }
+    // Use method detection - e.defaultPrevented is not set in time for
+    // subsequent listeners on the same node
+    if (!e.default) { return; }
 
-	const node = e.target;
-	if (!match$1(node)) { return; }
+    const node = e.target;
+    if (!match$1(node)) { return; }
 
-	// Make user actions outside node deactivate the node
+    // Make user actions outside node deactivate the node
 
-	requestAnimationFrame(function() {
-		function click(e) {
-			// Ignore clicks that follow clicks with the same timeStamp – this
-			// is true of clicks simulated by browsers on inputs when a label
-			// with a corresponding for="id" is clicked. In old Safari the order
-			// of thiese simulations with respoect to input and change events
-			// does not match other browsers and in rare cases causing Sparky
-			// to redo it's rendering
-			if (e.timeStamp === timeStamp$1) { return; }
-			timeStamp$1 = e.timeStamp;
+    requestAnimationFrame(function() {
+        function click(e) {
+            // Ignore clicks that follow clicks with the same timeStamp – this
+            // is true of clicks simulated by browsers on inputs when a label
+            // with a corresponding for="id" is clicked. In old Safari the order
+            // of thiese simulations with respoect to input and change events
+            // does not match other browsers and in rare cases causing Sparky
+            // to redo it's rendering
+            if (e.timeStamp === timeStamp$1) { return; }
+            timeStamp$1 = e.timeStamp;
 
-			if (node.contains(e.target) || node === e.target) { return; }
-			trigger$4(node, 'dom-deactivate');
-		}
+            if (node.contains(e.target) || node === e.target) { return; }
+            trigger$4(node, 'dom-deactivate');
+        }
 
-		function deactivate(e) {
-			if (node !== e.target) { return; }
-			if (e.defaultPrevented) { return; }
-			document.removeEventListener('click', click);
-			document.documentElement.removeEventListener('dom-deactivate', deactivate);
-		}
+        function deactivate(e) {
+            if (node !== e.target) { return; }
+            if (e.defaultPrevented) { return; }
+            document.removeEventListener('click', click);
+            document.documentElement.removeEventListener('dom-deactivate', deactivate);
+        }
 
-		document.addEventListener('click', click);
-		document.documentElement.addEventListener('dom-deactivate', deactivate);
-	});
+        document.addEventListener('click', click);
+        document.documentElement.addEventListener('dom-deactivate', deactivate);
+    });
 
-	e.default();
+    e.default();
 }
 
 function deactivate$1(e) {
-	if (!e.default) { return; }
+    if (!e.default) { return; }
 
-	var target = e.target;
-	if (!match$1(target)) { return; }
-	e.default();
+    var target = e.target;
+    if (!match$1(target)) { return; }
+    e.default();
 }
 
 document.addEventListener('dom-activate', activate$1);
