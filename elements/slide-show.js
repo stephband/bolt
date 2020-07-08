@@ -19,25 +19,24 @@ const onceOptions = {
     once: true
 };
 
+let scrollBarWidth;
+
 function testScrollBarWidth() {
+    if (scrollBarWidth) { return scrollBarWidth; }
+
     const inner = create('div', {
-        style: 'display: block; width: auto; height: 60px; background: orange;'
+        style: 'display: block; width: auto; height: 60px; background: transparent;'
     });
 
     const test = create('div', {
-        style: 'overflow: scroll; width: 30px; height: 30px; position: absolute; bottom: 0; right: 0; background: red; z-index: 10;',
+        style: 'overflow: scroll; width: 30px; height: 30px; position: absolute; bottom: 0; right: 0; background: transparent; z-index: -1;',
         children: [inner]
     });
 
     document.body.appendChild(test);
-
-    const scrollBarWodth = test.clientWidth - inner.clientWidth;
-
-    console.log(test.clientWidth - inner.clientWidth, test);
-
-    //test.remove();
-
-    return scrollBarWodth;
+    scrollBarWidth = test.offsetWidth - inner.offsetWidth;
+    test.remove();
+    return scrollBarWidth;
 }
 
 
@@ -102,7 +101,7 @@ element('slide-show', {
             activate(elem, shadow);
         });
 
-        testScrollBarWidth();
+        slot.style.setProperty("--scrollbar-width", testScrollBarWidth());
     },
 
     load: activate

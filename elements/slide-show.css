@@ -64,8 +64,8 @@
 
 .hide-scroll > slot {
         /* Hide any scroll bar by moving it out of overflow hidden parent */
-    padding-bottom: 20px;
-    margin-bottom: -20px;
+    padding-bottom: 0;
+    margin-bottom: calc(-1 * var(--scrollbar-width));
     margin-left: 0;
     margin-right: 0;
 }
