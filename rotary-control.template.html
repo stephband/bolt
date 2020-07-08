@@ -19,11 +19,6 @@
         rotary-control {
             --focus-shadow: inset 0 0 0.9375rem hsla(200,100%,40%,0.5);
         }
-
-        rotary-control {
-            min-width: 6rem;
-            max-width: 12rem;
-        }
     </style>
 
     <link rel="stylesheet" href="style.min.css" />
@@ -38,10 +33,10 @@
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
     <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
-        <template build-fn="fetch:package.json" build-src="../fn/templates.html#header-template"></template>
+        <!--template build-fn="fetch:package.json" build-src="../fn/templates.html#header-template"></template-->
     </header>
 
-    <rotary-control class="x-3 1x x-stretch y-center" min="-1" max="1" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">Ratio</rotary-control>
+    <rotary-control class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center" min="-1" max="1" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="min-width: 8rem; max-width: 10rem;">Ratio</rotary-control>
 
     <!-- Build document -->
     <script type="module" src="../fn/docs-build.js" build-remove></script>
