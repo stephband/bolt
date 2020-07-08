@@ -53,8 +53,7 @@ element('range-control', {
     attributes: attributes,
     properties: properties,
 
-    construct: function(shadow) {
-        const elem = this;
+    construct: function(elem, shadow) {
         const data = this.data = assign({}, defaults);
 
         // Pick up input events and update scope - Sparky wont do this
@@ -86,7 +85,7 @@ element('range-control', {
         });
     },
 
-    connect: function(shadow) {
+    connect: function(elem, shadow) {
         // Range control must have value
         if (this.data.value === undefined) {
             this.value = this.data.min;

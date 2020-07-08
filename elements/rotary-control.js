@@ -60,7 +60,7 @@ element('rotary-control', {
     attributes: attributes,
     properties: properties,
 
-    construct: function(shadow) {
+    construct: function(elem, shadow) {
         const elem = this;
         const data = this.data = assign({}, defaults);
 
@@ -94,7 +94,7 @@ element('rotary-control', {
         });
     },
 
-    connect: function(shadow) {
+    connect: function(elem, shadow) {
         // Rotary control must have value
         if (this.data.value === undefined) {
             this.value = this.data.min;
