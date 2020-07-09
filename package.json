@@ -18,7 +18,7 @@
   "devDependencies": {
     "eslint": "^6.5.0",
     "node-sass": "^4.13.1",
-    "rollup": "^1.32.1",
+    "rollup": "^2.21.0",
     "madge": "^3.9.2"
   },
   "homepage": "http://stephen.band/bolt/",
