@@ -130,10 +130,8 @@ export const properties = {
 
         set: function(value) {
             const data = this.data;
-            value = evaluate(value);
-
             const observer = Observer(data);
-            observer.min   = evaluate(value);
+            observer.min = evaluate(value);
 
             // Check for readiness
             if (data.max === undefined) { return; }
@@ -155,8 +153,6 @@ export const properties = {
 
         set: function(value) {
             const data = this.data;
-            value = evaluate(value);
-
             const observer = Observer(data);
             observer.max   = evaluate(value);
 

@@ -1,0 +1,43 @@
+
+.envelope-svg {
+    height: 150px;
+    width: 100%;
+    background-color: #01181e;
+    border-radius: 3px;
+    background-size: auto 100%;
+    background-position: bottom left;
+    box-shadow: inset 0 0 90px hsla(192, 94%, 6%, 0.8),
+        0 1px 1px hsla(192, 18%, 64%, 0.15),
+        0 -1px 1px hsla(192, 60%, 8%, 0.4);
+    border-radius: 12px;
+}
+
+.control-point {
+    fill: url(#handle-gradient);
+    stroke: inherit;
+    stroke-width: 3;
+}
+
+.control-line {
+    stroke: inherit;
+    stroke-width: 3;
+}
+
+.thin-control-line {
+    display: none;
+    stroke-width: 1;
+    stroke-dasharray: 1 2;
+}
+
+.control {
+    stroke: #01181e;
+}
+
+.control:focus {
+    stroke: hsl(165, 31%, 53%);
+    outline: none;
+}
+
+.control:focus > .thin-control-line {
+    display: block;
+}

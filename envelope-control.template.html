@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head build-fn="fetch:package.json">
+    <template build-src="../fn/templates.html#head-template"></template>
+
+    <script build-remove title="debug">
+    window.DEBUG = true;
+    </script>
+
+    <style>
+        /* Render some elements visible, just in this styleguide */
+        button:not([type]),
+        [type="button"],
+        .button {
+            background-color: rgba(127, 127, 127, 0.15);
+        }
+
+        range-control,
+        rotary-control {
+            --focus-shadow: inset 0 0 0.9375rem hsla(200,100%,40%,0.5);
+        }
+    </style>
+
+    <link rel="stylesheet" href="style.min.css" />
+    <!--link rel="stylesheet" href="style.css" /-->
+
+    <link rel="stylesheet" href="../dom/css/dom.css" />
+    <link rel="stylesheet" href="../fn/css/prism-cruncher.css" />
+    <link rel="stylesheet" href="../fn/css/tests.css" />
+    <link rel="stylesheet" href="../fn/css/docs.css" />
+    <link rel="stylesheet" href="../fn/css/respond.css" />
+</head>
+
+<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
+    <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
+        <!--template build-fn="fetch:package.json" build-src="../fn/templates.html#header-template"></template-->
+    </header>
+
+    <envelope-control class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center" min="-1" max="1" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="min-width: 8rem; max-width: 10rem;">Envelope</envelope-control>
+
+    <!-- Build document -->
+    <script type="module" src="../fn/docs-build.js" build-remove></script>
+
+    <!-- Custom elements -->
+    <svg>
+        <defs>
+            <linearGradient id="handle-gradient" x1="0" x2="0" y1="0" y2="1">
+                <stop class="stop-1" offset="0%"/>
+                <stop class="stop-2" offset="100%"/>
+            </linearGradient>
+
+            <style>
+                .stop-1 {
+                    stop-color: hsl(192,0%,96.8%);
+                }
+
+                .stop-2 {
+                    stop-color: hsl(192,0%,55%);
+                }
+            </style>
+
+            <circle id="control-handle" class="control-point" cx="0" cy="0" r="0.0375"></circle>
+
+            <circle id="step-db-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
+            <circle id="linear-db-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
+            <circle id="exponential-db-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
+            <g id="target-db-control" class="control" tabindex="0">
+                <line class="control-line" :x1="{[0]}" :x2="{[.|sum03]}" :y1="{[valueAtBeat|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" :y2="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}"></line>
+                <line class="thin-control-line control-line" :x1="{[0]}" :x2="{[.|sum033333]}" :y1="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" :y2="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}"></line>
+                <use fn="scope" class="control-handle" href="#control-handle" :x="{[0]}" :y="{[valueAtBeat|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" width="0.075" height="0.075"></use>
+                <use fn="scope" class="duration-handle" href="#control-handle" :x="{[.|sum03]}" :y="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" width="0.075" height="0.075"></use>
+            </g>
+
+            <circle id="step-hz-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:logarithmic,16,16384|multiply:-1]}" r="0.0375"></circle>
+            <circle id="linear-hz-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:logarithmic,16,16384|multiply:-1]}" r="0.0375"></circle>
+            <circle id="exponential-hz-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:logarithmic,16,16384|multiply:-1]}" r="0.0375"></circle>
+            <g id="target-hz-control" class="control" tabindex="0">
+                <line class="control-line" :x1="{[0]}" :x2="{[.|sum03]}" :y1="{[valueAtBeat|normalise:logarithmic,16,16384|multiply:-1]}" :y2="{[2|normalise:logarithmic,16,16384|multiply:-1]}"></line>
+                <line class="thin-control-line control-line" :x1="{[0]}" :x2="{[.|sum033333]}" :y1="{[2|normalise:logarithmic,16,16384|multiply:-1]}" :y2="{[2|normalise:logarithmic,16,16384|multiply:-1]}"></line>
+                <use fn="scope" class="control-handle" href="#control-handle" :x="{[0]}" :y="{[valueAtBeat|normalise:logarithmic,16,16384|multiply:-1]}" width="0.075" height="0.075"></use>
+                <use fn="scope" class="duration-handle" href="#control-handle" :x="{[.|sum03]}" :y="{[2|normalise:logarithmic,16,16384|multiply:-1]}" width="0.075" height="0.075"></use>
+            </g>
+        </defs>
+    </svg>
+
+    <template id="envelope-control">
+        <link rel="stylesheet" href="/bolt/elements/envelope-control.css" />
+        <svg fn="envelope-control" class="envelope-svg" viewBox="0 -1.125 2 1.125" y-transform="linear-logarithmic" y-min="-36dB" y-max="1.125" ticks="0dB -6dB -12dB -18dB -24dB -30dB -36dB -42dB -48dB" preserveAspectRatio="xMinYMid slice">
+            <text text-anchor="end" x="-0.05" y="-0.965" style="font-size: 0.07; fill: #01181e;">0</text>
+            <text text-anchor="end" x="-0.05" y="0.035" style="font-size: 0.07; fill: #01181e;">-∞</text>
+        </svg>
+    </template>
+
+    <script type="module" src="./elements/envelope-control.js"></script>
+
+    <!-- Document interactivity -->
+    <script type="module">
+        import './module.js';
+        import './documentation.js';
+    </script>
+</body>
