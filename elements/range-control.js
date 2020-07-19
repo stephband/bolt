@@ -54,7 +54,7 @@ element('range-control', {
     properties: properties,
 
     construct: function(elem, shadow) {
-        const data = this.data = assign({}, defaults);
+        const data = elem.data = assign({}, defaults);
 
         // Pick up input events and update scope - Sparky wont do this
         // currently as events are delegated to document, and these are in
@@ -87,11 +87,11 @@ element('range-control', {
 
     connect: function(elem, shadow) {
         // Range control must have value
-        if (this.data.value === undefined) {
-            this.value = this.data.min;
+        if (elem.data.value === undefined) {
+            elem.value = elem.data.min;
         }
 
         // Mount template
-        mount(shadow, mountSettings).push(this.data);
+        mount(shadow, mountSettings).push(elem.data);
     }
 })
