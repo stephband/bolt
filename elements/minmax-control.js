@@ -1,8 +1,7 @@
 
 import { Observer } from '../../fn/module.js';
-import { clamp } from '../../fn/modules/maths/clamp.js';
 import { transform } from './control.js';
-import { element, gestures, parseValue, trigger } from '../../dom/module.js';
+import { element, trigger } from '../../dom/module.js';
 import Sparky, { mount, config } from '../../sparky/module.js';
 import { attributes, properties } from './attributes.js';
 
@@ -11,13 +10,13 @@ const DEBUG = true;
 const assign = Object.assign;
 
 const defaults = {
-    path:   './components/controls',
+    path: './components/controls',
     transform: 'linear',
     min:    0,
     max:    1
 };
 
-const mountOptions = Object.assign({}, config, {
+const mountSettings = Object.assign({}, config, {
     mount: function(node, options) {
         // Does the node have Sparkyfiable attributes?
         const attrFn = node.getAttribute(options.attributeFn);
@@ -30,7 +29,7 @@ const mountOptions = Object.assign({}, config, {
         var sparky = Sparky(node, options);
 
         // This is just some help for logging
-        sparky.label = 'Sparky (<rotary-control> tick)';
+        sparky.label = 'Sparky (<range-control> tick)';
 
         // Return sparky
         return sparky;
@@ -40,66 +39,59 @@ const mountOptions = Object.assign({}, config, {
     attributeFn:      'fn'
 });
 
-const gestureOptions = {
-    threshold: 1,
-    selector: '.handle'
-};
-
 function updateValue(element, data, unitValue) {
     const observer = Observer(data);
     observer.unitValue = unitValue;
 
     const value = transform(data.transform, unitValue, data.min, data.max) ;
     element.value = value;
-
-    trigger('input', element);
 }
 
-element('rotary-control', {
-    template: '#rotary-control',
+
+element('range-control', {
+    template: '#range-control',
     attributes: attributes,
     properties: properties,
 
     construct: function(elem, shadow) {
-        const data = elem.data = assign({}, defaults);
+        const data = this.data = assign({}, defaults);
 
         // Pick up input events and update scope - Sparky wont do this
         // currently as events are delegated to document, and these are in
         // a shadow DOM.
         shadow.addEventListener('mousedown', (e) => {
-            const target = e.target.closest('[name]') || e.target;
-            if (target.name !== 'unit-value') { return; }
+            const target = e.target.closest('button') || e.target;
+            if (target.name !== 'control-tick') { return; }
             updateValue(elem, data, parseFloat(target.value));
+
+            // Refocus the input
+            shadow
+            .getElementById('input')
+            .focus();
+
+            trigger('input', elem);
         });
 
-        gestures(gestureOptions, shadow)
-        .each(function(events) {
-            // First event is touchstart or mousedown
-            const e0 = events.shift();
-            const y0 = e0.clientY;
-            const y  = data.unitValue;
-            const touchValue = getComputedStyle(elem).getPropertyValue('--touch-range');
-            const touchRange = parseValue(touchValue);
+        shadow.addEventListener('input', (e) => {
+            if (e.target.name !== 'control-input') { return; }
+            updateValue(elem, data, parseFloat(e.target.value));
+        });
 
-            let dy;
-
-            events
-            .latest()
-            .each(function (e) {
-                dy = y0 - e.clientY;
-                var unitValue = clamp(0, 1, y + dy / touchRange);
-                updateValue(elem, data, unitValue);
-            });
+        // Snap to position at the end of travel
+        shadow.addEventListener('change', (e) => {
+            if (e.target.name !== 'control-input') { return; }
+            if (!data.steps) { return; }
+            e.target.value = elem.data.unitValue;
         });
     },
 
     connect: function(elem, shadow) {
-        // Rotary control must have value
+        // Range control must have value
         if (this.data.value === undefined) {
             this.value = this.data.min;
         }
 
         // Mount template
-        mount(shadow, mountOptions).push(this.data);
+        mount(shadow, mountSettings).push(this.data);
     }
 })
