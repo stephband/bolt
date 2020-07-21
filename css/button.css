@@ -120,15 +120,16 @@ button,
         color 120ms linear;
 }
 
+button:hover,
+button:focus,
 .button:hover,
 .button:focus {
     /* If button is link, it may have hover styles. */
     text-decoration: none;
-}
 
-button:hover,
-.button[href]:hover {
-    /* Hover styles for button and [href] */
+    transition:
+        background-color 80ms linear,
+        color 80ms linear;
 }
 
 button.loading,
