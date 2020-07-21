@@ -12,31 +12,15 @@ minmax-control
     --handle-height: 1.375rem;
 }
 
-:host > .input {
-    grid-area: input;
-    align-self: end;
-
-    /* Make the range input slightly wider than the control
-       to allow range thumb to line up with label text */
-    width: calc(100% + 2 * var(--bleed));
-    margin-left: calc(-1 * var(--bleed));
-    margin-right: calc(-1 * var(--bleed));
-    margin-top: var(--track-top);
-    z-index: 1;
-}
-
 :host > [type="range"] {
     width: calc(100% + 2 * var(--bleed));
     justify-self: stretch;
-    /*margin-left: calc(0.5 * var(--handle-width) - var(--bleed));*/
+    align-self: bottom;
 }
 
 :host > [type="range"] + [type="range"] {
-    align-self: bottom;
     margin-bottom: 15px;
     height: 0;
-    position: relative;
-    /*margin-left: calc(-0.5 * var(--handle-width) - var(--bleed));*/
 }
 
 /* Track */
