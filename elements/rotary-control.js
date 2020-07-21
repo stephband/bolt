@@ -95,11 +95,11 @@ element('rotary-control', {
 
     connect: function(elem, shadow) {
         // Rotary control must have value
-        if (this.data.value === undefined) {
-            this.value = this.data.min;
+        if (elem.data.value === undefined) {
+            elem.value = elem.data.min;
         }
 
         // Mount template
-        mount(shadow, mountOptions).push(this.data);
+        mount(shadow, mountOptions).push(elem.data);
     }
 })

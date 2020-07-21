@@ -3,7 +3,7 @@
 rotary-control
 
 ```html
-<rotary-control name="rotary" max="3" ticks="0 0.5 1 1.5 2 2.5 3" transform="cubic" unit="s">Rotary</rotary-control>
+<rotary-control name="rotary" max="3" ticks="0 0.5 1 1.5 2 2.5 3" scale="cubic" unit="s">Rotary</rotary-control>
 ```
 **/
 

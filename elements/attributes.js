@@ -2,7 +2,7 @@
 import { by, get, Observer, nothing, requestTick } from '../../fn/module.js';
 import { evaluate, invert, transformTick, transformOutput, transformUnit } from './control.js';
 
-function createTicks(data, tokens) {
+export function createTicks(data, tokens) {
     return tokens ?
         tokens
         .split(/\s+/)
@@ -71,7 +71,7 @@ export const attributes = {
 
     max:       function(value) { this.max = value; },
 
-    transform: function(value) {
+    scale: function(value) {
         const data     = this.data;
         this.data.transform = value || 'linear';
 
