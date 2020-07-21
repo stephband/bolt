@@ -1,46 +1,71 @@
 
-import { clamp, Observer, observe, requestTick } from '../../fn/module.js';
+import { clamp, get, Observer, observe, overload } from '../../fn/module.js';
 import { transform } from './control.js';
-import { element, trigger } from '../../dom/module.js';
-import Sparky, { mount, config } from '../../sparky/module.js';
-import { attributes, createTicks, properties } from './attributes.js';
+import { element } from '../../dom/module.js';
+import { setupSparky, mountSparky } from '../../sparky/modules/sparky.js';
+import { mount, config } from '../../sparky/module.js';
+import { attributes, createTicks } from './attributes.js';
 import { evaluate, invert, transformTick, transformOutput, transformUnit } from './control.js';
 
-const DEBUG = true;
+const DEBUG = window.DEBUG === true;
 
 const assign = Object.assign;
 
+const getTargetName = (e) => e.target.name;
+
 const defaults = {
-    path: './components/controls',
     transform: 'linear',
-    min:    0,
-    max:    1
+    min:   0,
+    max:   1,
+
+    // Data object is passed to addEventListener directly, allowing
+    // a handleEvents handler to listen to events. Not sure this is best -
+    // we could split handlers into input and change handlers here already
+    // without delegating, although we'd need some extra handler objects...
+    handleEvent: overload(get('type'), {
+        'input': overload(getTargetName, {
+            'unit-value-0': function(e) {
+                updateUnitValue0(this.shadow.host, this, parseFloat(e.target.value));
+            },
+
+            'unit-value-1': function(e) {
+                updateUnitValue1(this.shadow.host, this, parseFloat(e.target.value));
+            }
+        }),
+
+        'change': overload(getTargetName, {
+            'unit-value-0': function(e) {
+                // Snap input handle to position at the end of travel
+                if (!this.steps) { return; }
+                e.target.value = this.unitValue0;
+            },
+
+            'unit-value-1': function(e) {
+                // Snap input handle to position at the end of travel
+                if (!this.steps) { return; }
+                e.target.value = this.unitValue1;
+            }
+        })
+    })
 };
 
 const mountSettings = Object.assign({}, config, {
-    mount: function(node, options) {
-        // Does the node have Sparkyfiable attributes?
-        const attrFn = node.getAttribute(options.attributeFn);
-        //const attrInclude = node.getAttribute(options.attributeSrc);
-
-        if (!attrFn/* && !attrInclude*/) { return; }
-
-        options.fn = attrFn;
-        //options.include = attrInclude;
-        var sparky = Sparky(node, options);
-
-        // This is just some help for logging
-        sparky.label = 'Sparky (<range-control> tick)';
-
-        // Return sparky
-        return sparky;
-    },
-
+    mount: mountSparky,
     attributePrefix:  ':',
     attributeFn:      'fn'
 });
 
-function updateValue0(elem, data, value) {
+
+/* Update value */
+
+function setFormValue(name, internals, formdata, value) {
+    // We use formdata to format form query into the correct format
+    formdata.set(name, value[0]);
+    formdata.append(name, value[1]);
+    internals.setFormValue(formdata);
+}
+
+function updateValue0(host, data, value) {
     const observer = Observer(data);
 
     // Clamp to min-max
@@ -58,16 +83,16 @@ function updateValue0(elem, data, value) {
 
     // Gaurantee that value 0 is less than or equal to value 1
     if (data.value[1] < value0) {
-        updateValue1(elem, data, value0);
+        updateValue1(host, data, value0);
     }
 
     observer.unitValue0    = unitValue0;
     observer.displayValue0 = transformOutput(data.unit, value0);
-    elem.style.setProperty('--unit-value-0', unitValue0);
-    data.internals.setFormValue(data.value.join(','));
+    host.style.setProperty('--unit-value-0', unitValue0);
+    setFormValue(host.name, data.internals, data.formdata, data.value);
 }
 
-function updateValue1(elem, data, value) {
+function updateValue1(host, data, value) {
     const observer = Observer(data);
 
     // Clamp to min-max
@@ -85,16 +110,16 @@ function updateValue1(elem, data, value) {
 
     // Gaurantee that value 0 is less than or equal to value 1
     if (data.value[0] > value1) {
-        updateValue0(elem, data, value1);
+        updateValue0(host, data, value1);
     }
 
     observer.unitValue1    = unitValue1;
     observer.displayValue1 = transformOutput(data.unit, value1);
-    elem.style.setProperty('--unit-value-1', unitValue1);
-    data.internals.setFormValue(data.value.join(','));
+    host.style.setProperty('--unit-value-1', unitValue1);
+    setFormValue(host.name, data.internals, data.formdata, data.value);
 }
 
-function updateUnitValue0(elem, data, unitValue0) {
+function updateUnitValue0(host, data, unitValue0) {
     const observer = Observer(data);
     let value0;
 
@@ -110,17 +135,17 @@ function updateUnitValue0(elem, data, unitValue0) {
 
     // Gaurantee that value 0 is less than or equal to value 1
     if (data.unitValue1 < unitValue0) {
-        updateUnitValue1(elem, data, unitValue0);
+        updateUnitValue1(host, data, unitValue0);
     }
 
     data.value[0]          = value0;
     observer.unitValue0    = unitValue0;
     observer.displayValue0 = transformOutput(data.unit, value0);
-    elem.style.setProperty('--unit-value-0', unitValue0);
-    data.internals.setFormValue(data.value.join(','));
+    host.style.setProperty('--unit-value-0', unitValue0);
+    setFormValue(host.name, data.internals, data.formdata, data.value);
 }
 
-function updateUnitValue1(elem, data, unitValue1) {
+function updateUnitValue1(host, data, unitValue1) {
     const observer = Observer(data);
     let value1;
 
@@ -136,16 +161,19 @@ function updateUnitValue1(elem, data, unitValue1) {
 
     // Gaurantee that value 1 stays more than or equal to value 0
     if (data.unitValue0 > unitValue1) {
-        updateUnitValue0(elem, data, unitValue1);
+        updateUnitValue0(host, data, unitValue1);
     }
 
     data.value[1]          = value1;
     observer.unitValue1    = unitValue1;
     observer.displayValue1 = transformOutput(data.unit, value1);
 
-    elem.style.setProperty('--unit-value-1', unitValue1);
-    data.internals.setFormValue(data.value.join(','));
+    host.style.setProperty('--unit-value-1', unitValue1);
+    setFormValue(host.name, data.internals, data.formdata, data.value);
 }
+
+
+/* Element definition */
 
 element('minmax-control', {
     template: '#minmax-control',
@@ -252,63 +280,28 @@ element('minmax-control', {
         }
     },
 
-    construct: function(elem, shadow, internals) {
-        const data = elem.data = assign({
+    construct: function(host, shadow, internals) {
+        const data = host.data = assign({
             shadow:    shadow,
-            internals: internals
+            internals: internals,
+            formdata:  new FormData()
         }, defaults);
 
-        // Pick up input events and update scope - Sparky wont do this
-        // currently as events are delegated to document, and these are in
-        // a shadow DOM.
-        /*shadow.addEventListener('mousedown', (e) => {
-            const target = e.target.closest('button') || e.target;
-            if (target.name !== 'control-tick') { return; }
-            updateValue(elem, data, parseFloat(target.value));
-
-            // Refocus the input
-            shadow
-            .getElementById('input')
-            .focus();
-
-            trigger('input', elem);
-        });*/
-
         // Listen to UI
-        shadow.addEventListener('input', (e) => {
-            if (e.target.name === 'unit-value-0') {
-                updateUnitValue0(elem, data, parseFloat(e.target.value));
-            }
+        shadow.addEventListener('input', data);
+        shadow.addEventListener('change', data);
 
-            if (e.target.name === 'unit-value-1') {
-                updateUnitValue1(elem, data, parseFloat(e.target.value));
-            }
-        });
-
-        // Snap input handle to position at the end of travel
-        shadow.addEventListener('change', (e) => {
-            if (!data.steps) { return; }
-
-            if (e.target.name === 'unit-value-0') {
-                e.target.value = data.unitValue0;
-            }
-
-            if (e.target.name === 'unit-value-1') {
-                e.target.value = data.unitValue1;
-            }
-        });
-
-        // Mount template
-        mount(shadow, mountSettings).push(data);
+        // Mount template, extend shadow with Sparky push() and stop()
+        const sparky = setupSparky(shadow, shadow, mountSettings);
     },
 
-    connect: function(elem, shadow) {
+    connect: function(host, shadow) {
         // Range control must have value, set it to min if it does not yet
-        if (elem.data.value === undefined) {
-            elem.value = [elem.data.min, elem.data.max];
+        if (host.data.value === undefined) {
+            host.value = [host.data.min, host.data.max];
         }
 
-        // Mount template
-        //mount(shadow, mountSettings).push(elem.data);
+        // Push data in
+        shadow.push(host.data);
     }
 })

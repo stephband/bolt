@@ -10,6 +10,17 @@ minmax-control
 :host {
     --handle-width: 1.0625rem;
     --handle-height: 1.375rem;
+
+    /* Draw a linear gradient that acts as a progress fill from unit-value-0
+       to unit-value-1 */
+    --track-background: linear-gradient(to right,
+        transparent 0%,
+        transparent calc((100% - var(--handle-width)) * var(--unit-value-0)),
+        #88deff calc((100% - var(--handle-width)) * var(--unit-value-0)),
+        #88deff calc((100% - var(--handle-width)) * var(--unit-value-1) + var(--handle-width)),
+        transparent calc((100% - var(--handle-width)) * var(--unit-value-1) + var(--handle-width)),
+        transparent 100%
+    );
 }
 
 :host > [type="range"] {
@@ -24,9 +35,10 @@ minmax-control
     height: 0;
 }
 
+
 /* Track */
 
-:host > [type="range"] + [type="range"]::-webkit-slider-runnable-track {
+[type="range"][name="unit-value-0"]::-webkit-slider-runnable-track {
     background: rgba(0,255,0,0.2);
     border: none;
     border-radius: 0;
@@ -34,13 +46,25 @@ minmax-control
     height: 0;
 }
 
-:host > [type="range"] + [type="range"]::-moz-range-track,
-:host > [type="range"] + [type="range"]::-moz-range-progress {
-    background: rgba(0,255,0,0.2);
+[type="range"][name="unit-value-1"]::-webkit-slider-runnable-track {
+    background: var(--track-background);
+}
+
+[type="range"][name="unit-value-0"]::-moz-range-track,
+[type="range"][name="unit-value-0"]::-moz-range-progress {
+    /*background: rgba(0,255,0,0.2);*/
     border: none;
     border-radius: 0;
     box-shadow: none;
     height: 0;
+}
+
+[type="range"][name="unit-value-1"]::-moz-range-track {
+    background: var(--track-background);
+}
+
+[type="range"][name="unit-value-1"]::-moz-range-progress {
+    background: transparent;
 }
 
 
@@ -62,4 +86,28 @@ minmax-control
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     margin-left: calc(0.5 * var(--handle-width));
+}
+
+[type="range"]::-moz-range-thumb {
+    border-radius: calc(0.5 * var(--handle-height));
+    width:  var(--handle-width);
+    height: var(--handle-height);
+}
+
+[type="range"][name="unit-value-0"]::-moz-range-thumb {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    /* Margin don't work in FF, but position don't work none neither */
+    /*margin-left: calc(-0.5 * var(--handle-width));
+    position: relative;
+    left: calc(-0.5 * var(--handle-width));*/
+}
+
+[type="range"][name="unit-value-1"]::-moz-range-thumb {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    /* Margin don't work in FF, but position don't work none neither */
+    /*margin-left: calc(0.5 * var(--handle-width));
+    position: relative;
+    left: calc(0.5 * var(--handle-width));*/
 }

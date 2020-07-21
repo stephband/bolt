@@ -250,6 +250,7 @@ range-control
 [type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none !important;
 
+    box-sizing: border-box;
     cursor: pointer;
     cursor: ew-resize;
 
@@ -258,7 +259,6 @@ range-control
 
     /* Centre it vertically on the track */
     transform: translate3d(0, calc(0.5 * (var(--track-height) - var(--handle-height))), 0);
-    box-sizing: border-box;
 
     /* Use a border to create a larger hit zone for the thumb */
     border-radius: 50%;
@@ -281,6 +281,7 @@ range-control
 }
 
 [type="range"]::-moz-range-thumb {
+    box-sizing: border-box;
     cursor: pointer;
     cursor: ew-resize;
 
