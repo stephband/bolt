@@ -64,6 +64,7 @@ function updateValue0(elem, data, value) {
     observer.unitValue0    = unitValue0;
     observer.displayValue0 = transformOutput(data.unit, value0);
     elem.style.setProperty('--unit-value-0', unitValue0);
+    data.internals.setFormValue(data.value.join(','));
 }
 
 function updateValue1(elem, data, value) {
@@ -90,6 +91,7 @@ function updateValue1(elem, data, value) {
     observer.unitValue1    = unitValue1;
     observer.displayValue1 = transformOutput(data.unit, value1);
     elem.style.setProperty('--unit-value-1', unitValue1);
+    data.internals.setFormValue(data.value.join(','));
 }
 
 function updateUnitValue0(elem, data, unitValue0) {
@@ -115,6 +117,7 @@ function updateUnitValue0(elem, data, unitValue0) {
     observer.unitValue0    = unitValue0;
     observer.displayValue0 = transformOutput(data.unit, value0);
     elem.style.setProperty('--unit-value-0', unitValue0);
+    data.internals.setFormValue(data.value.join(','));
 }
 
 function updateUnitValue1(elem, data, unitValue1) {
@@ -141,6 +144,7 @@ function updateUnitValue1(elem, data, unitValue1) {
     observer.displayValue1 = transformOutput(data.unit, value1);
 
     elem.style.setProperty('--unit-value-1', unitValue1);
+    data.internals.setFormValue(data.value.join(','));
 }
 
 element('minmax-control', {
@@ -229,8 +233,8 @@ element('minmax-control', {
             },
 
             set: function(value) {
-                if (typeof value !== 'object') {
-                    throw new TypeError('<minmax-control>.value must be an object or array ' + (typeof value));
+                if (typeof value === 'string') {
+                    value = value.split(',').map(parseFloat);
                 }
 
                 const data = this.data;
@@ -248,8 +252,11 @@ element('minmax-control', {
         }
     },
 
-    construct: function(elem, shadow) {
-        const data = elem.data = assign({}, defaults);
+    construct: function(elem, shadow, internals) {
+        const data = elem.data = assign({
+            shadow:    shadow,
+            internals: internals
+        }, defaults);
 
         // Pick up input events and update scope - Sparky wont do this
         // currently as events are delegated to document, and these are in

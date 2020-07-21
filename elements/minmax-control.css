@@ -13,13 +13,14 @@ minmax-control
 }
 
 :host > [type="range"] {
+    display: block;
     width: calc(100% + 2 * var(--bleed));
     justify-self: stretch;
     align-self: bottom;
 }
 
 :host > [type="range"] + [type="range"] {
-    margin-bottom: 15px;
+    margin-bottom: calc(0.5 * 1.4375rem + 0.5 * var(--track-height));
     height: 0;
 }
 
