@@ -9,11 +9,11 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 3648.93)">
 <title>G</title>
 <polygon fill="#111111" stroke="transparent" points="-21.6,21.6 -21.6,-3648.93 3612.6,-3648.93 3612.6,21.6 -21.6,21.6"/>
-<!-- ../dom/js/device.js -->
+<!-- ../bolt/modules/device.js -->
 <g id="node1" class="node">
-<title>../dom/js/device.js</title>
+<title>../bolt/modules/device.js</title>
 <path fill="none" stroke="#c6c5fe" d="M417.83,-1909.02C417.83,-1909.02 308.17,-1909.02 308.17,-1909.02 304.33,-1909.02 300.5,-1905.18 300.5,-1901.35 300.5,-1901.35 300.5,-1893.68 300.5,-1893.68 300.5,-1889.85 304.33,-1886.02 308.17,-1886.02 308.17,-1886.02 417.83,-1886.02 417.83,-1886.02 421.67,-1886.02 425.5,-1889.85 425.5,-1893.68 425.5,-1893.68 425.5,-1901.35 425.5,-1901.35 425.5,-1905.18 421.67,-1909.02 417.83,-1909.02"/>
-<text text-anchor="middle" x="363" y="-1893.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../dom/js/device.js</text>
+<text text-anchor="middle" x="363" y="-1893.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../bolt/modules/device.js</text>
 </g>
 <!-- ../dom/module.js -->
 <g id="node2" class="node">
@@ -21,9 +21,9 @@
 <path fill="none" stroke="#c6c5fe" d="M1054.33,-1928.02C1054.33,-1928.02 952.67,-1928.02 952.67,-1928.02 948.83,-1928.02 945,-1924.18 945,-1920.35 945,-1920.35 945,-1912.68 945,-1912.68 945,-1908.85 948.83,-1905.02 952.67,-1905.02 952.67,-1905.02 1054.33,-1905.02 1054.33,-1905.02 1058.17,-1905.02 1062,-1908.85 1062,-1912.68 1062,-1912.68 1062,-1920.35 1062,-1920.35 1062,-1924.18 1058.17,-1928.02 1054.33,-1928.02"/>
 <text text-anchor="middle" x="1003.5" y="-1912.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../dom/module.js</text>
 </g>
-<!-- ../dom/js/device.js&#45;&gt;../dom/module.js -->
+<!-- ../bolt/modules/device.js&#45;&gt;../dom/module.js -->
 <g id="edge1" class="edge">
-<title>../dom/js/device.js&#45;&gt;../dom/module.js</title>
+<title>../bolt/modules/device.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M425.51,-1899.35C545.44,-1902.91 809.68,-1910.78 934.57,-1914.49"/>
 <polygon fill="#757575" stroke="#757575" points="934.67,-1918 944.77,-1914.8 934.87,-1911 934.67,-1918"/>
 </g>
@@ -627,15 +627,15 @@
 <path fill="none" stroke="#757575" d="M1004.85,-1928.32C1008.01,-2031.54 1033.04,-2778.39 1098,-2850.52 1202.19,-2966.19 1285.32,-2921.52 1441,-2921.52 1441,-2921.52 1441,-2921.52 1667.5,-2921.52 2046.69,-2921.52 1864.16,-3414.33 2202,-3586.52 2355.82,-3664.91 2417.35,-3605.52 2590,-3605.52 2590,-3605.52 2590,-3605.52 2862.5,-3605.52 3030.44,-3605.52 3113.34,-3635.28 3229,-3513.52 3301.78,-3436.9 3328.05,-3088.57 3333.74,-2997.4"/>
 <polygon fill="#757575" stroke="#757575" points="3337.25,-2997.35 3334.36,-2987.16 3330.26,-2996.93 3337.25,-2997.35"/>
 </g>
-<!-- ../dom/js/dom&#45;activate.js -->
+<!-- ../bolt/modules/dom&#45;activate.js -->
 <g id="node3" class="node">
-<title>../dom/js/dom&#45;activate.js</title>
+<title>../bolt/modules/dom&#45;activate.js</title>
 <path fill="none" stroke="#c6c5fe" d="M857.33,-2067.02C857.33,-2067.02 708.67,-2067.02 708.67,-2067.02 704.83,-2067.02 701,-2063.18 701,-2059.35 701,-2059.35 701,-2051.68 701,-2051.68 701,-2047.85 704.83,-2044.02 708.67,-2044.02 708.67,-2044.02 857.33,-2044.02 857.33,-2044.02 861.17,-2044.02 865,-2047.85 865,-2051.68 865,-2051.68 865,-2059.35 865,-2059.35 865,-2063.18 861.17,-2067.02 857.33,-2067.02"/>
-<text text-anchor="middle" x="783" y="-2051.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../dom/js/dom&#45;activate.js</text>
+<text text-anchor="middle" x="783" y="-2051.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../bolt/modules/dom&#45;activate.js</text>
 </g>
-<!-- ../dom/js/dom&#45;activate.js&#45;&gt;../dom/module.js -->
+<!-- ../bolt/modules/dom&#45;activate.js&#45;&gt;../dom/module.js -->
 <g id="edge2" class="edge">
-<title>../dom/js/dom&#45;activate.js&#45;&gt;../dom/module.js</title>
+<title>../bolt/modules/dom&#45;activate.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M865.03,-2046.97C880.34,-2043.1 895.71,-2037.52 909,-2029.52 946.71,-2006.79 976.13,-1963.21 991.26,-1937.32"/>
 <polygon fill="#757575" stroke="#757575" points="994.46,-1938.77 996.35,-1928.34 988.37,-1935.32 994.46,-1938.77"/>
 </g>
@@ -645,9 +645,9 @@
 <path fill="none" stroke="#c6c5fe" d="M2128.33,-1813.02C2128.33,-1813.02 2042.67,-1813.02 2042.67,-1813.02 2038.83,-1813.02 2035,-1809.18 2035,-1805.35 2035,-1805.35 2035,-1797.68 2035,-1797.68 2035,-1793.85 2038.83,-1790.02 2042.67,-1790.02 2042.67,-1790.02 2128.33,-1790.02 2128.33,-1790.02 2132.17,-1790.02 2136,-1793.85 2136,-1797.68 2136,-1797.68 2136,-1805.35 2136,-1805.35 2136,-1809.18 2132.17,-1813.02 2128.33,-1813.02"/>
 <text text-anchor="middle" x="2085.5" y="-1797.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../fn/module.js</text>
 </g>
-<!-- ../dom/js/dom&#45;activate.js&#45;&gt;../fn/module.js -->
+<!-- ../bolt/modules/dom&#45;activate.js&#45;&gt;../fn/module.js -->
 <g id="edge3" class="edge">
-<title>../dom/js/dom&#45;activate.js&#45;&gt;../fn/module.js</title>
+<title>../bolt/modules/dom&#45;activate.js&#45;&gt;../fn/module.js</title>
 <path fill="none" stroke="#757575" d="M785.04,-2067.33C792.59,-2145.14 845.93,-2587.24 1098,-2788.52 1134.55,-2817.7 1154.73,-2807.52 1201.5,-2807.52 1201.5,-2807.52 1201.5,-2807.52 1667.5,-2807.52 1885.89,-2807.52 1879.42,-2618.68 1969,-2419.52 2066.93,-2201.8 2081.83,-1905.01 2084.1,-1823.17"/>
 <polygon fill="#757575" stroke="#757575" points="2087.6,-1823.16 2084.34,-1813.08 2080.6,-1822.99 2087.6,-1823.16"/>
 </g>
@@ -1665,21 +1665,21 @@
 <path fill="none" stroke="#757575" d="M2087.72,-1813.24C2095.75,-1890.94 2141.57,-2339.83 2166,-2706.52 2168.93,-2750.46 2173.53,-3464.9 2202,-3498.52 2207.87,-3505.45 2215.11,-3510.81 2223.09,-3514.92"/>
 <polygon fill="#757575" stroke="#757575" points="2221.83,-3518.19 2232.4,-3519.05 2224.67,-3511.79 2221.83,-3518.19"/>
 </g>
-<!-- ../dom/js/locateable.js -->
+<!-- ../bolt/modules/locateable.js -->
 <g id="node5" class="node">
-<title>../dom/js/locateable.js</title>
+<title>../bolt/modules/locateable.js</title>
 <path fill="none" stroke="#c6c5fe" d="M612.33,-1869.02C612.33,-1869.02 480.67,-1869.02 480.67,-1869.02 476.83,-1869.02 473,-1865.18 473,-1861.35 473,-1861.35 473,-1853.68 473,-1853.68 473,-1849.85 476.83,-1846.02 480.67,-1846.02 480.67,-1846.02 612.33,-1846.02 612.33,-1846.02 616.17,-1846.02 620,-1849.85 620,-1853.68 620,-1853.68 620,-1861.35 620,-1861.35 620,-1865.18 616.17,-1869.02 612.33,-1869.02"/>
-<text text-anchor="middle" x="546.5" y="-1853.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../dom/js/locateable.js</text>
+<text text-anchor="middle" x="546.5" y="-1853.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../bolt/modules/locateable.js</text>
 </g>
-<!-- ../dom/js/locateable.js&#45;&gt;../dom/module.js -->
+<!-- ../bolt/modules/locateable.js&#45;&gt;../dom/module.js -->
 <g id="edge4" class="edge">
-<title>../dom/js/locateable.js&#45;&gt;../dom/module.js</title>
+<title>../bolt/modules/locateable.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M620.3,-1857.07C693.87,-1857.95 810.44,-1862.97 909,-1883.52 928.3,-1887.54 949.04,-1894.57 966.08,-1901.11"/>
 <polygon fill="#757575" stroke="#757575" points="965.05,-1904.46 975.64,-1904.87 967.62,-1897.95 965.05,-1904.46"/>
 </g>
-<!-- ../dom/js/locateable.js&#45;&gt;../fn/module.js -->
+<!-- ../bolt/modules/locateable.js&#45;&gt;../fn/module.js -->
 <g id="edge6" class="edge">
-<title>../dom/js/locateable.js&#45;&gt;../fn/module.js</title>
+<title>../bolt/modules/locateable.js&#45;&gt;../fn/module.js</title>
 <path fill="none" stroke="#757575" d="M548.94,-1845.93C560.37,-1759.04 643.78,-1204.91 945,-914.52 1031.98,-830.66 1080.69,-824.52 1201.5,-824.52 1201.5,-824.52 1201.5,-824.52 1667.5,-824.52 1734.75,-824.52 1920.63,-803.8 1969,-850.52 2038.38,-917.52 2076.86,-1643.99 2083.47,-1779.74"/>
 <polygon fill="#757575" stroke="#757575" points="2079.98,-1779.94 2083.95,-1789.76 2086.97,-1779.6 2079.98,-1779.94"/>
 </g>
@@ -1689,9 +1689,9 @@
 <path fill="none" stroke="#c6c5fe" d="M901.33,-1831.02C901.33,-1831.02 664.67,-1831.02 664.67,-1831.02 660.83,-1831.02 657,-1827.18 657,-1823.35 657,-1823.35 657,-1815.68 657,-1815.68 657,-1811.85 660.83,-1808.02 664.67,-1808.02 664.67,-1808.02 901.33,-1808.02 901.33,-1808.02 905.17,-1808.02 909,-1811.85 909,-1815.68 909,-1815.68 909,-1823.35 909,-1823.35 909,-1827.18 905.17,-1831.02 901.33,-1831.02"/>
 <text text-anchor="middle" x="783" y="-1815.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../dom/polyfills/element.scrollintoview.js</text>
 </g>
-<!-- ../dom/js/locateable.js&#45;&gt;../dom/polyfills/element.scrollintoview.js -->
+<!-- ../bolt/modules/locateable.js&#45;&gt;../dom/polyfills/element.scrollintoview.js -->
 <g id="edge5" class="edge">
-<title>../dom/js/locateable.js&#45;&gt;../dom/polyfills/element.scrollintoview.js</title>
+<title>../bolt/modules/locateable.js&#45;&gt;../dom/polyfills/element.scrollintoview.js</title>
 <path fill="none" stroke="#757575" d="M618.49,-1846.01C644.43,-1841.81 673.97,-1837.02 700.73,-1832.68"/>
 <polygon fill="#757575" stroke="#757575" points="701.53,-1836.1 710.84,-1831.05 700.41,-1829.19 701.53,-1836.1"/>
 </g>
@@ -1707,105 +1707,105 @@
 <path fill="none" stroke="#757575" d="M783.84,-1807.82C783.33,-1718.96 792.21,-1146.84 1098,-881.52 1133.33,-850.86 1154.73,-862.52 1201.5,-862.52 1201.5,-862.52 1201.5,-862.52 1667.5,-862.52 1803.96,-862.52 1875.43,-821.19 1969,-920.52 2030.03,-985.3 2074.89,-1649.27 2083.14,-1779.44"/>
 <polygon fill="#757575" stroke="#757575" points="2079.66,-1779.98 2083.78,-1789.74 2086.65,-1779.54 2079.66,-1779.98"/>
 </g>
-<!-- ../dom/js/popable.js -->
+<!-- ../bolt/modules/popable.js -->
 <g id="node7" class="node">
-<title>../dom/js/popable.js</title>
+<title>../bolt/modules/popable.js</title>
 <path fill="none" stroke="#c6c5fe" d="M605.83,-1949.02C605.83,-1949.02 487.17,-1949.02 487.17,-1949.02 483.33,-1949.02 479.5,-1945.18 479.5,-1941.35 479.5,-1941.35 479.5,-1933.68 479.5,-1933.68 479.5,-1929.85 483.33,-1926.02 487.17,-1926.02 487.17,-1926.02 605.83,-1926.02 605.83,-1926.02 609.67,-1926.02 613.5,-1929.85 613.5,-1933.68 613.5,-1933.68 613.5,-1941.35 613.5,-1941.35 613.5,-1945.18 609.67,-1949.02 605.83,-1949.02"/>
-<text text-anchor="middle" x="546.5" y="-1933.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../dom/js/popable.js</text>
+<text text-anchor="middle" x="546.5" y="-1933.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../bolt/modules/popable.js</text>
 </g>
-<!-- ../dom/js/popable.js&#45;&gt;../dom/module.js -->
+<!-- ../bolt/modules/popable.js&#45;&gt;../dom/module.js -->
 <g id="edge8" class="edge">
-<title>../dom/js/popable.js&#45;&gt;../dom/module.js</title>
+<title>../bolt/modules/popable.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M613.66,-1934.46C699.4,-1930.5 848.12,-1923.64 934.67,-1919.65"/>
 <polygon fill="#757575" stroke="#757575" points="935.08,-1923.13 944.91,-1919.17 934.76,-1916.14 935.08,-1923.13"/>
 </g>
-<!-- ../dom/js/popable.js&#45;&gt;../dom/js/dom&#45;activate.js -->
+<!-- ../bolt/modules/popable.js&#45;&gt;../bolt/modules/dom&#45;activate.js -->
 <g id="edge7" class="edge">
-<title>../dom/js/popable.js&#45;&gt;../dom/js/dom&#45;activate.js</title>
+<title>../bolt/modules/popable.js&#45;&gt;../bolt/modules/dom&#45;activate.js</title>
 <path fill="none" stroke="#757575" d="M570.41,-1949.04C612.44,-1970.19 701.94,-2015.23 749.97,-2039.4"/>
 <polygon fill="#757575" stroke="#757575" points="748.49,-2042.57 759,-2043.94 751.64,-2036.32 748.49,-2042.57"/>
 </g>
-<!-- ../dom/js/swipeable.js -->
+<!-- ../bolt/modules/swipeable.js -->
 <g id="node8" class="node">
-<title>../dom/js/swipeable.js</title>
+<title>../bolt/modules/swipeable.js</title>
 <path fill="none" stroke="#c6c5fe" d="M428.33,-2107.02C428.33,-2107.02 297.67,-2107.02 297.67,-2107.02 293.83,-2107.02 290,-2103.18 290,-2099.35 290,-2099.35 290,-2091.68 290,-2091.68 290,-2087.85 293.83,-2084.02 297.67,-2084.02 297.67,-2084.02 428.33,-2084.02 428.33,-2084.02 432.17,-2084.02 436,-2087.85 436,-2091.68 436,-2091.68 436,-2099.35 436,-2099.35 436,-2103.18 432.17,-2107.02 428.33,-2107.02"/>
-<text text-anchor="middle" x="363" y="-2091.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../dom/js/swipeable.js</text>
+<text text-anchor="middle" x="363" y="-2091.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../bolt/modules/swipeable.js</text>
 </g>
-<!-- ../dom/js/swipeable.js&#45;&gt;../dom/module.js -->
+<!-- ../bolt/modules/swipeable.js&#45;&gt;../dom/module.js -->
 <g id="edge10" class="edge">
-<title>../dom/js/swipeable.js&#45;&gt;../dom/module.js</title>
+<title>../bolt/modules/swipeable.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M436.04,-2101.23C565.5,-2110.14 831.25,-2121.91 909,-2075.52 960.59,-2044.74 986.78,-1973.69 997.09,-1937.91"/>
 <polygon fill="#757575" stroke="#757575" points="1000.53,-1938.6 999.79,-1928.03 993.78,-1936.75 1000.53,-1938.6"/>
 </g>
-<!-- ../dom/js/swipeable.js&#45;&gt;../fn/module.js -->
+<!-- ../bolt/modules/swipeable.js&#45;&gt;../fn/module.js -->
 <g id="edge11" class="edge">
-<title>../dom/js/swipeable.js&#45;&gt;../fn/module.js</title>
+<title>../bolt/modules/swipeable.js&#45;&gt;../fn/module.js</title>
 <path fill="none" stroke="#757575" d="M364.02,-2107.08C364.86,-2209.6 384.58,-2959.52 782,-2959.52 782,-2959.52 782,-2959.52 1667.5,-2959.52 1835.5,-2959.52 1885.02,-2877.02 1969,-2731.52 2062.55,-2569.42 2081.24,-1947.55 2084.06,-1823.22"/>
 <polygon fill="#757575" stroke="#757575" points="2087.57,-1823.13 2084.28,-1813.06 2080.57,-1822.98 2087.57,-1823.13"/>
 </g>
-<!-- ../dom/js/switchable.js -->
+<!-- ../bolt/modules/switchable.js -->
 <g id="node9" class="node">
-<title>../dom/js/switchable.js</title>
+<title>../bolt/modules/switchable.js</title>
 <path fill="none" stroke="#c6c5fe" d="M613.33,-2067.02C613.33,-2067.02 479.67,-2067.02 479.67,-2067.02 475.83,-2067.02 472,-2063.18 472,-2059.35 472,-2059.35 472,-2051.68 472,-2051.68 472,-2047.85 475.83,-2044.02 479.67,-2044.02 479.67,-2044.02 613.33,-2044.02 613.33,-2044.02 617.17,-2044.02 621,-2047.85 621,-2051.68 621,-2051.68 621,-2059.35 621,-2059.35 621,-2063.18 617.17,-2067.02 613.33,-2067.02"/>
-<text text-anchor="middle" x="546.5" y="-2051.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../dom/js/switchable.js</text>
+<text text-anchor="middle" x="546.5" y="-2051.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../bolt/modules/switchable.js</text>
 </g>
-<!-- ../dom/js/swipeable.js&#45;&gt;../dom/js/switchable.js -->
+<!-- ../bolt/modules/swipeable.js&#45;&gt;../bolt/modules/switchable.js -->
 <g id="edge9" class="edge">
-<title>../dom/js/swipeable.js&#45;&gt;../dom/js/switchable.js</title>
+<title>../bolt/modules/swipeable.js&#45;&gt;../bolt/modules/switchable.js</title>
 <path fill="none" stroke="#757575" d="M416.5,-2083.95C437.38,-2079.34 461.57,-2074.01 483.32,-2069.22"/>
 <polygon fill="#757575" stroke="#757575" points="484.11,-2072.63 493.12,-2067.06 482.6,-2065.79 484.11,-2072.63"/>
 </g>
-<!-- ../dom/js/switchable.js&#45;&gt;../dom/module.js -->
+<!-- ../bolt/modules/switchable.js&#45;&gt;../dom/module.js -->
 <g id="edge13" class="edge">
-<title>../dom/js/switchable.js&#45;&gt;../dom/module.js</title>
+<title>../bolt/modules/switchable.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M606.28,-2044.01C622.68,-2040.87 640.52,-2037.5 657,-2034.52 768.8,-2014.26 805.37,-2038.11 909,-1991.52 938.79,-1978.12 967.2,-1952.96 984.72,-1935.49"/>
 <polygon fill="#757575" stroke="#757575" points="987.48,-1937.67 991.97,-1928.08 982.48,-1932.78 987.48,-1937.67"/>
 </g>
-<!-- ../dom/js/switchable.js&#45;&gt;../dom/js/dom&#45;activate.js -->
+<!-- ../bolt/modules/switchable.js&#45;&gt;../bolt/modules/dom&#45;activate.js -->
 <g id="edge12" class="edge">
-<title>../dom/js/switchable.js&#45;&gt;../dom/js/dom&#45;activate.js</title>
+<title>../bolt/modules/switchable.js&#45;&gt;../bolt/modules/dom&#45;activate.js</title>
 <path fill="none" stroke="#757575" d="M621.05,-2055.52C643.17,-2055.52 667.7,-2055.52 690.81,-2055.52"/>
 <polygon fill="#757575" stroke="#757575" points="690.97,-2059.02 700.97,-2055.52 690.97,-2052.02 690.97,-2059.02"/>
 </g>
-<!-- ../dom/js/toggleable.js -->
+<!-- ../bolt/modules/toggleable.js -->
 <g id="node10" class="node">
-<title>../dom/js/toggleable.js</title>
+<title>../bolt/modules/toggleable.js</title>
 <path fill="none" stroke="#c6c5fe" d="M612.83,-2660.02C612.83,-2660.02 480.17,-2660.02 480.17,-2660.02 476.33,-2660.02 472.5,-2656.18 472.5,-2652.35 472.5,-2652.35 472.5,-2644.68 472.5,-2644.68 472.5,-2640.85 476.33,-2637.02 480.17,-2637.02 480.17,-2637.02 612.83,-2637.02 612.83,-2637.02 616.67,-2637.02 620.5,-2640.85 620.5,-2644.68 620.5,-2644.68 620.5,-2652.35 620.5,-2652.35 620.5,-2656.18 616.67,-2660.02 612.83,-2660.02"/>
-<text text-anchor="middle" x="546.5" y="-2644.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../dom/js/toggleable.js</text>
+<text text-anchor="middle" x="546.5" y="-2644.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../bolt/modules/toggleable.js</text>
 </g>
-<!-- ../dom/js/toggleable.js&#45;&gt;../dom/module.js -->
+<!-- ../bolt/modules/toggleable.js&#45;&gt;../dom/module.js -->
 <g id="edge15" class="edge">
-<title>../dom/js/toggleable.js&#45;&gt;../dom/module.js</title>
+<title>../bolt/modules/toggleable.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M556.29,-2636.77C598.37,-2580.24 782.54,-2329.89 909,-2109.52 943.74,-2048.97 977.75,-1973.59 993.46,-1937.57"/>
 <polygon fill="#757575" stroke="#757575" points="996.8,-1938.68 997.56,-1928.11 990.37,-1935.9 996.8,-1938.68"/>
 </g>
-<!-- ../dom/js/toggleable.js&#45;&gt;../dom/js/dom&#45;activate.js -->
+<!-- ../bolt/modules/toggleable.js&#45;&gt;../bolt/modules/dom&#45;activate.js -->
 <g id="edge14" class="edge">
-<title>../dom/js/toggleable.js&#45;&gt;../dom/js/dom&#45;activate.js</title>
+<title>../bolt/modules/toggleable.js&#45;&gt;../bolt/modules/dom&#45;activate.js</title>
 <path fill="none" stroke="#757575" d="M552.08,-2636.94C580.74,-2564.47 735.41,-2173.33 773.51,-2076.97"/>
 <polygon fill="#757575" stroke="#757575" points="776.87,-2078 777.29,-2067.41 770.36,-2075.43 776.87,-2078"/>
 </g>
-<!-- ../dom/js/toggleable.js&#45;&gt;../fn/module.js -->
+<!-- ../bolt/modules/toggleable.js&#45;&gt;../fn/module.js -->
 <g id="edge16" class="edge">
-<title>../dom/js/toggleable.js&#45;&gt;../fn/module.js</title>
+<title>../bolt/modules/toggleable.js&#45;&gt;../fn/module.js</title>
 <path fill="none" stroke="#757575" d="M562.2,-2660.25C616.84,-2702.66 814.85,-2845.52 1002.5,-2845.52 1002.5,-2845.52 1002.5,-2845.52 1667.5,-2845.52 1837.4,-2845.52 1892.67,-2762.3 1969,-2610.52 2041.64,-2466.07 2076.49,-1937.56 2083.26,-1823.36"/>
 <polygon fill="#757575" stroke="#757575" points="2086.77,-1823.28 2083.86,-1813.1 2079.78,-1822.88 2086.77,-1823.28"/>
 </g>
-<!-- ../dom/js/validateable.js -->
+<!-- ../bolt/modules/validateable.js -->
 <g id="node11" class="node">
-<title>../dom/js/validateable.js</title>
+<title>../bolt/modules/validateable.js</title>
 <path fill="none" stroke="#c6c5fe" d="M854.33,-801.02C854.33,-801.02 711.67,-801.02 711.67,-801.02 707.83,-801.02 704,-797.18 704,-793.35 704,-793.35 704,-785.68 704,-785.68 704,-781.85 707.83,-778.02 711.67,-778.02 711.67,-778.02 854.33,-778.02 854.33,-778.02 858.17,-778.02 862,-781.85 862,-785.68 862,-785.68 862,-793.35 862,-793.35 862,-797.18 858.17,-801.02 854.33,-801.02"/>
-<text text-anchor="middle" x="783" y="-785.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../dom/js/validateable.js</text>
+<text text-anchor="middle" x="783" y="-785.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">../bolt/modules/validateable.js</text>
 </g>
-<!-- ../dom/js/validateable.js&#45;&gt;../dom/module.js -->
+<!-- ../bolt/modules/validateable.js&#45;&gt;../dom/module.js -->
 <g id="edge17" class="edge">
-<title>../dom/js/validateable.js&#45;&gt;../dom/module.js</title>
+<title>../bolt/modules/validateable.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M786.23,-801.04C807.25,-909.43 970.07,-1749.26 998.33,-1894.99"/>
 <polygon fill="#757575" stroke="#757575" points="994.92,-1895.8 1000.26,-1904.95 1001.79,-1894.46 994.92,-1895.8"/>
 </g>
-<!-- ../dom/js/validateable.js&#45;&gt;../fn/module.js -->
+<!-- ../bolt/modules/validateable.js&#45;&gt;../fn/module.js -->
 <g id="edge18" class="edge">
-<title>../dom/js/validateable.js&#45;&gt;../fn/module.js</title>
+<title>../bolt/modules/validateable.js&#45;&gt;../fn/module.js</title>
 <path fill="none" stroke="#757575" d="M862.1,-788.62C945.98,-787.74 1083.17,-786.52 1201.5,-786.52 1201.5,-786.52 1201.5,-786.52 1667.5,-786.52 1734.71,-786.52 1920.61,-763.87 1969,-810.52 2041.47,-880.38 2077.56,-1640.52 2083.59,-1779.7"/>
 <polygon fill="#757575" stroke="#757575" points="2080.1,-1780.09 2084.03,-1789.94 2087.1,-1779.8 2080.1,-1780.09"/>
 </g>
@@ -2673,15 +2673,15 @@
 <path fill="none" stroke="#757575" d="M184.9,-2067.09C198.59,-2174.75 318.43,-2997.52 782,-2997.52 782,-2997.52 782,-2997.52 1667.5,-2997.52 1817.37,-2997.52 1887.92,-2972.56 1969,-2846.52 2026.5,-2757.12 2074.99,-1965.18 2083.26,-1823.25"/>
 <polygon fill="#757575" stroke="#757575" points="2086.76,-1823.36 2083.84,-1813.17 2079.77,-1822.95 2086.76,-1823.36"/>
 </g>
-<!-- components/slides.js&#45;&gt;../dom/js/swipeable.js -->
+<!-- components/slides.js&#45;&gt;../bolt/modules/swipeable.js -->
 <g id="edge294" class="edge">
-<title>components/slides.js&#45;&gt;../dom/js/swipeable.js</title>
+<title>components/slides.js&#45;&gt;../bolt/modules/swipeable.js</title>
 <path fill="none" stroke="#757575" d="M235.13,-2067.08C255.57,-2071.67 279.24,-2076.97 300.56,-2081.75"/>
 <polygon fill="#757575" stroke="#757575" points="299.96,-2085.2 310.49,-2083.97 301.49,-2078.37 299.96,-2085.2"/>
 </g>
-<!-- components/slides.js&#45;&gt;../dom/js/switchable.js -->
+<!-- components/slides.js&#45;&gt;../bolt/modules/switchable.js -->
 <g id="edge295" class="edge">
-<title>components/slides.js&#45;&gt;../dom/js/switchable.js</title>
+<title>components/slides.js&#45;&gt;../bolt/modules/switchable.js</title>
 <path fill="none" stroke="#757575" d="M254.16,-2055.52C313.6,-2055.52 398.73,-2055.52 461.63,-2055.52"/>
 <polygon fill="#757575" stroke="#757575" points="461.92,-2059.02 471.92,-2055.52 461.91,-2052.02 461.92,-2059.02"/>
 </g>
@@ -2727,33 +2727,33 @@
 <path fill="none" stroke="#c6c5fe" d="M67.33,-1930.02C67.33,-1930.02 7.67,-1930.02 7.67,-1930.02 3.83,-1930.02 0,-1926.18 0,-1922.35 0,-1922.35 0,-1914.68 0,-1914.68 0,-1910.85 3.83,-1907.02 7.67,-1907.02 7.67,-1907.02 67.33,-1907.02 67.33,-1907.02 71.17,-1907.02 75,-1910.85 75,-1914.68 75,-1914.68 75,-1922.35 75,-1922.35 75,-1926.18 71.17,-1930.02 67.33,-1930.02"/>
 <text text-anchor="middle" x="37.5" y="-1914.82" font-family="Arial" font-size="14.00" fill="#c6c5fe">module.js</text>
 </g>
-<!-- module.js&#45;&gt;../dom/js/device.js -->
+<!-- module.js&#45;&gt;../bolt/modules/device.js -->
 <g id="edge302" class="edge">
-<title>module.js&#45;&gt;../dom/js/device.js</title>
+<title>module.js&#45;&gt;../bolt/modules/device.js</title>
 <path fill="none" stroke="#757575" d="M75.29,-1916.13C127.43,-1912.74 223.86,-1906.48 290.39,-1902.16"/>
 <polygon fill="#757575" stroke="#757575" points="290.64,-1905.66 300.39,-1901.51 290.19,-1898.67 290.64,-1905.66"/>
 </g>
-<!-- module.js&#45;&gt;../dom/js/locateable.js -->
+<!-- module.js&#45;&gt;../bolt/modules/locateable.js -->
 <g id="edge303" class="edge">
-<title>module.js&#45;&gt;../dom/js/locateable.js</title>
+<title>module.js&#45;&gt;../bolt/modules/locateable.js</title>
 <path fill="none" stroke="#757575" d="M75.24,-1909.21C86.66,-1906.51 99.31,-1903.7 111,-1901.52 232.16,-1878.9 374.65,-1867.26 462.53,-1861.78"/>
 <polygon fill="#757575" stroke="#757575" points="462.94,-1865.26 472.7,-1861.16 462.51,-1858.28 462.94,-1865.26"/>
 </g>
-<!-- module.js&#45;&gt;../dom/js/popable.js -->
+<!-- module.js&#45;&gt;../bolt/modules/popable.js -->
 <g id="edge304" class="edge">
-<title>module.js&#45;&gt;../dom/js/popable.js</title>
+<title>module.js&#45;&gt;../bolt/modules/popable.js</title>
 <path fill="none" stroke="#757575" d="M75.37,-1921.32C86.78,-1922.12 99.41,-1922.93 111,-1923.52 236.44,-1929.86 382.39,-1933.87 469.19,-1935.9"/>
 <polygon fill="#757575" stroke="#757575" points="469.14,-1939.4 479.22,-1936.13 469.3,-1932.4 469.14,-1939.4"/>
 </g>
-<!-- module.js&#45;&gt;../dom/js/toggleable.js -->
+<!-- module.js&#45;&gt;../bolt/modules/toggleable.js -->
 <g id="edge305" class="edge">
-<title>module.js&#45;&gt;../dom/js/toggleable.js</title>
+<title>module.js&#45;&gt;../bolt/modules/toggleable.js</title>
 <path fill="none" stroke="#757575" d="M42.95,-1930.38C53.23,-1957.17 80.09,-2024.04 111,-2075.52 250.56,-2307.97 466.03,-2558.39 528.18,-2629.01"/>
 <polygon fill="#757575" stroke="#757575" points="525.74,-2631.54 534.98,-2636.72 530.99,-2626.91 525.74,-2631.54"/>
 </g>
-<!-- module.js&#45;&gt;../dom/js/validateable.js -->
+<!-- module.js&#45;&gt;../bolt/modules/validateable.js -->
 <g id="edge306" class="edge">
-<title>module.js&#45;&gt;../dom/js/validateable.js</title>
+<title>module.js&#45;&gt;../bolt/modules/validateable.js</title>
 <path fill="none" stroke="#757575" d="M49.3,-1906.96C115.49,-1835.38 468.62,-1442.68 621,-1051.52 659.51,-952.65 584.02,-892.53 657,-815.52 667.03,-804.93 680.17,-798.06 694.15,-793.71"/>
 <polygon fill="#757575" stroke="#757575" points="695.19,-797.06 703.94,-791.08 693.37,-790.3 695.19,-797.06"/>
 </g>
