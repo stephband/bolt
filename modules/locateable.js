@@ -27,7 +27,7 @@ you have a scrolling navigation:
 ```
 **/
 
-import '../polyfills/element.scrollintoview.js';
+import '../../dom/polyfills/element.scrollintoview.js';
 import { by, get, weakCache } from '../../fn/module.js';
 import { rect, features, isInternalLink, select, trigger } from '../../dom/module.js';
 
