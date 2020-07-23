@@ -58,7 +58,7 @@
 
 .check-button::before,
 .radio-button::before {
-    background-color: var(--input-background-color);
+    background: var(--check-background);
     border: var(--check-border-width) solid var(--check-border-color);
 }
 
@@ -77,9 +77,12 @@
 
 .check-button::after {
     display: none;
-	content: '✓';
-	text-align: center;
-	line-height: var(--check-width);
+    content: var(--check-content);
+    background: var(--check-content-background);
+    text-align: center;
+    line-height: var(--check-width);
+    background-size: auto;
+    background-position: 50% 50%;
 }
 
 .radio-button::after {

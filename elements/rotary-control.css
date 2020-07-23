@@ -17,6 +17,8 @@ smaller.
 */
 
 :host {
+    --value-color: #88deff;
+
     --unit-value: 0;
     --unit-zero: 0;
 
@@ -35,8 +37,8 @@ smaller.
         from calc(180deg + var(--rotation-start)),
         #ffffff 0deg,
         #ffffff calc(min(var(--unit-value), var(--unit-zero)) * var(--rotation-range)),
-        #88deff calc(min(var(--unit-value), var(--unit-zero)) * var(--rotation-range)),
-        #88deff calc(max(var(--unit-value), var(--unit-zero)) * var(--rotation-range)),
+        var(--value-color) calc(min(var(--unit-value), var(--unit-zero)) * var(--rotation-range)),
+        var(--value-color) calc(max(var(--unit-value), var(--unit-zero)) * var(--rotation-range)),
         #ffffff calc(max(var(--unit-value), var(--unit-zero)) * var(--rotation-range))
     );
     --track-shadow: inset 0 0.25rem 0.5rem rgba(0,0,0,0.24);

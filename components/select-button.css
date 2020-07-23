@@ -22,7 +22,7 @@
     color: var(--input-color);
     border: var(--input-border-width, 1px) solid var(--input-border-color);
     border-radius: var(--input-border-radius);
-    background-color: var(--input-background-color);
+    background: var(--input-background);
 
     /* Compensate for border */
     line-height: calc(var(--input-height) - 2 * var(--input-border-width, 1px));

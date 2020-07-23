@@ -64,7 +64,7 @@
 
 .radio-label::before,
 .check-label::before {
-    background-color: var(--input-background-color);
+    background: var(--input-background);
     border: var(--check-border-width) solid var(--check-border-color);
 }
 
@@ -95,6 +95,9 @@
     content: var(--check-content);
     text-align: center;
     line-height: var(--check-width);
+    background: var(--check-content-background);
+    background-size: auto;
+    background-position: 50% 50%;
 }
 
 .masked + .check-label,
@@ -192,6 +195,12 @@ input + .masked + .radio-label,
     --check-border-radius: 0;
 
     /**
+    --check-background
+    Background of simulated checkboxes
+    **/
+    --check-background: var(--input-background);
+
+    /**
     --check-content
     The actual check mark
     **/
@@ -199,6 +208,17 @@ input + .masked + .radio-label,
             <style>path{stroke:green;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;fill:none;}</style>\
             <path d="M5 8 L7 11 L11 5"></path>\
         </svg>');
+
+    /**
+    --check-content-background
+    **/
+    --check-content-background: transparent;
+
+    /**
+    --check-content
+    The actual check mark
+    **/
+    --check-background-checked: transparent;
 
     /**
     --radio-width

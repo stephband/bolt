@@ -13,10 +13,10 @@
     --input-line-height: 1.5rem;
 
     /**
-    --input-background-color
-    Background colour of input, select and textareas
+    --input-background:
+    Background of input, select and textareas
     **/
-    --input-background-color: white;
+    --input-background: white;
 
     /**
     --input-border-color
@@ -152,10 +152,10 @@
 
 
     /**
-    --focus-background-color
-    Background colour of focused inputs, selects and textareas
+    --focus-background
+    Background of focused inputs, selects and textareas
     **/
-    --focus-background-color: var(--input-background-color);
+    --focus-background: var(--input-background);
 
     /**
     --focus-border-color
@@ -173,10 +173,10 @@
         inset 0 0 0.5rem hsla(200,65%,60%,0.6);
 
     /**
-    --invalid-background-color
-    Background colour of invalid inputs, selects and textareas
+    --invalid-background
+    Background of invalid inputs, selects and textareas
     **/
-    --invalid-background-color: var(--input-background-color);
+    --invalid-background: var(--input-background);
 
     /**
     --invalid-border-color

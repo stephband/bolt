@@ -5,18 +5,8 @@
 minmax-control
 
 ```html
-<minmax-control min="0" max="1" ticks="0 0.25 0.5 0.75 1" unit="s" scale="quadratic">Range</minmax-control>
+<minmax-control min="0" max="1" ticks="0 0.25 0.5 0.75 1" scale="quadratic">Range</minmax-control>
 ```
-
-<template id="minmax-control">
-    <link rel="stylesheet" href="./range-control.css" />
-    <link rel="stylesheet" href="./minmax-control.css" />
-    <label for="input-1"><slot></slot></label>
-    <input type="range" id="input-1" name="unit-value-1" :value="{[unitValue1]}" min="0" max="1" step="any" />
-    <input type="range" id="input-0" name="unit-value-0" :value="{[unitValue0]}" min="0" max="1" step="any" />
-    <output>{[displayValue0]} {[displayValue1]}</output>
-    <button class="tick" fn="get:ticks each" name="control-tick" value="{[tickValue|float-string]}" :style="left: calc((0.5 * var(--handle-width) - var(--bleed)) + {[tickValue]} * (100% + 2 * var(--bleed) - var(--handle-width)));">{[displayValue]}</button>
-</template>
 **/
 
 :host {
@@ -28,8 +18,8 @@ minmax-control
     --track-background: linear-gradient(to right,
         transparent 0%,
         transparent calc((100% - var(--handle-width)) * var(--unit-value-0)),
-        #88deff calc((100% - var(--handle-width)) * var(--unit-value-0)),
-        #88deff calc((100% - var(--handle-width)) * var(--unit-value-1) + var(--handle-width)),
+        var(--value-color) calc((100% - var(--handle-width)) * var(--unit-value-0)),
+        var(--value-color) calc((100% - var(--handle-width)) * var(--unit-value-1) + var(--handle-width)),
         transparent calc((100% - var(--handle-width)) * var(--unit-value-1) + var(--handle-width)),
         transparent 100%
     );

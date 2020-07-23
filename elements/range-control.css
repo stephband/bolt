@@ -8,6 +8,8 @@ range-control
 **/
 
 :host {
+    --value-color: #88deff;
+
     --track-height: 0.375rem;
     --track-background: #eeeeee;
     --track-border: none;

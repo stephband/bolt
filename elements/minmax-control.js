@@ -281,6 +281,7 @@ element('minmax-control', {
     },
 
     construct: function(host, shadow, internals) {
+        console.log(!!internals, 'INTERNALS');
         const data = host.data = assign({
             shadow:    shadow,
             internals: internals,
