@@ -268,6 +268,8 @@ textarea,
 [type="number"],
 [type="search"],
 [type="password"] {
+    padding-left: 0;
+    padding-right: calc(var(--input-padding-right) - var(--input-border-width, 1px));
     text-indent: calc(var(--input-padding-left) - var(--input-border-width, 1px));
 }
 
@@ -282,7 +284,8 @@ textarea,
 .right-align[type="number"],
 .right-align[type="search"],
 .right-align[type="password"] {
-    padding-right: calc(var(--input-padding-left) - var(--input-border-width, 1px));
+    padding-left: calc(var(--input-padding-left) - var(--input-border-width, 1px));
+    text-indent: 0;
 }
 
 textarea,

@@ -87,7 +87,7 @@
     left: calc(0.5 * (var(--radio-width) - var(--radio-check-width)));
     width: var(--radio-check-width);
     height: var(--radio-check-width);
-    background-color: var(--check-color);
+    background: var(--radio-check-background);
     border-radius: calc(0.5 * var(--radio-check-width));
 }
 
@@ -239,8 +239,8 @@ input + .masked + .radio-label,
     --radio-check-width: 0.75rem;
 
     /**
-    --check-color
-    Color of radio check mark
+    --radio-check-background
+    Background of radio check mark
     **/
-    --check-color: currentcolor;
+    --radio-check--background: currentcolor;
 }
