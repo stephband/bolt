@@ -4,7 +4,7 @@
 // input responible for them. Hopefully. Not foolproof, but better than getting
 // rid of focus outlines altogether.
 
-import { classes, on } from '../../dom/module.js';
+import { classes } from '../../dom/module.js';
 
 export const config = {
     simulatedEventDelay: 0.08,
@@ -44,6 +44,6 @@ function touchend(e) {
     updateClass(config.touchClass);
 }
 
-on('mousedown', mousedown, document);
-on('keydown', keydown, document);
-on('touchend', touchend, document);
+document.addEventListener('mousedown', mousedown);
+document.addEventListener('keydown', keydown);
+document.addEventListener('touchend', touchend);
