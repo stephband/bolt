@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head build-fn="fetch:package.json">
-    <template build-src="../fn/templates.html#head-template"></template>
+<head>
+    <template fn="fetch:package.json" src="../../sparky/templates.html#head-template"></template>
 
-    <script build-remove title="debug">
+    <script remove title="debug">
     window.DEBUG = true;
     </script>
 
@@ -21,23 +21,20 @@
         }
     </style>
 
-    <link rel="stylesheet" href="style.min.css" />
-    <!--link rel="stylesheet" href="style.css" /-->
+    <!--link rel="stylesheet" href="../style.min.css" /-->
+    <link rel="stylesheet" href="../style.css" />
 
-    <link rel="stylesheet" href="../dom/css/dom.css" />
-    <link rel="stylesheet" href="../fn/css/prism-cruncher.css" />
-    <link rel="stylesheet" href="../fn/css/tests.css" />
-    <link rel="stylesheet" href="../fn/css/docs.css" />
-    <link rel="stylesheet" href="../fn/css/respond.css" />
+    <link rel="stylesheet" href="../../dom/css/dom.css" />
+    <link rel="stylesheet" href="../../fn/css/prism-cruncher.css" />
+    <link rel="stylesheet" href="../../fn/css/tests.css" />
+    <link rel="stylesheet" href="../../fn/css/docs.css" />
+    <link rel="stylesheet" href="../../fn/css/respond.css" />
 </head>
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
     <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
-        <!--template build-fn="fetch:package.json" build-src="../fn/templates.html#header-template"></template-->
+        <!--template fn="fetch:package.json" src="../fn/templates.html#header-template"></template-->
     </header>
-
-    <!-- Build document -->
-    <script type="module" src="../fn/docs-build.js" build-remove></script>
 
     <!-- Custom elements -->
     <svg>
@@ -84,7 +81,7 @@
     </svg>
 
     <template id="envelope-control">
-        <link rel="stylesheet" href="/bolt/elements/envelope-control.css" />
+        <link rel="stylesheet" href="./envelope-control.css" />
         <svg class="envelope-svg" viewBox="0 -1.125 2 1.125" preserveAspectRatio="xMinYMid slice">
             <defs>
                 <linearGradient id="handle-gradient" x1="0" x2="0" y1="0" y2="1">
@@ -99,13 +96,16 @@
         </svg>
     </template>
 
-    <script type="module" src="./elements/envelope-control.js"></script>
+    <script type="module" src="./envelope-control.js"></script>
 
     <envelope-control class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center" min="-1" max="1" value="step 0 0.1 linear 0.5 1 linear 1 0.3" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="height: 16rem;">Envelope</envelope-control>
 
+    <!-- Build document -->
+    <script type="module" src="../../fn/docs-build-2.js" remove></script>
+    <script type="module" src="../../sparky/module.js" remove></script>
+
     <!-- Document interactivity -->
     <script type="module">
-        import './module.js';
-        import './documentation.js';
+        //import '../module.js';
     </script>
 </body>
