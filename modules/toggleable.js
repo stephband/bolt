@@ -44,8 +44,6 @@ function click(e) {
 	if (!id) { return; }
 	if (actives.indexOf(id) === -1) { return; }
 
-    
-    console.log(trigger);
 	trigger({
         type: 'dom-deactivate',
 		relatedTarget: node
