@@ -85,8 +85,10 @@ function update(time) {
     // Update things that rarely change only when we have not updated recently
     if (frameTime < time - config.scrollIdleDuration * 1000) {
         locateables = select(selector, document);
-        scrollPaddingLeft = parseInt(getComputedStyle(document.documentElement).scrollPaddingLeft, 10);
-        scrollPaddingTop  = parseInt(getComputedStyle(document.documentElement).scrollPaddingTop, 10);
+        // Default to 0 for browsers (IE, Edge) that do not 
+        // support scrollPaddingX
+        scrollPaddingLeft = parseInt(getComputedStyle(document.documentElement).scrollPaddingLeft, 10) || 0;
+        scrollPaddingTop  = parseInt(getComputedStyle(document.documentElement).scrollPaddingTop, 10) || 0;
     }
 
     frameTime = time;
@@ -140,7 +142,7 @@ function scroll(e) {
 
     // For a moment after the last hashchange dont update while
     // smooth scrolling settles to the right place.
-    if (hashTime > aMomentAgo) {
+    if (e.type === 'scroll' && hashTime > aMomentAgo) {
         hashTime = e.timeStamp;
         return;
     }
