@@ -200,10 +200,6 @@ textarea {
     background-image: none;
 }
 
-select {
-    height: var(--input-height);
-}
-
 input,
 textarea {
     width: 100%;
@@ -236,6 +232,9 @@ textarea,
 [type="search"],
 [type="password"] {
     display: block;
+    color: var(--input-color);
+    border: var(--input-border-width, 1px) solid var(--input-border-color);
+    border-radius: var(--input-border-radius);
 }
 
 textarea,
@@ -251,9 +250,6 @@ textarea,
 [type="number"],
 [type="search"],
 [type="password"] {
-    color: var(--input-color);
-    border: var(--input-border-width, 1px) solid var(--input-border-color);
-    border-radius: var(--input-border-radius);
     background: var(--input-background);
 }
 
@@ -365,6 +361,8 @@ textarea {
     border-bottom-right-radius: 0 !important;
 }
 
+/* 
+This does the same as line 211, do we really need it?
 input + select,
 input + textarea,
 input + [type="tel"],
@@ -381,20 +379,24 @@ input + [type="search"],
 input + [type="password"] {
     margin-top: var(--input-margin);
 }
+*/
 
+button,
+select,
 input[type="file"],
 input[type="button"],
 input[type="reset"],
-input[type="submit"],
-button,
-select {
+input[type="submit"] {
     /* Clickable stuff gets a pointer cursor... */
     cursor: pointer;
 }
 
-button[disabled],
-input[disabled],
-select[disabled] {
+button:disabled,
+select:disabled,
+input[type="file"]:disabled,
+input[type="button"]:disabled,
+input[type="reset"]:disabled,
+input[type="submit"]:disabled {
     /* ...unless it's disabled. */
     cursor: default;
 }
@@ -477,6 +479,86 @@ input[type='file'] {
 [type="color"]::-webkit-color-swatch {
     border: none;
 }
+
+
+
+/* select */
+
+select {
+    /* Appearance rule and its and prefixed versions unset some default browser 
+       select styling */
+	-webkit-appearance: none;
+       -moz-appearance: none;
+	        appearance: none;    
+
+    /* iOS Safari will zoom-in the site layout if the select's text is less 
+       than 16px */
+	/*font-size: 1rem;*/
+
+    line-height: var(--input-line-height);
+    padding-left:   calc(var(--input-padding-left)  - var(--input-border-width, 1px));
+    padding-right:  calc(var(--input-padding-right) - var(--input-border-width, 1px));
+    padding-top:    calc(0.5 * (var(--input-height) - var(--input-line-height) - 2 * var(--input-border-width, 1px)) - 1px);
+    padding-bottom: calc(0.5 * (var(--input-height) - var(--input-line-height) - 2 * var(--input-border-width, 1px)) + 1px);
+
+    width: 100%;
+	max-width: 100%;
+
+    height: auto;
+    min-height: var(--input-height);
+	/*box-shadow: 0 1px 0 1px rgba(0,0,0,.04);*/
+
+    background-image: 
+        /* Arrow icon */
+        url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+        /* The linear gradient background is important to keep, because its presence actually 
+           prevents IE9 and older from recognizing the background property. */
+        linear-gradient(to bottom, #ffffff 0%, #ffffff 100%);    
+
+    /* Setting background color on the select can cause option elements to 
+       inherit, which can cause problems */
+	background-color: transparent;
+}
+
+select::-ms-expand {
+    /* Instruct IE11 and IE10 to hide the menu icon pseudo element, so the custom icon behind 
+       it can appear*/
+	display: none;
+}
+
+select:hover {
+	/* border-color: #888; */
+}
+
+select option {
+    /* Keep options from inheriting the weight of the select */
+	font-weight: normal;
+}
+
+*[dir="rtl"] select, 
+:root:lang(ar) select, 
+:root:lang(iw) select {
+	/* Support for rtl text, explicit support for Arabic and Hebrew */
+    background-position: left .7em top 50%, 0 0;
+	padding: .6em .8em .5em 1.4em;
+}
+
+select:disabled, 
+select[aria-disabled="true"] {
+    /* Disabled styles */
+	color: graytext;
+	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22graytext%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+        linear-gradient(to bottom, #ffffff 0%,#ffffff 100%);
+}
+
+select:disabled:hover, 
+select[aria-disabled="true"] {
+	border-color: #aaa;
+}
+
+
+
+
 
 
 /**
@@ -578,6 +660,11 @@ select:focus {
     outline: #639ACA auto 6px;
     -moz-outline-color: #639ACA;
     outline-offset: -3px;
+}
+
+:disabled,
+[aria-disabled="true"] {
+	opacity: 0.4;
 }
 
 
