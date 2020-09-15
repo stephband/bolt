@@ -10,7 +10,6 @@ const DEBUG = true;
 const assign = Object.assign;
 
 const defaults = {
-    path: './components/controls',
     transform: 'linear',
     min:    0,
     max:    1
@@ -49,7 +48,7 @@ function updateValue(element, data, unitValue) {
 
 
 element('range-control', {
-    template: '#range-control',
+    template: '/bolt/elements/range-control.html#range-control',
     attributes: attributes,
     properties: properties,
 
@@ -94,4 +93,4 @@ element('range-control', {
         // Mount template
         mount(shadow, mountSettings).push(elem.data);
     }
-})
+});
