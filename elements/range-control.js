@@ -1,5 +1,5 @@
 
-import { Observer } from '../../fn/module.js';
+import { Observer, observe } from '../../fn/module.js';
 import { transform } from './control.js';
 import { element, trigger } from '../../dom/module.js';
 import Sparky, { mount, config } from '../../sparky/module.js';
@@ -48,7 +48,7 @@ function updateValue(element, data, unitValue) {
 
 
 element('range-control', {
-    template: '/bolt/elements/range-control.html#range-control',
+    template: '#range-control',
     attributes: attributes,
     properties: properties,
 
@@ -90,7 +90,7 @@ element('range-control', {
             elem.value = elem.data.min;
         }
 
-        // Mount template
-        mount(shadow, mountSettings).push(elem.data);
+        // Mount template, push in the observer as scope
+        mount(shadow, mountSettings).push(Observer(elem.data));
     }
 });

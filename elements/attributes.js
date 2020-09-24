@@ -198,8 +198,7 @@ export const properties = {
             // range-control's inner Sparky mounting. I think cueing needs to
             // improve, with data updates being done in one round and all
             // render processes delayed by a tick. I'm not sure. Anyway, as
-            // a bodge job, we delay by a tick here. This may mean DOM update
-            // values are a frame behind. Investigate.
+            // a bodge job, we delay by a tick here.
             requestTick(() => {
                 observer.displayValue = transformOutput(data.unit, value);
                 observer.displayUnit  = transformUnit(data.unit, value);
