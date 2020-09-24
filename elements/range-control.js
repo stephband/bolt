@@ -38,21 +38,21 @@ const mountSettings = Object.assign({}, config, {
     attributeFn:      'fn'
 });
 
-function updateValue(element, data, unitValue) {
+function updateValue(element, data, internals, unitValue) {
     const observer = Observer(data);
     observer.unitValue = unitValue;
 
     const value = transform(data.transform, unitValue, data.min, data.max) ;
     element.value = value;
+    internals.setFormValue(value);
 }
-
 
 element('range-control', {
     template: '#range-control',
     attributes: attributes,
     properties: properties,
 
-    construct: function(elem, shadow) {
+    construct: function(elem, shadow, internals) {
         const data = elem.data = assign({}, defaults);
 
         // Pick up input events and update scope - Sparky wont do this
@@ -61,7 +61,7 @@ element('range-control', {
         shadow.addEventListener('mousedown', (e) => {
             const target = e.target.closest('button') || e.target;
             if (target.name !== 'control-tick') { return; }
-            updateValue(elem, data, parseFloat(target.value));
+            updateValue(elem, data, internals, parseFloat(target.value));
 
             // Refocus the input
             shadow
@@ -73,7 +73,7 @@ element('range-control', {
 
         shadow.addEventListener('input', (e) => {
             if (e.target.name !== 'control-input') { return; }
-            updateValue(elem, data, parseFloat(e.target.value));
+            updateValue(elem, data, internals, parseFloat(e.target.value));
         });
 
         // Snap to position at the end of travel
