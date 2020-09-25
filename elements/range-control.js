@@ -25,8 +25,8 @@ function createEach(createNode) {
 }
 
 function createTemplate(elem, shadow) {
-    const style  = create('style', ':host {}');
     const link   = create('link',  { rel: 'stylesheet', href: config.path + 'range-control.css' });
+    const style  = create('style', ':host {}');
     const label  = create('label', { for: 'input', html: '<slot></slot>' });
     const input  = create('input', { type: 'range', id: 'input', name: 'unit-value', min: '0', max: '1', step: 'any' });
     const text   = create('text');
@@ -36,18 +36,18 @@ function createTemplate(elem, shadow) {
         create('comment', ' ticks ') :
         create('text', '') ;
 
-    shadow.appendChild(style);
     shadow.appendChild(link);
+    shadow.appendChild(style);
     shadow.appendChild(label);
     shadow.appendChild(input);
     shadow.appendChild(output);
     shadow.appendChild(marker);
 
-    // Get the :host {} style rule from style  
-    const css = shadow.styleSheets[0].cssRules[0].style;
+    // Get the :host {} style rule from style
+    const css = style.sheet.cssRules[0].style;
 
     return {
-        'unitValue': function(unitValue, source) {
+        'unitValue': function(unitValue) {
             // Check that input is not the currently active node before updating
             //if (input.getRootNode().activeElement !== input) {
                 // Check that the input does not already have the value
