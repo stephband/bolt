@@ -74,6 +74,7 @@ export const attributes = {
     scale: function(value) {
         const privates = Privates(this);
         const data     = privates.data;
+        const scope    = privates.scope;
         this.data.transform = value || 'linear';
 
         if (data.ticksAttribute) {
@@ -86,7 +87,7 @@ export const attributes = {
                 data.stepsAttribute );
         }
 
-        this.style.setProperty('--unit-zero', invert(data.transform, 0, data.min, data.max));
+        scope.unitZero(invert(data.transform, 0, data.min, data.max));
     },
 
     ticks: function(value) {
@@ -148,7 +149,7 @@ export const properties = {
             // Check for readiness
             if (data.max === undefined) { return; }
             scope.ticks(createTicks(data, data.ticksAttribute));
-            this.style.setProperty('--unit-zero', invert(data.transform, 0, data.min, data.max));
+            scope.unitZero(invert(data.transform, 0, data.min, data.max));
 
             // Check for readiness
             if (data.value === undefined) { return; }
@@ -172,7 +173,7 @@ export const properties = {
 
             if (data.min === undefined) { return; }
             scope.ticks(createTicks(data, data.ticksAttribute));
-            this.style.setProperty('--unit-zero', invert(data.transform, 0, data.min, data.max));
+            scope.unitZero(invert(data.transform, 0, data.min, data.max));
 
             // Check for readiness
             if (data.value === undefined) { return; }
@@ -198,10 +199,11 @@ export const properties = {
             if (value === data.value) { return; }
 
             // Are we ready?
+            /*
             if (data.max === undefined || data.min === undefined) {
                 data.value = value;
                 return;
-            }
+            }*/
 
             let unitValue = invert(data.transform, value, data.min, data.max);
 

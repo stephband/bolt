@@ -43,8 +43,6 @@ function createTemplate(elem, shadow) {
     shadow.appendChild(output);
     shadow.appendChild(marker);
 
-    console.log('>>', shadow.styleSheets.length, shadow.styleSheets[0], shadow.styleSheets[1]);
-
     // Get the :host {} style rule from style  
     const css = shadow.styleSheets[0].cssRules[0].style;
 
@@ -59,6 +57,10 @@ function createTemplate(elem, shadow) {
             //}
 
             css.setProperty('--unit-value', unitValue);
+        },
+
+        'unitZero': function(unitZero) {
+            css.setProperty('--unit-zero', unitZero);
         },
 
         'displayValue': function(displayValue) {
@@ -109,8 +111,10 @@ export default element('range-control', {
         // Listen to touches on tick buttons
         function down(e) {
             if (e.target.type !== 'button') { return; }
+
             const unitValue = parseFloat(e.target.value);
             const value = transform(data.transform, unitValue, data.min, data.max) ;
+
             elem.value = value;
 
             // Refocus the input (should not be needed now we have focus 
