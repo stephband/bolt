@@ -1,27 +1,305 @@
+<!DOCTYPE html><html lang="en" class=" js content-loading loading"><head>
+    
+    <meta charset="utf-8">
+    <meta name="author" content="stephband">
+    <meta name="description" content="Documentation for Bolt. A front-end toolkit of classes, evented behaviours and custom elements.">
+    <meta name="viewport" content="width=device-width">
 
-<!--
-    <range-control min="" max="" value="" transform="" ticks="">
--->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@@stephband">
+    <meta property="og:url" content="http://stephen.band/bolt/">
+    <meta property="og:title" content="Bolt">
+    <meta property="og:description" content="A front-end toolkit of classes, evented behaviours and custom elements.">
+    <meta property="og:image" content="">
 
-<!--template id="range-control-template">
-    <link rel="stylesheet" href="../components/control/range-control.css" />
-    <input class="unit-value" type="range" id="input" value="{[unitValue]}" min="0" max="1" step="any" />
-    <label class="control-label" for="input"><slot></slot></label>
-    <output class="control-output">{[prefix]}{[outputValue]}<abbr>{[unit]}</abbr></output>
+    <title>Bolt</title>
 
-    <template fn="get:ticks each">
-        <input class="tick-input" type="radio" name="tick" id="tick-{[value]}" value="{[tickValue|float-string]}" :value="{[root.unitValue|float-string]}" />
-        <label class="tick-label" :style="left: calc(0.5rem + (100% - 1rem) * {[tickValue]});" :for="tick-{[value]}">{[displayValue]}</label>
-    </template>
+    <script title="load">
+    document.documentElement.className += ' js content-loading loading';
+    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
+    // Wait for other load handlers to run first - Bolt does a few things on
+    // load (eg. locateable scrolls) and we want them to run before the loading
+    // class is removed
+    window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
+    </script>
 
-    <slot name="plugs"></slot>
-</template-->
+    <link rel="shortcut icon" href="images/logo-64x64.ico">
+    <link rel="icon" type="image/png" href="images/logo-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/logo-64x64.png" sizes="64x64">
+    <link rel="icon" type="image/png" href="images/logo-128x128.png" sizes="128x128">
 
-<template id="range-control">
-    <link rel="stylesheet" href="/bolt/elements/range-control.css" />
-    <label for="input"><slot></slot></label>
-    <input type="range" id="input" name="unit-value" value="{[unitValue]}" min="0" max="1" step="any" />
-    <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
-    <button fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" :style="left: calc((0.5 * var(--handle-width) - var(--bleed)) + {[tickValue]} * (100% + 2 * var(--bleed) - var(--handle-width)));">{[displayValue]}</button>
-    <!--slot name="plugs"></slot-->
-</template>
+
+    
+
+    <script title="config">
+        window.customElementStylesheetPath = './';
+    </script>
+
+    <link rel="stylesheet" href="../style.min.css">
+
+    <link rel="stylesheet" href="../../fn/css/prism-cruncher.css">
+    <link rel="stylesheet" href="../../fn/css/tests.css">
+    <link rel="stylesheet" href="../../fn/css/docs.css">
+    <link rel="stylesheet" href="../../fn/css/respond.css">
+
+    <style>
+        range-control {
+            min-width: 9rem; 
+            max-width: 15rem;
+            width: 100%;
+        }
+
+        range-control:focus {
+            /* Make sure any recreated focus outline is nullified. */
+            box-shadow: none !important;
+        }
+
+        rotary-control {
+            --focus-shadow: none;
+        }
+    
+        * + range-control {
+            margin-top: 1.875rem;
+        }
+        
+        * + input {
+            margin-top: 3.75rem;
+        }
+    </style>
+<template build-remove="" id="head-template" title="../../fn/">
+    <meta charset="utf-8">
+    <meta name="author" content="{[author.name]}">
+    <meta name="description" content="Documentation for {[title]}. {[description]}">
+    <meta name="viewport" content="width=device-width">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@{[author.twitter]}">
+    <meta property="og:url" content="{[homepage]}">
+    <meta property="og:title" content="{[title]}">
+    <meta property="og:description" content="{[description]}">
+    <meta property="og:image" content="{[image]}">
+
+    <title>{[title]}</title>
+
+    <script title="load">
+    document.documentElement.className += ' js content-loading loading';
+    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
+    // Wait for other load handlers to run first - Bolt does a few things on
+    // load (eg. locateable scrolls) and we want them to run before the loading
+    // class is removed
+    window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
+    </script>
+
+    <link rel="shortcut icon" href="images/logo-64x64.ico">
+    <link rel="icon" type="image/png" href="images/logo-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/logo-64x64.png" sizes="64x64">
+    <link rel="icon" type="image/png" href="images/logo-128x128.png" sizes="128x128">
+</template><template build-remove="" id="header-template" title="../../fn/">
+    <h1 class="doctext-01">{[title]} <span class="doctext-06">{[version]}</span></h1>
+    <p class="doctext-08">{[description]}</p>
+    <ul class="link-index index">
+        <li><strong>repo:</strong> <a href="{[repository.url]}">{[repository.url|replace:'https://','']}</a></li>
+        <li><strong>bugs:</strong> <a href="{[bugs.url]}">{[bugs.url|replace:'https://','']}</a></li>
+    </ul>
+</template><template build-remove="" id="title-template" title="../../fn/">
+    <h3 class="doctext-04" build-fn="after:body">{[name]}</h3>
+</template><template build-remove="" id="h2-template" title="../../fn/">
+    <header class="x-1 4x @1-x-1 @2-x-2">
+        <h2 class="doctext-02">
+            <a href="#{[id]}">
+                <code class="language-js" build-fn="append:title" style="color: inherit;"></code>
+            </a>
+        </h2>
+    </header>
+
+    <div class="x-1 3x @2-x-2" build-fn="append:body"></div>
+</template><template build-remove="" id="attribute-template" title="../../fn/">
+    <article build-fn="append:body" class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="attribute-{[id]}">
+        <h3 class="doctext-05">
+            <a href="#attribute-{[id]}">
+                <code class="token language-js">[<span build-fn="append:title"></span>]</code>
+            </a>
+        </h3>
+    </article>
+</template><template build-remove="" id="constructor-template" title="../../fn/">
+    <article class="function-doc-toggle-block doc-toggle-block toggle-block block 3x" toggleable="" id="{[0.id]}">
+        <h3 build-fn="get:0 after:body" class="doctext-05 dot-indent">
+            <a href="#{[id]}">
+                <code class="property language-js">"{[name|lowercase]}"</code>
+            </a>
+        </h3>
+
+        <template build-src="/fn/templates.html#property-method-template"></template>
+    </article>
+</template><template build-remove="" id="method-template" title="../../fn/">
+    <article build-fn="append:body" class="method-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="method-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#method-{[id]}">
+                <code build-fn="append:title" class="function language-js"></code>
+            </a>
+        </h3>
+    </article>
+</template><template build-remove="" id="property-template" title="../../fn/">
+    <article build-fn="append:body" class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="property-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#property-{[id]}">
+                <code build-fn="append:title" class="property language-js"></code>
+            </a>
+        </h3>
+    </article>
+</template><template build-remove="" id="class-template" title="../../fn/">
+    <article build-fn="append:body" class="class-doc-toggle-block doc-toggle-block toggle-block block class-grid grid @2-9-grid" toggleable="" id="class-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#class-{[id]}">
+                <code build-fn="append:title" class=""></code>
+            </a>
+        </h3>
+    </article>
+</template><template build-remove="" id="component-template" title="../../fn/">
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-{[0.id]}">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 build-fn="after:'0.body'" class="x-1 3x @1-x-2 @2-x-3 doctext-03 {[0.prefix|is:'.'|yesno:'dot-indent','']}">
+                <a build-fn="append:'0.title'" class="doctoggle-button button" href="#component-{[0.id]}"></a>
+            </h3>
+        </header>
+
+        <section build-fn="rest:1 each" class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start 3x @2-2x @2-x-end doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+                <code build-fn="append:title" class=""></code>
+            </h4>
+
+            <div class="block x-3 2x y-baseline" build-fn="append:example"></div>
+            <div hidden="" class="block x-6 3x y-start" build-fn="append:body"></div>
+        </section>
+    </section>
+</template><template build-remove="" id="css-template" title="../../fn/">
+    <section class="x-1 9x grid" style="--row-gap: var(--input-margin);" id="components" locateable="">
+        <header class="x-3 2x x-start">
+            <h3 build-fn="get:0 after:body" class="doctext-03 {[prefix|is:'.'|yesno:'dot-indent','']}">
+                <a build-fn="append:title" class="doctoggle-button button" href="#component-{[id]}"></a>
+            </h3>
+        </header>
+
+        <section build-fn="rest:1 filter-not-var" class="x-1 5x y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-{[0.id]}">
+            <template build-fn="each">
+                <h4 class="x-1 2x x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']} right-align">
+                    <a href="#{[id]}-description" title="Show HTML markup"><code build-fn="title-replace-comma-br append:title"></code></a>
+                </h4>
+                <div class="x-3 2x x-stretch y-baseline block" build-fn="prepend:example"></div>
+                <div class="@2-x-5 x-stretch block">
+                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" build-fn="append:body" id="{[id]}-description"></div>
+                </div>
+            </template>
+        </section>
+
+        <section build-fn="rest:1 filter-var" class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
+            <template build-fn="each">
+                <label class="x-1 2x x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}" for="doc-var-{[id]}">
+                    <code build-fn="append:title" style="color: #888888;"></code><span style="color: transparent;">:</span>
+                </label>
+                <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--{[id]}" id="doc-var-{[id]}" type="text" placeholder="value">
+                <div class="x-4 2x" style="color: transparent;">;</div>
+            </template>
+        </section>
+    </section>
+</template><template build-remove="" id="styleguide-template" title="../../fn/">
+    <section class="x-1 9x 6x-grid @2-9x-grid grid" style="--row-gap: var(--input-margin);" id="components" locateable="">
+        <header class="x-1 3x @1-x-3 @1-4x @2-2x x-start">
+            <h3 build-fn="get:0 after:body" class="doctext-03 {[prefix|is:'.'|yesno:'dot-indent','']}">
+                <a build-fn="append:title" class="doctoggle-button button" href="#component-{[id]}"></a>
+            </h3>
+        </header>
+
+        <section build-fn="rest:1 filter-not-var" class="x-1 6x @1-6x @2-5x y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-{[0.id]}">
+            <template build-fn="each">
+                <h4 class="x-1 2x x-start @1-2x @1-x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']} right-align">
+                    <a href="#{[id]}-description" title="Show HTML markup"><code build-fn="title-replace-comma-br append:title"></code></a>
+                </h4>
+                <div class="x-1 3x @1-x-3 @1-4x @2-2x x-stretch y-baseline block" build-fn="prepend:example"></div>
+                <div class="x-1 3x @1-2x @2-x-5 x-stretch y-baseline block">
+                    <a class="docbubble-thumb thumb" href="#{[id]}-description" style="text-decoration: none;">Code</a>
+                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem; left: 2.5rem;" popable="" build-fn="append:body" id="{[id]}-description"></div>
+                </div>
+            </template>
+        </section>
+    </section>
+</template><template build-remove="" id="function-template" title="../../fn/">
+    <article build-fn="append:body" class="function-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="function-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#function-{[id]}">
+                <code build-fn="append:title" class="function language-js"></code>
+            </a>
+        </h3>
+    </article>
+</template><template build-remove="" id="fn-template" title="../../fn/">
+    <article build-fn="append:body" class="fn-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="fn-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#fn-{[id]}">
+                <code build-fn="append:title" class="language-js"></code>
+            </a>
+        </h3>
+    </article>
+</template><template build-remove="" id="section-template" title="../../fn/">
+    <article build-fn="append:body" class="section-doc-toggle-block doc-toggle-block toggle-block block active" id="section-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <code build-fn="append:title" class="function language-js"></code>
+        </h3>
+    </article>
+</template><template build-remove="" id="body-template" title="../../fn/">
+    <article build-fn="append:body" class="body-doc-toggle-block doc-toggle-block toggle-block block active" id="{[id]}"></article>
+</template><template build-remove="" id="property-method-template" title="../../fn/">
+    <section class="x-1 2x @1-x-1 @2-x-2">
+        <template build-fn="filter-property each" build-src="/fn/templates.html#{[type]}-template"></template>
+    </section>
+
+    <section class="x-1 2x @1-x-3 @2-x-4">
+        <template build-fn="filter-method each" build-src="/fn/templates.html#{[type]}-template"></template>
+    </section>
+</template></head>
+
+<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
+    <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
+        
+    <h1 class="doctext-01">Bolt <span class="doctext-06">2.1.1</span></h1>
+    <p class="doctext-08">A front-end toolkit of classes, evented behaviours and custom elements.</p>
+    <ul class="link-index index">
+        <li><strong>repo:</strong> <a href="https://github.com/stephband/bolt.git">github.com/stephband/bolt.git</a></li>
+        <li><strong>bugs:</strong> <a href="https://github.com/stephband/bolt/issues/">github.com/stephband/bolt/issues/</a></li>
+    </ul>
+
+        <h2>&lt;range-control&gt;</h2>
+    </header>
+
+    <form class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center">
+        <range-control name="ratio" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" value="0">
+            Factor
+        </range-control>
+    
+        <range-control name="gain" min="-24dB" max="0dB" ticks="-âˆždB -24dB -18dB -12dB -6dB 0dB" law="linear-logarithmic" unit="dB" value="-6dB">
+            Volume
+        </range-control>
+    
+        <range-control name="frequency" min="20" max="20000" ticks="20Hz 200Hz 2kHz 20kHz" law="logarithmic" unit="Hz" value="20Hz">
+            Frequency
+        </range-control>
+
+        <range-control name="rating" min="1" max="5" ticks="1 2 3 4 5" steps="ticks" law="linear" value="3">
+            Rating
+        </range-control>
+
+        <input class="button" type="submit">
+    </form>
+
+    <!--pre><code>import 'bolt/elements/range-control.js'</code></pre-->
+
+    <!-- Build document -->
+        
+
+    <!-- Document interactivity -->
+    <script type="module">
+        import './range-control.js';
+        import '../module.js';
+        import '../documentation.js';
+    </script>
+
+</body></html>

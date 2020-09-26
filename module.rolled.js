@@ -59,58 +59,6 @@ function curry(fn, muteable, arity) {
     };
 }
 
-//function curry(fn, muteable, arity) {
-//    arity = arity || fn.length;
-//    return function curried() {
-//        return arguments.length >= arity ?
-//            fn.apply(null, arguments) :
-//            curried.bind(null, ...arguments) ;
-//    };
-//}
-
-{
-    const _curry = curry;
-
-    // Feature test
-	const isFunctionLengthDefineable = (function() {
-		var fn = function() {};
-
-		try {
-			// Can't do this on Safari - length non configurable :(
-			Object.defineProperty(fn, 'length', { value: 2 });
-		}
-		catch(e) {
-			return false;
-		}
-
-		return fn.length === 2;
-	})();
-
-    const setFunctionProperties = function setFunctionProperties(text, parity, fn1, fn2) {
-        // Make the string representation of fn2 display parameters of fn1
-        fn2.toString = function() {
-            return /function\s*[\w\d]*\s*\([,\w\d\s]*\)/.exec(fn1.toString()) + ' { [' + text + '] }';
-        };
-
-        // Where possible, define length so that curried functions show how
-        // many arguments they are yet expecting
-        if (isFunctionLengthDefineable) {
-            Object.defineProperty(fn2, 'length', { value: parity });
-        }
-
-        return fn2;
-    };
-
-    // Make curried functions log a pretty version of their partials
-    curry = function curry(fn, muteable, arity) {
-        arity  = arity || fn.length;
-        return setFunctionProperties('curried', arity, fn, _curry(fn, muteable, arity));
-    };
-}
-
-
-var curry$1 = curry;
-
 /**
 ready(fn)
 Calls `fn` on DOM content load, or if later than content load, immediately
@@ -380,7 +328,7 @@ function exec(regex, fn, string) {
     return output;
 }
 
-var exec$1 = curry$1(exec, true);
+var exec$1 = curry(exec, true);
 
 function error(regex, reducers, string) {
     if (string.input !== undefined && string.index !== undefined) {
@@ -454,7 +402,7 @@ function capture(regex, reducers, acc, string) {
         output ;
 }
 
-curry$1(capture, true);
+curry(capture, true);
 
 /**
 choke(fn, time)
@@ -559,7 +507,7 @@ function equals(a, b) {
     return true;
 }
 
-curry$1(equals, true);
+curry(equals, true);
 
 function get(key, object) {
     // Todo? Support WeakMaps and Maps and other map-like objects with a
@@ -567,7 +515,7 @@ function get(key, object) {
     return object[key];
 }
 
-var get$1 = curry$1(get, true);
+var get$1 = curry(get, true);
 
 var rpath  = /\[?([-\w]+)(?:=(['"])([^\2]+)\2|(true|false)|((?:\d*\.)?\d+))?\]?\.?/g;
 
@@ -617,7 +565,7 @@ function getPath(path, object) {
     return getRegexPath(rpath, path, object) ;
 }
 
-curry$1(getPath, true);
+curry(getPath, true);
 
 /**
 has(key, value, object)
@@ -628,7 +576,7 @@ function has(key, value, object) {
     return object[key] === value;
 }
 
-curry$1(has, true);
+curry(has, true);
 
 /**
 id(value)
@@ -650,11 +598,11 @@ function invoke(name, values, object) {
     return object[name].apply(object, values);
 }
 
-var invoke$1 = curry$1(invoke, true);
+var invoke$1 = curry(invoke, true);
 
 const is = Object.is || function is(a, b) { return a === b; };
 
-curry$1(is, true);
+curry(is, true);
 
 /**
 isDefined(value)
@@ -693,16 +641,19 @@ function matches(object, item) {
 	return true;
 }
 
-curry$1(matches, true);
+curry(matches, true);
 
 const done     = { done: true };
 const iterator = { next: () => done };
 
 var nothing = Object.freeze({
     // Standard array methods
-    shift: noop,
-    push:  noop,
-    join:  function() { return ''; },
+    shift:   noop,
+    push:    noop,
+    join:    function() { return ''; },
+    forEach: noop,
+    map:     function() { return this; },
+    filter:  function() { return this; },
 
     // Stream methods
     start: noop,
@@ -744,6 +695,7 @@ function overload(fn, map) {
             var key = fn.apply(null, arguments);
             return map.get(key).apply(this, arguments);
         } :
+
         function overload() {
             const key     = fn.apply(null, arguments);
             const handler = (map[key] || map.default);
@@ -789,12 +741,12 @@ const value = parseValue({
 **/
 
 // Be generous in what we accept, space-wise
-const runit = /^\s*(-?\d*\.?\d+)(\w+|%)?\s*$/;
+const runit = /^\s*(-?\d*\.?\d+)(\w*|%)?\s*$/;
 
 function parseValue(units, string) {
     var entry = runit.exec(string);
 
-    if (!entry || !units[entry[2]]) {
+    if (!entry || !units[entry[2] || '']) {
         if (!units.catch) {
             throw new Error('Cannot parse value "' + string + '"');
         }
@@ -802,10 +754,10 @@ function parseValue(units, string) {
         return units.catch(string);
     }
 
-    return units[entry[2]](parseFloat(entry[1]));
+    return units[entry[2] || ''](parseFloat(entry[1]));
 }
 
-var parseVal = curry$1(parseValue);
+var parseVal = curry(parseValue);
 
 function apply(value, fn) {
     return fn(value);
@@ -826,14 +778,11 @@ function pipe() {
         id ;
 }
 
-const $private = Symbol('private');
+const $privates = Symbol('privates');
 
 function privates(object) {
-    return object[$private] ?
-        object[$private] :
-        Object.defineProperty(object, $private, {
-            value: {}
-        })[$private] ;
+    return object[$privates]
+        || Object.defineProperty(object, $privates, { value: {} })[$privates] ;
 }
 
 /**
@@ -851,7 +800,7 @@ function set(key, object, value) {
         (object[key] = value) ;
 }
 
-var set$1 = curry$1(set, true);
+var set$1 = curry(set, true);
 
 var rpath$1  = /\[?([-\w]+)(?:=(['"])([^\2]+)\2|(true|false)|((?:\d*\.)?\d+))?\]?\.?/g;
 
@@ -919,7 +868,7 @@ function setPath(path, object, value) {
     return setRegexPath(rpath$1, path, object, value);
 }
 
-curry$1(setPath, true);
+curry(setPath, true);
 
 /**
 toClass(object)
@@ -947,7 +896,7 @@ function toFixed(n, value) {
     return N.toFixed.call(value, n);
 }
 
-curry$1(toFixed, true);
+curry(toFixed, true);
 
 /**
 toType(object)
@@ -989,7 +938,7 @@ function prepend(string1, string2) {
     return '' + string1 + string2;
 }
 
-var prepend$1 = curry$1(prepend);
+var prepend$1 = curry(prepend);
 
 const assign = Object.assign;
 
@@ -1699,7 +1648,7 @@ Fn.prototype.toArray = Fn.prototype.toJSON;
 // promap: 'fantasy-land/promap'
 
 
-if (window.Symbol) {
+if (Symbol) {
     // A functor is it's own iterator
     Fn.prototype[Symbol.iterator] = function() {
         return this;
@@ -1775,7 +1724,7 @@ function Timer(duration, getTime) {
     };
 }
 
-var DEBUG     = window.DEBUG !== false;
+var DEBUG     = self.DEBUG !== false;
 var assign$1    = Object.assign;
 
 
@@ -2664,8 +2613,8 @@ Stream$1.Choke = function(time) {
 
 var frameTimer = {
     now:     now,
-    request: requestAnimationFrame.bind(window),
-    cancel:  cancelAnimationFrame.bind(window)
+//    request: requestAnimationFrame.bind(window),
+//    cancel:  cancelAnimationFrame.bind(window)
 };
 
 
@@ -2737,8 +2686,12 @@ Remove `value` from `array`. Where `value` is not in `array`, does nothing.
 
 function remove(array, value) {
     if (array.remove) { array.remove(value); }
-    var i = array.indexOf(value);
-    if (i !== -1) { array.splice(i, 1); }
+
+    let i;
+    while ((i = array.indexOf(value)) !== -1) {
+        array.splice(i, 1);
+    }
+
     return value;
 }
 
@@ -2756,7 +2709,7 @@ function append(string2, string1) {
     return '' + string1 + string2;
 }
 
-curry$1(append);
+curry(append);
 
 /**
 prepad(chars, n, string)
@@ -2776,7 +2729,7 @@ function prepad(chars, n, value) {
     return string.slice(string.length - n);
 }
 
-curry$1(prepad);
+curry(prepad);
 
 /**
 postpad(chars, n, string)
@@ -2793,7 +2746,7 @@ function postpad(chars, n, value) {
     return string.slice(0, n);
 }
 
-curry$1(postpad);
+curry(postpad);
 
 /**
 toCamelCase(string)
@@ -2810,6 +2763,33 @@ function toCamelCase(string) {
 function requestTime(s, fn) {
     return setTimeout(fn, s * 1000);
 }
+
+function deep(a, b) {
+    // Fast out if references are for the same object
+    if (a === b) { return a; }
+
+    // If b is null, or not an object, get out of here
+    if (b === null || typeof b !== 'object') {
+        return a;
+    }
+
+    // Get enumerable keys of b
+    const bkeys = Object.keys(b);
+    let n = bkeys.length;
+
+    while (n--) {
+        const key = bkeys[n];
+        const value = b[key];
+
+        a[key] = typeof value === 'object' && value !== null ?
+            deep(a[key] || {}, value) :
+            value ;
+    }
+
+    return a;
+}
+
+curry(deep, true);
 
 function ap(data, fns) {
 	let n = -1;
@@ -2959,15 +2939,15 @@ function wrap(min, max, n) {
     return (n < min ? max : min) + (n - min) % (max - min);
 }
 
-const curriedSum   = curry$1(sum);
-const curriedMultiply = curry$1(multiply);
-const curriedMin   = curry$1(Math.min, false, 2);
-const curriedMax   = curry$1(Math.max, false, 2);
-const curriedPow   = curry$1(pow);
-const curriedExp   = curry$1(exp);
-const curriedLog   = curry$1(log);
-const curriedRoot  = curry$1(root);
-const curriedWrap  = curry$1(wrap);
+const curriedSum   = curry(sum);
+const curriedMultiply = curry(multiply);
+const curriedMin   = curry(Math.min, false, 2);
+const curriedMax   = curry(Math.max, false, 2);
+const curriedPow   = curry(pow);
+const curriedExp   = curry(exp);
+const curriedLog   = curry(log);
+const curriedRoot  = curry(root);
+const curriedWrap  = curry(wrap);
 
 /**
 gcd(a, b)
@@ -2979,7 +2959,7 @@ function gcd(a, b) {
     return b ? gcd(b, a % b) : a;
 }
 
-const curriedGcd = curry$1(gcd);
+const curriedGcd = curry(gcd);
 
 /**
 lcm(a, b)
@@ -2991,7 +2971,7 @@ function lcm(a, b) {
     return a * b / gcd(a, b);
 }
 
-const curriedLcm = curry$1(lcm);
+const curriedLcm = curry(lcm);
 
 /**
 clamp(min, max, n)
@@ -3001,7 +2981,7 @@ function clamp(min, max, n) {
     return n > max ? max : n < min ? min : n;
 }
 
-var clamp$1 = curry$1(clamp);
+var clamp$1 = curry(clamp);
 
 /**
 mod(divisor, n)
@@ -3016,7 +2996,7 @@ function mod(d, n) {
     return value < 0 ? value + d : value;
 }
 
-curry$1(mod);
+curry(mod);
 
 /**
 toPolar(cartesian)
@@ -3110,7 +3090,7 @@ function cubicBezier(p1, p2, duration, x) {
     return sampleCubicBezier(ay, by, cy, y);
 }
 
-var bezierify = curry$1(cubicBezier, true, 4);
+var bezierify = curry(cubicBezier, true, 4);
 
 const DEBUG$1 = window.DEBUG === undefined || window.DEBUG;
 
@@ -3605,7 +3585,7 @@ var timeFormatters = {
 	}
 };
 
-const formatTime = curry$1(function(string, time) {
+const formatTime = curry(function(string, time) {
 	return string === 'ISO' ?
 		_formatTimeISO(parseTime(time)) :
 		formatTimeString(string, parseTime(time)) ;
@@ -3624,15 +3604,15 @@ const laters = times.map(addTime('00:75'));
 ```
 */
 
-const addTime = curry$1(function(time1, time2) {
+const addTime = curry(function(time1, time2) {
 	return parseTime(time2) + parseTimeDiff(time1);
 });
 
-const subTime = curry$1(function(time1, time2) {
+const subTime = curry(function(time1, time2) {
 	return parseTime(time2) - parseTimeDiff(time1);
 });
 
-const diffTime = curry$1(function(time1, time2) {
+const diffTime = curry(function(time1, time2) {
 	return parseTime(time1) - parseTime(time2);
 });
 
@@ -3664,7 +3644,7 @@ var _floorTime = choose({
 	ms: function(time) { return time - mod(0.001, time); }
 });
 
-const floorTime = curry$1(function(token, time) {
+const floorTime = curry(function(token, time) {
 	return _floorTime(token, parseTime(time));
 });
 
@@ -3979,7 +3959,7 @@ const date = formatDate('YYYY', 'en', 'UTC', new Date());   // 2020
 ```
 */
 
-const formatDate = curry$1(function (format, locale, timezone, date) {
+const formatDate = curry(function (format, locale, timezone, date) {
 	return format === 'ISO' ?
 		formatDateISO(parseDate(date)) :
 	timezone === 'local' ?
@@ -4200,11 +4180,11 @@ const sameTimeNextWeek = addWeek(new Date());
 ```
 */
 
-const addDate = curry$1(function(diff, date) {
+const addDate = curry(function(diff, date) {
 	return _addDate(diff, parseDate(date));
 });
 
-const diffDateDays = curry$1(_diffDateDays);
+const diffDateDays = curry(_diffDateDays);
 
 /**
 floorDate(token, date)
@@ -4231,7 +4211,7 @@ const dayCounts = times.map(floorDate('d'));
 ```
 */
 
-const floorDate = curry$1(function(token, date) {
+const floorDate = curry(function(token, date) {
 	return _floorDate(token, parseDate(date));
 });
 
@@ -4306,42 +4286,42 @@ function toType$1(object) {
 if (window.console && window.console.log) {
     window.console.log('%cFn%c          - https://stephen.band/fn', 'color: #de3b16; font-weight: 600;', 'color: inherit; font-weight: 400;');
 }
-const requestTime$1 = curry$1(requestTime, true, 2);
-const and     = curry$1(function and(a, b) { return !!(a && b); });
-const or      = curry$1(function or(a, b) { return a || b; });
-const xor     = curry$1(function xor(a, b) { return (a || b) && (!!a !== !!b); });
-const assign$3  = curry$1(Object.assign, true, 2);
-const define  = curry$1(Object.defineProperties, true, 2);
+const requestTime$1 = curry(requestTime, true, 2);
+const and     = curry(function and(a, b) { return !!(a && b); });
+const or      = curry(function or(a, b) { return a || b; });
+const xor     = curry(function xor(a, b) { return (a || b) && (!!a !== !!b); });
+const assign$3  = curry(Object.assign, true, 2);
+const define  = curry(Object.defineProperties, true, 2);
 
-const by$1          = curry$1(by, true);
-const byAlphabet$1  = curry$1(byAlphabet);
+const by$1          = curry(by, true);
+const byAlphabet$1  = curry(byAlphabet);
 
-const ap$1          = curry$1(ap, true);
-const concat$1      = curry$1(concat, true);
-const contains$1    = curry$1(contains, true);
-const each$1        = curry$1(each, true);
-const filter$1      = curry$1(filter, true);
-const find$1        = curry$1(find, true);
-const map$1         = curry$1(map, true);
-const reduce$2      = curry$1(reduce, true);
-const remove$1      = curry$1(remove, true);
-const rest$1        = curry$1(rest, true);
-const slice$1       = curry$1(slice, true, 3);
-const sort$1        = curry$1(sort, true);
-const insert$1      = curry$1(insert, true);
-const take$1        = curry$1(take, true);
-const update$1      = curry$1(update, true);
+const ap$1          = curry(ap, true);
+const concat$1      = curry(concat, true);
+const contains$1    = curry(contains, true);
+const each$1        = curry(each, true);
+const filter$1      = curry(filter, true);
+const find$1        = curry(find, true);
+const map$1         = curry(map, true);
+const reduce$2      = curry(reduce, true);
+const remove$1      = curry(remove, true);
+const rest$1        = curry(rest, true);
+const slice$1       = curry(slice, true, 3);
+const sort$1        = curry(sort, true);
+const insert$1      = curry(insert, true);
+const take$1        = curry(take, true);
+const update$1      = curry(update, true);
 
-const diff$2        = curry$1(diff, true);
-const intersect$1   = curry$1(intersect, true);
-const unite$1       = curry$1(unite, true);
-const normalise   = curry$1(choose(normalisers), false, 4);
-const denormalise = curry$1(choose(denormalisers), false, 4);
-const exponentialOut$1 = curry$1(exponentialOut);
+const diff$2        = curry(diff, true);
+const intersect$1   = curry(intersect, true);
+const unite$1       = curry(unite, true);
+const normalise   = curry(choose(normalisers), false, 4);
+const denormalise = curry(choose(denormalisers), false, 4);
+const exponentialOut$1 = curry(exponentialOut);
 
 
 
-const add = curry$1(function (a, b) {
+const add = curry(function (a, b) {
     console.trace('Deprecated: module add() is now sum()');
     return a + b;
 });
@@ -4376,6 +4356,7 @@ function Event$1(type, options) {
 	if (typeof type === 'object') {
 		settings = assign$4({}, defaults, type);
 		type = settings.type;
+        delete settings.type;
 	}
 
 	if (options && options.detail) {
@@ -4387,6 +4368,12 @@ function Event$1(type, options) {
 		}
 	}
 
+    // Settings accepted by CustomEvent:
+    // detail:     any
+    // bubbles:    true | false
+    // cancelable: true | false
+    // composed:   true | false
+    // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
 	var event = new CustomEvent(type, settings || defaults);
 
 	if (options) {
@@ -4454,113 +4441,119 @@ An object of feature detection results.
 */
 
 var features = define$1({
-	events: define$1({}, {
-		fullscreenchange: {
-			get: cache(function() {
-				// TODO: untested event names
-				return ('fullscreenElement' in document) ? 'fullscreenchange' :
-				('webkitFullscreenElement' in document) ? 'webkitfullscreenchange' :
-				('mozFullScreenElement' in document) ? 'mozfullscreenchange' :
-				('msFullscreenElement' in document) ? 'MSFullscreenChange' :
-				'fullscreenchange' ;
-			}),
+    events: define$1({}, {
+        fullscreenchange: {
+            get: cache(function() {
+                // TODO: untested event names
+                return ('fullscreenElement' in document) ? 'fullscreenchange' :
+                ('webkitFullscreenElement' in document) ? 'webkitfullscreenchange' :
+                ('mozFullScreenElement' in document) ? 'mozfullscreenchange' :
+                ('msFullscreenElement' in document) ? 'MSFullscreenChange' :
+                'fullscreenchange' ;
+            }),
 
-			enumerable: true
-		},
+            enumerable: true
+        },
 
-		transitionend: {
-			// Infer transitionend event from CSS transition prefix
+        transitionend: {
+            // Infer transitionend event from CSS transition prefix
 
-			get: cache(function() {
-				var end = {
-					KhtmlTransition: false,
-					OTransition: 'oTransitionEnd',
-					MozTransition: 'transitionend',
-					WebkitTransition: 'webkitTransitionEnd',
-					msTransition: 'MSTransitionEnd',
-					transition: 'transitionend'
-				};
+            get: cache(function() {
+                var end = {
+                    KhtmlTransition: false,
+                    OTransition: 'oTransitionEnd',
+                    MozTransition: 'transitionend',
+                    WebkitTransition: 'webkitTransitionEnd',
+                    msTransition: 'MSTransitionEnd',
+                    transition: 'transitionend'
+                };
 
-				var prefixed = prefix$1('transition');
-				return prefixed && end[prefixed];
-			}),
+                var prefixed = prefix$1('transition');
+                return prefixed && end[prefixed];
+            }),
 
-			enumerable: true
-		}
-	})
+            enumerable: true
+        }
+    })
 }, {
-	inputEventsWhileDisabled: {
-		// FireFox won't dispatch any events on disabled inputs:
-		// https://bugzilla.mozilla.org/show_bug.cgi?id=329509
+    inputEventsWhileDisabled: {
+        // FireFox won't dispatch any events on disabled inputs:
+        // https://bugzilla.mozilla.org/show_bug.cgi?id=329509
 
-		get: cache(function() {
-			var input     = document.createElement('input');
-			var testEvent = Event('featuretest');
-			var result    = false;
+        get: cache(function() {
+            var input     = document.createElement('input');
+            var testEvent = Event('featuretest');
+            var result    = false;
 
-			document.body.appendChild(input);
-			input.disabled = true;
-			input.addEventListener('featuretest', function(e) { result = true; });
-			input.dispatchEvent(testEvent);
-			input.remove();
+            document.body.appendChild(input);
+            input.disabled = true;
+            input.addEventListener('featuretest', function(e) { result = true; });
+            input.dispatchEvent(testEvent);
+            input.remove();
 
-			return result;
-		}),
+            return result;
+        }),
 
-		enumerable: true
-	},
+        enumerable: true
+    },
 
-	template: {
-		get: cache(function() {
-			// Older browsers don't know about the content property of templates.
-			return 'content' in document.createElement('template');
-		}),
+    template: {
+        get: cache(function() {
+            // Older browsers don't know about the content property of templates.
+            return 'content' in document.createElement('template');
+        }),
 
-		enumerable: true
-	},
+        enumerable: true
+    },
 
-	textareaPlaceholderSet: {
-		// IE sets textarea innerHTML (but not value) to the placeholder
-		// when setting the attribute and cloning and so on. The twats have
-		// marked it "Won't fix":
-		//
-		// https://connect.microsoft.com/IE/feedback/details/781612/placeholder-text-becomes-actual-value-after-deep-clone-on-textarea
+    textareaPlaceholderSet: {
+        // IE sets textarea innerHTML (but not value) to the placeholder
+        // when setting the attribute and cloning and so on. The twats have
+        // marked it "Won't fix":
+        //
+        // https://connect.microsoft.com/IE/feedback/details/781612/placeholder-text-becomes-actual-value-after-deep-clone-on-textarea
 
-		get: cache(function() {
-			var node = document.createElement('textarea');
-			node.setAttribute('placeholder', '---');
-			return node.innerHTML === '';
-		}),
+        get: cache(function() {
+            var node = document.createElement('textarea');
+            node.setAttribute('placeholder', '---');
+            return node.innerHTML === '';
+        }),
 
-		enumerable: true
-	},
+        enumerable: true
+    },
 
-	transition: {
-		get: cache(function testTransition() {
-			var prefixed = prefix$1('transition');
-			return prefixed || false;
-		}),
+    transition: {
+        get: cache(function testTransition() {
+            var prefixed = prefix$1('transition');
+            return prefixed || false;
+        }),
 
-		enumerable: true
-	},
+        enumerable: true
+    },
 
-	fullscreen: {
-		get: cache(function testFullscreen() {
-			var node = document.createElement('div');
-			return !!(node.requestFullscreen ||
-				node.webkitRequestFullscreen ||
-				node.mozRequestFullScreen ||
-				node.msRequestFullscreen);
-		}),
+    fullscreen: {
+        get: cache(function testFullscreen() {
+            var node = document.createElement('div');
+            return !!(node.requestFullscreen ||
+                node.webkitRequestFullscreen ||
+                node.mozRequestFullScreen ||
+                node.msRequestFullscreen);
+        }),
 
-		enumerable: true
-	},
+        enumerable: true
+    },
 
-	scrollBehavior: {
-		get: cache(function() {
-			return 'scrollBehavior' in document.documentElement.style;
-		})
-	}
+    scrollBehavior: {
+        get: cache(function() {
+            return 'scrollBehavior' in document.documentElement.style;
+        })
+    },
+
+    scrollBarWidth: {
+        get: cache(function() {
+            // TODO
+        })
+    }
 });
 
 const assign$5  = Object.assign;
@@ -4702,7 +4695,7 @@ function applyTail(fn, args) {
 	};
 }
 
-function on(node, type, fn) {
+function on(type, fn, node) {
 	var options;
 
 	if (typeof type === 'object') {
@@ -4735,14 +4728,7 @@ function on(node, type, fn) {
 	return node;
 }
 
-function once(node, types, fn, data) {
-	on(node, types, function once() {
-		off(node, types, once);
-		fn.apply(null, arguments);
-	}, data);
-}
-
-function off(node, type, fn) {
+function off(type, fn, node) {
 	var options;
 
 	if (typeof type === 'object') {
@@ -4771,23 +4757,6 @@ function off(node, type, fn) {
 	}
 
 	return node;
-}
-
-/**
-trigger(type, node)
-
-Triggers event of `type` on `node`.
-
-```
-trigger('dom-activate', node);
-```
-*/
-
-function trigger(node, type, properties) {
-	// Don't cache events. It prevents you from triggering an event of a
-	// given type from inside the handler of another event of that type.
-	var event = Event$1(type, properties);
-	node.dispatchEvent(event);
 }
 
 /**
@@ -5004,9 +4973,10 @@ property exists in `node`, otherwise as an attribute.
 If `properties` has a property `'children'` it must be an array of nodes;
 they are appended to 'node'.
 
-The property `'html'` is treated as an alias of `'innerHTML'`. The property
-`'tag'` is treated as an alias of `'tagName'` (which is ignored, as
-`node.tagName` is read-only). The property `'is'` is also ignored.
+The property `'html'` is aliased to `'innerHTML'`. The property `'text'` 
+is aliased to `'textContent'`. The property `'tag'` is treated as an alias 
+of `'tagName'` (which is ignored, as `node.tagName` is read-only). The 
+property `'is'` is also ignored.
 */
 
 const assignProperty = overload(id, {
@@ -5016,6 +4986,10 @@ const assignProperty = overload(id, {
 
 	html: function(name, node, content) {
 		node.innerHTML = content;
+	},
+
+	text: function(name, node, content) {
+		node.textContent = content;
 	},
 
 	children: function(name, node, content) {
@@ -5053,13 +5027,33 @@ function assign$6(node, attributes) {
 	return node;
 }
 
-var assign$7 = curry$1(assign$6, true);
+var assign$7 = curry(assign$6, true);
 
 const svgNamespace = 'http://www.w3.org/2000/svg';
 const div = document.createElement('div');
 
 
 // Constructors
+
+function constructHTML(tag, html) {
+    var node = document.createElement(tag);
+
+    if (html) {
+        node.innerHTML = html;
+    }
+
+    return node;
+}
+
+function constructSVG(tag, html) {
+    var node = document.createElementNS(svgNamespace, tag);
+
+    if (html) {
+        node.innerHTML = html;
+    }
+
+    return node;
+}
 
 const construct = overload(id, {
     comment: function(tag, text) {
@@ -5100,25 +5094,7 @@ const construct = overload(id, {
     default:  constructHTML
 });
 
-function constructSVG(tag, html) {
-    var node = document.createElementNS(svgNamespace, tag);
 
-    if (html) {
-        node.innerHTML = html;
-    }
-
-    return node;
-}
-
-function constructHTML(tag, html) {
-    var node = document.createElement(tag);
-
-    if (html) {
-        node.innerHTML = html;
-    }
-
-    return node;
-}
 
 
 /**
@@ -5150,6 +5126,8 @@ function validateTag(tag) {
 }
 
 var create$1 = overload(toTypes, {
+    'string': construct,
+
     'string string': construct,
 
     'string object': function(tag, content) {
@@ -5171,7 +5149,7 @@ var create$1 = overload(toTypes, {
     },
 
     default: function() {
-        throw new Error('create(tag, content) does not accept argument types "' + Array.prototype.map.apply(arguments, toType).join(' ') + '"');
+        throw new Error('create(tag, content) does not accept argument types "' + Array.prototype.map.call(arguments, toType).join(' ') + '"');
     }
 });
 
@@ -5222,7 +5200,7 @@ function attribute(name, node) {
 	return node.getAttribute && node.getAttribute(name) || undefined ;
 }
 
-var attribute$1 = curry$1(attribute, true);
+var attribute$1 = curry(attribute, true);
 
 function contains$2(child, node) {
 	return node.contains ?
@@ -5232,7 +5210,7 @@ function contains$2(child, node) {
 	false ;
 }
 
-curry$1(contains$2, true);
+curry(contains$2, true);
 
 /**
 tag(node)
@@ -5260,7 +5238,7 @@ function matches$1(selector, node) {
 		tag(node) === selector ;
 }
 
-var matches$2 = curry$1(matches$1, true);
+var matches$2 = curry(matches$1, true);
 
 function closest(selector, node) {
 	var root = arguments[2];
@@ -5276,19 +5254,19 @@ function closest(selector, node) {
 		 closest(selector, node.parentNode, root) ;
 }
 
-var closest$1 = curry$1(closest, true);
+var closest$1 = curry(closest, true);
 
 function find$2(selector, node) {
 	return node.querySelector(selector);
 }
 
-var find$3 = curry$1(find$2, true);
+var find$3 = curry(find$2, true);
 
 function select(selector, node) {
 	return toArray(node.querySelectorAll(selector));
 }
 
-var query = curry$1(select, true);
+var query = curry(select, true);
 
 function get$2(id) {
     return document.getElementById(id) || undefined;
@@ -5341,7 +5319,7 @@ function append$1(target, node) {
     return target.lastChild;
 }
 
-var append$2 = curry$1(append$1, true);
+var append$2 = curry(append$1, true);
 
 /**
 prepend(target, node)
@@ -5358,7 +5336,7 @@ function prepend$2(target, node) {
     return target.firstChild;
 }
 
-curry$1(prepend$2, true);
+curry(prepend$2, true);
 
 /**
 clone(node)
@@ -5634,8 +5612,17 @@ function mousedown(e, push, options) {
     // Check target matches selector
     if (options.selector && !e.target.closest(options.selector)) { return; }
 
-    on(document, mouseevents.move, mousemove, [e], push, options);
-    on(document, mouseevents.cancel, mouseend, [e]);
+    // Keep target around as it is redefined on the event
+    // if it passes through a shadow boundary
+    var event = {
+        target:        e.target,
+        currentTarget: e.currentTarget,
+        clientX:       e.clientX,
+        clientY:       e.clientY
+    };
+
+    on(mouseevents.move, mousemove, document, [event], push, options);
+    on(mouseevents.cancel, mouseend, document, [event]);
 }
 
 function mousemove(e, events, push, options){
@@ -5648,8 +5635,8 @@ function mouseend(e, data) {
 }
 
 function removeMouse() {
-    off(document, mouseevents.move, mousemove);
-    off(document, mouseevents.cancel, mouseend);
+    off(mouseevents.move, mousemove, document);
+    off(mouseevents.cancel, mouseend, document);
 }
 
 function touchstart(e, push, options) {
@@ -5667,8 +5654,8 @@ function touchstart(e, push, options) {
     // movestart, move and moveend event objects.
     var event = {
         target:     touch.target,
-        clientX:      touch.clientX,
-        clientY:      touch.clientY,
+        clientX:    touch.clientX,
+        clientY:    touch.clientY,
         identifier: touch.identifier,
 
         // The only way to make handlers individually unbindable is by
@@ -5678,8 +5665,8 @@ function touchstart(e, push, options) {
         touchend:   function() { touchend.apply(this, arguments); }
     };
 
-    on(document, touchevents.move, event.touchmove, [event], push, options);
-    on(document, touchevents.cancel, event.touchend, [event]);
+    on(touchevents.move, event.touchmove, document, [event], push, options);
+    on(touchevents.cancel, event.touchend, document, [event]);
 }
 
 function touchmove(e, events, push, options) {
@@ -5695,8 +5682,8 @@ function touchend(e, events) {
 }
 
 function removeTouch(events) {
-    off(document, touchevents.move, events[0].touchmove);
-    off(document, touchevents.cancel, events[0].touchend);
+    off(touchevents.move, events[0].touchmove, document);
+    off(touchevents.cancel, events[0].touchend, document);
 }
 
 function checkThreshold(e, events, touch, removeHandlers, push, options) {
@@ -5709,11 +5696,9 @@ function checkThreshold(e, events, touch, removeHandlers, push, options) {
         return;
     }
 
-    var node = events[0].target;
-
     // Unbind handlers that tracked the touch or mouse up till now.
     removeHandlers(events);
-    push(touches(node, events));
+    push(touches(events[0].target, events));
 }
 
 
@@ -5731,9 +5716,9 @@ function activeMouseend(e, data, stop) {
 }
 
 function removeActiveMouse() {
-    off(document, mouseevents.end, preventOneClick);
-    off(document, mouseevents.move, activeMousemove);
-    off(document, mouseevents.cancel, activeMouseend);
+    off(mouseevents.end, preventOneClick, document);
+    off(mouseevents.move, activeMousemove, document);
+    off(mouseevents.cancel, activeMouseend, document);
 }
 
 function activeTouchmove(e, data, push) {
@@ -5759,8 +5744,8 @@ function activeTouchend(e, data, stop) {
 }
 
 function removeActiveTouch(data) {
-    off(document, touchevents.move, data.activeTouchmove);
-    off(document, touchevents.end, data.activeTouchend);
+    off(touchevents.move, data.activeTouchmove, document);
+    off(touchevents.end, data.activeTouchend, document);
 }
 
 function touches(node, events) {
@@ -5779,9 +5764,9 @@ function touches(node, events) {
 
             // We're dealing with a mouse event.
             // Stop click from propagating at the end of a move
-            on(document, mouseevents.end, preventOneClick);
-            on(document, mouseevents.move, activeMousemove, data, push);
-            on(document, mouseevents.cancel, activeMouseend, data, stop);
+            on(mouseevents.end, preventOneClick, document);
+            on(mouseevents.move, activeMousemove, document, data, push);
+            on(mouseevents.cancel, activeMouseend, document, data, stop);
 
             return {
                 stop: function() {
@@ -5806,8 +5791,8 @@ function touches(node, events) {
             data.activeTouchend = function (e) { activeTouchend(e, data, stop); };
 
             // We're dealing with a touch.
-            on(document, touchevents.move, data.activeTouchmove);
-            on(document, touchevents.end, data.activeTouchend);
+            on(touchevents.move, data.activeTouchmove, document);
+            on(touchevents.end, data.activeTouchend, document);
 
             return {
                 stop: function () {
@@ -5840,27 +5825,26 @@ function gestures(options, node) {
             touchstart(e, push, options);
         }
 
-        on(node, 'mousedown', mouseHandler);
-        on(node, 'touchstart', touchHandler);
+        on('mousedown', mouseHandler, node);
+        on('touchstart', touchHandler, node);
 
         return {
             stop: function() {
-                off(node, 'mousedown', mouseHandler);
-                off(node, 'touchstart', touchHandler);
+                off('mousedown', mouseHandler, node);
+                off('touchstart', touchHandler, node);
                 stop();
             }
         };
     });
 }
 
-// trigger('type', node)
-
-function trigger$1(type, node) {
+function trigger(type, node) {
     let properties;
 
     if (typeof type === 'object') {
         properties = type;
         type = properties.type;
+        delete properties.type;
     }
 
     // Don't cache events. It prevents you from triggering an event of a
@@ -6032,38 +6016,19 @@ define$2({
 if (window.console && window.console.log) {
     window.console.log('%cdom%c         – https://stephen.band/dom', 'color: #3a8ab0; font-weight: 600;', 'color: inherit; font-weight: 400;');
 }
-const before$1  = curry$1(before, true);
-const after$1   = curry$1(after, true);
-const replace$1 = curry$1(replace, true);
-const addClass$1    = curry$1(addClass, true);
-const removeClass$1 = curry$1(removeClass, true);
-const frameClass$1  = curry$1(frameClass, true);
-const offset$1 = curry$1(offset, true);
-const style$1 = curry$1(style, true);
-const events$1 = curry$1(events, true);
-
-// Legacy uncurried functions
-
-Object.assign(events$1, {
-    on:      on,
-    once:    once,
-    off:     off,
-    trigger: trigger
-});
-
-const on$1 = curry$1(function(type, fn, node) {
-    on(node, type, fn);
-    return node;
-}, true);
-
-const off$1 = curry$1(function(type, fn, node) {
-    off(node, type, fn);
-    return node;
-}, true);
-const trigger$2 = curry$1(trigger$1, true);
-const delegate$1 = curry$1(delegate, true);
-const animate$1 = curry$1(animate, true);
-const transition$1 = curry$1(transition, true);
+const before$1  = curry(before, true);
+const after$1   = curry(after, true);
+const replace$1 = curry(replace, true);
+const addClass$1    = curry(addClass, true);
+const removeClass$1 = curry(removeClass, true);
+const frameClass$1  = curry(frameClass, true);
+const offset$1 = curry(offset, true);
+const style$1 = curry(style, true);
+const events$1 = curry(events, true);
+const trigger$1 = curry(trigger, true);
+const delegate$1 = curry(delegate, true);
+const animate$1 = curry(animate, true);
+const transition$1 = curry(transition, true);
 
 const config$1 = {
     simulatedEventDelay: 0.08,
@@ -6072,7 +6037,6 @@ const config$1 = {
     touchClass: 'touch-device'
 };
 
-var on$2         = events$1.on;
 var list       = classes(document.documentElement);
 var currentClass, timeStamp;
 
@@ -6104,19 +6068,16 @@ function touchend$1(e) {
     updateClass(config$1.touchClass);
 }
 
-on$2(document, 'mousedown', mousedown$1);
-on$2(document, 'keydown', keydown);
-on$2(document, 'touchend', touchend$1);
-
-var on$3        = events$1.on;
-var off$2       = events$1.off;
+document.addEventListener('mousedown', mousedown$1);
+document.addEventListener('keydown', keydown);
+document.addEventListener('touchend', touchend$1);
 
 var location  = window.location;
 var id$1        = location.hash;
 
 var store     = new WeakMap();
 
-var apply$1 = curry$1(function apply(node, fn) {
+var apply$1 = curry(function apply(node, fn) {
 	return fn(node);
 });
 
@@ -6221,7 +6182,7 @@ with a behaviour attribute, and if that event bubbles to
 ```trigger('dom-activate', element);```
 */
 
-on$3(document, 'dom-activate', function(e) {
+on('dom-activate', function(e) {
 	if (e.defaultPrevented) { return; }
 
 	var data = cacheData(e.target);
@@ -6234,7 +6195,7 @@ on$3(document, 'dom-activate', function(e) {
 
 	e.data    = data;
 	e.default = defaultActivate;
-});
+}, document);
 
 /*
 dom-deactivate
@@ -6255,7 +6216,7 @@ element with a behaviour attribute, and if that event bubbles to
 ```trigger('dom-deactivate', element);```
 */
 
-on$3(document, 'dom-deactivate', function(e) {
+on('dom-deactivate', function(e) {
 	if (e.defaultPrevented) { return; }
 	var data = cacheData(e.target);
 
@@ -6267,12 +6228,12 @@ on$3(document, 'dom-deactivate', function(e) {
 
 	e.data    = data;
 	e.default = defaultDeactivate;
-});
+}, document);
 
 
 // Listen to clicks
 
-var triggerActivate = trigger$2('dom-activate');
+var triggerActivate = trigger$1('dom-activate');
 
 var nodeCache = {};
 
@@ -6377,10 +6338,10 @@ function preventClick(e) {
 	// Prevent the click that follows the mousedown. The preventDefault
 	// handler unbinds itself as soon as the click is heard.
 	if (e.type === 'mousedown') {
-		on$3(e.currentTarget, 'click', function prevent(e) {
-			off$2(e.currentTarget, 'click', prevent);
+		on('click', function prevent(e) {
+			off('click', prevent, e.currentTarget);
 			e.preventDefault();
-		});
+		}, e.currentTarget);
 	}
 }
 
@@ -6455,10 +6416,10 @@ function activateTarget(e) {
 }
 
 // Clicks on buttons toggle activate on their hash
-on$3(document, 'click', delegate$1('a[href]', activateHref));
+on('click', delegate$1('a[href]', activateHref), document);
 
 // Clicks on buttons toggle activate on their targets
-on$3(document, 'click', delegate$1('a[target]', activateTarget));
+on('click', delegate$1('a[target]', activateTarget), document);
 
 // Document setup
 ready$1(function() {
@@ -6466,7 +6427,7 @@ ready$1(function() {
 	query('.' + config$2.activeClass, document).forEach(triggerActivate);
 });
 
-on$3(window, 'load', function() {
+on('load', function() {
 	// Activate the node that corresponds to the hashref in
 	// location.hash, checking if it's an alphanumeric id selector
 	// (not a hash bang, which google abuses for paths in old apps)
@@ -6479,7 +6440,7 @@ on$3(window, 'load', function() {
 	catch(e) {
 		console.warn('dom: Cannot activate ' + id$1, e.message);
 	}
-});
+}, window);
 
 /**
 toggleable
@@ -6499,10 +6460,6 @@ accordions and so on.
 var match = matches$2('.toggleable, [toggleable]');
 
 // Functions
-
-var on$4      = events$1.on;
-//var off     = events.off;
-var trigger$3 = events$1.trigger;
 
 var actives = [];
 
@@ -6527,9 +6484,10 @@ function click(e) {
 	if (!id) { return; }
 	if (actives.indexOf(id) === -1) { return; }
 
-	trigger$3(get$2(id), 'dom-deactivate', {
+	trigger$1({
+        type: 'dom-deactivate',
 		relatedTarget: node
-	});
+	}, get$2(id));
 
 	e.preventDefault();
 }
@@ -6556,13 +6514,12 @@ function deactivate(e, data, fn) {
 	e.default();
 }
 
-on$4(document.documentElement, 'click', click);
-on$4(document, 'dom-activate', activate);
-on$4(document, 'dom-deactivate', deactivate);
+on('click', click, document.documentElement);
+on('dom-activate', activate, document);
+on('dom-deactivate', deactivate, document);
 
 matchers.push(match);
 
-var trigger$4 = events$1.trigger;
 var match$1   = matches$2('.popable, [popable]');
 var timeStamp$1 = 0;
 
@@ -6588,7 +6545,7 @@ function activate$1(e) {
             timeStamp$1 = e.timeStamp;
 
             if (node.contains(e.target) || node === e.target) { return; }
-            trigger$4(node, 'dom-deactivate');
+            trigger$1('dom-deactivate', node);
         }
 
         function deactivate(e) {
@@ -6759,8 +6716,10 @@ function update$3(time) {
     // Update things that rarely change only when we have not updated recently
     if (frameTime < time - config$4.scrollIdleDuration * 1000) {
         locateables = query(selector, document);
-        scrollPaddingLeft = parseInt(getComputedStyle(document.documentElement).scrollPaddingLeft, 10);
-        scrollPaddingTop  = parseInt(getComputedStyle(document.documentElement).scrollPaddingTop, 10);
+        // Default to 0 for browsers (IE, Edge) that do not 
+        // support scrollPaddingX
+        scrollPaddingLeft = parseInt(getComputedStyle(document.documentElement).scrollPaddingLeft, 10) || 0;
+        scrollPaddingTop  = parseInt(getComputedStyle(document.documentElement).scrollPaddingTop, 10) || 0;
     }
 
     frameTime = time;
@@ -6797,7 +6756,7 @@ function update$3(time) {
     unlocate();
     locate(node);
     window.history.replaceState(nothing$3, '', '#' + node.id);
-    trigger$2('hashchange', window);
+    trigger$1('hashchange', window);
 }
 
 function scroll$1(e) {
@@ -6811,7 +6770,7 @@ function scroll$1(e) {
 
     // For a moment after the last hashchange dont update while
     // smooth scrolling settles to the right place.
-    if (hashTime > aMomentAgo) {
+    if (e.type === 'scroll' && hashTime > aMomentAgo) {
         hashTime = e.timeStamp;
         return;
     }
@@ -6872,7 +6831,7 @@ function updateElement(time, data) {
     if (node) {
         locate(node);
         window.history.replaceState(nothing$3, '', '#' + node.id);
-        trigger$2('hashchange', window);
+        trigger$1('hashchange', window);
         return;
     }
 
@@ -7159,7 +7118,7 @@ function switchOn(label) {
     var input = document.getElementById(id);
     if (input.checked) { return; }
     input.checked = true;
-    trigger$2('change', input);
+    trigger$1('change', input);
 }
 
 function switchOff(label) {
@@ -7167,7 +7126,7 @@ function switchOff(label) {
     var input = document.getElementById(id);
     if (!input.checked) { return; }
     input.checked = false;
-    trigger$2('change', input);
+    trigger$1('change', input);
 }
 
 gestures({ selector: selector$1, threshold: 4 }, document)
@@ -7251,8 +7210,7 @@ Switchables can be used to make tabs, slideshows, accordions and so on.
 // Define
 
 var match$2   = matches$2('.switchable, [switchable]');
-var on$5      = events$1.on;
-var triggerDeactivate = trigger$2('dom-deactivate');
+var triggerDeactivate = trigger$1('dom-deactivate');
 
 function activate$2(e) {
 	if (!e.default) { return; }
@@ -7283,14 +7241,13 @@ function deactivate$2(e) {
 	e.default();
 }
 
-on$5(document, 'dom-activate', activate$2);
-on$5(document, 'dom-deactivate', deactivate$2);
+on('dom-activate', activate$2, document);
+on('dom-deactivate', deactivate$2, document);
 matchers.push(match$2);
 
 const selector$2 = '.swipeable, [swipeable]';
 
-var on$6       = events$1.on;
-var trigger$5  = events$1.trigger;
+var trigger$2  = events$1.trigger;
 var tau      = Math.PI * 2;
 
 var elasticDistance = 800;
@@ -7331,7 +7288,7 @@ function swipe(node, angle) {
 	var active = kids.find(matches$2('.active')) || kids[0];
 
 	if (active[prop]) {
-		trigger$5(active[prop], 'dom-activate');
+		trigger$2(active[prop], 'dom-activate');
 	}
 	else {
 		transform(node, active);
@@ -7453,7 +7410,7 @@ gestures({ selector: selector$2, threshold: 4 }, document)
 	});
 });
 
-on$6(document, 'dom-activate', function activate(e) {
+on('dom-activate', function activate(e) {
 	// Use method detection - e.defaultPrevented is not set in time for
 	// subsequent listeners on the same node
 	if (!e.default) { return; }
@@ -7470,9 +7427,9 @@ on$6(document, 'dom-activate', function activate(e) {
 	document.documentElement.clientWidth;
 	e.preventDefault();
 	update$4(parent, node);
-});
+}, document);
 
-on$6(window, 'resize', function resize() {
+on('resize', function resize() {
 	// Update swipeable positions
 	query(selector$2, document).forEach(function(swipeable) {
 		var node = children(swipeable).find(matches$2('.active'));
@@ -7485,7 +7442,7 @@ on$6(window, 'resize', function resize() {
 		document.documentElement.clientWidth;
 		classy.remove('no-transition');
 	});
-});
+}, window);
 
 const maxDuration = 0.5;
 

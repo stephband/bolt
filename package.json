@@ -31,7 +31,7 @@
     "build-sass": "node-sass --output-style compact --indent-width 4 ./sass/grid.scss ./css/grid.css && node-sass --output-style compact --indent-width 4 ./sass/respond.scss ./css/respond.css",
     "build-module": "rollup ./module.js --o ./module.rolled.js --f esm",
     "build-css": "node ../fn/build-css.js style.css style.min.css",
-    "build-docs": "node ../fn/build-html.js index.template.html index.html && node ../fn/build-html.js range-control.template.html range-control.html && node ../fn/build-html.js rotary-control.template.html rotary-control.html",
+    "build-docs": "node ../fn/build-html.js index.template.html index.html && node ../fn/build-html.js elements/range-control.template.html elements/range-control.html && node ../fn/build-html.js elements/rotary-control.template.html elements/rotary-control.html",
     "graph": "madge --image ./module.svg ./module.js",
     "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.1' && git push"
   }
