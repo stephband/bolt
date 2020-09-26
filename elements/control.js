@@ -48,9 +48,9 @@ export const transformOutput = overload(id, {
         return isFinite(db) ?
             db < -1 ? db.toPrecision(3) :
                 db.toFixed(2) :
-            // Allow Infinity to pass through as it is already gracefully
-            // rendered by Sparky
-            db ;
+            db < 0 ?
+                '-∞' :
+                '∞' ;
     },
 
     Hz: function(unit, value) {
@@ -107,7 +107,9 @@ export const transformTick = overload(id, {
         const db = todB(value) ;
         return isFinite(db) ?
             db.toFixed(0) :
-            db ;
+            db < 0 ?
+                '-∞' :
+                '∞' ;
     },
 
     Hz: function(unit, value) {

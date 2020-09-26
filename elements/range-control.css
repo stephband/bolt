@@ -3,7 +3,7 @@
 range-control
 
 ```html
-<range-control min="0" max="1" ticks="0 0.25 0.5 0.75 1" unit="s" scale="quadratic">Range</range-control>
+<range-control min="0" max="1" ticks="0 0.25 0.5 0.75 1" unit="s" law="quadratic">Range</range-control>
 ```
 **/
 
@@ -16,9 +16,11 @@ range-control
     --track-shadow: inset 0 0.0625rem 0.25rem rgba(0,0,0,0.2);
     --track-top: 1rem;
 
+/*
     --focus-track-background: currentcolor;
     --focus-track-border: none;
     --focus-track-shadow: none;
+*/
 
     --handle-width: 1.375rem;
     --handle-height: var(--handle-width);
@@ -28,11 +30,11 @@ range-control
     --handle-border: 1px solid rgb(187, 187, 187);
     --handle-shadow: 0 0.125rem 0.25rem 0.0625rem rgba(0,0,0,0.16);
     /*inset 0 0 5px 1px hsla(198,30%,20%,0.6);*/
-
+/*
     --focus-handle-background: #B6B2B0 linear-gradient(hsl(192,40%,96.8%), hsl(165,24%,55%));
     --focus-handle-border: 0.1875rem solid currentcolor;
     --focus-handle-shadow: inset 0 0 3px 1px hsla(192,77%,12%,0.63);
-
+*/
     --tick-color: currentcolor;
     --tick-width: 0.125rem;
     --tick-height: var(--tick-width);
@@ -74,6 +76,18 @@ range-control
         minmax(1.5rem, min-content);
     grid-row-gap: calc(0.1875rem + var(--label-input-margin));
     padding: 0;
+    box-shadow: none;
+}
+
+:host(:focus) {
+    --handle-background: #46789a;
+    --handle-border: 1px solid #46789a;
+/*
+    --handle-shadow: inset 0 0 3px 1px hsla(192,77%,12%,0.63);
+*/
+    --track-background: #eeeeee;
+    --track-border: none;
+    --track-shadow: inset 0 0.0625rem 0.25rem rgba(0,0,0,0.2);
 }
 
 :host > label {
@@ -93,7 +107,7 @@ range-control
     top: 2px;*/
     margin: 0;
 }
-
+/*
 :host > output {
     grid-area: input;
     position: absolute;
@@ -111,7 +125,7 @@ range-control
     pointer-events: none;
     background: transparent;
 }
-
+*/
 :host > [type="range"] {
     grid-area: input;
     align-self: end;
@@ -191,11 +205,13 @@ range-control
     box-shadow: var(--track-shadow);
 }
 
+/*
 :host(:focus) [type="range"]::-webkit-slider-runnable-track {
     background: var(--focus-track-background);
     border: var(--focus-track-border);
     box-shadow: var(--focus-track-shadow);
 }
+*/
 
 [type="range"]::-moz-range-track {
     height: var(--track-height);
@@ -212,6 +228,7 @@ range-control
     box-shadow: var(--track-shadow);
 }
 
+/*
 [type="range"]:focus::-moz-range-track,
 [type="range"]:focus::-moz-range-progress,
 :host(:focus) [type="range"]::-moz-range-track,
@@ -220,6 +237,7 @@ range-control
     border: var(--focus-track-border);
     box-shadow: var(--focus-track-shadow);
 }
+*/
 
 [type=range]::-ms-track {
     height: var(--track-height);
@@ -246,13 +264,14 @@ range-control
     box-shadow: var(--track-shadow);
 }
 
+/*
 :host(:focus) [type=range]::-ms-track {
     background: var(--focus-track-background);
     border: var(--focus-track-border);
     box-shadow: var(--focus-track-shadow);
     background: red;
 }
-
+*/
 
 /* [type="range"] thumb */
 
@@ -281,14 +300,14 @@ range-control
     /* Shadow */
     box-shadow: var(--handle-shadow);
 }
-
+/*
 [type="range"]:focus::-webkit-slider-thumb,
 :host(:focus) [type="range"]::-webkit-slider-thumb {
     background: var(--focus-handle-background);
     border: var(--focus-handle-border);
     box-shadow: var(--focus-handle-shadow);
 }
-
+*/
 [type="range"]::-moz-range-thumb {
     box-sizing: border-box;
     cursor: pointer;
@@ -314,14 +333,14 @@ range-control
     /* Shadow */
     box-shadow: var(--handle-shadow);
 }
-
+/*
 [type="range"]:focus::-moz-range-thumb,
 :host(:focus) [type="range"]::-moz-range-thumb {
     background: var(--focus-handle-background);
     border: var(--focus-handle-border);
     box-shadow: var(--focus-handle-shadow);
 }
-
+*/
 [type="range"]::-ms-thumb {
     cursor: pointer;
     cursor: ew-resize;
@@ -344,6 +363,7 @@ range-control
     box-shadow: var(--handle-shadow);
 }
 
+/*
 [type="range"]:focus::-ms-thumb {
     border: var(--handle-border-focus);
     background: var(--handle-background-focus);
@@ -355,7 +375,7 @@ range-control
     border: var(--focus-handle-border);
     box-shadow: var(--focus-handle-shadow);
 }
-
+*/
 
 /* [type="range"] focus */
 

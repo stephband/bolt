@@ -6,6 +6,7 @@
 @import "css/type.css";
 @import "css/code.css";
 @import "css/content.css";
+@import "css/button.css";
 @import "css/input.css";
 @import "css/label.css";
 @import "css/progress.css";
@@ -21,7 +22,6 @@
 @import "css/grid.css";
 @import "css/device.css";
 @import "css/var.css";
-@import "components/button.css";
 @import "components/thumb.css";
 @import "components/check-label.css";
 @import "components/switch-label.css";

@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head build-fn="fetch:../package.json">
-    <template build-src="../../fn/templates.html#head-template"></template>
+<head>
+    <template is="sparky-template" fn="fetch:'../package.json'" src="../../fn/templates.html#head-template"></template>
 
-    <script build-remove title="debug">
-    window.DEBUG = true;
+    <script title="debug" remove>
+        window.DEBUG = true;
+    </script>
+
+    <script title="config">
+        window.customElementStylesheetPath = './';
     </script>
 
     <link rel="stylesheet" href="../style.min.css" />
 
-    <link rel="stylesheet" href="../../dom/css/dom.css" />
     <link rel="stylesheet" href="../../fn/css/prism-cruncher.css" />
     <link rel="stylesheet" href="../../fn/css/tests.css" />
     <link rel="stylesheet" href="../../fn/css/docs.css" />
@@ -17,38 +20,95 @@
 
     <style>
         rotary-control {
+            min-width: 8rem;
+            max-width: 10rem;
             --focus-shadow: none;
+            display: inline-grid;
+        }
+    
+        * + rotary-control {
+            margin-top: 1.875rem;
+        }
+        
+        * + input {
+            margin-top: 3.75rem;
+        }
+
+        rotary-control::part(tick) {
+            background-color: var(--label-color);
         }
     </style>
 </head>
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
     <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
-        <!--template build-fn="fetch:package.json" build-src="../fn/templates.html#header-template"></template-->
+        <template is="sparky-template" fn="fetch:'../package.json'" src="../../fn/templates.html#header-template"></template>
+        <h2>&lt;rotary-control&gt;</h2>
     </header>
 
-    <rotary-control class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center" min="-1" max="1" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="min-width: 8rem; max-width: 10rem;">Ratio</rotary-control>
+    <form class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center">
+        <!--rotary-control class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center" min="-1" max="1" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">
+            Pan
+        </rotary-control-->
 
-    <!-- Build document -->
-    <script type="module" src="../../fn/docs-build.js" build-remove></script>
+        <rotary-control name="gain" min="-24dB" max="0dB" ticks="-∞dB -24dB -18dB -12dB -6dB 0dB" law="linear-logarithmic" unit="dB" value="-6dB">
+            Volume
+        </rotary-control>
 
-    <!-- Custom elements -->
-    <template id="rotary-control">
-        <link rel="stylesheet" href="./rotary-control.css" />
-        <div class="handle"></div>
-        <label class="control-label" for="input"><slot></slot></label>
-        <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
-        <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" style="transform: rotate3d(0, 0, 1, calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range)));">
-            <span style="transform: translate3d(-50%, 0, 0) rotate3d(0, 0, 1, calc(-1 * (var(--rotation-start) + {[tickValue]} * var(--rotation-range)))) translate3d(calc({[tickValue|multiply:6.28318531|sin]} * -33%), 0, 0);">{[displayValue]}</span>
-        </button>
-        <slot name="plugs"></slot>
-    </template>
+        <input class="button" type="submit" />
+    </form>
+
+    <div class="x-1 3x @1-x-2 @2-2x @2-x-5 x-center @1-x-stretch y-center">
+        <h3>Attributes</h3>
+        <ul class="index">
+            <li>min</li>
+            <li>max</li>
+            <li>law</li>
+            <li>unit</li>
+            <li>ticks</li>
+            <li>steps</li>
+            <li>value</li>
+        </ul>
+
+        <h3>Properties</h3>
+        <ul class="index">
+            <li>type</li>
+            <li>min</li>
+            <li>max</li>
+            <li>value</li>
+        </ul>
+    </div>
+
+    <div class="x-1 3x @1-x-2 @2-2x @2-x-7 x-center @1-x-stretch y-center">
+        <h3>Parts</h3>
+        <ul class="index">
+            <li>::part(label)</li>
+            <li>::part(output)</li>
+            <li>::part(tick)</li>
+        </ul>
+
+        <h3>CSS</h3>
+        <ul class="index">
+            <li>---rotation-start</li>
+            <li>---rotation-range</li>
+            <li>---touch-range</li>
+            <li>---handle-width</li>
+            <li>---handle-background</li>
+            <li>---handle-border</li>
+            <li>---handle-shadow</li>
+            <li>---track-width</li>
+            <li>---track-background</li>
+            <li>---track-shadow</li>
+        </ul>
+    </div>
 
     <script type="module" src="./rotary-control.js"></script>
 
+    <!-- Build document -->
+    <script type="module" src="../../fn/docs-build-2.js" remove></script>    
+
     <!-- Document interactivity -->
     <script type="module">
-        import '../module.js';
-        import '../documentation.js';
+        import './rotary-control.js';
     </script>
 </body>

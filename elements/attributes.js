@@ -17,7 +17,6 @@ export function createTicks(data, tokens) {
             // Freeze to tell mounter it's immutable, prevents
             // unnecessary observing
             return Object.freeze({
-                root:         data,
                 value:        value,
                 unitValue:    invert(data.transform, value, data.min, data.max),
                 displayValue: transformTick(data.unit, value)
@@ -39,10 +38,9 @@ function createSteps(data, tokens) {
         values
         .map(evaluate)
         .map((value) => {
-            const unitValue = invert(data.transform, value, data.min, data.max);
             return {
-                unitValue: unitValue,
-                value: value
+                value: value,
+                unitValue: invert(data.transform, value, data.min, data.max)
             };
         })
         .sort(by(get('unitValue'))) ;
@@ -67,15 +65,22 @@ function nearestStep(steps, unitValue) {
 
 
 export const attributes = {
-    min: function(value) { this.min = value; },
+    // Remember attributers are setup in this declared order
 
-    max: function(value) { this.max = value; },
+    min: function(value) {
+        this.min = value;
+    },
 
-    scale: function(value) {
+    max: function(value) {
+        this.max = value;
+    },
+
+    law: function(value) {
         const privates = Privates(this);
         const data     = privates.data;
         const scope    = privates.scope;
-        this.data.transform = value || 'linear';
+
+        data.transform = value || 'linear';
 
         if (data.ticksAttribute) {
             observer.ticks = createTicks(data, data.ticksAttribute);
@@ -88,6 +93,10 @@ export const attributes = {
         }
 
         scope.unitZero(invert(data.transform, 0, data.min, data.max));
+    },
+
+    unit: function(value) {
+        Privates(this).data.unit = value;
     },
 
     ticks: function(value) {
@@ -117,10 +126,8 @@ export const attributes = {
             value );
     },
 
-    value: function(value) { this.value = value; },
-
-    unit: function(value) {
-        Privates(this).data.unit = value;
+    value: function(value) {
+        this.value = value;
     },
 
     prefix: function(value) {

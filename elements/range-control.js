@@ -1,4 +1,9 @@
 
+/*
+References:
+https://www.dr-lex.be/info-stuff/volumecontrols.html
+*/
+
 import { Privates, Observer, observe } from '../../fn/module.js';
 import { transform } from './control.js';
 import { create, element, trigger } from '../../dom/module.js';
@@ -9,14 +14,15 @@ const DEBUG = true;
 const assign = Object.assign;
 const define = Object.defineProperties;
 
+
 const defaults = {
     transform: 'linear',
     min:    0,
     max:    1
 };
 
-export const config = {
-    path: '/source/bolt/elements/'
+const config = {
+    path: window.customElementStylesheetPath || ''
 };
 
 function createEach(createNode) {
@@ -85,7 +91,8 @@ function createTemplate(elem, shadow) {
                         name: 'unit-value',
                         value: scope.unitValue,
                         style: '--tick-value: ' + scope.unitValue + ';',
-                        text: scope.displayValue 
+                        text: scope.displayValue,
+                        part: 'tick'
                     });
 
                     marker.before(button);
@@ -97,15 +104,20 @@ function createTemplate(elem, shadow) {
 }
 
 export default element('range-control', {
-    template: '',
+    template: function(elem, shadow) {
+        const privates = Privates(elem);
+        privates.scope = createTemplate(elem, shadow);
+    },
 
+    mode:       'closed',
+    focusable:  true,
     attributes: attributes,
     properties: properties,
 
     construct: function(elem, shadow, internals) {
         const privates = Privates(elem);
         const data     = privates.data  = assign({}, defaults);
-        const scope    = privates.scope = createTemplate(elem, shadow, internals);
+
         privates.internals = internals;
 
         // Listen to touches on tick buttons
