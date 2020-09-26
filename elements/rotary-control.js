@@ -114,9 +114,6 @@ element('rotary-control', {
 
         privates.internals = internals;
 
-        // Pick up input events and update scope - Sparky wont do this
-        // currently as events are delegated to document, and these are in
-        // a shadow DOM.
         shadow.addEventListener('mousedown', (e) => {
             const target = e.target.closest('[name]') || e.target;
             if (target.name !== 'unit-value') { return; }
