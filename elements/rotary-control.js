@@ -57,6 +57,9 @@ function updateValue(element, data, unitValue) {
 
 element('rotary-control', {
     template: '#rotary-control',
+    mode: 'closed',
+    delegatesFocus: true,
+
     attributes: attributes,
     properties: properties,
 
