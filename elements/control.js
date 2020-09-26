@@ -77,6 +77,10 @@ export const transformOutput = overload(id, {
             bpm.toFixed(0) ;
     },
 
+    int: function(unit, value) {
+        return Math.round(value);
+    },
+
     default: function(unit, value) {
         return value < 0.1 ? value.toFixed(3) :
             value < 999.5 ? value.toPrecision(3) :

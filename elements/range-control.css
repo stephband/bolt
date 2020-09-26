@@ -76,13 +76,10 @@ range-control
     padding: 0;
 }
 
-:host > * {
-    margin: 0;
-}
-
 :host > label {
     grid-area: label;
     align-self: baseline;
+    margin: 0;
 }
 
 :host > output {
@@ -94,9 +91,10 @@ range-control
     text-align: right;
     /*position: relative;
     top: 2px;*/
+    margin: 0;
 }
 
-:host > .handle-output {
+:host > output {
     grid-area: input;
     position: absolute;
     top: 0;
@@ -117,6 +115,7 @@ range-control
 :host > [type="range"] {
     grid-area: input;
     align-self: end;
+    margin: 0;
 
     /* Make the range input slightly wider than the control
        to allow range thumb to line up with label text */
@@ -127,11 +126,17 @@ range-control
     z-index: 1;
 }
 
-:host > .tick {
+:host > button {
     grid-area: input;
     position: relative;
     z-index: 0;
     align-self: start;
+
+    /* Use margin to centre ticks, not translate, which has the
+       effect of blurring the text on pixel screens. */
+    margin-left: -0.6875rem;
+    width: 1.375rem;
+    left: calc((0.5 * var(--handle-width) - var(--bleed)) + var(--tick-value) * (100% + 2 * var(--bleed) - var(--handle-width)));
 }
 
 :host > span {
@@ -371,7 +376,7 @@ range-control
 
 /* Ticks */
 
-.tick {
+button {
     cursor: pointer;
 
     /* Center content, even if it's wider than the label */
@@ -384,11 +389,6 @@ range-control
     text-align: center;
 
     padding: 0;
-
-    /* Use margin to centre ticks, not transform: translate, which has the
-       side effect of blurring the text on pixel screens. */
-    margin-left: -0.6875rem;
-    width: 1.375rem;
 
     /* Make ::after mark visible outside label*/
     overflow: visible;
@@ -403,7 +403,7 @@ range-control
               user-select: none; /* Non-prefixed version */
 }
 
-.tick::after {
+button::after {
     content: '';
 
     display: block;
@@ -418,17 +418,17 @@ range-control
     border-radius: calc(0.5 * min(var(--tick-width), var(--tick-height)));
 }
 
-.tick:focus {
+button:focus {
     outline: none;
 }
 
-[type="range"]:focus ~ .tick,
-:host(:focus) .tick {
+[type="range"]:focus ~ button,
+:host(:focus) button {
     color: var(--focus-tick-color);
 }
 
-[type="range"]:focus ~ .tick::after,
-:host(:focus) .tick::after {
+[type="range"]:focus ~ button::after,
+:host(:focus) button::after {
     background: var(--focus-tick-background);
     border: var(--focus-tick-border);
     box-shadow: var(--focus-tick-shadow);
@@ -485,4 +485,8 @@ output > abbr {
     display: inline-block;
     margin-left: 0.1em;
     vertical-align: baseline;
+}
+
+output::before {
+    content: var(--unit-value) + ' hey ';
 }

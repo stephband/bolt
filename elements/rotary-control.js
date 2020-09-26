@@ -3,7 +3,6 @@ import { Observer } from '../../fn/module.js';
 import { clamp } from '../../fn/modules/maths/clamp.js';
 import { transform } from './control.js';
 import { element, gestures, parseValue, trigger } from '../../dom/module.js';
-import Sparky, { mount, config } from '../../sparky/module.js';
 import { attributes, properties } from './attributes.js';
 
 const DEBUG = true;
@@ -16,29 +15,6 @@ const defaults = {
     min:    0,
     max:    1
 };
-
-const mountOptions = Object.assign({}, config, {
-    mount: function(node, options) {
-        // Does the node have Sparkyfiable attributes?
-        const attrFn = node.getAttribute(options.attributeFn);
-        //const attrInclude = node.getAttribute(options.attributeSrc);
-
-        if (!attrFn/* && !attrInclude*/) { return; }
-
-        options.fn = attrFn;
-        //options.include = attrInclude;
-        var sparky = Sparky(node, options);
-
-        // This is just some help for logging
-        sparky.label = 'Sparky (<rotary-control> tick)';
-
-        // Return sparky
-        return sparky;
-    },
-
-    attributePrefix:  ':',
-    attributeFn:      'fn'
-});
 
 const gestureOptions = {
     threshold: 1,
@@ -101,8 +77,5 @@ element('rotary-control', {
         if (elem.data.value === undefined) {
             elem.value = elem.data.min;
         }
-
-        // Mount template
-        mount(shadow, mountOptions).push(elem.data);
     }
 })

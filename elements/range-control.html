@@ -5,7 +5,7 @@
 
 <!--template id="range-control-template">
     <link rel="stylesheet" href="../components/control/range-control.css" />
-    <input class="control-input" type="range" id="input" value="{[unitValue]}" min="0" max="1" step="any" />
+    <input class="unit-value" type="range" id="input" value="{[unitValue]}" min="0" max="1" step="any" />
     <label class="control-label" for="input"><slot></slot></label>
     <output class="control-output">{[prefix]}{[outputValue]}<abbr>{[unit]}</abbr></output>
 
@@ -19,10 +19,9 @@
 
 <template id="range-control">
     <link rel="stylesheet" href="/bolt/elements/range-control.css" />
-    <input class="input" type="range" id="input" name="control-input" value="{[unitValue]}" min="0" max="1" step="any" />
-    <label class="control-label" for="input"><slot></slot></label>
+    <label for="input"><slot></slot></label>
+    <input type="range" id="input" name="unit-value" value="{[unitValue]}" min="0" max="1" step="any" />
     <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
-    <!--output class="control-value" :style="top: 0; left: calc((0.5 * var(--handle-width) - var(--bleed)) + var(--unit-value) * (100% + 2 * var(--bleed) - var(--handle-width)));">{[prefix]}{[unitValue|multiply:10|floatformat:0]}</output-->
-    <button class="tick" fn="get:ticks each" name="control-tick" value="{[tickValue|float-string]}" :style="left: calc((0.5 * var(--handle-width) - var(--bleed)) + {[tickValue]} * (100% + 2 * var(--bleed) - var(--handle-width)));">{[displayValue]}</button>
-    <slot name="plugs"></slot>
+    <button fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" :style="left: calc((0.5 * var(--handle-width) - var(--bleed)) + {[tickValue]} * (100% + 2 * var(--bleed) - var(--handle-width)));">{[displayValue]}</button>
+    <!--slot name="plugs"></slot-->
 </template>

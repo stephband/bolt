@@ -1,13 +1,13 @@
 
-import { Observer } from '../../fn/module.js';
+import { Privates, Observer, observe } from '../../fn/module.js';
 import { transform } from './control.js';
-import { element, trigger } from '../../dom/module.js';
-import Sparky, { mount, config } from '../../sparky/module.js';
+import { create, element, trigger } from '../../dom/module.js';
 import { attributes, properties } from './attributes.js';
 
 const DEBUG = true;
 
 const assign = Object.assign;
+const define = Object.defineProperties;
 
 const defaults = {
     transform: 'linear',
@@ -15,82 +15,139 @@ const defaults = {
     max:    1
 };
 
-const mountSettings = Object.assign({}, config, {
-    mount: function(node, options) {
-        // Does the node have Sparkyfiable attributes?
-        const attrFn = node.getAttribute(options.attributeFn);
-        //const attrInclude = node.getAttribute(options.attributeSrc);
+export const config = {
+    path: '/source/bolt/elements/'
+};
 
-        if (!attrFn/* && !attrInclude*/) { return; }
-
-        options.fn = attrFn;
-        //options.include = attrInclude;
-        var sparky = Sparky(node, options);
-
-        // This is just some help for logging
-        sparky.label = 'Sparky (<range-control> tick)';
-
-        // Return sparky
-        return sparky;
-    },
-
-    attributePrefix:  ':',
-    attributeFn:      'fn'
-});
-
-function updateValue(element, data, unitValue) {
-    const observer = Observer(data);
-    observer.unitValue = unitValue;
-
-    const value = transform(data.transform, unitValue, data.min, data.max) ;
-    element.value = value;
+function createEach(createNode) {
+    const mark = create('text', '');
+    return mark;
 }
 
+function createTemplate(elem, shadow) {
+    const link   = create('link',  { rel: 'stylesheet', href: config.path + 'range-control.css' });
+    const style  = create('style', ':host {}');
+    const label  = create('label', { for: 'input', html: '<slot></slot>' });
+    const input  = create('input', { type: 'range', id: 'input', name: 'unit-value', min: '0', max: '1', step: 'any' });
+    const text   = create('text');
+    const abbr   = create('abbr');
+    const output = create('output', { children: [text, abbr] });
+    const marker = DEBUG ?
+        create('comment', ' ticks ') :
+        create('text', '') ;
 
-element('range-control', {
-    template: '/bolt/elements/range-control.html#range-control',
+    shadow.appendChild(link);
+    shadow.appendChild(style);
+    shadow.appendChild(label);
+    shadow.appendChild(input);
+    shadow.appendChild(output);
+    shadow.appendChild(marker);
+
+    // Get the :host {} style rule from style
+    const css = style.sheet.cssRules[0].style;
+
+    return {
+        'unitValue': function(unitValue) {
+            // Check that input is not the currently active node before updating
+            //if (input.getRootNode().activeElement !== input) {
+                // Check that the input does not already have the value
+                if (input.value !== unitValue + '') {
+                    input.value = unitValue + '';
+                }
+            //}
+
+            css.setProperty('--unit-value', unitValue);
+        },
+
+        'unitZero': function(unitZero) {
+            css.setProperty('--unit-zero', unitZero);
+        },
+
+        'displayValue': function(displayValue) {
+            text.textContent = displayValue;
+            css.setProperty('--display-value', displayValue);
+        },
+
+        'displayUnit': function(displayUnit) {
+            abbr.textContent = displayUnit;
+        },
+
+        'ticks': (function(buttons) {
+            return function(scopes) {    
+                // Clear out existing ticks
+                buttons.forEach((node) => node.remove());
+                buttons.length = 0;
+
+                // Create new ticks and put them in the dom    
+                scopes.forEach(function(scope) {
+                    const button = create('button', {
+                        type: 'button',
+                        name: 'unit-value',
+                        value: scope.unitValue,
+                        style: '--tick-value: ' + scope.unitValue + ';',
+                        text: scope.displayValue 
+                    });
+
+                    marker.before(button);
+                    buttons.push(button);
+                });
+            };
+        })([])
+    };
+}
+
+export default element('range-control', {
+    template: '',
+
     attributes: attributes,
     properties: properties,
 
-    construct: function(elem, shadow) {
-        const data = elem.data = assign({}, defaults);
+    construct: function(elem, shadow, internals) {
+        const privates = Privates(elem);
+        const data     = privates.data  = assign({}, defaults);
+        const scope    = privates.scope = createTemplate(elem, shadow, internals);
+        privates.internals = internals;
 
-        // Pick up input events and update scope - Sparky wont do this
-        // currently as events are delegated to document, and these are in
-        // a shadow DOM.
-        shadow.addEventListener('mousedown', (e) => {
-            const target = e.target.closest('button') || e.target;
-            if (target.name !== 'control-tick') { return; }
-            updateValue(elem, data, parseFloat(target.value));
+        // Listen to touches on tick buttons
+        function down(e) {
+            if (e.target.type !== 'button') { return; }
 
-            // Refocus the input
-            shadow
-            .getElementById('input')
-            .focus();
+            const unitValue = parseFloat(e.target.value);
+            const value = transform(data.transform, unitValue, data.min, data.max) ;
 
-            trigger('input', elem);
-        });
+            elem.value = value;
 
+            // Refocus the input (should not be needed now we have focus 
+            // control on parent?) and trigger input event on element
+//            shadow.querySelector('input').focus();
+
+            // Change event on element
+            trigger('change', elem);
+        }
+
+        shadow.addEventListener('mousedown', down);
+        shadow.addEventListener('touchstart', down);
+
+        // Listen to range input
         shadow.addEventListener('input', (e) => {
-            if (e.target.name !== 'control-input') { return; }
-            updateValue(elem, data, parseFloat(e.target.value));
-        });
+            const unitValue = parseFloat(e.target.value); 
+            const value = transform(data.transform, unitValue, data.min, data.max) ;
+            elem.value = value;
 
-        // Snap to position at the end of travel
-        shadow.addEventListener('change', (e) => {
-            if (e.target.name !== 'control-input') { return; }
-            if (!data.steps) { return; }
-            e.target.value = elem.data.unitValue;
+            // If the range has steps make sure the handle snaps into place
+            if (data.steps) {
+                e.target.value = data.unitValue;
+            }
         });
     },
 
     connect: function(elem, shadow) {
-        // Range control must have value
-        if (elem.data.value === undefined) {
-            elem.value = elem.data.min;
-        }
+        const privates = Privates(elem);
+        const data     = privates.data;
 
-        // Mount template
-        mount(shadow, mountSettings).push(elem.data);
+        // Range control must have value
+        if (data.value === undefined) {
+            elem.value = data.min;
+        }
     }
 });
