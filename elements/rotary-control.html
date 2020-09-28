@@ -36,18 +36,20 @@
     </script>
 
     <link rel="stylesheet" href="../style.min.css">
+    <link rel="stylesheet" href="../style.css">
 
     <link rel="stylesheet" href="../../fn/css/prism-cruncher.css">
     <link rel="stylesheet" href="../../fn/css/tests.css">
-    <link rel="stylesheet" href="../../fn/css/docs.css">
+    <link rel="stylesheet" href="../documentation.css">
     <link rel="stylesheet" href="../../fn/css/respond.css">
 
     <style>
         rotary-control {
             min-width: 8rem;
             max-width: 10rem;
-            --focus-shadow: none;
-            display: inline-grid;
+            margin: 0 auto;
+            /* Nullify focus box-shadow */
+            box-shadow: none !important;
         }
     
         * + rotary-control {
@@ -254,20 +256,19 @@
 </template></head>
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
-    <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
-        
-    <h1 class="doctext-01">Bolt <span class="doctext-06">2.1.1</span></h1>
-    <p class="doctext-08">A front-end toolkit of classes, evented behaviours and custom elements.</p>
-    <ul class="link-index index">
-        <li><strong>repo:</strong> <a href="https://github.com/stephband/bolt.git">github.com/stephband/bolt.git</a></li>
-        <li><strong>bugs:</strong> <a href="https://github.com/stephband/bolt/issues/">github.com/stephband/bolt/issues/</a></li>
-    </ul>
+    <header class="x-1 3x @1-x-2 @1-4x @2-4x @2-x-5" id="header">
+        <!--template fn="docs:rotary-control.js filter-type:tag each"-->
+    <h2 class="doctext-02"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rotary-control</span><span class="token punctuation">&gt;</span></span></h2><p>Configure stylesheet path with:</p>
+<pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/stylesheet/'</span><span class="token punctuation">;</span></code></pre>
+<p>Import <code>&lt;rotary-control&gt;</code> custom element. This also registers the custom 
+element and upgrades instances already in the DOM.</p>
+<pre><code class="language-js"><span class="token keyword">import</span> <span class="token string">'bolt/elements/rotary-control.js'</span><span class="token punctuation">;</span></code></pre>
 
-        <h2>&lt;rotary-control&gt;</h2>
+
     </header>
 
-    <form class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center">
-        <rotary-control class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center" min="-1" max="1" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">
+    <form class="x-1 3x @1-x-2 @2-2x @2-x-2 x-center @1-x-stretch y-start">
+        <rotary-control name="pan" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">
             Pan
         </rotary-control>
 
@@ -275,51 +276,262 @@
             Volume
         </rotary-control>
 
-        <input class="button" type="submit">
+        <input hidden="" class="block button" type="submit">
     </form>
 
-    <div class="x-1 3x @1-x-2 @2-2x @2-x-5 x-center @1-x-stretch y-center">
-        <h3>Attributes</h3>
-        <ul class="index">
-            <li>min</li>
-            <li>max</li>
-            <li>law</li>
-            <li>unit</li>
-            <li>ticks</li>
-            <li>steps</li>
-            <li>value</li>
-        </ul>
+    <div class="x-1 3x @1-x-2 @2-2x @2-x-5 x-center @1-x-stretch y-start">
+        <h3 class="doctext-03">Attributes</h3>        
+        <!--template fn="docs:attributes.js filter-type:attribute each"-->
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-min">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-min">
+                <code class="token language-html">min</code>
+            </a>
+            
+            
+    <code class="default-pill pill">"0"</code>
 
-        <h3>Properties</h3>
-        <ul class="index">
-            <li>type</li>
-            <li>min</li>
-            <li>max</li>
-            <li>value</li>
-        </ul>
+        </h3>
+    <p>Minimum value of fader range.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-max">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-max">
+                <code class="token language-html">max</code>
+            </a>
+            
+            
+    <code class="default-pill pill">"1"</code>
+
+        </h3>
+    <p>Maximum value of fader range.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-law">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-law">
+                <code class="token language-html">law</code>
+            </a>
+            
+            
+    <code class="default-pill pill">"linear"</code>
+
+        </h3>
+    <p>Fader law. This is the name of a transform to be applied over the range 
+    of the fader travel. Possible values are:</p>
+<ul>
+<li><code>"linear"</code></li>
+<li><code>"linear-logarithmic"</code></li>
+<li><code>"logarithmic"</code></li>
+<li><code>"quadratic"</code></li>
+<li><code>"cubic"</code></li>
+</ul>
+</article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-unit">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-unit">
+                <code class="token language-html">unit</code>
+            </a>
+            
+            <!-- src="{[default|yesno:#default,'']}" -->
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-ticks">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-ticks">
+                <code class="token language-html">ticks</code>
+            </a>
+            
+            <!-- src="{[default|yesno:#default,'']}" -->
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-steps">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-steps">
+                <code class="token language-html">steps</code>
+            </a>
+            
+            <!-- src="{[default|yesno:#default,'']}" -->
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-value">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-value">
+                <code class="token language-html">value</code>
+            </a>
+            
+            
+    <code class="default-pill pill">"0"</code>
+
+        </h3>
+    </article>
+
+
+        <h3 class="doctext-03">Properties</h3>
+        <!--template fn="docs:attributes.js filter-type:property each"-->
+    <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-type">
+        <h3 class="doctext-05 dot-indent">
+            <a href="#property-type">
+                <code class="property language-js">.type</code>
+            </a>
+            
+            
+    <code class="default-pill pill">"number"</code>
+
+        </h3>
+    <p>A readonly property with the value <code>"number"</code>, provided for consistency 
+    with native form elements.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-min">
+        <h3 class="doctext-05 dot-indent">
+            <a href="#property-min">
+                <code class="property language-js">.min</code>
+            </a>
+            
+            
+    <code class="default-pill pill">0</code>
+
+        </h3>
+    <p>Minimum value for the range.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-max">
+        <h3 class="doctext-05 dot-indent">
+            <a href="#property-max">
+                <code class="property language-js">.max</code>
+            </a>
+            
+            
+    <code class="default-pill pill">1</code>
+
+        </h3>
+    <p>Maximum value for the range.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-value">
+        <h3 class="doctext-05 dot-indent">
+            <a href="#property-value">
+                <code class="property language-js">.value</code>
+            </a>
+            
+            
+    <code class="default-pill pill">0</code>
+
+        </h3>
+    <p>Value.</p>
+</article>
+
+
+        <h3 class="doctext-03">Events</h3>
+        <!--template fn="docs:attributes.js filter-type:string each"-->
+    <article class="doc-toggle-block toggle-block block string-doc-toggle-block" toggleable="" id="string-input">
+        <h3 class="doctext-05 ">
+            <a href="#string-input">
+                <code class="language-js">"input"</code>
+            </a>
+            
+            <template src="{[default|yesno:#default,'']}"></template>
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block string-doc-toggle-block" toggleable="" id="string-change">
+        <h3 class="doctext-05 ">
+            <a href="#string-change">
+                <code class="language-js">"change"</code>
+            </a>
+            
+            <template src="{[default|yesno:#default,'']}"></template>
+        </h3>
+    </article>
+
     </div>
 
-    <div class="x-1 3x @1-x-2 @2-2x @2-x-7 x-center @1-x-stretch y-center">
-        <h3>Parts</h3>
-        <ul class="index">
-            <li>::part(label)</li>
-            <li>::part(output)</li>
-            <li>::part(tick)</li>
-        </ul>
+    <div class="x-1 3x @1-x-2 @2-2x @2-x-7 x-center @1-x-stretch y-start">
+        <h3 class="doctext-03">Parts</h3>
+        <!--template fn="docs:control.css filter-type:part each"-->
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-label">
+        <h3 class="doctext-05 ">
+            <a href="#part-label">
+                <code class="language-js">label</code>
+            </a>
+            
+            <template src="{[default|yesno:#default,'']}"></template>
+        </h3>
+    <p>)</p>
+</article>
 
-        <h3>CSS</h3>
-        <ul class="index">
-            <li>---rotation-start</li>
-            <li>---rotation-range</li>
-            <li>---touch-range</li>
-            <li>---handle-width</li>
-            <li>---handle-background</li>
-            <li>---handle-border</li>
-            <li>---handle-shadow</li>
-            <li>---track-width</li>
-            <li>---track-background</li>
-            <li>---track-shadow</li>
-        </ul>
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-output">
+        <h3 class="doctext-05 ">
+            <a href="#part-output">
+                <code class="language-js">output</code>
+            </a>
+            
+            <template src="{[default|yesno:#default,'']}"></template>
+        </h3>
+    <p>) </p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-tick">
+        <h3 class="doctext-05 ">
+            <a href="#part-tick">
+                <code class="language-js">tick</code>
+            </a>
+            
+            <template src="{[default|yesno:#default,'']}"></template>
+        </h3>
+    <p>) </p>
+</article>
+
+
+        <h3 class="doctext-03">CSS</h3>
+        <!--template fn="docs:control.css filter-type:var each"-->
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-value-color">
+        <h3 class="doctext-05 ">
+            <a href="#var-value-color">
+                <code class="language-js">--value-color </code>
+            </a>
+            
+            <template src="{[default|yesno:#default,'']}"></template>
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-background">
+        <h3 class="doctext-05 ">
+            <a href="#var-handle-background">
+                <code class="language-js">--handle-background </code>
+            </a>
+            
+            <template src="{[default|yesno:#default,'']}"></template>
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-border">
+        <h3 class="doctext-05 ">
+            <a href="#var-handle-border">
+                <code class="language-js">--handle-border </code>
+            </a>
+            
+            <template src="{[default|yesno:#default,'']}"></template>
+        </h3>
+    </article>
+
+        <!--template fn="docs:rotary-control.css filter-type:var each"-->
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-touch-range">
+        <h3 class="doctext-05 ">
+            <a href="#var-touch-range">
+                <code class="language-js">--touch-range </code>
+            </a>
+            
+            <template src="{[default|yesno:#default,'']}"></template>
+        </h3>
+    </article>
+
     </div>
 
     <script type="module" src="./rotary-control.js"></script>
@@ -330,6 +542,11 @@
     <!-- Document interactivity -->
     <script type="module">
         import './rotary-control.js';
+        import '../module.js';
+        import '../documentation.js';
+
+        document.addEventListener('input', console.log);
+        document.addEventListener('change', console.log);
     </script>
 
 </body></html>

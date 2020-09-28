@@ -67,13 +67,35 @@ function nearestStep(steps, unitValue) {
 export const attributes = {
     // Remember attributers are setup in this declared order
 
+    /**
+    min="0"
+    Minimum value of fader range.
+    **/
+
     min: function(value) {
         this.min = value;
     },
 
+    /**
+    max="1"
+    Maximum value of fader range.
+    **/
+
     max: function(value) {
         this.max = value;
     },
+
+    /**
+    law="linear"
+    Fader law. This is the name of a transform to be applied over the range 
+    of the fader travel. Possible values are:
+    
+- `"linear"`
+- `"linear-logarithmic"`
+- `"logarithmic"`
+- `"quadratic"`
+- `"cubic"`
+    **/
 
     law: function(value) {
         const privates = Privates(this);
@@ -95,9 +117,17 @@ export const attributes = {
         scope.unitZero(invert(data.transform, 0, data.min, data.max));
     },
 
+    /**
+    unit=""
+    **/
+
     unit: function(value) {
         Privates(this).data.unit = value;
     },
+
+    /**
+    ticks=""
+    **/
 
     ticks: function(value) {
         const privates = Privates(this);
@@ -115,6 +145,10 @@ export const attributes = {
         }
     },
 
+    /**
+    steps=""
+    **/
+
     steps: function(value) {
         const privates = Privates(this);
         const data     = privates.data;
@@ -126,6 +160,10 @@ export const attributes = {
             value );
     },
 
+    /**
+    value="0"
+    **/
+
     value: function(value) {
         this.value = value;
     },
@@ -136,10 +174,21 @@ export const attributes = {
 };
 
 export const properties = {
+    /**
+    .type="number"
+    A readonly property with the value `"number"`, provided for consistency 
+    with native form elements.
+    **/
+
     type: {
         value: 'number',
         enumerable: true
     },
+
+    /**
+    .min=0
+    Minimum value for the range.
+    **/
 
     min: {
         get: function() {
@@ -165,6 +214,11 @@ export const properties = {
 
         enumerable: true
     },
+    
+    /**
+    .max=1
+    Maximum value for the range.
+    **/
 
     max: {
         get: function() {
@@ -189,7 +243,12 @@ export const properties = {
 
         enumerable: true
     },
-
+    
+    /**
+    .value=0
+    Value.
+    **/
+    
     value: {
         get: function() {
             return Privates(this).data.value;
@@ -234,3 +293,12 @@ export const properties = {
         enumerable: true
     }
 };
+
+
+/**
+"input"
+**/
+
+/**
+"change"
+**/

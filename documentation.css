@@ -1,0 +1,30 @@
+
+@import '../fn/css/docs.css';
+
+/* Pills */
+
+.default-pill {
+    color: #15374e;
+    background-color: #d4dee4;
+}
+
+/*.default-pill::before {
+    content: 'default ';
+}*/
+
+
+
+
+/* Entries */
+
+.doc-toggle-block > .doctext-05 {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+.doc-toggle-block > .doctext-05 > .pill {
+    margin: 0;
+    text-indent: 0;
+}

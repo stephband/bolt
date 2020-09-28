@@ -1,11 +1,43 @@
 
+/**
+<rotary-control>
+
+Configure stylesheet path with:
+
+```js
+window.customElementStylesheetPath = 'path/to/stylesheet/';
+```
+
+Import `<rotary-control>` custom element. This also registers the custom 
+element and upgrades instances already in the DOM.
+
+```js
+import 'bolt/elements/rotary-control.js';
+```
+
+**/
+
+/*
+The CSS that makes this web component flexible may look a little funky. The
+width of the component dictates the size of the handle, track and tick radius,
+then those elements push the (automatic) height of the component. The ticks are
+normally layed out vertically before being transformed. They are usually the
+tallest element. If there are no ticks the component will collapse a bit
+smaller.
+*/
+
 import { Observer } from '../../fn/module.js';
 import Privates from '../../fn/modules/privates.js';
 import { clamp } from '../../fn/modules/maths/clamp.js';
 import create from '../../dom/modules/create.js';
 import { transform } from './control.js';
-import { element, gestures, parseValue, trigger } from '../../dom/module.js';
+import element from '../../dom/modules/element.js';
+import gestures from '../../dom/modules/gestures.js';
+import { parseValue } from '../../dom/modules/parse-value.js';
+import trigger from '../../dom/modules/trigger.js';
 import { attributes, properties } from './attributes.js';
+
+console.log('<rotary-control> stephen.band/bolt/elements/rotary-control.html');
 
 const DEBUG = true;
 

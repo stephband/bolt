@@ -1,4 +1,23 @@
 
+
+/**
+<range-control>
+
+Configure stylesheet path with:
+
+```js
+window.customElementStylesheetPath = 'path/to/stylesheet/';
+```
+
+Import `<range-control>` custom element. This also registers the custom 
+element and upgrades instances already in the DOM.
+
+```js
+import 'bolt/elements/range-control.js';
+```
+
+**/
+
 /*
 References:
 https://www.dr-lex.be/info-stuff/volumecontrols.html

@@ -12,18 +12,20 @@
     </script>
 
     <link rel="stylesheet" href="../style.min.css" />
+    <link rel="stylesheet" href="../style.css" />
 
     <link rel="stylesheet" href="../../fn/css/prism-cruncher.css" />
     <link rel="stylesheet" href="../../fn/css/tests.css" />
-    <link rel="stylesheet" href="../../fn/css/docs.css" />
+    <link rel="stylesheet" href="../documentation.css" />
     <link rel="stylesheet" href="../../fn/css/respond.css" />
 
     <style>
         rotary-control {
             min-width: 8rem;
             max-width: 10rem;
-            --focus-shadow: none;
-            display: inline-grid;
+            margin: 0 auto;
+            /* Nullify focus box-shadow */
+            box-shadow: none !important;
         }
     
         * + rotary-control {
@@ -41,13 +43,12 @@
 </head>
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
-    <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
-        <template is="sparky-template" fn="fetch:'../package.json'" src="../../fn/templates.html#header-template"></template>
-        <h2>&lt;rotary-control&gt;</h2>
+    <header class="x-1 3x @1-x-2 @1-4x @2-4x @2-x-5" id="header">
+        <template is="sparky-template" fn="docs:rotary-control.js filter-type:tag each" src="../templates.html#header"></template>
     </header>
 
-    <form class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center">
-        <rotary-control class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center" min="-1" max="1" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">
+    <form class="x-1 3x @1-x-2 @2-2x @2-x-2 x-center @1-x-stretch y-start">
+        <rotary-control name="pan" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">
             Pan
         </rotary-control>
 
@@ -55,60 +56,41 @@
             Volume
         </rotary-control>
 
-        <input class="button" type="submit" />
+        <input hidden class="block button" type="submit" />
     </form>
 
-    <div class="x-1 3x @1-x-2 @2-2x @2-x-5 x-center @1-x-stretch y-center">
-        <h3>Attributes</h3>
-        <ul class="index">
-            <li>min</li>
-            <li>max</li>
-            <li>law</li>
-            <li>unit</li>
-            <li>ticks</li>
-            <li>steps</li>
-            <li>value</li>
-        </ul>
+    <div class="x-1 3x @1-x-2 @2-2x @2-x-5 x-center @1-x-stretch y-start">
+        <h3 class="doctext-03">Attributes</h3>        
+        <template is="sparky-template" fn="docs:attributes.js filter-type:attribute each" src="../templates.html#entry"></template>
 
-        <h3>Properties</h3>
-        <ul class="index">
-            <li>type</li>
-            <li>min</li>
-            <li>max</li>
-            <li>value</li>
-        </ul>
+        <h3 class="doctext-03">Properties</h3>
+        <template is="sparky-template" fn="docs:attributes.js filter-type:property each" src="../templates.html#entry"></template>
+
+        <h3 class="doctext-03">Events</h3>
+        <template is="sparky-template" fn="docs:attributes.js filter-type:string each" src="../templates.html#entry"></template>
     </div>
 
-    <div class="x-1 3x @1-x-2 @2-2x @2-x-7 x-center @1-x-stretch y-center">
-        <h3>Parts</h3>
-        <ul class="index">
-            <li>::part(label)</li>
-            <li>::part(output)</li>
-            <li>::part(tick)</li>
-        </ul>
+    <div class="x-1 3x @1-x-2 @2-2x @2-x-7 x-center @1-x-stretch y-start">
+        <h3 class="doctext-03">Parts</h3>
+        <template is="sparky-template" fn="docs:control.css filter-type:part each" src="../templates.html#entry"></template>
 
-        <h3>CSS</h3>
-        <ul class="index">
-            <li>---rotation-start</li>
-            <li>---rotation-range</li>
-            <li>---touch-range</li>
-            <li>---handle-width</li>
-            <li>---handle-background</li>
-            <li>---handle-border</li>
-            <li>---handle-shadow</li>
-            <li>---track-width</li>
-            <li>---track-background</li>
-            <li>---track-shadow</li>
-        </ul>
+        <h3 class="doctext-03">CSS</h3>
+        <template is="sparky-template" fn="docs:control.css filter-type:var each" src="../templates.html#entry"></template>
+        <template is="sparky-template" fn="docs:rotary-control.css filter-type:var each" src="../templates.html#entry"></template>
     </div>
 
     <script type="module" src="./rotary-control.js"></script>
 
     <!-- Build document -->
-    <script type="module" src="../../fn/docs-build-2.js" remove></script>    
+    <script type="module" src="../build.js" remove></script>    
 
     <!-- Document interactivity -->
     <script type="module">
         import './rotary-control.js';
+        import '../module.js';
+        import '../documentation.js';
+
+        document.addEventListener('input', console.log);
+        document.addEventListener('change', console.log);
     </script>
 </body>
