@@ -89,7 +89,7 @@ export const attributes = {
     law="linear"
     Fader law. This is the name of a transform to be applied over the range 
     of the fader travel. Possible values are:
-    
+
 - `"linear"`
 - `"linear-logarithmic"`
 - `"logarithmic"`
@@ -161,7 +161,7 @@ export const attributes = {
     },
 
     /**
-    value="0"
+    value=""
     **/
 
     value: function(value) {

@@ -11,18 +11,14 @@ attribute=""
 attribute="value"
 -->
 
-<template id="default" remove>
-    <code class="default-pill pill">{[default]}</code>
-</template>
+<template id="default" remove><span class="default">=<em>{[default]}</em></span></template>
 
 <template id="entry" remove>
     <article fn="append:body" class="{[type|append:-doc-toggle-block]} doc-toggle-block toggle-block block" toggleable id="{[type]}-{[id]}">
         <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
             <a href="#{[type]}-{[id]}">
-                <code fn="append:title" class="{[type|is:attribute|yesno:token,'']} {[type|is:property|yesno:property,'']} {[type|is:attribute|yesno:html,js|prepend:language-]}"></code>
+                <code fn="prepend:title" class="{[type|is:attribute|yesno:token,'']} {[type|is:property|yesno:property,'']} {[type|is:attribute|yesno:html,js|prepend:language-]}"><template src="{[default|yesno:#default,'']}"></template></code>
             </a>
-            
-            <template src="{[default|yesno:#default,'']}"></template>
         </h3>
     </article>
 </template>

@@ -6,14 +6,14 @@
 Configure stylesheet path with:
 
 ```js
-window.customElementStylesheetPath = 'path/to/stylesheet/';
+window.customElementStylesheetPath = 'path/to/bolt/elements/';
 ```
 
 Import `<range-control>` custom element. This also registers the custom 
 element and upgrades instances already in the DOM.
 
 ```js
-import 'bolt/elements/range-control.js';
+import './path/to/bolt/elements/range-control.js';
 ```
 
 **/

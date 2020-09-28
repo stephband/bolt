@@ -13,7 +13,12 @@
 }*/
 
 
-
+/* Default values */
+.default {
+    display: inline;
+    margin-left: 0.1875em;
+    opacity: 0.25;
+}
 
 /* Entries */
 

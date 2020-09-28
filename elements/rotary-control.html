@@ -256,18 +256,18 @@
 </template></head>
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
-    <header class="x-1 3x @1-x-2 @1-4x @2-4x @2-x-5" id="header">
+    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="header">
         <!--template fn="docs:rotary-control.js filter-type:tag each"-->
     <h2 class="doctext-02"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rotary-control</span><span class="token punctuation">&gt;</span></span></h2><p>Configure stylesheet path with:</p>
-<pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/stylesheet/'</span><span class="token punctuation">;</span></code></pre>
+<pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/bolt/elements/'</span><span class="token punctuation">;</span></code></pre>
 <p>Import <code>&lt;rotary-control&gt;</code> custom element. This also registers the custom 
 element and upgrades instances already in the DOM.</p>
-<pre><code class="language-js"><span class="token keyword">import</span> <span class="token string">'bolt/elements/rotary-control.js'</span><span class="token punctuation">;</span></code></pre>
+<pre><code class="language-js"><span class="token keyword">import</span> <span class="token string">'path/to/bolt/elements/rotary-control.js'</span><span class="token punctuation">;</span></code></pre>
 
 
     </header>
 
-    <form class="x-1 3x @1-x-2 @2-2x @2-x-2 x-center @1-x-stretch y-start">
+    <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <rotary-control name="pan" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">
             Pan
         </rotary-control>
@@ -279,18 +279,14 @@ element and upgrades instances already in the DOM.</p>
         <input hidden="" class="block button" type="submit">
     </form>
 
-    <div class="x-1 3x @1-x-2 @2-2x @2-x-5 x-center @1-x-stretch y-start">
+    <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
         <h3 class="doctext-03">Attributes</h3>        
         <!--template fn="docs:attributes.js filter-type:attribute each"-->
     <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-min">
         <h3 class="doctext-05 ">
             <a href="#attribute-min">
-                <code class="token language-html">min</code>
+                <code class="token language-html">min<span class="default">=<em>"0"</em></span></code>
             </a>
-            
-            
-    <code class="default-pill pill">"0"</code>
-
         </h3>
     <p>Minimum value of fader range.</p>
 </article>
@@ -298,12 +294,8 @@ element and upgrades instances already in the DOM.</p>
     <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-max">
         <h3 class="doctext-05 ">
             <a href="#attribute-max">
-                <code class="token language-html">max</code>
+                <code class="token language-html">max<span class="default">=<em>"1"</em></span></code>
             </a>
-            
-            
-    <code class="default-pill pill">"1"</code>
-
         </h3>
     <p>Maximum value of fader range.</p>
 </article>
@@ -311,12 +303,8 @@ element and upgrades instances already in the DOM.</p>
     <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-law">
         <h3 class="doctext-05 ">
             <a href="#attribute-law">
-                <code class="token language-html">law</code>
+                <code class="token language-html">law<span class="default">=<em>"linear"</em></span></code>
             </a>
-            
-            
-    <code class="default-pill pill">"linear"</code>
-
         </h3>
     <p>Fader law. This is the name of a transform to be applied over the range 
     of the fader travel. Possible values are:</p>
@@ -332,42 +320,32 @@ element and upgrades instances already in the DOM.</p>
     <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-unit">
         <h3 class="doctext-05 ">
             <a href="#attribute-unit">
-                <code class="token language-html">unit</code>
+                <code class="token language-html">unit<!-- src="{[default|yesno:#default,'']}" --></code>
             </a>
-            
-            <!-- src="{[default|yesno:#default,'']}" -->
         </h3>
     </article>
 
     <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-ticks">
         <h3 class="doctext-05 ">
             <a href="#attribute-ticks">
-                <code class="token language-html">ticks</code>
+                <code class="token language-html">ticks<!-- src="{[default|yesno:#default,'']}" --></code>
             </a>
-            
-            <!-- src="{[default|yesno:#default,'']}" -->
         </h3>
     </article>
 
     <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-steps">
         <h3 class="doctext-05 ">
             <a href="#attribute-steps">
-                <code class="token language-html">steps</code>
+                <code class="token language-html">steps<!-- src="{[default|yesno:#default,'']}" --></code>
             </a>
-            
-            <!-- src="{[default|yesno:#default,'']}" -->
         </h3>
     </article>
 
     <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-value">
         <h3 class="doctext-05 ">
             <a href="#attribute-value">
-                <code class="token language-html">value</code>
+                <code class="token language-html">value<!-- src="{[default|yesno:#default,'']}" --></code>
             </a>
-            
-            
-    <code class="default-pill pill">"0"</code>
-
         </h3>
     </article>
 
@@ -377,12 +355,8 @@ element and upgrades instances already in the DOM.</p>
     <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-type">
         <h3 class="doctext-05 dot-indent">
             <a href="#property-type">
-                <code class="property language-js">.type</code>
+                <code class="property language-js">.type<span class="default">=<em>"number"</em></span></code>
             </a>
-            
-            
-    <code class="default-pill pill">"number"</code>
-
         </h3>
     <p>A readonly property with the value <code>"number"</code>, provided for consistency 
     with native form elements.</p>
@@ -391,12 +365,8 @@ element and upgrades instances already in the DOM.</p>
     <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-min">
         <h3 class="doctext-05 dot-indent">
             <a href="#property-min">
-                <code class="property language-js">.min</code>
+                <code class="property language-js">.min<span class="default">=<em>0</em></span></code>
             </a>
-            
-            
-    <code class="default-pill pill">0</code>
-
         </h3>
     <p>Minimum value for the range.</p>
 </article>
@@ -404,12 +374,8 @@ element and upgrades instances already in the DOM.</p>
     <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-max">
         <h3 class="doctext-05 dot-indent">
             <a href="#property-max">
-                <code class="property language-js">.max</code>
+                <code class="property language-js">.max<span class="default">=<em>1</em></span></code>
             </a>
-            
-            
-    <code class="default-pill pill">1</code>
-
         </h3>
     <p>Maximum value for the range.</p>
 </article>
@@ -417,12 +383,8 @@ element and upgrades instances already in the DOM.</p>
     <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-value">
         <h3 class="doctext-05 dot-indent">
             <a href="#property-value">
-                <code class="property language-js">.value</code>
+                <code class="property language-js">.value<span class="default">=<em>0</em></span></code>
             </a>
-            
-            
-    <code class="default-pill pill">0</code>
-
         </h3>
     <p>Value.</p>
 </article>
@@ -433,35 +395,29 @@ element and upgrades instances already in the DOM.</p>
     <article class="doc-toggle-block toggle-block block string-doc-toggle-block" toggleable="" id="string-input">
         <h3 class="doctext-05 ">
             <a href="#string-input">
-                <code class="language-js">"input"</code>
+                <code class="language-js">"input"<template src="{[default|yesno:#default,'']}"></template></code>
             </a>
-            
-            <template src="{[default|yesno:#default,'']}"></template>
         </h3>
     </article>
 
     <article class="doc-toggle-block toggle-block block string-doc-toggle-block" toggleable="" id="string-change">
         <h3 class="doctext-05 ">
             <a href="#string-change">
-                <code class="language-js">"change"</code>
+                <code class="language-js">"change"<template src="{[default|yesno:#default,'']}"></template></code>
             </a>
-            
-            <template src="{[default|yesno:#default,'']}"></template>
         </h3>
     </article>
 
     </div>
 
-    <div class="x-1 3x @1-x-2 @2-2x @2-x-7 x-center @1-x-stretch y-start">
+    <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
         <h3 class="doctext-03">Parts</h3>
         <!--template fn="docs:control.css filter-type:part each"-->
     <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-label">
         <h3 class="doctext-05 ">
             <a href="#part-label">
-                <code class="language-js">label</code>
+                <code class="language-js">label<template src="{[default|yesno:#default,'']}"></template></code>
             </a>
-            
-            <template src="{[default|yesno:#default,'']}"></template>
         </h3>
     <p>)</p>
 </article>
@@ -469,10 +425,8 @@ element and upgrades instances already in the DOM.</p>
     <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-output">
         <h3 class="doctext-05 ">
             <a href="#part-output">
-                <code class="language-js">output</code>
+                <code class="language-js">output<template src="{[default|yesno:#default,'']}"></template></code>
             </a>
-            
-            <template src="{[default|yesno:#default,'']}"></template>
         </h3>
     <p>) </p>
 </article>
@@ -480,10 +434,8 @@ element and upgrades instances already in the DOM.</p>
     <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-tick">
         <h3 class="doctext-05 ">
             <a href="#part-tick">
-                <code class="language-js">tick</code>
+                <code class="language-js">tick<template src="{[default|yesno:#default,'']}"></template></code>
             </a>
-            
-            <template src="{[default|yesno:#default,'']}"></template>
         </h3>
     <p>) </p>
 </article>
@@ -494,30 +446,24 @@ element and upgrades instances already in the DOM.</p>
     <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-value-color">
         <h3 class="doctext-05 ">
             <a href="#var-value-color">
-                <code class="language-js">--value-color </code>
+                <code class="language-js">--value-color <template src="{[default|yesno:#default,'']}"></template></code>
             </a>
-            
-            <template src="{[default|yesno:#default,'']}"></template>
         </h3>
     </article>
 
     <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-background">
         <h3 class="doctext-05 ">
             <a href="#var-handle-background">
-                <code class="language-js">--handle-background </code>
+                <code class="language-js">--handle-background <template src="{[default|yesno:#default,'']}"></template></code>
             </a>
-            
-            <template src="{[default|yesno:#default,'']}"></template>
         </h3>
     </article>
 
     <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-border">
         <h3 class="doctext-05 ">
             <a href="#var-handle-border">
-                <code class="language-js">--handle-border </code>
+                <code class="language-js">--handle-border <template src="{[default|yesno:#default,'']}"></template></code>
             </a>
-            
-            <template src="{[default|yesno:#default,'']}"></template>
         </h3>
     </article>
 
@@ -525,10 +471,8 @@ element and upgrades instances already in the DOM.</p>
     <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-touch-range">
         <h3 class="doctext-05 ">
             <a href="#var-touch-range">
-                <code class="language-js">--touch-range </code>
+                <code class="language-js">--touch-range <template src="{[default|yesno:#default,'']}"></template></code>
             </a>
-            
-            <template src="{[default|yesno:#default,'']}"></template>
         </h3>
     </article>
 
