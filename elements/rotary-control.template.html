@@ -90,7 +90,7 @@
         import '../module.js';
         import '../documentation.js';
 
-        document.addEventListener('input', console.log);
-        document.addEventListener('change', console.log);
+        document.addEventListener('input', (e) => console.log(e.type, e));
+        document.addEventListener('change', (e) => console.log(e.type, e));
     </script>
 </body>

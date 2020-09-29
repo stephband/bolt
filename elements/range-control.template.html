@@ -101,5 +101,8 @@
         import './range-control.js';
         import '../module.js';
         import '../documentation.js';
+
+        document.addEventListener('input', (e) => console.log(e.type, e));
+        document.addEventListener('change', (e) => console.log(e.type, e));
     </script>
 </body>

@@ -266,10 +266,8 @@
 <pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/bolt/elements/'</span><span class="token punctuation">;</span></code></pre>
 <p>Import <code>&lt;range-control&gt;</code> custom element. This also registers the custom 
 element and upgrades instances already in the DOM.</p>
-<pre><code class="language-js"><span class="token keyword">import</span> <span class="token string">'./path/to/bolt/elements/range-control.rolled.js'</span><span class="token punctuation">;</span></code></pre>
-<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>range-control</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scale<span class="token punctuation">"</span></span> <span class="token attr-name">min</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>-1<span class="token punctuation">"</span></span> <span class="token attr-name">max</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token attr-name">ticks</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    Scale
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>range-control</span><span class="token punctuation">&gt;</span></span></code></pre>
+<pre><code class="language-js"><span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"module"</span> src<span class="token operator">=</span><span class="token string">"./path/to/bolt/elements/range-control.rolled.js"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>range<span class="token operator">-</span>control name<span class="token operator">=</span><span class="token string">"scale"</span> min<span class="token operator">=</span><span class="token string">"-1"</span> max<span class="token operator">=</span><span class="token string">"1"</span> ticks<span class="token operator">=</span><span class="token string">"-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1"</span><span class="token operator">&gt;</span>Scale<span class="token operator">&lt;</span><span class="token operator">/</span>range<span class="token operator">-</span>control<span class="token operator">&gt;</span></code></pre>
 
 
     </header>
@@ -551,6 +549,9 @@ element and upgrades instances already in the DOM.</p>
         import './range-control.js';
         import '../module.js';
         import '../documentation.js';
+
+        document.addEventListener('input', (e) => console.log(e.type, e));
+        document.addEventListener('change', (e) => console.log(e.type, e));
     </script>
 
 </body></html>

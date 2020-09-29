@@ -11,13 +11,9 @@ window.customElementStylesheetPath = 'path/to/bolt/elements/';
 Import `<rotary-control>` custom element. This also registers the custom 
 element and upgrades instances already in the DOM.
 
-```js
-import 'path/to/bolt/elements/rotary-control.rolled.js';
-```
 ```html
-<rotary-control name="pan" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">
-    Pan
-</rotary-control>
+<script type="module" src="path/to/bolt/elements/rotary-control.rolled.js"></script>
+<rotary-control name="pan" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">Pan</rotary-control>
 ```
 
 **/
@@ -175,6 +171,8 @@ element('rotary-control', {
                 dy = y0 - e.clientY;
                 var unitValue = clamp(0, 1, y + dy / touchRange);
                 updateValue(elem, data, unitValue);
+                // Doesn't work
+                //elem.dispatchEvent(new InputEvent('input'));
                 trigger('input', elem);
             });
         });
