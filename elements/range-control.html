@@ -301,7 +301,8 @@ element and upgrades instances already in the DOM.</p>
                 <code class="token language-html">min<span class="default">=<em>"0"</em></span></code>
             </a>
         </h3>
-    <p>Minimum value of fader range.</p>
+    <p>Value at lower limit of fader. Can interpret values with recognised units,
+    eg. <code>"0dB"</code>.</p>
 </article>
 
     <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-max">
@@ -310,7 +311,8 @@ element and upgrades instances already in the DOM.</p>
                 <code class="token language-html">max<span class="default">=<em>"1"</em></span></code>
             </a>
         </h3>
-    <p>Maximum value of fader range.</p>
+    <p>Value at upper limit of fader. Can interpret values with recognised units,
+    eg. <code>"0dB"</code>.</p>
 </article>
 
     <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-law">
@@ -336,7 +338,13 @@ element and upgrades instances already in the DOM.</p>
                 <code class="token language-html">unit<!-- src="{[default|yesno:#default,'']}" --></code>
             </a>
         </h3>
-    </article>
+    <p>The value’s unit, if it has one. The output value and all ticks are 
+    displayed in this unit. Possible values are:</p>
+<ul>
+<li><code>"dB"</code> – <code>0-1</code> is displayed as <code>-∞dB</code> to <code>0dB</code></li>
+<li><code>"Hz"</code></li>
+</ul>
+</article>
 
     <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-ticks">
         <h3 class="doctext-05 ">
@@ -344,7 +352,11 @@ element and upgrades instances already in the DOM.</p>
                 <code class="token language-html">ticks<!-- src="{[default|yesno:#default,'']}" --></code>
             </a>
         </h3>
-    </article>
+    <p>A space separated list of values at which to display tick marks. Values
+    may be listed with or without units, eg:</p>
+<pre><code class="language-html">ticks="0 0.2 0.4 0.6 0.8 1"
+ticks="-48dB -36dB -24dB -12dB 0dB"</code></pre>
+</article>
 
     <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-steps">
         <h3 class="doctext-05 ">
@@ -352,7 +364,12 @@ element and upgrades instances already in the DOM.</p>
                 <code class="token language-html">steps<!-- src="{[default|yesno:#default,'']}" --></code>
             </a>
         </h3>
-    </article>
+    <p>Steps is either:</p>
+<ul>
+<li>A space separated list of values. As with <code>ticks</code>, values may be listed with or without units.</li>
+<li>The string <code>"ticks"</code>. The values in the <code>ticks</code> attribute are used as steps.</li>
+</ul>
+</article>
 
     <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-value">
         <h3 class="doctext-05 ">
@@ -360,7 +377,8 @@ element and upgrades instances already in the DOM.</p>
                 <code class="token language-html">value<!-- src="{[default|yesno:#default,'']}" --></code>
             </a>
         </h3>
-    </article>
+    <p>The initial value of the fader.</p>
+</article>
 
 
         <h3 class="doctext-03">Properties</h3>
@@ -371,8 +389,8 @@ element and upgrades instances already in the DOM.</p>
                 <code class="property language-js">.type<span class="default">=<em>"number"</em></span></code>
             </a>
         </h3>
-    <p>A readonly property with the value <code>"number"</code>, provided for consistency 
-    with native form elements.</p>
+    <p>A readonly property with the value <code>"number"</code> (provided for consistency 
+    with native form elements, which all have a type).</p>
 </article>
 
     <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-min">
@@ -381,7 +399,7 @@ element and upgrades instances already in the DOM.</p>
                 <code class="property language-js">.min<span class="default">=<em>0</em></span></code>
             </a>
         </h3>
-    <p>Minimum value for the range.</p>
+    <p>Value at lower limit of fader, as a number.</p>
 </article>
 
     <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-max">
@@ -390,7 +408,7 @@ element and upgrades instances already in the DOM.</p>
                 <code class="property language-js">.max<span class="default">=<em>1</em></span></code>
             </a>
         </h3>
-    <p>Maximum value for the range.</p>
+    <p>Value at lower limit of fader, as a number.</p>
 </article>
 
     <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-value">
@@ -399,7 +417,7 @@ element and upgrades instances already in the DOM.</p>
                 <code class="property language-js">.value<span class="default">=<em>0</em></span></code>
             </a>
         </h3>
-    <p>Value.</p>
+    <p>Current value of the field, as a number.</p>
 </article>
 
 
@@ -411,7 +429,8 @@ element and upgrades instances already in the DOM.</p>
                 <code class="language-js">"input"<template src="{[default|yesno:#default,'']}"></template></code>
             </a>
         </h3>
-    </article>
+    <p>Sent continuously during a fader movement.</p>
+</article>
 
     <article class="doc-toggle-block toggle-block block string-doc-toggle-block" toggleable="" id="string-change">
         <h3 class="doctext-05 ">
@@ -432,7 +451,8 @@ element and upgrades instances already in the DOM.</p>
                 <code class="language-js">label<template src="{[default|yesno:#default,'']}"></template></code>
             </a>
         </h3>
-    <p>)</p>
+    <p>)
+Style the label.</p>
 </article>
 
     <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-output">
@@ -441,7 +461,8 @@ element and upgrades instances already in the DOM.</p>
                 <code class="language-js">output<template src="{[default|yesno:#default,'']}"></template></code>
             </a>
         </h3>
-    <p>) </p>
+    <p>) 
+Style the display of the output value.</p>
 </article>
 
     <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-tick">
@@ -450,7 +471,8 @@ element and upgrades instances already in the DOM.</p>
                 <code class="language-js">tick<template src="{[default|yesno:#default,'']}"></template></code>
             </a>
         </h3>
-    <p>) </p>
+    <p>) 
+Style the tick marks.</p>
 </article>
 
 
