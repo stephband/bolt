@@ -184,7 +184,7 @@ element('rotary-control', {
 
         // Rotary control must have value
         if (data.value === undefined) {
-            elem.value = data.min;
+            elem.value = clamp(data.min, data.max, 0);
         }
     }
 })

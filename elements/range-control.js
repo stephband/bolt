@@ -27,6 +27,7 @@ https://www.dr-lex.be/info-stuff/volumecontrols.html
 import Privates from '../../fn/modules/privates.js';
 import { Observer } from '../../fn/modules/observer/observer.js';
 import { observe } from '../../fn/modules/observer/observe.js';
+import { clamp } from '../../fn/modules/maths/clamp.js';
 import { transform } from './control.js';
 import create from '../../dom/modules/create.js';
 import element from '../../dom/modules/element.js';
@@ -183,7 +184,7 @@ export default element('range-control', {
 
         // Range control must have value
         if (data.value === undefined) {
-            elem.value = data.min;
+            elem.value = clamp(data.min, data.max, 0);
         }
     }
 });
