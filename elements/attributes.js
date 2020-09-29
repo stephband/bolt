@@ -73,7 +73,8 @@ export const attributes = {
 
     /**
     min="0"
-    Minimum value of fader range.
+    Value at lower limit of fader. Can interpret values with recognised units,
+    eg. `"0dB"`.
     **/
 
     min: function(value) {
@@ -82,7 +83,8 @@ export const attributes = {
 
     /**
     max="1"
-    Maximum value of fader range.
+    Value at upper limit of fader. Can interpret values with recognised units,
+    eg. `"0dB"`.
     **/
 
     max: function(value) {
@@ -123,6 +125,10 @@ export const attributes = {
 
     /**
     unit=""
+    The value's unit, if it has one. The output value and all ticks are 
+    displayed in this unit. Possible values are:
+- `"dB"` – `0-1` is displayed as `-∞dB` to `0dB`
+- `"Hz"`
     **/
 
     unit: function(value) {
@@ -131,6 +137,13 @@ export const attributes = {
 
     /**
     ticks=""
+    A space separated list of values at which to display tick marks. Values
+    may be listed with or without units, eg:
+    
+```html
+ticks="0 0.2 0.4 0.6 0.8 1"
+ticks="-48dB -36dB -24dB -12dB 0dB"
+```
     **/
 
     ticks: function(value) {
@@ -151,6 +164,10 @@ export const attributes = {
 
     /**
     steps=""
+    Steps is either:
+
+- A space separated list of values. As with `ticks`, values may be listed with or without units.
+- The string `"ticks"`. The values in the `ticks` attribute are used as steps.
     **/
 
     steps: function(value) {
@@ -166,6 +183,7 @@ export const attributes = {
 
     /**
     value=""
+    The initial value of the fader.
     **/
 
     value: function(value) {
@@ -180,8 +198,8 @@ export const attributes = {
 export const properties = {
     /**
     .type="number"
-    A readonly property with the value `"number"`, provided for consistency 
-    with native form elements.
+    A readonly property with the value `"number"` (provided for consistency 
+    with native form elements, which all have a type).
     **/
 
     type: {
@@ -191,7 +209,7 @@ export const properties = {
 
     /**
     .min=0
-    Minimum value for the range.
+    Value at lower limit of fader, as a number.
     **/
 
     min: {
@@ -221,7 +239,7 @@ export const properties = {
     
     /**
     .max=1
-    Maximum value for the range.
+    Value at lower limit of fader, as a number.
     **/
 
     max: {
@@ -250,7 +268,7 @@ export const properties = {
     
     /**
     .value=0
-    Value.
+    Current value of the field, as a number.
     **/
     
     value: {
@@ -301,6 +319,7 @@ export const properties = {
 
 /**
 "input"
+Sent continuously during a fader movement.
 **/
 
 /**

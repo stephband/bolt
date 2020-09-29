@@ -5,16 +5,16 @@
     --unit-value: 0;
     --unit-zero: 0;
 
-    /** --touch-range **/
-    --touch-range: 15rem;
-
+    /** --handle-width **/
     --handle-width: calc(100% - 2 * var(--tick-height) - 4 * var(--tick-font-size) - 1.25rem);
-    --handle-background: white;
-    --handle-border: 1px solid rgb(122 144 158);
+
+    /** --handle-shadow **/
     --handle-shadow: 0 0.1875rem 0.375rem 0 rgba(0, 0, 0, 0.2);
 
+    /** --track-width **/
     --track-width:  calc(var(--handle-width) + 0.75rem);
-    --track-background:  white;
+    
+    /** --track-background **/
     /* Draw a rotational gradient that acts as a 'progress' fill from 0 to value */
     --track-background: conic-gradient(
         from calc(180deg + var(--rotation-start)),
@@ -24,10 +24,28 @@
         var(--value-color) calc(max(var(--unit-value), var(--unit-zero)) * var(--rotation-range)),
         #ffffff calc(max(var(--unit-value), var(--unit-zero)) * var(--rotation-range))
     );
+    
+    /** --track-shadow **/
     --track-shadow: inset 0 0.25rem 0.5rem rgba(0, 0, 0, 0.24);
 
+    /**
+    --rotation-start
+    Angle (clockwise from south) at which to start rotational travel.
+    **/
     --rotation-start: 30deg;
+
+    /**
+    --rotation-range
+    Angle (clockwise from south) through which handle travels.
+    **/
     --rotation-range: 300deg;
+
+    /**
+    --touch-range
+    Vertical distance of mouse or touch movement that results in one 
+    full range of rotation of the handle.
+    **/
+    --touch-range: 15rem;
 
     --label-font-size: 1em;
     --label-line-height: 1.2em;

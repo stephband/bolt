@@ -31,8 +31,15 @@
 
 /** 
 ::part(label)
+Style the label.
 **/
 
-/** ::part(output) **/
+/** 
+::part(output) 
+Style the display of the output value.
+**/
 
-/** ::part(tick) **/
+/**
+::part(tick) 
+Style the tick marks.
+**/
