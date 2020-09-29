@@ -12,7 +12,7 @@ window.customElementStylesheetPath = 'path/to/bolt/elements/';
 Import `<range-control>` custom element. This also registers the custom 
 element and upgrades instances already in the DOM.
 
-```js
+```html
 <script type="module" src="./path/to/bolt/elements/range-control.rolled.js"></script>
 <range-control name="scale" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">Scale</range-control>
 ```
