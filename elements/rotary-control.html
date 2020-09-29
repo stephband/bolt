@@ -2,17 +2,17 @@
     
     <meta charset="utf-8">
     <meta name="author" content="stephband">
-    <meta name="description" content="Documentation for . A front-end toolkit of classes and evented behaviours.">
+    <meta name="description" content="Documentation for Bolt. A front-end toolkit of classes, evented behaviours and custom elements.">
     <meta name="viewport" content="width=device-width">
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@@stephband">
     <meta property="og:url" content="http://stephen.band/bolt/">
-    <meta property="og:title" content="">
-    <meta property="og:description" content="A front-end toolkit of classes and evented behaviours.">
+    <meta property="og:title" content="Bolt">
+    <meta property="og:description" content="A front-end toolkit of classes, evented behaviours and custom elements.">
     <meta property="og:image" content="">
 
-    <title></title>
+    <title>Bolt</title>
 
     <script title="load">
     document.documentElement.className += ' js content-loading loading';
@@ -31,58 +31,467 @@
 
     
 
+    <script title="config">
+        window.customElementStylesheetPath = './';
+    </script>
+
+    <link rel="stylesheet" href="../style.min.css">
+    <link rel="stylesheet" href="../style.css">
+
+    <link rel="stylesheet" href="../../fn/css/prism-cruncher.css">
+    <link rel="stylesheet" href="../../fn/css/tests.css">
+    <link rel="stylesheet" href="../documentation.css">
+    <link rel="stylesheet" href="../../fn/css/respond.css">
+
     <style>
-        /* Render some elements visible, just in this styleguide */
-        button:not([type]),
-        [type="button"],
-        .button {
-            background-color: rgba(127, 127, 127, 0.15);
+        rotary-control {
+            min-width: 8rem;
+            max-width: 10rem;
+            margin: 0 auto;
+            /* Nullify focus box-shadow */
+            box-shadow: none !important;
+        }
+    
+        * + rotary-control {
+            margin-top: 1.875rem;
+        }
+        
+        * + input {
+            margin-top: 3.75rem;
         }
 
-        range-control,
-        rotary-control {
-            --focus-shadow: inset 0 0 0.9375rem hsla(200,100%,40%,0.5);
+        rotary-control::part(tick) {
+            background-color: var(--label-color);
         }
     </style>
+<template build-remove="" id="head-template" title="../../fn/">
+    <meta charset="utf-8">
+    <meta name="author" content="{[author.name]}">
+    <meta name="description" content="Documentation for {[title]}. {[description]}">
+    <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="style.min.css">
-    <!--link rel="stylesheet" href="style.css" /-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@{[author.twitter]}">
+    <meta property="og:url" content="{[homepage]}">
+    <meta property="og:title" content="{[title]}">
+    <meta property="og:description" content="{[description]}">
+    <meta property="og:image" content="{[image]}">
 
-    <link rel="stylesheet" href="../dom/css/dom.css">
-    <link rel="stylesheet" href="../fn/css/prism-cruncher.css">
-    <link rel="stylesheet" href="../fn/css/tests.css">
-    <link rel="stylesheet" href="../fn/css/docs.css">
-    <link rel="stylesheet" href="../fn/css/respond.css">
-</head>
+    <title>{[title]}</title>
 
-<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
-    <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
-        <!--template build-fn="fetch:package.json" build-src="../fn/templates.html#header-template"></template-->
+    <script title="load">
+    document.documentElement.className += ' js content-loading loading';
+    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
+    // Wait for other load handlers to run first - Bolt does a few things on
+    // load (eg. locateable scrolls) and we want them to run before the loading
+    // class is removed
+    window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
+    </script>
+
+    <link rel="shortcut icon" href="images/logo-64x64.ico">
+    <link rel="icon" type="image/png" href="images/logo-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/logo-64x64.png" sizes="64x64">
+    <link rel="icon" type="image/png" href="images/logo-128x128.png" sizes="128x128">
+</template><template build-remove="" id="header-template" title="../../fn/">
+    <h1 class="doctext-01">{[title]} <span class="doctext-06">{[version]}</span></h1>
+    <p class="doctext-08">{[description]}</p>
+    <ul class="link-index index">
+        <li><strong>repo:</strong> <a href="{[repository.url]}">{[repository.url|replace:'https://','']}</a></li>
+        <li><strong>bugs:</strong> <a href="{[bugs.url]}">{[bugs.url|replace:'https://','']}</a></li>
+    </ul>
+</template><template build-remove="" id="title-template" title="../../fn/">
+    <h3 class="doctext-04" build-fn="after:body">{[name]}</h3>
+</template><template build-remove="" id="h2-template" title="../../fn/">
+    <header class="x-1 4x @1-x-1 @2-x-2">
+        <h2 class="doctext-02">
+            <a href="#{[id]}">
+                <code class="language-js" build-fn="append:title" style="color: inherit;"></code>
+            </a>
+        </h2>
     </header>
 
-    <rotary-control class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center" min="-1" max="1" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="min-width: 8rem; max-width: 10rem;">Ratio</rotary-control>
+    <div class="x-1 3x @2-x-2" build-fn="append:body"></div>
+</template><template build-remove="" id="attribute-template" title="../../fn/">
+    <article build-fn="append:body" class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="attribute-{[id]}">
+        <h3 class="doctext-05">
+            <a href="#attribute-{[id]}">
+                <code class="token language-js">[<span build-fn="append:title"></span>]</code>
+            </a>
+        </h3>
+    </article>
+</template><template build-remove="" id="constructor-template" title="../../fn/">
+    <article class="function-doc-toggle-block doc-toggle-block toggle-block block 3x" toggleable="" id="{[0.id]}">
+        <h3 build-fn="get:0 after:body" class="doctext-05 dot-indent">
+            <a href="#{[id]}">
+                <code class="property language-js">"{[name|lowercase]}"</code>
+            </a>
+        </h3>
+
+        <template build-src="/fn/templates.html#property-method-template"></template>
+    </article>
+</template><template build-remove="" id="method-template" title="../../fn/">
+    <article build-fn="append:body" class="method-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="method-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#method-{[id]}">
+                <code build-fn="append:title" class="function language-js"></code>
+            </a>
+        </h3>
+    </article>
+</template><template build-remove="" id="property-template" title="../../fn/">
+    <article build-fn="append:body" class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="property-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#property-{[id]}">
+                <code build-fn="append:title" class="property language-js"></code>
+            </a>
+        </h3>
+    </article>
+</template><template build-remove="" id="class-template" title="../../fn/">
+    <article build-fn="append:body" class="class-doc-toggle-block doc-toggle-block toggle-block block class-grid grid @2-9-grid" toggleable="" id="class-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#class-{[id]}">
+                <code build-fn="append:title" class=""></code>
+            </a>
+        </h3>
+    </article>
+</template><template build-remove="" id="component-template" title="../../fn/">
+    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-{[0.id]}">
+        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
+            <h3 build-fn="after:'0.body'" class="x-1 3x @1-x-2 @2-x-3 doctext-03 {[0.prefix|is:'.'|yesno:'dot-indent','']}">
+                <a build-fn="append:'0.title'" class="doctoggle-button button" href="#component-{[0.id]}"></a>
+            </h3>
+        </header>
+
+        <section build-fn="rest:1 each" class="block class-grid grid @1-6-grid @2-9-grid">
+            <h4 class="x-1 x-start 3x @2-2x @2-x-end doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+                <code build-fn="append:title" class=""></code>
+            </h4>
+
+            <div class="block x-3 2x y-baseline" build-fn="append:example"></div>
+            <div hidden="" class="block x-6 3x y-start" build-fn="append:body"></div>
+        </section>
+    </section>
+</template><template build-remove="" id="css-template" title="../../fn/">
+    <section class="x-1 9x grid" style="--row-gap: var(--input-margin);" id="components" locateable="">
+        <header class="x-3 2x x-start">
+            <h3 build-fn="get:0 after:body" class="doctext-03 {[prefix|is:'.'|yesno:'dot-indent','']}">
+                <a build-fn="append:title" class="doctoggle-button button" href="#component-{[id]}"></a>
+            </h3>
+        </header>
+
+        <section build-fn="rest:1 filter-not-var" class="x-1 5x y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-{[0.id]}">
+            <template build-fn="each">
+                <h4 class="x-1 2x x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']} right-align">
+                    <a href="#{[id]}-description" title="Show HTML markup"><code build-fn="title-replace-comma-br append:title"></code></a>
+                </h4>
+                <div class="x-3 2x x-stretch y-baseline block" build-fn="prepend:example"></div>
+                <div class="@2-x-5 x-stretch block">
+                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" build-fn="append:body" id="{[id]}-description"></div>
+                </div>
+            </template>
+        </section>
+
+        <section build-fn="rest:1 filter-var" class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
+            <template build-fn="each">
+                <label class="x-1 2x x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}" for="doc-var-{[id]}">
+                    <code build-fn="append:title" style="color: #888888;"></code><span style="color: transparent;">:</span>
+                </label>
+                <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--{[id]}" id="doc-var-{[id]}" type="text" placeholder="value">
+                <div class="x-4 2x" style="color: transparent;">;</div>
+            </template>
+        </section>
+    </section>
+</template><template build-remove="" id="styleguide-template" title="../../fn/">
+    <section class="x-1 9x 6x-grid @2-9x-grid grid" style="--row-gap: var(--input-margin);" id="components" locateable="">
+        <header class="x-1 3x @1-x-3 @1-4x @2-2x x-start">
+            <h3 build-fn="get:0 after:body" class="doctext-03 {[prefix|is:'.'|yesno:'dot-indent','']}">
+                <a build-fn="append:title" class="doctoggle-button button" href="#component-{[id]}"></a>
+            </h3>
+        </header>
+
+        <section build-fn="rest:1 filter-not-var" class="x-1 6x @1-6x @2-5x y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-{[0.id]}">
+            <template build-fn="each">
+                <h4 class="x-1 2x x-start @1-2x @1-x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']} right-align">
+                    <a href="#{[id]}-description" title="Show HTML markup"><code build-fn="title-replace-comma-br append:title"></code></a>
+                </h4>
+                <div class="x-1 3x @1-x-3 @1-4x @2-2x x-stretch y-baseline block" build-fn="prepend:example"></div>
+                <div class="x-1 3x @1-2x @2-x-5 x-stretch y-baseline block">
+                    <a class="docbubble-thumb thumb" href="#{[id]}-description" style="text-decoration: none;">Code</a>
+                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem; left: 2.5rem;" popable="" build-fn="append:body" id="{[id]}-description"></div>
+                </div>
+            </template>
+        </section>
+    </section>
+</template><template build-remove="" id="function-template" title="../../fn/">
+    <article build-fn="append:body" class="function-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="function-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#function-{[id]}">
+                <code build-fn="append:title" class="function language-js"></code>
+            </a>
+        </h3>
+    </article>
+</template><template build-remove="" id="fn-template" title="../../fn/">
+    <article build-fn="append:body" class="fn-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="fn-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#fn-{[id]}">
+                <code build-fn="append:title" class="language-js"></code>
+            </a>
+        </h3>
+    </article>
+</template><template build-remove="" id="section-template" title="../../fn/">
+    <article build-fn="append:body" class="section-doc-toggle-block doc-toggle-block toggle-block block active" id="section-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <code build-fn="append:title" class="function language-js"></code>
+        </h3>
+    </article>
+</template><template build-remove="" id="body-template" title="../../fn/">
+    <article build-fn="append:body" class="body-doc-toggle-block doc-toggle-block toggle-block block active" id="{[id]}"></article>
+</template><template build-remove="" id="property-method-template" title="../../fn/">
+    <section class="x-1 2x @1-x-1 @2-x-2">
+        <template build-fn="filter-property each" build-src="/fn/templates.html#{[type]}-template"></template>
+    </section>
+
+    <section class="x-1 2x @1-x-3 @2-x-4">
+        <template build-fn="filter-method each" build-src="/fn/templates.html#{[type]}-template"></template>
+    </section>
+</template></head>
+
+<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
+    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="header">
+        <!--template fn="docs:rotary-control.js filter-type:tag each"-->
+    <h2 class="doctext-02"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rotary-control</span><span class="token punctuation">&gt;</span></span></h2><p>Configure stylesheet path with:</p>
+<pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/bolt/elements/'</span><span class="token punctuation">;</span></code></pre>
+<p>Import <code>&lt;rotary-control&gt;</code> custom element. This also registers the custom 
+element and upgrades instances already in the DOM.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>path/to/bolt/elements/rotary-control.rolled.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rotary-control</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pan<span class="token punctuation">"</span></span> <span class="token attr-name">min</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>-1<span class="token punctuation">"</span></span> <span class="token attr-name">max</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token attr-name">ticks</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Pan<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>rotary-control</span><span class="token punctuation">&gt;</span></span></code></pre>
+
+
+    </header>
+
+    <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
+        <rotary-control name="pan" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">
+            Pan
+        </rotary-control>
+
+        <rotary-control name="gain" min="-48dB" max="0dB" ticks="-âˆždB -48dB -42dB -36dB -30dB -24dB -18dB -12dB -6dB 0dB" law="linear-logarithmic" unit="dB" value="-6dB">
+            Volume
+        </rotary-control>
+
+        <input hidden="" class="block button" type="submit">
+    </form>
+
+    <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+        <h3 class="doctext-03">Attributes</h3>        
+        <!--template fn="docs:attributes.js filter-type:attribute each"-->
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-min">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-min">
+                <code class="token language-html">min<span class="default">=<em>"0"</em></span></code>
+            </a>
+        </h3>
+    <p>Minimum value of fader range.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-max">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-max">
+                <code class="token language-html">max<span class="default">=<em>"1"</em></span></code>
+            </a>
+        </h3>
+    <p>Maximum value of fader range.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-law">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-law">
+                <code class="token language-html">law<span class="default">=<em>"linear"</em></span></code>
+            </a>
+        </h3>
+    <p>Fader law. This is the name of a transform to be applied over the range 
+    of the fader travel. Possible values are:</p>
+<ul>
+<li><code>"linear"</code></li>
+<li><code>"linear-logarithmic"</code></li>
+<li><code>"logarithmic"</code></li>
+<li><code>"quadratic"</code></li>
+<li><code>"cubic"</code></li>
+</ul>
+</article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-unit">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-unit">
+                <code class="token language-html">unit<!-- src="{[default|yesno:#default,'']}" --></code>
+            </a>
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-ticks">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-ticks">
+                <code class="token language-html">ticks<!-- src="{[default|yesno:#default,'']}" --></code>
+            </a>
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-steps">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-steps">
+                <code class="token language-html">steps<!-- src="{[default|yesno:#default,'']}" --></code>
+            </a>
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-value">
+        <h3 class="doctext-05 ">
+            <a href="#attribute-value">
+                <code class="token language-html">value<!-- src="{[default|yesno:#default,'']}" --></code>
+            </a>
+        </h3>
+    </article>
+
+
+        <h3 class="doctext-03">Properties</h3>
+        <!--template fn="docs:attributes.js filter-type:property each"-->
+    <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-type">
+        <h3 class="doctext-05 dot-indent">
+            <a href="#property-type">
+                <code class="property language-js">.type<span class="default">=<em>"number"</em></span></code>
+            </a>
+        </h3>
+    <p>A readonly property with the value <code>"number"</code>, provided for consistency 
+    with native form elements.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-min">
+        <h3 class="doctext-05 dot-indent">
+            <a href="#property-min">
+                <code class="property language-js">.min<span class="default">=<em>0</em></span></code>
+            </a>
+        </h3>
+    <p>Minimum value for the range.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-max">
+        <h3 class="doctext-05 dot-indent">
+            <a href="#property-max">
+                <code class="property language-js">.max<span class="default">=<em>1</em></span></code>
+            </a>
+        </h3>
+    <p>Maximum value for the range.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-value">
+        <h3 class="doctext-05 dot-indent">
+            <a href="#property-value">
+                <code class="property language-js">.value<span class="default">=<em>0</em></span></code>
+            </a>
+        </h3>
+    <p>Value.</p>
+</article>
+
+
+        <h3 class="doctext-03">Events</h3>
+        <!--template fn="docs:attributes.js filter-type:string each"-->
+    <article class="doc-toggle-block toggle-block block string-doc-toggle-block" toggleable="" id="string-input">
+        <h3 class="doctext-05 ">
+            <a href="#string-input">
+                <code class="language-js">"input"<template src="{[default|yesno:#default,'']}"></template></code>
+            </a>
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block string-doc-toggle-block" toggleable="" id="string-change">
+        <h3 class="doctext-05 ">
+            <a href="#string-change">
+                <code class="language-js">"change"<template src="{[default|yesno:#default,'']}"></template></code>
+            </a>
+        </h3>
+    </article>
+
+    </div>
+
+    <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
+        <h3 class="doctext-03">Parts</h3>
+        <!--template fn="docs:control.css filter-type:part each"-->
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-label">
+        <h3 class="doctext-05 ">
+            <a href="#part-label">
+                <code class="language-js">label<template src="{[default|yesno:#default,'']}"></template></code>
+            </a>
+        </h3>
+    <p>)</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-output">
+        <h3 class="doctext-05 ">
+            <a href="#part-output">
+                <code class="language-js">output<template src="{[default|yesno:#default,'']}"></template></code>
+            </a>
+        </h3>
+    <p>) </p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-tick">
+        <h3 class="doctext-05 ">
+            <a href="#part-tick">
+                <code class="language-js">tick<template src="{[default|yesno:#default,'']}"></template></code>
+            </a>
+        </h3>
+    <p>) </p>
+</article>
+
+
+        <h3 class="doctext-03">CSS</h3>
+        <!--template fn="docs:control.css filter-type:var each"-->
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-value-color">
+        <h3 class="doctext-05 ">
+            <a href="#var-value-color">
+                <code class="language-js">--value-color <template src="{[default|yesno:#default,'']}"></template></code>
+            </a>
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-background">
+        <h3 class="doctext-05 ">
+            <a href="#var-handle-background">
+                <code class="language-js">--handle-background <template src="{[default|yesno:#default,'']}"></template></code>
+            </a>
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-border">
+        <h3 class="doctext-05 ">
+            <a href="#var-handle-border">
+                <code class="language-js">--handle-border <template src="{[default|yesno:#default,'']}"></template></code>
+            </a>
+        </h3>
+    </article>
+
+        <!--template fn="docs:rotary-control.css filter-type:var each"-->
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-touch-range">
+        <h3 class="doctext-05 ">
+            <a href="#var-touch-range">
+                <code class="language-js">--touch-range <template src="{[default|yesno:#default,'']}"></template></code>
+            </a>
+        </h3>
+    </article>
+
+    </div>
+
+    <script type="module" src="./rotary-control.js"></script>
 
     <!-- Build document -->
-    
-
-    <!-- Custom elements -->
-    <template id="rotary-control">
-        <link rel="stylesheet" href="/bolt/elements/rotary-control.css">
-        <div class="handle"></div>
-        <label class="control-label" for="input"><slot></slot></label>
-        <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
-        <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" style="transform: rotate3d(0, 0, 1, calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range)));">
-            <span style="transform: translate3d(-50%, 0, 0) rotate3d(0, 0, 1, calc(-1 * (var(--rotation-start) + {[tickValue]} * var(--rotation-range)))) translate3d(calc({[tickValue|multiply:6.28318531|sin]} * -33%), 0, 0);">{[displayValue]}</span>
-        </button>
-        <slot name="plugs"></slot>
-    </template>
-
-    <script type="module" src="./elements/rotary-control.js"></script>
+        
 
     <!-- Document interactivity -->
     <script type="module">
-        import './module.js';
-        import './documentation.js';
+        import './rotary-control.js';
+        import '../module.js';
+        import '../documentation.js';
+
+        document.addEventListener('input', (e) => console.log(e.type, e));
+        document.addEventListener('change', (e) => console.log(e.type, e));
     </script>
 
 </body></html>

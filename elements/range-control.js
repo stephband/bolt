@@ -1,7 +1,35 @@
 
-import { Privates, Observer, observe } from '../../fn/module.js';
+
+/**
+<range-control>
+
+Configure stylesheet path with:
+
+```js
+window.customElementStylesheetPath = 'path/to/bolt/elements/';
+```
+
+Import `<range-control>` custom element. This also registers the custom 
+element and upgrades instances already in the DOM.
+
+```html
+<script type="module" src="./path/to/bolt/elements/range-control.rolled.js"></script>
+<range-control name="scale" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">Scale</range-control>
+```
+
+**/
+
+/*
+References:
+https://www.dr-lex.be/info-stuff/volumecontrols.html
+*/
+
+import Privates from '../../fn/modules/privates.js';
+import { clamp } from '../../fn/modules/maths/clamp.js';
 import { transform } from './control.js';
-import { create, element, trigger } from '../../dom/module.js';
+import create from '../../dom/modules/create.js';
+import element from '../../dom/modules/element.js';
+import trigger from '../../dom/modules/trigger.js';
 import { attributes, properties } from './attributes.js';
 
 const DEBUG = true;
@@ -9,14 +37,15 @@ const DEBUG = true;
 const assign = Object.assign;
 const define = Object.defineProperties;
 
+
 const defaults = {
     transform: 'linear',
     min:    0,
     max:    1
 };
 
-export const config = {
-    path: '/source/bolt/elements/'
+const config = {
+    path: window.customElementStylesheetPath || ''
 };
 
 function createEach(createNode) {
@@ -85,7 +114,8 @@ function createTemplate(elem, shadow) {
                         name: 'unit-value',
                         value: scope.unitValue,
                         style: '--tick-value: ' + scope.unitValue + ';',
-                        text: scope.displayValue 
+                        text: scope.displayValue,
+                        part: 'tick'
                     });
 
                     marker.before(button);
@@ -97,15 +127,20 @@ function createTemplate(elem, shadow) {
 }
 
 export default element('range-control', {
-    template: '',
+    template: function(elem, shadow) {
+        const privates = Privates(elem);
+        privates.scope = createTemplate(elem, shadow);
+    },
 
+    mode:       'closed',
+    focusable:  true,
     attributes: attributes,
     properties: properties,
 
     construct: function(elem, shadow, internals) {
         const privates = Privates(elem);
         const data     = privates.data  = assign({}, defaults);
-        const scope    = privates.scope = createTemplate(elem, shadow, internals);
+
         privates.internals = internals;
 
         // Listen to touches on tick buttons
@@ -147,7 +182,7 @@ export default element('range-control', {
 
         // Range control must have value
         if (data.value === undefined) {
-            elem.value = data.min;
+            elem.value = clamp(data.min, data.max, 0);
         }
     }
 });

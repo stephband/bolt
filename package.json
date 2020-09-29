@@ -1,6 +1,7 @@
 {
+  "title": "Bolt",
   "name": "bolt",
-  "description": "A front-end toolkit of classes and evented behaviours.",
+  "description": "A front-end toolkit of classes, evented behaviours and custom elements.",
   "version": "2.1.1",
   "author": {
     "name": "stephband",
@@ -29,8 +30,11 @@
     "build": "npm run build-module && npm run build-css && npm run build-docs",
     "build-sass": "node-sass --output-style compact --indent-width 4 ./sass/grid.scss ./css/grid.css && node-sass --output-style compact --indent-width 4 ./sass/respond.scss ./css/respond.css",
     "build-module": "rollup ./module.js --o ./module.rolled.js --f esm",
+    "build-range-control": "rollup ./elements/range-control.js --o ./elements/range-control.rolled.js --f esm && madge --image ./elements/range-control.svg ./elements/range-control.js",
+    "build-rotary-control": "rollup ./elements/rotary-control.js --o ./elements/rotary-control.rolled.js --f esm && madge --image ./elements/rotary-control.svg ./elements/rotary-control.js",
+    "build-elements": "npm run build-range-control && npm run build-rotary-control",
     "build-css": "node ../fn/build-css.js style.css style.min.css",
-    "build-docs": "node ../fn/build-html.js index.template.html index.html && node ../fn/build-html.js rotary-control.template.html rotary-control.html",
+    "build-docs": "node ../fn/build-html.js index.template.html index.html && node ../fn/build-html.js elements/range-control.template.html elements/range-control.html && node ../fn/build-html.js elements/rotary-control.template.html elements/rotary-control.html",
     "graph": "madge --image ./module.svg ./module.js",
     "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.1' && git push"
   }

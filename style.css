@@ -6,6 +6,7 @@
 @import "css/type.css";
 @import "css/code.css";
 @import "css/content.css";
+@import "css/button.css";
 @import "css/input.css";
 @import "css/label.css";
 @import "css/progress.css";
@@ -13,6 +14,8 @@
 @import "css/index.css";
 @import "css/layer.css";
 @import "css/badge.css";
+@import "css/pill.css";
+@import "css/thumb.css";
 @import "css/block.css";
 @import "css/color.css";
 @import "css/text.css";
@@ -21,8 +24,6 @@
 @import "css/grid.css";
 @import "css/device.css";
 @import "css/var.css";
-@import "components/button.css";
-@import "components/thumb.css";
 @import "components/check-label.css";
 @import "components/switch-label.css";
 @import "components/check-button.css";

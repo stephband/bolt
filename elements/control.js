@@ -1,5 +1,9 @@
 
-import { id, overload, todB, toLevel, toCamelCase } from '../../fn/module.js';
+import id from '../../fn/modules/id.js';
+import overload from '../../fn/modules/overload.js';
+import todB from '../../fn/modules/maths/to-db.js';
+import toLevel from '../../fn/modules/maths/to-gain.js';
+import toCamelCase from '../../fn/modules/strings/to-camel-case.js';
 import * as normalise   from '../../fn/modules/normalisers.js';
 import * as denormalise from '../../fn/modules/denormalisers.js';
 
@@ -48,9 +52,9 @@ export const transformOutput = overload(id, {
         return isFinite(db) ?
             db < -1 ? db.toPrecision(3) :
                 db.toFixed(2) :
-            // Allow Infinity to pass through as it is already gracefully
-            // rendered by Sparky
-            db ;
+            db < 0 ?
+                '-∞' :
+                '∞' ;
     },
 
     Hz: function(unit, value) {
@@ -107,7 +111,9 @@ export const transformTick = overload(id, {
         const db = todB(value) ;
         return isFinite(db) ?
             db.toFixed(0) :
-            db ;
+            db < 0 ?
+                '-∞' :
+                '∞' ;
     },
 
     Hz: function(unit, value) {

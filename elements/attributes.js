@@ -1,5 +1,9 @@
 
-import { by, get, Observer, nothing, requestTick, Privates } from '../../fn/module.js';
+import by from '../../fn/modules/by.js';
+import get from '../../fn/modules/get.js';
+import nothing from '../../fn/modules/nothing.js';
+import requestTick from '../../fn/modules/request-tick.js';
+import Privates from '../../fn/modules/privates.js';
 import { evaluate, invert, transformTick, transformOutput, transformUnit } from './control.js';
 
 export function createTicks(data, tokens) {
@@ -17,7 +21,6 @@ export function createTicks(data, tokens) {
             // Freeze to tell mounter it's immutable, prevents
             // unnecessary observing
             return Object.freeze({
-                root:         data,
                 value:        value,
                 unitValue:    invert(data.transform, value, data.min, data.max),
                 displayValue: transformTick(data.unit, value)
@@ -39,10 +42,9 @@ function createSteps(data, tokens) {
         values
         .map(evaluate)
         .map((value) => {
-            const unitValue = invert(data.transform, value, data.min, data.max);
             return {
-                unitValue: unitValue,
-                value: value
+                value: value,
+                unitValue: invert(data.transform, value, data.min, data.max)
             };
         })
         .sort(by(get('unitValue'))) ;
@@ -67,18 +69,47 @@ function nearestStep(steps, unitValue) {
 
 
 export const attributes = {
-    min: function(value) { this.min = value; },
+    // Remember attributers are setup in this declared order
 
-    max: function(value) { this.max = value; },
+    /**
+    min="0"
+    Minimum value of fader range.
+    **/
 
-    scale: function(value) {
+    min: function(value) {
+        this.min = value;
+    },
+
+    /**
+    max="1"
+    Maximum value of fader range.
+    **/
+
+    max: function(value) {
+        this.max = value;
+    },
+
+    /**
+    law="linear"
+    Fader law. This is the name of a transform to be applied over the range 
+    of the fader travel. Possible values are:
+
+- `"linear"`
+- `"linear-logarithmic"`
+- `"logarithmic"`
+- `"quadratic"`
+- `"cubic"`
+    **/
+
+    law: function(value) {
         const privates = Privates(this);
         const data     = privates.data;
         const scope    = privates.scope;
-        this.data.transform = value || 'linear';
+
+        data.transform = value || 'linear';
 
         if (data.ticksAttribute) {
-            observer.ticks = createTicks(data, data.ticksAttribute);
+            data.ticks = createTicks(data, data.ticksAttribute);
         }
 
         if (data.step) {
@@ -89,6 +120,18 @@ export const attributes = {
 
         scope.unitZero(invert(data.transform, 0, data.min, data.max));
     },
+
+    /**
+    unit=""
+    **/
+
+    unit: function(value) {
+        Privates(this).data.unit = value;
+    },
+
+    /**
+    ticks=""
+    **/
 
     ticks: function(value) {
         const privates = Privates(this);
@@ -106,6 +149,10 @@ export const attributes = {
         }
     },
 
+    /**
+    steps=""
+    **/
+
     steps: function(value) {
         const privates = Privates(this);
         const data     = privates.data;
@@ -117,10 +164,12 @@ export const attributes = {
             value );
     },
 
-    value: function(value) { this.value = value; },
+    /**
+    value=""
+    **/
 
-    unit: function(value) {
-        Privates(this).data.unit = value;
+    value: function(value) {
+        this.value = value;
     },
 
     prefix: function(value) {
@@ -129,10 +178,21 @@ export const attributes = {
 };
 
 export const properties = {
+    /**
+    .type="number"
+    A readonly property with the value `"number"`, provided for consistency 
+    with native form elements.
+    **/
+
     type: {
         value: 'number',
         enumerable: true
     },
+
+    /**
+    .min=0
+    Minimum value for the range.
+    **/
 
     min: {
         get: function() {
@@ -158,6 +218,11 @@ export const properties = {
 
         enumerable: true
     },
+    
+    /**
+    .max=1
+    Maximum value for the range.
+    **/
 
     max: {
         get: function() {
@@ -182,7 +247,12 @@ export const properties = {
 
         enumerable: true
     },
-
+    
+    /**
+    .value=0
+    Value.
+    **/
+    
     value: {
         get: function() {
             return Privates(this).data.value;
@@ -227,3 +297,12 @@ export const properties = {
         enumerable: true
     }
 };
+
+
+/**
+"input"
+**/
+
+/**
+"change"
+**/

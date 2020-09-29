@@ -1,0 +1,24 @@
+<template id="header" remove>
+    <h2 class="doctext-02" fn="append:title after:body"></h2>
+</template>
+
+<!--
+Entry template for rendering a documentation entry. Takes:
+
+.property
+.property=value
+attribute=""
+attribute="value"
+-->
+
+<template id="default" remove><span class="default">=<em>{[default]}</em></span></template>
+
+<template id="entry" remove>
+    <article fn="append:body" class="{[type|append:-doc-toggle-block]} doc-toggle-block toggle-block block" toggleable id="{[type]}-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <a href="#{[type]}-{[id]}">
+                <code fn="prepend:title" class="{[type|is:attribute|yesno:token,'']} {[type|is:property|yesno:property,'']} {[type|is:attribute|yesno:html,js|prepend:language-]}"><template src="{[default|yesno:#default,'']}"></template></code>
+            </a>
+        </h3>
+    </article>
+</template>
