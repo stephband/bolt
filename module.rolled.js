@@ -125,18 +125,6 @@ Returns undefined.
 function noop() {}
 
 /**
-requestTick(fn)
-Call `fn` on the next tick.
-*/
-
-const resolved = Promise.resolve();
-
-function requestTick(fn) {
-    resolved.then(fn);
-    return fn;
-}
-
-/**
 toArray(object)
 */
 
@@ -163,22 +151,6 @@ function toArray(object) {
 
 const A$1 = Array.prototype;
 const S = String.prototype;
-
-/**
-by(fn, a, b)
-Compares `fn(a)` against `fn(b)` and returns `-1`, `0` or `1`. Useful for sorting
-objects by property:
-
-```
-[{id: '2'}, {id: '1'}].sort(by(get('id')));  // [{id: '1'}, {id: '2'}]
-```
-**/
-
-function by(fn, a, b) {
-    const fna = fn(a);
-    const fnb = fn(b);
-    return fnb === fna ? 0 : fna > fnb ? 1 : -1 ;
-}
 
 /**
 byAlphabet(a, b)
@@ -666,11 +638,6 @@ var nothing = Object.freeze({
     [Symbol.iterator]: () => iterator
 });
 
-function now() {
-    // Return time in seconds
-    return +new Date() / 1000;
-}
-
 /**
 overload(fn, map)
 
@@ -690,18 +657,16 @@ fn(1, 2);     // Returns b(1, 2)
 
 
 function overload(fn, map) {
-    return typeof map.get === 'function' ?
-        function overload() {
-            var key = fn.apply(null, arguments);
-            return map.get(key).apply(this, arguments);
-        } :
+    return function overload() {
+        const key     = fn.apply(null, arguments);
+        const handler = (map[key] || map.default);
 
-        function overload() {
-            const key     = fn.apply(null, arguments);
-            const handler = (map[key] || map.default);
-            if (!handler) { throw new Error('overload() no handler for "' + key + '"'); }
-            return handler.apply(this, arguments);
-        } ;
+        if (!handler) {
+            throw new Error('overload() no handler for "' + key + '"');
+        }
+
+        return handler.apply(this, arguments);
+    };
 }
 
 /**
@@ -1655,75 +1620,6 @@ if (Symbol) {
     };
 }
 
-/**
-Timer(duration, getTime)
-
-Create an object with a request/cancel pair of functions that
-fires request(fn) callbacks at a given duration.
-*/
-
-function Timer(duration, getTime) {
-    if (typeof duration !== 'number') { throw new Error('Timer(duration) requires a duration in seconds (' + duration + ')'); }
-
-    // Optional second argument is a function that returns
-    // current time (in seconds)
-    getTime = getTime || now;
-
-    var fns = [];
-    var id;
-    var t0  = -Infinity;
-
-    function frame() {
-        var n = fns.length;
-
-        id = undefined;
-        t0 = getTime();
-
-        while (n--) {
-            fns.shift()(t0);
-        }
-    }
-
-    return {
-        now: getTime,
-
-        request: function(fn) {
-            if (typeof fn !== 'function') { throw new Error('fn is not a function.'); }
-
-            // Add fn to queue
-            fns.push(fn);
-
-            // If the timer is cued do nothing
-            if (id) { return; }
-
-            var t1 = getTime();
-
-            // Set the timer and return something truthy
-            if (t0 + duration > t1) {
-                id = setTimeout(frame, (t0 + duration - t1) * 1000);
-            }
-            else {
-                requestTick(frame) ;
-            }
-
-            // Use the fn reference as the request id, because why not
-            return fn;
-        },
-
-        cancel: function(fn) {
-            var i = fns.indexOf(fn);
-            if (i === -1) { return; }
-
-            fns.splice(i, 1);
-
-            if (!fns.length) {
-                clearTimeout(id);
-                id = undefined;
-            }
-        }
-    };
-}
-
 var DEBUG     = self.DEBUG !== false;
 var assign$1    = Object.assign;
 
@@ -2069,28 +1965,6 @@ Stream$1.prototype = assign$1(Object.create(Fn.prototype), {
     //},
 
     /**
-    .throttle(time)
-    Throttles values such that the latest value is emitted every `time` seconds.
-    Other values are discarded. The parameter `time` may also be a timer options
-    object, an object with `{ request, cancel, now }` functions,
-    allowing the creation of, say, and animation frame throttle.
-    */
-
-    throttle: function throttle(timer) {
-        return this.pipe(Stream$1.throttle(timer));
-    },
-
-    /**
-    .wait(time)
-    Emits the latest value only after `time` seconds of inactivity.
-    Other values are discarded.
-    */
-
-    wait: function wait(time) {
-        return this.pipe(Stream$1.Choke(time));
-    },
-
-    /**
     .combine(fn, stream)
     Combines the latest values from this stream and `stream` via the combinator
     `fn` any time a new value is emitted by either stream.
@@ -2329,149 +2203,6 @@ Stream$1.fromPromise = function(promise) {
 };
 
 
-
-
-
-
-// Clock Stream
-
-const clockEventPool = [];
-
-function TimeSource(notify, end, timer) {
-    this.notify = notify;
-    this.end    = end;
-    this.timer  = timer;
-
-    const event = this.event = clockEventPool.shift() || {};
-    event.stopTime = Infinity;
-
-    this.frame = (time) => {
-        // Catch the case where stopTime has been set before or equal the
-        // end time of the previous frame, which can happen if start
-        // was scheduled via a promise, and therefore should only ever
-        // happen on the first frame: stop() catches this case thereafter
-        if (event.stopTime <= event.t2) { return; }
-
-        // Wait until startTime
-        if (time < event.startTime) {
-            this.requestId = this.timer.request(this.frame);
-            return;
-        }
-
-        // Reset frame fn without checks
-        this.frame = (time) => this.update(time);
-        this.frame(time);
-    };
-}
-
-assign$1(TimeSource.prototype, {
-    shift: function shift() {
-        var value = this.value;
-        this.value = undefined;
-        return value;
-    },
-
-    start: function(time) {
-        const now = this.timer.now();
-
-        this.event.startTime = time !== undefined ? time : now ;
-        this.event.t2 = time > now ? time : now ;
-
-        // If the currentTime (the last frame time) is greater than now
-        // call the frame for up to this point, otherwise add an arbitrary
-        // frame duration to now.
-        const frameTime = this.timer.currentTime > now ?
-            this.timer.currentTime :
-            now + 0.08 ;
-
-        if (this.event.startTime > frameTime) {
-            // Schedule update on the next frame
-            this.requestId = this.timer.request(this.frame);
-        }
-        else {
-            // Run the update on the next tick, in case we schedule stop
-            // before it gets chance to fire. This also gaurantees all stream
-            // pushes are async.
-            Promise.resolve(frameTime).then(this.frame);
-        }
-    },
-
-    stop: function stop(time) {
-        if (this.event.startTime === undefined) {
-            // This is a bit of an arbitrary restriction. It wouldnt
-            // take much to support this.
-            throw new Error('TimeStream: Cannot call .stop() before .start()');
-        }
-
-        this.event.stopTime = time || this.timer.now();
-
-        // If stopping during the current frame cancel future requests.
-        if (this.event.stopTime <= this.event.t2) {
-            this.requestId && this.timer.cancel(this.requestId);
-            this.end();
-        }
-    },
-
-    update: function(time) {
-        const event = this.event;
-        event.t1 = event.t2;
-
-        this.requestId = undefined;
-        this.value     = event;
-
-        if (time >= event.stopTime) {
-            event.t2 = event.stopTime;
-            this.notify();
-            this.end();
-
-            // Release event
-            clockEventPool.push(event);
-            return;
-        }
-
-        event.t2 = time;
-        this.notify();
-        // Todo: We need this? Test.
-        this.value     = undefined;
-        this.requestId = this.timer.request(this.frame);
-    }
-});
-
-
-/**
-Stream.fromTimer(timer)
-Create a stream from a `timer` object. A `timer` is an object
-with the properties:
-
-```
-{
-    request:     fn(fn), calls fn on the next frame, returns an id
-    cancel:      fn(id), cancels request with id
-    now:         fn(), returns the time
-    currentTime: time at the start of the latest frame
-}
-```
-
-Here is how a stream of animation frames may be created:
-
-```
-const frames = Stream.fromTimer({
-    request: window.requestAnimationFrame,
-    cancel: window.cancelAnimationFrame,
-    now: () => window.performance.now()
-});
-```
-
-This stream is not pushable.
-*/
-
-Stream$1.fromTimer = function TimeStream(timer) {
-    return new Stream$1(function(push, stop) {
-        return new TimeSource(push, stop, timer);
-    });
-};
-
-
 /**
 Stream.of(...values)
 Returns a stream that consumes arguments as a buffer. The stream is pushable.
@@ -2576,106 +2307,6 @@ Stream$1.Merge = function(source1, source2) {
     const sources = Array.from(arguments);
     return new Stream$1(function(push, stop) {
         return new MergeSource(push, stop, sources);
-    });
-};
-
-
-// Stream Timers
-
-Stream$1.Choke = function(time) {
-    return new Stream$1(function setup(notify, done) {
-        var value;
-        var update = choke(function() {
-            // Get last value and stick it in buffer
-            value = arguments[arguments.length - 1];
-            notify();
-        }, time);
-
-        return {
-            shift: function() {
-                var v = value;
-                value = undefined;
-                return v;
-            },
-
-            push: update,
-
-            stop: function stop() {
-                update.cancel(false);
-                done();
-            }
-        };
-    });
-};
-
-
-// Frame timer
-
-var frameTimer = {
-    now:     now,
-//    request: requestAnimationFrame.bind(window),
-//    cancel:  cancelAnimationFrame.bind(window)
-};
-
-
-// Stream.throttle
-
-function schedule() {
-    this.queue = noop;
-    this.ref   = this.timer.request(this.update);
-}
-
-function ThrottleSource(notify, stop, timer) {
-    this._stop   = stop;
-    this.timer   = timer;
-    this.queue   = schedule;
-    this.update  = function update() {
-        this.queue = schedule;
-        notify();
-    };
-}
-
-assign$1(ThrottleSource.prototype, {
-    shift: function shift() {
-        var value = this.value;
-        this.value = undefined;
-        return value;
-    },
-
-    stop: function stop(callLast) {
-        var timer = this.timer;
-
-        // An update is queued
-        if (this.queue === noop) {
-            timer.cancel && timer.cancel(this.ref);
-            this.ref = undefined;
-        }
-
-        // Don't permit further changes to be queued
-        this.queue = noop;
-
-        // If there is an update queued apply it now
-        // Hmmm. This is weird semantics. TODO: callLast should
-        // really be an 'immediate' flag, no?
-        this._stop(this.value !== undefined && callLast ? 1 : 0);
-    },
-
-    push: function throttle() {
-        // Store the latest value
-        this.value = arguments[arguments.length - 1];
-
-        // Queue the update
-        this.queue();
-    }
-});
-
-Stream$1.throttle = function(timer) {
-    return new Stream$1(function(notify, stop) {
-        timer = typeof timer === 'number' ? new Timer(timer) :
-            timer ? timer :
-            frameTimer;
-
-        return new ThrottleSource(notify, stop, timer);
     });
 };
 
@@ -2923,6 +2554,24 @@ function last(array) {
 
     // Todo: handle Fns and Streams
 }
+
+/**
+by(fn, a, b)
+Compares `fn(a)` against `fn(b)` and returns `-1`, `0` or `1`. Useful for sorting
+objects by property:
+
+```
+[{id: '2'}, {id: '1'}].sort(by(get('id')));  // [{id: '1'}, {id: '2'}]
+```
+**/
+
+function by(fn, a, b) {
+    const fna = fn(a);
+    const fnb = fn(b);
+    return fnb === fna ? 0 : fna > fnb ? 1 : -1 ;
+}
+
+var by$1 = curry(by, true);
 
 function sum(a, b) { return b + a; }
 function multiply(a, b) { return b * a; }
@@ -4215,70 +3864,9 @@ const floorDate = curry(function(token, date) {
 	return _floorDate(token, parseDate(date));
 });
 
-var rcomment = /\s*\/\*([\s\S]*)\*\/\s*/;
-
-var domify = overload(toType$1, {
-	'string': createArticle,
-
-	'function': function(template, name, size) {
-		return createArticle(multiline(template), name, size);
-	},
-
-	'default': function(template) {
-		// WHAT WHY?
-		//var nodes = typeof template.length === 'number' ? template : [template] ;
-		//append(nodes);
-		//return nodes;
-	}
-});
-
 var browser = /firefox/i.test(navigator.userAgent) ? 'FF' :
 	document.documentMode ? 'IE' :
 	'standard' ;
-
-const createSection = cache(function createSection() {
-	const section = document.createElement('section');
-	section.setAttribute('class', 'test-section');
-	document.body.appendChild(section);
-	return section;
-});
-
-function createArticle(html, name, size) {
-	const section = createSection();
-
-	const article = document.createElement('article');
-	article.setAttribute('class', 'span-' + (size || 2) + '-test-article test-article');
-
-	const title = document.createElement('h2');
-	title.setAttribute('class', 'test-title');
-	title.innerHTML = name;
-
-	const div = document.createElement('div');
-	div.setAttribute('class', 'test-fixture');
-
-	div.innerHTML = html;
-	article.appendChild(title);
-	article.appendChild(div);
-	section.appendChild(article);
-
-	return {
-		section: section,
-		article: article,
-		title:   title,
-		fixture: div
-	};
-}
-
-function multiline(fn) {
-	if (typeof fn !== 'function') { throw new TypeError('multiline: expects a function.'); }
-	var match = rcomment.exec(fn.toString());
-	if (!match) { throw new TypeError('multiline: comment missing.'); }
-	return match[1];
-}
-
-function toType$1(object) {
-	return typeof object;
-}
 
 // #e2006f
 // #332256
@@ -4293,7 +3881,6 @@ const xor     = curry(function xor(a, b) { return (a || b) && (!!a !== !!b); });
 const assign$3  = curry(Object.assign, true, 2);
 const define  = curry(Object.defineProperties, true, 2);
 
-const by$1          = curry(by, true);
 const byAlphabet$1  = curry(byAlphabet);
 
 const ap$1          = curry(ap, true);
@@ -4325,6 +3912,42 @@ const add = curry(function (a, b) {
     console.trace('Deprecated: module add() is now sum()');
     return a + b;
 });
+
+Stream$1.Choke = function(time) {
+    return new Stream$1(function setup(notify, done) {
+        var value;
+        var update = choke(function() {
+            // Get last value and stick it in buffer
+            value = arguments[arguments.length - 1];
+            notify();
+        }, time);
+
+        return {
+            shift: function() {
+                var v = value;
+                value = undefined;
+                return v;
+            },
+
+            push: update,
+
+            stop: function stop() {
+                update.cancel(false);
+                done();
+            }
+        };
+    });
+};
+
+/**
+.wait(time)
+Emits the latest value only after `time` seconds of inactivity.
+Other values are discarded.
+*/
+
+Stream$1.prototype.wait = function wait(time) {
+    return this.pipe(Stream$1.Choke(time));
+};
 
 const assign$4      = Object.assign;
 const CustomEvent = window.CustomEvent;

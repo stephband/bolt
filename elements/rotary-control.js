@@ -12,7 +12,12 @@ Import `<rotary-control>` custom element. This also registers the custom
 element and upgrades instances already in the DOM.
 
 ```js
-import 'path/to/bolt/elements/rotary-control.js';
+import 'path/to/bolt/elements/rotary-control.rolled.js';
+```
+```html
+<rotary-control name="pan" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">
+    Pan
+</rotary-control>
 ```
 
 **/
@@ -26,7 +31,7 @@ tallest element. If there are no ticks the component will collapse a bit
 smaller.
 */
 
-import { Observer } from '../../fn/module.js';
+import { Observer } from '../../fn/modules/observer/observer.js';
 import Privates from '../../fn/modules/privates.js';
 import { clamp } from '../../fn/modules/maths/clamp.js';
 import create from '../../dom/modules/create.js';
@@ -37,7 +42,7 @@ import { parseValue } from '../../dom/modules/parse-value.js';
 import trigger from '../../dom/modules/trigger.js';
 import { attributes, properties } from './attributes.js';
 
-console.log('<rotary-control> stephen.band/bolt/elements/rotary-control.html');
+//console.log('<rotary-control> stephen.band/bolt/elements/rotary-control.html');
 
 const DEBUG = true;
 

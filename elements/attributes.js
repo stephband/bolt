@@ -1,5 +1,10 @@
 
-import { by, get, Observer, nothing, requestTick, Privates } from '../../fn/module.js';
+import by from '../../fn/modules/by.js';
+import get from '../../fn/modules/get.js';
+import { Observer } from '../../fn/modules/observer/observer.js';
+import nothing from '../../fn/modules/nothing.js';
+import requestTick from '../../fn/modules/request-tick.js';
+import Privates from '../../fn/modules/privates.js';
 import { evaluate, invert, transformTick, transformOutput, transformUnit } from './control.js';
 
 export function createTicks(data, tokens) {

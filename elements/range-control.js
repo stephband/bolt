@@ -13,7 +13,12 @@ Import `<range-control>` custom element. This also registers the custom
 element and upgrades instances already in the DOM.
 
 ```js
-import './path/to/bolt/elements/range-control.js';
+import './path/to/bolt/elements/range-control.rolled.js';
+```
+```html
+<range-control name="scale" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">
+    Scale
+</range-control>
 ```
 
 **/
@@ -23,9 +28,13 @@ References:
 https://www.dr-lex.be/info-stuff/volumecontrols.html
 */
 
-import { Privates, Observer, observe } from '../../fn/module.js';
+import Privates from '../../fn/modules/privates.js';
+import { Observer } from '../../fn/modules/observer/observer.js';
+import { observe } from '../../fn/modules/observer/observe.js';
 import { transform } from './control.js';
-import { create, element, trigger } from '../../dom/module.js';
+import create from '../../dom/modules/create.js';
+import element from '../../dom/modules/element.js';
+import trigger from '../../dom/modules/trigger.js';
 import { attributes, properties } from './attributes.js';
 
 const DEBUG = true;
