@@ -1,6 +1,7 @@
 
 import '../../bolt/modules/switchable.js';
 import '../../bolt/modules/swipeable.js';
+import '../../fn/modules/stream.wait.js';
 import { cache, get, last } from '../../fn/module.js';
 import { append, before, rect, children, classes, closest, events, find, isTargetEvent, matches, next, previous as prev, query, style } from '../../dom/module.js';
 
