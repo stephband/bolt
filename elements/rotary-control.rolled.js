@@ -1,5 +1,3 @@
-const nothing      = Object.freeze([]);
-
 const $privates = Symbol('privates');
 
 function privates(object) {
@@ -618,13 +616,13 @@ const cubicBezier$1 = def(
 );
 
 var normalise = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	linear: linear,
-	quadratic: quadratic,
-	cubic: cubic,
-	logarithmic: logarithmic,
-	linearLogarithmic: linearLogarithmic,
-	cubicBezier: cubicBezier$1
+    __proto__: null,
+    linear: linear,
+    quadratic: quadratic,
+    cubic: cubic,
+    logarithmic: logarithmic,
+    linearLogarithmic: linearLogarithmic,
+    cubicBezier: cubicBezier$1
 });
 
 // Denormalisers take a min and max and transform a value into that range
@@ -677,13 +675,13 @@ const cubicBezier$2 = def(
 );
 
 var denormalise = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	linear: linear$1,
-	quadratic: quadratic$1,
-	cubic: cubic$1,
-	logarithmic: logarithmic$1,
-	linearLogarithmic: linearLogarithmic$1,
-	cubicBezier: cubicBezier$2
+    __proto__: null,
+    linear: linear$1,
+    quadratic: quadratic$1,
+    cubic: cubic$1,
+    logarithmic: logarithmic$1,
+    linearLogarithmic: linearLogarithmic$1,
+    cubicBezier: cubicBezier$2
 });
 
 function transform(curve, value, min, max) {
@@ -937,7 +935,7 @@ function choose(map) {
 const done     = { done: true };
 const iterator = { next: () => done };
 
-var nothing$1 = Object.freeze({
+var nothing = Object.freeze({
     // Standard array methods
     shift:   noop,
     push:    noop,
@@ -1088,7 +1086,7 @@ function createOptions(method, data, head, controller) {
 
     const headers = createHeaders(contentType, assign$2(
         config.headers && data ? config.headers(data) : {},
-        typeof head === 'string' ? nothing$1 : head
+        typeof head === 'string' ? nothing : head
     ));
 
     const options = {
@@ -2040,7 +2038,7 @@ assign$4(Fn.prototype, {
 
     flat: function() {
         var source = this;
-        var buffer = nothing$1;
+        var buffer = nothing;
 
         return create$1(this, function flat() {
             var value = buffer.shift();
@@ -2049,7 +2047,7 @@ assign$4(Fn.prototype, {
             //if (buffer.length === 0 || buffer.status === 'done') {
                 buffer = source.shift();
                 if (buffer !== undefined) { return flat(); }
-                buffer = nothing$1;
+                buffer = nothing;
             //}
         });
     },
@@ -2408,7 +2406,7 @@ function notify(object) {
 
 function done$1(stream, privates) {
     stream.status = 'done';
-    privates.source = nothing$1;
+    privates.source = nothing;
     privates.resolve();
 }
 
@@ -2558,7 +2556,7 @@ function StopSource(stream, source, privates, n, done) {
     this.done     = done;
 }
 
-assign$5(StopSource.prototype, nothing$1, {
+assign$5(StopSource.prototype, nothing, {
     shift: function() {
         const value = this.source.shift();
         if (--this.n < 1) { this.done(this.stream, this.privates); }
@@ -4137,7 +4135,7 @@ function createTicks(data, tokens) {
                 displayValue: transformTick(data.unit, value)
             });
         }) :
-        nothing$1 ;
+        nothing ;
 }
 
 function createSteps(data, tokens) {
@@ -4220,7 +4218,7 @@ const attributes = {
         data.transform = value || 'linear';
 
         if (data.ticksAttribute) {
-            observer.ticks = createTicks(data, data.ticksAttribute);
+            data.ticks = createTicks(data, data.ticksAttribute);
         }
 
         if (data.step) {
@@ -4546,6 +4544,8 @@ element('rotary-control', {
                 dy = y0 - e.clientY;
                 var unitValue = clamp(0, 1, y + dy / touchRange);
                 updateValue(elem, data, unitValue);
+                // Doesn't work
+                //elem.dispatchEvent(new InputEvent('input'));
                 trigger('input', elem);
             });
         });
@@ -4557,7 +4557,7 @@ element('rotary-control', {
 
         // Rotary control must have value
         if (data.value === undefined) {
-            elem.value = data.min;
+            elem.value = clamp(data.min, data.max, 0);
         }
     }
 });

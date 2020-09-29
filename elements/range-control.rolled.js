@@ -5,17 +5,76 @@ function privates(object) {
         || Object.defineProperty(object, $privates, { value: {} })[$privates] ;
 }
 
-const nothing      = Object.freeze([]);
-
 /**
-noop()
-Returns undefined.
+cache(fn)
+Returns a function that caches the output values of `fn(input)`
+against input values in a map, such that for each input value
+`fn` is only ever called once.
 */
 
-function noop() {}
+function cache(fn) {
+    var map = new Map();
 
-{ window.observeCount = 0; }
-const nothing$1 = Object.freeze([]);
+    return function cache(object) {
+
+        if (map.has(object)) {
+            return map.get(object);
+        }
+
+        var value = fn(object);
+        map.set(object, value);
+        return value;
+    };
+}
+
+/**
+curry(fn [, muteable, arity])
+Returns a function that wraps `fn` and makes it partially applicable.
+*/
+const A     = Array.prototype;
+
+function applyFn(fn, args) {
+    return typeof fn === 'function' ? fn.apply(null, args) : fn ;
+}
+
+function curry(fn, muteable, arity) {
+    arity = arity || fn.length;
+
+    var memo = arity === 1 ?
+        // Don't cache if `muteable` flag is true
+        muteable ? fn : cache(fn) :
+
+        // It's ok to always cache intermediate memos, though
+        cache(function(object) {
+            return curry(function() {
+                var args = [object];
+                args.push.apply(args, arguments);
+                return fn.apply(null, args);
+            }, muteable, arity - 1) ;
+        }) ;
+
+    return function partial(object) {
+        return arguments.length === 0 ?
+            partial :
+        arguments.length === 1 ?
+            memo(object) :
+        arguments.length === arity ?
+            fn.apply(null, arguments) :
+        arguments.length > arity ?
+            applyFn(fn.apply(null, A.splice.call(arguments, 0, arity)), arguments) :
+        applyFn(memo(object), A.slice.call(arguments, 1)) ;
+    };
+}
+
+/**
+clamp(min, max, n)
+**/
+
+function clamp(min, max, n) {
+    return n > max ? max : n < min ? min : n;
+}
+
+curry(clamp);
 
 /**
 id(value)
@@ -91,6 +150,13 @@ function toCamelCase(string) {
         return letter ? letter.toUpperCase() : '';
     });
 }
+
+/**
+noop()
+Returns undefined.
+*/
+
+function noop() {}
 
 const DEBUG = window.DEBUG === undefined || window.DEBUG;
 
@@ -226,67 +292,6 @@ function def(notation, fn, file, line) {
         checkType(returnType, output, file, line, 'return value not of type "' + returnType + '": ' + output);
         return output;
     } : fn ;
-}
-
-/**
-cache(fn)
-Returns a function that caches the output values of `fn(input)`
-against input values in a map, such that for each input value
-`fn` is only ever called once.
-*/
-
-function cache(fn) {
-    var map = new Map();
-
-    return function cache(object) {
-
-        if (map.has(object)) {
-            return map.get(object);
-        }
-
-        var value = fn(object);
-        map.set(object, value);
-        return value;
-    };
-}
-
-/**
-curry(fn [, muteable, arity])
-Returns a function that wraps `fn` and makes it partially applicable.
-*/
-const A     = Array.prototype;
-
-function applyFn(fn, args) {
-    return typeof fn === 'function' ? fn.apply(null, args) : fn ;
-}
-
-function curry(fn, muteable, arity) {
-    arity = arity || fn.length;
-
-    var memo = arity === 1 ?
-        // Don't cache if `muteable` flag is true
-        muteable ? fn : cache(fn) :
-
-        // It's ok to always cache intermediate memos, though
-        cache(function(object) {
-            return curry(function() {
-                var args = [object];
-                args.push.apply(args, arguments);
-                return fn.apply(null, args);
-            }, muteable, arity - 1) ;
-        }) ;
-
-    return function partial(object) {
-        return arguments.length === 0 ?
-            partial :
-        arguments.length === 1 ?
-            memo(object) :
-        arguments.length === arity ?
-            fn.apply(null, arguments) :
-        arguments.length > arity ?
-            applyFn(fn.apply(null, A.splice.call(arguments, 0, arity)), arguments) :
-        applyFn(memo(object), A.slice.call(arguments, 1)) ;
-    };
 }
 
 // Cubic bezier function (originally translated from
@@ -930,7 +935,7 @@ function choose(map) {
 const done     = { done: true };
 const iterator = { next: () => done };
 
-var nothing$2 = Object.freeze({
+var nothing = Object.freeze({
     // Standard array methods
     shift:   noop,
     push:    noop,
@@ -1081,7 +1086,7 @@ function createOptions(method, data, head, controller) {
 
     const headers = createHeaders(contentType, assign$2(
         config.headers && data ? config.headers(data) : {},
-        typeof head === 'string' ? nothing$2 : head
+        typeof head === 'string' ? nothing : head
     ));
 
     const options = {
@@ -1708,7 +1713,7 @@ function createTicks(data, tokens) {
                 displayValue: transformTick(data.unit, value)
             });
         }) :
-        nothing$2 ;
+        nothing ;
 }
 
 function createSteps(data, tokens) {
@@ -1791,7 +1796,7 @@ const attributes = {
         data.transform = value || 'linear';
 
         if (data.ticksAttribute) {
-            observer.ticks = createTicks(data, data.ticksAttribute);
+            data.ticks = createTicks(data, data.ticksAttribute);
         }
 
         if (data.step) {
@@ -2130,7 +2135,7 @@ var rangeControl = element('range-control', {
 
         // Range control must have value
         if (data.value === undefined) {
-            elem.value = data.min;
+            elem.value = clamp(data.min, data.max, 0);
         }
     }
 });

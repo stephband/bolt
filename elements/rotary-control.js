@@ -27,7 +27,6 @@ tallest element. If there are no ticks the component will collapse a bit
 smaller.
 */
 
-import { Observer } from '../../fn/modules/observer/observer.js';
 import Privates from '../../fn/modules/privates.js';
 import { clamp } from '../../fn/modules/maths/clamp.js';
 import create from '../../dom/modules/create.js';

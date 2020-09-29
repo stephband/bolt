@@ -1,7 +1,6 @@
 
 import by from '../../fn/modules/by.js';
 import get from '../../fn/modules/get.js';
-import { Observer } from '../../fn/modules/observer/observer.js';
 import nothing from '../../fn/modules/nothing.js';
 import requestTick from '../../fn/modules/request-tick.js';
 import Privates from '../../fn/modules/privates.js';
@@ -110,7 +109,7 @@ export const attributes = {
         data.transform = value || 'linear';
 
         if (data.ticksAttribute) {
-            observer.ticks = createTicks(data, data.ticksAttribute);
+            data.ticks = createTicks(data, data.ticksAttribute);
         }
 
         if (data.step) {
