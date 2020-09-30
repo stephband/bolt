@@ -1,4 +1,8 @@
 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 :host {
     /** --value-color **/
     --value-color: #88deff;
@@ -12,10 +16,6 @@
     position: relative;
     display: grid;
     padding: 0;
-}
-
-:host * {
-    box-sizing: border-box;
 }
 
 :host(:focus) {

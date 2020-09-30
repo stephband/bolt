@@ -71,10 +71,6 @@
     justify-content: center;
 }
 
-:host * {
-    box-sizing: border-box;
-}
-
 :host(:focus) {
     --value-color: #75ebff;
     --output-color: white;
@@ -87,10 +83,6 @@
     /* Nullify simulated focus style. */
     outline-width: 0 !important;
     box-shadow: none !important;
-}
-
-:host > * {
-    margin: 0;
 }
 
 :host::before {
