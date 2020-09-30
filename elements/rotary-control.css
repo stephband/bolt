@@ -47,25 +47,12 @@
     **/
     --touch-range: 15rem;
 
-    --dot-width: 0.3125rem;
-    --dot-height: var(--dot-width);
-    --dot-distance: calc(50% - 0.5rem);
-    --dot-background: #46789a;
-    --dot-border: none;
-    --dot-shadow: none;
-
-    --tick-width: 0.1875rem;
-    --tick-height: var(--tick-width);
-    --tick-radius: calc(0.5 * var(--handle-width) + 0.625rem);
-    --tick-color: black;
-    --tick-background: var(--tick-color);
-    --tick-border: none;
-    --tick-border-radius: 50%;
-    --tick-shadow: none;
-    --tick-font-size: 0.625rem;
-    --tick-line-height: 0.9375rem;
-    --tick-letter-spacing: -0.0125em;
-    --tick-text-shadow: none;
+    --handle-dot-width: 0.3125rem;
+    --handle-dot-height: var(--handle-dot-width);
+    --handle-dot-distance: calc(50% - 0.5rem);
+    --handle-dot-background: #46789a;
+    --handle-dot-border: none;
+    --handle-dot-shadow: none;
 
     --focus-shadow: inset 0 0 0.9375rem hsla(200, 100%, 80%, 0.4);
 
@@ -93,7 +80,7 @@
     --output-color: white;
     --handle-background: #46789a;
     --handle-border: 1px solid #46789a;
-    --dot-background: white;
+    --handle-dot-background: white;
     --tick-color: #46789a;
     --tick-background: #46789a;
 
@@ -201,15 +188,15 @@
 [part="handle"]::after {
     content: '';
     position: absolute;
-    width: var(--dot-width);
-    height: var(--dot-height);
+    width: var(--handle-dot-width);
+    height: var(--handle-dot-height);
     left: 50%;
-    top: calc(50% + var(--dot-distance));
+    top: calc(50% + var(--handle-dot-distance));
     transform: translate3d(-50%, 0, 0);
     border-radius: 50%;
-    background-color: var(--dot-background);
-    border: var(--dot-border);
-    box-shadow: var(--dot-shadow);
+    background-color: var(--handle-dot-background);
+    border: var(--handle-dot-border);
+    box-shadow: var(--handle-dot-shadow);
 }
 
 
