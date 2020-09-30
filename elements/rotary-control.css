@@ -47,18 +47,6 @@
     **/
     --touch-range: 15rem;
 
-    --label-font-size: 1em;
-    --label-line-height: 1.2em;
-    --label-letter-spacing: -0.04em;
-    --label-color: black;
-    --label-shadow: none;
-
-    --output-font-size: 0.75rem;
-    --output-line-height: 1rem;
-    --output-letter-spacing: -0.04em;
-    --output-color: #46789a;
-    --output-shadow: none;
-
     --dot-width: 0.3125rem;
     --dot-height: var(--dot-width);
     --dot-distance: calc(50% - 0.5rem);
@@ -178,33 +166,16 @@
 
 /* label */
 
-label {
+[part="label"] {
     align-self: start;
-    font-size: var(--label-font-size);
-    line-height: var(--label-line-height);
-    letter-spacing: var(--label-letter-spacing);
-    color: var(--label-color);
 }
 
 
 /* output */
 
-output {
-    font-family: 'Fira Mono', 'Andale Mono', monospace;
-    font-size: var(--output-font-size, 0.75rem);
-    line-height: var(--output-line-height);
-    letter-spacing: var(--output-letter-spacing);
+[part="output"] {
     width: var(--handle-width);
-    height: auto;
     text-align: center;
-    white-space: pre;
-    color: var(--output-color);
-}
-
-output > abbr {
-    font-size: 0.8em;
-    margin-left: 0.125em;
-    vertical-align: baseline;
 }
 
 
@@ -244,50 +215,34 @@ output > abbr {
 
 /* tick */
 
-button[name="unit-value"] {
-    cursor: pointer;
+[part="tick"] {
+    --tick-radius: calc(0.5 * var(--handle-width) + 0.625rem);
+    --tick-line-height: 0.9375rem;
+    --tick-height: 0.1875rem;
 
-    display: block;
     padding: calc(2 * var(--tick-radius) + var(--tick-line-height) + var(--tick-height)) 0 0 0;
     width: 0;
     box-sizing: content-box;
     height: auto;
     transform-origin: 50% 50%;
-
-    font-size: var(--tick-font-size);
-    line-height: var(--tick-line-height);
-    letter-spacing: var(--tick-letter-spacing);
-    text-shadow: var(--tick-text-shadow);
-    color: var(--tick-color);
-    border-width: 0;
-    background: transparent;
-
-    /* Interior tick value text appears outside the tick */
-    overflow: visible;
-
-    -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-          -ms-user-select: none; /* Internet Explorer/Edge */
-              user-select: none; /* Non-prefixed version */
+    color: currentcolor;
 }
 
-button[name="unit-value"]::before {
+[part="tick"]::before {
     content: '';
     display: block;
-
-    width: var(--tick-width);
-    height: var(--tick-height);
-    background: var(--tick-background);
-    border: var(--tick-border);
-    border-radius: var(--tick-border-radius);
+    width: 0.1875rem;
+    height: 0.1875rem;
+    background: currentcolor;
+    border-radius: 50%;
     transform: translate3d(-50%, 0, 0);
 }
 
-button[name="unit-value"]::after {
+[part="tick"]::after {
     content: none;
 }
 
-button[name="unit-value"] > span {
+[part="tick"] > span {
     /* Required for transform */
     display: inline-block;
     width: auto;

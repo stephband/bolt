@@ -167,6 +167,8 @@ export const transformUnit = overload(id, {
     semitone: unitEmptyString,
 
     s: unitMilliKilo,
+    
+    int: () => '',
 
     default: function(unit, value) {
         // Return empty string if no unit

@@ -26,6 +26,7 @@ https://www.dr-lex.be/info-stuff/volumecontrols.html
 
 import Privates from '../../fn/modules/privates.js';
 import { clamp } from '../../fn/modules/maths/clamp.js';
+import overload from '../../fn/modules/overload.js';
 import { transform } from './control.js';
 import create from '../../dom/modules/create.js';
 import element from '../../dom/modules/element.js';
@@ -37,7 +38,6 @@ const DEBUG = true;
 const assign = Object.assign;
 const define = Object.defineProperties;
 
-
 const defaults = {
     transform: 'linear',
     min:    0,
@@ -48,22 +48,18 @@ const config = {
     path: window.customElementStylesheetPath || ''
 };
 
-function createEach(createNode) {
-    const mark = create('text', '');
-    return mark;
-}
+
+/* Shadow */
 
 function createTemplate(elem, shadow) {
     const link   = create('link',  { rel: 'stylesheet', href: config.path + 'range-control.css' });
     const style  = create('style', ':host {}');
-    const label  = create('label', { for: 'input', html: '<slot></slot>' });
+    const label  = create('label', { for: 'input', html: '<slot></slot>', part: 'label' });
     const input  = create('input', { type: 'range', id: 'input', name: 'unit-value', min: '0', max: '1', step: 'any' });
     const text   = create('text');
     const abbr   = create('abbr');
-    const output = create('output', { children: [text, abbr] });
-    const marker = DEBUG ?
-        create('comment', ' ticks ') :
-        create('text', '') ;
+    const output = create('output', { children: [text, abbr], part: 'output' });
+    const marker = create('text', '');
 
     shadow.appendChild(link);
     shadow.appendChild(style);
@@ -77,13 +73,9 @@ function createTemplate(elem, shadow) {
 
     return {
         'unitValue': function(unitValue) {
-            // Check that input is not the currently active node before updating
-            //if (input.getRootNode().activeElement !== input) {
-                // Check that the input does not already have the value
-                if (input.value !== unitValue + '') {
-                    input.value = unitValue + '';
-                }
-            //}
+            if (input.value !== unitValue + '') {
+                input.value = unitValue + '';
+            }
 
             css.setProperty('--unit-value', unitValue);
         },
@@ -98,7 +90,18 @@ function createTemplate(elem, shadow) {
         },
 
         'displayUnit': function(displayUnit) {
-            abbr.textContent = displayUnit;
+            // Add and remove output > abbr
+            if (displayUnit) {
+                if (!abbr.parentNode) {
+                    output.appendChild(abbr);
+                }
+
+                // Update abbr text
+                abbr.textContent = displayUnit;
+            }
+            else if (abbr.parentNode) {
+                abbr.remove();
+            }
         },
 
         'ticks': (function(buttons) {
@@ -126,6 +129,45 @@ function createTemplate(elem, shadow) {
     };
 }
 
+
+/* Events */
+
+function touchstart(e) {
+    // Ignore non-ticks
+    if (e.target.type !== 'button') { return; }
+
+    const unitValue = parseFloat(e.target.value);
+    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
+    this.element.value = value;
+
+    // Refocus the input (should not be needed now we have focus 
+    // control on parent?) and trigger input event on element
+    //            shadow.querySelector('input').focus();
+
+    // Change event on element
+    trigger('change', this.element);
+}
+
+function input(e) {
+    const unitValue = parseFloat(e.target.value); 
+    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
+    this.element.value = value;
+
+    // If the range has steps make sure the handle snaps into place
+    if (this.data.steps) {
+        e.target.value = this.data.unitValue;
+    }
+}
+
+const handleEvent = overload((e) => e.type, {
+    'touchstart': touchstart,
+    'mousedown': touchstart,
+    'input': input
+});
+
+
+/* Element */
+
 export default element('range-control', {
     template: function(elem, shadow) {
         const privates = Privates(elem);
@@ -138,42 +180,21 @@ export default element('range-control', {
     properties: properties,
 
     construct: function(elem, shadow, internals) {
+        // Setup internal data store `privates`
         const privates = Privates(elem);
         const data     = privates.data  = assign({}, defaults);
 
-        privates.internals = internals;
+        privates.element     = elem;
+        privates.shadow      = shadow;
+        privates.internals   = internals;
+        privates.handleEvent = handleEvent;
 
-        // Listen to touches on tick buttons
-        function down(e) {
-            if (e.target.type !== 'button') { return; }
-
-            const unitValue = parseFloat(e.target.value);
-            const value = transform(data.transform, unitValue, data.min, data.max) ;
-
-            elem.value = value;
-
-            // Refocus the input (should not be needed now we have focus 
-            // control on parent?) and trigger input event on element
-//            shadow.querySelector('input').focus();
-
-            // Change event on element
-            trigger('change', elem);
-        }
-
-        shadow.addEventListener('mousedown', down);
-        shadow.addEventListener('touchstart', down);
+        // Listen to touches on ticks
+        shadow.addEventListener('mousedown', privates);
+        shadow.addEventListener('touchstart', privates);
 
         // Listen to range input
-        shadow.addEventListener('input', (e) => {
-            const unitValue = parseFloat(e.target.value); 
-            const value = transform(data.transform, unitValue, data.min, data.max) ;
-            elem.value = value;
-
-            // If the range has steps make sure the handle snaps into place
-            if (data.steps) {
-                e.target.value = data.unitValue;
-            }
-        });
+        shadow.addEventListener('input', privates);
     },
 
     connect: function(elem, shadow) {

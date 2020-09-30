@@ -53,6 +53,9 @@ const config = {
     path: window.customElementStylesheetPath || ''
 };
 
+
+/* Shadow */
+
 function createTemplate(elem, shadow, internals) {
     const link   = create('link',  { rel: 'stylesheet', href: config.path + 'rotary-control.css' });
     const style  = create('style', ':host {}');
@@ -61,9 +64,7 @@ function createTemplate(elem, shadow, internals) {
     const text   = create('text');
     const abbr   = create('abbr');
     const output = create('output', { children: [text, abbr], part: 'output' });
-    const marker = DEBUG ?
-        create('comment', ' ticks ') :
-        create('text', '') ;
+    const marker = create('text', '') ;
 
     shadow.appendChild(link);
     shadow.appendChild(style);
@@ -74,7 +75,7 @@ function createTemplate(elem, shadow, internals) {
 
     // Get the :host {} style rule from style
     const css = style.sheet.cssRules[0].style;
-
+            
     return {
         'unitValue': function(unitValue) {
             css.setProperty('--unit-value', unitValue);
@@ -90,7 +91,18 @@ function createTemplate(elem, shadow, internals) {
         },
 
         'displayUnit': function(displayUnit) {
-            abbr.textContent = displayUnit;
+            // Add and remove output > abbr
+            if (displayUnit) {
+                if (!abbr.parentNode) {
+                    output.appendChild(abbr);
+                }
+
+                // Update abbr text
+                abbr.textContent = displayUnit;
+            }
+            else if (abbr.parentNode) {
+                abbr.remove();
+            }
         },
 
         'ticks': (function(buttons) {
@@ -123,10 +135,29 @@ function createTemplate(elem, shadow, internals) {
     };
 }
 
-function updateValue(element, data, unitValue) {
-    const value = transform(data.transform, unitValue, data.min, data.max) ;
-    element.value = value;
+
+/* Events */
+
+function touchstart(e) {
+    // Ignore non-ticks
+    if (e.target.type !== 'button') { return; }
+
+    const unitValue = parseFloat(e.target.value);
+    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
+    this.element.value = value;
+
+    // Refocus the input (should not be needed now we have focus 
+    // control on parent?) and trigger input event on element
+    //            shadow.querySelector('input').focus();
+
+    // Change event on element
+    trigger('change', this.element);
 }
+
+const handleEvent = overload((e) => e.type, {
+    'touchstart': touchstart,
+    'mousedown': touchstart
+});
 
 element('rotary-control', {
     template: function(elem, shadow) {
@@ -144,14 +175,12 @@ element('rotary-control', {
         const data     = privates.data  = assign({}, defaults);
         const scope    = privates.scope = createTemplate(elem, shadow, internals);
 
-        privates.internals = internals;
+        privates.element     = elem;
+        privates.shadow      = shadow;
+        privates.internals   = internals;
+        privates.handleEvent = handleEvent;
 
-        shadow.addEventListener('mousedown', (e) => {
-            const target = e.target.closest('[name]') || e.target;
-            if (target.name !== 'unit-value') { return; }
-            updateValue(elem, data, parseFloat(target.value));
-            trigger('change', elem);
-        });
+        shadow.addEventListener('mousedown', privates);
 
         gestures({ threshold: 1, selector: 'div' }, shadow)
         .each(function(events) {
@@ -169,7 +198,8 @@ element('rotary-control', {
             .each(function (e) {
                 dy = y0 - e.clientY;
                 var unitValue = clamp(0, 1, y + dy / touchRange);
-                updateValue(elem, data, unitValue);
+                const value = transform(data.transform, unitValue, data.min, data.max) ;
+                this.element.value = value;
                 // Doesn't work
                 //elem.dispatchEvent(new InputEvent('input'));
                 trigger('input', elem);
