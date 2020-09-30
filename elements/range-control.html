@@ -273,19 +273,19 @@ element and upgrades instances already in the DOM.</p>
     </header>
 
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-        <range-control name="ratio" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" value="0">
+        <range-control name="ratio" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" value="0" style="visibility: visible;">
             Scale
         </range-control>
     
-        <range-control name="gain" min="-48dB" max="0dB" ticks="-âˆždB -48dB -42dB -36dB -30dB -24dB -18dB -12dB -6dB 0dB" law="linear-logarithmic" unit="dB" value="-6dB">
+        <range-control name="gain" min="-48dB" max="0dB" ticks="-âˆždB -48dB -42dB -36dB -30dB -24dB -18dB -12dB -6dB 0dB" law="linear-logarithmic" unit="dB" value="-6dB" style="visibility: visible;">
             Volume
         </range-control>
     
-        <range-control name="frequency" min="20" max="20000" ticks="20Hz 100Hz 200Hz 1kHz 2kHz 10kHz 20kHz" law="logarithmic" unit="Hz" value="20Hz">
+        <range-control name="frequency" min="20" max="20000" ticks="20Hz 100Hz 200Hz 1kHz 2kHz 10kHz 20kHz" law="logarithmic" unit="Hz" value="20Hz" style="visibility: visible;">
             Frequency
         </range-control>
 
-        <range-control name="rating" min="1" max="5" ticks="1 2 3 4 5" steps="ticks" law="linear" value="3">
+        <range-control name="rating" min="1" max="5" ticks="1 2 3 4 5" steps="ticks" law="linear" value="3" style="visibility: visible;">
             Rating
         </range-control>
 
@@ -555,6 +555,14 @@ Style the tick marks.</p>
         <h3 class="doctext-05 ">
             <a href="#var-handle-shadow">
                 <code class="language-js">--handle-shadow <template src="{[default|yesno:#default,'']}"></template></code>
+            </a>
+        </h3>
+    </article>
+
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-bleed">
+        <h3 class="doctext-05 ">
+            <a href="#var-bleed">
+                <code class="language-js">--bleed <template src="{[default|yesno:#default,'']}"></template></code>
             </a>
         </h3>
     </article>

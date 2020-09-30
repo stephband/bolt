@@ -29,6 +29,7 @@ smaller.
 
 import Privates from '../../fn/modules/privates.js';
 import { clamp } from '../../fn/modules/maths/clamp.js';
+import overload from '../../fn/modules/overload.js';
 import create from '../../dom/modules/create.js';
 import { transform } from './control.js';
 import element from '../../dom/modules/element.js';
@@ -199,7 +200,7 @@ element('rotary-control', {
                 dy = y0 - e.clientY;
                 var unitValue = clamp(0, 1, y + dy / touchRange);
                 const value = transform(data.transform, unitValue, data.min, data.max) ;
-                this.element.value = value;
+                elem.value = value;
                 // Doesn't work
                 //elem.dispatchEvent(new InputEvent('input'));
                 trigger('input', elem);
