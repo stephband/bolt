@@ -77,13 +77,6 @@ function clamp(min, max, n) {
 curry(clamp);
 
 /**
-id(value)
-Returns `value`.
-*/
-
-function id(value) { return value; }
-
-/**
 overload(fn, map)
 
 Returns a function that calls a function at the property of `object` that
@@ -101,7 +94,7 @@ fn(1, 2);     // Returns b(1, 2)
 */
 
 
-function overload$1(fn, map) {
+function overload(fn, map) {
     return function overload() {
         const key     = fn.apply(null, arguments);
         const handler = (map[key] || map.default);
@@ -113,6 +106,13 @@ function overload$1(fn, map) {
         return handler.apply(this, arguments);
     };
 }
+
+/**
+id(value)
+Returns `value`.
+*/
+
+function id(value) { return value; }
 
 /**
 toType(object)
@@ -145,7 +145,7 @@ of `'tagName'` (which is ignored, as `node.tagName` is read-only). The
 property `'is'` is also ignored.
 */
 
-const assignProperty = overload$1(id, {
+const assignProperty = overload(id, {
 	// Ignore read-only properties or attributes
 	is: noop,
 	tag: noop,
@@ -221,7 +221,7 @@ function constructSVG(tag, html) {
     return node;
 }
 
-const construct = overload$1(id, {
+const construct = overload(id, {
     comment: function(tag, text) {
         return document.createComment(text || '');
     },
@@ -291,7 +291,7 @@ function validateTag(tag) {
     }
 }
 
-var create = overload$1(toTypes, {
+var create = overload(toTypes, {
     'string': construct,
 
     'string string': construct,
@@ -700,7 +700,7 @@ function outputMilliKilo(unit, value) {
         value.toPrecision(3) ;
 }
 
-const transformOutput = overload$1(id, {
+const transformOutput = overload(id, {
     pan: function(unit, value) {
         return value === -1 ? '-1.00' :
             value === 0 ? '0.00' :
@@ -760,7 +760,7 @@ function tickMilliKilo(unit, value) {
         (value / 1000).toPrecision(1) + 'k' ;
 }
 
-const transformTick = overload$1(id, {
+const transformTick = overload(id, {
     pan: function(unit, value) {
         return value === -1 ? 'left' :
             value === 0 ? 'centre' :
@@ -818,7 +818,7 @@ function unitEmptyString() {
     return '';
 }
 
-const transformUnit = overload$1(id, {
+const transformUnit = overload(id, {
     pan: unitEmptyString,
 
     dB: id,
@@ -3730,7 +3730,7 @@ parseValue(value)`
 Takes a string of the form '10rem', '100vw' or '100vh' and returns a number in pixels.
 */
 
-const parseValue$1 = overload$1(toType, {
+const parseValue$1 = overload(toType, {
     'number': id,
 
     'string': parseVal({
@@ -4593,7 +4593,7 @@ element('rotary-control', {
                 dy = y0 - e.clientY;
                 var unitValue = clamp(0, 1, y + dy / touchRange);
                 const value = transform(data.transform, unitValue, data.min, data.max) ;
-                this.element.value = value;
+                elem.value = value;
                 // Doesn't work
                 //elem.dispatchEvent(new InputEvent('input'));
                 trigger('input', elem);
