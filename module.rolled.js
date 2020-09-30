@@ -5449,7 +5449,7 @@ function gestures(options, node) {
         }
 
         on('mousedown', mouseHandler, node);
-        on('touchstart', touchHandler, node, { passive: false });
+        on('touchstart', touchHandler, node);
 
         return {
             stop: function() {
