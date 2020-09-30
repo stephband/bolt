@@ -183,7 +183,7 @@ element('rotary-control', {
 
         shadow.addEventListener('mousedown', privates);
 
-        gestures({ threshold: 1, selector: 'div' }, shadow)
+        gestures({ threshold: 1, selector: 'div', passive: false }, shadow)
         .each(function(events) {
             // First event is touchstart or mousedown
             const e0 = events.shift();
@@ -191,7 +191,7 @@ element('rotary-control', {
             const y  = data.unitValue;
             const touchValue = getComputedStyle(elem).getPropertyValue('--touch-range');
             const touchRange = parseValue(touchValue);
-
+e0.preventDefault();
             let dy;
 
             events

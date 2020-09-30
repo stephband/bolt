@@ -4061,7 +4061,7 @@ function gestures(options, node) {
         }
 
         on('mousedown', mouseHandler, node);
-        on('touchstart', touchHandler, node);
+        on('touchstart', touchHandler, node, { passive: false });
 
         return {
             stop: function() {
@@ -4576,7 +4576,7 @@ element('rotary-control', {
 
         shadow.addEventListener('mousedown', privates$1);
 
-        gestures({ threshold: 1, selector: 'div' }, shadow)
+        gestures({ threshold: 1, selector: 'div', passive: false }, shadow)
         .each(function(events) {
             // First event is touchstart or mousedown
             const e0 = events.shift();
@@ -4584,7 +4584,7 @@ element('rotary-control', {
             const y  = data.unitValue;
             const touchValue = getComputedStyle(elem).getPropertyValue('--touch-range');
             const touchRange = parseValue$1(touchValue);
-
+e0.preventDefault();
             let dy;
 
             events

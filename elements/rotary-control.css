@@ -174,6 +174,10 @@
     border: var(--handle-border);
     border-radius: 50%;
     transform: rotate3d(0, 0, 1, calc(var(--rotation-start) + var(--unit-value) * var(--rotation-range)));
+    
+    /* Disable scroll */
+    touch-action: none;
+    -webkit-touch-action:  none;
 
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
