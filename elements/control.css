@@ -31,6 +31,10 @@
     box-shadow: none !important;
 }
 
+:host > * {
+    margin: 0;
+}
+
 
 /** 
 ::part(label)
