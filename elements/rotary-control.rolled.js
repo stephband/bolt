@@ -3781,7 +3781,7 @@ var touchevents = {
     // gesture on or leave it to be explicitly set in CSS?
     move:   { type: 'touchmove', passive: false },
     cancel: 'touchend',
-    end:    'touchend'
+    end:    { type: 'touchend', passive: false }
 };
 
 const assign$8 = Object.assign;
@@ -3974,6 +3974,10 @@ function activeTouchend(e, data, stop) {
 
     // This isn't the touch you're looking for.
     if (!touch) { return; }
+
+    // Neuter the resulting click event
+    e.preventDefault();
+
     removeActiveTouch(data);
     stop();
 }
@@ -4576,7 +4580,7 @@ element('rotary-control', {
 
         shadow.addEventListener('mousedown', privates$1);
 
-        gestures({ threshold: 1, selector: 'div', passive: false }, shadow)
+        gestures({ threshold: 1, selector: 'div' }, shadow)
         .each(function(events) {
             // First event is touchstart or mousedown
             const e0 = events.shift();
@@ -4584,7 +4588,7 @@ element('rotary-control', {
             const y  = data.unitValue;
             const touchValue = getComputedStyle(elem).getPropertyValue('--touch-range');
             const touchRange = parseValue$1(touchValue);
-e0.preventDefault();
+
             let dy;
 
             events
