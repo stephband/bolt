@@ -77,13 +77,6 @@ function clamp(min, max, n) {
 curry(clamp);
 
 /**
-id(value)
-Returns `value`.
-*/
-
-function id(value) { return value; }
-
-/**
 overload(fn, map)
 
 Returns a function that calls a function at the property of `object` that
@@ -113,6 +106,13 @@ function overload(fn, map) {
         return handler.apply(this, arguments);
     };
 }
+
+/**
+id(value)
+Returns `value`.
+*/
+
+function id(value) { return value; }
 
 /**
 toType(object)
@@ -828,6 +828,8 @@ const transformUnit = overload(id, {
     semitone: unitEmptyString,
 
     s: unitMilliKilo,
+    
+    int: () => '',
 
     default: function(unit, value) {
         // Return empty string if no unit
@@ -1297,6 +1299,7 @@ function transferProperty(elem, key) {
 
 function createShadow(template, elem, options) {
     if (template === undefined) { return; }
+    elem._initialLoad = true;
 
     // Create a shadow root if there is DOM content. Shadows may be 'open' or
     // 'closed'. Closed shadows are not exposed via element.shadowRoot, and
@@ -1317,10 +1320,6 @@ function createShadow(template, elem, options) {
     }
     else {
         shadow.appendChild(template.content.cloneNode(true));
-    }
-
-    if (options.load) {
-        elem._initialLoad = true;
     }
 
     return shadow;
@@ -1377,6 +1376,7 @@ function flushAttributes(elem, attributes, handlers) {
     delete elem._initialAttributes;
     delete elem._n;
 }
+
 
 
 function element(name, options) {
@@ -1458,7 +1458,6 @@ function element(name, options) {
 
     if (options.attributes) {
         Element.observedAttributes = Object.keys(options.attributes);
-
         Element.prototype.attributeChangedCallback = function(name, old, value) {
             if (!this._initialAttributes) {
                 return options.attributes[name].call(this, value);
@@ -1473,10 +1472,6 @@ function element(name, options) {
 
 
     // Lifecycle
-
-    Element.prototype.handleEvent = function() {
-        console.log('handleEvent', arguments);
-    };
 
     Element.prototype.connectedCallback = function() {
         const elem      = this;
@@ -1500,7 +1495,11 @@ function element(name, options) {
 
             if (links.length) {
                 let count  = 0;
-                let n      = links.length;
+                let n = links.length;
+
+                // Avoid unstyled content by temporarily hiding elem while
+                // links load
+                elem.style.visibility = 'hidden';
 
                 const load = function load(e) {
                     if (++count >= links.length) {
@@ -1508,6 +1507,7 @@ function element(name, options) {
                         // and added to the DOM again, stylesheets do not load
                         // again
                         delete elem._initialLoad;
+                        elem.style.visibility = 'visible';
                         if (options.load) {
                             options.load.call(elem, elem, shadow);
                         }
@@ -3781,7 +3781,7 @@ var touchevents = {
     // gesture on or leave it to be explicitly set in CSS?
     move:   { type: 'touchmove', passive: false },
     cancel: 'touchend',
-    end:    'touchend'
+    end:    { type: 'touchend', passive: false }
 };
 
 const assign$8 = Object.assign;
@@ -3974,6 +3974,10 @@ function activeTouchend(e, data, stop) {
 
     // This isn't the touch you're looking for.
     if (!touch) { return; }
+
+    // Neuter the resulting click event
+    e.preventDefault();
+
     removeActiveTouch(data);
     stop();
 }
@@ -4447,6 +4451,9 @@ const config$2 = {
     path: window.customElementStylesheetPath || ''
 };
 
+
+/* Shadow */
+
 function createTemplate(elem, shadow, internals) {
     const link   = create('link',  { rel: 'stylesheet', href: config$2.path + 'rotary-control.css' });
     const style  = create('style', ':host {}');
@@ -4455,8 +4462,7 @@ function createTemplate(elem, shadow, internals) {
     const text   = create('text');
     const abbr   = create('abbr');
     const output = create('output', { children: [text, abbr], part: 'output' });
-    const marker = 
-        create('comment', ' ticks ')  ;
+    const marker = create('text', '') ;
 
     shadow.appendChild(link);
     shadow.appendChild(style);
@@ -4467,7 +4473,7 @@ function createTemplate(elem, shadow, internals) {
 
     // Get the :host {} style rule from style
     const css = style.sheet.cssRules[0].style;
-
+            
     return {
         'unitValue': function(unitValue) {
             css.setProperty('--unit-value', unitValue);
@@ -4483,7 +4489,18 @@ function createTemplate(elem, shadow, internals) {
         },
 
         'displayUnit': function(displayUnit) {
-            abbr.textContent = displayUnit;
+            // Add and remove output > abbr
+            if (displayUnit) {
+                if (!abbr.parentNode) {
+                    output.appendChild(abbr);
+                }
+
+                // Update abbr text
+                abbr.textContent = displayUnit;
+            }
+            else if (abbr.parentNode) {
+                abbr.remove();
+            }
         },
 
         'ticks': (function(buttons) {
@@ -4516,10 +4533,29 @@ function createTemplate(elem, shadow, internals) {
     };
 }
 
-function updateValue(element, data, unitValue) {
-    const value = transform(data.transform, unitValue, data.min, data.max) ;
-    element.value = value;
+
+/* Events */
+
+function touchstart$1(e) {
+    // Ignore non-ticks
+    if (e.target.type !== 'button') { return; }
+
+    const unitValue = parseFloat(e.target.value);
+    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
+    this.element.value = value;
+
+    // Refocus the input (should not be needed now we have focus 
+    // control on parent?) and trigger input event on element
+    //            shadow.querySelector('input').focus();
+
+    // Change event on element
+    trigger('change', this.element);
 }
+
+const handleEvent = overload((e) => e.type, {
+    'touchstart': touchstart$1,
+    'mousedown': touchstart$1
+});
 
 element('rotary-control', {
     template: function(elem, shadow) {
@@ -4537,14 +4573,12 @@ element('rotary-control', {
         const data     = privates$1.data  = assign$9({}, defaults$1);
         const scope    = privates$1.scope = createTemplate(elem, shadow);
 
-        privates$1.internals = internals;
+        privates$1.element     = elem;
+        privates$1.shadow      = shadow;
+        privates$1.internals   = internals;
+        privates$1.handleEvent = handleEvent;
 
-        shadow.addEventListener('mousedown', (e) => {
-            const target = e.target.closest('[name]') || e.target;
-            if (target.name !== 'unit-value') { return; }
-            updateValue(elem, data, parseFloat(target.value));
-            trigger('change', elem);
-        });
+        shadow.addEventListener('mousedown', privates$1);
 
         gestures({ threshold: 1, selector: 'div' }, shadow)
         .each(function(events) {
@@ -4562,7 +4596,8 @@ element('rotary-control', {
             .each(function (e) {
                 dy = y0 - e.clientY;
                 var unitValue = clamp(0, 1, y + dy / touchRange);
-                updateValue(elem, data, unitValue);
+                const value = transform(data.transform, unitValue, data.min, data.max) ;
+                elem.value = value;
                 // Doesn't work
                 //elem.dispatchEvent(new InputEvent('input'));
                 trigger('input', elem);

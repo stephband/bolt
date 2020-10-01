@@ -77,13 +77,6 @@ function clamp(min, max, n) {
 curry(clamp);
 
 /**
-id(value)
-Returns `value`.
-*/
-
-function id(value) { return value; }
-
-/**
 overload(fn, map)
 
 Returns a function that calls a function at the property of `object` that
@@ -113,6 +106,13 @@ function overload(fn, map) {
         return handler.apply(this, arguments);
     };
 }
+
+/**
+id(value)
+Returns `value`.
+*/
+
+function id(value) { return value; }
 
 /**
 todB(level)
@@ -630,6 +630,8 @@ const transformUnit = overload(id, {
     semitone: unitEmptyString,
 
     s: unitMilliKilo,
+    
+    int: () => '',
 
     default: function(unit, value) {
         // Return empty string if no unit
@@ -1297,6 +1299,7 @@ function transferProperty(elem, key) {
 
 function createShadow(template, elem, options) {
     if (template === undefined) { return; }
+    elem._initialLoad = true;
 
     // Create a shadow root if there is DOM content. Shadows may be 'open' or
     // 'closed'. Closed shadows are not exposed via element.shadowRoot, and
@@ -1317,10 +1320,6 @@ function createShadow(template, elem, options) {
     }
     else {
         shadow.appendChild(template.content.cloneNode(true));
-    }
-
-    if (options.load) {
-        elem._initialLoad = true;
     }
 
     return shadow;
@@ -1377,6 +1376,7 @@ function flushAttributes(elem, attributes, handlers) {
     delete elem._initialAttributes;
     delete elem._n;
 }
+
 
 
 function element(name, options) {
@@ -1458,7 +1458,6 @@ function element(name, options) {
 
     if (options.attributes) {
         Element.observedAttributes = Object.keys(options.attributes);
-
         Element.prototype.attributeChangedCallback = function(name, old, value) {
             if (!this._initialAttributes) {
                 return options.attributes[name].call(this, value);
@@ -1473,10 +1472,6 @@ function element(name, options) {
 
 
     // Lifecycle
-
-    Element.prototype.handleEvent = function() {
-        console.log('handleEvent', arguments);
-    };
 
     Element.prototype.connectedCallback = function() {
         const elem      = this;
@@ -1500,7 +1495,11 @@ function element(name, options) {
 
             if (links.length) {
                 let count  = 0;
-                let n      = links.length;
+                let n = links.length;
+
+                // Avoid unstyled content by temporarily hiding elem while
+                // links load
+                elem.style.visibility = 'hidden';
 
                 const load = function load(e) {
                     if (++count >= links.length) {
@@ -1508,6 +1507,7 @@ function element(name, options) {
                         // and added to the DOM again, stylesheets do not load
                         // again
                         delete elem._initialLoad;
+                        elem.style.visibility = 'visible';
                         if (options.load) {
                             options.load.call(elem, elem, shadow);
                         }
@@ -2015,7 +2015,6 @@ Sent continuously during a fader movement.
 
 const assign$5 = Object.assign;
 
-
 const defaults$1 = {
     transform: 'linear',
     min:    0,
@@ -2026,16 +2025,18 @@ const config$1 = {
     path: window.customElementStylesheetPath || ''
 };
 
+
+/* Shadow */
+
 function createTemplate(elem, shadow) {
     const link   = create('link',  { rel: 'stylesheet', href: config$1.path + 'range-control.css' });
     const style  = create('style', ':host {}');
-    const label  = create('label', { for: 'input', html: '<slot></slot>' });
+    const label  = create('label', { for: 'input', html: '<slot></slot>', part: 'label' });
     const input  = create('input', { type: 'range', id: 'input', name: 'unit-value', min: '0', max: '1', step: 'any' });
     const text   = create('text');
     const abbr   = create('abbr');
-    const output = create('output', { children: [text, abbr] });
-    const marker = 
-        create('comment', ' ticks ')  ;
+    const output = create('output', { children: [text, abbr], part: 'output' });
+    const marker = create('text', '');
 
     shadow.appendChild(link);
     shadow.appendChild(style);
@@ -2049,13 +2050,9 @@ function createTemplate(elem, shadow) {
 
     return {
         'unitValue': function(unitValue) {
-            // Check that input is not the currently active node before updating
-            //if (input.getRootNode().activeElement !== input) {
-                // Check that the input does not already have the value
-                if (input.value !== unitValue + '') {
-                    input.value = unitValue + '';
-                }
-            //}
+            if (input.value !== unitValue + '') {
+                input.value = unitValue + '';
+            }
 
             css.setProperty('--unit-value', unitValue);
         },
@@ -2070,7 +2067,18 @@ function createTemplate(elem, shadow) {
         },
 
         'displayUnit': function(displayUnit) {
-            abbr.textContent = displayUnit;
+            // Add and remove output > abbr
+            if (displayUnit) {
+                if (!abbr.parentNode) {
+                    output.appendChild(abbr);
+                }
+
+                // Update abbr text
+                abbr.textContent = displayUnit;
+            }
+            else if (abbr.parentNode) {
+                abbr.remove();
+            }
         },
 
         'ticks': (function(buttons) {
@@ -2098,6 +2106,45 @@ function createTemplate(elem, shadow) {
     };
 }
 
+
+/* Events */
+
+function touchstart(e) {
+    // Ignore non-ticks
+    if (e.target.type !== 'button') { return; }
+
+    const unitValue = parseFloat(e.target.value);
+    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
+    this.element.value = value;
+
+    // Refocus the input (should not be needed now we have focus 
+    // control on parent?) and trigger input event on element
+    //            shadow.querySelector('input').focus();
+
+    // Change event on element
+    trigger('change', this.element);
+}
+
+function input(e) {
+    const unitValue = parseFloat(e.target.value); 
+    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
+    this.element.value = value;
+
+    // If the range has steps make sure the handle snaps into place
+    if (this.data.steps) {
+        e.target.value = this.data.unitValue;
+    }
+}
+
+const handleEvent = overload((e) => e.type, {
+    'touchstart': touchstart,
+    'mousedown': touchstart,
+    'input': input
+});
+
+
+/* Element */
+
 var rangeControl = element('range-control', {
     template: function(elem, shadow) {
         const privates$1 = privates(elem);
@@ -2110,42 +2157,21 @@ var rangeControl = element('range-control', {
     properties: properties,
 
     construct: function(elem, shadow, internals) {
+        // Setup internal data store `privates`
         const privates$1 = privates(elem);
         const data     = privates$1.data  = assign$5({}, defaults$1);
 
-        privates$1.internals = internals;
+        privates$1.element     = elem;
+        privates$1.shadow      = shadow;
+        privates$1.internals   = internals;
+        privates$1.handleEvent = handleEvent;
 
-        // Listen to touches on tick buttons
-        function down(e) {
-            if (e.target.type !== 'button') { return; }
-
-            const unitValue = parseFloat(e.target.value);
-            const value = transform(data.transform, unitValue, data.min, data.max) ;
-
-            elem.value = value;
-
-            // Refocus the input (should not be needed now we have focus 
-            // control on parent?) and trigger input event on element
-//            shadow.querySelector('input').focus();
-
-            // Change event on element
-            trigger('change', elem);
-        }
-
-        shadow.addEventListener('mousedown', down);
-        shadow.addEventListener('touchstart', down);
+        // Listen to touches on ticks
+        shadow.addEventListener('mousedown', privates$1);
+        shadow.addEventListener('touchstart', privates$1);
 
         // Listen to range input
-        shadow.addEventListener('input', (e) => {
-            const unitValue = parseFloat(e.target.value); 
-            const value = transform(data.transform, unitValue, data.min, data.max) ;
-            elem.value = value;
-
-            // If the range has steps make sure the handle snaps into place
-            if (data.steps) {
-                e.target.value = data.unitValue;
-            }
-        });
+        shadow.addEventListener('input', privates$1);
     },
 
     connect: function(elem, shadow) {

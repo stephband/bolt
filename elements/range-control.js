@@ -20,8 +20,11 @@ element and upgrades instances already in the DOM.
 **/
 
 /*
-References:
+About volume controls:
 https://www.dr-lex.be/info-stuff/volumecontrols.html
+
+Safari 14 crashes when clicking on elements with delegateFocus:
+https://github.com/material-components/material-components-web-components/issues/1720
 */
 
 import Privates from '../../fn/modules/privates.js';

@@ -5169,7 +5169,7 @@ var touchevents = {
     // gesture on or leave it to be explicitly set in CSS?
     move:   { type: 'touchmove', passive: false },
     cancel: 'touchend',
-    end:    'touchend'
+    end:    { type: 'touchend', passive: false }
 };
 
 const assign$8 = Object.assign;
@@ -5362,6 +5362,10 @@ function activeTouchend(e, data, stop) {
 
     // This isn't the touch you're looking for.
     if (!touch) { return; }
+
+    // Neuter the resulting click event
+    e.preventDefault();
+
     removeActiveTouch(data);
     stop();
 }
