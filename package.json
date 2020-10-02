@@ -18,9 +18,10 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^6.5.0",
-    "node-sass": "^4.13.1",
-    "rollup": "^2.21.0",
-    "madge": "^3.9.2"
+    "findit": "^2.0.0",
+    "madge": "^3.9.2",
+    "node-sass": "^4.14.1",
+    "rollup": "^2.21.0"
   },
   "homepage": "http://stephen.band/bolt/",
   "docs": "http://stephen.band/bolt/",
@@ -34,7 +35,7 @@
     "build-rotary-control": "rollup ./elements/rotary-control.js --o ./elements/rotary-control.rolled.js --f esm && madge --image ./elements/rotary-control.svg ./elements/rotary-control.js",
     "build-elements": "npm run build-range-control && npm run build-rotary-control",
     "build-css": "node ../fn/build-css.js style.css style.min.css",
-    "build-docs": "node ../fn/build-html.js index.template.html index.html && node ../fn/build-html.js elements/range-control.template.html elements/range-control.html && node ../fn/build-html.js elements/rotary-control.template.html elements/rotary-control.html",
+    "build-docs": "node ./build-templates.js",
     "graph": "madge --image ./module.svg ./module.js",
     "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.1' && git push"
   }

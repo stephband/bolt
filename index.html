@@ -1,7 +1,9 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head build-fn="fetch:package.json">
     <template build-src="../fn/templates.html#head-template"></template>
 
-    
+    <script build-remove="" title="debug">
+    window.DEBUG = true;
+    </script>
 
     <style>
         /* Render some elements visible, just in this styleguide */
@@ -24,7 +26,7 @@
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px;">
     <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
-        <template build-src="../fn/templates.html#header-template"></template>
+        <template build-fn="fetch:package.json" build-src="../fn/templates.html#header-template"></template>
     </header>
 
     <!--section class="x-1 3x @1-x-2 @2-x-3" id="get-started" locateable>
@@ -49,14 +51,39 @@ npm run build</code></pre>
         <button type="button" class="x-3 x-end y-1 y-baseline @1-x-4 @2-x-5 doctext-09" name="activate-toggle-blocks" value="#components">Show all</button>
     </header-->
 
-    <template build-src="../fn/templates.html#css-template"></template>
-    <template build-src="../fn/templates.html#css-template"></template>
-    <template build-src="../fn/templates.html#css-template"></template>
-    <template build-src="../fn/templates.html#css-template"></template>
-    <template build-src="../fn/templates.html#css-template"></template>
-    <template build-src="../fn/templates.html#css-template"></template>
-    <template build-src="../fn/templates.html#css-template"></template>
-    <template build-src="../fn/templates.html#css-template"></template>
+    <template build-fn="docs: './css/text.css'" build-src="../fn/templates.html#css-template"></template>
+    <template build-fn="docs: './css/color.css'" build-src="../fn/templates.html#css-template"></template>
+    <template build-fn="docs:
+        './css/input.css',
+        './css/label.css',
+        './css/var.css',
+        './components/check-label.css',
+        './components/switch-label.css',
+        './components/check-button.css',
+        './components/select-button.css',
+        './elements/range-control.css',
+        './elements/rotary-control.css'" build-src="../fn/templates.html#css-template"></template>
+    <template build-fn="docs:
+        './sass/grid.scss'" build-src="../fn/templates.html#css-template"></template>
+    <template build-fn="docs:
+        './css/elements.css',
+        './css/button.css',
+        './components/menu.css',
+        './components/toggle-button.css',
+        './css/thumb.css',
+        './css/index.css',
+        './components/crumbs-index.css',
+        './css/progress.css',
+        './css/table.css',
+        './css/badge.css'" build-src="../fn/templates.html#css-template"></template>
+    <template build-fn="docs:
+        './css/block.css',
+        './components/slides.css'" build-src="../fn/templates.html#css-template"></template>
+    <template build-fn="docs:
+        './css/content.css'" build-src="../fn/templates.html#css-template"></template>
+    <template build-fn="docs:
+        './css/modifiers.css',
+        './sass/respond.scss'" build-src="../fn/templates.html#css-template"></template>
 
 
     <section class="x-1 3x @1-6x @2-9x @3-x-2 columns-grid grid located" locateable="" id="attributes">
@@ -97,17 +124,30 @@ npm run build</code></pre>
 
         <div class="x-1 y-2 3x @2-4x">
             <h3 class="doctext-03">Navigate</h3>
-            <template build-src="/fn/templates.html#attribute-template"></template>
+            <template build-fn="docs:
+                js/locateable.js
+                each" build-src="/fn/templates.html#attribute-template"></template>
 
             <h3 class="doctext-03">Hijack</h3>
-            <template build-src="/fn/templates.html#attribute-template"></template>
+            <template build-fn="docs:
+                js/fullscreenable.js,
+                js/popable.js,
+                js/switchable.js,
+                js/toggleable.js
+                each" build-src="/fn/templates.html#attribute-template"></template>
         </div>
 
         <div class="x-1 y-2 3x @2-x-6 @2-4x">
             <h3 class="doctext-03">Data</h3>
-            <template build-src="/fn/templates.html#attribute-template"></template>
+            <template build-fn="docs:
+                js/draggable.js,
+                js/droppable.js
+                each" build-src="/fn/templates.html#attribute-template"></template>
             <h3 class="doctext-03">Forms</h3>
-            <template build-src="/fn/templates.html#attribute-template"></template>
+            <template build-fn="docs:
+                js/submittable.js,
+                js/validateable.js
+                each" build-src="/fn/templates.html#attribute-template"></template>
         </div>
     </section>
 
@@ -125,7 +165,7 @@ npm run build</code></pre>
     </section-->
 
     <!-- Build document -->
-    
+    <script type="module" src="../fn/docs-build.js" build-remove=""></script>
 
     <!-- Custom elements -->
     <template id="range-control">
