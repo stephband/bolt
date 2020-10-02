@@ -36,7 +36,7 @@ finder(base)
     // Build source template to target path
     processes
     // build-fn [source.html, target.html, timeout (seconds), port]
-    .fork('../fn/build-html.js', [source, target, 1, port++])
+    .fork('../fn/build-html.js', [source, target, 3, port++])
     .on('error', console.log)
     .on('exit', function(code, error) {
         if (code !== 0) {

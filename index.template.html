@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head build-fn="fetch:package.json">
-    <template build-src="../fn/templates.html#head-template"></template>
+<head>
+    <template is="sparky-template" fn="fetch:package.json" src="templates.html#head"></template>
 
-    <script build-remove title="debug">
-    window.DEBUG = true;
+    <script title="debug" remove>
+        window.DEBUG = true;
     </script>
+
+    <template is="sparky-template" src="templates.html#style"></template>
 
     <style>
         /* Render some elements visible, just in this styleguide */
@@ -16,19 +18,50 @@
         }
     </style>
 
-    <link rel="stylesheet" href="style.min.css" />
-    <!--link rel="stylesheet" href="style.css" /-->
+    <script title="config">
+        window.customElementStylesheetPath = './elements/';
+    </script>
 
-    <link rel="stylesheet" href="../dom/css/dom.css" />
-    <link rel="stylesheet" href="../fn/css/prism-cruncher.css" />
-    <link rel="stylesheet" href="../fn/css/tests.css" />
-    <link rel="stylesheet" href="../fn/css/docs.css" />
-    <link rel="stylesheet" href="../fn/css/respond.css" />
+    <style>
+        /* Copied from elements range-control.template.html */
+        range-control {
+            min-width: 9rem; 
+            max-width: 15rem;
+            width: 100%;
+            margin: 0 auto 0 auto;
+        }
+
+        range-control:focus {
+            /* Make sure any recreated focus outline is nullified. */
+            box-shadow: none !important;
+        }
+    
+        * + range-control {
+            margin-top: 1.875rem;
+        }
+
+        /* Copied from elements rotary-control.template.html */
+        rotary-control {
+            min-width: 8rem;
+            max-width: 10rem;
+            margin: 0 auto;
+            /* Nullify focus box-shadow */
+            box-shadow: none !important;
+        }
+    
+        * + rotary-control {
+            margin-top: 1.875rem;
+        }
+
+        rotary-control::part(tick) {
+            background-color: var(--label-color);
+        }
+    </style>
 </head>
 
-<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px;">
-    <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
-        <template build-fn="fetch:package.json" build-src="../fn/templates.html#header-template"></template>
+<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
+    <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="heade">
+        <template is="sparky-template" fn="fetch:package.json" src="templates.html#header"></template>
     </header>
 
     <!--section class="x-1 3x @1-x-2 @2-x-3" id="get-started" locateable>
@@ -53,9 +86,9 @@ npm run build</code></pre>
         <button type="button" class="x-3 x-end y-1 y-baseline @1-x-4 @2-x-5 doctext-09" name="activate-toggle-blocks" value="#components">Show all</button>
     </header-->
 
-    <template build-fn="docs: './css/text.css'" build-src="../fn/templates.html#css-template"></template>
-    <template build-fn="docs: './css/color.css'" build-src="../fn/templates.html#css-template"></template>
-    <template build-fn="docs:
+    <template is="sparky-template" fn="docs: './css/text.css'" src="templates.html#css"></template>
+    <!--template is="sparky-template" fn="docs: './css/color.css'" src="templates.html#css"></template>
+    <template is="sparky-template" fn="docs:
         './css/input.css',
         './css/label.css',
         './css/var.css',
@@ -64,10 +97,10 @@ npm run build</code></pre>
         './components/check-button.css',
         './components/select-button.css',
         './elements/range-control.css',
-        './elements/rotary-control.css'" build-src="../fn/templates.html#css-template"></template>
-    <template build-fn="docs:
-        './sass/grid.scss'" build-src="../fn/templates.html#css-template"></template>
-    <template build-fn="docs:
+        './elements/rotary-control.css'" src="templates.html#css"></template>
+    <template is="sparky-template" fn="docs:
+        './sass/grid.scss'" src="templates.html#css"></template>
+    <template is="sparky-template" fn="docs:
         './css/elements.css',
         './css/button.css',
         './components/menu.css',
@@ -77,28 +110,30 @@ npm run build</code></pre>
         './components/crumbs-index.css',
         './css/progress.css',
         './css/table.css',
-        './css/badge.css'" build-src="../fn/templates.html#css-template"></template>
-    <template build-fn="docs:
+        './css/badge.css'" src="templates.html#css"></template>
+    <template is="sparky-template" fn="docs:
         './css/block.css',
-        './components/slides.css'" build-src="../fn/templates.html#css-template"></template>
-    <template build-fn="docs:
-        './css/content.css'" build-src="../fn/templates.html#css-template"></template>
-    <template build-fn="docs:
+        './components/slides.css'" src="templates.html#css"></template>
+    <template is="sparky-template" fn="docs:
+        './css/content.css'" src="templates.html#css"></template>
+    <template is="sparky-template" fn="docs:
         './css/modifiers.css',
-        './sass/respond.scss'" build-src="../fn/templates.html#css-template"></template>
+        './sass/respond.scss'" src="templates.html#css"></template-->
 
+    <template is="sparky-template" src="elements/range-control.html"></template>
+    <template is="sparky-template" src="elements/rotary-control.html"></template>
 
-    <section class="x-1 3x @1-6x @2-9x @3-x-2 columns-grid grid" locateable id="attributes">
+    <!--section class="x-1 3x @1-6x @2-9x @3-x-2 columns-grid grid" locateable id="attributes">
         <header class="x-1 3x @1-4x block">
             <h2 class="doctext-02">Attributes</h2>
 
             <p>The library has a number of scripts for cheekily extending the
             default behaviour of DOM elements, declared via 'behaviour'&nbsp;attributes.</p>
 
-            <!--p>Behaviours may be imported and used before
+            <p>Behaviours may be imported and used before
             <code class="language-js">'DOMContentLoad'</code>, there are no
             'setup' functions to run, and elements that are added
-            to the DOM later get to use them&nbsp;automatically.</p-->
+            to the DOM later get to use them&nbsp;automatically.</p>
 
             <p>No style is given to make these behaviours do anything <i>visual</i>
             however. Behaviours, largely, add and remove classes, how that <i>looks</i>
@@ -126,32 +161,32 @@ npm run build</code></pre>
 
         <div class="x-1 y-2 3x @2-4x">
             <h3 class="doctext-03">Navigate</h3>
-            <template build-fn="docs:
+            <template fn="docs:
                 js/locateable.js
-                each" build-src="/fn/templates.html#attribute-template"></template>
+                each" src="/fn/templates.html#attribute-template"></template>
 
             <h3 class="doctext-03">Hijack</h3>
-            <template build-fn="docs:
+            <template fn="docs:
                 js/fullscreenable.js,
                 js/popable.js,
                 js/switchable.js,
                 js/toggleable.js
-                each" build-src="/fn/templates.html#attribute-template"></template>
+                each" src="/fn/templates.html#attribute-template"></template>
         </div>
 
         <div class="x-1 y-2 3x @2-x-6 @2-4x">
             <h3 class="doctext-03">Data</h3>
-            <template build-fn="docs:
+            <template fn="docs:
                 js/draggable.js,
                 js/droppable.js
-                each" build-src="/fn/templates.html#attribute-template"></template>
+                each" src="/fn/templates.html#attribute-template"></template>
             <h3 class="doctext-03">Forms</h3>
-            <template build-fn="docs:
+            <template fn="docs:
                 js/submittable.js,
                 js/validateable.js
-                each" build-src="/fn/templates.html#attribute-template"></template>
+                each" src="/fn/templates.html#attribute-template"></template>
         </div>
-    </section>
+    </section-->
 
     <!--section class="x-1 3x @1-6x @2-9x @3-x-2 columns-grid grid" locateable id="observer">
         <header class="x-1 3x @1-4x">
@@ -159,75 +194,19 @@ npm run build</code></pre>
         </header>
 
         <div class="x-1 3x list-grid grid">
-            <template build-fn="docs:
+            <template fn="docs:
             js/dom-activate.js,
             js/dom-gesture.js
-            each" build-src="/fn/templates.html#{[type]}-template"></template>
+            each" src="/fn/templates.html#{[type]}-template"></template>
         </div>
     </section-->
 
     <!-- Build document -->
-    <script type="module" src="../fn/docs-build.js" build-remove></script>
-
-    <!-- Custom elements -->
-    <template id="range-control">
-        <link rel="stylesheet" href="/bolt/elements/range-control.css" />
-        <input class="input" type="range" id="input" name="unit-value" value="{[unitValue]}" min="0" max="1" step="any" />
-        <label class="control-label" for="input"><slot></slot></label>
-        <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
-        <!--output class="control-value" :style="top: 0; left: calc((0.5 * var(--handle-width) - var(--bleed)) + var(--unit-value) * (100% + 2 * var(--bleed) - var(--handle-width)));">{[prefix]}{[unitValue|multiply:10|floatformat:0]}</output-->
-        <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" :style="left: calc((0.5 * var(--handle-width) - var(--bleed)) + {[tickValue]} * (100% + 2 * var(--bleed) - var(--handle-width)));">{[displayValue]}</button>
-        <slot name="plugs"></slot>
-    </template>
-
-    <template id="rotary-control">
-        <link rel="stylesheet" href="/bolt/elements/rotary-control.css" />
-        <button type="button" class="handle"></button>
-        <label class="control-label" for="input"><slot></slot></label>
-        <output>{[prefix]}{[displayValue]}<abbr>{[displayUnit]}</abbr></output>
-        <button type="button" class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" style="transform: rotate3d(0, 0, 1, calc(var(--rotation-start) + {[tickValue]} * var(--rotation-range)));">
-            <span style="transform: translate3d(-50%, 0, 0) rotate3d(0, 0, 1, calc(-1 * (var(--rotation-start) + {[tickValue]} * var(--rotation-range)))) translate3d(calc({[tickValue|multiply:6.28318531|sin]} * -33%), 0, 0);">{[displayValue]}</span>
-        </button>
-        <slot name="plugs"></slot>
-    </template>
-
-    <style>
-    range-control {
-        --track-top: 0.5625rem;
-
-        --focus-track-background: #46789a;
-        --focus-track-border: none;
-        --focus-track-shadow: none;
-
-        --handle-width: 1.5rem;
-
-        --focus-handle-background: #46789a;
-        --focus-handle-border: none;
-        --focus-handle-shadow: none;
-
-        --focus-tick-color: #46789a;
-        --focus-tick-background: #46789a;
-        --focus-tick-border: none;
-        --focus-tick-shadow: none;
-
-        --bleed: 0.125rem;
-    }
-
-    range-control {
-        --tick-width: 1px;
-        --tick-height: 0.6875rem;
-    }
-
-    range-control:focus,
-    rotary-control:focus {
-        box-shadow: none;
-    }
-    </style>
-
-    <script type="module" src="./elements/range-control.js"></script>
-    <script type="module" src="./elements/rotary-control.js"></script>
+    <script type="module" src="./build.js" remove></script>
 
     <!-- Document interactivity -->
+    <script type="module" src="./elements/range-control.js"></script>
+    <script type="module" src="./elements/rotary-control.js"></script>
     <script type="module">
         import './module.js';
         import './documentation.js';

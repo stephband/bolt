@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <template is="sparky-template" fn="fetch:'../package.json'" src="../../fn/templates.html#head-template"></template>
+    <template is="sparky-template" fn="fetch:'../package.json'" src="../templates.html#head"></template>
 
     <script title="debug" remove>
         window.DEBUG = true;
@@ -11,13 +11,7 @@
         window.customElementStylesheetPath = './';
     </script>
 
-    <link rel="stylesheet" href="../style.min.css" />
-    <link rel="stylesheet" href="../style.css" />
-
-    <link rel="stylesheet" href="../../fn/css/prism-cruncher.css" />
-    <link rel="stylesheet" href="../../fn/css/tests.css" />
-    <link rel="stylesheet" href="../documentation.css" />
-    <link rel="stylesheet" href="../../fn/css/respond.css" />
+    <template is="sparky-template" src="../templates.html#style"></template>
 
     <style>
         rotary-control {
@@ -44,7 +38,7 @@
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
     <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="header">
-        <template is="sparky-template" fn="docs:rotary-control.js filter-type:tag each" src="../templates.html#header"></template>
+        <template is="sparky-template" fn="docs:rotary-control.js filter-type:tag each" src="../templates.html#title"></template>
     </header>
 
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">

@@ -29,21 +29,21 @@
     <link rel="icon" type="image/png" href="images/logo-128x128.png" sizes="128x128">
 
 
-    <script title="debug" remove="">
-        window.DEBUG = true;
-    </script>
+    
 
     <script title="config">
         window.customElementStylesheetPath = './';
     </script>
 
-    <link rel="stylesheet" href="../style.min.css">
-    <link rel="stylesheet" href="../style.css">
+    
+    <link rel="stylesheet" href="style.min.css">
+    <!--link rel="stylesheet" href="style.css" /-->
 
-    <link rel="stylesheet" href="../../fn/css/prism-cruncher.css">
-    <link rel="stylesheet" href="../../fn/css/tests.css">
-    <link rel="stylesheet" href="../documentation.css">
-    <link rel="stylesheet" href="../../fn/css/respond.css">
+    <link rel="stylesheet" href="../fn/css/prism-cruncher.css">
+    <link rel="stylesheet" href="../fn/css/tests.css">
+    <link rel="stylesheet" href="documentation.css">
+    <link rel="stylesheet" href="../fn/css/respond.css">
+
 
     <style>
         range-control {
@@ -70,211 +70,12 @@
             margin-top: 3.75rem;
         }
     </style>
-<template build-remove="" id="head-template" title="../../fn/">
-    <meta charset="utf-8">
-    <meta name="author" content="{[author.name]}">
-    <meta name="description" content="Documentation for {[title]}. {[description]}">
-    <meta name="viewport" content="width=device-width">
-
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@{[author.twitter]}">
-    <meta property="og:url" content="{[homepage]}">
-    <meta property="og:title" content="{[title]}">
-    <meta property="og:description" content="{[description]}">
-    <meta property="og:image" content="{[image]}">
-
-    <title>{[title]}</title>
-
-    <script title="load">
-    document.documentElement.className += ' js content-loading loading';
-    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
-    // Wait for other load handlers to run first - Bolt does a few things on
-    // load (eg. locateable scrolls) and we want them to run before the loading
-    // class is removed
-    window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
-    </script>
-
-    <link rel="shortcut icon" href="images/logo-64x64.ico">
-    <link rel="icon" type="image/png" href="images/logo-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="images/logo-64x64.png" sizes="64x64">
-    <link rel="icon" type="image/png" href="images/logo-128x128.png" sizes="128x128">
-</template><template build-remove="" id="header-template" title="../../fn/">
-    <h1 class="doctext-01">{[title]} <span class="doctext-06">{[version]}</span></h1>
-    <p class="doctext-08">{[description]}</p>
-    <ul class="link-index index">
-        <li><strong>repo:</strong> <a href="{[repository.url]}">{[repository.url|replace:'https://','']}</a></li>
-        <li><strong>bugs:</strong> <a href="{[bugs.url]}">{[bugs.url|replace:'https://','']}</a></li>
-    </ul>
-</template><template build-remove="" id="title-template" title="../../fn/">
-    <h3 class="doctext-04" build-fn="after:body">{[name]}</h3>
-</template><template build-remove="" id="h2-template" title="../../fn/">
-    <header class="x-1 4x @1-x-1 @2-x-2">
-        <h2 class="doctext-02">
-            <a href="#{[id]}">
-                <code class="language-js" build-fn="append:title" style="color: inherit;"></code>
-            </a>
-        </h2>
-    </header>
-
-    <div class="x-1 3x @2-x-2" build-fn="append:body"></div>
-</template><template build-remove="" id="attribute-template" title="../../fn/">
-    <article build-fn="append:body" class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="attribute-{[id]}">
-        <h3 class="doctext-05">
-            <a href="#attribute-{[id]}">
-                <code class="token language-js">[<span build-fn="append:title"></span>]</code>
-            </a>
-        </h3>
-    </article>
-</template><template build-remove="" id="constructor-template" title="../../fn/">
-    <article class="function-doc-toggle-block doc-toggle-block toggle-block block 3x" toggleable="" id="{[0.id]}">
-        <h3 build-fn="get:0 after:body" class="doctext-05 dot-indent">
-            <a href="#{[id]}">
-                <code class="property language-js">"{[name|lowercase]}"</code>
-            </a>
-        </h3>
-
-        <template build-src="/fn/templates.html#property-method-template"></template>
-    </article>
-</template><template build-remove="" id="method-template" title="../../fn/">
-    <article build-fn="append:body" class="method-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="method-{[id]}">
-        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
-            <a href="#method-{[id]}">
-                <code build-fn="append:title" class="function language-js"></code>
-            </a>
-        </h3>
-    </article>
-</template><template build-remove="" id="property-template" title="../../fn/">
-    <article build-fn="append:body" class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="property-{[id]}">
-        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
-            <a href="#property-{[id]}">
-                <code build-fn="append:title" class="property language-js"></code>
-            </a>
-        </h3>
-    </article>
-</template><template build-remove="" id="class-template" title="../../fn/">
-    <article build-fn="append:body" class="class-doc-toggle-block doc-toggle-block toggle-block block class-grid grid @2-9-grid" toggleable="" id="class-{[id]}">
-        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
-            <a href="#class-{[id]}">
-                <code build-fn="append:title" class=""></code>
-            </a>
-        </h3>
-    </article>
-</template><template build-remove="" id="component-template" title="../../fn/">
-    <section class="component-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="component-{[0.id]}">
-        <header class="class-grid grid 3-grid @1-6-grid @2-9-grid">
-            <h3 build-fn="after:'0.body'" class="x-1 3x @1-x-2 @2-x-3 doctext-03 {[0.prefix|is:'.'|yesno:'dot-indent','']}">
-                <a build-fn="append:'0.title'" class="doctoggle-button button" href="#component-{[0.id]}"></a>
-            </h3>
-        </header>
-
-        <section build-fn="rest:1 each" class="block class-grid grid @1-6-grid @2-9-grid">
-            <h4 class="x-1 x-start 3x @2-2x @2-x-end doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
-                <code build-fn="append:title" class=""></code>
-            </h4>
-
-            <div class="block x-3 2x y-baseline" build-fn="append:example"></div>
-            <div hidden="" class="block x-6 3x y-start" build-fn="append:body"></div>
-        </section>
-    </section>
-</template><template build-remove="" id="css-template" title="../../fn/">
-    <section class="x-1 9x grid" style="--row-gap: var(--input-margin);" id="components" locateable="">
-        <header class="x-3 2x x-start">
-            <h3 build-fn="get:0 after:body" class="doctext-03 {[prefix|is:'.'|yesno:'dot-indent','']}">
-                <a build-fn="append:title" class="doctoggle-button button" href="#component-{[id]}"></a>
-            </h3>
-        </header>
-
-        <section build-fn="rest:1 filter-not-var" class="x-1 5x y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-{[0.id]}">
-            <template build-fn="each">
-                <h4 class="x-1 2x x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']} right-align">
-                    <a href="#{[id]}-description" title="Show HTML markup"><code build-fn="title-replace-comma-br append:title"></code></a>
-                </h4>
-                <div class="x-3 2x x-stretch y-baseline block" build-fn="prepend:example"></div>
-                <div class="@2-x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable="" build-fn="append:body" id="{[id]}-description"></div>
-                </div>
-            </template>
-        </section>
-
-        <section build-fn="rest:1 filter-var" class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
-            <template build-fn="each">
-                <label class="x-1 2x x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}" for="doc-var-{[id]}">
-                    <code build-fn="append:title" style="color: #888888;"></code><span style="color: transparent;">:</span>
-                </label>
-                <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--{[id]}" id="doc-var-{[id]}" type="text" placeholder="value">
-                <div class="x-4 2x" style="color: transparent;">;</div>
-            </template>
-        </section>
-    </section>
-</template><template build-remove="" id="styleguide-template" title="../../fn/">
-    <section class="x-1 9x 6x-grid @2-9x-grid grid" style="--row-gap: var(--input-margin);" id="components" locateable="">
-        <header class="x-1 3x @1-x-3 @1-4x @2-2x x-start">
-            <h3 build-fn="get:0 after:body" class="doctext-03 {[prefix|is:'.'|yesno:'dot-indent','']}">
-                <a build-fn="append:title" class="doctoggle-button button" href="#component-{[id]}"></a>
-            </h3>
-        </header>
-
-        <section build-fn="rest:1 filter-not-var" class="x-1 6x @1-6x @2-5x y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-{[0.id]}">
-            <template build-fn="each">
-                <h4 class="x-1 2x x-start @1-2x @1-x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']} right-align">
-                    <a href="#{[id]}-description" title="Show HTML markup"><code build-fn="title-replace-comma-br append:title"></code></a>
-                </h4>
-                <div class="x-1 3x @1-x-3 @1-4x @2-2x x-stretch y-baseline block" build-fn="prepend:example"></div>
-                <div class="x-1 3x @1-2x @2-x-5 x-stretch y-baseline block">
-                    <a class="docbubble-thumb thumb" href="#{[id]}-description" style="text-decoration: none;">Code</a>
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem; left: 2.5rem;" popable="" build-fn="append:body" id="{[id]}-description"></div>
-                </div>
-            </template>
-        </section>
-    </section>
-</template><template build-remove="" id="function-template" title="../../fn/">
-    <article build-fn="append:body" class="function-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="function-{[id]}">
-        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
-            <a href="#function-{[id]}">
-                <code build-fn="append:title" class="function language-js"></code>
-            </a>
-        </h3>
-    </article>
-</template><template build-remove="" id="fn-template" title="../../fn/">
-    <article build-fn="append:body" class="fn-doc-toggle-block doc-toggle-block toggle-block block" toggleable="" id="fn-{[id]}">
-        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
-            <a href="#fn-{[id]}">
-                <code build-fn="append:title" class="language-js"></code>
-            </a>
-        </h3>
-    </article>
-</template><template build-remove="" id="section-template" title="../../fn/">
-    <article build-fn="append:body" class="section-doc-toggle-block doc-toggle-block toggle-block block active" id="section-{[id]}">
-        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
-            <code build-fn="append:title" class="function language-js"></code>
-        </h3>
-    </article>
-</template><template build-remove="" id="body-template" title="../../fn/">
-    <article build-fn="append:body" class="body-doc-toggle-block doc-toggle-block toggle-block block active" id="{[id]}"></article>
-</template><template build-remove="" id="property-method-template" title="../../fn/">
-    <section class="x-1 2x @1-x-1 @2-x-2">
-        <template build-fn="filter-property each" build-src="/fn/templates.html#{[type]}-template"></template>
-    </section>
-
-    <section class="x-1 2x @1-x-3 @2-x-4">
-        <template build-fn="filter-method each" build-src="/fn/templates.html#{[type]}-template"></template>
-    </section>
-</template><template id="header" remove="" title="../">
-    <h2 class="doctext-02" fn="append:title after:body"></h2>
-</template><template id="default" remove="" title="../"><span class="default">=<em>{[default]}</em></span></template><template id="entry" remove="" title="../">
-    <article fn="append:body" class="{[type|append:-doc-toggle-block]} doc-toggle-block toggle-block block" toggleable="" id="{[type]}-{[id]}">
-        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
-            <a href="#{[type]}-{[id]}">
-                <code fn="prepend:title" class="{[type|is:attribute|yesno:token,'']} {[type|is:property|yesno:property,'']} {[type|is:attribute|yesno:html,js|prepend:language-]}"><template src="{[default|yesno:#default,'']}"></template></code>
-            </a>
-        </h3>
-    </article>
-</template></head>
+</head>
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
-    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="header">
+    <header class="x-1 3x @1-x-3 @1-4x @2-x-4">
         <!--template fn="docs:range-control.js filter-type:tag each"-->
-    <h2 class="doctext-02" fn="append:title after:body"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>range-control</span><span class="token punctuation">&gt;</span></span></h2><p>Configure stylesheet path with:</p>
+    <h2 class="doctext-02"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>range-control</span><span class="token punctuation">&gt;</span></span></h2><p>Configure stylesheet path with:</p>
 <pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/bolt/elements/'</span><span class="token punctuation">;</span></code></pre>
 <p>Import <code>&lt;range-control&gt;</code> custom element. This also registers the custom 
 element and upgrades instances already in the DOM.</p>
@@ -307,30 +108,30 @@ element and upgrades instances already in the DOM.</p>
     <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
         <h3 class="doctext-03">Attributes</h3>        
         <!--template fn="docs:attributes.js filter-type:attribute each"-->
-    <article fn="append:body" class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-min">
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-min">
         <h3 class="doctext-05 ">
             <a href="#attribute-min">
-                <code fn="prepend:title" class="token language-html">min<span class="default">=<em>"0"</em></span></code>
+                <code class="token language-html">min<span class="default">=<em>"0"</em></span></code>
             </a>
         </h3>
     <p>Value at lower limit of fader. Can interpret values with recognised units,
     eg. <code>"0dB"</code>.</p>
 </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-max">
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-max">
         <h3 class="doctext-05 ">
             <a href="#attribute-max">
-                <code fn="prepend:title" class="token language-html">max<span class="default">=<em>"1"</em></span></code>
+                <code class="token language-html">max<span class="default">=<em>"1"</em></span></code>
             </a>
         </h3>
     <p>Value at upper limit of fader. Can interpret values with recognised units,
     eg. <code>"0dB"</code>.</p>
 </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-law">
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-law">
         <h3 class="doctext-05 ">
             <a href="#attribute-law">
-                <code fn="prepend:title" class="token language-html">law<span class="default">=<em>"linear"</em></span></code>
+                <code class="token language-html">law<span class="default">=<em>"linear"</em></span></code>
             </a>
         </h3>
     <p>Fader law. This is the name of a transform to be applied over the range 
@@ -344,10 +145,10 @@ element and upgrades instances already in the DOM.</p>
 </ul>
 </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-unit">
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-unit">
         <h3 class="doctext-05 ">
             <a href="#attribute-unit">
-                <code fn="prepend:title" class="token language-html">unit<!-- src="{[default|yesno:#default,'']}" --></code>
+                <code class="token language-html">unit<!-- src="{[default|yesno:#default,'']}" --></code>
             </a>
         </h3>
     <p>The value’s unit, if it has one. The output value and all ticks are 
@@ -358,10 +159,10 @@ element and upgrades instances already in the DOM.</p>
 </ul>
 </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-ticks">
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-ticks">
         <h3 class="doctext-05 ">
             <a href="#attribute-ticks">
-                <code fn="prepend:title" class="token language-html">ticks<!-- src="{[default|yesno:#default,'']}" --></code>
+                <code class="token language-html">ticks<!-- src="{[default|yesno:#default,'']}" --></code>
             </a>
         </h3>
     <p>A space separated list of values at which to display tick marks. Values
@@ -370,10 +171,10 @@ element and upgrades instances already in the DOM.</p>
 ticks="-48dB -36dB -24dB -12dB 0dB"</code></pre>
 </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-steps">
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-steps">
         <h3 class="doctext-05 ">
             <a href="#attribute-steps">
-                <code fn="prepend:title" class="token language-html">steps<!-- src="{[default|yesno:#default,'']}" --></code>
+                <code class="token language-html">steps<!-- src="{[default|yesno:#default,'']}" --></code>
             </a>
         </h3>
     <p>Steps is either:</p>
@@ -383,10 +184,10 @@ ticks="-48dB -36dB -24dB -12dB 0dB"</code></pre>
 </ul>
 </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-value">
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-value">
         <h3 class="doctext-05 ">
             <a href="#attribute-value">
-                <code fn="prepend:title" class="token language-html">value<!-- src="{[default|yesno:#default,'']}" --></code>
+                <code class="token language-html">value<!-- src="{[default|yesno:#default,'']}" --></code>
             </a>
         </h3>
     <p>The initial value of the fader.</p>
@@ -395,38 +196,38 @@ ticks="-48dB -36dB -24dB -12dB 0dB"</code></pre>
 
         <h3 class="doctext-03">Properties</h3>
         <!--template fn="docs:attributes.js filter-type:property each"-->
-    <article fn="append:body" class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-type">
+    <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-type">
         <h3 class="doctext-05 dot-indent">
             <a href="#property-type">
-                <code fn="prepend:title" class="property language-js">.type<span class="default">=<em>"number"</em></span></code>
+                <code class="property language-js">.type<span class="default">=<em>"number"</em></span></code>
             </a>
         </h3>
     <p>A readonly property with the value <code>"number"</code> (provided for consistency 
     with native form elements, which all have a type).</p>
 </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-min">
+    <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-min">
         <h3 class="doctext-05 dot-indent">
             <a href="#property-min">
-                <code fn="prepend:title" class="property language-js">.min<span class="default">=<em>0</em></span></code>
+                <code class="property language-js">.min<span class="default">=<em>0</em></span></code>
             </a>
         </h3>
     <p>Value at lower limit of fader, as a number.</p>
 </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-max">
+    <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-max">
         <h3 class="doctext-05 dot-indent">
             <a href="#property-max">
-                <code fn="prepend:title" class="property language-js">.max<span class="default">=<em>1</em></span></code>
+                <code class="property language-js">.max<span class="default">=<em>1</em></span></code>
             </a>
         </h3>
     <p>Value at lower limit of fader, as a number.</p>
 </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-value">
+    <article class="doc-toggle-block toggle-block block property-doc-toggle-block" toggleable="" id="property-value">
         <h3 class="doctext-05 dot-indent">
             <a href="#property-value">
-                <code fn="prepend:title" class="property language-js">.value<span class="default">=<em>0</em></span></code>
+                <code class="property language-js">.value<span class="default">=<em>0</em></span></code>
             </a>
         </h3>
     <p>Current value of the field, as a number.</p>
@@ -435,19 +236,19 @@ ticks="-48dB -36dB -24dB -12dB 0dB"</code></pre>
 
         <h3 class="doctext-03">Events</h3>
         <!--template fn="docs:attributes.js filter-type:string each"-->
-    <article fn="append:body" class="doc-toggle-block toggle-block block string-doc-toggle-block" toggleable="" id="string-input">
+    <article class="doc-toggle-block toggle-block block string-doc-toggle-block" toggleable="" id="string-input">
         <h3 class="doctext-05 ">
             <a href="#string-input">
-                <code fn="prepend:title" class="language-js">"input"<template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">"input"</code>
             </a>
         </h3>
     <p>Sent continuously during a fader movement.</p>
 </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block string-doc-toggle-block" toggleable="" id="string-change">
+    <article class="doc-toggle-block toggle-block block string-doc-toggle-block" toggleable="" id="string-change">
         <h3 class="doctext-05 ">
             <a href="#string-change">
-                <code fn="prepend:title" class="language-js">"change"<template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">"change"</code>
             </a>
         </h3>
     </article>
@@ -457,30 +258,30 @@ ticks="-48dB -36dB -24dB -12dB 0dB"</code></pre>
     <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
         <h3 class="doctext-03">Parts</h3>
         <!--template fn="docs:control.css filter-type:part each"-->
-    <article fn="append:body" class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-label">
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-label">
         <h3 class="doctext-05 ">
             <a href="#part-label">
-                <code fn="prepend:title" class="language-js">label<template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">label</code>
             </a>
         </h3>
     <p>)
 Style the label.</p>
 </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-output">
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-output">
         <h3 class="doctext-05 ">
             <a href="#part-output">
-                <code fn="prepend:title" class="language-js">output<template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">output</code>
             </a>
         </h3>
     <p>) 
 Style the display of the output value.</p>
 </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-tick">
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-tick">
         <h3 class="doctext-05 ">
             <a href="#part-tick">
-                <code fn="prepend:title" class="language-js">tick<template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">tick</code>
             </a>
         </h3>
     <p>) 
@@ -490,101 +291,99 @@ Style the tick marks.</p>
 
         <h3 class="doctext-03">CSS</h3>
         <!--template fn="docs:control.css filter-type:var each"-->
-    <article fn="append:body" class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-value-color">
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-value-color">
         <h3 class="doctext-05 ">
             <a href="#var-value-color">
-                <code fn="prepend:title" class="language-js">--value-color <template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">--value-color </code>
             </a>
         </h3>
     </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-background">
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-background">
         <h3 class="doctext-05 ">
             <a href="#var-handle-background">
-                <code fn="prepend:title" class="language-js">--handle-background <template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">--handle-background </code>
             </a>
         </h3>
     </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-border">
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-border">
         <h3 class="doctext-05 ">
             <a href="#var-handle-border">
-                <code fn="prepend:title" class="language-js">--handle-border <template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">--handle-border </code>
             </a>
         </h3>
     </article>
 
         <!--template fn="docs:range-control.css filter-type:var each"-->
-    <article fn="append:body" class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-track-height">
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-track-height">
         <h3 class="doctext-05 ">
             <a href="#var-track-height">
-                <code fn="prepend:title" class="language-js">--track-height <template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">--track-height </code>
             </a>
         </h3>
     </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-track-background">
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-track-background">
         <h3 class="doctext-05 ">
             <a href="#var-track-background">
-                <code fn="prepend:title" class="language-js">--track-background <template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">--track-background </code>
             </a>
         </h3>
     </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-track-border">
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-track-border">
         <h3 class="doctext-05 ">
             <a href="#var-track-border">
-                <code fn="prepend:title" class="language-js">--track-border <template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">--track-border </code>
             </a>
         </h3>
     </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-track-shadow">
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-track-shadow">
         <h3 class="doctext-05 ">
             <a href="#var-track-shadow">
-                <code fn="prepend:title" class="language-js">--track-shadow <template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">--track-shadow </code>
             </a>
         </h3>
     </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-width">
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-width">
         <h3 class="doctext-05 ">
             <a href="#var-handle-width">
-                <code fn="prepend:title" class="language-js">--handle-width <template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">--handle-width </code>
             </a>
         </h3>
     </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-height">
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-height">
         <h3 class="doctext-05 ">
             <a href="#var-handle-height">
-                <code fn="prepend:title" class="language-js">--handle-height <template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">--handle-height </code>
             </a>
         </h3>
     </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-shadow">
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-handle-shadow">
         <h3 class="doctext-05 ">
             <a href="#var-handle-shadow">
-                <code fn="prepend:title" class="language-js">--handle-shadow <template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">--handle-shadow </code>
             </a>
         </h3>
     </article>
 
-    <article fn="append:body" class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-bleed">
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-bleed">
         <h3 class="doctext-05 ">
             <a href="#var-bleed">
-                <code fn="prepend:title" class="language-js">--bleed <template src="{[default|yesno:#default,'']}"></template></code>
+                <code class="language-js">--bleed </code>
             </a>
         </h3>
     </article>
 
     </div>
 
-    <!--pre><code>import 'bolt/elements/range-control.js'</code></pre-->
-
     <!-- Build document -->
-    <script type="module" src="../build.js" remove=""></script>    
+        
 
     <!-- Document interactivity -->
     <script type="module">

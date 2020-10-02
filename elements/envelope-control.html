@@ -1,9 +1,7 @@
 <!DOCTYPE html><html lang="en"><head>
-    <template fn="fetch:package.json" src="../../sparky/templates.html#head-template"></template>
+    <template src="../../sparky/templates.html#head-template"></template>
 
-    <script remove="" title="debug">
-    window.DEBUG = true;
-    </script>
+    
 
     <style>
         /* Render some elements visible, just in this styleguide */
@@ -54,24 +52,24 @@
 
             <circle id="control-handle" class="control-point" cx="0" cy="0" r="0.0375"></circle>
 
-            <circle id="step-db-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
-            <circle id="linear-db-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
-            <circle id="exponential-db-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
+            <circle id="step-db-control" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
+            <circle id="linear-db-control" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
+            <circle id="exponential-db-control" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
             <g id="target-db-control" class="control" tabindex="0">
                 <line class="control-line" :x1="{[0]}" :x2="{[.|sum03]}" :y1="{[valueAtBeat|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" :y2="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}"></line>
                 <line class="thin-control-line control-line" :x1="{[0]}" :x2="{[.|sum033333]}" :y1="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" :y2="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}"></line>
-                <use fn="scope" class="control-handle" href="#control-handle" :x="{[0]}" :y="{[valueAtBeat|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" width="0.075" height="0.075"></use>
-                <use fn="scope" class="duration-handle" href="#control-handle" :x="{[.|sum03]}" :y="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" width="0.075" height="0.075"></use>
+                <use class="control-handle" href="#control-handle" :x="{[0]}" :y="{[valueAtBeat|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" width="0.075" height="0.075"></use>
+                <use class="duration-handle" href="#control-handle" :x="{[.|sum03]}" :y="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" width="0.075" height="0.075"></use>
             </g>
 
-            <circle id="step-hz-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:logarithmic,16,16384|multiply:-1]}" r="0.0375"></circle>
-            <circle id="linear-hz-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:logarithmic,16,16384|multiply:-1]}" r="0.0375"></circle>
-            <circle id="exponential-hz-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:logarithmic,16,16384|multiply:-1]}" r="0.0375"></circle>
+            <circle id="step-hz-control" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:logarithmic,16,16384|multiply:-1]}" r="0.0375"></circle>
+            <circle id="linear-hz-control" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:logarithmic,16,16384|multiply:-1]}" r="0.0375"></circle>
+            <circle id="exponential-hz-control" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:logarithmic,16,16384|multiply:-1]}" r="0.0375"></circle>
             <g id="target-hz-control" class="control" tabindex="0">
                 <line class="control-line" :x1="{[0]}" :x2="{[.|sum03]}" :y1="{[valueAtBeat|normalise:logarithmic,16,16384|multiply:-1]}" :y2="{[2|normalise:logarithmic,16,16384|multiply:-1]}"></line>
                 <line class="thin-control-line control-line" :x1="{[0]}" :x2="{[.|sum033333]}" :y1="{[2|normalise:logarithmic,16,16384|multiply:-1]}" :y2="{[2|normalise:logarithmic,16,16384|multiply:-1]}"></line>
-                <use fn="scope" class="control-handle" href="#control-handle" :x="{[0]}" :y="{[valueAtBeat|normalise:logarithmic,16,16384|multiply:-1]}" width="0.075" height="0.075"></use>
-                <use fn="scope" class="duration-handle" href="#control-handle" :x="{[.|sum03]}" :y="{[2|normalise:logarithmic,16,16384|multiply:-1]}" width="0.075" height="0.075"></use>
+                <use class="control-handle" href="#control-handle" :x="{[0]}" :y="{[valueAtBeat|normalise:logarithmic,16,16384|multiply:-1]}" width="0.075" height="0.075"></use>
+                <use class="duration-handle" href="#control-handle" :x="{[.|sum03]}" :y="{[2|normalise:logarithmic,16,16384|multiply:-1]}" width="0.075" height="0.075"></use>
             </g>
 
             <line id="y-tick" x1="0" :y1="{[tickValue]}" x2="0.5" :y2="{[tickValue]}"></line>
@@ -99,8 +97,8 @@
     <envelope-control class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center" min="-1" max="1" value="step 0 0.1 linear 0.5 1 linear 1 0.3" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="height: 16rem; --unit-zero:0.5; visibility: visible;">Envelope</envelope-control>
 
     <!-- Build document -->
-    <script type="module" src="../../fn/docs-build-2.js" remove=""></script>
-    <script type="module" src="../../sparky/module.js" remove=""></script>
+    
+    
 
     <!-- Document interactivity -->
     <script type="module">

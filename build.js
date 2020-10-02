@@ -20,7 +20,9 @@ import { select } from '../dom/module.js';
 
 // Remove nodes with a remove attribute. Remove fn attributes
 setTimeout(function() {
+    console.log('Build: removing ' + select('[remove]', document).length + ' elements');
     select('[remove]', document).forEach(invoke('remove', nothing));
+    console.log('Build: removing ' + select('[fn]', document).length + ' fn attributes');
     select('[fn]', document).forEach(invoke('removeAttribute', ['fn']));
     window.console.log('Document built! (this is just a cheap timeout, it may not be true)');
-}, 3000);
+}, 2000);
