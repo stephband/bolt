@@ -114,10 +114,10 @@ Template for rendering CSS entry
 
     <section fn="rest:1 filter-not-var" class="x-1 9x dense 9x-grid grid" style="row-gap: 0.9375rem; grid-auto-flow: column dense; align-content: start;">
         <template fn="each">
-            <h4 class="@2-x-4 @2-2x x-start y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+            <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
                 <a href="#{[id]}-description" title="Show HTML markup"><code _fn="title-replace-comma-br" fn="append:title"></code></a>
             </h4>
-            <div class="@2-x-1 @2-3x x-center y-baseline block" fn="prepend:example" style="max-width: 300px; width: 100%;"></div>
+            <div class="@2-x-1 @2-3x x-center y-lastline block" fn="prepend:example" style="max-width: 300px; width: 100%;"></div>
             <div class="@2-x-6 @2-2x x-stretch block">
                 <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable fn="append:body" id="{[id]}-description"></div>
             </div>

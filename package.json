@@ -28,7 +28,7 @@
   "module": "module.js",
   "scripts": {
     "lint": "eslint modules/*.js",
-    "build": "npm run build-module && npm run build-css && npm run build-docs",
+    "build": "npm run build-sass && npm run build-css && npm run build-module & npm run build-elements && npm run build-docs",
     "build-sass": "node-sass --output-style compact --indent-width 4 ./sass/grid.scss ./css/grid.css && node-sass --output-style compact --indent-width 4 ./sass/respond.scss ./css/respond.css",
     "build-module": "rollup ./module.js --o ./module.rolled.js --f esm",
     "build-range-control": "rollup ./elements/range-control.js --o ./elements/range-control.rolled.js --f esm && madge --image ./elements/range-control.svg ./elements/range-control.js",
