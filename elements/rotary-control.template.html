@@ -37,7 +37,7 @@
 </head>
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
-    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="header">
+    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="rotary-control">
         <template is="sparky-template" fn="docs:rotary-control.js filter-type:tag each" src="../templates.html#title"></template>
     </header>
 
@@ -72,8 +72,6 @@
         <template is="sparky-template" fn="docs:control.css filter-type:var each" src="../templates.html#entry"></template>
         <template is="sparky-template" fn="docs:rotary-control.css filter-type:var each" src="../templates.html#entry"></template>
     </div>
-
-    <script type="module" src="./rotary-control.js"></script>
 
     <!-- Build document -->
     <script type="module" src="../build.js" remove></script>    

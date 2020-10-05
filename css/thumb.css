@@ -163,7 +163,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
 .add-thumb,
 .subtract-thumb {
     background-color: white;
-    box-shadow: var(--switch-handle-shadow);
+    box-shadow: var(--handle-shadow);
 }
 
 .remove-thumb {

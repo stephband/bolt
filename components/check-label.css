@@ -31,6 +31,10 @@
     text-align: left;
 }
 
+:checked + .radio-label {
+    --mark-background: #46789a;
+}
+
 .radio-label::before,
 .radio-label::after,
 .check-label::before,
@@ -83,16 +87,16 @@
 }
 
 .radio-label::after {
-    top: calc(0.5 * (var(--input-height) - var(--radio-check-width)));
-    left: calc(0.5 * (var(--radio-width) - var(--radio-check-width)));
-    width: var(--radio-check-width);
-    height: var(--radio-check-width);
-    background: var(--radio-check-background);
-    border-radius: calc(0.5 * var(--radio-check-width));
+    top: calc(0.5 * (var(--input-height) - var(--mark-width)));
+    left: calc(0.5 * (var(--radio-width) - var(--mark-width)));
+    width: var(--mark-width);
+    height: var(--mark-width);
+    background: var(--mark-background);
+    border-radius: calc(0.5 * var(--mark-width));
 }
 
 .check-label::after {
-    content: var(--check-content);
+    content: var(--check-content, '');
     text-align: center;
     line-height: var(--check-width);
     background: var(--check-content-background);
@@ -154,7 +158,7 @@ input + .masked + .radio-label,
 }
 
 .right-radio-label::after {
-    right: calc(0.5 * (var(--radio-width) - var(--radio-check-width)));
+    right: calc(0.5 * (var(--radio-width) - var(--mark-width)));
 }
 
 
@@ -200,12 +204,10 @@ input + .masked + .radio-label,
     **/
     --check-background: var(--input-background);
 
-    /**
-    --check-content
-    The actual check mark
-    **/
+    /** --check-content
+    The actual check mark **/
     --check-content: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">\
-            <style>path{stroke:green;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;fill:none;}</style>\
+            <style>path{stroke:%2346789a;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;fill:none;}</style>\
             <path d="M5 8 L7 11 L11 5"></path>\
         </svg>');
 
@@ -232,15 +234,11 @@ input + .masked + .radio-label,
     **/
     --radio-border-width: var(--input-border-width, 1px);
 
-    /**
-    --radio-check-width
-    Size of radio check mark
-    **/
-    --radio-check-width: 0.75rem;
+    /** --mark-width
+    Size of radio check mark **/
+    --mark-width: 0.75rem;
 
-    /**
-    --radio-check-background
-    Background of radio check mark
-    **/
-    --radio-check--background: currentcolor;
+    /** --mark-background
+    Background of radio check mark **/
+    --mark-background: red;
 }

@@ -15,16 +15,44 @@ import './components/switch-label.js';
 **/
 
 .switch-label {
+    /** --handle-width **/
+    --handle-width: 1.5rem;
+      
+    /** --handle-shadow **/
+    --handle-shadow: 0 0.125rem 0.25rem 0.0625rem rgba(0,0,0,0.25);
+
+    /** --track-background **/
+    /* --track-background: #eeeeee; */
+
+    /** --track-width **/
+    --track-width: 3.1875em;
+
+    /** --track-height **/
+    --track-height: 1.875rem;
+
+    /** --track-shadow **/
+    --track-shadow: inset 0 0.125rem 0.5em rgba(0,0,0,0.2);
+
+    /** --track-border **/
+    /*--track-border: none;*/
+
     display: block;
     position: relative;
     font-size: var(--check-font-size);
     line-height: var(--check-line-height);
     font-weight: inherit;
-    padding-left: calc(var(--switch-width) + 1em);
+    padding-left: calc(var(--track-width) + 1em);
     padding-top: calc(0.5 * (var(--input-height) - var(--check-line-height)));
     padding-bottom: calc(0.5 * (var(--input-height) - var(--check-line-height)));
     min-height: var(--input-height);
     color: inherit;
+}
+
+:checked + .switch-label {
+    --track-background: #46789a;
+    /*--track-border:;*/
+    /*--track-shadow:;*/
+    --handle-background: white;
 }
 
 .switch-label::before {
@@ -33,48 +61,42 @@ import './components/switch-label.js';
     left: 0;
     top: 50%;
     transform: translate(0, -50%);
-    width: var(--switch-width);
-    height: var(--switch-height);
+    width: var(--track-width);
+    height: var(--track-height);
     padding: 0;
     overflow: hidden;
-    background: var(--switch-background);
+    background: var(--track-background);
     /* Border for the outline  renders much more reliably than box-shadow
        in Safari, as it is constrained to whole px values */
-    border: var(--switch-border);
-    border-radius: calc(0.5 * var(--switch-height));
-    box-shadow: var(--switch-shadow);
+    border: var(--track-border);
+    border-radius: calc(0.5 * var(--track-height));
+    box-shadow: var(--track-shadow);
     transition: background 0.16s linear;
 }
 
 .switch-label::after {
     content: '';
     position: absolute;
-    width: var(--switch-handle-width);
-    height: var(--switch-handle-width);
+    width: var(--handle-width);
+    height: var(--handle-width);
     top: 50%;
     left: 0;
     transform: translate(
-        calc(0.5 * var(--switch-height) - 0.5 * var(--switch-handle-width)),
+        calc(0.5 * var(--track-height) - 0.5 * var(--handle-width)),
         -50%
     );
-    border: var(--switch-handle-border);
+    border: var(--handle-border);
     border-radius: 50%;
-    background-color: var(--switch-handle-background);
-    box-shadow: var(--switch-handle-shadow);
+    background-color: var(--handle-background);
+    box-shadow: var(--handle-shadow);
     transition:
         0.16s background linear,
         0.16s transform ease-out;
 }
 
-:checked + .switch-label::before {
-    background: var(--switch-background-checked);
-    border: var(--switch-border-checked);
-}
-
 :checked + .switch-label::after {
-    background-color: var(--switch-handle-background-checked);
     transform: translate(
-        calc(var(--switch-width) - 0.5 * var(--switch-height) - 0.5 * var(--switch-handle-width)),
+        calc(var(--track-width) - 0.5 * var(--track-height) - 0.5 * var(--handle-width)),
         -50%
     );
 }
@@ -92,8 +114,8 @@ import './components/switch-label.js';
     /* Enables swipe interaction when switch-label.js is included */
     transition: none;
     transform:
-        translate(calc(0.5 * var(--switch-height) - 0.5 * var(--switch-handle-width) + var(--switch-handle-gesture-x) * (
-            var(--switch-width) - var(--switch-height)
+        translate(calc(0.5 * var(--track-height) - 0.5 * var(--handle-width) + var(--handle-gesture-x) * (
+            var(--track-width) - var(--track-height)
         )), -50%);
 }
 
@@ -127,7 +149,7 @@ import './components/switch-label.js';
 
 .right-switch-label {
     padding-left: 0;
-    padding-right: calc(var(--switch-width) + 1em);
+    padding-right: calc(var(--track-width) + 1em);
 }
 
 .right-switch-label::before {
@@ -137,73 +159,6 @@ import './components/switch-label.js';
 
 .right-switch-label::after {
     left: auto;
-    right: calc(var(--switch-width) - var(--switch-handle-width));
+    right: calc(var(--track-width) - var(--handle-width));
 }
 
-
-:root {
-    /**
-    --switch-background
-    **/
-    --switch-background: #eeeeee;
-
-    /**
-    --switch-background-checked
-    **/
-    --switch-background-checked: #005477;
-
-    /**
-    --switch-width
-    **/
-    --switch-width: 3.1875em;
-
-    /**
-    --switch-height
-    **/
-    --switch-height: 1.875rem;
-
-    /**
-    --switch-border
-    **/
-    --switch-border: none;
-
-    /**
-    --switch-border-checked
-    **/
-    --switch-border-checked: var(--switch-border);
-
-    /**
-    --switch-shadow
-    **/
-    --switch-shadow: inset 0 0.125rem 0.5em rgba(0,0,0,0.2);
-
-    /**
-    --switch-handle-background
-    **/
-    --switch-handle-background: white;
-
-    /**
-    --switch-handle-background
-    **/
-    --switch-handle-background-checked: white;
-
-    /**
-    --switch-handle-width
-    **/
-    --switch-handle-width: 1.5rem;
-
-    /**
-    --switch-handle-border
-    **/
-    --switch-handle-border: none;
-
-    /**
-    --switch-handle-border-checked
-    **/
-    --switch-handle-border-checked: var(--switch-handle-border);
-
-    /**
-    --switch-handle-shadow
-    **/
-    --switch-handle-shadow: 0 0.125rem 0.25rem 0.0625rem rgba(0,0,0,0.25);
-}

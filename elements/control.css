@@ -35,7 +35,6 @@
     margin: 0;
 }
 
-
 /** 
 ::part(label)
 Style the label.
@@ -48,7 +47,6 @@ Style the label.
     letter-spacing: -0.04em;
     color: currentcolor;
 }
-
 
 /** 
 ::part(output) 
@@ -73,7 +71,6 @@ Style the display of the output value.
     margin-left: 0.1em;
     vertical-align: baseline;
 }
-
 
 /**
 ::part(tick) 

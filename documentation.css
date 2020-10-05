@@ -1,6 +1,7 @@
 
 @import '../fn/css/docs.css';
 
+
 /* Pills */
 
 .default-pill {
@@ -32,4 +33,10 @@
 .doc-toggle-block > .doctext-05 > .pill {
     margin: 0;
     text-indent: 0;
+}
+
+/* Text */
+
+.doctext-05 > a > code {
+    white-space: normal;
 }

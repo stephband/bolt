@@ -3,6 +3,145 @@
 Forms.
 **/
 
+:root {
+    /** --input-font-size
+    Font size of inputs, selects and textareas **/
+    --input-font-size: inherit;
+
+    /** --input-line-height
+    Line height of textareas **/
+    --input-line-height: 1.5rem;
+
+    /** --input-background
+    Background of input, select and textareas **/
+    --input-background: white;
+
+    /** --input-border-color
+    Border colour of inputs, selects and textareas **/
+    --input-border-color: #bbbbbb;
+
+    /** --input-border-width
+    Border width of inputs, selects and textareas **/
+    --input-border-width: 1px;
+
+    /** --input-border-radius
+    Border radius of inputs, selects and textareas **/
+    --input-border-radius: 0.1875rem;
+
+    /** --input-box-shadow
+    Box shadow of inputs, selects and textareas **/
+    --input-box-shadow: none;
+
+    /** --input-padding-left **/
+    --input-padding-left: 0.5625rem;
+
+    /** --input-padding-right **/
+    --input-padding-right: 0.5625rem;
+
+    /** --input-height
+    Height of inputs and selects **/
+    --input-height: 2.8125rem;
+
+    /** --input-color
+    Text colour of inputs, selects and textareas **/
+    --input-color: inherit;
+
+    /** --input-margin **/
+    --input-margin: 0.9375em;
+
+    /** --range-height **/
+    --range-height: var(--input-height);
+
+    /** --track-height **/
+    --track-height: 0.375rem;
+  
+    /** --track-background **/
+    --track-background: #eeeeee;
+
+    /** --track-border **/
+    --track-border: none;
+
+    /** --track-shadow **/
+    --track-shadow: inset 0 0.0625rem 0.25rem rgba(0,0,0,0.2);
+
+    /** --track-radius **/
+    /*--track-radius: ;*/
+
+    /** --handle-width **/
+    --handle-width: 1.25rem;
+
+    /** --handle-background **/
+    --handle-background: white;
+   
+    /** --handle-border **/
+    --handle-border: 1px solid rgb(122 144 158);
+
+    /** --handle-radius **/
+    /*--handle-radius: ;*/
+
+    /** --label-font-size
+    Font size of labels **/
+    --label-font-size: 1rem;
+
+    /** --label-line-height
+    Line height of labels **/
+    --label-line-height: 1.5rem;
+
+    /** --label-color
+    Colour of labels **/
+    --label-color: #444444;
+
+    /** --label-margin **/
+    --label-margin: 1.125rem;
+
+    /** --label-input-margin **/
+    --label-input-margin: 0.1875rem;
+
+    /** --fieldset-margin **/
+    --fieldset-margin: 2rem;
+
+    /** --fieldset-input-margin **/
+    --fieldset-input-margin: 2rem;
+
+    /** --focus-background
+    Background of focused inputs, selects and textareas **/
+    --focus-background: var(--input-background);
+
+    /** --focus-border-color
+    Border colour of focused inputs, selects and textareas **/
+    --focus-border-color: #2c9bd3;
+
+    /** --focus-shadow
+    Box shadow of focused links, inputs, selects and textareas **/
+    --focus-shadow:
+        0 0 5px 2px hsla(200,56%,49%,0.8),
+        inset 0 0 0 1px hsl(200,56%,49%),
+        inset 0 0 0.5rem hsla(200,65%,60%,0.6);
+
+    /** --invalid-background
+    Background of invalid inputs, selects and textareas **/
+    --invalid-background: var(--input-background);
+
+    /** --invalid-border-color
+    Border colour of invalid inputs, selects and textareas **/
+    --invalid-border-color: rgba(214,23,41);
+
+    /** --invalid-box-shadow
+    Box shadow of invalid inputs, selects and textareas **/
+    --invalid-box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
+
+
+    /** --disabled-filter **/
+    --disabled-filter: opacity(0.4);
+
+    /** --error-font-size **/
+    --error-font-size: 0.875rem;
+
+    /** --help-font-size **/
+    --help-font-size: 0.875rem;
+}
+
+
 /* IE/Edge fails to update styles for changed disabled properties. This rule
    targetting the attribute rather than the pseudo-selector keeps the
    pseudo-selectors up-to-date.
@@ -55,7 +194,6 @@ fieldset {
 }
 
 legend {
-    /* Correct color not being inherited (IE6/7/8/9) */
     border: 0;
     padding: 0;
     /* Text should wrap (FF3) */
@@ -80,14 +218,6 @@ input[type="text"]
 ```html
 <label for="text-input">Text</label>
 <input type="text" placeholder="Enter text" id="text-input" />
-
-<label class="required-after after" for="required-input">Required</label>
-<input type="text" required placeholder="Enter text" id="required-input" />
-<label class="help-label text-11" for="required-input">Help text</label>
-
-<label class="required-after after" for="error-input">Error</label>
-<input type="text" required placeholder="Enter text" id="error-input" />
-<label class="error-label text-11" for="error-input">This field is required</label>
 ```
 **/
 
@@ -118,7 +248,6 @@ input[type="search"]
 ```
 **/
 
-
 /**
 input[type="tel"]
 
@@ -134,6 +263,26 @@ input[type="url"]
 ```html
 <label for="url-input">URL</label>
 <input type="url" placeholder="http://cruncher.ch/" id="url-input" />
+```
+**/
+
+/**
+input[required]
+
+```html
+<label class="required-after after" for="required-input">Required</label>
+<input type="text" required placeholder="Enter text" id="required-input" />
+<label class="help-label text-11" for="required-input">Help text</label>
+```
+**/
+
+/**
+input:invalid
+
+```html
+<label class="required-after after" for="error-input">Error</label>
+<input type="text" required placeholder="Enter text" id="error-input" />
+<label class="error-label text-11" for="error-input">This field is required</label>
 ```
 **/
 
@@ -508,7 +657,7 @@ select {
 
     height: auto;
     min-height: var(--input-height);
-	/*box-shadow: 0 1px 0 1px rgba(0,0,0,.04);*/
+	 /*box-shadow: 0 1px 0 1px rgba(0,0,0,.04);*/
 
     background-image: 
         /* Arrow icon */
@@ -766,6 +915,8 @@ select:focus {
 */
 
 [type="range"] {
+   cursor: pointer;
+
     -webkit-appearance: none !important;
     background-color: transparent;
     border-width: 0;
@@ -780,29 +931,32 @@ select:focus {
 /* [type="range"] track */
 
 [type="range"]::-webkit-slider-runnable-track {
-    height: var(--range-track-height, 0.75rem);
-    background: var(--range-track-background, #2B3134);
-    border: none;
-    border-radius: var(--range-track-radius, calc(0.5 * var(--range-track-height, 0.75rem)));
+    height: var(--track-height, 0.75rem);
+    background: var(--track-background, #2B3134);
+    border: var(--track-background, none);
+    border-radius: var(--track-radius, calc(0.5 * var(--track-height, 0.75rem)));
+    box-shadow: var(--track-shadow);
 }
 
 [type="range"]::-moz-range-track {
-    height: var(--range-track-height, 0.75rem);
-    background: var(--range-track-background, #2B3134);
-    border: none;
-    border-radius: var(--range-track-radius, calc(0.5 * var(--range-track-height, 0.75rem)));
+    height: var(--track-height, 0.75rem);
+    background: var(--track-background, #2B3134);
+    border: var(--track-background, none);
+    border-radius: var(--track-radius, calc(0.5 * var(--track-height, 0.75rem)));
+    box-shadow: var(--track-shadow);
 }
 
 [type="range"]::-moz-range-progress {
-    height: var(--range-track-height, 0.75rem);
-    background: var(--range-track-background, #2B3134);
-    border-radius: var(--range-track-radius, calc(0.5 * var(--range-track-height, 0.75rem)));
+    height: var(--track-height, 0.75rem);
+    background: var(--track-background, #2B3134);
+    border-radius: var(--track-radius, calc(0.5 * var(--track-height, 0.75rem)));
+    box-shadow: var(--track-shadow);
 }
 
 [type=range]::-ms-track {
-    height: var(--range-track-height, 0.75rem);
+    height: var(--track-height, 0.75rem);
     border: none;
-    border-radius: var(--range-track-radius, calc(0.5 * var(--range-track-height, 0.75rem)));
+    border-radius: var(--track-radius, calc(0.5 * var(--track-height, 0.75rem)));
 
     /* Remove bg colour from the track and use ms-fill-lower and
        ms-fill-upper instead */
@@ -813,13 +967,15 @@ select:focus {
 }
 
 [type=range]::-ms-fill-lower {
-    background: var(--range-track-background, #2B3134);
-    border-radius: var(--range-track-radius, calc(0.5 * var(--range-track-height, 0.75rem)));
+    background: var(--track-background, #2B3134);
+    border-radius: var(--track-radius, calc(0.5 * var(--track-height, 0.75rem)));
+    box-shadow: var(--track-shadow);
 }
 
 [type=range]::-ms-fill-upper {
-    background: var(--range-track-background, #2B3134);
-    border-radius: var(--range-track-radius, calc(0.5 * var(--range-track-height, 0.75rem)));
+    background: var(--track-background, #2B3134);
+    border-radius: var(--track-radius, calc(0.5 * var(--track-height, 0.75rem)));
+    box-shadow: var(--track-shadow);
 }
 
 /* [type="range"] thumb */
@@ -830,45 +986,48 @@ select:focus {
     cursor: pointer;
     cursor: ew-resize;
 
-    width: var(--range-thumb-width, 0.875rem);
-    height: var(--range-thumb-height, var(--range-thumb-width, 0.875rem));
-    margin-top: calc(0.5 * (var(--range-track-height, 0.75rem) - var(--range-thumb-height, var(--range-thumb-width, 0.875rem))));
-    border: var(--range-thumb-border, none);
+    width: var(--handle-width, 0.875rem);
+    height: var(--handle-height, var(--handle-width, 0.875rem));
+    margin-top: calc(0.5 * (var(--track-height, 0.75rem) - var(--handle-height, var(--handle-width, 0.875rem))));
+    border: var(--handle-border, 1px solid green);
     border-radius: 50%;
     background: #B6B2B0;
-    background: var(--range-thumb-background, linear-gradient(rgb(247,247,247), rgb(140,140,140)));
+    background: var(--handle-background, linear-gradient(rgb(247,247,247), rgb(140,140,140)));
 }
 
 [type="range"]::-moz-range-thumb {
     cursor: pointer;
     cursor: ew-resize;
 
-    width: var(--range-thumb-width, 0.875rem);
-    height: var(--range-thumb-height, var(--range-thumb-width, 0.875rem));
-    margin-top: calc(0.5 * (var(--range-track-height, 0.75rem) - var(--range-thumb-height, var(--range-thumb-width, 0.875rem))));
-    border: var(--range-thumb-border, none);
+    width: var(--handle-width, 0.875rem);
+    height: var(--handle-height, var(--handle-width, 0.875rem));
+    margin-top: calc(0.5 * (var(--track-height, 0.75rem) - var(--handle-height, var(--handle-width, 0.875rem))));
+    border: var(--handle-border, none);
     border-radius: 50%;
     background: #B6B2B0;
-    background: var(--range-thumb-background, linear-gradient(rgb(247,247,247), rgb(140,140,140)));
+    background: var(--handle-background, linear-gradient(rgb(247,247,247), rgb(140,140,140)));
 }
 
 [type="range"]::-ms-thumb {
     cursor: pointer;
     cursor: ew-resize;
 
-    width: var(--range-thumb-width, 0.875rem);
-    height: var(--range-thumb-height, var(--range-thumb-width, 0.875rem));
+    width: var(--handle-width, 0.875rem);
+    height: var(--handle-height, var(--handle-width, 0.875rem));
 
     margin-top: 1px;
-    border: var(--range-thumb-border, none);
+    border: var(--handle-border, none);
     border-radius: 50%;
     background: #B6B2B0;
-    background: var(--range-thumb-background, linear-gradient(rgb(247,247,247), rgb(140,140,140)));
+    background: var(--handle-background, linear-gradient(rgb(247,247,247), rgb(140,140,140)));
 }
 
 /* [type="range"] focus */
 
 [type="range"]:focus {
+    --handle-background: #46789a;
+    --handle-border: 1px solid #46789a;
+
     outline: none;
     outline-width: 0 !important;
 }

@@ -37,8 +37,8 @@ Template for <head> stylesheets
 -->
 
 <template id="style" remove>
-    <link rel="stylesheet" href="style.min.css">
-    <!--link rel="stylesheet" href="style.css" /-->
+    <link rel="stylesheet" href="style.min.css" />
+    <link rel="stylesheet" href="style.css" />
 
     <link rel="stylesheet" href="../fn/css/prism-cruncher.css" />
     <link rel="stylesheet" href="../fn/css/tests.css" />
@@ -109,34 +109,28 @@ attribute="value"
 Template for rendering CSS entry 
 -->
 
-<template remove id="css">
-    <section class="x-1 9x grid" style="--row-gap: var(--input-margin);" id="components" locateable>
-        <header class="x-3 2x x-start">
-            <h3 fn="get:0 after:body" class="doctext-03 {[prefix|is:'.'|yesno:'dot-indent','']}">
-                <a fn="append:title" class="doctoggle-button button" href="#component-{[id]}"></a>
-            </h3>
-        </header>
+<template id="css" remove>
+    <h3 fn="get:0 append:title after:body" class="x-4 1x @2-x-4 @2-4x x-start doctext-03 {[prefix|is:'.'|yesno:'dot-indent','']}"></h3>
 
-        <section fn="rest:1 filter-not-var" class="x-1 5x y-2 grid" style="grid-auto-flow: row; align-content: start;" id="component-{[0.id]}">
-            <template fn="each">
-                <h4 class="x-1 2x x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']} right-align">
-                    <a href="#{[id]}-description" title="Show HTML markup"><code fn="title-replace-comma-br append:title"></code></a>
-                </h4>
-                <div class="x-3 2x x-stretch y-baseline block" fn="prepend:example"></div>
-                <div class="@2-x-5 x-stretch block">
-                    <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable fn="append:body" id="{[id]}-description"></div>
-                </div>
-            </template>
-        </section>
-
-        <section fn="rest:1 filter-var" class="x-1 @2-x-5 5x y-2 grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
-            <template fn="each">
-                <label class="x-1 2x x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}" for="doc-var-{[id]}">
-                    <code fn="append:title" style="color: #888888;"></code><span style="color: transparent;">:</span>
-                </label>
-                <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--{[id]}" id="doc-var-{[id]}" type="text" placeholder="value"/>
-                <div class="x-4 2x" style="color: transparent;">;</div>
-            </template>
-        </section>
+    <section fn="rest:1 filter-not-var" class="x-1 9x dense 9x-grid grid" style="row-gap: 0.9375rem; grid-auto-flow: column dense; align-content: start;">
+        <template fn="each">
+            <h4 class="@2-x-4 @2-2x x-start y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+                <a href="#{[id]}-description" title="Show HTML markup"><code _fn="title-replace-comma-br" fn="append:title"></code></a>
+            </h4>
+            <div class="@2-x-1 @2-3x x-center y-baseline block" fn="prepend:example" style="max-width: 300px; width: 100%;"></div>
+            <div class="@2-x-6 @2-2x x-stretch block">
+                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable fn="append:body" id="{[id]}-description"></div>
+            </div>
+        </template>
     </section>
+
+    <!--section fn="rest:1 filter-var" class="x-1 @2-x-5 5x grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
+        <template fn="each">
+            <label class="x-1 2x x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}" for="doc-var-{[id]}">
+                <code fn="append:title" style="color: #888888;"></code><span style="color: transparent;">:</span>
+            </label>
+            <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--{[id]}" id="doc-var-{[id]}" type="text" placeholder="value"/>
+            <div class="x-4 2x" style="color: transparent;">;</div>
+        </template>
+    </section-->
 </template>
