@@ -11,7 +11,8 @@
 }
 
 :host > svg {
-    height: 100%;
+    /* Compensate for label height */
+    height: calc(100% - 24px);
     width: 100%;
 }
 
