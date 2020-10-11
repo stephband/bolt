@@ -36,7 +36,7 @@ import element from '../../dom/modules/element.js';
 import gestures from '../../dom/modules/gestures.js';
 import { parseValue } from '../../dom/modules/parse-value.js';
 import trigger from '../../dom/modules/trigger.js';
-import { attributes, properties } from './attributes.js';
+import { attributes, properties, handleEvent } from './attributes.js';
 
 //console.log('<rotary-control> stephen.band/bolt/elements/rotary-control.html');
 
@@ -138,27 +138,6 @@ function createTemplate(elem, shadow, internals) {
 
 
 /* Events */
-
-function touchstart(e) {
-    // Ignore non-ticks
-    if (e.target.type !== 'button') { return; }
-
-    const unitValue = parseFloat(e.target.value);
-    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
-    this.element.value = value;
-
-    // Refocus the input (should not be needed now we have focus 
-    // control on parent?) and trigger input event on element
-    //            shadow.querySelector('input').focus();
-
-    // Change event on element
-    trigger('change', this.element);
-}
-
-const handleEvent = overload((e) => e.type, {
-    'touchstart': touchstart,
-    'mousedown': touchstart
-});
 
 element('rotary-control', {
     template: function(elem, shadow) {

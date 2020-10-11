@@ -2,6 +2,7 @@
 import by from '../../fn/modules/by.js';
 import get from '../../fn/modules/get.js';
 import nothing from '../../fn/modules/nothing.js';
+import overload from '../../fn/modules/overload.js';
 import requestTick from '../../fn/modules/request-tick.js';
 import Privates from '../../fn/modules/privates.js';
 import { evaluate, invert, transformTick, transformOutput, transformUnit } from './control.js';
@@ -317,11 +318,43 @@ export const properties = {
 };
 
 
+
+/* Events */
+
 /**
 "input"
 Sent continuously during a fader movement.
 **/
 
-/**
-"change"
-**/
+function touchstart(e) {
+    // Ignore non-ticks
+    if (e.target.type !== 'button') { return; }
+
+    const unitValue = parseFloat(e.target.value);
+    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
+    this.element.value = value;
+
+    // Refocus the input (should not be needed now we have focus 
+    // control on parent?) and trigger input event on element
+    //            shadow.querySelector('input').focus();
+
+    // Change event on element
+    trigger('input', this.element);
+}
+
+function input(e) {
+    const unitValue = parseFloat(e.target.value); 
+    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
+    this.element.value = value;
+
+    // If the range has steps make sure the handle snaps into place
+    if (this.data.steps) {
+        e.target.value = this.data.unitValue;
+    }
+}
+
+export const handleEvent = overload((e) => e.type, {
+    'touchstart': touchstart,
+    'mousedown': touchstart,
+    'input': input
+});

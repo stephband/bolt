@@ -34,7 +34,7 @@ import { transform } from './control.js';
 import create from '../../dom/modules/create.js';
 import element from '../../dom/modules/element.js';
 import trigger from '../../dom/modules/trigger.js';
-import { attributes, properties } from './attributes.js';
+import { attributes, properties, handleEvent } from './attributes.js';
 
 const DEBUG = true;
 
@@ -131,43 +131,6 @@ function createTemplate(elem, shadow) {
         })([])
     };
 }
-
-
-/* Events */
-
-function touchstart(e) {
-    // Ignore non-ticks
-    if (e.target.type !== 'button') { return; }
-
-    const unitValue = parseFloat(e.target.value);
-    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
-    this.element.value = value;
-
-    // Refocus the input (should not be needed now we have focus 
-    // control on parent?) and trigger input event on element
-    //            shadow.querySelector('input').focus();
-
-    // Change event on element
-    trigger('change', this.element);
-}
-
-function input(e) {
-    const unitValue = parseFloat(e.target.value); 
-    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
-    this.element.value = value;
-
-    // If the range has steps make sure the handle snaps into place
-    if (this.data.steps) {
-        e.target.value = this.data.unitValue;
-    }
-}
-
-const handleEvent = overload((e) => e.type, {
-    'touchstart': touchstart,
-    'mousedown': touchstart,
-    'input': input
-});
-
 
 /* Element */
 
