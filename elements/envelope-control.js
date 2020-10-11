@@ -374,7 +374,7 @@ function assignValueAtBeat(value, event) {
 }
 
 element('envelope-control', {
-    template: '#envelope-control',
+    template: '/bolt/elements/envelope-control.template.html#envelope-control',
 
     attributes: {
         min: function(value) { this.min = value; },
@@ -580,7 +580,9 @@ console.log('Ticks', data);
                 events: [e0],
 
                 // Grab the current viewBox as an array of numbers
-                viewbox: elem.graphOptions.viewbox,
+                viewbox: elem.graphOptions ?
+                    elem.graphOptions.viewbox :
+                    [],
 
                 collection: elem.value,
 
