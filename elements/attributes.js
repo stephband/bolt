@@ -5,7 +5,8 @@ import nothing from '../../fn/modules/nothing.js';
 import overload from '../../fn/modules/overload.js';
 import requestTick from '../../fn/modules/request-tick.js';
 import Privates from '../../fn/modules/privates.js';
-import { evaluate, invert, transformTick, transformOutput, transformUnit } from './control.js';
+import trigger from '../../dom/modules/trigger.js';
+import { evaluate, invert, transform, transformTick, transformOutput, transformUnit } from './control.js';
 
 export function createTicks(data, tokens) {
     return tokens ?
@@ -327,10 +328,12 @@ Sent continuously during a fader movement.
 **/
 
 function touchstart(e) {
-    // Ignore non-ticks
-    if (e.target.type !== 'button') { return; }
+    const target = e.target.closest('button');
 
-    const unitValue = parseFloat(e.target.value);
+    // Ignore non-ticks
+    if (!target) { return; }
+
+    const unitValue = parseFloat(target.value);
     const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
     this.element.value = value;
 
