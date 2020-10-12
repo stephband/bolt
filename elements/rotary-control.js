@@ -61,7 +61,7 @@ function createTemplate(elem, shadow, internals) {
     const link   = create('link',  { rel: 'stylesheet', href: config.path + 'rotary-control.css' });
     const style  = create('style', ':host {}');
     const label  = create('label', { for: 'input', html: '<slot></slot>' });
-    const handle = create('div', { part: 'handle' });
+    const handle = create('div', { class: 'handle' });
     const text   = create('text');
     const abbr   = create('abbr');
     const output = create('output', { children: [text, abbr], part: 'output' });

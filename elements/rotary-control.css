@@ -110,12 +110,13 @@
     height: 0;
     padding-top: var(--handle-width);
     box-shadow: var(--handle-shadow);
-    border: 0;
+    background: var(--handle-background);
+    border: var(--handle-border);
     border-radius: 50%;
     z-index: 0;
 }
 
-:host > [part="handle"] {
+:host > .handle {
     grid-area: handle;
     z-index: 2;
 }
@@ -164,14 +165,14 @@
 
 /* knob */
 
-[part="handle"] {
+.handle {
     cursor: pointer;
     cursor: ns-resize;
     width: var(--handle-width);
     height: 0;
     padding-top: calc(var(--handle-width) - 2px);
-    background: var(--handle-background);
-    border: var(--handle-border);
+    background: transparent;/*var(--handle-background);*/
+    border: 0;
     border-radius: 50%;
     transform: rotate3d(0, 0, 1, calc(var(--rotation-start) + var(--unit-value) * var(--rotation-range)));
     
@@ -185,7 +186,7 @@
               user-select: none; /* Non-prefixed version */
 }
 
-[part="handle"]::after {
+.handle::after {
     content: '';
     position: absolute;
     width: var(--handle-dot-width);
