@@ -6,16 +6,15 @@
 :host {
     /** --value-color **/
     --value-color: #88deff;
-    
+
+    /** --value-color **/
+    --grid-color: #000d11;
+
     /** --handle-background **/
     --handle-background: white;
     
     /** --handle-border **/
     --handle-border: 1px solid rgb(122 144 158);
-
-    position: relative;
-    display: grid;
-    padding: 0;
 }
 
 :host(:focus) {

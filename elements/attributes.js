@@ -8,6 +8,7 @@ import Privates from '../../fn/modules/privates.js';
 import trigger from '../../dom/modules/trigger.js';
 import { evaluate, invert, transform, transformTick, transformOutput, transformUnit } from './control.js';
 
+
 export function createTicks(data, tokens) {
     return tokens ?
         tokens

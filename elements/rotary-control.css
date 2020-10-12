@@ -58,6 +58,8 @@
 
     position: relative;
     display: grid;
+    padding: 0;
+
     grid-template-areas:
         'handle handle'
         'label plugs';

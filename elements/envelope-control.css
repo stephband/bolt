@@ -1,13 +1,19 @@
 
 @import '../css/html.css';
 @import '../css/svg.css';
+@import './control.css';
 
 :host {
+    /* Original soundio green */
+    /*--value-color: #acb9b8;*/
+
     --track-background: #01181e;
     --track-radius: 0.375rem;
     --track-shadow: inset 0 0 90px hsla(192, 94%, 6%, 0.8),
         0 1px 1px hsla(192, 18%, 64%, 0.15),
         0 -1px 1px hsla(192, 60%, 8%, 0.4);
+
+    --handle-stroke-width: 1px;
 }
 
 :host > svg {
@@ -27,7 +33,7 @@
 .control-point {
     fill: url(#handle-gradient);
     stroke: inherit;
-    stroke-width: 3;
+    stroke-width: var(--handle-stroke-width);
 }
 
 .control-line {

@@ -1,10 +1,32 @@
 
+
+
+/**
+<envelope-control>
+
+Configure stylesheet path with:
+
+```js
+window.customElementStylesheetPath = 'path/to/bolt/elements/';
+```
+
+Import `<envelope-control>` custom element. This also registers the custom 
+element and upgrades instances already in the DOM.
+
+```html
+<script type="module" src="./path/to/bolt/elements/envelope-control.rolled.js"></script>
+<envelope-control name="scale" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">Scale</envelope-control>
+```
+
+**/
+
+import Privates from '../../fn/modules/privates.js';
 import { Observer, by, capture, insert, get, noop, overload, toCamelCase, toLevel, toType, id, notify, nothing, observe, remove } from '../../fn/module.js';
 import { clamp } from '../../fn/modules/maths/clamp.js';
-import { rect as box, element, gestures, trigger } from '../../dom/module.js';
+import { rect as box, element, gestures, trigger, create } from '../../dom/module.js';
 import { evaluate, invert, transformTick, transformOutput, transformUnit } from './control.js';
 import Sparky, { mount, config, getScope } from '../../sparky/module.js';
-import { attributes } from './attributes.js';
+import { attributes, properties } from './attributes.js';
 
 import * as normalise from '../../fn/modules/normalisers.js';
 import * as denormalise from '../../fn/modules/denormalisers.js';
@@ -241,7 +263,7 @@ const intoCoordinates = overload((data, e) => e.type, {
 
     'mouseup': (data, e) => {
         data.events.push(e);
-        data.duration = e.time - data.time;
+        data.duration = e.timeStamp / 1000 - data.time;
 
         // If the gesture does not yet have a type, check whether duration is
         // short and call it a tap
@@ -325,7 +347,6 @@ const handleGesture = match(getTarget, {
         'double-tap': function(data) {
             // Pick up scope from previous tap data as outlined above.
             const scope = data.previous.scope;
-
             remove(data.collection, scope);
             notify(data.collection, '.', data.collection);
             return data;
@@ -335,21 +356,23 @@ const handleGesture = match(getTarget, {
             const scope =  getScope(data.target);
             const y = denormalise[data.yTransform](data.yMin, data.yMax, -data.y);
 
-            scope[0] = data.x < 0 ? 0 : data.x
+            scope[0] = data.x < 0 ? 0 : data.x ;
             scope[2] = scope[1] === 'exponential' ?
                 y < minExponential ? minExponential : y :
-                // Dont't move target handles in the y direction, y is
-                // controlled by durastion handle
+                // Don't move target handles in the y direction, y is
+                // controlled by duration handle
                 scope[1] === 'target' ? scope[2] :
                 y ;
 
             notify(data.collection, '.', data.collection);
 
+            data.scope.unitValue0(scope[2]);
+
             return data;
         },
 
         default: function(data) {
-            console.log('Untyped', data);
+            console.log('Untyped gesture', data);
         }
     }),
 
@@ -376,109 +399,29 @@ function assignValueAtBeat(value, event) {
 element('envelope-control', {
     template: '/bolt/elements/envelope-control.template.html#envelope-control',
 
-    attributes: {
-        min: function(value) { this.min = value; },
-        max: function(value) { this.max = value; },
-
-        transform: function(value) {
-            const data     = this.data;
-            this.data.transform = value || 'linear';
-
-            if (data.ticksAttribute) {
-                observer.ticks = createTicks(data, data.ticksAttribute);
-            }
-
-            //if (data.step) {
-            //    data.steps = createSteps(data, value === 'ticks' ?
-            //        data.ticksAttribute || '' :
-            //        data.stepsAttribute );
-            //}
-
-            this.style.setProperty('--unit-zero', invert(data.transform, 0, data.min, data.max));
-        },
-
-        ticks: function(value) {
-            console.log('ATTR TICKS', value);
-            const data     = this.data;
-            const observer = Observer(data);
-            data.ticksAttribute = value;
-            const yTicks = observer.ticks = createTicks(data, value);
-console.log('Ticks', data);
-            // If step is 'ticks' update steps
-            //if (data.stepsAttribute === 'ticks') {
-            //    data.steps = createSteps(data, value || '');
-            //}
-        },
-
+    attributes: assign({}, attributes, {
         value: function(string) {
             // Value is an array representation of string in the form
             // "time value type data ..."
             this.value = parseData([], string);
         }
-    },
+    }),
 
-    properties: {
+    properties: assign({}, properties, {
         type: {
             value: 'array',
             enumerable: true
         },
 
-        min: {
-            get: function() {
-                return this.data.min;
-            },
-
-            set: function(value) {
-                const data = this.data;
-                const observer = Observer(data);
-                const min = parseY(value);
-
-                observer.min = min;
-
-                // Check for readiness
-                if (data.max === undefined) { return; }
-                observer.ticks = createTicks(data, data.ticksAttribute);
-                this.style.setProperty('--unit-zero', invert(data.transform, 0, data.min, data.max));
-
-                // Check for readiness
-                //if (data.value === undefined) { return; }
-                //observer.unitValue = invert(data.transform, data.value, data.min, data.max);
-            },
-
-            enumerable: true
-        },
-
-        max: {
-            get: function() {
-                return this.data.max;
-            },
-
-            set: function(value) {
-                const data = this.data;
-                const observer = Observer(data);
-                const max = parseY(value);
-
-                observer.max = max;
-
-                if (data.min === undefined) { return; }
-                observer.ticks = createTicks(data, data.ticksAttribute);
-                this.style.setProperty('--unit-zero', invert(data.transform, 0, data.min, data.max));
-
-                // Check for readiness
-                //if (data.value === undefined) { return; }
-                //observer.unitValue = invert(data.transform, data.value, data.min, data.max);
-            },
-
-            enumerable: true
-        },
-
         value: {
             get: function() {
-                return this.data.value;
+                const privates = Privates(this);
+                return privates.data.value;
             },
 
             set: function(value) {
-                const data = this.data;
+                const privates = Privates(this);
+                const data     = privates.data;
 
                 if (value === data.value) { return; }
                 data.value = value;
@@ -489,7 +432,7 @@ console.log('Ticks', data);
                 yTransform = yTransform ? toCamelCase(yTransform) : 'linear' ;
 
                 function renderBackground(url) {
-                    data.svg.style.backgroundImage = 'url(' + url + ')';
+                    privates.svg.style.backgroundImage = 'url(' + url + ')';
                 }
 
                 if (data.unobserve) {
@@ -503,7 +446,7 @@ console.log('Ticks', data);
                     //yLines: yLines,
                     xScale: id,
                     yScale: (y) => normalise[yTransform](this.min, this.max, y),
-                    viewbox: data.svg
+                    viewbox: privates.svg
                         .getAttribute('viewBox')
                         .split(/\s+/)
                         .map(parseFloat)
@@ -512,7 +455,7 @@ console.log('Ticks', data);
                 var promise = Promise.resolve();
 
                 data.unobserve = observe('.', (array) => {
-                    // Keep rendering smooth by throttling dataURL renders to the
+                    // Keep rendering smoothish by throttling dataURL renders to the
                     // rate at which they can be generated by the OfflineAudioContext
                     if (!promise) { return; }
 
@@ -520,6 +463,10 @@ console.log('Ticks', data);
                         array
                         .sort(by(getTime))
                         .reduce(assignValueAtBeat, 0);
+
+                        const style = getComputedStyle(this);
+                        graphOptions.gridColor = style.getPropertyValue('--grid-color');
+                        graphOptions.valueColor = style.getPropertyValue('--value-color');
 
                         promise = requestEnvelopeDataURL(array, graphOptions)
                         .then(renderBackground);
@@ -544,27 +491,53 @@ console.log('Ticks', data);
 
             enumerable: true
         }
-    },
+    }),
 
-    construct: function(elem, shadow) {
-        const data = elem.data = assign({
-            svg: shadow.querySelector('svg')
-        }, defaults);
+    construct: function(elem, shadow, internals) {
+        // Setup internal data store `privates`
+        const privates = Privates(elem);
+        const data     = privates.data  = assign({}, defaults);
+
+        privates.element   = elem;
+        privates.shadow    = shadow;
+        privates.internals = internals;
+        //privates.handleEvent = handleEvent;
+        privates.svg       = shadow.querySelector('svg');
+
+        const styleElem = create('style', ':host {}');
+        shadow.insertBefore(styleElem, shadow.firstChild);
+        const style = styleElem.sheet.cssRules[0].style;
+
+        privates.scope = {
+            ticks:    console.log,
+            unitZero: console.log,
+            unitValue0: function(value) {
+                style.setProperty('--unit-value-0', value);
+            }
+        };
+
+        // Listen to touches on ticks
+        //shadow.addEventListener('mousedown', privates);
+        //shadow.addEventListener('touchstart', privates);
+
+        // Listen to range input
+        //shadow.addEventListener('input', privates);
     },
 
     load: function(elem, shadow) {
-        var data = elem.data;
+        const privates = Privates(elem);
+        const data     = privates.data;
         var yLines = elem.getAttribute('ticks');
 
         yLines = yLines ?
             yLines.split(/\s+/g).map(parseY) :
             nothing ;
 
-        var yTransform = elem.data.transform;
+        var yTransform = data.transform;
         yTransform = yTransform ? toCamelCase(yTransform) : 'linear' ;
 
         // Todo: We never .stop() this stream, does it eat memory?
-        gestures({ threshold: 1 }, data.svg)
+        gestures({ threshold: 0 }, privates.svg)
         .scan(function(previous, gesture) {
             const e0 = gesture.shift();
             const controlBox = box(e0.target);
@@ -573,11 +546,12 @@ console.log('Ticks', data);
             const context = {
                 target: e0.target,
                 time:   time,
-                svg:    data.svg,
+                svg:    privates.svg,
                 yMin:   elem.min,
                 yMax:   elem.max,
                 yTransform: yTransform,
                 events: [e0],
+                scope: privates.scope,
 
                 // Grab the current viewBox as an array of numbers
                 viewbox: elem.graphOptions ?
@@ -619,9 +593,9 @@ console.log('Ticks', data);
         .each(noop);
 
         // Mount template
-        mount(shadow, mountOptions).push(this.data);
+        mount(shadow, mountOptions).push(data);
     }
-})
+});
 
 
 
@@ -687,15 +661,15 @@ function requestEnvelopeDataURL(data, options) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         options.xLines && options.xLines
-            .map(options.xScale)
-            .forEach((x) => drawXLine(ctx, viewBox, valueBox, x, '#000d11'));
+        .map(options.xScale)
+        .forEach((x) => drawXLine(ctx, viewBox, valueBox, x, options.gridColor));
 
         options.yLines && options.yLines
-            .map(options.yScale)
-            .forEach((y) => drawYLine(ctx, viewBox, valueBox, y, '#000d11'));
+        .map(options.yScale)
+        .forEach((y) => drawYLine(ctx, viewBox, valueBox, y, options.gridColor));
 
         const data = buffer.getChannelData(0).map(options.yScale);
-        drawCurvePositive(ctx, viewBox, samplesPerPixel, data, '#acb9b8');
+        drawCurvePositive(ctx, viewBox, samplesPerPixel, data, options.valueColor);
 
         return canvas.toDataURL();
     });

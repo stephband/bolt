@@ -1,42 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <template fn="fetch:package.json" src="../../sparky/templates.html#head-template"></template>
+    <template is="sparky-template" fn="fetch:'../package.json'" src="../templates.html#head"></template>
 
-    <script remove title="debug">
-    window.DEBUG = true;
+    <script title="debug" remove>
+        window.DEBUG = true;
     </script>
 
-    <style>
-        /* Render some elements visible, just in this styleguide */
-        button:not([type]),
-        [type="button"],
-        .button {
-            background-color: rgba(127, 127, 127, 0.15);
-        }
+    <script title="config">
+        window.customElementStylesheetPath = './';
+    </script>
 
-        range-control,
-        rotary-control {
-            --focus-shadow: inset 0 0 0.9375rem hsla(200,100%,40%,0.5);
+    <template is="sparky-template" src="../templates.html#nested-style"></template>
+
+    <style>
+        :root {
+            --value-color: blue;
+        }    
+        * + input {
+            margin-top: 3.75rem;
         }
     </style>
-
-    <!--link rel="stylesheet" href="../style.min.css" /-->
-    <link rel="stylesheet" href="../style.css" />
-
-    <link rel="stylesheet" href="../../dom/css/dom.css" />
-    <link rel="stylesheet" href="../../fn/css/prism-cruncher.css" />
-    <link rel="stylesheet" href="../../fn/css/tests.css" />
-    <link rel="stylesheet" href="../../fn/css/docs.css" />
-    <link rel="stylesheet" href="../../fn/css/respond.css" />
 </head>
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
-    <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
-        <!--template fn="fetch:package.json" src="../fn/templates.html#header-template"></template-->
+    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
+        <template is="sparky-template" fn="docs:envelope-control.js filter-type:tag each" src="../templates.html#title"></template>
     </header>
 
-    <!-- Custom elements -->
+    <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
+        <envelope-control min="0" max="1" value="step 0 0.1 linear 0.5 1 linear 1 0.3" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="height: 16rem;">Envelope</envelope-control>
+        <input hidden class="button" type="submit" />
+    </form>
+
+    <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+        <h3 class="doctext-03">Attributes</h3>        
+        <template is="sparky-template" fn="docs:attributes.js filter-type:attribute each" src="../templates.html#entry"></template>
+
+        <h3 class="doctext-03">Properties</h3>
+        <template is="sparky-template" fn="docs:attributes.js filter-type:property each" src="../templates.html#entry"></template>
+
+        <h3 class="doctext-03">Events</h3>
+        <template is="sparky-template" fn="docs:attributes.js filter-type:string each" src="../templates.html#entry"></template>
+    </div>
+
+    <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
+        <h3 class="doctext-03">Parts</h3>
+        <template is="sparky-template" fn="docs:control.css filter-type:part each" src="../templates.html#entry"></template>
+
+        <h3 class="doctext-03">CSS</h3>
+        <template is="sparky-template" fn="docs:control.css filter-type:var each" src="../templates.html#entry"></template>
+        <template is="sparky-template" fn="docs:range-control.css filter-type:var each" src="../templates.html#entry"></template>
+    </div>
+
+
+
+
+    <!-- Template -->
     <svg>
         <defs>
             <linearGradient id="handle-gradient" x1="0" x2="0" y1="0" y2="1">
@@ -56,7 +76,17 @@
 
             <circle id="control-handle" class="control-point" cx="0" cy="0" r="0.0375"></circle>
 
-            <circle id="step-db-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
+            <circle id="step-gain-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" style="cy: calc(var(--unit-value-0) * -1);" r="0.0375"></circle>
+            <circle id="linear-gain-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|multiply:-1]}" r="0.0375"></circle>
+            <circle id="exponential-gain-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|multiply:-1]}" r="0.0375"></circle>
+            <g id="target-gain-control" class="control" tabindex="0">
+                <line class="control-line" :x1="{[0]}" :x2="{[.|sum03]}" :y1="{[valueAtBeat|multiply:-1]}" :y2="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}"></line>
+                <line class="thin-control-line control-line" :x1="{[0]}" :x2="{[.|sum033333]}" :y1="{[2|multiply:-1]}" :y2="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}"></line>
+                <use fn="scope" class="control-handle" href="#control-handle" :x="{[0]}" :y="{[valueAtBeat|multiply:-1]}" width="0.075" height="0.075"></use>
+                <use fn="scope" class="duration-handle" href="#control-handle" :x="{[.|sum03]}" :y="{[2|multiply:-1]}" width="0.075" height="0.075"></use>
+            </g>
+
+            <circle id="step-db-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|denormalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
             <circle id="linear-db-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
             <circle id="exponential-db-control" fn="scope" class="control control-handle control-point" tabindex="0" :cx="{[0]}" :cy="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}" r="0.0375"></circle>
             <g id="target-db-control" class="control" tabindex="0">
@@ -92,21 +122,22 @@
             </defs>
             <text text-anchor="end" x="-0.05" y="-0.965" style="font-size: 0.07; fill: #01181e;">0</text>
             <text text-anchor="end" x="-0.05" y="0.035" style="font-size: 0.07; fill: #01181e;">-∞</text>
-            <use fn="get:value each" src="#{[1]}-db-control"></use>
+            <use fn="get:value each" src="#{[1]}-gain-control"></use>
             <!--line fn="get:ticks each" x1="0" :y1="{[tickValue]}" x2="0.5" :y2="{[tickValue]}"></line-->
         </svg>
     </template>
 
-    <script type="module" src="./envelope-control.js"></script>
-
-    <envelope-control class="x-1 3x @1-x-2 @2-2x @2-x-3 x-center @1-x-stretch y-center" min="-1" max="1" value="step 0 0.1 linear 0.5 1 linear 1 0.3" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="height: 16rem;">Envelope</envelope-control>
 
     <!-- Build document -->
-    <script type="module" src="../../fn/docs-build-2.js" remove></script>
-    <script type="module" src="../../sparky/module.js" remove></script>
+    <script type="module" src="../build.js" remove></script>    
 
     <!-- Document interactivity -->
     <script type="module">
-        //import '../module.js';
+        import './envelope-control.js';
+        import '../module.js';
+        import '../documentation.js';
+
+        document.addEventListener('input', (e) => console.log(e.type, e));
+        document.addEventListener('change', (e) => console.log(e.type, e));
     </script>
 </body>
