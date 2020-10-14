@@ -78,10 +78,10 @@ function activate(elem, shadow, prevLink, nextLink) {
     const slides     = elem.children;
 
     let n = slides.length;
-    let newSlide;
+    let slide;
 
-    while ((newSlide = slides[--n])) {
-        const slideRect = rect(newSlide);
+    while ((slide = slides[--n])) {
+        const slideRect = rect(slide);
         if (!slideRect) { continue; }
 
         const left = slideRect.left;
@@ -90,21 +90,26 @@ function activate(elem, shadow, prevLink, nextLink) {
         }
     }
 
-    if (newSlide === elem.activeChild) {
+    // If active slide is the same one, ignore
+    if (slide === elem.activeChild) {
         return;
     }
 
+    // Remove `on` class from currently highlighted links
     if (elem.activeChild){
-        select('[href="#' + elem.activeChild.id +'"]', elem.getRootNode())
+        const id = elem.activeChild.dataset.id || elem.activeChild.id;
+
+        select('[href="#' + id +'"]', elem.getRootNode())
         .forEach((node) => node.classList.remove('on'))
 
-        select('[href="#' + elem.activeChild.id +'"]', shadow)
+        select('[href="#' + id +'"]', shadow)
         .forEach((node) => node.classList.remove('on'))
     }
 
-    elem.activeChild = newSlide;
+    elem.activeChild = slide;
 
-    const prevChild = previous(newSlide);
+    // Change href of prev and next buttons
+    const prevChild = previous(slide);
     if (prevChild) {
         prevLink.href = '#' + prevChild.id;
     }
@@ -112,7 +117,7 @@ function activate(elem, shadow, prevLink, nextLink) {
         prevLink.removeAttribute('href');
     }
 
-    const nextChild = next(newSlide);
+    const nextChild = next(slide);
     if (nextChild) {
         nextLink.href = '#' + nextChild.id;
     }
@@ -120,10 +125,13 @@ function activate(elem, shadow, prevLink, nextLink) {
         nextLink.removeAttribute('href');
     }
 
-    select('[href="#' + newSlide.id +'"]', elem.getRootNode())
+    // Highlight links with `on` class
+    const id = slide.dataset.id || slide.id;
+
+    select('[href="#' + id +'"]', elem.getRootNode())
     .forEach((node) => node.classList.add('on'));
 
-    select('[href="#' + newSlide.id +'"]', shadow)
+    select('[href="#' + id +'"]', shadow)
     .forEach((node) => node.classList.add('on'));
 }
 
@@ -186,7 +194,7 @@ element('slide-show', {
                     while (n--) {
                         const ghost = children[n].cloneNode(true);
                         ghost.dataset.id = ghost.id;
-                        ghost.id = '';
+                        ghost.id = ghost.id + '-ghost';
                         last.after(ghost);
                     }
                 }
