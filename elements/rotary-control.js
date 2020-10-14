@@ -153,7 +153,6 @@ element('rotary-control', {
     construct: function(elem, shadow, internals) {
         const privates = Privates(elem);
         const data     = privates.data  = assign({}, defaults);
-        const scope    = privates.scope = createTemplate(elem, shadow, internals);
 
         privates.element     = elem;
         privates.shadow      = shadow;

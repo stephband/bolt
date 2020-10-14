@@ -17,7 +17,7 @@ export function createTicks(data, tokens) {
         .filter((number) => {
             // Filter ticks to min-max range, special-casing logarithmic-0
             // which travels to 0 whatever it's min value
-            return number >= (data.transform === 'linear-logarithmic' ? 0 : data.min)
+            return number >= (data.law === 'linear-logarithmic' ? 0 : data.min)
                 && number <= data.max
         })
         .map((value) => {
@@ -25,7 +25,7 @@ export function createTicks(data, tokens) {
             // unnecessary observing
             return Object.freeze({
                 value:        value,
-                unitValue:    invert(data.transform, value, data.min, data.max),
+                unitValue:    invert(data.law, value, data.min, data.max),
                 displayValue: transformTick(data.unit, value)
             });
         }) :
@@ -47,7 +47,7 @@ function createSteps(data, tokens) {
         .map((value) => {
             return {
                 value: value,
-                unitValue: invert(data.transform, value, data.min, data.max)
+                unitValue: invert(data.law, value, data.min, data.max)
             };
         })
         .sort(by(get('unitValue'))) ;
@@ -111,7 +111,7 @@ export const attributes = {
         const data     = privates.data;
         const scope    = privates.scope;
 
-        data.transform = value || 'linear';
+        data.law = value || 'linear';
 
         if (data.ticksAttribute) {
             data.ticks = createTicks(data, data.ticksAttribute);
@@ -123,7 +123,7 @@ export const attributes = {
                 data.stepsAttribute );
         }
 
-        scope.unitZero(invert(data.transform, 0, data.min, data.max));
+        scope.unitZero(invert(data.law, 0, data.min, data.max));
     },
 
     /**
@@ -230,16 +230,16 @@ export const properties = {
             // Check for readiness
             if (data.max === undefined) { return; }
             scope.ticks(createTicks(data, data.ticksAttribute));
-            scope.unitZero(invert(data.transform, 0, data.min, data.max));
+            scope.unitZero(invert(data.law, 0, data.min, data.max));
 
             // Check for readiness
             if (data.value === undefined) { return; }
-            data.unitValue = invert(data.transform, data.value, data.min, data.max);
+            data.unitValue = invert(data.law, data.value, data.min, data.max);
         },
 
         enumerable: true
     },
-    
+
     /**
     .max=1
     Value at lower limit of fader, as a number.
@@ -259,11 +259,11 @@ export const properties = {
 
             if (data.min === undefined) { return; }
             scope.ticks(createTicks(data, data.ticksAttribute));
-            scope.unitZero(invert(data.transform, 0, data.min, data.max));
+            scope.unitZero(invert(data.law, 0, data.min, data.max));
 
             // Check for readiness
             if (data.value === undefined) { return; }
-            data.unitValue = invert(data.transform, data.value, data.min, data.max);
+            data.unitValue = invert(data.law, data.value, data.min, data.max);
         },
 
         enumerable: true
@@ -296,7 +296,7 @@ export const properties = {
                 return;
             }*/
 
-            let unitValue = invert(data.transform, value, data.min, data.max);
+            let unitValue = invert(data.law, value, data.min, data.max);
 
             // Round to nearest step
             if (data.steps) {
@@ -320,7 +320,6 @@ export const properties = {
 };
 
 
-
 /* Events */
 
 /**
@@ -335,7 +334,7 @@ function touchstart(e) {
     if (!target) { return; }
 
     const unitValue = parseFloat(target.value);
-    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
+    const value = transform(this.data.law, unitValue, this.data.min, this.data.max) ;
     this.element.value = value;
 
     // Refocus the input (should not be needed now we have focus 
@@ -348,7 +347,7 @@ function touchstart(e) {
 
 function input(e) {
     const unitValue = parseFloat(e.target.value); 
-    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
+    const value = transform(this.data.law, unitValue, this.data.min, this.data.max) ;
     this.element.value = value;
 
     // If the range has steps make sure the handle snaps into place

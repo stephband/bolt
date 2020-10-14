@@ -70,3 +70,6 @@
 .stop-2 {
     stop-color: hsla(192,0%,55%,0.8);
 }
+
+:host(:focus) .stop-1 { stop-color: hsl(192,0%,96.8%); }
+:host(:focus) .stop-2 { stop-color: hsl(192,0%,55%); }

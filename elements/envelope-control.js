@@ -1,222 +1,119 @@
 
-
-
-/**
-<envelope-control>
-
-Configure stylesheet path with:
-
-```js
-window.customElementStylesheetPath = 'path/to/bolt/elements/';
-```
-
-Import `<envelope-control>` custom element. This also registers the custom 
-element and upgrades instances already in the DOM.
-
-```html
-<script type="module" src="./path/to/bolt/elements/envelope-control.rolled.js"></script>
-<envelope-control name="scale" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">Scale</envelope-control>
-```
-
-**/
-
-import Privates from '../../fn/modules/privates.js';
 import { Observer, by, capture, insert, get, noop, overload, toCamelCase, toLevel, toType, id, notify, nothing, observe, remove } from '../../fn/module.js';
 import { clamp } from '../../fn/modules/maths/clamp.js';
-import { rect as box, element, gestures, trigger, create } from '../../dom/module.js';
-import { evaluate, invert, transformTick, transformOutput, transformUnit } from './control.js';
-import Sparky, { mount, config, getScope } from '../../sparky/module.js';
+import Privates from '../../fn/modules/privates.js';
+import { observeAll } from '../../fn/modules/observer/observe.js';
+import gestures from '../../dom/modules/gestures.js';
+import { element, create } from '../../dom/module.js';
 import { attributes, properties } from './attributes.js';
+import { parseEnvelope } from './parse-envelope.js';
+import { requestEnvelopeDataURL } from './request-envelope-data-url.js';
 
-import * as normalise from '../../fn/modules/normalisers.js';
-import * as denormalise from '../../fn/modules/denormalisers.js';
-import parseValue from '../../fn/modules/parse-value.js';
-
-
-const DEBUG = true;
 
 const assign = Object.assign;
 
+const config = {
+    path: window.customElementStylesheetPath || ''
+};
+
 const defaults = {
-    transform: 'linear',
-    min:    0,
-    max:    1
+    law: 'linear',
+    min: 0,
+    max: 1
 };
 
 const maxTapDuration = 0.25;
 const maxDoubleTapDuration = 0.4;
 const defaultTargetEventDuration = 0.4;
-const minExponential = toLevel(-96);
 
-const mountOptions = Object.assign({}, config, {
-    mount: function(node, options) {
-        // Does the node have Sparkyfiable attributes?
-        const attrFn = node.getAttribute(options.attributeFn);
-        const attrInclude = node.getAttribute(options.attributeSrc);
 
-        if (!attrFn && !attrInclude) { return; }
+/* Views */
 
-        options.fn = attrFn;
-        options.include = attrInclude;
-        var sparky = Sparky(node, options);
-
-        // This is just some help for logging
-        //sparky.label = 'Sparky (<envelope-control>)';
-
-        // Return sparky
-        return sparky;
-    },
-
-    attributePrefix:  ':',
-    attributeFn:      'fn',
-    attributeSrc:     'src',
-
-    pipes: {
-        'sum03': (object) => object[0] + object[3],
-        'sum033333': (object) => object[0] + object[3] + object[3] + object[3] + object[3] + object[3]
+function insertView(marker, views, index, view) {
+    if (index > 0) {
+        views[index - 1].node.after(view.node);
     }
-});
-
-/*
-Y value parser
-Export units to make this extensible
-*/
-
-export const units = {
-    '':   id,
-    'dB': toLevel,
-    'db': toLevel,
-    'DB': toLevel
-};
-
-const parseY = overload(toType, {
-    'number': id,
-    'string': parseValue(units)
-});
-
-
-/*
-Envelope parser
-Coordinates are parsed from the value attribute thus:
-
-"0 0 linear, 1 0.5 exponential"
-
-to
-
-[[0, 0, "linear"], [1, 0.5, "exponential"]]
-*/
-
-const parseTargetData = capture(/^([+-]?[0-9.]+)/, {
-    // Parse:                     (float)
-    1: function param(data, captures) {
-        data[3] = parseFloat(captures[1]);
-        return data;
-    },
-
-    catch: function(data) {
-        data[3] = defaultTargetEventDuration;
-        return data;
+    else if (views[index]) {
+        views[index].node.before(view.node);
     }
-});
+    else {
+        // Todo: put a marker node in place to handle collections
+        marker.appendChild(view.node);
+    }
 
-const parseCoord = capture(/^([\w-]+)\s+([0-9.]+)\s+([+-]?[0-9.]+)/, {
-    // Parse:                (float)     (string)   (float)
-    1: function type(data, captures) {
-        data[1] = captures[1];
-        if (type === 'target') {
-            parseTargetData(data, captures);
+    views.splice(index, 0, view);
+}
+
+function destroyView(view) {
+    view.unobserve();
+    view.node.remove();
+}
+
+function arrayMutate(views, changes, marker, createView, destroyView) {
+    const index   = changes.index; 
+    const removed = changes.removed;
+    const added   = changes.added;
+
+    // Cut views out
+    var n = removed.length;
+    while (n--) {
+        if (!views[index + n]) {
+            throw new Error('There is no handle to remove at index ' + (index + n));
         }
-        return data;
-    },
-
-    2: function x(data, captures) {
-        data[0] = captures[2];
-        return data;
-    },
-
-    3: function y(data, captures) {
-        data[2] = parseFloat(captures[3]);
-        return data;
-    },
-
-    catch: noop
-});
-
-const parseData = capture(/^\s*|,\s*|\s+/, {
-    // Parse:              start, ',' or ' '
-    0: function(data, captures) {
-        console.log('parseData', captures);
-        const coord = parseCoord({}, captures);
-        if (coord) {
-            data.push(coord);
-            return parseData(data, captures);
-        }
-        return data;
+        
+        destroyView(views[index + n]);
+        console.log('Removed', views[index + n]);
     }
-});
 
+    views.splice(index, removed.length);
 
-/*
-Tick values
-*/
-
-function createTicks(data, tokens) {
-    return tokens ?
-        tokens
-        .split(/\s+/)
-        .map(evaluate)
-        .filter((number) => {
-            // Filter ticks to min-max range, special-casing logarithmic-0
-            // which travels to 0 whatever it's min value
-            return number >= (data.transform === 'linear-logarithmic' ? 0 : data.min)
-                && number <= data.max
-        })
-        .map((value) => {
-            // Freeze to tell mounter it's immutable, prevents
-            // unnecessary observing
-            return Object.freeze({
-                root:         data,
-                value:        value,
-                tickValue:    invert(data.transform, value, data.min, data.max),
-                displayValue: transformTick(data.unit, value)
-            });
-        }) :
-        nothing ;
+    // Add new views in
+    var n = added.length;
+    while (n--) {
+        const view = createView(added[n]);
+        insertView(marker, views, index, view);
+        console.log('Added  ', view);
+    }
 }
 
 
-/*
-Coordinate type converter
-*/
-
-const types = {
-    "step": function(event) {
-        event[1] = 'step';
-        delete event[3];
+const entryScope = {
+    // Time
+    '0': function(node, data) {
+        console.log('x', data[0]);
+        node.setAttribute('cx', data[0]);
     },
 
-    "linear": function(event) {
-        event[1] = 'linear';
-        delete event[3];
+    '1': function(handle, data) {
+        console.log('y', data[1]);
+        node.setAttribute('cy', -data[1]);
     },
 
-    "exponential": function(event) {
-        event[1] = 'exponential';
-        delete event[3];
+    '2': function(handle, data) {
+        console.log('type', data[2]);
     },
 
-    "target": function(event) {
-        event[1] = 'target';
-        if (typeof event[3] !== 'number') {
-            event[3] = defaultTargetEventDuration;
-        }
+    '3': function(handle, data) {
+        console.log('duration', data[3]);
     }
 };
 
-function cycleType(event) {
-    const arr = Object.keys(types);
-    const i = arr.indexOf(event[1]);
-    return types[arr[(i + 1) % arr.length]](event);
+function createHandleView(scope, data) {
+    const node = create('circle', {
+        class: 'control control-handle control-point',
+        cx: '0',
+        cy: '0',
+        r:  '0.0375'
+    });
+
+    // Return a view object
+    return {
+        node: node,
+        unobserve: observe('.', function(data, change) {
+            return entryScope[change.name]
+                && entryScope[change.name](node, data) ;
+        }, data)
+    };
 }
 
 
@@ -303,7 +200,7 @@ function match(getNode, fns) {
 const handleGesture = match(getTarget, {
     '.duration-handle': overload(getType, {
         'move': function(data) {
-            const scope =  getScope(data.target);
+            //const scope =  getScope(data.target);
             const y = denormalise[data.yTransform](data.yMin, data.yMax, -data.y);
 
             scope[3] = data.x <= scope[0] ?
@@ -313,7 +210,7 @@ const handleGesture = match(getTarget, {
                 data.x - scope[0] ;
             scope[2] = y;
 
-            notify(data.collection, '.', data.collection);
+            //notify(data.collection, '.', data.collection);
 
             return data;
         },
@@ -323,9 +220,9 @@ const handleGesture = match(getTarget, {
 
     '.control-handle': overload(getType, {
         'tap': function(data) {
-            const scope = getScope(data.target);
+            //const scope = getScope(data.target);
             cycleType(scope);
-            notify(data.collection, '.', data.collection);
+            //notify(data.collection, '.', data.collection);
 
             // We store scope on data here so that we may pick it up on
             // double-tap, at whcih time the target will no longer have scope
@@ -348,12 +245,12 @@ const handleGesture = match(getTarget, {
             // Pick up scope from previous tap data as outlined above.
             const scope = data.previous.scope;
             remove(data.collection, scope);
-            notify(data.collection, '.', data.collection);
+            //notify(data.collection, '.', data.collection);
             return data;
         },
 
         'move': function(data) {
-            const scope =  getScope(data.target);
+            //const scope =  getScope(data.target);
             const y = denormalise[data.yTransform](data.yMin, data.yMax, -data.y);
 
             scope[0] = data.x < 0 ? 0 : data.x ;
@@ -364,8 +261,7 @@ const handleGesture = match(getTarget, {
                 scope[1] === 'target' ? scope[2] :
                 y ;
 
-            notify(data.collection, '.', data.collection);
-
+            //notify(data.collection, '.', data.collection);
             data.scope.unitValue0(scope[2]);
 
             return data;
@@ -396,16 +292,175 @@ function assignValueAtBeat(value, event) {
     return event[2];
 }
 
-element('envelope-control', {
-    template: '/bolt/elements/envelope-control.template.html#envelope-control',
 
-    attributes: assign({}, attributes, {
-        value: function(string) {
-            // Value is an array representation of string in the form
-            // "time value type data ..."
-            this.value = parseData([], string);
-        }
-    }),
+/**
+<envelope-control>
+**/
+
+element('envelope-control', {
+    template: function(elem, shadow) {
+        const link  = create('link',  { rel: 'stylesheet', href: config.path + 'envelope-control.css' });
+        const style = create('style', ':host {}');
+        const label = create('label', { for: 'svg', children: [create('slot')] });
+        const svg   = create('svg', {
+            class: 'envelope-svg',
+            viewBox: '0 -1.125 2 1.125', 
+            preserveAspectRatio: 'xMinYMid slice',
+            html: `<defs>
+                    <linearGradient id="handle-gradient" x1="0" x2="0" y1="0" y2="1">
+                        <stop class="stop-1" offset="0%"/>
+                        <stop class="stop-2" offset="100%"/>
+                    </linearGradient>
+                </defs>`
+        });
+
+        shadow.appendChild(link);
+        shadow.appendChild(style);
+        shadow.appendChild(label);
+        shadow.appendChild(svg);
+
+        // Get the :host {} style rule from style
+        const css       = style.sheet.cssRules[0].style;
+
+        const views   = [];
+        var unobserve = noop;
+
+        const privates = Privates(elem);
+        var promise = Promise.resolve();
+
+        var graphOptions = {
+            yMin:   0,//this.min,
+            yMax:   1,//this.max,
+            xLines: [0.5, 1, 1.5, 2],
+            //yLines: yLines,
+            xScale: id,
+            yScale: (y) => normalise[yTransform](this.min, this.max, y),
+            viewbox: [0, -1.125, 2, 1.125]
+                //privates.svg
+                //.getAttribute('viewBox')
+                //.split(/\s+/)
+                //.map(parseFloat)
+        };
+
+        privates.scope = {
+            'value': function(array) {
+                console.log('scope.value', array);
+                unobserve();
+                unobserve = observe('.', (array, changes) => {
+                    arrayMutate(views, changes, svg, createHandleView, destroyView);
+                    console.log(array.length, JSON.stringify(array));
+
+                    // Keep rendering smoothish by throttling dataURL renders to the
+                    // rate at which they can be generated by the OfflineAudioContext
+                    if (!promise) { return; }
+    
+                    promise.then(() => {
+                        array
+                        .sort(by(getTime))
+                        .reduce(assignValueAtBeat, 0);
+    
+                        const style = getComputedStyle(elem);
+                        graphOptions.gridColor = style.getPropertyValue('--grid-color');
+                        graphOptions.valueColor = style.getPropertyValue('--value-color');
+    
+                        promise = requestEnvelopeDataURL(array, graphOptions)
+                        .then(renderBackground);
+                    });
+    
+                    promise = undefined;
+                }, array);
+            },
+
+            'ticks': noop,
+            'steps': noop,
+            'unitZero': noop
+        };
+    },
+
+    construct: function(elem, shadow, internals) {
+        // Setup internal data store `privates`
+        const privates = Privates(elem);
+        const data     = privates.data  = Observer(assign({}, defaults));
+    
+        privates.element   = elem;
+        privates.shadow    = shadow;
+        privates.internals = internals;
+
+        // Attach template scope to data 
+        observe('.', function(data, change) {
+            return privates.scope[change.name]
+                && privates.scope[change.name](data[change.name]) ;
+        }, data);
+
+        var yLines = //elem.getAttribute('ticks');
+        //yLines = yLines ?
+        //    yLines.split(/\s+/g).map(parseY) :
+            nothing ;
+
+        var yTransform = data.law;
+        yTransform = yTransform ?
+            toCamelCase(yTransform) :
+            'linear' ;
+
+        // Todo: We never .stop() this stream, does it eat memory? Probs.
+        gestures({ threshold: 0 }, shadow.querySelector('svg'))
+        .scan(function(previous, gesture) {
+            const e0 = gesture.shift();
+            const controlBox = box(e0.target);
+            const time = e0.timeStamp / 1000;
+
+            const context = {
+                target: e0.target,
+                time:   time,
+                svg:    privates.svg,
+                yMin:   elem.min,
+                yMax:   elem.max,
+                yTransform: yTransform,
+                events: [e0],
+                scope: privates.scope,
+
+                // Grab the current viewBox as an array of numbers
+                // This is bollocks, should be part of scope/template code
+                viewbox: elem.graphOptions ?
+                    elem.graphOptions.viewbox :
+                    [],
+
+                collection: elem.value,
+
+                previous: previous,
+
+                offset: e0.target === e0.currentTarget ?
+                    // If target is the SVG
+                    {
+                        x: 0,
+                        y: 0
+                    } :
+                    // If target is an object in the SVG
+                    {
+                        x: e0.clientX - (controlBox.left + controlBox.width / 2),
+                        y: e0.clientY - (controlBox.top + controlBox.height / 2)
+                    }
+            };
+
+            // If it's within maxDoubleTapDuration of the previous gesture,
+            // it's a double tap
+            if (previous
+                && previous.type === 'tap'
+                && time - previous.time < maxDoubleTapDuration) {
+                data.type   = 'double-tap';
+                data.target = previous.target;
+            }
+
+            gesture
+            .scan(intoCoordinates, context)
+            .each(handleGesture);
+
+            return context;
+        })
+        .each(noop);
+    },
+
+    attributes: attributes,
 
     properties: assign({}, properties, {
         type: {
@@ -422,13 +477,25 @@ element('envelope-control', {
             set: function(value) {
                 const privates = Privates(this);
                 const data     = privates.data;
+                const scope    = privates.scope;
 
-                if (value === data.value) { return; }
-                data.value = value;
+                if (value === data.value) {
+                    return;
+                }
 
-                if (data.max === undefined || data.min === undefined) { return; }
+                if (typeof value === 'string') {
+                    value = parseEnvelope(value);
+                }
 
-                var yTransform = data.transform;
+                // Force value array to contain at least one control point
+                // at [0,1] if it does not already have one at time 0
+                if (!value.length || value[0][0] !== 0) {
+                    value.unshift([0, 1, 'step']);
+                }
+
+                data.value = Observer(value);
+
+/*                var yTransform = data.transform;
                 yTransform = yTransform ? toCamelCase(yTransform) : 'linear' ;
 
                 function renderBackground(url) {
@@ -455,6 +522,9 @@ element('envelope-control', {
                 var promise = Promise.resolve();
 
                 data.unobserve = observe('.', (array) => {
+                    // Keep first cue at time 0
+                    array[0][0] = 0;
+
                     // Keep rendering smoothish by throttling dataURL renders to the
                     // rate at which they can be generated by the OfflineAudioContext
                     if (!promise) { return; }
@@ -486,48 +556,18 @@ element('envelope-control', {
 
                 //observer.displayValue = transformOutput(data.unit, value);
                 //observer.displayUnit  = transformUnit(data.unit, value);
-                //observer.unitValue    = unitValue;
+                //observer.unitValue    = unitValue;*/
             },
 
             enumerable: true
         }
     }),
 
-    construct: function(elem, shadow, internals) {
-        // Setup internal data store `privates`
-        const privates = Privates(elem);
-        const data     = privates.data  = assign({}, defaults);
 
-        privates.element   = elem;
-        privates.shadow    = shadow;
-        privates.internals = internals;
-        //privates.handleEvent = handleEvent;
-        privates.svg       = shadow.querySelector('svg');
-
-        const styleElem = create('style', ':host {}');
-        shadow.insertBefore(styleElem, shadow.firstChild);
-        const style = styleElem.sheet.cssRules[0].style;
-
-        privates.scope = {
-            ticks:    console.log,
-            unitZero: console.log,
-            unitValue0: function(value) {
-                style.setProperty('--unit-value-0', value);
-            }
-        };
-
-        // Listen to touches on ticks
-        //shadow.addEventListener('mousedown', privates);
-        //shadow.addEventListener('touchstart', privates);
-
-        // Listen to range input
-        //shadow.addEventListener('input', privates);
-    },
-
-    load: function(elem, shadow) {
+    load: function(elem, shadow) {/*
         const privates = Privates(elem);
         const data     = privates.data;
-        var yLines = elem.getAttribute('ticks');
+        var yLines     = elem.getAttribute('ticks');
 
         yLines = yLines ?
             yLines.split(/\s+/g).map(parseY) :
@@ -593,84 +633,6 @@ element('envelope-control', {
         .each(noop);
 
         // Mount template
-        mount(shadow, mountOptions).push(data);
+        mount(shadow, mountOptions).push(data);*/
     }
 });
-
-
-
-
-
-/* Canvas */
-
-import Envelope from '../../soundstage/nodes/envelope.js';
-import { drawXLine, drawYLine, drawCurvePositive } from '../../soundstage/modules/canvas.js';
-
-// Todo: in supported browsers, render the canvas directly to background
-// https://stackoverflow.com/questions/3397334/use-canvas-as-a-css-background
-
-const canvas  = document.createElement('canvas');
-canvas.width  = 600;
-canvas.height = 300;
-const ctx     = canvas.getContext('2d');
-
-// Oversampling produces graphs with fewer audio aliasing artifacts
-// when curve points fall between pixels.
-const samplesPerPixel = 4;
-
-function requestEnvelopeDataURL(data, options) {
-    // Allow 1px paddng to accomodate half of 2px stroke of graph line
-    const viewBox  = [
-        1,
-        canvas.height * (1 - 1 / options.viewbox[3]),
-        598,
-        canvas.height / options.viewbox[3]
-    ];
-    const valueBox = [0, 1, 2.25, -1];
-
-    // Draw lines / second
-    const drawRate = samplesPerPixel * viewBox[2] / valueBox[2];
-    const offline  = new OfflineAudioContext(1, samplesPerPixel * viewBox[2], 22050);
-    const events   = data.map((e) => ({
-        0: e[0] * drawRate / 22050,
-        1: e[1],
-        2: e[2],
-        3: e[3] ? e[3] * drawRate / 22050 : undefined
-    }));
-
-    events.unshift({
-        0: 0,
-        1: 'step',
-        2: options.yMax
-    });
-
-    const envelope = new Envelope(offline, {
-        // Condense time by drawRate so that we generate samplePerPixel
-        // samples per pixel.
-        'attack': events
-    });
-
-    envelope.connect(offline.destination);
-    envelope.start(valueBox[0], 'attack');
-    envelope.stop(valueBox[2]);
-
-    return offline
-    .startRendering()
-    .then(function(buffer) {
-        //canvas.width = 300;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        options.xLines && options.xLines
-        .map(options.xScale)
-        .forEach((x) => drawXLine(ctx, viewBox, valueBox, x, options.gridColor));
-
-        options.yLines && options.yLines
-        .map(options.yScale)
-        .forEach((y) => drawYLine(ctx, viewBox, valueBox, y, options.gridColor));
-
-        const data = buffer.getChannelData(0).map(options.yScale);
-        drawCurvePositive(ctx, viewBox, samplesPerPixel, data, options.valueColor);
-
-        return canvas.toDataURL();
-    });
-}
