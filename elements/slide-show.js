@@ -20,6 +20,7 @@ element and upgrades instances already in the DOM.
 ```
 **/
 
+import Privates from '../../fn/modules/privates.js';
 import element from '../../dom/modules/element.js';
 import events from '../../dom/modules/events.js';
 import rect from '../../dom/modules/rect.js';
@@ -174,17 +175,29 @@ element('slide-show', {
             activate(elem, shadow, prev, next);
         });
 
-        return {
+        assign(Privates(elem), {
+            loop: function(loop) {
+                // Where there are too few slides to loop (less than 3) we must 
+                // duplicate them, sadly
+                const children = elem.children;
+                while(children.length < 3) {
+                    var n = children.length;
+                    const last = children[n - 1];
+                    while (n--) {
+                        const ghost = children[n].cloneNode(true);
+                        ghost.dataset.id = ghost.id;
+                        ghost.id = '';
+                        last.after(ghost);
+                    }
+                }
+            },
+
             slot: slot
-        };
+        });
     },
 
     construct: function(elem, shadow) {
-        // Select the .hide-scroll wrapper element and apply margin bottom
-        const scrollBarWidth = testScrollBarWidth();
-        if (scrollBarWidth) {
-            slot.parentNode.style.setProperty('margin-bottom', '-' + scrollBarWidth + 'px');
-        }
+
     },
 
     load: function (elem, shadow) {
@@ -192,5 +205,12 @@ element('slide-show', {
         const prev = shadow.querySelector('.prev-thumb');
         const next = shadow.querySelector('.next-thumb');
         activate(elem, shadow, prev, next);
+    },
+
+    attributes: {
+        loop: function(a) {
+            const scope = Privates(this);
+            scope.loop(a !== null);
+        }
     }
 });
