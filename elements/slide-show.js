@@ -35,15 +35,11 @@ const assign = Object.assign;
 const define = Object.defineProperties;
 
 const config = {
-    path: window.customElementStylesheetPath || ''
+    path: window.customElementStylesheetPath || '',
+    loopableSlideCount: 3
 };
 
-const defaults = {
-    path:   './components/controls',
-    transform: 'linear',
-    min:    0,
-    max:    1
-};
+const defaults = {};
 
 const onceOptions = {
     once: true
@@ -188,7 +184,7 @@ element('slide-show', {
                 // Where there are too few slides to loop (less than 3) we must 
                 // duplicate them, sadly
                 const children = elem.children;
-                while(children.length < 3) {
+                while(children.length < config.loopableSlideCount) {
                     var n = children.length;
                     const last = children[n - 1];
                     while (n--) {

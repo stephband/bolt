@@ -57,7 +57,6 @@
     margin-top: var(--nav-margin-top);
 }
 
-
 :host {
     overflow: hidden;
 }
