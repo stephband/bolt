@@ -335,7 +335,7 @@ function cycleType(event) {
 element('envelope-control', {
     template: function(elem, shadow) {
         const link  = create('link',  { rel: 'stylesheet', href: config.path + 'envelope-control.css' });
-        const style = create('style', ':host {}');
+        const css   = create('style', ':host {}');
         const label = create('label', { for: 'svg', children: [create('slot')] });
         const svg   = create('svg', {
             class: 'envelope-svg',
@@ -350,12 +350,12 @@ element('envelope-control', {
         });
 
         shadow.appendChild(link);
-        shadow.appendChild(style);
+        shadow.appendChild(css);
         shadow.appendChild(label);
         shadow.appendChild(svg);
 
         // Get the :host {} style rule from style
-        const css       = style.sheet.cssRules[0].style;
+        const style = style.sheet.cssRules[0].style;
 
         const views   = [];
         var unobserve = noop;
@@ -537,8 +537,5 @@ element('envelope-control', {
 
             enumerable: true
         }
-    }),
-
-
-    load: function(elem, shadow) {}
+    })
 });
