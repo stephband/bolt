@@ -13,7 +13,7 @@ element and upgrades instances already in the DOM.
 
 ```html
 <script type="module" src="path/to/bolt/elements/slide-show.rolled.js"></script>
-<slide-show>
+<slide-show loop autoplay>
     <img src="..." id="1" />
     <img src="..." id="2" />
 </slide-show>
@@ -21,10 +21,12 @@ element and upgrades instances already in the DOM.
 **/
 
 import Privates from '../../fn/modules/privates.js';
+import { wrap } from '../../fn/modules/maths/wrap.js';
 import element from '../../dom/modules/element.js';
 import events from '../../dom/modules/events.js';
 import rect from '../../dom/modules/rect.js';
 import create from '../../dom/modules/create.js';
+import identify from '../../dom/modules/identify.js';
 import { next, previous } from '../../dom/modules/traversal.js';
 import { select } from '../../dom/modules/select.js';
 
@@ -36,7 +38,8 @@ const define = Object.defineProperties;
 
 const config = {
     path: window.customElementStylesheetPath || '',
-    loopableSlideCount: 3
+    loopableSlideCount: 5,
+    duration: 5
 };
 
 const defaults = {};
@@ -68,7 +71,7 @@ function testScrollBarWidth() {
 
 /* Shadow */
 
-function activate(elem, shadow, prevLink, nextLink) {
+function activate(elem, shadow, prevLink, nextLink, active) {
     const elemRect   = rect(elem);
     const elemCentre = elemRect.left + elemRect.width / 2;
     const slides     = elem.children;
@@ -86,14 +89,14 @@ function activate(elem, shadow, prevLink, nextLink) {
         }
     }
 
-    // If active slide is the same one, ignore
-    if (slide === elem.activeChild) {
-        return;
+    // If active slide is still the same one, ignore
+    if (slide === active) {
+        return active;
     }
 
     // Remove `on` class from currently highlighted links
-    if (elem.activeChild){
-        const id = elem.activeChild.dataset.id || elem.activeChild.id;
+    if (active){
+        const id = active.dataset.id || active.id;
 
         select('[href="#' + id +'"]', elem.getRootNode())
         .forEach((node) => node.classList.remove('on'))
@@ -101,8 +104,6 @@ function activate(elem, shadow, prevLink, nextLink) {
         select('[href="#' + id +'"]', shadow)
         .forEach((node) => node.classList.remove('on'))
     }
-
-    elem.activeChild = slide;
 
     // Change href of prev and next buttons
     const prevChild = previous(slide);
@@ -129,7 +130,40 @@ function activate(elem, shadow, prevLink, nextLink) {
 
     select('[href="#' + id +'"]', shadow)
     .forEach((node) => node.classList.add('on'));
+
+    // Return active slide
+    return slide;
 }
+
+function reposition(elem, slot, id) {
+    const first      = elem.firstElementChild;
+    const firstRect  = rect(first);
+    const slide      = elem.getRootNode().getElementById(id);
+    const slideRect  = rect(slide);
+    const scrollLeft = slideRect.left - firstRect.left;
+
+    slot.style.scrollBehavior = 'auto';
+    requestAnimationFrame(function () {
+        slot.scrollLeft = scrollLeft;
+        slot.style.scrollBehavior = '';
+    });
+
+    //console.log(slideRect.left, firstRect.left, slideRect.left - firstRect.left, slot.scrollLeft, slideRect);
+
+    // Return active slide
+    return slide;
+}
+
+function createGhost(slide) {
+    const ghost = slide.cloneNode(true);
+    ghost.dataset.id = ghost.id;
+    //ghost.id = ghost.id + '-ghost';
+    ghost.removeAttribute('id');
+    return ghost;
+}
+
+
+/* Element */
 
 element('slide-show', {
     /*
@@ -147,53 +181,131 @@ element('slide-show', {
 
     template: function(elem, shadow) {
         const link = create('link',  { rel: 'stylesheet', href: config.path + 'slide-show.css' });
-        //const css  = create('style', ':host {}');
         const slot = create('slot');
-        const prev = create('a', { class: 'prev-thumb thumb', part: 'prev' });
-        const next = create('a', { class: 'next-thumb thumb', part: 'next' });
+        const prevNode = create('a', { class: 'prev-thumb thumb', part: 'prev' });
+        const nextNode = create('a', { class: 'next-thumb thumb', part: 'next' });
         const nav  = create('nav');
 
         shadow.appendChild(link);
-        //shadow.appendChild(css);
         shadow.appendChild(slot);
-        shadow.appendChild(prev);
-        shadow.appendChild(next);
+        shadow.appendChild(prevNode);
+        shadow.appendChild(nextNode);
         shadow.appendChild(nav);
-
-        // Get the :host {} style rule from style
-        //const style = css.sheet.cssRules[0].style;
         
         // Create a dot link for each slide
         Array.from(elem.children).forEach((slide) => {
-            if (!slide.id) { return; }
+            const id = identify(slide);
             nav.appendChild(create('a', {
                 class: 'dot-thumb thumb',
                 part: 'dot',
-                href: '#' + slide.id,
-                html: slide.id
+                href: '#' + id,
+                html: id
             }));
         });
 
+        // Currently active slide
+        var active = elem.firstElementChild;
+
+        // Manage repositioning of slides when scroll is at rest
+        var t = -Infinity;
+        var loopId = null;
+        var ignore = false;
+
+        function update() {
+            loopId = null;
+            const id = active.dataset.id;
+
+            // Active child is an original slide, not a copy: do nothing
+            if (!id) { return; }
+
+            // Realign the original slide as the active slide. Before we do, 
+            // set an ignore flag so that this repositioning does not trigger
+            // another activate when it resets scroll position
+            ignore = true;
+            active = reposition(elem, slot, id);
+        }
+    
+        // Manage triggering of next slide on autoplay
+        var autoId = null;
+    
+        function change() {
+            autoId = null;
+
+            // Move scroll position to next slide
+            slot.scrollLeft += active.clientWidth;
+        }
+
         events({ type: 'scroll', passive: true }, slot)
+        .filter(() => {
+            const result = !ignore;
+            ignore = false;
+            return result;
+        })
         .each(function(e) {
-            activate(elem, shadow, prev, next);
+            active = activate(elem, shadow, prevNode, nextNode, active);
+
+            // If the last update was scheduled recently don't bother rescheduling
+            if (e.timeStamp - t < 400) {
+                return;
+            }
+
+            // Clear the previous scheduled timeout
+            if (loopId) {
+                clearTimeout(loopId);
+            }
+
+            // Set a new timeout and register the schedule time
+            loopId = setTimeout(update, 600);
+            t = e.timeStamp;
+
+            if (autoId) {
+                clearTimeout(autoId);
+            }
+
+            // Set a new autoplay timeout
+            const duration = parseFloat(
+                window.getComputedStyle(active).getPropertyValue('--slide-duration') || config.duration
+            );
+
+            autoId = setTimeout(change, duration * 1000);
         });
 
         assign(Privates(elem), {
-            loop: function(loop) {
-                // Where there are too few slides to loop (less than 3) we must 
-                // duplicate them, sadly
-                const children = elem.children;
-                while(children.length < config.loopableSlideCount) {
-                    var n = children.length;
-                    const last = children[n - 1];
-                    while (n--) {
-                        const ghost = children[n].cloneNode(true);
-                        ghost.dataset.id = ghost.id;
-                        ghost.id = ghost.id + '-ghost';
-                        last.after(ghost);
-                    }
+            loop: function duplicate(loop) {
+                if (!loop) {
+                    // Todo: remove ghosts, reposition scroll when loop is 
+                    // switched off
+                    return;
                 }
+
+                // Where there are too few slides to loop we must 
+                // duplicate them, sadly. Causes a bit of complexity.
+                const children = elem.children;
+                const original = Array.from(children);
+                let n = 0;
+
+                while(children.length < config.loopableSlideCount) {
+                    // Stick one from the end on the front
+                    children[0].before(createGhost(original[wrap(0, original.length, -(n + 1))]));
+                    // Stick one from the front on the end
+                    children[children.length - 1].after(createGhost(original[wrap(0, original.length, n)]));
+                    ++n;
+                }
+            },
+
+            auto: function auto(value) {
+                if (autoId) {
+                    clearTimeout(autoId);
+                }
+
+                if (!value) { return; }
+
+                // Set a new autoplay timeout
+                const duration = parseFloat(
+                    window.getComputedStyle(active).getPropertyValue('--play-duration') || config.duration
+                );
+
+                autoId = setTimeout(change, duration * 1000);
             },
 
             slot: slot
@@ -201,7 +313,7 @@ element('slide-show', {
     },
 
     construct: function(elem, shadow) {
-
+        
     },
 
     load: function (elem, shadow) {
@@ -212,9 +324,22 @@ element('slide-show', {
     },
 
     attributes: {
-        loop: function(a) {
+        /**
+        loop=""
+        Boolean attribute. Makes the slideshow behave as a continuous loop.
+        **/
+        loop: function(value) {
             const scope = Privates(this);
-            scope.loop(a !== null);
+            scope.loop(value !== null);
+        },
+
+        /**
+        autoplay=""
+        Boolean attribute. 
+        **/
+        autoplay: function(value) {
+            const scope = Privates(this);
+            scope.auto(value !== null);
         }
     }
 });

@@ -105,19 +105,25 @@ slot::slotted(*) {
     background-color: orange;
 }
 
+/** 
+::part(prev) 
+Style the 'previous slide' button.
+**/
+
+/** 
+::part(next) 
+Style the 'next slide' button.
+**/
 
 [part="prev"]:not([href]),
 [part="next"]:not([href]) {
     display: none;
 }
 
-/*
-.dot-thumb
-
-Markup: <a class="dot-thumb thumb" href="/1">1</a>
-
-Styleguide: 4.thumb.dot-thumb
-*/
+/** 
+::part(dot) 
+Style the navigation 'dots'.
+**/
 
 [part="dot"] {
     position: relative;
