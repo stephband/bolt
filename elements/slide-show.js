@@ -39,7 +39,7 @@ const define = Object.defineProperties;
 const config = {
     path: window.customElementStylesheetPath || '',
     loopableSlideCount: 5,
-    duration: 5
+    duration: 8
 };
 
 const defaults = {};

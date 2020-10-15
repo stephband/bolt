@@ -5,6 +5,13 @@
 /* .slides-grid */
 
 :host {
+    /** 
+    --slide-duration 
+    Set the duration that a slide is displayed for when the slideshow is in 
+    autoplay mode.
+    **/
+    --slide-duration: 8s;
+
     --gap: 0px;
     --align: end;
 
