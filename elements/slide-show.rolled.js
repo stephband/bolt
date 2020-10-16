@@ -2864,6 +2864,29 @@ var features = define({
     scrollBarWidth: {
         get: cache(function() {
             // TODO
+
+            /*
+            let scrollBarWidth;
+                        
+            function testScrollBarWidth() {
+                if (scrollBarWidth) { return scrollBarWidth; }
+            
+                const inner = create('div', {
+                    style: 'display: block; width: auto; height: 60px; background: transparent;'
+                });
+            
+                const test = create('div', {
+                    style: 'overflow: scroll; width: 30px; height: 30px; position: absolute; bottom: 0; right: 0; background: transparent; z-index: -1;',
+                    children: [inner]
+                });
+            
+                document.body.appendChild(test);
+                scrollBarWidth = test.offsetWidth - inner.offsetWidth;
+                test.remove();
+                return scrollBarWidth;
+            }
+            */
+
         })
     }
 });
@@ -3140,20 +3163,23 @@ function activate(elem, shadow, prevLink, nextLink, active) {
 
 function reposition(elem, slot, id) {
     const slide = elem.getRootNode().getElementById(id);
-
     slot.style.scrollBehavior = 'auto';
 
     requestAnimationFrame(function() {
-        const first      = elem.firstElementChild;
-        const firstRect  = rect(first);
-        const slideRect  = rect(slide);
-        const scrollLeft = slideRect.left - firstRect.left;
+        // Behavior auto is not respected here for some reason. Doesn't work on 
+        // slot? Don't know. But it's the reason we have to fart around with 
+        // animation frames and style setting.
+        slide.scrollIntoView({
+            behavior: 'auto',
+            block:  'start',
+            inline: 'center',
+            // Option for the scrollIntoView polyfill, just for Safari
+            scrollParent: slot
+        });
 
-        slot.scrollLeft = scrollLeft;
         slot.style.scrollBehavior = '';
     });
 
-    // Return active slide
     return slide;
 }
 
@@ -3254,7 +3280,15 @@ element('slide-show', {
             autoId = null;
 
             // Move scroll position to next slide
-            slot.scrollLeft += active.clientWidth;
+            //slot.scrollLeft += active.clientWidth;
+
+            next(active).scrollIntoView({
+                behavior: 'smooth',
+                block:  'start',
+                inline: 'center',
+                // Option for the scrollIntoView polyfill, just for Safari
+                scrollParent: slot
+            });
         }
 
         events({ type: 'scroll', passive: true }, slot)

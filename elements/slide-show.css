@@ -80,6 +80,7 @@ slot {
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
     scroll-behavior: smooth;
+    -webkit-scroll-behavior: smooth;
     overflow: auto;
     overflow-y: hidden;
     overscroll-behavior-x: contain;

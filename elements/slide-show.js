@@ -133,7 +133,9 @@ function reposition(elem, slot, id) {
         slide.scrollIntoView({
             behavior: 'auto',
             block:  'start',
-            inline: 'center'
+            inline: 'center',
+            // Option for the scrollIntoView polyfill, just for Safari
+            scrollParent: slot
         });
 
         slot.style.scrollBehavior = '';
@@ -239,7 +241,15 @@ element('slide-show', {
             autoId = null;
 
             // Move scroll position to next slide
-            slot.scrollLeft += active.clientWidth;
+            //slot.scrollLeft += active.clientWidth;
+
+            next(active).scrollIntoView({
+                behavior: 'smooth',
+                block:  'start',
+                inline: 'center',
+                // Option for the scrollIntoView polyfill, just for Safari
+                scrollParent: slot
+            });
         }
 
         events({ type: 'scroll', passive: true }, slot)
