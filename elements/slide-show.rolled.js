@@ -1,3 +1,10 @@
+/**
+id(value)
+Returns `value`.
+*/
+
+function id(value) { return value; }
+
 const $privates = Symbol('privates');
 
 function privates(object) {
@@ -92,11 +99,53 @@ function wrap(min, max, n) {
 curry(wrap);
 
 /**
-id(value)
-Returns `value`.
-*/
+parseValue(units, string)
 
-function id(value) { return value; }
+Parse `string` as a value with a unit (such as `"3px"`). Parameter `units` is an
+object of functions keyed by the unit postfix. It may also have a `catch`
+function.
+
+```js=
+const value = parseValue({
+    px: function(n) {
+        return n;
+    },
+
+    catch: function(string) {
+        if (typeof string === 'number') {
+            return string;
+        }
+
+        throw new Error('Cannot parse px value');
+    }
+}, '36px');
+```
+**/
+
+// Be generous in what we accept, space-wise, but exclude spaces between the 
+// number and the unit
+const runit = /^\s*([+-]?\d*\.?\d+)([^\s\d]*)\s*$/;
+
+function parseValue(units, string) {
+    // Allow number to pass through
+    if (typeof string === 'number') {
+        return string;        
+    }
+
+    var entry = runit.exec(string);
+
+    if (!entry || !units[entry[2] || '']) {
+        if (!units.catch) {
+            throw new Error('Cannot parse value "' + string + '" with provided units ' + Object.keys(units).join(', '));
+        }
+
+        return units.catch(string);
+    }
+
+    return units[entry[2] || ''](parseFloat(entry[1]));
+}
+
+var parseValue$1 = curry(parseValue);
 
 /**
 overload(fn, map)
@@ -3017,6 +3066,11 @@ const config$1 = {
     duration: 8
 };
 
+const parseTime = parseValue$1({
+   's': id,
+   'ms': (n) => n / 1000
+});
+
 
 /* Shadow */
 
@@ -3085,19 +3139,19 @@ function activate(elem, shadow, prevLink, nextLink, active) {
 }
 
 function reposition(elem, slot, id) {
-    const first      = elem.firstElementChild;
-    const firstRect  = rect(first);
-    const slide      = elem.getRootNode().getElementById(id);
-    const slideRect  = rect(slide);
-    const scrollLeft = slideRect.left - firstRect.left;
+    const slide = elem.getRootNode().getElementById(id);
 
     slot.style.scrollBehavior = 'auto';
-    requestAnimationFrame(function () {
+
+    requestAnimationFrame(function() {
+        const first      = elem.firstElementChild;
+        const firstRect  = rect(first);
+        const slideRect  = rect(slide);
+        const scrollLeft = slideRect.left - firstRect.left;
+
         slot.scrollLeft = scrollLeft;
         slot.style.scrollBehavior = '';
     });
-
-    //console.log(slideRect.left, firstRect.left, slideRect.left - firstRect.left, slot.scrollLeft, slideRect);
 
     // Return active slide
     return slide;
@@ -3109,6 +3163,24 @@ function createGhost(slide) {
     //ghost.id = ghost.id + '-ghost';
     ghost.removeAttribute('id');
     return ghost;
+}
+
+
+/* Control */
+
+function autoplay(active, change, autoId) {
+    if (autoId) {
+        clearTimeout(autoId);
+    }
+
+    // Set a new autoplay timeout
+    const duration = parseTime(
+        window
+        .getComputedStyle(active)
+        .getPropertyValue('--play-duration') || config$1.duration
+    );
+
+    return setTimeout(change, duration * 1000);
 }
 
 
@@ -3129,11 +3201,11 @@ element('slide-show', {
     */
 
     template: function(elem, shadow) {
-        const link = create('link',  { rel: 'stylesheet', href: config$1.path + 'slide-show.css' });
-        const slot = create('slot');
+        const link     = create('link',  { rel: 'stylesheet', href: config$1.path + 'slide-show.css' });
+        const slot     = create('slot', { style: 'scroll-behavior: auto;' });
         const prevNode = create('a', { class: 'prev-thumb thumb', part: 'prev' });
         const nextNode = create('a', { class: 'next-thumb thumb', part: 'next' });
-        const nav  = create('nav');
+        const nav      = create('nav');
 
         shadow.appendChild(link);
         shadow.appendChild(slot);
@@ -3154,6 +3226,7 @@ element('slide-show', {
 
         // Currently active slide
         var active = elem.firstElementChild;
+        const firstId = identify(active);
 
         // Manage repositioning of slides when scroll is at rest
         var t = -Infinity;
@@ -3207,19 +3280,26 @@ element('slide-show', {
             loopId = setTimeout(update, 600);
             t = e.timeStamp;
 
-            if (autoId) {
-                clearTimeout(autoId);
-            }
-
-            // Set a new autoplay timeout
-            const duration = parseFloat(
-                window.getComputedStyle(active).getPropertyValue('--slide-duration') || config$1.duration
-            );
-
-            autoId = setTimeout(change, duration * 1000);
+            autoId = autoplay(active, change, autoId);
         });
 
         assign$7(privates(elem), {
+            load: function(elem, shadow) {
+                const current = activate(elem, shadow, prevNode, nextNode, active);
+
+                // If we are at the very start of the loop on load, and it is 
+                // not an original, reposition to be at the start of the 
+                // originals
+                if (current === elem.firstElementChild && !current.id) {
+                    active = reposition(elem, slot, firstId);
+                    requestAnimationFrame(() => active = activate(elem, shadow, prevNode, nextNode, current)); 
+                }
+                else {
+                    active = current;
+                    requestAnimationFrame(() => slot.style.scrollBehavior = '');
+                }
+            },
+
             loop: function duplicate(loop) {
                 if (!loop) {
                     // Todo: remove ghosts, reposition scroll when loop is 
@@ -3227,37 +3307,28 @@ element('slide-show', {
                     return;
                 }
 
-                // Where there are too few slides to loop we must 
-                // duplicate them, sadly. Causes a bit of complexity.
+                // To loop slides we need an extra couple on the front and an 
+                // extra couple on the back to simulate the continuous loop
                 const children = elem.children;
                 const original = Array.from(children);
-                let n = 0;
-
-                while(children.length < config$1.loopableSlideCount) {
+                let n = -1;
+                while(++n < 2) {
                     // Stick one from the end on the front
                     children[0].before(createGhost(original[wrap(0, original.length, -(n + 1))]));
                     // Stick one from the front on the end
                     children[children.length - 1].after(createGhost(original[wrap(0, original.length, n)]));
-                    ++n;
                 }
             },
 
-            auto: function auto(value) {
-                if (autoId) {
-                    clearTimeout(autoId);
+            autoplay: function(value) {
+                // When value is false stop autoplaying
+                if (!value) {
+                    autoId && clearTimeout(autoId);
+                    return;
                 }
 
-                if (!value) { return; }
-
-                // Set a new autoplay timeout
-                const duration = parseFloat(
-                    window.getComputedStyle(active).getPropertyValue('--play-duration') || config$1.duration
-                );
-
-                autoId = setTimeout(change, duration * 1000);
-            },
-
-            slot: slot
+                autoId = autoplay(active, change, autoId);
+            }
         });
     },
 
@@ -3266,10 +3337,8 @@ element('slide-show', {
     },
 
     load: function (elem, shadow) {
-        // Things haven't loaded and styled yet
-        const prev = shadow.querySelector('.prev-thumb');
-        const next = shadow.querySelector('.next-thumb');
-        activate(elem, shadow, prev, next);
+        const scope = privates(this);
+        scope.load(elem, shadow);
     },
 
     attributes: {
@@ -3288,7 +3357,7 @@ element('slide-show', {
         **/
         autoplay: function(value) {
             const scope = privates(this);
-            scope.auto(value !== null);
+            scope.autoplay(value !== null);
         }
     }
 });

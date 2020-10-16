@@ -167,6 +167,11 @@ const assignProperty = overload(id, {
 	// SVG points property must be set as string attribute - SVG elements
 	// have a read-only API exposed at .points
 	points: setAttribute,
+    cx:     setAttribute,
+    cy:     setAttribute,
+    r:      setAttribute,
+    preserveAspectRatio: setAttribute,
+    viewBox: setAttribute,
 
 	default: function(name, node, content) {
 		if (name in node) {
@@ -674,6 +679,17 @@ const cubicBezier$2 = def(
     }, 1, value))
 );
 
+
+
+/* Todo: does it do as we intend?? */
+// Todo: implement tanh with min max scaling or gradient and crossover 
+// centering or one or two of these others
+// https://en.wikipedia.org/wiki/Sigmoid_function#/media/File:Gjl-t(x).svg
+const tanh = def(
+    'Number, Number, Number => Number',
+    (min, max, value) => (Math.tanh(value) / 2 + 0.5) * (max - min) + min
+);
+
 var denormalise = /*#__PURE__*/Object.freeze({
     __proto__: null,
     linear: linear$1,
@@ -681,7 +697,8 @@ var denormalise = /*#__PURE__*/Object.freeze({
     cubic: cubic$1,
     logarithmic: logarithmic$1,
     linearLogarithmic: linearLogarithmic$1,
-    cubicBezier: cubicBezier$2
+    cubicBezier: cubicBezier$2,
+    tanh: tanh
 });
 
 function transform(curve, value, min, max) {
@@ -1517,6 +1534,10 @@ function element(name, options) {
                 // Todo: But do we pick these load events up if the stylesheet is cached??
                 while (n--) {
                     links[n].addEventListener('load', load, onceEvent);
+                    links[n].addEventListener('error', function(e) {
+                        console.log('Failed to load stylesheet', e.target.href);
+                        load();
+                    }, onceEvent);
                 }
 
                 if (options.connect) {
@@ -3096,15 +3117,21 @@ const value = parseValue({
 ```
 **/
 
-// Be generous in what we accept, space-wise
-const runit = /^\s*(-?\d*\.?\d+)(\w*|%)?\s*$/;
+// Be generous in what we accept, space-wise, but exclude spaces between the 
+// number and the unit
+const runit = /^\s*([+-]?\d*\.?\d+)([^\s\d]*)\s*$/;
 
 function parseValue(units, string) {
+    // Allow number to pass through
+    if (typeof string === 'number') {
+        return string;        
+    }
+
     var entry = runit.exec(string);
 
     if (!entry || !units[entry[2] || '']) {
         if (!units.catch) {
-            throw new Error('Cannot parse value "' + string + '"');
+            throw new Error('Cannot parse value "' + string + '" with provided units ' + Object.keys(units).join(', '));
         }
 
         return units.catch(string);
@@ -3456,28 +3483,12 @@ window.addEventListener('click', function(e) {
 });
 
 function listen(source, type) {
-	if (type === 'click') {
-		source.clickUpdate = function click(e) {
-			// Ignore clicks with the same timeStamp as previous clicks –
-			// they are likely simulated by the browser.
-			if (e.timeStamp <= clickTimeStamp) { return; }
-			source.update(e);
-		};
-
-		source.node.addEventListener(type, source.clickUpdate, source.options);
-		return source;
-	}
-
-	source.node.addEventListener(type, source.update, source.options);
+	source.node.addEventListener(type, source, source.options);
 	return source;
 }
 
 function unlisten(source, type) {
-	source.node.removeEventListener(type, type === 'click' ?
-		source.clickUpdate :
-		source.update
-	);
-
+	source.node.removeEventListener(type, source);
 	return source;
 }
 
@@ -3486,15 +3497,27 @@ events(type, node)
 
 Returns a mappable stream of events heard on `node`:
 
-    var stream = events('click', document.body);
-    .map(get('target'))
-    .each(function(node) {
-        // Do something with nodes
-    });
+```js
+var stream = events('click', document.body);
+.map(get('target'))
+.each(function(node) {
+    // Do something with nodes
+});
+```
 
 Stopping the stream removes the event listeners:
 
-    stream.stop();
+```js
+stream.stop();
+```
+
+The first parameter may also be an options object, which must have a `type`
+property. Other properties, eg. `passive: true` are passed to addEventListener 
+options.
+
+```js
+var stream = events({ type: 'scroll', passive: true }, document.body);
+```
 */
 
 function Source(notify, stop, type, options, node) {
@@ -3528,7 +3551,19 @@ assign$7(Source.prototype, {
 	stop: function stopEvent() {
 		this.types.reduce(unlisten, this);
 		this._stop(this.buffer.length);
-	}
+	},
+
+    /* Make source double as our DOM listener object */
+    handleEvent: function handleEvent(e) {
+        if (e.type === 'click'
+         && e.timeStamp <= clickTimeStamp) {
+            // Ignore clicks with the same timeStamp as previous clicks –
+            // they are likely simulated by the browser.
+            return;
+        }
+
+        this.update(e);
+    }
 });
 
 function events(type, node) {
@@ -3847,29 +3882,33 @@ function mousedown(e, push, options) {
     // Check target matches selector
     if (options.selector && !e.target.closest(options.selector)) { return; }
 
-    // Keep target around as it is redefined on the event
+    // Copy event to keep target around, as it is changed on the event
     // if it passes through a shadow boundary
     var event = {
+        type:          e.type,
         target:        e.target,
         currentTarget: e.currentTarget,
         clientX:       e.clientX,
-        clientY:       e.clientY
+        clientY:       e.clientY,
+        timeStamp:     e.timeStamp
     };
 
+    // If threshold is 0 start gesture immediately
+    if (options.threshold === 0) {
+        push(touches(event.target, [event]));
+        return;
+    }
+
     on(mouseevents.move, mousemove, document, [event], push, options);
-    on(mouseevents.cancel, mouseend, document, [event]);
+    on(mouseevents.cancel, mouseend, document);
 }
 
 function mousemove(e, events, push, options){
     events.push(e);
-    checkThreshold(e, events, e, removeMouse, push, options);
+    checkThreshold(e, events, e, mouseend, push, options);
 }
 
-function mouseend(e, data) {
-    removeMouse();
-}
-
-function removeMouse() {
+function mouseend(e) {
     off(mouseevents.move, mousemove, document);
     off(mouseevents.cancel, mouseend, document);
 }
@@ -3945,8 +3984,9 @@ function activeMousemove(e, data, push) {
     push(e);
 }
 
-function activeMouseend(e, data, stop) {
+function activeMouseend(e, data, push, stop) {
     removeActiveMouse();
+    activeMousemove(e, data, push);
     stop();
 }
 
@@ -4004,8 +4044,9 @@ function touches(node, events) {
             // We're dealing with a mouse event.
             // Stop click from propagating at the end of a move
             on(mouseevents.end, preventOneClick, document);
+    
             on(mouseevents.move, activeMousemove, document, data, push);
-            on(mouseevents.cancel, activeMouseend, document, data, stop);
+            on(mouseevents.cancel, activeMouseend, document, data, push, stop);
 
             return {
                 stop: function() {
@@ -4127,7 +4168,7 @@ function createTicks(data, tokens) {
         .filter((number) => {
             // Filter ticks to min-max range, special-casing logarithmic-0
             // which travels to 0 whatever it's min value
-            return number >= (data.transform === 'linear-logarithmic' ? 0 : data.min)
+            return number >= (data.law === 'linear-logarithmic' ? 0 : data.min)
                 && number <= data.max
         })
         .map((value) => {
@@ -4135,7 +4176,7 @@ function createTicks(data, tokens) {
             // unnecessary observing
             return Object.freeze({
                 value:        value,
-                unitValue:    invert(data.transform, value, data.min, data.max),
+                unitValue:    invert(data.law, value, data.min, data.max),
                 displayValue: transformTick(data.unit, value)
             });
         }) :
@@ -4157,7 +4198,7 @@ function createSteps(data, tokens) {
         .map((value) => {
             return {
                 value: value,
-                unitValue: invert(data.transform, value, data.min, data.max)
+                unitValue: invert(data.law, value, data.min, data.max)
             };
         })
         .sort(by$1(get$1('unitValue'))) ;
@@ -4221,7 +4262,7 @@ const attributes = {
         const data     = privates$1.data;
         const scope    = privates$1.scope;
 
-        data.transform = value || 'linear';
+        data.law = value || 'linear';
 
         if (data.ticksAttribute) {
             data.ticks = createTicks(data, data.ticksAttribute);
@@ -4233,7 +4274,7 @@ const attributes = {
                 data.stepsAttribute );
         }
 
-        scope.unitZero(invert(data.transform, 0, data.min, data.max));
+        scope.unitZero(invert(data.law, 0, data.min, data.max));
     },
 
     /**
@@ -4340,16 +4381,16 @@ const properties = {
             // Check for readiness
             if (data.max === undefined) { return; }
             scope.ticks(createTicks(data, data.ticksAttribute));
-            scope.unitZero(invert(data.transform, 0, data.min, data.max));
+            scope.unitZero(invert(data.law, 0, data.min, data.max));
 
             // Check for readiness
             if (data.value === undefined) { return; }
-            data.unitValue = invert(data.transform, data.value, data.min, data.max);
+            data.unitValue = invert(data.law, data.value, data.min, data.max);
         },
 
         enumerable: true
     },
-    
+
     /**
     .max=1
     Value at lower limit of fader, as a number.
@@ -4369,11 +4410,11 @@ const properties = {
 
             if (data.min === undefined) { return; }
             scope.ticks(createTicks(data, data.ticksAttribute));
-            scope.unitZero(invert(data.transform, 0, data.min, data.max));
+            scope.unitZero(invert(data.law, 0, data.min, data.max));
 
             // Check for readiness
             if (data.value === undefined) { return; }
-            data.unitValue = invert(data.transform, data.value, data.min, data.max);
+            data.unitValue = invert(data.law, data.value, data.min, data.max);
         },
 
         enumerable: true
@@ -4406,7 +4447,7 @@ const properties = {
                 return;
             }*/
 
-            let unitValue = invert(data.transform, value, data.min, data.max);
+            let unitValue = invert(data.law, value, data.min, data.max);
 
             // Round to nearest step
             if (data.steps) {
@@ -4430,14 +4471,47 @@ const properties = {
 };
 
 
+/* Events */
+
 /**
 "input"
 Sent continuously during a fader movement.
 **/
 
-/**
-"change"
-**/
+function touchstart$1(e) {
+    const target = e.target.closest('button');
+
+    // Ignore non-ticks
+    if (!target) { return; }
+
+    const unitValue = parseFloat(target.value);
+    const value = transform(this.data.law, unitValue, this.data.min, this.data.max) ;
+    this.element.value = value;
+
+    // Refocus the input (should not be needed now we have focus 
+    // control on parent?) and trigger input event on element
+    //            shadow.querySelector('input').focus();
+
+    // Change event on element
+    trigger('input', this.element);
+}
+
+function input(e) {
+    const unitValue = parseFloat(e.target.value); 
+    const value = transform(this.data.law, unitValue, this.data.min, this.data.max) ;
+    this.element.value = value;
+
+    // If the range has steps make sure the handle snaps into place
+    if (this.data.steps) {
+        e.target.value = this.data.unitValue;
+    }
+}
+
+const handleEvent = overload((e) => e.type, {
+    'touchstart': touchstart$1,
+    'mousedown': touchstart$1,
+    'input': input
+});
 
 const assign$9 = Object.assign;
 
@@ -4458,7 +4532,7 @@ function createTemplate(elem, shadow, internals) {
     const link   = create('link',  { rel: 'stylesheet', href: config$2.path + 'rotary-control.css' });
     const style  = create('style', ':host {}');
     const label  = create('label', { for: 'input', html: '<slot></slot>' });
-    const handle = create('div', { part: 'handle' });
+    const handle = create('div', { class: 'handle' });
     const text   = create('text');
     const abbr   = create('abbr');
     const output = create('output', { children: [text, abbr], part: 'output' });
@@ -4536,27 +4610,6 @@ function createTemplate(elem, shadow, internals) {
 
 /* Events */
 
-function touchstart$1(e) {
-    // Ignore non-ticks
-    if (e.target.type !== 'button') { return; }
-
-    const unitValue = parseFloat(e.target.value);
-    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
-    this.element.value = value;
-
-    // Refocus the input (should not be needed now we have focus 
-    // control on parent?) and trigger input event on element
-    //            shadow.querySelector('input').focus();
-
-    // Change event on element
-    trigger('change', this.element);
-}
-
-const handleEvent = overload((e) => e.type, {
-    'touchstart': touchstart$1,
-    'mousedown': touchstart$1
-});
-
 element('rotary-control', {
     template: function(elem, shadow) {
         const privates$1 = privates(elem);
@@ -4571,7 +4624,6 @@ element('rotary-control', {
     construct: function(elem, shadow, internals) {
         const privates$1 = privates(elem);
         const data     = privates$1.data  = assign$9({}, defaults$1);
-        const scope    = privates$1.scope = createTemplate(elem, shadow);
 
         privates$1.element     = elem;
         privates$1.shadow      = shadow;

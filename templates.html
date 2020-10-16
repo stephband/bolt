@@ -106,7 +106,7 @@ attribute="value"
 
 <template id="entry" remove>
     <article fn="append:body" class="{[type|append:-doc-toggle-block]} doc-toggle-block toggle-block block" toggleable id="{[type]}-{[id]}">
-        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']} {[prefix|is:'--'|yesno:'cssvar-indent','']}">
             <a href="#{[type]}-{[id]}">
                 <code fn="prepend:title" class="{[type|is:attribute|yesno:token,'']} {[type|is:property|yesno:property,'']} {[type|is:attribute|yesno:html,js|prepend:language-]}"><template src="{[default|yesno:#default,'']}" remove></template></code>
             </a>

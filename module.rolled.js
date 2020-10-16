@@ -705,15 +705,21 @@ const value = parseValue({
 ```
 **/
 
-// Be generous in what we accept, space-wise
-const runit = /^\s*(-?\d*\.?\d+)(\w*|%)?\s*$/;
+// Be generous in what we accept, space-wise, but exclude spaces between the 
+// number and the unit
+const runit = /^\s*([+-]?\d*\.?\d+)([^\s\d]*)\s*$/;
 
 function parseValue(units, string) {
+    // Allow number to pass through
+    if (typeof string === 'number') {
+        return string;        
+    }
+
     var entry = runit.exec(string);
 
     if (!entry || !units[entry[2] || '']) {
         if (!units.catch) {
-            throw new Error('Cannot parse value "' + string + '"');
+            throw new Error('Cannot parse value "' + string + '" with provided units ' + Object.keys(units).join(', '));
         }
 
         return units.catch(string);
@@ -2580,14 +2586,6 @@ function exp(n, x) { return Math.pow(n, x); }
 function log(n, x) { return Math.log(x) / Math.log(n); }
 function root(n, x) { return Math.pow(x, 1/n); }
 
-/**
-wrap(min, max, n)
-**/
-
-function wrap(min, max, n) {
-    return (n < min ? max : min) + (n - min) % (max - min);
-}
-
 const curriedSum   = curry(sum);
 const curriedMultiply = curry(multiply);
 const curriedMin   = curry(Math.min, false, 2);
@@ -2596,7 +2594,6 @@ const curriedPow   = curry(pow);
 const curriedExp   = curry(exp);
 const curriedLog   = curry(log);
 const curriedRoot  = curry(root);
-const curriedWrap  = curry(wrap);
 
 /**
 gcd(a, b)
@@ -2623,16 +2620,6 @@ function lcm(a, b) {
 const curriedLcm = curry(lcm);
 
 /**
-clamp(min, max, n)
-**/
-
-function clamp(min, max, n) {
-    return n > max ? max : n < min ? min : n;
-}
-
-var clamp$1 = curry(clamp);
-
-/**
 mod(divisor, n)
 
 JavaScript's modulu operator (`%`) uses Euclidean division, but for
@@ -2646,6 +2633,26 @@ function mod(d, n) {
 }
 
 curry(mod);
+
+/**
+wrap(min, max, n)
+**/
+
+function wrap(min, max, n) {
+    return min + mod(max - min, n - min);
+}
+
+var wrap$1 = curry(wrap);
+
+/**
+clamp(min, max, n)
+**/
+
+function clamp(min, max, n) {
+    return n > max ? max : n < min ? min : n;
+}
+
+var clamp$1 = curry(clamp);
 
 /**
 toPolar(cartesian)
@@ -2985,6 +2992,17 @@ const cubicBezier$2 = def(
     }, 1, value))
 );
 
+
+
+/* Todo: does it do as we intend?? */
+// Todo: implement tanh with min max scaling or gradient and crossover 
+// centering or one or two of these others
+// https://en.wikipedia.org/wiki/Sigmoid_function#/media/File:Gjl-t(x).svg
+const tanh = def(
+    'Number, Number, Number => Number',
+    (min, max, value) => (Math.tanh(value) / 2 + 0.5) * (max - min) + min
+);
+
 var denormalisers = /*#__PURE__*/Object.freeze({
     __proto__: null,
     linear: linear$1,
@@ -2992,7 +3010,8 @@ var denormalisers = /*#__PURE__*/Object.freeze({
     cubic: cubic$1,
     logarithmic: logarithmic$1,
     linearLogarithmic: linearLogarithmic$1,
-    cubicBezier: cubicBezier$2
+    cubicBezier: cubicBezier$2,
+    tanh: tanh
 });
 
 // Exponential functions
@@ -4199,28 +4218,12 @@ window.addEventListener('click', function(e) {
 });
 
 function listen(source, type) {
-	if (type === 'click') {
-		source.clickUpdate = function click(e) {
-			// Ignore clicks with the same timeStamp as previous clicks –
-			// they are likely simulated by the browser.
-			if (e.timeStamp <= clickTimeStamp) { return; }
-			source.update(e);
-		};
-
-		source.node.addEventListener(type, source.clickUpdate, source.options);
-		return source;
-	}
-
-	source.node.addEventListener(type, source.update, source.options);
+	source.node.addEventListener(type, source, source.options);
 	return source;
 }
 
 function unlisten(source, type) {
-	source.node.removeEventListener(type, type === 'click' ?
-		source.clickUpdate :
-		source.update
-	);
-
+	source.node.removeEventListener(type, source);
 	return source;
 }
 
@@ -4229,15 +4232,27 @@ events(type, node)
 
 Returns a mappable stream of events heard on `node`:
 
-    var stream = events('click', document.body);
-    .map(get('target'))
-    .each(function(node) {
-        // Do something with nodes
-    });
+```js
+var stream = events('click', document.body);
+.map(get('target'))
+.each(function(node) {
+    // Do something with nodes
+});
+```
 
 Stopping the stream removes the event listeners:
 
-    stream.stop();
+```js
+stream.stop();
+```
+
+The first parameter may also be an options object, which must have a `type`
+property. Other properties, eg. `passive: true` are passed to addEventListener 
+options.
+
+```js
+var stream = events({ type: 'scroll', passive: true }, document.body);
+```
 */
 
 function Source(notify, stop, type, options, node) {
@@ -4271,7 +4286,19 @@ assign$5(Source.prototype, {
 	stop: function stopEvent() {
 		this.types.reduce(unlisten, this);
 		this._stop(this.buffer.length);
-	}
+	},
+
+    /* Make source double as our DOM listener object */
+    handleEvent: function handleEvent(e) {
+        if (e.type === 'click'
+         && e.timeStamp <= clickTimeStamp) {
+            // Ignore clicks with the same timeStamp as previous clicks –
+            // they are likely simulated by the browser.
+            return;
+        }
+
+        this.update(e);
+    }
 });
 
 function events(type, node) {
@@ -4624,6 +4651,11 @@ const assignProperty = overload(id, {
 	// SVG points property must be set as string attribute - SVG elements
 	// have a read-only API exposed at .points
 	points: setAttribute,
+    cx:     setAttribute,
+    cy:     setAttribute,
+    r:      setAttribute,
+    preserveAspectRatio: setAttribute,
+    viewBox: setAttribute,
 
 	default: function(name, node, content) {
 		if (name in node) {
@@ -5235,29 +5267,33 @@ function mousedown(e, push, options) {
     // Check target matches selector
     if (options.selector && !e.target.closest(options.selector)) { return; }
 
-    // Keep target around as it is redefined on the event
+    // Copy event to keep target around, as it is changed on the event
     // if it passes through a shadow boundary
     var event = {
+        type:          e.type,
         target:        e.target,
         currentTarget: e.currentTarget,
         clientX:       e.clientX,
-        clientY:       e.clientY
+        clientY:       e.clientY,
+        timeStamp:     e.timeStamp
     };
 
+    // If threshold is 0 start gesture immediately
+    if (options.threshold === 0) {
+        push(touches(event.target, [event]));
+        return;
+    }
+
     on(mouseevents.move, mousemove, document, [event], push, options);
-    on(mouseevents.cancel, mouseend, document, [event]);
+    on(mouseevents.cancel, mouseend, document);
 }
 
 function mousemove(e, events, push, options){
     events.push(e);
-    checkThreshold(e, events, e, removeMouse, push, options);
+    checkThreshold(e, events, e, mouseend, push, options);
 }
 
-function mouseend(e, data) {
-    removeMouse();
-}
-
-function removeMouse() {
+function mouseend(e) {
     off(mouseevents.move, mousemove, document);
     off(mouseevents.cancel, mouseend, document);
 }
@@ -5333,8 +5369,9 @@ function activeMousemove(e, data, push) {
     push(e);
 }
 
-function activeMouseend(e, data, stop) {
+function activeMouseend(e, data, push, stop) {
     removeActiveMouse();
+    activeMousemove(e, data, push);
     stop();
 }
 
@@ -5392,8 +5429,9 @@ function touches(node, events) {
             // We're dealing with a mouse event.
             // Stop click from propagating at the end of a move
             on(mouseevents.end, preventOneClick, document);
+    
             on(mouseevents.move, activeMousemove, document, data, push);
-            on(mouseevents.cancel, activeMouseend, document, data, stop);
+            on(mouseevents.cancel, activeMouseend, document, data, push, stop);
 
             return {
                 stop: function() {
@@ -6895,7 +6933,7 @@ function xMinFromChildren(node) {
 }
 
 function swipe(node, angle) {
-	angle = curriedWrap(0, tau, angle || 0);
+	angle = wrap$1(0, tau, angle || 0);
 
 	// If angle is rightwards
 	var prop = (angle > tau * 1 / 8 && angle < tau * 3 / 8) ?

@@ -20,8 +20,10 @@ element and upgrades instances already in the DOM.
 ```
 **/
 
+import id from '../../fn/modules/id.js';
 import Privates from '../../fn/modules/privates.js';
 import { wrap } from '../../fn/modules/maths/wrap.js';
+import parseValue from '../../fn/modules/parse-value.js';
 import element from '../../dom/modules/element.js';
 import events from '../../dom/modules/events.js';
 import rect from '../../dom/modules/rect.js';
@@ -48,25 +50,10 @@ const onceOptions = {
     once: true
 };
 
-let scrollBarWidth;
-
-function testScrollBarWidth() {
-    if (scrollBarWidth) { return scrollBarWidth; }
-
-    const inner = create('div', {
-        style: 'display: block; width: auto; height: 60px; background: transparent;'
-    });
-
-    const test = create('div', {
-        style: 'overflow: scroll; width: 30px; height: 30px; position: absolute; bottom: 0; right: 0; background: transparent; z-index: -1;',
-        children: [inner]
-    });
-
-    document.body.appendChild(test);
-    scrollBarWidth = test.offsetWidth - inner.offsetWidth;
-    test.remove();
-    return scrollBarWidth;
-}
+const parseTime = parseValue({
+   's': id,
+   'ms': (n) => n / 1000
+});
 
 
 /* Shadow */
@@ -136,21 +123,22 @@ function activate(elem, shadow, prevLink, nextLink, active) {
 }
 
 function reposition(elem, slot, id) {
-    const first      = elem.firstElementChild;
-    const firstRect  = rect(first);
-    const slide      = elem.getRootNode().getElementById(id);
-    const slideRect  = rect(slide);
-    const scrollLeft = slideRect.left - firstRect.left;
-
+    const slide = elem.getRootNode().getElementById(id);
     slot.style.scrollBehavior = 'auto';
-    requestAnimationFrame(function () {
-        slot.scrollLeft = scrollLeft;
+
+    requestAnimationFrame(function() {
+        // Behavior auto is not respected here for some reason. Doesn't work on 
+        // slot? Don't know. But it's the reason we have to fart around with 
+        // animation frames and style setting.
+        slide.scrollIntoView({
+            behavior: 'auto',
+            block:  'start',
+            inline: 'center'
+        });
+
         slot.style.scrollBehavior = '';
     });
 
-    //console.log(slideRect.left, firstRect.left, slideRect.left - firstRect.left, slot.scrollLeft, slideRect);
-
-    // Return active slide
     return slide;
 }
 
@@ -160,6 +148,24 @@ function createGhost(slide) {
     //ghost.id = ghost.id + '-ghost';
     ghost.removeAttribute('id');
     return ghost;
+}
+
+
+/* Control */
+
+function autoplay(active, change, autoId) {
+    if (autoId) {
+        clearTimeout(autoId);
+    }
+
+    // Set a new autoplay timeout
+    const duration = parseTime(
+        window
+        .getComputedStyle(active)
+        .getPropertyValue('--play-duration') || config.duration
+    );
+
+    return setTimeout(change, duration * 1000);
 }
 
 
@@ -180,11 +186,11 @@ element('slide-show', {
     */
 
     template: function(elem, shadow) {
-        const link = create('link',  { rel: 'stylesheet', href: config.path + 'slide-show.css' });
-        const slot = create('slot');
+        const link     = create('link',  { rel: 'stylesheet', href: config.path + 'slide-show.css' });
+        const slot     = create('slot', { style: 'scroll-behavior: auto;' });
         const prevNode = create('a', { class: 'prev-thumb thumb', part: 'prev' });
         const nextNode = create('a', { class: 'next-thumb thumb', part: 'next' });
-        const nav  = create('nav');
+        const nav      = create('nav');
 
         shadow.appendChild(link);
         shadow.appendChild(slot);
@@ -205,6 +211,7 @@ element('slide-show', {
 
         // Currently active slide
         var active = elem.firstElementChild;
+        const firstId = identify(active);
 
         // Manage repositioning of slides when scroll is at rest
         var t = -Infinity;
@@ -258,19 +265,26 @@ element('slide-show', {
             loopId = setTimeout(update, 600);
             t = e.timeStamp;
 
-            if (autoId) {
-                clearTimeout(autoId);
-            }
-
-            // Set a new autoplay timeout
-            const duration = parseFloat(
-                window.getComputedStyle(active).getPropertyValue('--slide-duration') || config.duration
-            );
-
-            autoId = setTimeout(change, duration * 1000);
+            autoId = autoplay(active, change, autoId);
         });
 
         assign(Privates(elem), {
+            load: function(elem, shadow) {
+                const current = activate(elem, shadow, prevNode, nextNode, active);
+
+                // If we are at the very start of the loop on load, and it is 
+                // not an original, reposition to be at the start of the 
+                // originals
+                if (current === elem.firstElementChild && !current.id) {
+                    active = reposition(elem, slot, firstId);
+                    requestAnimationFrame(() => active = activate(elem, shadow, prevNode, nextNode, current)); 
+                }
+                else {
+                    active = current;
+                    requestAnimationFrame(() => slot.style.scrollBehavior = '');
+                }
+            },
+
             loop: function duplicate(loop) {
                 if (!loop) {
                     // Todo: remove ghosts, reposition scroll when loop is 
@@ -278,37 +292,28 @@ element('slide-show', {
                     return;
                 }
 
-                // Where there are too few slides to loop we must 
-                // duplicate them, sadly. Causes a bit of complexity.
+                // To loop slides we need an extra couple on the front and an 
+                // extra couple on the back to simulate the continuous loop
                 const children = elem.children;
                 const original = Array.from(children);
-                let n = 0;
-
-                while(children.length < config.loopableSlideCount) {
+                let n = -1;
+                while(++n < 2) {
                     // Stick one from the end on the front
                     children[0].before(createGhost(original[wrap(0, original.length, -(n + 1))]));
                     // Stick one from the front on the end
                     children[children.length - 1].after(createGhost(original[wrap(0, original.length, n)]));
-                    ++n;
                 }
             },
 
-            auto: function auto(value) {
-                if (autoId) {
-                    clearTimeout(autoId);
+            autoplay: function(value) {
+                // When value is false stop autoplaying
+                if (!value) {
+                    autoId && clearTimeout(autoId);
+                    return;
                 }
 
-                if (!value) { return; }
-
-                // Set a new autoplay timeout
-                const duration = parseFloat(
-                    window.getComputedStyle(active).getPropertyValue('--play-duration') || config.duration
-                );
-
-                autoId = setTimeout(change, duration * 1000);
-            },
-
-            slot: slot
+                autoId = autoplay(active, change, autoId);
+            }
         });
     },
 
@@ -317,10 +322,8 @@ element('slide-show', {
     },
 
     load: function (elem, shadow) {
-        // Things haven't loaded and styled yet
-        const prev = shadow.querySelector('.prev-thumb');
-        const next = shadow.querySelector('.next-thumb');
-        activate(elem, shadow, prev, next);
+        const scope = Privates(this);
+        scope.load(elem, shadow);
     },
 
     attributes: {
@@ -339,7 +342,7 @@ element('slide-show', {
         **/
         autoplay: function(value) {
             const scope = Privates(this);
-            scope.auto(value !== null);
+            scope.autoplay(value !== null);
         }
     }
 });

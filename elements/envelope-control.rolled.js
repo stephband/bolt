@@ -661,15 +661,21 @@ const value = parseValue({
 ```
 **/
 
-// Be generous in what we accept, space-wise
-const runit = /^\s*(-?\d*\.?\d+)(\w*|%)?\s*$/;
+// Be generous in what we accept, space-wise, but exclude spaces between the 
+// number and the unit
+const runit = /^\s*([+-]?\d*\.?\d+)([^\s\d]*)\s*$/;
 
 function parseValue(units, string) {
+    // Allow number to pass through
+    if (typeof string === 'number') {
+        return string;        
+    }
+
     var entry = runit.exec(string);
 
     if (!entry || !units[entry[2] || '']) {
         if (!units.catch) {
-            throw new Error('Cannot parse value "' + string + '"');
+            throw new Error('Cannot parse value "' + string + '" with provided units ' + Object.keys(units).join(', '));
         }
 
         return units.catch(string);
@@ -3011,14 +3017,6 @@ function exp(n, x) { return Math.pow(n, x); }
 function log(n, x) { return Math.log(x) / Math.log(n); }
 function root(n, x) { return Math.pow(x, 1/n); }
 
-/**
-wrap(min, max, n)
-**/
-
-function wrap(min, max, n) {
-    return (n < min ? max : min) + (n - min) % (max - min);
-}
-
 const curriedSum   = curry(sum);
 const curriedMultiply = curry(multiply);
 const curriedMin   = curry(Math.min, false, 2);
@@ -3027,7 +3025,6 @@ const curriedPow   = curry(pow);
 const curriedExp   = curry(exp);
 const curriedLog   = curry(log);
 const curriedRoot  = curry(root);
-const curriedWrap  = curry(wrap);
 
 /**
 gcd(a, b)
@@ -3052,6 +3049,31 @@ function lcm(a, b) {
 }
 
 const curriedLcm = curry(lcm);
+
+/**
+mod(divisor, n)
+
+JavaScript's modulu operator (`%`) uses Euclidean division, but for
+stuff that cycles through 0 the symmetrics of floored division are often
+are more useful. This function implements floored division.
+**/
+
+function mod(d, n) {
+    var value = n % d;
+    return value < 0 ? value + d : value;
+}
+
+curry(mod);
+
+/**
+wrap(min, max, n)
+**/
+
+function wrap(min, max, n) {
+    return min + mod(max - min, n - min);
+}
+
+curry(wrap);
 
 /**
 todB(level)
@@ -3087,21 +3109,6 @@ function clamp(min, max, n) {
 }
 
 curry(clamp);
-
-/**
-mod(divisor, n)
-
-JavaScript's modulu operator (`%`) uses Euclidean division, but for
-stuff that cycles through 0 the symmetrics of floored division are often
-are more useful. This function implements floored division.
-**/
-
-function mod(d, n) {
-    var value = n % d;
-    return value < 0 ? value + d : value;
-}
-
-curry(mod);
 
 // Cubic bezier function (originally translated from
 
@@ -6175,6 +6182,10 @@ function element(name, options) {
                 // Todo: But do we pick these load events up if the stylesheet is cached??
                 while (n--) {
                     links[n].addEventListener('load', load, onceEvent);
+                    links[n].addEventListener('error', function(e) {
+                        console.log('Failed to load stylesheet', e.target.href);
+                        load();
+                    }, onceEvent);
                 }
 
                 if (options.connect) {

@@ -33,6 +33,10 @@
             <div>
                 More slide show content
             </div>
+
+            <svg viewbox="0 0 100 100" id="cow">
+                <circle fill="black" cx="50" cy="50" r="50"></circle>
+            </svg>
         </slide-show>
     </div>
 
@@ -60,6 +64,7 @@
 
     <!-- Document interactivity -->
     <script type="module">
+        import '../../dom/polyfills/element.scrollintoview.js';
         import './slide-show.js';
         import '../module.js';
         import '../documentation.js';

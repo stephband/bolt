@@ -115,40 +115,12 @@ Returns `value`.
 function id(value) { return value; }
 
 /**
-todB(level)
+toType(object)
+Returns `typeof object`.
+*/
 
-Converts a value to decibels relative to unity (dBFS).
-**/
-
-// A bit disturbingly, a correction factor is needed to make todB() and
-// to toLevel() reciprocate more accurately. This is quite a lot to be off
-// by... Todo: investigate?
-const dBCorrectionFactor = (60 / 60.205999132796244);
-
-function todB(n) {
-    return 20 * Math.log10(n) * dBCorrectionFactor;
-}
-
-/**
-toLevel(dB)
-
-Converts a dB value relative to unity (dBFS) to unit value.
-**/
-
-function toGain(n) {
-    return Math.pow(2, n / 6);
-}
-
-/**
-toCamelCase(string)
-Capitalises any Letter following a `'-'` and removes the dash.
-**/
-
-function toCamelCase(string) {
-    // Be gracious in what we accept as input
-    return string.replace(/-(\w)?/g, function($0, letter) {
-        return letter ? letter.toUpperCase() : '';
-    });
+function toType(object) {
+    return typeof object;
 }
 
 /**
@@ -157,518 +129,6 @@ Returns undefined.
 */
 
 function noop() {}
-
-const DEBUG = window.DEBUG === undefined || window.DEBUG;
-
-const defs = {
-    // Primitive types
-
-    'boolean': (value) =>
-        typeof value === 'boolean',
-
-    'function': (value) =>
-        typeof value === 'function',
-
-    'number': (value) =>
-        typeof value === 'number',
-
-    'object': (value) =>
-        typeof value === 'object',
-
-    'symbol': (value) =>
-        typeof value === 'symbol',
-
-    // Functional types
-    // Some of these are 'borrowed' from SancturyJS
-    // https://github.com/sanctuary-js/sanctuary-def/tree/v0.19.0
-
-    'Any': noop,
-
-    'Array': (value) =>
-        Array.isArray(value),
-
-    'ArrayLike': (value) =>
-        typeof value.length === 'number',
-
-    'Boolean': (value) =>
-        typeof value === 'boolean',
-
-    'Date': (value) =>
-        value instanceof Date
-        && !Number.isNaN(value.getTime()),
-
-    'Error': (value) =>
-        value instanceof Error,
-
-    'Integer': (value) =>
-        Number.isInteger(value)
-        && Number.MIN_SAFE_INTEGER <= value
-        && Number.MAX_SAFE_INTEGER >= value,
-
-    'NegativeInteger': (value) =>
-        Number.isInteger(value)
-        && Number.MIN_SAFE_INTEGER <= value
-        && Number.MAX_SAFE_INTEGER >= value
-        && value < 0,
-
-    'NonPositiveInteger': (value) =>
-        Number.isInteger(value)
-        && Number.MIN_SAFE_INTEGER <= value
-        && Number.MAX_SAFE_INTEGER >= value
-        && value <= 0,
-
-    'PositiveInteger': (value) =>
-        Number.isInteger(value)
-        && Number.MIN_SAFE_INTEGER <= value
-        && Number.MAX_SAFE_INTEGER >= value
-        && value > 0,
-
-    'NonNegativeInteger': (value) =>
-        Number.isInteger(value)
-        && Number.MIN_SAFE_INTEGER <= value
-        && Number.MAX_SAFE_INTEGER >= value
-        && value >= 0,
-
-    'Number': (value) =>
-        typeof value === 'number'
-        && !Number.isNaN(value),
-
-    'NegativeNumber': (value) =>
-        typeof value === 'number'
-        && value < 0,
-
-    'NonPositiveNumber': (value) =>
-        typeof value === 'number'
-        && value <= 0,
-
-    'PositiveNumber': (value) =>
-        typeof value === 'number'
-        && value > 0,
-
-    'NonNegativeNumber': (value) =>
-        typeof value === 'number'
-        && value >= 0,
-
-    'Null': (value) =>
-        value === null,
-
-    'Object': (value) =>
-        !!value
-        && typeof value === 'object',
-
-    'RegExp': (value) =>
-        value instanceof RegExp
-};
-
-const checkType = DEBUG ? function checkType(type, value, file, line, message) {
-    if (!defs[type]) {
-        throw new RangeError('Type "' + type + '" not recognised');
-    }
-
-    if (!defs[type](value)) {
-        throw new Error(message || 'value not of type "' + type + '": ' + value, file, line);
-    }
-} : noop ;
-
-const checkTypes = DEBUG ? function checkTypes(types, args, file, line) {
-    var n = types.length;
-
-    while (n--) {
-        checkType(types[n], args[n], file, line, 'argument ' + n + ' not of type "' + types[n] + '": ' + args[n]);
-    }
-} : noop ;
-
-function def(notation, fn, file, line) {
-    // notation is of the form:
-    // 'Type, Type -> Type'
-    // Be generous with what we accept as output marker '->' or '=>'
-    var parts = notation.split(/\s*[=-]>\s*/);
-    var types = parts[0].split(/\s*,\s*/);
-    var returnType = parts[1];
-
-    return DEBUG ? function() {
-        checkTypes(types, arguments, file, line);
-        const output = fn.apply(this, arguments);
-        checkType(returnType, output, file, line, 'return value not of type "' + returnType + '": ' + output);
-        return output;
-    } : fn ;
-}
-
-// Cubic bezier function (originally translated from
-
-function sampleCubicBezier(a, b, c, t) {
-    // `ax t^3 + bx t^2 + cx t' expanded using Horner's rule.
-    return ((a * t + b) * t + c) * t;
-}
-
-function sampleCubicBezierDerivative(a, b, c, t) {
-    return (3 * a * t + 2 * b) * t + c;
-}
-
-function solveCubicBezierX(a, b, c, x, epsilon) {
-    // Solve x for a cubic bezier
-    var x2, d2, i;
-    var t2 = x;
-
-    // First try a few iterations of Newton's method -- normally very fast.
-    for(i = 0; i < 8; i++) {
-        x2 = sampleCubicBezier(a, b, c, t2) - x;
-        if (Math.abs(x2) < epsilon) {
-            return t2;
-        }
-        d2 = sampleCubicBezierDerivative(a, b, c, t2);
-        if (Math.abs(d2) < 1e-6) {
-            break;
-        }
-        t2 = t2 - x2 / d2;
-    }
-
-    // Fall back to the bisection method for reliability.
-    var t0 = 0;
-    var t1 = 1;
-
-    t2 = x;
-
-    if(t2 < t0) { return t0; }
-    if(t2 > t1) { return t1; }
-
-    while(t0 < t1) {
-        x2 = sampleCubicBezier(a, b, c, t2);
-        if(Math.abs(x2 - x) < epsilon) {
-            return t2;
-        }
-        if (x > x2) { t0 = t2; }
-        else { t1 = t2; }
-        t2 = (t1 - t0) * 0.5 + t0;
-    }
-
-    // Failure.
-    return t2;
-}
-
-function cubicBezier(p1, p2, duration, x) {
-    // The epsilon value to pass given that the animation is going
-    // to run over duruation seconds. The longer the animation, the
-    // more precision is needed in the timing function result to
-    // avoid ugly discontinuities.
-    var epsilon = 1 / (200 * duration);
-
-    // Calculate the polynomial coefficients. Implicit first and last
-    // control points are (0,0) and (1,1).
-    var cx = 3 * p1[0];
-    var bx = 3 * (p2[0] - p1[0]) - cx;
-    var ax = 1 - cx - bx;
-    var cy = 3 * p1[1];
-    var by = 3 * (p2[1] - p1[1]) - cy;
-    var ay = 1 - cy - by;
-
-    var y = solveCubicBezierX(ax, bx, cx, x, epsilon);
-    return sampleCubicBezier(ay, by, cy, y);
-}
-
-var bezierify = curry(cubicBezier, true, 4);
-
-// Normalisers take a min and max and transform a value in that range
-// to a value on the normal curve of a given type
-
-const linear = def(
-    'Number, Number, Number => Number',
-    (min, max, value) => (value - min) / (max - min)
-);
-
-const quadratic = def(
-    'Number, Number, Number => Number',
-    (min, max, value) => Math.pow((value - min) / (max - min), 1/2)
-);
-
-const cubic = def(
-    'Number, Number, Number => Number',
-    (min, max, value) => Math.pow((value - min) / (max - min), 1/3)
-);
-
-const logarithmic = def(
-    'PositiveNumber, PositiveNumber, NonNegativeNumber => Number',
-    (min, max, value) => Math.log(value / min) / Math.log(max / min)
-);
-
-const linearLogarithmic = def(
-    'PositiveNumber, PositiveNumber, NonNegativeNumber => Number',
-    (min, max, value) => {
-        // The bottom 1/9th of the range is linear from 0 to min, while
-        // the top 8/9ths is dB linear from min to max.
-        return value <= min ?
-            (value / min) / 9 :
-            (0.1111111111111111 + (Math.log(value / min) / Math.log(max / min)) / 1.125) ;
-    }
-);
-
-// cubicBezier
-// `begin` and `end` are objects of the form
-// { point:  [x, y], handle: [x, y] }
-
-const cubicBezier$1 = def(
-    'Object, Object, Number => Number',
-    (begin, end, value) => bezierify({
-        0: linear(begin.point[0], end.point[0], begin.handle[0]),
-        1: linear(begin.point[0], end.point[0], begin.handle[0])
-    }, {
-        0: linear(begin.point[0], end.point[0], end.handle[0]),
-        1: linear(begin.point[0], end.point[0], end.handle[0])
-    }, 1, linear(begin.point[0], end.point[0], value))
-);
-
-var normalise = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    linear: linear,
-    quadratic: quadratic,
-    cubic: cubic,
-    logarithmic: logarithmic,
-    linearLogarithmic: linearLogarithmic,
-    cubicBezier: cubicBezier$1
-});
-
-// Denormalisers take a min and max and transform a value into that range
-// from the range of a curve of a given type
-
-const linear$1 = def(
-    'Number, Number, Number => Number',
-    (min, max, value) => value * (max - min) + min
-);
-
-const quadratic$1 = def(
-    'Number, Number, Number => Number',
-    (min, max, value) => Math.pow(value, 2) * (max - min) + min
-);
-
-const cubic$1 = def(
-    'Number, Number, Number => Number',
-    (min, max, value) => Math.pow(value, 3) * (max - min) + min
-);
-
-const logarithmic$1 = def(
-    'PositiveNumber, PositiveNumber, Number => Number',
-    (min, max, value) => min * Math.pow(max / min, value)
-);
-
-const linearLogarithmic$1 = def(
-    'PositiveNumber, PositiveNumber, Number => Number',
-    (min, max, value) => {
-        // The bottom 1/9th of the range is linear from 0 to min, while
-        // the top 8/9ths is dB linear from min to max.
-        return value <= 0.1111111111111111 ?
-            value * 9 * min :
-            min * Math.pow(max / min, (value - 0.1111111111111111) * 1.125);
-    }
-);
-
-// cubicBezier
-// `begin` and `end` are objects of the form
-// { point:  [x, y], handle: [x, y] }
-
-const cubicBezier$2 = def(
-    'Object, Object, Number => Number',
-    (begin, end, value) => linear$1(begin.point[1], end.point[1], bezierify({
-        0: linear(begin.point[0], end.point[0], begin.handle[0]),
-        1: linear(begin.point[1], end.point[1], begin.handle[1])
-    }, {
-        0: linear(begin.point[0], end.point[0], end.handle[0]),
-        1: linear(begin.point[1], end.point[1], end.handle[1])
-    }, 1, value))
-);
-
-var denormalise = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    linear: linear$1,
-    quadratic: quadratic$1,
-    cubic: cubic$1,
-    logarithmic: logarithmic$1,
-    linearLogarithmic: linearLogarithmic$1,
-    cubicBezier: cubicBezier$2
-});
-
-function transform(curve, value, min, max) {
-    return denormalise[toCamelCase(curve)](min, max, value) ;
-}
-
-function invert(curve, value, min, max) {
-    return normalise[toCamelCase(curve)](min, max, value) ;
-}
-
-
-function outputMilliKilo(unit, value) {
-    return value < 0.001 ? (value * 1000).toFixed(2) :
-        value < 1 ? (value * 1000).toPrecision(3) :
-        value > 1000 ? (value / 1000).toPrecision(3) :
-        value.toPrecision(3) ;
-}
-
-const transformOutput = overload(id, {
-    pan: function(unit, value) {
-        return value === -1 ? '-1.00' :
-            value === 0 ? '0.00' :
-            value === 1 ? '1.00' :
-            value.toFixed(2) ;
-    },
-
-    dB: function(unit, value) {
-        const db = todB(value) ;
-        return isFinite(db) ?
-            db < -1 ? db.toPrecision(3) :
-                db.toFixed(2) :
-            db < 0 ?
-                '-∞' :
-                '∞' ;
-    },
-
-    Hz: function(unit, value) {
-        return value < 1 ? value.toFixed(2) :
-            value > 1000 ? (value / 1000).toPrecision(3) :
-            value.toPrecision(3) ;
-    },
-
-    semitone: function(unit, value) {
-        // detune value is in cents
-        return value === 0 ? '0' :
-            value < 0 ?
-                '♭' + (-value / 100).toFixed(2) :
-                '♯' + (value / 100).toFixed(2) ;
-    },
-
-    s: outputMilliKilo,
-
-    bpm: function(unit, value) {
-        // Input value is a rate in beats per second
-        const bpm = value * 60;
-        return bpm < 100 ?
-            bpm.toFixed(1) :
-            bpm.toFixed(0) ;
-    },
-
-    int: function(unit, value) {
-        return Math.round(value);
-    },
-
-    default: function(unit, value) {
-        return value < 0.1 ? value.toFixed(3) :
-            value < 999.5 ? value.toPrecision(3) :
-            value.toFixed(0) ;
-    }
-});
-
-function tickMilliKilo(unit, value) {
-    return value < 1 ? (value * 1000).toFixed(0) :
-        value < 10 ? value.toFixed(1) :
-        value < 1000 ? value.toPrecision(1) :
-        (value / 1000).toPrecision(1) + 'k' ;
-}
-
-const transformTick = overload(id, {
-    pan: function(unit, value) {
-        return value === -1 ? 'left' :
-            value === 0 ? 'centre' :
-            value === 1 ? 'right' :
-            value.toFixed(1) ;
-    },
-
-    dB: function(unit, value) {
-        const db = todB(value) ;
-        return isFinite(db) ?
-            db.toFixed(0) :
-            db < 0 ?
-                '-∞' :
-                '∞' ;
-    },
-
-    Hz: function(unit, value) {
-        return value < 10 ? value.toFixed(1) :
-            value < 1000 ? value.toFixed(0) :
-            (value / 1000).toFixed(0) + 'k' ;
-    },
-
-    semitone: function(unit, value) {
-        //console.log(unit, value, value / 100, (value / 100).toFixed(0));
-        // detune value is in cents
-        return (value / 100).toFixed(0);
-    },
-
-    s: tickMilliKilo,
-
-    default: function(unit, value) {
-        // Format numbers to precision 3 then remove trailing zeroes from floats
-        return (value < 99.5 ?
-            value.toPrecision(3) :
-            value.toFixed(0)
-        )
-        .replace(/(\d+)(\.\d*?)0+$/, ($0, $1, $2) => {
-            return $1 + ($2.length > 1 ? $2 : '');
-        });
-    }
-});
-
-function unitKilo(unit, value) {
-    return value > 1000 ? 'k' + unit :
-        unit ;
-}
-
-function unitMilliKilo(unit, value) {
-    return value < 1 ? 'm' + unit :
-        value > 1000 ? 'k' + unit :
-        unit ;
-}
-
-function unitEmptyString() {
-    return '';
-}
-
-const transformUnit = overload(id, {
-    pan: unitEmptyString,
-
-    dB: id,
-
-    Hz: unitKilo,
-
-    semitone: unitEmptyString,
-
-    s: unitMilliKilo,
-    
-    int: () => '',
-
-    default: function(unit, value) {
-        // Return empty string if no unit
-        return unit || '';
-    }
-});
-
-
-function evaluate(string) {
-    // Coerce null, undefined, false, '' to 0
-    if (!string) { return 0; }
-
-    const number = +string;
-    if (number || number === 0) { return number; }
-
-    const tokens = /^(-?[\d.]+)(?:(dB|bpm)|(m|k)?(\w+))$/.exec(string);
-    if (!tokens) { return 0 }
-    const value = parseFloat(tokens[1]) ;
-
-    return tokens[2] === 'dB' ? toGain(value) :
-        // BPM to rate in beats per second
-        tokens[2] === 'bpm' ? value / 60 :
-        // milli-
-        tokens[3] === 'm' ? value / 1000 :
-        // kilo-
-        tokens[3] === 'k' ? value * 1000 :
-        value ;
-}
-
-/**
-toType(object)
-Returns `typeof object`.
-*/
-
-function toType(object) {
-    return typeof object;
-}
 
 /**
 assign(node, properties)
@@ -707,6 +167,11 @@ const assignProperty = overload(id, {
 	// SVG points property must be set as string attribute - SVG elements
 	// have a read-only API exposed at .points
 	points: setAttribute,
+    cx:     setAttribute,
+    cy:     setAttribute,
+    r:      setAttribute,
+    preserveAspectRatio: setAttribute,
+    viewBox: setAttribute,
 
 	default: function(name, node, content) {
 		if (name in node) {
@@ -1208,7 +673,7 @@ function requestTemplate(src) {
         .then((doc) => document.adoptNode(doc.body)) ;
 }
 
-const DEBUG$1 = window.DEBUG === true;
+const DEBUG = window.DEBUG === true;
 
 const assign$3 = Object.assign;
 
@@ -1517,6 +982,10 @@ function element(name, options) {
                 // Todo: But do we pick these load events up if the stylesheet is cached??
                 while (n--) {
                     links[n].addEventListener('load', load, onceEvent);
+                    links[n].addEventListener('error', function(e) {
+                        console.log('Failed to load stylesheet', e.target.href);
+                        load();
+                    }, onceEvent);
                 }
 
                 if (options.connect) {
@@ -1537,7 +1006,7 @@ function element(name, options) {
             options.connect.call(null, elem, shadow, internals);
         }
 
-        if (DEBUG$1) {
+        if (DEBUG) {
             console.log('%cElement', 'color: #3a8ab0; font-weight: 600;', elem);
         }
     };
@@ -1579,7 +1048,7 @@ function element(name, options) {
         // preload it before defining custom element
         requestTemplate(options.template)
         .then(function(node) {
-            if (DEBUG$1) {
+            if (DEBUG) {
                 console.log('%cElement', 'color: #3a8ab0; font-weight: 600;', 'template "' + options.template + '" imported');
             }
             template = node;
@@ -1592,6 +1061,32 @@ function element(name, options) {
 
     return Element;
 }
+
+/**
+by(fn, a, b)
+Compares `fn(a)` against `fn(b)` and returns `-1`, `0` or `1`. Useful for sorting
+objects by property:
+
+```
+[{id: '2'}, {id: '1'}].sort(by(get('id')));  // [{id: '1'}, {id: '2'}]
+```
+**/
+
+function by(fn, a, b) {
+    const fna = fn(a);
+    const fnb = fn(b);
+    return fnb === fna ? 0 : fna > fnb ? 1 : -1 ;
+}
+
+var by$1 = curry(by, true);
+
+function get(key, object) {
+    // Todo? Support WeakMaps and Maps and other map-like objects with a
+    // get method - but not by detecting the get method
+    return object[key];
+}
+
+var get$1 = curry(get, true);
 
 const assign$4      = Object.assign;
 const CustomEvent = window.CustomEvent;
@@ -1668,30 +1163,556 @@ function trigger(type, node) {
 }
 
 /**
-by(fn, a, b)
-Compares `fn(a)` against `fn(b)` and returns `-1`, `0` or `1`. Useful for sorting
-objects by property:
+todB(level)
 
-```
-[{id: '2'}, {id: '1'}].sort(by(get('id')));  // [{id: '1'}, {id: '2'}]
-```
+Converts a value to decibels relative to unity (dBFS).
 **/
 
-function by(fn, a, b) {
-    const fna = fn(a);
-    const fnb = fn(b);
-    return fnb === fna ? 0 : fna > fnb ? 1 : -1 ;
+// A bit disturbingly, a correction factor is needed to make todB() and
+// to toLevel() reciprocate more accurately. This is quite a lot to be off
+// by... Todo: investigate?
+const dBCorrectionFactor = (60 / 60.205999132796244);
+
+function todB(n) {
+    return 20 * Math.log10(n) * dBCorrectionFactor;
 }
 
-var by$1 = curry(by, true);
+/**
+toLevel(dB)
 
-function get(key, object) {
-    // Todo? Support WeakMaps and Maps and other map-like objects with a
-    // get method - but not by detecting the get method
-    return object[key];
+Converts a dB value relative to unity (dBFS) to unit value.
+**/
+
+function toGain(n) {
+    return Math.pow(2, n / 6);
 }
 
-var get$1 = curry(get, true);
+/**
+toCamelCase(string)
+Capitalises any Letter following a `'-'` and removes the dash.
+**/
+
+function toCamelCase(string) {
+    // Be gracious in what we accept as input
+    return string.replace(/-(\w)?/g, function($0, letter) {
+        return letter ? letter.toUpperCase() : '';
+    });
+}
+
+const DEBUG$1 = window.DEBUG === undefined || window.DEBUG;
+
+const defs = {
+    // Primitive types
+
+    'boolean': (value) =>
+        typeof value === 'boolean',
+
+    'function': (value) =>
+        typeof value === 'function',
+
+    'number': (value) =>
+        typeof value === 'number',
+
+    'object': (value) =>
+        typeof value === 'object',
+
+    'symbol': (value) =>
+        typeof value === 'symbol',
+
+    // Functional types
+    // Some of these are 'borrowed' from SancturyJS
+    // https://github.com/sanctuary-js/sanctuary-def/tree/v0.19.0
+
+    'Any': noop,
+
+    'Array': (value) =>
+        Array.isArray(value),
+
+    'ArrayLike': (value) =>
+        typeof value.length === 'number',
+
+    'Boolean': (value) =>
+        typeof value === 'boolean',
+
+    'Date': (value) =>
+        value instanceof Date
+        && !Number.isNaN(value.getTime()),
+
+    'Error': (value) =>
+        value instanceof Error,
+
+    'Integer': (value) =>
+        Number.isInteger(value)
+        && Number.MIN_SAFE_INTEGER <= value
+        && Number.MAX_SAFE_INTEGER >= value,
+
+    'NegativeInteger': (value) =>
+        Number.isInteger(value)
+        && Number.MIN_SAFE_INTEGER <= value
+        && Number.MAX_SAFE_INTEGER >= value
+        && value < 0,
+
+    'NonPositiveInteger': (value) =>
+        Number.isInteger(value)
+        && Number.MIN_SAFE_INTEGER <= value
+        && Number.MAX_SAFE_INTEGER >= value
+        && value <= 0,
+
+    'PositiveInteger': (value) =>
+        Number.isInteger(value)
+        && Number.MIN_SAFE_INTEGER <= value
+        && Number.MAX_SAFE_INTEGER >= value
+        && value > 0,
+
+    'NonNegativeInteger': (value) =>
+        Number.isInteger(value)
+        && Number.MIN_SAFE_INTEGER <= value
+        && Number.MAX_SAFE_INTEGER >= value
+        && value >= 0,
+
+    'Number': (value) =>
+        typeof value === 'number'
+        && !Number.isNaN(value),
+
+    'NegativeNumber': (value) =>
+        typeof value === 'number'
+        && value < 0,
+
+    'NonPositiveNumber': (value) =>
+        typeof value === 'number'
+        && value <= 0,
+
+    'PositiveNumber': (value) =>
+        typeof value === 'number'
+        && value > 0,
+
+    'NonNegativeNumber': (value) =>
+        typeof value === 'number'
+        && value >= 0,
+
+    'Null': (value) =>
+        value === null,
+
+    'Object': (value) =>
+        !!value
+        && typeof value === 'object',
+
+    'RegExp': (value) =>
+        value instanceof RegExp
+};
+
+const checkType = DEBUG$1 ? function checkType(type, value, file, line, message) {
+    if (!defs[type]) {
+        throw new RangeError('Type "' + type + '" not recognised');
+    }
+
+    if (!defs[type](value)) {
+        throw new Error(message || 'value not of type "' + type + '": ' + value, file, line);
+    }
+} : noop ;
+
+const checkTypes = DEBUG$1 ? function checkTypes(types, args, file, line) {
+    var n = types.length;
+
+    while (n--) {
+        checkType(types[n], args[n], file, line, 'argument ' + n + ' not of type "' + types[n] + '": ' + args[n]);
+    }
+} : noop ;
+
+function def(notation, fn, file, line) {
+    // notation is of the form:
+    // 'Type, Type -> Type'
+    // Be generous with what we accept as output marker '->' or '=>'
+    var parts = notation.split(/\s*[=-]>\s*/);
+    var types = parts[0].split(/\s*,\s*/);
+    var returnType = parts[1];
+
+    return DEBUG$1 ? function() {
+        checkTypes(types, arguments, file, line);
+        const output = fn.apply(this, arguments);
+        checkType(returnType, output, file, line, 'return value not of type "' + returnType + '": ' + output);
+        return output;
+    } : fn ;
+}
+
+// Cubic bezier function (originally translated from
+
+function sampleCubicBezier(a, b, c, t) {
+    // `ax t^3 + bx t^2 + cx t' expanded using Horner's rule.
+    return ((a * t + b) * t + c) * t;
+}
+
+function sampleCubicBezierDerivative(a, b, c, t) {
+    return (3 * a * t + 2 * b) * t + c;
+}
+
+function solveCubicBezierX(a, b, c, x, epsilon) {
+    // Solve x for a cubic bezier
+    var x2, d2, i;
+    var t2 = x;
+
+    // First try a few iterations of Newton's method -- normally very fast.
+    for(i = 0; i < 8; i++) {
+        x2 = sampleCubicBezier(a, b, c, t2) - x;
+        if (Math.abs(x2) < epsilon) {
+            return t2;
+        }
+        d2 = sampleCubicBezierDerivative(a, b, c, t2);
+        if (Math.abs(d2) < 1e-6) {
+            break;
+        }
+        t2 = t2 - x2 / d2;
+    }
+
+    // Fall back to the bisection method for reliability.
+    var t0 = 0;
+    var t1 = 1;
+
+    t2 = x;
+
+    if(t2 < t0) { return t0; }
+    if(t2 > t1) { return t1; }
+
+    while(t0 < t1) {
+        x2 = sampleCubicBezier(a, b, c, t2);
+        if(Math.abs(x2 - x) < epsilon) {
+            return t2;
+        }
+        if (x > x2) { t0 = t2; }
+        else { t1 = t2; }
+        t2 = (t1 - t0) * 0.5 + t0;
+    }
+
+    // Failure.
+    return t2;
+}
+
+function cubicBezier(p1, p2, duration, x) {
+    // The epsilon value to pass given that the animation is going
+    // to run over duruation seconds. The longer the animation, the
+    // more precision is needed in the timing function result to
+    // avoid ugly discontinuities.
+    var epsilon = 1 / (200 * duration);
+
+    // Calculate the polynomial coefficients. Implicit first and last
+    // control points are (0,0) and (1,1).
+    var cx = 3 * p1[0];
+    var bx = 3 * (p2[0] - p1[0]) - cx;
+    var ax = 1 - cx - bx;
+    var cy = 3 * p1[1];
+    var by = 3 * (p2[1] - p1[1]) - cy;
+    var ay = 1 - cy - by;
+
+    var y = solveCubicBezierX(ax, bx, cx, x, epsilon);
+    return sampleCubicBezier(ay, by, cy, y);
+}
+
+var bezierify = curry(cubicBezier, true, 4);
+
+// Normalisers take a min and max and transform a value in that range
+// to a value on the normal curve of a given type
+
+const linear = def(
+    'Number, Number, Number => Number',
+    (min, max, value) => (value - min) / (max - min)
+);
+
+const quadratic = def(
+    'Number, Number, Number => Number',
+    (min, max, value) => Math.pow((value - min) / (max - min), 1/2)
+);
+
+const cubic = def(
+    'Number, Number, Number => Number',
+    (min, max, value) => Math.pow((value - min) / (max - min), 1/3)
+);
+
+const logarithmic = def(
+    'PositiveNumber, PositiveNumber, NonNegativeNumber => Number',
+    (min, max, value) => Math.log(value / min) / Math.log(max / min)
+);
+
+const linearLogarithmic = def(
+    'PositiveNumber, PositiveNumber, NonNegativeNumber => Number',
+    (min, max, value) => {
+        // The bottom 1/9th of the range is linear from 0 to min, while
+        // the top 8/9ths is dB linear from min to max.
+        return value <= min ?
+            (value / min) / 9 :
+            (0.1111111111111111 + (Math.log(value / min) / Math.log(max / min)) / 1.125) ;
+    }
+);
+
+// cubicBezier
+// `begin` and `end` are objects of the form
+// { point:  [x, y], handle: [x, y] }
+
+const cubicBezier$1 = def(
+    'Object, Object, Number => Number',
+    (begin, end, value) => bezierify({
+        0: linear(begin.point[0], end.point[0], begin.handle[0]),
+        1: linear(begin.point[0], end.point[0], begin.handle[0])
+    }, {
+        0: linear(begin.point[0], end.point[0], end.handle[0]),
+        1: linear(begin.point[0], end.point[0], end.handle[0])
+    }, 1, linear(begin.point[0], end.point[0], value))
+);
+
+var normalise = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    linear: linear,
+    quadratic: quadratic,
+    cubic: cubic,
+    logarithmic: logarithmic,
+    linearLogarithmic: linearLogarithmic,
+    cubicBezier: cubicBezier$1
+});
+
+// Denormalisers take a min and max and transform a value into that range
+// from the range of a curve of a given type
+
+const linear$1 = def(
+    'Number, Number, Number => Number',
+    (min, max, value) => value * (max - min) + min
+);
+
+const quadratic$1 = def(
+    'Number, Number, Number => Number',
+    (min, max, value) => Math.pow(value, 2) * (max - min) + min
+);
+
+const cubic$1 = def(
+    'Number, Number, Number => Number',
+    (min, max, value) => Math.pow(value, 3) * (max - min) + min
+);
+
+const logarithmic$1 = def(
+    'PositiveNumber, PositiveNumber, Number => Number',
+    (min, max, value) => min * Math.pow(max / min, value)
+);
+
+const linearLogarithmic$1 = def(
+    'PositiveNumber, PositiveNumber, Number => Number',
+    (min, max, value) => {
+        // The bottom 1/9th of the range is linear from 0 to min, while
+        // the top 8/9ths is dB linear from min to max.
+        return value <= 0.1111111111111111 ?
+            value * 9 * min :
+            min * Math.pow(max / min, (value - 0.1111111111111111) * 1.125);
+    }
+);
+
+// cubicBezier
+// `begin` and `end` are objects of the form
+// { point:  [x, y], handle: [x, y] }
+
+const cubicBezier$2 = def(
+    'Object, Object, Number => Number',
+    (begin, end, value) => linear$1(begin.point[1], end.point[1], bezierify({
+        0: linear(begin.point[0], end.point[0], begin.handle[0]),
+        1: linear(begin.point[1], end.point[1], begin.handle[1])
+    }, {
+        0: linear(begin.point[0], end.point[0], end.handle[0]),
+        1: linear(begin.point[1], end.point[1], end.handle[1])
+    }, 1, value))
+);
+
+
+
+/* Todo: does it do as we intend?? */
+// Todo: implement tanh with min max scaling or gradient and crossover 
+// centering or one or two of these others
+// https://en.wikipedia.org/wiki/Sigmoid_function#/media/File:Gjl-t(x).svg
+const tanh = def(
+    'Number, Number, Number => Number',
+    (min, max, value) => (Math.tanh(value) / 2 + 0.5) * (max - min) + min
+);
+
+var denormalise = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    linear: linear$1,
+    quadratic: quadratic$1,
+    cubic: cubic$1,
+    logarithmic: logarithmic$1,
+    linearLogarithmic: linearLogarithmic$1,
+    cubicBezier: cubicBezier$2,
+    tanh: tanh
+});
+
+function transform(curve, value, min, max) {
+    return denormalise[toCamelCase(curve)](min, max, value) ;
+}
+
+function invert(curve, value, min, max) {
+    return normalise[toCamelCase(curve)](min, max, value) ;
+}
+
+
+function outputMilliKilo(unit, value) {
+    return value < 0.001 ? (value * 1000).toFixed(2) :
+        value < 1 ? (value * 1000).toPrecision(3) :
+        value > 1000 ? (value / 1000).toPrecision(3) :
+        value.toPrecision(3) ;
+}
+
+const transformOutput = overload(id, {
+    pan: function(unit, value) {
+        return value === -1 ? '-1.00' :
+            value === 0 ? '0.00' :
+            value === 1 ? '1.00' :
+            value.toFixed(2) ;
+    },
+
+    dB: function(unit, value) {
+        const db = todB(value) ;
+        return isFinite(db) ?
+            db < -1 ? db.toPrecision(3) :
+                db.toFixed(2) :
+            db < 0 ?
+                '-∞' :
+                '∞' ;
+    },
+
+    Hz: function(unit, value) {
+        return value < 1 ? value.toFixed(2) :
+            value > 1000 ? (value / 1000).toPrecision(3) :
+            value.toPrecision(3) ;
+    },
+
+    semitone: function(unit, value) {
+        // detune value is in cents
+        return value === 0 ? '0' :
+            value < 0 ?
+                '♭' + (-value / 100).toFixed(2) :
+                '♯' + (value / 100).toFixed(2) ;
+    },
+
+    s: outputMilliKilo,
+
+    bpm: function(unit, value) {
+        // Input value is a rate in beats per second
+        const bpm = value * 60;
+        return bpm < 100 ?
+            bpm.toFixed(1) :
+            bpm.toFixed(0) ;
+    },
+
+    int: function(unit, value) {
+        return Math.round(value);
+    },
+
+    default: function(unit, value) {
+        return value < 0.1 ? value.toFixed(3) :
+            value < 999.5 ? value.toPrecision(3) :
+            value.toFixed(0) ;
+    }
+});
+
+function tickMilliKilo(unit, value) {
+    return value < 1 ? (value * 1000).toFixed(0) :
+        value < 10 ? value.toFixed(1) :
+        value < 1000 ? value.toPrecision(1) :
+        (value / 1000).toPrecision(1) + 'k' ;
+}
+
+const transformTick = overload(id, {
+    pan: function(unit, value) {
+        return value === -1 ? 'left' :
+            value === 0 ? 'centre' :
+            value === 1 ? 'right' :
+            value.toFixed(1) ;
+    },
+
+    dB: function(unit, value) {
+        const db = todB(value) ;
+        return isFinite(db) ?
+            db.toFixed(0) :
+            db < 0 ?
+                '-∞' :
+                '∞' ;
+    },
+
+    Hz: function(unit, value) {
+        return value < 10 ? value.toFixed(1) :
+            value < 1000 ? value.toFixed(0) :
+            (value / 1000).toFixed(0) + 'k' ;
+    },
+
+    semitone: function(unit, value) {
+        //console.log(unit, value, value / 100, (value / 100).toFixed(0));
+        // detune value is in cents
+        return (value / 100).toFixed(0);
+    },
+
+    s: tickMilliKilo,
+
+    default: function(unit, value) {
+        // Format numbers to precision 3 then remove trailing zeroes from floats
+        return (value < 99.5 ?
+            value.toPrecision(3) :
+            value.toFixed(0)
+        )
+        .replace(/(\d+)(\.\d*?)0+$/, ($0, $1, $2) => {
+            return $1 + ($2.length > 1 ? $2 : '');
+        });
+    }
+});
+
+function unitKilo(unit, value) {
+    return value > 1000 ? 'k' + unit :
+        unit ;
+}
+
+function unitMilliKilo(unit, value) {
+    return value < 1 ? 'm' + unit :
+        value > 1000 ? 'k' + unit :
+        unit ;
+}
+
+function unitEmptyString() {
+    return '';
+}
+
+const transformUnit = overload(id, {
+    pan: unitEmptyString,
+
+    dB: id,
+
+    Hz: unitKilo,
+
+    semitone: unitEmptyString,
+
+    s: unitMilliKilo,
+    
+    int: () => '',
+
+    default: function(unit, value) {
+        // Return empty string if no unit
+        return unit || '';
+    }
+});
+
+
+function evaluate(string) {
+    // Coerce null, undefined, false, '' to 0
+    if (!string) { return 0; }
+
+    const number = +string;
+    if (number || number === 0) { return number; }
+
+    const tokens = /^(-?[\d.]+)(?:(dB|bpm)|(m|k)?(\w+))$/.exec(string);
+    if (!tokens) { return 0 }
+    const value = parseFloat(tokens[1]) ;
+
+    return tokens[2] === 'dB' ? toGain(value) :
+        // BPM to rate in beats per second
+        tokens[2] === 'bpm' ? value / 60 :
+        // milli-
+        tokens[3] === 'm' ? value / 1000 :
+        // kilo-
+        tokens[3] === 'k' ? value * 1000 :
+        value ;
+}
 
 function createTicks(data, tokens) {
     return tokens ?
@@ -1701,7 +1722,7 @@ function createTicks(data, tokens) {
         .filter((number) => {
             // Filter ticks to min-max range, special-casing logarithmic-0
             // which travels to 0 whatever it's min value
-            return number >= (data.transform === 'linear-logarithmic' ? 0 : data.min)
+            return number >= (data.law === 'linear-logarithmic' ? 0 : data.min)
                 && number <= data.max
         })
         .map((value) => {
@@ -1709,7 +1730,7 @@ function createTicks(data, tokens) {
             // unnecessary observing
             return Object.freeze({
                 value:        value,
-                unitValue:    invert(data.transform, value, data.min, data.max),
+                unitValue:    invert(data.law, value, data.min, data.max),
                 displayValue: transformTick(data.unit, value)
             });
         }) :
@@ -1731,7 +1752,7 @@ function createSteps(data, tokens) {
         .map((value) => {
             return {
                 value: value,
-                unitValue: invert(data.transform, value, data.min, data.max)
+                unitValue: invert(data.law, value, data.min, data.max)
             };
         })
         .sort(by$1(get$1('unitValue'))) ;
@@ -1795,7 +1816,7 @@ const attributes = {
         const data     = privates$1.data;
         const scope    = privates$1.scope;
 
-        data.transform = value || 'linear';
+        data.law = value || 'linear';
 
         if (data.ticksAttribute) {
             data.ticks = createTicks(data, data.ticksAttribute);
@@ -1807,7 +1828,7 @@ const attributes = {
                 data.stepsAttribute );
         }
 
-        scope.unitZero(invert(data.transform, 0, data.min, data.max));
+        scope.unitZero(invert(data.law, 0, data.min, data.max));
     },
 
     /**
@@ -1914,16 +1935,16 @@ const properties = {
             // Check for readiness
             if (data.max === undefined) { return; }
             scope.ticks(createTicks(data, data.ticksAttribute));
-            scope.unitZero(invert(data.transform, 0, data.min, data.max));
+            scope.unitZero(invert(data.law, 0, data.min, data.max));
 
             // Check for readiness
             if (data.value === undefined) { return; }
-            data.unitValue = invert(data.transform, data.value, data.min, data.max);
+            data.unitValue = invert(data.law, data.value, data.min, data.max);
         },
 
         enumerable: true
     },
-    
+
     /**
     .max=1
     Value at lower limit of fader, as a number.
@@ -1943,11 +1964,11 @@ const properties = {
 
             if (data.min === undefined) { return; }
             scope.ticks(createTicks(data, data.ticksAttribute));
-            scope.unitZero(invert(data.transform, 0, data.min, data.max));
+            scope.unitZero(invert(data.law, 0, data.min, data.max));
 
             // Check for readiness
             if (data.value === undefined) { return; }
-            data.unitValue = invert(data.transform, data.value, data.min, data.max);
+            data.unitValue = invert(data.law, data.value, data.min, data.max);
         },
 
         enumerable: true
@@ -1980,7 +2001,7 @@ const properties = {
                 return;
             }*/
 
-            let unitValue = invert(data.transform, value, data.min, data.max);
+            let unitValue = invert(data.law, value, data.min, data.max);
 
             // Round to nearest step
             if (data.steps) {
@@ -2004,14 +2025,47 @@ const properties = {
 };
 
 
+/* Events */
+
 /**
 "input"
 Sent continuously during a fader movement.
 **/
 
-/**
-"change"
-**/
+function touchstart(e) {
+    const target = e.target.closest('button');
+
+    // Ignore non-ticks
+    if (!target) { return; }
+
+    const unitValue = parseFloat(target.value);
+    const value = transform(this.data.law, unitValue, this.data.min, this.data.max) ;
+    this.element.value = value;
+
+    // Refocus the input (should not be needed now we have focus 
+    // control on parent?) and trigger input event on element
+    //            shadow.querySelector('input').focus();
+
+    // Change event on element
+    trigger('input', this.element);
+}
+
+function input(e) {
+    const unitValue = parseFloat(e.target.value); 
+    const value = transform(this.data.law, unitValue, this.data.min, this.data.max) ;
+    this.element.value = value;
+
+    // If the range has steps make sure the handle snaps into place
+    if (this.data.steps) {
+        e.target.value = this.data.unitValue;
+    }
+}
+
+const handleEvent = overload((e) => e.type, {
+    'touchstart': touchstart,
+    'mousedown': touchstart,
+    'input': input
+});
 
 const assign$5 = Object.assign;
 
@@ -2105,43 +2159,6 @@ function createTemplate(elem, shadow) {
         })([])
     };
 }
-
-
-/* Events */
-
-function touchstart(e) {
-    // Ignore non-ticks
-    if (e.target.type !== 'button') { return; }
-
-    const unitValue = parseFloat(e.target.value);
-    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
-    this.element.value = value;
-
-    // Refocus the input (should not be needed now we have focus 
-    // control on parent?) and trigger input event on element
-    //            shadow.querySelector('input').focus();
-
-    // Change event on element
-    trigger('change', this.element);
-}
-
-function input(e) {
-    const unitValue = parseFloat(e.target.value); 
-    const value = transform(this.data.transform, unitValue, this.data.min, this.data.max) ;
-    this.element.value = value;
-
-    // If the range has steps make sure the handle snaps into place
-    if (this.data.steps) {
-        e.target.value = this.data.unitValue;
-    }
-}
-
-const handleEvent = overload((e) => e.type, {
-    'touchstart': touchstart,
-    'mousedown': touchstart,
-    'input': input
-});
-
 
 /* Element */
 

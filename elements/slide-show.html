@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="en" class="js content-loading"><head>
+    
+    <meta charset="utf-8">
+    <meta name="author" content="stephband">
+    <meta name="description" content="Documentation for Bolt. A front-end toolkit of classes, evented behaviours and custom elements.">
+    <meta name="viewport" content="width=device-width">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@@stephband">
+    <meta property="og:url" content="http://stephen.band/bolt/">
+    <meta property="og:title" content="Bolt">
+    <meta property="og:description" content="A front-end toolkit of classes, evented behaviours and custom elements.">
+    <meta property="og:image" content="">
+
+    <title>Bolt</title>
+
+    <script title="load">
+    document.documentElement.className += ' js content-loading loading';
+    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
+    // Wait for other load handlers to run first - Bolt does a few things on
+    // load (eg. locateable scrolls) and we want them to run before the loading
+    // class is removed
+    window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
+    </script>
+
+    <link rel="shortcut icon" href="images/logo-64x64.ico">
+    <link rel="icon" type="image/png" href="images/logo-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/logo-64x64.png" sizes="64x64">
+    <link rel="icon" type="image/png" href="images/logo-128x128.png" sizes="128x128">
+
+
+    
+
+    <script title="config">
+        window.customElementStylesheetPath = './';
+    </script>
+
+    
+    <link rel="stylesheet" href="../style.min.css">
+    <link rel="stylesheet" href="../style.css">
+
+    <link rel="stylesheet" href="../../fn/css/prism-cruncher.css">
+    <link rel="stylesheet" href="../../fn/css/tests.css">
+    <link rel="stylesheet" href="../documentation.css">
+    <link rel="stylesheet" href="../../fn/css/respond.css">
+
+
+    <style>
+    ::part(prev),
+    ::part(next) {
+        display: none;
+    }
+    </style>
+</head>
+
+<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
+    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
+        <!--template fn="docs:slide-show.js filter-type:tag each"-->
+    <h2 class="doctext-02"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slide-show</span><span class="token punctuation">&gt;</span></span></h2><p>Configure stylesheet path with:</p>
+<pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/bolt/elements/'</span><span class="token punctuation">;</span></code></pre>
+<p>Import <code>&lt;slide-show&gt;</code> custom element. This also registers the custom 
+element and upgrades instances already in the DOM.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>path/to/bolt/elements/slide-show.rolled.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slide-show</span> <span class="token attr-name">loop</span> <span class="token attr-name">autoplay</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slide-show</span><span class="token punctuation">&gt;</span></span></code></pre>
+
+
+    </header>
+
+    <div class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
+        <slide-show loop="" style="width: 320px; visibility: visible;">
+            <div data-id="51296">
+                More slide show content
+            </div><svg viewBox="0 0 100 100" data-id="cow">
+                <circle fill="black" cx="50" cy="50" r="50"></circle>
+            </svg><img src="../images/scotland-2.jpg" id="1">
+
+            <div id="51296">
+                More slide show content
+            </div>
+
+            <svg viewBox="0 0 100 100" id="cow">
+                <circle fill="black" cx="50" cy="50" r="50"></circle>
+            </svg><img src="../images/scotland-2.jpg" data-id="1"><div data-id="51296">
+                More slide show content
+            </div>
+        </slide-show>
+    </div>
+
+    <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+        <h3 class="doctext-03">Attributes</h3>        
+        <!--template fn="docs:slide-show.js filter-type:attribute each"-->
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-loop">
+        <h3 class="doctext-05   ">
+            <a href="#attribute-loop">
+                <code class="token language-html">loop<!-- src="{[default|yesno:#default,'']}" --></code>
+            </a>
+        </h3>
+    <p>Boolean attribute. Makes the slideshow behave as a continuous loop.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block attribute-doc-toggle-block" toggleable="" id="attribute-autoplay">
+        <h3 class="doctext-05   ">
+            <a href="#attribute-autoplay">
+                <code class="token language-html">autoplay<!-- src="{[default|yesno:#default,'']}" --></code>
+            </a>
+        </h3>
+    <p>Boolean attribute. </p>
+</article>
+
+
+        <!--h3 class="doctext-03">Properties</h3>
+        <template is="sparky-template" fn="docs:slide-show.js filter-type:property each" src="../templates.html#entry"></template-->
+
+        <!--h3 class="doctext-03">Events</h3>
+        <template is="sparky-template" fn="docs:slide-show.js filter-type:string each" src="../templates.html#entry"></template-->
+    </div>
+
+    <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
+        <h3 class="doctext-03">Parts</h3>
+        <!--template fn="docs:slide-show.css filter-type:part each"-->
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-prev">
+        <h3 class="doctext-05   ">
+            <a href="#part-prev">
+                <code class="language-js">prev</code>
+            </a>
+        </h3>
+    <p>) 
+Style the ‘previous slide’ button.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-next">
+        <h3 class="doctext-05   ">
+            <a href="#part-next">
+                <code class="language-js">next</code>
+            </a>
+        </h3>
+    <p>) 
+Style the ‘next slide’ button.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-dot">
+        <h3 class="doctext-05   ">
+            <a href="#part-dot">
+                <code class="language-js">dot</code>
+            </a>
+        </h3>
+    <p>) 
+Style the navigation ‘dots’.</p>
+</article>
+
+
+        <h3 class="doctext-03">Style</h3>
+        <!--template fn="docs:slide-show.css filter-type:var each"-->
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-slide-duration">
+        <h3 class="doctext-05 cssvar-indent">
+            <a href="#var-slide-duration">
+                <code class="language-js">--slide-duration </code>
+            </a>
+        </h3>
+    <p>Set the duration that a slide is displayed for when the slideshow is in 
+    autoplay mode. May be a CSS time value in <code>s</code> or <code>ms</code>.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-slide-align">
+        <h3 class="doctext-05 cssvar-indent">
+            <a href="#var-slide-align">
+                <code class="language-js">--slide-align </code>
+            </a>
+        </h3>
+    <p>Default vertical alignment of slides in their grid cells. (Individual slides 
+    can be aligned normally by applying <code>align-self</code>).</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-slide-justify">
+        <h3 class="doctext-05 cssvar-indent">
+            <a href="#var-slide-justify">
+                <code class="language-js">--slide-justify</code>
+            </a>
+        </h3>
+    <p>Default horizontal justification of slides in their grid cells. (Individual 
+    slides can be justified normally by applying <code>justify-self</code>).</p>
+</article>
+
+    </div>
+
+    <!-- Build document -->
+        
+
+    <!-- Document interactivity -->
+    <script type="module">
+        import './slide-show.js';
+        import '../module.js';
+        import '../documentation.js';
+
+        document.addEventListener('dom-activate', (e) => console.log(e.type, e));
+    </script>
+
+</body></html>

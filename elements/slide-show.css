@@ -8,37 +8,30 @@
     /** 
     --slide-duration 
     Set the duration that a slide is displayed for when the slideshow is in 
-    autoplay mode.
+    autoplay mode. May be a CSS time value in `s` or `ms`.
     **/
     --slide-duration: 8s;
 
-    --gap: 0px;
-    --align: end;
+    /** 
+    --slide-align 
+    Default vertical alignment of slides in their grid cells. (Individual slides 
+    can be aligned normally by applying `align-self`).
+    **/
+    --slide-align: center;
 
+    /** 
+    --slide-justify
+    Default horizontal justification of slides in their grid cells. (Individual 
+    slides can be justified normally by applying `justify-self`).
+    **/
+    --slide-justify: stretch;
+
+    --gap: 0px;
     --nav-margin-top: -3rem;
 
-    --dot-width: 0.625rem;
-    --dot-border: 1px solid currentcolor;
-    --dot-background: none;
-    --dot-shadow: none;
-    --dot-border-on: var(--dot-border);
-    --dot-background-on: currentcolor;
-    --dot-shadow-on: var(--dot-shadow);
-
+    overflow: hidden;
     position: relative;
     display: grid !important;
-    background-color: lightgrey;
-}
-
-:host > .hider {
-    grid-row: 1;
-    align-self: center;
-    justify-self: stretch;
-    margin-left: 0;
-    margin-right: 0;
-    z-index: 1;
-
-    background-color: pink;
 }
 
 :host > .thumb {
@@ -64,10 +57,6 @@
     margin-top: var(--nav-margin-top);
 }
 
-:host {
-    overflow: hidden;
-}
-
 :host > slot {
     /* Hide any scroll bar by moving it out of overflow hidden parent */
     padding-bottom: 0;
@@ -85,9 +74,8 @@ slot {
     grid-auto-columns: 100%;
     grid-auto-rows: min-content;
     grid-column-gap: var(--gap);
-
-    align-items: var(--align);
-    justify-items: center;
+    align-items: var(--slide-align);
+    justify-items: var(--slide-justify);
 
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
@@ -97,8 +85,6 @@ slot {
     overscroll-behavior-x: contain;
     -ms-overflow-style: none; /* IE 11 */
     scrollbar-width: none; /* Firefox 64 */
-
-    background-color: yellow;
 }
 
 slot::-webkit-scrollbar {
@@ -106,10 +92,7 @@ slot::-webkit-scrollbar {
 }
 
 slot::slotted(*) {
-    justify-self: stretch;
-    scroll-snap-align: start;
-
-    background-color: orange;
+    scroll-snap-align: center;
 }
 
 /** 
@@ -143,20 +126,16 @@ Style the navigation 'dots'.
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: calc(-0.5 * var(--dot-width));
-    margin-left: calc(-0.5 * var(--dot-width));
-    width: var(--dot-width);
-    height: var(--dot-width);
+    margin-top: calc(-0.5 * 0.3125rem);
+    margin-left: calc(-0.5 * 0.3125rem);
+    width: 0.625rem;
+    height: 0.625rem;
     border-radius: 50%;
-    background: var(--dot-background);
-    border: var(--dot-border);
-    box-shadow: var(--dot-shadow);
+    border: 1px solid currentcolor;
 }
 
 [part="dot"].on::before {
-    background: var(--dot-background-on);
-    border: var(--dot-border-on);
-    box-shadow: var(--dot-shadow-on);
+    background: currentcolor;
 }
 
 
