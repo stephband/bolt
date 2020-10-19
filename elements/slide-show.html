@@ -38,7 +38,6 @@
     
     <link rel="stylesheet" href="../style.min.css">
     <link rel="stylesheet" href="../style.css">
-
     <link rel="stylesheet" href="../../fn/css/prism-cruncher.css">
     <link rel="stylesheet" href="../../fn/css/tests.css">
     <link rel="stylesheet" href="../documentation.css">
@@ -46,9 +45,21 @@
 
 
     <style>
-    ::part(prev),
-    ::part(next) {
+    slide-show {
+        background: #cccccc;
+    }
+
+    slide-show::part(prev),
+    slide-show::part(next) {
         display: none;
+    }
+
+    slide-show > * + * {
+        display: none;
+    }
+
+    slide-show:defined > * + * {
+        display: block;
     }
     </style>
 </head>
@@ -71,21 +82,9 @@ element and upgrades instances already in the DOM.</p>
 
     <div class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <slide-show loop="" autoplay="" style="width: 320px; visibility: visible;">
-            <div data-id="8190">
-                More slide show content
-            </div><svg viewBox="0 0 100 100" data-id="cow">
-                <circle fill="black" cx="50" cy="50" r="50"></circle>
-            </svg><img src="../images/scotland-2.jpg" width="1024" height="575" id="1">
-
-            <div id="8190">
-                More slide show content
-            </div>
-
-            <svg viewBox="0 0 100 100" id="cow">
-                <circle fill="black" cx="50" cy="50" r="50"></circle>
-            </svg><img src="../images/scotland-2.jpg" width="1024" height="575" data-id="1"><div data-id="8190">
-                More slide show content
-            </div>
+            <img src="../images/scotland-3.jpg" data-id="2"><img src="../images/scotland-4.jpg" data-id="3"><img src="../images/scotland-2.jpg" width="1024" height="575" id="1">
+            <img src="../images/scotland-3.jpg" id="2">
+            <img src="../images/scotland-4.jpg" id="3"><img src="../images/scotland-2.jpg" width="1024" height="575" data-id="1"><img src="../images/scotland-3.jpg" data-id="2">
         </slide-show>
     </div>
 

@@ -14,9 +14,21 @@
     <template is="sparky-template" src="../templates.html#nested-style"></template>
 
     <style>
-    ::part(prev),
-    ::part(next) {
+    slide-show {
+        background: #cccccc;
+    }
+
+    slide-show::part(prev),
+    slide-show::part(next) {
         display: none;
+    }
+
+    slide-show > * + * {
+        display: none;
+    }
+
+    slide-show:defined > * + * {
+        display: block;
     }
     </style>
 </head>
@@ -29,14 +41,8 @@
     <div class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <slide-show loop autoplay style="width: 320px;">
             <img src="../images/scotland-2.jpg" width="1024" height="575" id="1" />
-
-            <div>
-                More slide show content
-            </div>
-
-            <svg viewbox="0 0 100 100" id="cow">
-                <circle fill="black" cx="50" cy="50" r="50"></circle>
-            </svg>
+            <img src="../images/scotland-3.jpg"  id="2" />
+            <img src="../images/scotland-4.jpg" id="3" />
         </slide-show>
     </div>
 

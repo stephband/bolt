@@ -45,9 +45,9 @@ const DEBUG = true;
 const assign = Object.assign;
 
 const defaults = {
-    transform: 'linear',
-    min:    0,
-    max:    1
+    law: 'linear',
+    min: 0,
+    max: 1
 };
 
 const config = {
@@ -177,7 +177,7 @@ element('rotary-control', {
             .each(function (e) {
                 dy = y0 - e.clientY;
                 var unitValue = clamp(0, 1, y + dy / touchRange);
-                const value = transform(data.transform, unitValue, data.min, data.max) ;
+                const value = transform(data.law, unitValue, data.min, data.max) ;
                 elem.value = value;
                 // Doesn't work
                 //elem.dispatchEvent(new InputEvent('input'));

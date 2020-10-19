@@ -40,9 +40,9 @@ const assign = Object.assign;
 const define = Object.defineProperties;
 
 const defaults = {
-    transform: 'linear',
-    min:    0,
-    max:    1
+    law: 'linear',
+    min: 0,
+    max: 1
 };
 
 const config = {

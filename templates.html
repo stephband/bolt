@@ -39,7 +39,6 @@ Template for <head> stylesheets
 <template id="style" remove>
     <link rel="stylesheet" href="style.min.css" />
     <link rel="stylesheet" href="style.css" />
-
     <link rel="stylesheet" href="../fn/css/prism-cruncher.css" />
     <link rel="stylesheet" href="../fn/css/tests.css" />
     <link rel="stylesheet" href="documentation.css" />
@@ -49,7 +48,6 @@ Template for <head> stylesheets
 <template id="nested-style" remove>
     <link rel="stylesheet" href="../style.min.css" />
     <link rel="stylesheet" href="../style.css" />
-
     <link rel="stylesheet" href="../../fn/css/prism-cruncher.css" />
     <link rel="stylesheet" href="../../fn/css/tests.css" />
     <link rel="stylesheet" href="../documentation.css" />
@@ -129,7 +127,7 @@ Template for rendering CSS entry
             </h4>
             <div class="@2-x-1 @2-3x x-center y-lastline block" fn="prepend:example" style="max-width: 300px; width: 100%;"></div>
             <div class="@2-x-6 @2-2x x-stretch block">
-                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: calc(300% + 2 * var(--column-gap)); min-width: 20rem; top: 0.75rem;" popable fn="append:body" id="{[id]}-description"></div>
+                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable fn="append:body" id="{[id]}-description"></div>
             </div>
         </template>
     </section>

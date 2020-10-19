@@ -2066,9 +2066,9 @@ const handleEvent = overload((e) => e.type, {
 const assign$5 = Object.assign;
 
 const defaults$1 = {
-    transform: 'linear',
-    min:    0,
-    max:    1
+    law: 'linear',
+    min: 0,
+    max: 1
 };
 
 const config$1 = {

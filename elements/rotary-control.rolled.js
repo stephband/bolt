@@ -4535,9 +4535,9 @@ const handleEvent = overload((e) => e.type, {
 const assign$9 = Object.assign;
 
 const defaults$1 = {
-    transform: 'linear',
-    min:    0,
-    max:    1
+    law: 'linear',
+    min: 0,
+    max: 1
 };
 
 const config$2 = {
@@ -4667,7 +4667,7 @@ element('rotary-control', {
             .each(function (e) {
                 dy = y0 - e.clientY;
                 var unitValue = clamp(0, 1, y + dy / touchRange);
-                const value = transform(data.transform, unitValue, data.min, data.max) ;
+                const value = transform(data.law, unitValue, data.min, data.max) ;
                 elem.value = value;
                 // Doesn't work
                 //elem.dispatchEvent(new InputEvent('input'));
