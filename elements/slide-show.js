@@ -20,6 +20,9 @@ element and upgrades instances already in the DOM.
 ```
 **/
 
+// Polyfill Safari's lack of smooth scrolling via .scrollTo()
+import '../../dom/polyfills/element.scrollto.js';
+
 import id from '../../fn/modules/id.js';
 import Privates from '../../fn/modules/privates.js';
 import { wrap } from '../../fn/modules/maths/wrap.js';
@@ -222,8 +225,9 @@ element('slide-show', {
         });
 
         // Currently active slide
-        var active = elem.firstElementChild;
-        const firstId = identify(active);
+        const first   = elem.firstElementChild;
+        const firstId = identify(first);
+        var active = first;
 
         // Manage repositioning of slides when scroll is at rest
         var t = -Infinity;
@@ -305,10 +309,16 @@ element('slide-show', {
 
         // 
         events('load', window)
-        .map(() => window.location.hash.replace(/^#/, '') || undefined)
-        .map((id) => elem.querySelector('#' + id) || undefined)
+        .map(() => {
+            const id = window.location.hash.replace(/^#/, '') || undefined;
+            return id ?
+                elem.querySelector('#' + id) :
+                first ;
+        })
         .each(function(target) {
             scrollAuto(elem, slot, target);
+            // In case that doesn't trigger a scroll, like in FF
+            active = activate(elem, shadow, prevNode, nextNode, active);
         });
 
         assign(Privates(elem), {
