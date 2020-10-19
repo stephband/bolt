@@ -65,6 +65,25 @@
         rotary-control::part(tick) {
             background-color: var(--label-color);
         }
+
+        /* Copied from elements slide-show.template.html */
+        slide-show {
+            background: #cccccc;
+            margin: 0 auto;
+        }
+
+        slide-show::part(prev),
+        slide-show::part(next) {
+            display: none;
+        }
+
+        slide-show > * + * {
+            display: none;
+        }
+
+        slide-show:defined > * + * {
+            display: block;
+        }
     </style>
 </head>
 
@@ -108,6 +127,7 @@ npm run build</code></pre>
         './elements/rotary-control.css'" src="templates.html#css"></template>
     <template is="sparky-template" fn="docs:
         './sass/grid.scss'" src="templates.html#css"></template>
+
     <!--template is="sparky-template" fn="docs:
         './css/elements.css',
         './css/button.css',
