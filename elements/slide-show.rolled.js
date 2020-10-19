@@ -3007,6 +3007,20 @@ function events(type, node) {
 	});
 }
 
+
+/**
+isPrimaryButton(e)
+
+Returns `true` if user event is from the primary (normally the left or only)
+button of an input device. Use this to avoid listening to right-clicks.
+*/
+
+function isPrimaryButton(e) {
+	// Ignore mousedowns on any button other than the left (or primary)
+	// mouse button, or when a modifier key is pressed.
+	return (e.which === 1 && !e.ctrlKey && !e.altKey && !e.shiftKey);
+}
+
 /**
 rect(node)
 
@@ -3161,34 +3175,43 @@ function activate(elem, shadow, prevLink, nextLink, active) {
     return slide;
 }
 
-function reposition(elem, slot, id) {
-    const slide = elem.getRootNode().getElementById(id);
-    slot.style.scrollBehavior = 'auto';
-
-    requestAnimationFrame(function() {
-        // Behavior auto is not respected here for some reason. Doesn't work on 
-        // slot? Don't know. But it's the reason we have to fart around with 
-        // animation frames and style setting.
-        slide.scrollIntoView({
-            behavior: 'auto',
-            block:  'start',
-            inline: 'center',
-            // Option for the scrollIntoView polyfill, just for Safari
-            scrollParent: slot
-        });
-
-        slot.style.scrollBehavior = '';
-    });
-
-    return slide;
-}
-
 function createGhost(slide) {
     const ghost = slide.cloneNode(true);
     ghost.dataset.id = ghost.id;
     //ghost.id = ghost.id + '-ghost';
     ghost.removeAttribute('id');
     return ghost;
+}
+
+function scrollSmooth(elem, slot, target) {
+    const firstRect  = rect(elem.firstElementChild);
+    const targetRect = rect(target);
+
+    // Move scroll position to next slide
+    slot.scrollTo({
+        left: targetRect.left - firstRect.left,
+        behavior: 'smooth'
+    });
+}
+
+function scrollAuto(elem, slot, target) {
+    const firstRect  = rect(elem.firstElementChild);
+    const targetRect = rect(target);
+
+    // Move scroll position to next slide. Behavior property does not seem
+    // to be respected so override style for safety.
+    slot.style['scroll-behavior'] = 'auto';
+    slot.scrollTo({
+        left: targetRect.left - firstRect.left,
+        behavior: 'auto'
+    });
+    slot.style['scroll-behavior'] = '';
+}
+
+function reposition(elem, slot, id) {
+    const target = elem.getRootNode().getElementById(id);
+    scrollAuto(elem, slot, target);
+    return target;
 }
 
 
@@ -3227,8 +3250,8 @@ element('slide-show', {
     */
 
     template: function(elem, shadow) {
-        const link     = create('link',  { rel: 'stylesheet', href: config$1.path + 'slide-show.css' });
-        const slot     = create('slot', { style: 'scroll-behavior: auto;' });
+        const link     = create('link', { rel: 'stylesheet', href: config$1.path + 'slide-show.css' });
+        const slot     = create('slot');
         const prevNode = create('a', { class: 'prev-thumb thumb', part: 'prev' });
         const nextNode = create('a', { class: 'next-thumb thumb', part: 'next' });
         const nav      = create('nav');
@@ -3275,24 +3298,15 @@ element('slide-show', {
     
         // Manage triggering of next slide on autoplay
         var autoId = null;
-    
+
         function change() {
             autoId = null;
-
-            // Move scroll position to next slide
-            //slot.scrollLeft += active.clientWidth;
-
-            next(active).scrollIntoView({
-                behavior: 'smooth',
-                block:  'start',
-                inline: 'center',
-                // Option for the scrollIntoView polyfill, just for Safari
-                scrollParent: slot
-            });
+            const target = next(active) || elem.firstElementChild;
+            scrollSmooth(elem, slot, target);
         }
 
         events({ type: 'scroll', passive: true }, slot)
-        .filter(() => {
+        .filter((e) => {
             const result = !ignore;
             ignore = false;
             return result;
@@ -3301,7 +3315,7 @@ element('slide-show', {
             active = activate(elem, shadow, prevNode, nextNode, active);
 
             // If the last update was scheduled recently don't bother rescheduling
-            if (e.timeStamp - t < 400) {
+            if (e.timeStamp - t < 180) {
                 return;
             }
 
@@ -3311,10 +3325,42 @@ element('slide-show', {
             }
 
             // Set a new timeout and register the schedule time
-            loopId = setTimeout(update, 600);
+            loopId = setTimeout(update, 240);
             t = e.timeStamp;
 
             autoId = autoplay(active, change, autoId);
+        });
+
+        events('resize', window)
+        .each(function() {
+            active = reposition(elem, slot, active.id);
+        });
+
+        // Hijack links to slides to avoid the document scrolling, but make 
+        // sure they go in the history anyway.
+        events('click', shadow)
+        .filter((e) => !!e.target.href)
+        .filter(isPrimaryButton)
+        .each(function(e) {
+            const id     = e.target.hash && e.target.hash.replace(/^#/, ''); 
+            const target = elem.getRootNode().getElementById(id);
+
+            if (!target) {
+                console.warn('<slide-show> links to non-existent id "' + id + '"');
+                return;
+            }
+
+            scrollSmooth(elem, slot, target);
+            e.preventDefault();
+            window.history.pushState({}, '', '#' + id);
+        });
+
+        // 
+        events('load', window)
+        .map(() => window.location.hash.replace(/^#/, '') || undefined)
+        .map((id) => elem.querySelector('#' + id) || undefined)
+        .each(function(target) {
+            scrollAuto(elem, slot, target);
         });
 
         assign$7(privates(elem), {
@@ -3325,12 +3371,12 @@ element('slide-show', {
                 // not an original, reposition to be at the start of the 
                 // originals
                 if (current === elem.firstElementChild && !current.id) {
+                    ignore = true;
                     active = reposition(elem, slot, firstId);
-                    requestAnimationFrame(() => active = activate(elem, shadow, prevNode, nextNode, current)); 
+                    active = activate(elem, shadow, prevNode, nextNode, current); 
                 }
                 else {
                     active = current;
-                    requestAnimationFrame(() => slot.style.scrollBehavior = '');
                 }
             },
 

@@ -66,10 +66,6 @@ function curry(fn, muteable, arity) {
     };
 }
 
-/**
-clamp(min, max, n)
-**/
-
 function clamp(min, max, n) {
     return n > max ? max : n < min ? min : n;
 }
@@ -3459,6 +3455,29 @@ var features = define({
     scrollBarWidth: {
         get: cache(function() {
             // TODO
+
+            /*
+            let scrollBarWidth;
+                        
+            function testScrollBarWidth() {
+                if (scrollBarWidth) { return scrollBarWidth; }
+            
+                const inner = create('div', {
+                    style: 'display: block; width: auto; height: 60px; background: transparent;'
+                });
+            
+                const test = create('div', {
+                    style: 'overflow: scroll; width: 30px; height: 30px; position: absolute; bottom: 0; right: 0; background: transparent; z-index: -1;',
+                    children: [inner]
+                });
+            
+                document.body.appendChild(test);
+                scrollBarWidth = test.offsetWidth - inner.offsetWidth;
+                test.remove();
+                return scrollBarWidth;
+            }
+            */
+
         })
     }
 });

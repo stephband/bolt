@@ -66,10 +66,6 @@ function curry(fn, muteable, arity) {
     };
 }
 
-/**
-clamp(min, max, n)
-**/
-
 function clamp(min, max, n) {
     return n > max ? max : n < min ? min : n;
 }

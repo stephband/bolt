@@ -70,20 +70,20 @@ element and upgrades instances already in the DOM.</p>
     </header>
 
     <div class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-        <slide-show loop="" style="width: 320px; visibility: visible;">
-            <div data-id="51296">
+        <slide-show loop="" autoplay="" style="width: 320px; visibility: visible;">
+            <div data-id="24105">
                 More slide show content
             </div><svg viewBox="0 0 100 100" data-id="cow">
                 <circle fill="black" cx="50" cy="50" r="50"></circle>
-            </svg><img src="../images/scotland-2.jpg" id="1">
+            </svg><img src="../images/scotland-2.jpg" width="1024" height="575" id="1">
 
-            <div id="51296">
+            <div id="24105">
                 More slide show content
             </div>
 
             <svg viewBox="0 0 100 100" id="cow">
                 <circle fill="black" cx="50" cy="50" r="50"></circle>
-            </svg><img src="../images/scotland-2.jpg" data-id="1"><div data-id="51296">
+            </svg><img src="../images/scotland-2.jpg" width="1024" height="575" data-id="1"><div data-id="24105">
                 More slide show content
             </div>
         </slide-show>
@@ -191,6 +191,7 @@ Style the navigation ‘dots’.</p>
 
     <!-- Document interactivity -->
     <script type="module">
+        import '../../dom/polyfills/element.scrollto.js';
         import './slide-show.js';
         import '../module.js';
         import '../documentation.js';

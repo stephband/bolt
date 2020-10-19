@@ -3100,10 +3100,6 @@ function toGain(n) {
     return Math.pow(2, n / 6);
 }
 
-/**
-clamp(min, max, n)
-**/
-
 function clamp(min, max, n) {
     return n > max ? max : n < min ? min : n;
 }
@@ -3451,18 +3447,11 @@ var denormalise$1 = /*#__PURE__*/Object.freeze({
 });
 
 // Exponential functions
-//
-// e - exponent
-// x - range 0-1
-//
-// eg.
-// var easeInQuad   = exponential(2);
-// var easeOutCubic = exponentialOut(3);
-// var easeOutQuart = exponentialOut(4);
 
 function exponentialOut(e, x) {
     return 1 - Math.pow(1 - x, e);
 }
+var _exponentialOut = curry(exponentialOut);
 
 // Time
 
@@ -4359,7 +4348,7 @@ const intersect$1   = curry(intersect, true);
 const unite$1       = curry(unite, true);
 const normalise$2   = curry(choose(normalise$1), false, 4);
 const denormalise$2 = curry(choose(denormalise$1), false, 4);
-const exponentialOut$1 = curry(exponentialOut);
+const exponentialOut$1 = curry(_exponentialOut);
 
 
 
@@ -4630,6 +4619,29 @@ var features = define$1({
     scrollBarWidth: {
         get: cache(function() {
             // TODO
+
+            /*
+            let scrollBarWidth;
+                        
+            function testScrollBarWidth() {
+                if (scrollBarWidth) { return scrollBarWidth; }
+            
+                const inner = create('div', {
+                    style: 'display: block; width: auto; height: 60px; background: transparent;'
+                });
+            
+                const test = create('div', {
+                    style: 'overflow: scroll; width: 30px; height: 30px; position: absolute; bottom: 0; right: 0; background: transparent; z-index: -1;',
+                    children: [inner]
+                });
+            
+                document.body.appendChild(test);
+                scrollBarWidth = test.offsetWidth - inner.offsetWidth;
+                test.remove();
+                return scrollBarWidth;
+            }
+            */
+
         })
     }
 });

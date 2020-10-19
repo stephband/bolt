@@ -2644,10 +2644,6 @@ function wrap(min, max, n) {
 
 var wrap$1 = curry(wrap);
 
-/**
-clamp(min, max, n)
-**/
-
 function clamp(min, max, n) {
     return n > max ? max : n < min ? min : n;
 }
@@ -3015,18 +3011,11 @@ var denormalisers = /*#__PURE__*/Object.freeze({
 });
 
 // Exponential functions
-//
-// e - exponent
-// x - range 0-1
-//
-// eg.
-// var easeInQuad   = exponential(2);
-// var easeOutCubic = exponentialOut(3);
-// var easeOutQuart = exponentialOut(4);
 
 function exponentialOut(e, x) {
     return 1 - Math.pow(1 - x, e);
 }
+var expOut = curry(exponentialOut);
 
 // Time
 
@@ -3923,7 +3912,7 @@ const intersect$1   = curry(intersect, true);
 const unite$1       = curry(unite, true);
 const normalise   = curry(choose(normalisers), false, 4);
 const denormalise = curry(choose(denormalisers), false, 4);
-const exponentialOut$1 = curry(exponentialOut);
+const exponentialOut$1 = curry(expOut);
 
 
 
@@ -4194,6 +4183,29 @@ var features = define$1({
     scrollBarWidth: {
         get: cache(function() {
             // TODO
+
+            /*
+            let scrollBarWidth;
+                        
+            function testScrollBarWidth() {
+                if (scrollBarWidth) { return scrollBarWidth; }
+            
+                const inner = create('div', {
+                    style: 'display: block; width: auto; height: 60px; background: transparent;'
+                });
+            
+                const test = create('div', {
+                    style: 'overflow: scroll; width: 30px; height: 30px; position: absolute; bottom: 0; right: 0; background: transparent; z-index: -1;',
+                    children: [inner]
+                });
+            
+                document.body.appendChild(test);
+                scrollBarWidth = test.offsetWidth - inner.offsetWidth;
+                test.remove();
+                return scrollBarWidth;
+            }
+            */
+
         })
     }
 });
@@ -6239,37 +6251,57 @@ document.addEventListener('dom-activate', activate$1);
 document.addEventListener('dom-deactivate', deactivate$1);
 matchers.push(match$1);
 
-/*
-Element.scrollIntoView()
+/**
+element.scrollIntoView()
 
 Monkey patches Element.scrollIntoView to support smooth scrolling options.
 https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
-*/
+**/
 
 // Duration and easing of scroll animation
 const config$3 = {
     scrollDuration: 0.3,
     scrollDurationPerHeight: 0.125,
-    scrollTransform: exponentialOut$1(3)
+    scrollTransform: expOut(3)
 };
 
 let cancel = noop;
 
 function scrollToNode(target, scrollParent, behavior) {
-    const scrollPaddingTop = parseInt(getComputedStyle(scrollParent).scrollPaddingTop, 10);
-    const coords = offset$1(scrollParent, target);
-    const scrollHeight = scrollParent.scrollHeight;
+    const style             = getComputedStyle(scrollParent);
+    const scrollPaddingLeft = parseInt(style.scrollPaddingLeft, 10);
+    const scrollPaddingTop  = parseInt(style.scrollPaddingTop, 10);
+    const coords            = offset(scrollParent, target);
+    const scrollWidth       = scrollParent.scrollWidth;
+    const scrollHeight      = scrollParent.scrollHeight;
+
+    const scrollBoxWidth = scrollParent === document.body ?
+        // We cannot guarantee that body height is 100%. Use the window
+        // innerHeight instead.
+        window.innerWidth :
+        rect(scrollParent).width ;
+
     const scrollBoxHeight = scrollParent === document.body ?
-        // We cannot gaurantee that body height is 100%. Use the window
+        // We cannot guarantee that body height is 100%. Use the window
         // innerHeight instead.
         window.innerHeight :
         rect(scrollParent).height ;
+
+    const left = (coords[0] - scrollPaddingLeft) > (scrollWidth - scrollBoxWidth) ?
+            scrollWidth - scrollBoxWidth :
+            (scrollParent.scrollLeft + coords[0] - scrollPaddingLeft) ;
 
     const top = (coords[1] - scrollPaddingTop) > (scrollHeight - scrollBoxHeight) ?
         scrollHeight - scrollBoxHeight :
         (scrollParent.scrollTop + coords[1] - scrollPaddingTop) ;
 
     cancel();
+
+    const scrollLeft = left < 0 ?
+        0 :
+    left > scrollWidth - scrollBoxWidth ?
+        scrollWidth - scrollBoxWidth :
+    left ;
 
     const scrollTop = top < 0 ?
         0 :
@@ -6278,15 +6310,17 @@ function scrollToNode(target, scrollParent, behavior) {
     top ;
 
     if (behavior === 'smooth') {
-        const scrollDuration = config$3.scrollDuration
-            + config$3.scrollDurationPerHeight
-            * Math.abs(scrollTop - scrollParent.scrollTop)
-            / scrollBoxHeight ;
+        //const scrollDuration = config.scrollDuration
+        //    + config.scrollDurationPerHeight
+        //    * Math.abs(scrollTop - scrollParent.scrollTop)
+        //    / scrollBoxHeight ;
 
-        cancel = animate$1(scrollDuration, config$3.scrollTransform, 'scrollTop', scrollParent, scrollTop);
+        cancel = animate(0.3, config$3.scrollTransform, 'scrollLeft', scrollParent, scrollLeft);
+        //cancel = animate(scrollDuration, config.scrollTransform, 'scrollTop', scrollParent, scrollTop);
     }
     else {
-        scrollParent.scrollTop = scrollTop ;
+        scrollParent.scrollLeft = scrollLeft ;
+        scrollParent.scrollTop  = scrollTop ;
     }
 }
 
@@ -6304,20 +6338,31 @@ if (!features.scrollBehavior) {
                 console.warn('Element.scrollIntoView polyfill only supports options.block value "start"');
             }
 
-            if (options.inline) {
-                console.warn('Element.scrollIntoView polyfill does not support options.inline... add support!');
+            if (options.inline && options.inline !== 'start') {
+                console.warn('Element.scrollIntoView polyfill only supports options.inline value "start"');
             }
 
-            let scrollParent = this;
+            let scrollParent;
 
-            while((scrollParent = scrollParent.parentNode)) {
-                if (scrollParent === document.body || scrollParent === document.documentElement) {
-                    scrollParent = document.scrollingElement;
-                    break;
-                }
-
-                if (scrollParent.scrollHeight > scrollParent.clientHeight) {
-                    break;
+            // Where this has been slotted into a shadow DOM that acts as a 
+            // scroll parent we won't find it by traversing the DOM up. To 
+            // mitigate pass in a decidedly non-standard  scrollParent option.
+            if (options.scrollParent) {
+                scrollParent = options.scrollParent;
+            }
+            else {
+                scrollParent = this;
+    
+                while((scrollParent = scrollParent.parentNode)) {
+                    if (scrollParent === document.body || scrollParent === document.documentElement) {
+                        scrollParent = document.scrollingElement;
+                        break;
+                    }
+    
+                    if (scrollParent.scrollHeight > scrollParent.clientHeight 
+                     || scrollParent.scrollWidth > scrollParent.clientWidth) {
+                        break;
+                    }
                 }
             }
 
