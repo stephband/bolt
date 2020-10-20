@@ -450,7 +450,7 @@ transition(3, function(progress) {
 */
 
 const performance           = window.performance;
-const requestAnimationFrame = window.requestAnimationFrame;
+const requestAnimationFrame$1 = window.requestAnimationFrame;
 const cancelAnimationFrame  = window.cancelAnimationFrame;
 
 function transition(duration, fn) {
@@ -464,14 +464,14 @@ function transition(duration, fn) {
 			if (progress > 0) {
 				fn(progress);
 			}
-			id = requestAnimationFrame(frame);
+			id = requestAnimationFrame$1(frame);
 		}
 		else {
 			fn(1);
 		}
 	}
 
-	var id = requestAnimationFrame(frame);
+	var id = requestAnimationFrame$1(frame);
 
 	return function cancel() {
 		cancelAnimationFrame(id);
@@ -3674,9 +3674,11 @@ function scrollSmooth(elem, slot, target) {
 
     // Move scroll position to next slide
     slot.scrollTo({
+        top: slot.scrollTop,
         left: targetRect.left - firstRect.left,
         behavior: 'smooth'
     });
+    //slot.scrollLeft = targetRect.left - firstRect.left;
 }
 
 function scrollAuto(elem, slot, target) {
@@ -3687,10 +3689,13 @@ function scrollAuto(elem, slot, target) {
     // to be respected so override style for safety.
     slot.style['scroll-behavior'] = 'auto';
     slot.scrollTo({
+        top: slot.scrollTop,
         left: targetRect.left - firstRect.left,
         behavior: 'auto'
     });
-    slot.style['scroll-behavior'] = '';
+    requestAnimationFrame(function() {
+        slot.removeAttribute('style');            
+    });
 }
 
 function reposition(elem, slot, id) {
@@ -3711,7 +3716,7 @@ function autoplay(active, change, autoId) {
     const duration = parseTime(
         window
         .getComputedStyle(active)
-        .getPropertyValue('--play-duration') || config$2.duration
+        .getPropertyValue('--slide-duration') || config$2.duration
     );
 
     return setTimeout(change, duration * 1000);

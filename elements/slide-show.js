@@ -140,9 +140,11 @@ function scrollSmooth(elem, slot, target) {
 
     // Move scroll position to next slide
     slot.scrollTo({
+        top: slot.scrollTop,
         left: targetRect.left - firstRect.left,
         behavior: 'smooth'
     });
+    //slot.scrollLeft = targetRect.left - firstRect.left;
 }
 
 function scrollAuto(elem, slot, target) {
@@ -153,10 +155,13 @@ function scrollAuto(elem, slot, target) {
     // to be respected so override style for safety.
     slot.style['scroll-behavior'] = 'auto';
     slot.scrollTo({
+        top: slot.scrollTop,
         left: targetRect.left - firstRect.left,
         behavior: 'auto'
     });
-    slot.style['scroll-behavior'] = '';
+    requestAnimationFrame(function() {
+        slot.removeAttribute('style');            
+    });
 }
 
 function reposition(elem, slot, id) {
@@ -177,7 +182,7 @@ function autoplay(active, change, autoId) {
     const duration = parseTime(
         window
         .getComputedStyle(active)
-        .getPropertyValue('--play-duration') || config.duration
+        .getPropertyValue('--slide-duration') || config.duration
     );
 
     return setTimeout(change, duration * 1000);

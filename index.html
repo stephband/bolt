@@ -96,6 +96,25 @@
         rotary-control::part(tick) {
             background-color: var(--label-color);
         }
+
+        /* Copied from elements slide-show.template.html */
+        slide-show {
+            background: #cccccc;
+            margin: 0 auto;
+        }
+
+        slide-show::part(prev),
+        slide-show::part(next) {
+            display: none;
+        }
+
+        slide-show > * + * {
+            display: none;
+        }
+
+        slide-show:defined > * + * {
+            display: block;
+        }
     </style>
 </head>
 
@@ -675,6 +694,7 @@ depends on <code>column-gap</code> having been set via the custom property <code
             <div class="x-4 2x" style="color: transparent;">;</div>
         </template>
     </section-->
+
 
     <!--template is="sparky-template" fn="docs:
         './css/elements.css',

@@ -29,7 +29,7 @@
     --gap: 0px;
     --nav-margin-top: -3rem;
 
-    overflow: hidden;
+    /*overflow: hidden;*/
     position: relative;
     display: grid !important;
 }
@@ -79,13 +79,16 @@ slot {
 
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
-    scroll-behavior: smooth;
     -webkit-scroll-behavior: smooth;
-    overflow: auto;
+            scroll-behavior: smooth;    
+    overflow: scroll;
     overflow-y: hidden;
     overscroll-behavior-x: contain;
     -ms-overflow-style: none; /* IE 11 */
     scrollbar-width: none; /* Firefox 64 */
+
+    will-change: -webkit-scroll-behavior;
+    will-change: scroll-behavior;
 }
 
 slot::-webkit-scrollbar {
