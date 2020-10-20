@@ -3627,7 +3627,7 @@ function activate(elem, shadow, prevLink, nextLink, active) {
         .forEach((node) => node.classList.remove('on'));
 
         select('[href="#' + id +'"]', shadow)
-        .forEach((node) => node.classList.remove('on'));
+        .forEach((node) => node.part.remove('active-link'));
     }
 
     // Change href of prev and next buttons
@@ -3654,7 +3654,7 @@ function activate(elem, shadow, prevLink, nextLink, active) {
     .forEach((node) => node.classList.add('on'));
 
     select('[href="#' + id +'"]', shadow)
-    .forEach((node) => node.classList.add('on'));
+    .forEach((node) => node.part.add('active-link'));
 
     // Return active slide
     return slide;
@@ -3734,8 +3734,8 @@ element('slide-show', {
     <a class="prev-thumb thumb"></a>
     <a class="next-thumb thumb"></a>
     <nav>
-        <a class="dot-thumb thumb"></a>
-        <a class="dot-thumb thumb"></a>
+        <a part="link"></a>
+        <a part="link"></a>
     </nav>
     */
 
@@ -3756,8 +3756,7 @@ element('slide-show', {
         Array.from(elem.children).forEach((slide) => {
             const id = identify(slide);
             nav.appendChild(create('a', {
-                class: 'dot-thumb thumb',
-                part: 'dot',
+                part: 'link',
                 href: '#' + id,
                 html: id
             }));

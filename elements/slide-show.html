@@ -48,6 +48,7 @@
     slide-show {
         background: #cccccc;
         margin: 0 auto;
+        max-width: 30rem;
     }
 
     slide-show::part(prev),
@@ -82,7 +83,7 @@ element and upgrades instances already in the DOM.</p>
     </header>
 
     <div class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-        <slide-show loop="" autoplay="" style="width: 320px; visibility: visible;">
+        <slide-show loop="" autoplay="" style="visibility: visible;">
             <img src="../images/scotland-3.jpg" data-id="2"><img src="../images/scotland-4.jpg" data-id="3"><img src="../images/scotland-2.jpg" width="1024" height="575" id="1">
             <img src="../images/scotland-3.jpg" id="2">
             <img src="../images/scotland-4.jpg" id="3"><img src="../images/scotland-2.jpg" width="1024" height="575" data-id="1"><img src="../images/scotland-3.jpg" data-id="2">
@@ -141,14 +142,14 @@ Style the ‘previous slide’ button.</p>
 Style the ‘next slide’ button.</p>
 </article>
 
-    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-dot">
+    <article class="doc-toggle-block toggle-block block part-doc-toggle-block" toggleable="" id="part-link">
         <h3 class="doctext-05   ">
-            <a href="#part-dot">
-                <code class="language-js">dot</code>
+            <a href="#part-link">
+                <code class="language-js">link</code>
             </a>
         </h3>
     <p>) 
-Style the navigation ‘dots’.</p>
+Style the navigation links.</p>
 </article>
 
 
@@ -182,6 +183,34 @@ Style the navigation ‘dots’.</p>
         </h3>
     <p>Default horizontal justification of slides in their grid cells. (Individual 
     slides can be justified normally by applying <code>justify-self</code>).</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-slide-gap">
+        <h3 class="doctext-05 cssvar-indent">
+            <a href="#var-slide-gap">
+                <code class="language-js">--slide-gap</code>
+            </a>
+        </h3>
+    <p>Grid column gap between one slide and the next.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-link-top">
+        <h3 class="doctext-05 cssvar-indent">
+            <a href="#var-link-top">
+                <code class="language-js">--link-top</code>
+            </a>
+        </h3>
+    <p>Adjusts the vertical position of the list of links. Negative values make it
+    appear over the slides.</p>
+</article>
+
+    <article class="doc-toggle-block toggle-block block var-doc-toggle-block" toggleable="" id="var-link-gap">
+        <h3 class="doctext-05 cssvar-indent">
+            <a href="#var-link-gap">
+                <code class="language-js">--link-gap</code>
+            </a>
+        </h3>
+    <p>Adjusts the gap between links.</p>
 </article>
 
     </div>

@@ -17,6 +17,7 @@
     slide-show {
         background: #cccccc;
         margin: 0 auto;
+        max-width: 30rem;
     }
 
     slide-show::part(prev),
@@ -40,7 +41,7 @@
     </header>
 
     <div class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-        <slide-show loop autoplay style="width: 320px;">
+        <slide-show loop autoplay>
             <img src="../images/scotland-2.jpg" width="1024" height="575" id="1" />
             <img src="../images/scotland-3.jpg"  id="2" />
             <img src="../images/scotland-4.jpg" id="3" />
