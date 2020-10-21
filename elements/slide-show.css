@@ -45,7 +45,6 @@
     **/
     --link-gap: 0;
 
-    /*overflow: hidden;*/
     position: relative;
     display: grid !important;
 }
@@ -85,6 +84,8 @@
 
 slot {
     display: grid;
+    padding: 0;
+    margin: 0;
 
     grid-auto-flow: column;
     grid-auto-columns: 100%;
@@ -96,7 +97,8 @@ slot {
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
     -webkit-scroll-behavior: smooth;
-            scroll-behavior: smooth;    
+            scroll-behavior: smooth;
+
     overflow: scroll;
     overflow-y: hidden;
     overscroll-behavior-x: contain;
@@ -167,6 +169,11 @@ Style the navigation links.
     border-radius: 50%;
     border: 1px solid currentcolor;
 }
+
+/** 
+::part(active-link) 
+Style the navigation link for the currently active slide.
+**/
 
 [part*="active-link"]::before {
     background: currentcolor;
