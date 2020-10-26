@@ -37,7 +37,7 @@
     "build-envelope-control": "rollup ./elements/envelope-control.js --o ./elements/envelope-control.rolled.js --f esm && madge --image ./elements/envelope-control.svg ./elements/envelope-control.js",
     "build-elements": "npm run build-range-control && npm run build-rotary-control && npm run build-envelope-control && npm run build-slide-show",
     "build-css": "node ../fn/build-css.js style.css style.min.css",
-    "build-docs": "node ./build-templates.js",
+    "build-docs": "node ./build-templates.js ./ docs/",
     "graph": "madge --image ./module.svg ./module.js",
     "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.1' && git push"
   }
