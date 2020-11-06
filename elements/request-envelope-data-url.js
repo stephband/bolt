@@ -30,8 +30,10 @@ export function requestEnvelopeDataURL(data, options) {
     const offline  = new OfflineAudioContext(1, samplesPerPixel * viewBox[2], 22050);
     const events   = data.map((e) => ({
         0: e[0] * drawRate / 22050,
-        1: e[1],
-        2: e[2],
+        // e[2] is value
+        1: e[2],
+        // e[1] is type
+        2: e[1],
         3: e[3] ? e[3] * drawRate / 22050 : undefined
     }));
 

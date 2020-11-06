@@ -8,6 +8,8 @@ import { element, create } from '../../dom/module.js';
 import { attributes, properties } from './attributes.js';
 import { parseEnvelope } from './parse-envelope.js';
 import { requestEnvelopeDataURL } from './request-envelope-data-url.js';
+import * as normalise from '../../fn/modules/normalisers.js';
+import * as denormalise from '../../fn/modules/denormalisers.js';
 
 
 const assign = Object.assign;
@@ -215,7 +217,7 @@ const handleGesture = match(getTarget, {
             return data;
         },
 
-        default: noop
+        'default': noop
     }),
 
     '.control-handle': overload(getType, {
@@ -225,7 +227,7 @@ const handleGesture = match(getTarget, {
             //notify(data.collection, '.', data.collection);
 
             // We store scope on data here so that we may pick it up on
-            // double-tap, at whcih time the target will no longer have scope
+            // double-tap, at which time the target will no longer have scope
             // because it will have been replaced by another node.
             //
             // Two other approaches:
@@ -267,7 +269,7 @@ const handleGesture = match(getTarget, {
             return data;
         },
 
-        default: function(data) {
+        'default': function(data) {
             console.log('Untyped gesture', data);
         }
     }),
@@ -286,10 +288,10 @@ const handleGesture = match(getTarget, {
         default: noop
     })
 });
-
+  
 function assignValueAtBeat(value, event) {
     event.valueAtBeat = value;
-    return event[2];
+    return event[1];
 }
 
 
@@ -331,11 +333,11 @@ function cycleType(event) {
 /**
 <envelope-control>
 **/
-
+      
 element('envelope-control', {
     template: function(elem, shadow) {
         const link  = create('link',  { rel: 'stylesheet', href: config.path + 'envelope-control.css' });
-        const css   = create('style', ':host {}');
+        //const css   = create('style', ':host {}');
         const label = create('label', { for: 'svg', children: [create('slot')] });
         const svg   = create('svg', {
             class: 'envelope-svg',
@@ -350,12 +352,12 @@ element('envelope-control', {
         });
 
         shadow.appendChild(link);
-        shadow.appendChild(css);
+        //shadow.appendChild(css);
         shadow.appendChild(label);
         shadow.appendChild(svg);
 
         // Get the :host {} style rule from style
-        const style = style.sheet.cssRules[0].style;
+        //const style = style.sheet.cssRules[0].style;
 
         const views   = [];
         var unobserve = noop;
@@ -364,12 +366,12 @@ element('envelope-control', {
         var promise = Promise.resolve();
 
         var graphOptions = {
-            yMin:   0,//this.min,
-            yMax:   1,//this.max,
+            yMin:   0,
+            yMax:   1,
             xLines: [0.5, 1, 1.5, 2],
             //yLines: yLines,
             xScale: id,
-            yScale: (y) => normalise[yTransform](this.min, this.max, y),
+            yScale: (y) => normalise[elem.law](this.min, this.max, y),
             viewbox: [0, -1.125, 2, 1.125]
                 //privates.svg
                 //.getAttribute('viewBox')
@@ -401,7 +403,7 @@ element('envelope-control', {
                         const style = getComputedStyle(elem);
                         graphOptions.gridColor = style.getPropertyValue('--grid-color');
                         graphOptions.valueColor = style.getPropertyValue('--value-color');
-    
+
                         promise = requestEnvelopeDataURL(array, graphOptions)
                         .then(renderBackground);
                     });
@@ -444,9 +446,9 @@ element('envelope-control', {
         // Todo: We never .stop() this stream, does it eat memory? Probs.
         gestures({ threshold: 0 }, shadow.querySelector('svg'))
         .scan(function(previous, gesture) {
-            const e0 = gesture.shift();
+            const e0         = gesture.shift();
             const controlBox = box(e0.target);
-            const time = e0.timeStamp / 1000;
+            const time       = e0.timeStamp / 1000;
 
             const context = {
                 target: e0.target,
