@@ -88,9 +88,11 @@
 </head>
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
-    <header class="x-1 3x @1-x-2 @1-4x @2-x-4" id="heade">
+    <header class="x-1 3x @1-x-2 @1-4x @2-x-4" id="header">
         <template is="sparky-template" fn="fetch:package.json" src="templates.html#header"></template>
     </header>
+    
+    <img class="x-1 x-end y-1 @2-x-1 @2-3x" src="images/logo.svg" width="800" height="800" style="width: 10.625rem; margin-top: -1.125rem; margin-right: -0.9375rem; max-width: none;" />
 
     <!--section class="x-1 3x @1-x-2 @2-x-3" id="get-started" locateable>
         <h2 class="doctext-02">Get started</h2>
