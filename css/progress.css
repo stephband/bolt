@@ -1,0 +1,50 @@
+/**
+progress
+
+```html
+<progress value="0.6125"></progress>
+```
+**/
+
+/* Use [value] to select determinate progress bars. */
+
+progress[value] {
+    display: block;
+    width: auto;
+    height: 6px;
+
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #e6eaea;
+
+    /* Get rid of default border in Firefox. */
+    border: none;
+    border-radius: 0.1875rem;
+    overflow: hidden;
+
+    /* For IE10 */
+    /*color: #8aa231;*/
+}
+
+
+/* The progress background. FF doesnt have one. */
+
+progress[value]::-webkit-progress-bar {
+    background-color: transparent;
+    border-radius: 0.1875rem;
+}
+
+
+/* The progress value bar */
+
+progress[value]::-webkit-progress-value {
+    background-color: currentcolor;
+}
+
+progress[value]::-moz-progress-bar {
+    background-color: currentcolor;
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+}

@@ -1,0 +1,25 @@
+:focus {
+    outline-width: 0;
+    box-shadow: var(--focus-shadow);
+    z-index: 1;
+}
+
+.mouse-device a:focus,
+.touch-device a:focus {
+    box-shadow: none;
+}
+
+/* Respond to device input classes. */
+
+.mouse-device a:focus,
+.mouse-device button:focus,
+.mouse-device input:focus,
+.touch-device a:focus,
+.touch-device button:focus,
+.touch-device input:focus {
+     outline-width: 0;
+}
+
+.mouse-device button:focus {
+    box-shadow: none;
+}

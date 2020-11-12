@@ -1,0 +1,339 @@
+
+@import './control.css';
+
+:host {
+    /** --track-height **/
+    --track-height: 0.375rem;
+
+    /** --track-background **/
+    --track-background: #eeeeee;
+
+    /** --track-border **/
+    --track-border: none;
+
+    /** --track-shadow **/
+    --track-shadow: inset 0 0.0625rem 0.25rem rgba(0,0,0,0.2);
+
+    --track-top: 1rem;
+
+    /** --handle-width **/
+    --handle-width: 1.375rem;
+
+    /** --handle-height **/
+    --handle-height: var(--handle-width);
+    
+    /** --handle-shadow **/
+    --handle-shadow: 0 0.125rem 0.25rem 0.0625rem rgba(0,0,0,0.16);
+
+    /** --bleed **/
+    --bleed: 0.1875rem;
+
+    position: relative;
+    display: grid;
+
+    grid-template-areas:
+        'label output plugs'
+        'input input input';
+    grid-template-columns: 1fr min-content min-content;
+    grid-template-rows:
+        min-content
+        minmax(1.5rem, min-content);
+    grid-row-gap: calc(0.1875rem + var(--label-input-margin));
+
+    padding: 0;
+    box-shadow: none;
+}
+
+:host(:focus) {
+    --track-background: #eeeeee;
+    --track-border: none;
+    --track-shadow: inset 0 0.0625rem 0.25rem rgba(0,0,0,0.2);
+}
+
+:host > label {
+    grid-area: label;
+    align-self: baseline;
+}
+
+:host > output {
+    grid-area: output;
+    align-self: baseline;
+    order: 1;
+    margin-left: auto;
+    width: auto;
+    text-align: right;
+}
+
+:host > [type="range"] {
+    grid-area: input;
+    align-self: end;
+
+    /* Make the range input slightly wider than the control
+       to allow range thumb to line up with label text */
+    width: calc(100% + 2 * var(--bleed));
+    margin-left: calc(-1 * var(--bleed));
+    margin-right: calc(-1 * var(--bleed));
+    margin-top: var(--track-top);
+    z-index: 1;
+}
+
+:host > button {
+    grid-area: input;
+    position: relative;
+    z-index: 0;
+    align-self: start;
+
+    /* Use margin to centre ticks, not translate, which has the
+       effect of blurring the text on pixel screens. */
+    margin-left: -0.6875rem;
+    width: 1.375rem;
+    left: calc((0.5 * var(--handle-width) - var(--bleed)) + var(--tick-value) * (100% + 2 * var(--bleed) - var(--handle-width)));
+}
+
+:host > span {
+    grid-area: input;
+    background-color: yellow;
+}
+
+:host > ::slotted([slot="plugs"]) {
+    /* Style slotted content. This is overidden by external CSS. */
+    grid-area: plugs;
+    position: relative;
+    margin-left: 9px;
+    align-self: end;
+    line-height: 15px;
+    top: 1px;
+}
+
+
+/* Range inputs */
+
+[type="range"] {
+    cursor: pointer;
+
+    -webkit-appearance: none !important;
+    background-color: transparent;
+    border-width: 0;
+
+    /* For IE height should be big enough to accomodate the thumb. */
+    height: 1.4375rem;
+
+    /*required for proper track sizing in FF*/
+    width: 100%;
+    color: inherit;
+}
+
+/* [type="range"] track */
+
+[type="range"]::-webkit-slider-runnable-track {
+    height: var(--track-height);
+    background: var(--track-background);
+    border: var(--track-border);
+
+    /* Rounded ends. For some reason specifiying this in rems destroys the
+       effect at this small scale. */
+    /*border-top-left-radius: 2px 1.5px;
+    border-bottom-left-radius: 2px 1.5px;
+    border-top-right-radius: 2px 1.5px;
+    border-bottom-right-radius: 2px 1.5px;*/
+    border-radius: calc(0.5 * var(--track-height));
+
+    /* Subtle shading around track to give embossed effect */
+    box-shadow: var(--track-shadow);
+}
+
+/*
+:host(:focus) [type="range"]::-webkit-slider-runnable-track {
+    background: var(--focus-track-background);
+    border: var(--focus-track-border);
+    box-shadow: var(--focus-track-shadow);
+}
+*/
+
+[type="range"]::-moz-range-track {
+    height: var(--track-height);
+    background: var(--track-background);
+    border: var(--track-border);
+    border-radius: calc(0.5 * var(--track-height));
+    box-shadow: var(--track-shadow);
+}
+
+[type="range"]::-moz-range-progress {
+    height: var(--track-height);
+    background: var(--track-background);
+    border-radius: calc(0.5 * var(--track-height));
+    box-shadow: var(--track-shadow);
+}
+
+/*
+[type="range"]:focus::-moz-range-track,
+[type="range"]:focus::-moz-range-progress,
+:host(:focus) [type="range"]::-moz-range-track,
+:host(:focus) [type="range"]::-moz-range-progress {
+    background: var(--focus-track-background);
+    border: var(--focus-track-border);
+    box-shadow: var(--focus-track-shadow);
+}
+*/
+
+[type=range]::-ms-track {
+    height: var(--track-height);
+    border: var(--track-border);
+    border-radius: calc(0.5 * var(--track-height));
+
+    /* Remove bg colour from the track and use ms-fill-lower and
+       ms-fill-upper instead */
+    background: transparent;
+
+    /* Remove default tick marks */
+    color: transparent;
+}
+
+[type=range]::-ms-fill-lower {
+    background: var(--track-background);
+    border-radius: calc(0.5 * var(--track-height));
+    box-shadow: var(--track-shadow);
+}
+
+[type=range]::-ms-fill-upper {
+    background: var(--track-background);
+    border-radius: calc(0.5 * var(--track-height));
+    box-shadow: var(--track-shadow);
+}
+
+/*
+:host(:focus) [type=range]::-ms-track {
+    background: var(--focus-track-background);
+    border: var(--focus-track-border);
+    box-shadow: var(--focus-track-shadow);
+    background: red;
+}
+*/
+
+/* [type="range"] thumb */
+
+[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+
+    box-sizing: border-box;
+    cursor: pointer;
+    cursor: ew-resize;
+
+    width:  var(--handle-width);
+    height: var(--handle-height);
+
+    /* Centre it vertically on the track */
+    transform: translate3d(0, calc(0.5 * (var(--track-height) - var(--handle-height))), 0);
+
+    /* Use a border to create a larger hit zone for the thumb */
+    border-radius: 50%;
+    border: var(--handle-border);
+
+    /* Constrain background image */
+    background-clip: content-box;
+    background-origin: padding-box;
+    background: var(--handle-background);
+
+    /* Shadow */
+    box-shadow: var(--handle-shadow);
+}
+/*
+[type="range"]:focus::-webkit-slider-thumb,
+:host(:focus) [type="range"]::-webkit-slider-thumb {
+    background: var(--focus-handle-background);
+    border: var(--focus-handle-border);
+    box-shadow: var(--focus-handle-shadow);
+}
+*/
+[type="range"]::-moz-range-thumb {
+    box-sizing: border-box;
+    cursor: pointer;
+    cursor: ew-resize;
+
+    width:  var(--handle-width);
+    height: var(--handle-width);
+
+    /* Increase the size of the hit zone to support fat fingers. */
+    outline: 0.25rem solid transparent;
+
+    margin-top: -4px;
+
+    /* Use a border to create a larger hit zone for the thumb */
+    border-radius: 50%;
+    border: var(--handle-border);
+
+    /* Constrain background image */
+    background-clip: content-box;
+    background-origin: padding-box;
+    background: var(--handle-background);
+
+    /* Shadow */
+    box-shadow: var(--handle-shadow);
+}
+/*
+[type="range"]:focus::-moz-range-thumb,
+:host(:focus) [type="range"]::-moz-range-thumb {
+    background: var(--focus-handle-background);
+    border: var(--focus-handle-border);
+    box-shadow: var(--focus-handle-shadow);
+}
+*/
+[type="range"]::-ms-thumb {
+    cursor: pointer;
+    cursor: ew-resize;
+
+    width:  var(--handle-width);
+    height: var(--handle-width);
+
+    margin-top: 1px;
+
+    /* Use a border to create a larger hit zone for the thumb */
+    border-radius: 50%;
+    border: var(--handle-border);
+
+    /* Constrain background image */
+    background-clip: content-box;
+    background-origin: padding-box;
+    background: var(--handle-background);
+
+    /* Shadow */
+    box-shadow: var(--handle-shadow);
+}
+
+/*
+[type="range"]:focus::-ms-thumb {
+    border: var(--handle-border-focus);
+    background: var(--handle-background-focus);
+    box-shadow: var(--handle-shadow-focus);
+}
+
+:host(:focus) [type="range"]::-ms-thumb {
+    background: var(--focus-handle-background);
+    border: var(--focus-handle-border);
+    box-shadow: var(--focus-handle-shadow);
+}
+*/
+
+/* [type="range"] focus */
+
+[type="range"]:focus {
+    outline: none;
+    outline-width: 0 !important;
+}
+
+[type="range"]::-moz-focus-outer {
+    /* Get rid of that annoying border in FF */
+    border: 0;
+}
+
+[type="range"]:-moz-focusring {
+    outline: 0 solid transparent;
+}
+
+/* Label */
+
+[part="label"] {
+    align-self: end;
+}
+
+

@@ -1,0 +1,144 @@
+<!--
+Template for <head>
+-->
+
+<template id="head" remove>
+    <meta charset="utf-8" />
+    <meta name="author" content="{[author.name]}" />
+    <meta name="description" content="Documentation for {[title]}. {[description]}" />
+    <meta name="viewport" content="width=device-width" />
+
+    <meta name="twitter:card" content="summary"></meta>
+    <meta name="twitter:site" content="@{[author.twitter]}"></meta>
+    <meta property="og:url" content="{[homepage]}" />
+    <meta property="og:title" content="{[title]}" />
+    <meta property="og:description" content="{[description]}" />
+    <meta property="og:image" content="{[image]}" />
+
+    <title>{[title]}</title>
+
+    <script title="load">
+    document.documentElement.className += ' js content-loading loading';
+    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
+    // Wait for other load handlers to run first - Bolt does a few things on
+    // load (eg. locateable scrolls) and we want them to run before the loading
+    // class is removed
+    window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
+    </script>
+
+    <link rel="shortcut icon" href="images/logo-64x64.ico" />
+    <link rel="icon" type="image/png" href="images/logo-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/logo-64x64.png" sizes="64x64">
+    <link rel="icon" type="image/png" href="images/logo-128x128.png" sizes="128x128">
+</template>
+
+<!--
+Template for <head> stylesheets
+-->
+
+<template id="style" remove>
+    <link rel="stylesheet" href="style.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../fn/css/prism-cruncher.css" />
+    <link rel="stylesheet" href="../fn/css/tests.css" />
+    <link rel="stylesheet" href="documentation.css" />
+    <link rel="stylesheet" href="../fn/css/respond.css" />
+</template>
+
+<template id="nested-style" remove>
+    <link rel="stylesheet" href="../style.min.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../../fn/css/prism-cruncher.css" />
+    <link rel="stylesheet" href="../../fn/css/tests.css" />
+    <link rel="stylesheet" href="../documentation.css" />
+    <link rel="stylesheet" href="../../fn/css/respond.css" />
+</template>
+
+<!--
+Template for header at top of main document 
+-->
+<template id="header" remove>
+    <h1 class="doctext-01">{[title]} <span class="doctext-06">{[version]}</span></h1>
+    <p class="doctext-08">{[description]}</p>
+    <ul class="link-index index">
+        <li><strong>repo:</strong> <a href="{[repository.url]}">{[repository.url|replace:'https://','']}</a></li>
+        <li><strong>bugs:</strong> <a href="{[bugs.url]}">{[bugs.url|replace:'https://','']}</a></li>
+    </ul>
+</template>
+
+<!--
+Header template for start of section
+-->
+
+<template id="title" remove>
+    <h2 class="doctext-02" fn="append:title after:body"></h2>
+</template>
+
+
+<!--
+
+-->
+
+<template id="h2-template" remove>
+    <header class="x-1 4x @1-x-1 @2-x-2">
+        <h2 class="doctext-02">
+            <a href="#{[id]}">
+                <code class="language-js" fn="append:title" style="color: inherit;"></code>
+            </a>
+        </h2>
+    </header>
+
+    <div class="x-1 3x @2-x-2" fn="append:body"></div>
+</template>
+
+<!--
+Template for rendering a documentation entry. Takes:
+
+.property
+.property=value
+attribute=""
+attribute="value"
+-->
+
+<template id="default" remove><span class="default">=<em>{[default]}</em></span></template>
+
+<template id="entry" remove>
+    <article fn="append:body" class="{[type|append:-doc-toggle-block]} doc-toggle-block toggle-block block" toggleable id="{[type]}-{[id]}">
+        <h3 class="doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']} {[prefix|is:'--'|yesno:'cssvar-indent','']}">
+            <a href="#{[type]}-{[id]}">
+                <code fn="prepend:title" class="{[type|is:attribute|yesno:token,'']} {[type|is:property|yesno:property,'']} {[type|is:attribute|yesno:html,js|prepend:language-]}"><template src="{[default|yesno:#default,'']}" remove></template></code>
+            </a>
+        </h3>
+    </article>
+</template>
+
+
+<!--
+Template for rendering CSS entry 
+-->
+
+<template id="css" remove>
+    <h3 fn="get:0 append:title after:body" class="x-4 1x @2-x-4 @2-4x x-start doctext-03 {[prefix|is:'.'|yesno:'dot-indent','']}"></h3>
+
+    <section fn="rest:1 filter-not-var" class="x-1 9x dense 9x-grid grid" style="row-gap: 0.9375rem; grid-auto-flow: column dense; align-content: start;">
+        <template fn="each">
+            <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}">
+                <a href="#{[id]}-description" title="Show HTML markup"><code _fn="title-replace-comma-br" fn="append:title"></code></a>
+            </h4>
+            <div class="@2-x-1 @2-3x x-center y-lastline block" fn="prepend:example" style="max-width: 300px; width: 100%;"></div>
+            <div class="@2-x-6 @2-2x x-stretch block">
+                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable fn="append:body" id="{[id]}-description"></div>
+            </div>
+        </template>
+    </section>
+
+    <!--section fn="rest:1 filter-var" class="x-1 @2-x-5 5x grid" style="grid-auto-flow: row; align-content: start; column-gap: 1em; row-gap: 0.33333333em;">
+        <template fn="each">
+            <label class="x-1 2x x-end y-baseline doctext-05 {[prefix|is:'.'|yesno:'dot-indent','']}" for="doc-var-{[id]}">
+                <code fn="append:title" style="color: #888888;"></code><span style="color: transparent;">:</span>
+            </label>
+            <input class="x-3 1x x-stretch y-baseline doc-var-input pill-input" style="color: #666666;" name="--{[id]}" id="doc-var-{[id]}" type="text" placeholder="value"/>
+            <div class="x-4 2x" style="color: transparent;">;</div>
+        </template>
+    </section-->
+</template>

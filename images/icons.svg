@@ -1,0 +1,17 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-30 -30 60 60" width="60" height="60">
+    <defs>
+        <style>
+            /* Hide icons other than the target */
+            svg > [id]        { display: none; }
+            svg > [id]:target { display: inline; }
+
+            /* Make .fill and .stroke override each other */
+            .fill { stroke: none; stroke-width: 0; }
+            .stroke { stroke: black; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+            .fill { fill: black; }
+        </style>
+    </defs>
+
+    <path id="check" class="stroke" d="M-4,1 L-1,4 L4,-5"></path>
+</svg>

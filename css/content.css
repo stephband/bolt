@@ -1,0 +1,71 @@
+/**
+Before and After.
+**/
+
+.after::after,
+.before::before {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+}
+
+.after::after {
+    margin-left: 0.375rem;
+}
+
+.before::before {
+    margin-right: 0.375rem;
+}
+
+a.after,
+a.before {
+    text-decoration: none;
+}
+
+.thumb.before::before,
+.thumb.after::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/**
+.required-before, .required-after
+**/
+
+.required-before::before,
+.required-after::after {
+    content: '\00a0*';
+    color: var(--red);
+}
+
+
+/**
+.triangle-before, .right-after
+**/
+
+.triangle-before::before,
+.triangle-after::after {
+    content: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">\
+            <style>path{stroke-width:0;fill:currentcolor;}</style>\
+            <path d="M7 4 L11 8 L7 12 Z"></path>\
+        </svg>');
+    vertical-align: -0.1875em;
+}
+
+
+/**
+.right-before, .right-after
+**/
+
+.right-before::before,
+.right-after::after {
+    content: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">\
+            <style>path{stroke:white;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;fill:none;}</style>\
+            <path d="M9 4 L13 8 L9 12 M13 8 L1 8"></path>\
+        </svg>');
+    vertical-align: -0.1875em;
+}

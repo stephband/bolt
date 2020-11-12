@@ -1,116 +1,160 @@
+/**
+Buttons.
+**/
 
 /**
-.button
-
-<a class="button" href="#">Button text</a>
-
-Inline-block with padding and centered text ready to be styled as a button.
-It has no <code>background</code> or <code>border-radius</code> by default.
-Both the <code class="html-tag">button</code> element and the class
-<code>button</code> have this base style. The <code>button</code> class can
-also be used on labels wrapping various form elements.
+.button, button, [type="button"]
 
 ```html
-<a class="button" href="#">Button text</a>
+<button type="button">Button</button>
+<a class="button" href="#buttons">Link</a>
 ```
 **/
 
 button {
-	/* buttons have standard padding that needs to be avoided. */
-	padding-top: 0;
-	padding-bottom: 0;
-	/* And they don't automatically inherit font styles. */
-	font-size: inherit;
-	font-family: inherit;
+    /* And they don't automatically inherit font styles. */
+    font-size: inherit;
+    font-family: inherit;
 
-	-webkit-hyphens: none;
-	   -moz-hyphens: none;
-	    -ms-hyphens: none;
-	        hyphens: none;
+    -ms-hyphens: none;
+        hyphens: none;
 
-	color: inherit;
-	background-color: transparent;
+    color: inherit;
+    background: transparent;
 }
 
 button,
+[type="button"],
 .button {
-	display: inline-block;
-	position: relative;
+    /**
+    --font-size
+    **/
+    --font-size: inherit;
 
-	/* Has it's own stacking context, to prevent icons and masked inputs
-	   overflowing stacks outside the button */
-	z-index: 0;
+    /**
+    --height
+    **/
+    --height: 3rem;
 
-	width: auto;
-	height: auto;
-	/* button elements ignore line-height, centering text automaticaly. */
-	line-height: 2em;
-	padding-left: 0.5625rem;
-	padding-right: 0.5625rem;
-	vertical-align: baseline;
+    /**
+    --line-height
+    **/
+    --line-height: 1.5rem;
 
-	text-overflow: ellipsis;
-	text-align: center;
-	text-decoration: none;
-	/* Overrides default browser style on input type=submit (white-space: pre) */
-	white-space: normal;
+    /**
+    --color
+    **/
+    --color: black;
 
-	background-repeat: no-repeat;
-	border-width: 0;
+    /**
+    --background
+    **/
+    --background: white;
 
-	-webkit-background-clip: padding-box;
-	   -moz-background-clip: padding-box;
-	    -ms-background-clip: padding-box;
-	     -o-background-clip: padding-box;
-	        background-clip: padding-box;
+    /**
+    --border-color
+    **/
+    --border-color: transparent;
 
-	-webkit-background-origin: padding-box;
-	   -moz-background-origin: padding;
-	   -moz-background-origin: padding-box;
-	    -ms-background-origin: padding-box;
-	     -o-background-origin: padding-box;
-	        background-origin: padding-box;
-}
+    /**
+    --border-width
+    **/
+    --border-width: 0.0625rem;
 
-.button:hover,
-.button:focus {
-	/* If button is link, it may have hover styles. */
-	text-decoration: none;
+    /**
+    --border-radius
+    **/
+    --border-radius: 0.3125rem;
+
+    /**
+    --padding-left
+    **/
+    --padding-left: 0.5625em;
+
+    /**
+    --padding-right
+    **/
+    --padding-right: var(--padding-left);
+
+    /* Making buttons a grid helps layout internal icons, and also
+       equalises the baseline of button and a.button elements. */
+    display: inline-block;
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    padding-top: calc(0.5 * (var(--height) - var(--line-height)) - var(--border-width));
+    padding-bottom: calc(0.5 * (var(--height) - var(--line-height)) - var(--border-width));
+    padding-left: var(--padding-left);
+    padding-right: var(--padding-right);
+    width: auto;
+    height: auto;
+    min-height: var(--height);
+    vertical-align: baseline;
+    text-overflow: ellipsis;
+    text-align: center;
+    text-decoration: none;
+
+    /* Override default browser style on input type=submit (white-space: pre) */
+    white-space: normal;
+
+    /* Set buttons up for grid layout. Chrome has a bug that doesn't allow
+       grid layout on <button> elements, so be cautious */
+    grid-auto-flow: column;
+    /* grid-auto-columns: minmax(max-content, 1fr); */
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    /* Has it's own stacking context to prevent absolutely positioned children
+       overflowing stacks outside the button */
+    z-index: 0;
+    background-repeat: no-repeat;
+    background-clip: padding-box;
+    background-origin: padding-box;
+    border-style: solid;
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    transition:
+        background-color 120ms linear,
+        color 120ms linear;
 }
 
 button:hover,
-.button[href]:hover {
-	/* Hover styles for button and [href] */
+button:focus,
+.button:hover,
+.button:focus {
+    /* If button is link, it may have hover styles. */
+    text-decoration: none;
+
+    transition:
+        background-color 80ms linear,
+        color 80ms linear;
 }
 
 button.loading,
 .button.loading {
-	opacity: 0.4;
+    opacity: 0.4;
 }
 
 .button > input[type="radio"],
 .button > input[type="checkbox"] {
-	display: inline;
-	height: auto;
-	vertical-align: baseline;
-	margin-right: 0.5em;
-	/* Stop radio's left edges getting cut off inside buttons. */
-	margin-left: 1px;
+    display: inline;
+    height: auto;
+    vertical-align: baseline;
+    margin-right: 0.5em;
+    /* Stop radio's left edges getting cut off inside buttons. */
+    margin-left: 1px;
 }
 
 
 .button > small:first-child {
-	display: inline-block;
-	margin-right: 0.25em;
+    display: inline-block;
+    margin-right: 0.25em;
 }
 
 /*
 .button > input[type="file"]
-
-<label class="button" for="file-input">
-  Select file...
-  <input type="file" id="file-input" />
-</label>
 
 ```html
 <label class="button" for="file-input">
@@ -125,209 +169,26 @@ no way to display the selected file name if you do this.
 
 .thumb > select,
 .button > input[type="file"],
-.button > input[type="submit"],
-.radio-button > input[type="radio"],
-.checkbox-button > input[type="checkbox"] {
-	position: absolute;
-	display: block;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	width: 100%;
-	height: 100%;
-	padding: 0;
-	margin: 0;
-	border: 0;
-	cursor: pointer;
-	z-index: 2;
+.button > input[type="submit"] {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    cursor: pointer;
+    z-index: 2;
 }
 
 .js .thumb > select,
 .js .button > input[type="file"],
-.js .button > input[type="submit"],
-/*.js .select-button > select,*/
-.js .radio-button > input[type="radio"],
-.js .checkbox-button > input[type="checkbox"] {
-	-webkit-appearance: none;
-	opacity: 0;
+.js .button > input[type="submit"] {
+    -webkit-appearance: none;
+    opacity: 0;
 }
 
-
-/**
-.select-button
-
-<label class="select-button button">
-  <select>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
-  </select>
-</label>
-
-```html
-<label class="select-button button">
-  <select>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
-  </select>
-</label>
-```
-**/
-
-.select-button {
-	display: block;
-	/* There should never be padding on select-button, it's padding should be
-	   managed by the select within. */
-	padding: 0 !important;
-}
-
-.select-button > select {
-	display: block;
-
-	/* This is the native select, we're making everything but the text invisible
-	   so we can see the button styles in the wrapper. */
-	width: calc(100% + 2px);
-	max-width: none;
-	height: calc(100% + 2px);
-	margin: -1px;
-	padding-top: 0;
-	padding-bottom: 0;
-	outline: none;
-	border: 1px solid transparent;
-	border-radius: inherit;
-
-	/* Prefixed box-sizing rules necessary for older browsers */
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-	        box-sizing: border-box;
-}
-
-.select-button::before {
-	content: '';
-	box-sizing: border-box;
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 2.4375rem; /* Match-01 */
-	height: 100%;
-	border-width: 0;
-	border-left-width: inherit;
-	border-style: inherit;
-	border-color: inherit;
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-	border-top-right-radius: inherit;
-	border-bottom-right-radius: inherit;
-	pointer-events: none;
-}
-
-.select-button::after {
-	/* Custom arrow sits on top of the select - could be an image, SVG, icon
-	   font, etc. or the arrow could just baked into the bg image on the select. */
-	content: "";
-	position: absolute;
-	top: 50%;
-	right: 0.875rem;
-	height: 0;
-	margin-top: -3px;
-	border-top: 6px solid currentcolor;
-	border-left: 6px solid rgba(0, 0, 0, 0);
-	border-right: 6px solid rgba(0, 0, 0, 0);
-	-webkit-transition: transform 200ms linear;
-	transition: transform 200ms linear;
-	z-index: 2;
-
-	/* These hacks make the select behind the arrow clickable in some browsers */
-	pointer-events: none;
-	display: none;
-	pointer-events: none;
-}
-
-/* Firefox <= 34 has a false positive on @supports( -moz-appearance: none )
-   @supports ( mask-type: alpha ) is Firefox 35+ */
-@supports ( -webkit-appearance: none )
-	or ( appearance: none )
-	or ( ( -moz-appearance: none ) and ( mask-type: alpha ) ) {
-	/* Show custom arrow */
-	.select-button::after {
-		display: block;
-	}
-
-	/* Remove select styling */
-	.select-button > select {
-		padding-right: 2.4375rem; /* Match-01 */
-		/* inside @supports so that iOS <= 8 display the native arrow */
-		background: none; /* Match-04 */
-		/* inside @supports so that Android <= 4.3 display the native arrow */
-		border-width: 1px; /* Match-05 */
-
-		-webkit-appearance: none;
-		   -moz-appearance: none;
-		        appearance: none;
-	}
-}
-
-/**
-.radio-button
-
-<input class="masked" type="radio" id="radio-2" />
-<label class="radio-button button" for="radio-2">Choose me!</label>
-
-```html
-<input class="masked" type="radio" id="radio-2" />
-<label class="radio-button button" for="radio-2">Choose me!</label>
-```
-**/
-
-/**
-.checkbox-button
-
-<input class="masked" type="checkbox" id="checkbox-2" />
-<label class="checkbox-button button" for="checkbox-2">Choose me!</label>
-
-```html
-<input class="masked" type="checkbox" id="checkbox-2" />
-<label class="checkbox-button button" for="checkbox-2">Choose me!</label>
-```
-**/
-
-.radio-button,
-.checkbox-button {
-	/* A hidden overflow would hide the browser generated error messages.
-	   No no no. Make sure it's visible. */
-	/*overflow: visible;*/
-}
-
-/**
-.toggle-button
-
-<a class="toggle-button button" href="#id">Open</a>
-
-```html
-<a class="toggle-button button" href="#id">Open</a>
-```
-**/
-
-.toggle-button {
-	padding-right: 1.875rem;
-}
-
-.toggle-button::after {
-	content: '';
-	position: absolute;
-	top: 50%;
-	right: 0.75rem;
-	width: 0.5625rem;
-	height: 0.5625rem;
-	border-right: 1px solid currentcolor;
-	border-bottom: 1px solid currentcolor;
-	transform: translate3d(-20%,-50%,0) rotate(-45deg);
-	transition: transform 0.2s linear;
-	margin-top: -0.75rem;
-}
-
-.toggle-button.on::after {
-	transform: translate3d(0,-70.7%,0) rotate(45deg);
-}

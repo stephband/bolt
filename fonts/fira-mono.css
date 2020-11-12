@@ -1,0 +1,30 @@
+
+@font-face{
+    font-family: Fira Mono;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('../fonts/fira-mono/FiraMono-Regular.woff2') format('woff2'),
+         url('../fonts/fira-mono/FiraMono-Regular.woff') format('woff'),
+         url('../fonts/fira-mono/FiraMono-Regular.eot') format('eot');
+}
+
+@font-face{
+    font-family: Fira Mono;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('../fonts/fira-mono/FiraMono-Medium.woff2') format('woff2'),
+         url('../fonts/fira-mono/FiraMono-Medium.woff') format('woff'),
+         url('../fonts/fira-mono/FiraMono-Medium.eot') format('eot');
+}
+
+@font-face{
+    font-family: Fira Mono;
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('../fonts/fira-mono/FiraMono-Bold.woff2') format('woff2'),
+         url('../fonts/fira-mono/FiraMono-Bold.woff') format('woff'),
+         url('../fonts/fira-mono/FiraMono-Bold.eot') format('eot');
+}

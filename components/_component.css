@@ -1,0 +1,36 @@
+
+/**
+.class
+
+```html
+<div class="class"></div>
+```
+**/
+
+.class {
+    /* Style */
+}
+
+.class > .child {
+    /* Layout of dependents */
+}
+
+.class > .child + .child {
+    /* Layout of dependents relative to one another */
+}
+
+* + .class {
+    /* Default spacing */
+    margin-top: 0;
+}
+
+p + .class {
+    /* Sibling-specific spacing */
+    margin-top: 0;
+}
+
+@media (min-width: 30em) {
+    .class {
+        /* Respond */
+    }
+}

@@ -1,257 +1,114 @@
 
 label {
-	max-width: 100%;
-	width: auto;
-	height: auto;
-	line-height: 1.75rem;
-	border: 0;
+    display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+
+    font-size: var(--label-font-size);
+    line-height: var(--label-line-height);
+    color: var(--label-color);
+
+    border: 0;
+    -webkit-tap-highlight-color: transparent;
 }
 
 label[for] {
-	/* Clickable stuff gets a pointer cursor... */
-	cursor: pointer;
+    /* Clickable stuff gets a pointer cursor... */
+    cursor: pointer;
 }
 
 label > [type="checkbox"],
 label > [type="radio"] {
-	/* checkboxes nested inside labels */
-	margin-right: 0.5rem;
-	line-height: inherit;
+    /* checkboxes nested inside labels */
+    margin-right: 0.5rem;
+    line-height: inherit;
 }
 
-* + label,
-fieldset + input,
-fieldset + fieldset {
-	margin-top: 2rem;
+label > .info-thumb {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.625rem;
+    right: 0;
+}
+
+* + label {
+    margin-top: var(--label-margin);
+}
+
+* + fieldset {
+    margin-top: var(--fieldset-margin);
+}
+
+fieldset + input {
+    margin-top: var(--fieldset-input-margin);
 }
 
 .hidden + label {
-	margin-top: 0;
-}
-
-
-/**
-.radio-label
-
-```html
-<input type="radio" class="masked" id="radio-1" />
-<label class="radio-label" for="radio-1">Yes, choose me!</label>
-```
-*/
-
-/**
-.checkbox-label
-
-```html
-<input type="checkbox" class="masked" id="checkbox-1" />
-<label class="checkbox-label" for="checkbox-1">Yes, choose me!</label>
-```
-*/
-
-.radio-label,
-.checkbox-label {
-	position: relative;
-	padding-left: 2.25rem;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-	min-height: 2.5rem;
-	text-align: left;
-}
-
-.right-label {
-	padding-left: 0;
-	padding-right: 3rem;
-}
-
-.radio-label > input,
-.checkbox-label > input {
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-.right-label > input {
-	left: auto;
-	right: 0;
-}
-
-.dialog > .radio-label,
-.dialog > .checkbox-label {
-	display: block;
-}
-
-.radio-label::before,
-.radio-label::after,
-.checkbox-label::before,
-.checkbox-label::after {
-	content: '';
-	position: absolute;
-	top: 0.5625rem;
-	left: 0;
-	margin-top: 0;
-	width: 1.5rem;
-	height: 1.5rem;
-	box-sizing: border-box;
-}
-
-.right-label::before,
-.right-label::after {
-	left: auto;
-	right: 0;
-}
-
-.radio-label::before,
-.checkbox-label::before {
-	background-color: white;
-	border: 1px solid #cccccc;
-}
-
-.radio-label::before {
-	border-radius: 1rem;
-}
-
-.checkbox-label::before,
-.checkbox-label::after {
-	border-radius: 0;
-}
-
-.radio-label::after,
-.checkbox-label::after {
-	display: none;
-}
-
-.masked:checked + .radio-label::after,
-.masked:checked + .checkbox-label::after {
-	display: block;
-}
-
-.radio-label::after {
-	top: 0.9375rem;
-	left: 0.375rem;
-	width: 0.75rem;
-	height: 0.75rem;
-	background-color: currentcolor;
-	border-radius: 0.375rem;
-}
-
-.checkbox-label::after {
-	content: '✓';
-	text-align: center;
-}
-
-.radio-label > input,
-.checkbox-label > input {
-	position: absolute;
-	top: 0;
-	left: 0;
-	opacity: 0;
-	cursor: pointer;
-}
-
-.masked + .checkbox-label,
-.masked + .radio-label {
     margin-top: 0;
 }
 
-/* .yes-radio-label
-   .no-radio-label
-*/
-
-.yes-radio-label::before,
-.no-radio-label::before {
-	border-width: 0;
-	background-color: #7B7B74;
+.error-label,
+.help-label {
+    display: block;
 }
-
-.masked[type="radio"]:checked + .yes-radio-label::before,
-.yes-radio-label:hover::before,
-.yes-radio-label:focus::before {
-	background-color: green;
-	border-color: green;
-}
-
-.masked[type="radio"]:checked + .no-radio-label::before,
-.no-radio-label:hover::before,
-.no-radio-label:focus::before {
-	background-color: #C22820;
-	border-color: #C22820;
-}
-
-.yes-radio-label::after,
-.no-radio-label::after {
-	display: block;
-	top: 0.375rem;
-	left: 0;
-	width: 2rem;
-	height: 2rem;
-	background-color: transparent;
-	background-size: auto;
-}
-
-.yes-radio-label::after {
-	background-position: 5px -394px;
-}
-
-.no-radio-label::after {
-	background-position: 8px -432px;
-}
-
-/**
-.error-label
-**/
-
-/**
-.help-label
-**/
 
 .error-label {
-	color: #d0153e;
+    color: var(--red);
 }
 
-.col-1 + .error-label,  .col-1 + .help-label  { grid-column-start: 1; }
-.col-2 + .error-label,  .col-2 + .help-label  { grid-column-start: 2; }
-.col-3 + .error-label,  .col-3 + .help-label  { grid-column-start: 3; }
-.col-4 + .error-label,  .col-4 + .help-label  { grid-column-start: 4; }
-.col-5 + .error-label,  .col-5 + .help-label  { grid-column-start: 5; }
-.col-6 + .error-label,  .col-6 + .help-label  { grid-column-start: 6; }
-.col-7 + .error-label,  .col-7 + .help-label  { grid-column-start: 7; }
-.col-8 + .error-label,  .col-8 + .help-label  { grid-column-start: 8; }
-.col-9 + .error-label,  .col-9 + .help-label  { grid-column-start: 9; }
-.col-10 + .error-label, .col-10 + .help-label { grid-column-start: 10; }
-.col-11 + .error-label, .col-11 + .help-label { grid-column-start: 11; }
-.col-12 + .error-label, .col-12 + .help-label { grid-column-start: 12; }
+* + .error-label {
+    margin-top: 0.375em;
+}
 
-.span-1 + .error-label,  .span-1 + .help-label  { grid-column-end: span 1; }
-.span-2 + .error-label,  .span-2 + .help-label  { grid-column-end: span 2; }
-.span-3 + .error-label,  .span-3 + .help-label  { grid-column-end: span 3; }
-.span-4 + .error-label,  .span-4 + .help-label  { grid-column-end: span 4; }
-.span-5 + .error-label,  .span-5 + .help-label  { grid-column-end: span 5; }
-.span-6 + .error-label,  .span-6 + .help-label  { grid-column-end: span 6; }
-.span-7 + .error-label,  .span-7 + .help-label  { grid-column-end: span 7; }
-.span-8 + .error-label,  .span-8 + .help-label  { grid-column-end: span 8; }
-.span-9 + .error-label,  .span-9 + .help-label  { grid-column-end: span 9; }
-.span-10 + .error-label, .span-10 + .help-label { grid-column-end: span 10; }
-.span-11 + .error-label, .span-11 + .help-label { grid-column-end: span 11; }
-.span-12 + .error-label, .span-12 + .help-label { grid-column-end: span 12; }
+* + .help-label {
+    margin-top: 0.375em;
+}
 
-.row-1  + .error-label, .row-1  + .help-label { grid-row-start: 1; }
-.row-2  + .error-label, .row-2  + .help-label { grid-row-start: 2; }
-.row-3  + .error-label, .row-3  + .help-label { grid-row-start: 3; }
-.row-4  + .error-label, .row-4  + .help-label { grid-row-start: 4; }
-.row-5  + .error-label, .row-5  + .help-label { grid-row-start: 5; }
-.row-6  + .error-label, .row-6  + .help-label { grid-row-start: 6; }
-.row-7  + .error-label, .row-7  + .help-label { grid-row-start: 7; }
-.row-8  + .error-label, .row-8  + .help-label { grid-row-start: 8; }
-.row-9  + .error-label, .row-9  + .help-label { grid-row-start: 9; }
-.row-10 + .error-label, .row-10 + .help-label { grid-row-start: 10; }
-.row-11 + .error-label, .row-11 + .help-label { grid-row-start: 11; }
-.row-12 + .error-label, .row-12 + .help-label { grid-row-start: 12; }
-.row-13 + .error-label, .row-13 + .help-label { grid-row-start: 13; }
-.row-14 + .error-label, .row-14 + .help-label { grid-row-start: 14; }
-.row-15 + .error-label, .row-15 + .help-label { grid-row-start: 15; }
-.row-16 + .error-label, .row-16 + .help-label { grid-row-start: 16; }
-.row-17 + .error-label, .row-17 + .help-label { grid-row-start: 17; }
-.row-18 + .error-label, .row-18 + .help-label { grid-row-start: 18; }
+.x-1 + .error-label,  .x-1 + .help-label  { grid-column-start: 1; }
+.x-2 + .error-label,  .x-2 + .help-label  { grid-column-start: 2; }
+.x-3 + .error-label,  .x-3 + .help-label  { grid-column-start: 3; }
+.x-4 + .error-label,  .x-4 + .help-label  { grid-column-start: 4; }
+.x-5 + .error-label,  .x-5 + .help-label  { grid-column-start: 5; }
+.x-6 + .error-label,  .x-6 + .help-label  { grid-column-start: 6; }
+.x-7 + .error-label,  .x-7 + .help-label  { grid-column-start: 7; }
+.x-8 + .error-label,  .x-8 + .help-label  { grid-column-start: 8; }
+.x-9 + .error-label,  .x-9 + .help-label  { grid-column-start: 9; }
+.x-10 + .error-label, .x-10 + .help-label { grid-column-start: 10; }
+.x-11 + .error-label, .x-11 + .help-label { grid-column-start: 11; }
+.x-12 + .error-label, .x-12 + .help-label { grid-column-start: 12; }
+
+.1x + .error-label,  .1x + .help-label  { grid-column-end: span 1; }
+.2x + .error-label,  .2x + .help-label  { grid-column-end: span 2; }
+.3x + .error-label,  .3x + .help-label  { grid-column-end: span 3; }
+.4x + .error-label,  .4x + .help-label  { grid-column-end: span 4; }
+.5x + .error-label,  .5x + .help-label  { grid-column-end: span 5; }
+.6x + .error-label,  .6x + .help-label  { grid-column-end: span 6; }
+.7x + .error-label,  .7x + .help-label  { grid-column-end: span 7; }
+.8x + .error-label,  .8x + .help-label  { grid-column-end: span 8; }
+.9x + .error-label,  .9x + .help-label  { grid-column-end: span 9; }
+.10x + .error-label, .10x + .help-label { grid-column-end: span 10; }
+.11x + .error-label, .11x + .help-label { grid-column-end: span 11; }
+.12x + .error-label, .12x + .help-label { grid-column-end: span 12; }
+
+.y-1  + .error-label, .y-1  + .help-label { grid-row-start: 1; }
+.y-2  + .error-label, .y-2  + .help-label { grid-row-start: 2; }
+.y-3  + .error-label, .y-3  + .help-label { grid-row-start: 3; }
+.y-4  + .error-label, .y-4  + .help-label { grid-row-start: 4; }
+.y-5  + .error-label, .y-5  + .help-label { grid-row-start: 5; }
+.y-6  + .error-label, .y-6  + .help-label { grid-row-start: 6; }
+.y-7  + .error-label, .y-7  + .help-label { grid-row-start: 7; }
+.y-8  + .error-label, .y-8  + .help-label { grid-row-start: 8; }
+.y-9  + .error-label, .y-9  + .help-label { grid-row-start: 9; }
+.y-10 + .error-label, .y-10 + .help-label { grid-row-start: 10; }
+.y-11 + .error-label, .y-11 + .help-label { grid-row-start: 11; }
+.y-12 + .error-label, .y-12 + .help-label { grid-row-start: 12; }
+.y-13 + .error-label, .y-13 + .help-label { grid-row-start: 13; }
+.y-14 + .error-label, .y-14 + .help-label { grid-row-start: 14; }
+.y-15 + .error-label, .y-15 + .help-label { grid-row-start: 15; }
+.y-16 + .error-label, .y-16 + .help-label { grid-row-start: 16; }
+.y-17 + .error-label, .y-17 + .help-label { grid-row-start: 17; }
+.y-18 + .error-label, .y-18 + .help-label { grid-row-start: 18; }
 
 .error-label + .help-label {
     /* Hide help while there are errors. Errors disappear when you start

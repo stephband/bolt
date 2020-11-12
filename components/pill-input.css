@@ -1,0 +1,11 @@
+
+.pill-input {
+    font-size: 0.9375rem;
+    font-family: 'Fira Code', monospace;
+    line-height: 1.5rem;
+    letter-spacing: -0.0125em;
+    border-color: #bbb;
+    background-color: #fdfdfd;
+    border-radius: 0.75rem;
+    border-width: 1px;
+}

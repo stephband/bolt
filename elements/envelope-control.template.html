@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <template is="sparky-template" fn="fetch:'../package.json'" src="../templates.html#head"></template>
+
+    <script title="debug" remove>
+        window.DEBUG = true;
+    </script>
+
+    <script title="config">
+        window.customElementStylesheetPath = './';
+    </script>
+
+    <template is="sparky-template" src="../templates.html#nested-style"></template>
+
+    <style>
+        :root {
+            --value-color: blue;
+        }    
+        * + input {
+            margin-top: 3.75rem;
+        }
+    </style>
+</head>
+
+<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
+    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
+        <template is="sparky-template" fn="docs:envelope-control.js filter-type:tag each" src="../templates.html#title"></template>
+    </header>
+
+    <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
+        <envelope-control min="0" max="1" value="0 0.1 step 0.5 1 linear 1 0.3 linear" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="height: 16rem;">Envelope</envelope-control>
+        <input hidden class="button" type="submit" />
+    </form>
+
+    <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+        <h3 class="doctext-03">Attributes</h3>        
+        <template is="sparky-template" fn="docs:attributes.js filter-type:attribute each" src="../templates.html#entry"></template>
+
+        <h3 class="doctext-03">Properties</h3>
+        <template is="sparky-template" fn="docs:attributes.js filter-type:property each" src="../templates.html#entry"></template>
+
+        <h3 class="doctext-03">Events</h3>
+        <template is="sparky-template" fn="docs:attributes.js filter-type:string each" src="../templates.html#entry"></template>
+    </div>
+
+    <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
+        <h3 class="doctext-03">Parts</h3>
+        <template is="sparky-template" fn="docs:control.css filter-type:part each" src="../templates.html#entry"></template>
+
+        <h3 class="doctext-03">Style</h3>
+        <template is="sparky-template" fn="docs:control.css filter-type:var each" src="../templates.html#entry"></template>
+        <template is="sparky-template" fn="docs:range-control.css filter-type:var each" src="../templates.html#entry"></template>
+    </div>
+
+
+
+
+    <!-- Template -->
+    <template id="envelope-control">
+        <link rel="stylesheet" href="/bolt/elements/envelope-control.css" />
+        <label><slot></slot></label>
+        <svg class="envelope-svg" viewBox="0 -1.125 2 1.125" preserveAspectRatio="xMinYMid slice">
+            <defs>
+                <linearGradient id="handle-gradient" x1="0" x2="0" y1="0" y2="1">
+                    <stop class="stop-1" offset="0%"/>
+                    <stop class="stop-2" offset="100%"/>
+                </linearGradient>
+                <line id="y-tick" x1="0" :y1="{[tickValue]}" x2="0.5" :y2="{[tickValue]}"></line>
+                <!--g id="target-gain-control" class="control">
+                    <line class="control-line" :x1="{[0]}" :x2="{[.|sum03]}" :y1="{[valueAtBeat|multiply:-1]}" :y2="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}"></line>
+                    <line class="thin-control-line control-line" :x1="{[0]}" :x2="{[.|sum033333]}" :y1="{[2|multiply:-1]}" :y2="{[2|normalise:linear-logarithmic,0.00390625,1|multiply:-1]}"></line>
+                    <use href="#step-gain-control" x="0" y="0"></use>
+                    <use fn="scope" class="duration-handle" href="#control-handle" :x="{[.|sum03]}" :y="{[2|multiply:-1]}" width="0.075" height="0.075"></use>
+                </g-->
+            </defs>
+            <text text-anchor="end" x="-0.05" y="-0.965" style="font-size: 0.07; fill: #01181e;">0</text>
+            <text text-anchor="end" x="-0.05" y="0.035" style="font-size: 0.07; fill: #01181e;">-∞</text>
+            <!--circle fn="get:value each scope" class="control control-handle control-point" :cx="{[0]}" :cy="{[2|multiply:-1]}" r="0.0375" tabindex="1"></circle-->
+            <!--line fn="get:ticks each" x1="0" :y1="{[tickValue]}" x2="0.5" :y2="{[tickValue]}"></line-->
+        </svg>
+    </template>
+
+
+    <!-- Build document -->
+    <script type="module" src="../build.js" remove></script>    
+
+    <!-- Document interactivity -->
+    <script type="module">
+        import './envelope-control.js';
+        import '../module.js';
+        import '../documentation.js';
+
+        document.addEventListener('input', (e) => console.log(e.type, e));
+        document.addEventListener('change', (e) => console.log(e.type, e));
+    </script>
+</body>

@@ -1,0 +1,58 @@
+/**
+.menu-block, .menu-button
+
+```html
+<div class="menu-block block">
+    <a class="menu-button button" href="#">Menu button</a>
+    <a class="menu-button button" href="#">Menu button</a>
+    <a class="menu-button button" href="#">Menu button</a>
+</div>
+```
+**/
+
+.menu-block {
+    --padding-left: 1.125rem;
+    --padding-right: 1.125rem;
+
+    padding-left: var(--padding-left);
+    padding-right: var(--padding-right);
+}
+
+.menu-block > .menu-button {
+    --padding-left: inherit;
+    --padding-right: inherit;
+
+    margin-left: calc(-1 * var(--padding-left));
+    margin-right: calc(-1 * var(--padding-right));
+}
+
+
+/**
+.menu-index, .menu-button
+
+```html
+<ul class="menu-index index">
+    <li><a class="menu-button button" href="#">Menu button</a></li>
+    <li><a class="menu-button button" href="#">Menu button</a></li>
+    <li><a class="menu-button button" href="#">Menu button</a></li>
+</ul>
+```
+**/
+
+
+/* .menu-button */
+
+.menu-button {
+    display: grid;
+    justify-content: start;
+    justify-items: start;
+    /* If you need this, you need to specify width in .menu-block > .menu-button too */
+    /*width: 100%;*/
+    text-align: left;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.menu-button + .menu-button {
+    border-top: 1px solid var(--border-color);
+}

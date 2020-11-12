@@ -1,0 +1,9 @@
+
+// Warning for generaed files
+
+// $breakpoints: prefix, min-width, grid count, gutter, space
+$breakpoints:
+    ''      0em  6 1.5em 1.5em,
+    '\\@1-' 50em 6 1.5em 1.5em,
+    '\\@2-' 70em 9 2.8125em 1.875em,
+    '\\@3-' 90em 9 3.75em 1.875em !default;

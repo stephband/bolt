@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <template is="sparky-template" fn="fetch:package.json" src="templates.html#head"></template>
+
+    <script title="debug" remove>
+        window.DEBUG = true;
+    </script>
+
+    <template is="sparky-template" src="templates.html#style"></template>
+
+    <style>
+        /* Render some elements visible, just in this styleguide */
+        button:not([type]),
+        [type="button"],
+        .button {
+            background-color: rgba(127, 127, 127, 0.15);
+        }
+        
+        button:not([type]) {
+            font-size: 0.875rem;
+        }
+
+        /* Colour swatch thumbs */
+        .thumb[class$="bg"] {
+            box-shadow: inset 0 0 0 1px currentcolor;
+        }
+    </style>
+
+    <script title="config">
+        window.customElementStylesheetPath = './elements/';
+    </script>
+
+    <style>
+        /* Copied from elements range-control.template.html */
+        range-control {
+            min-width: 9rem; 
+            max-width: 15rem;
+            width: 100%;
+            margin: 0 auto 0 auto;
+        }
+
+        range-control:focus {
+            /* Make sure any recreated focus outline is nullified. */
+            box-shadow: none !important;
+        }
+    
+        * + range-control {
+            margin-top: 1.875rem;
+        }
+
+        /* Copied from elements rotary-control.template.html */
+        rotary-control {
+            min-width: 8rem;
+            max-width: 10rem;
+            margin: 0 auto;
+            /* Nullify focus box-shadow */
+            box-shadow: none !important;
+        }
+    
+        * + rotary-control {
+            margin-top: 1.875rem;
+        }
+
+        rotary-control::part(tick) {
+            background-color: var(--label-color);
+        }
+
+        /* Copied from elements slide-show.template.html */
+        slide-show {
+            background: #cccccc;
+            margin: 0 auto;
+        }
+
+        slide-show::part(prev),
+        slide-show::part(next) {
+            display: none;
+        }
+
+        slide-show > * + * {
+            display: none;
+        }
+
+        slide-show:defined > * + * {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
+    <header class="x-1 3x @1-x-2 @1-4x @2-x-4" id="heade">
+        <template is="sparky-template" fn="fetch:package.json" src="templates.html#header"></template>
+    </header>
+
+    <!--section class="x-1 3x @1-x-2 @2-x-3" id="get-started" locateable>
+        <h2 class="doctext-02">Get started</h2>
+        <p>Build the library, and this documentation.</p>
+        <pre><code>npm install
+npm run build</code></pre>
+
+        <h2 class="doctext-02">Project structure</h2>
+        <h3 class="doctext-05"><code class="current-fg">css/</code></h3>
+        <p>Base classes.</p>
+        <h3 class="doctext-05"><code class="current-fg">components/</code></h3>
+        <p>Components.</p>
+
+        <h2 class="doctext-02">Write a component</h2>
+        <p>Find and duplicate the component template&hellip;</p>
+        <p class="doctext-05"><code class="current-fg">components/_component.css</code></p>
+    </section-->
+
+    <!--header class="grid @1-6-grid @2-9-grid">
+        <h2 class="x-1 x-start y-1 2x @1-x-2 @2-x-3 y-baseline doctext-02">Components</h2>
+        <button type="button" class="x-3 x-end y-1 y-baseline @1-x-4 @2-x-5 doctext-09" name="activate-toggle-blocks" value="#components">Show all</button>
+    </header-->
+
+    <template is="sparky-template" fn="docs: './css/text.css'" src="templates.html#css"></template>
+    <template is="sparky-template" fn="docs: './css/color.css'" src="templates.html#css"></template>
+    <template is="sparky-template" fn="docs:
+        './css/input.css',
+        './css/label.css',
+        './components/check-label.css',
+        './components/switch-label.css',
+        './components/check-button.css',
+        './components/select-button.css',
+        './elements/range-control.css',
+        './elements/rotary-control.css'" src="templates.html#css"></template>
+    <template is="sparky-template" fn="docs:
+        './sass/grid.scss'" src="templates.html#css"></template>
+
+    <!--template is="sparky-template" fn="docs:
+        './css/elements.css',
+        './css/button.css',
+        './components/menu.css',
+        './components/toggle-button.css',
+        './css/thumb.css',
+        './css/index.css',
+        './components/crumbs-index.css',
+        './css/progress.css',
+        './css/table.css',
+        './css/badge.css'" src="templates.html#css"></template-->
+    <!--template is="sparky-template" fn="docs:
+        './css/block.css',
+        './components/slides.css'" src="templates.html#css"></template>
+    <template is="sparky-template" fn="docs:
+        './css/content.css'" src="templates.html#css"></template>
+    <template is="sparky-template" fn="docs:
+        './css/modifiers.css',
+        './sass/respond.scss'" src="templates.html#css"></template-->
+
+    <template is="sparky-template" src="docs/range-control.html"></template>
+    <template is="sparky-template" src="docs/rotary-control.html"></template>
+    <template is="sparky-template" src="docs/slide-show.html"></template>
+
+    <!--section class="x-1 3x @1-6x @2-9x @3-x-2 columns-grid grid" locateable id="attributes">
+        <header class="x-1 3x @1-4x block">
+            <h2 class="doctext-02">Attributes</h2>
+
+            <p>The library has a number of scripts for cheekily extending the
+            default behaviour of DOM elements, declared via 'behaviour'&nbsp;attributes.</p>
+
+            <p>Behaviours may be imported and used before
+            <code class="language-js">'DOMContentLoad'</code>, there are no
+            'setup' functions to run, and elements that are added
+            to the DOM later get to use them&nbsp;automatically.</p>
+
+            <p>No style is given to make these behaviours do anything <i>visual</i>
+            however. Behaviours, largely, add and remove classes, how that <i>looks</i>
+            is up to your CSS. This is deliberate: by seperating style
+            and behaviour many different styles of interactive &mdash;
+            <a href="#example-menu">a menu</a>, <a href="#example-dialog">a dialog</a>,
+            <a href="#example-tooltip">a tooltip</a> &mdash; may share, for example,
+            <code class="language-js">popable</code>&nbsp;behaviour.</p>
+
+            <nav class="menu-toggle-block toggle-block block" popable id="example-menu">
+                <a class="menu-button button" href="#">One</a>
+                <a class="menu-button button" href="#">Two</a>
+                <a class="menu-button button" href="#">Three</a>
+                <a class="menu-button button" href="#">Boo</a>
+            </nav>
+
+            <section class="dialog" popable id="example-dialog">
+                Boo
+            </section>
+
+            <aside class="top-bubble bubble" popable id="example-tooltip">
+                Boo
+            </aside>
+        </header>
+
+        <div class="x-1 y-2 3x @2-4x">
+            <h3 class="doctext-03">Navigate</h3>
+            <template fn="docs:
+                js/locateable.js
+                each" src="/fn/templates.html#attribute-template"></template>
+
+            <h3 class="doctext-03">Hijack</h3>
+            <template fn="docs:
+                js/fullscreenable.js,
+                js/popable.js,
+                js/switchable.js,
+                js/toggleable.js
+                each" src="/fn/templates.html#attribute-template"></template>
+        </div>
+
+        <div class="x-1 y-2 3x @2-x-6 @2-4x">
+            <h3 class="doctext-03">Data</h3>
+            <template fn="docs:
+                js/draggable.js,
+                js/droppable.js
+                each" src="/fn/templates.html#attribute-template"></template>
+            <h3 class="doctext-03">Forms</h3>
+            <template fn="docs:
+                js/submittable.js,
+                js/validateable.js
+                each" src="/fn/templates.html#attribute-template"></template>
+        </div>
+    </section-->
+
+    <!--section class="x-1 3x @1-6x @2-9x @3-x-2 columns-grid grid" locateable id="observer">
+        <header class="x-1 3x @1-4x">
+            <h2 class="doctext-02" style="font-size: 1.875rem;">Events</h2>
+        </header>
+
+        <div class="x-1 3x list-grid grid">
+            <template fn="docs:
+            js/dom-activate.js,
+            js/dom-gesture.js
+            each" src="/fn/templates.html#{[type]}-template"></template>
+        </div>
+    </section-->
+
+    <!-- Build document -->
+    <script type="module" src="./build.js" remove></script>
+
+    <!-- Document interactivity -->
+    <script type="module" src="./elements/range-control.js"></script>
+    <script type="module" src="./elements/rotary-control.js"></script>
+    <script type="module" src="./elements/slide-show.js"></script>
+    <script type="module">
+        import './module.js';
+        import './documentation.js';
+    </script>
+</body>

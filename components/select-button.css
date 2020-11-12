@@ -1,0 +1,119 @@
+
+/**
+.select-button
+
+```html
+<label class="select-button button">
+  <select>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+</label>
+```
+**/
+
+.select-button {
+    display: block;
+    /* There should never be padding on select-button, it's padding should be
+       managed by the select within. */
+    padding: 0 !important;
+
+    color: var(--input-color);
+    border: var(--input-border-width, 1px) solid var(--input-border-color);
+    border-radius: var(--input-border-radius);
+    background: var(--input-background);
+
+    /* Compensate for border */
+    line-height: calc(var(--input-height) - 2 * var(--input-border-width, 1px));
+    min-height: var(--input-height);
+}
+
+.select-button > select {
+    display: block;
+    max-width: none;
+
+    /* This is the native select, we're making everything but the text invisible
+       so we can see the button styles in the wrapper. */
+    width: calc(100% + 2 * var(--input-border-width, 1px));
+    height: calc(100% + 2 * var(--input-border-width, 1px));
+    margin: calc(-1 * var(--input-border-width, 1px));
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: calc(var(--input-padding-left) - var(--input-border-width, 1px));
+    padding-right: calc(var(--input-padding-left) - var(--input-border-width, 1px));
+    outline: none;
+    color: inherit;
+    border: var(--input-border-width, 1px) solid transparent;
+    border-radius: inherit;
+    box-sizing: border-box;
+}
+
+.select-button::before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2.4375rem; /* Match-01 */
+    height: 100%;
+    border-width: 0;
+    border-left-width: inherit;
+    border-style: inherit;
+    border-color: inherit;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: inherit;
+    pointer-events: none;
+}
+
+.select-button::after {
+    /* Custom arrow sits on top of the select - could be an image, SVG, icon
+       font, etc. or the arrow could just baked into the bg image on the select. */
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0.875rem;
+    height: 0;
+    margin-top: -3px;
+    border-top: 6px solid currentcolor;
+    border-left: 6px solid rgba(0, 0, 0, 0);
+    border-right: 6px solid rgba(0, 0, 0, 0);
+    -webkit-transition: transform 200ms linear;
+    transition: transform 200ms linear;
+    z-index: 2;
+
+    /* These hacks make the select behind the arrow clickable in some browsers */
+    pointer-events: none;
+    display: none;
+    pointer-events: none;
+}
+
+/* Firefox <= 34 has a false positive on @supports( -moz-appearance: none )
+   @supports ( mask-type: alpha ) is Firefox 35+ */
+@supports ( -webkit-appearance: none )
+    or ( appearance: none )
+    or ( ( -moz-appearance: none ) and ( mask-type: alpha ) ) {
+    /* Show custom arrow */
+    .select-button::after {
+        display: block;
+    }
+
+    /* Remove select styling */
+    .select-button > select {
+        padding-right: 2.4375rem; /* Match-01 */
+        /* inside @supports so that iOS <= 8 display the native arrow */
+        background: none; /* Match-04 */
+        /* inside @supports so that Android <= 4.3 display the native arrow */
+        border-width: 1px; /* Match-05 */
+
+        -webkit-appearance: none;
+           -moz-appearance: none;
+                appearance: none;
+    }
+}
+
+input + .select-button {
+    margin-top: var(--input-margin);
+}

@@ -1,0 +1,186 @@
+
+@import '../css/html.css';
+@import '../css/thumb.css';
+
+/* .slides-grid */
+
+:host {
+    /** 
+    --slide-duration 
+    Set the duration that a slide is displayed for when the slideshow is in 
+    autoplay mode. May be a CSS time value in `s` or `ms`.
+    **/
+    --slide-duration: 8s;
+
+    /** 
+    --slide-align 
+    Default vertical alignment of slides in their grid cells. (Individual slides 
+    can be aligned normally by applying `align-self`).
+    **/
+    --slide-align: center;
+
+    /** 
+    --slide-justify
+    Default horizontal justification of slides in their grid cells. (Individual 
+    slides can be justified normally by applying `justify-self`).
+    **/
+    --slide-justify: stretch;
+
+    /** 
+    --slide-gap
+    Grid column gap between one slide and the next.
+    **/
+    --slide-gap: 0;
+
+    /** 
+    --link-top
+    Adjusts the vertical position of the list of links. Negative values make it
+    appear over the slides.
+    **/
+    --link-top: -2.25rem;
+
+    /** 
+    --link-gap
+    Adjusts the gap between links.
+    **/
+    --link-gap: 0;
+
+    position: relative;
+    display: grid !important;
+}
+
+:host > .thumb {
+    position: absolute;
+    top: 0;
+    z-index: 3;
+}
+
+:host > .prev-thumb {
+    left: 0;
+}
+
+:host > .next-thumb {
+    right: 0;
+}
+
+:host > nav {
+    grid-row: 2;
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 2;
+    margin-top: var(--link-top);
+}
+
+:host > slot {
+    /* Hide any scroll bar by moving it out of overflow hidden parent */
+    padding-bottom: 0;
+    /* Negative margin-bottom is set in slide-show.js */
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+slot {
+    display: grid;
+    padding: 0;
+    margin: 0;
+
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    grid-auto-rows: min-content;
+    grid-column-gap: var(--slide-gap);
+    align-items: var(--slide-align);
+    justify-items: var(--slide-justify);
+
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    -webkit-scroll-behavior: smooth;
+            scroll-behavior: smooth;
+
+    overflow: scroll;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -ms-overflow-style: none; /* IE 11 */
+    scrollbar-width: none; /* Firefox 64 */
+
+    will-change: -webkit-scroll-behavior;
+    will-change: scroll-behavior;
+}
+
+slot::-webkit-scrollbar {
+    display: none;
+}
+
+slot::slotted(*) {
+    scroll-snap-align: center;
+}
+
+
+/* Nav links */
+
+nav > [part*="link"] + [part*="link"] {
+    margin-left: var(--link-gap);
+}
+
+
+/** 
+::part(prev) 
+Style the 'previous slide' button.
+**/
+
+/** 
+::part(next) 
+Style the 'next slide' button.
+**/
+
+[part="prev"]:not([href]),
+[part="next"]:not([href]) {
+    display: none;
+}
+
+/** 
+::part(link) 
+Style the navigation links.
+**/
+
+[part*="link"] {
+    display: inline-block;
+    position: relative;
+    line-height: 1.25rem;
+    text-indent: 2rem;
+    text-align: left;
+    width: 1.25rem;
+    overflow: hidden;
+    white-space: nowrap;
+    color: inherit;
+}
+
+[part*="link"]::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -0.3125rem;
+    margin-left: -0.3125rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    border: 1px solid currentcolor;
+}
+
+/** 
+::part(active-link) 
+Style the navigation link for the currently active slide.
+**/
+
+[part*="active-link"]::before {
+    background: currentcolor;
+}
+
+
+
+.loading :host {
+    scroll-behavior: auto;
+}

@@ -1,0 +1,56 @@
+/*
+.yes-radio-label
+
+```html
+<input type="radio" class="masked" id="yes-radio-1" />
+<label class="yes-radio-label radio-label" for="yes-radio-1">Yes</label>
+```
+*/
+
+/*
+.no-radio-label
+
+```html
+<input type="radio" class="masked" id="no-radio-1" />
+<label class="no-radio-label radio-label" for="no-radio-1">No</label>
+```
+*/
+
+.yes-radio-label::before,
+.no-radio-label::before {
+	border-width: 0;
+	background-color: #7B7B74;
+}
+
+.masked[type="radio"]:checked + .yes-radio-label::before,
+.yes-radio-label:hover::before,
+.yes-radio-label:focus::before {
+	background-color: green;
+	border-color: green;
+}
+
+.masked[type="radio"]:checked + .no-radio-label::before,
+.no-radio-label:hover::before,
+.no-radio-label:focus::before {
+	background-color: #C22820;
+	border-color: #C22820;
+}
+
+.yes-radio-label::after,
+.no-radio-label::after {
+	display: block;
+	top: 0.375rem;
+	left: 0;
+	width: 2rem;
+	height: 2rem;
+	background-color: transparent;
+	background-size: auto;
+}
+
+.yes-radio-label::after {
+	background-position: 5px -394px;
+}
+
+.no-radio-label::after {
+	background-position: 8px -432px;
+}

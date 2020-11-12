@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head build-fn="fetch:'../package.json'">
+    <template build-src="../../fn/templates.html#head-template"></template>
+
+    <script build-remove title="debug">
+    window.DEBUG = true;
+    </script>
+
+    <link rel="stylesheet" href="../style.min.css" />
+
+    <link rel="stylesheet" href="../../dom/css/dom.css" />
+    <link rel="stylesheet" href="../../fn/css/prism-cruncher.css" />
+    <link rel="stylesheet" href="../../fn/css/tests.css" />
+    <link rel="stylesheet" href="../../fn/css/docs.css" />
+    <link rel="stylesheet" href="../../fn/css/respond.css" />
+
+    <style>
+        minmax-control {
+            --focus-shadow: none;
+        }
+    </style>
+</head>
+
+<body class="grid 6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
+    <header class="x-1 3x @1-x-2 @1-4x @2-x-3" id="header">
+        <template build-fn="fetch:'../package.json'" build-src="../../fn/templates.html#header-template"></template>
+    </header>
+
+    <minmax-control class="x-2 4x @1-x-2 @2-2x @2-x-3 y-center x-stretch @1-x-center" min="-1" max="1" name="range" ticks="-1 -0.5 0 0.5 1" value="-0.5,0.5" style="min-width: 15rem; max-width: 20rem;">Range</minmax-control>
+
+    <!-- Build document -->
+    <script type="module" src="../../fn/docs-build.js" build-remove></script>
+
+    <!-- Custom elements -->
+    <template id="minmax-control">
+        <link rel="stylesheet" href="./minmax-control.css" />
+        <label for="input-1"><slot></slot></label>
+        <input type="range" id="input-1" name="unit-value-1" :value="{[unitValue1]}" min="0" max="1" step="any" />
+        <input type="range" id="input-0" name="unit-value-0" :value="{[unitValue0]}" min="0" max="1" step="any" />
+        <output>{[displayValue0]} {[displayValue1]}</output>
+        <button class="tick" fn="get:ticks each" name="unit-value" value="{[tickValue|float-string]}" :style="left: calc((0.5 * var(--handle-width) - var(--bleed)) + {[tickValue]} * (100% + 2 * var(--bleed) - var(--handle-width)));">{[displayValue]}</button>
+    </template>
+
+    <script type="module" src="./minmax-control.js"></script>
+
+    <!-- Document interactivity -->
+    <script type="module">
+        import '../module.js';
+        import '../documentation.js';
+    </script>
+</body>

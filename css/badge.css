@@ -1,25 +1,52 @@
 /**
+Badges.
+**/
+
+/**
 .badge
+
+```html
+<span class="badge">3</span>
+```
 **/
 
 .badge {
-    font-size: 0.75rem;
-    line-height: 1.2em;
-    min-width: 1.2em;
-    padding: 0;
-    padding-left: 0.3125em;
-    padding-right: 0.3125em;
+    display: inline-block;
+    font-size: var(--badge-font-size);
+    line-height: var(--badge-width);
+    min-width: var(--badge-width);
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
     text-align: center;
     white-space: nowrap;
     color: white;
-    background-color: black;
-    border-radius: 1rem;
+    background: var(--badge-background);
+    border-radius: calc(0.5 * var(--badge-width));
 }
 
-* > .badge {
+.thumb > .badge {
     position: absolute;
     top: 0;
     right: 0;
     margin-top: -0.6em;
     margin-right: -0.6em;
+}
+
+:root {
+    /**
+    --badge-font-size
+    **/
+    --badge-font-size: 0.75rem;
+
+    /**
+    --badge-width
+    **/
+    --badge-width: 1.5em;
+
+    /**
+    --badge-background
+    **/
+    --badge-background: black;
 }

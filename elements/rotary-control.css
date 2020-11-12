@@ -1,0 +1,244 @@
+
+@import './control.css';
+
+:host {
+    --unit-value: 0;
+    --unit-zero: 0;
+
+    /** --handle-width **/
+    --handle-width: calc(100% - 2 * 0.1875rem - 4 * 0.5625rem - 1.25rem);
+
+    /** --handle-shadow **/
+    --handle-shadow: 0 0.1875rem 0.375rem 0 rgba(0, 0, 0, 0.2);
+
+    /** --track-width **/
+    --track-width:  calc(var(--handle-width) + 0.75rem);
+    
+    /** --track-background **/
+    /* Draw a rotational gradient that acts as a 'progress' fill from 0 to value */
+    --track-background: conic-gradient(
+        from calc(180deg + var(--rotation-start)),
+        #ffffff 0deg,
+        #ffffff calc(min(var(--unit-value), var(--unit-zero)) * var(--rotation-range)),
+        var(--value-color) calc(min(var(--unit-value), var(--unit-zero)) * var(--rotation-range)),
+        var(--value-color) calc(max(var(--unit-value), var(--unit-zero)) * var(--rotation-range)),
+        #ffffff calc(max(var(--unit-value), var(--unit-zero)) * var(--rotation-range))
+    );
+    
+    /** --track-shadow **/
+    --track-shadow: inset 0 0.25rem 0.5rem rgba(0, 0, 0, 0.24);
+
+    /**
+    --rotation-start
+    Angle (clockwise from south) at which to start rotational travel.
+    **/
+    --rotation-start: 30deg;
+
+    /**
+    --rotation-range
+    Angle (clockwise from south) through which handle travels.
+    **/
+    --rotation-range: 300deg;
+
+    /**
+    --touch-range
+    Vertical distance of mouse or touch movement that results in one 
+    full range of rotation of the handle.
+    **/
+    --touch-range: 15rem;
+
+    --handle-dot-width: 0.3125rem;
+    --handle-dot-height: var(--handle-dot-width);
+    --handle-dot-distance: calc(50% - 0.5rem);
+    --handle-dot-background: #46789a;
+    --handle-dot-border: none;
+    --handle-dot-shadow: none;
+
+    --focus-shadow: inset 0 0 0.9375rem hsla(200, 100%, 80%, 0.4);
+
+    position: relative;
+    display: grid;
+    padding: 0;
+
+    grid-template-areas:
+        'handle handle'
+        'label plugs';
+    grid-template-columns: 1fr min-content;
+    grid-row-gap: 0.375rem;
+
+    /*grid-template-rows: calc(2 * var(--tick-distance) + 2 * var(--tick-width) + 2 * var(--tick-line-height)) min-content;*/
+    align-items: center;
+    justify-items: center;
+    align-content: start;
+    justify-content: center;
+}
+
+:host(:focus) {
+    --value-color: #75ebff;
+    --output-color: white;
+    --handle-background: #46789a;
+    --handle-border: 1px solid #46789a;
+    --handle-dot-background: white;
+    --tick-color: #46789a;
+    --tick-background: #46789a;
+
+    /* Nullify simulated focus style. */
+    outline-width: 0 !important;
+    box-shadow: none !important;
+}
+
+:host::before {
+    content: '';
+    grid-area: handle;
+    width: var(--track-width);
+    height: 0;
+    padding-top: var(--track-width);
+    box-shadow: var(--track-shadow);
+    background: var(--track-background);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+:host(:focus)::before {
+    box-shadow:
+        var(--focus-shadow),
+        var(--track-shadow);
+}
+
+:host::after {
+    content: '';
+    grid-area: handle;
+    width: var(--handle-width);
+    height: 0;
+    padding-top: var(--handle-width);
+    box-shadow: var(--handle-shadow);
+    background: var(--handle-background);
+    border: var(--handle-border);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+:host > .handle {
+    grid-area: handle;
+    z-index: 2;
+}
+
+:host > button[name="unit-value"] {
+    grid-area: handle;
+    outline-width: 0;
+    z-index: 1;
+    transform: rotate3d(0, 0, 1, calc(var(--rotation-start) + var(--unit-value) * var(--rotation-range)));
+}
+
+:host > button[name="unit-value"] > span {
+    transform: translate3d(-50%, 0, 0) rotate3d(0, 0, 1, calc(-1 * (var(--rotation-start) + var(--unit-value) * var(--rotation-range)))) translate3d(calc(var(--unit-value) * 6.28318531 /*|sin*/ * -33%), 0, 0);
+}
+
+:host > label {
+    grid-area: label;
+    text-align: center;
+}
+
+:host > output {
+    grid-area: handle;
+    pointer-events: none;
+    z-index: 2;
+}
+
+
+/* label */
+
+[part="label"] {
+    align-self: start;
+}
+
+
+/* output */
+
+[part="output"] {
+    width: var(--handle-width);
+    text-align: center;
+}
+
+:host(:focus) > [part="output"] {
+    color: white;
+}
+
+
+/* knob */
+
+.handle {
+    cursor: pointer;
+    cursor: ns-resize;
+    width: var(--handle-width);
+    height: 0;
+    padding-top: calc(var(--handle-width) - 2px);
+    background: transparent;/*var(--handle-background);*/
+    border: 0;
+    border-radius: 50%;
+    transform: rotate3d(0, 0, 1, calc(var(--rotation-start) + var(--unit-value) * var(--rotation-range)));
+    
+    /* Disable scroll */
+    touch-action: none;
+    -webkit-touch-action:  none;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version */
+}
+
+.handle::after {
+    content: '';
+    position: absolute;
+    width: var(--handle-dot-width);
+    height: var(--handle-dot-height);
+    left: 50%;
+    top: calc(50% + var(--handle-dot-distance));
+    transform: translate3d(-50%, 0, 0);
+    border-radius: 50%;
+    background-color: var(--handle-dot-background);
+    border: var(--handle-dot-border);
+    box-shadow: var(--handle-dot-shadow);
+}
+
+
+/* tick */
+
+[part="tick"] {
+    --tick-radius: calc(0.5 * var(--handle-width) + 0.625rem);
+    --tick-line-height: 0.9375rem;
+    --tick-height: 0.1875rem;
+
+    padding: calc(2 * var(--tick-radius) + var(--tick-line-height) + var(--tick-height)) 0 0 0;
+    width: 0;
+    box-sizing: content-box;
+    height: auto;
+    transform-origin: 50% 50%;
+    color: currentcolor;
+}
+
+[part="tick"]::before {
+    content: '';
+    display: block;
+    width: 0.1875rem;
+    height: 0.1875rem;
+    background: currentcolor;
+    border-radius: 50%;
+    transform: translate3d(-50%, 0, 0);
+}
+
+[part="tick"]::after {
+    content: none;
+}
+
+[part="tick"] > span {
+    /* Required for transform */
+    display: inline-block;
+    width: auto;
+
+    /* Register the start of the text right in the centre of the tick so that
+       when it is transformed back it is perfectly centred. */
+    margin-left: 50%;
+    transform-origin: 50% 50%;
+}

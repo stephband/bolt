@@ -1,4 +1,8 @@
 
+/**
+Modifiers.
+**/
+
 /*
 .active
 Modify a two-state component to represent active state.
@@ -141,23 +145,6 @@ Hide an element when not in fullscreen mode.
 	display: none !important;
 }
 
-/**
-.masked
-**/
-
-.masked {
-	display: inline-block !important;
-	position: absolute !important;
-	opacity: 0 !important;
-
-	/* Width and height 0 cause browser validation bubbles to dissappear. */
-	width: 1px !important;
-	height: 1px !important;
-
-	/* Position it so that the validation message appears in the correct place */
-	margin-top: 2.5rem !important;
-	margin-left: 0.75rem !important;
-}
 
 /**
 .disabled
@@ -208,12 +195,28 @@ Add <code>::after</code> content representing a loading animation.
 }
 
 /**
+.no-select
+Prohibit user selection.
+**/
+
+.no-select {
+	-webkit-touch-callout: none !important;
+	  -webkit-user-select: none !important;
+	      -ms-user-select: none !important;
+	          user-select: none !important;
+}
+
+/**
 .no-transition
 Cancel transitions on an element and all descendents.
 **/
 
 .no-transition,
-.no-transition * {
+.no-transition *,
+.no-transition::before,
+.no-transition::after,
+.no-transition *::before,
+.no-transition *::after {
 	-webkit-transition: none !important;
 	   -moz-transition: none !important;
 	     -o-transition: all 0 linear 0 !important;
@@ -401,6 +404,11 @@ sed souvent suckum in internet explorum.
 </pre>
 ```
 */
+
+.hidden-scroll {
+    -ms-overflow-style: none; /* IE 11 */
+    scrollbar-width: none; /* Firefox 64 */
+}
 
 .hidden-scroll::-webkit-scrollbar {
 	display: none;

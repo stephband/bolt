@@ -1,0 +1,164 @@
+
+/**
+.switch-label
+
+```html
+<input class="masked" type="checkbox" value="something" id="switch-input" />
+<label class="switch-label" for="switch-input">Turn me on</label>
+```
+
+To make switches swipeable:
+
+```js
+import './components/switch-label.js';
+```
+**/
+
+.switch-label {
+    /** --handle-width **/
+    --handle-width: 1.5rem;
+      
+    /** --handle-shadow **/
+    --handle-shadow: 0 0.125rem 0.25rem 0.0625rem rgba(0,0,0,0.25);
+
+    /** --track-background **/
+    /* --track-background: #eeeeee; */
+
+    /** --track-width **/
+    --track-width: 3.1875em;
+
+    /** --track-height **/
+    --track-height: 1.875rem;
+
+    /** --track-shadow **/
+    --track-shadow: inset 0 0.125rem 0.5em rgba(0,0,0,0.2);
+
+    /** --track-border **/
+    /*--track-border: none;*/
+
+    display: block;
+    position: relative;
+    font-size: var(--check-font-size);
+    line-height: var(--check-line-height);
+    font-weight: inherit;
+    padding-left: calc(var(--track-width) + 1em);
+    padding-top: calc(0.5 * (var(--input-height) - var(--check-line-height)));
+    padding-bottom: calc(0.5 * (var(--input-height) - var(--check-line-height)));
+    min-height: var(--input-height);
+    color: inherit;
+}
+
+:checked + .switch-label {
+    --track-background: #46789a;
+    /*--track-border:;*/
+    /*--track-shadow:;*/
+    --handle-background: white;
+}
+
+.switch-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: var(--track-width);
+    height: var(--track-height);
+    padding: 0;
+    overflow: hidden;
+    background: var(--track-background);
+    /* Border for the outline  renders much more reliably than box-shadow
+       in Safari, as it is constrained to whole px values */
+    border: var(--track-border);
+    border-radius: calc(0.5 * var(--track-height));
+    box-shadow: var(--track-shadow);
+    transition: background 0.16s linear;
+}
+
+.switch-label::after {
+    content: '';
+    position: absolute;
+    width: var(--handle-width);
+    height: var(--handle-width);
+    top: 50%;
+    left: 0;
+    transform: translate(
+        calc(0.5 * var(--track-height) - 0.5 * var(--handle-width)),
+        -50%
+    );
+    border: var(--handle-border);
+    border-radius: 50%;
+    background-color: var(--handle-background);
+    box-shadow: var(--handle-shadow);
+    transition:
+        0.16s background linear,
+        0.16s transform ease-out;
+}
+
+:checked + .switch-label::after {
+    transform: translate(
+        calc(var(--track-width) - 0.5 * var(--track-height) - 0.5 * var(--handle-width)),
+        -50%
+    );
+}
+
+:disabled + .switch-label {
+   opacity: 0.6
+}
+
+:focus + .switch-label::before{
+    border-color: var(--focus-border-color);
+    box-shadow: var(--focus-shadow);
+}
+
+.switch-label.gesturing::after {
+    /* Enables swipe interaction when switch-label.js is included */
+    transition: none;
+    transform:
+        translate(calc(0.5 * var(--track-height) - 0.5 * var(--handle-width) + var(--handle-gesture-x) * (
+            var(--track-width) - var(--track-height)
+        )), -50%);
+}
+
+.switch-label + label {
+    margin-top: 0.625em;
+}
+
+.masked + .switch-label {
+    margin-top: 0;
+}
+
+* + .masked + .switch-label {
+    margin-top: 1em;
+}
+
+.radio-label + .masked + .switch-label,
+.switch-label + .masked + .switch-label
+.check-label + .masked + .switch-label {
+    margin-top: 0.33333333em;
+}
+
+
+/**
+.right-switch-label
+
+```html
+<input class="masked" type="checkbox" value="something" id="switch-input-2" />
+<label class="right-switch-label switch-label" for="switch-input-2">Turn me on</label>
+```
+**/
+
+.right-switch-label {
+    padding-left: 0;
+    padding-right: calc(var(--track-width) + 1em);
+}
+
+.right-switch-label::before {
+    left: auto;
+    right: 0;
+}
+
+.right-switch-label::after {
+    left: auto;
+    right: calc(var(--track-width) - var(--handle-width));
+}
+
