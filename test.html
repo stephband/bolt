@@ -1,6 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head></head>
+<head>
+    <!--template is="sparky-template" fn="fetch:package.json" src="templates.html#head"></template-->
+
+    <script title="debug" remove>
+        window.DEBUG = true;
+    </script>
+
+    <link rel="stylesheet" href="style.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../fn/css/prism-cruncher.css" />
+    <link rel="stylesheet" href="../fn/css/tests.css" />
+    <link rel="stylesheet" href="documentation.css" />
+    <link rel="stylesheet" href="../fn/css/respond.css" />
+    
+    <style>
+        /* Render some elements visible, just in this styleguide */
+        button:not([type]),
+        [type="button"],
+        .button {
+            background-color: rgba(127, 127, 127, 0.15);
+        }
+        
+        button:not([type]) {
+            font-size: 0.875rem;
+        }
+    
+        /* Colour swatch thumbs */
+        .thumb[class$="bg"] {
+            box-shadow: inset 0 0 0 1px currentcolor;
+        }
+    </style>
+    
+    <script title="config">
+        window.customElementStylesheetPath = './elements/';
+    </script>
+    
+    <style>
+        /* Copied from elements range-control.template.html */
+        range-control {
+            min-width: 9rem; 
+            max-width: 15rem;
+            width: 100%;
+            margin: 0 auto 0 auto;
+        }
+    
+        range-control:focus {
+            /* Make sure any recreated focus outline is nullified. */
+            box-shadow: none !important;
+        }
+    
+        * + range-control {
+            margin-top: 1.875rem;
+        }
+    
+        /* Copied from elements rotary-control.template.html */
+        rotary-control {
+            min-width: 8rem;
+            max-width: 10rem;
+            margin: 0 auto;
+            /* Nullify focus box-shadow */
+            box-shadow: none !important;
+        }
+    
+        * + rotary-control {
+            margin-top: 1.875rem;
+        }
+    
+        rotary-control::part(tick) {
+            background-color: var(--label-color);
+        }
+    
+        /* Copied from elements slide-show.template.html */
+        slide-show {
+            background: #cccccc;
+            margin: 0 auto;
+        }
+    
+        slide-show::part(prev),
+        slide-show::part(next) {
+            display: none;
+        }
+    
+        slide-show > * + * {
+            display: none;
+        }
+    
+        slide-show:defined > * + * {
+            display: block;
+        }
+    </style>
+</head>
+
 <body>
     
     
@@ -10,125 +101,133 @@
     
     <section class="x-1 9x dense 9x-grid grid" style="row-gap: 0.9375rem; grid-auto-flow: column dense; align-content: start;">
         
-            <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
-                <a href="#h1-text-01-description" title="Show HTML markup"><code>h1, .text-01</code></a>
-            </h4>
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#h1-text-01-description" title="Show HTML markup"><code>h1, .text-01</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-01">Crunchum ipsum</p></div>
         
-            <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-01">Crunchum ipsum</p></div>
-            
-            <div class="@2-x-6 @2-2x x-stretch block">
-                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="h1-text-01-description">
-                    <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-01<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
-        
-                </div>
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="h1-text-01-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-01<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
             </div>
-            
-            <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
-                <a href="#h2-text-02-description" title="Show HTML markup"><code>h2, .text-02</code></a>
-            </h4>
+        </div>
         
-            <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-02">Crunchum ipsum dolor sit coder void</p></div>
-            
-            <div class="@2-x-6 @2-2x x-stretch block">
-                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="h2-text-02-description">
-                    <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-02<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#h2-text-02-description" title="Show HTML markup"><code>h2, .text-02</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-02">Crunchum ipsum dolor sit coder void</p></div>
         
-                </div>
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="h2-text-02-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-02<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
             </div>
-            
-            <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
-                <a href="#h3-text-03-description" title="Show HTML markup"><code>h3, .text-03</code></a>
-            </h4>
+        </div>
         
-            <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-03">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p></div>
-            
-            <div class="@2-x-6 @2-2x x-stretch block">
-                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="h3-text-03-description">
-                    <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-03<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#h3-text-03-description" title="Show HTML markup"><code>h3, .text-03</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-03">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop</p></div>
         
-                </div>
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="h3-text-03-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-03<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
             </div>
-            
-            <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
-                <a href="#h4-text-04-description" title="Show HTML markup"><code>h4, .text-04</code></a>
-            </h4>
+        </div>
         
-            <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-04">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
-            
-            <div class="@2-x-6 @2-2x x-stretch block">
-                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="h4-text-04-description">
-                    <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-04<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#h4-text-04-description" title="Show HTML markup"><code>h4, .text-04</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-04">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
         
-                </div>
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="h4-text-04-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-04<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
             </div>
-            
-            <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
-                <a href="#h5-text-05-description" title="Show HTML markup"><code>h5, .text-05</code></a>
-            </h4>
+        </div>
         
-            <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-05">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
-            
-            <div class="@2-x-6 @2-2x x-stretch block">
-                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="h5-text-05-description">
-                    <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-05<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#h5-text-05-description" title="Show HTML markup"><code>h5, .text-05</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-05">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
         
-                </div>
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="h5-text-05-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-05<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
             </div>
-            
-            <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
-                <a href="#h6-text-06-description" title="Show HTML markup"><code>h6, .text-06</code></a>
-            </h4>
+        </div>
         
-            <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-06">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
-            
-            <div class="@2-x-6 @2-2x x-stretch block">
-                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="h6-text-06-description">
-                    <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-06<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#h6-text-06-description" title="Show HTML markup"><code>h6, .text-06</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-06">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
         
-                </div>
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="h6-text-06-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-06<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
             </div>
-            
-            <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
-                <a href="#code-text-07-description" title="Show HTML markup"><code>code, .text-07</code></a>
-            </h4>
+        </div>
         
-            <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-07">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
-            
-            <div class="@2-x-6 @2-2x x-stretch block">
-                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="code-text-07-description">
-                    <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-07<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#code-text-07-description" title="Show HTML markup"><code>code, .text-07</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-07">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.</p></div>
         
-                </div>
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="code-text-07-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-07<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
             </div>
-            
-            <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
-                <a href="#body-text-08-description" title="Show HTML markup"><code>body, .text-08</code></a>
-            </h4>
+        </div>
         
-            <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-08">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
-        <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p></div>
-            
-            <div class="@2-x-6 @2-2x x-stretch block">
-                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="body-text-08-description">
-                    <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-08<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#body-text-08-description" title="Show HTML markup"><code>body, .text-08</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-08">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p>
+    <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p></div>
         
-                </div>
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="body-text-08-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-08<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
             </div>
-            
-            <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
-                <a href="#text-09-description" title="Show HTML markup"><code>.text-09</code></a>
-            </h4>
+        </div>
         
-            <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-09">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p></div>
-            
-            <div class="@2-x-6 @2-2x x-stretch block">
-                <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="text-09-description">
-                    <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-09<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#text-09-description" title="Show HTML markup"><code>.text-09</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="text-09">Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.</p></div>
         
-                </div>
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="text-09-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-09<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
             </div>
-            
+        </div>
+        
     </section>
     
+
+    <script type="module" src="./elements/range-control.js"></script>
+    <script type="module" src="./elements/rotary-control.js"></script>
+    <script type="module" src="./elements/slide-show.js"></script>
+    <script type="module">
+        import './module.js';
+        import './documentation.js';
+    </script>
 </body>

@@ -1,6 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head></head>
+<head>
+    <!--template is="sparky-template" fn="fetch:package.json" src="templates.html#head"></template-->
+
+    <script title="debug" remove>
+        window.DEBUG = true;
+    </script>
+
+    {% include templates/style.html %}
+    
+    <style>
+        /* Render some elements visible, just in this styleguide */
+        button:not([type]),
+        [type="button"],
+        .button {
+            background-color: rgba(127, 127, 127, 0.15);
+        }
+        
+        button:not([type]) {
+            font-size: 0.875rem;
+        }
+    
+        /* Colour swatch thumbs */
+        .thumb[class$="bg"] {
+            box-shadow: inset 0 0 0 1px currentcolor;
+        }
+    </style>
+    
+    <script title="config">
+        window.customElementStylesheetPath = './elements/';
+    </script>
+    
+    <style>
+        /* Copied from elements range-control.template.html */
+        range-control {
+            min-width: 9rem; 
+            max-width: 15rem;
+            width: 100%;
+            margin: 0 auto 0 auto;
+        }
+    
+        range-control:focus {
+            /* Make sure any recreated focus outline is nullified. */
+            box-shadow: none !important;
+        }
+    
+        * + range-control {
+            margin-top: 1.875rem;
+        }
+    
+        /* Copied from elements rotary-control.template.html */
+        rotary-control {
+            min-width: 8rem;
+            max-width: 10rem;
+            margin: 0 auto;
+            /* Nullify focus box-shadow */
+            box-shadow: none !important;
+        }
+    
+        * + rotary-control {
+            margin-top: 1.875rem;
+        }
+    
+        rotary-control::part(tick) {
+            background-color: var(--label-color);
+        }
+    
+        /* Copied from elements slide-show.template.html */
+        slide-show {
+            background: #cccccc;
+            margin: 0 auto;
+        }
+    
+        slide-show::part(prev),
+        slide-show::part(next) {
+            display: none;
+        }
+    
+        slide-show > * + * {
+            display: none;
+        }
+    
+        slide-show:defined > * + * {
+            display: block;
+        }
+    </style>
+</head>
+
 <body>
     {% docs templates/css.html from ./css/text.css %}
+
+    <script type="module" src="./elements/range-control.js"></script>
+    <script type="module" src="./elements/rotary-control.js"></script>
+    <script type="module" src="./elements/slide-show.js"></script>
+    <script type="module">
+        import './module.js';
+        import './documentation.js';
+    </script>
 </body>
