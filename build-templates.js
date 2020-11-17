@@ -4,9 +4,9 @@ Find html template files and build them.
 */
 
 // Import
-const finder    = require('findit');
-const pather    = require('path');
-const processes = require('child_process');
+import finder    from 'findit';
+import pather    from 'path';
+import processes from 'child_process';
 
 // Log colours
 const cyan = "\x1b[36m%s\x1b[0m";
@@ -39,8 +39,8 @@ finder(base)
     }
 })
 .on('file', function (source, stat) {
-    // Ignore files that do not match ...template.html
-    const parts  = /(.*\/)?([^\s\/]+)\.template\.html$/.exec(source);
+    // Ignore files that do not match *.html.template
+    const parts  = /(.*\/)?([^\s\/]+)\.html\.template$/.exec(source);
     if (!parts) {
         return;
     }
@@ -52,8 +52,8 @@ finder(base)
 
     // Build source template to target path
     processes
-    // build-fn [source.html, target.html, timeout (seconds), port]
-    .fork('../fn/build-html.js', [source, target, 3, port++])
+    // build [source.html, target.html, timeout (seconds), port]
+    .fork('./build.js', [source, target, 3, port++])
     .on('error', console.log)
     .on('exit', function(code, error) {
         if (code !== 0) {
