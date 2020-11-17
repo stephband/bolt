@@ -4,7 +4,8 @@
 {% end %}
 
 {% with .|rest:1 %}
-<section class="x-1 9x dense 9x-grid grid" style="row-gap: 0.9375rem; grid-auto-flow: column dense; align-content: start;">{% each %}
+<section class="x-1 9x dense 9x-grid grid" style="row-gap: 0.9375rem; grid-auto-flow: column dense; align-content: start;">
+    {% each %}
     <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 {{prefix|is:'.'|yesno:'dot-indent',''}}">
         <a href="#{{id}}-description" title="Show HTML markup"><code>{{title}}</code></a>
     </h4>

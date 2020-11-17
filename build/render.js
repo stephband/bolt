@@ -40,6 +40,7 @@ const renderToken = overload(get('type'), {
                     .then((comments) =>  renderTree(tree, comments))
                 ))
                 .then(join)
+                // Render includes at the tag's indentation
                 .then((html) => html.replace(/\n/g, '\n' + token.indent))
             );
         },
@@ -56,7 +57,9 @@ const renderToken = overload(get('type'), {
             const path = token.src.replace(/#.*$/, '');
             return request(path)
             .then(parseTemplate)
-            .then((tree) => renderTree(tree, data));
+            .then((tree) => renderTree(tree, data))
+            // Render includes at the tag's indentation
+            .then((html) => html.replace(/\n/g, '\n' + token.indent));
         },
 
         'with': function docs(token, scope) {
