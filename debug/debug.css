@@ -99,7 +99,7 @@ blockquote:empty::before { content: '<blockquote>'; }
 img,
 video,
 .thumb {
-    background-image: url('/static/bolt/images/wireframe-bg.svg');
+    background-image: url('/static/bolt/images/wireframe.svg');
     background-size: 100% 100%;
 }
 
