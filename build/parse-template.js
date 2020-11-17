@@ -1,14 +1,19 @@
 
-/*
+/**
 Parse template
-*/
+**/
 
-import capture from '../../fn/modules/capture.js';
-import id from '../../fn/modules/id.js';
-import last from '../../fn/modules/lists/last.js';
-import noop from '../../fn/modules/noop.js';
-import nothing from '../../fn/modules/nothing.js';
+import capture  from '../../fn/modules/capture.js';
+import id       from '../../fn/modules/id.js';
+import last     from '../../fn/modules/lists/last.js';
+import noop     from '../../fn/modules/noop.js';
+import nothing  from '../../fn/modules/nothing.js';
 import overload from '../../fn/modules/overload.js';
+import pipe     from '../../fn/modules/pipe.js';
+
+import { transforms, transformers } from '../../sparky/modules/transforms.js';
+
+const assign = Object.assign;
 
 
 /** 
@@ -43,108 +48,205 @@ function parseStrings(input) {
 }
 
 
-/** 
-parseToken(string)
+
+/**
+createTransform(pipes)
+Create a transform function from an array of pipe tokens.
 **/
 
-//         {%     {{    
-const parseTag = capture(/(\{(?:\%|\{|#))\s*/, {
+function getTransform(name) {
+    return transformers[name] ?
+        transformers[name].tx :
+        transforms[name] ;
+}
+
+export function createTransform(pipes) {
+    const fns = pipes.map((data) => {
+        // Look in global pipes first
+        var fn = getTransform(data.name);
+
+        if (!fn) {
+            throw new ReferenceError('Template pipe "' + data.name + '" not found.');
+        }
+
+        // If there are arguments apply them to fn
+        return data.args && data.args.length ?
+            (value) => fn(...data.args, value) :
+            fn ;
+    });
+
+    // Cache the result
+    return pipe.apply(null, fns);
+}
+
+
+
+/**
+parseFilter(string)
+Parses "selector|filter:param" syntax.
+*/
+
+import { parsePipe } from '../../sparky/modules/parse-pipe.js';
+
+const parseFilter = capture(/^([\w.-]*)\s*(\|)?\s*/, {
+    1: (nothing, groups) => (groups[1] === '.' ?
+        // No initial transform
+        [] :
+        // Object path 'xxxx.xxx.xx-xxx'
+        [{ name: 'get', args: [groups[1]] }]
+    ),
+
+    // Pipe '|'
+    2: function(pipes, groups) {
+        parsePipe(pipes, groups);
+        return pipes;
+    }
+}, undefined);
+
+
+
+/** 
+parseTag(string)
+Parses tags, properties. comments and plain text
+**/
+
+const parseCloseTag = capture(/^\%\}/, {
+    0: (token, groups) => {
+        token.end += groups.index + groups[0].length;
+        return token;
+    },
+
+    catch: function(token, groups) {
+        throw new SyntaxError('Unclosed tag \n\n'
+            + groups.input.slice(Math.max(0, token.begin - 24), token.begin)
+            + '⮕'
+            + groups.input.slice(token.begin, token.begin + 24)
+            + '\n'
+        );      
+    }
+});
+
+const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*/, {
     // Create new object tracking start and end of token
     0: (nothing, groups) => ({
         begin: groups.index,
         end:   groups.index + groups[0].length
     }),
 
-    // Property .property = default
-    1: overload((token, groups) => groups[1], {
-        // Tags
-        '{%': capture(/^([\w-]+)\s*/, {
-            0: (token, groups) => {
-                token.end += groups.index + groups[0].length;
-                token.type = 'tag';
-                token.fn  = groups[1];
-                return token;
-            },
+    // {% tag %}
+    1: capture(/^([\w-]+)\s*/, {
+        0: (token, groups) => {
+            token.type = 'tag';
+            token.end += groups.index + groups[0].length;
+            token.fn   = groups[1];
+            return token;
+        },
 
-            1: overload((token, groups) => groups[1], {
-                // {% docs template-url from source-urls %}
-                'docs': capture(/^([^\s]+)(\s+from\s+)?\s*/, {
-                    0: (token, groups) => {
-                        token.end += groups.index + groups[0].length;
-                        return token;
-                    },
-
-                    1: (token, groups) => {
-                        token.template = groups[1];
-                        return token;
-                    },
-
-                    2: (token, groups) => {
-                        token.sources = parseStrings(groups);
-                        token.end += groups.consumed;
-                        return token;
-                    }
-                }),
-
-                default: function(token, groups) {
-                    throw new SyntaxError('Unrecognised tag {% ' + groups[1] + ' %} (possible tags: docs)');
-                }
-            }),
-
-            close: capture(/^\%\}/, {
-                0: (token, groups) => {
+        1: overload((token, groups) => groups[1], {
+            // {% docs url from source-urls %}
+            'docs': capture(/^([^\s]+)(\s+from\s+)?\s*/, {
+                1: (token, groups) => {
                     token.end += groups.index + groups[0].length;
+                    token.src = groups[1];
                     return token;
                 },
 
-                catch: function(token, groups) {
-                    throw new SyntaxError('Unclosed tag {% at index ' + token.begin + '');      
-                }
-            }),
-
-            catch: function(token, groups) {
-                throw new SyntaxError('Cannot parse {% tag %} at index ' + token.begin + '');  
-            }
-        }),
-
-        // Properties
-        '{{': capture(/^([\w-]+)\s*/, {
-            1: (token, groups) => {
-                token.end += groups.index + groups[0].length;
-                token.type = 'property';
-                token.selector = groups[1];
-                return token;
-            },
-
-            close: capture(/^\}\}/, {
-                0: (token, groups) => {
-                    token.end += groups.index + groups[0].length;
+                2: (token, groups) => {
+                    token.sources = parseStrings(groups);
+                    token.end += groups.consumed;
                     return token;
                 },
-    
-                catch: function(token, groups) {
-                    throw new SyntaxError('Unclosed property {{ at index ' + token.begin + '');     
+                
+                close: parseCloseTag
+            }),
+
+            // {% each %}
+            'each': capture(/^\%\}/, {
+                0: (token, groups) => {
+                    token.end += groups.index + groups[0].length;
+                    token.tree = parseTemplate([], groups);
+                    return token;
                 }
             }),
 
-            catch: function() {
-                throw new SyntaxError('Cannot parse {{ property }} at index ' + token.begin + '');
+            // {% include url %}
+            'include': capture(/^([^\s]+)\s*/, {            
+                1: (token, groups) => {
+                    token.end += groups.index + groups[0].length;
+                    token.src = groups[1];
+                    return token;
+                },
+                
+                close: parseCloseTag
+            }),
+
+            // {% with path|filter %}
+            'with': capture(/^/, {
+                0: (token, groups) => {
+                    token.param = { pipes: parseFilter(groups) };
+                    token.param.transform = createTransform(token.param.pipes);
+                    //token.end += groups.consumed;
+                    parseCloseTag(token, groups);
+                    token.tree = parseTemplate([], groups);
+                    token.end += groups.consumed;
+                    return token;
+                }
+            }),
+
+            'end': function(token, groups) {
+                token.type = 'end';
+                parseCloseTag(token, groups);
+                return token;
+            },
+
+            default: function(token, groups) {
+                throw new SyntaxError('Unrecognised tag {% ' + groups[1] + ' %} (possible tags: docs, each, with, end)');
             }
         }),
 
-        // Comments
-        '{#': capture(/\#\}/, {
+        catch: function(token, groups) {
+            throw new SyntaxError('Cannot parse {% tag %} at index ' + token.begin + '');  
+        }
+    }),
+
+    // {{ Property }}
+    2: capture(/^/, {
+        0: (token, groups) => {
+            token.type  = 'property';
+            token.pipes = parseFilter(groups);
+            token.end  += groups.consumed;
+            return token;
+        },
+
+        close: capture(/^\}\}/, {
             0: (token, groups) => {
                 token.end += groups.index + groups[0].length;
-                token.type = 'comment';
-                token.text = groups.input.slice(0, groups.index).replace(/\s*$/, '');
+                token.transform = createTransform(token.pipes);
                 return token;
             },
 
             catch: function(token, groups) {
-                throw new SyntaxError('Unclosed comment {# at index ' + token.begin + '');     
+                throw new SyntaxError('Unclosed property {{ at index ' + token.begin + '');     
             }
-        })
+        }),
+
+        catch: function() {
+            throw new SyntaxError('Cannot parse {{ property }} at index ' + token.begin + '');
+        }
+    }),
+
+    // {# Comment #}
+    3: capture(/\#\}/, {
+        0: (token, groups) => {
+            token.end += groups.index + groups[0].length;
+            token.type = 'comment';
+            token.text = groups.input.slice(0, groups.index).replace(/\s*$/, '');
+            return token;
+        },
+
+        catch: function(token, groups) {
+            throw new SyntaxError('Unclosed comment {# at index ' + token.begin + '');     
+        }
     }),
 
     // If no tags are found return undefined
@@ -152,12 +254,40 @@ const parseTag = capture(/(\{(?:\%|\{|#))\s*/, {
 }, null);
 
 const parseTemplate = capture(/^/, {
-    close: function(array, groups) {
-        const tag = parseTag(groups);
-        if (tag) {
+    0: (array, groups) => {
+        let tag;
+        let i = 0;
+
+        // Loop through tags in the template
+        while ((tag = parseTag(groups))) {
+            if (tag.begin > 0) {
+                array.push({
+                    begin: 0,
+                    end:  tag.begin,
+                    type: 'text',
+                    text: groups.input.slice(i, i + tag.begin)
+                });
+            }
+
+            // End tag stops processing immediately
+            if (tag.type === 'end') {
+                return array;
+            }
+
             array.push(tag);
-            parseTemplate(array, groups);
+            i += tag.end;
         }
+
+        // Push in the final text to the end
+        array.push({
+            type: 'text',
+            text: groups.input.slice(i)
+        });
+
+        return array;
+    },
+
+    close: (array, groups) => {
         return array;
     }
 });
@@ -165,7 +295,3 @@ const parseTemplate = capture(/^/, {
 export default function(template) {
     return parseTemplate([], template);        
 }
-
-
-
-

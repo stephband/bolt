@@ -24,11 +24,10 @@ const ignore = {
     'fonts':        true,
     'libs':         true,
     'docs':         true,
-    'build':        true
+    'build':        true,
+    'templates':    true
 };
 
-var port = 10000;
-console.log(base, '-', dest);
 finder(base)
 .on('directory', function (dir, stat, stop) {
     var base = pather.basename(dir);
@@ -53,7 +52,7 @@ finder(base)
     // Build source template to target path
     processes
     // build [source.html, target.html, timeout (seconds), port]
-    .fork('./build.js', [source, target, 3, port++])
+    .fork('./build.js', [source, target])
     .on('error', console.log)
     .on('exit', function(code, error) {
         if (code !== 0) {

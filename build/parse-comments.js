@@ -1,24 +1,20 @@
 
-/*
-Parse files for documentation comments
-*/
-
-
 // markdown library
 // https://marked.js.org/#/README.md#README.md
-import '../fn/libs/marked/marked.min.js';
+import '../libs/marked/marked.min.js';
 
 // Syntax highlighter
 // https://prismjs.com/
-import '../fn/libs/prism/prism.js';
+import '../libs/prism/prism.js';
 
-import { cache, capture, id, invoke, last, nothing, slugify, Stream } from './module.js';
+import cache   from '../../fn/modules/cache.js';
+import capture from '../../fn/modules/capture.js';
+import id      from '../../fn/modules/id.js';
+import invoke  from '../../fn/modules/invoke.js';
+import last    from '../../fn/modules/lists/last.js';
+import nothing from '../../fn/modules/nothing.js';
+import slugify from '../../fn/modules/strings/slugify.js';
 
-// Import from direct path so that Sparky is not launched on templates immediately
-import { register } from '../sparky/modules/fn.js';
-
-const Prism = window.Prism;
-const marked = window.marked;
 const A = Array.prototype;
 
 const fetchOptions = {
@@ -41,157 +37,8 @@ const markedOptions = {
     smartypants: true
 };
 
-
-
-capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()|(")|(<)|(\{\[)|(\b))?/, {
-    // Property .property = default
-    1: capture(/^([\w-]+)\s*(?:(=)|(\())?\s*/, {
-        // property name
-        1: function(data, strings) {
-            return data;
-        },
-
-        // default value
-        2: function(data, strings) {
-            return data;
-        },
-
-        // It's a method
-        3: function(data, strings) {
-            const params = parseParams(strings, []);
-            return data;
-        }
-    }),
-
-    // CSS --variable: default
-    2: capture(/^([\w-]+)(?:\s*:\s*([\w\d-]+))?/, {
-        // variable name
-        1: function(data, strings) {
-            return data;
-        },
-
-        // default value
-        2: function(data, strings) {
-            return data;
-        }
-    }),
-
-    // CSS ::part()
-    3: capture(/^(\w+)\)/, {
-        1: function(data, strings) {
-            return data;
-        }
-    }),
-
-    // String "text"
-    4: capture(/^([^"]*)"/, {
-        1: function(data, strings) {
-            return data;
-        }
-    }),
-
-    // Element <tag>
-    5: capture(/^(\w[\w-]*)\s*>/, {
-        // variable name
-        1: function(data, strings) {
-            return data;
-        },
-
-        // default value
-        2: function(data, strings) {
-            return data;
-        }
-    }),
-
-    // Django or sparky tag {[ tag ]}
-    6: function (data, results) {
-        data.push({
-            id: slugify(results[7]),
-            prefix: '',
-            name: results[7],
-            params: '',
-            type: 'title',
-            title: results[7]
-        });
-        return data;
-    },
-
-    // Word
-    7: capture(/^([\w-]+)\s*(?:(=")|(:)|(\())?\s*/, {
-        // name
-        1: function(data, strings) {
-            data.push({
-                id: slugify(results[1]),
-                prefix: '',
-                name: results[1],
-                params: '',
-                type: 'title',
-                title: results[1]
-            });
-            return data;
-        },
-
-        // attribute
-        2: function(data, strings) {
-            const object = last(data);
-            object.type = 'attribute';
-            //object.default = parseString();
-            return data;
-        },
-
-        // Django or Sparky :params
-        3: function(data, strings) {
-            const object = last(data);
-            object.type = 'fn';
-            return data;
-        },
-
-        // function or constructor
-        4: function(data, strings) {
-            const object = last(data);
-            // If first letter is a capital it's a constructor
-            object.type = object.title[0].toUpperCase() === object.title[0] ?
-                'constructor' :
-                'function' ;
-            const params = parseParams(strings, []);
-            return data;
-        }
-    }),
-
-    // Markdown (anything) close comment
-    close: capture(/^\s*([\s\S]*?)\*+\//, {
-        1: function(data, results) {
-            var exampleHTML;
-
-            last(data).body = marked(results[1], Object.assign(markedOptions, {
-                // Highlight code blocks
-                highlight: function (code, lang, callback) {
-                    // Grab the first HTML code block and use it as example code
-                    exampleHTML = exampleHTML || (lang === 'html' && code);
-                    return Prism.highlight(code, Prism.languages[lang || 'js'], lang || 'js');
-                }
-            }));
-
-            last(data).example = exampleHTML || '';
-
-            return data;
-        },
-
-        close: function(data, results) {
-            return parseDoc(data, results);
-        }
-    }),
-
-    catch: id
-});
-
-
-
-/*
-
-
-//                Open comment followed by    spaces and (dot)(name or selector[anything])      ((params)) or (:params)       or (="")                    OR (<tag>)       OR ({[ tag ]} or {% tag %})
-const parseDoc = window.parseDoc = capture(/\/\*\*+\s*(?:(\.|--|::part\(|")?(\w[\w-, .…"]*(?:\[[^\]]+\])?)(?:(\([^)]*\))|:[ \t]*([\w-, .:'"…]*)|=(["\w-#,/%\]}[{ .:']*))?|(<[\w- ="]+\/?>)|(\{[\[\]\w%|:. ]+\}))/, {
+// Open comment followed by spaces and (dot)(name or selector[anything])      ((params)) or (:params)       or (="")                    OR (<tag>)       OR ({[ tag ]} or {% tag %})
+const parseDoc = capture(/\/\*\*+\s*(?:(\.|--|::part\(|")?(\w[\w-, .…"]*(?:\[[^\]]+\])?)(?:(\([^)]*\))|:[ \t]*([\w-, .:'"…]*)|=(["\w-#,/%\]}[{ .:']*))?|(<[\w- ="]+\/?>)|(\{[\[\]\w%|:. ]+\}))/, {
     // .property or title or {[tag]}
     2: function(data, results) {
         data.push({
@@ -313,4 +160,45 @@ const parseDoc = window.parseDoc = capture(/\/\*\*+\s*(?:(\.|--|::part\(|")?(\w[
     // If there are no comments return data
     catch: id
 });
-*/
+
+export default function parseComments(text) {
+    return parseDoc([], text);
+}
+
+
+
+
+/* ---- ---- ---- */
+
+function flatten(acc, array) {
+    acc.push.apply(acc, array);
+    return acc;
+}
+
+export function toHTML(paths) {
+    return Promise.all(paths.map(function(url) {
+        const parts = url.split(/\?/);
+        const path  = parts[0];
+        const ids   = parts[1] && parts[1].split(/\s*,\s*/);
+
+        return ids ?
+            fetchDocs(path)
+            .then(function(docs) {
+                //console.log(path, ids.join(', '), docs)
+                // Gaurantee order of ids
+                return ids
+                .map(slugify)
+                .map(function(id) {
+                    return docs.filter(function(doc) {
+                        return doc.id === id;
+                    });
+                })
+                .reduce(flatten, []);
+            }) :
+            fetchDocs(path) ;
+    }))
+    .then(function(array) {
+        // Flatten
+        return A.concat.apply([], array);
+    });
+}
