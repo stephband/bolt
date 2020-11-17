@@ -40,6 +40,7 @@ const renderToken = overload(get('type'), {
                     .then((comments) =>  renderTree(tree, comments))
                 ))
                 .then(join)
+                .then((html) => html.replace(/\n/g, '\n' + token.indent))
             );
         },
 
