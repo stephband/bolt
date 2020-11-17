@@ -2,5 +2,5 @@
 <html lang="en">
 <head></head>
 <body>
-    {% docs templates/template-css.html from ./css/text.css %}
+    {% docs templates/css.html from ./css/text.css %}
 </body>

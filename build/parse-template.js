@@ -126,11 +126,18 @@ const parseCloseTag = capture(/^\%\}/, {
     }
 });
 
+function indentation(groups) {
+    const i = groups.input.lastIndexOf('\n', groups.index);
+    const string = groups.input.slice(i + 1, groups.index);
+    return /^\s*/.exec(string)[0];
+}
+
 const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*/, {
     // Create new object tracking start and end of token
     0: (nothing, groups) => ({
-        begin: groups.index,
-        end:   groups.index + groups[0].length
+        begin:  groups.index,
+        end:    groups.index + groups[0].length,
+        indent: indentation(groups)
     }),
 
     // {% tag %}
@@ -161,10 +168,12 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*/, {
             }),
 
             // {% each %}
-            'each': capture(/^\%\}/, {
-                0: (token, groups) => {
-                    token.end += groups.index + groups[0].length;
+            'each': capture(/^/, {
+                close: function(token, groups) {
+                    parseCloseTag(token, groups);
+                    const consumed = groups.consumed;
                     token.tree = parseTemplate([], groups);
+                    token.end += groups.consumed - consumed;
                     return token;
                 }
             }),
@@ -185,10 +194,15 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*/, {
                 0: (token, groups) => {
                     token.param = { pipes: parseFilter(groups) };
                     token.param.transform = createTransform(token.param.pipes);
-                    //token.end += groups.consumed;
-                    parseCloseTag(token, groups);
-                    token.tree = parseTemplate([], groups);
                     token.end += groups.consumed;
+                    return token;
+                },
+
+                close: function(token, groups) {
+                    parseCloseTag(token, groups);
+                    const consumed = groups.consumed;
+                    token.tree = parseTemplate([], groups);
+                    token.end += groups.consumed - consumed;
                     return token;
                 }
             }),
