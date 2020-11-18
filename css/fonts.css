@@ -156,140 +156,6 @@
 
 
 
-/* Source Serif Pro */
-
-@font-face{
-    font-family: SourceSerifPro;
-    font-weight: 200;
-    font-style: normal;
-    font-stretch: normal;
-    src: url('../fonts/source-serif-pro/WOFF2/TTF/SourceSerifPro-ExtraLight.ttf.woff2') format('woff2'),
-         url('../fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-ExtraLight.otf.woff') format('woff'),
-         url('../fonts/source-serif-pro/OTF/SourceSerifPro-ExtraLight.otf') format('opentype'),
-         url('../fonts/source-serif-pro/TTF/SourceSerifPro-ExtraLight.ttf') format('truetype');
-}
-
-@font-face{
-    font-family: SourceSerifPro;
-    font-weight: 200;
-    font-style: italic;
-    font-stretch: normal;
-    src: url('../fonts/source-serif-pro/WOFF2/TTF/SourceSerifPro-ExtraLightIt.ttf.woff2') format('woff2'),
-         url('../fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-ExtraLightIt.otf.woff') format('woff'),
-         url('../fonts/source-serif-pro/OTF/SourceSerifPro-ExtraLightIt.otf') format('opentype'),
-         url('../fonts/source-serif-pro/TTF/SourceSerifPro-ExtraLightIt.ttf') format('truetype');
-}
-
-@font-face{
-    font-family: SourceSerifPro;
-    font-weight: 300;
-    font-style: normal;
-    font-stretch: normal;
-    src: url('../fonts/source-serif-pro/WOFF2/TTF/SourceSerifPro-Light.ttf.woff2') format('woff2'),
-         url('../fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-Light.otf.woff') format('woff'),
-         url('../fonts/source-serif-pro/OTF/SourceSerifPro-Light.otf') format('opentype'),
-         url('../fonts/source-serif-pro/TTF/SourceSerifPro-Light.ttf') format('truetype');
-}
-
-@font-face{
-    font-family: SourceSerifPro;
-    font-weight: 300;
-    font-style: italic;
-    font-stretch: normal;
-    src: url('../fonts/source-serif-pro/WOFF2/TTF/SourceSerifPro-LightIt.ttf.woff2') format('woff2'),
-         url('../fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-LightIt.otf.woff') format('woff'),
-         url('../fonts/source-serif-pro/OTF/SourceSerifPro-LightIt.otf') format('opentype'),
-         url('../fonts/source-serif-pro/TTF/SourceSerifPro-LightIt.ttf') format('truetype');
-}
-
-@font-face{
-    font-family: SourceSerifPro;
-    font-weight: 400;
-    font-style: normal;
-    font-stretch: normal;
-    src: url('../fonts/source-serif-pro/WOFF2/TTF/SourceSerifPro-Regular.ttf.woff2') format('woff2'),
-         url('../fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-Regular.otf.woff') format('woff'),
-         url('../fonts/source-serif-pro/OTF/SourceSerifPro-Regular.otf') format('opentype'),
-         url('../fonts/source-serif-pro/TTF/SourceSerifPro-Regular.ttf') format('truetype');
-}
-
-@font-face{
-    font-family: SourceSerifPro;
-    font-weight: 400;
-    font-style: italic;
-    font-stretch: normal;
-    src: url('../fonts/source-serif-pro/WOFF2/TTF/SourceSerifPro-It.ttf.woff2') format('woff2'),
-         url('../fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-It.otf.woff') format('woff'),
-         url('../fonts/source-serif-pro/OTF/SourceSerifPro-It.otf') format('opentype'),
-         url('../fonts/source-serif-pro/TTF/SourceSerifPro-It.ttf') format('truetype');
-}
-
-@font-face{
-    font-family: SourceSerifPro;
-    font-weight: 600;
-    font-style: normal;
-    font-stretch: normal;
-    src: url('../fonts/source-serif-pro/WOFF2/TTF/SourceSerifPro-Semibold.ttf.woff2') format('woff2'),
-         url('../fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-Semibold.otf.woff') format('woff'),
-         url('../fonts/source-serif-pro/OTF/SourceSerifPro-Semibold.otf') format('opentype'),
-         url('../fonts/source-serif-pro/TTF/SourceSerifPro-Semibold.ttf') format('truetype');
-}
-
-@font-face{
-    font-family: SourceSerifPro;
-    font-weight: 600;
-    font-style: italic;
-    font-stretch: normal;
-    src: url('../fonts/source-serif-pro/WOFF2/TTF/SourceSerifPro-SemiboldIt.ttf.woff2') format('woff2'),
-         url('../fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-SemiboldIt.otf.woff') format('woff'),
-         url('../fonts/source-serif-pro/OTF/SourceSerifPro-SemiboldIt.otf') format('opentype'),
-         url('../fonts/source-serif-pro/TTF/SourceSerifPro-SemiboldIt.ttf') format('truetype');
-}
-
-@font-face{
-    font-family: SourceSerifPro;
-    font-weight: 700;
-    font-style: normal;
-    font-stretch: normal;
-    src: url('../fonts/source-serif-pro/WOFF2/TTF/SourceSerifPro-Bold.ttf.woff2') format('woff2'),
-         url('../fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-Bold.otf.woff') format('woff'),
-         url('../fonts/source-serif-pro/OTF/SourceSerifPro-Bold.otf') format('opentype'),
-         url('../fonts/source-serif-pro/TTF/SourceSerifPro-Bold.ttf') format('truetype');
-}
-
-@font-face{
-    font-family: SourceSerifPro;
-    font-weight: 700;
-    font-style: italic;
-    font-stretch: normal;
-    src: url('../fonts/source-serif-pro/WOFF2/TTF/SourceSerifPro-BoldIt.ttf.woff2') format('woff2'),
-         url('../fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-BoldIt.otf.woff') format('woff'),
-         url('../fonts/source-serif-pro/OTF/SourceSerifPro-BoldIt.otf') format('opentype'),
-         url('../fonts/source-serif-pro/TTF/SourceSerifPro-BoldIt.ttf') format('truetype');
-}
-
-@font-face{
-    font-family: SourceSerifPro;
-    font-weight: 900;
-    font-style: normal;
-    font-stretch: normal;
-    src: url('../fonts/source-serif-pro/WOFF2/TTF/SourceSerifPro-Black.ttf.woff2') format('woff2'),
-         url('../fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-Black.otf.woff') format('woff'),
-         url('../fonts/source-serif-pro/OTF/SourceSerifPro-Black.otf') format('opentype'),
-         url('../fonts/source-serif-pro/TTF/SourceSerifPro-Black.ttf') format('truetype');
-}
-
-@font-face{
-    font-family: SourceSerifPro;
-    font-weight: 900;
-    font-style: italic;
-    font-stretch: normal;
-    src: url('../fonts/source-serif-pro/WOFF2/TTF/SourceSerifPro-BlackIt.ttf.woff2') format('woff2'),
-         url('../fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-BlackIt.otf.woff') format('woff'),
-         url('../fonts/source-serif-pro/OTF/SourceSerifPro-BlackIt.otf') format('opentype'),
-         url('../fonts/source-serif-pro/TTF/SourceSerifPro-BlackIt.ttf') format('truetype');
-}
-
 
 
 @font-face {
@@ -302,16 +168,6 @@
 }
 
 
-
-@font-face{
-    font-family: 'Fira Sans';
-    font-weight: 400;
-    font-style: normal;
-    font-stretch: normal;
-    src: url('../fonts/fira-sans/Fira_Sans_WEB_4301/Normal/Roman/FiraSans-Regular.woff2') format('woff2'),
-         url('../fonts/fira-sans/Fira_Sans_WEB_4301/Normal/Roman/FiraSans-Regular.woff2') format('woff'),
-         url('../fonts/fira-sans/Fira_Sans_WEB_4301/Normal/Roman/FiraSans-Regular.eot') format('eot');
-}
 
 @font-face{
     font-family: FiraMono;
@@ -405,13 +261,4 @@
     font-stretch: normal;
     src: url('../fonts/cooper-hewitt/CooperHewitt-Heavy.woff') format('woff'),
          url('../fonts/cooper-hewitt/CooperHewitt-Heavy.eot') format('eot');
-}
-
-@font-face{
-    font-family: Charter;
-    font-weight: 400;
-    font-style: normal;
-    font-stretch: normal;
-    src: url('../fonts/charter/charter_regular-webfont.woff') format('woff'),
-         url('../fonts/charter/charter_regular-webfont.eot') format('eot');
 }
