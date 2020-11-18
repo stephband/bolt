@@ -20,6 +20,26 @@ renderToken(token, scope)
 Takes a parsed token and returns a promise that resolves to a string
 of HTML.
 **/
+/*
+array.reduce(function(output, data) {
+    // Remove preceeding title where it is not followed by a
+    // data of the right type
+    if (data.type !== type && output[output.length - 1] && output[output.length - 1].type === 'title') {
+        --output.length;
+    }
+
+    if (data.type === type || data.type === 'title') {
+        output.push(data);
+    }
+
+    return output;
+}, []);
+*/
+
+const filters = {
+    'selector': (comments) =>
+        comments.filter((comment) => comment.type !== 'var'),
+};
 
 const renderToken = overload(get('type'), {
     // Render tags and properties. All tags must return either a promise that 
@@ -30,6 +50,8 @@ const renderToken = overload(get('type'), {
             // Lop off hash refs, for now (Todo: support file partials? 
             // Could be tricky.)
             const path = token.src.replace(/#.*$/, '');
+            const type = token.filterType;
+
             return request(path)
             .then(parseTemplate)
             .then((tree) => 
@@ -37,9 +59,9 @@ const renderToken = overload(get('type'), {
                 .all(token.sources.map((path) =>
                     request(path)
                     .then(parseComments)
-                    .then((comments) =>  renderTree(tree, comments))
+                    .then(filters[type])
                 ))
-                .then(join)
+                .then((comments) => renderTree(tree, comments.flat()))
                 // Render includes at the tag's indentation
                 .then((html) => html.replace(/\n/g, '\n' + token.indent))
             );
@@ -55,11 +77,22 @@ const renderToken = overload(get('type'), {
             // Lop off hash refs, for now (Todo: support file partials? 
             // Could be tricky.)
             const path = token.src.replace(/#.*$/, '');
-            return request(path)
-            .then(parseTemplate)
-            .then((tree) => renderTree(tree, data))
-            // Render includes at the tag's indentation
-            .then((html) => html.replace(/\n/g, '\n' + token.indent));
+console.log(path, token.import);
+            return token.import ?
+
+                // Import JSON data as scope
+                Promise.all([
+                    request(path).then(parseTemplate),
+                    request(token.import).then(JSON.parse)
+                ])
+                .then((res) => renderTree(res[0], res[1]))
+                .then((html) => html.replace(/\n/g, '\n' + token.indent)) :
+
+                // Use current scope as scope
+                request(path)
+                .then(parseTemplate)
+                .then((tree) => renderTree(tree, data))
+                .then((html) => html.replace(/\n/g, '\n' + token.indent)) ;
         },
 
         'with': function docs(token, scope) {

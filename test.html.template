@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--template is="sparky-template" fn="fetch:package.json" src="templates.html#head"></template-->
+    {% include templates/head.html import package.json %}
 
     <script title="debug" remove>
         window.DEBUG = true;
     </script>
 
     {% include templates/style.html %}
-    
+
     <style>
         /* Render some elements visible, just in this styleguide */
         button:not([type]),
@@ -87,8 +87,25 @@
     </style>
 </head>
 
-<body>
-    {% docs templates/css.html from ./css/text.css %}
+<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
+    <header class="x-1 3x @1-x-2 @1-4x @2-x-4" id="header">
+        {% include templates/header.html import package.json %}
+    </header>
+
+    <img class="x-1 x-end y-1 @2-x-1 @2-3x" src="images/logo.svg" width="800" height="800" style="width: 10.625rem; margin-top: -1.125rem; margin-right: -0.9375rem; max-width: none;" />
+
+    {% docs templates/css.html type selector from ./css/text.css  %}
+    {% docs templates/css.html type selector from ./css/color.css  %}
+    {% docs templates/css.html type selector from
+        './css/input.css'
+        './css/label.css'
+        './components/check-label.css'
+        './components/switch-label.css'
+        './components/check-button.css'
+        './components/select-button.css'
+        './elements/range-control.css'
+        './elements/rotary-control.css'  %}
+    {% docs templates/css.html type selector from ./sass/grid.scss %}
 
     <script type="module" src="./elements/range-control.js"></script>
     <script type="module" src="./elements/rotary-control.js"></script>

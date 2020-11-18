@@ -151,24 +151,32 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*/, {
 
         1: overload((token, groups) => groups[1], {
             // {% docs url from source-urls %}
-            'docs': capture(/^([^\s]+)(\s+from\s+)?\s*/, {
+            'docs': capture(/^([^\s]+)(?:\s+type\s+([\w-]+))?(\s+from\s+)\s*/, {
+                // {% docs template.html %}
                 1: (token, groups) => {
                     token.end += groups.index + groups[0].length;
                     token.src = groups[1];
                     return token;
                 },
 
+                // {% docs template.html type string from file.css file.js ... %}
                 2: (token, groups) => {
+                    token.filterType = groups[2];
+                    return token;
+                },
+
+                // {% docs template.html from file.css file.js ... %}
+                3: (token, groups) => {
                     token.sources = parseStrings(groups);
                     token.end += groups.consumed;
                     return token;
                 },
-                
+
                 close: parseCloseTag
             }),
 
-            // {% each %}
             'each': capture(/^/, {
+                // {% each %}
                 close: function(token, groups) {
                     parseCloseTag(token, groups);
                     const consumed = groups.consumed;
@@ -178,19 +186,26 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*/, {
                 }
             }),
 
-            // {% include url %}
-            'include': capture(/^([^\s]+)\s*/, {            
+            'include': capture(/^([^\s]+)(\s+import\s+)?\s*/, {
+                // {% include template.html %}         
                 1: (token, groups) => {
                     token.end += groups.index + groups[0].length;
                     token.src = groups[1];
                     return token;
                 },
-                
+
+                // {% include template.html import package.json %}
+                2: (token, groups) => {
+                    token.import = parseString(groups);
+                    token.end += groups.consumed;
+                    return token;
+                },
+
                 close: parseCloseTag
             }),
 
-            // {% with path|filter %}
             'with': capture(/^/, {
+                // {% with path|pipe:param %}
                 0: (token, groups) => {
                     token.param = { pipes: parseFilter(groups) };
                     token.param.transform = createTransform(token.param.pipes);
@@ -207,6 +222,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*/, {
                 }
             }),
 
+            // {% end %}
             'end': function(token, groups) {
                 token.type = 'end';
                 parseCloseTag(token, groups);

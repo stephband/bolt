@@ -11,6 +11,7 @@ import cache from '../../fn/modules/cache.js';
 const cyan = "\x1b[36m%s\x1b[0m";
 
 export default cache(function request(path) {
+    if (path === 'type') throw new Error('PATH')
     console.log(cyan, 'Reading', path);
     return new Promise(function(resolve, reject) {
         fs.readFile(path, { encoding: 'utf8' }, (err, template) => {

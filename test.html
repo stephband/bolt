@@ -1,7 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--template is="sparky-template" fn="fetch:package.json" src="templates.html#head"></template-->
+    <meta charset="utf-8" />
+    <meta name="author" content="stephband" />
+    <meta name="description" content="Documentation for Bolt. A front-end toolkit of classes, evented behaviours and custom elements." />
+    <meta name="viewport" content="width=device-width" />
+    
+    <meta name="twitter:card" content="summary"></meta>
+    <meta name="twitter:site" content="@@stephband"></meta>
+    <meta property="og:url" content="http://stephen.band/bolt/" />
+    <meta property="og:title" content="Bolt" />
+    <meta property="og:description" content="A front-end toolkit of classes, evented behaviours and custom elements." />
+    <meta property="og:image" content="" />
+    
+    <title>Bolt</title>
+    
+    <script title="load">
+    document.documentElement.className += ' js content-loading loading';
+    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
+    // Wait for other load handlers to run first - Bolt does a few things on
+    // load (eg. locateable scrolls) and we want them to run before the loading
+    // class is removed
+    window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
+    </script>
+    
+    <link rel="shortcut icon" href="images/logo-64x64.ico" />
+    <link rel="icon" type="image/png" href="images/logo-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/logo-64x64.png" sizes="64x64">
+    <link rel="icon" type="image/png" href="images/logo-128x128.png" sizes="128x128">
 
     <script title="debug" remove>
         window.DEBUG = true;
@@ -13,7 +39,7 @@
     <link rel="stylesheet" href="../fn/css/tests.css" />
     <link rel="stylesheet" href="documentation.css" />
     <link rel="stylesheet" href="../fn/css/respond.css" />
-    
+
     <style>
         /* Render some elements visible, just in this styleguide */
         button:not([type]),
@@ -92,7 +118,18 @@
     </style>
 </head>
 
-<body>
+<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
+    <header class="x-1 3x @1-x-2 @1-4x @2-x-4" id="header">
+        <h1 class="doctext-01">Bolt <span class="doctext-06">2.1.1</span></h1>
+        <p class="doctext-08">A front-end toolkit of classes, evented behaviours and custom elements.</p>
+        <ul class="link-index index">
+            <li><strong>repo:</strong> <a href="https://github.com/stephband/bolt.git">github.com/stephband/bolt.git</a></li>
+            <li><strong>bugs:</strong> <a href="https://github.com/stephband/bolt/issues/">github.com/stephband/bolt/issues/</a></li>
+        </ul>
+    </header>
+
+    <img class="x-1 x-end y-1 @2-x-1 @2-3x" src="images/logo.svg" width="800" height="800" style="width: 10.625rem; margin-top: -1.125rem; margin-right: -0.9375rem; max-width: none;" />
+
     
     
     <h3 class="x-4 1x @2-x-4 @2-4x x-start doctext-03 ">Text.</h3>
@@ -216,6 +253,548 @@
         <div class="@2-x-6 @2-2x x-stretch block">
             <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="text-09-description">
                 <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-09<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+    </section>
+    
+    
+    
+    <h3 class="x-4 1x @2-x-4 @2-4x x-start doctext-03 ">Colour.</h3>
+    
+    
+    
+    <section class="x-1 9x dense 9x-grid grid" style="row-gap: 0.9375rem; grid-auto-flow: column dense; align-content: start;">
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#transparent-bg-description" title="Show HTML markup"><code>.transparent-bg</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="thumb transparent-bg">Transparent</p></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="transparent-bg-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>thumb transparent-bg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Transparent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#current-bg-description" title="Show HTML markup"><code>.current-bg</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="thumb current-bg">Current</p></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="current-bg-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>thumb current-bg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Current<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#black-bg-description" title="Show HTML markup"><code>.black-bg</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="thumb black-bg">Black</p></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="black-bg-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>thumb black-bg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Black<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#white-bg-description" title="Show HTML markup"><code>.white-bg</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="thumb white-bg">White</p></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="white-bg-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>thumb white-bg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>White<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#red-bg-description" title="Show HTML markup"><code>.red-bg</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><p class="thumb red-bg">Red</p></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="red-bg-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>thumb red-bg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Red<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+    </section>
+    
+    
+    
+    <h3 class="x-4 1x @2-x-4 @2-4x x-start doctext-03 ">Forms.</h3>
+    
+    
+    
+    <section class="x-1 9x dense 9x-grid grid" style="row-gap: 0.9375rem; grid-auto-flow: column dense; align-content: start;">
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#input-type-text-description" title="Show HTML markup"><code>input[type="text"]</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><label for="text-input">Text</label>
+    <input type="text" placeholder="Enter text" id="text-input" /></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="input-type-text-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Enter text<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-input<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#input-type-number-description" title="Show HTML markup"><code>input[type="number"]</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><label for="number-input">Number</label>
+    <input type="number" placeholder="100" id="number-input" /></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="input-type-number-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>number-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Number<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>number<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>number-input<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#input-type-password-description" title="Show HTML markup"><code>input[type="password"]</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><label for="password-input">Password</label>
+    <input type="password" placeholder="Enter password" id="password-input" /></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="input-type-password-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Password<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Enter password<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password-input<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#input-type-search-description" title="Show HTML markup"><code>input[type="search"]</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><label for="search">Search</label>
+    <input type="search" id="search" name="search" /></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="input-type-search-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>search<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Search<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>search<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>search<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>search<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#input-type-tel-description" title="Show HTML markup"><code>input[type="tel"]</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><label for="tel">Tel</label>
+    <input type="tel" id="tel" name="tel" /></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="input-type-tel-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tel<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Tel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tel<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tel<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tel<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#input-type-url-description" title="Show HTML markup"><code>input[type="url"]</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><label for="url-input">URL</label>
+    <input type="url" placeholder="http://cruncher.ch/" id="url-input" /></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="input-type-url-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>URL<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://cruncher.ch/<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url-input<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#input-required-description" title="Show HTML markup"><code>input[required]</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><label class="required-after after" for="required-input">Required</label>
+    <input type="text" required placeholder="Enter text" id="required-input" />
+    <label class="help-label text-11" for="required-input">Help text</label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="input-required-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>required-after after<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>required-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Required<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">required</span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Enter text<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>required-input<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>help-label text-11<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>required-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Help text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#input-description" title="Show HTML markup"><code>input: invalid</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><label class="required-after after" for="error-input">Error</label>
+    <input type="text" required placeholder="Enter text" id="error-input" />
+    <label class="error-label text-11" for="error-input">This field is required</label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="input-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>required-after after<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>error-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Error<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">required</span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Enter text<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>error-input<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>error-label text-11<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>error-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>This field is required<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#input-type-range-description" title="Show HTML markup"><code>input[type="range"]</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><label for="range-input">Range</label>
+    <input type="range" value="0" id="range-input" /></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="input-type-range-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>range-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Range<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>range<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>range-input<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 ">
+            <a href="#textarea-description" title="Show HTML markup"><code>textarea</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><label for="textarea">textarea</label>
+    <textarea id="textarea" name="textarea"></textarea></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="textarea-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>textarea<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>textarea<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>textarea</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>textarea<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>textarea<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>textarea</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#masked-description" title="Show HTML markup"><code>.masked</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="masked-description">
+                
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#check-label-description" title="Show HTML markup"><code>.check-label</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><input type="checkbox" class="masked" id="checkbox-1" />
+    <label class="check-label" for="checkbox-1">Choose me</label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="check-label-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox-1<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>check-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox-1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Choose me<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#radio-label-description" title="Show HTML markup"><code>.radio-label</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><input type="radio" class="masked" id="radio-1" />
+    <label class="radio-label" for="radio-1">Choose me</label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="radio-label-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-1<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Choose me<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#right-check-label-description" title="Show HTML markup"><code>.right-check-label</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><input type="checkbox" class="masked" id="checkbox-2" />
+    <label class="right-check-label check-label" for="checkbox-2">Choose me</label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="right-check-label-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox-2<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-check-label check-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Choose me<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#right-radio-label-description" title="Show HTML markup"><code>.right-radio-label</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><input type="radio" class="masked" id="radio-2" />
+    <label class="right-radio-label radio-label" for="radio-2">Choose me</label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="right-radio-label-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-2<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-radio-label radio-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Choose me<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#switch-label-description" title="Show HTML markup"><code>.switch-label</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><input class="masked" type="checkbox" value="something" id="switch-input" />
+    <label class="switch-label" for="switch-input">Turn me on</label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="switch-label-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>something<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    <p>To make switches swipeable:</p>
+    <pre><code class="language-js"><span class="token keyword">import</span> <span class="token string">'./components/switch-label.js'</span><span class="token punctuation">;</span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#right-switch-label-description" title="Show HTML markup"><code>.right-switch-label</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><input class="masked" type="checkbox" value="something" id="switch-input-2" />
+    <label class="right-switch-label switch-label" for="switch-input-2">Turn me on</label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="right-switch-label-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>something<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input-2<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-switch-label switch-label<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>switch-input-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#check-button-description" title="Show HTML markup"><code>.check-button</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><input class="masked" type="checkbox" value="something" id="check-button-input" />
+    <label class="check-button button" for="check-button-input">Turn me on</label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="check-button-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>something<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>check-button-input<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>check-button button<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>check-button-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#radio-button-description" title="Show HTML markup"><code>.radio-button</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><input class="masked" type="radio" name="radio-button" value="on" id="radio-button-on" />
+    <label class="radio-button button" for="radio-button-on">Turn me on</label>
+    <input class="masked" type="radio" name="radio-button" value="off" id="radio-button-off" />
+    <label class="radio-button button" for="radio-button-off">Turn me off</label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="radio-button-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>on<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button-on<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button button<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button-on<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>off<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button-off<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button button<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio-button-off<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Turn me off<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#right-check-button-description" title="Show HTML markup"><code>.right-check-button</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><input class="masked" type="checkbox" value="something" id="right-button-input" />
+    <label class="right-check-button check-button button" for="right-button-input">Turn me on</label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="right-check-button-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>something<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-button-input<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-check-button check-button button<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-button-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#right-radio-button-description" title="Show HTML markup"><code>.right-radio-button</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><input class="masked" type="radio" name="right-radio-button" value="on" id="right-radio-button-on" />
+    <label class="right-radio-button radio-button button" for="right-radio-button-on">Turn me on</label>
+    <input class="masked" type="radio" name="right-radio-button" value="off" id="right-radio-button-off" />
+    <label class="right-radio-button radio-button button" for="right-radio-button-off">Turn me off</label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="right-radio-button-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-radio-button<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>on<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-radio-button-on<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-radio-button radio-button button<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-radio-button-on<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Turn me on<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>masked<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>radio<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-radio-button<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>off<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-radio-button-off<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-radio-button radio-button button<span class="token punctuation">"</span></span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right-radio-button-off<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Turn me off<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#select-button-description" title="Show HTML markup"><code>.select-button</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><label class="select-button button">
+      <select>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </label></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="select-button-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>select-button button<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>One<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Two<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Three<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span></code></pre>
+    
+            </div>
+        </div>
+        
+    </section>
+    
+    
+    
+    <h3 class="x-4 1x @2-x-4 @2-4x x-start doctext-03 ">Grid.</h3>
+    
+    
+    
+    <section class="x-1 9x dense 9x-grid grid" style="row-gap: 0.9375rem; grid-auto-flow: column dense; align-content: start;">
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#grid-description" title="Show HTML markup"><code>.grid</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
+        <button>&nbsp;</button>
+        <button>&nbsp;</button>
+        <button>&nbsp;</button>
+    </div></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="grid-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>grid<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">--column-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span> <span class="token property">--row-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">></span></span><span class="token entity" title="&nbsp;">&amp;nbsp;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">></span></span><span class="token entity" title="&nbsp;">&amp;nbsp;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">></span></span><span class="token entity" title="&nbsp;">&amp;nbsp;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+    <p>Creates a grid with horizontal flow and equal width columns.</p>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#x-1-x-12-2x-12x-x-start-x-center-x-end-x-stretch-x-bleed-description" title="Show HTML markup"><code>.x-1 … x-12, .2x … .12x, .x-start, .x-center, .x-end, .x-stretch, .x-bleed</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
+        <button class="x-1">x-1</button>
+        <button class="x-2">x-2</button>
+        <button class="x-3">x-3</button>
+        <button class="x-1 2x">2x</button>
+        <button class="x-1 3x">3x</button>
+        <button class="x-1 x-start y-4">x-start</button>
+        <button class="x-2 x-center y-4">x-center</button>
+        <button class="x-3 x-end y-4">x-end</button>
+        <button class="x-1 x-stretch y-5">x-stretch</button>
+        <button class="x-2 x-bleed y-5">x-bleed</button>
+    </div></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="x-1-x-12-2x-12x-x-start-x-center-x-end-x-stretch-x-bleed-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>grid<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">--column-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span> <span class="token property">--row-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>x-1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>x-2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>x-3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 2x<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>2x<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 3x<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>3x<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 x-start y-4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>x-start<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 x-center y-4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>x-center<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3 x-end y-4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>x-end<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 x-stretch y-5<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>x-stretch<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 x-bleed y-5<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>x-bleed<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+    <p>Note that <code>.x-bleed</code>, which stretches an element half the way over the grid gap,
+    depends on <code>column-gap</code> having been set via the custom property <code>--column-gap</code>.</p>
+    
+            </div>
+        </div>
+        
+        <h4 class="@2-x-4 @2-2x x-start y-lastline doctext-05 dot-indent">
+            <a href="#y-1-y-18-2y-12y-y-start-y-center-y-end-y-stretch-y-baseline-y-lastline-description" title="Show HTML markup"><code>.y-1 … .y-18, .2y … .12y, .y-start, .y-center, .y-end, .y-stretch, .y-baseline, .y-lastline</code></a>
+        </h4>
+    
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
+        <button class="x-1 y-1">y-1</button>
+        <button class="x-1 y-2">y-2</button>
+        <button class="x-1 y-3">y-3</button>
+        <button class="x-2 y-1 2y">2y</button>
+        <button class="x-3 y-1 3y">3y</button>
+        <button class="x-1 y-4 y-start">y-start</button>
+        <button class="x-1 y-5 y-center">y-center</button>
+        <button class="x-1 y-6 y-end">y-end</button>
+        <button class="x-2 y-4 y-stretch">y-stretch</button>
+        <button class="x-3 y-4 y-baseline">y-baseline</button>
+        <button class="x-3 y-5 y-lastline">y-lastline</button>
+    </div></div>
+        
+        <div class="@2-x-6 @2-2x x-stretch block">
+            <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="y-1-y-18-2y-12y-y-start-y-center-y-end-y-stretch-y-baseline-y-lastline-description">
+                <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>grid<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">--column-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span> <span class="token property">--row-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>y-1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>y-2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>y-3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 y-1 2y<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>2y<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3 y-1 3y<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>3y<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-4 y-start<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>y-start<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-5 y-center<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>y-center<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-1 y-6 y-end<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>y-end<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-2 y-4 y-stretch<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>y-stretch<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3 y-4 y-baseline<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>y-baseline<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>x-3 y-5 y-lastline<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>y-lastline<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
     
             </div>
         </div>
