@@ -1,5 +1,6 @@
 
 import get      from '../../fn/modules/get.js';
+import id       from '../../fn/modules/id.js';
 import noop     from '../../fn/modules/noop.js';
 import overload from '../../fn/modules/overload.js';
 import toText   from '../../sparky/modules/to-text.js';
@@ -20,25 +21,34 @@ renderToken(token, scope)
 Takes a parsed token and returns a promise that resolves to a string
 of HTML.
 **/
-/*
-array.reduce(function(output, data) {
-    // Remove preceeding title where it is not followed by a
-    // data of the right type
-    if (data.type !== type && output[output.length - 1] && output[output.length - 1].type === 'title') {
-        --output.length;
-    }
 
-    if (data.type === type || data.type === 'title') {
-        output.push(data);
-    }
+function filterByType(type, array) {
+    return array.reduce(function(output, data) {
+        // Remove preceeding title where it is not followed by a
+        // data of the right type
+        if (data.type !== type && output[output.length - 1] && output[output.length - 1].type === 'title') {
+            --output.length;
+        }
+    
+        if (data.type === type || data.type === 'title') {
+            output.push(data);
+        }
+    
+        return output;
+    }, []);
+}
 
-    return output;
-}, []);
-*/
-
-const filters = {
-    'selector': (comments) =>
-        comments.filter((comment) => comment.type !== 'var'),
+const docsFilters = {
+    'all': id,
+    'selector':  (comments) => comments.filter((comment) => comment.type !== 'var'),
+    'attribute': (comments) => filterByType('attribute', comments),
+    'property':  (comments) => filterByType('property', comments),
+    'string':    (comments) => filterByType('string', comments),
+    'part':      (comments) => filterByType('part', comments),
+    'var':       (comments) => filterByType('var', comments),
+    'tag':       (comments) => filterByType('tag', comments),
+    'method':    (comments) => filterByType('method', comments),
+    'function':  (comments) => filterByType('function', comments)
 };
 
 const renderToken = overload(get('type'), {
@@ -59,7 +69,7 @@ const renderToken = overload(get('type'), {
                 .all(token.sources.map((path) =>
                     request(path)
                     .then(parseComments)
-                    .then(filters[type])
+                    .then(docsFilters[type])
                 ))
                 .then((comments) => renderTree(tree, comments.flat()))
                 // Render includes at the tag's indentation
@@ -73,11 +83,18 @@ const renderToken = overload(get('type'), {
             .then(join);
         },
 
+        'if': function docs(token, scope) {
+            const selector = token.selector;
+            return scope[selector] ? 
+                renderTree(token.tree, scope) :
+                Promise.resolve('') ;
+        },
+
         'include': function docs(token, data) {
             // Lop off hash refs, for now (Todo: support file partials? 
             // Could be tricky.)
             const path = token.src.replace(/#.*$/, '');
-console.log(path, token.import);
+
             return token.import ?
 
                 // Import JSON data as scope

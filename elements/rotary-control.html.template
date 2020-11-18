@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <template is="sparky-template" fn="fetch:'../package.json'" src="../templates.html#head"></template>
+    {% include templates/head.html import package.json %}
 
     <script title="debug" remove>
         window.DEBUG = true;
     </script>
 
+    {% include templates/style.html %}
+
     <script title="config">
         window.customElementStylesheetPath = './';
     </script>
-
-    <template is="sparky-template" src="../templates.html#style"></template>
 
     <style>
         rotary-control {
@@ -38,7 +38,7 @@
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
     <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="rotary-control">
-        <template is="sparky-template" fn="docs:rotary-control.js filter-type:tag each" src="../templates.html#title"></template>
+        {% docs templates/title.html type tag from elements/rotary-control.js %}
     </header>
 
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
@@ -55,26 +55,23 @@
 
     <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
         <h3 class="doctext-03">Attributes</h3>        
-        <template is="sparky-template" fn="docs:attributes.js filter-type:attribute each" src="../templates.html#entry"></template>
+        {% docs templates/entry.html type attribute from elements/attributes.js %}
 
         <h3 class="doctext-03">Properties</h3>
-        <template is="sparky-template" fn="docs:attributes.js filter-type:property each" src="../templates.html#entry"></template>
+        {% docs templates/entry.html type property from elements/attributes.js %}
 
         <h3 class="doctext-03">Events</h3>
-        <template is="sparky-template" fn="docs:attributes.js filter-type:string each" src="../templates.html#entry"></template>
+        {% docs templates/entry.html type string from elements/attributes.js %}
     </div>
 
     <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
         <h3 class="doctext-03">Parts</h3>
-        <template is="sparky-template" fn="docs:control.css filter-type:part each" src="../templates.html#entry"></template>
+        {% docs templates/entry.html type part from elements/control.css %}
 
         <h3 class="doctext-03">Style</h3>
-        <template is="sparky-template" fn="docs:control.css filter-type:var each" src="../templates.html#entry"></template>
-        <template is="sparky-template" fn="docs:rotary-control.css filter-type:var each" src="../templates.html#entry"></template>
+        {% docs templates/entry.html type var from elements/control.css %}
+        {% docs templates/entry.html type var from elements/rotary-control.css %}
     </div>
-
-    <!-- Build document -->
-    <script type="module" src="../build.js" remove></script>    
 
     <!-- Document interactivity -->
     <script type="module">

@@ -186,7 +186,20 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*/, {
                 }
             }),
 
-            'include': capture(/^([^\s]+)(\s+import\s+)?\s*/, {
+            'if': capture(/^/, {
+                // {% if property %}
+                close: function(token, groups) {
+                    token.selector = parseString(groups);
+                    token.end += groups.consumed;
+                    parseCloseTag(token, groups);
+                    const consumed = groups.consumed;
+                    token.tree = parseTemplate([], groups);
+                    token.end += groups.consumed - consumed;
+                    return token;
+                }
+            }),
+
+            'include': capture(/^([^\s]+)(?:\s+(import)\s+|\s+(with)\s+)?\s*/, {
                 // {% include template.html %}         
                 1: (token, groups) => {
                     token.end += groups.index + groups[0].length;
@@ -197,6 +210,14 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*/, {
                 // {% include template.html import package.json %}
                 2: (token, groups) => {
                     token.import = parseString(groups);
+                    token.end += groups.consumed;
+                    return token;
+                },
+
+                // {% include template.html with name="value" %}
+                3: (token, groups) => {
+                    // Todo
+                    //token.import = parseAttributes(groups);
                     token.end += groups.consumed;
                     return token;
                 },
@@ -230,7 +251,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*/, {
             },
 
             default: function(token, groups) {
-                throw new SyntaxError('Unrecognised tag {% ' + groups[1] + ' %} (possible tags: docs, each, with, end)');
+                throw new SyntaxError('Unrecognised tag {% ' + groups[1] + ' %} (possible tags: docs, each, if, include, with, end)');
             }
         }),
 

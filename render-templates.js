@@ -52,7 +52,7 @@ finder(base)
     // Build source template to target path
     processes
     // build [source.html, target.html, timeout (seconds), port]
-    .fork('./build.js', [source, target])
+    .fork('./render-template.js', [source, target])
     .on('error', console.log)
     .on('exit', function(code, error) {
         if (code !== 0) {
