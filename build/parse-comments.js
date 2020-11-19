@@ -102,7 +102,10 @@ const parseDoc = capture(/\/\*\*+\s*(?:(\.|--|::part\(|")?(\w[\w-, .…"]*(?:\[[
         object.type  = 'attribute';
         object.title  = results[2];
         // Don't include empty strings
-        object.default = results[5] !== '""' && results[5];
+        object.default = (results[5] === '""' || results[5] === "''") ?
+            undefined :
+            results[5] ;
+
         return data;
     },
 

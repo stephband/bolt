@@ -89,7 +89,8 @@ const renderToken = overload(get('type'), {
 
         'if': function docs(token, scope, source, target) {
             const selector = token.selector;
-            return scope && scope[selector] ? 
+console.log('if', selector, scope && scope[selector])
+            return (scope && scope[selector] !== undefined) ? 
                 renderTree(token.tree, scope, source, target) :
                 Promise.resolve('') ;
         },
