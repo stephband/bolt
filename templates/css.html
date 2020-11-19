@@ -1,6 +1,6 @@
 
 {% with 0 %}
-<h2 class="x-4 1x @2-x-4 @2-4x x-start doctext-02 {{prefix|is:'.'|yesno:'dot-indent',''}}">{{title}}</h2>
+<h2 class="x-4 1x @2-x-4 @2-4x x-start doctext-02 {{prefix|is:'.'|yesno:'dot-indent',''}}" locateable id="{{title|lowercase|replace:'\.$',''}}">{{title}}</h2>
 {% end %}
 
 {% with .|rest:1 %}
