@@ -52,6 +52,14 @@ const docsFilters = {
     'function':  (comments) => filterByType('function', comments)
 };
 
+function extractBody(html) {
+    const pre = /<body[^>]*>/.exec(html);
+    if (!pre) { return html; }
+console.log('EXTRACT');
+    const post = /<\/body\s*>/.exec(html);    
+    return html.slice(pre.index + pre[0].length, post.index);
+}
+
 const renderToken = overload(get('type'), {
     // Render tags and properties. All tags must return either a promise that 
     // resolves to an HTML string, or undefined.
@@ -89,8 +97,7 @@ const renderToken = overload(get('type'), {
 
         'if': function docs(token, scope, source, target) {
             const selector = token.selector;
-console.log('if', selector, scope && scope[selector])
-            return (scope && scope[selector] !== undefined) ? 
+            return (scope && scope[selector]) ? 
                 renderTree(token.tree, scope, source, target) :
                 Promise.resolve('') ;
         },
@@ -104,7 +111,7 @@ console.log('if', selector, scope && scope[selector])
 
                 // Import JSON data as scope
                 Promise.all([
-                    request(path).then(parseTemplate),
+                    request(path).then(extractBody).then(parseTemplate),
                     request(token.import).then(JSON.parse)
                 ])
                 .then((res) => renderTree(res[0], res[1], path, target))
@@ -112,6 +119,7 @@ console.log('if', selector, scope && scope[selector])
 
                 // Use current scope as scope
                 request(path)
+                .then(extractBody)
                 .then(parseTemplate)
                 .then((tree) => renderTree(tree, scope, path, target))
                 .then((html) => html.replace(/\n/g, '\n' + token.indent)) ;

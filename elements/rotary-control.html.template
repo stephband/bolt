@@ -3,7 +3,7 @@
 <head>
     {% include templates/head.html import package.json %}
 
-    <script title="debug" remove>
+    <script title="debug">
         window.DEBUG = true;
     </script>
 
