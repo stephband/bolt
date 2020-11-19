@@ -8,8 +8,6 @@ import finder    from 'findit';
 import pather    from 'path';
 import processes from 'child_process';
 
-// Log colours
-const cyan = "\x1b[36m%s\x1b[0m";
 
 // Arguments
 const args = process.argv.slice(2);
@@ -40,9 +38,8 @@ finder(base)
 .on('file', function (source, stat) {
     // Ignore files that do not match *.html.template
     const parts  = /(.*\/)?([^\s\/]+)\.html\.template$/.exec(source);
-    if (!parts) {
-        return;
-    }
+
+    if (!parts) { return; }
 
     const path   = parts[1];
     const name   = parts[2];
@@ -51,7 +48,7 @@ finder(base)
 
     // Build source template to target path
     processes
-    // build [source.html, target.html, timeout (seconds), port]
+    // build [source.html, target.html]
     .fork('./render-template.js', [source, target])
     .on('error', console.log)
     .on('exit', function(code, error) {

@@ -8,6 +8,16 @@ body > .messages-block {
 	z-index: 30;
 }
 
+/**
+.message-block
+
+```html
+<div class="message-block block active">
+	Nasty.
+</div>
+```
+**/
+
 .message-block {
 	opacity: 0;
 	padding-left: 1.3125rem;
@@ -46,36 +56,81 @@ body > .messages-block {
 	margin-top: 0.125rem;
 }
 
-.success-message-block,
-.info-message-block {
+/**
+.info-message-block
+
+```html
+<div class="info-message-block message-block block active">
+	Information.
+</div>
+```
+**/
+
+/**
+.success-message-block
+
+```html
+<div class="success-message-block message-block block active">
+	Success!
+</div>
+```
+**/
+
+.info-message-block,
+.success-message-block {
 	color: white;
-	background-color: var(--choco);
 }
 
-.success-message-block .close-thumb::before,
-.success-message-block .close-thumb::after,
+.info-message-block {
+	background-color: #e62b24;
+	background-color: var(--info, #46789a);
+}
+
+.success-message-block {
+	background-color: #8aa231;
+	background-color: var(--success, #8aa231);
+}
 
 .info-message-block .close-thumb::before,
-.info-message-block .close-thumb::after {
+.info-message-block .close-thumb::after,
+.success-message-block .close-thumb::before,
+.success-message-block .close-thumb::after {
 	border-top-color: white;
 	border-bottom-color: white;
 }
 
-/* made this choco */
-/*
-.success-message-block {
-	color: black;
-	background-color: #8BA91D;
-}
-*/
+
+/**
+.warn-message-block
+
+```html
+<div class="warn-message-block message-block block active">
+	Warning!
+</div>
+```
+**/
+
 .warn-message-block {
 	color: black;
 	background-color: #e6ba1a;
+	background-color: var(--warn-color, #e6ba1a);
 }
+
+
+/**
+.error-message-block
+
+```html
+<div class="error-message-block message-block block active">
+	Error.
+</div>
+```
+**/
 
 .error-message-block {
 	color: white;
-	background-color: #d61729;
+	background-color: #DC0F0E;
+	background-color: var(--error-color, #DC0F0E);
 }
 
 .message-text-block {

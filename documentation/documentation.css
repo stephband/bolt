@@ -1,5 +1,16 @@
 
-@import '../fn/css/docs.css';
+@import '../../fn/css/docs.css';
+
+.docs-grid {
+    row-gap: 3.75rem;
+    grid-template-rows: min-content;
+}
+
+.docs-section-grid {
+    row-gap: 0.9375rem;
+    grid-auto-flow: column dense;
+    align-content: start;
+}
 
 
 /* Pills */

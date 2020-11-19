@@ -39,7 +39,7 @@ a.before {
 .required-before::before,
 .required-after::after {
     content: '\00a0*';
-    color: var(--red);
+    color: var(--error);
 }
 
 

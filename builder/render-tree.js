@@ -9,14 +9,12 @@ import request        from './request.js';
 import parseTemplate  from './parse-template.js';
 import parseComments  from './parse-comments.js';
 import { rewriteURL } from './url.js';
-
+import { cyan, red }  from './log.js';
 
 function join(partials) {
     return partials.join('');
 }
 
-const cyan = "\x1b[36m%s\x1b[0m";
-const red  = "\x1b[31m%s\x1b[0m";
 
 /**
 renderToken(token, scope)
@@ -73,6 +71,7 @@ const renderToken = overload(get('type'), {
             const type = token.filterType;
 
             return request(path)
+            .then(extractBody)
             .then(parseTemplate)
             .then((tree) => 
                 Promise

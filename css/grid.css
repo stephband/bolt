@@ -69,7 +69,7 @@ Define the horizontal grid gap.
 --row-gap
 Define the vertical grid gap.
 **/
-@media (min-width: 0em) { .grid { display: grid !important; /* Horizontal layout */ grid-auto-flow: row; /* Create equal columns by default. */ grid-auto-columns: minmax(0, 1fr); column-gap: var(--column-gap); row-gap: var(--row-gap); }
+@media (min-width: 0em) { .grid {display: grid !important; /* Horizontal layout */grid-auto-flow: row; /* Create equal columns by default. */grid-auto-columns: minmax(0, 1fr);column-gap: var(--column-gap);row-gap: var(--row-gap);}
     .y-start-grid { align-content: start; }
     .\32 x-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .\33 x-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }

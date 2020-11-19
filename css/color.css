@@ -58,15 +58,54 @@ and variables are available to set colors in CSS:
 .white-fg   { color: white; stroke: white; }
 .white-bg   { background-color: white; fill: white; }
 
+
 /**
-.red-bg
+.info-bg
 
 ```html
-<p class="thumb red-bg">Red</p>
+<p class="thumb info-bg">Info colour</p>
 ```
 **/
 
-:root       { --red: #e62b24; }
-.red-fg     { color: #e62b24; stroke: #e62b24; }
-.red-bg     { background-color: #e62b24; fill: #e62b24; }
+:root       { --info: #46789a; }
+.info-fg    { color: #46789a; stroke: #46789a; }
+.info-bg    { background-color: #46789a; fill: #46789a; }
 
+
+/**
+.success-bg
+
+```html
+<p class="thumb success-bg">Success colour</p>
+```
+**/
+
+:root       { --success: #8aa231; }
+.success-fg { color: #8aa231; stroke: #8aa231; }
+.success-bg { background-color: #8aa231; fill: #8aa231; }
+
+
+/**
+.warn-bg
+
+```html
+<p class="thumb warn-bg">Warn colour</p>
+```
+**/
+
+:root       { --warn: #e6ba1a; }
+.warn-fg    { color: #e6ba1a; stroke: #e6ba1a; }
+.warn-bg    { background-color: #e6ba1a; fill: #e6ba1a; }
+
+
+/**
+.error-bg
+
+```html
+<p class="thumb error-bg">Error colour</p>
+```
+**/
+
+:root         { --error: #DC0F0E; }
+.error-fg     { color: #DC0F0E; stroke: #DC0F0E; }
+.error-bg     { background-color: #DC0F0E; fill: #DC0F0E; }

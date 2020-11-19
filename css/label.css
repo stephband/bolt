@@ -54,7 +54,7 @@ fieldset + input {
 }
 
 .error-label {
-    color: var(--red);
+    color: var(--error);
 }
 
 * + .error-label {

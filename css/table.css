@@ -74,7 +74,7 @@ table {
 
 
 
-/*
+/**
 .lined-table
 
 ```html
@@ -92,7 +92,7 @@ table {
   </tfoot>
 </table>
 ```
-*/
+**/
 
 
 .lined-table th,

@@ -1,0 +1,12 @@
+
+{% each %}
+<form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
+    <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;">{{example}}</div>
+</form>
+
+<div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+    <h4 class="doctext-05 {{prefix|is:'.'|yesno:'dot-indent',''}}">
+        <a href="#{{id}}-description" title="Show HTML markup"><code>{{title}}</code></a>
+    </h4>
+</div>
+{% end %}

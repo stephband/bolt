@@ -168,7 +168,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
 
 .remove-thumb {
     color: white;
-    background-color: var(--red);
+    background-color: var(--error);
 }
 
 .close-thumb::before,

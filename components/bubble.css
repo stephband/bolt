@@ -1,13 +1,9 @@
 
 /**
-Bubbles
-**/
-
-/**
 .bubble
 
 ```html
-<aside class="bubble">
+<aside class="bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
 Crunchum Ipsum.
 </aside>
 ```
@@ -90,6 +86,106 @@ Crunchum Ipsum.
     transition: left 120ms ease-out;
     z-index: -1;
 }
+
+/**
+.top-bubble
+
+```html
+<aside class="top-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.left-top-bubble
+
+```html
+<aside class="left-top-bubble top-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.right-top-bubble
+
+```html
+<aside class="right-top-bubble top-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.bottom-bubble
+
+```html
+<aside class="bottom-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.left-bottom-bubble
+
+```html
+<aside class="left-bottom-bubble bottom-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.right-bottom-bubble
+
+```html
+<aside class="right-bottom-bubble bottom-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.left-bubble
+
+```html
+<aside class="left-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.bottom-left-bubble
+
+```html
+<aside class="bottom-left-bubble left-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.right-bubble
+
+```html
+<aside class="right-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.bottom-right-bubble
+
+```html
+<aside class="bottom-right-bubble right-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
 
 .top-bubble::before,
 .bottom-bubble::before,
