@@ -2,7 +2,7 @@
   "title": "Bolt",
   "name": "bolt",
   "description": "A front-end toolkit of classes, evented behaviours and custom elements.",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "author": {
     "name": "stephband",
     "url": "http://stephen.band",
@@ -42,6 +42,6 @@
     "build-doc": "node ./build.js",
     "build-watch": "node ./watch.js",
     "graph": "madge --image ./module.svg ./module.js",
-    "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.1' && git push"
+    "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.2' && git push"
   }
 }
