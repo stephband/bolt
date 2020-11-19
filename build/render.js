@@ -15,6 +15,8 @@ function join(partials) {
     return partials.join('');
 }
 
+const cyan = "\x1b[36m%s\x1b[0m";
+const red  = "\x1b[31m%s\x1b[0m";
 
 /**
 renderToken(token, scope)
@@ -55,7 +57,6 @@ const docsFilters = {
 function extractBody(html) {
     const pre = /<body[^>]*>/.exec(html);
     if (!pre) { return html; }
-console.log('EXTRACT');
     const post = /<\/body\s*>/.exec(html);    
     return html.slice(pre.index + pre[0].length, post.index);
 }
@@ -83,7 +84,10 @@ const renderToken = overload(get('type'), {
                 .then((comments) => renderTree(tree, comments.flat(), path, target))
                 // Render includes at the tag's indentation
                 .then((html) => html.replace(/\n/g, '\n' + token.indent))
-            );
+            )
+            .catch(() => {
+                console.log(red, 'docs', '"' + path + '" not found');
+            })
         },
 
         'each': function docs(token, scope, source, target) {
@@ -111,8 +115,17 @@ const renderToken = overload(get('type'), {
 
                 // Import JSON data as scope
                 Promise.all([
-                    request(path).then(extractBody).then(parseTemplate),
-                    request(token.import).then(JSON.parse)
+                    request(path)
+                    .then(extractBody)
+                    .then(parseTemplate)
+                    .catch((error) => {
+                        console.log(red, 'include', path + ' not found');
+                    }),
+                    request(token.import)
+                    .then(JSON.parse)
+                    .catch((error) => {
+                        console.log(red, 'import', token.import + ' not found');
+                    })
                 ])
                 .then((res) => renderTree(res[0], res[1], path, target))
                 .then((html) => html.replace(/\n/g, '\n' + token.indent)) :
@@ -122,7 +135,11 @@ const renderToken = overload(get('type'), {
                 .then(extractBody)
                 .then(parseTemplate)
                 .then((tree) => renderTree(tree, scope, path, target))
-                .then((html) => html.replace(/\n/g, '\n' + token.indent)) ;
+                .then((html) => html.replace(/\n/g, '\n' + token.indent))
+                .catch(() => {
+                    console.log(red, 'include', path + ' not found');
+                    //return '<pre><code>Template "' + path + '" not found</code></pre>'
+                }) ;
         },
 
         'with': function docs(token, scope) {

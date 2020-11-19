@@ -107,9 +107,8 @@
         './elements/rotary-control.css'  %}
     {% docs templates/css.html type selector from ./sass/grid.scss %}
 
-    {# Todo: Invent a way to get just the body #}
-    {% include docs/range-control.html %}
-    {% include docs/rotary-control.html %}
+    {% include elements/range-control.html.template %}
+    {% include elements/rotary-control.html.template %}
     {% include docs/slide-show.html %}
 
     <script type="module">
