@@ -23,16 +23,13 @@ if (args.length < 2) {
 // Log colours
 const cyan = "\x1b[36m%s\x1b[0m";
 
-// Lop off any leading './' on source name
+// Lop off any leading './' on file names
 const source = args[0].replace(/^\.\//, '');
-const path   = source.split('/');
-const target = args[1];
-
-console.log(source);
+const target = args[1].replace(/^\.\//, '');
 
 request(source)
 .then(parseTemplate)
-.then((tree) => renderTree(tree, null))
+.then((tree) => renderTree(tree, null, source, target))
 .then((html) => new Promise(function(resolve, reject) {
     // Write HTML to target file
     fs.writeFile(target, html, function(error) {

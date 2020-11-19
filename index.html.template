@@ -108,13 +108,10 @@
     {% docs templates/css.html type selector from ./sass/grid.scss %}
 
     {# Todo: Invent a way to get just the body #}
-    {% include docs/range-control.html %}
+    {#% include docs/range-control.html %#}
     {% include docs/rotary-control.html %}
-    {% include docs/slide-show.html %}
+    {#% include docs/slide-show.html %#}
 
-    <script type="module" src="./elements/range-control.js"></script>
-    <script type="module" src="./elements/rotary-control.js"></script>
-    <script type="module" src="./elements/slide-show.js"></script>
     <script type="module">
         import './module.js';
         import './documentation.js';

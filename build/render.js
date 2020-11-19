@@ -5,9 +5,10 @@ import noop     from '../../fn/modules/noop.js';
 import overload from '../../fn/modules/overload.js';
 import toText   from '../../sparky/modules/to-text.js';
 
-import request       from './request.js';
-import parseTemplate from './parse-template.js';
-import parseComments from './parse-comments.js';
+import request        from './request.js';
+import parseTemplate  from './parse-template.js';
+import parseComments  from './parse-comments.js';
+import { rewriteURL } from './url.js';
 
 
 function join(partials) {
@@ -56,7 +57,7 @@ const renderToken = overload(get('type'), {
     // resolves to an HTML string, or undefined.
 
     'tag': overload(get('fn'), {
-        'docs': function docs(token, data) {
+        'docs': function docs(token, data, source, target) {
             // Lop off hash refs, for now (Todo: support file partials? 
             // Could be tricky.)
             const path = token.src.replace(/#.*$/, '');
@@ -71,26 +72,29 @@ const renderToken = overload(get('type'), {
                     .then(parseComments)
                     .then(docsFilters[type])
                 ))
-                .then((comments) => renderTree(tree, comments.flat()))
+                .then((comments) => renderTree(tree, comments.flat(), path, target))
                 // Render includes at the tag's indentation
                 .then((html) => html.replace(/\n/g, '\n' + token.indent))
             );
         },
 
-        'each': function docs(token, scope) {
-            return Promise
-            .all(scope.map((data) => renderTree(token.tree, data)))
-            .then(join);
+        'each': function docs(token, scope, source, target) {
+            return scope ?
+                Promise
+                .all(scope.map((data) => renderTree(token.tree, data, source, target)))
+                .then(join) :
+                Promise
+                .resolve('') ;
         },
 
-        'if': function docs(token, scope) {
+        'if': function docs(token, scope, source, target) {
             const selector = token.selector;
-            return scope[selector] ? 
-                renderTree(token.tree, scope) :
+            return scope && scope[selector] ? 
+                renderTree(token.tree, scope, source, target) :
                 Promise.resolve('') ;
         },
 
-        'include': function docs(token, data) {
+        'include': function docs(token, scope, source, target) {
             // Lop off hash refs, for now (Todo: support file partials? 
             // Could be tricky.)
             const path = token.src.replace(/#.*$/, '');
@@ -102,13 +106,13 @@ const renderToken = overload(get('type'), {
                     request(path).then(parseTemplate),
                     request(token.import).then(JSON.parse)
                 ])
-                .then((res) => renderTree(res[0], res[1]))
+                .then((res) => renderTree(res[0], res[1], path, target))
                 .then((html) => html.replace(/\n/g, '\n' + token.indent)) :
 
                 // Use current scope as scope
                 request(path)
                 .then(parseTemplate)
-                .then((tree) => renderTree(tree, data))
+                .then((tree) => renderTree(tree, scope, path, target))
                 .then((html) => html.replace(/\n/g, '\n' + token.indent)) ;
         },
 
@@ -125,7 +129,28 @@ const renderToken = overload(get('type'), {
         return Promise.resolve(token.text);
     },
 
-    // Don't render comments
+    // Rewrite relative URLs
+    'url': function(token, scope, source, target) {
+        const isAbsolute = /^#|^\w+:\/\/|^\//.test(token.url);
+
+        /*
+        if (!isAbsolute) {
+            console.log('Rewrite URL ', source, target, token.url, rewriteURL(source, target, token.url));
+        }
+        else {
+            console.log('Absolute URL', token.url);
+        }
+        */
+
+        return isAbsolute ?
+            Promise
+            .resolve(token.url) :
+            Promise
+            .resolve(rewriteURL(source, target, token.url))
+            .then((url) => (/^[\.\/]/.test(url) ? url : './' + url)) ;
+    },
+
+    // Ignore comments  
     'comment': noop
 });
 
@@ -137,10 +162,10 @@ Takes a parsed template tree and returns a promise that resolves to a string
 of HTML.
 **/
 
-export default function renderTree(tree, scope) {
+export default function renderTree(tree, scope, source, target) {
     return Promise
     .all(tree.reduce(function(promises, token) {
-        const promise = renderToken(token, scope);
+        const promise = renderToken(token, scope, source, target);
 
         if (promise) {
             promises.push(promise);

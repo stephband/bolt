@@ -132,7 +132,7 @@ function indentation(groups) {
     return /^\s*/.exec(string)[0];
 }
 
-const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*/, {
+const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*['"]?|from\s+['"]|import\s+['"])([\:\.\/\w-\d\%]+)/, {
     // Create new object tracking start and end of token
     0: (nothing, groups) => ({
         begin:  groups.index,
@@ -300,6 +300,16 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*/, {
         }
     }),
 
+    // URL
+    4: (token, groups) => {
+        // Group 4 is the prefix src=", href=", url( or from ", group 5 is the
+        // URL itself. Don't include the prefix in the token's begin index.
+        token.begin += groups[4].length;
+        token.type   = 'url';
+        token.url    = groups[5];
+        return token;        
+    },
+
     // If no tags are found return undefined
     catch: noop
 }, null);
@@ -320,7 +330,7 @@ const parseTemplate = capture(/^/, {
                 });
             }
 
-            // End tag stops processing immediately
+            // End tag stops processing and returns immediately
             if (tag.type === 'end') {
                 return array;
             }
