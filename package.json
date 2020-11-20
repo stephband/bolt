@@ -21,8 +21,9 @@
     "eslint": "^6.5.0",
     "findit": "^2.0.0",
     "madge": "^3.9.2",
-    "node-sass": "^4.14.1",
-    "rollup": "^2.21.0"
+    "rollup": "^2.21.0",
+    "clean-css": "^4.2.3",
+    "sass": "^1.29.0"
   },
   "homepage": "http://stephen.band/bolt/",
   "docs": "http://stephen.band/bolt/",
