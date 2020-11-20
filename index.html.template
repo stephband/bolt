@@ -87,7 +87,7 @@
     </style>
 </head>
 
-<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
+<body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
     <header class="x-1 3x @1-x-2 @1-4x @2-x-4" id="header">
         {% include templates/header.html import package.json %}
     </header>
@@ -117,13 +117,13 @@
     </section>
 
 
-    {#<h2 class="x-4 1x @2-x-4 @2-4x x-start doctext-02" locateable id="thumb">Thumbs.</h3>
+    <h2 class="x-4 1x @2-x-4 @2-4x x-start doctext-02" locateable id="thumb">Thumb.</h3>
     <section class="x-1 9x dense 9x-grid docs-section-grid grid">
         {% docs templates/component.html type selector from ./css/thumb.css %}
         <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span 4;">
             {% docs templates/entry.html type var from ./css/thumb.css %}
         </div>
-    </section>#}
+    </section>
 
 
     <h2 class="x-4 1x @2-x-4 @2-4x x-start doctext-02" locateable id="table">Table.</h3>

@@ -1,13 +1,9 @@
 
 /**
-Thumbs.
-**/
-
-/**
 .thumb
 
 ```html
-<a class="thumb" href="#" style="background-image: url('//source.unsplash.com/category/nature/128x80')">Thumb text</a>
+<a class="thumb" href="#" style="background-image: url('images/logo.svg');">Thumb text</a>
 ```
 
 Base class for thumbnails, avatars, icons and other cases where an image
@@ -80,7 +76,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
 }
 
 
-/**
+/*
 .burger-thumb
 
 ```html
@@ -118,7 +114,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
 }
 
 
-/**
+/*
 .close-thumb
 
 ```html
@@ -126,7 +122,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
 ```
 **/
 
-/**
+/*
 .add-thumb
 
 ```html
@@ -134,7 +130,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
 ```
 **/
 
-/**
+/*
 .subtract-thumb
 
 ```html
@@ -142,7 +138,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
 ```
 **/
 
-/**
+/*
 .remove-thumb
 
 ```html
@@ -223,7 +219,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
 }
 
 
-/**
+/*
 .prev-thumb, .next-thumb
 
 Navigation thumbs for slideshows.
@@ -273,11 +269,13 @@ Navigation thumbs for slideshows.
 }
 
 
+
+
 /**
 .thumb-2:1
 
 ```html
-<a class="thumb thumb-2:1" href="#" style="background-image: url('images/scotland-3.jpg')">Thumb text</a>
+<a class="thumb thumb-2:1" href="#" style="background-image: url('images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
 ```
 **/
 
@@ -285,7 +283,7 @@ Navigation thumbs for slideshows.
 .thumb-16:9
 
 ```html
-<a class="thumb thumb-16:9" href="#" style="background-image: url('images/scotland-4.jpg')">Thumb text</a>
+<a class="thumb thumb-16:9" href="#" style="background-image: url('images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
 ```
 **/
 
@@ -293,7 +291,31 @@ Navigation thumbs for slideshows.
 .thumb-3:2
 
 ```html
-<a class="thumb thumb-3:2" href="#" style="background-image: url('images/scotland-2.jpg')">Thumb text</a>
+<a class="thumb thumb-3:2" href="#" style="background-image: url('images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
+```
+**/
+
+/**
+.thumb-4:3
+
+```html
+<a class="thumb thumb-4:3" href="#" style="background-image: url('images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
+```
+**/
+
+/**
+.thumb-5:4
+
+```html
+<a class="thumb thumb-5:4" href="#" style="background-image: url('images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
+```
+**/
+
+/**
+.thumb-1:1
+
+```html
+<a class="thumb thumb-1:1" href="#" style="background-image: url('images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
 ```
 **/
 
