@@ -8,6 +8,10 @@ import finder    from 'findit';
 import pather    from 'path';
 import processes from 'child_process';
 
+// Current directory
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+const directory = dirname(fileURLToPath(import.meta.url));
 
 // Arguments
 const args = process.argv.slice(2);
@@ -49,7 +53,7 @@ finder(base)
     // Build source template to target path
     processes
     // build [source.html, target.html]
-    .fork('./render-template.js', [source, target])
+    .fork(directory + '/build-template.js', [source, target])
     .on('error', console.log)
     .on('exit', function(code, error) {
         if (code !== 0) {

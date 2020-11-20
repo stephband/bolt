@@ -3,7 +3,7 @@ import get      from '../../fn/modules/get.js';
 import id       from '../../fn/modules/id.js';
 import noop     from '../../fn/modules/noop.js';
 import overload from '../../fn/modules/overload.js';
-import toText   from '../../sparky/modules/to-text.js';
+import toString from './to-string.js';
 
 import request        from './request.js';
 import parseTemplate  from './parse-template.js';
@@ -147,7 +147,7 @@ const renderToken = overload(get('type'), {
     }),
 
     'property': function(token, scope) {
-        return Promise.resolve(toText(token.transform(scope)));
+        return Promise.resolve(toString(token.transform(scope)));
     },
 
     'text': function(token, scope) {

@@ -10,8 +10,7 @@ import noop     from '../../fn/modules/noop.js';
 import nothing  from '../../fn/modules/nothing.js';
 import overload from '../../fn/modules/overload.js';
 import pipe     from '../../fn/modules/pipe.js';
-
-import { transforms, transformers } from '../../sparky/modules/transforms.js';
+import { retrieve as getPipe } from './pipes.js';
 
 const assign = Object.assign;
 
@@ -54,16 +53,10 @@ createTransform(pipes)
 Create a transform function from an array of pipe tokens.
 **/
 
-function getTransform(name) {
-    return transformers[name] ?
-        transformers[name].tx :
-        transforms[name] ;
-}
-
 export function createTransform(pipes) {
     const fns = pipes.map((data) => {
         // Look in global pipes first
-        var fn = getTransform(data.name);
+        var fn = getPipe(data.name);
 
         if (!fn) {
             throw new ReferenceError('Template pipe "' + data.name + '" not found.');
@@ -86,7 +79,7 @@ parseFilter(string)
 Parses "selector|filter:param" syntax.
 */
 
-import { parsePipe } from '../../sparky/modules/parse-pipe.js';
+import { parsePipe } from '../../fn/modules/parse-pipe.js';
 
 const parseFilter = capture(/^([\w.-]*)\s*(\|)?\s*/, {
     1: (nothing, groups) => (groups[1] === '.' ?
