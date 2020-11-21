@@ -11,7 +11,7 @@ import request        from './request.js';
 import parseTemplate  from './parse-template.js';
 import parseComments  from './parse-comments.js';
 import { rewriteURL } from './url.js';
-import { cyan, red }  from './log.js';
+import { cyan, red, yellow, reset }  from './log.js';
 
 function join(partials) {
     return partials.join('');
@@ -131,7 +131,7 @@ const renderToken = overload(get('type'), {
                     request(getRootSrc(source, token.import))
                     .then(JSON.parse)
                     .catch((error) => {
-                        console.log(red, 'import', getRootSrc(source, token.import) + ' not found');
+                        console.log(red + ' ' + yellow + ' ' +  red + ' ' + yellow, 'Import', getRootSrc(source, token.import), error.constructor.name, error.message);
                     })
                 ])
                 .then((res) => renderTree(res[0], res[1], src, target))
