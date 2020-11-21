@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% include templates/head.html import package.json %}
+    {% include ../templates/head.html import ../package.json %}
     
     <script title="debug">
         window.DEBUG = true;
     </script>
     
-    {% include templates/style.html %}
+    {% include ../templates/style.html %}
 
     <script title="config">
         window.customElementStylesheetPath = './';
     </script>
 
-    <template is="sparky-template" src="../templates.html#nested-style"></template>
+    <template is="sparky-template" src="../templates/templates.html#nested-style"></template>
 
     <style>
     slide-show {
@@ -39,7 +39,7 @@
 
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
     <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
-        {% docs templates/tag.html type tag from elements/slide-show.js %}
+        {% docs ../templates/tag.html type tag from slide-show.js %}
     </header>
 
     <div class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
@@ -53,25 +53,25 @@
 
     <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
         <h3 class="doctext-03">Attributes</h3>        
-        {% docs templates/entry.html type attribute from elements/slide-show.js %}
+        {% docs ../templates/entry.html type attribute from slide-show.js %}
 
         <!--h3 class="doctext-03">Properties</h3>
-        <template is="sparky-template" fn="docs:slide-show.js filter-type:property each" src="../templates.html#entry"></template-->
+        <template is="sparky-template" fn="docs:slide-show.js filter-type:property each" src="../templates/templates.html#entry"></template-->
 
         <!--h3 class="doctext-03">Events</h3>
-        <template is="sparky-template" fn="docs:slide-show.js filter-type:string each" src="../templates.html#entry"></template-->
+        <template is="sparky-template" fn="docs:slide-show.js filter-type:string each" src="../templates/templates.html#entry"></template-->
     </div>
 
     <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
         <h3 class="doctext-03">Parts</h3>
-        {% docs templates/entry.html type part from elements/slide-show.css %}
+        {% docs ../templates/entry.html type part from slide-show.css %}
 
         <h3 class="doctext-03">Variables</h3>
-        {% docs templates/entry.html type var from elements/slide-show.css %}
+        {% docs ../templates/entry.html type var from slide-show.css %}
     </div>
 
     <!-- Document interactivity -->
     <script type="module" src="../../dom/polyfills/element.scrollto.js"></script>
     <script type="module" src="./slide-show.js"></script>
-    {% include templates/scripts.html %}
+    {% include ../templates/scripts.html %}
 </body>

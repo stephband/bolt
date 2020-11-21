@@ -12,7 +12,6 @@ renderTemplate(source, target)
 **/
 
 export default function renderTemplate(source, target) {
-console.log('renderTemplate', source, target);
     return request(source)
     .then(parseTemplate)
     .then((tree) => renderTree(tree, null, source, target))

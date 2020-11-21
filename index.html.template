@@ -171,10 +171,9 @@
     </section>
 
 
-    {% include elements/range-control.html.template %}
+    {#% include elements/range-control.html.template %}
     {% include elements/rotary-control.html.template %}
-    {% include elements/slide-show.html.template %}
-
+    {% include elements/slide-show.html.template %#}
 
     {% include templates/scripts.html %}
 </body>

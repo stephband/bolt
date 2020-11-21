@@ -44,5 +44,15 @@
     "build-watch": "node ./watch.js",
     "graph": "madge --image ./module.svg ./module.js",
     "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.2' && git push"
-  }
+  },
+  "builderExcludes": [
+    ".git/",
+    "node_modules/",
+    "archive/",
+    "fonts/",
+    "libs/",
+    "docs/",
+    "builder/",
+    "templates/"
+  ]
 }

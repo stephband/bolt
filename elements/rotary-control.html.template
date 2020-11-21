@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% include templates/head.html import package.json %}
+    {% include ../templates/head.html import ../package.json %}
 
     <script title="debug">
         window.DEBUG = true;
     </script>
 
-    {% include templates/style.html %}
+    {% include ../templates/style.html %}
 
     <script title="config">
         window.customElementStylesheetPath = './';
@@ -38,7 +38,7 @@
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
     <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="rotary-control">
-        {% docs templates/tag.html type tag from elements/rotary-control.js %}
+        {% docs ../templates/tag.html type tag from rotary-control.js %}
     </header>
 
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
@@ -55,25 +55,25 @@
 
     <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
         <h3 class="doctext-03">Attributes</h3>        
-        {% docs templates/entry.html type attribute from elements/attributes.js %}
+        {% docs ../templates/entry.html type attribute from attributes.js %}
 
         <h3 class="doctext-03">Properties</h3>
-        {% docs templates/entry.html type property from elements/attributes.js %}
+        {% docs ../templates/entry.html type property from attributes.js %}
 
         <h3 class="doctext-03">Events</h3>
-        {% docs templates/entry.html type string from elements/attributes.js %}
+        {% docs ../templates/entry.html type string from attributes.js %}
     </div>
 
     <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
         <h3 class="doctext-03">Parts</h3>
-        {% docs templates/entry.html type part from elements/control.css %}
+        {% docs ../templates/entry.html type part from control.css %}
 
         <h3 class="doctext-03">Variables</h3>
-        {% docs templates/entry.html type var from elements/control.css %}
-        {% docs templates/entry.html type var from elements/rotary-control.css %}
+        {% docs ../templates/entry.html type var from control.css %}
+        {% docs ../templates/entry.html type var from rotary-control.css %}
     </div>
 
     <!-- Document interactivity -->
     <script type="module" src="./rotary-control.js"></script>
-    {% include templates/scripts.html %}
+    {% include ../templates/scripts.html %}
 </body>

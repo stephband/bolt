@@ -77,14 +77,14 @@ const renderToken = overload(get('type'), {
             // Get src relative to working directory 
             const src  = getRootSrc(source, token.src);
             const type = token.filterType;
-console.log(src, type);
+
             return request(src)
             .then(extractBody)
             .then(parseTemplate)
             .then((tree) => 
                 Promise
                 .all(token.sources.map((path) =>
-                    request(path)
+                    request(getRootSrc(source, path))
                     .then(parseComments)
                     .then(docsFilters[type])
                 ))
@@ -93,7 +93,8 @@ console.log(src, type);
                 .then((html) => html.replace(/\n/g, '\n' + token.indent))
             )
             .catch(() => {
-                console.log(red, 'docs', '"' + src + '" not found');
+                console.log(source, token.src, src, type);
+                //console.log(red, 'docs', '"' + src + '" not found');
                 return '<pre><code>' + src + ' not found</code></pre>';
             })
         },
@@ -125,12 +126,12 @@ console.log(src, type);
                     .then(extractBody)
                     .then(parseTemplate)
                     .catch((error) => {
-                        console.log(red, 'include', path + ' not found');
+                        console.log(red, 'include', src + ' not found');
                     }),
-                    request(token.import)
+                    request(getRootSrc(source, token.import))
                     .then(JSON.parse)
                     .catch((error) => {
-                        console.log(red, 'import', token.import + ' not found');
+                        console.log(red, 'import', getRootSrc(source, token.import) + ' not found');
                     })
                 ])
                 .then((res) => renderTree(res[0], res[1], src, target))
@@ -143,8 +144,7 @@ console.log(src, type);
                 .then((tree) => renderTree(tree, scope, src, target))
                 .then((html) => html.replace(/\n/g, '\n' + token.indent))
                 .catch(() => {
-                    console.log(red, 'include', path + ' not found');
-                    //return '<pre><code>Template "' + path + '" not found</code></pre>'
+                    console.log(red, 'include', src + ' not found');
                 }) ;
         },
 
