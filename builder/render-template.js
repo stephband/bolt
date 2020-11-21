@@ -1,5 +1,6 @@
 
 import fs from 'fs';
+import path     from 'path';
 
 import request       from './request.js';
 import parseTemplate from './parse-template.js';
@@ -16,6 +17,14 @@ export default function renderTemplate(source, target) {
     .then(parseTemplate)
     .then((tree) => renderTree(tree, null, source, target))
     .then((html) => new Promise(function(resolve, reject) {
+        const root = path.parse(target);
+        const dir  = root.dir;
+
+        // If dir not '' create a directory tree where one does not exist
+        if (dir) {
+            fs.promises.mkdir(dir, { recursive: true });
+        }
+
         // Write HTML to target file
         fs.writeFile(target, html, function(error) {
             return error ? reject(error) : resolve(html) ;

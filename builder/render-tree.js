@@ -1,5 +1,5 @@
 
-import Path     from 'path';
+import path     from 'path';
 
 import get      from '../../fn/modules/get.js';
 import id       from '../../fn/modules/id.js';
@@ -62,10 +62,10 @@ function extractBody(html) {
 }
 
 function getRootSrc(source, src) {
-    const path = src.replace(/#.*$/, '');
-    const root = Path.parse(source);
-    const dir  = root.dir;
-    return Path.join(dir, path);
+    const root     = path.parse(source);
+    const dir      = root.dir;
+    const relative = src.replace(/#.*$/, '');
+    return path.join(dir, relative);
 }
 
 const renderToken = overload(get('type'), {
