@@ -1,4 +1,6 @@
 
+import Path     from 'path';
+
 import get      from '../../fn/modules/get.js';
 import id       from '../../fn/modules/id.js';
 import noop     from '../../fn/modules/noop.js';
@@ -59,18 +61,24 @@ function extractBody(html) {
     return html.slice(pre.index + pre[0].length, post.index);
 }
 
+function getRootSrc(source, src) {
+    const path = src.replace(/#.*$/, '');
+    const root = Path.parse(source);
+    const dir  = root.dir;
+    return Path.join(dir, path);
+}
+
 const renderToken = overload(get('type'), {
     // Render tags and properties. All tags must return either a promise that 
     // resolves to an HTML string, or undefined.
 
     'tag': overload(get('fn'), {
         'docs': function docs(token, data, source, target) {
-            // Lop off hash refs, for now (Todo: support file partials? 
-            // Could be tricky.)
-            const path = token.src.replace(/#.*$/, '');
+            // Get src relative to working directory 
+            const src  = getRootSrc(source, token.src);
             const type = token.filterType;
-
-            return request(path)
+console.log(src, type);
+            return request(src)
             .then(extractBody)
             .then(parseTemplate)
             .then((tree) => 
@@ -80,12 +88,13 @@ const renderToken = overload(get('type'), {
                     .then(parseComments)
                     .then(docsFilters[type])
                 ))
-                .then((comments) => renderTree(tree, comments.flat(), path, target))
+                .then((comments) => renderTree(tree, comments.flat(), src, target))
                 // Render includes at the tag's indentation
                 .then((html) => html.replace(/\n/g, '\n' + token.indent))
             )
             .catch(() => {
-                console.log(red, 'docs', '"' + path + '" not found');
+                console.log(red, 'docs', '"' + src + '" not found');
+                return '<pre><code>' + src + ' not found</code></pre>';
             })
         },
 
@@ -106,15 +115,13 @@ const renderToken = overload(get('type'), {
         },
 
         'include': function docs(token, scope, source, target) {
-            // Lop off hash refs, for now (Todo: support file partials? 
-            // Could be tricky.)
-            const path = token.src.replace(/#.*$/, '');
+            // Get src relative to working directory 
+            const src = getRootSrc(source, token.src);
 
             return token.import ?
-
                 // Import JSON data as scope
                 Promise.all([
-                    request(path)
+                    request(src)
                     .then(extractBody)
                     .then(parseTemplate)
                     .catch((error) => {
@@ -126,14 +133,14 @@ const renderToken = overload(get('type'), {
                         console.log(red, 'import', token.import + ' not found');
                     })
                 ])
-                .then((res) => renderTree(res[0], res[1], path, target))
+                .then((res) => renderTree(res[0], res[1], src, target))
                 .then((html) => html.replace(/\n/g, '\n' + token.indent)) :
 
                 // Use current scope as scope
-                request(path)
+                request(src)
                 .then(extractBody)
                 .then(parseTemplate)
-                .then((tree) => renderTree(tree, scope, path, target))
+                .then((tree) => renderTree(tree, scope, src, target))
                 .then((html) => html.replace(/\n/g, '\n' + token.indent))
                 .catch(() => {
                     console.log(red, 'include', path + ' not found');

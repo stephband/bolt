@@ -41,7 +41,7 @@ finder(base)
 })
 .on('file', function (source, stat) {
     // Ignore files that do not match *.html.template
-    const parts  = /(.*\/)?([^\s\/]+)\.html\.template$/.exec(source);
+    const parts  = /(.*\/)?([^\s\/]+)\.html\.template_$/.exec(source);
 
     if (!parts) { return; }
 
