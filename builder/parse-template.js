@@ -350,10 +350,6 @@ const parseTemplate = capture(/^/, {
         });
 
         return array;
-    },
-
-    close: (array, groups) => {
-        return array;
     }
 });
 

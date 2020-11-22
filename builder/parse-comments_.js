@@ -42,275 +42,245 @@ const markedOptions = {
 };
 
 
+/** 
+parseComment(string)
+Where a documentation comment is found, returns a token object of the form:
 
-capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()|(")|(<)|(\{\[)|(\b))?/, {
-    // Property .property = default
+```js
+{
+    id:       unique id for this token object
+    type:     type of comment, one of 'attribute', 'property', 'element'
+    name:     name of attribute, property, function, element or class
+    title:    
+    prefix:   syntax characters that precede declaration
+    postfix:  syntax characters that follow declaration
+    default:  default value
+    params:   where `type` is method or function, list of parameters
+    body:     body of comment, code highlighted
+    examples: array of html code examples found in comment body, unhighlighted 
+}
+```
+**/
+
+const ids = {};
+
+function createId(string) {
+    if (ids[string] === undefined) {
+        ids[string] = 0;
+        return string;
+    }
+    else {
+        ++ids[string];
+        return string + '-' + ids[string];   
+    }
+}
+
+// Documentation comment
+// /** (.) (--) (::part() (") (<) ({[) (word)
+const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{\[)|(\b))?/, {
+    // New data object
+    0: function() {
+        return {};       
+    },
+
+    // Class, property or method .(name) (=) (()
     1: capture(/^([\w-]+)\s*(?:(=)|(\())?\s*/, {
-        // property name
-        1: function(data, strings) {
+        // Class
+        // .class
+        1: function(data, captures) {
+            data.type = 'class';
+            data.name = captures[1];
             return data;
         },
 
-        // default value
-        2: function(data, strings) {
+        // Property 
+        // .property = default
+        2: function(data, captures) {
+            data.type    = 'property';
+            data.default = captures[2];
             return data;
         },
 
-        // It's a method
-        3: function(data, strings) {
-            const params = parseParams(strings, []);
+        // Method
+        // .method(param, param, ...)
+        3: function(data, captures) {
+            data.type   = 'method';
+            data.params = parseParams([], captures);
+            // Todo capture end bracket )
             return data;
+        },
+
+        catch: function(data) {
+            throw new SyntaxError('Invalid .property or .method()');        
         }
     }),
 
-    // CSS --variable: default
-    2: capture(/^([\w-]+)(?:\s*:\s*([\w\d-]+))?/, {
-        // variable name
-        1: function(data, strings) {
+    // CSS Variable (name): (value)
+    2: capture(/^([\w-]+)(?:\s*:\s*([\w\d-]+))?\s*/, {
+        // --variable
+        1: function(data, captures) {
+            data.type   = 'var';
+            data.prefix = '--';
+            data.name   = captures[1];
             return data;
         },
 
-        // default value
-        2: function(data, strings) {
+        // --variable: default
+        2: function(data, captures) {
+            data.default = captures[2];
             return data;
+        },
+
+        catch: function(data) {
+            throw new SyntaxError('Invalid --variable');        
         }
     }),
 
-    // CSS ::part()
-    3: capture(/^(\w+)\)/, {
-        1: function(data, strings) {
+    // Part ::part( (name) )
+    3: capture(/^(\w+)\s*\)\s*/, {
+        1: function(data, captures) {
+            data.type = 'part';
+            data.name = captures[1];
             return data;
+        },
+
+        catch: function() {
+            throw new SyntaxError('Invalid ::part()');        
         }
     }),
 
     // String "text"
     4: capture(/^([^"]*)"/, {
-        1: function(data, strings) {
+        1: function(data, captures) {
+            data.type = 'string';
+            data.name = captures[1];
             return data;
+        },
+
+        catch: function(data) {
+            throw new SyntaxError('Unclosed "string');        
         }
     }),
 
     // Element <tag>
     5: capture(/^(\w[\w-]*)\s*>/, {
         // variable name
-        1: function(data, strings) {
+        1: function(data, captures) {
+            data.type = 'element';
+            data.name = captures[1];
             return data;
         },
 
-        // default value
-        2: function(data, strings) {
-            return data;
+        catch: function(data) {
+            throw new SyntaxError('Invalid <tag>');        
         }
     }),
 
     // Django or sparky tag {[ tag ]}
-    6: function (data, results) {
+    6: function (data, captures) {
+        data.type = 'tag';
+        data.name = '';
+        /*
         data.push({
-            id: slugify(results[7]),
+            id: slugify(captures[7]),
             prefix: '',
-            name: results[7],
+            name: captures[7],
             params: '',
             type: 'title',
-            title: results[7]
+            title: captures[7]
         });
+        */
         return data;
     },
 
-    // Word
-    7: capture(/^([\w-]+)\s*(?:(=")|(:)|(\())?\s*/, {
+    // Attribute (name) = 
+    7: capture(/^([\w-]+)(?:\s*(=")|\s*(:)\s*|\s*(\()\s*)?/, {
         // name
-        1: function(data, strings) {
-            data.push({
-                id: slugify(results[1]),
-                prefix: '',
-                name: results[1],
-                params: '',
-                type: 'title',
-                title: results[1]
-            });
+        1: function(data, captures) {
+            data.name = captures[1];
             return data;
         },
 
-        // attribute
-        2: function(data, strings) {
-            const object = last(data);
-            object.type = 'attribute';
-            //object.default = parseString();
+        // name="value"
+        2: capture(/^([^"]*)"\s*/, {
+            0: function(data, captures) {
+                data.type = 'attribute';
+                return data;
+            },
+
+            1: function(data, captures) {
+                data.default = captures[1];
+                return data;
+            },
+
+            catch: function(data) {
+                throw new SyntaxError('Invalid attribute="value"');        
+            }
+        }),
+
+        // name : params
+        3: function(data, captures) {
+            data.type   = 'fn';
+            data.params = parseParams([], captures);
             return data;
         },
 
-        // Django or Sparky :params
-        3: function(data, strings) {
-            const object = last(data);
-            object.type = 'fn';
-            return data;
-        },
-
-        // function or constructor
-        4: function(data, strings) {
-            const object = last(data);
+        // function or Constructor
+        4: function(data, captures) {
             // If first letter is a capital it's a constructor
-            object.type = object.title[0].toUpperCase() === object.title[0] ?
+            data.type = /^[A-Z]/.test(data.name) ?
                 'constructor' :
                 'function' ;
-            const params = parseParams(strings, []);
+            const params = parseParams([], captures);
             return data;
         }
     }),
 
-    // Markdown (anything) close comment
+    // Markdown (anything) close comment */
     close: capture(/^\s*([\s\S]*?)\*+\//, {
-        1: function(data, results) {
-            var exampleHTML;
+        1: function(data, captures) {
+            data.examples = [];
 
-            last(data).body = marked(results[1], Object.assign(markedOptions, {
+            // Alias body 
+            data.body = 
+            data.html = marked(captures[1], Object.assign(markedOptions, {
                 // Highlight code blocks
                 highlight: function (code, lang, callback) {
-                    // Grab the first HTML code block and use it as example code
-                    exampleHTML = exampleHTML || (lang === 'html' && code);
+                    // Grab HTML code blocks and add to examples
+                    if (lang === 'html') { data.examples.push(code); }
+                    // Highlight code inside documentation HTML 
                     return Prism.highlight(code, Prism.languages[lang || 'js'], lang || 'js');
                 }
             }));
 
-            last(data).example = exampleHTML || '';
-
             return data;
         },
 
-        close: function(data, results) {
-            return parseDoc(data, results);
+        close: function(data, captures) {
+            data.id = createId(data.type + '-' + slugify(data.name) + (data.params ? '' : ''));
+            return data;
         }
     }),
 
-    catch: id
+    catch: function(data, captures) {
+        throw new Error('Cannot parse documentation comment /** ... **/');
+    }
 });
 
 
+/**
+parseComments(string)
+Parses documentation comments out of JS or CSS files.
+**/
 
-/*
-
-
-//                Open comment followed by    spaces and (dot)(name or selector[anything])      ((params)) or (:params)       or (="")                    OR (<tag>)       OR ({[ tag ]} or {% tag %})
-const parseDoc = window.parseDoc = capture(/\/\*\*+\s*(?:(\.|--|::part\(|")?(\w[\w-, .…"]*(?:\[[^\]]+\])?)(?:(\([^)]*\))|:[ \t]*([\w-, .:'"…]*)|=(["\w-#,/%\]}[{ .:']*))?|(<[\w- ="]+\/?>)|(\{[\[\]\w%|:. ]+\}))/, {
-    // .property or title or {[tag]}
-    2: function(data, results) {
-        data.push({
-            id:     slugify(results[2] + (results[3] || '')),
-            prefix: results[1],
-            name:   results[2],
-            type:   results[1] ?
-                results[1] === '.' ? 'property' :
-                results[1] === '::part(' ? 'part' :
-                results[1] === '"' ? 'string' :
-                'var' :
-                'title',
-            title: (results[1] === undefined || results[1] === '::part(' ? '' : results[1]) + results[2]
-        });
-        return data;
-    },
-
-    // .method() or function()
-    3: function(data, results) {
-        const object  = last(data);
-        object.type =
-            // Preceding '.' means it's a method
-            results[1] ? 'method' :
-            // Lowercase first letter it's a function
-            results[2][0].toLowerCase() === results[2][0] ? 'function' :
-            // Otherwise, it's a constructor
-            'constructor' ;
-
-        object.params = results[3];
-        object.title  = Prism.highlight(
-            (results[1] || '') + results[2] + results[3],
-            Prism.languages['js'],
-            'js'
-        );
-
-        return data;
-    },
-
-    // fn:param
-    4: function(data, results) {
-        const object = last(data);
-        object.type  = 'fn';
-        object.title = results[4] ?
-                // Catch the case where token is a .thumb-3:4 class. Very dodgy,
-                // ultimately we need to make this parser more robust!
-                results[1] ? results[1] + results[2] + ':' + results[4] :
-            results[2] + ': ' + results[4] :
-            results[2] ;
-        return data;
-    },
-
-    // attribute="value"
-    5: function(data, results) {
-        const object = last(data);
-        if (results[1]) {
-            // Default of a property or var
-            object.default = results[5];
-            return data;
+export const parseComments = capture(/^/, {
+    // We only use capture here to guarantee a captures object
+    0: function(nothing, captures) {
+        const comments = [];
+        let comment;
+        while ((comment = parseComment(captures))) {
+            comments.push(comment);
         }
-
-        object.type  = 'attribute';
-        object.title  = results[2];
-        // Don't include empty strings
-        object.default = results[5] !== '""' && results[5];
-        return data;
-    },
-
-    // <element>
-    6: function(data, results) {
-        //console.log('TAG', results)
-        data.push({
-            id:     slugify(results[6]),
-            prefix: '',
-            name:   results[6],
-            params: '',
-            type:   'tag',
-            title:  Prism.highlight(results[6], Prism.languages['html'], 'html')
-        });
-        return data;
-    },
-
-    // {[ tag ]}
-    7: function (data, results) {
-        data.push({
-            id: slugify(results[7]),
-            prefix: '',
-            name: results[7],
-            params: '',
-            type: 'title',
-            title: results[7]
-        });
-        return data;
-    },
-
-    // Markdown (anything) close comment
-    close: capture(/^\s*([\s\S]*?)\*+\//, {
-        1: function(data, results) {
-            var exampleHTML;
-
-            last(data).body = marked(results[1], Object.assign(markedOptions, {
-                // Highlight code blocks
-                highlight: function (code, lang, callback) {
-                    // Grab the first HTML code block and use it as example code
-                    exampleHTML = exampleHTML || (lang === 'html' && code);
-                    return Prism.highlight(code, Prism.languages[lang || 'js'], lang || 'js');
-                }
-            }));
-
-            last(data).example = exampleHTML || '';
-
-            return data;
-        },
-
-        close: function(data, results) {
-            return parseDoc(data, results);
-        }
-    }),
-
-    // If there are no comments return data
-    catch: id
+        return comments;
+    }
 });
-*/
