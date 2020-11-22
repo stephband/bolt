@@ -192,21 +192,32 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                 }
             }),
 
+            'import': capture(/^(\w+)\s+from\s+/, {
+                0: (token, groups) => {
+                    token.var    = groups[1];
+                    token.import = parseString(groups);
+                    token.end   += groups.index + groups[0].length + groups.consumed;
+                    return token;
+                },
+
+                close: parseCloseTag
+            }),
+
             'include': capture(/^([^\s]+)(?:\s+(import)\s+|\s+(with)\s+)?\s*/, {
                 // {% include template.html %}         
                 1: (token, groups) => {
                     token.end += groups.index + groups[0].length;
-                    token.src = groups[1];
+                    token.src  = groups[1];
                     return token;
                 },
-
+            
                 // {% include template.html import package.json %}
                 2: (token, groups) => {
                     token.import = parseString(groups);
                     token.end += groups.consumed;
                     return token;
                 },
-
+            
                 // {% include template.html with name="value" %}
                 3: (token, groups) => {
                     // Todo
@@ -214,7 +225,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                     token.end += groups.consumed;
                     return token;
                 },
-
+            
                 close: parseCloseTag
             }),
 

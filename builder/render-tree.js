@@ -68,6 +68,12 @@ function getRootSrc(source, src) {
     return path.join(dir, relative);
 }
 
+const rURL = /(src=['"]?|href=['"]?|url\(\s*['"]?)([\:\.\/\w-\d\%]+)/g;
+
+function rewriteURLs(source, target, html) {
+    return html.replace(rURL, ($0, $1, $2) => $1 + rewriteURL(source, target, $2));
+}
+
 const renderToken = overload(get('type'), {
     // Render tags and properties. All tags must return either a promise that 
     // resolves to an HTML string, or undefined.
@@ -83,17 +89,25 @@ const renderToken = overload(get('type'), {
             .then(parseTemplate)
             .then((tree) => 
                 Promise
-                .all(token.sources.map((path) =>
-                    request(getRootSrc(source, path))
+                .all(token.sources.map((path) => {
+                    const url = getRootSrc(source, path);
+                    return request(url)
                     .then(parseComments)
                     .then(docsFilters[type])
-                ))
+                    .then((comments) => {
+                        comments.forEach((comment) => {
+                            comment.body = rewriteURLs(url, target, comment.body);
+                            comment.example = rewriteURLs(url, target, comment.example);
+                        });
+                        return comments;
+                     })
+                }))
                 .then((comments) => renderTree(tree, comments.flat(), src, target))
                 // Render includes at the tag's indentation
                 .then((html) => html.replace(/\n/g, '\n' + token.indent))
             )
             .catch(() => {
-                console.log(source, token.src, src, type);
+                //console.log(source, token.src, src, type);
                 //console.log(red, 'docs', '"' + src + '" not found');
                 return '<pre><code>' + src + ' not found</code></pre>';
             })

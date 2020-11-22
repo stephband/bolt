@@ -15,7 +15,7 @@ renderTemplate(source, target)
 export default function renderTemplate(source, target) {
     return request(source)
     .then(parseTemplate)
-    .then((tree) => renderTree(tree, null, source, target))
+    .then((tree) => renderTree(tree, {}, source, target))
     .then((html) => new Promise(function(resolve, reject) {
         const root = path.parse(target);
         const dir  = root.dir;
