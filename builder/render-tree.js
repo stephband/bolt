@@ -129,6 +129,18 @@ const renderToken = overload(get('type'), {
                 Promise.resolve('') ;
         },
 
+        'import': function(token, scope, source, target) {
+            Promise.all(token.imports.map((data) =>
+                request(getRootSrc(source, data.url))
+                .then(JSON.parse)
+                .then((object) => scope[data.name] = object)
+                .catch((error) => {
+                    console.log(red + ' ' + yellow + ' ' +  red + ' ' + yellow, 'Import', getRootSrc(source, data.url), error.constructor.name, error.message);
+                })
+            ))
+            .then(() => '');
+        },
+
         'include': function docs(token, scope, source, target) {
             // Get src relative to working directory 
             const src = getRootSrc(source, token.src);
@@ -209,15 +221,22 @@ of HTML.
 **/
 
 export default function renderTree(tree, scope, source, target) {
-    return Promise
-    .all(tree.reduce(function(promises, token) {
-        const promise = renderToken(token, scope, source, target);
-
-        if (promise) {
-            promises.push(promise);
-        }
-
-        return promises;
-    }, []))
-    .then(join);
+    // If first tag is an import, wait for imports to resolve before render
+    return (tree[0] && tree[0].fn === 'import' ?
+        renderToken(tree.shift(), scope, source, target) :
+        Promise.resolve('')
+    )
+    .then(() => 
+        Promise
+        .all(tree.reduce(function(promises, token) {
+            const promise = renderToken(token, scope, source, target);
+    
+            if (promise) {
+                promises.push(promise);
+            }
+    
+            return promises;
+        }, []))
+        .then(join)
+    );
 }

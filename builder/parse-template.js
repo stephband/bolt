@@ -99,11 +99,12 @@ const parseFilter = capture(/^([\w.-]*)\s*(\|)?\s*/, {
 
 
 /** 
-parseTag(string)
-Parses tags, properties. comments and plain text
+parseTagClose(string)
+Parses tag close `%}` (and it consumes an immediate line break, if there is 
+one, and following whitespace).
 **/
 
-const parseCloseTag = capture(/^\%\}/, {
+const parseTagClose = capture(/^\%\}(?:\n\s*)?/, {
     0: (token, groups) => {
         token.end += groups.index + groups[0].length;
         return token;
@@ -119,11 +120,57 @@ const parseCloseTag = capture(/^\%\}/, {
     }
 });
 
+
+/** 
+parseTag(string)
+Parses tags, properties. comments and plain text.
+**/
+
 function indentation(groups) {
     const i = groups.input.lastIndexOf('\n', groups.index);
     const string = groups.input.slice(i + 1, groups.index);
     return /^\s*/.exec(string)[0];
 }
+
+const parseImport = capture(/^(\w+)\s+from\s+/, {
+    0: (token, groups) => {
+        token = token || {
+            type:   'tag',
+            fn:     'import',
+            begin:  groups.index,
+            end:    0,
+            imports: []
+        };
+
+        token.imports.push({
+            name: groups[1],
+            url: parseString(groups)
+        });
+
+        token.end   += groups.index + groups[0].length + groups.consumed;
+        return token;
+    },
+
+    close: parseTagClose,
+
+    catch: () => {
+        throw new SyntaxError('Failed to parse {% import %}');
+    } 
+});
+
+const parseImports = capture(/^/, {
+    0: parseImport,
+
+    close: capture(/^\s*\{\%\s*import\s*/, {
+        0: (token, captures) => {
+            token.end += groups.index + groups[0].length;
+            parseImports(token, captures);
+            return token;
+        },
+
+        catch: id
+    })
+}, null);
 
 const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*['"]?|from\s+['"]|import\s+['"])([\:\.\/\w-\d\%]+)/, {
     // Create new object tracking start and end of token
@@ -165,13 +212,13 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                     return token;
                 },
 
-                close: parseCloseTag
+                close: parseTagClose
             }),
 
             'each': capture(/^/, {
                 // {% each %}
                 close: function(token, groups) {
-                    parseCloseTag(token, groups);
+                    parseTagClose(token, groups);
                     const consumed = groups.consumed;
                     token.tree = parseTemplate([], groups);
                     token.end += groups.consumed - consumed;
@@ -184,7 +231,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                 close: function(token, groups) {
                     token.selector = parseString(groups);
                     token.end += groups.consumed;
-                    parseCloseTag(token, groups);
+                    parseTagClose(token, groups);
                     const consumed = groups.consumed;
                     token.tree = parseTemplate([], groups);
                     token.end += groups.consumed - consumed;
@@ -192,16 +239,9 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                 }
             }),
 
-            'import': capture(/^(\w+)\s+from\s+/, {
-                0: (token, groups) => {
-                    token.var    = groups[1];
-                    token.import = parseString(groups);
-                    token.end   += groups.index + groups[0].length + groups.consumed;
-                    return token;
-                },
-
-                close: parseCloseTag
-            }),
+            'import': (token, groups) => {
+                throw new SyntaxError('{% import %} tags must be placed at the top of a template');
+            },
 
             'include': capture(/^([^\s]+)(?:\s+(import)\s+|\s+(with)\s+)?\s*/, {
                 // {% include template.html %}         
@@ -226,7 +266,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                     return token;
                 },
             
-                close: parseCloseTag
+                close: parseTagClose
             }),
 
             'with': capture(/^/, {
@@ -239,7 +279,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                 },
 
                 close: function(token, groups) {
-                    parseCloseTag(token, groups);
+                    parseTagClose(token, groups);
                     const consumed = groups.consumed;
                     token.tree = parseTemplate([], groups);
                     token.end += groups.consumed - consumed;
@@ -250,7 +290,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
             // {% end %}
             'end': function(token, groups) {
                 token.type = 'end';
-                parseCloseTag(token, groups);
+                parseTagClose(token, groups);
                 return token;
             },
 
@@ -318,8 +358,14 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
     catch: noop
 }, null);
 
-const parseTemplate = capture(/^/, {
-    0: (array, groups) => {
+const parseTemplate = capture(/^\s*(\{\%\s*import\s+)?/, {
+    1: (array, groups) => {
+        let tag = parseImports(groups);
+        if (tag) { array.push(tag); }
+        return array;
+    },
+
+    catch: (array, groups) => {
         let tag;
         let i = 0;
 
