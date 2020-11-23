@@ -130,14 +130,23 @@ const renderToken = overload(get('type'), {
         },
 
         'import': function(token, scope, source, target) {
-            Promise.all(token.imports.map((data) =>
-                request(getRootSrc(source, data.url))
-                .then(JSON.parse)
+            Promise.all(token.imports.map((data) => {
+                return (
+                    (/\.json$/).test(data.url) ?
+                        request(getRootSrc(source, data.url))
+                        .then(JSON.parse) :
+                    (/\.js$/).test(data.url) ?
+                        // This is going to be the wrong url for import, need
+                        // relative to this file
+                        import(getRootSrc(source, data.url))
+                        .then((module) => module.default) :
+                    Promise.reject()
+                )
                 .then((object) => scope[data.name] = object)
                 .catch((error) => {
                     console.log(red + ' ' + yellow + ' ' +  red + ' ' + yellow, 'Import', getRootSrc(source, data.url), error.constructor.name, error.message);
                 })
-            ))
+            }))
             .then(() => '');
         },
 
