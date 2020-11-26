@@ -38,8 +38,8 @@ request('./package.json')
         }
     })
     .on('file', function (source, stat) {
-        // Ignore files that do not match *.html.template
-        const parts  = /(.*\/)?([^\s\/]+)\.html\.template$/.exec(source);
+        // Ignore files that do not match *.html.bolt
+        const parts  = /(.*\/)?([^\s\/]+)\.html\.bolt$/.exec(source);
     
         if (!parts) { return; }
     

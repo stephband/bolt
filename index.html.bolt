@@ -34,7 +34,7 @@
     </script>
 
     <style>
-        /* Copied from elements range-control.template.html */
+        /* Copied from elements range-control.html.bolt */
         range-control {
             min-width: 9rem; 
             max-width: 15rem;
@@ -51,7 +51,7 @@
             margin-top: 1.875rem;
         }
     
-        /* Copied from elements rotary-control.template.html */
+        /* Copied from elements rotary-control.html.bolt */
         rotary-control {
             min-width: 8rem;
             max-width: 10rem;
@@ -68,7 +68,7 @@
             background-color: var(--label-color);
         }
     
-        /* Copied from elements slide-show.template.html */
+        /* Copied from elements slide-show.html.bolt */
         slide-show {
             background: #cccccc;
             margin: 0 auto;

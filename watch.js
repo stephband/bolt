@@ -28,7 +28,7 @@ function fork(file, args) {
 function run(filename) {
     promise = undefined;
 
-    if (/\.html\.template_$/.test(filename)) {
+    if (/\.html\.bolt$/.test(filename)) {
         console.log(Math.floor(Date.now()/1000), 'changed', filename);
         // Build source template to target html [source.html, target.html]
         fork(dir + '/build-template.js', [filename, filename.replace(/\.html\.\w+$/, '.html')]);
