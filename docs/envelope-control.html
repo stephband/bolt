@@ -27,8 +27,6 @@
     // class is removed
     window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
     </script>
-    
-
     <script title="debug">
         window.DEBUG = true;
     </script>
@@ -36,9 +34,7 @@
     <link rel="stylesheet" href="../documentation/prism-cruncher.css" />
     <link rel="stylesheet" href="../../fn/css/tests.css" />
     <link rel="stylesheet" href="../documentation/documentation.css" />
-    <link rel="stylesheet" href="../../fn/css/respond.css" />
-
-    <script title="config">
+    <link rel="stylesheet" href="../../fn/css/respond.css" /><script title="config">
         window.customElementStylesheetPath = './';
     </script>
 
@@ -57,11 +53,9 @@
 <body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
     <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
         <template is="sparky-template" fn="docs:envelope-control.js filter-type:tag each" src="../templates.html#title"></template>
+        <h2 class="doctext-02">envelope-control</h2>
         
-        <h2 class="doctext-02"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>envelope-control</span><span class="token punctuation">></span></span></h2>
-        
-        
-    </header>
+        </header>
 
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <envelope-control min="0" max="1" value="0 0.1 step 0.5 1 linear 1 0.3 linear" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="height: 16rem;">Envelope</envelope-control>
@@ -70,33 +64,30 @@
 
     <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
         <h3 class="doctext-03">Attributes</h3>        
-        
-        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-min">
+        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-attribute-min">
             <h3 class="doctext-05 ">
-                <a href="#attribute-min">
-                    <code class="token  language-html">min <span class="default">=<em>"0"</em></span></code>
+                <a href="#attribute-attribute-min">
+                    <code class="token  language-html">min <span class="default">=<em>0</em></span></code>
                 </a>
             </h3>
             <p>Value at lower limit of fader. Can interpret values with recognised units,
             eg. <code>&quot;0dB&quot;</code>.</p>
         
         </article>
-        
-        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-max">
+        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-attribute-max">
             <h3 class="doctext-05 ">
-                <a href="#attribute-max">
-                    <code class="token  language-html">max <span class="default">=<em>"1"</em></span></code>
+                <a href="#attribute-attribute-max">
+                    <code class="token  language-html">max <span class="default">=<em>1</em></span></code>
                 </a>
             </h3>
             <p>Value at upper limit of fader. Can interpret values with recognised units,
             eg. <code>&quot;0dB&quot;</code>.</p>
         
         </article>
-        
-        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-law">
+        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-attribute-law">
             <h3 class="doctext-05 ">
-                <a href="#attribute-law">
-                    <code class="token  language-html">law <span class="default">=<em>"linear"</em></span></code>
+                <a href="#attribute-attribute-law">
+                    <code class="token  language-html">law <span class="default">=<em>linear</em></span></code>
                 </a>
             </h3>
             <p>Fader law. This is the name of a transform to be applied over the range 
@@ -110,10 +101,9 @@
         </ul>
         
         </article>
-        
-        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-unit">
+        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-attribute-unit">
             <h3 class="doctext-05 ">
-                <a href="#attribute-unit">
+                <a href="#attribute-attribute-unit">
                     <code class="token  language-html">unit </code>
                 </a>
             </h3>
@@ -125,10 +115,9 @@
         </ul>
         
         </article>
-        
-        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-ticks">
+        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-attribute-ticks">
             <h3 class="doctext-05 ">
-                <a href="#attribute-ticks">
+                <a href="#attribute-attribute-ticks">
                     <code class="token  language-html">ticks </code>
                 </a>
             </h3>
@@ -138,10 +127,9 @@
         ticks=&quot;-48dB -36dB -24dB -12dB 0dB&quot;</code></pre>
         
         </article>
-        
-        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-steps">
+        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-attribute-steps">
             <h3 class="doctext-05 ">
-                <a href="#attribute-steps">
+                <a href="#attribute-attribute-steps">
                     <code class="token  language-html">steps </code>
                 </a>
             </h3>
@@ -152,149 +140,128 @@
         </ul>
         
         </article>
-        
-        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-value">
+        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-attribute-value">
             <h3 class="doctext-05 ">
-                <a href="#attribute-value">
+                <a href="#attribute-attribute-value">
                     <code class="token  language-html">value </code>
                 </a>
             </h3>
             <p>The initial value of the fader.</p>
         
         </article>
-        
-        
         <h3 class="doctext-03">Properties</h3>
-        
-        <article class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="property-type">
+        <article class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="property-property-type-1">
             <h3 class="doctext-05 dot-indent">
-                <a href="#property-type">
-                    <code class=" property language-js">.type <span class="default">=<em>"number"</em></span></code>
+                <a href="#property-property-type-1">
+                    <code class=" property language-js">.type </code>
                 </a>
             </h3>
-            <p>A readonly property with the value <code>&quot;number&quot;</code> (provided for consistency 
+            <p>“number”
+            A readonly property with the value <code>&quot;number&quot;</code> (provided for consistency 
             with native form elements, which all have a type).</p>
         
         </article>
-        
-        <article class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="property-min">
+        <article class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="property-property-min-1">
             <h3 class="doctext-05 dot-indent">
-                <a href="#property-min">
-                    <code class=" property language-js">.min <span class="default">=<em>0</em></span></code>
+                <a href="#property-property-min-1">
+                    <code class=" property language-js">.min </code>
                 </a>
             </h3>
-            <p>Value at lower limit of fader, as a number.</p>
+            <p>0
+            Value at lower limit of fader, as a number.</p>
         
         </article>
-        
-        <article class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="property-max">
+        <article class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="property-property-max-1">
             <h3 class="doctext-05 dot-indent">
-                <a href="#property-max">
-                    <code class=" property language-js">.max <span class="default">=<em>1</em></span></code>
+                <a href="#property-property-max-1">
+                    <code class=" property language-js">.max </code>
                 </a>
             </h3>
-            <p>Value at lower limit of fader, as a number.</p>
+            <p>1
+            Value at lower limit of fader, as a number.</p>
         
         </article>
-        
-        <article class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="property-value">
+        <article class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="property-property-value-1">
             <h3 class="doctext-05 dot-indent">
-                <a href="#property-value">
-                    <code class=" property language-js">.value <span class="default">=<em>0</em></span></code>
+                <a href="#property-property-value-1">
+                    <code class=" property language-js">.value </code>
                 </a>
             </h3>
-            <p>Current value of the field, as a number.</p>
+            <p>0
+            Current value of the field, as a number.</p>
         
         </article>
-        
-        
         <h3 class="doctext-03">Events</h3>
-        
-        <article class="string-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="string-input">
+        <article class="string-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="string-string-input-2">
             <h3 class="doctext-05 ">
-                <a href="#string-input">
-                    <code class="  language-js">"input" </code>
+                <a href="#string-string-input-2">
+                    <code class="  language-js">input </code>
                 </a>
             </h3>
             <p>Sent continuously during a fader movement.</p>
         
         </article>
-        
-    </div>
+        </div>
 
     <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
         <h3 class="doctext-03">Parts</h3>
-        
-        <article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-label">
+        <article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-label">
             <h3 class="doctext-05 ">
-                <a href="#part-label">
+                <a href="#part-part-label">
                     <code class="  language-js">label </code>
                 </a>
             </h3>
-            <p>)
-        Style the label.</p>
+            <p>Style the label.</p>
         
         </article>
-        
-        <article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-output">
+        <article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-output">
             <h3 class="doctext-05 ">
-                <a href="#part-output">
+                <a href="#part-part-output">
                     <code class="  language-js">output </code>
                 </a>
             </h3>
-            <p>) 
-        Style the display of the output value.</p>
+            <p>Style the display of the output value.</p>
         
         </article>
-        
-        <article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-tick">
+        <article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-tick">
             <h3 class="doctext-05 ">
-                <a href="#part-tick">
+                <a href="#part-part-tick">
                     <code class="  language-js">tick </code>
                 </a>
             </h3>
-            <p>) 
-        Style the tick marks.</p>
+            <p>Style the tick marks.</p>
         
         </article>
-        
-    
         <h3 class="doctext-03">Variables</h3>
-        
-        <article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-value-color">
+        <article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-value-color-1">
             <h3 class="doctext-05 doubledash-indent">
-                <a href="#var-value-color">
-                    <code class="  language-js">--value-color  </code>
+                <a href="#var-var-value-color-1">
+                    <code class="  language-js">--value-color </code>
                 </a>
             </h3>
             
         </article>
-        
-        <article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-handle-background">
+        <article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-handle-background-1">
             <h3 class="doctext-05 doubledash-indent">
-                <a href="#var-handle-background">
-                    <code class="  language-js">--handle-background  </code>
+                <a href="#var-var-handle-background-1">
+                    <code class="  language-js">--handle-background </code>
                 </a>
             </h3>
             
         </article>
-        
-        <article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-handle-border">
+        <article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-handle-border-1">
             <h3 class="doctext-05 doubledash-indent">
-                <a href="#var-handle-border">
-                    <code class="  language-js">--handle-border  </code>
+                <a href="#var-var-handle-border-1">
+                    <code class="  language-js">--handle-border </code>
                 </a>
             </h3>
             
         </article>
-        
-        
-    </div>
+        </div>
 
     <!-- Document interactivity -->
     <script type="module" src="../elements/envelope-control.js"></script>
     <script type="module">
         import '../module.js';
         import '../documentation/documentation.js';
-    </script>
-</body>
+    </script></body>
