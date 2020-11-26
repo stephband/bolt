@@ -60,6 +60,7 @@ const docsFilters = {
     'part':      (comments) => filterByType('part', comments),
     'var':       (comments) => filterByType('var', comments),
     'tag':       (comments) => filterByType('tag', comments),
+    'element':   (comments) => filterByType('element', comments),
     'method':    (comments) => filterByType('method', comments),
     'function':  (comments) => filterByType('function', comments)
 };
