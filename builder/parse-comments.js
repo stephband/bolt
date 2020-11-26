@@ -19,7 +19,12 @@ import invoke  from '../../fn/modules/invoke.js';
 import last    from '../../fn/modules/lists/last.js';
 import nothing from '../../fn/modules/nothing.js';
 import slugify from '../../fn/modules/strings/slugify.js';
+import { parseString } from './parse-string.js';
+import parseParams from '../../fn/modules/parse-params.js';
 
+import { cyan, blue, dim } from './log.js';
+
+const DEBUG = false;//true; 
 const A = Array.prototype;
 
 const markedOptions = {
@@ -73,10 +78,11 @@ function createId(string) {
 }
 
 // Documentation comment
-// /** (.) (--) (::part() (") (<) ({[) (word)
-const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{\[)|(\b))?/, {
+//                             /**         (.)  (--) (::part()     (") (<) ({[ {{ {%)  (word)
+const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\{\[%])|(\b))/, {
     // New data object
-    0: function() {
+    0: function(nothing, captures) {
+        //console.log(captures.input.slice(captures.index, captures.index + 16), '(' + captures[1] + ')');
         return {};       
     },
 
@@ -86,15 +92,18 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{\[
         // .class
         1: function(data, captures) {
             data.type = 'class';
+            data.prefix = '.';
             data.name = captures[1];
             return data;
         },
 
         // Property 
-        // .property = default
+        // .property="default"
         2: function(data, captures) {
             data.type    = 'property';
-            data.default = captures[2];
+            data.prefix = '.';
+            // Todo: capture default value of arbitrary type
+            //data.default = captures[2];
             return data;
         },
 
@@ -102,13 +111,14 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{\[
         // .method(param, param, ...)
         3: function(data, captures) {
             data.type   = 'method';
+            data.prefix = '.';
             data.params = parseParams([], captures);
             // Todo capture end bracket )
             return data;
         },
 
         catch: function(data) {
-            throw new SyntaxError('Invalid .property or .method()');        
+            throw new SyntaxError('Invalid .class, .property=default or .method(param, ...)');        
         }
     }),
 
@@ -134,14 +144,14 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{\[
     }),
 
     // Part ::part( (name) )
-    3: capture(/^(\w+)\s*\)\s*/, {
+    3: capture(/^([\w-]+)\s*\)\s*/, {
         1: function(data, captures) {
             data.type = 'part';
             data.name = captures[1];
             return data;
         },
 
-        catch: function() {
+        catch: function(data, captures) {
             throw new SyntaxError('Invalid ::part()');        
         }
     }),
@@ -190,45 +200,38 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{\[
         return data;
     },
 
-    // Attribute (name) = 
-    7: capture(/^([\w-]+)(?:\s*(=")|\s*(:)\s*|\s*(\()\s*)?/, {
-        // name
+    // Attribute name="value" or fn:params or function() or Contructor() or 
+    // arbitrary text including any newlines preceded by a comma
+    7: capture(/^(?:([\w-:]+)\s*=\s*|([\w-]+)\s*:\s*|([\w][\w\d]*)\s*\(\s*|((?:[^\n]+|,\n)+)\s*)/, {
+        // name="value" name='value' name=value
         1: function(data, captures) {
-            data.name = captures[1];
+            data.type    = 'attribute';
+            data.name    = captures[1];
+            data.default = parseString(captures);
             return data;
         },
 
-        // name="value"
-        2: capture(/^([^"]*)"\s*/, {
-            0: function(data, captures) {
-                data.type = 'attribute';
-                return data;
-            },
-
-            1: function(data, captures) {
-                data.default = captures[1];
-                return data;
-            },
-
-            catch: function(data) {
-                throw new SyntaxError('Invalid attribute="value"');        
-            }
-        }),
-
-        // name : params
-        3: function(data, captures) {
+        // name: param, param, ...
+        2: function(data, captures) {
             data.type   = 'fn';
+            data.name   = captures[2];
             data.params = parseParams([], captures);
             return data;
         },
 
         // function or Constructor
-        4: function(data, captures) {
+        3: function(data, captures) {
             // If first letter is a capital it's a constructor
-            data.type = /^[A-Z]/.test(data.name) ?
-                'constructor' :
-                'function' ;
-            const params = parseParams([], captures);
+            data.type   = /^[A-Z]/.test(data.name) ? 'constructor' : 'function' ;
+            data.name   = captures[3];
+            data.params = parseParams([], captures);
+            return data;
+        },
+
+        // Arbitrary text
+        4: function(data, captures) {
+            data.type   = 'text';
+            data.name   = captures[4];
             return data;
         }
     }),
@@ -239,8 +242,7 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{\[
             data.examples = [];
 
             // Alias body 
-            data.body = 
-            data.html = marked(captures[1], Object.assign(markedOptions, {
+            data.body = marked(captures[1], Object.assign(markedOptions, {
                 // Highlight code blocks
                 highlight: function (code, lang, callback) {
                     // Grab HTML code blocks and add to examples
@@ -259,10 +261,8 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{\[
         }
     }),
 
-    catch: function(data, captures) {
-        throw new Error('Cannot parse documentation comment /** ... **/');
-    }
-});
+    catch: id
+}, null);
 
 
 /**
@@ -276,8 +276,12 @@ export default capture(/^/, {
         const comments = [];
         let comment;
         while ((comment = parseComment(captures))) {
+            if (DEBUG) {
+                console.log(dim + ' ' + cyan, 'Comment', comment.type);
+            }
+
             comments.push(comment);
         }
         return comments;
     }
-});
+}, null);

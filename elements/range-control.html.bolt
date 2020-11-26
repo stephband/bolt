@@ -42,7 +42,7 @@
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
     <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
-        {% docs ../templates/tag.html type tag from range-control.js %}
+        {% docs ../templates/tag.html type element from range-control.js %}
     </header>
 
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">

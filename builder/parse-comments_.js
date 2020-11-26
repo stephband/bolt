@@ -111,7 +111,7 @@ const parseDoc = capture(/\/\*\*+\s*(?:(\.|--|::part\(|")?(\w[\w-, .…"]*(?:\[[
 
     // <element>
     6: function(data, results) {
-        //console.log('TAG', results)
+//console.log('TAG', results)
         data.push({
             id:     slugify(results[6]),
             prefix: '',

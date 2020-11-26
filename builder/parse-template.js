@@ -19,7 +19,7 @@ const assign = Object.assign;
 parseString(string)
 **/
 
-//                                     "string"                   'string'                   string
+//                                      "string"                   'string'                     string
 export const parseString = capture(/^(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\\.[^'\\]*)*)'|([\w.\-#/?:\\]+))\s*/, {
     // "string"
     1: (nothing, tokens) => tokens[1],
@@ -47,7 +47,6 @@ function parseStrings(input) {
 }
 
 
-
 /**
 createTransform(pipes)
 Create a transform function from an array of pipe tokens.
@@ -73,13 +72,12 @@ export function createTransform(pipes) {
 }
 
 
-
 /**
 parseFilter(string)
 Parses "selector|filter:param" syntax.
 */
 
-import { parsePipe } from '../../fn/modules/parse-pipe.js';
+import parsePipe from '../../fn/modules/parse-pipe.js';
 
 const parseFilter = capture(/^([\w.-]*)\s*(\|)?\s*/, {
     1: (nothing, groups) => (groups[1] === '.' ?
@@ -95,7 +93,6 @@ const parseFilter = capture(/^([\w.-]*)\s*(\|)?\s*/, {
         return pipes;
     }
 }, undefined);
-
 
 
 /** 
@@ -136,7 +133,7 @@ const parseImport = capture(/^(\w+)\s+from\s+/, {
     0: (token, groups) => {
         token = token || {
             type:   'tag',
-            fn:     'import',
+            name:   'import',
             begin:  groups.index,
             end:    0,
             imports: []
@@ -185,7 +182,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
         0: (token, groups) => {
             token.type = 'tag';
             token.end += groups.index + groups[0].length;
-            token.fn   = groups[1];
+            token.name = groups[1];
             return token;
         },
 
@@ -282,6 +279,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                     parseTagClose(token, groups);
                     const consumed = groups.consumed;
                     token.tree = parseTemplate([], groups);
+//console.log('WITH', token.tree);
                     token.end += groups.consumed - consumed;
                     return token;
                 }
@@ -289,7 +287,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
 
             // {% end %}
             'end': function(token, groups) {
-                token.type = 'end';
+                token.name = 'end';
                 parseTagClose(token, groups);
                 return token;
             },
@@ -354,18 +352,38 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
         return token;        
     },
 
+    close: (token, captures) => {
+        // Capture the actual code of the token
+        token.code = captures.input.slice(
+            captures.index, 
+            captures.index + captures[0].length + captures.consumed
+        )
+        // throw away everything beyond the first line
+        .replace(/\n[\S\s]*$/, '');
+
+        return token;
+    },
+
     // If no tags are found return undefined
     catch: noop
 }, null);
 
-const parseTemplate = capture(/^\s*(\{\%\s*import\s+)?/, {
+const parseTemplate = capture(/^(\s*\{\%\s*import\s+)?/, {
     1: (array, groups) => {
-        let tag = parseImports(groups);
-        if (tag) { array.push(tag); }
+        if (groups[0].length) {
+            array.push({
+                begin: 0,
+                end:   groups[0].length,
+                type:  'ignored',
+                code:  ''
+            });
+        }
+        //let tag = parseImports(groups);
+        //if (tag) { array.push(tag); }
         return array;
     },
 
-    catch: (array, groups) => {
+    close: (array, groups) => {
         let tag;
         let i = 0;
 
@@ -381,7 +399,7 @@ const parseTemplate = capture(/^\s*(\{\%\s*import\s+)?/, {
             }
 
             // End tag stops processing and returns immediately
-            if (tag.type === 'end') {
+            if (tag.type === 'tag' && tag.name === 'end') {
                 return array;
             }
 
@@ -390,15 +408,18 @@ const parseTemplate = capture(/^\s*(\{\%\s*import\s+)?/, {
         }
 
         // Push in the final text to the end
-        array.push({
-            type: 'text',
-            text: groups.input.slice(i)
-        });
+        const remainder = groups.input.slice(i);
+        if (remainder) {
+            array.push({
+                type: 'text',
+                text: groups.input.slice(i)
+            });
+        }
 
         return array;
     }
 });
 
 export default function(template) {
-    return parseTemplate([], template);        
+    return parseTemplate([], template);
 }

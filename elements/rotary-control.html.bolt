@@ -13,36 +13,53 @@
         window.customElementStylesheetPath = './';
     </script>
 
-    <template is="sparky-template" src="../templates.html#nested-style"></template>
-
     <style>
-        :root {
-            --value-color: blue;
-        }    
+        rotary-control {
+            min-width: 8rem;
+            max-width: 10rem;
+            margin: 0 auto;
+            /* Nullify focus box-shadow */
+            box-shadow: none !important;
+        }
+    
+        * + rotary-control {
+            margin-top: 1.875rem;
+        }
+        
         * + input {
             margin-top: 3.75rem;
+        }
+
+        rotary-control::part(tick) {
+            background-color: var(--label-color);
         }
     </style>
 </head>
 
-<body class="grid 3x-grid @1-6x-grid @2-9x-grid" style="row-gap: 60px; grid-template-rows: min-content;">
-    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
-        <template is="sparky-template" fn="docs:envelope-control.js filter-type:tag each" src="../templates.html#title"></template>
-        {% docs ../templates/tag.html type tag from envelope-control.js %}
+<body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
+    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="rotary-control">
+        {% docs ../templates/tag.html type element from rotary-control.js %}
     </header>
 
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-        <envelope-control min="0" max="1" value="0 0.1 step 0.5 1 linear 1 0.3 linear" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="height: 16rem;">Envelope</envelope-control>
-        <input hidden class="button" type="submit" />
+        <rotary-control name="pan" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">
+            Pan
+        </rotary-control>
+
+        <rotary-control name="gain" min="-48dB" max="0dB" ticks="-∞dB -48dB -42dB -36dB -30dB -24dB -18dB -12dB -6dB 0dB" law="linear-logarithmic" unit="dB" value="-6dB">
+            Volume
+        </rotary-control>
+
+        <input hidden class="block button" type="submit" />
     </form>
 
     <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
         <h3 class="doctext-03">Attributes</h3>        
         {% docs ../templates/entry.html type attribute from attributes.js %}
-        
+
         <h3 class="doctext-03">Properties</h3>
         {% docs ../templates/entry.html type property from attributes.js %}
-        
+
         <h3 class="doctext-03">Events</h3>
         {% docs ../templates/entry.html type string from attributes.js %}
     </div>
@@ -50,13 +67,13 @@
     <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
         <h3 class="doctext-03">Parts</h3>
         {% docs ../templates/entry.html type part from control.css %}
-    
+
         <h3 class="doctext-03">Variables</h3>
         {% docs ../templates/entry.html type var from control.css %}
-        {% docs ../templates/entry.html type var from envelope-control.css %}
+        {% docs ../templates/entry.html type var from rotary-control.css %}
     </div>
 
     <!-- Document interactivity -->
-    <script type="module" src="./envelope-control.js"></script>
+    <script type="module" src="./rotary-control.js"></script>
     {% include ../templates/scripts.html %}
 </body>
