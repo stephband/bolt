@@ -32,11 +32,11 @@ export const parseString = capture(/^(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\
 }, null);
 
 const parseStrings1 = capture(/^/, {
-    close: function(array, groups) {
-        const string = parseString(groups);
+    close: function(array, captures) {
+        const string = parseString(captures);
         if (string) {
             array.push(string);
-            parseStrings1(array, groups);
+            parseStrings1(array, captures);
         }
         return array;
     }
@@ -45,6 +45,37 @@ const parseStrings1 = capture(/^/, {
 function parseStrings(input) {
     return parseStrings1([], input);
 }
+
+
+/**
+parseWith
+**/
+
+const parseProperty = capture(/^([\w][\w\d]*)\s*=\s*/, {
+    1: (nothing, captures) => ({
+        name: captures[1],
+        pipes: parseFilter(captures)
+    }),
+
+    close: (property, captures) => {
+        property.transform = createTransform(property.pipes);
+        return property;
+    },
+
+    catch: noop
+}, null);
+
+const parseWith = capture(/^/, {
+    0: () => [],
+
+    close: (array, captures) => {
+        let property;
+        while (property = parseProperty(captures)) {
+            array.push(property);
+        }
+        return array;
+    }
+}, null);
 
 
 /**
@@ -80,16 +111,16 @@ Parses "selector|filter:param" syntax.
 import parsePipe from '../../fn/modules/parse-pipe.js';
 
 const parseFilter = capture(/^([\w.-]*)\s*(\|)?\s*/, {
-    1: (nothing, groups) => (groups[1] === '.' ?
+    1: (nothing, captures) => (captures[1] === '.' ?
         // No initial transform
         [] :
         // Object path 'xxxx.xxx.xx-xxx'
-        [{ name: 'get', args: [groups[1]] }]
+        [{ name: 'get', args: [captures[1]] }]
     ),
 
     // Pipe '|'
-    2: function(pipes, groups) {
-        parsePipe(pipes, groups);
+    2: function(pipes, captures) {
+        parsePipe(pipes, captures);
         return pipes;
     }
 }, undefined);
@@ -102,16 +133,16 @@ one, and following whitespace).
 **/
 
 const parseTagClose = capture(/^\%\}(?:\n\s*)?/, {
-    0: (token, groups) => {
-        token.end += groups.index + groups[0].length;
+    0: (token, captures) => {
+        token.end += captures.index + captures[0].length;
         return token;
     },
 
-    catch: function(token, groups) {
+    catch: function(token, captures) {
         throw new SyntaxError('Unclosed tag \n\n'
-            + groups.input.slice(Math.max(0, token.begin - 24), token.begin)
+            + captures.input.slice(Math.max(0, token.begin - 24), token.begin)
             + '⮕'
-            + groups.input.slice(token.begin, token.begin + 24)
+            + captures.input.slice(token.begin, token.begin + 24)
             + '\n'
         );      
     }
@@ -123,28 +154,20 @@ parseTag(string)
 Parses tags, properties. comments and plain text.
 **/
 
-function indentation(groups) {
-    const i = groups.input.lastIndexOf('\n', groups.index);
-    const string = groups.input.slice(i + 1, groups.index);
+function indentation(captures) {
+    const i = captures.input.lastIndexOf('\n', captures.index);
+    const string = captures.input.slice(i + 1, captures.index);
     return /^\s*/.exec(string)[0];
 }
 
 const parseImport = capture(/^(\w+)\s+from\s+/, {
-    0: (token, groups) => {
-        token = token || {
-            type:   'tag',
-            name:   'import',
-            begin:  groups.index,
-            end:    0,
-            imports: []
-        };
-
+    0: (token, captures) => {
         token.imports.push({
-            name: groups[1],
-            url: parseString(groups)
+            name: captures[1],
+            url: parseString(captures)
         });
 
-        token.end   += groups.index + groups[0].length + groups.consumed;
+        token.end += captures.index + captures[0].length + captures.consumed;
         return token;
     },
 
@@ -160,52 +183,52 @@ const parseImports = capture(/^/, {
 
     close: capture(/^\s*\{\%\s*import\s*/, {
         0: (token, captures) => {
-            token.end += groups.index + groups[0].length;
+            token.end += captures.index + captures[0].length;
             parseImports(token, captures);
             return token;
         },
 
         catch: id
     })
-}, null);
+});
 
 const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*['"]?|from\s+['"]|import\s+['"])([\:\.\/\w-\d\%]+)/, {
     // Create new object tracking start and end of token
-    0: (nothing, groups) => ({
-        begin:  groups.index,
-        end:    groups.index + groups[0].length,
-        indent: indentation(groups)
+    0: (nothing, captures) => ({
+        begin:  captures.index,
+        end:    captures.index + captures[0].length,
+        indent: indentation(captures)
     }),
 
     // {% tag %}
     1: capture(/^([\w-]+)\s*/, {
-        0: (token, groups) => {
+        0: (token, captures) => {
             token.type = 'tag';
-            token.end += groups.index + groups[0].length;
-            token.name = groups[1];
+            token.end += captures.index + captures[0].length;
+            token.name = captures[1];
             return token;
         },
 
-        1: overload((token, groups) => groups[1], {
+        1: overload((token, captures) => captures[1], {
             // {% docs url from source-urls %}
             'docs': capture(/^([^\s]+)(?:\s+type\s+([\w-]+))?(\s+from\s+)\s*/, {
                 // {% docs template.html %}
-                1: (token, groups) => {
-                    token.end += groups.index + groups[0].length;
-                    token.src = groups[1];
+                1: (token, captures) => {
+                    token.end += captures.index + captures[0].length;
+                    token.src = captures[1];
                     return token;
                 },
 
                 // {% docs template.html type string from file.css file.js ... %}
-                2: (token, groups) => {
-                    token.filterType = groups[2];
+                2: (token, captures) => {
+                    token.filterType = captures[2];
                     return token;
                 },
 
                 // {% docs template.html from file.css file.js ... %}
-                3: (token, groups) => {
-                    token.sources = parseStrings(groups);
-                    token.end += groups.consumed;
+                3: (token, captures) => {
+                    token.sources = parseStrings(captures);
+                    token.end += captures.consumed;
                     return token;
                 },
 
@@ -214,111 +237,113 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
 
             'each': capture(/^/, {
                 // {% each %}
-                close: function(token, groups) {
-                    parseTagClose(token, groups);
-                    const consumed = groups.consumed;
-                    token.tree = parseTemplate([], groups);
-                    token.end += groups.consumed - consumed;
+                close: function(token, captures) {
+                    parseTagClose(token, captures);
+                    const consumed = captures.consumed;
+                    token.tree = parseTemplate([], captures);
+                    token.end += captures.consumed - consumed;
                     return token;
                 }
             }),
 
             'if': capture(/^/, {
                 // {% if property %}
-                close: function(token, groups) {
-                    token.selector = parseString(groups);
-                    token.end += groups.consumed;
-                    parseTagClose(token, groups);
-                    const consumed = groups.consumed;
-                    token.tree = parseTemplate([], groups);
-                    token.end += groups.consumed - consumed;
+                close: function(token, captures) {
+                    token.selector = parseString(captures);
+                    token.end += captures.consumed;
+                    parseTagClose(token, captures);
+                    const consumed = captures.consumed;
+                    token.tree = parseTemplate([], captures);
+                    token.end += captures.consumed - consumed;
                     return token;
                 }
             }),
 
-            'import': (token, groups) => {
-                throw new SyntaxError('{% import %} tags must be placed at the top of a template');
+            'import': (token, captures) => {
+                throw new SyntaxError(
+                    'Import tags must be declared at the top of bolt templates\n{% ' 
+                    + captures.input.slice(0, captures.input.indexOf('%}')) 
+                    + '%}'
+                );
             },
 
             'include': capture(/^([^\s]+)(?:\s+(import)\s+|\s+(with)\s+)?\s*/, {
                 // {% include template.html %}         
-                1: (token, groups) => {
-                    token.end += groups.index + groups[0].length;
-                    token.src  = groups[1];
+                1: (token, captures) => {
+                    token.end += captures.index + captures[0].length;
+                    token.src  = captures[1];
                     return token;
                 },
             
                 // {% include template.html import package.json %}
-                2: (token, groups) => {
-                    token.import = parseString(groups);
-                    token.end += groups.consumed;
+                2: (token, captures) => {
+                    token.import = parseString(captures);
+                    token.end += captures.consumed;
                     return token;
                 },
             
                 // {% include template.html with name="value" %}
-                3: (token, groups) => {
-                    // Todo
-                    //token.import = parseAttributes(groups);
-                    token.end += groups.consumed;
+                3: (token, captures) => {
+                    token.with = parseWith(captures);
+                    token.end += captures.consumed;
                     return token;
                 },
-            
+
                 close: parseTagClose
             }),
 
             'with': capture(/^/, {
                 // {% with path|pipe:param %}
-                0: (token, groups) => {
-                    token.param = { pipes: parseFilter(groups) };
+                0: (token, captures) => {
+                    token.param = { pipes: parseFilter(captures) };
                     token.param.transform = createTransform(token.param.pipes);
-                    token.end += groups.consumed;
+                    token.end += captures.consumed;
                     return token;
                 },
 
-                close: function(token, groups) {
-                    parseTagClose(token, groups);
-                    const consumed = groups.consumed;
-                    token.tree = parseTemplate([], groups);
-//console.log('WITH', token.tree);
-                    token.end += groups.consumed - consumed;
+                close: function(token, captures) {
+                    parseTagClose(token, captures);
+                    const consumed = captures.consumed;
+                    token.tree = parseTemplate([], captures);
+                    token.end += captures.consumed - consumed;
                     return token;
                 }
             }),
 
             // {% end %}
-            'end': function(token, groups) {
+            'end': function(token, captures) {
                 token.name = 'end';
-                parseTagClose(token, groups);
+                parseTagClose(token, captures);
                 return token;
             },
 
-            default: function(token, groups) {
-                throw new SyntaxError('Unrecognised tag {% ' + groups[1] + ' %} (possible tags: docs, each, if, include, with, end)');
+            default: function(token, captures) {
+                throw new SyntaxError('Unrecognised tag {% ' + captures[1] + ' %} (possible tags: docs, each, if, include, with, end)');
             }
         }),
 
-        catch: function(token, groups) {
+        catch: function(token, captures) {
             throw new SyntaxError('Cannot parse {% tag %} at index ' + token.begin + '');  
         }
     }),
 
     // {{ Property }}
     2: capture(/^/, {
-        0: (token, groups) => {
+        0: (token, captures) => {
             token.type  = 'property';
-            token.pipes = parseFilter(groups);
-            token.end  += groups.consumed;
+            token.pipes = parseFilter(captures);
+            token.end  += captures.consumed;
             return token;
         },
 
         close: capture(/^\}\}/, {
-            0: (token, groups) => {
-                token.end += groups.index + groups[0].length;
+            0: (token, captures) => {
+                token.end += captures.index + captures[0].length;
                 token.transform = createTransform(token.pipes);
                 return token;
             },
 
-            catch: function(token, groups) {
+            catch: function(token, captures) {
                 throw new SyntaxError('Unclosed property {{ at index ' + token.begin + '');     
             }
         }),
@@ -330,25 +355,25 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
 
     // {# Comment #}
     3: capture(/\#\}/, {
-        0: (token, groups) => {
-            token.end += groups.index + groups[0].length;
+        0: (token, captures) => {
+            token.end += captures.index + captures[0].length;
             token.type = 'comment';
-            token.text = groups.input.slice(0, groups.index).replace(/\s*$/, '');
+            token.text = captures.input.slice(0, captures.index).replace(/\s*$/, '');
             return token;
         },
 
-        catch: function(token, groups) {
+        catch: function(token, captures) {
             throw new SyntaxError('Unclosed comment {# at index ' + token.begin + '');     
         }
     }),
 
     // URL
-    4: (token, groups) => {
+    4: (token, captures) => {
         // Group 4 is the prefix src=", href=", url( or from ", group 5 is the
         // URL itself. Don't include the prefix in the token's begin index.
-        token.begin += groups[4].length;
+        token.begin += captures[4].length;
         token.type   = 'url';
-        token.url    = groups[5];
+        token.url    = captures[5];
         return token;        
     },
 
@@ -369,32 +394,32 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
 }, null);
 
 const parseTemplate = capture(/^(\s*\{\%\s*import\s+)?/, {
-    1: (array, groups) => {
-        if (groups[0].length) {
-            array.push({
-                begin: 0,
-                end:   groups[0].length,
-                type:  'ignored',
-                code:  ''
-            });
-        }
-        //let tag = parseImports(groups);
-        //if (tag) { array.push(tag); }
+    1: (array, captures) => {
+        const token = parseImports({
+            type:    'tag',
+            name:    'import',
+            begin:   0,
+            end:     captures[0].length,
+            imports: []
+        }, captures);
+
+        token.code = captures.input.slice(0, token.end);
+        array.push(token);
         return array;
     },
 
-    close: (array, groups) => {
+    close: (array, captures) => {
         let tag;
-        let i = 0;
+        let i = array[0] && array[0].end || 0;
 
         // Loop through tags in the template
-        while ((tag = parseTag(groups))) {
+        while ((tag = parseTag(captures))) {
             if (tag.begin > 0) {
                 array.push({
                     begin: 0,
-                    end:  tag.begin,
-                    type: 'text',
-                    text: groups.input.slice(i, i + tag.begin)
+                    end:   tag.begin,
+                    type:  'text',
+                    text:  captures.input.slice(i, i + tag.begin)
                 });
             }
 
@@ -408,11 +433,11 @@ const parseTemplate = capture(/^(\s*\{\%\s*import\s+)?/, {
         }
 
         // Push in the final text to the end
-        const remainder = groups.input.slice(i);
+        const remainder = captures.input.slice(i);
         if (remainder) {
             array.push({
                 type: 'text',
-                text: groups.input.slice(i)
+                text: captures.input.slice(i)
             });
         }
 

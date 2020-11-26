@@ -15,7 +15,7 @@ renderTemplate(source, target)
 export default function renderTemplate(source, target) {
     return request(source)
     .then(parseTemplate)
-    //.then((tree) => (console.log('ROOT\n' + source + '\n', tree), tree))
+    //.then((tree) => (console.log('ROOT\n' + source + '\n', tree[0]), tree))
     .then((tree) => renderTree(tree, {}, source, target))
     .then((html) => new Promise(function(resolve, reject) {
         const root = path.parse(target);

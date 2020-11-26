@@ -157,7 +157,7 @@ const renderToken = overload(get('type'), {
         'import': function(token, scope, source, target) {
             if (DEBUG) { validateScope(scope); }
 
-            Promise.all(token.imports.map((data) => {
+            return Promise.all(token.imports.map((data) => {
                 return (
                     (/\.json$/).test(data.url) ?
                         request(getRootSrc(source, data.url))
@@ -173,8 +173,7 @@ const renderToken = overload(get('type'), {
                 .catch((error) => {
                     console.log(red + ' ' + yellow + ' ' +  red + ' ' + yellow, 'Import', getRootSrc(source, data.url), error.constructor.name, error.message);
                 })
-            }))
-            .then(() => '');
+            }));
         },
 
         'include': function docs(token, scope, source, target, level) {
@@ -185,8 +184,15 @@ const renderToken = overload(get('type'), {
             const template = request(src)
                 .catch((error) => console.log(red, 'Missing', src, error.message))
                 .then(extractBody)
-                .then(parseTemplate)
-//                .then((tree) => (console.log('INCLUDE\n' + src + '\n', tree), tree));
+                .then(parseTemplate);
+
+            // If include has with
+            if (token.with) {
+                scope = token.with.reduce((object, definition) => {
+                    object[definition.name] = definition.transform(scope);
+                    return object;
+                }, {});
+            }
 
             return token.import ?
                 // Import JSON data as scope
@@ -196,7 +202,6 @@ const renderToken = overload(get('type'), {
                     .catch((error) => console.log(red, 'Missing', getRootSrc(source, token.import), error.message))
                     .then(JSON.parse)
                 ])
-//                .then((res) => (console.log(yellow, 'template', res[0]), res))
                 .then((res) => renderTree(res[0], res[1], src, target, ++level))
                 .then((html) => html.replace(/\n/g, '\n' + token.indent)) :
 
@@ -210,7 +215,6 @@ const renderToken = overload(get('type'), {
 
         'with': function docs(token, scope, source, target, level) {
             if (DEBUG) { validateScope(scope); }
-//console.log('WITH', scope, token.param.transform(scope), '\n-------------------');
             return renderTree(token.tree, token.param.transform(scope), source, target, ++level);
         }
     }),
@@ -231,16 +235,6 @@ const renderToken = overload(get('type'), {
     'url': function(token, scope, source, target) {
         if (DEBUG) { validateScope(scope); }
         const isAbsolute = /^#|^\w+:\/\/|^\//.test(token.url);
-
-        /*
-        if (!isAbsolute) {
-            console.log('Rewrite URL ', source, target, token.url, rewriteURL(source, target, token.url));
-        }
-        else {
-            console.log('Absolute URL', token.url);
-        }
-        */
-
         return isAbsolute ?
             Promise
             .resolve(token.url) :
@@ -250,8 +244,7 @@ const renderToken = overload(get('type'), {
     },
 
     // Ignore comments, leading whitespace and imports
-    'comment': noop,
-    'ignored': noop
+    'comment': noop
 });
 
 
@@ -266,20 +259,16 @@ export default function renderTree(tree, scope, source, target, level = 0) {
     if (DEBUG) { validateScope(scope); }
 
     // If first tag is an import, wait for imports to resolve before render
-    /* return (tree[0] && tree[0].fn === 'import' ?
-        renderToken(tree.shift(), scope, source, target) :
+    return ((tree[0] && tree[0].type === 'tag' && tree[0].name === 'import') ?
+        renderToken(tree.shift(), scope, source, target, level) :
         Promise.resolve('')
-    )*/
-    return Promise
-    .resolve('')
+    )
     .then(() => 
-        Promise
-        .all(tree.reduce(function(promises, token) {
+        Promise.all(tree.reduce(function(promises, token) {
             if (DEBUG) {
                 console.log(dim + ' ' + yellow, level, (
                     token.type === 'text' ? token.text.replace(/^\s*/, '').slice(0, 32).replace(/\s*$/, '') + '…' :
                     token.type === 'comment' ? token.code :
-                    token.type === 'ignored' ? token.code :
                     token.type === 'tag' ? token.code :
                     token.type === 'property' ? token.code :
                     token.type === 'url' ? token.code :
