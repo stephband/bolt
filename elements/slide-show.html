@@ -66,17 +66,17 @@
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
     <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
         <h2 class="doctext-02">&lt;slide-show&gt;</h2>
-        <p>Configure stylesheet path with:</p>
-        <pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/bolt/elements/'</span><span class="token punctuation">;</span></code></pre>
-        <p>Import <code>&lt;slide-show&gt;</code> custom element. This also registers the custom 
-        element and upgrades instances already in the DOM.</p>
-        <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>path/to/bolt/elements/slide-show.rolled.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slide-show</span> <span class="token attr-name">loop</span> <span class="token attr-name">autoplay</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slide-show</span><span class="token punctuation">></span></span></code></pre>
-        
-        </header>
+<p>Configure stylesheet path with:</p>
+<pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/bolt/elements/'</span><span class="token punctuation">;</span></code></pre>
+<p>Import <code>&lt;slide-show&gt;</code> custom element. This also registers the custom 
+element and upgrades instances already in the DOM.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>path/to/bolt/elements/slide-show.rolled.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slide-show</span> <span class="token attr-name">loop</span> <span class="token attr-name">autoplay</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slide-show</span><span class="token punctuation">></span></span></code></pre>
+
+</header>
 
     <div class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <slide-show loop autoplay>
@@ -90,24 +90,24 @@
     <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
         <h3 class="doctext-03">Attributes</h3>        
         <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-attribute-loop-1">
-            <h3 class="doctext-05 ">
-                <a href="#attribute-attribute-loop-1">
-                    <code class="token  language-html">loop </code>
-                </a>
-            </h3>
-            <p>Boolean attribute. Makes the slideshow behave as a continuous loop.</p>
-        
-        </article>
-        <article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-attribute-autoplay-1">
-            <h3 class="doctext-05 ">
-                <a href="#attribute-attribute-autoplay-1">
-                    <code class="token  language-html">autoplay </code>
-                </a>
-            </h3>
-            <p>Boolean attribute. </p>
-        
-        </article>
-        <!--h3 class="doctext-03">Properties</h3>
+    <h3 class="doctext-05 ">
+        <a href="#attribute-attribute-loop-1">
+            <code class="token  language-html">loop </code>
+        </a>
+    </h3>
+    <p>Boolean attribute. Makes the slideshow behave as a continuous loop.</p>
+
+</article>
+<article class="attribute-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="attribute-attribute-autoplay-1">
+    <h3 class="doctext-05 ">
+        <a href="#attribute-attribute-autoplay-1">
+            <code class="token  language-html">autoplay </code>
+        </a>
+    </h3>
+    <p>Boolean attribute. </p>
+
+</article>
+<!--h3 class="doctext-03">Properties</h3>
         <template is="sparky-template" fn="docs:slide-show.js filter-type:property each" src="../templates/templates.html#entry"></template-->
 
         <!--h3 class="doctext-03">Events</h3>
@@ -117,101 +117,101 @@
     <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
         <h3 class="doctext-03">Parts</h3>
         <article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-prev">
-            <h3 class="doctext-05 ">
-                <a href="#part-part-prev">
-                    <code class="  language-js">prev </code>
-                </a>
-            </h3>
-            <p>Style the ‘previous slide’ button.</p>
-        
-        </article>
-        <article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-next">
-            <h3 class="doctext-05 ">
-                <a href="#part-part-next">
-                    <code class="  language-js">next </code>
-                </a>
-            </h3>
-            <p>Style the ‘next slide’ button.</p>
-        
-        </article>
-        <article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-link">
-            <h3 class="doctext-05 ">
-                <a href="#part-part-link">
-                    <code class="  language-js">link </code>
-                </a>
-            </h3>
-            <p>Style the navigation links.</p>
-        
-        </article>
-        <article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-active-link">
-            <h3 class="doctext-05 ">
-                <a href="#part-part-active-link">
-                    <code class="  language-js">active-link </code>
-                </a>
-            </h3>
-            <p>Style the navigation link for the currently active slide.</p>
-        
-        </article>
-        <h3 class="doctext-03">Variables</h3>
+    <h3 class="doctext-05 ">
+        <a href="#part-part-prev">
+            <code class="  language-js">prev </code>
+        </a>
+    </h3>
+    <p>Style the ‘previous slide’ button.</p>
+
+</article>
+<article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-next">
+    <h3 class="doctext-05 ">
+        <a href="#part-part-next">
+            <code class="  language-js">next </code>
+        </a>
+    </h3>
+    <p>Style the ‘next slide’ button.</p>
+
+</article>
+<article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-link">
+    <h3 class="doctext-05 ">
+        <a href="#part-part-link">
+            <code class="  language-js">link </code>
+        </a>
+    </h3>
+    <p>Style the navigation links.</p>
+
+</article>
+<article class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-active-link">
+    <h3 class="doctext-05 ">
+        <a href="#part-part-active-link">
+            <code class="  language-js">active-link </code>
+        </a>
+    </h3>
+    <p>Style the navigation link for the currently active slide.</p>
+
+</article>
+<h3 class="doctext-03">Variables</h3>
         <article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-slide-duration-1">
-            <h3 class="doctext-05 doubledash-indent">
-                <a href="#var-var-slide-duration-1">
-                    <code class="  language-js">--slide-duration </code>
-                </a>
-            </h3>
-            <p>Set the duration that a slide is displayed for when the slideshow is in 
-            autoplay mode. May be a CSS time value in <code>s</code> or <code>ms</code>.</p>
-        
-        </article>
-        <article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-slide-align-1">
-            <h3 class="doctext-05 doubledash-indent">
-                <a href="#var-var-slide-align-1">
-                    <code class="  language-js">--slide-align </code>
-                </a>
-            </h3>
-            <p>Default vertical alignment of slides in their grid cells. (Individual slides 
-            can be aligned normally by applying <code>align-self</code>).</p>
-        
-        </article>
-        <article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-slide-justify-1">
-            <h3 class="doctext-05 doubledash-indent">
-                <a href="#var-var-slide-justify-1">
-                    <code class="  language-js">--slide-justify </code>
-                </a>
-            </h3>
-            <p>Default horizontal justification of slides in their grid cells. (Individual 
-            slides can be justified normally by applying <code>justify-self</code>).</p>
-        
-        </article>
-        <article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-slide-gap-1">
-            <h3 class="doctext-05 doubledash-indent">
-                <a href="#var-var-slide-gap-1">
-                    <code class="  language-js">--slide-gap </code>
-                </a>
-            </h3>
-            <p>Grid column gap between one slide and the next.</p>
-        
-        </article>
-        <article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-link-top-1">
-            <h3 class="doctext-05 doubledash-indent">
-                <a href="#var-var-link-top-1">
-                    <code class="  language-js">--link-top </code>
-                </a>
-            </h3>
-            <p>Adjusts the vertical position of the list of links. Negative values make it
-            appear over the slides.</p>
-        
-        </article>
-        <article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-link-gap-1">
-            <h3 class="doctext-05 doubledash-indent">
-                <a href="#var-var-link-gap-1">
-                    <code class="  language-js">--link-gap </code>
-                </a>
-            </h3>
-            <p>Adjusts the gap between links.</p>
-        
-        </article>
-        </div>
+    <h3 class="doctext-05 doubledash-indent">
+        <a href="#var-var-slide-duration-1">
+            <code class="  language-js">--slide-duration </code>
+        </a>
+    </h3>
+    <p>Set the duration that a slide is displayed for when the slideshow is in 
+    autoplay mode. May be a CSS time value in <code>s</code> or <code>ms</code>.</p>
+
+</article>
+<article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-slide-align-1">
+    <h3 class="doctext-05 doubledash-indent">
+        <a href="#var-var-slide-align-1">
+            <code class="  language-js">--slide-align </code>
+        </a>
+    </h3>
+    <p>Default vertical alignment of slides in their grid cells. (Individual slides 
+    can be aligned normally by applying <code>align-self</code>).</p>
+
+</article>
+<article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-slide-justify-1">
+    <h3 class="doctext-05 doubledash-indent">
+        <a href="#var-var-slide-justify-1">
+            <code class="  language-js">--slide-justify </code>
+        </a>
+    </h3>
+    <p>Default horizontal justification of slides in their grid cells. (Individual 
+    slides can be justified normally by applying <code>justify-self</code>).</p>
+
+</article>
+<article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-slide-gap-1">
+    <h3 class="doctext-05 doubledash-indent">
+        <a href="#var-var-slide-gap-1">
+            <code class="  language-js">--slide-gap </code>
+        </a>
+    </h3>
+    <p>Grid column gap between one slide and the next.</p>
+
+</article>
+<article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-link-top-1">
+    <h3 class="doctext-05 doubledash-indent">
+        <a href="#var-var-link-top-1">
+            <code class="  language-js">--link-top </code>
+        </a>
+    </h3>
+    <p>Adjusts the vertical position of the list of links. Negative values make it
+    appear over the slides.</p>
+
+</article>
+<article class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-link-gap-1">
+    <h3 class="doctext-05 doubledash-indent">
+        <a href="#var-var-link-gap-1">
+            <code class="  language-js">--link-gap </code>
+        </a>
+    </h3>
+    <p>Adjusts the gap between links.</p>
+
+</article>
+</div>
 
     <!-- Document interactivity -->
     <script type="module" src="../../dom/polyfills/element.scrollto.js"></script>

@@ -134,7 +134,7 @@ const renderToken = overload(get('type'), {
                 //.then((comments) => (console.log('BEFORE', comments.flat()), comments))
                 .then((comments) => renderTree(tree, comments.flat(), src, target, ++level))
                 // Render includes at the tag's indentation
-                .then((html) => html.replace(/\n/g, '\n' + token.indent))
+                //.then((html) => html.replace(/\n/g, '\n' + token.indent))
             )
             //.then((c) => (console.log(c.type), c))
         },
