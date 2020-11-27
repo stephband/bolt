@@ -39,7 +39,7 @@
     "build-envelope-control": "rollup ./elements/envelope-control.js --o ./elements/envelope-control.rolled.js --f esm && madge --image ./elements/envelope-control.svg ./elements/envelope-control.js",
     "build-elements": "npm run build-range-control && npm run build-rotary-control && npm run build-envelope-control && npm run build-slide-show",
     "build-css": "node ../fn/build-css.js style.css style.min.css",
-    "build-html": "node ./build-html.js ./ docs/",
+    "build-html": "node ./build-html.js ./ elements/",
     "build-doc": "node ./build.js",
     "build-watch": "node ./watch.js",
     "graph": "madge --image ./module.svg ./module.js",

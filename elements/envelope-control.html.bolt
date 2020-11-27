@@ -6,7 +6,8 @@
     <script title="debug">
         window.DEBUG = true;
     </script>
-
+    
+    <link rel="stylesheet" href="../style.css">
     {% include ../templates/style.html %}
 
     <script title="config">

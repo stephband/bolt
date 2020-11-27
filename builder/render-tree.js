@@ -87,7 +87,9 @@ function getRootSrc(source, src) {
 const rURL = /(src=['"]?|href=['"]?|url\(\s*['"]?)([\:\.\/\w-\d\%]+)/g;
 
 function rewriteURLs(source, target, html) {
-    return html.replace(rURL, ($0, $1, $2) => $1 + rewriteURL(source, target, $2));
+    return html.replace(rURL, ($0, $1, $2) => {
+        return $1 + rewriteURL(source, target, $2);
+    });
 }
 
 const renderToken = overload(get('type'), {
@@ -121,7 +123,10 @@ const renderToken = overload(get('type'), {
                     .then((comments) => {
                         comments.forEach((comment) => {
                             comment.body    = comment.body && rewriteURLs(url, target, comment.body);
-                            comment.example = comment.example && rewriteURLs(url, target, comment.example);
+                            comment.examples.forEach((example, i, examples) => {
+                                // Overwrite in place
+                                examples[i] = rewriteURLs(url, target, example);
+                            });
                         });
                         return comments;
                      });
@@ -235,6 +240,7 @@ const renderToken = overload(get('type'), {
     'url': function(token, scope, source, target) {
         if (DEBUG) { validateScope(scope); }
         const isAbsolute = /^#|^\w+:\/\/|^\//.test(token.url);
+
         return isAbsolute ?
             Promise
             .resolve(token.url) :
