@@ -3,7 +3,7 @@
 .thumb
 
 ```html
-<a class="thumb" href="#" style="background-image: url('../images/logo.svg');">Thumb text</a>
+<a class="thumb" href="#" style="background-image: url('../images/logo-64.png');">Thumb text</a>
 ```
 
 Base class for thumbnails, avatars, icons and other cases where an image

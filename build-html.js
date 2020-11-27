@@ -17,9 +17,10 @@ import request from './builder/request.js';
 import { yellow } from './builder/log.js';
 
 // Arguments
-const args = process.argv.slice(2);
-const base = args[0] || '.';
-const dest = args[1] || '';
+const args  = process.argv.slice(2);
+const base  = args[0] || '.';
+const dest  = args[1] || '';
+const DEBUG = args.find((arg) => (arg === 'debug'));
 
 request('./package.json')
 .then(JSON.parse)
@@ -40,18 +41,19 @@ request('./package.json')
     .on('file', function (source, stat) {
         // Ignore files that do not match *.html.bolt
         const parts  = /(.*\/)?([^\s\/]+)\.html\.bolt$/.exec(source);
-    
         if (!parts) { return; }
     
         const path   = parts[1];
         const name   = parts[2];
         // Replace path with destination
-        const target = (path ? dest ? dest : path : '') + name + '.html';
-    
+        //const target = (path ? dest ? dest : path : '') + name + '.html';
+        // No, build in place... Todo: allow alternative target destination
+        const target = (path || '') + name + '.html';
+
         // Build source template to target path
         processes
         // build [source.html, target.html]
-        .fork(dir + '/build-template.js', [source, target])
+        .fork(dir + '/build-template.js', [source, target, DEBUG && 'debug'])
         .on('error', console.log)
         .on('exit', function(code, error) {
             if (code !== 0) {

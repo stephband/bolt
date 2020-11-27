@@ -11,25 +11,13 @@ import nothing  from '../../fn/modules/nothing.js';
 import overload from '../../fn/modules/overload.js';
 import pipe     from '../../fn/modules/pipe.js';
 import { retrieve as getPipe } from './pipes.js';
+import { parseString } from './parse-string.js';
 
-const assign = Object.assign;
 
 
-/** 
-parseString(string)
+/**
+parseString
 **/
-
-//                                      "string"                   'string'                     string
-export const parseString = capture(/^(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\\.[^'\\]*)*)'|([\w.\-#/?:\\]+))\s*/, {
-    // "string"
-    1: (nothing, tokens) => tokens[1],
-    // 'string'
-    2: (nothing, tokens) => tokens[2],
-    // string
-    3: (nothing, tokens) => tokens[3],
-    // return undefined
-    catch: noop
-}, null);
 
 const parseStrings1 = capture(/^/, {
     close: function(array, captures) {
@@ -48,7 +36,7 @@ function parseStrings(input) {
 
 
 /**
-parseWith
+parseProperty
 **/
 
 const parseProperty = capture(/^([\w][\w\d]*)\s*=\s*/, {
@@ -261,7 +249,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
 
             'import': (token, captures) => {
                 throw new SyntaxError(
-                    'Import tags must be declared at the top of bolt templates\n{% ' 
+                    'Import tags must be declared at the start of bolt templates\n{% ' 
                     + captures.input.slice(0, captures.input.indexOf('%}')) 
                     + '%}'
                 );

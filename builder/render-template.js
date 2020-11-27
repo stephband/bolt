@@ -8,15 +8,19 @@ import renderTree    from './render-tree.js';
 import { green }     from './log.js';
 
 
+const assign = Object.assign;
+
+
 /**
 renderTemplate(source, target)
 **/
 
-export default function renderTemplate(source, target) {
+export default function renderTemplate(source, target, options) {
     return request(source)
     .then(parseTemplate)
     //.then((tree) => (console.log('ROOT\n' + source + '\n', tree[0]), tree))
-    .then((tree) => renderTree(tree, {}, source, target))
+    // Create a context from options (Currently only option is DEBUG)
+    .then((tree) => renderTree(tree, assign({}, options), source, target))
     .then((html) => new Promise(function(resolve, reject) {
         const root = path.parse(target);
         const dir  = root.dir;

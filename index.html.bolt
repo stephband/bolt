@@ -3,9 +3,9 @@
 <head>
     {% include templates/head.html import package.json %}
 
-    <script title="debug" remove>
+    {% if DEBUG %}<script title="debug">
         window.DEBUG = true;
-    </script>
+    </script>{% end %}
 
     <!--link rel="stylesheet" href="../style.min.css" /-->
     <link rel="stylesheet" href="style.css" />
