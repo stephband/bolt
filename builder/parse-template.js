@@ -1,8 +1,4 @@
 
-/**
-Parse template
-**/
-
 import capture  from '../../fn/modules/capture.js';
 import id       from '../../fn/modules/id.js';
 import last     from '../../fn/modules/lists/last.js';
@@ -16,7 +12,7 @@ import { parseString } from './parse-string.js';
 
 
 /**
-parseString
+parseString(string)
 **/
 
 const parseStrings1 = capture(/^/, {
@@ -36,7 +32,7 @@ function parseStrings(input) {
 
 
 /**
-parseProperty
+parseProperty(string)
 **/
 
 const parseProperty = capture(/^([\w][\w\d]*)\s*=\s*/, {

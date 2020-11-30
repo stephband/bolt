@@ -1,4 +1,5 @@
-import capture  from '../../fn/modules/capture.js';
+import capture from '../../fn/modules/capture.js';
+import noop    from '../../fn/modules/noop.js';
 
 const assign = Object.assign;
 
@@ -14,7 +15,9 @@ export const parseString = capture(/^(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\
     // 'string'
     2: (nothing, tokens) => tokens[2],
     // string
-    3: (nothing, tokens) => tokens[3]
+    3: (nothing, tokens) => tokens[3],
+    
+    catch: noop
 }, null);
 
 
