@@ -7,7 +7,7 @@ This repository contains source code and documentation for Bolt:
 
 ## Set up
 
-To develop this project you must first have <a href="https://git-scm.com/">git</a> and <a href="https://nodejs.org">Node.js</a> (>15.1, because we use ES6 imports) installed.
+To develop this project you must first have <a href="https://git-scm.com/">git</a> and <a href="https://nodejs.org">Node.js</a> (>15.1, to support ES6 imports) installed.
 You also need two other dependency repos as well as the bolt repo.
 
 ```
@@ -44,14 +44,6 @@ npm run serve
 ```
 
 Starts a local server at [localhost](http://127.0.0.1:8080).
-
-<!--
-```
-npm run publish
-```
-
-Pushes changes and publishes the results at <a href="https://nendaz.cruncher.ch">nendaz.cruncher.ch</a>, assuming you have ssh access to the cruncher server (hello@cruncher.ch to request access).
--->
 
 ## More commands
 
