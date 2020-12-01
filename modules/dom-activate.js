@@ -352,10 +352,11 @@ function activateTarget(e) {
 }
 
 // Clicks on buttons toggle activate on their hash
-on('click', delegate('a[href]', activateHref), document);
-
 // Clicks on buttons toggle activate on their targets
-on('click', delegate('a[target]', activateTarget), document);
+on('click', delegate({
+	'a[href]': activateHref,
+	'a[target]': activateTarget
+}), document);
 
 // Document setup
 ready(function() {

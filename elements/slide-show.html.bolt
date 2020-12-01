@@ -56,6 +56,9 @@
         <h3 class="doctext-03">Attributes</h3>        
         {% docs ../templates/entry.html type attribute from slide-show.js %}
 
+        <!--h3 class="doctext-03">Slots</h3>
+        <template is="sparky-template" fn="docs:slide-show.js filter-type:property each" src="../templates/templates.html#entry"></template-->
+
         <!--h3 class="doctext-03">Properties</h3>
         <template is="sparky-template" fn="docs:slide-show.js filter-type:property each" src="../templates/templates.html#entry"></template-->
 

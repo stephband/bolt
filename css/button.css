@@ -38,19 +38,19 @@ button,
     **/
     --line-height: 1.5rem;
 
-    /**
+    /*
     --color
-    **/
+    */
     --color: black;
 
-    /**
+    /*
     --background
-    **/
+    */
     --background: white;
 
-    /**
+    /*
     --border-color
-    **/
+    */
     --border-color: transparent;
 
     /**
@@ -58,19 +58,19 @@ button,
     **/
     --border-width: 0.0625rem;
 
-    /**
+    /*
     --border-radius
-    **/
+    */
     --border-radius: 0.3125rem;
 
-    /**
+    /*
     --padding-left
-    **/
+    */
     --padding-left: 0.5625em;
 
-    /**
+    /*
     --padding-right
-    **/
+    */
     --padding-right: var(--padding-left);
 
     /* Making buttons a grid helps layout internal icons, and also

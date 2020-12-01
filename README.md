@@ -1,41 +1,83 @@
 # Bolt
 
-A library of front end classes. <a href="http://stephen.band/bolt">Bolt</a> sets up a baseline for building flexible interfaces.
+This repository contains source code and documentation for Bolt:
 
-* Normalises for usefuleness. Bolt sets the box model to border-box across the board.
-* Descriptive base classes define layout techniques (.block, .button, .flex, .grid, .table, &hellips;).
-* Text stylesheet and the grid component set up a vertical rhythm.
-* Flexible, nestable and responsive horizontal grid component.
-* No colour. Themes change between projects while layout techniques generally don't. Bolt focuses on layout techniques.
-* Styleguide generated from KSS comments.
+<a href="https:/stephen.band/bolt">stephen.band/bolt</a>
 
-## Latest build
 
-* <a href="https://stephen.band/bolt/style.min.css">https://stephen.band/bolt/style.min.css</a>
+## Set up
 
-## Getting started
+To develop this project you must first have <a href="https://git-scm.com/">git</a> and <a href="https://nodejs.org">Node.js</a> (>15.1, because we use ES6 imports) installed.
+You also need two other dependency repos as well as the bolt repo.
 
-Clone the repo:
+```
+git clone git@github.com:stephband/fn.git
+git clone git@github.com:stephband/dom.git
+git clone git@github.com:stephband/bolt.git
+cd bolt
+```
 
-    git clone git@github.com/stephband/bolt.git
-    cd bolt/
+Clones the `fn`, `dom` and `bolt` repositories to your local file system, and `cd`s into the `bolt` directory.
 
-Install node modules:
+```
+npm install
+```
 
-    npm install
+Installs `package.json` dependencies into `node_modules/`.
 
-Compile SASS:
+## Development
 
-    npm run sass
+```
+npm run build
+```
 
-Build <code>dist/bolt.css</code>:
+Runs all build processes (see below for individual processes) to generate packaged CSS and JS, and servable HTML files. 
 
-    npm run build
+```
+npm run watch
+```
 
-Build <code>styleguide/</code> from KSS comments found in CSS files:
+Watches for changes to `*.html.bolt` files and builds them to `*.html` files.
 
-    npm run styleguide
+```
+npm run serve
+```
 
-## Documentation
+Starts a local server at [localhost](http://127.0.0.1:8080).
 
-Currently scant documentation at <a href="http://stephen.band/bolt">stephen.band/bolt/index.html</a>.
+<!--
+```
+npm run publish
+```
+
+Pushes changes and publishes the results at <a href="https://nendaz.cruncher.ch">nendaz.cruncher.ch</a>, assuming you have ssh access to the cruncher server (hello@cruncher.ch to request access).
+-->
+
+## More commands
+
+Published files are built from JS inside `modules/` and `components/`, CSS inside `css/` and `components/`, and also JS modules and styles found inside the git submodules `bolt/`, `fn/` and `dom/`. Published files are packaged, they have no dependencies.
+
+```
+npm run build-module
+```
+
+Builds JS module from `module.js` to `module.rolled.js`.
+
+```
+npm run build-sass
+```
+
+Builds CSS from SASS files. Very little SASS is used in this project, just enough to generate a responsive grid system. If you change the grid you should regenerate the CSS: normally you will not need to run this command.
+
+```
+npm run build-css
+```
+
+Builds and minifies CSS from `module.css` to `bolt.css` and `bolt.min.css`.
+
+```
+npm run build-html
+```
+
+Builds documentation from `*.html.bold` to `*.html` files.
+

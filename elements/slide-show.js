@@ -18,6 +18,10 @@ element and upgrades instances already in the DOM.
     <img src="..." id="2" />
 </slide-show>
 ```
+
+By default each element inside `<slide-show>` is interpreted as a slide, but
+content with the attribute `slot="optional"` is ignored, allowing for the
+insertion of fullscreen close buttons and the like.
 **/
 
 // Polyfill Safari's lack of smooth scrolling via .scrollTo()
@@ -203,6 +207,7 @@ element('slide-show', {
         <a part="link"></a>
         <a part="link"></a>
     </nav>
+    <slot name="optional"></slot>
     */
 
     template: function(elem, shadow) {
@@ -211,15 +216,21 @@ element('slide-show', {
         const prevNode = create('a', { class: 'prev-thumb thumb', part: 'prev' });
         const nextNode = create('a', { class: 'next-thumb thumb', part: 'next' });
         const nav      = create('nav');
+        const optional = create('slot', { name: 'optional' });
 
         shadow.appendChild(link);
         shadow.appendChild(slot);
         shadow.appendChild(prevNode);
         shadow.appendChild(nextNode);
         shadow.appendChild(nav);
-        
+        shadow.appendChild(optional);
+
         // Create a dot link for each slide
         Array.from(elem.children).forEach((slide) => {
+            // Ignore content not destined for the default slot
+            if (slide.slot) { return; }
+
+            // Id other content and create nav links for them
             const id = identify(slide);
             nav.appendChild(create('a', {
                 part: 'link',
@@ -278,6 +289,11 @@ element('slide-show', {
             // Clear the previous scheduled timeout
             if (loopId) {
                 clearTimeout(loopId);
+            }
+
+            // If autoplay is off don't schedule
+            if (elem.getAttribute('autoplay') === null) {
+               return;
             }
 
             // Set a new timeout and register the schedule time

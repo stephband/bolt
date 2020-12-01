@@ -47,6 +47,10 @@
 
     position: relative;
     display: grid !important;
+    
+    /* Put content in the center, useful when slide-show is bigger than content,
+       such as in fullscreen mode. */
+    align-content: center;
 }
 
 :host > .thumb {
