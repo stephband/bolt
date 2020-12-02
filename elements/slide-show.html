@@ -75,6 +75,9 @@ element and upgrades instances already in the DOM.</p>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slide-show</span><span class="token punctuation">></span></span></code></pre>
+<p>By default each element inside <code>&lt;slide-show&gt;</code> is interpreted as a slide, but
+content with the attribute <code>slot=&quot;optional&quot;</code> is ignored, allowing for the
+insertion of fullscreen close buttons and the like.</p>
 
 </header>
 
@@ -107,7 +110,10 @@ element and upgrades instances already in the DOM.</p>
     <p>Boolean attribute. </p>
 
 </article>
-<!--h3 class="doctext-03">Properties</h3>
+<!--h3 class="doctext-03">Slots</h3>
+        <template is="sparky-template" fn="docs:slide-show.js filter-type:property each" src="../templates/templates.html#entry"></template-->
+
+        <!--h3 class="doctext-03">Properties</h3>
         <template is="sparky-template" fn="docs:slide-show.js filter-type:property each" src="../templates/templates.html#entry"></template-->
 
         <!--h3 class="doctext-03">Events</h3>
