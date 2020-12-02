@@ -53,7 +53,7 @@ function filterByType(type, array) {
 
 const docsFilters = {
     'all': id,
-    'selector':  (comments) => comments.filter((comment) => (comment.type === 'class' || comment.type === 'text')),
+    'selector':  (comments) => comments.filter((comment) => (comment.type === 'selector' || comment.type === 'title')),
     'attribute': (comments) => filterByType('attribute', comments),
     'property':  (comments) => filterByType('property', comments),
     'string':    (comments) => filterByType('string', comments),

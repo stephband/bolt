@@ -43,6 +43,7 @@ const markedOptions = {
     smartypants: true
 };
 
+const parseParensClose = capture(/^\)\s*/, {}, null);
 
 /** 
 parseComment(string)
@@ -87,21 +88,14 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
     },
 
     // Class, property or method .(name) (=) (()
-    1: capture(/^([\w-]+)\s*(?:(=)|(\())?\s*/, {
-        // Class
-        // .class
-        1: function(data, captures) {
-            data.type = 'class';
-            data.prefix = '.';
-            data.name = captures[1];
-            return data;
-        },
-
+    //              1                  2   3     4        
+    1: capture(/^(?:([\w][\w\d]*)\s*(?:(=)|(\())|([\w\d:\-[\]="]+(?:,\s*[\w\d.:\-[\]="]+)*))\s*/, {
         // Property 
         // .property="default"
         2: function(data, captures) {
             data.type    = 'property';
             data.prefix = '.';
+            data.name = captures[1];
             // Todo: capture default value of arbitrary type
             //data.default = captures[2];
             return data;
@@ -112,8 +106,19 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
         3: function(data, captures) {
             data.type   = 'method';
             data.prefix = '.';
+            data.name   = captures[1];
             data.params = parseParams([], captures);
+            parseParensClose(captures);
             // Todo capture end bracket )
+            return data;
+        },
+
+        // Selector(s)
+        // .class, .class-2, element
+        4: function(data, captures) {
+            data.type = 'selector';
+            data.prefix = '.';
+            data.name = captures[4];
             return data;
         },
 
@@ -202,7 +207,8 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
 
     // Attribute name="value" or fn:params or function() or Contructor() or 
     // arbitrary text including any newlines preceded by a comma
-    7: capture(/^(?:([\w-:]+)\s*=\s*|([\w-]+)\s*:\s*|([\w][\w\d]*)\s*\(\s*|((?:[^\n]+|,\n)+)\s*)/, {
+    //              1                2               3                     4                      5       
+    7: capture(/^(?:([\w-:]+)\s*=\s*|([\w-]+)\s*:\s*|([\w][\w\d]*)\s*\(\s*|([A-Z](?:[^\n]|,\s*)*)|([^\n](?:[^\n]|,\n)*))\s*/, {
         // name="value" name='value' name=value
         1: function(data, captures) {
             data.type    = 'attribute';
@@ -228,10 +234,18 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
             return data;
         },
 
-        // Arbitrary text
+        // Title (begins with a capital and continues until newline that is not 
+        // preceded by a comma)
         4: function(data, captures) {
-            data.type   = 'text';
-            data.name   = captures[4];
+            data.type = 'title';
+            data.name = captures[4];
+            return data;
+        },
+
+        // Assume it's a selector
+        5: function(data, captures) {
+            data.type   = 'selector';
+            data.name   = captures[5];
             return data;
         }
     }),
