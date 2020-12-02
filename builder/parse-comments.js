@@ -80,6 +80,7 @@ function createId(string) {
 
 // Documentation comment
 //                             /**         (.)  (--) (::part()     (") (<) ({[ {{ {%)  (word)
+//                                         1    2    3             4   5   6           7    
 const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\{\[%])|(\b))/, {
     // New data object
     0: function(nothing, captures) {
@@ -123,11 +124,12 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
         },
 
         catch: function(data) {
-            throw new SyntaxError('Invalid .class, .property=default or .method(param, ...)');        
+            throw new SyntaxError('Invalid .property=default, .method(param, ...) or selector');        
         }
     }),
 
     // CSS Variable (name): (value)
+    //           1                 2
     2: capture(/^([\w-]+)(?:\s*:\s*([\w\d-]+))?\s*/, {
         // --variable
         1: function(data, captures) {
@@ -244,8 +246,8 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
 
         // Assume it's a selector
         5: function(data, captures) {
-            data.type   = 'selector';
-            data.name   = captures[5];
+            data.type = 'selector';
+            data.name = captures[5];
             return data;
         }
     }),
