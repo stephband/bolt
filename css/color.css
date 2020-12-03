@@ -13,6 +13,18 @@ and variables are available to set colors in CSS:
 */
 
 /**
+.current-fg, .current-bg
+
+```html
+<p class="current-fg" style="display: inline-block; vertical-align: middle;">Crunchum Ipsum</p>
+<p class="thumb current-bg" style="display: inline-block; vertical-align: middle;">Current</p>
+```
+**/
+
+.current-fg   { color: currentcolor; stroke: currentcolor; }
+.current-bg   { background-color: currentcolor; fill: currentcolor; }
+
+/**
 .transparent-bg
 
 ```html
@@ -22,17 +34,6 @@ and variables are available to set colors in CSS:
 
 .transparent-fg { color: transparent; }
 .transparent-bg { background-color: transparent; }
-
-/**
-.current-bg
-
-```html
-<p class="thumb current-bg">Current</p>
-```
-**/
-
-.current-fg   { color: currentcolor; stroke: currentcolor; }
-.current-bg   { background-color: currentcolor; fill: currentcolor; }
 
 /**
 .black-bg

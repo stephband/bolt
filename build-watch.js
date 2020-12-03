@@ -28,10 +28,18 @@ function fork(file, args) {
 function run(filename) {
     promise = undefined;
 
+    // If a template has changed rebuild it
     if (/\.html\.bolt$/.test(filename)) {
         console.log(Math.floor(Date.now()/1000), 'changed', filename);
         // Build source template to target html [source.html, target.html]
         fork(dir + '/build-template.js', [filename, filename.replace(/\.html\.\w+$/, '.html')]);
+    }
+
+    // If CSS has changed we must rebuild everything
+    if (/\.css$/.test(filename)) {
+        console.log(Math.floor(Date.now()/1000), 'changed', filename);
+        // Build source templates
+        fork(dir + '/build-html.js');
     }
 }
 

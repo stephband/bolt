@@ -41,7 +41,7 @@
     "build-css": "node ../fn/build-css.js style.css style.min.css",
     "build-html": "node ./build-html.js ./ elements/",
     "build-doc": "node ./build.js",
-    "build-watch": "node ./watch.js",
+    "build-watch": "node ./build-watch.js",
     "graph": "madge --image ./module.svg ./module.js",
     "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.2' && git push"
   },
