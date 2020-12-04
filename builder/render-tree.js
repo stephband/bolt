@@ -84,11 +84,16 @@ function getRootSrc(source, src) {
     return path.join(dir, relative);
 }
 
-const rURL = /(src=['"]?|href=['"]?|url\(\s*['"]?)([\:\.\/\w-\d\%]+)/g;
+//            1 src=" or href=" or url('                                2 anything not beginning with a /
+const rURL = /(src=['"]?\s*|href=['"]?\s*|url\(\s*['"]?)(?:[a-z]+\:\/\/|([^\/][\:\.\/\w-\d\%]*))/g;
 
 function rewriteURLs(source, target, html) {
     return html.replace(rURL, ($0, $1, $2) => {
-        return $1 + rewriteURL(source, target, $2);
+        // Check for $2 - if a protocol was found $2 is undefined and we don't 
+        // want to rewrite. Todo: write the regexp to not match protocol:// urls  
+        return $2 ?
+            $1 + rewriteURL(source, target, $2) :
+            $0 ;
     });
 }
 
@@ -122,7 +127,7 @@ const renderToken = overload(get('type'), {
                     .then(docsFilters[type])                  
                     .then((comments) => {
                         comments.forEach((comment) => {
-                            comment.body    = comment.body && rewriteURLs(url, target, comment.body);
+                            comment.body = comment.body && rewriteURLs(url, target, comment.body);
                             comment.examples.forEach((example, i, examples) => {
                                 // Overwrite in place
                                 examples[i] = rewriteURLs(url, target, example);
