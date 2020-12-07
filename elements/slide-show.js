@@ -1,6 +1,5 @@
 
-/**
-<slide-show>
+/** <slide-show>
 
 Configure stylesheet path with:
 

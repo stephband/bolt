@@ -12,12 +12,8 @@ import '../libs/marked/marked.min.js';
 // https://prismjs.com/
 import '../libs/prism/prism.js';
 
-import cache   from '../../fn/modules/cache.js';
 import capture from '../../fn/modules/capture.js';
 import id      from '../../fn/modules/id.js';
-import invoke  from '../../fn/modules/invoke.js';
-import last    from '../../fn/modules/lists/last.js';
-import nothing from '../../fn/modules/nothing.js';
 import slugify from '../../fn/modules/strings/slugify.js';
 import { parseString } from './parse-string.js';
 import parseParams from '../../fn/modules/parse-params.js';
@@ -177,7 +173,7 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
     }),
 
     // Element <tag>
-    5: capture(/^(\w[\w-]*)\s*>/, {
+    5: capture(/^(\w[\w\-]*)\s*>/, {
         // variable name
         1: function(data, captures) {
             data.type = 'element';

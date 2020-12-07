@@ -39,8 +39,14 @@
 </head>
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
+    {% import docs from-comments ["slide-show.css", "slide-show.js"] %}
+
     <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
-        {% docs ../templates/tag.html type element from slide-show.js %}
+        {% with docs|filter-by:type,element %}
+        {% each %}
+        {% include ../templates/tag.html %}
+        {% end %}
+        {% end %}
     </header>
 
     <div class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
@@ -53,8 +59,12 @@
     </div>
 
     <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
-        <h3 class="doctext-03">Attributes</h3>        
-        {% docs ../templates/entry.html type attribute from slide-show.js %}
+        <h3 class="doctext-03">Attributes</h3>
+        {% with docs|filter-by:type,attribute %}
+        {% each %}     
+        {% include ../templates/entry.html %}
+        {% end %}
+        {% end %}
 
         <!--h3 class="doctext-03">Slots</h3>
         <template is="sparky-template" fn="docs:slide-show.js filter-type:property each" src="../templates/templates.html#entry"></template-->
@@ -68,10 +78,18 @@
 
     <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
         <h3 class="doctext-03">Parts</h3>
-        {% docs ../templates/entry.html type part from slide-show.css %}
+        {% with docs|filter-by:type,part %}
+        {% each %}     
+        {% include ../templates/entry.html %}
+        {% end %}
+        {% end %}
 
         <h3 class="doctext-03">Variables</h3>
-        {% docs ../templates/entry.html type var from slide-show.css %}
+        {% with docs|filter-by:type,var %}
+        {% each %}     
+        {% include ../templates/entry.html %}
+        {% end %}
+        {% end %}
     </div>
 
     <!-- Document interactivity -->
