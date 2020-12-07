@@ -433,7 +433,11 @@ const registry = {
     
         return array && array.filter((value) => fn(...args, value));
     },
-    
+
+    'filter-by': function(path, value, array) {
+        return array.filter((object) => getPath(path, object) === value);
+    },
+
     /** pluralise: str1, str2, lang
     Where value is singular in a given `lang`, retuns `str1`, otherwise `str2`. */
     pluralise: function(str1, str2, lang, value) {

@@ -108,7 +108,6 @@ Create a transform function from a parsed array of pipe tokens.
 
 export function createTransform(pipes) {
     const fns = pipes.map((data) => {
-        // Look in global pipes first
         var fn = getPipe(data.name);
 
         if (!fn) {
