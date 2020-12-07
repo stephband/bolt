@@ -1,6 +1,7 @@
-{% import comments from-comments files %}
 
-{% with comments %}
+{# Requires title (string), docs (array) #}
+
+{% with docs %}
 <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
     <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" locateable id="{{id}}" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em;">{{title}}</h2>
     {% each %}
