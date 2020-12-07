@@ -1,14 +1,13 @@
 
 import capture  from '../../fn/modules/capture.js';
 import id       from '../../fn/modules/id.js';
-import last     from '../../fn/modules/lists/last.js';
 import noop     from '../../fn/modules/noop.js';
 import nothing  from '../../fn/modules/nothing.js';
 import overload from '../../fn/modules/overload.js';
 import pipe     from '../../fn/modules/pipe.js';
 import { retrieve as getPipe } from './pipes.js';
 import { parseString } from './parse-string.js';
-
+import { parseParams } from './parse-params.js';
 
 
 /**
@@ -37,14 +36,9 @@ parseProperty(string)
 
 const parseProperty = capture(/^([\w][\w\d]*)\s*=\s*/, {
     1: (nothing, captures) => ({
-        name: captures[1],
-        pipes: parseFilter(captures)
+        name:  captures[1],
+        value: parseTypedParam(captures)
     }),
-
-    close: (property, captures) => {
-        property.transform = createTransform(property.pipes);
-        return property;
-    },
 
     catch: noop
 }, null);
@@ -65,6 +59,7 @@ const parseWith = capture(/^/, {
 /**
 createTransform(pipes)
 Create a transform function from an array of pipe tokens.
+MOVED TO RENDER TREE
 **/
 
 export function createTransform(pipes) {
@@ -111,6 +106,44 @@ const parseFilter = capture(/^([\w.-]*)\s*(\|)?\s*/, {
 
 
 /** 
+parseTypedParam(string)
+**/
+
+const parseArrayClose = capture(/^]\s*/, nothing, nothing);
+
+//                                          "string"                   'string'                     [array
+export const parseTypedParam = capture(/^(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\\.[^'\\]*)*)'|(\[))\s*/, {
+    // "string"
+    1: (nothing, captures) => ({
+        type:  'string',
+        value: captures[1]
+    }),
+
+    // 'string'
+    2: (nothing, captures) => ({
+        type:  'string',
+        value: captures[2]
+    }),
+
+    // [array
+    3: (nothing, captures) => {
+        const data = {
+            type:  'array',
+            value: parseParams(captures)
+        };
+        parseArrayClose(captures);
+        return data;
+    },
+
+    // If it's not a value, assume it's a pipe
+    catch: (nothing, captures) => ({
+        type:  'pipe',
+        value: parseFilter(captures)
+    })
+}, null);
+
+
+/** 
 parseTagClose(string)
 Parses tag close `%}` (and it consumes an immediate line break, if there is 
 one, and following whitespace).
@@ -144,13 +177,24 @@ function indentation(captures) {
     return /^\s*/.exec(string)[0];
 }
 
-const parseImport = capture(/^(\w+)\s+from\s+/, {
-    0: (token, captures) => {
+//                            1          2      3
+const parseImport = capture(/^(\w+)\s+(?:(from-comments)|(from))\s+/, {
+    2: (token, captures) => {
         token.imports.push({
             name: captures[1],
-            url: parseString(captures)
+            type: 'comments',
+            from: parseTypedParam(captures)
         });
+        token.end += captures.index + captures[0].length + captures.consumed;
+        return token;
+    },
 
+    3: (token, captures) => {
+        token.imports.push({
+            name: captures[1],
+            type: 'json',
+            from: parseTypedParam(captures)
+        });
         token.end += captures.index + captures[0].length + captures.consumed;
         return token;
     },
@@ -195,8 +239,8 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
 
         1: overload((token, captures) => captures[1], {
             // {% docs url from source-urls %}
-            'docs': capture(/^([^\s]+)(?:\s+type\s+([\w-]+))?(\s+from\s+)\s*/, {
-                // {% docs template.html %}
+            //'docs': capture(/^([^\s]+)(?:\s+type\s+([\w-]+))?(\s+from\s+)\s*/, {
+            /*    // {% docs template.html %}
                 1: (token, captures) => {
                     token.end += captures.index + captures[0].length;
                     token.src = captures[1];
@@ -217,7 +261,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                 },
 
                 close: parseTagClose
-            }),
+            }),*/
 
             'each': capture(/^/, {
                 // {% each %}

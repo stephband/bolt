@@ -1,12 +1,16 @@
 
-import path     from 'path';
+import path      from 'path';
 
-import get      from '../../fn/modules/get.js';
-import id       from '../../fn/modules/id.js';
-import noop     from '../../fn/modules/noop.js';
-import overload from '../../fn/modules/overload.js';
-import toString from './to-string.js';
+import get       from '../../fn/modules/get.js';
+import getPath   from '../../fn/modules/get-path.js';
+import id        from '../../fn/modules/id.js';
+import isDefined from '../../fn/modules/is-defined.js';
+import noop      from '../../fn/modules/noop.js';
+import overload  from '../../fn/modules/overload.js';
+import pipe      from '../../fn/modules/pipe.js';
+import toString  from './to-string.js';
 
+import { retrieve as getPipe } from './pipes.js';
 import request        from './request.js';
 import parseTemplate  from './parse-template.js';
 import parseComments  from './parse-comments.js';
@@ -97,53 +101,115 @@ function rewriteURLs(source, target, html) {
     });
 }
 
+/**
+createTransform(pipes)
+Create a transform function from a parsed array of pipe tokens.
+**/
+
+export function createTransform(pipes) {
+    const fns = pipes.map((data) => {
+        // Look in global pipes first
+        var fn = getPipe(data.name);
+
+        if (!fn) {
+            throw new ReferenceError('Template pipe "' + data.name + '" not found.');
+        }
+
+        // If there are arguments apply them to fn
+        return data.args && data.args.length ?
+            (value) => fn(...data.args, value) :
+            fn ;
+    });
+
+    // Cache the result
+    return pipe.apply(null, fns);
+}
+
+
+/**
+resolveParam(scope, param)
+**/
+
+const resolveParam = overload((scope, param) => param && param.type, {
+    'array':  (scope, param) => param.value,
+
+    'string': (scope, param) => param.value,
+
+    'pipe':  (scope, param) => {
+        const transform = createTransform(param.value);
+        return transform(scope);
+    },
+
+    default: (scope, param) => {
+        console.log(red, 'Parameter of unknown type ', JSON.stringify(param))
+        throw new Error('Parameter of unknown type');
+    }
+});
+
+const importByType = overload((scope, source, target, data) => data.type, {
+    'json': function(scope, source, target, data) {
+        const url = resolveParam(scope, data.from);
+        
+        if (!isDefined(url)) {
+            console.log(red, 'Unresolved param', data.from);
+            throw new Error('Unresolved param');
+        }
+        
+        return (
+            (/\.json$/).test(url) ?
+                request(getRootSrc(source, url))
+                .then(JSON.parse) :
+            (/\.js$/).test(url) ?
+                // This is going to be the wrong url for import, need
+                // relative to this file
+                import(getRootSrc(source, url))
+                .then((module) => module.default) :
+            Promise.reject()
+        )
+        .then((object) => scope[data.name] = object)
+        .catch((error) => {
+            console.log(red + ' ' + yellow + ' ' +  red + ' ' + yellow, 'Import', getRootSrc(source, url), error.constructor.name, error.message);
+        });
+    },
+
+    'comments': function(scope, source, target, data) {
+        const urls = resolveParam(scope, data.from);
+
+        if (!isDefined(urls)) {
+            console.log(red, 'Unresolved param', data.from);
+            throw new Error('Unresolved param');
+        }
+
+        return Promise.all(urls.map((path) => {
+            const url = getRootSrc(source, path);
+
+            return request(url)
+            .catch(throwError)
+            .then(parseComments)
+            //.then(comments => (console.log('CSS\n' + url + '\n', comments), comments))
+            //.then(docsFilters[type])                  
+            .then((comments) => {
+                comments.forEach((comment) => {
+                    comment.body = comment.body && rewriteURLs(url, target, comment.body);
+                    comment.examples.forEach((example, i, examples) => {
+                        // Overwrite in place
+                        examples[i] = rewriteURLs(url, target, example);
+                    });
+                });
+                return comments;
+             });
+        }))
+        .then((comments) => scope[data.name] = comments.flat())
+        .catch((error) => {
+            console.log(red + ' ' + yellow + ' ' +  red + ' ' + yellow, 'Import', getRootSrc(source, url), error.constructor.name, error.message);
+        });
+    }
+});
+
 const renderToken = overload(get('type'), {
     // Render tags and properties. All tags must return either a promise that 
     // resolves to an HTML string, or undefined.
     'tag': overload(get('name'), {
-        'docs': function docs(token, scope, source, target, level) {
-            if (DEBUG) { validateScope(scope); }
-
-            // Get src relative to working directory 
-            const src  = getRootSrc(source, token.src);
-            const type = token.filterType;
-
-            return request(src)
-            .catch((error) => {
-                console.log(red, 'Missing', src, error.message);
-                throw new Error();
-            })
-            .then(extractBody)
-            .then(parseTemplate)
-            //.then((tree) => (console.log('DOCS\n' + src + '\n', tree), tree))
-            .then((tree) => 
-                Promise
-                .all(token.sources.map((path) => {
-                    const url = getRootSrc(source, path);
-                    return request(url)
-                    .catch(throwError)
-                    .then(parseComments)
-                    //.then(comments => (console.log('CSS\n' + url + '\n', comments), comments))
-                    .then(docsFilters[type])                  
-                    .then((comments) => {
-                        comments.forEach((comment) => {
-                            comment.body = comment.body && rewriteURLs(url, target, comment.body);
-                            comment.examples.forEach((example, i, examples) => {
-                                // Overwrite in place
-                                examples[i] = rewriteURLs(url, target, example);
-                            });
-                        });
-                        return comments;
-                     });
-                }))
-                //.then((comments) => (console.log('BEFORE', comments.flat()), comments))
-                .then((comments) => renderTree(tree, comments.flat(), src, target, ++level))
-                // Render includes at the tag's indentation
-                //.then((html) => html.replace(/\n/g, '\n' + token.indent))
-            )
-            //.then((c) => (console.log(c.type), c))
-        },
-
         'each': function docs(token, scope, source, target, level) {
             if (DEBUG) { validateScope(scope); }
 
@@ -166,24 +232,7 @@ const renderToken = overload(get('type'), {
 
         'import': function(token, scope, source, target) {
             if (DEBUG) { validateScope(scope); }
-
-            return Promise.all(token.imports.map((data) => {
-                return (
-                    (/\.json$/).test(data.url) ?
-                        request(getRootSrc(source, data.url))
-                        .then(JSON.parse) :
-                    (/\.js$/).test(data.url) ?
-                        // This is going to be the wrong url for import, need
-                        // relative to this file
-                        import(getRootSrc(source, data.url))
-                        .then((module) => module.default) :
-                    Promise.reject()
-                )
-                .then((object) => scope[data.name] = object)
-                .catch((error) => {
-                    console.log(red + ' ' + yellow + ' ' +  red + ' ' + yellow, 'Import', getRootSrc(source, data.url), error.constructor.name, error.message);
-                })
-            }));
+            return Promise.all(token.imports.map((data) => importByType(scope, source, target, data)));
         },
 
         'include': function docs(token, scope, source, target, level) {
@@ -199,7 +248,7 @@ const renderToken = overload(get('type'), {
             // If include has with
             if (token.with) {
                 scope = token.with.reduce((object, definition) => {
-                    object[definition.name] = definition.transform(scope);
+                    object[definition.name] = resolveParam(scope, definition.value);
                     return object;
                 }, {});
             }
