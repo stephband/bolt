@@ -93,7 +93,6 @@ const rURL = /(src=['"]?\s*|href=['"]?\s*|url\(\s*['"]?)(?:[a-z]+\:\/\/|([^\/\#'
 
 function rewriteURLs(source, target, html) {
     return html.replace(rURL, ($0, $1, $2) => {
-console.log($1, '>>>', $2);
         // Check for $2 - if a protocol was found $2 is undefined and we don't 
         // want to rewrite. Todo: write the regexp to not match protocol:// urls  
         return $2 ?
