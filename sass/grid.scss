@@ -7,6 +7,23 @@ YOUR CHANGES. YOU HAVE BEEN WARNED.
 @import './var.scss';
 
 /**
+Columns.
+**/
+
+/**
+.columns
+
+```html
+<div class="2-columns columns" style="--column-gap: 0.9375rem;">
+    <button>&nbsp;</button>
+    <button>&nbsp;</button>
+</div>
+```
+
+Defines a block with `n` number of columns.
+**/
+
+/**
 Grid.
 **/
 
@@ -103,7 +120,25 @@ Define the vertical grid gap.
 
 @each $breakpoint in $breakpoints {
 @media (min-width: #{nth($breakpoint, 2)}) {
-    .#{nth($breakpoint, 1)}grid           {
+    .#{nth($breakpoint, 1)}columns {
+        display: block !important;
+        column-gap: var(--column-gap);
+    }
+
+    .#{nth($breakpoint, 1)}#{'\\31'} -columns  { columns: 1 !important; }
+    .#{nth($breakpoint, 1)}#{'\\32'} -columns  { columns: 2 !important; }
+    .#{nth($breakpoint, 1)}#{'\\33'} -columns  { columns: 3 !important; }
+    .#{nth($breakpoint, 1)}#{'\\34'} -columns  { columns: 4 !important; }
+    .#{nth($breakpoint, 1)}#{'\\35'} -columns  { columns: 5 !important; }
+    .#{nth($breakpoint, 1)}#{'\\36'} -columns  { columns: 6 !important; }
+    .#{nth($breakpoint, 1)}#{'\\37'} -columns  { columns: 7 !important; }
+    .#{nth($breakpoint, 1)}#{'\\38'} -columns  { columns: 8 !important; }
+    .#{nth($breakpoint, 1)}#{'\\39'} -columns  { columns: 9 !important; }
+    .#{nth($breakpoint, 1)}#{'\\31'} 0-columns { columns: 10 !important; }
+    .#{nth($breakpoint, 1)}#{'\\31'} 1-columns { columns: 11 !important; }
+    .#{nth($breakpoint, 1)}#{'\\31'} 2-columns { columns: 12 !important; }
+
+    .#{nth($breakpoint, 1)}grid {
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
@@ -113,7 +148,7 @@ Define the vertical grid gap.
         row-gap: var(--row-gap);
     }
 
-    .#{nth($breakpoint, 1)}y-start-grid         {
+    .#{nth($breakpoint, 1)}y-start-grid {
         align-content: start;
     }
 
@@ -215,18 +250,6 @@ Define the vertical grid gap.
     .#{nth($breakpoint, 1)}y-stretch   { align-self: stretch !important; }
     .#{nth($breakpoint, 1)}y-baseline  { align-self: baseline !important; }
     .#{nth($breakpoint, 1)}y-lastline  { align-self: last baseline !important; }
-
-    .#{nth($breakpoint, 1)}columns-2   { columns: 2 !important; }
-    .#{nth($breakpoint, 1)}columns-3   { columns: 3 !important; }
-    .#{nth($breakpoint, 1)}columns-4   { columns: 4 !important; }
-    .#{nth($breakpoint, 1)}columns-5   { columns: 5 !important; }
-    .#{nth($breakpoint, 1)}columns-6   { columns: 6 !important; }
-    .#{nth($breakpoint, 1)}columns-7   { columns: 7 !important; }
-    .#{nth($breakpoint, 1)}columns-8   { columns: 8 !important; }
-    .#{nth($breakpoint, 1)}columns-9   { columns: 9 !important; }
-    .#{nth($breakpoint, 1)}columns-10  { columns: 10 !important; }
-    .#{nth($breakpoint, 1)}columns-11  { columns: 11 !important; }
-    .#{nth($breakpoint, 1)}columns-12  { columns: 12 !important; }
 
     :root {
         --column-gap: #{nth($breakpoint, 4)};
