@@ -1,0 +1,22 @@
+
+{# Requires title (string), docs (array) #}
+
+<section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 0.9375rem; grid-auto-flow: column; align-content: start;">
+    {# Just to get the grid to line up. Todo: find a better way. #}
+    <div class="@2-x-1 @2-3x"></div>
+
+    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" locateable id="{{title|slugify}}" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">{{title}}</h2>
+    {% with docs|filter-by:type,selector %}
+    {% each %}
+    <h4 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-2x x-start y-lastline doctext-05 {{prefix|is:'.'|yesno:'dot-indent',''}}">
+        <a href="#{{id}}-description" title="Show HTML markup" data-type="{{type}}"><code>{{prefix}}{{name}}</code></a>
+    </h4>
+    
+    <div class="x-1 3x @1-x-1 @1-2x @1-2y @2-x-1 @2-3x @2-1y x-center y-lastline flex" style="max-width: 300px; width: 100%; justify-content: space-between; align-items: center;">{{examples|get:'0'}}</div>
+    
+    <div class="x-1 3x @1-x-3 @1-4x @2-x-6 @2-2x x-stretch block">
+        <div class="bottom-right-bubble right-bubble bubble" style="width: calc(300% + 2 * var(--column-gap)); max-width: 100%; min-width: 20rem; top: 0.75rem;" popable id="{{id}}-description">{{body}}</div>
+    </div>
+    {% end %}
+    {% end %}
+</section>

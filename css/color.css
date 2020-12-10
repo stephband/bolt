@@ -16,8 +16,8 @@ and variables are available to set colors in CSS:
 .current-fg, .current-bg
 
 ```html
-<p class="current-fg" style="display: inline-block; vertical-align: middle;">Crunchum Ipsum</p>
-<p class="thumb current-bg" style="display: inline-block; vertical-align: middle;">Current</p>
+<p class="current-fg">Crunchum Ipsum</p>
+<p class="thumb current-bg">Current</p>
 ```
 **/
 
@@ -25,9 +25,10 @@ and variables are available to set colors in CSS:
 .current-bg   { background-color: currentcolor; fill: currentcolor; }
 
 /**
-.transparent-bg
+.transparent-fg, .transparent-bg
 
 ```html
+<p class="transparent-fg">Crunchum Ipsum</p>
 <p class="thumb transparent-bg">Transparent</p>
 ```
 **/
@@ -36,9 +37,10 @@ and variables are available to set colors in CSS:
 .transparent-bg { background-color: transparent; }
 
 /**
-.black-bg
+.black-fg, .black-bg
 
 ```html
+<p class="black-fg">Crunchum Ipsum</p>
 <p class="thumb black-bg">Black</p>
 ```
 **/
@@ -48,9 +50,10 @@ and variables are available to set colors in CSS:
 .black-bg   { background-color: black; fill: black; }
 
 /**
-.white-bg
+.white-fg, .white-bg
 
 ```html
+<p class="white-fg">Crunchum Ipsum</p>
 <p class="thumb white-bg">White</p>
 ```
 **/
@@ -61,9 +64,10 @@ and variables are available to set colors in CSS:
 
 
 /**
-.info-bg
+.info-fg, .info-bg
 
 ```html
+<p class="info-fg">Crunchum Ipsum</p>
 <p class="thumb info-bg">Info colour</p>
 ```
 **/
@@ -74,9 +78,10 @@ and variables are available to set colors in CSS:
 
 
 /**
-.success-bg
+.success-fg, .success-bg
 
 ```html
+<p class="success-fg">Crunchum Ipsum</p>
 <p class="thumb success-bg">Success colour</p>
 ```
 **/
@@ -87,9 +92,10 @@ and variables are available to set colors in CSS:
 
 
 /**
-.warn-bg
+.warn-fg, .warn-bg
 
 ```html
+<p class="warn-fg">Crunchum Ipsum</p>
 <p class="thumb warn-bg">Warn colour</p>
 ```
 **/
@@ -100,9 +106,10 @@ and variables are available to set colors in CSS:
 
 
 /**
-.error-bg
+.error-fg, .error-bg
 
 ```html
+<p class="error-fg">Crunchum Ipsum</p>
 <p class="thumb error-bg">Error colour</p>
 ```
 **/
