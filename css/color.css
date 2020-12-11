@@ -117,3 +117,11 @@ and variables are available to set colors in CSS:
 :root         { --error: #DC0F0E; }
 .error-fg     { color: #DC0F0E; stroke: #DC0F0E; }
 .error-bg     { background-color: #DC0F0E; fill: #DC0F0E; }
+
+
+
+.TODO {
+    background-image: url('../images/wireframe.svg');
+    /*background-color: #DC0F0E; 
+    fill: #DC0F0E;*/
+}
