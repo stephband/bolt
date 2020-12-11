@@ -119,9 +119,18 @@ and variables are available to set colors in CSS:
 .error-bg     { background-color: #DC0F0E; fill: #DC0F0E; }
 
 
+/**
+.TODO
+
+Applies a 'wireframe' background to elements to indicate they are yet to be done.
+**/
 
 .TODO {
-    background-image: url('../images/wireframe.svg');
-    /*background-color: #DC0F0E; 
-    fill: #DC0F0E;*/
+    background-image:
+        url('../images/wireframe.svg'), 
+        url('/static/images/wireframe.svg') !important;
+    background-size:
+        100% 100%,
+        100% 100% !important;
+    background-color: rgba(0,0,0,0.08) !important;
 }
