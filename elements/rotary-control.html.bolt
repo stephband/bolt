@@ -1,12 +1,19 @@
+{% import data from-comments [
+    "rotary-control.js", 
+    "attributes.js", 
+    "rotary-control.css", 
+    "control.css"
+] %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% include ../templates/head.html import ../package.json %}
-
+    
     <script title="debug">
         window.DEBUG = true;
     </script>
-
+    
     <link rel="stylesheet" href="../style.css">
     {% include ../templates/style.html %}
 
@@ -15,66 +22,31 @@
     </script>
 
     <style>
-        rotary-control {
-            min-width: 8rem;
-            max-width: 10rem;
-            margin: 0 auto;
-            /* Nullify focus box-shadow */
-            box-shadow: none !important;
-        }
+    rotary-control {
+        min-width: 8rem;
+        max-width: 10rem;
+        margin: 0 auto;
+        /* Nullify focus box-shadow */
+        box-shadow: none !important;
+    }
     
-        * + rotary-control {
-            margin-top: 1.875rem;
-        }
-        
-        * + input {
-            margin-top: 3.75rem;
-        }
-
-        rotary-control::part(tick) {
-            background-color: var(--label-color);
-        }
+    * + rotary-control {
+        margin-top: 1.875rem;
+    }
+    
+    * + input {
+        margin-top: 3.75rem;
+    }
+    
+    rotary-control::part(tick) {
+        background-color: var(--label-color);
+    }
     </style>
 </head>
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
-    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="rotary-control">
-        {% docs ../templates/tag.html type element from rotary-control.js %}
-    </header>
+    {% include ../templates/element.html with data=data %}
 
-    <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-        <rotary-control name="pan" min="-1" max="1" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1">
-            Pan
-        </rotary-control>
-
-        <rotary-control name="gain" min="-48dB" max="0dB" ticks="-∞dB -48dB -42dB -36dB -30dB -24dB -18dB -12dB -6dB 0dB" law="linear-logarithmic" unit="dB" value="-6dB">
-            Volume
-        </rotary-control>
-
-        <input hidden class="block button" type="submit" />
-    </form>
-
-    <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
-        <h3 class="doctext-03">Attributes</h3>        
-        {% docs ../templates/entry.html type attribute from attributes.js %}
-
-        <h3 class="doctext-03">Properties</h3>
-        {% docs ../templates/entry.html type property from attributes.js %}
-
-        <h3 class="doctext-03">Events</h3>
-        {% docs ../templates/entry.html type string from attributes.js %}
-    </div>
-
-    <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
-        <h3 class="doctext-03">Parts</h3>
-        {% docs ../templates/entry.html type part from control.css %}
-
-        <h3 class="doctext-03">Variables</h3>
-        {% docs ../templates/entry.html type var from control.css %}
-        {% docs ../templates/entry.html type var from rotary-control.css %}
-    </div>
-
-    <!-- Document interactivity -->
     <script type="module" src="./rotary-control.js"></script>
     {% include ../templates/scripts.html %}
 </body>

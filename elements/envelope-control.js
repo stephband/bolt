@@ -1,4 +1,25 @@
 
+
+
+/**
+<envelope-control>
+
+Configure stylesheet path with:
+
+```js
+window.customElementStylesheetPath = 'path/to/bolt/elements/';
+```
+
+Import `<envelope-control>` custom element. This also registers the custom 
+element and upgrades instances already in the DOM.
+
+```html
+<script type="module" src="envelope-control.rolled.js"></script>
+<envelope-control min="0" max="1" value="0 0.1 step 0.5 1 linear 1 0.3 linear" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="height: 16rem;">Envelope</envelope-control>
+```
+
+**/
+
 import { Observer, by, capture, insert, get, noop, overload, toCamelCase, toLevel, toType, id, notify, nothing, observe, remove } from '../../fn/module.js';
 import { clamp } from '../../fn/modules/maths/clamp.js';
 import Privates from '../../fn/modules/privates.js';

@@ -1,6 +1,7 @@
 {% import text     from-comments ['./css/text.css'] %}
 {% import color    from-comments ['./css/color.css'] %}
-{% import form     from-comments ['./css/input.css'
+{% import form     from-comments [
+    './css/input.css',
     './css/label.css',
     './components/check-label.css',
     './components/switch-label.css',
@@ -17,6 +18,11 @@
 {% import menus    from-comments ['./components/menu.css'] %}
 {% import messages from-comments ['./components/message.css'] %}
 {% import toggles  from-comments ['./components/toggle-block.css'] %}
+
+{% import slideshow       from-comments ['./elements/slide-show.js', './elements/slide-show.css'] %}
+{% import rangecontrol    from-comments ['./elements/range-control.js', './elements/attributes.js', './elements/range-control.css', './elements/control.css'] %}
+{% import rotarycontrol   from-comments ['./elements/rotary-control.js', './elements/attributes.js', './elements/rotary-control.css', './elements/control.css'] %}
+{% import envelopecontrol from-comments ['./elements/envelope-control.js', './elements/attributes.js', './elements/envelope-control.css', './elements/control.css'] %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -129,9 +135,9 @@
     {% include templates/section.html with title="Message." docs=messages %}
     {% include templates/section.html with title="Toggle."  docs=toggles %}
 
-    {% include elements/range-control.html.bolt %}
-    {% include elements/rotary-control.html.bolt %}
-    {% include elements/slide-show.html.bolt %}
+    {% include templates/element.html with data=rangecontrol %}
+    {% include templates/element.html with data=rotarycontrol %}
+    {% include templates/element.html with data=slideshow %}
 
     <footer class="x-1 3x @1-x-3 @1-4x @2-x-4">
         {% include templates/footer.html import package.json %}

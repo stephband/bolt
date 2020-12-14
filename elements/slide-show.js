@@ -11,10 +11,12 @@ Import `<slide-show>` custom element. This also registers the custom
 element and upgrades instances already in the DOM.
 
 ```html
-<script type="module" src="path/to/bolt/elements/slide-show.rolled.js"></script>
+<script type="module" src="slide-show.rolled.js"></script>
 <slide-show loop autoplay>
-    <img src="..." id="1" />
-    <img src="..." id="2" />
+   <img src="../images/lyngen-4.png" id="1" />
+   <img src="../images/lyngen-2.png" id="2" />
+   <img src="../images/lyngen-1.png" id="3" />
+   <img src="../images/lyngen-3.png" id="4" />
 </slide-show>
 ```
 

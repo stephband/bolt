@@ -1,3 +1,5 @@
+{% import data from-comments ["slide-show.js", "slide-show.css"] %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +15,6 @@
     <script title="config">
         window.customElementStylesheetPath = './';
     </script>
-
-    <template is="sparky-template" src="../templates/templates.html#nested-style"></template>
 
     <style>
     slide-show {
@@ -39,58 +39,7 @@
 </head>
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
-    {% import docs from-comments ["slide-show.css", "slide-show.js"] %}
-
-    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
-        {% with docs|filter-by:type,element %}
-        {% each %}
-        {% include ../templates/tag.html %}
-        {% end %}
-        {% end %}
-    </header>
-
-    <div class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-        <slide-show loop autoplay>
-            <img src="../images/lyngen-4.png" width="1024" height="575" id="1" />
-            <img src="../images/lyngen-2.png" id="2" />
-            <img src="../images/lyngen-1.png" id="3" />
-            <img src="../images/lyngen-3.png" id="4" />
-        </slide-show>
-    </div>
-
-    <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
-        <h3 class="doctext-03">Attributes</h3>
-        {% with docs|filter-by:type,attribute %}
-        {% each %}     
-        {% include ../templates/entry.html %}
-        {% end %}
-        {% end %}
-
-        <!--h3 class="doctext-03">Slots</h3>
-        <template is="sparky-template" fn="docs:slide-show.js filter-type:property each" src="../templates/templates.html#entry"></template-->
-
-        <!--h3 class="doctext-03">Properties</h3>
-        <template is="sparky-template" fn="docs:slide-show.js filter-type:property each" src="../templates/templates.html#entry"></template-->
-
-        <!--h3 class="doctext-03">Events</h3>
-        <template is="sparky-template" fn="docs:slide-show.js filter-type:string each" src="../templates/templates.html#entry"></template-->
-    </div>
-
-    <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
-        <h3 class="doctext-03">Parts</h3>
-        {% with docs|filter-by:type,part %}
-        {% each %}     
-        {% include ../templates/entry.html %}
-        {% end %}
-        {% end %}
-
-        <h3 class="doctext-03">Variables</h3>
-        {% with docs|filter-by:type,var %}
-        {% each %}     
-        {% include ../templates/entry.html %}
-        {% end %}
-        {% end %}
-    </div>
+    {% include ../templates/element.html with data=data %}
 
     <!-- Document interactivity -->
     <script type="module" src="../../dom/polyfills/element.scrollto.js"></script>

@@ -1,63 +1,40 @@
+
+{% import data from-comments [
+    "envelope-control.js", 
+    "attributes.js", 
+    "envelope-control.css", 
+    "control.css"
+] %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% include ../templates/head.html import ../package.json %}
-
+    
     <script title="debug">
         window.DEBUG = true;
     </script>
     
     <link rel="stylesheet" href="../style.css">
     {% include ../templates/style.html %}
-
+    
     <script title="config">
         window.customElementStylesheetPath = './';
     </script>
 
-    <template is="sparky-template" src="../templates.html#nested-style"></template>
-
     <style>
-        :root {
-            --value-color: blue;
-        }    
-        * + input {
-            margin-top: 3.75rem;
-        }
+    :root {
+        --value-color: blue;
+    }    
+    * + input {
+        margin-top: 3.75rem;
+    }
     </style>
 </head>
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
-    <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
-        <template is="sparky-template" fn="docs:envelope-control.js filter-type:tag each" src="../templates.html#title"></template>
-        {% docs ../templates/tag.html type element from envelope-control.js %}
-    </header>
+{% include ../templates/element.html with data=data %}
 
-    <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-        <envelope-control min="0" max="1" value="0 0.1 step 0.5 1 linear 1 0.3 linear" name="ratio" ticks="-1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1" style="height: 16rem;">Envelope</envelope-control>
-        <input hidden class="button" type="submit" />
-    </form>
-
-    <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
-        <h3 class="doctext-03">Attributes</h3>        
-        {% docs ../templates/entry.html type attribute from attributes.js %}
-        
-        <h3 class="doctext-03">Properties</h3>
-        {% docs ../templates/entry.html type property from attributes.js %}
-        
-        <h3 class="doctext-03">Events</h3>
-        {% docs ../templates/entry.html type string from attributes.js %}
-    </div>
-
-    <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
-        <h3 class="doctext-03">Parts</h3>
-        {% docs ../templates/entry.html type part from control.css %}
-    
-        <h3 class="doctext-03">Variables</h3>
-        {% docs ../templates/entry.html type var from control.css %}
-        {% docs ../templates/entry.html type var from envelope-control.css %}
-    </div>
-
-    <!-- Document interactivity -->
-    <script type="module" src="./envelope-control.js"></script>
-    {% include ../templates/scripts.html %}
+<script type="module" src="./envelope-control.js"></script>
+{% include ../templates/scripts.html %}
 </body>
