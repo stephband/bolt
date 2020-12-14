@@ -1,3 +1,23 @@
+{% import text     from-comments ['./css/text.css'] %}
+{% import color    from-comments ['./css/color.css'] %}
+{% import form     from-comments ['./css/input.css'
+    './css/label.css',
+    './components/check-label.css',
+    './components/switch-label.css',
+    './components/check-button.css',
+    './components/select-button.css',
+    './elements/range-control.css',
+    './elements/rotary-control.css'
+] %}
+{% import grid     from-comments ['./sass/grid.scss'] %}
+{% import buttons  from-comments ['./css/button.css'] %}
+{% import thumbs   from-comments ['./css/thumb.css'] %}
+{% import tables   from-comments ['./css/table.css'] %}
+{% import bubbles  from-comments ['./components/bubble.css'] %}
+{% import menus    from-comments ['./components/menu.css'] %}
+{% import messages from-comments ['./components/message.css'] %}
+{% import toggles  from-comments ['./components/toggle-block.css'] %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,86 +116,27 @@
 
     <img class="x-1 x-end y-1 @2-x-1 @2-3x" src="images/logo.svg" width="800" height="800" style="width: 10.625rem; margin-top: -1.125rem; margin-right: -0.9375rem; max-width: none;" />
 
-    {% docs templates/css.html type selector from ./css/text.css %}
-    {% docs templates/css.html type selector from ./css/color.css %}
-    {% docs templates/css.html type selector from
-        './css/input.css'
-        './css/label.css'
-        './components/check-label.css'
-        './components/switch-label.css'
-        './components/check-button.css'
-        './components/select-button.css'
-        './elements/range-control.css'
-        './elements/rotary-control.css' %}
-    {% docs templates/css.html type selector from ./sass/grid.scss %}
+    {% include templates/css.html      with title="Text."   docs=text %}
+    {% include templates/css-flex.html with title="Colour." docs=color %}
+    {% include templates/css.html      with title="Forms."  docs=form %}
+    {% include templates/css.html      with title="Grid."   docs=grid %}
 
-
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-start doctext-02" locateable id="buttons">Buttons.</h3>
-    <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-        {% docs templates/component.html type selector from ./css/button.css %}
-        <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span 4;">
-            {% docs templates/entry.html type var from ./css/button.css %}
-        </div>
-    </section>
-
-
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-start doctext-02" locateable id="thumb">Thumb.</h3>
-    <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-        {% docs templates/component.html type selector from ./css/thumb.css %}
-        <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span 4;">
-            {% docs templates/entry.html type var from ./css/thumb.css %}
-        </div>
-    </section>
-
-
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-start doctext-02" locateable id="table">Table.</h3>
-    <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-        {% docs templates/component.html type all from ./css/table.css %}
-        <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span 4;">
-            {% docs templates/entry.html type var from ./css/table.css %}
-        </div>
-    </section>
-
-
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-start doctext-02" locateable id="bubble">Bubble.</h3>
-    <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-        {% docs templates/component.html type selector from ./components/bubble.css %}
-        <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span 4;">
-            {% docs templates/entry.html type var from ./components/bubble.css %}
-        </div>
-    </section>
-
-
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-start doctext-02" locateable id="menu">Menu.</h3>
-    <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-        {% docs templates/component.html type selector from ./components/menu.css %}
-        <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span 4;">
-            {% docs templates/entry.html type var from ./components/menu.css %}
-        </div>
-    </section>
-
-
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-start doctext-02" locateable id="message">Message.</h3>
-    <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-        {% docs templates/component.html type selector from ./components/message.css %}
-        <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span 4;">
-            {% docs templates/entry.html type var from ./components/message.css %}
-        </div>
-    </section>
-
-
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-start doctext-02" locateable id="message">Toggle.</h3>
-    <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-        {% docs templates/component.html type selector from ./components/toggle-block.css %}
-        <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span 4;">
-            {% docs templates/entry.html type var from ./components/toggle-block.css %}
-        </div>
-    </section>
-
+    {% include templates/section.html with title="Button."  docs=buttons %}
+    {% include templates/section.html with title="Thumb."   docs=thumbs %}
+    {% include templates/section.html with title="Table."   docs=tables %}
+    {% include templates/section.html with title="Bubble."  docs=bubbles %}
+    {% include templates/section.html with title="Menu."    docs=menus %}
+    {% include templates/section.html with title="Message." docs=messages %}
+    {% include templates/section.html with title="Toggle."  docs=toggles %}
 
     {% include elements/range-control.html.bolt %}
     {% include elements/rotary-control.html.bolt %}
     {% include elements/slide-show.html.bolt %}
 
+    <footer class="x-1 3x @1-x-3 @1-4x @2-x-4">
+        {% include templates/footer.html import package.json %}
+    </footer>
+
     {% include templates/scripts.html %}
+    <script type="module" src="module.js"></script>
 </body>

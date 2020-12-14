@@ -16,7 +16,7 @@ import capture from '../../fn/modules/capture.js';
 import id      from '../../fn/modules/id.js';
 import slugify from '../../fn/modules/strings/slugify.js';
 import { parseString } from './parse-string.js';
-import parseParams from '../../fn/modules/parse-params.js';
+import { parseParams } from './parse-params.js';
 
 import { cyan, blue, dim } from './log.js';
 

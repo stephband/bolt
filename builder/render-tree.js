@@ -200,7 +200,7 @@ const importByType = overload((scope, source, target, data) => data.type, {
         }))
         .then((comments) => scope[data.name] = comments.flat())
         .catch((error) => {
-            console.log(red + ' ' + yellow + ' ' +  red + ' ' + yellow, 'Import', getRootSrc(source, url), error.constructor.name, error.message);
+            console.log(red + ' ' + yellow + ' ' +  red + ' ' + yellow, 'Import', urls.join(', '), error.constructor.name, error.message, error.stack);
         });
     }
 });

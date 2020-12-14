@@ -1,8 +1,8 @@
-<article class="{{type|append:-doc-toggle-block}} doc-toggle-block toggle-block block" toggleable id="{{type}}-{{id}}">
+<section class="{{type|append:-doc-toggle-block}} doc-toggle-block toggle-block block" toggleable id="{{type}}-{{id}}">
     <h3 class="doctext-05 {{prefix|is:'.'|yesno:'dot-indent',''}}{{prefix|is:'--'|yesno:'doubledash-indent',''}}{{title.0|is:'"'|yesno:'quote-indent',''}}">
         <a href="#{{type}}-{{id}}">
             <code class="{{type|is:attribute|yesno:token,''}} {{type|is:property|yesno:property,''}} {{type|is:attribute|yesno:html,js|prepend:language-}}">{{prefix}}{{name}} {% if default %}<span class="default">=<em>{{default}}</em></span>{% end %}</code>
         </a>
     </h3>
     {{body}}
-</article>
+</section>
