@@ -5,41 +5,41 @@
 /* .slides-grid */
 
 :host {
-    /** 
-    --slide-duration 
-    Set the duration that a slide is displayed for when the slideshow is in 
+    /**
+    --slide-duration
+    Set the duration that a slide is displayed for when the slideshow is in
     autoplay mode. May be a CSS time value in `s` or `ms`.
     **/
     --slide-duration: 8s;
 
-    /** 
-    --slide-align 
-    Default vertical alignment of slides in their grid cells. (Individual slides 
+    /**
+    --slide-align
+    Default vertical alignment of slides in their grid cells. (Individual slides
     can be aligned normally by applying `align-self`).
     **/
     --slide-align: center;
 
-    /** 
+    /**
     --slide-justify
-    Default horizontal justification of slides in their grid cells. (Individual 
+    Default horizontal justification of slides in their grid cells. (Individual
     slides can be justified normally by applying `justify-self`).
     **/
     --slide-justify: stretch;
 
-    /** 
+    /**
     --slide-gap
     Grid column gap between one slide and the next.
     **/
     --slide-gap: 0;
 
-    /** 
+    /**
     --link-top
     Adjusts the vertical position of the list of links. Negative values make it
     appear over the slides.
     **/
     --link-top: -2.25rem;
 
-    /** 
+    /**
     --link-gap
     Adjusts the gap between links.
     **/
@@ -47,7 +47,7 @@
 
     position: relative;
     display: grid !important;
-    
+
     /* Put content in the center, useful when slide-show is bigger than content,
        such as in fullscreen mode. */
     align-content: center;
@@ -119,6 +119,8 @@ slot::-webkit-scrollbar {
 
 slot::slotted(*) {
     scroll-snap-align: center;
+    /* override slide hidden during load */
+    display: block !important;
 }
 
 
@@ -129,13 +131,13 @@ nav > [part*="link"] + [part*="link"] {
 }
 
 
-/** 
-::part(prev) 
+/**
+::part(prev)
 Style the 'previous slide' button.
 **/
 
-/** 
-::part(next) 
+/**
+::part(next)
 Style the 'next slide' button.
 **/
 
@@ -144,8 +146,8 @@ Style the 'next slide' button.
     display: none;
 }
 
-/** 
-::part(link) 
+/**
+::part(link)
 Style the navigation links.
 **/
 
@@ -174,8 +176,8 @@ Style the navigation links.
     border: 1px solid currentcolor;
 }
 
-/** 
-::part(active-link) 
+/**
+::part(active-link)
 Style the navigation link for the currently active slide.
 **/
 
