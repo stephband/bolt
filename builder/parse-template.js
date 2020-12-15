@@ -177,7 +177,7 @@ function indentation(captures) {
     return /^\s*/.exec(string)[0];
 }
 
-//                            1          2      3
+//                            1          2               3
 const parseImport = capture(/^(\w+)\s+(?:(from-comments)|(from))\s+/, {
     2: (token, captures) => {
         token.imports.push({
@@ -238,31 +238,6 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
         },
 
         1: overload((token, captures) => captures[1], {
-            // {% docs url from source-urls %}
-            //'docs': capture(/^([^\s]+)(?:\s+type\s+([\w-]+))?(\s+from\s+)\s*/, {
-            /*    // {% docs template.html %}
-                1: (token, captures) => {
-                    token.end += captures.index + captures[0].length;
-                    token.src = captures[1];
-                    return token;
-                },
-
-                // {% docs template.html type string from file.css file.js ... %}
-                2: (token, captures) => {
-                    token.filterType = captures[2];
-                    return token;
-                },
-
-                // {% docs template.html from file.css file.js ... %}
-                3: (token, captures) => {
-                    token.sources = parseStrings(captures);
-                    token.end += captures.consumed;
-                    return token;
-                },
-
-                close: parseTagClose
-            }),*/
-
             'each': capture(/^/, {
                 // {% each %}
                 close: function(token, captures) {
@@ -295,23 +270,34 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                 );
             },
 
-            'include': capture(/^([^\s]+)(?:\s+(import)\s+|\s+(with)\s+)?\s*/, {
+            'include': capture(/^([^\s]+)(?:\s+(import-comments)\s+|\s+(import)\s+|\s+(with)\s+)?\s*/, {
                 // {% include template.html %}         
                 1: (token, captures) => {
                     token.end += captures.index + captures[0].length;
                     token.src  = captures[1];
                     return token;
                 },
-            
+
                 // {% include template.html import package.json %}
                 2: (token, captures) => {
+                    // TODO: implement import-comments 
+                    /* token.imports.push({
+                        type: 'comments',
+                        from: parseTypedParam(captures)
+                    });
+                    token.end += captures.index + captures[0].length + captures.consumed;
+                    return token; */
+                },
+
+                // {% include template.html import package.json %}
+                3: (token, captures) => {
                     token.import = parseString(captures);
                     token.end += captures.consumed;
                     return token;
                 },
             
                 // {% include template.html with name="value" %}
-                3: (token, captures) => {
+                4: (token, captures) => {
                     token.with = parseWith(captures);
                     token.end += captures.consumed;
                     return token;
