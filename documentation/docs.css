@@ -258,7 +258,7 @@ button.doctext-09 {
 
 
 /*  */
-
+/*
 a.block {
     position: relative;
     text-decoration: none;
@@ -267,7 +267,7 @@ a.block {
 a.block:hover {
     border-bottom: 1px solid #999999;
 }
-
+*/
 .key-device a:focus {
     border-bottom: 1px solid #999999;
 }
