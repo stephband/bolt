@@ -11,16 +11,23 @@ Columns.
 **/
 
 /**
-.columns
+.2-columns
 
 ```html
-<div class="2-columns columns" style="--column-gap: 0.9375rem;">
-    <button>&nbsp;</button>
-    <button>&nbsp;</button>
+<div class="2-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 </div>
 ```
+**/
 
-Defines a block with `n` number of columns.
+/**
+.3-columns
+
+```html
+<div class="3-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+</div>
+```
 **/
 
 /**
@@ -31,10 +38,10 @@ Grid.
 .grid
 
 ```html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
-    <button>&nbsp;</button>
-    <button>&nbsp;</button>
-    <button>&nbsp;</button>
+<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
 </div>
 ```
 
@@ -70,17 +77,17 @@ Applies a grid template of 6 equal columns.
 .x-1 … x-12, .2x … .12x, .x-start, .x-center, .x-end, .x-stretch, .x-bleed
 
 ```html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
-    <button class="x-1">x-1</button>
-    <button class="x-2">x-2</button>
-    <button class="x-3">x-3</button>
-    <button class="x-1 2x">2x</button>
-    <button class="x-1 3x">3x</button>
-    <button class="x-1 x-start y-4">x-start</button>
-    <button class="x-2 x-center y-4">x-center</button>
-    <button class="x-3 x-end y-4">x-end</button>
-    <button class="x-1 x-stretch y-5">x-stretch</button>
-    <button class="x-2 x-bleed y-5">x-bleed</button>
+<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button x-1">x-1</div>
+    <div class="button x-2">x-2</div>
+    <div class="button x-3">x-3</div>
+    <div class="button x-1 2x">2x</div>
+    <div class="button x-1 3x">3x</div>
+    <div class="button x-1 x-start y-4">x-start</div>
+    <div class="button x-2 x-center y-4">x-center</div>
+    <div class="button x-3 x-end y-4">x-end</div>
+    <div class="button x-1 x-stretch y-5">x-stretch</div>
+    <div class="button x-2 x-bleed y-5">x-bleed</div>
 </div>
 ```
 
@@ -92,18 +99,18 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 .y-1 … .y-18, .2y … .12y, .y-start, .y-center, .y-end, .y-stretch, .y-baseline, .y-lastline
 
 ```html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem;">
-    <button class="x-1 y-1">y-1</button>
-    <button class="x-1 y-2">y-2</button>
-    <button class="x-1 y-3">y-3</button>
-    <button class="x-2 y-1 2y">2y</button>
-    <button class="x-3 y-1 3y">3y</button>
-    <button class="x-1 y-4 y-start">y-start</button>
-    <button class="x-1 y-5 y-center">y-center</button>
-    <button class="x-1 y-6 y-end">y-end</button>
-    <button class="x-2 y-4 y-stretch">y-stretch</button>
-    <button class="x-3 y-4 y-baseline">y-baseline</button>
-    <button class="x-3 y-5 y-lastline">y-lastline</button>
+<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button x-1 y-1">y-1</div>
+    <div class="button x-1 y-2">y-2</div>
+    <div class="button x-1 y-3">y-3</div>
+    <div class="button x-2 y-1 2y">2y</div>
+    <div class="button x-3 y-1 3y">3y</div>
+    <div class="button x-1 y-4 y-start">y-start</div>
+    <div class="button x-1 y-5 y-center">y-center</div>
+    <div class="button x-1 y-6 y-end">y-end</div>
+    <div class="button x-2 y-4 y-stretch">y-stretch</div>
+    <div class="button x-3 y-4 y-baseline">y-baseline</div>
+    <div class="button x-3 y-5 y-lastline">y-lastline</div>
 </div>
 ```
 **/

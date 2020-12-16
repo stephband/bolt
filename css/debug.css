@@ -1,7 +1,7 @@
 /* Empty links */
 
 [href=""],
-[href="#"],
+/*[href="#"],*/
 [alt=""],
 img:not([alt]),
 p:empty,
@@ -96,14 +96,48 @@ li:empty::before { content: '<li>'; }
 blockquote.debug::before,
 blockquote:empty::before { content: '<blockquote>'; }
 
-img,
-video,
-.thumb {
-    background-image: url('/static/bolt/images/wireframe.svg');
-    background-size: 100% 100%;
-}
-
 button:not([type]) {
     box-shadow: inset 0 0 0px 1px rgba(255,0,74,0.75) !important;
     border-color: rgb(255, 0, 74) !important;
+}
+
+button:not([type])::before {
+    content: 'missing type="button"';
+    /* Do not position it with top, left, etc. We cannot give the parent
+       position: relative */
+    position: absolute;
+    font-family: 'Andale Mono', 'Courier New', monospace;
+    font-size: 0.6875rem;
+    line-height: 0.9375rem;
+    width: 3.125rem;
+    opacity: 0.8;
+    padding: 0.0625rem;
+    white-space: nowrap;
+    color: rgb(255, 0, 74);
+}
+
+
+/**
+.TODO
+
+Applies a 'wireframe' background to elements to indicate they are yet to be done.
+**/
+
+:root  {
+    --TODO: 
+        0 0 / 100% 100% url('data:image/svg+xml;utf8,<svg ...> ... </svg>');,
+        rgba(0,0,0,0.08) !important;
+}
+
+.TODO {
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1 1" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">\
+<line stroke="#666666" stroke-width-"2" vector-effect="non-scaling-stroke" x1="0" y1="0" x2="1" y2="0"></line>\
+<line stroke="#666666" stroke-width-"2" vector-effect="non-scaling-stroke" x1="1" y1="0" x2="1" y2="1"></line>\
+<line stroke="#666666" stroke-width-"2" vector-effect="non-scaling-stroke" x1="1" y1="1" x2="0" y2="1"></line>\
+<line stroke="#666666" stroke-width-"2" vector-effect="non-scaling-stroke" x1="0" y1="1" x2="0" y2="0"></line>\
+<line stroke="#666666" stroke-width="0.5" vector-effect="non-scaling-stroke" x1="0" y1="0" x2="1" y2="1"></line>\
+<line stroke="#666666" stroke-width="0.5" vector-effect="non-scaling-stroke" x1="0" y1="1" x2="1" y2="0"></line>\
+</svg>'); !important;
+    background-size: 100% 100% !important;
+    background-color: rgba(0,0,0,0.08) !important;
 }
