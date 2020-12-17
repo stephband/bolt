@@ -200,7 +200,7 @@ element('slide-show', {
     /*
     Create a DOM of the form:
 
-    <link rel="stylesheet" href="/source/bolt/elements/slide-show.css" />
+    <link rel="stylesheet" href="/source/bolt/elements/slide-show-shadow.css" />
     <slot></slot>
     <a class="prev-thumb thumb"></a>
     <a class="next-thumb thumb"></a>
@@ -212,7 +212,7 @@ element('slide-show', {
     */
 
     template: function(elem, shadow) {
-        const link     = create('link', { rel: 'stylesheet', href: config.path + 'slide-show.css' });
+        const link     = create('link', { rel: 'stylesheet', href: config.path + 'slide-show-shadow.css' });
         const slot     = create('slot');
         const prevNode = create('a', { class: 'prev-thumb thumb', part: 'prev' });
         const nextNode = create('a', { class: 'next-thumb thumb', part: 'next' });

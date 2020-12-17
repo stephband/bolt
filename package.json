@@ -35,7 +35,7 @@
     "build-module": "rollup ./module.js --o ./module.rolled.js --f esm",
     "build-range-control": "rollup ./elements/range-control.js --o ./elements/range-control.rolled.js --f esm && madge --image ./elements/range-control.svg ./elements/range-control.js",
     "build-rotary-control": "rollup ./elements/rotary-control.js --o ./elements/rotary-control.rolled.js --f esm && madge --image ./elements/rotary-control.svg ./elements/rotary-control.js",
-    "build-slide-show": "rollup ./elements/slide-show.js --o ./elements/slide-show.rolled.js --f esm && madge --image ./elements/slide-show.svg ./elements/slide-show.js && node ../fn/build-css.js ./elements/slide-show.css ./elements/slide-show.min.css",
+    "build-slide-show": "rollup ./elements/slide-show.js --o ./elements/slide-show.rolled.js --f esm && madge --image ./elements/slide-show.svg ./elements/slide-show.js && node ../fn/build-css.js ./elements/slide-show-shadow.css ./elements/slide-show.min.css",
     "build-envelope-control": "rollup ./elements/envelope-control.js --o ./elements/envelope-control.rolled.js --f esm && madge --image ./elements/envelope-control.svg ./elements/envelope-control.js",
     "build-elements": "npm run build-range-control && npm run build-rotary-control && npm run build-envelope-control && npm run build-slide-show",
     "build-css": "node ../fn/build-css.js style.css style.min.css",
