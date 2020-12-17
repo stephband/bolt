@@ -33,30 +33,21 @@ import Privates from '../../fn/modules/privates.js';
 import { wrap } from '../../fn/modules/maths/wrap.js';
 import parseValue from '../../fn/modules/parse-value.js';
 import element from '../../dom/modules/element.js';
-import events from '../../dom/modules/events.js';
+import events, { isPrimaryButton } from '../../dom/modules/events.js';
 import rect from '../../dom/modules/rect.js';
 import create from '../../dom/modules/create.js';
 import identify from '../../dom/modules/identify.js';
 import { next, previous } from '../../dom/modules/traversal.js';
 import { select } from '../../dom/modules/select.js';
-import { isPrimaryButton } from '../../dom/modules/events.js';
 
 const DEBUG = true;
 
-const A      = Array.prototype;
 const assign = Object.assign;
-const define = Object.defineProperties;
 
 const config = {
     path: window.customElementStylesheetPath || '',
     loopableSlideCount: 5,
     duration: 8
-};
-
-const defaults = {};
-
-const onceOptions = {
-    once: true
 };
 
 const parseTime = parseValue({
