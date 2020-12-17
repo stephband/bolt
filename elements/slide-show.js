@@ -171,7 +171,7 @@ function scrollAuto(elem, slot, target) {
 
 function reposition(elem, slot, id) {
     const target = elem.getRootNode().getElementById(id);
-    scrollAuto(elem, slot, target)
+    scrollAuto(elem, slot, target);
     return target;
 }
 
@@ -304,11 +304,6 @@ element('slide-show', {
             autoId = autoplay(active, change, autoId);
         });
 
-        events('resize', window)
-        .each(function() {
-            active = reposition(elem, slot, active.id);
-        });
-
         // Hijack links to slides to avoid the document scrolling, but make 
         // sure they go in the history anyway.
         events('click', shadow)
@@ -328,21 +323,11 @@ element('slide-show', {
             window.history.pushState({}, '', '#' + id);
         });
 
-        // 
-        events('load', window)
-        .map(() => {
-            const id = window.location.hash.replace(/^#/, '') || undefined;
-            return id ?
-                elem.querySelector('#' + id) :
-                first ;
-        })
-        .each(function(target) {
-            scrollAuto(elem, slot, target);
-            // In case that doesn't trigger a scroll, like in FF
-            active = activate(elem, shadow, prevNode, nextNode, active);
-        });
-
         assign(Privates(elem), {
+            activate: function() {
+                active = reposition(elem, slot, active.id);
+            },
+
             load: function(elem, shadow) {
                 const current = activate(elem, shadow, prevNode, nextNode, active);
 
@@ -357,6 +342,21 @@ element('slide-show', {
                 else {
                     active = current;
                 }
+
+                // Be aware this won't be caught if window load happens before
+                // element load, and, TODO, we should test the hell out of this
+                events('load', window)
+                .map(() => {
+                    const id = window.location.hash.replace(/^#/, '') || undefined;
+                    return id ?
+                        elem.querySelector('#' + id) :
+                        first ;
+                })
+                //.each(function(target) {
+                //    scrollAuto(elem, slot, target);
+                //    // In case that doesn't trigger a scroll, like in FF
+                //    active = activate(elem, shadow, prevNode, nextNode, active);
+                //});
             },
 
             loop: function duplicate(loop) {
@@ -398,6 +398,7 @@ element('slide-show', {
     load: function (elem, shadow) {
         const scope = Privates(this);
         scope.load(elem, shadow);
+        events('resize', window).each(scope.activate);
     },
 
     attributes: {
