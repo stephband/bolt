@@ -139,11 +139,21 @@ slot::slotted(*) {
     scroll-snap-align: center;
 }
 
-
 /* Nav links */
 
 nav > [part*="link"] + [part*="link"] {
     margin-left: var(--link-gap);
+}
+
+/*
+::part(title)
+Style the 'previous slide' button.
+*/
+
+*::slotted([slot="title"]) {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 

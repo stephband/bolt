@@ -61,7 +61,7 @@ const parseTime = parseValue({
 function activate(elem, shadow, prevLink, nextLink, active) {
     const elemRect   = rect(elem);
     const elemCentre = elemRect.left + elemRect.width / 2;
-    const slides     = elem.children;
+    const slides     = Array.from(elem.children).filter((element) => !element.hasAttribute('slot'));
 
     let n = slides.length;
     let slide;
@@ -208,9 +208,11 @@ element('slide-show', {
         const prevNode = create('a', { class: 'prev-thumb thumb', part: 'prev' });
         const nextNode = create('a', { class: 'next-thumb thumb', part: 'next' });
         const nav      = create('nav');
+        const title    = create('slot', { name: 'title' });
         const optional = create('slot', { name: 'optional' });
 
         shadow.appendChild(link);
+        shadow.appendChild(title);
         shadow.appendChild(slot);
         shadow.appendChild(prevNode);
         shadow.appendChild(nextNode);
@@ -359,10 +361,11 @@ element('slide-show', {
 
                 // To loop slides we need an extra couple on the front and an 
                 // extra couple on the back to simulate the continuous loop
-                const children = elem.children;
+                const children = Array.from(elem.children).filter((element) => !element.hasAttribute('slot'));
                 const original = Array.from(children);
+   console.log(children);
                 let n = -1;
-                while(++n < 2) {
+                while(++n < 2 && children[n]) {
                     // Stick one from the end on the front
                     children[0].before(createGhost(original[wrap(0, original.length, -(n + 1))]));
                     // Stick one from the front on the end
