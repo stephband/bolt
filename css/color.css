@@ -13,7 +13,8 @@ and variables are available to set colors in CSS:
 */
 
 /**
-.current-fg, .current-bg
+.current-fg,
+.current-bg
 
 ```html
 <p class="current-fg">Crunchum Ipsum</p>
@@ -25,7 +26,8 @@ and variables are available to set colors in CSS:
 .current-bg   { background-color: currentcolor; fill: currentcolor; }
 
 /**
-.transparent-fg, .transparent-bg
+.transparent-fg,
+.transparent-bg
 
 ```html
 <p class="transparent-fg">Crunchum Ipsum</p>
@@ -37,7 +39,8 @@ and variables are available to set colors in CSS:
 .transparent-bg { background-color: transparent; }
 
 /**
-.black-fg, .black-bg
+.black-fg,
+.black-bg
 
 ```html
 <p class="black-fg">Crunchum Ipsum</p>
@@ -50,7 +53,8 @@ and variables are available to set colors in CSS:
 .black-bg   { background-color: black; fill: black; }
 
 /**
-.white-fg, .white-bg
+.white-fg,
+.white-bg
 
 ```html
 <p class="white-fg">Crunchum Ipsum</p>
@@ -64,7 +68,8 @@ and variables are available to set colors in CSS:
 
 
 /**
-.info-fg, .info-bg
+.info-fg,
+.info-bg
 
 ```html
 <p class="info-fg">Crunchum Ipsum</p>
@@ -78,7 +83,8 @@ and variables are available to set colors in CSS:
 
 
 /**
-.success-fg, .success-bg
+.success-fg,
+.success-bg
 
 ```html
 <p class="success-fg">Crunchum Ipsum</p>
@@ -92,7 +98,8 @@ and variables are available to set colors in CSS:
 
 
 /**
-.warn-fg, .warn-bg
+.warn-fg,
+.warn-bg
 
 ```html
 <p class="warn-fg">Crunchum Ipsum</p>
@@ -106,7 +113,8 @@ and variables are available to set colors in CSS:
 
 
 /**
-.error-fg, .error-bg
+.error-fg,
+.error-bg
 
 ```html
 <p class="error-fg">Crunchum Ipsum</p>

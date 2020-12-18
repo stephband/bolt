@@ -177,7 +177,11 @@ p + fieldset, .doctext-08 + fieldset { margin-top: 2rem; }
     margin-top: 0.75rem;
 }
 
-.doctext-05 + pre code {
+.doctext-05 code {
+    white-space: pre;
+}
+
+.doctext-05 code {
     font-size: 0.8125rem;
 }
 
@@ -366,7 +370,6 @@ a.block:hover {
     font-weight: 500;
     background-color: transparent;
     padding: 0;
-    margin: 0;
     word-spacing: -0.25em;
     letter-spacing: -0.0125em;
 }

@@ -74,7 +74,10 @@ Applies a grid template of 6 equal columns.
 **/
 
 /**
-.x-1 … x-12, .2x … .12x, .x-start, .x-center, .x-end, .x-stretch, .x-bleed
+.x-1 … .x-12,
+.2x … .12x,
+.x-start, .x-center, .x-end,
+.x-stretch, .x-bleed
 
 ```html
 <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
@@ -96,7 +99,10 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 **/
 
 /**
-.y-1 … .y-18, .2y … .12y, .y-start, .y-center, .y-end, .y-stretch, .y-baseline, .y-lastline
+.y-1 … .y-18,
+.2y … .12y,
+.y-start, .y-center, .y-end,
+.y-stretch, .y-baseline, .y-lastline
 
 ```html
 <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
