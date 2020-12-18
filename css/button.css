@@ -1,6 +1,8 @@
 
 /**
-.button, button, [type="button"]
+button,
+.button,
+[type="button"]
 
 ```html
 <button type="button">Button</button>
