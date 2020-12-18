@@ -108,7 +108,7 @@ button:not([type]) {
 }
 
 button:not([type])::before {
-    content: 'missing type="button"';
+    content: 'Missing type';
     /* Do not position it with top, left, etc. We cannot give the parent
        position: relative */
     position: absolute;
