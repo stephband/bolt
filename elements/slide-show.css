@@ -35,5 +35,5 @@ slide-show > [slot] {
 slide-show > :not([slot]) {
     scroll-snap-align: center;
     /* override slide hidden during load */
-    display: block !important;
+    display: block;
 }
