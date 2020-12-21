@@ -37,8 +37,3 @@ slide-show > :not([slot]) {
     /* override slide hidden during load */
     display: block;
 }
-
-slide-show[slot="title"],
-slide-show::part(title) {
-    
-}
