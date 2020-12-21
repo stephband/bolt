@@ -16,7 +16,6 @@ import { matches, trigger } from '../../dom/module.js';
 import { matchers } from './dom-activate.js';
 
 var match   = matches('.popable, [popable]');
-var timeStamp = 0;
 
 function activate(e) {
     // Use method detection - e.defaultPrevented is not set in time for
@@ -27,15 +26,13 @@ function activate(e) {
     if (!match(node)) { return; }
 
     // Make user actions outside node deactivate the node
-
     requestAnimationFrame(function() {
+        var timeStamp = 0;
+
         function click(e) {
             // Ignore clicks that follow clicks with the same timeStamp – this
             // is true of clicks simulated by browsers on inputs when a label
-            // with a corresponding for="id" is clicked. In old Safari the order
-            // of thiese simulations with respoect to input and change events
-            // does not match other browsers and in rare cases causing Sparky
-            // to redo it's rendering
+            // with a corresponding for="id" is clicked.
             if (e.timeStamp === timeStamp) { return; }
             timeStamp = e.timeStamp;
 
