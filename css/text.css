@@ -119,6 +119,303 @@ body, .text-08
 .text-09           { font-size: 0.9375rem; line-height: 1.5rem;   font-weight: 400; }
 
 
+/* Vertical typographic spacings.
+   
+   We use `body` in `body tag + .class` to increase the specificity of that 
+   selector by 1, making it override `.class + tag` but not `.class + .class` */
+
+
+/* Text 01 */
+
+*  + h1,                      * + .text-01                      { margin-top: 0; }
+h1 + h1, .text-01 + h1, body h1 + .text-01, .text-01 + .text-01 { margin-top: 0; }
+h2 + h1, .text-02 + h1, body h2 + .text-01, .text-02 + .text-01 { margin-top: 0; }
+h3 + h1, .text-03 + h1, body h3 + .text-01, .text-03 + .text-01 { margin-top: 0; }
+h4 + h1, .text-04 + h1, body h4 + .text-01, .text-04 + .text-01 { margin-top: 0; }
+h5 + h1, .text-05 + h1, body h5 + .text-01, .text-05 + .text-01 { margin-top: 0; }
+h6 + h1, .text-06 + h1, body h6 + .text-01, .text-06 + .text-01 { margin-top: 0; }
+		 .text-07 + h1,                     .text-07 + .text-01 { margin-top: 0; }
+p  + h1, .text-08 + h1, body p  + .text-01, .text-08 + .text-01 { margin-top: 0; }
+		 .text-09 + h1,                     .text-09 + .text-01 { margin-top: 0; }
+dl                + h1, body dl                      + .text-01 { margin-top: 0; }
+ol                + h1, body ol                      + .text-01 { margin-top: 0; }
+ul                + h1, body ul                      + .text-01 { margin-top: 0; }
+pre               + h1, body pre                     + .text-01 { margin-top: 0; }
+table             + h1, body table                   + .text-01 { margin-top: 0; }
+blockquote        + h1, body blockquote              + .text-01 { margin-top: 0; }
+
+/* Text 02 */
+
+*  + h2,                      * + .text-02                      { margin-top: 0; }
+h1 + h2, .text-01 + h2, body h1 + .text-02, .text-01 + .text-02 { margin-top: 0; }
+h2 + h2, .text-02 + h2, body h2 + .text-02, .text-02 + .text-02 { margin-top: 0; }
+h3 + h2, .text-03 + h2, body h3 + .text-02, .text-03 + .text-02 { margin-top: 0; }
+h4 + h2, .text-04 + h2, body h4 + .text-02, .text-04 + .text-02 { margin-top: 0; }
+h5 + h2, .text-05 + h2, body h5 + .text-02, .text-05 + .text-02 { margin-top: 0; }
+h6 + h2, .text-06 + h2, body h6 + .text-02, .text-06 + .text-02 { margin-top: 0; }
+		 .text-07 + h2,                     .text-07 + .text-02 { margin-top: 0; }
+p  + h2, .text-08 + h2, body p  + .text-02, .text-08 + .text-02 { margin-top: 0; }
+		 .text-09 + h2,                     .text-09 + .text-02 { margin-top: 0; }
+dl                + h2, body dl                      + .text-02 { margin-top: 0; }
+ol                + h2, body ol                      + .text-02 { margin-top: 0; }
+ul                + h2, body ul                      + .text-02 { margin-top: 0; }
+pre               + h2, body pre                     + .text-02 { margin-top: 0; }
+table             + h2, body table                   + .text-02 { margin-top: 0; }
+blockquote        + h2, body blockquote              + .text-02 { margin-top: 0; }
+
+/* Text 03 */
+
+*  + h3,                      * + .text-03                      { margin-top: 0; }
+h1 + h3, .text-01 + h3, body h1 + .text-03, .text-01 + .text-03 { margin-top: 0.625rem; }
+h2 + h3, .text-02 + h3, body h2 + .text-03, .text-02 + .text-03 { margin-top: 0; }
+h3 + h3, .text-03 + h3, body h3 + .text-03, .text-03 + .text-03 { margin-top: 1rem;}
+h4 + h3, .text-04 + h3, body h4 + .text-03, .text-04 + .text-03 { margin-top: 0; }
+h5 + h3, .text-05 + h3, body h5 + .text-03, .text-05 + .text-03 { margin-top: 0; }
+h6 + h3, .text-06 + h3, body h6 + .text-03, .text-06 + .text-03 { margin-top: 0; }
+		 .text-07 + h3,                     .text-07 + .text-03 { margin-top: 0; }
+p  + h3, .text-08 + h3, body p  + .text-03, .text-08 + .text-03 { margin-top: 0; }
+		 .text-09 + h3,                     .text-09 + .text-03 { margin-top: 0; }
+dl                + h3, body dl                      + .text-03 { margin-top: 0; }
+ol                + h3, body ol                      + .text-03 { margin-top: 0; }
+ul                + h3, body ul                      + .text-03 { margin-top: 0; }
+pre               + h3, body pre                     + .text-03 { margin-top: 0; }
+table             + h3, body table                   + .text-03 { margin-top: 0; }
+blockquote        + h3, body blockquote              + .text-03 { margin-top: 0; }
+
+/* Text 04 */
+
+*  + h4,                      * + .text-04                      { margin-top: 0; }
+h1 + h4, .text-01 + h4, body h1 + .text-04, .text-01 + .text-04 { margin-top: 0; }
+h2 + h4, .text-02 + h4, body h2 + .text-04, .text-02 + .text-04 { margin-top: 0; }
+h3 + h4, .text-03 + h4, body h3 + .text-04, .text-03 + .text-04 { margin-top: 0; }
+h4 + h4, .text-04 + h4, body h4 + .text-04, .text-04 + .text-04 { margin-top: 0; }
+h5 + h4, .text-05 + h4, body h5 + .text-04, .text-05 + .text-04 { margin-top: 0; }
+h6 + h4, .text-06 + h4, body h6 + .text-04, .text-06 + .text-04 { margin-top: 0; }
+		 .text-07 + h4,                     .text-07 + .text-04 { margin-top: 0; }
+p  + h4, .text-08 + h4, body p  + .text-04, .text-08 + .text-04 { margin-top: 0; }
+		 .text-09 + h4,                     .text-09 + .text-04 { margin-top: 0; }
+dl                + h4, body dl                      + .text-04 { margin-top: 0; }
+ol                + h4, body ol                      + .text-04 { margin-top: 0; }
+ul                + h4, body ul                      + .text-04 { margin-top: 0; }
+pre               + h4, body pre                     + .text-04 { margin-top: 0; }
+table             + h4, body table                   + .text-04 { margin-top: 0; }
+blockquote        + h4, body blockquote              + .text-04 { margin-top: 0; }
+
+/* Text 05 */
+
+*  + h5,                      * + .text-05                      { margin-top: 0; }
+h1 + h5, .text-01 + h5, body h1 + .text-05, .text-01 + .text-05 { margin-top: 0; }
+h2 + h5, .text-02 + h5, body h2 + .text-05, .text-02 + .text-05 { margin-top: 0.5rem; }
+h3 + h5, .text-03 + h5, body h3 + .text-05, .text-03 + .text-05 { margin-top: 0.625rem; }
+h4 + h5, .text-04 + h5, body h4 + .text-05, .text-04 + .text-05 { margin-top: 0; }
+h5 + h5, .text-05 + h5, body h5 + .text-05, .text-05 + .text-05 { margin-top: 0; }
+h6 + h5, .text-06 + h5, body h6 + .text-05, .text-06 + .text-05 { margin-top: 0; }
+		 .text-07 + h5,                     .text-07 + .text-05 { margin-top: 0; }
+p  + h5, .text-08 + h5, body p  + .text-05, .text-08 + .text-05 { margin-top: 0; }
+		 .text-09 + h5,                     .text-09 + .text-05 { margin-top: 0; }
+dl                + h5, body dl                      + .text-05 { margin-top: 0; }
+ol                + h5, body ol                      + .text-05 { margin-top: 0; }
+ul                + h5, body ul                      + .text-05 { margin-top: 0; }
+pre               + h5, body pre                     + .text-05 { margin-top: 0; }
+table             + h5, body table                   + .text-05 { margin-top: 0; }
+blockquote        + h5, body blockquote              + .text-05 { margin-top: 0; }
+
+/* Text 06 */
+
+*  + h6,                      * + .text-06                      { margin-top: 0; }
+h1 + h6, .text-01 + h6, body h1 + .text-06, .text-01 + .text-06 { margin-top: 0; }
+h2 + h6, .text-02 + h6, body h2 + .text-06, .text-02 + .text-06 { margin-top: 0; }
+h3 + h6, .text-03 + h6, body h3 + .text-06, .text-03 + .text-06 { margin-top: 0; }
+h4 + h6, .text-04 + h6, body h4 + .text-06, .text-04 + .text-06 { margin-top: 0.625rem;  }
+h5 + h6, .text-05 + h6, body h5 + .text-06, .text-05 + .text-06 { margin-top: 0; }
+h6 + h6, .text-06 + h6, body h6 + .text-06, .text-06 + .text-06 { margin-top: 0; }
+		 .text-07 + h6,                     .text-07 + .text-06 { margin-top: 0; }
+p  + h6, .text-08 + h6, body p  + .text-06, .text-08 + .text-06 { margin-top: 0; }
+		 .text-09 + h6,                     .text-09 + .text-06 { margin-top: 0; }
+dl                + h6, body dl                      + .text-06 { margin-top: 0; }
+ol                + h6, body ol                      + .text-06 { margin-top: 0; }
+ul                + h6, body ul                      + .text-06 { margin-top: 0; }
+pre               + h6, body pre                     + .text-06 { margin-top: 0; }
+table             + h6, body table                   + .text-06 { margin-top: 0; }
+blockquote        + h6, body blockquote              + .text-06 { margin-top: 0; }
+
+/* Text 07 */
+
+	  * + .text-07                      { margin-top: 0; }
+body h1 + .text-07, .text-01 + .text-07 { margin-top: 0; }
+body h2 + .text-07, .text-02 + .text-07 { margin-top: 0; }
+body h3 + .text-07, .text-03 + .text-07 { margin-top: 0; }
+body h4 + .text-07, .text-04 + .text-07 { margin-top: 0; }
+body h5 + .text-07, .text-05 + .text-07 { margin-top: 0; }
+body h6 + .text-07, .text-06 + .text-07 { margin-top: 0; }
+					.text-07 + .text-07 { margin-top: 0; }
+body p  + .text-07, .text-08 + .text-07 { margin-top: 0; }
+					.text-09 + .text-07 { margin-top: 0; }
+body dl                      + .text-07 { margin-top: 0; }
+body ol                      + .text-07 { margin-top: 0; }
+body ul                      + .text-07 { margin-top: 0; }
+body pre                     + .text-07 { margin-top: 0; }
+body table                   + .text-07 { margin-top: 0; }
+body blockquote              + .text-07 { margin-top: 0; }
+
+/* Text 08 */
+
+*  + p,                       * + .text-08                      { margin-top: 0; }
+h1 + p,  .text-01 + p,  body h1 + .text-08, .text-01 + .text-08 { margin-top: 0; }
+h2 + p,  .text-02 + p,  body h2 + .text-08, .text-02 + .text-08 { margin-top: 0; }
+h3 + p,  .text-03 + p,  body h3 + .text-08, .text-03 + .text-08 { margin-top: 0; }
+h4 + p,  .text-04 + p,  body h4 + .text-08, .text-04 + .text-08 { margin-top: 0; }
+h5 + p,  .text-05 + p,  body h5 + .text-08, .text-05 + .text-08 { margin-top: 0; }
+h6 + p,  .text-06 + p,  body h6 + .text-08, .text-06 + .text-08 { margin-top: 0; }
+		 .text-07 + p,                      .text-07 + .text-08 { margin-top: 0; }
+p  + p,  .text-08 + p,  body p  + .text-08, .text-08 + .text-08 { margin-top: 0.6875rem; }
+		 .text-09 + p,                      .text-09 + .text-08 { margin-top: 0; }
+dl                + h8, body dl                      + .text-08 { margin-top: 0; }
+ol                + h8, body ol                      + .text-08 { margin-top: 0; }
+ul                + h8, body ul                      + .text-08 { margin-top: 0; }
+pre               + h8, body pre                     + .text-08 { margin-top: 0; }
+table             + h8, body table                   + .text-08 { margin-top: 0; }
+blockquote        + h8, body blockquote              + .text-08 { margin-top: 0; }
+
+/* Text 09 */
+
+	  * + .text-09                      { margin-top: 0; }
+body h1 + .text-09, .text-01 + .text-09 { margin-top: 0; }
+body h2 + .text-09, .text-02 + .text-09 { margin-top: 0; }
+body h3 + .text-09, .text-03 + .text-09 { margin-top: 0; }
+body h4 + .text-09, .text-04 + .text-09 { margin-top: 0; }
+body h5 + .text-09, .text-05 + .text-09 { margin-top: 0; }
+body h6 + .text-09, .text-06 + .text-09 { margin-top: 0; }
+					.text-07 + .text-09 { margin-top: 0; }
+body p  + .text-09, .text-08 + .text-09 { margin-top: 0; }
+					.text-09 + .text-09 { margin-top: 0; }
+body dl                      + .text-09 { margin-top: 0; }
+body ol                      + .text-09 { margin-top: 0; }
+body ul                      + .text-09 { margin-top: 0; }
+body pre                     + .text-09 { margin-top: 0; }
+body table                   + .text-09 { margin-top: 0; }
+body blockquote              + .text-09 { margin-top: 0; }
+
+/* dl */
+
+ * + dl                { margin-top: 0; }
+h1 + dl, .text-01 + dl { margin-top: 0; }
+h2 + dl, .text-02 + dl { margin-top: 0; }
+h3 + dl, .text-03 + dl { margin-top: 0; }
+h4 + dl, .text-04 + dl { margin-top: 0; }
+h5 + dl, .text-05 + dl { margin-top: 0; }
+h6 + dl, .text-06 + dl { margin-top: 0; }
+		 .text-07 + dl { margin-top: 0; }
+p  + dl, .text-08 + dl { margin-top: 0; }
+		 .text-09 + dl { margin-top: 0; }
+dl                + dl { margin-top: 0; }
+ol                + dl { margin-top: 0; }
+ul                + dl { margin-top: 0; }
+pre               + dl { margin-top: 0; }
+table             + dl { margin-top: 0; }
+blockquote        + dl { margin-top: 0; }
+
+/* ol */
+
+ * + ol                { margin-top: 0; }
+h1 + ol, .text-01 + ol { margin-top: 0; }
+h2 + ol, .text-02 + ol { margin-top: 0; }
+h3 + ol, .text-03 + ol { margin-top: 0; }
+h4 + ol, .text-04 + ol { margin-top: 0; }
+h5 + ol, .text-05 + ol { margin-top: 1rem; }
+h6 + ol, .text-06 + ol { margin-top: 0; }
+		 .text-07 + ol { margin-top: 0; }
+p  + ol, .text-08 + ol { margin-top: 1rem; }
+		 .text-09 + ol { margin-top: 0; }
+dl                + ol { margin-top: 0; }
+ol                + ol { margin-top: 0; }
+ul                + ol { margin-top: 0; }
+pre               + ol { margin-top: 0; }
+table             + ol { margin-top: 0; }
+blockquote        + ol { margin-top: 0; }
+
+/* ul */
+
+ * + ul                { margin-top: 0; }
+h1 + ul, .text-01 + ul { margin-top: 0; }
+h2 + ul, .text-02 + ul { margin-top: 0; }
+h3 + ul, .text-03 + ul { margin-top: 0; }
+h4 + ul, .text-04 + ul { margin-top: 0; }
+h5 + ul, .text-05 + ul { margin-top: 1rem; }
+h6 + ul, .text-06 + ul { margin-top: 0; }
+		 .text-07 + ul { margin-top: 0; }
+p  + ul, .text-08 + ul { margin-top: 1rem; }
+		 .text-09 + ul { margin-top: 0; }
+dl                + ul { margin-top: 0; }
+ol                + ul { margin-top: 0; }
+ul                + ul { margin-top: 0; }
+pre               + ul { margin-top: 0; }
+table             + ul { margin-top: 0; }
+blockquote        + ul { margin-top: 0; }
+
+/* pre */
+
+ * + pre                 { margin-top: 0; }
+h1 + pre, .text-01 + pre { margin-top: 0; }
+h2 + pre, .text-02 + pre { margin-top: 0; }
+h3 + pre, .text-03 + pre { margin-top: 0; }
+h4 + pre, .text-04 + pre { margin-top: 0; }
+h5 + pre, .text-05 + pre { margin-top: 0; }
+h6 + pre, .text-06 + pre { margin-top: 0; }
+		  .text-07 + pre { margin-top: 0; }
+p  + pre, .text-08 + pre { margin-top: 0; }
+		  .text-09 + pre { margin-top: 0; }
+dl                 + pre { margin-top: 0; }
+ol                 + pre { margin-top: 0; }
+ul                 + pre { margin-top: 0; }
+pre                + pre { margin-top: 0; }
+table              + pre { margin-top: 0; }
+blockquote         + pre { margin-top: 0; }
+
+/* table */
+
+ * + table                   { margin-top: 0; }
+h1 + table, .text-01 + table { margin-top: 0; }
+h2 + table, .text-02 + table { margin-top: 0; }
+h3 + table, .text-03 + table { margin-top: 0; }
+h4 + table, .text-04 + table { margin-top: 0; }
+h5 + table, .text-05 + table { margin-top: 0; }
+h6 + table, .text-06 + table { margin-top: 0; }
+			.text-07 + table { margin-top: 0; }
+p  + table, .text-08 + table { margin-top: 0; }
+			.text-09 + table { margin-top: 0; }
+dl                   + table { margin-top: 0; }
+ol                   + table { margin-top: 0; }
+ul                   + table { margin-top: 0; }
+pre                  + table { margin-top: 0; }
+table                + table { margin-top: 0; }
+blockquote           + table { margin-top: 0; }
+
+/* blockquote */
+
+ * + blockquote                        { margin-top: 0; }
+h1 + blockquote, .text-01 + blockquote { margin-top: 0; }
+h2 + blockquote, .text-02 + blockquote { margin-top: 0; }
+h3 + blockquote, .text-03 + blockquote { margin-top: 0; }
+h4 + blockquote, .text-04 + blockquote { margin-top: 0; }
+h5 + blockquote, .text-05 + blockquote { margin-top: 0; }
+h6 + blockquote, .text-06 + blockquote { margin-top: 0; }
+				 .text-07 + blockquote { margin-top: 0; }
+p  + blockquote, .text-08 + blockquote { margin-top: 0; }
+				 .text-09 + blockquote { margin-top: 0; }
+dl                        + blockquote { margin-top: 0; }
+ol                        + blockquote { margin-top: 0; }
+ul                        + blockquote { margin-top: 0; }
+pre                       + blockquote { margin-top: 0; }
+table                     + blockquote { margin-top: 0; }
+blockquote                + blockquote { margin-top: 0; }
+
+
+
+
+
+
+
 /* Vertical typographic spacings pairs.
    (We use 'body' in 'body tag + .class' to increase the
    specificity of that selector by 1, making it override
@@ -160,6 +457,10 @@ p + fieldset, .text-08 + fieldset { margin-top: 2rem; }
 
 p + .text-08,  .text-10 + .text-08 { margin-top: 0.375rem; }
 h3 + .text-11, .text-03 + .text-11 { margin-top: 0.125rem; }
+
+
+
+
 
 .light-text     { font-weight: 300 !important; }
 .normal-text    { font-weight: 400 !important; }

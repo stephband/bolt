@@ -31,6 +31,16 @@ Columns.
 **/
 
 /**
+.4-columns … .12-columns
+
+```html
+<div class="4-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+</div>
+```
+**/
+
+/**
 Grid.
 **/
 
@@ -40,44 +50,61 @@ Grid.
 ```html
 <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
-    <div class="button">&nbsp;</div>
-    <div class="button">&nbsp;</div>
 </div>
 ```
 
 Creates a grid with horizontal flow and equal width columns.
 **/
 
-/*
+/**
 .2x-grid
-Applies a grid template of 2 equal columns.
+
+```html
+<div class="2x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+</div>
+```
+
+Creates a grid with 2 equal width columns.
 **/
 
-/*
+/**
 .3x-grid
-Applies a grid template of 3 equal columns.
+
+```html
+<div class="3x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+</div>
+```
+
+Creates a grid with 3 equal width columns.
 **/
 
-/*
-.4x-grid
-Applies a grid template of 4 equal columns.
-**/
+/**
+.4x-grid … .12x-grid
 
-/*
-.5x-grid
-Applies a grid template of 5 equal columns.
-**/
-
-/*
-.6x-grid
-Applies a grid template of 6 equal columns.
+```html
+<div class="4x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+</div>
+```
 **/
 
 /**
 .x-1 … .x-12,
 .2x … .12x,
-.x-start, .x-center, .x-end,
-.x-stretch, .x-bleed
+.x-start,
+.x-center,
+.x-end,
+.x-stretch,
+.x-bleed,
+.x-flood
 
 ```html
 <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
@@ -91,18 +118,26 @@ Applies a grid template of 6 equal columns.
     <div class="button x-3 x-end y-4">x-end</div>
     <div class="button x-1 x-stretch y-5">x-stretch</div>
     <div class="button x-2 x-bleed y-5">x-bleed</div>
+    <div class="button x-3 x-flood y-5">x-flood</div>
 </div>
 ```
 
-Note that `.x-bleed`, which stretches an element half the way over the grid gap,
+Note that `.x-bleed`, which stretches an element half the way across the grid 
+gap, and `.x-flood`, which stretches an element all the way across the grid gap,
 depends on `column-gap` having been set via the custom property `--column-gap`.
 **/
 
 /**
 .y-1 … .y-18,
 .2y … .12y,
-.y-start, .y-center, .y-end,
-.y-stretch, .y-baseline, .y-lastline
+.y-start,
+.y-center,
+.y-end,
+.y-stretch,
+.y-bleed,
+.y-flood,
+.y-baseline,
+.y-lastline
 
 ```html
 <div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
@@ -115,6 +150,8 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
     <div class="button x-1 y-5 y-center">y-center</div>
     <div class="button x-1 y-6 y-end">y-end</div>
     <div class="button x-2 y-4 y-stretch">y-stretch</div>
+    <div class="button x-2 y-5 y-bleed">y-bleed</div>
+    <div class="button x-2 y-6 y-flood">y-flood</div>
     <div class="button x-3 y-4 y-baseline">y-baseline</div>
     <div class="button x-3 y-5 y-lastline">y-lastline</div>
 </div>
@@ -123,12 +160,12 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 
 /**
 --column-gap
-Define the horizontal grid gap.
+Define the horizontal grid gap (with units).
 **/
 
 /**
 --row-gap
-Define the vertical grid gap.
+Define the vertical grid gap (with units).
 **/
 
 @each $breakpoint in $breakpoints {
@@ -203,14 +240,36 @@ Define the vertical grid gap.
     .#{nth($breakpoint, 1)}#{'\\31'} 1x      { grid-column-end: span 11 !important; }
     .#{nth($breakpoint, 1)}#{'\\31'} 2x      { grid-column-end: span 12 !important; }
 
-    .#{nth($breakpoint, 1)}x-end          { justify-self: end !important; margin-right: 0; }
-    .#{nth($breakpoint, 1)}x-start        { justify-self: start !important; margin-left: 0; }
-    .#{nth($breakpoint, 1)}x-center       { justify-self: center !important; }
-    .#{nth($breakpoint, 1)}x-stretch      { justify-self: stretch !important; margin-left: 0; margin-right: 0; }
-    .#{nth($breakpoint, 1)}x-bleed        {
+    .#{nth($breakpoint, 1)}x-end {
+        justify-self: end !important; 
+        margin-right: 0; 
+    }
+
+    .#{nth($breakpoint, 1)}x-start {
+        justify-self: start !important;
+        margin-left: 0; 
+    }
+
+    .#{nth($breakpoint, 1)}x-center { 
+        justify-self: center !important; 
+    }
+
+    .#{nth($breakpoint, 1)}x-stretch { 
+        justify-self: stretch !important; 
+        margin-left: 0; 
+        margin-right: 0; 
+    }
+
+    .#{nth($breakpoint, 1)}x-bleed {
         justify-self: stretch !important;
         margin-left:  calc(var(--column-gap) / -2);
         margin-right: calc(var(--column-gap) / -2);
+    }
+
+    .#{nth($breakpoint, 1)}x-flood {
+        justify-self: stretch !important;
+        margin-left:  calc(-1 * var(--column-gap));
+        margin-right: calc(-1 * var(--column-gap));
     }
 
     .#{nth($breakpoint, 1)}#{'\\32'} y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
@@ -257,12 +316,45 @@ Define the vertical grid gap.
     .#{nth($breakpoint, 1)}#{'\\31'} 1y      { grid-row-end: span 11 !important; }
     .#{nth($breakpoint, 1)}#{'\\31'} 2y      { grid-row-end: span 12 !important; }
 
-    .#{nth($breakpoint, 1)}y-end       { align-self: end !important; }
-    .#{nth($breakpoint, 1)}y-start     { align-self: start !important; }
-    .#{nth($breakpoint, 1)}y-center    { align-self: center !important; }
-    .#{nth($breakpoint, 1)}y-stretch   { align-self: stretch !important; }
-    .#{nth($breakpoint, 1)}y-baseline  { align-self: baseline !important; }
-    .#{nth($breakpoint, 1)}y-lastline  { align-self: last baseline !important; }
+    .#{nth($breakpoint, 1)}y-end       {
+        align-self: end !important;
+        margin-bottom: 0;
+    }
+
+    .#{nth($breakpoint, 1)}y-start     {
+        align-self: start !important;
+        margin-top: 0;
+    }
+
+    .#{nth($breakpoint, 1)}y-center    {
+        align-self: center !important;
+    }
+
+    .#{nth($breakpoint, 1)}y-stretch   {
+        align-self: stretch !important;
+        margin-top: 0; 
+        margin-bottom: 0;
+    }
+
+    .#{nth($breakpoint, 1)}y-baseline  {
+        align-self: baseline !important; 
+    }
+
+    .#{nth($breakpoint, 1)}y-lastline  {
+        align-self: last baseline !important; 
+    }
+
+    .#{nth($breakpoint, 1)}y-bleed {
+        align-self: stretch !important;
+        margin-top:  calc(var(--row-gap) / -2);
+        margin-bottom: calc(var(--row-gap) / -2);
+    }
+
+    .#{nth($breakpoint, 1)}y-flood {
+        align-self: stretch !important;
+        margin-top:  calc(-1 * var(--row-gap));
+        margin-bottom: calc(-1 * var(--row-gap));
+    }
 
     :root {
         --column-gap: #{nth($breakpoint, 4)};
