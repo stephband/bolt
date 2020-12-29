@@ -159,10 +159,7 @@ const registry = {
     `max` mapped to a `curve`, which is one of `linear`, `quadratic`, `exponential`. */
     normalise: function (curve, min, max, number) {
         const name = toCamelCase(curve);
-        if (!number) {
-            console.log('HELLO');
-            return;
-        }
+        if (!number) { return; }
         return normalise[name](min, max, number);
     },
     
