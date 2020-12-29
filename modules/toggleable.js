@@ -11,9 +11,16 @@ With a little hide/show style, a toggleable can be used to make menus, drawers,
 accordions and so on.
 **/
 
-import { remove } from '../../fn/module.js';
-import { get, events, closest, matches, isPrimaryButton, isInternalLink, identify, on, trigger } from '../../dom/module.js';
+import { remove } from '../../fn/modules/remove.js';
+import get      from '../../dom/modules/get.js';
+import closest  from '../../dom/modules/closest.js';
+import matches  from '../../dom/modules/matches.js';
+import identify from '../../dom/modules/identify.js';
+import { trigger }  from '../../dom/modules/trigger.js';
+import { isInternalLink }  from '../../dom/modules/node.js';
+import { isPrimaryButton, on } from '../../dom/modules/events.js';
 import { matchers } from './dom-activate.js';
+
 
 // Define
 

@@ -531,11 +531,11 @@
 <path fill="none" stroke="#757575" d="M1114.04,-442.56C1136.45,-442.56 1160.7,-442.56 1183.48,-442.56"/>
 <polygon fill="#757575" stroke="#757575" points="1183.48,-446.06 1193.48,-442.56 1183.48,-439.06 1183.48,-446.06"/>
 </g>
-<!-- ../../dom/modules/traversal.js -->
+<!-- ../../dom/modules/traverse.js -->
 <g id="node30" class="node">
-<title>../../dom/modules/traversal.js</title>
+<title>../../dom/modules/traverse.js</title>
 <path fill="none" stroke="#cfffac" d="M330.33,-647.06C330.33,-647.06 154.67,-647.06 154.67,-647.06 150.83,-647.06 147,-643.22 147,-639.39 147,-639.39 147,-631.72 147,-631.72 147,-627.89 150.83,-624.06 154.67,-624.06 154.67,-624.06 330.33,-624.06 330.33,-624.06 334.17,-624.06 338,-627.89 338,-631.72 338,-631.72 338,-639.39 338,-639.39 338,-643.22 334.17,-647.06 330.33,-647.06"/>
-<text text-anchor="middle" x="242.5" y="-631.86" font-family="Arial" font-size="14.00" fill="#cfffac">../../dom/modules/traversal.js</text>
+<text text-anchor="middle" x="242.5" y="-631.86" font-family="Arial" font-size="14.00" fill="#cfffac">../../dom/modules/traverse.js</text>
 </g>
 <!-- ../../dom/polyfills/element.scrollto.js -->
 <g id="node31" class="node">
@@ -789,9 +789,9 @@
 <path fill="none" stroke="#757575" d="M52.67,-684.04C63.69,-660.56 91.58,-606.61 129,-573.56 227.02,-486.97 265.84,-476.02 392,-441.56 607.4,-382.72 671.41,-403.96 894,-421.56 914.38,-423.17 936.37,-426.16 956.45,-429.39"/>
 <polygon fill="#757575" stroke="#757575" points="956.01,-432.86 966.44,-431.04 957.15,-425.95 956.01,-432.86"/>
 </g>
-<!-- slide&#45;show.js&#45;&gt;../../dom/modules/traversal.js -->
+<!-- slide&#45;show.js&#45;&gt;../../dom/modules/traverse.js -->
 <g id="edge79" class="edge">
-<title>slide&#45;show.js&#45;&gt;../../dom/modules/traversal.js</title>
+<title>slide&#45;show.js&#45;&gt;../../dom/modules/traverse.js</title>
 <path fill="none" stroke="#757575" d="M72.06,-684.04C88.03,-676.87 109.44,-667.85 129,-661.56 143.11,-657.02 158.45,-652.93 173.14,-649.42"/>
 <polygon fill="#757575" stroke="#757575" points="174.24,-652.76 183.18,-647.08 172.65,-645.94 174.24,-652.76"/>
 </g>

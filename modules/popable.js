@@ -12,7 +12,8 @@ With a little hide/show style, a popable can be used to make menus, tooltips,
 accordions and so on.
 */
 
-import { matches, trigger } from '../../dom/module.js';
+import matches from '../../dom/modules/matches.js';
+import { trigger } from '../../dom/modules/trigger.js';
 import { matchers } from './dom-activate.js';
 
 var match   = matches('.popable, [popable]');

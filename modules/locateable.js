@@ -28,8 +28,14 @@ you have a scrolling navigation:
 **/
 
 import '../../dom/polyfills/element.scrollintoview.js';
-import { by, get, weakCache } from '../../fn/module.js';
-import { rect, features, isInternalLink, select, trigger } from '../../dom/module.js';
+import by        from '../../fn/modules/by.js';
+import get       from '../../fn/modules/get.js';
+import weakCache from '../../fn/modules/weak-cache.js';
+import rect               from '../../dom/modules/rect.js';
+import features           from '../../dom/modules/features.js';
+import { isInternalLink } from '../../dom/modules/node.js';
+import select             from '../../dom/modules/select.js';
+import { trigger }        from '../../dom/modules/trigger.js';
 
 var DEBUG = false;
 

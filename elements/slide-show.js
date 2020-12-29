@@ -28,21 +28,17 @@ insertion of fullscreen close buttons and the like.
 // Polyfill Safari's lack of smooth scrolling via .scrollTo()
 import '../../dom/polyfills/element.scrollto.js';
 
-import id from '../../fn/modules/id.js';
-import Privates from '../../fn/modules/privates.js';
-import { wrap } from '../../fn/modules/maths/wrap.js';
-import overload from '../../fn/modules/overload.js';
-import get from '../../fn/modules/get.js';
-import equals from '../../fn/modules/equals.js';
-import last from '../../fn/modules/lists/last.js';
+import id         from '../../fn/modules/id.js';
+import Privates   from '../../fn/modules/privates.js';
+import equals     from '../../fn/modules/equals.js';
+import last       from '../../fn/modules/lists/last.js';
 import parseValue from '../../fn/modules/parse-value.js';
-import element from '../../dom/modules/element.js';
-import { type as getNodeType } from '../../dom/modules/nodes.js';
+import element    from '../../dom/modules/element.js';
 import events, { isPrimaryButton } from '../../dom/modules/events.js';
-import rect from '../../dom/modules/rect.js';
-import create from '../../dom/modules/create.js';
-import identify from '../../dom/modules/identify.js';
-import { next, previous } from '../../dom/modules/traversal.js';
+import rect       from '../../dom/modules/rect.js';
+import create     from '../../dom/modules/create.js';
+import identify   from '../../dom/modules/identify.js';
+import { next, previous } from '../../dom/modules/traverse.js';
 import { select } from '../../dom/modules/select.js';
 
 const DEBUG = true;

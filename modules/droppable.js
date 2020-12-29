@@ -21,8 +21,15 @@ attribute:</p>
 ```
 */
 
-import { choose, id, intersect, nothing, prepend } from '../../fn/module.js';
-import { attribute, classes, closest, events, on } from '../../dom/module.js';
+import choose         from '../../fn/modules/choose.js';
+import id             from '../../fn/modules/id.js';
+import intersect      from '../../fn/modules/intersect.js';
+import nothing        from '../../fn/modules/nothing.js';
+import prepend        from '../../fn/modules/prepend.js';
+import attribute      from '../../dom/modules/attribute.js';
+import classes        from '../../dom/modules/classes.js';
+import closest        from '../../dom/modules/closest.js';
+import events, { on } from '../../dom/modules/events.js';
 
 const trigger = events.trigger;
 

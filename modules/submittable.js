@@ -13,8 +13,11 @@ it by permitting the value `"application/json"` as well as the standard
 `"application/x-www-form-urlencoded"` and `"multipart/form-data"`.
 */
 
-import { compose, get } from '../../fn/module.js';
-import { events, matches, preventDefault, request } from '../../dom/module.js';
+import compose from '../../fn/modules/compose.js';
+import get     from '../../fn/modules/get.js';
+import matches from '../../dom/modules/matches.js';
+import request from '../../dom/modules/request.js';
+import events, { preventDefault } from '../../dom/modules/events.js';
 
 // Define
 

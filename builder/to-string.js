@@ -39,7 +39,9 @@ export default overload(toType, {
 
     'object': function(value) {
         // Don't render null
-        return value ? JSON.stringify(value) : '';
+        return value ?
+            JSON.stringify(value) :
+            '';
     },
 
     'default': JSON.stringify

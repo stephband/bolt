@@ -3,7 +3,7 @@ import id from '../../fn/modules/id.js';
 import overload from '../../fn/modules/overload.js';
 import todB from '../../fn/modules/maths/to-db.js';
 import toLevel from '../../fn/modules/maths/to-gain.js';
-import toCamelCase from '../../fn/modules/strings/to-camel-case.js';
+import toCamelCase from '../../fn/modules/to-camel-case.js';
 import * as normalise   from '../../fn/modules/normalisers.js';
 import * as denormalise from '../../fn/modules/denormalisers.js';
 

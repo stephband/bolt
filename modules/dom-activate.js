@@ -1,6 +1,19 @@
 
-import { curry, isDefined, overload } from '../../fn/module.js';
-import { append, classes, create, delegate, Event, events, isInternalLink, isPrimaryButton, tag, select, ready, remove, trigger, on, off } from '../../dom/module.js';
+import curry     from '../../fn/modules/curry.js';
+import isDefined from '../../fn/modules/is-defined.js';
+import overload  from '../../fn/modules/overload.js';
+import append    from '../../dom/modules/append.js';
+import classes   from '../../dom/modules/classes.js';
+import create    from '../../dom/modules/create.js';
+import delegate  from '../../dom/modules/delegate.js';
+import Event     from '../../dom/modules/event.js';
+import { isPrimaryButton, on, off } from '../../dom/modules/events.js';
+import { isInternalLink } from '../../dom/modules/node.js';
+import trigger   from '../../dom/modules/trigger.js';
+import tag       from '../../dom/modules/tag.js';
+import select    from '../../dom/modules/select.js';
+import ready     from '../../dom/modules/ready.js';
+import remove    from '../../dom/modules/remove.js';
 
 var DEBUG     = false;
 
@@ -211,7 +224,7 @@ var targets = {
 		}
 
 		var dialog = dialogs[id] || (dialogs[id] = createDialog(fragment));
-		events.trigger(dialog, 'dom-activate');
+		trigger('dom-activate', dialog);
 	}
 };
 

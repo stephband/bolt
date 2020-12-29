@@ -14,8 +14,16 @@ attribute, which defines data to be carried by a drag action:
 <small>* Note that `draggable` must be `"true"`. It is not a boolean attribute.</small>
 */
 
-import { parse } from '../../fn/module.js';
-import { attribute, classes, delegate, identify, select, remove, removeClass, on, off } from '../../dom/module.js';
+import { capture } from '../../fn/modules/capture.js';
+
+import attribute from '../../dom/modules/attribute.js';
+import classes, { removeClass } from '../../dom/modules/classes.js';
+import delegate  from '../../dom/modules/delegate.js';
+import identify  from '../../dom/modules/identify.js';
+import select    from '../../dom/modules/select.js';
+import remove    from '../../dom/modules/remove.js';
+import { on, off }  from '../../dom/modules/events.js';
+
 import { register } from '../../sparky/module.js';
 
 var debug  = true;
@@ -31,7 +39,7 @@ function dragstartButton(e) {
 	var data = attribute('draggable-mimetypes', e.target);
 
 	if (data) {
-		data = parse(rmimetype, {
+		data = capture(rmimetype, {
 			1: function handleMime(data, results) {
 				data[results[1]] = results[2];
 				if ((lastIndex(results) + 2) < results.input.length) {

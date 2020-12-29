@@ -32,11 +32,12 @@ import { prepend }      from '../../fn/modules/strings/prepend.js';
 import { prepad }       from '../../fn/modules/strings/prepad.js';
 import { postpad }      from '../../fn/modules/strings/postpad.js';
 import slugify          from '../../fn/modules/strings/slugify.js';
-import toCamelCase      from '../../fn/modules/strings/to-camel-case.js';
+import toCamelCase      from '../../fn/modules/to-camel-case.js';
 
 import { contains }     from '../../fn/modules/lists/core.js';
 import last             from '../../fn/modules/lists/last.js';
-import rest             from '../../fn/modules/lists/rest.js';
+import { take }         from '../../fn/modules/take.js';
+import { rest }         from '../../fn/modules/rest.js';
 
 import compose          from '../../fn/modules/compose.js';
 import overload         from '../../fn/modules/overload.js';
@@ -478,6 +479,8 @@ const registry = {
         };
     })(),
     
+    take: take,
+
     truncatechars: function(n, value) {
         return value.length > n ?
             value.slice(0, n) + '…' :

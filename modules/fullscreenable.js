@@ -10,7 +10,7 @@ document root in navigators where support is detected, for styling of UI that
 depends on fullscreen support.
 **/
 
-import { matches } from '../../dom/module.js';
+import matches from '../../dom/modules/matches.js';
 import { handlers } from './dom-activate.js';
 
 const match = matches('.fullscreenable, [fullscreenable]');

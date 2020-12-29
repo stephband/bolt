@@ -20,16 +20,26 @@ element and upgrades instances already in the DOM.
 
 **/
 
-import { Observer, by, capture, insert, get, noop, overload, toCamelCase, toLevel, toType, id, notify, nothing, observe, remove } from '../../fn/module.js';
+import { Observer, observe } from '../../fn/modules/observer.js';
+import by          from '../../fn/modules/by.js';
+import insert      from '../../fn/modules/insert.js';
+import get         from '../../fn/modules/get.js';
+import noop        from '../../fn/modules/noop.js';
+import overload    from '../../fn/modules/overload.js';
+import toCamelCase from '../../fn/modules/to-camel-case.js';
+import id          from '../../fn/modules/id.js';
+import notify      from '../../fn/modules/notify.js';
+import nothing     from '../../fn/modules/nothing.js';
+import remove      from '../../fn/modules/remove.js';
+
 import { clamp } from '../../fn/modules/maths/clamp.js';
 import Privates from '../../fn/modules/privates.js';
-import { observeAll } from '../../fn/modules/observer/observe.js';
 import gestures from '../../dom/modules/gestures.js';
-import { element, create } from '../../dom/module.js';
+import element from '../../dom/modules/element.js';
+import create from '../../dom/modules/create.js';
 import { attributes, properties } from './attributes.js';
 import { parseEnvelope } from './parse-envelope.js';
 import { requestEnvelopeDataURL } from './request-envelope-data-url.js';
-
 
 const assign = Object.assign;
 

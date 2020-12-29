@@ -35,7 +35,7 @@ import create from '../../dom/modules/create.js';
 import { transform } from './control.js';
 import element from '../../dom/modules/element.js';
 import gestures from '../../dom/modules/gestures.js';
-import { parseValue } from '../../dom/modules/parse-value.js';
+import parseValue from '../../dom/modules/parse-value.js';
 import trigger from '../../dom/modules/trigger.js';
 import { attributes, properties, handleEvent } from './attributes.js';
 

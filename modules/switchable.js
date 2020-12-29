@@ -28,7 +28,10 @@ Switchables can be used to make tabs, slideshows, accordions and so on.
 ```
 **/
 
-import { on, trigger, matches, children } from '../../dom/module.js';
+import { on }   from '../../dom/modules/events.js';
+import matches  from '../../dom/modules/matches.js';
+import children from '../../dom/modules/children.js';
+import trigger  from '../../dom/modules/trigger.js';
 import { matchers } from './dom-activate.js';
 
 // Define

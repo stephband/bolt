@@ -1,8 +1,11 @@
 
 /* Enabales left-right swipe gestures on .switch-label */
 
-import { clamp } from '../../fn/module.js';
-import { attribute, closest, gestures, style, trigger } from '../../dom/module.js';
+import clamp       from '../../fn/modules/clamp.js';
+import attribute   from '../../dom/modules/attribute.js';
+import closest     from '../../dom/modules/closest.js';
+import gestures    from '../../dom/modules/gestures.js';
+import { trigger } from '../../dom/modules/trigger.js';
 
 var selector     = '.switch-label';
 var swipeRangePx = 40;
