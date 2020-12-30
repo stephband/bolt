@@ -11,7 +11,7 @@
 @import "css/label.css";
 @import "css/progress.css";
 @import "css/table.css";
-@import "css/index.css";
+@import "css/list.css";
 @import "css/layer.css";
 @import "css/badge.css";
 @import "css/pill.css";
@@ -30,7 +30,7 @@
 @import "components/message.css";
 @import "components/select-button.css";
 @import "components/pill-input.css";
-@import "components/crumbs-index.css";
+@import "components/crumbs-list.css";
 @import "components/toggle-button.css";
 @import "components/toggle-block.css";
 @import "components/bubble.css";
