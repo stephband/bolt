@@ -19,7 +19,7 @@
 {% import messages from-comments ['./components/message.css'] %}
 {% import toggles  from-comments ['./components/toggle-block.css'] %}
 
-{% import slideshow       from-comments ['./elements/slide-show.js', './elements/slide-show-shadow.css'] %}
+{% import slideshow       from-comments ['./elements/slide-show.js', './elements/slide-show.shadow.css'] %}
 {% import rangecontrol    from-comments ['./elements/range-control.js', './elements/attributes.js', './elements/range-control.css', './elements/control.css'] %}
 {% import rotarycontrol   from-comments ['./elements/rotary-control.js', './elements/attributes.js', './elements/rotary-control.css', './elements/control.css'] %}
 {% import envelopecontrol from-comments ['./elements/envelope-control.js', './elements/attributes.js', './elements/envelope-control.css', './elements/control.css'] %}

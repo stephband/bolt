@@ -1,4 +1,4 @@
-{% import data from-comments ["slide-show.js", "slide-show-shadow.css"] %}
+{% import data from-comments ["slide-show.js", "slide-show.shadow.css"] %}
 
 <!DOCTYPE html>
 <html lang="en">
