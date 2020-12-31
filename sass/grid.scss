@@ -357,8 +357,8 @@ Define the vertical grid gap (with units).
     }
 
     :root {
-        --column-gap: #{nth($breakpoint, 4)};
-        --row-gap: #{nth($breakpoint, 5)};
+        --column-gap: #{nth($breakpoint, 3)};
+        --row-gap: #{nth($breakpoint, 4)};
     }
 }
 }
