@@ -15,7 +15,7 @@ parseString(string)
 **/
 
 const parseStrings1 = capture(/^/, {
-    close: function(array, captures) {
+    done: function(array, captures) {
         const string = parseString(captures);
         if (string) {
             array.push(string);
@@ -46,7 +46,7 @@ const parseProperty = capture(/^([\w][\w\d]*)\s*=\s*/, {
 const parseWith = capture(/^/, {
     0: () => [],
 
-    close: (array, captures) => {
+    done: (array, captures) => {
         let property;
         while (property = parseProperty(captures)) {
             array.push(property);
@@ -111,21 +111,58 @@ parseTypedParam(string)
 
 const parseArrayClose = capture(/^]\s*/, nothing, nothing);
 
-//                                          "string"                   'string'                     [array
-export const parseTypedParam = capture(/^(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\\.[^'\\]*)*)'|(\[))\s*/, {
-    // "string"
+
+/**
+parseKeyValue(object, string)
+**/
+
+const parseKeyValue = capture(/^(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\\.[^'\\]*)*)'|([\w][\w\d]*))\s*:\s*/, {
+    // String key "
+    1: (data, captures) => {
+        data[captures[1]] = parseTypedParam(captures);
+        return data;
+    },
+
+    // String key '
+    2: (data, captures) => {
+        data[captures[2]] = parseTypedParam(captures);
+        return data;
+    },
+
+    // Unquoted key
+    3: (data, captures) => {
+        data[captures[3]] = parseTypedParam(captures);
+        return data;
+    },
+
+    // Another key:value or object close
+    done: capture(/^(?:(,)|\})\s*/, {
+        1: (data, captures) => parseKeyValue(data, captures),
+        catch: () => { throw new SyntaxError('Badly formed object'); }
+    }),
+
+    // Allow empty object
+    catch: capture(/^}\s*/, {
+        catch: (data, captures) => { throw new SyntaxError('Unclosed object at \n\n' + captures.input.slice(captures.index, 32) + '\n\n'); }
+    })
+});
+
+
+//                                          "string"                   'string'                   [array {object
+export const parseTypedParam = capture(/^(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\\.[^'\\]*)*)'|(\[)|(\{))\s*/, {
+    // String
     1: (nothing, captures) => ({
         type:  'string',
         value: captures[1]
     }),
 
-    // 'string'
+    // String
     2: (nothing, captures) => ({
         type:  'string',
         value: captures[2]
     }),
 
-    // [array
+    // Array
     3: (nothing, captures) => {
         const data = {
             type:  'array',
@@ -134,6 +171,12 @@ export const parseTypedParam = capture(/^(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*
         parseArrayClose(captures);
         return data;
     },
+
+    // Object
+    4: (nothing, captures) => ({
+        type: 'object',
+        value: parseKeyValue({}, captures)
+    }),
 
     // If it's not a value, assume it's a pipe
     catch: (nothing, captures) => ({
@@ -199,7 +242,7 @@ const parseImport = capture(/^(\w+)\s+(?:(from-comments)|(from))\s+/, {
         return token;
     },
 
-    close: parseTagClose,
+    done: parseTagClose,
 
     catch: () => {
         throw new SyntaxError('Failed to parse {% import %}');
@@ -209,7 +252,7 @@ const parseImport = capture(/^(\w+)\s+(?:(from-comments)|(from))\s+/, {
 const parseImports = capture(/^/, {
     0: parseImport,
 
-    close: capture(/^\s*\{\%\s*import\s*/, {
+    done: capture(/^\s*\{\%\s*import\s*/, {
         0: (token, captures) => {
             token.end += captures.index + captures[0].length;
             parseImports(token, captures);
@@ -238,9 +281,30 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
         },
 
         1: overload((token, captures) => captures[1], {
+            'context': capture(/^/, {
+                // {% context path|pipe:param %}
+                0: (token, captures) => {
+                    token.param = {
+                        pipes: parseFilter(captures)
+                    };
+
+                    token.param.transform = createTransform(token.param.pipes);
+                    token.end += captures.consumed;
+                    return token;
+                },
+
+                done: function(token, captures) {
+                    parseTagClose(token, captures);
+                    const consumed = captures.consumed;
+                    token.tree = parseTemplate([], captures);
+                    token.end += captures.consumed - consumed;
+                    return token;
+                }
+            }),
+
             'each': capture(/^/, {
                 // {% each %}
-                close: function(token, captures) {
+                done: function(token, captures) {
                     parseTagClose(token, captures);
                     const consumed = captures.consumed;
                     token.tree = parseTemplate([], captures);
@@ -251,7 +315,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
 
             'if': capture(/^/, {
                 // {% if property %}
-                close: function(token, captures) {
+                done: function(token, captures) {
                     token.selector = parseString(captures);
                     token.end += captures.consumed;
                     parseTagClose(token, captures);
@@ -270,7 +334,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                 );
             },
 
-            'include': capture(/^([^\s]+)(?:\s+(import-comments)\s+|\s+(import)\s+|\s+(with)\s+)?\s*/, {
+            'include': capture(/^([^\s]+)(?:\s+(comments)\s+|\s+(import)\s+|\s+(context)\s+|\s+(with)\s+)?\s*/, {
                 // {% include template.html %}         
                 1: (token, captures) => {
                     token.end += captures.index + captures[0].length;
@@ -278,7 +342,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                     return token;
                 },
 
-                // {% include template.html import package.json %}
+                // {% include template.html comments file.css %}
                 2: (token, captures) => {
                     // TODO: implement import-comments 
                     /* token.imports.push({
@@ -295,15 +359,25 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                     token.end += captures.consumed;
                     return token;
                 },
-            
-                // {% include template.html with name="value" %}
+
+                // {% include template.html context value|pipe %}
                 4: (token, captures) => {
+                    token.context = {
+                        type:  'context',
+                        value: parseTypedParam(captures)
+                    };
+                    token.end += captures.consumed;
+                    return token;
+                },
+
+                // {% include template.html with name="value" %}
+                5: (token, captures) => {
                     token.with = parseWith(captures);
                     token.end += captures.consumed;
                     return token;
                 },
 
-                close: parseTagClose
+                done: parseTagClose
             }),
 
             'with': capture(/^/, {
@@ -315,7 +389,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
                     return token;
                 },
 
-                close: function(token, captures) {
+                done: function(token, captures) {
                     parseTagClose(token, captures);
                     const consumed = captures.consumed;
                     token.tree = parseTemplate([], captures);
@@ -350,7 +424,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
             return token;
         },
 
-        close: capture(/^\}\}/, {
+        done: capture(/^\}\}/, {
             0: (token, captures) => {
                 token.end += captures.index + captures[0].length;
                 token.transform = createTransform(token.pipes);
@@ -391,7 +465,7 @@ const parseTag = capture(/\{(?:(\%)|(\{)|(#))\s*|(src=['"]?|href=['"]?|url\(\s*[
         return token;        
     },
 
-    close: (token, captures) => {
+    done: (token, captures) => {
         // Capture the actual code of the token
         token.code = captures.input.slice(
             captures.index, 
@@ -422,7 +496,7 @@ const parseTemplate = capture(/^(\s*\{\%\s*import\s+)?/, {
         return array;
     },
 
-    close: (array, captures) => {
+    done: (array, captures) => {
         let tag;
         let i = array[0] && array[0].end || 0;
 

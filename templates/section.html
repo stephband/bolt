@@ -3,7 +3,7 @@
 
 <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
     <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" locateable id="{{id}}" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">{{title}}</h2>
-    {% with docs|filter-by:type,selector %}
+    {% context docs|filter-by:type,selector %}
     {% each %}
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 20rem; width: 100%;">{{examples|get:'0'}}</div>
@@ -18,7 +18,7 @@
     {% end %}
     {% end %}
     <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span {{ docs|filter-by:type,selector|get:length }};">
-        {% with docs|filter-by:type,var %}
+        {% context docs|filter-by:type,var %}
         {% each %}
         {% include ./entry.html %}
         {% end %}

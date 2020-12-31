@@ -1,6 +1,6 @@
 
 <style title="design overlay">
-    {% with entries=.|entries %}
+    {% context .|entries %}
     {% each %}
     @media (width: {{ 0|multiply:0.0625 }}em) {
         body::after {

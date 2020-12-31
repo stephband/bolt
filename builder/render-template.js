@@ -39,5 +39,5 @@ export default function renderTemplate(source, target, options) {
         const filesize = Math.round(Buffer.byteLength(html, 'utf8') / 1000);
         console.log(green, 'Written', target + ' (' + filesize + 'kB)');
         return html;
-    });  
+    });
 }

@@ -295,8 +295,7 @@ const registry = {
     degrees:   toDeg,   
     radians:   toRad,   
     pow:       pow,     
-    exp:       exp,      
-    log:       log,
+    exp:       exp,
     
     /** json:
     Transforms objects to json, and used in two-way binding, sets parsed
@@ -319,7 +318,9 @@ const registry = {
 
     /** contains: n **/
     contains:     contains,
-    
+
+    entries: Object.entries,
+
     /** equals: n **/
     equals:       equals,
     //escape:       escape,

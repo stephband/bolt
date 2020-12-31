@@ -145,6 +145,52 @@ const resolveParam = overload((scope, param) => param && param.type, {
     }
 });
 
+
+/**
+resolveValue(data, context)
+
+Where `data` is an object of the form:
+```
+{
+    type: 'object',
+    value: { ... }
+}
+```
+**/
+
+var getValue = overload(get('type'), {
+    'string': (data) => data.value,
+    'number': (data) => data.value,
+    'array':  (data, context) =>
+        Object
+        .entries(data.value)
+        .reduce((array, entry) => {
+            object[entry[0]] = getValue(entry[1]);
+            return array;
+        }, []),
+    'object': (data, context) =>
+        Object
+        .entries(data.value)
+        .reduce((object, entry) => {
+            object[entry[0]] = getValue(entry[1]);
+            return object;
+        }, {}),
+    'pipe': (data, context) => {
+        const transform = createTransform(data.value);
+        return transform(context);
+    }
+});
+
+var resolveContext = overload(get('type'), {
+    'import':  (data) =>
+        request(getRootSrc(source, token.import))
+        .then(JSON.parse),
+    'context': (data, context) =>
+        Promise.resolve(getValue(data.value, context))
+});
+
+
+
 const importByType = overload((scope, source, target, data) => data.type, {
     'json': function(scope, source, target, data) {
         const url = resolveParam(scope, data.from);
@@ -211,7 +257,7 @@ const importByType = overload((scope, source, target, data) => data.type, {
                     });
                 });
                 return comments;
-             });
+            });
         }))
         .then((comments) => scope[data.name] = comments.flat())
         .catch((error) => {
@@ -224,6 +270,11 @@ const renderToken = overload(get('type'), {
     // Render tags and properties. All tags must return either a promise that 
     // resolves to an HTML string, or undefined.
     'tag': overload(get('name'), {
+        'context': function docs(token, scope, source, target, level) {
+            if (DEBUG) { validateScope(scope); }
+            return renderTree(token.tree, token.param.transform(scope), source, target, ++level);
+        },
+
         'each': function docs(token, scope, source, target, level) {
             if (DEBUG) { validateScope(scope); }
 
@@ -267,6 +318,14 @@ const renderToken = overload(get('type'), {
                 }, {});
             }
 
+            // TODO: replace import tokens with token that looks like:
+            //
+            // {
+            //     type: 'include',
+            //     context = { type: 'import' }
+            // }
+            // Should already work!
+
             return token.import ?
                 // Import JSON data as scope
                 Promise.all([
@@ -278,15 +337,21 @@ const renderToken = overload(get('type'), {
                 .then((res) => renderTree(res[0], res[1], src, target, ++level))
                 .then((html) => html.replace(/\n/g, '\n' + token.indent)) :
 
+            // Get context from value|pipe
+            token.context ?
+                Promise
+                .all([template, resolveContext(token.context, scope)])
+                .then((values) => renderTree(values[0], values[1], src, target, ++level))
+                .then((html) => html.replace(/\n/g, '\n' + token.indent)) :
+
                 // Use current scope as scope
                 template
                 .then((tree) => renderTree(tree, scope, src, target, ++level))
-                //.then((html) => (console.log(html), html))
-                .then((html) => html.replace(/\n/g, '\n' + token.indent))
-                .catch((error) => console.log(red, error.constructor.name, error.message)) ;
+                .then((html) => html.replace(/\n/g, '\n' + token.indent)) ;
         },
 
         'with': function docs(token, scope, source, target, level) {
+            console.log(yellow, '{% with value|pipe %} deprecated, use {% context value|pipe %}', source);
             if (DEBUG) { validateScope(scope); }
             return renderTree(token.tree, token.param.transform(scope), source, target, ++level);
         }
