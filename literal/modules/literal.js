@@ -1,11 +1,12 @@
 
-import get           from '../../fn/modules/get.js';
+import get           from '../../../fn/modules/get.js';
 
-import { equals }    from '../../fn/modules/equals.js';
-import Value         from './value.js';
+import { equals }    from '../../../fn/modules/equals.js';
 import * as registry from './functions.js';
-import renderString  from './to-string.js';
-import { red, green, dim }       from './log.js';
+import renderString  from './to-text.js';
+import { rewriteURL, rewriteURLs } from './url.js';
+import { red, green, dim } from './log.js';
+
 
 const DEBUG = true;
 
@@ -46,11 +47,12 @@ function createCode(names, template) {
         names.push(name);
 
         // Declare variables
-        code += Value.prototype[name] ?
+        // Don't think all that stuff was needed now we have a fn library
+        //code += //Value.prototype[name] ?
             // Function
-            'var ' + name + ' = (...params) => Pipe(this).' + name + '(...params);\n' :
+            //'var ' + name + ' = (...params) => Pipe(this).' + name + '(...params);\n' :
             // Property of context
-            'var ' + name + ' = this.' + name + ';\n' ;
+        code += 'var ' + name + ' = this.' + name + ';\n' ;
     }
 
     return code + 'return render`' + template + '`;';
@@ -68,7 +70,7 @@ function render(array, param, string) {
         string + renderString(param) ;
 }
 
-function compose(literal) {
+function renderText(literal) {
     return Promise.all(
         literal.map((a, i, array) => (i + 1 < arguments.length ?
             render(array, arguments[i + 1], a) :
@@ -78,55 +80,58 @@ function compose(literal) {
     .then(join);
 }
 
+/**
+Literal()
+**/
+
 // Store render functions against their template strings
 const cache = {};
-const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
 
-export default function Template(functions, string) {
+const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor;
+
+function createAsyncFunction(names, code) {
+    return new AsyncFunction('render', ...names, code);
+}
+
+export default function Literal(context, string, source, target) {
     if (!string) {
         throw new Error('Template is not a string');
     }
 
-    const isEmpty = equals({}, functions);
+    if (cache[string]) {
+        return cache[string];
+    }
 
-    if (isEmpty && cache[string]) { return cache[string]; }
-
-    const fns = isEmpty ?
-        registry :
-        Object.assign({}, functions, registry) ;
+    const fns = Object.assign({}, context, registry, {
+        // Functions are executed in the context of the module ./literal.js
+        // so we need to rewrite them to that context
+        include: (url, context) => registry.include(rewriteURL(source, target, url), context, source, target),
+        fetch:   (url, name)    => registry.fetch(url, name, source, target)
+    });
 
     const entries = Object.entries(fns);
     const names   = entries.map(get(0));
-    const values  = entries.map(get(1));
-
-    // TEMP
-    const vars    = names.slice();
-    const code    = createCode(vars, string);
-    var fn;
+    const api     = entries.map(get(1));
+    const code    = createCode(names.slice(), string);
 
     if (DEBUG) {
         // Catch parsing of template for SyntaxErrors
-        try { fn = new AsyncFunction('render', ...names, code); }
+        try {
+            var fn = createAsyncFunction(names, code);
+        }
         catch(e) {
             e.code = code;
             throw(e);
         }
 
-        console.log(green + ' ' + dim, 'Template compiled', 'context', '{ ' + vars.join(', ') + ' }');
-        //console.log(Object.toString.apply(fn));
+        console.log(green + ' ' + dim, 'Literal compiled template', source);
     }
     else {
-        fn = new AsyncFunction('render', code);
+        var fn = createAsyncFunction(names, code);
     }
 
-    const render = (context) => fn.call(context, compose, ...values);
-    if (isEmpty) { cache[string] = render; }
-    return render;
+    // fn(data, render, ...names)
+    return cache[string] = (context) => fn
+        .call(context, renderText, ...api)
+        .then((text) => rewriteURLs(source, target, text));
 }
-
-// Enable #{ each('') }
-Value.prototype.each = function(template) {
-    const array  = this.value;
-    const render = Template({}, template);
-    return Promise.all(array.map(render)).then(join);
-};

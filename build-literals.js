@@ -13,8 +13,8 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const dir = dirname(fileURLToPath(import.meta.url));
 
-import request from './builder/request.js';
-import { yellow } from './builder/log.js';
+import request from './literal/modules/request.js';
+import { yellow } from './literal/modules/log.js';
 
 // Arguments
 const args  = process.argv.slice(2);
@@ -39,24 +39,21 @@ request('./package.json')
         }
     })
     .on('file', function (source, stat) {
-        // Ignore files that do not match *.html.bolt or *.css.bolt
-        const parts  = /(.*\/)?([^\s\/]+)\.(html|css)\.bolt$/.exec(source);
+        // Ignore files that do not match *.xxx.literal
+        const parts  = /(.*\/)?([^\s\/]+)\.([\w\d-]+)\.literal$/.exec(source);
         if (!parts) { return; }
 
         const path = parts[1];
         const name = parts[2];
         const ext  = parts[3];
 
-        if (name !== "text") { return; }
-        // Replace path with destination
-        //const target = (path ? dest ? dest : path : '') + name + '.html';
         // No, build in place... Todo: allow alternative target destination
         const target = (path || '') + name + '.' + ext;
 
         // Build source template to target path
         processes
         // build [source.html, target.html]
-        .fork(dir + '/build-bolt-template.js', [source, target, DEBUG && 'debug'])
+        .fork(dir + '/build-literal.js', [source, target, DEBUG && 'debug'])
         .on('error', console.log)
         .on('exit', function(code, error) {
             if (code !== 0) {

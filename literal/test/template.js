@@ -1,11 +1,11 @@
 
-import Template from './template.js';
-import create from '../../dom/modules/create.js';
+import Literal from '../modules/literal.js';
+import create from '../../../dom/modules/create.js';
 
 const string = "<p>Phil scored ${ phil }, bob scored ${ get('objects').each('Goody ${ get(\\`cong\\`).each(\\'Cong ${f} \\') } ') }.</p>";
 
 const t = window.performance.now();
-const render = Template({}, string);
+const render = Literal({}, string);
 console.log(((window.performance.now() - t) / 1000).toFixed(3));
 
 render({

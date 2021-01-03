@@ -1,16 +1,14 @@
 
-@import './var.scss';
-
 /**
 .hidden
 
-Forces `display: none`. This class is also available with breakpoint prefixes
-(`@1-`, `@2-`, ...).
+Forces \`display: none\`. This class is also available with breakpoint prefixes
+(\`@1-\`, \`@2-\`, ...).
 
-```html
+\`\`\`html
 <a class="hidden" href="...">Link</a>
 <a class="@2-hidden" href="...">Link</a>
-```
+\`\`\`
 **/
 
 .hidden         { display: none !important; }
@@ -18,9 +16,9 @@ Forces `display: none`. This class is also available with breakpoint prefixes
 /**
 .print-hidden
 Hide element on printed page.
-```html
+\`\`\`html
 <nav class="print-hidden">...</nav>
-```
+\`\`\`
 **/
 
 @media print {
@@ -32,12 +30,12 @@ Hide element on printed page.
 /**
 .shown
 
-Forces `display: none` below a given breakpoint. This class is only available
-with breakpoint prefixes (`@1-`, `@2-`, ...).
+Forces \`display: none\` below a given breakpoint. This class is only available
+with breakpoint prefixes (\`@1-\`, \`@2-\`, ...).
 
-```html
+\`\`\`html
 <a class="@1-shown" href="...">Link</a>
-```
+\`\`\`
 **/
 
 
@@ -59,7 +57,7 @@ with breakpoint prefixes (`@1-`, `@2-`, ...).
 
 /**
 .flex
-Applies `display: flex`. This class may also be used with a
+Applies \`display: flex\`. This class may also be used with a
 breakpoint prefix.
 **/
 
@@ -100,10 +98,6 @@ breakpoint prefix.
 .flex-3\/8 { flex: 0 0 37.5%; }
 .flex-5\/8 { flex: 0 0 62.5%; }
 .flex-7\/8 { flex: 0 0 87.5%; }
-
-
-
-
 
 
 @each $breakpoint in $breakpoints {

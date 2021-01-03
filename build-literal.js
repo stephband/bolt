@@ -9,8 +9,8 @@ render-template.js
 
 import fs from 'fs';
 
-import renderTemplate from './builder/render-bolt-template.js';
-import { red, yellow, dim } from './builder/log.js';
+import renderTemplate from './literal/index.js';
+import { red, yellow, dim } from './literal/modules/log.js';
 
 // Arguments
 const args = process.argv.slice(2);

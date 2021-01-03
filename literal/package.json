@@ -1,0 +1,8 @@
+{
+    "name": "literal",
+    "title": "Literal",
+    "description": "Literal render templates as JavaScript literals",
+    "type": "module",
+    "module": "module.js",
+    "index": "index.js"
+}
