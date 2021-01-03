@@ -1,5 +1,5 @@
-import capture from '../../fn/modules/capture.js';
-import id      from '../../fn/modules/id.js';
+import capture from '../../../fn/modules/capture.js';
+import id      from '../../../fn/modules/id.js';
 
 
 /**

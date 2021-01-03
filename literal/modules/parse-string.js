@@ -1,5 +1,5 @@
-import capture from '../../fn/modules/capture.js';
-import noop    from '../../fn/modules/noop.js';
+import capture from '../../../fn/modules/capture.js';
+import noop    from '../../../fn/modules/noop.js';
 
 
 /** 

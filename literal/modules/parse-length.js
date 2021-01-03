@@ -16,7 +16,18 @@ const parseLength = overload(toType, {
     'string': parseValue({
         'px': (n) => n,
         'em': (n) => 16 * n,
-        'rem': (n) => 16 * n
+        'rem': (n) => 16 * n,
+        catch: (n, unit) => {
+            if (Number.isNaN(n)) {
+                throw new Error('Invalid CSS length');
+            }
+
+            if (unit) {
+                throw new Error('Invalid CSS length unit ' + unit);
+            }
+
+            return n;
+        }
     })
 });
 

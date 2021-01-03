@@ -29,7 +29,7 @@ import { append }       from '../../../fn/modules/strings/append.js';
 import { prepend }      from '../../../fn/modules/strings/prepend.js';
 import { prepad }       from '../../../fn/modules/strings/prepad.js';
 import { postpad }      from '../../../fn/modules/strings/postpad.js';
-import slugify          from '../../../fn/modules/strings/slugify.js';
+import slugify          from '../../../fn/modules/slugify.js';
 import toCamelCase      from '../../../fn/modules/to-camel-case.js';
 
 import { contains }     from '../../../fn/modules/lists/core.js';

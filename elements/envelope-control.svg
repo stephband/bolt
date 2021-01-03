@@ -1983,15 +1983,15 @@
 <path fill="none" stroke="#757575" d="M1344.43,-2277.01C1350.83,-2199.24 1391.29,-1758.17 1491,-1679.72 1562.18,-1623.73 2215.62,-1682.95 2306,-1688.72 2320.94,-1689.68 2336.63,-1690.91 2352.14,-1692.28"/>
 <polygon fill="#757575" stroke="#757575" points="2352.01,-1695.78 2362.29,-1693.19 2352.64,-1688.81 2352.01,-1695.78"/>
 </g>
-<!-- ../../fn/modules/strings/slugify.js -->
+<!-- ../../fn/modules/slugify.js -->
 <g id="node132" class="node">
-<title>../../fn/modules/strings/slugify.js</title>
+<title>../../fn/modules/slugify.js</title>
 <path fill="none" stroke="#cfffac" d="M1711.33,-3418.22C1711.33,-3418.22 1522.67,-3418.22 1522.67,-3418.22 1518.83,-3418.22 1515,-3414.39 1515,-3410.56 1515,-3410.56 1515,-3402.89 1515,-3402.89 1515,-3399.06 1518.83,-3395.22 1522.67,-3395.22 1522.67,-3395.22 1711.33,-3395.22 1711.33,-3395.22 1715.17,-3395.22 1719,-3399.06 1719,-3402.89 1719,-3402.89 1719,-3410.56 1719,-3410.56 1719,-3414.39 1715.17,-3418.22 1711.33,-3418.22"/>
-<text text-anchor="middle" x="1617" y="-3403.02" font-family="Arial" font-size="14.00" fill="#cfffac">../../fn/modules/strings/slugify.js</text>
+<text text-anchor="middle" x="1617" y="-3403.02" font-family="Arial" font-size="14.00" fill="#cfffac">../../fn/modules/slugify.js</text>
 </g>
-<!-- ../../fn/module.js&#45;&gt;../../fn/modules/strings/slugify.js -->
+<!-- ../../fn/module.js&#45;&gt;../../fn/modules/slugify.js -->
 <g id="edge191" class="edge">
-<title>../../fn/module.js&#45;&gt;../../fn/modules/strings/slugify.js</title>
+<title>../../fn/module.js&#45;&gt;../../fn/modules/slugify.js</title>
 <path fill="none" stroke="#757575" d="M1344.24,-2300.42C1351.46,-2413.06 1410.9,-3302.96 1491,-3385.72 1495.36,-3390.23 1500.3,-3394 1505.64,-3397.13"/>
 <polygon fill="#757575" stroke="#757575" points="1504.46,-3400.45 1514.96,-3401.82 1507.6,-3394.2 1504.46,-3400.45"/>
 </g>

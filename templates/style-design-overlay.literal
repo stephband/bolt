@@ -1,0 +1,20 @@
+
+<style title="design overlay">
+${ entries(data).map((entry) => `
+
+    @media (width: ${ em(entry[0]) }em) {
+        body::after {
+            content: '${ px(entry[0]) }px';
+            background-image: url('${ entry[1] }');
+            background-size: 100% auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            opacity: 0.25;
+            width: ${ rem(entry[0]) }rem;
+            pointer-events: none;
+        }
+    }`).join('') }
+</style>

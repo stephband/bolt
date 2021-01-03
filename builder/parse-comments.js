@@ -15,7 +15,7 @@ import '../libs/prism/prism.js';
 import capture from '../../fn/modules/capture.js';
 import id      from '../../fn/modules/id.js';
 import noop    from '../../fn/modules/noop.js';
-import slugify from '../../fn/modules/strings/slugify.js';
+import slugify from '../../fn/modules/slugify.js';
 import { parseString } from './parse-string.js';
 import { parseParams } from './parse-params.js';
 

@@ -1,0 +1,9 @@
+
+<section class="${ data.type }-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="${ data.type }-${ data.id }">
+    <h3 class="${ data.type }-doctext-05 doctext-05 ${ data.prefix === '--' ? 'doubledash-indent' : data.title[0] === '"' ? 'quote-indent' : '' }">
+        <a href="#${ data.type }-${ data.id }">
+            <code class="${ type === 'attribute' ? 'token' : '' } ${ type === 'property' ? 'property' : '' } ${ type === 'attribute' ? 'language-html' : 'language-js' }">${ data.name } ${ data.default && `<span class="default">=<em>${ data.default }</em></span>` || '' }</code>
+        </a>
+    </h3>
+    ${ body }
+</section>

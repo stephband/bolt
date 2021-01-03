@@ -24,3 +24,17 @@ export const bgBlue    = "\x1b[44m%s\x1b[0m";
 export const bgMagenta = "\x1b[45m%s\x1b[0m";
 export const bgCyan    = "\x1b[46m%s\x1b[0m";
 export const bgWhite   = "\x1b[47m%s\x1b[0m";
+
+export const dimred     = dim + ' ' + red;
+export const dimgreen   = dim + ' ' + green;
+export const dimyellow  = dim + ' ' + yellow;
+export const dimblue    = dim + ' ' + blue;
+export const dimmagenta = dim + ' ' + magenta;
+export const dimcyan    = dim + ' ' + cyan;
+
+export const dimreddim     = dim + ' ' + red + ' ' + dim;
+export const dimgreendim   = dim + ' ' + green + ' ' + dim;
+export const dimyellowdim  = dim + ' ' + yellow + ' ' + dim;
+export const dimbluedim    = dim + ' ' + blue + ' ' + dim;
+export const dimmagentadim = dim + ' ' + magenta + ' ' + dim;
+export const dimcyandim    = dim + ' ' + cyan + ' ' + dim;

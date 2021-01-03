@@ -1,0 +1,29 @@
+
+{# Requires title (string), docs (array) #}
+
+<section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
+    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" locateable id="${ data.id  }" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">${ data.title  }</h2>
+
+${ data.docs
+.filter((doc) => doc.type === 'selector')
+.map((doc) => `
+    <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
+        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 20rem; width: 100%;">${ doc.examples[0] }</div>
+    </form>
+    
+    <div class="x-1 3x @1-x-3 @1-4x @2-x-4 x-stretch y-start block">
+        <h4 class="${ doc.type }-doctext-05 doctext-05">
+            <a href="#${ doc.id }-description" title="Show HTML markup"><code>${ doc.name }</code></a>
+        </h4>
+        <div class="right-bottom-bubble bottom-bubble bubble" popable id="${ doc.id }-description">${ doc.body }</div>
+    </div>
+`).join('') }
+
+    <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span ${ data.docs.filter((doc) => doc.type === 'selector').length  };">
+    ${ data.docs
+    .filter((doc) => doc.type === 'var')
+    .map((doc) => `
+        ${ include("../../entry.literal", doc) }
+    `).join('') }
+    </div>
+</section>

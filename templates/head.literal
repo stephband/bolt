@@ -1,0 +1,28 @@
+<meta charset="utf-8" />
+<meta name="author" content="${ author && author.name }" />
+<meta name="description" content="Documentation for ${title}. ${description}" />
+<meta name="viewport" content="width=device-width" />
+
+${ author && author.twitter && `
+<meta name="twitter:card" content="summary"></meta>
+<meta name="twitter:site" content="${ author && author.twitter}"></meta>
+<meta property="og:url" content="${ homepage }" />
+<meta property="og:title" content="${ title }" />
+<meta property="og:description" content="${ description }" />
+<meta property="og:image" content="${ image }" />
+` }
+
+<title>${title}</title>
+
+<link rel="icon" type="image/png" href="../images/logo-32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../images/logo-64.png" sizes="64x64">
+<link rel="icon" type="image/png" href="../images/logo-128.png" sizes="128x128">
+
+<script title="load">
+    document.documentElement.className += ' js content-loading loading';
+    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
+    // Wait for other load handlers to run first - Bolt does a few things on
+    // load (eg. locateable scrolls) and we want them to run before the loading
+    // class is removed
+    window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
+</script>

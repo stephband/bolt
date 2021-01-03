@@ -5,7 +5,7 @@ import { equals }    from '../../../fn/modules/equals.js';
 import * as registry from './functions.js';
 import renderString  from './to-text.js';
 import { rewriteURL, rewriteURLs } from './url.js';
-import { red, green, dim } from './log.js';
+import { red, green, dim, dimgreen, dimgreendim } from './log.js';
 
 
 const DEBUG = true;
@@ -28,31 +28,25 @@ function parseVars(string) {
 createCode(functions, template)
 **/
 
-const reserved = ['this', 'await', 'console', 'function', 'global', 'Promise'];
+const reserved = ['this', 'data', 'await', 'console', 'function', 'global', 'Promise'];
 
-function createCode(names, template) {
+function createCode(params, names, template) {
     const vars = parseVars(template);
 
     var n = -1;
     var name;
-    // fn(render = compose, fns, Value.of, this = context)
-    var code = '';//'const { ' + names.join(', ') + ' } = arguments[1];\n';
+    var code = '';
 
     while (name = vars[++n]) {
         // Variable already declared
-        if (names.includes(name) || reserved.includes(name)) {
+        if (names.includes(name) || params.includes(name) || reserved.includes(name)) {
             continue;
         }
 
         names.push(name);
 
         // Declare variables
-        // Don't think all that stuff was needed now we have a fn library
-        //code += //Value.prototype[name] ?
-            // Function
-            //'var ' + name + ' = (...params) => Pipe(this).' + name + '(...params);\n' :
-            // Property of context
-        code += 'var ' + name + ' = this.' + name + ';\n' ;
+        code += 'var ' + name + ' = data.' + name + ';\n' ;
     }
 
     return code + 'return render`' + template + '`;';
@@ -64,16 +58,16 @@ render(array, param)
 
 const join = (strings) => strings.join('');
 
-function render(array, param, string) {
+function smoosh(array, param, string) {
     return param && param.then ?
         param.then((value) => string + value) :
         string + renderString(param) ;
 }
 
-function renderText(literal) {
+function render(literal) {
     return Promise.all(
         literal.map((a, i, array) => (i + 1 < arguments.length ?
-            render(array, arguments[i + 1], a) :
+            smoosh(array, arguments[i + 1], a) :
             a
         ))
     )
@@ -89,8 +83,13 @@ const cache = {};
 
 const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor;
 
-function createAsyncFunction(names, code) {
-    return new AsyncFunction('render', ...names, code);
+function prependComment(source, string) {
+    return (source.endsWith('.css.literal') || source.endsWith('.js.literal')) ?
+        '/* Literal: "' + source + '" */\n\n' + string.replace(/^\s*, ''/) :
+    string.replace(/^\s(\<\!DOCTYPE html\>)?/, ($0, doctype) =>
+        (doctype ? doctype + '\n' : '') +
+        '<!-- Literal: "' + source + '" -->\n\n'
+    );
 }
 
 export default function Literal(context, string, source, target) {
@@ -98,40 +97,53 @@ export default function Literal(context, string, source, target) {
         throw new Error('Template is not a string');
     }
 
-    if (cache[string]) {
-        return cache[string];
+    if (cache[source]) {
+        return cache[source];
     }
 
     const fns = Object.assign({}, context, registry, {
         // Functions are executed in the context of the module ./literal.js
         // so we need to rewrite them to that context
         include: (url, context) => registry.include(rewriteURL(source, target, url), context, source, target),
-        fetch:   (url, name)    => registry.fetch(url, name, source, target)
+        imports: (url)          => registry.imports(url, source, target),
+        request: (url, name)    => registry.request(url, source, target),
+        docs:    (...urls)      => registry.docs(source, target, ...urls)
     });
 
     const entries = Object.entries(fns);
-    const names   = entries.map(get(0));
+    const params  = entries.map(get(0));
     const api     = entries.map(get(1));
-    const code    = createCode(names.slice(), string);
+    const vars    = [];
 
     if (DEBUG) {
+        // Add source comment to top of template
+        string = prependComment(source, string);
+    }
+
+    const code = createCode(params, vars, string);
+
+    if (DEBUG) {
+        console.log(dimgreendim, 'Literal', 'compile', source, vars.length ? '{ ' + vars.join(', ') + ' }'  : '');
+
         // Catch parsing of template for SyntaxErrors
         try {
-            var fn = createAsyncFunction(names, code);
+            var fn = new AsyncFunction('render', 'data', ...params, code);
         }
         catch(e) {
             e.code = code;
+            e.literal = string;
             throw(e);
         }
-
-        console.log(green + ' ' + dim, 'Literal compiled template', source);
     }
     else {
-        var fn = createAsyncFunction(names, code);
+        // Name the parameters
+        var fn = new AsyncFunction('render', 'data', ...params, code);
     }
 
-    // fn(data, render, ...names)
-    return cache[string] = (context) => fn
-        .call(context, renderText, ...api)
+    // fn(render, data, ...functions)
+    return cache[source] = (data) => fn
+        // Call fn with a blank `this` that we can use to set variables on,
+        // the render fn for nested rendering, our data, and the fn library api
+        .call({}, render, data, ...api)
         .then((text) => rewriteURLs(source, target, text));
 }

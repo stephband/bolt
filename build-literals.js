@@ -13,7 +13,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const dir = dirname(fileURLToPath(import.meta.url));
 
-import request from './literal/modules/request.js';
+import request    from './literal/modules/request.js';
 import { yellow } from './literal/modules/log.js';
 
 // Arguments
@@ -53,7 +53,7 @@ request('./package.json')
         // Build source template to target path
         processes
         // build [source.html, target.html]
-        .fork(dir + '/build-literal.js', [source, target, DEBUG && 'debug'])
+        .fork(dir + '/literal/index.js', [source, target, DEBUG && 'debug'])
         .on('error', console.log)
         .on('exit', function(code, error) {
             if (code !== 0) {

@@ -4,5 +4,17 @@
     "description": "Literal render templates as JavaScript literals",
     "type": "module",
     "module": "module.js",
-    "index": "index.js"
+    "index": "index.js",
+    "literal": {
+        "exclude": [
+            ".git/",
+            "node_modules/",
+            "archive/",
+            "fonts/",
+            "libs/",
+            "docs/",
+            "builder/",
+            "templates/"
+        ]
+    }
 }
