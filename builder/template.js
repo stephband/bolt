@@ -1,4 +1,6 @@
 
+import get           from '../../fn/modules/get.js';
+
 import { equals }    from '../../fn/modules/equals.js';
 import Value         from './value.js';
 import * as registry from './functions.js';
@@ -33,7 +35,7 @@ function createCode(names, template) {
     var n = -1;
     var name;
     // fn(render = compose, fns, Value.of, this = context)
-    var code = 'const { ' + names.join(', ') + ' } = arguments[1];\n';
+    var code = '';//'const { ' + names.join(', ') + ' } = arguments[1];\n';
 
     while (name = vars[++n]) {
         // Variable already declared
@@ -46,7 +48,7 @@ function createCode(names, template) {
         // Declare variables
         code += Value.prototype[name] ?
             // Function
-            'var ' + name + ' = (...params) => arguments[2](this).' + name + '(...params);\n' :
+            'var ' + name + ' = (...params) => Pipe(this).' + name + '(...params);\n' :
             // Property of context
             'var ' + name + ' = this.' + name + ';\n' ;
     }
@@ -93,25 +95,31 @@ export default function Template(functions, string) {
         registry :
         Object.assign({}, functions, registry) ;
 
-    const vars = Object.keys(fns);
-    const code = createCode(vars, string);
+    const entries = Object.entries(fns);
+    const names   = entries.map(get(0));
+    const values  = entries.map(get(1));
+
+    // TEMP
+    const vars    = names.slice();
+    const code    = createCode(vars, string);
     var fn;
 
     if (DEBUG) {
         // Catch parsing of template for SyntaxErrors
-        try { fn = new AsyncFunction('render', code); }
+        try { fn = new AsyncFunction('render', ...names, code); }
         catch(e) {
             e.code = code;
             throw(e);
         }
 
         console.log(green + ' ' + dim, 'Template compiled', 'context', '{ ' + vars.join(', ') + ' }');
+        //console.log(Object.toString.apply(fn));
     }
     else {
         fn = new AsyncFunction('render', code);
     }
-    
-    const render = (context) => fn.call(context, compose, fns, Value.of);
+
+    const render = (context) => fn.call(context, compose, ...values);
     if (isEmpty) { cache[string] = render; }
     return render;
 }
@@ -121,10 +129,4 @@ Value.prototype.each = function(template) {
     const array  = this.value;
     const render = Template({}, template);
     return Promise.all(array.map(render)).then(join);
-};
-
-// Enable #{ context('') } not like this tho
-Value.prototype.context = function(object) {
-    const array  = this.value;
-    return '';
 };
