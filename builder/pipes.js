@@ -6,20 +6,19 @@ import { getPath }      from '../../fn/modules/get-path.js';
 import { equals }       from '../../fn/modules/equals.js';
 import { get }          from '../../fn/modules/get.js';
 import { has }          from '../../fn/modules/has.js';
-import { invoke }       from '../../fn/modules/invoke.js';
 import { is }           from '../../fn/modules/is.js';
-import isDefined        from '../../fn/modules/is-defined.js';
 import { matches }      from '../../fn/modules/matches.js';
 import not              from '../../fn/modules/not.js';
-import toInt            from '../../fn/modules/parse-int.js';
 import { toFixed }      from '../../fn/modules/to-fixed.js';
-import toString         from '../../fn/modules/to-string.js';
 import toType           from '../../fn/modules/to-type.js';
 import toClass          from '../../fn/modules/to-class.js';
 import * as normalise   from '../../fn/modules/normalisers.js';
 import * as denormalise from '../../fn/modules/denormalisers.js';
 
-import { sum, exp, log, multiply, pow, root, toRad, toDeg } from '../../fn/modules/maths/core.js';
+import id               from '../../fn/modules/id.js';
+import parseValue       from '../../fn/modules/parse-value.js';
+
+import { exp, log, multiply, pow, root, toRad, toDeg } from '../../fn/modules/maths/core.js';
 import toLevel          from '../../fn/modules/maths/to-gain.js';
 import todB             from '../../fn/modules/maths/to-db.js';
 import { clamp }        from '../../fn/modules/maths/clamp.js';
@@ -39,13 +38,11 @@ import last             from '../../fn/modules/lists/last.js';
 import { take }         from '../../fn/modules/take.js';
 import { rest }         from '../../fn/modules/rest.js';
 
-import compose          from '../../fn/modules/compose.js';
 import overload         from '../../fn/modules/overload.js';
 import { formatDate, addDate } from '../../fn/modules/date.js';
 import { formatTime, addTime, subTime } from '../../fn/modules/time.js';
 
 var A         = Array.prototype;
-var S         = String.prototype;
 
 function addType(n) {
     const type = typeof n;
@@ -54,6 +51,60 @@ function addType(n) {
         /^\d\d(?::|$)/.test(n) ? 'time' :
         'string' :
     type;
+}
+
+// Units
+
+/**
+parselength(value)
+Takes number in pixels or a CSS value as a string and returns a string
+of the form '10.25rem'.
+**/
+
+const parseLength = overload(toType, {
+    'number': id,
+
+    'string': parseValue({
+        'px': (n) => n,
+        'em': (n) => 16 * n,
+        'rem': (n) => 16 * n
+    })
+});
+
+/**
+toPx(value)
+Takes number in pixels or a CSS value as a string and returns a string
+of the form '10.25rem'.
+**/
+
+function toPx(n) {
+    return parseLength(n) + 'px';
+}
+
+/**
+toRem(value)
+Takes number in pixels or a CSS value as a string and returns a string
+of the form '10.25rem'.
+**/
+
+function toEm(n) {
+    return (parseLength(n) / 16)
+        // Chrome needs min 7 digit precision for accurate rendering
+        .toFixed(8)
+        // Remove trailing 0s
+        .replace(/\.?0*$/, '')
+        // Postfix
+        + 'em';
+}
+
+function toRem(n) {
+    return (parseLength(n) / 16)
+        // Chrome needs min 7 digit precision for accurate rendering
+        .toFixed(8)
+        // Remove trailing 0s
+        .replace(/\.?0*$/, '')
+        // Postfix
+        + 'rem';
 }
 
 const registry = {
@@ -183,7 +234,11 @@ const registry = {
     /** to-polar:
     Transforms a polar coordinate array to cartesian coordinates. */
     'to-polar': toPolar,
-    
+
+    'to-px':  toPx,
+    'to-em':  toEm,
+    'to-rem': toRem,
+
     /** floatformat: n
     Transforms numbers to strings with `n` decimal places. Used for
     two-way binding, gaurantees numbers are set on scope. */

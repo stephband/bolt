@@ -41,7 +41,7 @@ export default overload(toType, {
         // Don't render null
         return value ?
             JSON.stringify(value) :
-            '';
+            '' ;
     },
 
     'default': JSON.stringify

@@ -33,7 +33,7 @@ request('./package.json')
     
         // Remove trailing '/' or '/*' from ignore
         if (ignores.find((ignore) => dir.startsWith(ignore.replace(/\/\*?$/, '')))) {
-            console.log(yellow, 'Ignoring', dir + '/');
+            //console.log(yellow, 'Ignoring', dir + '/');
             stop();
             return;
         }
@@ -46,6 +46,8 @@ request('./package.json')
         const path = parts[1];
         const name = parts[2];
         const ext  = parts[3];
+
+        if (name !== "text") { return; }
         // Replace path with destination
         //const target = (path ? dest ? dest : path : '') + name + '.html';
         // No, build in place... Todo: allow alternative target destination
@@ -54,7 +56,7 @@ request('./package.json')
         // Build source template to target path
         processes
         // build [source.html, target.html]
-        .fork(dir + '/build-template.js', [source, target, DEBUG && 'debug'])
+        .fork(dir + '/build-bolt-template.js', [source, target, DEBUG && 'debug'])
         .on('error', console.log)
         .on('exit', function(code, error) {
             if (code !== 0) {
