@@ -1,0 +1,54 @@
+
+<header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
+    ${ data.docs.filter((doc) => doc.type === 'element').map((doc) => `
+    <h2 class="doctext-02">&lt;${ doc.name }&gt;</h2>
+    ${ doc.body }
+    `).join('') }
+</header>
+
+{# Use a form to isolate form element examples #}
+<form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
+    ${ data.docs[0].examples[0] }
+    <!-- for testing form submission values -->
+    <input hidden class="button" type="submit" />
+</form>
+
+<div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+    ${ this.attributes = data.docs.filter((doc) => doc.type === 'attribute') }
+    ${ this.attributes.length ? '<h3 class="doctext-03">Attributes</h3>' : '' }
+    ${ this.attributes.map((doc) => render`
+    ${ include("../../entry.literal", doc) }
+    `).join('') }
+
+    ${ this.slots = data.docs.filter((doc) => doc.type === 'slot') }
+    ${ this.slots.length ? '<h3 class="doctext-03">Slots</h3>' : '' }
+    ${ this.slots.map((doc) => render`
+    ${ include("../../entry.literal", doc) }
+    `).join('') }
+
+    ${ this.properties = data.docs.filter((doc) => doc.type === 'property') }
+    ${ this.properties.length ? '<h3 class="doctext-03">Properties</h3>' : '' }
+    ${ this.properties.map((doc) => render`
+    ${ include("../../entry.literal", doc) }
+    `).join('') }
+    
+    ${ this.events = data.docs.filter((doc) => doc.type === 'event') }
+    ${ this.events.length ? '<h3 class="doctext-03">Events</h3>' : '' }
+    ${ this.events.map((doc) => render`
+    ${ include("../../entry.literal", doc) }
+    `).join('') }
+</div>
+
+<div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
+    ${ this.parts = data.docs.filter((doc) => doc.type === 'part') }
+    ${ this.parts.length ? '<h3 class="doctext-03">Parts</h3>' : '' }
+    ${ this.parts.map((doc) => render`
+    ${ include("../../entry.literal", doc) }
+    `).join('') }
+
+    ${ this.vars = data.docs.filter((doc) => doc.type === 'var') }
+    ${ this.vars.length ? '<h3 class="doctext-03">Variables</h3>' : '' }
+    ${ this.vars.map((doc) => render`
+    ${ include("../../entry.literal", doc) }
+    `).join('') }
+</div>
