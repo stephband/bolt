@@ -2,6 +2,7 @@
 import get           from '../../../fn/modules/get.js';
 
 import { equals }    from '../../../fn/modules/equals.js';
+import compileAsyncFn from '../../../fn/modules/compile-async-function.js';
 import * as registry from './functions.js';
 import renderString  from './to-text.js';
 import { rewriteURL, rewriteURLs } from './url.js';
@@ -101,49 +102,48 @@ export default function Literal(context, string, source, target) {
         return cache[source];
     }
 
-    const fns = Object.assign({}, context, registry, {
+    const scope = Object.assign({}, context, registry, {
         // Functions are executed in the context of the module ./literal.js
         // so we need to rewrite them to that context
         include: (url, context) => registry.include(rewriteURL(source, target, url), context, source, target),
         imports: (url)          => registry.imports(url, source, target),
         request: (url, name)    => registry.request(url, source, target),
-        docs:    (...urls)      => registry.docs(source, target, ...urls)
+        docs:    (...urls)      => registry.docs(source, target, ...urls),
+        render:  render
     });
 
-    const entries = Object.entries(fns);
-    const params  = entries.map(get(0));
-    const api     = entries.map(get(1));
-    const vars    = [];
+    const names = Object.keys(scope);
+    const vars  = [];
 
     if (DEBUG) {
         // Add source comment to top of template
         string = prependComment(source, string);
     }
 
-    const code = createCode(params, vars, string);
+    const code = createCode(names, vars, string);
 
     if (DEBUG) {
         console.log(dimgreendim, 'Literal', 'compile', source, vars.length ? '{ ' + vars.join(', ') + ' }'  : '');
 
         // Catch parsing of template for SyntaxErrors
         try {
-            var fn = new AsyncFunction('render', 'data', ...params, code);
+            var fn = compileAsyncFn(scope, 'data', code);
         }
         catch(e) {
             e.code = code;
             e.literal = string;
+            console.log(dimreddim, 'Literal', e.message, '\n\n', code);
             throw(e);
         }
     }
     else {
-        // Name the parameters
-        var fn = new AsyncFunction('render', 'data', ...params, code);
+        var fn = compileAsyncFn(scope, 'data', code);
     }
 
     // fn(render, data, ...functions)
     return cache[source] = (data) => fn
-        // Call fn with a blank `this` that we can use to set variables on,
-        // the render fn for nested rendering, our data, and the fn library api
-        .call({}, render, data, ...api)
+        // Call fn with a blank `this` context that we can use to set 
+        // variables on inside the template, and our data
+        .call({}, data)
         .then((text) => rewriteURLs(source, target, text));
 }

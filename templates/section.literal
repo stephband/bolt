@@ -22,7 +22,7 @@ ${ data.docs
     <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span ${ data.docs.filter((doc) => doc.type === 'selector').length  };">
     ${ data.docs
     .filter((doc) => doc.type === 'var')
-    .map((doc) => `
+    .map((doc) => render`
         ${ include("../../entry.literal", doc) }
     `).join('') }
     </div>

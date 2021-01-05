@@ -6,7 +6,6 @@
     `).join('') }
 </header>
 
-{# Use a form to isolate form element examples #}
 <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
     ${ data.docs[0].examples[0] }
     <!-- for testing form submission values -->
@@ -16,39 +15,27 @@
 <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
     ${ this.attributes = data.docs.filter((doc) => doc.type === 'attribute') }
     ${ this.attributes.length ? '<h3 class="doctext-03">Attributes</h3>' : '' }
-    ${ this.attributes.map((doc) => render`
-    ${ include("../../entry.literal", doc) }
-    `).join('') }
+    ${ Promise.all(this.attributes.map((doc) => include("../../entry.literal", doc))).then((array) => array.join('')) }
 
     ${ this.slots = data.docs.filter((doc) => doc.type === 'slot') }
     ${ this.slots.length ? '<h3 class="doctext-03">Slots</h3>' : '' }
-    ${ this.slots.map((doc) => render`
-    ${ include("../../entry.literal", doc) }
-    `).join('') }
+    ${ Promise.all(this.slots.map((doc) => include("../../entry.literal", doc))).then((array) => array.join(''))  }
 
     ${ this.properties = data.docs.filter((doc) => doc.type === 'property') }
     ${ this.properties.length ? '<h3 class="doctext-03">Properties</h3>' : '' }
-    ${ this.properties.map((doc) => render`
-    ${ include("../../entry.literal", doc) }
-    `).join('') }
+    ${ Promise.all(this.properties.map((doc) => include("../../entry.literal", doc))).then((array) => array.join(''))  }
     
     ${ this.events = data.docs.filter((doc) => doc.type === 'event') }
     ${ this.events.length ? '<h3 class="doctext-03">Events</h3>' : '' }
-    ${ this.events.map((doc) => render`
-    ${ include("../../entry.literal", doc) }
-    `).join('') }
+    ${ Promise.all(this.events.map((doc) => include("../../entry.literal", doc))).then((array) => array.join(''))  }
 </div>
 
 <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
     ${ this.parts = data.docs.filter((doc) => doc.type === 'part') }
     ${ this.parts.length ? '<h3 class="doctext-03">Parts</h3>' : '' }
-    ${ this.parts.map((doc) => render`
-    ${ include("../../entry.literal", doc) }
-    `).join('') }
+    ${ Promise.all(this.parts.map((doc) => include("../../entry.literal", doc))).then((array) => array.join(''))  }
 
     ${ this.vars = data.docs.filter((doc) => doc.type === 'var') }
     ${ this.vars.length ? '<h3 class="doctext-03">Variables</h3>' : '' }
-    ${ this.vars.map((doc) => render`
-    ${ include("../../entry.literal", doc) }
-    `).join('') }
+    ${ Promise.all(this.vars.map((doc) => include("../../entry.literal", doc))).then((array) => array.join(''))  }
 </div>

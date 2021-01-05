@@ -16,11 +16,11 @@ export { default as by }      from '../../../fn/modules/by.js';
 export { default as equals }  from '../../../fn/modules/equals.js';
 export { default as get }     from '../../../fn/modules/get-path.js';
 export { default as id }      from '../../../fn/modules/id.js';
-export { default as pipe }    from '../../../fn/modules/pipe.js';
 export { default as px, em, rem } from './parse-length.js';
 
 export { default as exec }    from '../../../fn/modules/exec.js';
 export { default as slugify } from '../../../fn/modules/slugify.js';
+export { default as Pipe }    from './pipe.js';
 
 import request from './request.js';
 import { rewriteURL, rewriteURLs } from './url.js';
@@ -33,9 +33,6 @@ function requestURL(url, source, target) {
 
 export { requestURL as request };
 
-
-import Value from './value.js';
-export const Pipe    = (value) => new Value(value);
 export const entries = Object.entries;
 export const keys    = Object.keys;
 export const values  = Object.values;
@@ -191,17 +188,12 @@ function toAddType(n) {
 }
 
 export const add = overload(toAddType, {
-    'number': (a) => (b) => (
-        typeof b === 'number' ? b + a :
-            b && b.add ? b.add(a) :
-            undefined
-    ),
-
     'date': addDate,
     'time': addTime,
-
+    'string': (a) => (b) => b + a,
+    'number': (a) => (b) => b + a,
     'default': function(n) {
-        throw new Error('Bolt add(value) does not accept values of type ' + typeof n);
+        throw new Error('add(value) does not accept values of type ' + typeof n);
     }
 });
 
