@@ -29,7 +29,7 @@ function parseVars(string) {
 createCode(functions, template)
 **/
 
-const reserved = ['this', 'data', 'await', 'console', 'function', 'global', 'Promise'];
+const reserved = ['Array', 'Object', 'this', 'data', 'await', 'console', 'function', 'global', 'Promise'];
 
 function createCode(params, names, template) {
     const vars = parseVars(template);
@@ -59,16 +59,19 @@ render(array, param)
 
 const join = (strings) => strings.join('');
 
-function smoosh(array, param, string) {
-    return param && param.then ?
-        param.then((value) => string + value) :
-        string + renderString(param) ;
+function stringify(array, param, string) {
+    return param && typeof param === 'object' ? (
+        param.then ? param.then((value) => string + value) :
+        //param.join ? string + param.join('') :
+        string + renderString(param)
+    ) :
+    string + renderString(param) ;
 }
 
 function render(literal) {
     return Promise.all(
         literal.map((a, i, array) => (i + 1 < arguments.length ?
-            smoosh(array, arguments[i + 1], a) :
+            stringify(array, arguments[i + 1], a) :
             a
         ))
     )
