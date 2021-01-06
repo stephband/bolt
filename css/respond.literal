@@ -1,0 +1,60 @@
+
+/**
+.print-hidden
+
+Hide element on printed page.
+\`\`\`html
+<nav class="print-hidden">...</nav>
+\`\`\`
+**/
+
+@media print {
+    .print-hidden { display: none !important; }
+}
+
+/**
+.shown
+
+Forces \`display: none\` below a given breakpoint. This class is only available
+with breakpoint prefixes (\`@1-\`, \`@2-\`, ...).
+
+\`\`\`html
+<a class="@1-shown" href="...">Link</a>
+\`\`\`
+**/
+
+/**
+.hidden
+
+Forces \`display: none\` above a given breakpoint. This class is available
+with breakpoint prefixes (\`@1-\`, \`@2-\`, ...).
+
+\`\`\`html
+<a class="@1-hidden" href="...">Link</a>
+\`\`\`
+**/
+
+${ data.map((breakpoint) => (px(breakpoint.width) ? `
+/* Breakpoint "${ breakpoint.prefix }", ${ em(breakpoint.width) }em (${ px(breakpoint.width) }px) */
+
+@media screen and (max-width: ${ Pipe(breakpoint.width).px().add(-1).em() }em) {
+    .${ breakpoint.prefix }shown          { display: none !important; }
+}
+
+@media screen and (min-width: ${ em(breakpoint.width) }em) {` : '') + (`
+    .${ breakpoint.prefix }hidden         { display: none !important; }
+  /*.${ breakpoint.prefix }block          { display: block !important; }*/
+    .${ breakpoint.prefix }flex           { display: flex !important; }
+    .${ breakpoint.prefix }inline         { display: inline-block !important; }
+    .${ breakpoint.prefix }left           { float: left !important; clear: left; }
+    .${ breakpoint.prefix }right          { float: right !important; clear: right; }
+    .${ breakpoint.prefix }top-align      { vertical-align: top !important; }
+    .${ breakpoint.prefix }bottom-align   { vertical-align: bottom !important; }
+    .${ breakpoint.prefix }middle-align   { vertical-align: middle !important; }
+    .${ breakpoint.prefix }baseline-align { vertical-align: baseline !important; }
+    .${ breakpoint.prefix }left-align     { text-align: left !important; }
+    .${ breakpoint.prefix }right-align    { text-align: right !important; }
+    .${ breakpoint.prefix }center-align   { text-align: center !important; }
+    .${ breakpoint.prefix }justify-align  { text-align: justify !important; }
+`) + (px(breakpoint.width) ? `}
+` : '')).join('') }

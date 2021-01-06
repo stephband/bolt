@@ -19,11 +19,11 @@ const parseLength = overload(toType, {
         'rem': (n) => 16 * n,
         catch: (n, unit) => {
             if (Number.isNaN(n)) {
-                throw new Error('Invalid CSS length');
+                throw new Error('Invalid CSS length NaN');
             }
 
             if (unit) {
-                throw new Error('Invalid CSS length unit ' + unit);
+                throw new Error('Invalid CSS length value: ' + n + ' unit: ' + unit);
             }
 
             return n;

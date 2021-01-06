@@ -1,7 +1,9 @@
 
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-const current = dirname(fileURLToPath(import.meta.url));
+
+// Absolute path to module
+const moduleAbs = dirname(fileURLToPath(import.meta.url));
 
 import exec                from '../../../fn/modules/exec.js';
 import get                 from '../../../fn/modules/get.js';
@@ -49,21 +51,42 @@ imports(url)
 Imports all exports of a JS module or JSON file.
 **/
 
-export const imports = overload(toExtension, {
-    // TODO: correctly get the path
-    '.js': (url, source, target) =>
-        import(rewriteURL(source, target, '../../../' + getRootSrc(source, url))),
+export const imports = overload((source, target, url) => toExtension(url), {
+    '.js': (source, target, url) => {
+        // Current directory absolute
+        const currentAbs  = process.cwd();
+        // Source dir relative to current working directory
+        const sourcedir   = path.dirname(source);
+        // Resource path relative to current working directory
+        const resource    = path.join(sourcedir, url);
+        // Resource path absolute
+        const resourceAbs = path.join(currentAbs, resource);
+        // Resource path relative to module
+        const resourceRel = path.relative(moduleAbs, resourceAbs);
 
-    // TODO: correctly get the path
-    '.json': (url, source, target) =>
-        import(rewriteURL(source, target, '../../../' + getRootSrc(source, url)))
-        .then(get('default')),
+        return import(resourceRel);
+    },
 
-    'undefined': (url) => {
+    '.json': (source, target, url) => {
+        // Current directory absolute
+        const currentAbs  = process.cwd();
+        // Source dir relative to current working directory
+        const sourcedir   = path.dirname(source);
+        // Resource path relative to current working directory
+        const resource    = path.join(sourcedir, url);
+        // Resource path absolute
+        const resourceAbs = path.join(currentAbs, resource);
+        // Resource path relative to module
+        const resourceRel = path.relative(moduleAbs, resourceAbs);
+
+        return import(resourceRel).then(get('default'));
+    },
+
+    'undefined': (source, target, url) => {
         throw new TypeError('File extension required by imports("' + url + '")');
     },
 
-    default: (url) => {
+    default: (source, target, url) => {
         throw new TypeError('File extension ".'
             + toExtension(url) 
             + '" not supported by imports("' + url + '")'
@@ -80,7 +103,7 @@ Includes a template from `url`, rendering it with `context`.
 
 const resolveContext = overload(toType, {
     'string': (url, source, target) => {
-        return imports(url, source, target);
+        return imports(source, target, url);
     },
 
     default: id

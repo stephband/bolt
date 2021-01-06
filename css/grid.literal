@@ -1,0 +1,368 @@
+
+/**
+Columns.
+**/
+
+/**
+.2-columns
+
+\`\`\`html
+<div class="2-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+</div>
+\`\`\`
+**/
+
+/**
+.3-columns
+
+\`\`\`html
+<div class="3-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+</div>
+\`\`\`
+**/
+
+/**
+.4-columns … .12-columns
+
+\`\`\`html
+<div class="4-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+</div>
+\`\`\`
+**/
+
+/**
+Grid.
+**/
+
+/**
+.grid
+
+\`\`\`html
+<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button">&nbsp;</div>
+</div>
+\`\`\`
+
+Creates a grid with horizontal flow and equal width columns.
+**/
+
+/**
+.2x-grid
+
+\`\`\`html
+<div class="2x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+</div>
+\`\`\`
+
+Creates a grid with 2 equal width columns.
+**/
+
+/**
+.3x-grid
+
+\`\`\`html
+<div class="3x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+</div>
+\`\`\`
+
+Creates a grid with 3 equal width columns.
+**/
+
+/**
+.4x-grid … .12x-grid
+
+\`\`\`html
+<div class="4x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+</div>
+\`\`\`
+**/
+
+/**
+.x-1 … .x-12,
+.2x … .12x,
+.x-start,
+.x-center,
+.x-end,
+.x-stretch,
+.x-bleed,
+.x-flood
+
+\`\`\`html
+<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button x-1">x-1</div>
+    <div class="button x-2">x-2</div>
+    <div class="button x-3">x-3</div>
+    <div class="button x-1 2x">2x</div>
+    <div class="button x-1 3x">3x</div>
+    <div class="button x-1 x-start y-4">x-start</div>
+    <div class="button x-2 x-center y-4">x-center</div>
+    <div class="button x-3 x-end y-4">x-end</div>
+    <div class="button x-1 x-stretch y-5">x-stretch</div>
+    <div class="button x-2 x-bleed y-5">x-bleed</div>
+    <div class="button x-3 x-flood y-5">x-flood</div>
+</div>
+\`\`\`
+
+Note that \`.x-bleed\`, which stretches an element half the way across the grid 
+gap, and \`.x-flood\`, which stretches an element all the way across the grid gap,
+depends on \`column-gap\` having been set via the custom property \`--column-gap\`.
+**/
+
+/**
+.y-1 … .y-18,
+.2y … .12y,
+.y-start,
+.y-center,
+.y-end,
+.y-stretch,
+.y-bleed,
+.y-flood,
+.y-baseline,
+.y-lastline
+
+\`\`\`html
+<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button x-1 y-1">y-1</div>
+    <div class="button x-1 y-2">y-2</div>
+    <div class="button x-1 y-3">y-3</div>
+    <div class="button x-2 y-1 2y">2y</div>
+    <div class="button x-3 y-1 3y">3y</div>
+    <div class="button x-1 y-4 y-start">y-start</div>
+    <div class="button x-1 y-5 y-center">y-center</div>
+    <div class="button x-1 y-6 y-end">y-end</div>
+    <div class="button x-2 y-4 y-stretch">y-stretch</div>
+    <div class="button x-2 y-5 y-bleed">y-bleed</div>
+    <div class="button x-2 y-6 y-flood">y-flood</div>
+    <div class="button x-3 y-4 y-baseline">y-baseline</div>
+    <div class="button x-3 y-5 y-lastline">y-lastline</div>
+</div>
+\`\`\`
+**/
+
+/**
+--column-gap
+Define the horizontal grid gap (with units).
+**/
+
+/**
+--row-gap
+Define the vertical grid gap (with units).
+**/
+
+
+${ data.map((bp) => (px(bp.width) ? `
+/* bp "${ bp.prefix }", ${ em(bp.width) }em (${ px(bp.width) }px) */
+
+@media (min-width: ${ em(bp.width) }em) {` : '') + (`
+    .${ bp.prefix }columns {
+        display: block !important;
+        column-gap: var(--column-gap);
+    }
+
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }-columns  { columns: 1 !important; }
+    .${ bp.prefix ? bp.prefix + '2' : '\\32 ' }-columns  { columns: 2 !important; }
+    .${ bp.prefix ? bp.prefix + '3' : '\\33 ' }-columns  { columns: 3 !important; }
+    .${ bp.prefix ? bp.prefix + '4' : '\\34 ' }-columns  { columns: 4 !important; }
+    .${ bp.prefix ? bp.prefix + '5' : '\\35 ' }-columns  { columns: 5 !important; }
+    .${ bp.prefix ? bp.prefix + '6' : '\\36 ' }-columns  { columns: 6 !important; }
+    .${ bp.prefix ? bp.prefix + '7' : '\\37 ' }-columns  { columns: 7 !important; }
+    .${ bp.prefix ? bp.prefix + '8' : '\\38 ' }-columns  { columns: 8 !important; }
+    .${ bp.prefix ? bp.prefix + '9' : '\\39 ' }-columns  { columns: 9 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }0-columns { columns: 10 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }1-columns { columns: 11 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }2-columns { columns: 12 !important; }
+
+    .${ bp.prefix }grid {
+        display: grid !important;
+        /* Horizontal layout */
+        grid-auto-flow: row;
+        /* Create equal columns by default. */
+        grid-auto-columns: minmax(0, 1fr);
+        column-gap: var(--column-gap);
+        row-gap: var(--row-gap);
+    }
+
+    .${ bp.prefix }y-start-grid {
+        align-content: start;
+    }
+
+    .${ bp.prefix ? bp.prefix + '2' : '\\32 ' }x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '3' : '\\33 ' }x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '4' : '\\34 ' }x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '5' : '\\35 ' }x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '6' : '\\36 ' }x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '7' : '\\37 ' }x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '8' : '\\38 ' }x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '9' : '\\39 ' }x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }0x-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }1x-grid { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }2x-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+
+    .${ bp.prefix }x-1         { grid-column-start: 1 !important; }
+    .${ bp.prefix }x-2         { grid-column-start: 2 !important; }
+    .${ bp.prefix }x-3         { grid-column-start: 3 !important; }
+    .${ bp.prefix }x-4         { grid-column-start: 4 !important; }
+    .${ bp.prefix }x-5         { grid-column-start: 5 !important; }
+    .${ bp.prefix }x-6         { grid-column-start: 6 !important; }
+    .${ bp.prefix }x-7         { grid-column-start: 7 !important; }
+    .${ bp.prefix }x-8         { grid-column-start: 8 !important; }
+    .${ bp.prefix }x-9         { grid-column-start: 9 !important; }
+    .${ bp.prefix }x-10        { grid-column-start: 10 !important; }
+    .${ bp.prefix }x-11        { grid-column-start: 11 !important; }
+    .${ bp.prefix }x-12        { grid-column-start: 12 !important; }
+    .${ bp.prefix }x-13        { grid-column-start: 13 !important; }
+    .${ bp.prefix }x-14        { grid-column-start: 14 !important; }
+    .${ bp.prefix }x-15        { grid-column-start: 15 !important; }
+    .${ bp.prefix }x-16        { grid-column-start: 16 !important; }
+
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }x       { grid-column-end: span 1 !important; }
+    .${ bp.prefix ? bp.prefix + '2' : '\\32 ' }x       { grid-column-end: span 2 !important; }
+    .${ bp.prefix ? bp.prefix + '3' : '\\33 ' }x       { grid-column-end: span 3 !important; }
+    .${ bp.prefix ? bp.prefix + '4' : '\\34 ' }x       { grid-column-end: span 4 !important; }
+    .${ bp.prefix ? bp.prefix + '5' : '\\35 ' }x       { grid-column-end: span 5 !important; }
+    .${ bp.prefix ? bp.prefix + '6' : '\\36 ' }x       { grid-column-end: span 6 !important; }
+    .${ bp.prefix ? bp.prefix + '7' : '\\37 ' }x       { grid-column-end: span 7 !important; }
+    .${ bp.prefix ? bp.prefix + '8' : '\\38 ' }x       { grid-column-end: span 8 !important; }
+    .${ bp.prefix ? bp.prefix + '9' : '\\39 ' }x       { grid-column-end: span 9 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }0x      { grid-column-end: span 10 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }1x      { grid-column-end: span 11 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }2x      { grid-column-end: span 12 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }3x      { grid-column-end: span 13 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }4x      { grid-column-end: span 14 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }5x      { grid-column-end: span 15 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }6x      { grid-column-end: span 16 !important; }
+
+    .${ bp.prefix }x-end {
+        justify-self: end !important; 
+        margin-right: 0; 
+    }
+
+    .${ bp.prefix }x-start {
+        justify-self: start !important;
+        margin-left: 0; 
+    }
+
+    .${ bp.prefix }x-center { 
+        justify-self: center !important; 
+    }
+
+    .${ bp.prefix }x-stretch { 
+        justify-self: stretch !important; 
+        margin-left: 0; 
+        margin-right: 0; 
+    }
+
+    .${ bp.prefix }x-bleed {
+        justify-self: stretch !important;
+        margin-left:  calc(var(--column-gap) / -2);
+        margin-right: calc(var(--column-gap) / -2);
+    }
+
+    .${ bp.prefix }x-flood {
+        justify-self: stretch !important;
+        margin-left:  calc(-1 * var(--column-gap));
+        margin-right: calc(-1 * var(--column-gap));
+    }
+
+    .${ bp.prefix ? bp.prefix + '2' : '\\32 ' }y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '3' : '\\33 ' }y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '4' : '\\34 ' }y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '5' : '\\35 ' }y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '6' : '\\36 ' }y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '7' : '\\37 ' }y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '8' : '\\38 ' }y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '9' : '\\39 ' }y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }0y-grid { grid-template-rows: repeat(10, minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }1y-grid { grid-template-rows: repeat(11, minmax(0, 1fr)); }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }2y-grid { grid-template-rows: repeat(12, minmax(0, 1fr)); }
+
+    .${ bp.prefix }y-1         { grid-row-start: 1 !important; }
+    .${ bp.prefix }y-2         { grid-row-start: 2 !important; }
+    .${ bp.prefix }y-3         { grid-row-start: 3 !important; }
+    .${ bp.prefix }y-4         { grid-row-start: 4 !important; }
+    .${ bp.prefix }y-5         { grid-row-start: 5 !important; }
+    .${ bp.prefix }y-6         { grid-row-start: 6 !important; }
+    .${ bp.prefix }y-7         { grid-row-start: 7 !important; }
+    .${ bp.prefix }y-8         { grid-row-start: 8 !important; }
+    .${ bp.prefix }y-9         { grid-row-start: 9 !important; }
+    .${ bp.prefix }y-10        { grid-row-start: 10 !important; }
+    .${ bp.prefix }y-11        { grid-row-start: 11 !important; }
+    .${ bp.prefix }y-12        { grid-row-start: 12 !important; }
+    .${ bp.prefix }y-13        { grid-row-start: 13 !important; }
+    .${ bp.prefix }y-14        { grid-row-start: 14 !important; }
+    .${ bp.prefix }y-15        { grid-row-start: 15 !important; }
+    .${ bp.prefix }y-16        { grid-row-start: 16 !important; }
+    .${ bp.prefix }y-17        { grid-row-start: 17 !important; }
+    .${ bp.prefix }y-18        { grid-row-start: 18 !important; }
+
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }y       { grid-row-end: span 1 !important; }
+    .${ bp.prefix ? bp.prefix + '2' : '\\32 ' }y       { grid-row-end: span 2 !important; }
+    .${ bp.prefix ? bp.prefix + '3' : '\\33 ' }y       { grid-row-end: span 3 !important; }
+    .${ bp.prefix ? bp.prefix + '4' : '\\34 ' }y       { grid-row-end: span 4 !important; }
+    .${ bp.prefix ? bp.prefix + '5' : '\\35 ' }y       { grid-row-end: span 5 !important; }
+    .${ bp.prefix ? bp.prefix + '6' : '\\36 ' }y       { grid-row-end: span 6 !important; }
+    .${ bp.prefix ? bp.prefix + '7' : '\\37 ' }y       { grid-row-end: span 7 !important; }
+    .${ bp.prefix ? bp.prefix + '8' : '\\38 ' }y       { grid-row-end: span 8 !important; }
+    .${ bp.prefix ? bp.prefix + '9' : '\\39 ' }y       { grid-row-end: span 9 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }0y      { grid-row-end: span 10 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }1y      { grid-row-end: span 11 !important; }
+    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }2y      { grid-row-end: span 12 !important; }
+
+    .${ bp.prefix }y-end       {
+        align-self: end !important;
+        margin-bottom: 0;
+    }
+
+    .${ bp.prefix }y-start     {
+        align-self: start !important;
+        margin-top: 0;
+    }
+
+    .${ bp.prefix }y-center    {
+        align-self: center !important;
+    }
+
+    .${ bp.prefix }y-stretch   {
+        align-self: stretch !important;
+        margin-top: 0; 
+        margin-bottom: 0;
+    }
+
+    .${ bp.prefix }y-baseline  {
+        align-self: baseline !important; 
+    }
+
+    .${ bp.prefix }y-lastline  {
+        align-self: last baseline !important; 
+    }
+
+    .${ bp.prefix }y-bleed {
+        align-self: stretch !important;
+        margin-top:  calc(var(--row-gap) / -2);
+        margin-bottom: calc(var(--row-gap) / -2);
+    }
+
+    .${ bp.prefix }y-flood {
+        align-self: stretch !important;
+        margin-top:  calc(-1 * var(--row-gap));
+        margin-bottom: calc(-1 * var(--row-gap));
+    }
+
+    :root {
+        --column-gap: ${ rem(bp['column-gap']) }rem;
+        --row-gap: ${ rem(bp['row-gap']) }rem;
+    }
+`) + (px(bp.width) ? `}
+` : '')).join('') }

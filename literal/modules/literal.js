@@ -6,7 +6,7 @@ import compileAsyncFn from '../../../fn/modules/compile-async-function.js';
 import * as registry from './functions.js';
 import renderString  from './to-text.js';
 import { rewriteURL, rewriteURLs } from './url.js';
-import { red, green, dim, dimgreen, dimgreendim } from './log.js';
+import { red, green, dim, dimgreen, dimgreendim, dimreddim } from './log.js';
 
 
 const DEBUG = true;
@@ -84,12 +84,12 @@ const cache = {};
 
 const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor;
 
-function prependComment(source, string) {
-    return (source.endsWith('.css.literal') || source.endsWith('.js.literal')) ?
-        '/* Literal: "' + source + '" */\n\n' + string.replace(/^\s*, ''/) :
+function prependComment(source, target, string) {
+    return (target.endsWith('.css') || target.endsWith('.js')) ?
+        '/* Literal source "' + source + '" */\n\n' + string.replace(/^\s*, ''/) :
     string.replace(/^\s(\<\!DOCTYPE html\>)?/, ($0, doctype) =>
         (doctype ? doctype + '\n' : '') +
-        '<!-- Literal: "' + source + '" -->\n\n'
+        '<!-- Literal source "' + source + '" -->\n\n'
     );
 }
 
@@ -106,7 +106,7 @@ export default function Literal(context, string, source, target) {
         // Functions are executed in the context of the module ./literal.js
         // so we need to rewrite them to that context
         include: (url, context) => registry.include(rewriteURL(source, target, url), context, source, target),
-        imports: (url)          => registry.imports(url, source, target),
+        imports: (url)          => registry.imports(source, target, url),
         request: (url, name)    => registry.request(url, source, target),
         docs:    (...urls)      => registry.docs(source, target, ...urls),
         render:  render
@@ -117,7 +117,7 @@ export default function Literal(context, string, source, target) {
 
     if (DEBUG) {
         // Add source comment to top of template
-        string = prependComment(source, string);
+        string = prependComment(source, target, string);
     }
 
     const code = createCode(names, vars, string);
