@@ -1,8 +1,8 @@
 
-<section class="${ data.type }-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="${ data.type }-${ data.id }" style="background-color: red !important;">
-<h3 class="${ data.type }-doctext-05 doctext-05 ${ data.prefix === '--' ? 'doubledash-indent' : data.title && data.title[0] === '"' ? 'quote-indent' : '' }">
-    <a href="#${ data.type }-${ data.id }">
-        <code class="${ data.type === 'attribute' ? 'token' : '' } ${ data.type === 'property' ? 'property' : '' } ${ data.type === 'attribute' ? 'language-html' : 'language-js' }">${ data.name } ${ data.default && `<span class="default">=<em>${ data.default }</em></span>` || '' }</code>
-    </a>
-</h3>
+<section class="${ type }-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="${ type }-${ id }" style="background-color: red !important;">
+    <h3 class="${ type }-doctext-05 doctext-05 ${ prefix === '--' ? 'doubledash-indent' : title && title[0] === '"' ? 'quote-indent' : '' }">
+        <a href="#${ type }-${ id }">
+            <code class="${ type === 'attribute' ? 'token' : '' } ${ type === 'property' ? 'property' : '' } ${ type === 'attribute' ? 'language-html' : 'language-js' }">${ name } ${ defaultValue && `<span class="default">=<em>${ defaultValue }</em></span>` || '' }</code>
+        </a>
+    </h3>
 </section>

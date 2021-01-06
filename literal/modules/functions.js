@@ -106,7 +106,13 @@ const resolveContext = overload(toType, {
         return imports(source, target, url);
     },
 
-    default: id
+    'object': (object) => Promise.resolve(object),
+
+    'undefined': () => Promise.resolve(),
+
+    default: (object) => {
+        throw new Error('include(url, object) cannot be called with object of type ' + toType(object));
+    }
 });
 
 function extractBody(html) {
@@ -128,33 +134,40 @@ export const include = overload(toExtension, {
         '.html.literal': (url, object, source, target) => {
             // Get src relative to working directory 
             const src = getRootSrc(source, url);
-            return Promise.all([
-                request(src)
+            return resolveContext(object, source, target)
+            .then((data) => {
+                // Get data keys so that we can reference them as params 
+                // inside the template
+                const params = data && Object.keys(data).join(',') || '';
+                const values = data && Object.values(data);
+
+                return request(src)
                 .then(extractBody)
-                .then((template) => Literal({}, template, src, target)),
-                resolveContext(object, source, target)
-            ])
-            .then(([render, context]) => render(context));
+                .then((template) => Literal(params, template, src, target))
+                .then((render) => (values ? render(...values) : render()));
+            });
         },
 
         default: (url, object, source, target) => {
             // Get src relative to working directory 
-            const src    = getRootSrc(source, url);
-            const render = request(src)
-            return Promise.all([
-                request(src).then((template) => Literal({}, template, src, target)),
-                resolveContext(object, source, target)
-            ])
-            .then(([render, context]) => {
-                //console.log('Render', url, 'with', context);
-                return render(context);
+            const src = getRootSrc(source, url);
+            return resolveContext(object, source, target)
+            .then((data) => {
+                // Get data keys so that we can reference them as params 
+                // inside the template
+                const params = data && Object.keys(data).join(',') || '';
+                const values = data && Object.values(data);
+
+                return request(src)
+                .then((template) => Literal(params, template, src, target))
+                .then((render) => (values ? render(...values) : render()));
             });
         }
     }),
 
     '.html': (url, n, source, target) => {
         // Get src relative to working directory 
-        const src    = getRootSrc(source, url);
+        const src = getRootSrc(source, url);
         return request(src)
         .then(extractBody)
         .then((html) => rewriteURLs(url, target, html));

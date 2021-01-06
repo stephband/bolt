@@ -22,10 +22,12 @@ const DEBUG  = args.find((arg) => (arg === 'debug'));
 buildLiteral(source, target)
 **/
 
-export default function buildLiteral(source, target, context) {
+export default function buildLiteral(source, target, data) {
+    const params = Object.keys(data).join(',');
+    const values = Object.values(data);
     return request(source)
-    .then((template) => Literal({}, template, source, target))
-    .then((render) => render(context))
+    .then((template) => Literal(params, template, source, target))
+    .then((render) => render(...values))
     .then((text) => new Promise(function(resolve, reject) {
         const root = path.parse(target);
         const dir  = root.dir;
@@ -62,7 +64,7 @@ const hints = {
         '• ${} accepts any valid JS expression\n'
 };
 
-buildLiteral(source, target, { DEBUG: DEBUG, boo: 5 })
+buildLiteral(source, target, { DEBUG: DEBUG })
 .then(() => { process.exit(0); })
 .catch((e) => {
     console.log('');

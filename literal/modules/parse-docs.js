@@ -53,7 +53,7 @@ Where a documentation comment is found, returns a token object of the form:
     title:    
     prefix:   syntax characters that precede declaration
     postfix:  syntax characters that follow declaration
-    default:  default value
+    defaultValue: default value
     params:   where `type` is method or function, list of parameters
     body:     body of comment, code highlighted
     examples: array of html code examples found in comment body, unhighlighted 
@@ -154,7 +154,7 @@ const parseName = capture(/^(?:([\w-:]+)\s*=\s*|([\w-]+)\s*:\s*|(?:([A-Z])|(\w))
     1: (data, captures) => {
         data.type    = 'attribute';
         data.name    = captures[1];
-        data.default = parseString(captures);
+        data.defaultValue = parseString(captures);
         return data;
     },
 
@@ -210,7 +210,11 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
     // New data object
     0: function(nothing, captures) {
         //console.log(captures.input.slice(captures.index, captures.index + 16), '(' + captures[1] + ')');
-        return {};       
+        return {
+            defaultValue: null,
+            prefix: '',
+            title: ''
+        };       
     },
 
     1: (data, captures) => {
@@ -233,7 +237,7 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
     
         // --variable: default
         2: (data, captures) => {
-            data.default = captures[2];
+            data.defaultValue = captures[2];
             return data;
         },
     

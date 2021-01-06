@@ -6,52 +6,17 @@ import compileAsyncFn from '../../../fn/modules/compile-async-function.js';
 import * as registry from './functions.js';
 import renderString  from './to-text.js';
 import { rewriteURL, rewriteURLs } from './url.js';
-import { red, green, dim, dimgreen, dimgreendim, dimreddim } from './log.js';
+import { red, green, dim, dimgreen, dimgreendim, dimreddim, dimyellow } from './log.js';
 
 
 const DEBUG = true;
 
-/**
-Template(string)
-**/
-
-function parseVars(string) {
-    if (!string || !string.matchAll) {
-        throw new Error();
-    }
-
-    return Array
-        .from(string.matchAll(/\$\{\s*([\w][\w\d]*)/g))
-        .map((captures) => captures[1]);
-}
-
-/**
-createCode(functions, template)
-**/
-
-const reserved = ['Array', 'Object', 'this', 'data', 'await', 'console', 'function', 'global', 'Promise'];
-
-function createCode(params, names, template) {
-    const vars = parseVars(template);
-
-    var n = -1;
-    var name;
-    var code = '';
-
-    while (name = vars[++n]) {
-        // Variable already declared
-        if (names.includes(name) || params.includes(name) || reserved.includes(name)) {
-            continue;
-        }
-
-        names.push(name);
-
-        // Declare variables
-        code += 'var ' + name + ' = data.' + name + ';\n' ;
-    }
-
-    return code + 'return render`' + template + '`;';
-}
+const illegal = {
+    'import':    true,
+    'export':    true,
+    'undefined': true,
+    'render':    true
+};
 
 /**
 render(array, param)
@@ -59,7 +24,7 @@ render(array, param)
 
 const join = (strings) => strings.join('');
 
-function stringify(array, param, string) {
+function stringify(param, string) {
     return param && typeof param === 'object' ? (
         param.then ? param.then((value) => string + value) :
         //param.join ? string + param.join('') :
@@ -68,11 +33,11 @@ function stringify(array, param, string) {
     string + renderString(param) ;
 }
 
-function render(literal) {
+function render(strings) {
     return Promise.all(
-        literal.map((a, i, array) => (i + 1 < arguments.length ?
-            stringify(array, arguments[i + 1], a) :
-            a
+        strings.map((string, i, array) => (i + 1 < arguments.length ?
+            stringify(arguments[i + 1], string) :
+            string
         ))
     )
     .then(join);
@@ -96,57 +61,72 @@ function prependComment(source, target, string) {
     );
 }
 
-export default function Literal(context, string, source, target) {
-    if (!string) {
+export default function Literal(params, template, source, target) {
+    if (!template) {
         throw new Error('Template is not a string');
     }
 
-    if (cache[source]) {
-        return cache[source];
+    // Format params
+    params = params.split(/\s*[,\s]\s*/).join(', ');
+
+    if (cache[source + '(' + params + ')']) {
+        return cache[source + '(' + params + ')'];
     }
 
-    const scope = Object.assign({}, context, registry, {
+    const scope = Object.assign({}, registry, {
+        render:  render,
         // Functions are executed in the context of the module ./literal.js
         // so we need to rewrite them to that context
-        include: (url, context) => registry.include(rewriteURL(source, target, url), context, source, target),
-        imports: (url)          => registry.imports(source, target, url),
-        request: (url, name)    => registry.request(url, source, target),
-        docs:    (...urls)      => registry.docs(source, target, ...urls),
-        render:  render
+        include: (url, data) => registry.include(rewriteURL(source, target, url), data, source, target),
+        imports: (url)       => registry.imports(source, target, url),
+        request: (url, name) => registry.request(url, source, target),
+        docs:    (...urls)   => registry.docs(source, target, ...urls)
     });
-
-    const names = Object.keys(scope);
-    const vars  = [];
 
     if (DEBUG) {
         // Add source comment to top of template
-        string = prependComment(source, target, string);
+        template = prependComment(source, target, template);
     }
 
-    const code = createCode(names, vars, string);
+    const code = 'return render`' + template + '`;';
 
     if (DEBUG) {
-        console.log(dimgreendim, 'Literal', 'compile', source, vars.length ? '{ ' + vars.join(', ') + ' }'  : '');
+        console.log(dimgreendim, 'Literal', 'compile', source + ' (' + params + ')');
+
+        // Sanity check params for scope overrides
+        params.split(/\s*[,\s]\s*/).forEach((name) => {
+            if (illegal[name]) {
+                throw new Error('Literal param ' + name + ' cannot override built-in');
+            }
+
+            if (scope[name]) {
+                console.log(dimyellow, 'Literal', 'warning', 'param ' + name + ' overrides scope ' + typeof scope[name] + ' ' + (typeof scope[name] === 'function' ? name + '()' : name));
+            }
+        });
 
         // Catch parsing of template for SyntaxErrors
         try {
-            var fn = compileAsyncFn(scope, 'data', code);
+            var fn = compileAsyncFn(scope, params, code);
         }
         catch(e) {
             e.code = code;
-            e.literal = string;
+            e.literal = template;
             console.log(dimreddim, 'Literal', e.message, '\n\n', code);
             throw(e);
         }
     }
     else {
-        var fn = compileAsyncFn(scope, 'data', code);
+        var fn = compileAsyncFn(scope, params, code);
     }
 
+    const self = this;
+
     // fn(render, data, ...functions)
-    return cache[source] = (data) => fn
+    return cache[source + '(' + params + ')'] = function() {
+        return fn
         // Call fn with a blank `this` context that we can use to set 
         // variables on inside the template, and our data
-        .call({}, data)
-        .then((text) => rewriteURLs(source, target, text));
+        .apply(this === self ? {} : this, arguments)
+        .then((text) => rewriteURLs(source, target, text)) ;
+    };
 }

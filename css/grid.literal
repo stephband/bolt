@@ -162,7 +162,7 @@ Define the vertical grid gap (with units).
 **/
 
 
-${ data.map((bp) => (px(bp.width) ? `
+${ breakpoints.map((bp) => (px(bp.width) ? `
 /* bp "${ bp.prefix }", ${ em(bp.width) }em (${ px(bp.width) }px) */
 
 @media (min-width: ${ em(bp.width) }em) {` : '') + (`

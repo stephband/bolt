@@ -34,7 +34,7 @@ with breakpoint prefixes (\`@1-\`, \`@2-\`, ...).
 \`\`\`
 **/
 
-${ data.map((breakpoint) => (px(breakpoint.width) ? `
+${ breakpoints.map((breakpoint) => (px(breakpoint.width) ? `
 /* Breakpoint "${ breakpoint.prefix }", ${ em(breakpoint.width) }em (${ px(breakpoint.width) }px) */
 
 @media screen and (max-width: ${ Pipe(breakpoint.width).px().add(-1).em() }em) {

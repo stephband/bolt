@@ -5,7 +5,7 @@ import create from '../../../dom/modules/create.js';
 const string = "<p>Phil scored ${ phil }, bob scored ${ get('objects').each('Goody ${ get(\\`cong\\`).each(\\'Cong ${f} \\') } ') }.</p>";
 
 const t = window.performance.now();
-const render = Literal({}, string);
+const render = Literal('data', string);
 console.log(((window.performance.now() - t) / 1000).toFixed(3));
 
 render({
