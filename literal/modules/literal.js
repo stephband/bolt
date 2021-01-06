@@ -11,12 +11,20 @@ import { red, green, dim, dimgreen, dimgreendim, dimreddim, dimyellow } from './
 
 const DEBUG = true;
 
-const illegal = {
-    'import':    true,
-    'export':    true,
-    'undefined': true,
-    'render':    true
-};
+const illegal = [
+    // Literal reserved words
+    'render', 
+    // Globals
+    'NaN', 'Infinity', 'undefined',
+    // ES reserved words
+    'do', 'if', 'in', 'for', 'let', 'new', 'try', 'var', 'case', 'else', 
+    'enum', 'eval', 'null', 'this', 'true', 'void', 'with', 'await', 'break', 
+    'catch', 'class', 'const', 'false', 'super', 'throw', 'while', 'yield', 
+    'delete', 'export', 'import', 'public', 'return', 'static', 'switch', 
+    'typeof', 'default', 'extends', 'finally', 'package', 'private', 'continue', 
+    'debugger', 'function', 'arguments', 'interface', 'protected', 'implements', 
+    'instanceof'
+];
 
 /**
 render(array, param)
@@ -75,8 +83,6 @@ export default function Literal(params, template, source, target) {
 
     const scope = Object.assign({}, registry, {
         render:  render,
-        // Functions are executed in the context of the module ./literal.js
-        // so we need to rewrite them to that context
         include: (url, data) => registry.include(rewriteURL(source, target, url), data, source, target),
         imports: (url)       => registry.imports(source, target, url),
         request: (url, name) => registry.request(url, source, target),
@@ -95,8 +101,8 @@ export default function Literal(params, template, source, target) {
 
         // Sanity check params for scope overrides
         params.split(/\s*[,\s]\s*/).forEach((name) => {
-            if (illegal[name]) {
-                throw new Error('Literal param ' + name + ' cannot override built-in');
+            if (illegal.includes(name)) {
+                throw new Error('Literal param cannot override built-in ' + name);
             }
 
             if (scope[name]) {
