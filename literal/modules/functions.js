@@ -120,7 +120,7 @@ function getRootSrc(source, src) {
     const root     = path.parse(source);
     const dir      = root.dir;
     const relative = src.replace(/#.*$/, '');
-    return path.join(dir, relative).replace(/^\s+/, '');
+    return path.join(dir, relative);
 }
 
 export const include = overload((source, target, url) => toExtension(url), {
