@@ -38,3 +38,5 @@ export const dimyellowdim  = dim + ' ' + yellow + ' ' + dim;
 export const dimbluedim    = dim + ' ' + blue + ' ' + dim;
 export const dimmagentadim = dim + ' ' + magenta + ' ' + dim;
 export const dimcyandim    = dim + ' ' + cyan + ' ' + dim;
+
+export const redwhitedim    = red + ' ' + white + ' ' + dim;

@@ -90,12 +90,12 @@ export const imports = overload((source, target, url) => toExtension(url), {
 
 
 /**
-include(url, context)
-
-Includes a template from `url`, rendering it with `context`.
+include(url, data)
+Includes a template from `url`, rendering it with properties of `data` 
+as in-scope variables.
 **/
 
-const resolveContext = overload(toType, {
+const resolveScope = overload(toType, {
     'string': (url, source, target) => {
         return imports(source, target, url);
     },
@@ -120,46 +120,42 @@ function getRootSrc(source, src) {
     const root     = path.parse(source);
     const dir      = root.dir;
     const relative = src.replace(/#.*$/, '');
-    return path.join(dir, relative);
+    return path.join(dir, relative).replace(/^\s+/, '');
 }
 
-export const include = overload(toExtension, {
-    '.literal': overload(toExtensions, {
-        '.html.literal': (url, object, source, target) => {
+export const include = overload((source, target, url) => toExtension(url), {
+    '.literal': overload((source, target, url) => toExtensions(url), {
+        '.html.literal': (source, target, url, scope) => {
             // Get src relative to working directory 
             const src = getRootSrc(source, url);
-            return resolveContext(object, source, target)
+            return resolveScope(scope, source, target)
             .then((data) => {
                 // Get data keys so that we can reference them as params 
                 // inside the template
                 const params = data && Object.keys(data).join(',') || '';
-                const values = data && Object.values(data);
-
                 return request(src)
                 .then(extractBody)
-                .then((template) => Literal(params, template, src, target))
-                .then((render) => (values ? render(...values) : render()));
+                .then((template) => Literal(params, template, src))
+                .then((render) => render(data, target));
             });
         },
 
-        default: (url, object, source, target) => {
+        default: (source, target, url, scope) => {
             // Get src relative to working directory 
             const src = getRootSrc(source, url);
-            return resolveContext(object, source, target)
+            return resolveScope(scope, source, target)
             .then((data) => {
                 // Get data keys so that we can reference them as params 
                 // inside the template
                 const params = data && Object.keys(data).join(',') || '';
-                const values = data && Object.values(data);
-
                 return request(src)
-                .then((template) => Literal(params, template, src, target))
-                .then((render) => (values ? render(...values) : render()));
+                .then((template) => Literal(params, template, src))
+                .then((render) => render(data, target));
             });
         }
     }),
 
-    '.html': (url, n, source, target) => {
+    '.html': (source, target, url) => {
         // Get src relative to working directory 
         const src = getRootSrc(source, url);
         return request(src)
@@ -167,13 +163,13 @@ export const include = overload(toExtension, {
         .then((html) => rewriteURLs(url, target, html));
     },
     
-    '.css': (url, n, source, target) => {
+    '.css': (source, target, url) => {
         // Get src relative to working directory 
         const src = getRootSrc(source, url);
         return request(src).then((text) => rewriteURLs(url, target, text));
     },
 
-    default: (url) => {
+    default: (source, target, url) => {
         throw new TypeError('File extension ".'
             + toExtension(url) 
             + '" not supported by include("' + url + '")'
@@ -229,7 +225,9 @@ export const add = overload(toAddType, {
 
 
 /**
-docs(template, array)
+documentation(urls)
+Parses documentation comments from files. Returns a promise of an array of
+comments.
 **/
 
 import parseDocs  from './parse-docs.js';

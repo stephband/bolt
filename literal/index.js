@@ -1,13 +1,14 @@
 
-
 /*
-Find html template files and build them.
+Find .xxx.literal template files and build them to .xxx files.
 */
 
 // Import
+import fs        from 'fs';
+import path      from 'path';
 import finder    from 'findit';
 import pather    from 'path';
-import processes from 'child_process';
+import Literal from './modules/literal.js';
 
 // Current directory
 import { dirname } from 'path';
@@ -15,10 +16,17 @@ import { fileURLToPath } from 'url';
 const dir = dirname(fileURLToPath(import.meta.url));
 
 import request    from './modules/request.js';
-import { yellow } from './modules/log.js';
+import { yellow, dimyellow, red, dim } from './modules/log.js';
+
+import build from './build.js';
 
 // Arguments
 const args  = process.argv.slice(2);
+
+if (args.length < 2) {
+    throw new Error("build-literal requires ('source.html.literal', 'target.html')");
+}
+
 const base  = args[0] || '.';
 const dest  = args[1] || '';
 const DEBUG = args.find((arg) => (arg === 'debug'));
@@ -31,7 +39,7 @@ request('./package.json')
     finder(base)
     .on('directory', function (dir, stat, stop) {
         var base = pather.basename(dir);
-    
+
         // Remove trailing '/' or '/*' from ignore
         if (ignores.find((ignore) => dir.startsWith(ignore.replace(/\/\*?$/, '')))) {
             //console.log(yellow, 'Ignoring', dir + '/');
@@ -51,16 +59,11 @@ request('./package.json')
         // No, build in place... Todo: allow alternative target destination
         const target = (path || '') + name + '.' + ext;
 
-        // Build source template to target path
-        processes
-        // build [source.html, target.html]
-        .fork(dir + '/build-literal.js', [source, target, DEBUG && 'debug'])
-        .on('error', console.log)
-        .on('exit', function(code, error) {
-            if (code !== 0) {
-                console.error(0, error);
-            }
+        build(source, target, { DEBUG: DEBUG })
+        //.then(() => { process.exit(0); })
+        .catch((e) => {
+            console.log(e);
+            //process.exit(1);
         });
     });
 });
-
