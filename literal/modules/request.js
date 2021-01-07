@@ -8,7 +8,7 @@ import fs       from 'fs';
 import cache    from '../../../fn/modules/cache.js';
 import { dimbluedim, dimcyandim } from './log.js';
 
-const DEBUG = true;
+const DEBUG = false;
 
 export default cache(function request(path) {
     return new Promise(function(resolve, reject) {

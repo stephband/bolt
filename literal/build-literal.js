@@ -26,8 +26,7 @@ export default function buildLiteral(source, target, data) {
     const params = Object.keys(data).join(',');
     const values = Object.values(data);
     return request(source)
-    .then((template) => Literal(params, template, source, target))
-    .then((render) => render(...values))
+    .then((template) => Literal(params, template, source, target)(...values))
     .then((text) => new Promise(function(resolve, reject) {
         const root = path.parse(target);
         const dir  = root.dir;

@@ -17,13 +17,13 @@ ${ docs
         </h4>
         <div class="right-bottom-bubble bottom-bubble bubble" popable id="${ doc.id }-description">${ doc.body }</div>
     </div>
-`).join('') }
+`) }
 
     <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span ${ docs.filter((doc) => doc.type === 'selector').length  };">
     ${ docs
     .filter((doc) => doc.type === 'var')
     .map((doc) => render`
         ${ include("../../entry.literal", doc) }
-    `).join('') }
+    `) }
     </div>
 </section>

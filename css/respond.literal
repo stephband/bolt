@@ -57,4 +57,4 @@ ${ breakpoints.map((breakpoint) => (px(breakpoint.width) ? `
     .${ breakpoint.prefix }center-align   { text-align: center !important; }
     .${ breakpoint.prefix }justify-align  { text-align: justify !important; }
 `) + (px(breakpoint.width) ? `}
-` : '')).join('') }
+` : '')) }

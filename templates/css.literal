@@ -13,5 +13,5 @@
     </div>
     
     <div class="x-1 3x @1-x-1 @1-2x @1-2y @2-x-1 @2-3x @2-1y x-center y-baseline block" style="max-width: 20rem; width: 100%;">${ doc.examples[0] }</div>
-    `).join('') }
+    `) }
 </section>

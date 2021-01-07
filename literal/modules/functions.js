@@ -29,12 +29,6 @@ import { rewriteURL, rewriteURLs } from './url.js';
 
 import { red, yellow }     from './log.js';
 
-function requestURL(url, source, target) {
-    return request(rewriteURL(source, target,getRootSrc(source, url)));
-}
-
-export { requestURL as request };
-
 export const entries = Object.entries;
 export const keys    = Object.keys;
 export const values  = Object.values;
@@ -240,7 +234,7 @@ docs(template, array)
 
 import parseDocs  from './parse-docs.js';
 
-export function docs(source, target, ...urls) {
+export function documentation(source, target, ...urls) {
     return Promise.all(urls.map((path) => {
         const url = getRootSrc(source, path);
 

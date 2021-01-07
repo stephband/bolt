@@ -16,5 +16,5 @@ ${ entries(data).map((entry) => `
             width: ${ rem(entry[0]) }rem;
             pointer-events: none;
         }
-    }`).join('') }
+    }`) }
 </style>

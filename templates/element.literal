@@ -3,7 +3,7 @@
     ${ data.filter((doc) => doc.type === 'element').map((doc) => `
     <h2 class="doctext-02">&lt;${ doc.name }&gt;</h2>
     ${ doc.body }
-    `).join('') }
+    `) }
 </header>
 
 <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">

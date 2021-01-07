@@ -14,4 +14,4 @@ ${ docs
 <div class="x-1 3x @1-6x @2-9x x-bleed">
     ${ doc.examples[0] }
 </div>
-`).join('') }
+`) }
