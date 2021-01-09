@@ -8,7 +8,7 @@ for smoother opening and closing animations.
 
 import choose      from '../../fn/modules/choose.js';
 import get         from '../../fn/modules/get.js';
-import last        from '../../fn/modules/last.js';
+import last        from '../../fn/modules/lists/last.js';
 import parseInt    from '../../fn/modules/parse-int.js';
 import toCamelCase from '../../fn/modules/to-camel-case.js';
 import events      from '../../dom/modules/events.js';

@@ -71,6 +71,11 @@
     scrollbar-width: none; /* Firefox 64 */
 }
 
+:host(:fullscreen) {
+    /* Does not work */
+    /*background: red !important;*/
+}
+
 :host > .thumb {
     position: absolute;
     top: 0;

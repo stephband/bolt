@@ -37,3 +37,8 @@ slide-show > :not([slot]) {
     /* override slide hidden during load */
     display: block;
 }
+
+slide-show:fullscreen {
+    align-content: center;
+    column-gap: var(--column-gap);
+}

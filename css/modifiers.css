@@ -97,54 +97,6 @@ Show an element when its parent has class <code>requested</code>.
 	display: none !important;
 }
 
-/**
-.fullscreen-hidden
-
-Hide an element when inside an element in fullscreen mode.
-**/
-
-.fullscreen-hidden:-webkit-full-screen,
-:-webkit-full-screen .fullscreen-hidden {
-	display: none !important;
-}
-
-.fullscreen-hidden:-moz-full-screen,
-:-moz-full-screen .fullscreen-hidden {
-	display: none !important;
-}
-
-.fullscreen-hidden:-ms-fullscreen,
-:-ms-fullscreen .fullscreen-hidden {
-	display: none !important;
-}
-
-.fullscreen-hidden:fullscreen,
-:fullscreen .fullscreen-hidden {
-	display: none !important;
-}
-
-/**
-.fullscreen-shown
-
-Hide an element when not in fullscreen mode.
-**/
-
-:not(:-webkit-full-screen) > .fullscreen-shown:not(:-webkit-full-screen) {
-	display: none !important;
-}
-
-:not(:-moz-full-screen) > .fullscreen-shown:not(:-moz-full-screen) {
-	display: none !important;
-}
-
-:not(:-ms-fullscreen) > .fullscreen-shown:not(:-ms-fullscreen) {
-	display: none !important;
-}
-
-:not(:fullscreen) > .fullscreen-shown:not(:fullscreen) {
-	display: none !important;
-}
-
 
 /**
 .disabled
