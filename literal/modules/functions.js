@@ -16,6 +16,7 @@ import { addTime }         from '../../../fn/modules/time.js';
 
 export { default as by }      from '../../../fn/modules/by.js';
 export { default as equals }  from '../../../fn/modules/equals.js';
+export { default as matches } from '../../../fn/modules/matches.js';
 export { default as get }     from '../../../fn/modules/get-path.js';
 export { default as id }      from '../../../fn/modules/id.js';
 export { default as px, em, rem } from './parse-length.js';

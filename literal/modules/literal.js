@@ -74,9 +74,9 @@ function stringify(value, string) {
         // If expression returns an array with promises
         value.join ? value.find(isPromise) ?
             // Resolve promises and join to string
-            Promise.all(value).then((strings) => string + strings.join('')) :
+            Promise.all(value).then((strings) => string + strings.map(renderString).join('')) :
             // Otherwise join to string immediately
-            string + value.join('') :
+            string + value.map(renderString).join('') :
         // pass any other value to renderString
         string + renderString(value)
     ) :
