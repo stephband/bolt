@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="stephband" />
+    <meta name="description" content="Documentation for Bolt. A front-end toolkit of classes, evented behaviours and custom elements." />
+    <meta name="viewport" content="width=device-width" />
+    
+    <meta name="twitter:card" content="summary"></meta>
+    <meta name="twitter:site" content="@@stephband"></meta>
+    <meta property="og:url" content="http://stephen.band/bolt/" />
+    <meta property="og:title" content="Bolt" />
+    <meta property="og:description" content="A front-end toolkit of classes, evented behaviours and custom elements." />
+    <meta property="og:image" content="" />
+    
+    <title>Bolt</title>
+    
+    <link rel="icon" type="image/png" href="./images/logo-32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="./images/logo-64.png" sizes="64x64">
+    <link rel="icon" type="image/png" href="./images/logo-128.png" sizes="128x128">
+    
+    <script title="load">
+    document.documentElement.className += ' js content-loading loading';
+    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
+    // Wait for other load handlers to run first - Bolt does a few things on
+    // load (eg. locateable scrolls) and we want them to run before the loading
+    // class is removed
+    window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
+    </script>
+    <!--link rel="stylesheet" href="../style.min.css" /-->
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./documentation/prism-cruncher.css" />
+    <link rel="stylesheet" href="../fn/css/tests.css" />
+    <link rel="stylesheet" href="./documentation/documentation.css" />
+    <link rel="stylesheet" href="../fn/css/respond.css" />
+    <link rel="stylesheet" href="./css/debug.css" /><style>
+        /* Render some elements visible, just in this styleguide */
+        button:not([type]),
+        [type="button"],
+        .button {
+            background-color: rgba(127, 127, 127, 0.15);
+        }
+        
+        button:not([type]) {
+            font-size: 0.875rem;
+        }
+    
+        /* Colour swatch thumbs */
+        .thumb[class$="bg"] {
+            box-shadow: inset 0 0 0 1px currentcolor;
+        }
+    </style>
+    
+    <script title="config">
+        window.customElementStylesheetPath = './elements/';
+    </script>
+
+    <style>
+        .slider {
+            display: grid;
+            padding: 0;
+            
+            grid-auto-flow: column;
+            grid-auto-columns: 100%;
+            grid-auto-rows: min-content;
+            grid-column-gap: var(--slide-gap, 1.5rem);
+            align-items: var(--slide-align, center);
+            justify-items: var(--slide-justify, center);
+            
+            scroll-snap-type: x mandatory;
+            scroll-snap-stop: always;
+            -webkit-scroll-behavior: smooth;
+                    scroll-behavior: smooth;
+            
+            overflow: scroll;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            -ms-overflow-style: none; /* IE 11 */
+            scrollbar-width: none; /* Firefox 64 */
+            
+            display: grid;
+            padding: 0;
+            margin: 0;
+            
+            scroll-snap-type: x mandatory;
+            scroll-snap-stop: always;
+            -webkit-scroll-behavior: smooth;
+                    scroll-behavior: smooth;
+
+            overflow: scroll;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            -ms-overflow-style: none; /* IE 11 */
+            scrollbar-width: none; /* Firefox 64 */
+            
+            will-change: -webkit-scroll-behavior;
+            will-change: scroll-behavior;
+        }
+
+        .slides {            
+            grid-auto-flow: column;
+            grid-auto-columns: 100%;
+            grid-auto-rows: min-content;
+            grid-column-gap: var(--slide-gap, 1.5rem);
+            align-items: var(--slide-align, center);
+            justify-items: var(--slide-justify, center);
+
+            overflow: hidden;
+
+            display: grid;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        .slider {
+            grid-template-columns: 100% 100% 100% max-content;
+        }
+        
+        .slides {
+            grid-auto-columns: inherit;
+        }
+
+        .slide {
+            background-color: pink;
+        }
+        
+        .slider > .slide {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+    </style>
+</head>
+
+<body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
+    <header class="x-1 3x @1-x-3 @1-4x @2-x-4">
+        <h1 class="doctext-01">Bolt <span class="doctext-06">2.1.2</span></h1>
+        <p class="doctext-08">A front-end toolkit of classes, evented behaviours and custom elements.</p>
+    </header>
+
+    <img class="x-1 x-end y-1 @2-x-1 @2-3x" src="./images/logo.svg" width="800" height="800" style="width: 10.625rem; margin-top: -1.125rem; margin-right: -0.9375rem; max-width: none;" />
+
+    <div class="slider x-1 6x">
+        <div class="slide">One -1</div>
+        <div class="slide">Two -1</div>
+        <div class="slide">Three -1</div>
+        <div class="slides">
+            <div class="slide">One</div>
+            <div class="slide">Two</div>
+            <div class="slide">Three</div>
+        </div>
+        <div class="slide">One +1</div>
+        <div class="slide">Two +1</div>
+        <div class="slide">Three +1</div>
+    </div>
+
+    <script type="module">
+        import './module.js';
+        import './documentation/documentation.js';
+    </script><script type="module" src="./module.js"></script>
+</body>

@@ -115,7 +115,7 @@ slot {
     margin: 0;
 
     grid-auto-flow: column;
-    grid-auto-columns: 100%;
+    grid-auto-columns: inherit;
     grid-auto-rows: min-content;
     grid-column-gap: var(--slide-gap);
     align-items: var(--slide-align);
