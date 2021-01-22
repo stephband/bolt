@@ -8,9 +8,9 @@ slide-show {
     grid-auto-flow: column;
     grid-auto-columns: 100%;
     grid-auto-rows: min-content;
-    grid-column-gap: var(--slide-gap, 0);
     align-items: var(--slide-align, center);
     justify-items: var(--slide-justify, center);
+    column-gap: var(--column-gap);
 
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;

@@ -27,12 +27,6 @@
     --slide-justify: stretch;
 
     /**
-    --slide-gap
-    Grid column gap between one slide and the next.
-    **/
-    --slide-gap: 0;
-
-    /**
     --link-top
     Adjusts the vertical position of the list of links. Negative values make it
     appear over the slides.
@@ -44,7 +38,6 @@
     Adjusts the gap between links.
     **/
     --link-gap: 0;
-
     position: relative;
     display: grid !important;
 
@@ -52,19 +45,18 @@
        such as in fullscreen mode. */
     align-content: center;
     align-items: stretch;
+    justify-content: center;
     justify-items: stretch;
 
     /* Reset style applied to un-upgraded slide-show  */
-    grid-auto-flow: column;
-    grid-auto-columns: 100%;
-    grid-auto-rows: min-content;
-    grid-column-gap: 0;
+    grid-auto-flow: row;
+    grid-template-columns: 100%;
+    grid-template-rows: [slot] auto [controls] 0;
 
     scroll-snap-type: none;
     scroll-snap-stop: none;
     -webkit-scroll-behavior: auto;
-            scroll-behavior: auto;
-    
+    scroll-behavior: auto;
     overflow: hidden;
     overscroll-behavior-x: none;
     -ms-overflow-style: none; /* IE 11 */
@@ -76,21 +68,40 @@
     /*background: red !important;*/
 }
 
+
+
+:host > slot[name="top"] {
+    grid-column: 1;
+    grid-row: 3;
+    position: static;
+    display: block;
+    height: 4px;
+    margin: 0;
+    padding: 0;
+    background-color: red;
+}
+
+:host > slot:not(name) {
+    grid-column: 1;
+    grid-row: 1;
+}
+
 :host > .thumb {
-    position: absolute;
-    top: 0;
-    z-index: 3;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
 }
 
 :host > .prev-thumb {
-    left: 0;
+    justify-self: start;
 }
 
 :host > .next-thumb {
-    right: 0;
+    justify-self: end;
 }
 
 :host > nav {
+    grid-column: 1;
     grid-row: 2;
     justify-self: center;
     margin-left: auto;
@@ -99,14 +110,7 @@
     margin-top: var(--link-top);
 }
 
-:host > slot {
-    /* Hide any scroll bar by moving it out of overflow hidden parent */
-    padding-bottom: 0;
-    /* Negative margin-bottom is set in slide-show.js */
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-}
+
 
 
 slot {
@@ -117,7 +121,7 @@ slot {
     grid-auto-flow: column;
     grid-auto-columns: inherit;
     grid-auto-rows: min-content;
-    grid-column-gap: var(--slide-gap);
+    column-gap: inherit;
     align-items: var(--slide-align);
     justify-items: var(--slide-justify);
 
@@ -155,7 +159,7 @@ nav > [part*="link"] + [part*="link"] {
 Style the 'previous slide' button.
 */
 
-*::slotted([slot="title"]) {
+*::slotted([slot="controls"]) {
     position: absolute;
     top: 0;
     left: 0;
