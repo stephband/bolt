@@ -38,8 +38,23 @@
     Adjusts the gap between links.
     **/
     --link-gap: 0;
+
+    /**
+    --padding-left
+    **/
+    --padding-left: 0;
+
+    /**
+    --padding-right
+    **/
+    --padding-right: 0;
+
     position: relative;
     display: grid !important;
+    
+    /* Slot takes over vieport duties */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 
     /* Put content in the center, useful when slide-show is bigger than content,
        such as in fullscreen mode. */
@@ -129,6 +144,11 @@ slot {
     scroll-snap-stop: always;
     -webkit-scroll-behavior: smooth;
             scroll-behavior: smooth;
+
+    padding-left: var(--padding-left);
+    padding-right: var(--padding-right);
+    scroll-padding-left: var(--padding-left);
+    scroll-padding-right: var(--padding-right);
 
     overflow: scroll;
     overflow-y: hidden;

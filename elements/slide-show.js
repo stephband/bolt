@@ -215,9 +215,9 @@ element('slide-show', {
         shadow.appendChild(link);
         shadow.appendChild(title);
         shadow.appendChild(slot);
-        shadow.appendChild(prevNode);
-        shadow.appendChild(nextNode);
-        shadow.appendChild(nav);
+        //shadow.appendChild(prevNode);
+        //shadow.appendChild(nextNode);
+        //shadow.appendChild(nav);
         shadow.appendChild(optional);
 
 
@@ -418,6 +418,23 @@ element('slide-show', {
                 if (active) {
                     autoId = autoplay(active, change, autoId);
                 }
+            },
+
+            controlsState: false,
+            
+            controls: function(state) {
+                this.controlsState = state;
+
+                if (!state) {
+                    shadow.appendChild(prevNode);
+                    shadow.appendChild(nextNode);
+                    shadow.appendChild(nav);
+                }
+                else {
+                    pevNode.remove();
+                    nextNode.remove();
+                    nav.remove();
+                }
             }
         });
 
@@ -499,7 +516,15 @@ element('slide-show', {
         **/
         autoplay: function(value) {
             Privates(this).autoplay(value !== null);
-        }
+        },
+
+        /**
+        controls
+        Boolean attribute. Shows previous/next buttons and navigation.
+        **/
+        loop: function(value) {
+            Privates(this).controls(value !== null);
+        },
     },
 
     properties: {
