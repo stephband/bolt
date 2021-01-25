@@ -485,9 +485,11 @@ element('slide-show', {
                 return;
             }
 
-            scrollSmooth(elem, slot, target);
-            e.preventDefault();
-            window.history.pushState({}, '', '#' + id);
+            if (elem.contains(target)) {
+               scrollSmooth(elem, slot, target);
+               e.preventDefault();
+               window.history.pushState({}, '', '#' + id);
+            }
         });
     },
 
