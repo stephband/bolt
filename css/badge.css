@@ -12,9 +12,9 @@ Badges.
 
 .badge {
     display: inline-block;
-    font-size: var(--badge-font-size);
-    line-height: var(--badge-width);
-    min-width: var(--badge-width);
+    font-size: inherit;
+    line-height: var(--size);
+    min-width: var(--size);
     padding-top: 0;
     padding-bottom: 0;
     padding-left: 0.25em;
@@ -22,8 +22,9 @@ Badges.
     text-align: center;
     white-space: nowrap;
     color: white;
-    background: var(--badge-background);
-    border-radius: calc(0.5 * var(--badge-width));
+    background: black;
+    border-radius: calc(0.5 * var(--size));
+    --size: 1.5rem;
 }
 
 .thumb > .badge {
@@ -32,21 +33,4 @@ Badges.
     right: 0;
     margin-top: -0.6em;
     margin-right: -0.6em;
-}
-
-:root {
-    /**
-    --badge-font-size
-    **/
-    --badge-font-size: 0.75rem;
-
-    /**
-    --badge-width
-    **/
-    --badge-width: 1.5em;
-
-    /**
-    --badge-background
-    **/
-    --badge-background: black;
 }

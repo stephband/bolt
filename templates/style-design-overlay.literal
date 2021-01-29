@@ -15,6 +15,7 @@ ${ entries(data).map((entry) => `
             opacity: 0.25;
             width: ${ rem(entry[0]) }rem;
             pointer-events: none;
+            z-index: 100;
         }
     }`) }
 </style>

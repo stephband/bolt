@@ -431,7 +431,7 @@ element('slide-show', {
                     shadow.appendChild(nav);
                 }
                 else {
-                    pevNode.remove();
+                    prevNode.remove();
                     nextNode.remove();
                     nav.remove();
                 }
