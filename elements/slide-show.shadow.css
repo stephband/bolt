@@ -137,7 +137,7 @@ slot {
     grid-auto-columns: inherit;
     grid-auto-rows: min-content;
     column-gap: inherit;
-    align-items: var(--slide-align);
+    align-items: inherit;
     justify-items: var(--slide-justify);
 
     scroll-snap-type: x mandatory;
