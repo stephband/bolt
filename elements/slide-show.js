@@ -524,9 +524,9 @@ element('slide-show', {
         controls
         Boolean attribute. Shows previous/next buttons and navigation.
         **/
-        loop: function(value) {
+        controls: function(value) {
             Privates(this).controls(value !== null);
-        },
+        }
     },
 
     properties: {
