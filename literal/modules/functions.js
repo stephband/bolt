@@ -159,15 +159,16 @@ export const include = overload((source, target, url) => toExtension(url), {
     '.html': (source, target, url) => {
         // Get src relative to working directory 
         const src = getRootSrc(source, url);
+
         return request(src)
         .then(extractBody)
-        .then((html) => rewriteURLs(url, target, html));
+        .then((html) => rewriteURLs(src, target, html));
     },
     
     '.css': (source, target, url) => {
         // Get src relative to working directory 
         const src = getRootSrc(source, url);
-        return request(src).then((text) => rewriteURLs(url, target, text));
+        return request(src).then((text) => rewriteURLs(src, target, text));
     },
 
     default: (source, target, url) => {

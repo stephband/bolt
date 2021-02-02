@@ -1,3 +1,6 @@
+
+import path from 'path';
+
 function countUpLevels(path) {
     let n = -1;
     while(path[++n] === '..');
@@ -31,28 +34,17 @@ export function rootURL(source, asset) {
     return rootPath(source, asset).join('/');
 }
 
-const rurl = /(src=['"]?|href=['"]?|url\(\s*['"]?)([:.\/\w-\d%?]+)/g;
 
-export function rewriteURL(source, target, asset) {
-    const assetPath  = rootPath(source, asset);
-    const targetPath = target.split('/');
 
-    // Remove file name in last position
-    --targetPath.length;
-
-    // Strip leading levels that match targetPath
-    let n = -1;
-    while (assetPath[0] === targetPath[++n]) {
-        assetPath.shift();
-    }
-    
-    // Replace remaining target levels with ../
-    --n;
-    while (targetPath[++n]) {
-        assetPath.unshift('..');
-    }
-
-    return assetPath.join('/');
+export function rewriteURL(source, target, url) {
+    // Source dir relative to current working directory
+    const sourcedir = path.dirname(source);
+    // Target dir relative to current working directory
+    const targetdir = path.dirname(target);
+    // Resource path relative to current working directory
+    const resource  = path.join(sourcedir, url);
+    // Resource path relative to module
+    return path.relative(targetdir, resource);
 }
 
 //            1 src=" or href=" or url('                                2 anything not beginning with a / or #

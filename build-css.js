@@ -8,7 +8,7 @@ Build CSS from the array of files in JSON style array.
 import CleanCSS from 'clean-css';
 import fs from 'fs';
 
-import { green } from './literal/log.js';
+import { green } from './literal/modules/log.js';
 
 // Arguments
 const args     = process.argv.slice(2);
