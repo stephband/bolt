@@ -35,8 +35,8 @@ function lastIndex(data) {
 	return data.index + data[0].length;
 }
 
-function dragstartButton(e) {
-	var data = attribute('draggable-mimetypes', e.target);
+function dragstartButton(target, e) {
+	var data = attribute('draggable-mimetypes', target);
 
 	if (data) {
 		data = capture(rmimetype, {
@@ -52,8 +52,8 @@ function dragstartButton(e) {
 	else {
 		// Todo: needed for Neho - factor out
 		data = {
-			"Text":       identify(e.target),
-			"text/plain": identify(e.target)
+			"Text":       identify(target),
+			"text/plain": identify(target)
 			//"application/json": JSON.stringify({})
 		};
 	}
@@ -71,7 +71,7 @@ function dragstartButton(e) {
 			// for style, and if it is styled immediately the dragging ghost
 			// also gets the new style, which we don't want.
 			window.requestAnimationFrame(function() {
-				classes(e.target).add('dragging');
+				classes(target).add('dragging');
 			});
 		}
 		catch(e) {

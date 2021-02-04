@@ -189,8 +189,8 @@ var nodeCache = {};
 var dialogs = {};
 
 var targets = {
-	dialog: function(e) {
-		var href = e.delegateTarget.getAttribute('data-href') || e.delegateTarget.hash || e.delegateTarget.href;
+	dialog: function(a, e) {
+		var href = a.getAttribute('data-href') || a.hash || a.href;
 
 		//Todo: more reliable way of getting id from a hash ref
 		var id = href.substring(1);
@@ -318,14 +318,14 @@ function sum(total, n) {
     return total + !!n;
 }
 
-function activateHref(e) {
+function activateHref(a, e) {
 	if (isIgnorable(e)) { return; }
 
 	// Check whether the link points to something on this page
-	if (e.delegateTarget.hostname && !isInternalLink(e.delegateTarget)) { return; }
+	if (a.hostname && !isInternalLink(a)) { return; }
 
 	// Does it point to an id?
-	var id = getHash(e.delegateTarget);
+	var id = getHash(a);
 	if (!id) { return; }
 
 	// Does it point to a node?
@@ -350,18 +350,18 @@ function activateHref(e) {
 
 	// TODO: This doesnt seem to set relatedTarget
 	// trigger(node, 'dom-activate', { relatedTarget: e.delegateTarget });
-	var a = Event('dom-activate', { relatedTarget: e.delegateTarget });
-	node.dispatchEvent(a);
+	var event = Event('dom-activate', { relatedTarget: a });
+	node.dispatchEvent(event);
 }
 
-function activateTarget(e) {
-	var target = e.delegateTarget.target;
+function activateTarget(a, e) {
+	var target = a.target;
 
 	if (isIgnorable(e)) { return; }
 
 	// If the target is not listed, ignore
 	if (!targets[target]) { return; }
-	return targets[target](e);
+	return targets[target](a, e);
 }
 
 // Clicks on buttons toggle activate on their hash
