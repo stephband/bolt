@@ -19,7 +19,7 @@ const Template = cache(function Template(id) {
     return Literal(params, template, '#' + id);
 });
 
-register('include', function(url, data) {
+register('include', function include(url, data) {
     if (!/^#/.test(url)) {
         throw new Error('Only #hashrefs currently supported as include() urls ("' + url + '")');
     }
