@@ -2,11 +2,16 @@
 import cache   from '../../fn/modules/cache.js';
 import Literal, { register } from './modules/literal-browser.js';
 
+function empty() {
+    return '';
+}
+
 const Template = cache(function Template(id) {
     const element  = document.getElementById(id);
 
     if (!element) {
-        throw new Error('<template id="' + id + '"> not found');
+        console.error('<template id="' + id + '"> not found in document');
+        return empty;
     }
 
     const params   = Object.keys(element.dataset).join(', ') || 'data';
