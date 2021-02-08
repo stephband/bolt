@@ -47,8 +47,8 @@ export function rewriteURL(source, target, url) {
     return path.relative(targetdir, resource);
 }
 
-//            1 src=" or href=" or url('                                2 anything not beginning with a / or #
-const rURL = /(src=['"]?\s*|href=['"]?\s*|url\(\s*['"]?)(?:[a-z]+\:\/\/|([^\/\#'"][\:\.\/\w-\d\%]*))/g;
+//            1 src=" or href=" or url('                                2 anything not beginning with a / or # or $
+const rURL = /(src=['"]?\s*|href=['"]?\s*|url\(\s*['"]?)(?:[a-z]+\:\/\/|([^\$\/\#'"][\:\.\/\w-\d\%]*))/g;
 
 export function rewriteURLs(source, target, text) {
     // Check for $2 - if a protocol was found $2 is undefined and we don't 

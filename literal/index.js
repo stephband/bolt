@@ -8,7 +8,6 @@ import fs        from 'fs';
 import path      from 'path';
 import finder    from 'findit';
 import pather    from 'path';
-import Literal from './modules/literal.js';
 
 // Current directory
 import { dirname } from 'path';

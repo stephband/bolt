@@ -1,2 +1,2 @@
 
-export { default } from './modules/literal.js';
+export { default, register } from './modules/literal-browser.js';
