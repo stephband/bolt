@@ -12,7 +12,7 @@ Before and After.
 }
 
 .after::after {
-    margin-left: 0.375rem;
+    margin-left: 0.5rem;
 }
 
 .before::before {
