@@ -1,3 +1,28 @@
+
+*:-webkit-full-screen {
+    display: block;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+*:-moz-full-screen {
+    display: block;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+*:-ms-fullscreen {
+    display: block;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+*:fullscreen {
+    display: block;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 /**
 .fullscreen-hidden
 
