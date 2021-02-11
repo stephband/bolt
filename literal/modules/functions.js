@@ -164,7 +164,15 @@ export const include = overload((source, target, url) => toExtension(url), {
         .then(extractBody)
         .then((html) => rewriteURLs(src, target, html));
     },
-    
+
+    '.svg': (source, target, url) => {
+        // Get src relative to working directory 
+        const src = getRootSrc(source, url);
+
+        return request(src)
+        .then((svg) => rewriteURLs(src, target, svg));
+    },
+
     '.css': (source, target, url) => {
         // Get src relative to working directory 
         const src = getRootSrc(source, url);
