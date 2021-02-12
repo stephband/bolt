@@ -60,58 +60,6 @@ function logError(source, template, e) {
 }
 
 
-/* Scope functions */
-
-import overload    from '../../../fn/modules/overload.js';
-import { addDate } from '../../../fn/modules/date.js';
-import { addTime } from '../../../fn/modules/time.js';
-import by          from '../../../fn/modules/by.js';
-import equals      from '../../../fn/modules/equals.js';
-import matches     from '../../../fn/modules/matches.js';
-import get         from '../../../fn/modules/get-path.js';
-import px, { em, rem } from './parse-length.js';
-import exec        from '../../../fn/modules/exec.js';
-import slugify     from '../../../fn/modules/slugify.js';
-import Pipe        from './pipe.js';
-
-
-/**
-add(number|date|time)
-
-Adds `n` to value. Behaviour is overloaded to accept various types of 'n'.
-Where `n` is a number, it is summed with value. So to add 1 to any value:
-
-```html
-${ pipe(add(1), data.number) }
-```
-
-Where 'n' is a duration string in date-like format, value is expected to be a
-date and is advanced by the duration. So to advance a date by 18 months:
-
-```html
-${ pipe(add('0000-18-00'), data.date) }
-```
-
-Where 'n' is a duration string in time-like format, value is expected to be a
-time and is advanced by the duration. So to put a time back by 1 hour and 20
-seconds:
-
-```html
-${ pipe(add('-01:00:20'), data.time) }
-```
-**/
-
-function toAddType(n) {
-    const type = typeof n;
-    return type === 'string' ?
-        /^\d\d\d\d(?:-|$)/.test(n) ? 'date' :
-        /^\d\d(?::|$)/.test(n) ? 'time' :
-        'string' :
-    type;
-}
-
-
-
 /**
 render(array, param)
 **/
@@ -145,30 +93,16 @@ function render(strings) {
     .then(join);
 }
 
-const lib = {
-    add: overload(toAddType, {
-        'date': addDate,
-        'time': addTime,
-        'string': (a) => (b) => b + a,
-        'number': (a) => (b) => b + a,
-        'default': function(n) {
-            throw new Error('add(value) does not accept values of type ' + typeof n);
-        }
-    }),
-
-    by, entries: Object.entries, em, equals, exec, get, keys: Object.keys,
-    matches, Pipe, px, rem, render, slugify, values: Object.values
-};
 
 /**
-Literal(params, template)
+compile(scope, params, template)
 Returns a function that renders a literal template.
 **/
 
 // Store render functions against their template strings
-const cache   = {};
+const cache = {};
 
-export default function Literal(params, template, source) {
+export default function compile(scope, params, template, source) {
     if (!template) {
         throw new Error('Template is not a string');
     }
@@ -187,12 +121,15 @@ export default function Literal(params, template, source) {
     const code = 'return render`' + template + '`;';
     const self = this;
 
-    logCompile(source, lib, params, names);
+    // Make it impossible to override render
+    scope.render = render;
+
+    logCompile(source, scope, params, names);
 
     var fn;
 
     try {
-        fn = compileAsyncFn(lib, params, code);
+        fn = compileAsyncFn(scope, params, code);
     }
     catch(e) {
         logError(source, template, e);
@@ -202,8 +139,4 @@ export default function Literal(params, template, source) {
     return cache[key] = function literal() {
         return fn.apply(this === self ? {} : this, arguments);
     };
-}
-
-export function register(name, fn) {
-    lib[name] = fn;
 }
