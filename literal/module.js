@@ -3,6 +3,9 @@ import cache from '../../fn/modules/cache.js';
 import noop  from '../../fn/modules/noop.js';
 import library, { register } from './modules/lib.js';
 import compile from './modules/compile.js';
+import log from './modules/log-browser.js';
+
+const DEBUG = window.DEBUG;
 
 function empty() {
     return '';
@@ -21,7 +24,12 @@ const fromTemplateId = cache(function(id) {
         return empty;
     }
 
-    const keys     = Object.keys(element.dataset);
+    const keys = Object.keys(element.dataset);
+
+    if (keys.includes('data')) {
+        log('render', 'keys may not include "data" (' + keys.join(', ') + ')', 'red');
+    }
+
     const params   = 'data' + (keys.length ? ', ' + keys.join(', ') : '');
     const template = element.innerHTML;
     const render   = compile(library, params, template, element.id ? '#' + element.id : '');
@@ -31,7 +39,11 @@ const fromTemplateId = cache(function(id) {
         const args = arguments.length === 1 ?
             arguments :
             keys.reduce(pushParams, [data]) ;
-    
+
+        if (DEBUG) {
+            log('render', '#' + id + ' { ' +  params + ' }', 'orange');
+        }
+
         return render.apply(this, args);
     };
 });

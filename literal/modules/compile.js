@@ -3,7 +3,7 @@
 
 import compileAsyncFn from '../../../fn/modules/compile-async-function.js';
 import renderString   from './to-text.js';
-import { dimgreendim, dimyellow, dim, red, yellow, redwhitedim } from './log-browser.js';
+import log from './log-browser.js';
 
 
 const DEBUG = true;
@@ -30,7 +30,7 @@ const hints = {
 };
 
 function logCompile(source, scope, params, names) {
-    console.log(dimgreendim, 'Literal', 'compile', source + ' { ' + params + ' }');
+    log('compile', source + ' { ' + params + ' }');
 
     // Sanity check params for scope overrides
     names.forEach((name) => {
@@ -40,9 +40,12 @@ function logCompile(source, scope, params, names) {
         }
 
         if (scope[name]) {
-            console.log(dimyellow, 'Literal', 'warning', 'param ' + name
+            log('warning', 'param ' 
+                + name
                 + ' overrides literal ' + typeof scope[name] + ' '
-                + (typeof scope[name] === 'function' ? name + '()' : name));
+                + (typeof scope[name] === 'function' ? name + '()' : name),
+                'orange'
+            );
         }
     });
 }
@@ -50,10 +53,10 @@ function logCompile(source, scope, params, names) {
 function logError(source, template, e) {
     // Print source code to console
     console.log('');
-    console.log(dim, template.slice(0, 1000) + (template.length > 1000 ? '\n\n...\n' : '\n'));
-    console.log(red, e.constructor.name + ':', e.message, 'parsing', source);
+    console.log(template.slice(0, 1000) + (template.length > 1000 ? '\n\n...\n' : '\n'));
+    console.log(e.constructor.name + ':', e.message, 'parsing', source);
     const key = e.message.slice(0, 10);
-    if (hints[key]) { console.log(yellow, '\nHints\n' + hints[key]); }
+    if (hints[key]) { console.log('\nHints\n' + hints[key]); }
     console.log('');
     //console.log(e.stack);
     console.log('');

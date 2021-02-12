@@ -43,8 +43,8 @@ ${ pipe(add('-01:00:20'), data.time) }
 function toAddType(n) {
     const type = typeof n;
     return type === 'string' ?
-        /^\d\d\d\d(?:-|$)/.test(n) ? 'date' :
-        /^\d\d(?::|$)/.test(n) ? 'time' :
+        /^-?\d\d\d\d(?:-|$)/.test(n) ? 'date' :
+        /^-?\d\d(?::|$)/.test(n) ? 'time' :
         'string' :
     type;
 }

@@ -40,3 +40,11 @@ export const dimmagentadim = dim + '' + magenta + '' + dim;
 export const dimcyandim    = dim + '' + cyan + '' + dim;
 
 export const redwhitedim    = red + '' + white + '' + dim;
+
+export default function log($1, $2, color = '#d8cd17') {
+    console.log('%cLiteral %c' + $1 + ' %c' + $2,
+        'color: #81868f; font-weight: 600;', 
+        'color: ' + color + '; font-weight: 300;', 
+        'color: #81868f; font-weight: 300;'
+    );
+}
