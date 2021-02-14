@@ -36,9 +36,9 @@ const fromTemplateId = cache(function(id) {
 
     return function literal(data) {
         // Assemble params data, ...keys
-        const args = arguments.length === 1 ?
-            arguments :
-            keys.reduce(pushParams, [data]) ;
+        const args = keys.length ?
+            keys.reduce(pushParams, [data]) :
+            arguments ;
 
         if (DEBUG) {
             log('render', '#' + id + ' { ' +  params + ' }', 'orange');
@@ -49,13 +49,17 @@ const fromTemplateId = cache(function(id) {
 });
 
 function Literal(template) {
-    return typeof template === 'string' ?
+    const literal = typeof template === 'string' ?
         /^#/.test(template) ?
             fromTemplateId(template.slice(1)) :
             compile(library, 'data', template) :
         template.id ?
             fromTemplateId(template) :
             noop ;
+
+    // Allow Literal() to be called with data
+    const data = arguments[1];
+    return data ? literal(data) : literal ;
 }
 
 Literal.register = register;

@@ -60,6 +60,10 @@ const lib = {
         }
     }),
 
+    and: function(a, b) { return !!(a && b); },
+    gt: function(a, b) { return b > a; },
+    lt: function(a, b) { return b < a; },
+
     by, entries: Object.entries, em, equals, exec, get, keys: Object.keys,
     matches, Pipe, px, rem, slugify, values: Object.values
 };

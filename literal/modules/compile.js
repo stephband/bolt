@@ -111,8 +111,9 @@ export default function compile(scope, params, template, source) {
     }
 
     // Extract names, format params
-    const names = params.split(/\s*[,\s]\s*/).sort();
-    params = names.join(', ');
+    // const names = params.split(/\s*[,\s]\s*/).sort();
+    const names = params.split(/\s*[,\s]\s*/);
+    //params = names.join(', ');
     source = source || '';
     const key = source + '(' + params + ')';
 
