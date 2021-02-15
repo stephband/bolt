@@ -48,21 +48,49 @@ const fromTemplateId = cache(function(id) {
     };
 });
 
+/**
+Literal(template)
+Takes a literal template and compiles it into a render function. The parameter
+`template` may be:
+
+- A DOM element
+- The id of an element in the DOM, eg. `'#my-template'`
+- A template string
+**/
+
 function Literal(template) {
-    const literal = typeof template === 'string' ?
+    return typeof template === 'string' ?
         /^#/.test(template) ?
             fromTemplateId(template.slice(1)) :
             compile(library, 'data', template) :
         template.id ?
             fromTemplateId(template) :
             noop ;
-
-    // Allow Literal() to be called with data
-    const data = arguments[1];
-    return data ? literal(data) : literal ;
 }
 
+
+/** 
+Literal.register(name, fn)
+Register a function (or value) that will be available in the scope of all 
+templates.
+**/
+
 Literal.register = register;
+
+
+/** 
+Literal.render(template, data)
+Compiles a template and renders it in a single call.
+**/
+
+Literal.render = function(template, data) {
+    return Literal(template)(data);
+};
+
+
+/**
+
+**/
 
 register('include', function include(url, data) {
     if (!/^#/.test(url)) {
