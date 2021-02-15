@@ -119,21 +119,21 @@ export default function compile(scope, vars, template, source) {
     // Return cached fn
     if (cache[key]) { return cache[key]; }
 
+    // Alphabetise and format
     vars = sanitiseVars(vars);
+
+    // Make it impossible to override render
+    scope.render = render;
 
     const self = this;
     const code = '\n'
         + 'const { ' + vars + ' } = data;\n'
         + 'return render`' + template + '`;\n';
 
-    // Make it impossible to override render
-    scope.render = render;
-
-    logCompile(source, scope, vars);
-
     var fn;
 
     try {
+        logCompile(source, scope, vars);
         fn = compileAsyncFn(scope, 'data', code);
     }
     catch(e) {

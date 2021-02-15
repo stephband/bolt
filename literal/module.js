@@ -11,11 +11,6 @@ function empty() {
     return '';
 }
 
-function pushParams(args, key) {
-    args.push(args[0][key])
-    return args;
-}
-
 const fromTemplateId = cache(function(id) {
     const element = document.getElementById(id);
 
@@ -36,6 +31,16 @@ const fromTemplateId = cache(function(id) {
     return compile(library, vars, template, element.id ? '#' + element.id : '');
 });
 
+/**
+Literal(template)
+Takes a literal template and compiles it into a render function. The parameter
+`template` may be:
+
+- A DOM element
+- The id of an element in the DOM, eg. `'#my-template'`
+- A template string
+**/
+
 function Literal(template) {
     return typeof template === 'string' ?
         /^#/.test(template) ?
@@ -46,7 +51,29 @@ function Literal(template) {
             noop ;
 }
 
+
+/** 
+Literal.register(name, fn)
+Register a function (or value) that will be available in the scope of all 
+templates.
+**/
+
 Literal.register = register;
+
+
+/** 
+Literal.render(template, data)
+Compiles a template and renders it in a single call.
+**/
+
+Literal.render = function(template, data) {
+    return Literal(template)(data);
+};
+
+
+/**
+
+**/
 
 register('include', function include(url, data) {
     if (!/^#/.test(url)) {

@@ -58,6 +58,24 @@ Show an element when its parent has class <code>active</code>.
 	display: none !important;
 }
 
+/*
+.focus-shown
+Show an element only when focused
+*/
+
+.focus-shown:not(:focus) {
+
+	opacity: 0 !important;
+	/*visibility: hidden !important;*/
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	width: 1px !important;
+	height: 1px important;
+
+	background: red;
+}
+
 
 /*
 .on-hidden
