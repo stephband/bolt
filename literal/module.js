@@ -30,22 +30,10 @@ const fromTemplateId = cache(function(id) {
         log('render', 'keys may not include "data" (' + keys.join(', ') + ')', 'red');
     }
 
-    const params   = 'data' + (keys.length ? ', ' + keys.join(', ') : '');
+    const vars     = keys.join(', ');
     const template = element.innerHTML;
-    const render   = compile(library, params, template, element.id ? '#' + element.id : '');
 
-    return function literal(data) {
-        // Assemble params data, ...keys
-        const args = arguments.length === 1 ?
-            arguments :
-            keys.reduce(pushParams, [data]) ;
-
-        if (DEBUG) {
-            log('render', '#' + id + ' { ' +  params + ' }', 'orange');
-        }
-
-        return render.apply(this, args);
-    };
+    return compile(library, vars, template, element.id ? '#' + element.id : '');
 });
 
 function Literal(template) {

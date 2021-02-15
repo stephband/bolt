@@ -29,22 +29,21 @@ const hints = {
         '• ${} accepts any valid JS expression\n'
 };
 
-function logCompile(source, scope, params, names) {
-    log('compile', source + ' { ' + params + ' }');
+function logCompile(source, scope, vars) {
+    log('compile', source + ' { ' + vars + ' }');
 
     // Sanity check params for scope overrides
-    names.forEach((name) => {
+    vars.split(/\s*,\s*/).forEach((name) => {
         if (illegal.includes(name)) {
-            console.log(redwhitedim, 'SyntaxError', 'Reserved word cannot be used as parameter name', '{ ' + params + ' }')
-            throw new SyntaxError('Reserved word cannot be used as parameter name ' + name);
+            throw new SyntaxError('Reserved word ' + name + ' cannot be used as template variable');
         }
 
         if (scope[name]) {
-            log('warning', 'param ' 
+            log('warning', 'template variable ' 
                 + name
-                + ' overrides literal ' + typeof scope[name] + ' '
+                + ' overrides scope ' + typeof scope[name] + ' '
                 + (typeof scope[name] === 'function' ? name + '()' : name),
-                'orange'
+                'red'
             );
         }
     });
@@ -105,34 +104,37 @@ Returns a function that renders a literal template.
 // Store render functions against their template strings
 const cache = {};
 
-export default function compile(scope, params, template, source) {
+function sanitiseVars(vars) {
+    const names = vars.split(/\s*[,\s]\s*/).sort();
+    return names.join(', ');
+}
+
+export default function compile(scope, vars, template, source) {
     if (!template) {
         throw new Error('Template is not a string');
     }
 
-    // Extract names, format params
-    const names = params.split(/\s*[,\s]\s*/).sort();
-    params = names.join(', ');
-    source = source || '';
-    const key = source + '(' + params + ')';
+    const key = source || template;
 
     // Return cached fn
-    if (cache[key]) {
-        return cache[key]; 
-    }
+    if (cache[key]) { return cache[key]; }
 
-    const code = 'return render`' + template + '`;';
+    vars = sanitiseVars(vars);
+
     const self = this;
+    const code = '\n'
+        + 'const { ' + vars + ' } = data;\n'
+        + 'return render`' + template + '`;\n';
 
     // Make it impossible to override render
     scope.render = render;
 
-    logCompile(source, scope, params, names);
+    logCompile(source, scope, vars);
 
     var fn;
 
     try {
-        fn = compileAsyncFn(scope, params, code);
+        fn = compileAsyncFn(scope, 'data', code);
     }
     catch(e) {
         logError(source, template, e);
@@ -140,6 +142,7 @@ export default function compile(scope, params, template, source) {
     }
 
     return cache[key] = function literal() {
-        return fn.apply(this === self ? {} : this, arguments);
+        // Where this is global, neuter it
+        return fn.apply(this === self ? null : this, arguments);
     };
 }
