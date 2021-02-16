@@ -6,8 +6,6 @@ import renderString   from './to-text.js';
 import log from './log-browser.js';
 
 
-const DEBUG = true;
-
 const illegal = [
     // Reserved by literal
     "render",
@@ -133,7 +131,7 @@ export default function compile(scope, vars, template, source) {
     var fn;
 
     try {
-        logCompile(source, scope, vars);
+        logCompile(source, scope, 'data' + (vars ? ', ' + vars : ''));
         fn = compileAsyncFn(scope, 'data', code);
     }
     catch(e) {
@@ -142,6 +140,7 @@ export default function compile(scope, vars, template, source) {
     }
 
     return cache[key] = function literal() {
+        log('render', key, 'orange');
         // Where this is global, neuter it
         return fn.apply(this === self ? null : this, arguments);
     };

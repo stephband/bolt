@@ -5,7 +5,6 @@ import library, { register } from './modules/lib.js';
 import compile from './modules/compile.js';
 import log from './modules/log-browser.js';
 
-const DEBUG = window.DEBUG;
 
 function empty() {
     return '';
@@ -22,7 +21,7 @@ const fromTemplateId = cache(function(id) {
     const keys = Object.keys(element.dataset);
 
     if (keys.includes('data')) {
-        log('render', 'keys may not include "data" (' + keys.join(', ') + ')', 'red');
+        log('render', 'template has data-data attribute but variable data not allowed', 'red');
     }
 
     const vars     = keys.join(', ');
