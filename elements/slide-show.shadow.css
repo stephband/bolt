@@ -126,9 +126,8 @@
 }
 
 
-
-
 slot {
+    position: relative;
     display: grid;
     padding: 0;
     margin: 0;
@@ -158,6 +157,17 @@ slot {
 
     will-change: -webkit-scroll-behavior;
     will-change: scroll-behavior;
+}
+
+slot::after {
+    content: '';
+    position: absolute;
+    grid-column: none;
+    grid-row: none;
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    height: 1px;
 }
 
 slot::-webkit-scrollbar {
