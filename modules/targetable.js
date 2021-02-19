@@ -36,7 +36,7 @@ import features           from '../../dom/modules/features.js';
 import { isInternalLink } from '../../dom/modules/node.js';
 import select             from '../../dom/modules/select.js';
 
-import location from '../../dom/modules/history.js';
+import location from '../../dom/modules/location.js';
 
 var DEBUG = false;
 
@@ -59,6 +59,7 @@ let scrollLeft   = document.scrollingElement.scrollLeft;
 let scrollTop    = document.scrollingElement.scrollTop;
 let targetables, targetNode, scrollPaddingLeft, scrollPaddingTop, frame;
 
+var navs = -1;
 
 function queryLinks(id) {
 	return select('a[href$="#' + id + '"]', document.body)
@@ -115,11 +116,7 @@ function update(time) {
     if (n < 0 || n >= boxes.length) {
         if (targetNode) {
             unlocate();
-            // Remove # from current URL
-            //console.log('FF');
-            //location.id = '';
-            location.navigate('#', false);
-            //location.url = location.url.replace(/#.*$/, '');
+            location.id = '';
         }
 
         return;
@@ -133,8 +130,7 @@ function update(time) {
 
     unlocate();
     locate(node);
-    window.history.replaceState(nothing, '', '#' + node.id);
-    //trigger('hashchange', window);
+    location.id = node.id;
 }
 
 function scroll(e) {
@@ -211,12 +207,11 @@ function updateElement(time, data) {
 
     if (node) {
         locate(node);
-        window.history.replaceState(nothing, '', '#' + node.id);
-        //trigger('hashchange', window);
+        location.id = node.id;
         return;
     }
 
-    window.history.replaceState(nothing, '', '#');
+    location.id = '';
 }
 
 function scrollElement(e) {
