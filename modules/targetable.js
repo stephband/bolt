@@ -35,7 +35,8 @@ import rect               from '../../dom/modules/rect.js';
 import features           from '../../dom/modules/features.js';
 import { isInternalLink } from '../../dom/modules/node.js';
 import select             from '../../dom/modules/select.js';
-import { trigger }        from '../../dom/modules/trigger.js';
+
+import location from '../../dom/modules/history.js';
 
 var DEBUG = false;
 
@@ -73,14 +74,12 @@ function removeOn(node) {
 }
 
 function locate(node) {
-    //node.classList.add('located');
     queryLinks(node.id).forEach(addOn);
     targetNode = node;
 }
 
 function unlocate() {
     if (!targetNode) { return; }
-    //targetNode.classList.remove('located');
     queryLinks(targetNode.id).forEach(removeOn);
     targetNode = undefined;
 }
@@ -116,7 +115,11 @@ function update(time) {
     if (n < 0 || n >= boxes.length) {
         if (targetNode) {
             unlocate();
-            window.history.replaceState(nothing, '', '#');
+            // Remove # from current URL
+            //console.log('FF');
+            //location.id = '';
+            location.navigate('#', false);
+            //location.url = location.url.replace(/#.*$/, '');
         }
 
         return;
@@ -131,7 +134,7 @@ function update(time) {
     unlocate();
     locate(node);
     window.history.replaceState(nothing, '', '#' + node.id);
-    trigger('hashchange', window);
+    //trigger('hashchange', window);
 }
 
 function scroll(e) {
@@ -209,7 +212,7 @@ function updateElement(time, data) {
     if (node) {
         locate(node);
         window.history.replaceState(nothing, '', '#' + node.id);
-        trigger('hashchange', window);
+        //trigger('hashchange', window);
         return;
     }
 
@@ -338,3 +341,7 @@ function load(e) {
 }
 
 window.addEventListener('load', load);
+
+
+
+window.h = location;
