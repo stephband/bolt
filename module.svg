@@ -2697,15 +2697,15 @@
 <path fill="none" stroke="#757575" d="M39.27,-1942.69C47.07,-1826.88 114.92,-894.06 290,-690.5 293.06,-686.95 296.64,-683.88 300.54,-681.23"/>
 <polygon fill="#757575" stroke="#757575" points="302.59,-684.09 309.52,-676.08 299.1,-678.02 302.59,-684.09"/>
 </g>
-<!-- modules/locateable.js -->
+<!-- modules/targetable.js -->
 <g id="node150" class="node">
-<title>modules/locateable.js</title>
+<title>modules/targetable.js</title>
 <path fill="none" stroke="#c6c5fe" d="M612.33,-2482C612.33,-2482 480.67,-2482 480.67,-2482 476.83,-2482 473,-2478.17 473,-2474.33 473,-2474.33 473,-2466.67 473,-2466.67 473,-2462.83 476.83,-2459 480.67,-2459 480.67,-2459 612.33,-2459 612.33,-2459 616.17,-2459 620,-2462.83 620,-2466.67 620,-2466.67 620,-2474.33 620,-2474.33 620,-2478.17 616.17,-2482 612.33,-2482"/>
-<text text-anchor="middle" x="546.5" y="-2466.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">modules/locateable.js</text>
+<text text-anchor="middle" x="546.5" y="-2466.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">modules/targetable.js</text>
 </g>
-<!-- module.js&#45;&gt;modules/locateable.js -->
+<!-- module.js&#45;&gt;modules/targetable.js -->
 <g id="edge294" class="edge">
-<title>module.js&#45;&gt;modules/locateable.js</title>
+<title>module.js&#45;&gt;modules/targetable.js</title>
 <path fill="none" stroke="#757575" d="M46.97,-1966.22C60.05,-1984.09 86.25,-2018.98 111,-2046.5 260.42,-2212.62 460.31,-2394.35 524.63,-2451.94"/>
 <polygon fill="#757575" stroke="#757575" points="522.67,-2454.88 532.46,-2458.93 527.33,-2449.66 522.67,-2454.88"/>
 </g>
@@ -2751,21 +2751,21 @@
 <path fill="none" stroke="#757575" d="M370.32,-676.29C431.15,-789.76 912.42,-1687.48 991.52,-1835.01"/>
 <polygon fill="#757575" stroke="#757575" points="988.51,-1836.82 996.32,-1843.98 994.68,-1833.51 988.51,-1836.82"/>
 </g>
-<!-- modules/locateable.js&#45;&gt;../dom/module.js -->
+<!-- modules/targetable.js&#45;&gt;../dom/module.js -->
 <g id="edge301" class="edge">
-<title>modules/locateable.js&#45;&gt;../dom/module.js</title>
+<title>modules/targetable.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M548.68,-2458.93C555.4,-2395.74 590.71,-2092.99 657,-2032.5 740.72,-1956.11 813.25,-2054.13 909,-1993.5 953.37,-1965.41 981.82,-1907.79 994.63,-1876.63"/>
 <polygon fill="#757575" stroke="#757575" points="997.95,-1877.74 998.37,-1867.16 991.44,-1875.17 997.95,-1877.74"/>
 </g>
-<!-- modules/locateable.js&#45;&gt;../fn/module.js -->
+<!-- modules/targetable.js&#45;&gt;../fn/module.js -->
 <g id="edge303" class="edge">
-<title>modules/locateable.js&#45;&gt;../fn/module.js</title>
+<title>modules/targetable.js&#45;&gt;../fn/module.js</title>
 <path fill="none" stroke="#757575" d="M550.4,-2482.4C566.91,-2550.09 648.61,-2883.64 657,-2890.5 716.53,-2939.17 925.61,-2909.5 1002.5,-2909.5 1002.5,-2909.5 1002.5,-2909.5 1699.5,-2909.5 1767.15,-2909.5 1954.21,-2923.38 2002,-2875.5 2077.24,-2800.11 2111.24,-1994.2 2116.7,-1851.15"/>
 <polygon fill="#757575" stroke="#757575" points="2120.21,-1851.14 2117.09,-1841.01 2113.21,-1850.87 2120.21,-1851.14"/>
 </g>
-<!-- modules/locateable.js&#45;&gt;../dom/polyfills/element.scrollintoview.js -->
+<!-- modules/targetable.js&#45;&gt;../dom/polyfills/element.scrollintoview.js -->
 <g id="edge302" class="edge">
-<title>modules/locateable.js&#45;&gt;../dom/polyfills/element.scrollintoview.js</title>
+<title>modules/targetable.js&#45;&gt;../dom/polyfills/element.scrollintoview.js</title>
 <path fill="none" stroke="#757575" d="M551.09,-2482.21C561.88,-2517.43 594.85,-2625.52 621,-2715.5 637.49,-2772.25 613.79,-2803.18 657,-2843.5 660.9,-2847.14 665.17,-2850.33 669.71,-2853.11"/>
 <polygon fill="#757575" stroke="#757575" points="668.28,-2856.31 678.74,-2857.98 671.61,-2850.15 668.28,-2856.31"/>
 </g>
