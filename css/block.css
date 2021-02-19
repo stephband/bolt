@@ -51,6 +51,15 @@ hr.block {
     height: 1px;
 }
 
+.block[href] {
+    text-decoration: none;
+}
+
+.block[href]:hover,
+.block[href]:focus {
+    text-decoration: underline;
+}
+
 
 /**
 .inline-block

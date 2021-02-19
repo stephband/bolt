@@ -1,29 +1,29 @@
 
 /**
-locateable
+targetable
 
-An element with a `locateable` attribute updates the browser location hash
+An element with a `targetable` attribute updates the browser location hash
 with its `id` when scrolled into view.
 
-When the location hash changes to be equal to a `locateable`'s id
-the locateable gets the class `"located"`, and links that reference that
-locateable via their `href` attribute get the class `"on"`.
+When the location hash changes to be equal to a `targetable`'s id
+the targetable gets the class `"located"`, and links that reference that
+targetable via their `href` attribute get the class `"on"`.
 
-Build a list of links that reference locateables and with a little style
+Build a list of links that reference targetables and with a little style
 you have a scrolling navigation:
 
 ```html
 <style>
-    a               { color: #888888; }
-    a.on            { color: black; }
-    article.located { ... }
+    a              { color: #888888; }
+    a.on           { color: black; }
+    article:target { ... }
 </style>
 
 <a href="#fish">...</a>
 <a href="#chips">...</a>
 
-<article locateable id="fish">...</article>
-<article locateable id="chips">...</article>
+<article targetable id="fish">...</article>
+<article targetable id="chips">...</article>
 ```
 **/
 
@@ -39,7 +39,7 @@ import { trigger }        from '../../dom/modules/trigger.js';
 
 var DEBUG = false;
 
-const selector = ".locateable, [locateable]";
+const selector = ".targetable, [targetable]";
 const byTop    = by(get('top'));
 const nothing  = {};
 const scrollOptions = {
@@ -56,7 +56,7 @@ let hashTime     = 0;
 let frameTime    = -Infinity;
 let scrollLeft   = document.scrollingElement.scrollLeft;
 let scrollTop    = document.scrollingElement.scrollTop;
-let locateables, locatedNode, scrollPaddingLeft, scrollPaddingTop, frame;
+let targetables, targetNode, scrollPaddingLeft, scrollPaddingTop, frame;
 
 
 function queryLinks(id) {
@@ -65,24 +65,24 @@ function queryLinks(id) {
 }
 
 function addOn(node) {
-    node.classList.add('on');
+    node.classList.add('target-on');
 }
 
 function removeOn(node) {
-    node.classList.remove('on');
+    node.classList.remove('target-on');
 }
 
 function locate(node) {
-    node.classList.add('located');
+    //node.classList.add('located');
     queryLinks(node.id).forEach(addOn);
-    locatedNode = node;
+    targetNode = node;
 }
 
 function unlocate() {
-    if (!locatedNode) { return; }
-    locatedNode.classList.remove('located');
-    queryLinks(locatedNode.id).forEach(removeOn);
-    locatedNode = undefined;
+    if (!targetNode) { return; }
+    //targetNode.classList.remove('located');
+    queryLinks(targetNode.id).forEach(removeOn);
+    targetNode = undefined;
 }
 
 function update(time) {
@@ -90,7 +90,7 @@ function update(time) {
 
     // Update things that rarely change only when we have not updated recently
     if (frameTime < time - config.scrollIdleDuration * 1000) {
-        locateables = select(selector, document);
+        targetables = select(selector, document);
         // Default to 0 for browsers (IE, Edge) that do not 
         // support scrollPaddingX
         scrollPaddingLeft = parseInt(getComputedStyle(document.documentElement).scrollPaddingLeft, 10) || 0;
@@ -99,11 +99,11 @@ function update(time) {
 
     frameTime = time;
 
-    const boxes = locateables.map(rect).sort(byTop);
+    const boxes = targetables.map(rect).sort(byTop);
     let  n = -1;
 
     while (boxes[++n]) {
-        // Stop on locateable lower than the break
+        // Stop on targetable lower than the break
         if (boxes[n].top > scrollPaddingTop + 1) {
             break;
         }
@@ -111,10 +111,10 @@ function update(time) {
 
     --n;
 
-    // Before the first or after the last locateable. (The latter
+    // Before the first or after the last targetable. (The latter
     // should not be possible according to the above while loop)
     if (n < 0 || n >= boxes.length) {
-        if (locatedNode) {
+        if (targetNode) {
             unlocate();
             window.history.replaceState(nothing, '', '#');
         }
@@ -122,9 +122,9 @@ function update(time) {
         return;
     }
 
-    var node = locateables[n];
+    var node = targetables[n];
 
-    if (locatedNode && node === locatedNode) {
+    if (targetNode && node === targetNode) {
         return;
     }
 
@@ -173,7 +173,7 @@ function updateElement(time, data) {
     // Update things that rarely change only when we have not updated recently
     if (frameTime < time - config.scrollIdleDuration * 1000) {
         data.box               = rect(data.node);
-        data.locateables       = select(selector, data.node);
+        data.targetables       = select(selector, data.node);
 
         // scrollPaddingN may compute to "auto", which parses as NaN.
         // Default to 0.
@@ -183,26 +183,26 @@ function updateElement(time, data) {
 
     frameTime = time;
 
-    const boxes = data.locateables.map(rect).sort(byTop);
+    const boxes = data.targetables.map(rect).sort(byTop);
     let n = -1;
     let node;
 
     while (boxes[++n]) {
-        // Stop on locateable lower than the break
+        // Stop on targetable lower than the break
         if ((boxes[n].top - data.box.top) > data.scrollPaddingTop + 1
         || (boxes[n].left - data.box.left) > data.scrollPaddingLeft + 1) {
             break;
         }
 
-        node = data.locateables[n];
+        node = data.targetables[n];
     }
 
     // Check that node and locateNode are different before continueing
-    if (node === locatedNode) {
+    if (node === targetNode) {
         return;
     }
 
-    // Before the first or after the last locateable. (The latter
+    // Before the first or after the last targetable. (The latter
     // should not be possible according to the above while loop)
     unlocate();
 

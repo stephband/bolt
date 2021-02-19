@@ -111,8 +111,8 @@ button,
     background-clip: padding-box;
     background-origin: padding-box;
     border-style: solid;
-    border-width: var(--border-width);
-    border-color: var(--border-color);
+    border-width:  var(--border-width);
+    border-color:  var(--border-color);
     border-radius: var(--border-radius);
     transition:
         background-color 120ms linear,
