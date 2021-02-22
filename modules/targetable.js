@@ -42,7 +42,6 @@ var DEBUG = false;
 
 const selector = ".targetable, [targetable]";
 const byTop    = by(get('top'));
-const nothing  = {};
 const scrollOptions = {
     // Overridden on window load
     behavior: 'auto',
@@ -116,7 +115,7 @@ function update(time) {
     if (n < 0 || n >= boxes.length) {
         if (targetNode) {
             unlocate();
-            location.id = '';
+            location.identifier = '';
         }
 
         return;
@@ -130,7 +129,7 @@ function update(time) {
 
     unlocate();
     locate(node);
-    location.id = node.id;
+    location.identifier = node.id;
 }
 
 function scroll(e) {
@@ -207,11 +206,11 @@ function updateElement(time, data) {
 
     if (node) {
         locate(node);
-        location.id = node.id;
+        location.identifier = node.id;
         return;
     }
 
-    location.id = '';
+    location.identifier = '';
 }
 
 function scrollElement(e) {
@@ -339,4 +338,4 @@ window.addEventListener('load', load);
 
 
 
-window.h = location;
+window.l = location;
