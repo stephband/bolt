@@ -27,40 +27,35 @@ you have a scrolling navigation:
 ```
 **/
 
-import '../../dom/polyfills/element.scrollintoview.js';
-import by        from '../../fn/modules/by.js';
-import get       from '../../fn/modules/get.js';
-import weakCache from '../../fn/modules/weak-cache.js';
-import rect               from '../../dom/modules/rect.js';
-import features           from '../../dom/modules/features.js';
-import { isInternalLink } from '../../dom/modules/node.js';
-import select             from '../../dom/modules/select.js';
-
+import by       from '../../fn/modules/by.js';
+import get      from '../../fn/modules/get.js';
 import location from '../../dom/modules/location.js';
+import rect     from '../../dom/modules/rect.js';
+import select   from '../../dom/modules/select.js';
+import { isDocumentLink } from '../../dom/modules/node.js';
 
-var DEBUG = false;
+const assign   = Object.assign;
+const selector = "[targetable], [data-targetable]";
 
-const selector = ".targetable, [targetable]";
-const byTop    = by(get('top'));
-const scrollOptions = {
-    // Overridden on window load
-    behavior: 'auto',
-    block: 'start'
-};
 
-export const config = {
-    scrollIdleDuration: 0.15
-};
+/*
+Utils
+*/
 
-let hashTime     = 0;
-let frameTime    = -Infinity;
-let scrollLeft   = document.scrollingElement.scrollLeft;
-let scrollTop    = document.scrollingElement.scrollTop;
-let targetables, targetNode, scrollPaddingLeft, scrollPaddingTop, frame;
+function feedback(fn, value) {
+    return function () {
+        return (value = fn(value, ...arguments));
+    };
+}
 
-function queryLinks(id) {
-	return select('a[href$="#' + id + '"]', document.body)
-	.filter(isInternalLink);
+
+/*
+Links
+*/
+
+function selectLinks(id) {
+    return select('a[href$="#' + id + '"]', document.body)
+    .filter(isDocumentLink);
 }
 
 function addOn(node) {
@@ -71,283 +66,95 @@ function removeOn(node) {
     node.classList.remove('target-on');
 }
 
-function locate(node) {
-    queryLinks(node.id).forEach(addOn);
-    targetNode = node;
+function locate(id) {
+    if (!id) { return; }
+    selectLinks(id).forEach(addOn);
 }
 
-function unlocate() {
-    if (!targetNode) { return; }
-    queryLinks(targetNode.id).forEach(removeOn);
-    targetNode = undefined;
+function unlocate(id) {
+    if (!id) { return; }
+    selectLinks(id).forEach(removeOn);
 }
 
-function update(time) {
-    console.log('UPDATE', time);
-    frame = undefined;
 
-    // Update things that rarely change only when we have not updated recently
-    if (frameTime < time - config.scrollIdleDuration * 1000) {
-        targetables = select(selector, document);
-        // Default to 0 for browsers (IE, Edge) that do not 
-        // support scrollPaddingX
-        scrollPaddingLeft = parseFloat(getComputedStyle(document.documentElement).scrollPaddingLeft) || 0;
-        scrollPaddingTop  = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
-    }
+/*
+Scroll
+*/
 
-    frameTime = time;
+const origin = { left: 0, top: 0 };
 
-    const boxes = targetables.map(rect).sort(byTop);
-    let  n = -1;
-
-    while (boxes[++n]) {
-        console.log(boxes[n].top, scrollPaddingTop);
-        // Stop on targetable lower than the break
-        if (boxes[n].top > scrollPaddingTop + 1) {
-            break;
-        }
-    }
-
-    --n;
-
-    // Before the first or after the last targetable. (The latter
-    // should not be possible according to the above while loop)
-    if (n < 0 || n >= boxes.length) {
-        if (targetNode) {
-            unlocate();
-            location.identifier = '';
-        }
-
-        return;
-    }
-
-    var node = targetables[n];
-
-    if (targetNode && node === targetNode) {
-        return;
-    }
-
-    unlocate();
-    locate(node);
-    location.identifier = node.id;
-}
-
-function scroll(e) {
-    if (DEBUG) {
-        console.log(e.type, e.timeStamp, window.location.hash, document.scrollingElement.scrollLeft + ', ' + document.scrollingElement.scrollTop);
-    }
-
-    // Keep a record of scrollTop in order to restore it in Safari,
-    // where popstate and hashchange are preceeded by a scroll jump
-    scrollLeft = document.scrollingElement.scrollLeft;
-    scrollTop  = document.scrollingElement.scrollTop;
-
-    const aMomentAgo = e.timeStamp - config.scrollIdleDuration * 1000;
-
-    // For a moment after the last popstate dont update while
-    // smooth scrolling settles to the right place.
-    if (e.type === 'scroll' && hashTime > aMomentAgo) {
-        hashTime = e.timeStamp;
-        return;
-    }
-
-    // Is frame already cued?
-    if (frame) {
-        return;
-    }
-
-    frame = requestAnimationFrame(update);
-}
-
-const store = weakCache(function(node) {
+function toData(element) {
+    const box = rect(element);
     return {
-        node: node
+        element: element,
+        left:    box.left,
+        top:     box.top,
+        width:   box.width,
+        height:  box.height
     };
-});
-
-function updateElement(time, data) {
-    data.frame = undefined;
-
-    // Update things that rarely change only when we have not updated recently
-    if (frameTime < time - config.scrollIdleDuration * 1000) {
-        data.box               = rect(data.node);
-        data.targetables       = select(selector, data.node);
-
-        // scrollPaddingN may compute to "auto", which parses as NaN.
-        // Default to 0.
-        data.scrollPaddingLeft = parseInt(getComputedStyle(data.node).scrollPaddingLeft, 10) || 0;
-        data.scrollPaddingTop  = parseInt(getComputedStyle(data.node).scrollPaddingTop, 10) || 0;
-    }
-
-    frameTime = time;
-
-    const boxes = data.targetables.map(rect).sort(byTop);
-    let n = -1;
-    let node;
-
-    while (boxes[++n]) {
-        // Stop on targetable lower than the break
-        if ((boxes[n].top - data.box.top) > data.scrollPaddingTop + 1
-        || (boxes[n].left - data.box.left) > data.scrollPaddingLeft + 1) {
-            break;
-        }
-
-        node = data.targetables[n];
-    }
-
-    // Check that node and locateNode are different before continueing
-    if (node === targetNode) {
-        return;
-    }
-
-    // Before the first or after the last targetable. (The latter
-    // should not be possible according to the above while loop)
-    unlocate();
-
-    if (node) {
-        locate(node);
-        location.identifier = node.id;
-        return;
-    }
-
-    location.identifier = '';
 }
 
-function scrollElement(e) {
-    if (e.target === document) {
-        return false;
-    }
+function getTargetable(element) {
+    const targetables = select(selector, element);
 
-    if (DEBUG) {
-        console.log(e.type, e.timeStamp, window.location.hash, document.scrollingElement.scrollLeft + ', ' + document.scrollingElement.scrollTop);
-    }
-
-    const data = store(e.target);
-
-    // Keep a record of scrollTop in order to restore it in Safari,
-    // where popstate and hashchange are preceeded by a scroll jump
-    data.scrollLeft = e.target.scrollLeft;
-    data.scrollTop  = e.target.scrollTop;
-
-    const aMomentAgo = e.timeStamp - config.scrollIdleDuration * 1000;
-
-    // For a moment after the last hashchange dont update while
-    // smooth scrolling settles to the right place.
-    if (hashTime > aMomentAgo) {
-        hashTime = e.timeStamp;
+    if (!targetables.length) {
         return;
     }
 
-    // Is frame already cued?
-    if (data.frame) { return; }
+    // Default to 0 for browsers without support
+    const scrollPaddingLeft = parseFloat(getComputedStyle(element).scrollPaddingLeft) || 0;
+    const scrollPaddingTop  = parseFloat(getComputedStyle(element).scrollPaddingTop)  || 0;
 
-    // Cue an update
-    data.frame = requestAnimationFrame((time) => updateElement(time, data));
-}
+    const box = element === document.body || element === document.documentElement ?
+        origin :
+        rect(element) ;
 
-function restoreScroll(node) {
-    var scrollParent = node;
+    const boxes = targetables.map(toData).sort(by(get('top')));
+    let  n = -1;
+    let target;
 
-    while ((scrollParent = scrollParent.parentNode)) {
-        if (scrollParent === document.body || scrollParent === document.documentElement) {
-            // Todo: generalise scrollingElement to use data object too
-            document.scrollingElement.scrollLeft = scrollLeft;
-            document.scrollingElement.scrollTop  = scrollTop;
-            return;
-        }
-
-        if (scrollParent.scrollHeight > scrollParent.clientHeight) {
-            break;
-        }
+    while (boxes[++n]
+        && (boxes[n].left - box.left) < (scrollPaddingLeft + 1)
+        && (boxes[n].top  - box.top)  < (scrollPaddingTop + 1) 
+    ) {
+        target = boxes[n].element;
     }
 
-    var data = store(scrollParent);
-
-    scrollParent.scrollLeft = data.scrollLeft;
-    scrollParent.scrollTop  = data.scrollTop;
+    return target;
 }
 
-var locationHash = '';
+// Capture scroll events in capture phase, as scroll events from elements
+// other than document do not bubble.
+window.addEventListener('scroll', feedback(function update(previous, e) {
+    const scrollable = e.target;
+    const time = e.timeStamp / 1000;
+    const target = getTargetable(scrollable.scrollingElement || scrollable);
 
-function popstate(e) {
-    //if (DEBUG) {
-        console.log(e.type, e.timeStamp, window.location.hash, document.scrollingElement.scrollLeft + ', ' + document.scrollingElement.scrollTop);
-    //}
-
-    const hash = window.location.hash;
-
-    if (locationHash === hash) {
-        return;
+    // Targetable in view has not changed
+    if (target === previous) {
+        return previous;
     }
-    
-    locationHash = hash;
 
-    // Record the timeStamp
-    hashTime = e.timeStamp;
+    location.identifier = target ? target.id : '' ;
+    return target;
+}), true);
 
-    // Remove current located
-    unlocate();
 
-    const id = hash.slice(1);
-
-    if (!id) {
 /*
-        if (!features.scrollBehavior) {
-            // In Safari, popstate and hashchange are preceeded by scroll jump -
-            // restore previous scrollTop.
-            restoreScroll(document.body);
-
-            // Then animate
-            document.body.scrollIntoView(scrollOptions);
-        }
-*/
-        return;
-    }
-
-    // Is there a node with that id?
-    const node = document.getElementById(id);
-    if (!node) { return; }
-
-    // The page is on the move
-    locate(node);
-
-    // Implement smooth scroll for browsers that do not have it
-    if (!features.scrollBehavior) {
-        // In Safari, popstate and hashchange are preceeded by scroll jump -
-        // restore previous scrollTop.
-/*
-        restoreScroll(node);
+Location
 */
 
-        // Then animate
-        node.scrollIntoView(scrollOptions);
-    }
-}
+location.on(feedback(function(previous, change) {
+    console.log('Location', change);
 
-function load(e) {
-    // Is there a node with that id?
-    const node = document.getElementById(window.location.hash.slice(1));
-    if (node) {
-        node.scrollIntoView(scrollOptions);
+    const identifier = change.identifier;
+
+    if (!identifier) {
+        console.log('Identifier has not changed');
+        return previous;
     }
 
-    popstate(e);
-    scroll(e);
-
-    // Start listening to popstate and scroll
-    window.addEventListener('popstate', popstate);
-    window.addEventListener('scroll', scroll);
-
-    // Capture scroll events in capture phase, as scroll events from elements
-    // other than document do not bubble
-    window.addEventListener('scroll', scrollElement, true);
-
-    // Scroll smoothly from now on
-    scrollOptions.behavior = 'smooth';
-}
-
-window.addEventListener('load', load);
-
-
-
-window.l = location;
+    unlocate(previous.identifier);
+    locate(identifier);
+    return assign(previous, change);
+}, {}));
