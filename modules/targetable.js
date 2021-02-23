@@ -137,7 +137,7 @@ window.addEventListener('scroll', feedback(function update(previous, e) {
     const scrollable = e.target;
     const time = e.timeStamp / 1000;
     const target = getTargetable(scrollable.scrollingElement || scrollable);
-console.log(target);
+
     // Targetable in view has not changed
     if (target === previous) {
         return previous;
