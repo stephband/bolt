@@ -49,7 +49,7 @@ const scrollOptions = {
 };
 
 export const config = {
-    scrollIdleDuration: 0.18
+    scrollIdleDuration: 0.15
 };
 
 let hashTime     = 0;
@@ -57,8 +57,6 @@ let frameTime    = -Infinity;
 let scrollLeft   = document.scrollingElement.scrollLeft;
 let scrollTop    = document.scrollingElement.scrollTop;
 let targetables, targetNode, scrollPaddingLeft, scrollPaddingTop, frame;
-
-var navs = -1;
 
 function queryLinks(id) {
 	return select('a[href$="#' + id + '"]', document.body)
@@ -85,6 +83,7 @@ function unlocate() {
 }
 
 function update(time) {
+    console.log('UPDATE', time);
     frame = undefined;
 
     // Update things that rarely change only when we have not updated recently
@@ -92,8 +91,8 @@ function update(time) {
         targetables = select(selector, document);
         // Default to 0 for browsers (IE, Edge) that do not 
         // support scrollPaddingX
-        scrollPaddingLeft = parseInt(getComputedStyle(document.documentElement).scrollPaddingLeft, 10) || 0;
-        scrollPaddingTop  = parseInt(getComputedStyle(document.documentElement).scrollPaddingTop, 10) || 0;
+        scrollPaddingLeft = parseFloat(getComputedStyle(document.documentElement).scrollPaddingLeft) || 0;
+        scrollPaddingTop  = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
     }
 
     frameTime = time;
@@ -102,6 +101,7 @@ function update(time) {
     let  n = -1;
 
     while (boxes[++n]) {
+        console.log(boxes[n].top, scrollPaddingTop);
         // Stop on targetable lower than the break
         if (boxes[n].top > scrollPaddingTop + 1) {
             break;
@@ -144,7 +144,7 @@ function scroll(e) {
 
     const aMomentAgo = e.timeStamp - config.scrollIdleDuration * 1000;
 
-    // For a moment after the last hashchange dont update while
+    // For a moment after the last popstate dont update while
     // smooth scrolling settles to the right place.
     if (e.type === 'scroll' && hashTime > aMomentAgo) {
         hashTime = e.timeStamp;
@@ -267,10 +267,20 @@ function restoreScroll(node) {
     scrollParent.scrollTop  = data.scrollTop;
 }
 
+var locationHash = '';
+
 function popstate(e) {
-    if (DEBUG) {
+    //if (DEBUG) {
         console.log(e.type, e.timeStamp, window.location.hash, document.scrollingElement.scrollLeft + ', ' + document.scrollingElement.scrollTop);
+    //}
+
+    const hash = window.location.hash;
+
+    if (locationHash === hash) {
+        return;
     }
+    
+    locationHash = hash;
 
     // Record the timeStamp
     hashTime = e.timeStamp;
@@ -278,10 +288,10 @@ function popstate(e) {
     // Remove current located
     unlocate();
 
-    const hash = window.location.hash;
-    const id   = hash.slice(1);
+    const id = hash.slice(1);
 
     if (!id) {
+/*
         if (!features.scrollBehavior) {
             // In Safari, popstate and hashchange are preceeded by scroll jump -
             // restore previous scrollTop.
@@ -290,7 +300,7 @@ function popstate(e) {
             // Then animate
             document.body.scrollIntoView(scrollOptions);
         }
-
+*/
         return;
     }
 
@@ -305,7 +315,9 @@ function popstate(e) {
     if (!features.scrollBehavior) {
         // In Safari, popstate and hashchange are preceeded by scroll jump -
         // restore previous scrollTop.
+/*
         restoreScroll(node);
+*/
 
         // Then animate
         node.scrollIntoView(scrollOptions);
