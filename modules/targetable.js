@@ -2,12 +2,11 @@
 /**
 targetable
 
-An element with a `targetable` attribute updates the browser location hash
-with its `id` when scrolled into view.
+An element with a `data-targetable` (or `targetable`) attribute updates the 
+browser location hash with its `id` when scrolled into view.
 
-When the location hash changes to be equal to a `targetable`'s id
-the targetable gets the class `"located"`, and links that reference that
-targetable via their `href` attribute get the class `"on"`.
+When the location identifier changes to be equal to a `targetable`'s id links 
+that reference that targetable via their `href` attribute get the class `"target-on"`.
 
 Build a list of links that reference targetables and with a little style
 you have a scrolling navigation:
@@ -15,15 +14,15 @@ you have a scrolling navigation:
 ```html
 <style>
     a              { color: #888888; }
-    a.on           { color: black; }
+    a.target-on    { color: black; }
     article:target { ... }
 </style>
 
 <a href="#fish">...</a>
 <a href="#chips">...</a>
 
-<article targetable id="fish">...</article>
-<article targetable id="chips">...</article>
+<article data-targetable id="fish">...</article>
+<article data-targetable id="chips">...</article>
 ```
 **/
 
@@ -34,8 +33,17 @@ import rect     from '../../dom/modules/rect.js';
 import select   from '../../dom/modules/select.js';
 import { isDocumentLink } from '../../dom/modules/node.js';
 
-const assign   = Object.assign;
-const selector = "[targetable], [data-targetable]";
+const assign = Object.assign;
+
+
+/*
+Config
+*/
+
+export const config = {
+    onClass: 'target-on',
+    selector: '[data-targetable]'
+};
 
 
 /*
@@ -95,7 +103,7 @@ function toData(element) {
 }
 
 function getTargetable(element) {
-    const targetables = select(selector, element);
+    const targetables = select(config.selector, element);
 
     if (!targetables.length) {
         return;
@@ -145,12 +153,9 @@ Location
 */
 
 location.on(feedback(function(previous, change) {
-    console.log('Location', change);
-
     const identifier = change.identifier;
 
     if (!identifier) {
-        console.log('Identifier has not changed');
         return previous;
     }
 
