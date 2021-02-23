@@ -11,7 +11,7 @@ import fs from 'fs';
 import { green } from './literal/modules/log.js';
 
 // Arguments
-const args     = process.argv.slice(2);
+const args = process.argv.slice(2);
 
 if (args.length < 2) {
     throw new Error("build-css requires the arguments: source.json target.css");
