@@ -42,7 +42,9 @@ Config
 
 export const config = {
     onClass: 'target-on',
-    selector: '[data-targetable]'
+    selector: '[data-targetable]',
+    maxScrollEventInterval: 0.25,
+    minScrollAnimationDuration: 0.4
 };
 
 
@@ -131,11 +133,31 @@ function getTargetable(element) {
     return target;
 }
 
+
+let animateScrollTime = 0;
+let userScrollTime = 0;
+
 // Capture scroll events in capture phase, as scroll events from elements
 // other than document do not bubble.
 window.addEventListener('scroll', feedback(function update(previous, e) {
-    const scrollable = e.target;
     const time = e.timeStamp / 1000;
+
+    // Where we are inside animateScrollTime the current scroll action was
+    // likely started via a navigation link. Ignore while animation in progress.
+    if (time < animateScrollTime) {
+        // Keep it ahead of time while the scroll is in progress
+        if (animateScrollTime < (time + config.maxScrollEventInterval)) {
+            animateScrollTime = time + config.maxScrollEventInterval;
+        }
+
+        // And ignore
+        return;
+    }
+
+    // Keep some timing data to do some heuristics
+    userScrollTime = time;
+
+    const scrollable = e.target;
     const target = getTargetable(scrollable.scrollingElement || scrollable);
 
     // Targetable in view has not changed
@@ -145,7 +167,10 @@ window.addEventListener('scroll', feedback(function update(previous, e) {
 
     location.identifier = target ? target.id : '' ;
     return target;
-}), true);
+}), {
+    capture: true,
+    passive: true
+});
 
 
 /*
@@ -155,8 +180,17 @@ Location
 location.on(feedback(function(previous, change) {
     const identifier = change.identifier;
 
-    if (!identifier) {
+    if (identifier === undefined) {
         return previous;
+    }
+
+    const time = change.time;
+
+    // Dodgy heuristics
+    if (time - userScrollTime > config.maxScrollEventInterval) {
+        // If we were not already scrolling we want to ignore scroll
+        // updates for a short time until the automatic scroll settles
+        animateScrollTime = change.time + config.minScrollAnimationDuration;
     }
 
     unlocate(previous.identifier);
