@@ -23,7 +23,7 @@
     document.documentElement.className += ' js content-loading loading';
     window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
     // Wait for other load handlers to run first - Bolt does a few things on
-    // load (eg. targetable scrolls) and we want them to run before the loading
+    // load (eg. data-targetable scrolls) and we want them to run before the loading
     // class is removed
     window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
     </script>
@@ -129,7 +129,7 @@
         
         <div class="@2-x-1 @2-3x"></div>
     
-        <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="text" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Text.</h2>
+        <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" data-targetable id="text" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Text.</h2>
         <div class="x-1 3x @1-x-3 @1-4x @2-x-4 @3-2x x-stretch y-baseline block">
             <h4 class="selector-doctext-05 doctext-05"><a href="#selector-h1-text-01-description" title="Show HTML markup"><code> h1, .text-01</code></a></h4>
             <div class="right-bottom-bubble bottom-bubble bubble" popable id="selector-h1-text-01-description"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-01<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Crunchum ipsum<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
@@ -203,7 +203,7 @@
     
     <div class="@2-x-1 @2-3x"></div>
 
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="colour" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Colour.</h2>
+    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" data-targetable id="colour" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Colour.</h2>
     <div class="x-1 3x @1-x-3 @1-4x @2-x-4 @3-2x x-stretch y-center block">
         <h4 class="selector-doctext-05 doctext-05"><a href="#selector-current-fg-current-bg-description" title="Show HTML markup"><code>.current-fg,
 .current-bg</code></a></h4>
@@ -292,7 +292,7 @@
     
     <div class="@2-x-1 @2-3x"></div>
 
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="forms" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Forms.</h2>
+    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" data-targetable id="forms" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Forms.</h2>
     <div class="x-1 3x @1-x-3 @1-4x @2-x-4 @3-2x x-stretch y-baseline block">
         <h4 class="selector-doctext-05 doctext-05"><a href="#selector-input-type-text-description" title="Show HTML markup"><code> input[type="text"]</code></a></h4>
         <div class="right-bottom-bubble bottom-bubble bubble" popable id="selector-input-type-text-description"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text-input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
@@ -509,7 +509,7 @@
     
     <div class="@2-x-1 @2-3x"></div>
 
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="grid" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Grid.</h2>
+    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" data-targetable id="grid" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Grid.</h2>
     <div class="x-1 3x @1-x-3 @1-4x @2-x-4 @3-2x x-stretch y-baseline block">
         <h4 class="selector-doctext-05 doctext-05"><a href="#selector-2-columns-description" title="Show HTML markup"><code>.2-columns</code></a></h4>
         <div class="right-bottom-bubble bottom-bubble bubble" popable id="selector-2-columns-description"><pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2-columns columns<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">--column-gap</span><span class="token punctuation">:</span> 0.9375rem<span class="token punctuation">;</span> <span class="token property">font-size</span><span class="token punctuation">:</span> 0.875rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -621,7 +621,7 @@ depends on <code>column-gap</code> having been set via the custom property <code
 
 
 <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Button.</h2>
+    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" data-targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Button.</h2>
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><button type="button">Button</button>
 <a class="button" href="#buttons">Link</a></div>
@@ -672,7 +672,7 @@ depends on <code>column-gap</code> having been set via the custom property <code
 
 
 <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Thumb.</h2>
+    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" data-targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Thumb.</h2>
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><a class="thumb" href="#" style="background-image: url('images/logo-64.png');">Thumb text</a></div>
     </form>
@@ -761,7 +761,7 @@ overflow, and only the <code>background-image</code>, centered and ‘cropped’
 
 
 <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Table.</h2>
+    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" data-targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Table.</h2>
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><table>
   <thead>
@@ -874,7 +874,7 @@ overflow, and only the <code>background-image</code>, centered and ‘cropped’
 
 
 <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Bubble.</h2>
+    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" data-targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Bubble.</h2>
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><aside class="bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
 Crunchum Ipsum.
@@ -1103,7 +1103,7 @@ Crunchum Ipsum.
 
 
 <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Menu.</h2>
+    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" data-targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Menu.</h2>
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><div class="menu-block block">
     <a class="menu-button button" href="#">Menu button</a>
@@ -1130,7 +1130,7 @@ Crunchum Ipsum.
 
 
 <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Message.</h2>
+    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" data-targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Message.</h2>
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><div class="message-block block active">
     Nasty.
@@ -1213,7 +1213,7 @@ Crunchum Ipsum.
 
 
 <section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Toggle.</h2>
+    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" data-targetable id="" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">Toggle.</h2>
     <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
         <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;"><a class="toggle-button button" href="#toggle-block">Click to show</a>
 <div class="toggle-block block toggle" toggleable id="toggle-block">
