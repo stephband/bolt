@@ -43,8 +43,8 @@ Config
 export const config = {
     onClass: 'target-on',
     selector: '[data-targetable]',
-    maxScrollEventInterval: 0.25,
-    minScrollAnimationDuration: 0.4
+    maxScrollEventInterval: 0.2,
+    /*minScrollAnimationDuration: 0.4*/
 };
 
 
@@ -133,18 +133,35 @@ function getTargetable(element) {
     return target;
 }
 
-
+/*
 let animateScrollTime = 0;
 let userScrollTime = 0;
+*/
+let timer;
+
+function update(element) {
+    timer = undefined;
+
+    const target = getTargetable(element.scrollingElement || element);
+    const id = target && target.id || '';
+
+    if (location.identifier !== id) {
+        location.identifier = id;
+    }
+}
 
 // Capture scroll events in capture phase, as scroll events from elements
 // other than document do not bubble.
-window.addEventListener('scroll', feedback(function update(previous, e) {
+window.addEventListener('scroll', function scroll(e) {
     const time = e.timeStamp / 1000;
+
+    // Update only when there is a maxScrollEventInterval second pause in scrolling
+    clearTimeout(timer);
+    timer = setTimeout(update, config.maxScrollEventInterval * 1000, e.target);
 
     // Where we are inside animateScrollTime the current scroll action was
     // likely started via a navigation link. Ignore while animation in progress.
-    if (time < animateScrollTime) {
+    /*if (time < animateScrollTime) {
         // Keep it ahead of time while the scroll is in progress
         if (animateScrollTime < (time + config.maxScrollEventInterval)) {
             animateScrollTime = time + config.maxScrollEventInterval;
@@ -152,22 +169,21 @@ window.addEventListener('scroll', feedback(function update(previous, e) {
 
         // And ignore
         return;
-    }
+    }*/
 
     // Keep some timing data to do some heuristics
-    userScrollTime = time;
+    //userScrollTime = time;
 
+    /*()
     const scrollable = e.target;
     const target = getTargetable(scrollable.scrollingElement || scrollable);
+    const id = target && target.id || '';
 
-    // Targetable in view has not changed
-    if (target === previous) {
-        return previous;
+    if (location.identifier !== id) {
+        location.identifier = id;
     }
-
-    location.identifier = target ? target.id : '' ;
-    return target;
-}), {
+    */
+}, {
     capture: true,
     passive: true
 });
@@ -187,11 +203,13 @@ location.on(feedback(function(previous, change) {
     const time = change.time;
 
     // Dodgy heuristics
+    /*
     if (time - userScrollTime > config.maxScrollEventInterval) {
         // If we were not already scrolling we want to ignore scroll
         // updates for a short time until the automatic scroll settles
         animateScrollTime = change.time + config.minScrollAnimationDuration;
     }
+    */
 
     unlocate(previous.identifier);
     locate(identifier);
