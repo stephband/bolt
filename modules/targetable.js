@@ -26,6 +26,8 @@ you have a scrolling navigation:
 ```
 **/
 
+import '../../dom/scripts/scroll-behavior.js';
+
 import by       from '../../fn/modules/by.js';
 import get      from '../../fn/modules/get.js';
 import location from '../../dom/modules/location.js';
@@ -43,8 +45,12 @@ Config
 export const config = {
     onClass: 'target-on',
     selector: '[data-targetable]',
-    maxScrollEventInterval: 0.2,
-    /*minScrollAnimationDuration: 0.4*/
+    maxScrollEventInterval: 0.25
+};
+
+const captureOptions = {
+    capture: true,
+    passive: true
 };
 
 
@@ -120,6 +126,7 @@ function getTargetable(element) {
         rect(element) ;
 
     const boxes = targetables.map(toData).sort(by(get('top')));
+
     let  n = -1;
     let target;
 
@@ -137,6 +144,7 @@ function getTargetable(element) {
 let animateScrollTime = 0;
 let userScrollTime = 0;
 */
+const times = [];
 let timer;
 
 function update(element) {
@@ -148,44 +156,50 @@ function update(element) {
     if (location.identifier !== id) {
         location.identifier = id;
     }
+
+    // Dynamically adjust maxScrollEventInterval to tighten it up,
+    // imposing a baseline of 60ms (0.0375s * 1.6)
+    let n = times.length, interval = 0;
+    while (--n) {
+        const t = times[n] - times[n - 1];
+        interval = t > interval ? t : interval;
+    }
+    interval = interval < 0.0375 ? 0.0375 : interval ;
+    config.maxScrollEventInterval = 1.6 * interval;
+    times.length = 0;
+
+    console.log('scrollTop', document.scrollingElement.scrollTop, 'maxScrollEventInterval', config.maxScrollEventInterval.toFixed(3));
 }
 
 // Capture scroll events in capture phase, as scroll events from elements
 // other than document do not bubble.
+var hashtime;
+
 window.addEventListener('scroll', function scroll(e) {
+    // Ignore the first scroll event following a hashchange. The browser sends a 
+    // scroll event even where a target cannot be scrolled to, such as a 
+    // navigation with position: fixed, for example. This can cause targetable
+    // to recalculate again, and shift the target back to one fo the targetables,
+    // where it should stay on the navigation element.
     const time = e.timeStamp / 1000;
+
+    if (hashtime !== undefined) {
+        hashtime = undefined;
+        if (hashtime > time - 0.1) {
+            return;
+        }
+    }
+
+    times.push(time);
 
     // Update only when there is a maxScrollEventInterval second pause in scrolling
     clearTimeout(timer);
     timer = setTimeout(update, config.maxScrollEventInterval * 1000, e.target);
+}, captureOptions);
 
-    // Where we are inside animateScrollTime the current scroll action was
-    // likely started via a navigation link. Ignore while animation in progress.
-    /*if (time < animateScrollTime) {
-        // Keep it ahead of time while the scroll is in progress
-        if (animateScrollTime < (time + config.maxScrollEventInterval)) {
-            animateScrollTime = time + config.maxScrollEventInterval;
-        }
-
-        // And ignore
-        return;
-    }*/
-
-    // Keep some timing data to do some heuristics
-    //userScrollTime = time;
-
-    /*()
-    const scrollable = e.target;
-    const target = getTargetable(scrollable.scrollingElement || scrollable);
-    const id = target && target.id || '';
-
-    if (location.identifier !== id) {
-        location.identifier = id;
-    }
-    */
-}, {
-    capture: true,
-    passive: true
+// other than document do not bubble.
+window.addEventListener('hashchange', function hashchange(e) {
+    hashtime = e.timeStamp / 1000;
 });
 
 
@@ -200,7 +214,7 @@ location.on(feedback(function(previous, change) {
         return previous;
     }
 
-    const time = change.time;
+    //const time = change.time;
 
     // Dodgy heuristics
     /*
