@@ -29,6 +29,8 @@ you have a scrolling navigation:
 import '../../dom/scripts/scroll-behavior.js';
 
 import by       from '../../fn/modules/by.js';
+import create   from '../../dom/modules/create.js';
+import features from '../../dom/modules/features.js';
 import get      from '../../fn/modules/get.js';
 import location from '../../dom/modules/location.js';
 import rect     from '../../dom/modules/rect.js';
@@ -175,7 +177,7 @@ function update(element) {
         location.identifier = id;
     }
 
-    console.log('scrollTop', document.scrollingElement.scrollTop, 'maxScrollEventInterval', config.maxScrollEventInterval.toFixed(3));
+    //console.log('scrollTop', document.scrollingElement.scrollTop, 'maxScrollEventInterval', config.maxScrollEventInterval.toFixed(3));
 }
 
 // Capture scroll events in capture phase, as scroll events from elements
@@ -195,7 +197,7 @@ window.addEventListener('scroll', function scroll(e) {
         // If we are not mid-scroll, and the latest hashchange was less than
         // 0.1s ago, ignore
         if (!times.length && hashtime > time - 0.1) {
-            console.log('scroll', 'ignored');
+            //console.log('scroll', 'ignored');
             hashtime = undefined;
             return;
         }
@@ -213,7 +215,7 @@ window.addEventListener('scroll', function scroll(e) {
 // other than document do not bubble.
 window.addEventListener('hashchange', function hashchange(e) {
     hashtime = e.timeStamp / 1000;
-    console.log('hashchange', hashtime, window.location.hash);
+    //console.log('hashchange', hashtime, window.location.hash);
 });
 
 
@@ -243,3 +245,18 @@ location.on(feedback(function(previous, change) {
     locate(identifier);
     return assign(previous, change);
 }, {}));
+
+
+/* Safari's not the messiah, he's a very naughty boy. */
+if (!features.scrollBehavior) {    
+    /* Safari does not respect scroll-padding unles scroll-snap is switched on,
+       which is difficult on the :root or <body>. Instead, let's duplicate the
+       elements with id and move them up relatively by one header height. */
+    document.querySelectorAll('[data-targetable]').forEach(function(node) {
+        const id = node.id;
+        const anchor = create('a', { id, style: 'position: relative; height: 0px; width: 100%; background-color: limegreen; top: calc(-1 * var(--header-height)); display: block;', 'data-targetable': true });
+        node.id = id + '-(original)';
+        node.removeAttribute('data-targetable');
+        node.before(anchor);
+    });
+}
