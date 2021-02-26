@@ -149,13 +149,14 @@ let timer;
 
 function update(element) {
     timer = undefined;
+    
+    if (times.length < 2) {
+        times.length = 0;
+        return;
+    }
 
     const target = getTargetable(element.scrollingElement || element);
     const id = target && target.id || '';
-
-    if (location.identifier !== id) {
-        location.identifier = id;
-    }
 
     // Dynamically adjust maxScrollEventInterval to tighten it up,
     // imposing a baseline of 60ms (0.0375s * 1.6)
@@ -167,6 +168,12 @@ function update(element) {
     interval = interval < 0.0375 ? 0.0375 : interval ;
     config.maxScrollEventInterval = 1.6 * interval;
     times.length = 0;
+
+    // We use times.length elsewhere as an ignore flag. Make sure times.length
+    // is set to 0 before changing the hash.
+    if (location.identifier !== id) {
+        location.identifier = id;
+    }
 
     console.log('scrollTop', document.scrollingElement.scrollTop, 'maxScrollEventInterval', config.maxScrollEventInterval.toFixed(3));
 }
@@ -183,11 +190,17 @@ window.addEventListener('scroll', function scroll(e) {
     // where it should stay on the navigation element.
     const time = e.timeStamp / 1000;
 
+    // Make sure this only happens once after a hashchange
     if (hashtime !== undefined) {
-        hashtime = undefined;
-        if (hashtime > time - 0.1) {
+        // If we are not mid-scroll, and the latest hashchange was less than
+        // 0.1s ago, ignore
+        if (!times.length && hashtime > time - 0.1) {
+            console.log('scroll', 'ignored');
+            hashtime = undefined;
             return;
         }
+
+        hashtime = undefined;
     }
 
     times.push(time);
@@ -200,6 +213,7 @@ window.addEventListener('scroll', function scroll(e) {
 // other than document do not bubble.
 window.addEventListener('hashchange', function hashchange(e) {
     hashtime = e.timeStamp / 1000;
+    console.log('hashchange', hashtime, window.location.hash);
 });
 
 
