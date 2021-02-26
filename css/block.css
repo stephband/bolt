@@ -55,12 +55,6 @@ hr.block {
     text-decoration: none;
 }
 
-.block[href]:hover,
-.block[href]:focus {
-    text-decoration: underline;
-}
-
-
 /**
 .inline-block
 **/
