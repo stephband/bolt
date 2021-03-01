@@ -6,8 +6,16 @@ import compile from './modules/compile.js';
 import log from './modules/log-browser.js';
 
 
+const textarea = document.createElement('textarea');
+
 function empty() {
     return '';
+}
+
+function decode(html) {
+    // Converts &amp;, &lt; and &gt; to &, < and >
+    textarea.innerHTML = html;
+    return textarea.value;
 }
 
 const fromTemplateId = cache(function(id) {
@@ -25,10 +33,10 @@ const fromTemplateId = cache(function(id) {
     }
 
     const vars     = keys.join(', ');
-    const template = element.innerHTML;
-
-    return compile(library, vars, template, element.id ? '#' + element.id : '');
+    const source   = decode(element.innerHTML);
+    return compile(library, vars, source, element.id ? '#' + element.id : '');
 });
+
 
 /**
 Literal(template)
