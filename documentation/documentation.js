@@ -2,7 +2,7 @@
 import '../modules/device.js';
 import '../modules/toggleable.js';
 import '../modules/popable.js';
-import '../modules/locateable.js';
+import '../modules/targetable.js';
 import { get, overload } from '../../fn/module.js';
 import { events, matches, select, trigger } from  '../../dom/module.js';
 

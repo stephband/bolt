@@ -130,14 +130,14 @@ export default function Literal(params, template, source) {
     var fn;
     if (DEBUG) {
         logCompile(source, library, params, names);
-        try { fn = compileAsyncFn(library, 'render, include, imports, documentation', code); }
+        try { fn = compileAsyncFn('render, include, imports, documentation', code, library); }
         catch(e) {
             logError(source, template, e);
             throw e;
         }
     }
     else {
-        fn = compileAsyncFn(library, 'render, include, imports, documentation', code);
+        fn = compileAsyncFn('render, include, imports, documentation', code, library);
     }
 
     // Store a reference to the global object

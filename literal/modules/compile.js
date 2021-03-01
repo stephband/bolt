@@ -132,7 +132,9 @@ export default function compile(scope, vars, template, source) {
 
     try {
         logCompile(source, scope, 'data' + (vars ? ', ' + vars : ''));
-        fn = compileAsyncFn(scope, 'data', code);
+        // Compiled function cannot be given a name as it will appear in 
+        // template scope
+        fn = compileAsyncFn('data', code, scope);
     }
     catch(e) {
         logError(source, template, e);
@@ -142,6 +144,6 @@ export default function compile(scope, vars, template, source) {
     return cache[key] = function literal() {
         log('render', key, 'orange');
         // Where this is global, neuter it
-        return fn.apply(this === self ? null : this, arguments);
+        return fn.apply(this === self ? {} : this, arguments);
     };
 }

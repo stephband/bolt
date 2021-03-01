@@ -51,6 +51,9 @@ hr.block {
     height: 1px;
 }
 
+.block[href] {
+    text-decoration: none;
+}
 
 /**
 .inline-block
