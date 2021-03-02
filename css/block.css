@@ -36,7 +36,6 @@ will scale the element to fill the available width.
     margin: 0 auto;
 }
 
-.block > img,
 .block > svg,
 .block > video,
 .block > canvas,
