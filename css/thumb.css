@@ -54,6 +54,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
     color: inherit;
 }
 
+.thumb > img.
 .thumb > svg,
 .thumb > iframe {
     /* Make media fill thumbs. */
