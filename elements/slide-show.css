@@ -3,6 +3,7 @@
 
 slide-show {
     display: grid;
+    box-sizing: border-box;
     padding: 0;
 
     grid-auto-flow: column;
