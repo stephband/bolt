@@ -158,6 +158,13 @@ slot {
     will-change: scroll-behavior;
 }
 
+slot.gesturing {
+    scroll-snap-type: none !important;
+    scroll-snap-stop: normal !important;
+    -webkit-scroll-behavior: auto;
+            scroll-behavior: auto;
+}
+
 slot::after {
     /* This is a hack fix for the fact that scroll-snapped grids do not scroll
        to the extent of their right padding (or indeed to any of their right 
