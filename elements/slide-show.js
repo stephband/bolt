@@ -255,7 +255,9 @@ element('slide-show', {
                 identify(active);
             }
 
-            slides = children;            
+            slides = children;
+            console.log(slot, children.length);
+            elem.style.setProperty('--slides-count', children.length);
         }
 
         var before;
