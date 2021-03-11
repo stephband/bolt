@@ -159,6 +159,7 @@ slot {
 }
 
 slot.gesturing {
+    /* Neuter scroll sticking while finger dragging */
     scroll-snap-type: none !important;
     scroll-snap-stop: normal !important;
     -webkit-scroll-behavior: auto;
