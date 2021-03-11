@@ -259,7 +259,7 @@ element('slide-show', {
             }
 
             slides = children;
-            console.log(slot, children.length);
+            //console.log(slot, children.length);
             elem.style.setProperty('--slides-count', children.length);
         }
 
