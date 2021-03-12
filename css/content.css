@@ -8,6 +8,7 @@ Before and After.
     display: inline-block;
     width: 1em;
     height: 1em;
+    break-inside: avoid;
     background-repeat: no-repeat;
 }
 

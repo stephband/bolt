@@ -36,6 +36,9 @@ overflow, and only the `background-image`, centered and 'cropped' via
        the thumb. */
     line-height: 2;
 
+    /* Avoid breaking in columns */
+    break-inside: avoid;
+
     -webkit-background-size: cover;
        -moz-background-size: cover;
          -o-background-size: cover;

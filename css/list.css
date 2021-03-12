@@ -37,6 +37,9 @@ inline-blocks too.
 	/* Make list items act as position parents. */
 	position: relative;
 
+	/* Avoid breaking in columns */
+	break-inside: avoid;
+
 	/* Prepare for inline-block layout. */
 	vertical-align: top;
 	overflow: visible;
