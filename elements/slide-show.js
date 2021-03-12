@@ -354,12 +354,11 @@ element('slide-show', {
             scrollSmooth(elem, slot, target);
         }
 
-
         const privates = assign(Privates(elem), {
             activate: function() {
                 active = reposition(elem, slot, active.id);
             },
-            
+ 
             load: function(elem, shadow) {
                 const current = activate(elem, shadow, prevNode, nextNode, active);
             

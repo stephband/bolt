@@ -125,8 +125,9 @@ export default function compile(scope, vars, template, source) {
 
     const self = this;
     const code = '\n'
-        + 'const { ' + vars + ' } = data;\n'
-        + 'return render`' + template + '`;\n';
+        + '  // Render ' + source + '\n'
+        + '  const { ' + vars + ' } = data;\n'
+        + '  return render`' + template + '`;\n';
 
     var fn;
 
