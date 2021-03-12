@@ -2,18 +2,18 @@
 import curry     from '../../fn/modules/curry.js';
 import isDefined from '../../fn/modules/is-defined.js';
 import overload  from '../../fn/modules/overload.js';
-import append    from '../../dom/modules/append.js';
+//import append    from '../../dom/modules/append.js';
 import classes   from '../../dom/modules/classes.js';
-import create    from '../../dom/modules/create.js';
+//import create    from '../../dom/modules/create.js';
 import delegate  from '../../dom/modules/delegate.js';
 import Event     from '../../dom/modules/event.js';
-import { isPrimaryButton, on, off } from '../../dom/modules/events.js';
+import events, { isPrimaryButton, on, off } from '../../dom/modules/events.js';
 import { isInternalLink } from '../../dom/modules/node.js';
 import trigger   from '../../dom/modules/trigger.js';
 import tag       from '../../dom/modules/tag.js';
 import select    from '../../dom/modules/select.js';
 import ready     from '../../dom/modules/ready.js';
-import remove    from '../../dom/modules/remove.js';
+//import remove    from '../../dom/modules/remove.js';
 
 var DEBUG     = false;
 
@@ -183,7 +183,7 @@ on('dom-deactivate', function(e) {
 // Listen to clicks
 
 var triggerActivate = trigger('dom-activate');
-
+/*
 var nodeCache = {};
 
 var dialogs = {};
@@ -282,7 +282,7 @@ function createDialog(content) {
 //			return;
 //		}
 //	}
-
+*/
 function preventClick(e) {
 	// Prevent the click that follows the mousedown. The preventDefault
 	// handler unbinds itself as soon as the click is heard.
@@ -354,22 +354,26 @@ function activateHref(a, e) {
 	node.dispatchEvent(event);
 }
 
-function activateTarget(a, e) {
-	var target = a.target;
-
-	if (isIgnorable(e)) { return; }
-
-	// If the target is not listed, ignore
-	if (!targets[target]) { return; }
-	return targets[target](a, e);
-}
-
-// Clicks on buttons toggle activate on their hash
-// Clicks on buttons toggle activate on their targets
-on('click', delegate({
+events('click', document).each(delegate({
+	// Clicks on links toggle activate on their href target
 	'a[href]': activateHref,
-	'a[target]': activateTarget
-}), document);
+
+	// Clicks on buttons named deactivate trigger deactivate on their value target
+	'[name="deactivate"]': function(button, e) {
+		const href    = button.value;
+		const id      = href.replace(/^#/, '');
+		const element = document.getElementById(id);
+
+		if (!element) {
+			throw new Error('Button action name="deactivate" target "' + href + '" not found');
+		}
+
+		trigger('dom-deactivate', element);
+
+		// Flag as handled
+		e.preventDefault();
+	}
+}));
 
 // Document setup
 ready(function() {

@@ -125,16 +125,19 @@ export default function compile(scope, vars, template, source) {
 
     const self = this;
     const code = '\n'
-        + 'const { ' + vars + ' } = data;\n'
-        + 'return render`' + template + '`;\n';
+        + '  // Render ' + source + '\n'
+        + '  const { ' + vars + ' } = data;\n'
+        + '  return render`' + template + '`;\n';
 
     var fn;
 
     try {
-        logCompile(source, scope, 'data' + (vars ? ', ' + vars : ''));
+        // Allow passing nothing to a render function by defaulting data to an 
+        // empty object
+        logCompile(source, scope, 'data = {}' + (vars ? ', ' + vars : ''));
         // Compiled function cannot be given a name as it will appear in 
         // template scope
-        fn = compileAsyncFn('data', code, scope);
+        fn = compileAsyncFn('data = {}', code, scope);
     }
     catch(e) {
         logError(source, template, e);

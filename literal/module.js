@@ -6,8 +6,16 @@ import compile from './modules/compile.js';
 import log from './modules/log-browser.js';
 
 
+const textarea = document.createElement('textarea');
+
 function empty() {
     return '';
+}
+
+function decode(html) {
+    // Converts &amp;, &lt; and &gt; to &, < and >
+    textarea.innerHTML = html;
+    return textarea.value;
 }
 
 const fromTemplateId = cache(function(id) {
@@ -25,10 +33,10 @@ const fromTemplateId = cache(function(id) {
     }
 
     const vars     = keys.join(', ');
-    const template = element.innerHTML;
-
-    return compile(library, vars, template, element.id ? '#' + element.id : '');
+    const source   = decode(element.innerHTML);
+    return compile(library, vars, source, element.id ? '#' + element.id : '');
 });
+
 
 /**
 Literal(template)
@@ -53,8 +61,7 @@ function Literal(template) {
 
 /** 
 Literal.register(name, fn)
-Register a function (or value) that will be available in the scope of all 
-templates.
+Define a function or value that is made available in the scope of all templates.
 **/
 
 Literal.register = register;
@@ -62,7 +69,7 @@ Literal.register = register;
 
 /** 
 Literal.render(template, data)
-Compiles a template and renders it in a single call.
+Compiles and renders a template in a single call.
 **/
 
 Literal.render = function(template, data) {

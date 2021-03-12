@@ -3,7 +3,7 @@
 .switch-label
 
 ```html
-<input class="masked" type="checkbox" value="something" id="switch-input" />
+<input class="invisible" type="checkbox" value="something" id="switch-input" />
 <label class="switch-label" for="switch-input">Turn me on</label>
 ```
 
@@ -20,6 +20,9 @@ import './components/switch-label.js';
       
     /** --handle-shadow **/
     --handle-shadow: 0 0.125rem 0.25rem 0.0625rem rgba(0,0,0,0.25);
+
+    /** --handle-border **/
+    /* --handle-border: 1px solid #cccccc; */
 
     /** --track-background **/
     /* --track-background: #eeeeee; */
@@ -55,9 +58,14 @@ import './components/switch-label.js';
     --handle-background: white;
 }
 
-.switch-label::before {
+.switch-label::before,
+.switch-label::after {
     content: '';
     position: absolute;
+    box-sizing: border-box;
+}
+
+.switch-label::before {
     left: 0;
     top: 50%;
     transform: translate(0, -50%);
@@ -75,8 +83,6 @@ import './components/switch-label.js';
 }
 
 .switch-label::after {
-    content: '';
-    position: absolute;
     width: var(--handle-width);
     height: var(--handle-width);
     top: 50%;
@@ -102,7 +108,8 @@ import './components/switch-label.js';
 }
 
 :disabled + .switch-label {
-   opacity: 0.6
+   opacity: 0.6;
+   filter: saturate(0.1);
 }
 
 :focus + .switch-label::before{
@@ -123,18 +130,18 @@ import './components/switch-label.js';
     margin-top: 0.625em;
 }
 
-.masked + .switch-label {
+.invisible + .switch-label {
     margin-top: 0;
 }
 
-* + .masked + .switch-label {
+* + .invisible + .switch-label {
     margin-top: 1em;
 }
 
-.radio-label + .masked + .switch-label,
-.switch-label + .masked + .switch-label
-.check-label + .masked + .switch-label {
-    margin-top: 0.33333333em;
+.radio-label  + .invisible + .switch-label,
+.switch-label + .invisible + .switch-label
+.check-label  + .invisible + .switch-label {
+    margin-top: var(--input-margin, 0.33333333rem);
 }
 
 
@@ -142,7 +149,7 @@ import './components/switch-label.js';
 .right-switch-label
 
 ```html
-<input class="masked" type="checkbox" value="something" id="switch-input-2" />
+<input class="invisible" type="checkbox" value="something" id="switch-input-2" />
 <label class="right-switch-label switch-label" for="switch-input-2">Turn me on</label>
 ```
 **/

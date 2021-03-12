@@ -52,7 +52,7 @@
     position: relative;
     display: grid;
 
-    /* Slot takes over vieport duties */
+    /* Slot takes over viewport duties */
     padding-left: 0 !important;
     padding-right: 0 !important;
 
@@ -125,7 +125,6 @@
     margin-top: var(--link-top);
 }
 
-
 slot {
     position: relative;
     display: grid;
@@ -159,15 +158,31 @@ slot {
     will-change: scroll-behavior;
 }
 
+slot.gesturing {
+    /* Neuter scroll sticking while finger dragging */
+    scroll-snap-type: none !important;
+    scroll-snap-stop: normal !important;
+    -webkit-scroll-behavior: auto;
+            scroll-behavior: auto;
+}
+
 slot::after {
+    /* This is a hack fix for the fact that scroll-snapped grids do not scroll
+       to the extent of their right padding (or indeed to any of their right 
+       padding). Note that this doesn't work with --padding-left based on
+       percentages, as the dimensionsdo not refer tot he same parent. */
     content: '';
     position: absolute;
-    grid-column: none;
-    grid-row: none;
-    right: 0;
+    grid-column: calc(var(--slides-count) + 1);
+    grid-row: 1;
+    padding-left: var(--padding-right);
+    width: 0px;
+    height: 100%;
+    top: 0;
     bottom: 0;
-    width: 1px;
-    height: 1px;
+    align-self: stretch;
+    background-color: transparent;
+    z-index: 40;
 }
 
 slot::-webkit-scrollbar {

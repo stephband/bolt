@@ -26,7 +26,11 @@ you have a scrolling navigation:
 ```
 **/
 
+import '../../dom/scripts/scroll-behavior.js';
+
 import by       from '../../fn/modules/by.js';
+import create   from '../../dom/modules/create.js';
+import features from '../../dom/modules/features.js';
 import get      from '../../fn/modules/get.js';
 import location from '../../dom/modules/location.js';
 import rect     from '../../dom/modules/rect.js';
@@ -43,8 +47,12 @@ Config
 export const config = {
     onClass: 'target-on',
     selector: '[data-targetable]',
-    maxScrollEventInterval: 0.25,
-    minScrollAnimationDuration: 0.4
+    maxScrollEventInterval: 0.25
+};
+
+const captureOptions = {
+    capture: true,
+    passive: true
 };
 
 
@@ -120,6 +128,7 @@ function getTargetable(element) {
         rect(element) ;
 
     const boxes = targetables.map(toData).sort(by(get('top')));
+
     let  n = -1;
     let target;
 
@@ -133,9 +142,43 @@ function getTargetable(element) {
     return target;
 }
 
-
+/*
 let animateScrollTime = 0;
 let userScrollTime = 0;
+*/
+const times = [];
+let timer;
+
+function update(element) {
+    timer = undefined;
+    
+    if (times.length < 2) {
+        times.length = 0;
+        return;
+    }
+
+    const target = getTargetable(element.scrollingElement || element);
+    const id = target && target.id || '';
+
+    // Dynamically adjust maxScrollEventInterval to tighten it up,
+    // imposing a baseline of 60ms (0.0375s * 1.6)
+    let n = times.length, interval = 0;
+    while (--n) {
+        const t = times[n] - times[n - 1];
+        interval = t > interval ? t : interval;
+    }
+    interval = interval < 0.0375 ? 0.0375 : interval ;
+    config.maxScrollEventInterval = 1.6 * interval;
+    times.length = 0;
+
+    // We use times.length elsewhere as an ignore flag. Make sure times.length
+    // is set to 0 before changing the hash.
+    if (location.identifier !== id) {
+        location.identifier = id;
+    }
+
+    //console.log('scrollTop', document.scrollingElement.scrollTop, 'maxScrollEventInterval', config.maxScrollEventInterval.toFixed(3));
+}
 
 
 // Any call to replaceState or pushState in iOS opens the URL bar - 
@@ -144,37 +187,40 @@ let userScrollTime = 0;
 
 // Capture scroll events in capture phase, as scroll events from elements
 // other than document do not bubble.
-window.addEventListener('scroll', feedback(function update(previous, e) {
+var hashtime;
+
+window.addEventListener('scroll', function scroll(e) {
+    // Ignore the first scroll event following a hashchange. The browser sends a 
+    // scroll event even where a target cannot be scrolled to, such as a 
+    // navigation with position: fixed, for example. This can cause targetable
+    // to recalculate again, and shift the target back to one fo the targetables,
+    // where it should stay on the navigation element.
     const time = e.timeStamp / 1000;
 
-    // Where we are inside animateScrollTime the current scroll action was
-    // likely started via a navigation link. Ignore while animation in progress.
-    if (time < animateScrollTime) {
-        // Keep it ahead of time while the scroll is in progress
-        if (animateScrollTime < (time + config.maxScrollEventInterval)) {
-            animateScrollTime = time + config.maxScrollEventInterval;
+    // Make sure this only happens once after a hashchange
+    if (hashtime !== undefined) {
+        // If we are not mid-scroll, and the latest hashchange was less than
+        // 0.1s ago, ignore
+        if (!times.length && hashtime > time - 0.1) {
+            //console.log('scroll', 'ignored');
+            hashtime = undefined;
+            return;
         }
 
-        // And ignore
-        return;
+        hashtime = undefined;
     }
 
-    // Keep some timing data to do some heuristics
-    userScrollTime = time;
+    times.push(time);
 
-    const scrollable = e.target;
-    const target = getTargetable(scrollable.scrollingElement || scrollable);
+    // Update only when there is a maxScrollEventInterval second pause in scrolling
+    clearTimeout(timer);
+    timer = setTimeout(update, config.maxScrollEventInterval * 1000, e.target);
+}, captureOptions);
 
-    // Targetable in view has not changed
-    if (target === previous) {
-        return previous;
-    }
-
-    location.identifier = target ? target.id : '' ;
-    return target;
-}), {
-    capture: true,
-    passive: true
+// other than document do not bubble.
+window.addEventListener('hashchange', function hashchange(e) {
+    hashtime = e.timeStamp / 1000;
+    //console.log('hashchange', hashtime, window.location.hash);
 });
 
 
@@ -189,16 +235,33 @@ location.on(feedback(function(previous, change) {
         return previous;
     }
 
-    const time = change.time;
+    //const time = change.time;
 
     // Dodgy heuristics
+    /*
     if (time - userScrollTime > config.maxScrollEventInterval) {
         // If we were not already scrolling we want to ignore scroll
         // updates for a short time until the automatic scroll settles
         animateScrollTime = change.time + config.minScrollAnimationDuration;
     }
+    */
 
     unlocate(previous.identifier);
     locate(identifier);
     return assign(previous, change);
 }, {}));
+
+
+/* Safari's not the messiah, he's a very naughty boy. */
+if (!features.scrollBehavior) {    
+    /* Safari does not respect scroll-padding unles scroll-snap is switched on,
+       which is difficult on the :root or <body>. Instead, let's duplicate the
+       elements with id and move them up relatively by one header height. */
+    document.querySelectorAll('[data-targetable]').forEach(function(node) {
+        const id = node.id;
+        const anchor = create('a', { id, style: 'position: relative; height: 0px; width: 100%; background-color: limegreen; top: calc(-1 * var(--header-height)); display: block;', 'data-targetable': true });
+        node.id = id + '-(original)';
+        node.removeAttribute('data-targetable');
+        node.before(anchor);
+    });
+}

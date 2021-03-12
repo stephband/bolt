@@ -28,6 +28,9 @@ will scale the element to fill the available width.
     vertical-align: top;
     overflow: visible;
 
+    /* Avoid breaking in columns */
+    break-inside: avoid;
+
     /* Set them up to place nice as flexboxes. */
     justify-content: center;
 
@@ -36,7 +39,6 @@ will scale the element to fill the available width.
     margin: 0 auto;
 }
 
-.block > img,
 .block > svg,
 .block > video,
 .block > canvas,
@@ -54,12 +56,6 @@ hr.block {
 .block[href] {
     text-decoration: none;
 }
-
-.block[href]:hover,
-.block[href]:focus {
-    text-decoration: underline;
-}
-
 
 /**
 .inline-block
