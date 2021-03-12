@@ -61,8 +61,7 @@ function Literal(template) {
 
 /** 
 Literal.register(name, fn)
-Register a function (or value) that will be available in the scope of all 
-templates.
+Define a function or value that is made available in the scope of all templates.
 **/
 
 Literal.register = register;
@@ -70,7 +69,7 @@ Literal.register = register;
 
 /** 
 Literal.render(template, data)
-Compiles a template and renders it in a single call.
+Compiles and renders a template in a single call.
 **/
 
 Literal.render = function(template, data) {
