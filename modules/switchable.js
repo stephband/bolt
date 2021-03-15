@@ -1,9 +1,9 @@
 /**
-switchable
+data-switchable
 
-A `switchable` is given the class `"active"` when a link that references
+A switchable is given the class `"active"` when a link that references
 it is clicked, and all links to it are given the class `"on"`. In any group of
-siblings with the `switchable` attribute, exactly one is always active.
+siblings with the `data-switchable` attribute, exactly one is always active.
 
 Switchables can be used to make tabs, slideshows, accordions and so on.
 
@@ -14,15 +14,15 @@ Switchables can be used to make tabs, slideshows, accordions and so on.
     <a class="tab-button button" href="#tab-3">3</a>
 </nav>
 
-<section class="tab-block block active" switchable id="tab-1">
+<section class="tab-block block active" data-switchable id="tab-1">
     Tab 1
 </section>
 
-<section class="tab-block block" switchable id="tab-2">
+<section class="tab-block block" data-switchable id="tab-2">
     Tab 2
 </section>
 
-<section class="tab-block block" switchable id="tab-3">
+<section class="tab-block block" data-switchable id="tab-3">
     Tab 3
 </section>
 ```
@@ -36,7 +36,7 @@ import { matchers } from './dom-activate.js';
 
 // Define
 
-var match   = matches('.switchable, [switchable]');
+var match = matches('[switchable], [data-switchable]');
 var triggerDeactivate = trigger('dom-deactivate');
 
 function activate(e) {
