@@ -180,6 +180,11 @@ function update(element) {
     //console.log('scrollTop', document.scrollingElement.scrollTop, 'maxScrollEventInterval', config.maxScrollEventInterval.toFixed(3));
 }
 
+
+// Any call to replaceState or pushState in iOS opens the URL bar - 
+// disturbing at the best of times, nevermind mid-scroll. So probably 
+// best not update on scrolling on small iOS screens
+
 // Capture scroll events in capture phase, as scroll events from elements
 // other than document do not bubble.
 var hashtime;
