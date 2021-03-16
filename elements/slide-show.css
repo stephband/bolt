@@ -28,9 +28,9 @@ slide-show {
     scroll-padding-right: var(--padding-left);
 }
 
-slide-show:defined {
+/*slide-show:defined {
     overflow: visible;
-}
+}*/
 
 slide-show::-webkit-scrollbar {
     display: none;
