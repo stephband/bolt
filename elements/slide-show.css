@@ -28,11 +28,15 @@ slide-show {
     scroll-padding-right: var(--padding-left);
 }
 
+slide-show:defined {
+    overflow: visible;
+}
+
 slide-show::-webkit-scrollbar {
     display: none;
 }
 
-slide-show > [slot] {
+slide-show:not(:defined) > [slot] {
     display: none;
 }
 

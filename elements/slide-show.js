@@ -213,7 +213,8 @@ element('slide-show', {
         const nextNode = create('a', { class: 'next-thumb thumb', part: 'next' });
         const nav      = create('nav');
         const title    = create('slot', { name: 'title' });
-        const optional = create('slot', { name: 'optional' });
+        const optional = create('slot', { name: 'optional', part: 'optional' });
+        const overflow = create('slot', { name: 'overflow', part: 'overflow' });
 
         shadow.appendChild(link);
         shadow.appendChild(title);
@@ -222,6 +223,7 @@ element('slide-show', {
         //shadow.appendChild(nextNode);
         //shadow.appendChild(nav);
         shadow.appendChild(optional);
+        shadow.appendChild(overflow);
 
 
 
@@ -489,7 +491,7 @@ element('slide-show', {
                 return;
             }
 
-            if (elem.contains(target)) {
+            if (elem.contains(target) && !elem === target) {
                scrollSmooth(elem, slot, target);
                e.preventDefault();
                window.history.pushState({}, '', '#' + id);
