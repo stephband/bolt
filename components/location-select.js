@@ -7,13 +7,15 @@ import events   from '../../dom/modules/events.js';
 import matches  from '../../dom/modules/matches.js';
 import trigger  from '../../dom/modules/trigger.js';
 
-const selector = '.location-select';
+// Support <select name="location"> (or indeed radio or checkbox or text) and
+// the class .location-select for legacy reasons
+const selector = '.location-select, [name="location"]';
 
 function isHashRef(ref) {
     return /^#\S+$/.test(ref);
 }
 
-/* Delegate change events on location-select elements */
+// Delegate change events on location-select elements
 events('change', document)
 .map(get('target'))
 .filter(matches(selector))
