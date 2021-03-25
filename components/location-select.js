@@ -18,10 +18,13 @@ events('change', document)
 .map(get('target'))
 .filter(matches(selector))
 .map(get('value'))
+// Ignore links for empty spaces
+.filter((value) => !!value )
 .each(overload(isHashRef, {
     true: function(ref) {
         const id = ref.slice(1);
         trigger('dom-activate', getById(id));
+        window.location.hash = id;
     },
 
     false: set('location', window)
