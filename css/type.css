@@ -5,7 +5,8 @@ html {
 
 body {
     /* Enable kerning in FF and WebKit. */
-    text-rendering: optimizeLegibility;
+    /*text-rendering: optimizeLegibility;*/
+    text-rendering: geometricPrecision;
 }
 
 pre,
@@ -192,10 +193,10 @@ caption           { background-color: inherit; }
 
 
 dd                { margin: 0; }
-ul,
-ol,
-dl,
-blockquote        { margin-top: 1.25rem; }
+* + ul,
+* + ol,
+* + dl,
+* + blockquote    { margin-top: 1.25rem; }
 li                { margin-bottom: 0;}
 
 blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }

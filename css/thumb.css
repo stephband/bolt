@@ -36,6 +36,9 @@ overflow, and only the `background-image`, centered and 'cropped' via
        the thumb. */
     line-height: 2;
 
+    /* Avoid breaking in columns */
+    break-inside: avoid;
+
     -webkit-background-size: cover;
        -moz-background-size: cover;
          -o-background-size: cover;
@@ -54,6 +57,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
     color: inherit;
 }
 
+.thumb > img,
 .thumb > svg,
 .thumb > iframe {
     /* Make media fill thumbs. */
@@ -62,6 +66,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
     left: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .thumb.block {

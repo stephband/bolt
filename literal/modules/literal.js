@@ -130,14 +130,15 @@ export default function Literal(params, template, source) {
     var fn;
     if (DEBUG) {
         logCompile(source, library, params, names);
-        try { fn = compileAsyncFn(library, 'render, include, imports, documentation', code); }
+        // scope, paramString, code, context, name
+        try { fn = compileAsyncFn('render, include, imports, documentation', code, library); }
         catch(e) {
             logError(source, template, e);
             throw e;
         }
     }
     else {
-        fn = compileAsyncFn(library, 'render, include, imports, documentation', code);
+        fn = compileAsyncFn('render, include, imports, documentation', code, library);
     }
 
     // Store a reference to the global object
@@ -151,8 +152,8 @@ export default function Literal(params, template, source) {
         // function is a used as a method, `this` refers to the object.
         .call(this === self ? {} : this, 
             render,
-        // TODO: is there a better way of passing source, target to library 
-        // functions? Bind this?
+            // TODO: is there a better way of passing source, target to library 
+            // functions? Bind this?
             (url, data) => library.include(source, target, rewriteURL(source, target, url), data),
             (url)       => library.imports(source, target, url),
             (...urls)   => library.documentation(source, target, ...urls),

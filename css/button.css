@@ -95,6 +95,9 @@ button,
     /* Override default browser style on input type=submit (white-space: pre) */
     white-space: normal;
 
+    /* Avoid breaking in columns */
+    break-inside: avoid;
+
     /* Set buttons up for grid layout. Chrome has a bug that doesn't allow
        grid layout on <button> elements, so be cautious */
     grid-auto-flow: column;
@@ -111,8 +114,8 @@ button,
     background-clip: padding-box;
     background-origin: padding-box;
     border-style: solid;
-    border-width: var(--border-width);
-    border-color: var(--border-color);
+    border-width:  var(--border-width);
+    border-color:  var(--border-color);
     border-radius: var(--border-radius);
     transition:
         background-color 120ms linear,

@@ -123,6 +123,15 @@ button:not([type])::before {
 }
 
 
+/** 
+:target
+**/
+
+:target {
+    outline: 16px solid rgba(80, 60, 255, 0.2) !important;
+}
+
+
 /**
 .TODO
 

@@ -28,9 +28,9 @@ Forms.
     Border radius of inputs, selects and textareas **/
     --input-border-radius: 0.1875rem;
 
-    /** --input-box-shadow
+    /** --input-shadow
     Box shadow of inputs, selects and textareas **/
-    --input-box-shadow: none;
+    --input-shadow: none;
 
     /** --input-padding-left **/
     --input-padding-left: 0.5625rem;
@@ -231,6 +231,15 @@ input[type="number"]
 **/
 
 /**
+input[type="email"]
+
+```html
+<label for="email">Email</label>
+<input type="email" id="email" name="email" />
+```
+**/
+
+/**
 input[type="password"]
 
 ```html
@@ -400,6 +409,7 @@ textarea,
 [type="search"],
 [type="password"] {
     background: var(--input-background);
+    box-shadow: var(--input-shadow);
 }
 
 [type="tel"],

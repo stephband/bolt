@@ -13,6 +13,7 @@
 ```
 **/
 
+
 .select-button {
     display: block;
     /* There should never be padding on select-button, it's padding should be
@@ -23,8 +24,10 @@
     border: var(--input-border-width, 1px) solid var(--input-border-color);
     border-radius: var(--input-border-radius);
     background: var(--input-background);
+    box-shadow: var(--input-shadow);
 
     /* Compensate for border */
+    font-size: var(--input-font-size);
     line-height: calc(var(--input-height) - 2 * var(--input-border-width, 1px));
     min-height: var(--input-height);
 }

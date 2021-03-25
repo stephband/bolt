@@ -6374,7 +6374,7 @@ if (!features.scrollBehavior) {
     };
 }
 
-const selector = ".locateable, [locateable]";
+const selector = ".targetable, [targetable]";
 const byTop    = by$1(get$1('top'));
 const nothing$3  = {};
 const scrollOptions = {
@@ -6391,7 +6391,7 @@ let hashTime     = 0;
 let frameTime    = -Infinity;
 let scrollLeft   = document.scrollingElement.scrollLeft;
 let scrollTop$1    = document.scrollingElement.scrollTop;
-let locateables, locatedNode, scrollPaddingLeft, scrollPaddingTop, frame;
+let targetables, locatedNode, scrollPaddingLeft, scrollPaddingTop, frame;
 
 
 function queryLinks(id) {
@@ -6425,7 +6425,7 @@ function update$3(time) {
 
     // Update things that rarely change only when we have not updated recently
     if (frameTime < time - config$4.scrollIdleDuration * 1000) {
-        locateables = query(selector, document);
+        targetables = query(selector, document);
         // Default to 0 for browsers (IE, Edge) that do not 
         // support scrollPaddingX
         scrollPaddingLeft = parseInt(getComputedStyle(document.documentElement).scrollPaddingLeft, 10) || 0;
@@ -6434,11 +6434,11 @@ function update$3(time) {
 
     frameTime = time;
 
-    const boxes = locateables.map(rect).sort(byTop);
+    const boxes = targetables.map(rect).sort(byTop);
     let  n = -1;
 
     while (boxes[++n]) {
-        // Stop on locateable lower than the break
+        // Stop on targetable lower than the break
         if (boxes[n].top > scrollPaddingTop + 1) {
             break;
         }
@@ -6446,7 +6446,7 @@ function update$3(time) {
 
     --n;
 
-    // Before the first or after the last locateable. (The latter
+    // Before the first or after the last targetable. (The latter
     // should not be possible according to the above while loop)
     if (n < 0 || n >= boxes.length) {
         if (locatedNode) {
@@ -6457,7 +6457,7 @@ function update$3(time) {
         return;
     }
 
-    var node = locateables[n];
+    var node = targetables[n];
 
     if (locatedNode && node === locatedNode) {
         return;
@@ -6505,7 +6505,7 @@ function updateElement(time, data) {
     // Update things that rarely change only when we have not updated recently
     if (frameTime < time - config$4.scrollIdleDuration * 1000) {
         data.box               = rect(data.node);
-        data.locateables       = query(selector, data.node);
+        data.targetables       = query(selector, data.node);
 
         // scrollPaddingN may compute to "auto", which parses as NaN.
         // Default to 0.
@@ -6515,18 +6515,18 @@ function updateElement(time, data) {
 
     frameTime = time;
 
-    const boxes = data.locateables.map(rect).sort(byTop);
+    const boxes = data.targetables.map(rect).sort(byTop);
     let n = -1;
     let node;
 
     while (boxes[++n]) {
-        // Stop on locateable lower than the break
+        // Stop on targetable lower than the break
         if ((boxes[n].top - data.box.top) > data.scrollPaddingTop + 1
         || (boxes[n].left - data.box.left) > data.scrollPaddingLeft + 1) {
             break;
         }
 
-        node = data.locateables[n];
+        node = data.targetables[n];
     }
 
     // Check that node and locateNode are different before continueing
@@ -6534,7 +6534,7 @@ function updateElement(time, data) {
         return;
     }
 
-    // Before the first or after the last locateable. (The latter
+    // Before the first or after the last targetable. (The latter
     // should not be possible according to the above while loop)
     unlocate();
 

@@ -33,13 +33,16 @@ import Privates   from '../../fn/modules/privates.js';
 import equals     from '../../fn/modules/equals.js';
 import last       from '../../fn/modules/lists/last.js';
 import parseValue from '../../fn/modules/parse-value.js';
+import closest    from '../../dom/modules/closest.js';
 import element    from '../../dom/modules/element.js';
 import events, { isPrimaryButton } from '../../dom/modules/events.js';
+import gestures   from '../../dom/modules/gestures.js';
 import rect       from '../../dom/modules/rect.js';
 import create     from '../../dom/modules/create.js';
 import identify   from '../../dom/modules/identify.js';
 import { next, previous } from '../../dom/modules/traverse.js';
 import { select } from '../../dom/modules/select.js';
+
 
 const DEBUG = true;
 
@@ -205,12 +208,13 @@ element('slide-show', {
 
     template: function(elem, shadow) {
         const link     = create('link', { rel: 'stylesheet', href: config.path + 'slide-show.shadow.css' });
-        const slot     = create('slot');
+        const slot     = create('slot', { part: 'grid' });
         const prevNode = create('a', { class: 'prev-thumb thumb', part: 'prev' });
         const nextNode = create('a', { class: 'next-thumb thumb', part: 'next' });
         const nav      = create('nav');
         const title    = create('slot', { name: 'title' });
-        const optional = create('slot', { name: 'optional' });
+        const optional = create('slot', { name: 'optional', part: 'optional' });
+        const overflow = create('slot', { name: 'overflow', part: 'overflow' });
 
         shadow.appendChild(link);
         shadow.appendChild(title);
@@ -219,8 +223,7 @@ element('slide-show', {
         //shadow.appendChild(nextNode);
         //shadow.appendChild(nav);
         shadow.appendChild(optional);
-
-
+        shadow.appendChild(overflow);
 
         var active;
         var slides = [];
@@ -255,7 +258,9 @@ element('slide-show', {
                 identify(active);
             }
 
-            slides = children;            
+            slides = children;
+            //console.log(slot, children.length);
+            elem.style.setProperty('--slides-count', children.length);
         }
 
         var before;
@@ -349,12 +354,11 @@ element('slide-show', {
             scrollSmooth(elem, slot, target);
         }
 
-
         const privates = assign(Privates(elem), {
             activate: function() {
                 active = reposition(elem, slot, active.id);
             },
-            
+ 
             load: function(elem, shadow) {
                 const current = activate(elem, shadow, prevNode, nextNode, active);
             
@@ -485,11 +489,54 @@ element('slide-show', {
                 return;
             }
 
-            if (elem.contains(target)) {
+            if (elem.contains(target) && !elem === target) {
                scrollSmooth(elem, slot, target);
                e.preventDefault();
                window.history.pushState({}, '', '#' + id);
             }
+        });
+
+        gestures({ threshold: '0.25rem' }, shadow)
+        .each(function(events) {
+            // First event is touchstart or mousedown
+            var e0     = events.shift();
+            var latest = events.latest();
+            var e1     = latest.shift();
+            var x0     = e0.clientX;
+            var y0     = e0.clientY;
+            var x1     = e1.clientX;
+            var y1     = e1.clientY;
+
+            // If the gesture is more vertical than horizontal, don't count it
+            // as a swipe. Stop the stream and get out of here.
+            if (Math.abs(x1 - x0) < Math.abs(y1 - y0)) {
+                events.stop();
+                return;
+            }
+
+            var slot = closest('slot', e0.target);
+            const scrollLeft0 = slot.scrollLeft;
+
+            console.log('SLOT', slot);
+
+            //var state = switchState(label);
+            //var x = state ? 1 : 0 ;
+            var dx;
+
+            //slot.classList.add('no-select');
+            slot.classList.add('gesturing');
+
+            latest.each(function (e) {
+                dx = e.clientX - x0;
+                console.log('DX', scrollLeft0 - dx);
+                slot.scrollLeft = scrollLeft0 - dx;
+                //slot.scrollLeft = 0;
+            })
+            .done(function() {
+                //slot.classList.remove('no-select');
+                slot.classList.remove('gesturing');
+                //label.style.removeProperty('--switch-handle-gesture-x');
+            });
         });
     },
 

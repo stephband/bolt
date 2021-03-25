@@ -1,29 +1,29 @@
 
 /**
-locateable
+targetable
 
-An element with a `locateable` attribute updates the browser location hash
+An element with a `targetable` attribute updates the browser location hash
 with its `id` when scrolled into view.
 
-When the location hash changes to be equal to a `locateable`'s id
-the locateable gets the class `"located"`, and links that reference that
-locateable via their `href` attribute get the class `"on"`.
+When the location hash changes to be equal to a `targetable`'s id
+the targetable gets the class `"located"`, and links that reference that
+targetable via their `href` attribute get the class `"on"`.
 
-Build a list of links that reference locateables and with a little style
+Build a list of links that reference targetables and with a little style
 you have a scrolling navigation:
 
 ```html
 <style>
-    a               { color: #888888; }
-    a.on            { color: black; }
-    article.located { ... }
+    a              { color: #888888; }
+    a.on           { color: black; }
+    article:target { ... }
 </style>
 
 <a href="#fish">...</a>
 <a href="#chips">...</a>
 
-<article locateable id="fish">...</article>
-<article locateable id="chips">...</article>
+<article targetable id="fish">...</article>
+<article targetable id="chips">...</article>
 ```
 **/
 
@@ -35,13 +35,13 @@ import rect               from '../../dom/modules/rect.js';
 import features           from '../../dom/modules/features.js';
 import { isInternalLink } from '../../dom/modules/node.js';
 import select             from '../../dom/modules/select.js';
-import { trigger }        from '../../dom/modules/trigger.js';
+
+import location from '../../dom/modules/location.js';
 
 var DEBUG = false;
 
-const selector = ".locateable, [locateable]";
+const selector = ".targetable, [targetable]";
 const byTop    = by(get('top'));
-const nothing  = {};
 const scrollOptions = {
     // Overridden on window load
     behavior: 'auto',
@@ -49,15 +49,14 @@ const scrollOptions = {
 };
 
 export const config = {
-    scrollIdleDuration: 0.18
+    scrollIdleDuration: 0.15
 };
 
 let hashTime     = 0;
 let frameTime    = -Infinity;
 let scrollLeft   = document.scrollingElement.scrollLeft;
 let scrollTop    = document.scrollingElement.scrollTop;
-let locateables, locatedNode, scrollPaddingLeft, scrollPaddingTop, frame;
-
+let targetables, targetNode, scrollPaddingLeft, scrollPaddingTop, frame;
 
 function queryLinks(id) {
 	return select('a[href$="#' + id + '"]', document.body)
@@ -65,45 +64,45 @@ function queryLinks(id) {
 }
 
 function addOn(node) {
-    node.classList.add('on');
+    node.classList.add('target-on');
 }
 
 function removeOn(node) {
-    node.classList.remove('on');
+    node.classList.remove('target-on');
 }
 
 function locate(node) {
-    node.classList.add('located');
     queryLinks(node.id).forEach(addOn);
-    locatedNode = node;
+    targetNode = node;
 }
 
 function unlocate() {
-    if (!locatedNode) { return; }
-    locatedNode.classList.remove('located');
-    queryLinks(locatedNode.id).forEach(removeOn);
-    locatedNode = undefined;
+    if (!targetNode) { return; }
+    queryLinks(targetNode.id).forEach(removeOn);
+    targetNode = undefined;
 }
 
 function update(time) {
+    console.log('UPDATE', time);
     frame = undefined;
 
     // Update things that rarely change only when we have not updated recently
     if (frameTime < time - config.scrollIdleDuration * 1000) {
-        locateables = select(selector, document);
+        targetables = select(selector, document);
         // Default to 0 for browsers (IE, Edge) that do not 
         // support scrollPaddingX
-        scrollPaddingLeft = parseInt(getComputedStyle(document.documentElement).scrollPaddingLeft, 10) || 0;
-        scrollPaddingTop  = parseInt(getComputedStyle(document.documentElement).scrollPaddingTop, 10) || 0;
+        scrollPaddingLeft = parseFloat(getComputedStyle(document.documentElement).scrollPaddingLeft) || 0;
+        scrollPaddingTop  = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
     }
 
     frameTime = time;
 
-    const boxes = locateables.map(rect).sort(byTop);
+    const boxes = targetables.map(rect).sort(byTop);
     let  n = -1;
 
     while (boxes[++n]) {
-        // Stop on locateable lower than the break
+        console.log(boxes[n].top, scrollPaddingTop);
+        // Stop on targetable lower than the break
         if (boxes[n].top > scrollPaddingTop + 1) {
             break;
         }
@@ -111,27 +110,26 @@ function update(time) {
 
     --n;
 
-    // Before the first or after the last locateable. (The latter
+    // Before the first or after the last targetable. (The latter
     // should not be possible according to the above while loop)
     if (n < 0 || n >= boxes.length) {
-        if (locatedNode) {
+        if (targetNode) {
             unlocate();
-            window.history.replaceState(nothing, '', '#');
+            location.identifier = '';
         }
 
         return;
     }
 
-    var node = locateables[n];
+    var node = targetables[n];
 
-    if (locatedNode && node === locatedNode) {
+    if (targetNode && node === targetNode) {
         return;
     }
 
     unlocate();
     locate(node);
-    window.history.replaceState(nothing, '', '#' + node.id);
-    trigger('hashchange', window);
+    location.identifier = node.id;
 }
 
 function scroll(e) {
@@ -146,7 +144,7 @@ function scroll(e) {
 
     const aMomentAgo = e.timeStamp - config.scrollIdleDuration * 1000;
 
-    // For a moment after the last hashchange dont update while
+    // For a moment after the last popstate dont update while
     // smooth scrolling settles to the right place.
     if (e.type === 'scroll' && hashTime > aMomentAgo) {
         hashTime = e.timeStamp;
@@ -173,7 +171,7 @@ function updateElement(time, data) {
     // Update things that rarely change only when we have not updated recently
     if (frameTime < time - config.scrollIdleDuration * 1000) {
         data.box               = rect(data.node);
-        data.locateables       = select(selector, data.node);
+        data.targetables       = select(selector, data.node);
 
         // scrollPaddingN may compute to "auto", which parses as NaN.
         // Default to 0.
@@ -183,37 +181,36 @@ function updateElement(time, data) {
 
     frameTime = time;
 
-    const boxes = data.locateables.map(rect).sort(byTop);
+    const boxes = data.targetables.map(rect).sort(byTop);
     let n = -1;
     let node;
 
     while (boxes[++n]) {
-        // Stop on locateable lower than the break
+        // Stop on targetable lower than the break
         if ((boxes[n].top - data.box.top) > data.scrollPaddingTop + 1
         || (boxes[n].left - data.box.left) > data.scrollPaddingLeft + 1) {
             break;
         }
 
-        node = data.locateables[n];
+        node = data.targetables[n];
     }
 
     // Check that node and locateNode are different before continueing
-    if (node === locatedNode) {
+    if (node === targetNode) {
         return;
     }
 
-    // Before the first or after the last locateable. (The latter
+    // Before the first or after the last targetable. (The latter
     // should not be possible according to the above while loop)
     unlocate();
 
     if (node) {
         locate(node);
-        window.history.replaceState(nothing, '', '#' + node.id);
-        trigger('hashchange', window);
+        location.identifier = node.id;
         return;
     }
 
-    window.history.replaceState(nothing, '', '#');
+    location.identifier = '';
 }
 
 function scrollElement(e) {
@@ -270,10 +267,20 @@ function restoreScroll(node) {
     scrollParent.scrollTop  = data.scrollTop;
 }
 
+var locationHash = '';
+
 function popstate(e) {
-    if (DEBUG) {
+    //if (DEBUG) {
         console.log(e.type, e.timeStamp, window.location.hash, document.scrollingElement.scrollLeft + ', ' + document.scrollingElement.scrollTop);
+    //}
+
+    const hash = window.location.hash;
+
+    if (locationHash === hash) {
+        return;
     }
+    
+    locationHash = hash;
 
     // Record the timeStamp
     hashTime = e.timeStamp;
@@ -281,10 +288,10 @@ function popstate(e) {
     // Remove current located
     unlocate();
 
-    const hash = window.location.hash;
-    const id   = hash.slice(1);
+    const id = hash.slice(1);
 
     if (!id) {
+/*
         if (!features.scrollBehavior) {
             // In Safari, popstate and hashchange are preceeded by scroll jump -
             // restore previous scrollTop.
@@ -293,7 +300,7 @@ function popstate(e) {
             // Then animate
             document.body.scrollIntoView(scrollOptions);
         }
-
+*/
         return;
     }
 
@@ -308,7 +315,9 @@ function popstate(e) {
     if (!features.scrollBehavior) {
         // In Safari, popstate and hashchange are preceeded by scroll jump -
         // restore previous scrollTop.
+/*
         restoreScroll(node);
+*/
 
         // Then animate
         node.scrollIntoView(scrollOptions);
@@ -338,3 +347,4 @@ function load(e) {
 }
 
 window.addEventListener('load', load);
+

@@ -45,7 +45,7 @@ Hide an element when its parent has class <code>active</code>.
 */
 
 .active-hidden.active,
-.active > .active-hidden {
+.active > .parent-active-hidden {
 	display: none !important;
 }
 
@@ -54,8 +54,30 @@ Hide an element when its parent has class <code>active</code>.
 Show an element when its parent has class <code>active</code>.
 */
 
-:not(.active) > .active-shown:not(.active) {
+.active-shown:not(.active) {
 	display: none !important;
+}
+
+:not(.active) > .parent-active-shown:not(.active) {
+	display: none !important;
+}
+
+/*
+.focus-shown
+Show an element only when focused
+*/
+
+.focus-shown:not(:focus) {
+
+	opacity: 0 !important;
+	/*visibility: hidden !important;*/
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	width: 1px !important;
+	height: 1px important;
+
+	background: red;
 }
 
 

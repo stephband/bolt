@@ -20,7 +20,7 @@
        <script>
           document.documentElement.classList.add('loading');
           // Wait for other load handlers to run first - Bolt does a few things on
-          // load (eg. locateable scrolls) and we want them to run before the loading
+          // load (eg. targetable scrolls) and we want them to run before the loading
           // class is removed.
           window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
        </script>
@@ -33,4 +33,6 @@
        scroll rules only work on <body>. Make it inherit from root. */
     scroll-padding: inherit;
     scroll-snap-type: inherit;
+    scroll-snap-stop: inherit;
+    scroll-snap-points-y: inherit;
 }

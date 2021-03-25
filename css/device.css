@@ -23,3 +23,17 @@
 .mouse-device button:focus {
     box-shadow: none;
 }
+
+
+/**
+.touch-hidden,
+.touch-shown
+**/
+
+.touch-device .touch-hidden {
+    display: none !important;
+}
+
+:root:not(.touch-device) .touch-shown {
+    display: none !important;
+}
