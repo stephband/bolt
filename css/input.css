@@ -231,6 +231,15 @@ input[type="number"]
 **/
 
 /**
+input[type="email"]
+
+```html
+<label for="email">Email</label>
+<input type="email" id="email" name="email" />
+```
+**/
+
+/**
 input[type="password"]
 
 ```html
