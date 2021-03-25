@@ -235,7 +235,7 @@ input[type="email"]
 
 ```html
 <label for="email">Email</label>
-<input type="email" id="email" name="email" />
+<input type="email" placeholder="name@example.com" id="email" name="email" />
 ```
 **/
 
@@ -722,9 +722,9 @@ select[aria-disabled="true"] {
 
 
 
-/**
+/*
 .masked
-**/
+*/
 
 .masked {
     display: block !important;
