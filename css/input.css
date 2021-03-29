@@ -267,6 +267,15 @@ input[type="tel"]
 **/
 
 /**
+input[type="time"]
+
+```html
+<label for="time-input">Time</label>
+<input type="time" placeholder="10:00" id="time-input" />
+```
+**/
+
+/**
 input[type="url"]
 
 ```html
