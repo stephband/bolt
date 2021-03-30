@@ -514,7 +514,7 @@ element('slide-show', {
                 return;
             }
 
-            var slot = closest('slot', e0.target);
+            //var slot = closest('slot', e0.target);
             const scrollLeft0 = slot.scrollLeft;
 
             console.log('SLOT', slot);
