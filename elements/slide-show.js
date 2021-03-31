@@ -212,12 +212,12 @@ element('slide-show', {
         const prevNode = create('a', { class: 'prev-thumb thumb', part: 'prev' });
         const nextNode = create('a', { class: 'next-thumb thumb', part: 'next' });
         const nav      = create('nav');
-        const title    = create('slot', { name: 'title' });
+        //const title    = create('slot', { name: 'title' });
         const optional = create('slot', { name: 'optional', part: 'optional' });
         const overflow = create('slot', { name: 'overflow', part: 'overflow' });
 
         shadow.appendChild(link);
-        shadow.appendChild(title);
+        //shadow.appendChild(title);
         shadow.appendChild(slot);
         //shadow.appendChild(prevNode);
         //shadow.appendChild(nextNode);
