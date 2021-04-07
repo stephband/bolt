@@ -1,21 +1,13 @@
 
-import cache from '../../fn/modules/cache.js';
-import noop  from '../../fn/modules/noop.js';
+import cache   from '../../fn/modules/cache.js';
+import noop    from '../../fn/modules/noop.js';
 import library, { register } from './modules/lib.js';
 import compile from './modules/compile.js';
-import log from './modules/log-browser.js';
-
-
-const textarea = document.createElement('textarea');
+import log     from './modules/log-browser.js';
+import decode  from './modules/decode.js';
 
 function empty() {
     return '';
-}
-
-function decode(html) {
-    // Converts &amp;, &lt; and &gt; to &, < and >
-    textarea.innerHTML = html;
-    return textarea.value;
 }
 
 const fromTemplateId = cache(function(id) {
@@ -61,7 +53,7 @@ function Literal(template) {
 
 /** 
 Literal.register(name, fn)
-Define a function or value that is made available in the scope of all templates.
+Register a function or value that is made available in the scope of all templates.
 **/
 
 Literal.register = register;

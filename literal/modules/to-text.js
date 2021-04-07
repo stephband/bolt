@@ -10,39 +10,32 @@ import toType   from '../../../fn/modules/to-type.js';
 const rarguments = /function(?:\s+\w+)?\s*(\([\w,\s]*\))/;
 
 export default overload(toType, {
-    'boolean': function(value) {
-        return value + '';
-    },
+    'boolean': (value) => value + '',
 
-    'function': function(value) {
-        // Print function and parameters
-        return (value.name || 'function')
-            + (rarguments.exec(value.toString()) || [])[1];
-    },
+    // Print function and parameters
+    'function': (value) => (
+        (value.name || 'function')
+        + (rarguments.exec(value.toString()) || [])[1]
+    ),
 
-    'number': function(value) {
-        // Convert NaN to empty string and Infinity to ∞ symbol
-        return Number.isNaN(value) ? '' :
+    // Convert NaN to empty string and Infinity to ∞ symbol
+    'number': (value) => (
+        Number.isNaN(value) ? '' :
             Number.isFinite(value) ? value + '' :
-            value < 0 ? '-∞' : '∞';
-    },
+            value < 0 ? '-∞' : '∞'
+    ),
 
     'string': id,
 
-    'symbol': function(value) {
-        return value.toString();
-    },
+    'symbol': (value) => value.toString(),
 
-    'undefined': function() {
-        return '';
-    },
+    'undefined': (value) => '',
 
-    'object': function(value) {
-        // Don't render null
-        return value ?
-            JSON.stringify(value) :
-            '' ;
-    },
+    'object': overload((object) => (object ? object.constructor.name : 'null'), {
+        'RegExp':  (object) => object.source,
+        'null':    () => '',
+        'default': JSON.stringify
+    }),
 
     'default': JSON.stringify
 });
