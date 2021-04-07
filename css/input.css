@@ -805,7 +805,7 @@ textarea.validated:focus,
        is ugly. Lets recreate it with box-shadow */
     outline: none;
     box-shadow: var(--focus-shadow);
-    border-color: var(--focus-border-color) !important;
+    border-color: var(--focus-border-color);
 }
 
 @media screen { @media (min-width: 0px) {
