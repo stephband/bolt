@@ -208,22 +208,22 @@ element('slide-show', {
 
     template: function(elem, shadow) {
         const link     = create('link', { rel: 'stylesheet', href: config.path + 'slide-show.shadow.css' });
-        const slot     = create('slot');
+        const slot     = create('slot', { part: 'grid' });
         const prevNode = create('a', { class: 'prev-thumb thumb', part: 'prev' });
         const nextNode = create('a', { class: 'next-thumb thumb', part: 'next' });
         const nav      = create('nav');
-        const title    = create('slot', { name: 'title' });
-        const optional = create('slot', { name: 'optional' });
+        //const title    = create('slot', { name: 'title' });
+        const optional = create('slot', { name: 'optional', part: 'optional' });
+        const overflow = create('slot', { name: 'overflow', part: 'overflow' });
 
         shadow.appendChild(link);
-        shadow.appendChild(title);
+        //shadow.appendChild(title);
         shadow.appendChild(slot);
         //shadow.appendChild(prevNode);
         //shadow.appendChild(nextNode);
         //shadow.appendChild(nav);
         shadow.appendChild(optional);
-
-
+        shadow.appendChild(overflow);
 
         var active;
         var slides = [];
@@ -489,7 +489,7 @@ element('slide-show', {
                 return;
             }
 
-            if (elem.contains(target)) {
+            if (elem.contains(target) && !elem === target) {
                scrollSmooth(elem, slot, target);
                e.preventDefault();
                window.history.pushState({}, '', '#' + id);
@@ -514,7 +514,7 @@ element('slide-show', {
                 return;
             }
 
-            var slot = closest('slot', e0.target);
+            //var slot = closest('slot', e0.target);
             const scrollLeft0 = slot.scrollLeft;
 
             console.log('SLOT', slot);

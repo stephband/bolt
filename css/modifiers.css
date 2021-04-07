@@ -45,7 +45,7 @@ Hide an element when its parent has class <code>active</code>.
 */
 
 .active-hidden.active,
-.active > .active-hidden {
+.active > .parent-active-hidden {
 	display: none !important;
 }
 
@@ -54,7 +54,11 @@ Hide an element when its parent has class <code>active</code>.
 Show an element when its parent has class <code>active</code>.
 */
 
-:not(.active) > .active-shown:not(.active) {
+.active-shown:not(.active) {
+	display: none !important;
+}
+
+:not(.active) > .parent-active-shown:not(.active) {
 	display: none !important;
 }
 

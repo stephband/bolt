@@ -231,6 +231,15 @@ input[type="number"]
 **/
 
 /**
+input[type="email"]
+
+```html
+<label for="email">Email</label>
+<input type="email" placeholder="name@example.com" id="email" name="email" />
+```
+**/
+
+/**
 input[type="password"]
 
 ```html
@@ -254,6 +263,15 @@ input[type="tel"]
 ```html
 <label for="tel">Tel</label>
 <input type="tel" id="tel" name="tel" />
+```
+**/
+
+/**
+input[type="time"]
+
+```html
+<label for="time-input">Time</label>
+<input type="time" placeholder="10:00" id="time-input" />
 ```
 **/
 
@@ -713,9 +731,9 @@ select[aria-disabled="true"] {
 
 
 
-/**
+/*
 .masked
-**/
+*/
 
 .masked {
     display: block !important;
@@ -787,7 +805,7 @@ textarea.validated:focus,
        is ugly. Lets recreate it with box-shadow */
     outline: none;
     box-shadow: var(--focus-shadow);
-    border-color: var(--focus-border-color) !important;
+    border-color: var(--focus-border-color);
 }
 
 @media screen { @media (min-width: 0px) {
