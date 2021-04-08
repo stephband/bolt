@@ -1,5 +1,5 @@
 
-import compileAsyncFn from '../../../fn/modules/compile-async-function.js';
+import compileAsyncFn from '../../../fn/modules/compile-async.js';
 import * as library   from './functions.js';
 import renderString   from './to-text.js';
 import { rewriteURL, rewriteURLs } from './url.js';
@@ -29,11 +29,11 @@ const hints = {
         '• ${} accepts any valid JS expression\n'
 };
 
-function logCompile(source, scope, params, names) {
+function logCompile(source, scope, params) {
     console.log(dimgreendim, 'Literal', 'compile', source + ' { ' + params + ' }');
 
     // Sanity check params for scope overrides
-    names.forEach((name) => {
+    params.split(/\s*[,\s]\s*/).forEach((name) => {
         if (illegal.includes(name)) {
             console.log(redwhitedim, 'SyntaxError', 'Reserved word cannot be used as parameter name', '{ ' + params + ' }')
             throw new SyntaxError('Reserved word cannot be used as parameter name ' + name);
@@ -110,35 +110,46 @@ function prependComment(source, target, string) {
     );
 }
 
+function isValidConst(namevalue) {
+    const name = namevalue[0];
+    return /^[a-zA-Z]/.test(name);
+}
+
+function sanitiseVars(vars) {
+    const names = vars.split(/\s*[,\s]\s*/).filter(isValidConst).sort();
+    return names.join(', ');
+}
+
 export default function Literal(params, template, source) {
-    if (!template) {
-        throw new Error('Template is not a string');
+    if (typeof template !== 'string') {
+        throw new Error('Template is not a string ' + source);
     }
 
     // Extract names, format params
-    const names = params.split(/\s*[,\s]\s*/).sort();
-    params = names.join(', ');
+    params = sanitiseVars(params);
 
     if (cache[source + '(' + params + ')']) {
         return cache[source + '(' + params + ')'];
     }
 
     // Where there are params define them as const
-    const code = (names.length ? 'const {' + params + '} = arguments[4];' : '')
+    const code = (params.length ? 'const {' + params + '} = data;' : '')
         + 'return render`' + template + '`;';
 
     var fn;
     if (DEBUG) {
-        logCompile(source, library, params, names);
-        // scope, paramString, code, context, name
-        try { fn = compileAsyncFn('render, include, imports, documentation', code, library); }
+        logCompile(source, library, params);
+        // scope, paramString, code [, context]        
+        try {
+            fn = compileAsyncFn(library, 'data = {}, render, include, imports, documentation', code);
+        }
         catch(e) {
             logError(source, template, e);
             throw e;
         }
     }
     else {
-        fn = compileAsyncFn('render, include, imports, documentation', code, library);
+        fn = compileAsyncFn(library, 'data = {}, render, include, imports, documentation', code);
     }
 
     // Store a reference to the global object
@@ -150,14 +161,16 @@ export default function Literal(params, template, source) {
         // Where this is just a reference to the global context, create a new 
         // context object for the `this` keyword inside the template. If this
         // function is a used as a method, `this` refers to the object.
-        .call(this === self ? {} : this, 
+        .call(this === self ? {} : this,
+            data,
+            // render()
             render,
-            // TODO: is there a better way of passing source, target to library 
-            // functions? Bind this?
+            // include()
             (url, data) => library.include(source, target, rewriteURL(source, target, url), data),
+            // imports()
             (url)       => library.imports(source, target, url),
-            (...urls)   => library.documentation(source, target, ...urls),
-            data
+            // documentation
+            (...urls)   => library.documentation(source, target, ...urls)
         )
         .then(DEBUG ?
             (text) => prependComment(source, target, rewriteURLs(source, target, text)) :

@@ -12,6 +12,7 @@ element and upgrades instances already in the DOM.
 
 ```html
 <script type="module" src="slide-show.rolled.js"></script>
+
 <slide-show loop autoplay>
    <img src="../images/lyngen-4.png" id="1" />
    <img src="../images/lyngen-2.png" id="2" />

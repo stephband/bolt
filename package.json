@@ -18,20 +18,21 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^6.5.0",
+    "clean-css": "^5.1.2",
+    "esbuild": "^0.11.6",
+    "eslint": "^6.8.0",
     "findit": "^2.0.0",
-    "madge": "^3.9.2",
-    "rollup": "^2.21.0",
-    "clean-css": "^4.2.3",
-    "sass": "^1.29.0"
+    "madge": "^4.0.2",
+    "sass": "^1.30.0"
   },
   "homepage": "http://stephen.band/bolt/",
   "docs": "http://stephen.band/bolt/",
   "module": "module.js",
   "scripts": {
+    "literal": "node --experimental-json-modules --no-warnings ./literal/index.js ./ debug",
+    "----": "-----------------------------------------------------------------------------------------------",
     "lint": "eslint modules/*.js",
     "build": "npm run build-sass && npm run build-css && npm run build-module & npm run build-elements && npm run build-html",
-    "build-sass": "node-sass --output-style compact --indent-width 4 ./sass/grid.scss ./css/grid.css && node-sass --output-style compact --indent-width 4 ./sass/respond.scss ./css/respond.css",
     "build-module": "rollup ./module.js --o ./module.rolled.js --f esm",
     "build-range-control": "rollup ./elements/range-control.js --o ./elements/range-control.rolled.js --f esm && madge --image ./elements/range-control.svg ./elements/range-control.js",
     "build-rotary-control": "rollup ./elements/rotary-control.js --o ./elements/rotary-control.rolled.js --f esm && madge --image ./elements/rotary-control.svg ./elements/rotary-control.js",
@@ -45,14 +46,18 @@
     "graph": "madge --image ./module.svg ./module.js",
     "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.1.2' && git push"
   },
-  "builderExcludes": [
-    ".git/",
-    "node_modules/",
-    "archive/",
-    "fonts/",
-    "libs/",
-    "docs/",
-    "builder/",
-    "templates/"
-  ]
+  "literal": {
+    "exclude": [
+      ".git",
+      "bolt",
+      "dom",
+      "fn",
+      "node_modules",
+      "archive",
+      "templates",
+      "fonts",
+      "images",
+      "design"
+    ]
+  }
 }

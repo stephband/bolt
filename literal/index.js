@@ -14,20 +14,19 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const dir = dirname(fileURLToPath(import.meta.url));
 
-import request    from './modules/request.js';
+import request from './modules/request.js';
 import { yellow, dimyellow, red, dim } from './modules/log.js';
-
 import build from './build.js';
 
 // Arguments
 const args  = process.argv.slice(2);
 
 if (args.length < 2) {
-    throw new Error("build-literal requires ('source.html.literal', 'target.html')");
+    throw new Error("node index.js requires arguments 'source.html.literal' 'target.html'");
 }
 
 const base  = args[0] || '.';
-const dest  = args[1] || '';
+const dest  = args[1] === 'debug' ? '' : (args[1] || '');
 const DEBUG = args.find((arg) => (arg === 'debug'));
 
 request('./package.json')
@@ -55,14 +54,14 @@ request('./package.json')
         const name = parts[2];
         const ext  = parts[3];
 
-        // No, build in place... Todo: allow alternative target destination
+        // Build in place... Todo: allow alternative target destination
         const target = (path || '') + name + '.' + ext;
 
         build(source, target, { DEBUG: DEBUG })
         //.then(() => { process.exit(0); })
         .catch((e) => {
             console.log(e);
-            //process.exit(1);
+            process.exit(1);
         });
     });
 });

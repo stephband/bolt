@@ -2,7 +2,7 @@
 /* Quick browser version */
 
 import id     from '../../../fn/modules/id.js';
-import compileAsync from '../../../fn/modules/compile-async-function.js';
+import compileAsync from '../../../fn/modules/compile-async.js';
 import toText from './to-text.js';
 import log    from './log-browser.js';
 
@@ -184,8 +184,13 @@ Returns a function that renders a literal template.
 // Store render functions against their template strings
 const cache = {};
 
+function isValidConst(namevalue) {
+    const name = namevalue[0];
+    return /^\w/.test(name);
+}
+
 function sanitiseVars(vars) {
-    const names = vars.split(/\s*[,\s]\s*/).sort();
+    const names = vars.split(/\s*[,\s]\s*/).filter(isValidConst).sort();
     return names.join(', ');
 }
 
@@ -200,7 +205,7 @@ export default function compile(scope, varstring, string, id, consts = 'data', r
     if (cache[key]) { return cache[key]; }
 
     // Alphabetise and format
-    const vars = sanitiseVars(varstring);
+    const vars = sanitiseVars(varstring) ;
 
     // Make it impossible to override render
     scope.render = render;
