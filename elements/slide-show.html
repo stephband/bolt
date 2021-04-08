@@ -79,7 +79,7 @@
 <pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/bolt/elements/'</span><span class="token punctuation">;</span></code></pre>
 <p>Import <code>&lt;slide-show&gt;</code> custom element. This also registers the custom 
 element and upgrades instances already in the DOM.</p>
-<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slide-show.rolled.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slide-show.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slide-show</span> <span class="token attr-name">loop</span> <span class="token attr-name">autoplay</span><span class="token punctuation">></span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-4.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
@@ -95,7 +95,7 @@ insertion of fullscreen close buttons and the like.</p>
 </header>
 
 <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-    <script type="module" src="../templates/slide-show.rolled.js"></script>
+    <script type="module" src="../templates/slide-show.js"></script>
 
 <slide-show loop autoplay>
    <img src="../images/lyngen-4.png" id="1" />
@@ -119,20 +119,28 @@ insertion of fullscreen close buttons and the like.</p>
     
     <h3 class="doctext-03">Properties</h3>
     <!-- Literal template "templates/entry.literal" -->
-<section class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="property-property-autoplay">
+<section class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property-property-autoplay">
     <h3 class="property-doctext-05 doctext-05">
         <a href="#property-property-autoplay">
             <code class=" property language-js">.autoplay </code>
         </a>
     </h3>
+    
+    <p>false
+        Boolean property.</p>
+
 </section>
 <!-- Literal template "templates/entry.literal" -->
-<section class="property-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="property-property-loop">
+<section class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property-property-loop">
     <h3 class="property-doctext-05 doctext-05">
         <a href="#property-property-loop">
             <code class=" property language-js">.loop </code>
         </a>
     </h3>
+    
+    <p>false
+        Boolean property.</p>
+
 </section>
 
     
@@ -145,96 +153,112 @@ insertion of fullscreen close buttons and the like.</p>
     
     <h3 class="doctext-03">Parts</h3>
     <!-- Literal template "templates/entry.literal" -->
-<section class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-part-prev">
+<section class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-part-part-prev">
     <h3 class="part-doctext-05 doctext-05">
         <a href="#part-part-part-prev">
             <code class="  language-js">::part(prev) </code>
         </a>
     </h3>
+    
+    <p>Style the ‘previous slide’ button.</p>
+
 </section>
 <!-- Literal template "templates/entry.literal" -->
-<section class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-part-next">
+<section class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-part-part-next">
     <h3 class="part-doctext-05 doctext-05">
         <a href="#part-part-part-next">
             <code class="  language-js">::part(next) </code>
         </a>
     </h3>
+    
+    <p>Style the ‘next slide’ button.</p>
+
 </section>
 <!-- Literal template "templates/entry.literal" -->
-<section class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-part-link">
+<section class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-part-part-link">
     <h3 class="part-doctext-05 doctext-05">
         <a href="#part-part-part-link">
             <code class="  language-js">::part(link) </code>
         </a>
     </h3>
+    
+    <p>Style the navigation links.</p>
+
 </section>
 <!-- Literal template "templates/entry.literal" -->
-<section class="part-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="part-part-part-active-link">
+<section class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-part-part-active-link">
     <h3 class="part-doctext-05 doctext-05">
         <a href="#part-part-part-active-link">
             <code class="  language-js">::part(active-link) </code>
         </a>
     </h3>
+    
+    <p>Style the navigation link for the currently active slide.</p>
+
 </section>
 
 
     
     <h3 class="doctext-03">Variables</h3>
     <!-- Literal template "templates/entry.literal" -->
-<section class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-slide-duration">
+<section class="var-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="var-var-slide-duration">
     <h3 class="var-doctext-05 doctext-05">
         <a href="#var-var-slide-duration">
             <code class="  language-js">--slide-duration </code>
         </a>
     </h3>
+    
+    <p>Set the duration that a slide is displayed for when the slideshow is in
+    autoplay mode. May be a CSS time value in <code>s</code> or <code>ms</code>.</p>
+
 </section>
 <!-- Literal template "templates/entry.literal" -->
-<section class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-slide-align">
-    <h3 class="var-doctext-05 doctext-05">
-        <a href="#var-var-slide-align">
-            <code class="  language-js">--slide-align </code>
-        </a>
-    </h3>
-</section>
-<!-- Literal template "templates/entry.literal" -->
-<section class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-slide-justify">
-    <h3 class="var-doctext-05 doctext-05">
-        <a href="#var-var-slide-justify">
-            <code class="  language-js">--slide-justify </code>
-        </a>
-    </h3>
-</section>
-<!-- Literal template "templates/entry.literal" -->
-<section class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-link-top">
+<section class="var-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="var-var-link-top">
     <h3 class="var-doctext-05 doctext-05">
         <a href="#var-var-link-top">
             <code class="  language-js">--link-top </code>
         </a>
     </h3>
+    
+    <p>Adjusts the vertical position of the list of links. Negative values make it
+    appear over the slides.</p>
+
 </section>
 <!-- Literal template "templates/entry.literal" -->
-<section class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-link-gap">
+<section class="var-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="var-var-link-gap">
     <h3 class="var-doctext-05 doctext-05">
         <a href="#var-var-link-gap">
             <code class="  language-js">--link-gap </code>
         </a>
     </h3>
+    
+    <p>Adjusts the gap between links.</p>
+
 </section>
 <!-- Literal template "templates/entry.literal" -->
-<section class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-padding-left">
+<section class="var-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="var-var-padding-left">
     <h3 class="var-doctext-05 doctext-05">
         <a href="#var-var-padding-left">
             <code class="  language-js">--padding-left </code>
         </a>
     </h3>
+    
+    <p>Adjusts the space to the left of the leftmost slide. Internally it sets 
+    <code>padding</code> and <code>scroll-padding</code>. </p>
+
 </section>
 <!-- Literal template "templates/entry.literal" -->
-<section class="var-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="var-var-padding-right">
+<section class="var-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="var-var-padding-right">
     <h3 class="var-doctext-05 doctext-05">
         <a href="#var-var-padding-right">
             <code class="  language-js">--padding-right </code>
         </a>
     </h3>
+    
+    <p>Adjusts the space to the right of the rightmost slide. Internally it sets 
+    <code>padding</code> and <code>scroll-padding</code> and hacks around browsers’ lack of respect 
+    for <code>padding-right</code> on scrollable grids.</p>
+
 </section>
 
 </div>

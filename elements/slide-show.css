@@ -8,8 +8,8 @@ slide-show {
     grid-auto-flow: column;
     grid-auto-columns: 100%;
     grid-auto-rows: min-content;
-    align-items: var(--slide-align, center);
-    justify-items: var(--slide-justify, center);
+    align-items: center;
+    justify-items: stretch;
     column-gap: var(--column-gap);
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;

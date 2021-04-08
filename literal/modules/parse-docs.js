@@ -317,7 +317,7 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
                     return Prism.highlight(code, Prism.languages[lang || 'js'], lang || 'js');
                 }
             }));
-    
+    console.log('BODY', data.name, data.body);
             return data;
         },
     

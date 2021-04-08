@@ -1,7 +1,7 @@
 /**
 toggleable
 
-An element with the `toggleable` attribute is activated and deactivated when
+An element with the `data-toggleable` attribute is activated and deactivated when
 a link that references it is clicked.
 
 An active `toggleable` has the class `"active"`, and links to it have the

@@ -25,8 +25,8 @@ setTimeout(function() {
 
 // Delegate clicks on buttons to their named actions
 events('click', document)
-.filter(e => !e.defaultPrevented)
-.map(e => (e.target.closest('button[name]') || undefined))
+.filter((e) => !e.defaultPrevented)
+.map((e) => (e.target.closest('button[name]') || undefined))
 .each(overload(get('name'), {
     'activate-toggle-blocks': function(button) {
         const selector = button.value;

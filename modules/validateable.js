@@ -81,18 +81,18 @@ validation messages are shown.</p>
 // Inputs inside or with .validateable are given .validated after they are
 // first validated, enabling pre- as well as post- validation styles.
 
-import get    from '../../fn/modules/get.js';
-import id     from '../../fn/modules/id.js';
-import invoke from '../../fn/modules/invoke.js';
-import Stream from '../../fn/modules/stream.js';
+import get     from '../../fn/modules/get.js';
+import id      from '../../fn/modules/id.js';
+import invoke  from '../../fn/modules/invoke.js';
+import Stream  from '../../fn/modules/stream.js';
 import create  from '../../dom/modules/create.js';
 import events  from '../../dom/modules/events.js';
 import matches from '../../dom/modules/matches.js';
-import next    from '../../dom/modules/next.js';
+import { next } from '../../dom/modules/traverse.js';
 import remove  from '../../dom/modules/remove.js';
 import { validate, isValid } from '../../dom/modules/validation.js';
 import classes from '../../dom/modules/classes.js';
-import after   from '../../dom/modules/after.js';
+import { after } from '../../dom/modules/mutate.js';
 
 var isValidateable = matches('.validateable, .validateable input, .validateable textarea, .validateable select, [validateable], [validateable] input, [validateable] textarea, [validateable] select');
 

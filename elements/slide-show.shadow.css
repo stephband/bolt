@@ -13,20 +13,6 @@
     --slide-duration: 8s;
 
     /**
-    --slide-align
-    Default vertical alignment of slides in their grid cells. (Individual slides
-    can be aligned normally by applying `align-self`).
-    **/
-    --slide-align: center;
-
-    /**
-    --slide-justify
-    Default horizontal justification of slides in their grid cells. (Individual
-    slides can be justified normally by applying `justify-self`).
-    **/
-    --slide-justify: stretch;
-
-    /**
     --link-top
     Adjusts the vertical position of the list of links. Negative values make it
     appear over the slides.
@@ -41,11 +27,16 @@
 
     /**
     --padding-left
+    Adjusts the space to the left of the leftmost slide. Internally it sets 
+    `padding` and `scroll-padding`. 
     **/
     --padding-left: 0;
 
     /**
     --padding-right
+    Adjusts the space to the right of the rightmost slide. Internally it sets 
+    `padding` and `scroll-padding` and hacks around browsers' lack of respect 
+    for `padding-right` on scrollable grids.
     **/
     --padding-right: 0;
 
@@ -134,7 +125,7 @@
     grid-auto-rows: min-content;
     column-gap: inherit;
     align-items: inherit;
-    justify-items: var(--slide-justify);
+    justify-items: inherit;
 
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;

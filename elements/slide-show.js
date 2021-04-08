@@ -11,7 +11,7 @@ Import `<slide-show>` custom element. This also registers the custom
 element and upgrades instances already in the DOM.
 
 ```html
-<script type="module" src="slide-show.rolled.js"></script>
+<script type="module" src="slide-show.js"></script>
 
 <slide-show loop autoplay>
    <img src="../images/lyngen-4.png" id="1" />

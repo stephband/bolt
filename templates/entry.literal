@@ -1,8 +1,10 @@
 
-<section class="${ type }-doc-toggle-block doc-toggle-block toggle-block block" toggleable id="${ type }-${ id }">
+<section class="${ type }-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="${ type }-${ id }">
     <h3 class="${ type }-doctext-05 doctext-05">
         <a href="#${ type }-${ id }">
             <code class="${ type === 'attribute' ? 'token' : '' } ${ type === 'property' ? 'property' : '' } ${ type === 'attribute' ? 'language-html' : 'language-js' }">${ name } ${ defaultValue && `<span class="default">=<em>${ defaultValue }</em></span>` || '' }</code>
         </a>
     </h3>
+    
+    ${ body }
 </section>
