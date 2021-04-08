@@ -51,7 +51,6 @@ Where a documentation comment is found, returns a token object of the form:
     type:     type of comment, one of 'attribute', 'property', 'element'
     name:     name of attribute, property, function, element or class
     title:    
-    prefix:   syntax characters that precede declaration
     postfix:  syntax characters that follow declaration
     defaultValue: default value
     params:   where `type` is method or function, list of parameters
@@ -106,7 +105,6 @@ const parsePropertyToSelector = capture(/^(,\s*\n\s*)|(,\s*)|(\s*[>+]\s*)|(-)/, 
 const parseDotted = capture(/^(\w[\w\d]*)(?:(\(\s*)|(\s*=\s*)|(\s*\n\s*)|(\s*))/, {
     // If it is .xxx it could be a property or selector
     1: (data, captures) => {
-        data.prefix = '.';
         data.name   = '.' + captures[1];
         return data;
     },
@@ -130,7 +128,7 @@ const parseDotted = capture(/^(\w[\w\d]*)(?:(\(\s*)|(\s*=\s*)|(\s*\n\s*)|(\s*))/
 
     // Could be a property without a default value, could be a class selector
     4: (data, captures) => {
-        data.type    = 'property|selector';
+        data.type = 'property|selector';
         return data;        
     },
 
@@ -212,13 +210,12 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
         //console.log(captures.input.slice(captures.index, captures.index + 16), '(' + captures[1] + ')');
         return {
             defaultValue: null,
-            prefix: '',
+            //prefix: '',
             title: ''
-        };       
+        };
     },
 
     1: (data, captures) => {
-        data.prefix = '.';
         data.name   = '.';
         parseDotted(data, captures);
         return data;
@@ -230,8 +227,7 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
         // --variable
         1: (data, captures) => {
             data.type   = 'var';
-            data.prefix = '--';
-            data.name   = captures[1];
+            data.name   = '--' + captures[1];
             return data;
         },
     
@@ -250,8 +246,7 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
     3: capture(/^([\w-]+)\s*\)\s*/, {
         1: (data, captures) => {
             data.type = 'part';
-            data.prefix = '::';
-            data.name = captures[1];
+            data.name = '::part(' + captures[1] + ')';
             return data;
         },
     
@@ -336,6 +331,7 @@ const parseComment = capture(/\/\*\*+\s*(?:(\.)|(--)|(::part\()\s*|(")|(<)|(\{[\
     // Return undefined where no (more) comments found
     catch: noop
 }, null);
+
 
 /**
 parseDocs(string)

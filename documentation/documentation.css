@@ -65,10 +65,27 @@
     white-space: pre;
 }
 
+.part-doctext-05 > a > code {
+    position: relative;
+    left: -1.125rem;
+}
+
+.property-doctext-05 > a > code {
+    /* Outdent by the width of '.' */
+    position: relative;
+    left: -0.5625rem;
+}
+
 .selector-doctext-05 > a > code {
     /* Outdent by the width of one space */
     position: relative;
     left: -0.5625rem;
+}
+
+.var-doctext-05 > a > code {
+    /* Outdent by the width of '--' */
+    position: relative;
+    left: -1.125rem;
 }
 
 .doctext-05 + .bottom-bubble {

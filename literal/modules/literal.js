@@ -3,7 +3,7 @@ import compileAsyncFn from '../../../fn/modules/compile-async.js';
 import * as library   from './functions.js';
 import renderString   from './to-text.js';
 import { rewriteURL, rewriteURLs } from './url.js';
-import { dimgreendim, dimyellow, dim, red, yellow, redwhitedim } from './log.js';
+import { dimgreendim, dimyellow, dimred, dim, red, yellow, redwhitedim } from './log.js';
 
 
 const DEBUG = true;
@@ -40,8 +40,8 @@ function logCompile(source, scope, params) {
         }
 
         if (scope[name]) {
-            console.log(dimyellow, 'Literal', 'warning', 'param ' + name
-                + ' overrides literal ' + typeof scope[name] + ' '
+            console.log(dimred, 'Literal', 'warning', 'const ' + name
+                + ' overrides scope ' + typeof scope[name] + ' '
                 + (typeof scope[name] === 'function' ? name + '()' : name));
         }
     });
