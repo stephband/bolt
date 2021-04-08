@@ -1,4 +1,6 @@
 
+import '../../dom/polyfills/element.scrollto.js';
+
 /** <slide-show>
 
 Configure stylesheet path with:
@@ -19,6 +21,13 @@ element and upgrades instances already in the DOM.
    <img src="../images/lyngen-1.png" id="3" />
    <img src="../images/lyngen-3.png" id="4" />
 </slide-show>
+
+<slide-show controls="previous next navigation">
+   <img src="../images/lyngen-4.png" id="1" />
+   <img src="../images/lyngen-2.png" id="2" />
+   <img src="../images/lyngen-1.png" id="3" />
+   <img src="../images/lyngen-3.png" id="4" />
+</slide-show>
 ```
 
 By default each element inside `<slide-show>` is interpreted as a slide, but
@@ -26,15 +35,11 @@ content with the attribute `slot="optional"` is ignored, allowing for the
 insertion of fullscreen close buttons and the like.
 **/
 
-// Polyfill Safari's lack of smooth scrolling via .scrollTo()
-import '../../dom/polyfills/element.scrollto.js';
-
 import id         from '../../fn/modules/id.js';
 import Privates   from '../../fn/modules/privates.js';
 import equals     from '../../fn/modules/equals.js';
 import last       from '../../fn/modules/lists/last.js';
 import parseValue from '../../fn/modules/parse-value.js';
-import closest    from '../../dom/modules/closest.js';
 import element    from '../../dom/modules/element.js';
 import events, { isPrimaryButton } from '../../dom/modules/events.js';
 import gestures   from '../../dom/modules/gestures.js';

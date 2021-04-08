@@ -40,7 +40,6 @@
     ${ include('../templates/element.literal', documentation("slide-show.js", "slide-show.shadow.css")) }
 
     <!-- Document interactivity -->
-    <script type="module" src="../../dom/polyfills/element.scrollto.js"></script>
     <script type="module" src="./slide-show.js"></script>
 
     ${ include('../templates/scripts.html') }

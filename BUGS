@@ -1,9 +1,0 @@
-
-Not working:
-{{examples.0}}
-
-Not working:
-{{examples[0]}}
-
-Working:
-{{examples|get:'0'}}
