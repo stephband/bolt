@@ -556,57 +556,52 @@ element('slide-show', {
         events('resize', window).each(scope.activate);
     },
 
-    properties: {
+    attributes: {
+        /**
+        loop
+        Boolean attribute. Makes the slideshow behave as a continuous loop.
+        **/
+        loop: function(value) {
+            Privates(this).loop(value !== null);
+        },
+
         /**
         autoplay
         Boolean attribute. 
         **/
-
-        /**
-        .autoplay = false
-        Boolean property.
-        **/
-
-        autoplay: {
-            attribute: function(value) {
-                Privates(this).autoplay(value !== null);
-            },
-
-            set: function(state) {
-                Privates(this).autoplay(!!state);
-            },
-
-            get: function() {
-                return Privates(this).autoplayState;
-            }
+        autoplay: function(value) {
+            Privates(this).autoplay(value !== null);
         },
 
         /**
         controls
         Boolean attribute. Shows previous/next buttons and navigation.
         **/
+        controls: function(value) {
+            Privates(this).controls(value !== null);
+        }
+    },
 
-        controls: {
-            attribute: function(value) {
-                Privates(this).controls(value !== null);
+    properties: {
+        /**
+        .autoplay = false
+        Boolean property.
+        **/
+        autoplay: {
+            set: function(state) {
+                Privates(this).autoplay(!!state);
+            },
+         
+            get: function() {
+                return Privates(this).autoplayState;
             }
         },
 
         /**
-        loop
-        Boolean attribute. Makes the slideshow behave as a continuous loop.
-        **/
-
-        /**
         .loop = false
-        Boolean property. Makes the slideshow behave as a continuous loop.
+        Boolean property.
         **/
-
         loop: {
-            attribute: function(value) {
-                Privates(this).loop(value !== null);
-            },
-
             set: function(state) {
                 Privates(this).loop(!!state);
             },
