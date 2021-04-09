@@ -21,7 +21,7 @@
         max-width: 30rem;
     }
 
-    slide-show::part(prev),
+    slide-show::part(previous),
     slide-show::part(next) {
         display: none;
     }

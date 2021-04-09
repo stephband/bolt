@@ -55,7 +55,7 @@
         max-width: 30rem;
     }
 
-    slide-show::part(prev),
+    slide-show::part(previous),
     slide-show::part(next) {
         display: none;
     }
@@ -88,7 +88,7 @@ element and upgrades instances already in the DOM.</p>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-3.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>4<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slide-show</span><span class="token punctuation">></span></span>
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slide-show</span> <span class="token attr-name">controls</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>previous next navigation<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slide-show</span> <span class="token attr-name">controls</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>navigation pagination<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-4.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-2.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-1.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
@@ -111,7 +111,7 @@ insertion of fullscreen close buttons and the like.</p>
    <img src="../images/lyngen-3.png" id="4" />
 </slide-show>
 
-<slide-show controls="previous next navigation">
+<slide-show controls="navigation pagination">
    <img src="../images/lyngen-4.png" id="1" />
    <img src="../images/lyngen-2.png" id="2" />
    <img src="../images/lyngen-1.png" id="3" />
@@ -123,8 +123,23 @@ insertion of fullscreen close buttons and the like.</p>
 
 <div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
     
+    <h3 class="doctext-03">Attributes</h3>
+    <!-- Literal template "templates/entry.literal" -->
+<section class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-attribute-controls">
+    <h3 class="attribute-doctext-05 doctext-05">
+        <a href="#attribute-attribute-controls">
+            <code class="token  language-html">controls <span class="default">=<em>pagination</em></span></code>
+        </a>
+    </h3>
     
-    
+    <p>Treated as a boolean or a token list. If it is present but empty
+all tokens are considered to be true. Otherwise, possible tokens are:</p>
+<p><strong>navigation</strong> enables previous and next buttons. The buttons may 
+be styled with <code>::part(previous)</code> and <code>::part(next)</code> selectors.</p>
+<p><strong>pagination</strong> enables a row of pagination dots.</p>
+
+</section>
+
 
     
     
@@ -141,7 +156,7 @@ insertion of fullscreen close buttons and the like.</p>
     </h3>
     
     <p>false
-        Boolean property.</p>
+            Boolean property.</p>
 
 </section>
 <!-- Literal template "templates/entry.literal" -->
@@ -153,7 +168,7 @@ insertion of fullscreen close buttons and the like.</p>
     </h3>
     
     <p>false
-        Boolean property.</p>
+            Boolean property. Makes the slideshow behave as a continuous loop.</p>
 
 </section>
 
@@ -167,10 +182,10 @@ insertion of fullscreen close buttons and the like.</p>
     
     <h3 class="doctext-03">Parts</h3>
     <!-- Literal template "templates/entry.literal" -->
-<section class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-part-part-prev">
+<section class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-part-part-previous">
     <h3 class="part-doctext-05 doctext-05">
-        <a href="#part-part-part-prev">
-            <code class="  language-js">::part(prev) </code>
+        <a href="#part-part-part-previous">
+            <code class="  language-js">::part(previous) </code>
         </a>
     </h3>
     
@@ -270,8 +285,8 @@ insertion of fullscreen close buttons and the like.</p>
     </h3>
     
     <p>Adjusts the space to the right of the rightmost slide. Internally it sets 
-    <code>padding</code> and <code>scroll-padding</code> and hacks around browsers’ lack of respect 
-    for <code>padding-right</code> on scrollable grids.</p>
+    <code>padding</code> and <code>scroll-padding</code> (and hacks around browsers’ lack of respect 
+    for <code>padding-right</code> on scrollable grids).</p>
 
 </section>
 

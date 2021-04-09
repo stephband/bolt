@@ -22,7 +22,7 @@ element and upgrades instances already in the DOM.
    <img src="../images/lyngen-3.png" id="4" />
 </slide-show>
 
-<slide-show controls="previous next navigation">
+<slide-show controls="navigation pagination">
    <img src="../images/lyngen-4.png" id="1" />
    <img src="../images/lyngen-2.png" id="2" />
    <img src="../images/lyngen-1.png" id="3" />
@@ -40,6 +40,7 @@ import Privates   from '../../fn/modules/privates.js';
 import equals     from '../../fn/modules/equals.js';
 import last       from '../../fn/modules/lists/last.js';
 import parseValue from '../../fn/modules/parse-value.js';
+import overload   from '../../fn/modules/overload.js';
 import element    from '../../dom/modules/element.js';
 import events, { isPrimaryButton } from '../../dom/modules/events.js';
 import gestures   from '../../dom/modules/gestures.js';
@@ -68,7 +69,7 @@ const parseTime = parseValue({
 
 /* Shadow */
 
-function activate(elem, shadow, prevLink, nextLink, active) {
+function activate(elem, shadow, nodes, active) {
     const elemRect   = rect(elem);
     const elemCentre = elemRect.left + elemRect.width / 2;
     const slides     = Array.from(elem.children).filter((element) => !element.hasAttribute('slot'));
@@ -102,21 +103,24 @@ function activate(elem, shadow, prevLink, nextLink, active) {
         .forEach((node) => node.part.remove('active-link'))
     }
 
-    // Change href of prev and next buttons
-    const prevChild = previous(slide);
-    if (prevChild) {
-        prevLink.href = '#' + prevChild.id;
-    }
-    else {
-        prevLink.removeAttribute('href');
-    }
-
-    const nextChild = next(slide);
-    if (nextChild) {
-        nextLink.href = '#' + nextChild.id;
-    }
-    else {
-        nextLink.removeAttribute('href');
+    // If navigation buttons are enabled
+    if (nodes.previous) {
+        // Change href of prev and next buttons
+        const prevChild = previous(slide);
+        if (prevChild) {
+            nodes.previous.href = '#' + prevChild.id;
+        }
+        else {
+            nodes.previous.removeAttribute('href');
+        }
+    
+        const nextChild = next(slide);
+        if (nextChild) {
+            nodes.next.href = '#' + nextChild.id;
+        }
+        else {
+            nodes.next.removeAttribute('href');
+        }
     }
 
     // Highlight links with `on` class
@@ -212,21 +216,17 @@ element('slide-show', {
     <slot name="optional"></slot>
     */
 
-    template: function(elem, shadow) {
+    construct: function(elem, shadow) {
         const link     = create('link', { rel: 'stylesheet', href: config.path + 'slide-show.shadow.css' });
         const slot     = create('slot', { part: 'grid' });
-        const prevNode = create('a', { class: 'prev-thumb thumb', part: 'prev' });
-        const nextNode = create('a', { class: 'next-thumb thumb', part: 'next' });
+        //const prevNode = create('a',    { class: 'prev-thumb thumb', part: 'prev' });
+        //const nextNode = create('a',    { class: 'next-thumb thumb', part: 'next' });
         const nav      = create('nav');
-        //const title    = create('slot', { name: 'title' });
         const optional = create('slot', { name: 'optional', part: 'optional' });
         const overflow = create('slot', { name: 'overflow', part: 'overflow' });
 
         shadow.appendChild(link);
-        //shadow.appendChild(title);
         shadow.appendChild(slot);
-        //shadow.appendChild(prevNode);
-        //shadow.appendChild(nextNode);
         //shadow.appendChild(nav);
         shadow.appendChild(optional);
         shadow.appendChild(overflow);
@@ -361,20 +361,22 @@ element('slide-show', {
         }
 
         const privates = assign(Privates(elem), {
+            nodes: {},
+
             activate: function() {
                 active = reposition(elem, slot, active.id);
             },
  
             load: function(elem, shadow) {
-                const current = activate(elem, shadow, prevNode, nextNode, active);
-            
+                const current = activate(elem, shadow, this.nodes, active);
+
                 // If we are at the very start of the loop on load, and it is 
                 // not an original, reposition to be at the start of the 
                 // originals
                 if (current === elem.firstElementChild && !current.id) {
                     ignore = true;
                     active = reposition(elem, slot, active.id);
-                    active = activate(elem, shadow, prevNode, nextNode, current); 
+                    active = activate(elem, shadow, this.nodes, current); 
                 }
                 else {
                     active = current;
@@ -430,22 +432,37 @@ element('slide-show', {
                 }
             },
 
-            controlsState: false,
-            
-            controls: function(state) {
-                this.controlsState = state;
+            navigation: overload(id, {
+                'true': function() {
+                    if (this.nodes.previous) { return; }
+                    this.nodes.previous = create('a', { part: 'previous', class: 'prev-thumb thumb' });
+                    this.nodes.next     = create('a', { part: 'next', class: 'next-thumb thumb' });
+                    shadow.appendChild(this.nodes.previous);
+                    shadow.appendChild(this.nodes.next);
+                },
 
-                if (!state) {
-                    shadow.appendChild(prevNode);
-                    shadow.appendChild(nextNode);
+                'false': function() {
+                    if (!this.nodes.previous) { return; }
+                    this.nodes.previous.remove();
+                    this.nodes.next.remove();
+                    this.nodes.previous = undefined; 
+                    this.nodes.next = undefined;
+                }
+            }),
+
+            pagination: overload(id, {
+                'true': function() {
+                    if (this.nodes.pagination) { return; }
+                    this.nodes.pagination = create('nav');
                     shadow.appendChild(nav);
-                }
-                else {
-                    prevNode.remove();
-                    nextNode.remove();
-                    nav.remove();
-                }
-            }
+                },
+
+                'false': function() {
+                    if (!this.nodes.pagination) { return; }
+                    this.nodes.pagination.remove();
+                    this.nodes.pagination = undefined; 
+                }   
+            })
         });
 
         events({ type: 'scroll', passive: true }, slot)
@@ -455,7 +472,7 @@ element('slide-show', {
             return result;
         })
         .each(function(e) {
-            active = activate(elem, shadow, prevNode, nextNode, active);
+            active = activate(elem, shadow, privates.nodes, active);
 
             // If the last update was scheduled recently don't bother rescheduling
             if (e.timeStamp - t < 180) {
@@ -546,10 +563,6 @@ element('slide-show', {
         });
     },
 
-    construct: function(elem, shadow) {
-        
-    },
-
     load: function (elem, shadow) {
         const scope = Privates(this);
         scope.load(elem, shadow);
@@ -557,20 +570,20 @@ element('slide-show', {
     },
 
     properties: {
-        /**
-        autoplay
-        Boolean attribute. 
-        **/
-
-        /**
-        .autoplay = false
-        Boolean property.
-        **/
-
         autoplay: {
+            /**
+            autoplay
+            Boolean attribute. 
+            **/
+
             attribute: function(value) {
                 Privates(this).autoplay(value !== null);
             },
+
+            /**
+            .autoplay = false
+            Boolean property.
+            **/
 
             set: function(state) {
                 Privates(this).autoplay(!!state);
@@ -581,31 +594,51 @@ element('slide-show', {
             }
         },
 
-        /**
-        controls
-        Boolean attribute. Shows previous/next buttons and navigation.
-        **/
-
         controls: {
+
+/**
+controls="pagination"
+
+Treated as a boolean or a token list. If it is present but empty
+all tokens are considered to be true. Otherwise, possible tokens are:
+
+<strong>navigation</strong> enables previous and next buttons. The buttons may 
+be styled with `::part(previous)` and `::part(next)` selectors.
+
+<strong>pagination</strong> enables a row of pagination dots.
+**/
+
             attribute: function(value) {
-                Privates(this).controls(value !== null);
+                const controller = Privates(this);
+
+                // If value is a string of tokens
+                if (typeof value === 'string') {
+                    const state = value.split(/\s+/);
+                    controller.navigation = state.includes('navigation');
+                    controller.pagination = state.includes('pagination');
+                }
+                else {
+                    const state = value !== null;
+                    controller.navigation = state;
+                    controller.pagination = state;
+                }
             }
         },
 
-        /**
-        loop
-        Boolean attribute. Makes the slideshow behave as a continuous loop.
-        **/
+        loop: {            
+            /**
+            loop
+            Boolean attribute. Makes the slideshow behave as a continuous loop.
+            **/
 
-        /**
-        .loop = false
-        Boolean property. Makes the slideshow behave as a continuous loop.
-        **/
-
-        loop: {
             attribute: function(value) {
                 Privates(this).loop(value !== null);
             },
+
+            /**
+            .loop = false
+            Boolean property. Makes the slideshow behave as a continuous loop.
+            **/
 
             set: function(state) {
                 Privates(this).loop(!!state);

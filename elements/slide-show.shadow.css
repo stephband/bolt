@@ -35,8 +35,8 @@
     /**
     --padding-right
     Adjusts the space to the right of the rightmost slide. Internally it sets 
-    `padding` and `scroll-padding` and hacks around browsers' lack of respect 
-    for `padding-right` on scrollable grids.
+    `padding` and `scroll-padding` (and hacks around browsers' lack of respect 
+    for `padding-right` on scrollable grids).
     **/
     --padding-right: 0;
 
@@ -201,7 +201,7 @@ Style the 'previous slide' button.
 
 
 /**
-::part(prev)
+::part(previous)
 Style the 'previous slide' button.
 **/
 
@@ -210,7 +210,7 @@ Style the 'previous slide' button.
 Style the 'next slide' button.
 **/
 
-[part="prev"]:not([href]),
+[part="previous"]:not([href]),
 [part="next"]:not([href]) {
     display: none;
 }
