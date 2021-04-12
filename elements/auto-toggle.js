@@ -65,9 +65,7 @@ element('auto-toggle', {
         const link   = create('link', { rel: 'stylesheet', href: config.path + 'auto-toggle.shadow.css' });
         const css    = create('style', ':host {}');
         const slot   = create('slot');
-        const button = create('button', { part: "button", type: "button", name: "", children: [
-            create('slot', { name: "button" })
-        ]});
+        const button = create('button', { part: "button", type: "button", name: "" });
 
         shadow.appendChild(link);
         shadow.appendChild(css);
@@ -96,7 +94,7 @@ element('auto-toggle', {
     },
 
     properties: {
-        'show-text': {
+        show: {
             /**
             open-text="Show more"
             Text rendered into the toggle button.
@@ -110,7 +108,7 @@ element('auto-toggle', {
             }
         },
 
-        'hide-text': {
+        hide: {
             /**
             close-text="Show less"
             Text rendered into the toggle button.
