@@ -62,7 +62,7 @@
     scroll-snap-stop: none;
     -webkit-scroll-behavior: auto;
     scroll-behavior: auto;
-    overflow: hidden;
+    /*overflow: hidden;*/
     overscroll-behavior-x: none;
     -ms-overflow-style: none; /* IE 11 */
     scrollbar-width: none; /* Firefox 64 */
@@ -103,6 +103,9 @@
     z-index: 2;
     margin-top: var(--link-top);
 }
+
+
+/* Canvas */
 
 [part="grid"] {
     position: relative;

@@ -578,6 +578,8 @@ element('slide-show', {
         //shadow.appendChild(optional);
         shadow.appendChild(overflow);
 
+        var clickTime = -Infinity;
+
         // Hijack links to slides to avoid the document scrolling, (but make 
         // sure they go in the history anyway. NOPE, dont)
         events('click', shadow)
@@ -596,6 +598,15 @@ element('slide-show', {
                scrollSmooth(elem, slot, target);
                e.preventDefault();
                //window.history.pushState({}, '', '#' + id);
+            }
+        });
+
+        // Prevent default on immediate clicks after a gesture
+        events('click', shadow).each(function(e) {
+            const time = window.performance.now();
+            if (time - clickTime < 300) {
+                e.preventDefault();
+                e.stopPropagation();
             }
         });
 
@@ -630,19 +641,17 @@ element('slide-show', {
                 slot.scrollLeft = scrollLeft0 - dx;
             })
             .done(function() {
-                // Prevent default on any immediate clicks
-                events('click', shadow).each(function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.stop();
-                });
-
-                //scrollSmooth(elem, slot, view.active);
+                clickTime = window.performance.now();
+                
+                // Dodgy. If we simple remove the class the end of the gesture 
+                // jumps.
+                const scrollLeft = slot.scrollLeft;
                 slot.classList.remove('gesturing');
+                slot.scrollLeft = scrollLeft;
             });
         });
 
-        this[$] = new View(this, shadow, slot);
+        const view = this[$] = new View(this, shadow, slot);
     },
 
     load: function (elem, shadow) {
