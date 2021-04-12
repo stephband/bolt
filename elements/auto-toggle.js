@@ -20,8 +20,6 @@ element and upgrades instances already in the DOM.
    error memorandum qui officia nostrud operating system alertus. Hyper text 
    linkus operari avec computatrum ad coniungere hominum. Standards code est 
    pulchra on chromium et foxus sed souvent suckum in internet explorum.
-   
-   <button slot="button" type="button">Show more</button>
 </auto-toggle>
 ```
 **/
@@ -98,7 +96,7 @@ element('auto-toggle', {
     },
 
     properties: {
-        'open-text': {
+        'show-text': {
             /**
             open-text="Show more"
             Text rendered into the toggle button.
@@ -112,7 +110,7 @@ element('auto-toggle', {
             }
         },
 
-        'close-text': {
+        'hide-text': {
             /**
             close-text="Show less"
             Text rendered into the toggle button.
