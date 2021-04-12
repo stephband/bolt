@@ -17,8 +17,7 @@ element and upgrades instances already in the DOM.
    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop 
    python orientation semi colon incident. Duis aute irure indent tabs or spaces 
    velit esse cilium buntum how crunchy duntum. Excepteur tranquilis syntax 
-   error memorandum qui officia nostrud operating system alertus. Hyper text 
-   linkus operari avec computatrum ad coniungere hominum.
+   error memorandum qui officia nostrud operating system alertus.
 </auto-toggle>
 ```
 
