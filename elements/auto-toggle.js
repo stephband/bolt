@@ -88,9 +88,9 @@ element('auto-toggle', {
     load: function(shadow) {
         const { button, slot } = this[$];
         const style = getComputedStyle(this);
-        events('resize', window).each((e) => {
-            update(this, shadow, slot, button, style);
-        });
+
+        events('resize', window)
+        .each((e) => update(this, shadow, slot, button, style));
     },
 
     properties: {
