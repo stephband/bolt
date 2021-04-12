@@ -13,9 +13,9 @@ Import `<slide-show>` custom element. This also registers the custom
 element and upgrades instances already in the DOM.
 
 ```html
-<script type="module" src="slide-show.js"></script>
+<script type="module" src="bolt/elements/slide-show.js"></script>
 
-<slide-show loop autoplay controls>
+<slide-show loop controls="navigation">
    <img src="../images/lyngen-4.png" id="1" />
    <img src="../images/lyngen-2.png" id="2" />
    <img src="../images/lyngen-1.png" id="3" />
@@ -61,24 +61,32 @@ const parseTime = parseValue({
 });
 
 
-/* Property definition */
+/*
+boolean(object, value)
 
-function boolean(enable, disable, value) {
+Takes an object and returns a getter/setter property definition. The object
+must have the methods `.enable()` and `.disable()`, which are called by the 
+setter, and may have a property `.state`, which is returned by the getter.
+*/
+
+function boolean(object, value) {
     let state = !!value;
 
     return {
         get: function(value) {
-            return state;
+            return object.state === undefined ?
+                state :
+                object.state ;
         },
 
         set: function(value) {
             if (state === !!value) { return; }
             state = !!value;
             return state ?
-                enable.apply(this) :
-                disable.apply(this) ;
+                object.enable() :
+                object.disable() ;
         }
-    };    
+    };
 }
 
 
@@ -116,6 +124,7 @@ function scrollAuto(element, slot, target) {
 function View(element, shadow, slot) {
     this.element  = element;
     this.shadow   = shadow;
+    this.slot     = slot;
     this.active   = undefined;
     this.children = [];
 
@@ -190,39 +199,10 @@ function View(element, shadow, slot) {
     };
 
     define(this, {
-        autoplay: boolean(function() {
-            autoplay.enable();
-        }, function() {
-            autoplay.disable();
-        }),
-    
-        loop: boolean(function() {
-            loop.enable(this.children);
-    
-            if (this.active) {
-                loop.ignore = true;
-                this.reposition(this.active.id);
-            }
-        }, function() {
-            loop.disable();
-            this.changes.off(loop);
-        }),
-    
-        navigation: boolean(function() {
-            navigation.enable(this.children);
-        }, function() {
-            navigation.disable();
-        }),
-    
-        pagination: boolean(function() {
-            pagination.enable(this.children);
-            this.actives.on(pagination);
-            this.changes.on(pagination);
-        }, function() {
-            pagination.disable();
-            this.actives.off(pagination);
-            this.changes.off(pagination);
-        })
+        autoplay:   boolean(autoplay),
+        loop:       boolean(loop),
+        navigation: boolean(navigation),
+        pagination: boolean(pagination)
     });
 }
 
@@ -300,11 +280,13 @@ assign(View.prototype, {
         }
         else {
             this.active = items[0];
-            identify(active);
+            // Is this needed?
+            //identify(this.active);
         }
-    
+
         this.children = items;
         //console.log(slot, children.length);
+        console.log(this.element);
         this.element.style.setProperty('--slides-count', children.length);
     }
 });
@@ -312,26 +294,23 @@ assign(View.prototype, {
 
 /* Autoplay */
 
-function Autoplay(slides) {
-    this.slides = slides;
+function Autoplay(view) {
+    this.view = view;
 }
 
 assign(Autoplay.prototype, {
     enable: function() {
         this.change = () => {
             this.timer   = null;
-            const target = next(this.slides.active);
+            const target = next(this.view.active);
 
             // Have we reached the end?
             if (!target) { return; }
 
-            scrollSmooth(this.slides.element, this.slides.slot, target);
+            scrollSmooth(this.view.element, this.view.slot, target);
         };
 
-        if (this.slides.active) {
-            this.schedule();
-            
-        }
+        this.view.active && this.schedule();
 
         // Expose state as loop view needs to know about autoplay
         this.state = true;
@@ -344,12 +323,12 @@ assign(Autoplay.prototype, {
 
     change: function() {
         this.timer   = null;
-        const target = next(this.slides.active);
+        const target = next(this.view.active);
 
         // Have we reached the end?
         if (!target) { return; }
 
-        scrollSmooth(this.slides.element, this.slides.slot, target);
+        scrollSmooth(this.view.element, this.view.slot, target);
     },
 
     cue: function() {
@@ -360,7 +339,7 @@ assign(Autoplay.prototype, {
         // Set a new autoplay timeout
         const duration = parseTime(
             window
-            .getComputedStyle(this.slides.active)
+            .getComputedStyle(this.view.active)
             .getPropertyValue('--slide-duration') || config.duration
         );
 
@@ -388,8 +367,9 @@ function Loop(view, autoplay) {
 }
 
 assign(Loop.prototype, {
-    enable: function(children) {
-        const view = this.view;
+    enable: function() {
+        const view     = this.view;
+        const children = view.children;
 
         var t = -Infinity;
 
@@ -425,11 +405,20 @@ assign(Loop.prototype, {
         }
 
         this.add(children);
+
         view.changes.on(this.slotchange);
         view.actives.on(this.activate);
+
+        if (view.active) {
+            this.ignore = true;
+            view.reposition(view.active.id);
+        }
     },
 
-    add: function(children) {
+    add: function() {
+        const view     = this.view;
+        const children = view.children;
+
         // To loop slides we need an extra couple on the front and an 
         // extra couple on the back to simulate the continuous loop
         this.before = Array.from(children).map(createLoopGhost);
@@ -442,6 +431,7 @@ assign(Loop.prototype, {
     },
 
     update: function() {
+        console.log('Loop.update()')
         this.timer = null;
         const id = this.view.active.dataset.id;
     
@@ -476,9 +466,9 @@ assign(Loop.prototype, {
 
 function Navigation(view, parent) {
     this.view    = view;
-    this.parent  = parent;
     this.changes = view.changes;
     this.actives = view.actives;
+    this.parent  = parent;
 }
 
 assign(Navigation.prototype, {
@@ -497,7 +487,26 @@ assign(Navigation.prototype, {
         this.next.remove();
         this.previous = undefined; 
         this.next = undefined;
-        view.actives.off(this.activateFn = (active) => this.activate(active));
+        view.actives.off(this.activateFn);
+    },
+    
+    activate: function(active) {
+        // Change href of prev and next buttons
+        const prevChild = previous(active);
+        if (prevChild) {
+            this.previous.href = '#' + prevChild.id;
+        }
+        else {
+            this.previous.removeAttribute('href');
+        }
+
+        const nextChild = next(active);
+        if (nextChild) {
+            this.next.href = '#' + nextChild.id;
+        }
+        else {
+            this.next.removeAttribute('href');
+        }
     }
 });
 
@@ -512,7 +521,10 @@ function Pagination(view, parent) {
 }
 
 assign(Pagination.prototype, {
-    enable: function(children) {
+    enable: function() {
+        const view     = this.view;
+        const children = view.children;
+console.trace('page')
         this.pagination = create('nav');
 
         // Empty nav then create a dot link for each slide
@@ -528,11 +540,16 @@ assign(Pagination.prototype, {
         });
 
         this.parent.appendChild(this.pagination);
+        view.actives.on();
+        view.changes.on();
     },
 
     disable: function() {
+        const view = this.view;
         this.pagination.remove();
         this.pagination = undefined;
+        view.actives.off();
+        view.changes.off();
     }
 });
 
@@ -624,7 +641,7 @@ element('slide-show', {
             });
         });
         
-        this[$] = new View(element, slot);
+        this[$] = new View(this, shadow, slot);
     },
 
     load: function (elem, shadow) {
@@ -678,15 +695,15 @@ element('slide-show', {
                 const view = this[$];
 
                 // If value is a string of tokens
-                if (typeof value === 'string') {
+                if (typeof value === 'string' && value !== '') {
                     const state = value.split(/\s+/);
                     view.navigation = state.includes('navigation');
                     view.pagination = state.includes('pagination');
                 }
                 else {
                     const state = value !== null;
-                    view.navigation(state);
-                    view.pagination(state);
+                    view.navigation = state;
+                    view.pagination = state;
                 }
             }
         },

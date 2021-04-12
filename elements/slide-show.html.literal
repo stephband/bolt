@@ -20,24 +20,11 @@
         margin: 0 auto;
         max-width: 30rem;
     }
-
-    slide-show::part(previous),
-    slide-show::part(next) {
-        display: none;
-    }
-
-    slide-show > * + * {
-        display: none;
-    }
-
-    slide-show:defined > * + * {
-        display: block;
-    }
     </style>
 </head>
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
-    ${ include('../templates/element.literal', documentation("slide-show.js", "slide-show.shadow.css")) }
+    ${ include('../templates/element.literal', documentation("./slide-show.js", "./slide-show.shadow.css")) }
 
     <!-- Document interactivity -->
     <script type="module" src="./slide-show.js"></script>

@@ -79,39 +79,25 @@
 <pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/bolt/elements/'</span><span class="token punctuation">;</span></code></pre>
 <p>Import <code>&lt;slide-show&gt;</code> custom element. This also registers the custom 
 element and upgrades instances already in the DOM.</p>
-<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slide-show.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bolt/elements/slide-show.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slide-show</span> <span class="token attr-name">loop</span> <span class="token attr-name">autoplay</span><span class="token punctuation">></span></span>
-   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-4.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-2.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-1.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-3.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>4<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slide-show</span><span class="token punctuation">></span></span>
-
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slide-show</span> <span class="token attr-name">controls</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>navigation pagination<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slide-show</span> <span class="token attr-name">loop</span> <span class="token attr-name">controls</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>navigation<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-4.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-2.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-1.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-3.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>4<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slide-show</span><span class="token punctuation">></span></span></code></pre>
 <p>By default each element inside <code>&lt;slide-show&gt;</code> is interpreted as a slide, but
-content with the attribute <code>slot=&quot;optional&quot;</code> is ignored, allowing for the
-insertion of fullscreen close buttons and the like.</p>
+elements with a <code>slot</code> attribute are ignored. This allows for the insertion of 
+fullscreen close buttons and the like.</p>
 
     
 </header>
 
 <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-    <script type="module" src="../templates/slide-show.js"></script>
+    <script type="module" src="../templates/bolt/elements/slide-show.js"></script>
 
-<slide-show loop autoplay>
-   <img src="../images/lyngen-4.png" id="1" />
-   <img src="../images/lyngen-2.png" id="2" />
-   <img src="../images/lyngen-1.png" id="3" />
-   <img src="../images/lyngen-3.png" id="4" />
-</slide-show>
-
-<slide-show controls="navigation pagination">
+<slide-show loop controls="navigation">
    <img src="../images/lyngen-4.png" id="1" />
    <img src="../images/lyngen-2.png" id="2" />
    <img src="../images/lyngen-1.png" id="3" />
@@ -128,16 +114,18 @@ insertion of fullscreen close buttons and the like.</p>
 <section class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-attribute-controls">
     <h3 class="attribute-doctext-05 doctext-05">
         <a href="#attribute-attribute-controls">
-            <code class="token  language-html">controls <span class="default">=<em>pagination</em></span></code>
+            <code class="token  language-html">controls <span class="default">=<em>navigation pagination</em></span></code>
         </a>
     </h3>
     
     <p>Treated as a boolean or a token list. If it is present but empty
-all tokens are considered to be true. Otherwise, possible tokens are:</p>
-<p><strong>navigation</strong> enables previous and next buttons. The buttons may 
-be styled with <code>::part(previous)</code> and <code>::part(next)</code> selectors.</p>
-<p><strong>pagination</strong> enables a row of pagination dots.</p>
+            all tokens are considered to be true. Otherwise, possible tokens are:</p>
+<pre><code>        <span class="token operator">&lt;</span>strong<span class="token operator">></span>navigation<span class="token operator">&lt;</span><span class="token operator">/</span>strong<span class="token operator">></span> enables previous and next buttons<span class="token punctuation">.</span> The 
+        buttons may be styled <span class="token keyword">with</span> <span class="token template-string"><span class="token string">`::part(previous)`</span></span> and <span class="token template-string"><span class="token string">`::part(next)`</span></span> 
+        selectors<span class="token punctuation">.</span>
 
+        <span class="token operator">&lt;</span>strong<span class="token operator">></span>pagination<span class="token operator">&lt;</span><span class="token operator">/</span>strong<span class="token operator">></span> enables a row <span class="token keyword">of</span> pagination dots<span class="token punctuation">.</span> The
+        dots may be styled <span class="token keyword">with</span> <span class="token template-string"><span class="token string">`::part(page)`</span></span><span class="token punctuation">.</span></code></pre>
 </section>
 
 
