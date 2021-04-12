@@ -65,6 +65,11 @@ element('auto-toggle', {
         const link   = create('link', { rel: 'stylesheet', href: config.path + 'auto-toggle.shadow.css' });
         const css    = create('style', ':host {}');
         const slot   = create('slot');
+
+        /**
+        ::part(button)
+        The toggle button that, when clicked, shows and hides overflowing content.
+        **/
         const button = create('button', { part: "button", type: "button", name: "" });
 
         shadow.appendChild(link);
@@ -96,7 +101,7 @@ element('auto-toggle', {
     properties: {
         show: {
             /**
-            open-text="Show more"
+            show="Show more"
             Text rendered into the toggle button.
             **/
 
@@ -110,7 +115,7 @@ element('auto-toggle', {
 
         hide: {
             /**
-            close-text="Show less"
+            hide="Show less"
             Text rendered into the toggle button.
             **/
 
@@ -133,7 +138,7 @@ element('auto-toggle', {
             },
 
             /**
-            .open
+            .open = false
             A boolean property describing the state of the `auto-toggle` – `true`
             when the `auto-toggle` is open, `false` when it is not.
             **/
