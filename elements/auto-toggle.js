@@ -18,10 +18,14 @@ element and upgrades instances already in the DOM.
    python orientation semi colon incident. Duis aute irure indent tabs or spaces 
    velit esse cilium buntum how crunchy duntum. Excepteur tranquilis syntax 
    error memorandum qui officia nostrud operating system alertus. Hyper text 
-   linkus operari avec computatrum ad coniungere hominum. Standards code est 
-   pulchra on chromium et foxus sed souvent suckum in internet explorum.
+   linkus operari avec computatrum ad coniungere hominum.
 </auto-toggle>
 ```
+
+An `auto-toggle` is collapsed by default to it's own `max-height`. A `max-height`
+*must* be set for `auto-toggle` to collapse! When toggled open, that `max-height` 
+is overridden to include the whole height of the content, and the state is 
+transitioned from closed to open via CSS.
 **/
 
 import element     from '../../dom/modules/element.js';
