@@ -148,7 +148,7 @@ element('auto-toggle', {
 
             set: function() {
                 const view = this[$];
-                const { element, slot, style } = view;
+                const { slot, style } = view;
  
                 if (view.open) {
                     style.setProperty('max-height', '');
