@@ -13,7 +13,7 @@ element and upgrades instances already in the DOM.
 ```html
 <script type="module" src="bolt/elements/auto-toggle.js"></script>
 
-<auto-toggle button="Show a lot more stuff" show="Show me more" hide="Show me less">
+<auto-toggle show="See more" hide="See less">
    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop 
    python orientation semi colon incident. Duis aute irure indent tabs or spaces 
    velit esse cilium buntum how crunchy duntum. Excepteur tranquilis syntax 
@@ -143,19 +143,26 @@ element('auto-toggle', {
                 return view.open;
             },
 
-            set: function() {
+            set: function(value) {
                 const view = this[$];
-                const { slot, style } = view;
+                const { button, slot, style } = view;
  
-                if (view.open) {
-                    style.setProperty('max-height', '');
-                    view.open = false;
+                 // If toggle has not changed do nothing
+                if (!!value === view.open) {
+                    return;
                 }
-                else {
+ 
+                if (value) {
                     const scrollHeight = slot.scrollHeight;
                     // Add a sneaky safety margin of 30 pixels, no-one will notice
                     style.setProperty('max-height', rem(scrollHeight + 30), 'important');
+                    button.textContent = view.hideText;
                     view.open = true;
+                }
+                else {
+                    style.setProperty('max-height', '');
+                    button.textContent = view.showText;
+                    view.open = false;
                 }
             }
         }
