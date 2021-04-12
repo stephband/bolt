@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+<meta name="author" content="stephband" />
+<meta name="description" content="Documentation for Bolt. A front-end toolkit of classes, evented behaviours and custom elements." />
+<meta name="viewport" content="width=device-width" />
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@stephband">
+<meta property="og:url" content="http://stephen.band/bolt/" />
+<meta property="og:title" content="Bolt" />
+<meta property="og:description" content="A front-end toolkit of classes, evented behaviours and custom elements." />
+<meta property="og:image" content="$ { image }" />
+
+
+<title>Bolt</title>
+
+<link rel="icon" type="image/png" href="../images/logo-32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../images/logo-64.png" sizes="64x64">
+<link rel="icon" type="image/png" href="../images/logo-128.png" sizes="128x128">
+
+<script title="load">
+    document.documentElement.className += ' js content-loading loading';
+    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
+    // Wait for other load handlers to run first - Bolt does a few things on
+    // load (eg. targetable scrolls) and we want them to run before the loading
+    // class is removed
+    window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
+</script>
+
+
+    <script title="debug">
+        window.DEBUG = true;
+    </script>
+    
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../documentation/prism-cruncher.css" />
+<link rel="stylesheet" href="../../fn/css/tests.css" />
+<link rel="stylesheet" href="../documentation/grid.css" />
+<link rel="stylesheet" href="../documentation/documentation.css" />
+<link rel="stylesheet" href="../../fn/css/respond.css" />
+<link rel="stylesheet" href="../css/debug.css" />
+
+
+    <script title="config">
+        window.customElementStylesheetPath = './';
+    </script>
+    
+    <style>
+        auto-toggle {
+            max-height: 5rem;
+        }
+    </style>
+</head>
+
+<body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
+    <!-- Literal template "templates/element.literal" -->
+<header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
+    
+    <h2 class="doctext-02">&lt;auto-toggle&gt;</h2>
+    <p>Configure stylesheet path with:</p>
+<pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/bolt/elements/'</span><span class="token punctuation">;</span></code></pre>
+<p>Import <code>&lt;auto-toggle&gt;</code> custom element. This also registers the custom 
+element and upgrades instances already in the DOM.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bolt/elements/auto-toggle.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>auto-toggle</span> <span class="token attr-name">button</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Show a lot more stuff<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   Crunchum ipsum dolor sit coder void, constructor function, sed do while loop 
+   python orientation semi colon incident. Duis aute irure indent tabs or spaces 
+   velit esse cilium buntum how crunchy duntum. Excepteur tranquilis syntax 
+   error memorandum qui officia nostrud operating system alertus. Hyper text 
+   linkus operari avec computatrum ad coniungere hominum. Standards code est 
+   pulchra on chromium et foxus sed souvent suckum in internet explorum.
+
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Show more<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>auto-toggle</span><span class="token punctuation">></span></span></code></pre>
+
+    
+</header>
+
+<form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
+    <script type="module" src="../templates/bolt/elements/auto-toggle.js"></script>
+
+<auto-toggle button="Show a lot more stuff">
+   Crunchum ipsum dolor sit coder void, constructor function, sed do while loop 
+   python orientation semi colon incident. Duis aute irure indent tabs or spaces 
+   velit esse cilium buntum how crunchy duntum. Excepteur tranquilis syntax 
+   error memorandum qui officia nostrud operating system alertus. Hyper text 
+   linkus operari avec computatrum ad coniungere hominum. Standards code est 
+   pulchra on chromium et foxus sed souvent suckum in internet explorum.
+
+   <button slot="button" type="button">Show more</button>
+</auto-toggle>
+    <!-- for testing form submission values -->
+    <input hidden class="button" type="submit" />
+</form>
+
+<div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+    
+    <h3 class="doctext-03">Attributes</h3>
+    <!-- Literal template "templates/entry.literal" -->
+<section class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-attribute-button">
+    <h3 class="attribute-doctext-05 doctext-05">
+        <a href="#attribute-attribute-button">
+            <code class="token  language-html">button <span class="default">=<em>Show more</em></span></code>
+        </a>
+    </h3>
+    
+    <p>Text rendered into the toggle button.</p>
+
+</section>
+<!-- Literal template "templates/entry.literal" -->
+<section class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-attribute-open">
+    <h3 class="attribute-doctext-05 doctext-05">
+        <a href="#attribute-attribute-open">
+            <code class="token  language-html">open </code>
+        </a>
+    </h3>
+    
+    <p>A boolean attribute describing the state of the <code>auto-toggle</code>.</p>
+
+</section>
+
+
+    
+    
+    
+
+    
+    <h3 class="doctext-03">Properties</h3>
+    <!-- Literal template "templates/entry.literal" -->
+<section class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property-property|selector-open">
+    <h3 class="property-doctext-05 doctext-05">
+        <a href="#property-property|selector-open">
+            <code class=" property language-js">.open </code>
+        </a>
+    </h3>
+    
+    <p>A boolean property describing the state of the <code>auto-toggle</code> – <code>true</code>
+            when the <code>auto-toggle</code> is open, <code>false</code> when it is not.</p>
+
+</section>
+
+    
+    
+    
+    
+</div>
+
+<div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
+    
+    
+    
+
+    
+    
+    
+</div>
+
+
+    <!-- Document interactivity -->
+    <script type="module" src="auto-toggle.js"></script>
+
+    <script type="module">
+    import '../module.js';
+    import '../documentation/documentation.js';
+</script>
+</body>

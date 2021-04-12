@@ -54,7 +54,7 @@ export function em(n) {
 }
 
 export function rem(n) {
-    return (parseLength(n) / 16);
+    return parseLength(n) / 16;
 }
 
 /*

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    ${ include('../templates/head.literal', '../package.json') }
+
+    <script title="debug">
+        window.DEBUG = true;
+    </script>
+    
+    <link rel="stylesheet" href="../style.css">
+    ${ include('../templates/style.html') }
+
+    <script title="config">
+        window.customElementStylesheetPath = './';
+    </script>
+    
+    <style>
+        auto-toggle {
+            max-height: 5rem;
+        }
+    </style>
+</head>
+
+<body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
+    ${ include('../templates/element.literal', documentation("./auto-toggle.js", "./auto-toggle.shadow.css")) }
+
+    <!-- Document interactivity -->
+    <script type="module" src="./auto-toggle.js"></script>
+
+    ${ include('../templates/scripts.html') }
+</body>

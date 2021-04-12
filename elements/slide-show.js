@@ -567,7 +567,7 @@ element('slide-show', {
     <slot name="overflow"></slot>
     */
 
-    construct: function(elem, shadow) {
+    construct: function(shadow) {
         const link     = create('link', { rel: 'stylesheet', href: config.path + 'slide-show.shadow.css' });
         const slot     = create('slot', { part: 'grid' });
         //const optional = create('slot', { name: 'optional', part: 'optional' });
@@ -578,6 +578,7 @@ element('slide-show', {
         //shadow.appendChild(optional);
         shadow.appendChild(overflow);
 
+        const elem = this;
         var clickTime = -Infinity;
 
         // Hijack links to slides to avoid the document scrolling, (but make 
@@ -654,7 +655,7 @@ element('slide-show', {
         const view = this[$] = new View(this, shadow, slot);
     },
 
-    load: function (elem, shadow) {
+    load: function (shadow) {
         const view = this[$];
         view.load();
         events('resize', window).each(() => view.activate(view.active));
