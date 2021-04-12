@@ -13,7 +13,7 @@ element and upgrades instances already in the DOM.
 ```html
 <script type="module" src="bolt/elements/auto-toggle.js"></script>
 
-<auto-toggle show="See more" hide="See less">
+<auto-toggle show="Show" hide="Hide">
    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop 
    python orientation semi colon incident. Duis aute irure indent tabs or spaces 
    velit esse cilium buntum how crunchy duntum. Excepteur tranquilis syntax 
@@ -38,7 +38,7 @@ const $ = Symbol('');
 const config = {
     path: window.customElementStylesheetPath || '',
     showText: 'Show more',
-    hideText: 'Hide'
+    hideText: 'Show less'
 };
 
 
