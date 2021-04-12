@@ -15,14 +15,7 @@ element and upgrades instances already in the DOM.
 ```html
 <script type="module" src="slide-show.js"></script>
 
-<slide-show loop autoplay>
-   <img src="../images/lyngen-4.png" id="1" />
-   <img src="../images/lyngen-2.png" id="2" />
-   <img src="../images/lyngen-1.png" id="3" />
-   <img src="../images/lyngen-3.png" id="4" />
-</slide-show>
-
-<slide-show controls="navigation pagination">
+<slide-show loop autoplay controls>
    <img src="../images/lyngen-4.png" id="1" />
    <img src="../images/lyngen-2.png" id="2" />
    <img src="../images/lyngen-1.png" id="3" />
@@ -31,16 +24,14 @@ element and upgrades instances already in the DOM.
 ```
 
 By default each element inside `<slide-show>` is interpreted as a slide, but
-content with the attribute `slot="optional"` is ignored, allowing for the
-insertion of fullscreen close buttons and the like.
+elements with a `slot` attribute are ignored. This allows for the insertion of 
+fullscreen close buttons and the like.
 **/
 
 import id         from '../../fn/modules/id.js';
-import Privates   from '../../fn/modules/privates.js';
 import equals     from '../../fn/modules/equals.js';
 import last       from '../../fn/modules/lists/last.js';
 import parseValue from '../../fn/modules/parse-value.js';
-import overload   from '../../fn/modules/overload.js';
 import element    from '../../dom/modules/element.js';
 import events, { isPrimaryButton } from '../../dom/modules/events.js';
 import gestures   from '../../dom/modules/gestures.js';
@@ -49,11 +40,14 @@ import create     from '../../dom/modules/create.js';
 import identify   from '../../dom/modules/identify.js';
 import { next, previous } from '../../dom/modules/traverse.js';
 import { select } from '../../dom/modules/select.js';
+import Distributor from '../../dom/modules/distributor.js';
 
 
 const DEBUG = true;
 
 const assign = Object.assign;
+const define = Object.defineProperties;
+const $      = Symbol('');
 
 const config = {
     path: window.customElementStylesheetPath || '',
@@ -67,85 +61,31 @@ const parseTime = parseValue({
 });
 
 
-/* Shadow */
+/* Property */
 
-function activate(elem, shadow, nodes, active) {
-    const elemRect   = rect(elem);
-    const elemCentre = elemRect.left + elemRect.width / 2;
-    const slides     = Array.from(elem.children).filter((element) => !element.hasAttribute('slot'));
+function boolean(enable, disable, value) {
+    let state = !!value;
 
-    let n = slides.length;
-    let slide;
+    return {
+        get: function(value) {
+            return state;
+        },
 
-    while ((slide = slides[--n])) {
-        const slideRect = rect(slide);
-        if (!slideRect) { continue; }
-
-        const left = slideRect.left;
-        if (left <= elemCentre) {
-            break;
+        set: function(value) {
+            if (state === !!value) { return; }
+            state = !!value;
+            return state ?
+                enable.apply(this) :
+                disable.apply(this) ;
         }
-    }
-
-    // If active slide is still the same one, ignore
-    if (slide === active) {
-        return active;
-    }
-
-    // Remove `on` class from currently highlighted links
-    if (active) {
-        const id = active.dataset && active.dataset.id || active.id;
-
-        select('[href="#' + id +'"]', elem.getRootNode())
-        .forEach((node) => node.classList.remove('on'))
-
-        select('[href="#' + id +'"]', shadow)
-        .forEach((node) => node.part.remove('active-link'))
-    }
-
-    // If navigation buttons are enabled
-    if (nodes.previous) {
-        // Change href of prev and next buttons
-        const prevChild = previous(slide);
-        if (prevChild) {
-            nodes.previous.href = '#' + prevChild.id;
-        }
-        else {
-            nodes.previous.removeAttribute('href');
-        }
-    
-        const nextChild = next(slide);
-        if (nextChild) {
-            nodes.next.href = '#' + nextChild.id;
-        }
-        else {
-            nodes.next.removeAttribute('href');
-        }
-    }
-
-    // Highlight links with `on` class
-    const id = slide.dataset.id || slide.id;
-
-    select('[href="#' + id +'"]', elem.getRootNode())
-    .forEach((node) => node.classList.add('on'));
-
-    select('[href="#' + id +'"]', shadow)
-    .forEach((node) => node.part.add('active-link'));
-
-    // Return active slide
-    return slide;
+    };    
 }
 
-function createGhost(slide) {
-    const ghost = slide.cloneNode(true);
-    ghost.dataset.id = ghost.id;
-    ghost.removeAttribute('id');
-    ghost.setAttribute('aria-hidden', 'true');
-    return ghost;
-}
 
-function scrollSmooth(elem, slot, target) {
-    const firstRect  = rect(elem.firstElementChild);
+/* View */
+
+function scrollSmooth(element, slot, target) {
+    const firstRect  = rect(element.firstElementChild);
     const targetRect = rect(target);
 
     // Move scroll position to next slide
@@ -154,11 +94,10 @@ function scrollSmooth(elem, slot, target) {
         left: targetRect.left - firstRect.left,
         behavior: 'smooth'
     });
-    //slot.scrollLeft = targetRect.left - firstRect.left;
 }
 
-function scrollAuto(elem, slot, target) {
-    const firstRect  = rect(elem.firstElementChild);
+function scrollAuto(element, slot, target) {
+    const firstRect  = rect(element.firstElementChild);
     const targetRect = rect(target);
 
     // Move scroll position to next slide. Behavior property does not seem
@@ -174,29 +113,424 @@ function scrollAuto(elem, slot, target) {
     });
 }
 
-function reposition(elem, slot, id) {
-    const target = elem.getRootNode().getElementById(id);
-    scrollAuto(elem, slot, target);
-    return target;
+function View(element, shadow, slot) {
+    this.element  = element;
+    this.shadow   = shadow;
+    this.active   = undefined;
+    this.children = [];
+
+    this.changes = Distributor((e) => {
+        const items = e.target
+           .assignedElements()
+           .filter((element) => !element.dataset.id);
+        
+        // Test whether mutation has really changed original slides, if not
+        // it was probably an internal mutation adding or removing loop ghosts
+        if (equals(items, this.children)) {
+            return;
+        }
+    
+        // Strip text nodes here?
+    
+        this.update(items);
+
+        // This was originally AFTER the loop and nav stuff...
+        if (this.active) {
+            Promise.resolve(() => {
+                loop.ignore = true;
+                this.reposition(this.active.id);
+            });
+        }
+
+        return items;
+    });
+    
+    this.actives = new Distributor((e) => {
+        const result = loop.ignore;
+        loop.ignore = false;
+
+        // If ignore was true, ignore event
+        if (result) {
+            return;
+        }
+
+        return this.activate(this.active);
+    });
+
+    const autoplay   = new Autoplay(this);
+    const loop       = new Loop(this, autoplay);
+    const navigation = new Navigation(this, shadow);
+    const pagination = new Pagination(this, shadow);
+
+    slot.addEventListener('slotchange', this.changes);
+    slot.addEventListener('scroll', this.actives);
+
+    this.load = () => {
+        this.actives.trigger({});
+
+        // If we are at the very start of the loop on load, and it is 
+        // not an original, reposition to be at the start of the 
+        // originals
+        if (this.active === this.firstElementChild && !this.active.id) {
+            loop.ignore = true;
+            this.reposition(this.active.id);
+            this.activate(this.active); 
+        }
+        
+        // This only happens where element load is before window load.
+        //events('load', window)
+        //.map(() => {
+        //    const id = window.location.hash.replace(/^#/, '') || undefined;
+        //    return id ?
+        //        elem.querySelector('#' + id) :
+        //        first ;
+        //})
+        //.each(function(target) {
+        //    scrollAuto(elem, slot, target);
+        //    // In case that doesn't trigger a scroll, like in FF
+        //    active = activate(elem, shadow, prevNode, nextNode, active);
+        //});
+    };
+
+    define(this, {
+        autoplay: boolean(function() {
+            autoplay.enable();
+        }, function() {
+            autoplay.disable();
+        }),
+    
+        loop: boolean(function() {
+            loop.enable(this.children);
+    
+            if (this.active) {
+                loop.ignore = true;
+                this.reposition(this.active.id);
+            }
+        }, function() {
+            loop.disable();
+            this.changes.off(loop);
+        }),
+    
+        navigation: boolean(function() {
+            navigation.enable(this.children);
+        }, function() {
+            navigation.disable();
+        }),
+    
+        pagination: boolean(function() {
+            pagination.enable(this.children);
+            this.actives.on(pagination);
+            this.changes.on(pagination);
+        }, function() {
+            pagination.disable();
+            this.actives.off(pagination);
+            this.changes.off(pagination);
+        })
+    });
 }
 
+assign(View.prototype, { 
+    activate: function() {
+        const elem       = this.element;
+        const shadow     = this.shadow;
+        const elemRect   = rect(elem);
+        const elemCentre = elemRect.left + elemRect.width / 2;
+        const slides     = Array.from(elem.children).filter((element) => !element.hasAttribute('slot'));
 
-/* Control */
+        let n = slides.length;
+        let slide;
 
-function autoplay(active, change, autoId) {
-    if (autoId) {
-        clearTimeout(autoId);
+        while ((slide = slides[--n])) {
+            const slideRect = rect(slide);
+            if (!slideRect) { continue; }
+
+            const left = slideRect.left;
+            if (left <= elemCentre) {
+                break;
+            }
+        }
+
+        // If active slide is still the same one, ignore
+        if (slide === this.active) { return; }
+
+        // Remove `on` class from currently highlighted links
+        if (this.active) {
+            const id = this.active.dataset && this.active.dataset.id || this.active.id;
+
+            select('[href="#' + id +'"]', elem.getRootNode())
+            .forEach((node) => node.classList.remove('on'))
+
+            select('[href="#' + id +'"]', shadow)
+            .forEach((node) => node.part.remove('active-link'))
+        }
+
+        // Previous and next used to be handled here
+
+        // Highlight links with `on` class
+        const id = slide.dataset.id || slide.id;
+
+        select('[href="#' + id +'"]', elem.getRootNode())
+        .forEach((node) => node.classList.add('on'));
+
+        select('[href="#' + id +'"]', shadow)
+        .forEach((node) => node.part.add('active-link'));
+
+        // Return active slide
+        return slide;
+    },
+
+    reposition: function(id) {
+        const target = this.element.getRootNode().getElementById(id);
+        scrollAuto(this.element, this.slot, target);
+        this.active = target;
+    },
+
+    update: function(items) {
+        const active   = this.active;
+        const children = this.children;
+
+        // Update the currently active slide
+        if (!items[0]) {
+            this.active = undefined;
+        }
+        else if (active) {
+            if (!items.includes(this.active)) {
+                // Change active to next existing slide from the old list
+                let n = children.indexOf(this.active);
+                while(children[++n] && !items.includes(children[n]));
+                this.active = children[n];
+            }
+        }
+        else {
+            this.active = items[0];
+            identify(active);
+        }
+    
+        this.children = items;
+        //console.log(slot, children.length);
+        this.element.style.setProperty('--slides-count', children.length);
     }
+});
 
-    // Set a new autoplay timeout
-    const duration = parseTime(
-        window
-        .getComputedStyle(active)
-        .getPropertyValue('--slide-duration') || config.duration
-    );
 
-    return setTimeout(change, duration * 1000);
+/* Autoplay */
+
+function Autoplay(slides) {
+    this.slides = slides;
 }
+
+assign(Autoplay.prototype, {
+    enable: function() {
+        this.change = () => {
+            this.timer   = null;
+            const target = next(this.slides.active);
+
+            // Have we reached the end?
+            if (!target) { return; }
+
+            scrollSmooth(this.slides.element, this.slides.slot, target);
+        };
+
+        if (this.slides.active) {
+            this.schedule();
+            
+        }
+
+        // Expose state as loop view needs to know about autoplay
+        this.state = true;
+    },
+
+    disable: function() {
+        this.timer && clearTimeout(this.timer);
+        this.state = false;
+    },
+
+    change: function() {
+        this.timer   = null;
+        const target = next(this.slides.active);
+
+        // Have we reached the end?
+        if (!target) { return; }
+
+        scrollSmooth(this.slides.element, this.slides.slot, target);
+    },
+
+    cue: function() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
+
+        // Set a new autoplay timeout
+        const duration = parseTime(
+            window
+            .getComputedStyle(this.slides.active)
+            .getPropertyValue('--slide-duration') || config.duration
+        );
+
+        this.timer = setTimeout(() => this.change(), duration * 1000);
+    }
+});
+
+
+/* Loop */
+
+function createLoopGhost(slide) {
+    const ghost = slide.cloneNode(true);
+    ghost.dataset.id = ghost.id;
+    ghost.removeAttribute('id');
+    ghost.setAttribute('aria-hidden', 'true');
+    return ghost;
+}
+
+function Loop(view, autoplay) {
+    this.shadow   = view.shadow;
+    this.changes  = view.changes;
+    this.actives  = view.actives;
+    this.autoplay = autoplay;
+}
+
+assign(Loop.prototype, {
+    enable: function(children) {
+        var t = -Infinity;
+
+        this.update = () => {
+            this.timer = null;
+            const id = active.dataset.id;
+
+            // Active child is an original slide, not a copy: do nothing
+            if (!id) { return; }
+        
+            // Realign the original slide as the active slide. Before we do, 
+            // set an ignore flag so that this repositioning does not trigger
+            // another activate when it resets scroll position
+            this.ignore = true;
+            this.slides.reposition(id);
+        };
+
+        this.slotchange = (children) => {
+            // Will trigger a slotchange
+            this.remove();
+            this.add(children);
+        };
+
+        this.activate = (active) => {
+            // If the last update was scheduled recently don't bother rescheduling
+            if (window.performance.now() - t < 180) {
+                return;
+            }
+        
+            // Clear the previous scheduled timeout
+            if (this.timer) {
+                clearTimeout(this.timer);
+            }
+
+            // If autoplay is off don't schedule
+            if (!this.autoplay.state) {
+                return;
+            }
+
+            // Set a new timeout and register the schedule time
+            this.timer = setTimeout(this.update, 240);
+            t = window.performance.now();
+
+            if (active) {
+                this.autoplay.cue();
+            }
+        }
+
+        this.add(children);
+        this.changes.on(this.slotchange);
+        this.actives.on(this.activate);
+    },
+
+    add: function(children) {
+        // To loop slides we need an extra couple on the front and an 
+        // extra couple on the back to simulate the continuous loop
+        this.before = Array.from(children).map(createLoopGhost);
+        this.after  = Array.from(children).map(createLoopGhost);
+
+        if (children.length) {
+            children[0].before.apply(children[0], this.before);
+            last(children).after.apply(last(children), this.after);    
+        }
+    },
+
+    remove: function() {
+        this.before.forEach((ghost) => ghost.remove());
+        this.after.forEach((ghost) => ghost.remove());
+        this.before = undefined;
+        this.after = undefined;
+        clearTimeout(this.timer);
+        this.timer = null;
+    },
+    
+    disable: function() {
+        this.remove();
+        this.changes.off(this.slotchange);
+        this.actives.off(this.activate);
+    }
+});
+
+
+/* Navigation */
+
+function Navigation(view, parent) {
+    this.parent  = parent;
+    this.changes = view.changes;
+    this.actives = view.actives;
+}
+
+assign(Navigation.prototype, {
+    enable: function(children) {
+        this.previous = create('a', { part: 'previous', class: 'prev-thumb thumb' });
+        this.next     = create('a', { part: 'next', class: 'next-thumb thumb' });
+        this.parent.appendChild(this.previous);
+        this.parent.appendChild(this.next);
+        this.actives.on(this.activateFn = (active) => this.activate(active));
+    },
+
+    disable: function() {
+        this.previous.remove();
+        this.next.remove();
+        this.previous = undefined; 
+        this.next = undefined;
+        this.actives.off(this.activateFn = (active) => this.activate(active));
+    }
+});
+
+
+/* Pagination */
+
+function Pagination(view, parent) {
+    this.parent  = parent;
+    this.changes = view.changes;
+    this.actives = view.actives;
+}
+
+assign(Pagination.prototype, {
+    enable: function(children) {
+        this.pagination = create('nav');
+
+        // Empty nav then create a dot link for each slide
+        //nav.innerHTML = '';
+        children.forEach((slide) => {
+           // Id other content and create nav links for them
+           const id = identify(slide);
+           this.pagination.appendChild(create('a', {
+               part: 'link',
+               href: '#' + id,
+               html: id
+           }));
+        });
+
+        this.parent.appendChild(this.pagination);
+    },
+
+    disable: function() {
+        this.pagination.remove();
+        this.pagination = undefined;
+    }
+});
 
 
 /* Element */
@@ -214,292 +548,24 @@ element('slide-show', {
         <a part="link"></a>
     </nav>
     <slot name="optional"></slot>
+    <slot name="overflow"></slot>
     */
 
     construct: function(elem, shadow) {
         const link     = create('link', { rel: 'stylesheet', href: config.path + 'slide-show.shadow.css' });
         const slot     = create('slot', { part: 'grid' });
-        //const prevNode = create('a',    { class: 'prev-thumb thumb', part: 'prev' });
-        //const nextNode = create('a',    { class: 'next-thumb thumb', part: 'next' });
-        const nav      = create('nav');
         const optional = create('slot', { name: 'optional', part: 'optional' });
         const overflow = create('slot', { name: 'overflow', part: 'overflow' });
 
         shadow.appendChild(link);
         shadow.appendChild(slot);
-        //shadow.appendChild(nav);
         shadow.appendChild(optional);
         shadow.appendChild(overflow);
 
-        var active;
-        var slides = [];
+        this[$] = new View(element, slot);
 
-        function updateUI(children) {
-            // Empty nav then create a dot link for each slide
-            nav.innerHTML = '';
-            children.forEach((slide) => {
-               // Id other content and create nav links for them
-               const id = identify(slide);
-               nav.appendChild(create('a', {
-                   part: 'link',
-                   href: '#' + id,
-                   html: id
-               }));
-            });
-
-            // Update the currently active slide
-            if (!children[0]) {
-                active = undefined;
-            }
-            else if (active) {
-                if (!children.includes(active)) {
-                    // Change active to next existing slide from the old list
-                    let n = slides.indexOf(active);
-                    while(slides[++n] && !children.includes(slides[n]));
-                    active = slides[n];
-                }
-            }
-            else {
-                active = children[0];
-                identify(active);
-            }
-
-            slides = children;
-            //console.log(slot, children.length);
-            elem.style.setProperty('--slides-count', children.length);
-        }
-
-        var before;
-        var after;
-
-        function createLoopUI(children) {
-            // To loop slides we need an extra couple on the front and an 
-            // extra couple on the back to simulate the continuous loop
-            before = Array.from(children).map(createGhost);
-            after  = Array.from(children).map(createGhost);
-
-            if (children.length) {
-                children[0].before.apply(children[0], before);
-                last(children).after.apply(last(children), after);    
-            }
-        }
-
-        function removeLoopUI() {
-            before.forEach((ghost) => ghost.remove());
-            after.forEach((ghost) => ghost.remove());
-            before = undefined;
-            after = undefined;
-        }
-
-        slot.addEventListener('slotchange', (e) => {
-            const children = e.target
-               .assignedElements()
-               .filter((element) => !element.dataset.id);
-
-            // Test whether mutation has really changed original slides, if not
-            // it was probably an internal mutation adding or removing loop ghosts
-            if (equals(children, slides)) {
-                return;
-            }
-
-            /*
-            // Strip text nodes
-            if (e.target.assignedNodes().reduce((found, node) => (
-                getNodeType(node) === 'text' ? (node.remove(), true) : found
-            ), false)) {
-                // If successful another slotchange event will be fired
-                // so wait for that one to update the slides list
-                return;
-            }
-            */
-
-            updateUI(children);
-
-            // Update the pre- and post- loop content when loop is enabled
-            if (elem.loop) {
-                // Will trigger a slotchange
-                removeLoopUI();
-                createLoopUI(children);
-            }
-
-            if (active) {
-                ignore = true;
-                active = reposition(elem, slot, active.id);
-            }
-        });
-
-        // Manage repositioning of slides when scroll is at rest
-        var t = -Infinity;
-        var loopId = null;
-        var ignore = false;
-
-        function updateLoop() {
-            loopId = null;
-            const id = active.dataset.id;
-
-            // Active child is an original slide, not a copy: do nothing
-            if (!id) { return; }
-
-            // Realign the original slide as the active slide. Before we do, 
-            // set an ignore flag so that this repositioning does not trigger
-            // another activate when it resets scroll position
-            ignore = true;
-            active = reposition(elem, slot, id);
-        }
-
-        // Manage triggering of next slide on autoplay
-        var autoId = null;
-
-        function change() {
-            autoId = null;
-            const target = next(active);
-
-            // Have we reached the end?
-            if (!target) { return; }
-
-            scrollSmooth(elem, slot, target);
-        }
-
-        const privates = assign(Privates(elem), {
-            nodes: {},
-
-            activate: function() {
-                active = reposition(elem, slot, active.id);
-            },
- 
-            load: function(elem, shadow) {
-                const current = activate(elem, shadow, this.nodes, active);
-
-                // If we are at the very start of the loop on load, and it is 
-                // not an original, reposition to be at the start of the 
-                // originals
-                if (current === elem.firstElementChild && !current.id) {
-                    ignore = true;
-                    active = reposition(elem, slot, active.id);
-                    active = activate(elem, shadow, this.nodes, current); 
-                }
-                else {
-                    active = current;
-                }
-            
-                // This only happens where element load is before window load.
-                events('load', window)
-                .map(() => {
-                    const id = window.location.hash.replace(/^#/, '') || undefined;
-                    return id ?
-                        elem.querySelector('#' + id) :
-                        first ;
-                })
-                //.each(function(target) {
-                //    scrollAuto(elem, slot, target);
-                //    // In case that doesn't trigger a scroll, like in FF
-                //    active = activate(elem, shadow, prevNode, nextNode, active);
-                //});
-            },
-            
-            loopState: false,
-            
-            loop: function duplicate(state) {
-                if (state && !this.loopState) {
-                    createLoopUI(slides);
-                    this.loopState = state;
-
-                    if (active) {
-                        ignore = true;
-                        active = reposition(elem, slot, active.id);
-                    }
-                }
-                else if (!state && this.loopState){
-                    console.log('Remove loop ghosts, switch off loop');
-                    removeLoopUI();
-                    this.loopState = state;
-                }
-            },
-            
-            autoplayState: false,
-            
-            autoplay: function(state) {
-                this.autoplayState = state;
-            
-                // When value is false stop autoplaying
-                if (!state) {
-                    autoId && clearTimeout(autoId);
-                    return;
-                }
-            
-                if (active) {
-                    autoId = autoplay(active, change, autoId);
-                }
-            },
-
-            navigation: overload(id, {
-                'true': function() {
-                    if (this.nodes.previous) { return; }
-                    this.nodes.previous = create('a', { part: 'previous', class: 'prev-thumb thumb' });
-                    this.nodes.next     = create('a', { part: 'next', class: 'next-thumb thumb' });
-                    shadow.appendChild(this.nodes.previous);
-                    shadow.appendChild(this.nodes.next);
-                },
-
-                'false': function() {
-                    if (!this.nodes.previous) { return; }
-                    this.nodes.previous.remove();
-                    this.nodes.next.remove();
-                    this.nodes.previous = undefined; 
-                    this.nodes.next = undefined;
-                }
-            }),
-
-            pagination: overload(id, {
-                'true': function() {
-                    if (this.nodes.pagination) { return; }
-                    this.nodes.pagination = create('nav');
-                    shadow.appendChild(nav);
-                },
-
-                'false': function() {
-                    if (!this.nodes.pagination) { return; }
-                    this.nodes.pagination.remove();
-                    this.nodes.pagination = undefined; 
-                }   
-            })
-        });
-
-        events({ type: 'scroll', passive: true }, slot)
-        .filter((e) => {
-            const result = !ignore;
-            ignore = false;
-            return result;
-        })
-        .each(function(e) {
-            active = activate(elem, shadow, privates.nodes, active);
-
-            // If the last update was scheduled recently don't bother rescheduling
-            if (e.timeStamp - t < 180) {
-                return;
-            }
-
-            // Clear the previous scheduled timeout
-            if (loopId) {
-                clearTimeout(loopId);
-            }
-
-            // If autoplay is off don't schedule
-            if (!privates.autoplayState) {
-               return;
-            }
-
-            // Set a new timeout and register the schedule time
-            loopId = setTimeout(updateLoop, 240);
-            t = e.timeStamp;
-
-            if (active) {
-                autoId = autoplay(active, change, autoId);
-            }
-        });
-
-        // Hijack links to slides to avoid the document scrolling, but make 
-        // sure they go in the history anyway.
+        // Hijack links to slides to avoid the document scrolling, (but make 
+        // sure they go in the history anyway. NOPE)
         events('click', shadow)
         .filter((e) => !!e.target.href)
         .filter(isPrimaryButton)
@@ -515,10 +581,11 @@ element('slide-show', {
             if (elem.contains(target) && !elem === target) {
                scrollSmooth(elem, slot, target);
                e.preventDefault();
-               window.history.pushState({}, '', '#' + id);
+               //window.history.pushState({}, '', '#' + id);
             }
         });
 
+        // Enable single finger scroll 
         gestures({ threshold: '0.25rem' }, shadow)
         .each(function(events) {
             // First event is touchstart or mousedown
@@ -537,36 +604,29 @@ element('slide-show', {
                 return;
             }
 
-            //var slot = closest('slot', e0.target);
             const scrollLeft0 = slot.scrollLeft;
-
-            console.log('SLOT', slot);
-
-            //var state = switchState(label);
-            //var x = state ? 1 : 0 ;
             var dx;
 
             //slot.classList.add('no-select');
             slot.classList.add('gesturing');
 
-            latest.each(function (e) {
+            latest
+            .each(function (e) {
                 dx = e.clientX - x0;
                 console.log('DX', scrollLeft0 - dx);
                 slot.scrollLeft = scrollLeft0 - dx;
-                //slot.scrollLeft = 0;
             })
             .done(function() {
                 //slot.classList.remove('no-select');
                 slot.classList.remove('gesturing');
-                //label.style.removeProperty('--switch-handle-gesture-x');
             });
         });
     },
 
     load: function (elem, shadow) {
-        const scope = Privates(this);
-        scope.load(elem, shadow);
-        events('resize', window).each(scope.activate);
+        const view = this[$];
+        view.load();
+        events('resize', window).each(() => view.activate(view.active));
     },
 
     properties: {
@@ -577,7 +637,8 @@ element('slide-show', {
             **/
 
             attribute: function(value) {
-                Privates(this).autoplay(value !== null);
+                // Delegate to property
+                this.autoplay = (value !== null);
             },
 
             /**
@@ -586,41 +647,42 @@ element('slide-show', {
             **/
 
             set: function(state) {
-                Privates(this).autoplay(!!state);
+                this[$].autoplay = state;
             },
 
             get: function() {
-                return Privates(this).autoplayState;
+                return this[$].autoplay;
             }
         },
 
         controls: {
+            /**
+            controls="navigation pagination"
 
-/**
-controls="pagination"
-
-Treated as a boolean or a token list. If it is present but empty
-all tokens are considered to be true. Otherwise, possible tokens are:
-
-<strong>navigation</strong> enables previous and next buttons. The buttons may 
-be styled with `::part(previous)` and `::part(next)` selectors.
-
-<strong>pagination</strong> enables a row of pagination dots.
-**/
+            Treated as a boolean or a token list. If it is present but empty
+            all tokens are considered to be true. Otherwise, possible tokens are:
+            
+            <strong>navigation</strong> enables previous and next buttons. The 
+            buttons may be styled with `::part(previous)` and `::part(next)` 
+            selectors.
+            
+            <strong>pagination</strong> enables a row of pagination dots. The
+            dots may be styled with `::part(page)`.
+            **/
 
             attribute: function(value) {
-                const controller = Privates(this);
+                const view = this[$];
 
                 // If value is a string of tokens
                 if (typeof value === 'string') {
                     const state = value.split(/\s+/);
-                    controller.navigation = state.includes('navigation');
-                    controller.pagination = state.includes('pagination');
+                    view.navigation = state.includes('navigation');
+                    view.pagination = state.includes('pagination');
                 }
                 else {
                     const state = value !== null;
-                    controller.navigation = state;
-                    controller.pagination = state;
+                    view.navigation(state);
+                    view.pagination(state);
                 }
             }
         },
@@ -632,7 +694,8 @@ be styled with `::part(previous)` and `::part(next)` selectors.
             **/
 
             attribute: function(value) {
-                Privates(this).loop(value !== null);
+                // Delegate to property
+                this.loop = (value !== null);
             },
 
             /**
@@ -641,11 +704,11 @@ be styled with `::part(previous)` and `::part(next)` selectors.
             **/
 
             set: function(state) {
-                Privates(this).loop(!!state);
+                this[$].loop = state;
             },
 
             get: function() {
-                return Privates(this).loopState;
+                return this[$].loop;
             }
         }
     }
