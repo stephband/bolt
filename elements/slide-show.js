@@ -61,7 +61,7 @@ const parseTime = parseValue({
 });
 
 
-/* Property */
+/* Property definition */
 
 function boolean(enable, disable, value) {
     let state = !!value;
@@ -129,10 +129,6 @@ function View(element, shadow, slot) {
         if (equals(items, this.children)) {
             return;
         }
-    
-        // Strip text nodes here?
-    
-        this.update(items);
 
         // This was originally AFTER the loop and nav stuff...
         if (this.active) {
@@ -143,7 +139,8 @@ function View(element, shadow, slot) {
         }
 
         return items;
-    });
+    })
+    .on((items) => this.update(items));
     
     this.actives = new Distributor((e) => {
         const result = loop.ignore;
@@ -383,6 +380,7 @@ function createLoopGhost(slide) {
 }
 
 function Loop(view, autoplay) {
+    this.view     = view;
     this.shadow   = view.shadow;
     this.changes  = view.changes;
     this.actives  = view.actives;
@@ -391,21 +389,9 @@ function Loop(view, autoplay) {
 
 assign(Loop.prototype, {
     enable: function(children) {
+        const view = this.view;
+
         var t = -Infinity;
-
-        this.update = () => {
-            this.timer = null;
-            const id = active.dataset.id;
-
-            // Active child is an original slide, not a copy: do nothing
-            if (!id) { return; }
-        
-            // Realign the original slide as the active slide. Before we do, 
-            // set an ignore flag so that this repositioning does not trigger
-            // another activate when it resets scroll position
-            this.ignore = true;
-            this.slides.reposition(id);
-        };
 
         this.slotchange = (children) => {
             // Will trigger a slotchange
@@ -430,7 +416,7 @@ assign(Loop.prototype, {
             }
 
             // Set a new timeout and register the schedule time
-            this.timer = setTimeout(this.update, 240);
+            this.timer = setTimeout(() => this.update(), 240);
             t = window.performance.now();
 
             if (active) {
@@ -439,8 +425,8 @@ assign(Loop.prototype, {
         }
 
         this.add(children);
-        this.changes.on(this.slotchange);
-        this.actives.on(this.activate);
+        view.changes.on(this.slotchange);
+        view.actives.on(this.activate);
     },
 
     add: function(children) {
@@ -453,6 +439,20 @@ assign(Loop.prototype, {
             children[0].before.apply(children[0], this.before);
             last(children).after.apply(last(children), this.after);    
         }
+    },
+
+    update: function() {
+        this.timer = null;
+        const id = this.view.active.dataset.id;
+    
+        // Active child is an original slide, not a copy: do nothing
+        if (!id) { return; }
+    
+        // Realign the original slide as the active slide. Before we do, 
+        // set an ignore flag so that this repositioning does not trigger
+        // another activate when it resets scroll position
+        this.ignore = true;
+        this.view.reposition(id);
     },
 
     remove: function() {
@@ -475,6 +475,7 @@ assign(Loop.prototype, {
 /* Navigation */
 
 function Navigation(view, parent) {
+    this.view    = view;
     this.parent  = parent;
     this.changes = view.changes;
     this.actives = view.actives;
@@ -482,19 +483,21 @@ function Navigation(view, parent) {
 
 assign(Navigation.prototype, {
     enable: function(children) {
+        const view = this.view;
         this.previous = create('a', { part: 'previous', class: 'prev-thumb thumb' });
         this.next     = create('a', { part: 'next', class: 'next-thumb thumb' });
         this.parent.appendChild(this.previous);
         this.parent.appendChild(this.next);
-        this.actives.on(this.activateFn = (active) => this.activate(active));
+        view.actives.on(this.activateFn = (active) => this.activate(active));
     },
 
     disable: function() {
+        const view = this.view;
         this.previous.remove();
         this.next.remove();
         this.previous = undefined; 
         this.next = undefined;
-        this.actives.off(this.activateFn = (active) => this.activate(active));
+        view.actives.off(this.activateFn = (active) => this.activate(active));
     }
 });
 
@@ -502,6 +505,7 @@ assign(Navigation.prototype, {
 /* Pagination */
 
 function Pagination(view, parent) {
+    this.view    = view;
     this.parent  = parent;
     this.changes = view.changes;
     this.actives = view.actives;
@@ -554,15 +558,13 @@ element('slide-show', {
     construct: function(elem, shadow) {
         const link     = create('link', { rel: 'stylesheet', href: config.path + 'slide-show.shadow.css' });
         const slot     = create('slot', { part: 'grid' });
-        const optional = create('slot', { name: 'optional', part: 'optional' });
+        //const optional = create('slot', { name: 'optional', part: 'optional' });
         const overflow = create('slot', { name: 'overflow', part: 'overflow' });
 
         shadow.appendChild(link);
         shadow.appendChild(slot);
-        shadow.appendChild(optional);
+        //shadow.appendChild(optional);
         shadow.appendChild(overflow);
-
-        this[$] = new View(element, slot);
 
         // Hijack links to slides to avoid the document scrolling, (but make 
         // sure they go in the history anyway. NOPE)
@@ -621,6 +623,8 @@ element('slide-show', {
                 slot.classList.remove('gesturing');
             });
         });
+        
+        this[$] = new View(element, slot);
     },
 
     load: function (elem, shadow) {
