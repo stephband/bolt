@@ -16,7 +16,7 @@
     
     <style>
         auto-toggle {
-            max-height: 7.5rem;
+            max-height: 8rem;
         }
     </style>
 </head>

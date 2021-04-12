@@ -32,11 +32,7 @@ import create      from '../../dom/modules/create.js';
 import Distributor from '../../dom/modules/distributor.js';
 import { rem }     from '../../dom/modules/parse-value.js';
 
-
-const DEBUG  = true;
-const assign = Object.assign;
-const define = Object.defineProperties;
-const $      = Symbol('');
+const $ = Symbol('');
 
 const config = {
     path: window.customElementStylesheetPath || '',
