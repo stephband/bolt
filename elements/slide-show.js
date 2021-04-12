@@ -15,11 +15,11 @@ element and upgrades instances already in the DOM.
 ```html
 <script type="module" src="bolt/elements/slide-show.js"></script>
 
-<slide-show loop controls="navigation">
-   <img src="../images/lyngen-4.png" id="1" />
-   <img src="../images/lyngen-2.png" id="2" />
-   <img src="../images/lyngen-1.png" id="3" />
-   <img src="../images/lyngen-3.png" id="4" />
+<slide-show controls="navigation">
+   <img src="../images/lyngen-4.png" id="1" draggable="false" />
+   <img src="../images/lyngen-2.png" id="2" draggable="false" />
+   <img src="../images/lyngen-1.png" id="3" draggable="false" />
+   <img src="../images/lyngen-3.png" id="4" draggable="false" />
 </slide-show>
 ```
 
@@ -172,7 +172,7 @@ function View(element, shadow, slot) {
     slot.addEventListener('scroll', this.actives);
 
     this.load = () => {
-        this.actives.trigger({});
+        this.actives.trigger(this.active);
 
         // If we are at the very start of the loop on load, and it is 
         // not an original, reposition to be at the start of the 
@@ -209,7 +209,6 @@ function View(element, shadow, slot) {
 assign(View.prototype, { 
     activate: function() {
         const elem       = this.element;
-        const shadow     = this.shadow;
         const elemRect   = rect(elem);
         const elemCentre = elemRect.left + elemRect.width / 2;
         const slides     = Array.from(elem.children).filter((element) => !element.hasAttribute('slot'));
@@ -230,30 +229,8 @@ assign(View.prototype, {
         // If active slide is still the same one, ignore
         if (slide === this.active) { return; }
 
-        // Remove `on` class from currently highlighted links
-        if (this.active) {
-            const id = this.active.dataset && this.active.dataset.id || this.active.id;
-
-            select('[href="#' + id +'"]', elem.getRootNode())
-            .forEach((node) => node.classList.remove('on'))
-
-            select('[href="#' + id +'"]', shadow)
-            .forEach((node) => node.part.remove('active-link'))
-        }
-
-        // Previous and next used to be handled here
-
-        // Highlight links with `on` class
-        const id = slide.dataset.id || slide.id;
-
-        select('[href="#' + id +'"]', elem.getRootNode())
-        .forEach((node) => node.classList.add('on'));
-
-        select('[href="#' + id +'"]', shadow)
-        .forEach((node) => node.part.add('active-link'));
-
-        // Return active slide
-        return slide;
+        // Return active slide to distributor
+        return (this.active = slide);
     },
 
     reposition: function(id) {
@@ -281,7 +258,7 @@ assign(View.prototype, {
         else {
             this.active = items[0];
             // Is this needed?
-            //identify(this.active);
+            identify(this.active);
         }
 
         this.children = items;
@@ -493,7 +470,7 @@ assign(Navigation.prototype, {
     activate: function(active) {
         // Change href of prev and next buttons
         const prevChild = previous(active);
-        if (prevChild) {
+        if (prevChild && prevChild.id) {
             this.previous.href = '#' + prevChild.id;
         }
         else {
@@ -501,7 +478,7 @@ assign(Navigation.prototype, {
         }
 
         const nextChild = next(active);
-        if (nextChild) {
+        if (nextChild && nextChild.id) {
             this.next.href = '#' + nextChild.id;
         }
         else {
@@ -550,6 +527,24 @@ console.trace('page')
         this.pagination = undefined;
         view.actives.off();
         view.changes.off();
+    },
+    
+    activate: function(active) {
+        const shadow = this.shadow;
+
+        // Remove `on` class from currently highlighted links
+        if (this.active) {
+            const id = this.active.dataset && this.active.dataset.id || this.active.id;
+
+            select('[href="#' + id +'"]', shadow)
+            .forEach((node) => node.part.remove('active-link'))
+        }
+
+        // Highlight links with `on` class
+        const id = active.dataset.id || active.id;
+
+        select('[href="#' + id +'"]', shadow)
+        .forEach((node) => node.part.add('active-link'));
     }
 });
 
@@ -584,7 +579,7 @@ element('slide-show', {
         shadow.appendChild(overflow);
 
         // Hijack links to slides to avoid the document scrolling, (but make 
-        // sure they go in the history anyway. NOPE)
+        // sure they go in the history anyway. NOPE, dont)
         events('click', shadow)
         .filter((e) => !!e.target.href)
         .filter(isPrimaryButton)
@@ -597,7 +592,7 @@ element('slide-show', {
                 return;
             }
 
-            if (elem.contains(target) && !elem === target) {
+            if (elem.contains(target) && elem !== target) {
                scrollSmooth(elem, slot, target);
                e.preventDefault();
                //window.history.pushState({}, '', '#' + id);
@@ -606,10 +601,10 @@ element('slide-show', {
 
         // Enable single finger scroll 
         gestures({ threshold: '0.25rem' }, shadow)
-        .each(function(events) {
+        .each(function(pointers) {
             // First event is touchstart or mousedown
-            var e0     = events.shift();
-            var latest = events.latest();
+            var e0     = pointers.shift();
+            var latest = pointers.latest();
             var e1     = latest.shift();
             var x0     = e0.clientX;
             var y0     = e0.clientY;
@@ -619,7 +614,7 @@ element('slide-show', {
             // If the gesture is more vertical than horizontal, don't count it
             // as a swipe. Stop the stream and get out of here.
             if (Math.abs(x1 - x0) < Math.abs(y1 - y0)) {
-                events.stop();
+                pointers.stop();
                 return;
             }
 
@@ -632,15 +627,21 @@ element('slide-show', {
             latest
             .each(function (e) {
                 dx = e.clientX - x0;
-                console.log('DX', scrollLeft0 - dx);
                 slot.scrollLeft = scrollLeft0 - dx;
             })
             .done(function() {
-                //slot.classList.remove('no-select');
+                // Prevent default on any immediate clicks
+                events('click', shadow).each(function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.stop();
+                });
+
+                //scrollSmooth(elem, slot, view.active);
                 slot.classList.remove('gesturing');
             });
         });
-        
+
         this[$] = new View(this, shadow, slot);
     },
 
