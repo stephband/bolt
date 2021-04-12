@@ -663,7 +663,7 @@ element('slide-show', {
     properties: {
         autoplay: {
             /**
-            autoplay
+            autoplay=""
             Boolean attribute. 
             **/
 
@@ -673,7 +673,7 @@ element('slide-show', {
             },
 
             /**
-            .autoplay = false
+            .autoplay
             Boolean property.
             **/
 
@@ -688,7 +688,7 @@ element('slide-show', {
 
         controls: {
             /**
-            controls="navigation pagination"
+            controls=""
 
             Treated as a boolean or a token list. If it is present but empty
             all tokens are considered to be true. Otherwise, possible tokens are:
@@ -720,7 +720,7 @@ element('slide-show', {
 
         loop: {            
             /**
-            loop
+            loop=""
             Boolean attribute. Makes the slideshow behave as a continuous loop.
             **/
 
@@ -730,7 +730,7 @@ element('slide-show', {
             },
 
             /**
-            .loop = false
+            .loop
             Boolean property. Makes the slideshow behave as a continuous loop.
             **/
 
