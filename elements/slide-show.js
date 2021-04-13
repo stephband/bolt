@@ -263,7 +263,8 @@ assign(View.prototype, {
 
         this.children = items;
         //console.log(slot, children.length);
-        console.log(this.element);
+        //console.log(this.element);
+        //debugger
         this.element.style.setProperty('--slides-count', children.length);
     }
 });
@@ -736,7 +737,7 @@ element('slide-show', {
             **/
 
             set: function(state) {
-                this[$].loop = state;
+                //this[$].loop = state;
             },
 
             get: function() {

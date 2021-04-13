@@ -49,7 +49,7 @@
     </script>
     
     <style>
-        auto-toggle {
+        overflow-toggle {
             max-height: 7.5rem;
         }
     </style>
@@ -59,21 +59,21 @@
     <!-- Literal template "templates/element.literal" -->
 <header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
     
-    <h2 class="doctext-02">&lt;auto-toggle&gt;</h2>
+    <h2 class="doctext-02">&lt;overflow-toggle&gt;</h2>
     <p>Configure stylesheet path with:</p>
 <pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/bolt/elements/'</span><span class="token punctuation">;</span></code></pre>
-<p>Import <code>&lt;auto-toggle&gt;</code> custom element. This also registers the custom 
+<p>Import <code>&lt;overflow-toggle&gt;</code> custom element. This also registers the custom 
 element and upgrades instances already in the DOM.</p>
-<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bolt/elements/auto-toggle.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bolt/elements/overflow-toggle.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>auto-toggle</span> <span class="token attr-name">show</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Show<span class="token punctuation">"</span></span> <span class="token attr-name">hide</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Hide<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>overflow-toggle</span> <span class="token attr-name">show</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Show<span class="token punctuation">"</span></span> <span class="token attr-name">hide</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Hide<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop 
    python orientation semi colon incident. Duis aute irure indent tabs or spaces 
    velit esse cilium buntum how crunchy duntum. Excepteur tranquilis syntax 
    error memorandum qui officia nostrud operating system alertus.
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>auto-toggle</span><span class="token punctuation">></span></span></code></pre>
-<p>An <code>auto-toggle</code> is collapsed by default to it’s own <code>max-height</code>. A <code>max-height</code>
-<em>must</em> be set for <code>auto-toggle</code> to collapse! When toggled open, that <code>max-height</code> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>overflow-toggle</span><span class="token punctuation">></span></span></code></pre>
+<p>An <code>overflow-toggle</code> is collapsed by default to it’s own <code>max-height</code>. A <code>max-height</code>
+<em>must</em> be set for <code>overflow-toggle</code> to collapse! When toggled open, that <code>max-height</code> 
 is overridden to include the whole height of the content, and the state is 
 transitioned from closed to open via CSS.</p>
 
@@ -81,14 +81,14 @@ transitioned from closed to open via CSS.</p>
 </header>
 
 <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-    <script type="module" src="../templates/bolt/elements/auto-toggle.js"></script>
+    <script type="module" src="../templates/bolt/elements/overflow-toggle.js"></script>
 
-<auto-toggle show="Show" hide="Hide">
+<overflow-toggle show="Show" hide="Hide">
    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop 
    python orientation semi colon incident. Duis aute irure indent tabs or spaces 
    velit esse cilium buntum how crunchy duntum. Excepteur tranquilis syntax 
    error memorandum qui officia nostrud operating system alertus.
-</auto-toggle>
+</overflow-toggle>
     <!-- for testing form submission values -->
     <input hidden class="button" type="submit" />
 </form>
@@ -126,7 +126,7 @@ transitioned from closed to open via CSS.</p>
         </a>
     </h3>
     
-    <p>A boolean attribute describing the state of the <code>auto-toggle</code>.</p>
+    <p>A boolean attribute describing the state of the <code>overflow-toggle</code>.</p>
 
 </section>
 
@@ -146,8 +146,8 @@ transitioned from closed to open via CSS.</p>
     </h3>
     
     <p>false
-            A boolean property describing the state of the <code>auto-toggle</code> – <code>true</code>
-            when the <code>auto-toggle</code> is open, <code>false</code> when it is not.</p>
+            A boolean property describing the state of the <code>overflow-toggle</code> – <code>true</code>
+            when the <code>overflow-toggle</code> is open, <code>false</code> when it is not.</p>
 
 </section>
 
@@ -180,7 +180,7 @@ transitioned from closed to open via CSS.</p>
 
 
     <!-- Document interactivity -->
-    <script type="module" src="auto-toggle.js"></script>
+    <script type="module" src="overflow-toggle.js"></script>
 
     <script type="module">
     import '../module.js';

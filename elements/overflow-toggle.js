@@ -1,5 +1,5 @@
 
-/** <auto-toggle>
+/** <overflow-toggle>
 
 Configure stylesheet path with:
 
@@ -7,22 +7,22 @@ Configure stylesheet path with:
 window.customElementStylesheetPath = 'path/to/bolt/elements/';
 ```
 
-Import `<auto-toggle>` custom element. This also registers the custom 
+Import `<overflow-toggle>` custom element. This also registers the custom 
 element and upgrades instances already in the DOM.
 
 ```html
-<script type="module" src="bolt/elements/auto-toggle.js"></script>
+<script type="module" src="bolt/elements/overflow-toggle.js"></script>
 
-<auto-toggle show="Show" hide="Hide">
+<overflow-toggle show="Show" hide="Hide">
    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop 
    python orientation semi colon incident. Duis aute irure indent tabs or spaces 
    velit esse cilium buntum how crunchy duntum. Excepteur tranquilis syntax 
    error memorandum qui officia nostrud operating system alertus.
-</auto-toggle>
+</overflow-toggle>
 ```
 
-An `auto-toggle` is collapsed by default to it's own `max-height`. A `max-height`
-*must* be set for `auto-toggle` to collapse! When toggled open, that `max-height` 
+An `overflow-toggle` is collapsed by default to it's own `max-height`. A `max-height`
+*must* be set for `overflow-toggle` to collapse! When toggled open, that `max-height` 
 is overridden to include the whole height of the content, and the state is 
 transitioned from closed to open via CSS.
 **/
@@ -54,16 +54,16 @@ function update(shadow, button, scrollHeight, maxHeight, state) {
     return false;
 }
 
-element('auto-toggle', {
+element('overflow-toggle', {
     /*
     Create a DOM of the form:
-    <link rel="stylesheet" href="/source/bolt/elements/auto-toggle.shadow.css" />
+    <link rel="stylesheet" href="/source/bolt/elements/overflow-toggle.shadow.css" />
     <slot></slot>
     <button></button>
     */
 
     construct: function(shadow) {
-        const link   = create('link', { rel: 'stylesheet', href: config.path + 'auto-toggle.shadow.css' });
+        const link   = create('link', { rel: 'stylesheet', href: config.path + 'overflow-toggle.shadow.css' });
         const css    = create('style', ':host {}');
         const slot   = create('slot');
 
@@ -137,7 +137,7 @@ element('auto-toggle', {
         open: {
             /**
             open=""
-            A boolean attribute describing the state of the `auto-toggle`.
+            A boolean attribute describing the state of the `overflow-toggle`.
             **/
 
             attribute: function(value) {
@@ -146,8 +146,8 @@ element('auto-toggle', {
 
             /**
             .open = false
-            A boolean property describing the state of the `auto-toggle` – `true`
-            when the `auto-toggle` is open, `false` when it is not.
+            A boolean property describing the state of the `overflow-toggle` – `true`
+            when the `overflow-toggle` is open, `false` when it is not.
             **/
 
             get: function() {

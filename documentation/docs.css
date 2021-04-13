@@ -483,6 +483,8 @@ script[type="text"] {
 
 line { stroke-width: 1; stroke: inherit; }
 
+/*
+
 .columns {
     column-fill: auto;
     column-gap: 1.875rem;
@@ -584,7 +586,7 @@ line { stroke-width: 1; stroke: inherit; }
     margin-top: 1.875rem;
     margin-left: 0;
 }
-
+*/
 
 /*
 .component-.doc-toggle-block.active {

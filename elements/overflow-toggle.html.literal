@@ -15,17 +15,17 @@
     </script>
     
     <style>
-        auto-toggle {
+        overflow-toggle {
             max-height: 7.5rem;
         }
     </style>
 </head>
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
-    ${ include('../templates/element.literal', documentation("./auto-toggle.js", "./auto-toggle.shadow.css")) }
+    ${ include('../templates/element.literal', documentation("./overflow-toggle.js", "./overflow-toggle.shadow.css")) }
 
     <!-- Document interactivity -->
-    <script type="module" src="./auto-toggle.js"></script>
+    <script type="module" src="./overflow-toggle.js"></script>
 
     ${ include('../templates/scripts.html') }
 </body>
