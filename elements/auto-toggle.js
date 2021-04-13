@@ -31,7 +31,7 @@ import element     from '../../dom/modules/element.js';
 import events      from '../../dom/modules/events.js';
 import create      from '../../dom/modules/create.js';
 import Distributor from '../../dom/modules/distributor.js';
-import { rem }     from '../../dom/modules/parse-value.js';
+import parseValue, { rem } from '../../dom/modules/parse-value.js';
 
 const $ = Symbol('');
 
@@ -44,16 +44,14 @@ const config = {
 
 /* Element */
 
-function update(element, shadow, slot, button, style) {
-    const scrollHeight = slot.scrollHeight;
-    const maxHeight    = style['max-height'];
-
+function update(shadow, button, scrollHeight, maxHeight, state) {
     if (scrollHeight > maxHeight) {
-        shadow.appendChild(button);
+        if (!state) { shadow.appendChild(button); }
+        return true;
     }
-    else {
-        button.remove();
-    }
+    
+    if (state) { button.remove(); }
+    return false;
 }
 
 element('auto-toggle', {
@@ -69,18 +67,17 @@ element('auto-toggle', {
         const css    = create('style', ':host {}');
         const slot   = create('slot');
 
+        shadow.appendChild(link);
+        shadow.appendChild(css);
+        shadow.appendChild(slot);
+
         /**
         ::part(button)
         The toggle button that, when clicked, shows and hides overflowing content.
         **/
-        const button = create('button', { part: "button", type: "button", name: "" });
+        const button = create('button', { part: "button", type: "button", name: "overflow-toggle" });
 
-        shadow.appendChild(link);
-        shadow.appendChild(css);
-        shadow.appendChild(slot);
-        shadow.appendChild(button);
-
-        // Must come after css is appended        
+        // Must come after css is appended
         const style = css.sheet.cssRules[0].style;
 
         const changes = Distributor();
@@ -94,17 +91,24 @@ element('auto-toggle', {
     },
 
     load: function(shadow) {
-        const { button, slot } = this[$];
+        const view = this[$];
+        const { button, slot } = view;
         const style = getComputedStyle(this);
-
+        const maxHeight = parseValue(view.maxHeight || style['max-height']);
+        
+        // maxHeight is cached on view when element is open
+        var state = update(shadow, button, slot.scrollHeight, maxHeight, false);
         events('resize', window)
-        .each((e) => update(this, shadow, slot, button, style));
+        .each((e) => {
+            const maxHeight = parseValue(view.maxHeight || style['max-height']);
+            state = update(shadow, button, slot.scrollHeight, maxHeight, state)
+        });
     },
 
     properties: {
         show: {
             /**
-            show="Show more"
+            show=""
             Text rendered into the toggle button.
             **/
 
@@ -118,7 +122,7 @@ element('auto-toggle', {
 
         hide: {
             /**
-            hide="Show less"
+            hide=""
             Text rendered into the toggle button.
             **/
 
@@ -154,20 +158,33 @@ element('auto-toggle', {
             set: function(value) {
                 const view = this[$];
                 const { button, slot, style } = view;
- 
+
                  // If toggle has not changed do nothing
                 if (!!value === view.open) {
                     return;
                 }
  
                 if (value) {
-                    const scrollHeight = slot.scrollHeight;
-                    // Add a sneaky safety margin of 30 pixels, no-one will notice
-                    style.setProperty('max-height', rem(scrollHeight + 30), 'important');
+                    const scrollHeight    = slot.scrollHeight;
+                    const computedElement = getComputedStyle(this);
+                    const computedButton  = getComputedStyle(button);
+                    const px = scrollHeight
+                        // plus button height
+                        + button.clientHeight 
+                        // plus button margins
+                        + parseValue(computedButton['margin-top']) 
+                        + parseValue(computedButton['margin-bottom'])
+                        // plus a sneaky safety margin, no-one will notice
+                        + 8 ;
+
+                    // Store maxHeight while element is open
+                    view.maxHeight = computedElement['max-height'];
+                    style.setProperty('max-height', rem(px), 'important');
                     button.textContent = view.hideText;
                     view.open = true;
                 }
                 else {
+                    view.maxHeight = undefined;
                     style.setProperty('max-height', '');
                     button.textContent = view.showText;
                     view.open = false;

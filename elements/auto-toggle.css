@@ -1,0 +1,9 @@
+
+auto-toggle {
+    display: block;
+    box-sizing: border-box;
+}
+
+auto-toggle:not(:defined) {
+    max-height: none;
+}
