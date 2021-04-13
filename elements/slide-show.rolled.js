@@ -3716,7 +3716,7 @@ function autoplay(active, change, autoId) {
     const duration = parseTime(
         window
         .getComputedStyle(active)
-        .getPropertyValue('--slide-duration') || config$2.duration
+        .getPropertyValue('--duration') || config$2.duration
     );
 
     return setTimeout(change, duration * 1000);

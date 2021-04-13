@@ -5,23 +5,23 @@
 
 :host {
     /**
-    --slide-duration
+    --duration
     Set the duration that a slide is displayed for when the slideshow is in
     autoplay mode. May be a CSS time value in `s` or `ms`.
     **/
-    --slide-duration: 8s;
+    --duration: 8s;
 
-    /**
+    /*
     --link-top
     Adjusts the vertical position of the list of links. Negative values make it
     appear over the slides.
-    **/
+    */
     --link-top: -2.25rem;
 
-    /**
+    /*
     --link-gap
     Adjusts the gap between links.
-    **/
+    */
     --link-gap: 0;
 
     /**

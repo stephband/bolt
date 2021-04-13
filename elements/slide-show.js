@@ -317,7 +317,7 @@ assign(Autoplay.prototype, {
         const duration = parseTime(
             window
             .getComputedStyle(this.view.active)
-            .getPropertyValue('--slide-duration') || config.duration
+            .getPropertyValue('--duration') || config.duration
         );
 
         this.timer = setTimeout(() => this.change(), duration * 1000);
