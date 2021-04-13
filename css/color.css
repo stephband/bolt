@@ -25,6 +25,7 @@ and variables are available to set colors in CSS:
 .current-fg   { color: currentcolor; stroke: currentcolor; }
 .current-bg   { background-color: currentcolor; fill: currentcolor; }
 
+
 /**
 .transparent-fg,
 .transparent-bg
@@ -37,6 +38,7 @@ and variables are available to set colors in CSS:
 
 .transparent-fg { color: transparent; }
 .transparent-bg { background-color: transparent; }
+
 
 /**
 .black-fg,
@@ -51,6 +53,7 @@ and variables are available to set colors in CSS:
 :root       { --black: black; }
 .black-fg   { color: black; stroke: black; }
 .black-bg   { background-color: black; fill: black; }
+
 
 /**
 .white-fg,

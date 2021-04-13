@@ -33,10 +33,12 @@ function logCompile(source, scope, params) {
     console.log(dimgreendim, 'Literal', 'compile', source + ' { ' + params + ' }');
 
     // Sanity check params for scope overrides
-    params.split(/\s*[,\s]\s*/).forEach((name) => {
-        if (illegal.includes(name)) {
-            console.log(redwhitedim, 'SyntaxError', 'Reserved word cannot be used as parameter name', '{ ' + params + ' }')
-            throw new SyntaxError('Reserved word cannot be used as parameter name ' + name);
+    params
+    .split(/\s*[,\s]\s*/)
+    .filter((name) => name !== '')
+    .forEach((name) => {
+        if (!isValidConst(name)) {
+            console.log(redwhitedim, 'Word cannot be used as parameter name', '{ ' + name + ' }');
         }
 
         if (scope[name]) {
@@ -110,31 +112,32 @@ function prependComment(source, target, string) {
     );
 }
 
-function isValidConst(namevalue) {
-    const name = namevalue[0];
-    return /^[a-zA-Z]/.test(name);
+function isValidConst(name) {
+    return /^[a-zA-Z]/.test(name)
+        && !illegal.includes(name)
+        && name !== 'data';
 }
 
 function sanitiseVars(vars) {
-    const names = vars.split(/\s*[,\s]\s*/).filter(isValidConst).sort();
+    const names = vars.split(/\s*[,]\s*/).filter(isValidConst).sort();
     return names.join(', ');
 }
 
-export default function Literal(params, template, source) {
+export default function Literal(parameters, template, source) {
     if (typeof template !== 'string') {
         throw new Error('Template is not a string ' + source);
     }
 
-    // Extract names, format params
-    params = sanitiseVars(params);
+    // Extract names, throw out illegals, format params
+    const params = sanitiseVars(parameters);
 
     if (cache[source + '(' + params + ')']) {
         return cache[source + '(' + params + ')'];
     }
 
-    // Where there are params define them as const
-    const code = (params.length ? 'const {' + params + '} = data;' : '')
-        + 'return render`' + template + '`;';
+    // Where there are params define them as consts
+    const code = (params.length ? 'const {' + params + '} = data;\n' : '')
+        + 'return render`' + template + '`;\n';
 
     var fn;
     if (DEBUG) {
