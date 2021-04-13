@@ -15,7 +15,7 @@ element and upgrades instances already in the DOM.
 ```html
 <script type="module" src="bolt/elements/slide-show.js"></script>
 
-<slide-show controls="navigation">
+<slide-show loop controls="navigation" style="display: none;">
    <img src="../images/lyngen-4.png" id="1" draggable="false" />
    <img src="../images/lyngen-2.png" id="2" draggable="false" />
    <img src="../images/lyngen-1.png" id="3" draggable="false" />
@@ -737,7 +737,7 @@ element('slide-show', {
             **/
 
             set: function(state) {
-                //this[$].loop = state;
+                this[$].loop = state;
             },
 
             get: function() {
