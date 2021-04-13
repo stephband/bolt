@@ -15,7 +15,7 @@ element and upgrades instances already in the DOM.
 ```html
 <script type="module" src="bolt/elements/slide-show.js"></script>
 
-<slide-show loop controls="navigation" style="display: none;">
+<slide-show loop controls="navigation">
    <img src="../images/lyngen-4.png" id="1" draggable="false" />
    <img src="../images/lyngen-2.png" id="2" draggable="false" />
    <img src="../images/lyngen-1.png" id="3" draggable="false" />
@@ -152,11 +152,17 @@ function View(element, shadow, slot) {
     .on((items) => this.update(items));
     
     this.actives = new Distributor((e) => {
+        // If ignore was true, ignore event. Todo: move this logic into Loop 
+        // view somehow
         const result = loop.ignore;
         loop.ignore = false;
-
-        // If ignore was true, ignore event
         if (result) {
+            return;
+        }
+
+        // Check for element visibility. There's little point in trying to do
+        // anything while hidden
+        if (element.offsetParent === null) {
             return;
         }
 
@@ -172,17 +178,22 @@ function View(element, shadow, slot) {
     slot.addEventListener('scroll', this.actives);
 
     this.load = () => {
-        this.actives.trigger(this.active);
-
         // If we are at the very start of the loop on load, and it is 
         // not an original, reposition to be at the start of the 
         // originals
         if (this.active === this.firstElementChild && !this.active.id) {
             loop.ignore = true;
             this.reposition(this.active.id);
-            this.activate(this.active); 
+            this.actives.trigger(this.active);
         }
-        
+        else {
+            this.actives.trigger(this.active);
+        }
+
+        // Reposition everything on resize
+        events('resize', window)
+        .each(() => this.actives.trigger(this.active));
+
         // This only happens where element load is before window load.
         //events('load', window)
         //.map(() => {
@@ -659,7 +670,6 @@ element('slide-show', {
     load: function (shadow) {
         const view = this[$];
         view.load();
-        events('resize', window).each(() => view.activate(view.active));
     },
 
     properties: {
