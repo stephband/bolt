@@ -33,6 +33,8 @@ Columns.
 \`\`\`
 **/
 
+
+
 /**
 Grid.
 **/
@@ -167,6 +169,7 @@ ${ breakpoints.map((bp) => (px(bp.width) ? `
 
 @media (min-width: ${ em(bp.width) }em) {` : '') + (`
     .${ bp.prefix }columns {
+        ${ bp['column-gap'] ? '--column-gap: ' + bp['column-gap'] + ';' : '' }
         display: block !important;
         column-gap: var(--column-gap);
     }
@@ -185,6 +188,8 @@ ${ breakpoints.map((bp) => (px(bp.width) ? `
     .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }2-columns { columns: 12 !important; }
 
     .${ bp.prefix }grid {
+        ${ bp['column-gap'] ? '--column-gap: ' + bp['column-gap'] + ';' : '' }
+        ${ bp['row-gap']    ? '--row-gap: '    + bp['row-gap']    + ';' : '' }
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
@@ -360,9 +365,12 @@ ${ breakpoints.map((bp) => (px(bp.width) ? `
         margin-bottom: calc(-1 * var(--row-gap));
     }
 
+    /*
+    We dont want this it stops us being able to put two grid systems on the page
     :root {
         --column-gap: ${ rem(bp['column-gap']) }rem;
         --row-gap: ${ rem(bp['row-gap']) }rem;
     }
+    */
 `) + (px(bp.width) ? `}
 ` : '')) }
