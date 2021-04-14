@@ -73,6 +73,12 @@
     overflow: visible;
 }
 
+:host * {
+    box-sizing: border-box;
+    background-origin: padding-box;
+    background-repeat: no-repeat;
+}
+
 
 /*
 Does not work
@@ -82,11 +88,14 @@ Does not work
 :host > [part="grid"],
 :host > [part="previous"],
 :host > [part="next"] {
+    box-sizing: border-box;
     grid-column: 1;
     grid-row: 1;
 }
 
 :host > [part="grid"] {
+    align-self: stretch;
+    justify-self: stretch;
     grid-auto-flow: column;
     grid-auto-columns: inherit;
     grid-auto-rows: min-content;
