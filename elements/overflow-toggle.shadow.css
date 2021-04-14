@@ -11,6 +11,7 @@
     line-height: inherit;
     text-overflow: ellipsis;
     transition: max-height 0.5s cubic-bezier(0, 0.28, 0.72, 1);
+    max-height: 7.5rem;
 }
 
 :host > slot {
