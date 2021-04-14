@@ -168,26 +168,26 @@ Define the vertical grid gap (with units).
 
 
 
-    .columns {
+    .docs-columns {
         --column-gap: 1.5rem;
         display: block !important;
         column-gap: var(--column-gap);
     }
 
-    .\31 -columns  { columns: 1 !important; }
-    .\32 -columns  { columns: 2 !important; }
-    .\33 -columns  { columns: 3 !important; }
-    .\34 -columns  { columns: 4 !important; }
-    .\35 -columns  { columns: 5 !important; }
-    .\36 -columns  { columns: 6 !important; }
-    .\37 -columns  { columns: 7 !important; }
-    .\38 -columns  { columns: 8 !important; }
-    .\39 -columns  { columns: 9 !important; }
-    .\31 0-columns { columns: 10 !important; }
-    .\31 1-columns { columns: 11 !important; }
-    .\31 2-columns { columns: 12 !important; }
+    .docs-1-columns  { columns: 1 !important; }
+    .docs-2-columns  { columns: 2 !important; }
+    .docs-3-columns  { columns: 3 !important; }
+    .docs-4-columns  { columns: 4 !important; }
+    .docs-5-columns  { columns: 5 !important; }
+    .docs-6-columns  { columns: 6 !important; }
+    .docs-7-columns  { columns: 7 !important; }
+    .docs-8-columns  { columns: 8 !important; }
+    .docs-9-columns  { columns: 9 !important; }
+    .docs-10-columns { columns: 10 !important; }
+    .docs-11-columns { columns: 11 !important; }
+    .docs-12-columns { columns: 12 !important; }
 
-    .grid {
+    .docs-grid {
         --column-gap: 1.5rem;
         --row-gap: 1.5rem;
         display: grid !important;
@@ -199,167 +199,167 @@ Define the vertical grid gap (with units).
         row-gap: var(--row-gap);
     }
 
-    .y-start-grid {
+    .docs-y-start-grid {
         align-content: start;
     }
 
-    .\32 x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
-    .\33 x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
-    .\34 x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
-    .\35 x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
-    .\36 x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
-    .\37 x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
-    .\38 x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
-    .\39 x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-    .\31 0x-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
-    .\31 1x-grid { grid-template-columns: repeat(11, minmax(0, 1fr)); }
-    .\31 2x-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .docs-2x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
+    .docs-3x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
+    .docs-4x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
+    .docs-5x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
+    .docs-6x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
+    .docs-7x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
+    .docs-8x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
+    .docs-9x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
+    .docs-10x-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+    .docs-11x-grid { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+    .docs-12x-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
 
-    .x-1         { grid-column-start: 1 !important; }
-    .x-2         { grid-column-start: 2 !important; }
-    .x-3         { grid-column-start: 3 !important; }
-    .x-4         { grid-column-start: 4 !important; }
-    .x-5         { grid-column-start: 5 !important; }
-    .x-6         { grid-column-start: 6 !important; }
-    .x-7         { grid-column-start: 7 !important; }
-    .x-8         { grid-column-start: 8 !important; }
-    .x-9         { grid-column-start: 9 !important; }
-    .x-10        { grid-column-start: 10 !important; }
-    .x-11        { grid-column-start: 11 !important; }
-    .x-12        { grid-column-start: 12 !important; }
-    .x-13        { grid-column-start: 13 !important; }
-    .x-14        { grid-column-start: 14 !important; }
-    .x-15        { grid-column-start: 15 !important; }
-    .x-16        { grid-column-start: 16 !important; }
+    .docs-x-1         { grid-column-start: 1 !important; }
+    .docs-x-2         { grid-column-start: 2 !important; }
+    .docs-x-3         { grid-column-start: 3 !important; }
+    .docs-x-4         { grid-column-start: 4 !important; }
+    .docs-x-5         { grid-column-start: 5 !important; }
+    .docs-x-6         { grid-column-start: 6 !important; }
+    .docs-x-7         { grid-column-start: 7 !important; }
+    .docs-x-8         { grid-column-start: 8 !important; }
+    .docs-x-9         { grid-column-start: 9 !important; }
+    .docs-x-10        { grid-column-start: 10 !important; }
+    .docs-x-11        { grid-column-start: 11 !important; }
+    .docs-x-12        { grid-column-start: 12 !important; }
+    .docs-x-13        { grid-column-start: 13 !important; }
+    .docs-x-14        { grid-column-start: 14 !important; }
+    .docs-x-15        { grid-column-start: 15 !important; }
+    .docs-x-16        { grid-column-start: 16 !important; }
 
-    .\31 x       { grid-column-end: span 1 !important; }
-    .\32 x       { grid-column-end: span 2 !important; }
-    .\33 x       { grid-column-end: span 3 !important; }
-    .\34 x       { grid-column-end: span 4 !important; }
-    .\35 x       { grid-column-end: span 5 !important; }
-    .\36 x       { grid-column-end: span 6 !important; }
-    .\37 x       { grid-column-end: span 7 !important; }
-    .\38 x       { grid-column-end: span 8 !important; }
-    .\39 x       { grid-column-end: span 9 !important; }
-    .\31 0x      { grid-column-end: span 10 !important; }
-    .\31 1x      { grid-column-end: span 11 !important; }
-    .\31 2x      { grid-column-end: span 12 !important; }
-    .\31 3x      { grid-column-end: span 13 !important; }
-    .\31 4x      { grid-column-end: span 14 !important; }
-    .\31 5x      { grid-column-end: span 15 !important; }
-    .\31 6x      { grid-column-end: span 16 !important; }
+    .docs-1x       { grid-column-end: span 1 !important; }
+    .docs-2x       { grid-column-end: span 2 !important; }
+    .docs-3x       { grid-column-end: span 3 !important; }
+    .docs-4x       { grid-column-end: span 4 !important; }
+    .docs-5x       { grid-column-end: span 5 !important; }
+    .docs-6x       { grid-column-end: span 6 !important; }
+    .docs-7x       { grid-column-end: span 7 !important; }
+    .docs-8x       { grid-column-end: span 8 !important; }
+    .docs-9x       { grid-column-end: span 9 !important; }
+    .docs-10x      { grid-column-end: span 10 !important; }
+    .docs-11x      { grid-column-end: span 11 !important; }
+    .docs-12x      { grid-column-end: span 12 !important; }
+    .docs-13x      { grid-column-end: span 13 !important; }
+    .docs-14x      { grid-column-end: span 14 !important; }
+    .docs-15x      { grid-column-end: span 15 !important; }
+    .docs-16x      { grid-column-end: span 16 !important; }
 
-    .x-end {
+    .docs-x-end {
         justify-self: end !important; 
         margin-right: 0; 
     }
 
-    .x-start {
+    .docs-x-start {
         justify-self: start !important;
         margin-left: 0; 
     }
 
-    .x-center { 
+    .docs-x-center { 
         justify-self: center !important; 
     }
 
-    .x-stretch { 
+    .docs-x-stretch { 
         justify-self: stretch !important; 
         margin-left: 0; 
         margin-right: 0; 
     }
 
-    .x-bleed {
+    .docs-x-bleed {
         justify-self: stretch !important;
         margin-left:  calc(var(--column-gap) / -2);
         margin-right: calc(var(--column-gap) / -2);
     }
 
-    .x-flood {
+    .docs-x-flood {
         justify-self: stretch !important;
         margin-left:  calc(-1 * var(--column-gap));
         margin-right: calc(-1 * var(--column-gap));
     }
 
-    .\32 y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
-    .\33 y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
-    .\34 y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
-    .\35 y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
-    .\36 y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
-    .\37 y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
-    .\38 y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
-    .\39 y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-    .\31 0y-grid { grid-template-rows: repeat(10, minmax(0, 1fr)); }
-    .\31 1y-grid { grid-template-rows: repeat(11, minmax(0, 1fr)); }
-    .\31 2y-grid { grid-template-rows: repeat(12, minmax(0, 1fr)); }
+    .docs-2y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
+    .docs-3y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
+    .docs-4y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
+    .docs-5y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
+    .docs-6y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
+    .docs-7y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
+    .docs-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
+    .docs-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
+    .docs-10y-grid { grid-template-rows: repeat(10, minmax(0, 1fr)); }
+    .docs-11y-grid { grid-template-rows: repeat(11, minmax(0, 1fr)); }
+    .docs-12y-grid { grid-template-rows: repeat(12, minmax(0, 1fr)); }
 
-    .y-1         { grid-row-start: 1 !important; }
-    .y-2         { grid-row-start: 2 !important; }
-    .y-3         { grid-row-start: 3 !important; }
-    .y-4         { grid-row-start: 4 !important; }
-    .y-5         { grid-row-start: 5 !important; }
-    .y-6         { grid-row-start: 6 !important; }
-    .y-7         { grid-row-start: 7 !important; }
-    .y-8         { grid-row-start: 8 !important; }
-    .y-9         { grid-row-start: 9 !important; }
-    .y-10        { grid-row-start: 10 !important; }
-    .y-11        { grid-row-start: 11 !important; }
-    .y-12        { grid-row-start: 12 !important; }
-    .y-13        { grid-row-start: 13 !important; }
-    .y-14        { grid-row-start: 14 !important; }
-    .y-15        { grid-row-start: 15 !important; }
-    .y-16        { grid-row-start: 16 !important; }
-    .y-17        { grid-row-start: 17 !important; }
-    .y-18        { grid-row-start: 18 !important; }
+    .docs-y-1         { grid-row-start: 1 !important; }
+    .docs-y-2         { grid-row-start: 2 !important; }
+    .docs-y-3         { grid-row-start: 3 !important; }
+    .docs-y-4         { grid-row-start: 4 !important; }
+    .docs-y-5         { grid-row-start: 5 !important; }
+    .docs-y-6         { grid-row-start: 6 !important; }
+    .docs-y-7         { grid-row-start: 7 !important; }
+    .docs-y-8         { grid-row-start: 8 !important; }
+    .docs-y-9         { grid-row-start: 9 !important; }
+    .docs-y-10        { grid-row-start: 10 !important; }
+    .docs-y-11        { grid-row-start: 11 !important; }
+    .docs-y-12        { grid-row-start: 12 !important; }
+    .docs-y-13        { grid-row-start: 13 !important; }
+    .docs-y-14        { grid-row-start: 14 !important; }
+    .docs-y-15        { grid-row-start: 15 !important; }
+    .docs-y-16        { grid-row-start: 16 !important; }
+    .docs-y-17        { grid-row-start: 17 !important; }
+    .docs-y-18        { grid-row-start: 18 !important; }
 
-    .\31 y       { grid-row-end: span 1 !important; }
-    .\32 y       { grid-row-end: span 2 !important; }
-    .\33 y       { grid-row-end: span 3 !important; }
-    .\34 y       { grid-row-end: span 4 !important; }
-    .\35 y       { grid-row-end: span 5 !important; }
-    .\36 y       { grid-row-end: span 6 !important; }
-    .\37 y       { grid-row-end: span 7 !important; }
-    .\38 y       { grid-row-end: span 8 !important; }
-    .\39 y       { grid-row-end: span 9 !important; }
-    .\31 0y      { grid-row-end: span 10 !important; }
-    .\31 1y      { grid-row-end: span 11 !important; }
-    .\31 2y      { grid-row-end: span 12 !important; }
+    .docs-1y       { grid-row-end: span 1 !important; }
+    .docs-2y       { grid-row-end: span 2 !important; }
+    .docs-3y       { grid-row-end: span 3 !important; }
+    .docs-4y       { grid-row-end: span 4 !important; }
+    .docs-5y       { grid-row-end: span 5 !important; }
+    .docs-6y       { grid-row-end: span 6 !important; }
+    .docs-7y       { grid-row-end: span 7 !important; }
+    .docs-8y       { grid-row-end: span 8 !important; }
+    .docs-9y       { grid-row-end: span 9 !important; }
+    .docs-10y      { grid-row-end: span 10 !important; }
+    .docs-11y      { grid-row-end: span 11 !important; }
+    .docs-12y      { grid-row-end: span 12 !important; }
 
-    .y-end       {
+    .docs-y-end       {
         align-self: end !important;
         margin-bottom: 0;
     }
 
-    .y-start     {
+    .docs-y-start     {
         align-self: start !important;
         margin-top: 0;
     }
 
-    .y-center    {
+    .docs-y-center    {
         align-self: center !important;
     }
 
-    .y-stretch   {
+    .docs-y-stretch   {
         align-self: stretch !important;
         margin-top: 0; 
         margin-bottom: 0;
     }
 
-    .y-baseline  {
+    .docs-y-baseline  {
         align-self: baseline !important; 
     }
 
-    .y-lastline  {
+    .docs-y-lastline  {
         align-self: last baseline !important; 
     }
 
-    .y-bleed {
+    .docs-y-bleed {
         align-self: stretch !important;
         margin-top:  calc(var(--row-gap) / -2);
         margin-bottom: calc(var(--row-gap) / -2);
     }
 
-    .y-flood {
+    .docs-y-flood {
         align-self: stretch !important;
         margin-top:  calc(-1 * var(--row-gap));
         margin-bottom: calc(-1 * var(--row-gap));
