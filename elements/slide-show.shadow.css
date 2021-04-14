@@ -54,6 +54,7 @@
     align-items: stretch;
     justify-content: center;
     justify-items: stretch;
+    column-gap: var(--column-gap, 0);
 
     /* Reset style applied to un-upgraded slide-show  */
     grid-auto-flow: row;
