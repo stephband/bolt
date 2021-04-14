@@ -1,9 +1,8 @@
 :root {
     scroll-padding-top: 5.625rem;
     --site-padding: 1.5rem;
-    --column-gap: 1.875rem;
-    --row-gap: 2.25rem;
 }
+
 /*
 body {
     padding-top: 1.875rem;
