@@ -174,18 +174,8 @@ ${ breakpoints.map((bp) => (px(bp.width) ? `
         column-gap: var(--column-gap);
     }
 
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }-columns  { columns: 1 !important; }
-    .${ bp.prefix ? bp.prefix + '2' : '\\32 ' }-columns  { columns: 2 !important; }
-    .${ bp.prefix ? bp.prefix + '3' : '\\33 ' }-columns  { columns: 3 !important; }
-    .${ bp.prefix ? bp.prefix + '4' : '\\34 ' }-columns  { columns: 4 !important; }
-    .${ bp.prefix ? bp.prefix + '5' : '\\35 ' }-columns  { columns: 5 !important; }
-    .${ bp.prefix ? bp.prefix + '6' : '\\36 ' }-columns  { columns: 6 !important; }
-    .${ bp.prefix ? bp.prefix + '7' : '\\37 ' }-columns  { columns: 7 !important; }
-    .${ bp.prefix ? bp.prefix + '8' : '\\38 ' }-columns  { columns: 8 !important; }
-    .${ bp.prefix ? bp.prefix + '9' : '\\39 ' }-columns  { columns: 9 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }0-columns { columns: 10 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }1-columns { columns: 11 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }2-columns { columns: 12 !important; }
+    ${ Array.from({ length: bp.columns }).map((i) => `
+    .${ bp.prefix ? bp.prefix + i : '\\3' + (i + '')[0] + ' ' + (i + '').slice(1) }-columns  { columns: ${ i } !important; }`) }
 
     .${ bp.prefix }grid {
         ${ bp['column-gap'] ? '--column-gap: ' + rem(bp['column-gap']) + 'rem;' : '' }
