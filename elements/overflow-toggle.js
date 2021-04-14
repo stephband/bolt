@@ -178,12 +178,20 @@ element('overflow-toggle', {
                     view.maxHeight = computedElement['max-height'];
                     style.setProperty('max-height', rem(px), 'important');
                     button.textContent = view.hideText;
+                    
+                    // We have to set state on the view AND on the attribute
+                    // if we want it to update
+                    view.open = true;
                     this.setAttribute('open', '');
                 }
                 else {
                     view.maxHeight = undefined;
                     style.setProperty('max-height', '');
                     button.textContent = view.showText;
+
+                    // We have to set state on the view AND on the attribute
+                    // if we want it to update
+                    view.open = false;
                     this.removeAttribute('open');
                 }
             }
