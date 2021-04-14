@@ -43,10 +43,10 @@
     display: grid;
 
     /* Slot takes over viewport duties */
-    padding-left: 0;
-    padding-right: 0;
-    scroll-padding-left: 0;
-    scroll-padding-right: 0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    scroll-padding-left: 0 !important;
+    scroll-padding-right: 0 !important;
 
     /* Put content in the center, useful when slide-show is bigger than content,
        such as in fullscreen mode. */
