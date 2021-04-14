@@ -36,6 +36,8 @@ Columns.
 ```
 **/
 
+
+
 /**
 Grid.
 **/
@@ -167,6 +169,7 @@ Define the vertical grid gap (with units).
 
 
     .columns {
+        --column-gap: 24;
         display: block !important;
         column-gap: var(--column-gap);
     }
@@ -185,6 +188,8 @@ Define the vertical grid gap (with units).
     .\31 2-columns { columns: 12 !important; }
 
     .grid {
+        --column-gap: 24;
+        --row-gap: 24;
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
@@ -360,15 +365,19 @@ Define the vertical grid gap (with units).
         margin-bottom: calc(-1 * var(--row-gap));
     }
 
+    /*
+    We dont want this it stops us being able to put two grid systems on the page
     :root {
         --column-gap: 1.5rem;
         --row-gap: 1.5rem;
     }
+    */
 
 /* bp "\@1-", 50em (800px) */
 
 @media (min-width: 50em) {
     .\@1-columns {
+        --column-gap: 24;
         display: block !important;
         column-gap: var(--column-gap);
     }
@@ -387,6 +396,8 @@ Define the vertical grid gap (with units).
     .\@1-12-columns { columns: 12 !important; }
 
     .\@1-grid {
+        --column-gap: 24;
+        --row-gap: 24;
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
@@ -562,16 +573,20 @@ Define the vertical grid gap (with units).
         margin-bottom: calc(-1 * var(--row-gap));
     }
 
+    /*
+    We dont want this it stops us being able to put two grid systems on the page
     :root {
         --column-gap: 1.5rem;
         --row-gap: 1.5rem;
     }
+    */
 }
 
 /* bp "\@2-", 70em (1120px) */
 
 @media (min-width: 70em) {
     .\@2-columns {
+        --column-gap: 45;
         display: block !important;
         column-gap: var(--column-gap);
     }
@@ -590,6 +605,8 @@ Define the vertical grid gap (with units).
     .\@2-12-columns { columns: 12 !important; }
 
     .\@2-grid {
+        --column-gap: 45;
+        --row-gap: 30;
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
@@ -765,16 +782,20 @@ Define the vertical grid gap (with units).
         margin-bottom: calc(-1 * var(--row-gap));
     }
 
+    /*
+    We dont want this it stops us being able to put two grid systems on the page
     :root {
         --column-gap: 2.8125rem;
         --row-gap: 1.875rem;
     }
+    */
 }
 
 /* bp "\@3-", 90em (1440px) */
 
 @media (min-width: 90em) {
     .\@3-columns {
+        --column-gap: 60;
         display: block !important;
         column-gap: var(--column-gap);
     }
@@ -793,6 +814,8 @@ Define the vertical grid gap (with units).
     .\@3-12-columns { columns: 12 !important; }
 
     .\@3-grid {
+        --column-gap: 60;
+        --row-gap: 30;
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
@@ -968,9 +991,12 @@ Define the vertical grid gap (with units).
         margin-bottom: calc(-1 * var(--row-gap));
     }
 
+    /*
+    We dont want this it stops us being able to put two grid systems on the page
     :root {
         --column-gap: 3.75rem;
         --row-gap: 1.875rem;
     }
+    */
 }
 
