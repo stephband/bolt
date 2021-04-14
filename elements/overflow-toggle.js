@@ -178,13 +178,13 @@ element('overflow-toggle', {
                     view.maxHeight = computedElement['max-height'];
                     style.setProperty('max-height', rem(px), 'important');
                     button.textContent = view.hideText;
-                    view.open = true;
+                    this.setAttribute('open', '');
                 }
                 else {
                     view.maxHeight = undefined;
                     style.setProperty('max-height', '');
                     button.textContent = view.showText;
-                    view.open = false;
+                    this.removeAttribute('open');
                 }
             }
         }
