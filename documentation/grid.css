@@ -169,7 +169,7 @@ Define the vertical grid gap (with units).
 
 
     .columns {
-        --column-gap: 24;
+        --column-gap: 1.5rem;
         display: block !important;
         column-gap: var(--column-gap);
     }
@@ -188,8 +188,8 @@ Define the vertical grid gap (with units).
     .\31 2-columns { columns: 12 !important; }
 
     .grid {
-        --column-gap: 24;
-        --row-gap: 24;
+        --column-gap: 1.5rem;
+        --row-gap: 1.5rem;
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
@@ -377,7 +377,7 @@ Define the vertical grid gap (with units).
 
 @media (min-width: 50em) {
     .\@1-columns {
-        --column-gap: 24;
+        --column-gap: 1.5rem;
         display: block !important;
         column-gap: var(--column-gap);
     }
@@ -396,8 +396,8 @@ Define the vertical grid gap (with units).
     .\@1-12-columns { columns: 12 !important; }
 
     .\@1-grid {
-        --column-gap: 24;
-        --row-gap: 24;
+        --column-gap: 1.5rem;
+        --row-gap: 1.5rem;
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
@@ -586,7 +586,7 @@ Define the vertical grid gap (with units).
 
 @media (min-width: 70em) {
     .\@2-columns {
-        --column-gap: 45;
+        --column-gap: 2.8125rem;
         display: block !important;
         column-gap: var(--column-gap);
     }
@@ -605,8 +605,8 @@ Define the vertical grid gap (with units).
     .\@2-12-columns { columns: 12 !important; }
 
     .\@2-grid {
-        --column-gap: 45;
-        --row-gap: 30;
+        --column-gap: 2.8125rem;
+        --row-gap: 1.875rem;
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
@@ -795,7 +795,7 @@ Define the vertical grid gap (with units).
 
 @media (min-width: 90em) {
     .\@3-columns {
-        --column-gap: 60;
+        --column-gap: 3.75rem;
         display: block !important;
         column-gap: var(--column-gap);
     }
@@ -814,8 +814,8 @@ Define the vertical grid gap (with units).
     .\@3-12-columns { columns: 12 !important; }
 
     .\@3-grid {
-        --column-gap: 60;
-        --row-gap: 30;
+        --column-gap: 3.75rem;
+        --row-gap: 1.875rem;
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;

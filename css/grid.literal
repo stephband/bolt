@@ -169,7 +169,7 @@ ${ breakpoints.map((bp) => (px(bp.width) ? `
 
 @media (min-width: ${ em(bp.width) }em) {` : '') + (`
     .${ bp.prefix }columns {
-        ${ bp['column-gap'] ? '--column-gap: ' + bp['column-gap'] + ';' : '' }
+        ${ bp['column-gap'] ? '--column-gap: ' + rem(bp['column-gap']) + 'rem;' : '' }
         display: block !important;
         column-gap: var(--column-gap);
     }
@@ -188,8 +188,8 @@ ${ breakpoints.map((bp) => (px(bp.width) ? `
     .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }2-columns { columns: 12 !important; }
 
     .${ bp.prefix }grid {
-        ${ bp['column-gap'] ? '--column-gap: ' + bp['column-gap'] + ';' : '' }
-        ${ bp['row-gap']    ? '--row-gap: '    + bp['row-gap']    + ';' : '' }
+        ${ bp['column-gap'] ? '--column-gap: ' + rem(bp['column-gap']) + 'rem;' : '' }
+        ${ bp['row-gap']    ? '--row-gap: '    + rem(bp['row-gap'])    + 'rem;' : '' }
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
