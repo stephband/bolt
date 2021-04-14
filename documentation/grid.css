@@ -168,26 +168,21 @@ Define the vertical grid gap (with units).
 
 
 
-    .docs-columns {
+    /* Columns */
+    
+    .\@0-columns {
         --column-gap: 1.5rem;
         display: block !important;
         column-gap: var(--column-gap);
     }
+    
+    .\@0-1-columns  { columns: 1 !important; }
+    .\@0-2-columns  { columns: 2 !important; }
+    .\@0-3-columns  { columns: 3 !important; }
 
-    .docs-1-columns  { columns: 1 !important; }
-    .docs-2-columns  { columns: 2 !important; }
-    .docs-3-columns  { columns: 3 !important; }
-    .docs-4-columns  { columns: 4 !important; }
-    .docs-5-columns  { columns: 5 !important; }
-    .docs-6-columns  { columns: 6 !important; }
-    .docs-7-columns  { columns: 7 !important; }
-    .docs-8-columns  { columns: 8 !important; }
-    .docs-9-columns  { columns: 9 !important; }
-    .docs-10-columns { columns: 10 !important; }
-    .docs-11-columns { columns: 11 !important; }
-    .docs-12-columns { columns: 12 !important; }
+    /* Grid */
 
-    .docs-grid {
+    .\@0-grid {
         --column-gap: 1.5rem;
         --row-gap: 1.5rem;
         display: grid !important;
@@ -199,201 +194,137 @@ Define the vertical grid gap (with units).
         row-gap: var(--row-gap);
     }
 
-    .docs-y-start-grid {
+    .\@0-y-start-grid {
         align-content: start;
     }
 
-    .docs-2x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
-    .docs-3x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
-    .docs-4x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
-    .docs-5x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
-    .docs-6x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
-    .docs-7x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
-    .docs-8x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
-    .docs-9x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-    .docs-10x-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
-    .docs-11x-grid { grid-template-columns: repeat(11, minmax(0, 1fr)); }
-    .docs-12x-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    /* X */
+    
+    .\@0-1x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
+    .\@0-2x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
+    .\@0-3x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
+    
+    .\@0-x-1 { grid-column-start: 1 !important; }
+    .\@0-x-2 { grid-column-start: 2 !important; }
+    .\@0-x-3 { grid-column-start: 3 !important; }
+    
+    .\@0-1x { grid-column-end: span 1 !important; }
+    .\@0-2x { grid-column-end: span 2 !important; }
+    .\@0-3x { grid-column-end: span 3 !important; }
 
-    .docs-x-1         { grid-column-start: 1 !important; }
-    .docs-x-2         { grid-column-start: 2 !important; }
-    .docs-x-3         { grid-column-start: 3 !important; }
-    .docs-x-4         { grid-column-start: 4 !important; }
-    .docs-x-5         { grid-column-start: 5 !important; }
-    .docs-x-6         { grid-column-start: 6 !important; }
-    .docs-x-7         { grid-column-start: 7 !important; }
-    .docs-x-8         { grid-column-start: 8 !important; }
-    .docs-x-9         { grid-column-start: 9 !important; }
-    .docs-x-10        { grid-column-start: 10 !important; }
-    .docs-x-11        { grid-column-start: 11 !important; }
-    .docs-x-12        { grid-column-start: 12 !important; }
-    .docs-x-13        { grid-column-start: 13 !important; }
-    .docs-x-14        { grid-column-start: 14 !important; }
-    .docs-x-15        { grid-column-start: 15 !important; }
-    .docs-x-16        { grid-column-start: 16 !important; }
-
-    .docs-1x       { grid-column-end: span 1 !important; }
-    .docs-2x       { grid-column-end: span 2 !important; }
-    .docs-3x       { grid-column-end: span 3 !important; }
-    .docs-4x       { grid-column-end: span 4 !important; }
-    .docs-5x       { grid-column-end: span 5 !important; }
-    .docs-6x       { grid-column-end: span 6 !important; }
-    .docs-7x       { grid-column-end: span 7 !important; }
-    .docs-8x       { grid-column-end: span 8 !important; }
-    .docs-9x       { grid-column-end: span 9 !important; }
-    .docs-10x      { grid-column-end: span 10 !important; }
-    .docs-11x      { grid-column-end: span 11 !important; }
-    .docs-12x      { grid-column-end: span 12 !important; }
-    .docs-13x      { grid-column-end: span 13 !important; }
-    .docs-14x      { grid-column-end: span 14 !important; }
-    .docs-15x      { grid-column-end: span 15 !important; }
-    .docs-16x      { grid-column-end: span 16 !important; }
-
-    .docs-x-end {
+    .\@0-x-end {
         justify-self: end !important; 
         margin-right: 0; 
     }
 
-    .docs-x-start {
+    .\@0-x-start {
         justify-self: start !important;
         margin-left: 0; 
     }
 
-    .docs-x-center { 
+    .\@0-x-center { 
         justify-self: center !important; 
     }
 
-    .docs-x-stretch { 
+    .\@0-x-stretch { 
         justify-self: stretch !important; 
         margin-left: 0; 
         margin-right: 0; 
     }
 
-    .docs-x-bleed {
+    .\@0-x-bleed {
         justify-self: stretch !important;
         margin-left:  calc(var(--column-gap) / -2);
         margin-right: calc(var(--column-gap) / -2);
     }
 
-    .docs-x-flood {
+    .\@0-x-flood {
         justify-self: stretch !important;
         margin-left:  calc(-1 * var(--column-gap));
         margin-right: calc(-1 * var(--column-gap));
     }
 
-    .docs-2y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
-    .docs-3y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
-    .docs-4y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
-    .docs-5y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
-    .docs-6y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
-    .docs-7y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
-    .docs-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
-    .docs-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-    .docs-10y-grid { grid-template-rows: repeat(10, minmax(0, 1fr)); }
-    .docs-11y-grid { grid-template-rows: repeat(11, minmax(0, 1fr)); }
-    .docs-12y-grid { grid-template-rows: repeat(12, minmax(0, 1fr)); }
+    /* Y */
+    
+    .\@0-1y-grid  { grid-template-rows: repeat(1,  minmax(0, 1fr)); }
+    .\@0-2y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
+    .\@0-3y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
+    
+    .\@0-y-1 { grid-row-start: 1 !important; }
+    .\@0-y-2 { grid-row-start: 2 !important; }
+    .\@0-y-3 { grid-row-start: 3 !important; }
+    
+    .\@0-1y { grid-row-end: span 1 !important; }
+    .\@0-2y { grid-row-end: span 2 !important; }
+    .\@0-3y { grid-row-end: span 3 !important; }
 
-    .docs-y-1         { grid-row-start: 1 !important; }
-    .docs-y-2         { grid-row-start: 2 !important; }
-    .docs-y-3         { grid-row-start: 3 !important; }
-    .docs-y-4         { grid-row-start: 4 !important; }
-    .docs-y-5         { grid-row-start: 5 !important; }
-    .docs-y-6         { grid-row-start: 6 !important; }
-    .docs-y-7         { grid-row-start: 7 !important; }
-    .docs-y-8         { grid-row-start: 8 !important; }
-    .docs-y-9         { grid-row-start: 9 !important; }
-    .docs-y-10        { grid-row-start: 10 !important; }
-    .docs-y-11        { grid-row-start: 11 !important; }
-    .docs-y-12        { grid-row-start: 12 !important; }
-    .docs-y-13        { grid-row-start: 13 !important; }
-    .docs-y-14        { grid-row-start: 14 !important; }
-    .docs-y-15        { grid-row-start: 15 !important; }
-    .docs-y-16        { grid-row-start: 16 !important; }
-    .docs-y-17        { grid-row-start: 17 !important; }
-    .docs-y-18        { grid-row-start: 18 !important; }
-
-    .docs-1y       { grid-row-end: span 1 !important; }
-    .docs-2y       { grid-row-end: span 2 !important; }
-    .docs-3y       { grid-row-end: span 3 !important; }
-    .docs-4y       { grid-row-end: span 4 !important; }
-    .docs-5y       { grid-row-end: span 5 !important; }
-    .docs-6y       { grid-row-end: span 6 !important; }
-    .docs-7y       { grid-row-end: span 7 !important; }
-    .docs-8y       { grid-row-end: span 8 !important; }
-    .docs-9y       { grid-row-end: span 9 !important; }
-    .docs-10y      { grid-row-end: span 10 !important; }
-    .docs-11y      { grid-row-end: span 11 !important; }
-    .docs-12y      { grid-row-end: span 12 !important; }
-
-    .docs-y-end       {
+    .\@0-y-end       {
         align-self: end !important;
         margin-bottom: 0;
     }
 
-    .docs-y-start     {
+    .\@0-y-start     {
         align-self: start !important;
         margin-top: 0;
     }
 
-    .docs-y-center    {
+    .\@0-y-center    {
         align-self: center !important;
     }
 
-    .docs-y-stretch   {
+    .\@0-y-stretch   {
         align-self: stretch !important;
         margin-top: 0; 
         margin-bottom: 0;
     }
 
-    .docs-y-baseline  {
+    .\@0-y-baseline  {
         align-self: baseline !important; 
     }
 
-    .docs-y-lastline  {
+    .\@0-y-lastline  {
         align-self: last baseline !important; 
     }
 
-    .docs-y-bleed {
+    .\@0-y-bleed {
         align-self: stretch !important;
         margin-top:  calc(var(--row-gap) / -2);
         margin-bottom: calc(var(--row-gap) / -2);
     }
 
-    .docs-y-flood {
+    .\@0-y-flood {
         align-self: stretch !important;
         margin-top:  calc(-1 * var(--row-gap));
         margin-bottom: calc(-1 * var(--row-gap));
     }
 
     /*
-    We dont want this it stops us being able to put two grid systems on the page
+    We dont want this it prevents us from putting two grid systems on the page
     :root {
         --column-gap: 1.5rem;
         --row-gap: 1.5rem;
     }
     */
 
-/* bp "\@1-", 50em (800px) */
+/* \@1-class, 50em (800px) */
 
 @media (min-width: 50em) {
+    /* Columns */
+    
     .\@1-columns {
         --column-gap: 1.5rem;
         display: block !important;
         column-gap: var(--column-gap);
     }
-
+    
     .\@1-1-columns  { columns: 1 !important; }
     .\@1-2-columns  { columns: 2 !important; }
     .\@1-3-columns  { columns: 3 !important; }
     .\@1-4-columns  { columns: 4 !important; }
     .\@1-5-columns  { columns: 5 !important; }
     .\@1-6-columns  { columns: 6 !important; }
-    .\@1-7-columns  { columns: 7 !important; }
-    .\@1-8-columns  { columns: 8 !important; }
-    .\@1-9-columns  { columns: 9 !important; }
-    .\@1-10-columns { columns: 10 !important; }
-    .\@1-11-columns { columns: 11 !important; }
-    .\@1-12-columns { columns: 12 !important; }
+
+    /* Grid */
 
     .\@1-grid {
         --column-gap: 1.5rem;
@@ -411,51 +342,28 @@ Define the vertical grid gap (with units).
         align-content: start;
     }
 
+    /* X */
+    
+    .\@1-1x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
     .\@1-2x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
     .\@1-3x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
     .\@1-4x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
     .\@1-5x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
     .\@1-6x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
-    .\@1-7x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
-    .\@1-8x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
-    .\@1-9x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-    .\@1-10x-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
-    .\@1-11x-grid { grid-template-columns: repeat(11, minmax(0, 1fr)); }
-    .\@1-12x-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-
-    .\@1-x-1         { grid-column-start: 1 !important; }
-    .\@1-x-2         { grid-column-start: 2 !important; }
-    .\@1-x-3         { grid-column-start: 3 !important; }
-    .\@1-x-4         { grid-column-start: 4 !important; }
-    .\@1-x-5         { grid-column-start: 5 !important; }
-    .\@1-x-6         { grid-column-start: 6 !important; }
-    .\@1-x-7         { grid-column-start: 7 !important; }
-    .\@1-x-8         { grid-column-start: 8 !important; }
-    .\@1-x-9         { grid-column-start: 9 !important; }
-    .\@1-x-10        { grid-column-start: 10 !important; }
-    .\@1-x-11        { grid-column-start: 11 !important; }
-    .\@1-x-12        { grid-column-start: 12 !important; }
-    .\@1-x-13        { grid-column-start: 13 !important; }
-    .\@1-x-14        { grid-column-start: 14 !important; }
-    .\@1-x-15        { grid-column-start: 15 !important; }
-    .\@1-x-16        { grid-column-start: 16 !important; }
-
-    .\@1-1x       { grid-column-end: span 1 !important; }
-    .\@1-2x       { grid-column-end: span 2 !important; }
-    .\@1-3x       { grid-column-end: span 3 !important; }
-    .\@1-4x       { grid-column-end: span 4 !important; }
-    .\@1-5x       { grid-column-end: span 5 !important; }
-    .\@1-6x       { grid-column-end: span 6 !important; }
-    .\@1-7x       { grid-column-end: span 7 !important; }
-    .\@1-8x       { grid-column-end: span 8 !important; }
-    .\@1-9x       { grid-column-end: span 9 !important; }
-    .\@1-10x      { grid-column-end: span 10 !important; }
-    .\@1-11x      { grid-column-end: span 11 !important; }
-    .\@1-12x      { grid-column-end: span 12 !important; }
-    .\@1-13x      { grid-column-end: span 13 !important; }
-    .\@1-14x      { grid-column-end: span 14 !important; }
-    .\@1-15x      { grid-column-end: span 15 !important; }
-    .\@1-16x      { grid-column-end: span 16 !important; }
+    
+    .\@1-x-1 { grid-column-start: 1 !important; }
+    .\@1-x-2 { grid-column-start: 2 !important; }
+    .\@1-x-3 { grid-column-start: 3 !important; }
+    .\@1-x-4 { grid-column-start: 4 !important; }
+    .\@1-x-5 { grid-column-start: 5 !important; }
+    .\@1-x-6 { grid-column-start: 6 !important; }
+    
+    .\@1-1x { grid-column-end: span 1 !important; }
+    .\@1-2x { grid-column-end: span 2 !important; }
+    .\@1-3x { grid-column-end: span 3 !important; }
+    .\@1-4x { grid-column-end: span 4 !important; }
+    .\@1-5x { grid-column-end: span 5 !important; }
+    .\@1-6x { grid-column-end: span 6 !important; }
 
     .\@1-x-end {
         justify-self: end !important; 
@@ -489,49 +397,28 @@ Define the vertical grid gap (with units).
         margin-right: calc(-1 * var(--column-gap));
     }
 
+    /* Y */
+    
+    .\@1-1y-grid  { grid-template-rows: repeat(1,  minmax(0, 1fr)); }
     .\@1-2y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
     .\@1-3y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
     .\@1-4y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
     .\@1-5y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
     .\@1-6y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
-    .\@1-7y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
-    .\@1-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
-    .\@1-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-    .\@1-10y-grid { grid-template-rows: repeat(10, minmax(0, 1fr)); }
-    .\@1-11y-grid { grid-template-rows: repeat(11, minmax(0, 1fr)); }
-    .\@1-12y-grid { grid-template-rows: repeat(12, minmax(0, 1fr)); }
-
-    .\@1-y-1         { grid-row-start: 1 !important; }
-    .\@1-y-2         { grid-row-start: 2 !important; }
-    .\@1-y-3         { grid-row-start: 3 !important; }
-    .\@1-y-4         { grid-row-start: 4 !important; }
-    .\@1-y-5         { grid-row-start: 5 !important; }
-    .\@1-y-6         { grid-row-start: 6 !important; }
-    .\@1-y-7         { grid-row-start: 7 !important; }
-    .\@1-y-8         { grid-row-start: 8 !important; }
-    .\@1-y-9         { grid-row-start: 9 !important; }
-    .\@1-y-10        { grid-row-start: 10 !important; }
-    .\@1-y-11        { grid-row-start: 11 !important; }
-    .\@1-y-12        { grid-row-start: 12 !important; }
-    .\@1-y-13        { grid-row-start: 13 !important; }
-    .\@1-y-14        { grid-row-start: 14 !important; }
-    .\@1-y-15        { grid-row-start: 15 !important; }
-    .\@1-y-16        { grid-row-start: 16 !important; }
-    .\@1-y-17        { grid-row-start: 17 !important; }
-    .\@1-y-18        { grid-row-start: 18 !important; }
-
-    .\@1-1y       { grid-row-end: span 1 !important; }
-    .\@1-2y       { grid-row-end: span 2 !important; }
-    .\@1-3y       { grid-row-end: span 3 !important; }
-    .\@1-4y       { grid-row-end: span 4 !important; }
-    .\@1-5y       { grid-row-end: span 5 !important; }
-    .\@1-6y       { grid-row-end: span 6 !important; }
-    .\@1-7y       { grid-row-end: span 7 !important; }
-    .\@1-8y       { grid-row-end: span 8 !important; }
-    .\@1-9y       { grid-row-end: span 9 !important; }
-    .\@1-10y      { grid-row-end: span 10 !important; }
-    .\@1-11y      { grid-row-end: span 11 !important; }
-    .\@1-12y      { grid-row-end: span 12 !important; }
+    
+    .\@1-y-1 { grid-row-start: 1 !important; }
+    .\@1-y-2 { grid-row-start: 2 !important; }
+    .\@1-y-3 { grid-row-start: 3 !important; }
+    .\@1-y-4 { grid-row-start: 4 !important; }
+    .\@1-y-5 { grid-row-start: 5 !important; }
+    .\@1-y-6 { grid-row-start: 6 !important; }
+    
+    .\@1-1y { grid-row-end: span 1 !important; }
+    .\@1-2y { grid-row-end: span 2 !important; }
+    .\@1-3y { grid-row-end: span 3 !important; }
+    .\@1-4y { grid-row-end: span 4 !important; }
+    .\@1-5y { grid-row-end: span 5 !important; }
+    .\@1-6y { grid-row-end: span 6 !important; }
 
     .\@1-y-end       {
         align-self: end !important;
@@ -574,7 +461,7 @@ Define the vertical grid gap (with units).
     }
 
     /*
-    We dont want this it stops us being able to put two grid systems on the page
+    We dont want this it prevents us from putting two grid systems on the page
     :root {
         --column-gap: 1.5rem;
         --row-gap: 1.5rem;
@@ -582,15 +469,17 @@ Define the vertical grid gap (with units).
     */
 }
 
-/* bp "\@2-", 70em (1120px) */
+/* \@2-class, 70em (1120px) */
 
 @media (min-width: 70em) {
+    /* Columns */
+    
     .\@2-columns {
         --column-gap: 2.8125rem;
         display: block !important;
         column-gap: var(--column-gap);
     }
-
+    
     .\@2-1-columns  { columns: 1 !important; }
     .\@2-2-columns  { columns: 2 !important; }
     .\@2-3-columns  { columns: 3 !important; }
@@ -600,9 +489,8 @@ Define the vertical grid gap (with units).
     .\@2-7-columns  { columns: 7 !important; }
     .\@2-8-columns  { columns: 8 !important; }
     .\@2-9-columns  { columns: 9 !important; }
-    .\@2-10-columns { columns: 10 !important; }
-    .\@2-11-columns { columns: 11 !important; }
-    .\@2-12-columns { columns: 12 !important; }
+
+    /* Grid */
 
     .\@2-grid {
         --column-gap: 2.8125rem;
@@ -620,6 +508,9 @@ Define the vertical grid gap (with units).
         align-content: start;
     }
 
+    /* X */
+    
+    .\@2-1x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
     .\@2-2x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
     .\@2-3x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
     .\@2-4x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
@@ -628,43 +519,26 @@ Define the vertical grid gap (with units).
     .\@2-7x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
     .\@2-8x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
     .\@2-9x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-    .\@2-10x-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
-    .\@2-11x-grid { grid-template-columns: repeat(11, minmax(0, 1fr)); }
-    .\@2-12x-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-
-    .\@2-x-1         { grid-column-start: 1 !important; }
-    .\@2-x-2         { grid-column-start: 2 !important; }
-    .\@2-x-3         { grid-column-start: 3 !important; }
-    .\@2-x-4         { grid-column-start: 4 !important; }
-    .\@2-x-5         { grid-column-start: 5 !important; }
-    .\@2-x-6         { grid-column-start: 6 !important; }
-    .\@2-x-7         { grid-column-start: 7 !important; }
-    .\@2-x-8         { grid-column-start: 8 !important; }
-    .\@2-x-9         { grid-column-start: 9 !important; }
-    .\@2-x-10        { grid-column-start: 10 !important; }
-    .\@2-x-11        { grid-column-start: 11 !important; }
-    .\@2-x-12        { grid-column-start: 12 !important; }
-    .\@2-x-13        { grid-column-start: 13 !important; }
-    .\@2-x-14        { grid-column-start: 14 !important; }
-    .\@2-x-15        { grid-column-start: 15 !important; }
-    .\@2-x-16        { grid-column-start: 16 !important; }
-
-    .\@2-1x       { grid-column-end: span 1 !important; }
-    .\@2-2x       { grid-column-end: span 2 !important; }
-    .\@2-3x       { grid-column-end: span 3 !important; }
-    .\@2-4x       { grid-column-end: span 4 !important; }
-    .\@2-5x       { grid-column-end: span 5 !important; }
-    .\@2-6x       { grid-column-end: span 6 !important; }
-    .\@2-7x       { grid-column-end: span 7 !important; }
-    .\@2-8x       { grid-column-end: span 8 !important; }
-    .\@2-9x       { grid-column-end: span 9 !important; }
-    .\@2-10x      { grid-column-end: span 10 !important; }
-    .\@2-11x      { grid-column-end: span 11 !important; }
-    .\@2-12x      { grid-column-end: span 12 !important; }
-    .\@2-13x      { grid-column-end: span 13 !important; }
-    .\@2-14x      { grid-column-end: span 14 !important; }
-    .\@2-15x      { grid-column-end: span 15 !important; }
-    .\@2-16x      { grid-column-end: span 16 !important; }
+    
+    .\@2-x-1 { grid-column-start: 1 !important; }
+    .\@2-x-2 { grid-column-start: 2 !important; }
+    .\@2-x-3 { grid-column-start: 3 !important; }
+    .\@2-x-4 { grid-column-start: 4 !important; }
+    .\@2-x-5 { grid-column-start: 5 !important; }
+    .\@2-x-6 { grid-column-start: 6 !important; }
+    .\@2-x-7 { grid-column-start: 7 !important; }
+    .\@2-x-8 { grid-column-start: 8 !important; }
+    .\@2-x-9 { grid-column-start: 9 !important; }
+    
+    .\@2-1x { grid-column-end: span 1 !important; }
+    .\@2-2x { grid-column-end: span 2 !important; }
+    .\@2-3x { grid-column-end: span 3 !important; }
+    .\@2-4x { grid-column-end: span 4 !important; }
+    .\@2-5x { grid-column-end: span 5 !important; }
+    .\@2-6x { grid-column-end: span 6 !important; }
+    .\@2-7x { grid-column-end: span 7 !important; }
+    .\@2-8x { grid-column-end: span 8 !important; }
+    .\@2-9x { grid-column-end: span 9 !important; }
 
     .\@2-x-end {
         justify-self: end !important; 
@@ -698,6 +572,9 @@ Define the vertical grid gap (with units).
         margin-right: calc(-1 * var(--column-gap));
     }
 
+    /* Y */
+    
+    .\@2-1y-grid  { grid-template-rows: repeat(1,  minmax(0, 1fr)); }
     .\@2-2y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
     .\@2-3y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
     .\@2-4y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
@@ -706,41 +583,26 @@ Define the vertical grid gap (with units).
     .\@2-7y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
     .\@2-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
     .\@2-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-    .\@2-10y-grid { grid-template-rows: repeat(10, minmax(0, 1fr)); }
-    .\@2-11y-grid { grid-template-rows: repeat(11, minmax(0, 1fr)); }
-    .\@2-12y-grid { grid-template-rows: repeat(12, minmax(0, 1fr)); }
-
-    .\@2-y-1         { grid-row-start: 1 !important; }
-    .\@2-y-2         { grid-row-start: 2 !important; }
-    .\@2-y-3         { grid-row-start: 3 !important; }
-    .\@2-y-4         { grid-row-start: 4 !important; }
-    .\@2-y-5         { grid-row-start: 5 !important; }
-    .\@2-y-6         { grid-row-start: 6 !important; }
-    .\@2-y-7         { grid-row-start: 7 !important; }
-    .\@2-y-8         { grid-row-start: 8 !important; }
-    .\@2-y-9         { grid-row-start: 9 !important; }
-    .\@2-y-10        { grid-row-start: 10 !important; }
-    .\@2-y-11        { grid-row-start: 11 !important; }
-    .\@2-y-12        { grid-row-start: 12 !important; }
-    .\@2-y-13        { grid-row-start: 13 !important; }
-    .\@2-y-14        { grid-row-start: 14 !important; }
-    .\@2-y-15        { grid-row-start: 15 !important; }
-    .\@2-y-16        { grid-row-start: 16 !important; }
-    .\@2-y-17        { grid-row-start: 17 !important; }
-    .\@2-y-18        { grid-row-start: 18 !important; }
-
-    .\@2-1y       { grid-row-end: span 1 !important; }
-    .\@2-2y       { grid-row-end: span 2 !important; }
-    .\@2-3y       { grid-row-end: span 3 !important; }
-    .\@2-4y       { grid-row-end: span 4 !important; }
-    .\@2-5y       { grid-row-end: span 5 !important; }
-    .\@2-6y       { grid-row-end: span 6 !important; }
-    .\@2-7y       { grid-row-end: span 7 !important; }
-    .\@2-8y       { grid-row-end: span 8 !important; }
-    .\@2-9y       { grid-row-end: span 9 !important; }
-    .\@2-10y      { grid-row-end: span 10 !important; }
-    .\@2-11y      { grid-row-end: span 11 !important; }
-    .\@2-12y      { grid-row-end: span 12 !important; }
+    
+    .\@2-y-1 { grid-row-start: 1 !important; }
+    .\@2-y-2 { grid-row-start: 2 !important; }
+    .\@2-y-3 { grid-row-start: 3 !important; }
+    .\@2-y-4 { grid-row-start: 4 !important; }
+    .\@2-y-5 { grid-row-start: 5 !important; }
+    .\@2-y-6 { grid-row-start: 6 !important; }
+    .\@2-y-7 { grid-row-start: 7 !important; }
+    .\@2-y-8 { grid-row-start: 8 !important; }
+    .\@2-y-9 { grid-row-start: 9 !important; }
+    
+    .\@2-1y { grid-row-end: span 1 !important; }
+    .\@2-2y { grid-row-end: span 2 !important; }
+    .\@2-3y { grid-row-end: span 3 !important; }
+    .\@2-4y { grid-row-end: span 4 !important; }
+    .\@2-5y { grid-row-end: span 5 !important; }
+    .\@2-6y { grid-row-end: span 6 !important; }
+    .\@2-7y { grid-row-end: span 7 !important; }
+    .\@2-8y { grid-row-end: span 8 !important; }
+    .\@2-9y { grid-row-end: span 9 !important; }
 
     .\@2-y-end       {
         align-self: end !important;
@@ -783,7 +645,7 @@ Define the vertical grid gap (with units).
     }
 
     /*
-    We dont want this it stops us being able to put two grid systems on the page
+    We dont want this it prevents us from putting two grid systems on the page
     :root {
         --column-gap: 2.8125rem;
         --row-gap: 1.875rem;
@@ -791,15 +653,17 @@ Define the vertical grid gap (with units).
     */
 }
 
-/* bp "\@3-", 90em (1440px) */
+/* \@3-class, 90em (1440px) */
 
 @media (min-width: 90em) {
+    /* Columns */
+    
     .\@3-columns {
         --column-gap: 3.75rem;
         display: block !important;
         column-gap: var(--column-gap);
     }
-
+    
     .\@3-1-columns  { columns: 1 !important; }
     .\@3-2-columns  { columns: 2 !important; }
     .\@3-3-columns  { columns: 3 !important; }
@@ -809,9 +673,8 @@ Define the vertical grid gap (with units).
     .\@3-7-columns  { columns: 7 !important; }
     .\@3-8-columns  { columns: 8 !important; }
     .\@3-9-columns  { columns: 9 !important; }
-    .\@3-10-columns { columns: 10 !important; }
-    .\@3-11-columns { columns: 11 !important; }
-    .\@3-12-columns { columns: 12 !important; }
+
+    /* Grid */
 
     .\@3-grid {
         --column-gap: 3.75rem;
@@ -829,6 +692,9 @@ Define the vertical grid gap (with units).
         align-content: start;
     }
 
+    /* X */
+    
+    .\@3-1x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
     .\@3-2x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
     .\@3-3x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
     .\@3-4x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
@@ -837,43 +703,26 @@ Define the vertical grid gap (with units).
     .\@3-7x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
     .\@3-8x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
     .\@3-9x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-    .\@3-10x-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
-    .\@3-11x-grid { grid-template-columns: repeat(11, minmax(0, 1fr)); }
-    .\@3-12x-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-
-    .\@3-x-1         { grid-column-start: 1 !important; }
-    .\@3-x-2         { grid-column-start: 2 !important; }
-    .\@3-x-3         { grid-column-start: 3 !important; }
-    .\@3-x-4         { grid-column-start: 4 !important; }
-    .\@3-x-5         { grid-column-start: 5 !important; }
-    .\@3-x-6         { grid-column-start: 6 !important; }
-    .\@3-x-7         { grid-column-start: 7 !important; }
-    .\@3-x-8         { grid-column-start: 8 !important; }
-    .\@3-x-9         { grid-column-start: 9 !important; }
-    .\@3-x-10        { grid-column-start: 10 !important; }
-    .\@3-x-11        { grid-column-start: 11 !important; }
-    .\@3-x-12        { grid-column-start: 12 !important; }
-    .\@3-x-13        { grid-column-start: 13 !important; }
-    .\@3-x-14        { grid-column-start: 14 !important; }
-    .\@3-x-15        { grid-column-start: 15 !important; }
-    .\@3-x-16        { grid-column-start: 16 !important; }
-
-    .\@3-1x       { grid-column-end: span 1 !important; }
-    .\@3-2x       { grid-column-end: span 2 !important; }
-    .\@3-3x       { grid-column-end: span 3 !important; }
-    .\@3-4x       { grid-column-end: span 4 !important; }
-    .\@3-5x       { grid-column-end: span 5 !important; }
-    .\@3-6x       { grid-column-end: span 6 !important; }
-    .\@3-7x       { grid-column-end: span 7 !important; }
-    .\@3-8x       { grid-column-end: span 8 !important; }
-    .\@3-9x       { grid-column-end: span 9 !important; }
-    .\@3-10x      { grid-column-end: span 10 !important; }
-    .\@3-11x      { grid-column-end: span 11 !important; }
-    .\@3-12x      { grid-column-end: span 12 !important; }
-    .\@3-13x      { grid-column-end: span 13 !important; }
-    .\@3-14x      { grid-column-end: span 14 !important; }
-    .\@3-15x      { grid-column-end: span 15 !important; }
-    .\@3-16x      { grid-column-end: span 16 !important; }
+    
+    .\@3-x-1 { grid-column-start: 1 !important; }
+    .\@3-x-2 { grid-column-start: 2 !important; }
+    .\@3-x-3 { grid-column-start: 3 !important; }
+    .\@3-x-4 { grid-column-start: 4 !important; }
+    .\@3-x-5 { grid-column-start: 5 !important; }
+    .\@3-x-6 { grid-column-start: 6 !important; }
+    .\@3-x-7 { grid-column-start: 7 !important; }
+    .\@3-x-8 { grid-column-start: 8 !important; }
+    .\@3-x-9 { grid-column-start: 9 !important; }
+    
+    .\@3-1x { grid-column-end: span 1 !important; }
+    .\@3-2x { grid-column-end: span 2 !important; }
+    .\@3-3x { grid-column-end: span 3 !important; }
+    .\@3-4x { grid-column-end: span 4 !important; }
+    .\@3-5x { grid-column-end: span 5 !important; }
+    .\@3-6x { grid-column-end: span 6 !important; }
+    .\@3-7x { grid-column-end: span 7 !important; }
+    .\@3-8x { grid-column-end: span 8 !important; }
+    .\@3-9x { grid-column-end: span 9 !important; }
 
     .\@3-x-end {
         justify-self: end !important; 
@@ -907,6 +756,9 @@ Define the vertical grid gap (with units).
         margin-right: calc(-1 * var(--column-gap));
     }
 
+    /* Y */
+    
+    .\@3-1y-grid  { grid-template-rows: repeat(1,  minmax(0, 1fr)); }
     .\@3-2y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
     .\@3-3y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
     .\@3-4y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
@@ -915,41 +767,26 @@ Define the vertical grid gap (with units).
     .\@3-7y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
     .\@3-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
     .\@3-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-    .\@3-10y-grid { grid-template-rows: repeat(10, minmax(0, 1fr)); }
-    .\@3-11y-grid { grid-template-rows: repeat(11, minmax(0, 1fr)); }
-    .\@3-12y-grid { grid-template-rows: repeat(12, minmax(0, 1fr)); }
-
-    .\@3-y-1         { grid-row-start: 1 !important; }
-    .\@3-y-2         { grid-row-start: 2 !important; }
-    .\@3-y-3         { grid-row-start: 3 !important; }
-    .\@3-y-4         { grid-row-start: 4 !important; }
-    .\@3-y-5         { grid-row-start: 5 !important; }
-    .\@3-y-6         { grid-row-start: 6 !important; }
-    .\@3-y-7         { grid-row-start: 7 !important; }
-    .\@3-y-8         { grid-row-start: 8 !important; }
-    .\@3-y-9         { grid-row-start: 9 !important; }
-    .\@3-y-10        { grid-row-start: 10 !important; }
-    .\@3-y-11        { grid-row-start: 11 !important; }
-    .\@3-y-12        { grid-row-start: 12 !important; }
-    .\@3-y-13        { grid-row-start: 13 !important; }
-    .\@3-y-14        { grid-row-start: 14 !important; }
-    .\@3-y-15        { grid-row-start: 15 !important; }
-    .\@3-y-16        { grid-row-start: 16 !important; }
-    .\@3-y-17        { grid-row-start: 17 !important; }
-    .\@3-y-18        { grid-row-start: 18 !important; }
-
-    .\@3-1y       { grid-row-end: span 1 !important; }
-    .\@3-2y       { grid-row-end: span 2 !important; }
-    .\@3-3y       { grid-row-end: span 3 !important; }
-    .\@3-4y       { grid-row-end: span 4 !important; }
-    .\@3-5y       { grid-row-end: span 5 !important; }
-    .\@3-6y       { grid-row-end: span 6 !important; }
-    .\@3-7y       { grid-row-end: span 7 !important; }
-    .\@3-8y       { grid-row-end: span 8 !important; }
-    .\@3-9y       { grid-row-end: span 9 !important; }
-    .\@3-10y      { grid-row-end: span 10 !important; }
-    .\@3-11y      { grid-row-end: span 11 !important; }
-    .\@3-12y      { grid-row-end: span 12 !important; }
+    
+    .\@3-y-1 { grid-row-start: 1 !important; }
+    .\@3-y-2 { grid-row-start: 2 !important; }
+    .\@3-y-3 { grid-row-start: 3 !important; }
+    .\@3-y-4 { grid-row-start: 4 !important; }
+    .\@3-y-5 { grid-row-start: 5 !important; }
+    .\@3-y-6 { grid-row-start: 6 !important; }
+    .\@3-y-7 { grid-row-start: 7 !important; }
+    .\@3-y-8 { grid-row-start: 8 !important; }
+    .\@3-y-9 { grid-row-start: 9 !important; }
+    
+    .\@3-1y { grid-row-end: span 1 !important; }
+    .\@3-2y { grid-row-end: span 2 !important; }
+    .\@3-3y { grid-row-end: span 3 !important; }
+    .\@3-4y { grid-row-end: span 4 !important; }
+    .\@3-5y { grid-row-end: span 5 !important; }
+    .\@3-6y { grid-row-end: span 6 !important; }
+    .\@3-7y { grid-row-end: span 7 !important; }
+    .\@3-8y { grid-row-end: span 8 !important; }
+    .\@3-9y { grid-row-end: span 9 !important; }
 
     .\@3-y-end       {
         align-self: end !important;
@@ -992,7 +829,7 @@ Define the vertical grid gap (with units).
     }
 
     /*
-    We dont want this it stops us being able to put two grid systems on the page
+    We dont want this it prevents us from putting two grid systems on the page
     :root {
         --column-gap: 3.75rem;
         --row-gap: 1.875rem;

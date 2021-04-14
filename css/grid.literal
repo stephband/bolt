@@ -165,17 +165,20 @@ Define the vertical grid gap (with units).
 
 
 ${ breakpoints.map((bp) => (px(bp.width) ? `
-/* bp "${ bp.prefix }", ${ em(bp.width) }em (${ px(bp.width) }px) */
+/* ${ bp.prefix }class, ${ em(bp.width) }em (${ px(bp.width) }px) */
 
 @media (min-width: ${ em(bp.width) }em) {` : '') + (`
+    /* Columns */
+    
     .${ bp.prefix }columns {
         ${ bp['column-gap'] ? '--column-gap: ' + rem(bp['column-gap']) + 'rem;' : '' }
         display: block !important;
         column-gap: var(--column-gap);
     }
+    ${ Array.from({ length: bp.columns || 12 }).map((nowt, i) => i + 1).map((n) => `
+    .${ bp.prefix ? bp.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }-columns  { columns: ${ n } !important; }`).join('') }
 
-    ${ Array.from({ length: bp.columns }).map((i) => `
-    .${ bp.prefix ? bp.prefix + i : '\\3' + (i + '')[0] + ' ' + (i + '').slice(1) }-columns  { columns: ${ i } !important; }`) }
+    /* Grid */
 
     .${ bp.prefix }grid {
         ${ bp['column-gap'] ? '--column-gap: ' + rem(bp['column-gap']) + 'rem;' : '' }
@@ -193,51 +196,13 @@ ${ breakpoints.map((bp) => (px(bp.width) ? `
         align-content: start;
     }
 
-    .${ bp.prefix ? bp.prefix + '2' : '\\32 ' }x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '3' : '\\33 ' }x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '4' : '\\34 ' }x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '5' : '\\35 ' }x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '6' : '\\36 ' }x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '7' : '\\37 ' }x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '8' : '\\38 ' }x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '9' : '\\39 ' }x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }0x-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }1x-grid { grid-template-columns: repeat(11, minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }2x-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-
-    .${ bp.prefix }x-1         { grid-column-start: 1 !important; }
-    .${ bp.prefix }x-2         { grid-column-start: 2 !important; }
-    .${ bp.prefix }x-3         { grid-column-start: 3 !important; }
-    .${ bp.prefix }x-4         { grid-column-start: 4 !important; }
-    .${ bp.prefix }x-5         { grid-column-start: 5 !important; }
-    .${ bp.prefix }x-6         { grid-column-start: 6 !important; }
-    .${ bp.prefix }x-7         { grid-column-start: 7 !important; }
-    .${ bp.prefix }x-8         { grid-column-start: 8 !important; }
-    .${ bp.prefix }x-9         { grid-column-start: 9 !important; }
-    .${ bp.prefix }x-10        { grid-column-start: 10 !important; }
-    .${ bp.prefix }x-11        { grid-column-start: 11 !important; }
-    .${ bp.prefix }x-12        { grid-column-start: 12 !important; }
-    .${ bp.prefix }x-13        { grid-column-start: 13 !important; }
-    .${ bp.prefix }x-14        { grid-column-start: 14 !important; }
-    .${ bp.prefix }x-15        { grid-column-start: 15 !important; }
-    .${ bp.prefix }x-16        { grid-column-start: 16 !important; }
-
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }x       { grid-column-end: span 1 !important; }
-    .${ bp.prefix ? bp.prefix + '2' : '\\32 ' }x       { grid-column-end: span 2 !important; }
-    .${ bp.prefix ? bp.prefix + '3' : '\\33 ' }x       { grid-column-end: span 3 !important; }
-    .${ bp.prefix ? bp.prefix + '4' : '\\34 ' }x       { grid-column-end: span 4 !important; }
-    .${ bp.prefix ? bp.prefix + '5' : '\\35 ' }x       { grid-column-end: span 5 !important; }
-    .${ bp.prefix ? bp.prefix + '6' : '\\36 ' }x       { grid-column-end: span 6 !important; }
-    .${ bp.prefix ? bp.prefix + '7' : '\\37 ' }x       { grid-column-end: span 7 !important; }
-    .${ bp.prefix ? bp.prefix + '8' : '\\38 ' }x       { grid-column-end: span 8 !important; }
-    .${ bp.prefix ? bp.prefix + '9' : '\\39 ' }x       { grid-column-end: span 9 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }0x      { grid-column-end: span 10 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }1x      { grid-column-end: span 11 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }2x      { grid-column-end: span 12 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }3x      { grid-column-end: span 13 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }4x      { grid-column-end: span 14 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }5x      { grid-column-end: span 15 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }6x      { grid-column-end: span 16 !important; }
+    /* X */
+    ${ Array.from({ length: bp.columns || 12 }).map((nowt, i) => i + 1).map((n) => `
+    .${ bp.prefix ? bp.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }x-grid  { grid-template-columns: repeat(${ n },  minmax(0, 1fr)); }`).join('') }
+    ${ Array.from({ length: bp.columns || 12 }).map((nowt, i) => i + 1).map((n) => `
+    .${ bp.prefix ? bp.prefix + 'x-' + n : 'x' + n } { grid-column-start: ${ n } !important; }`).join('') }
+    ${ Array.from({ length: bp.columns || 12 }).map((nowt, i) => i + 1).map((n) => `
+    .${ bp.prefix ? bp.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }x { grid-column-end: span ${ n } !important; }`).join('') }
 
     .${ bp.prefix }x-end {
         justify-self: end !important; 
@@ -271,49 +236,13 @@ ${ breakpoints.map((bp) => (px(bp.width) ? `
         margin-right: calc(-1 * var(--column-gap));
     }
 
-    .${ bp.prefix ? bp.prefix + '2' : '\\32 ' }y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '3' : '\\33 ' }y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '4' : '\\34 ' }y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '5' : '\\35 ' }y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '6' : '\\36 ' }y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '7' : '\\37 ' }y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '8' : '\\38 ' }y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '9' : '\\39 ' }y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }0y-grid { grid-template-rows: repeat(10, minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }1y-grid { grid-template-rows: repeat(11, minmax(0, 1fr)); }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }2y-grid { grid-template-rows: repeat(12, minmax(0, 1fr)); }
-
-    .${ bp.prefix }y-1         { grid-row-start: 1 !important; }
-    .${ bp.prefix }y-2         { grid-row-start: 2 !important; }
-    .${ bp.prefix }y-3         { grid-row-start: 3 !important; }
-    .${ bp.prefix }y-4         { grid-row-start: 4 !important; }
-    .${ bp.prefix }y-5         { grid-row-start: 5 !important; }
-    .${ bp.prefix }y-6         { grid-row-start: 6 !important; }
-    .${ bp.prefix }y-7         { grid-row-start: 7 !important; }
-    .${ bp.prefix }y-8         { grid-row-start: 8 !important; }
-    .${ bp.prefix }y-9         { grid-row-start: 9 !important; }
-    .${ bp.prefix }y-10        { grid-row-start: 10 !important; }
-    .${ bp.prefix }y-11        { grid-row-start: 11 !important; }
-    .${ bp.prefix }y-12        { grid-row-start: 12 !important; }
-    .${ bp.prefix }y-13        { grid-row-start: 13 !important; }
-    .${ bp.prefix }y-14        { grid-row-start: 14 !important; }
-    .${ bp.prefix }y-15        { grid-row-start: 15 !important; }
-    .${ bp.prefix }y-16        { grid-row-start: 16 !important; }
-    .${ bp.prefix }y-17        { grid-row-start: 17 !important; }
-    .${ bp.prefix }y-18        { grid-row-start: 18 !important; }
-
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }y       { grid-row-end: span 1 !important; }
-    .${ bp.prefix ? bp.prefix + '2' : '\\32 ' }y       { grid-row-end: span 2 !important; }
-    .${ bp.prefix ? bp.prefix + '3' : '\\33 ' }y       { grid-row-end: span 3 !important; }
-    .${ bp.prefix ? bp.prefix + '4' : '\\34 ' }y       { grid-row-end: span 4 !important; }
-    .${ bp.prefix ? bp.prefix + '5' : '\\35 ' }y       { grid-row-end: span 5 !important; }
-    .${ bp.prefix ? bp.prefix + '6' : '\\36 ' }y       { grid-row-end: span 6 !important; }
-    .${ bp.prefix ? bp.prefix + '7' : '\\37 ' }y       { grid-row-end: span 7 !important; }
-    .${ bp.prefix ? bp.prefix + '8' : '\\38 ' }y       { grid-row-end: span 8 !important; }
-    .${ bp.prefix ? bp.prefix + '9' : '\\39 ' }y       { grid-row-end: span 9 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }0y      { grid-row-end: span 10 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }1y      { grid-row-end: span 11 !important; }
-    .${ bp.prefix ? bp.prefix + '1' : '\\31 ' }2y      { grid-row-end: span 12 !important; }
+    /* Y */
+    ${ Array.from({ length: bp.columns || 12 }).map((nowt, i) => i + 1).map((n) => `
+    .${ bp.prefix ? bp.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }y-grid  { grid-template-rows: repeat(${ n },  minmax(0, 1fr)); }`).join('') }
+    ${ Array.from({ length: bp.columns || 12 }).map((nowt, i) => i + 1).map((n) => `
+    .${ bp.prefix ? bp.prefix + 'y-' + n : 'y' + n } { grid-row-start: ${ n } !important; }`).join('') }
+    ${ Array.from({ length: bp.columns || 12 }).map((nowt, i) => i + 1).map((n) => `
+    .${ bp.prefix ? bp.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }y { grid-row-end: span ${ n } !important; }`).join('') }
 
     .${ bp.prefix }y-end       {
         align-self: end !important;
@@ -356,7 +285,7 @@ ${ breakpoints.map((bp) => (px(bp.width) ? `
     }
 
     /*
-    We dont want this it stops us being able to put two grid systems on the page
+    We dont want this it prevents us from putting two grid systems on the page
     :root {
         --column-gap: ${ rem(bp['column-gap']) }rem;
         --row-gap: ${ rem(bp['row-gap']) }rem;

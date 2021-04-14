@@ -59,5 +59,12 @@
       "images",
       "design"
     ]
-  }
+  },
+
+  "breakpoints": [
+      { "prefix": "",   "width": "0em",  "column-gap": 24, "row-gap": 24, "columns": 3, "rows": 12 },
+      { "prefix": "S-", "width": "50em", "column-gap": 24, "row-gap": 24, "columns": 6, "rows": 9 },
+      { "prefix": "M-", "width": "70em", "column-gap": 45, "row-gap": 30, "columns": 9, "rows": 6 },
+      { "prefix": "L-", "width": "90em", "column-gap": 60, "row-gap": 30, "columns": 9, "rows": 6 }
+  ]
 }
