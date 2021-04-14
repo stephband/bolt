@@ -4,7 +4,7 @@
     --column-gap: 1.875rem;
     --row-gap: 2.25rem;
 }
-
+/*
 body {
     padding-top: 1.875rem;
     padding-bottom: 3.75rem;
@@ -17,7 +17,7 @@ body > .x-bleed {
     margin-right: -1.5rem;
     width: auto;
 }
-*/
+*//*
 @media(min-width: 50em) {
     :root {
         --column-gap: 2.8125rem;
@@ -33,7 +33,7 @@ body > .x-bleed {
         margin-left:  -1.875rem;
         margin-right: -1.875rem;
     }
-*/
+*//*
 }
 
 @media(min-width: 70em) {
@@ -51,7 +51,7 @@ body > .x-bleed {
         padding-left: calc(0.5 * var(--column-gap));
         padding-right: calc(0.5 * var(--column-gap));
     }
-}
+}*/
 
 /*
 Colour

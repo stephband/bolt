@@ -43,8 +43,10 @@
     display: grid;
 
     /* Slot takes over viewport duties */
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding-left: 0;
+    padding-right: 0;
+    scroll-padding-left: 0;
+    scroll-padding-right: 0;
 
     /* Put content in the center, useful when slide-show is bigger than content,
        such as in fullscreen mode. */
@@ -55,33 +57,42 @@
 
     /* Reset style applied to un-upgraded slide-show  */
     grid-auto-flow: row;
+    grid-auto-columns: 100%;
+    grid-auto-rows: min-content;
     grid-template-columns: 100%;
-    grid-template-rows: [slot] auto [controls] 0;
+    grid-template-rows: 1fr;
 
     scroll-snap-type: none;
     scroll-snap-stop: none;
     -webkit-scroll-behavior: auto;
     scroll-behavior: auto;
-    /*overflow: hidden;*/
     overscroll-behavior-x: none;
     -ms-overflow-style: none; /* IE 11 */
     scrollbar-width: none; /* Firefox 64 */
+
+    overflow: visible;
 }
 
-:host(:fullscreen) {
-    /* Does not work */
-    /*background: red !important;*/
-}
 
-:host > [part="grid"] {
-    grid-column: 1;
-    grid-row: 1;
-}
+/*
+Does not work
+:host(:fullscreen) {}
+*/
 
+:host > [part="grid"],
 :host > [part="previous"],
 :host > [part="next"] {
     grid-column: 1;
     grid-row: 1;
+}
+
+:host > [part="grid"] {
+    grid-auto-flow: column;
+    grid-auto-columns: inherit;
+    grid-auto-rows: min-content;
+    column-gap: inherit;
+    align-items: inherit;
+    justify-items: inherit;
 }
 
 :host > [part="previous"] {
@@ -112,13 +123,6 @@
     display: grid;
     padding: 0;
     margin: 0;
-
-    grid-auto-flow: column;
-    grid-auto-columns: inherit;
-    grid-auto-rows: min-content;
-    column-gap: inherit;
-    align-items: inherit;
-    justify-items: inherit;
 
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
@@ -175,22 +179,11 @@
     scroll-snap-align: center;
 }
 
-/* Nav links */
-
-nav > [part*="link"] + [part*="link"] {
-    margin-left: var(--link-gap);
-}
-
-/*
-::part(title)
-Style the 'previous slide' button.
-*/
-
-*::slotted([slot="controls"]) {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
+.loading :host > [part="grid"] {
+    /* During loading make scrolling instant */
+    -webkit-scroll-behavior: auto;
+            scroll-behavior: auto;
+} 
 
 
 /**
@@ -267,6 +260,19 @@ Style the 'next slide' button.
     display: none;
 }
 
+
+
+/* Nav links */
+
+nav > [part*="link"] + [part*="link"] {
+    margin-left: var(--link-gap);
+}
+
+
+
+
+
+
 /**
 ::part(link)
 Style the navigation links.
@@ -304,8 +310,4 @@ Style the navigation link for the currently active slide.
 
 [part*="active-link"]::before {
     background: currentcolor;
-}
-
-.loading :host {
-    scroll-behavior: auto;
 }

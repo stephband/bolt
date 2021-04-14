@@ -63,17 +63,32 @@ const parseTime = parseValue({
 
 
 /*
-boolean(object, value)
+boolean(object, state)
 
-Takes an object and returns a getter/setter property definition. The object
-must have the methods `.enable()` and `.disable()`, which are called by the 
-setter, and may have a property `.state`, which is returned by the getter.
+Returns a boolean getter/setter property definition from an `object` with the 
+shape:
+
+```js
+{
+    // Required methods
+    enable:  function() { ... }
+    disable: function() { ... }
+    // Optional state property returned by the getter
+    state:   false
+}
+```
+
+Pass the initial `state` parameter to set the initial state to `true` or 
+`false`.
 */
 
 function boolean(object, value) {
     let state = !!value;
 
+    // Return a getter/setter property definition
     return {
+        enumerable: true,
+
         get: function(value) {
             return object.state === undefined ?
                 state :
@@ -276,11 +291,8 @@ assign(View.prototype, {
             this.active = items[0];
         }
 
+        this.slot.style.setProperty('--slides-count', items.length);
         this.children = items;
-        //console.log(slot, children.length);
-        //console.log(this.element);
-        //debugger
-        this.slot.style.setProperty('--slides-count', children.length);
     }
 });
 
@@ -517,7 +529,7 @@ assign(Pagination.prototype, {
     enable: function() {
         const view     = this.view;
         const children = view.children;
-console.trace('page')
+console.trace('pagination.enable()', this);
         this.pagination = create('nav');
 
         // Empty nav then create a dot link for each slide
