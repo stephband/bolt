@@ -30,6 +30,7 @@ transitioned from closed to open via CSS.
 import element     from '../../dom/modules/element.js';
 import events      from '../../dom/modules/events.js';
 import create      from '../../dom/modules/create.js';
+import styles      from '../../dom/modules/styles.js';
 import Distributor from '../../dom/modules/distributor.js';
 import parseValue, { rem } from '../../dom/modules/parse-value.js';
 
@@ -63,12 +64,11 @@ element('overflow-toggle', {
     */
 
     construct: function(shadow) {
-        const link   = create('link', { rel: 'stylesheet', href: config.path + 'overflow-toggle.shadow.css' });
-        const css    = create('style', ':host {}');
-        const slot   = create('slot');
+        const link  = create('link', { rel: 'stylesheet', href: config.path + 'overflow-toggle.shadow.css' });
+        const style = styles(':host', shadow)[0];
+        const slot  = create('slot');
 
         shadow.appendChild(link);
-        shadow.appendChild(css);
         shadow.appendChild(slot);
 
         /**
@@ -76,9 +76,6 @@ element('overflow-toggle', {
         The toggle button that, when clicked, shows and hides overflowing content.
         **/
         const button = create('button', { part: "button", type: "button", name: "overflow-toggle" });
-
-        // Must come after css is appended
-        const style = css.sheet.cssRules[0].style;
 
         const changes = Distributor();
         slot.addEventListener('slotchange', changes);

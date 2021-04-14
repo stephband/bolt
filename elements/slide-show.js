@@ -37,6 +37,7 @@ import events, { isPrimaryButton } from '../../dom/modules/events.js';
 import gestures   from '../../dom/modules/gestures.js';
 import rect       from '../../dom/modules/rect.js';
 import create     from '../../dom/modules/create.js';
+import styles     from '../../dom/modules/styles.js';
 import identify   from '../../dom/modules/identify.js';
 import { next, previous } from '../../dom/modules/traverse.js';
 import { select } from '../../dom/modules/select.js';
@@ -132,12 +133,17 @@ function View(element, shadow, slot) {
         const items = e.target
            .assignedElements()
            .filter((element) => !element.dataset.id);
-        
+
         // Test whether mutation has really changed original slides, if not
         // it was probably an internal mutation adding or removing loop ghosts
+        // Todo: modify the grid/scroll system to put loop ghosts in the shadow 
+        // DOM
         if (equals(items, this.children)) {
             return;
         }
+
+        // Gaurantee all items have an id
+        items.forEach(identify);
 
         // This was originally AFTER the loop and nav stuff...
         if (this.active) {
@@ -268,15 +274,13 @@ assign(View.prototype, {
         }
         else {
             this.active = items[0];
-            // Is this needed?
-            identify(this.active);
         }
 
         this.children = items;
         //console.log(slot, children.length);
         //console.log(this.element);
         //debugger
-        this.element.style.setProperty('--slides-count', children.length);
+        this.slot.style.setProperty('--slides-count', children.length);
     }
 });
 
@@ -563,21 +567,26 @@ console.trace('page')
 
 /* Element */
 
-element('slide-show', {
-    /*
-    Create a DOM of the form:
+const settings = {
+    /**
+    Create a shadow DOM containing:
 
+    ```html
     <link rel="stylesheet" href="/source/bolt/elements/slide-show.shadow.css" />
-    <slot></slot>
-    <a class="prev-thumb thumb"></a>
-    <a class="next-thumb thumb"></a>
+    <!- The main scrollable grid --->
+    <slot part="grid"></slot>
+    <!-- With controls="navigation" -->
+    <a part="previous" href=""></a>
+    <a part="next" href=""></a>
+    <!-- With controls="pagination" -->
     <nav>
-        <a part="link"></a>
-        <a part="link"></a>
+        <a part="link" href="#id"></a>
+        <a part="link" href="#id"></a>
     </nav>
-    <slot name="optional"></slot>
+    <!-- With overflow script -->
     <slot name="overflow"></slot>
-    */
+    ```
+    **/
 
     construct: function(shadow) {
         const link     = create('link', { rel: 'stylesheet', href: config.path + 'slide-show.shadow.css' });
@@ -591,7 +600,7 @@ element('slide-show', {
         shadow.appendChild(overflow);
 
         const elem = this;
-        var clickTime = -Infinity;
+        var clickSuppressTime = -Infinity;
 
         // Hijack links to slides to avoid the document scrolling, (but make 
         // sure they go in the history anyway. NOPE, dont)
@@ -614,10 +623,12 @@ element('slide-show', {
             }
         });
 
-        // Prevent default on immediate clicks after a gesture
-        events('click', shadow).each(function(e) {
+        // Prevent default on immediate clicks after a gesture, and don't let 
+        // them out
+        events('click', shadow)
+        .each(function(e) {
             const time = window.performance.now();
-            if (time - clickTime < 300) {
+            if (time - clickSuppressTime < 120) {
                 e.preventDefault();
                 e.stopPropagation();
             }
@@ -654,7 +665,7 @@ element('slide-show', {
                 slot.scrollLeft = scrollLeft0 - dx;
             })
             .done(function() {
-                clickTime = window.performance.now();
+                clickSuppressTime = window.performance.now();
                 
                 // Dodgy. If we simple remove the class the end of the gesture 
                 // jumps.
@@ -755,4 +766,9 @@ element('slide-show', {
             }
         }
     }
-});
+};
+
+export default element('slide-show', settings);
+
+//element('scroll-ol', 'ol', settings);
+//element('scroll-ul', 'ul', settings);
