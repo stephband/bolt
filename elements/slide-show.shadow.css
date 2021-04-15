@@ -168,7 +168,7 @@ Does not work
        percentages, as the dimensionsdo not refer tot he same parent. */
     content: '';
     position: absolute;
-    grid-column: calc(var(--slides-count) + 1);
+    grid-column: calc(var(--children-count) + 1);
     grid-row: 1;
     padding-left: var(--padding-right);
     width: 0px;
@@ -178,6 +178,13 @@ Does not work
     align-self: stretch;
     background-color: transparent;
     z-index: 40;
+}
+
+:host([loop]) > [part="grid"]::after {
+    background-color: transparent !important;
+    /* There are 3 x as many slides in loop mode, as the same nomber are
+       added to the front and to the back */
+    grid-column: calc(3 * var(--children-count) + 1);
 }
 
 [part="grid"]::-webkit-scrollbar {
@@ -312,10 +319,10 @@ Style the navigation links.
     border: 1px solid currentcolor;
 }
 
-/**
+/*
 ::part(active-link)
 Style the navigation link for the currently active slide.
-**/
+*/
 
 [part*="active-link"]::before {
     background: currentcolor;

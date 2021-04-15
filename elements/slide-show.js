@@ -28,24 +28,24 @@ elements with a `slot` attribute are ignored. This allows for the insertion of
 fullscreen close buttons and the like.
 **/
 
-import id         from '../../fn/modules/id.js';
-import equals     from '../../fn/modules/equals.js';
-import last       from '../../fn/modules/lists/last.js';
-import parseValue from '../../fn/modules/parse-value.js';
-import delegate   from '../../dom/modules/delegate.js';
-import element    from '../../dom/modules/element.js';
+import id          from '../../fn/modules/id.js';
+import equals      from '../../fn/modules/equals.js';
+import last        from '../../fn/modules/lists/last.js';
+import parseValue  from '../../fn/modules/parse-value.js';
+import delegate    from '../../dom/modules/delegate.js';
+import element     from '../../dom/modules/element.js';
 import events, { isPrimaryButton } from '../../dom/modules/events.js';
-import gestures   from '../../dom/modules/gestures.js';
-import rect       from '../../dom/modules/rect.js';
-import create     from '../../dom/modules/create.js';
-import identify   from '../../dom/modules/identify.js';
+import gestures    from '../../dom/modules/gestures.js';
+import rect        from '../../dom/modules/rect.js';
+import create      from '../../dom/modules/create.js';
+import identify    from '../../dom/modules/identify.js';
 import { next, previous } from '../../dom/modules/traverse.js';
-import { select } from '../../dom/modules/select.js';
+import { select }  from '../../dom/modules/select.js';
 import Distributor from '../../dom/modules/distributor.js';
 import scrollstops from '../../dom/modules/scrollstops.js';
 
 
-const DEBUG = true;
+const DEBUG = window.DEBUG === true;
 
 const assign = Object.assign;
 const define = Object.defineProperties;
@@ -125,25 +125,27 @@ function scrollAuto(element, slot, target) {
     const firstRect  = rect(element.firstElementChild);
     const targetRect = rect(target);
 
-    // Move scroll position to next slide. Behavior property does not seem
+    // Move scroll position to next slide. Behavior option does not seem
     // to be respected so override style for safety.
-    slot.style['scroll-behavior'] = 'auto';
+    slot.style.setProperty('scroll-behavior', 'auto');
+
     slot.scrollTo({
         top: slot.scrollTop,
         left: targetRect.left - firstRect.left,
         behavior: 'auto'
     });
+
     requestAnimationFrame(function() {
-        slot.removeAttribute('style');            
+        slot.style.setProperty('scroll-behavior', '');          
     });
 }
 
 function View(element, shadow, slot) {
-    this.element  = element;
-    this.shadow   = shadow;
-    this.slot     = slot;
-    this.active   = undefined;
-    this.children = [];
+    this.element   = element;
+    this.shadow    = shadow;
+    this.slot      = slot;
+    this.active    = undefined;
+    this.children  = [];
 
     this.changes = Distributor((e) => {
         const items = e.target
@@ -196,7 +198,9 @@ function View(element, shadow, slot) {
         // If we are at the very start of the loop on load, and it is 
         // not an original, reposition to be at the start of the 
         // originals
-        console.log('LOAD', this.element.children.length, this.active, this.active === this.element.firstElementChild, this.active.id);
+        if (DEBUG) {
+            console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'load', this.active);
+        }
 
         //if (this.active === this.element.firstElementChild && !this.active.id) {
             this.reposition(this.active);
@@ -267,7 +271,7 @@ assign(View.prototype, {
 
     reposition: function(target) {
         if (DEBUG) {
-            console.log('view.reposition(target)', target);
+            console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'reposition', target);
         }
 
         this.ignore = true;
@@ -295,7 +299,7 @@ assign(View.prototype, {
             this.active = items[0];
         }
 
-        this.slot.style.setProperty('--slides-count', items.length);
+        this.slot.style.setProperty('--children-count', items.length);
         this.children = items;
     }
 });
@@ -449,6 +453,7 @@ assign(Loop.prototype, {
         // another activate when it resets scroll position
         const target = this.view.element.getRootNode().getElementById(id);
         this.view.reposition(target);
+        this.view.actives.push(target);
     },
 
     remove: function() {
