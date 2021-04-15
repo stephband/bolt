@@ -157,9 +157,6 @@ function update(element) {
         return;
     }
 
-    const target = getTargetable(element.scrollingElement || element);
-    const id = target && target.id || '';
-
     // Dynamically adjust maxScrollEventInterval to tighten it up,
     // imposing a baseline of 60ms (0.0375s * 1.6)
     let n = times.length, interval = 0;
@@ -169,10 +166,14 @@ function update(element) {
     }
     interval = interval < 0.0375 ? 0.0375 : interval ;
     config.maxScrollEventInterval = 1.6 * interval;
-    times.length = 0;
+
+    const target = getTargetable(element.scrollingElement || element);
+    const id = target && target.id || '';
 
     // We use times.length elsewhere as an ignore flag. Make sure times.length
     // is set to 0 before changing the hash.
+    times.length = 0;
+
     if (location.identifier !== id) {
         location.identifier = id;
     }
@@ -188,7 +189,7 @@ function update(element) {
 // Capture scroll events in capture phase, as scroll events from elements
 // other than document do not bubble.
 var hashtime;
-console.log('ARSE')
+
 window.addEventListener('scroll', function scroll(e) {
     // Ignore the first scroll event following a hashchange. The browser sends a 
     // scroll event even where a target cannot be scrolled to, such as a 
@@ -254,7 +255,7 @@ location.on(feedback(function(previous, change) {
 
 /* Safari's not the messiah, he's a very naughty boy. */
 if (!features.scrollBehavior) {    
-    /* Safari does not respect scroll-padding unles scroll-snap is switched on,
+    /* Safari does not respect scroll-padding unless scroll-snap is switched on,
        which is difficult on the :root or <body>. Instead, let's duplicate the
        elements with id and move them up relatively by one header height. */
     document.querySelectorAll('[data-targetable]').forEach(function(node) {

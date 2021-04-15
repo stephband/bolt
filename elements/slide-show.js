@@ -42,6 +42,7 @@ import identify   from '../../dom/modules/identify.js';
 import { next, previous } from '../../dom/modules/traverse.js';
 import { select } from '../../dom/modules/select.js';
 import Distributor from '../../dom/modules/distributor.js';
+import scrollstops from '../../dom/modules/scrollstops.js';
 
 
 const DEBUG = true;
@@ -168,8 +169,8 @@ function View(element, shadow, slot) {
     this.actives = new Distributor((e) => {
         // If ignore was true, ignore event. Todo: move this logic into Loop 
         // view somehow
-        const result = loop.ignore;
-        loop.ignore = false;
+        const result = this.ignore;
+        this.ignore = false;
         if (result) {
             return;
         }
@@ -180,25 +181,7 @@ function View(element, shadow, slot) {
             return;
         }
 
-        return this.activate(this.active);
-    });
-
-    this.load = new Distributor((e) => {
-        // If ignore was true, ignore event. Todo: move this logic into Loop 
-        // view somehow
-        const result = loop.ignore;
-        loop.ignore = false;
-        if (result) {
-            return;
-        }
-    
-        // Check for element visibility. There's little point in trying to do
-        // anything while hidden
-        if (element.offsetParent === null) {
-            return;
-        }
-    
-        return this.activate(this.active);
+        return this.activate();
     });
 
     const autoplay   = new Autoplay(this);
@@ -207,7 +190,7 @@ function View(element, shadow, slot) {
     const pagination = new Pagination(this, shadow);
 
     slot.addEventListener('slotchange', this.changes);
-    slot.addEventListener('scroll', this.actives);
+    slot.addEventListener('scroll', this.actives, { passive: false });
 
     this.load = () => {
         // If we are at the very start of the loop on load, and it is 
@@ -216,9 +199,8 @@ function View(element, shadow, slot) {
         console.log('LOAD', this.element.children.length, this.active, this.active === this.element.firstElementChild, this.active.id);
 
         //if (this.active === this.element.firstElementChild && !this.active.id) {
-        //    loop.ignore = true;
-            this.reposition(this.active.id);
-            this.actives.trigger(this.active);
+            this.reposition(this.active);
+            this.actives.push(this.active);
         //}
         //else {
         //    this.actives.trigger(this.active);
@@ -226,7 +208,7 @@ function View(element, shadow, slot) {
 
         // Reposition everything on resize
         events('resize', window)
-        .each(() => this.actives.trigger(this.active));
+        .each(() => this.actives.push(this.active));
 
         // This only happens where element load is before window load.
         //events('load', window)
@@ -283,9 +265,12 @@ assign(View.prototype, {
         return (this.active = slide);
     },
 
-    reposition: function(id) {
-        const target = this.element.getRootNode().getElementById(id);
-        console.log('REP', target);
+    reposition: function(target) {
+        if (DEBUG) {
+            console.log('view.reposition(target)', target);
+        }
+
+        this.ignore = true;
         scrollAuto(this.element, this.slot, target);
         this.active = target;
     },
@@ -342,7 +327,7 @@ assign(Autoplay.prototype, {
 
     disable: function() {
         this.timer && clearTimeout(this.timer);
-        this.state = false;
+        this.state  = false;
     },
 
     change: function() {
@@ -353,6 +338,12 @@ assign(Autoplay.prototype, {
         if (!target) { return; }
 
         scrollSmooth(this.view.element, this.view.slot, target);
+    },
+
+    activate: function(active) {
+        if (active) {
+            this.autoplay.cue();
+        }
     },
 
     cue: function() {
@@ -406,7 +397,6 @@ assign(Loop.prototype, {
         const view     = this.view;
         const children = view.children;
 
-        this.time = -Infinity;
         this.slotchange = (children) => {
             // Will trigger a slotchange
             this.remove();
@@ -414,44 +404,22 @@ assign(Loop.prototype, {
 
             // This was originally AFTER the loop and nav stuff...
             if (this.view.active) {
-                this.ignore = true;
-                this.view.reposition(this.view.active.id);
+                this.view.reposition(this.view.active);
             }
         };
 
-        this.activate = (active) => {
-            // If the last update was scheduled recently don't bother rescheduling
-            if (window.performance.now() - this.time < 180) {
-                return;
-            }
-
-            // Clear the previous scheduled timeout
-            if (this.timer) {
-                clearTimeout(this.timer);
-            }
-
-            // If autoplay is off don't schedule
-            if (!this.autoplay.state) {
-                return;
-            }
-
-            // Set a timed this.update() and register the schedule time
-            this.timer = setTimeout(() => this.update(), 240);
-            this.time  = window.performance.now();
-
-            if (active) {
-                this.autoplay.cue();
-            }
-        }
-
         this.add(children);
 
-        view.changes.on(this.slotchange);
-        view.actives.on(this.activate);
+        this.view.changes.on(this.slotchange);
+
+        this.scrollstops = scrollstops(this.view.slot).each((e) => {
+            // Ignore scrollstops while a finger is gesturing
+            if (this.view.gesturing) { return; }
+            this.update();
+        });
 
         if (view.active) {
-            this.ignore = true;
-            view.reposition(view.active.id);
+            this.view.reposition(view.active);
         }
     },
 
@@ -471,18 +439,16 @@ assign(Loop.prototype, {
     },
 
     update: function() {
-        console.log('Loop.update()')
-        this.timer = null;
         const id = this.view.active.dataset.id;
     
         // Active child is an original slide, not a copy: do nothing
         if (!id) { return; }
-    
+
         // Realign the original slide as the active slide. Before we do, 
         // set an ignore flag so that this repositioning does not trigger
         // another activate when it resets scroll position
-        this.ignore = true;
-        this.view.reposition(id);
+        const target = this.view.element.getRootNode().getElementById(id);
+        this.view.reposition(target);
     },
 
     remove: function() {
@@ -490,14 +456,12 @@ assign(Loop.prototype, {
         this.after.forEach((ghost) => ghost.remove());
         this.before = undefined;
         this.after = undefined;
-        clearTimeout(this.timer);
-        this.timer = null;
     },
     
     disable: function() {
         this.remove();
         this.changes.off(this.slotchange);
-        this.actives.off(this.activate);
+        this.scrollstops.stop();
     }
 });
 
@@ -514,10 +478,8 @@ function Navigation(view, parent) {
 assign(Navigation.prototype, {
     enable: function(children) {
         const view = this.view;
-        //this.previous = create('a', { part: 'previous', class: 'prev-thumb thumb' });
-        //this.next     = create('a', { part: 'next', class: 'next-thumb thumb' });
-        this.previous = create('button', { part: "previous", name: "previous", html: "Previous" });
-        this.next     = create('button', { part: "next", name: "next", html: "Next" });
+        this.previous = create('a', { part: 'previous', html: 'Previous' });
+        this.next     = create('a', { part: 'next', html: 'Next' });
         this.parent.appendChild(this.previous);
         this.parent.appendChild(this.next);
         view.actives.on(this.activateFn = (active) => this.activate(active));
@@ -534,11 +496,11 @@ assign(Navigation.prototype, {
     
     activate: function(active) {
         // Change href of prev and next buttons, and hide them where there are 
-        // no previous or next siblings. Href updates are purely advisory, as
-        // we pick up clicks on part(previous) and part(next) before we 
-        // interrogate link hrefs.
-
+        // no previous or next siblings. Href updates are purely a help for the 
+        // end user, as we pick up clicks on part(previous) and part(next) 
+        // before we interrogate link hrefs.
         const prevChild = previous(active);
+
         if (prevChild) {
             this.previous.hidden = false;
             this.previous.href = '#' + (prevChild.id || prevChild.dataset.id);
@@ -549,8 +511,8 @@ assign(Navigation.prototype, {
 
         const nextChild = next(active);
         if (nextChild) {
-            this.previous.hidden = false;
-            this.previous.href = '#' + (nextChild.id || nextChild.dataset.id);
+            this.next.hidden = false;
+            this.next.href = '#' + (nextChild.id || nextChild.dataset.id);
         }
         else {
             this.next.hidden = true;
@@ -660,33 +622,41 @@ const settings = {
         var clickSuppressTime = -Infinity;
 
         // Hijack links to slides to avoid the document scrolling, (but make 
-        // sure they go in the history anyway. NOPE, dont)
+        // sure they go in the history anyway, or not)
         events('click', shadow)
         //.filter((e) => !!e.target.href)
         .filter(isPrimaryButton)
         .each(delegate({
-            '[part="previous"]': function(e) {
+            // Previous and next links may not have hrefs if loop is on, so we
+            // hijack them first
+            '[part="previous"]': function(link, e) {
                 view.show(previous(view.active));
                 e.preventDefault();
             },
             
-            '[part="next"]': function(e) {
+            '[part="next"]': function(link, e) {
                 view.show(next(view.active));
                 e.preventDefault();
             },
 
+            // Then we ask about links with hrefs
             '[href]': function(e) {
                 const id     = e.target.hash && e.target.hash.replace(/^#/, ''); 
                 const target = elem.getRootNode().getElementById(id);
-                
+
                 if (!target) {
-                    console.warn('<slide-show> links to non-existent id "' + id + '"');
+                    if (DEBUG) {
+                        console.warn('Link to id not found in slide-show "' + id + '"');
+                    }
+
                     return;
                 }
     
                 if (elem.contains(target) && elem !== target) {
                     view.show(target);
                     e.preventDefault();
+
+                    // Todo: make this selectable by attribute "locator"?
                     //window.history.pushState({}, '', '#' + id);
                 }
             }
@@ -727,6 +697,7 @@ const settings = {
 
             //slot.classList.add('no-select');
             slot.classList.add('gesturing');
+            view.gesturing = true;
 
             latest
             .each(function (e) {
@@ -735,12 +706,13 @@ const settings = {
             })
             .done(function() {
                 clickSuppressTime = window.performance.now();
-                
+
                 // Dodgy. If we simple remove the class the end of the gesture 
                 // jumps.
                 const scrollLeft = slot.scrollLeft;
                 slot.classList.remove('gesturing');
                 slot.scrollLeft = scrollLeft;
+                view.gesturing = false;
             });
         });
 
