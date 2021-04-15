@@ -32,6 +32,7 @@ import id         from '../../fn/modules/id.js';
 import equals     from '../../fn/modules/equals.js';
 import last       from '../../fn/modules/lists/last.js';
 import parseValue from '../../fn/modules/parse-value.js';
+import delegate   from '../../dom/modules/delegate.js';
 import element    from '../../dom/modules/element.js';
 import events, { isPrimaryButton } from '../../dom/modules/events.js';
 import gestures   from '../../dom/modules/gestures.js';
@@ -160,14 +161,6 @@ function View(element, shadow, slot) {
         // Gaurantee all items have an id
         items.forEach(identify);
 
-        // This was originally AFTER the loop and nav stuff...
-        if (this.active) {
-            Promise.resolve(() => {
-                loop.ignore = true;
-                this.reposition(this.active.id);
-            });
-        }
-
         return items;
     })
     .on((items) => this.update(items));
@@ -190,6 +183,24 @@ function View(element, shadow, slot) {
         return this.activate(this.active);
     });
 
+    this.load = new Distributor((e) => {
+        // If ignore was true, ignore event. Todo: move this logic into Loop 
+        // view somehow
+        const result = loop.ignore;
+        loop.ignore = false;
+        if (result) {
+            return;
+        }
+    
+        // Check for element visibility. There's little point in trying to do
+        // anything while hidden
+        if (element.offsetParent === null) {
+            return;
+        }
+    
+        return this.activate(this.active);
+    });
+
     const autoplay   = new Autoplay(this);
     const loop       = new Loop(this, autoplay);
     const navigation = new Navigation(this, shadow);
@@ -202,16 +213,16 @@ function View(element, shadow, slot) {
         // If we are at the very start of the loop on load, and it is 
         // not an original, reposition to be at the start of the 
         // originals
-        console.log('LOAD', this.active === this.element.firstElementChild, this.active.id);
+        console.log('LOAD', this.element.children.length, this.active, this.active === this.element.firstElementChild, this.active.id);
 
-        if (this.active === this.element.firstElementChild && !this.active.id) {
-            loop.ignore = true;
+        //if (this.active === this.element.firstElementChild && !this.active.id) {
+        //    loop.ignore = true;
             this.reposition(this.active.id);
             this.actives.trigger(this.active);
-        }
-        else {
-            this.actives.trigger(this.active);
-        }
+        //}
+        //else {
+        //    this.actives.trigger(this.active);
+        //}
 
         // Reposition everything on resize
         events('resize', window)
@@ -241,6 +252,11 @@ function View(element, shadow, slot) {
 }
 
 assign(View.prototype, { 
+    // Call to scroll to and activate a slide
+    show: function(target) {
+        scrollSmooth(this.element, this.slot, target);
+    },
+
     activate: function() {
         const elem       = this.element;
         const elemRect   = rect(elem);
@@ -366,12 +382,23 @@ function createLoopGhost(slide) {
     return ghost;
 }
 
+function isGhost(node) {
+    return !!node.dataset.id;
+}
+
 function Loop(view, autoplay) {
     this.view     = view;
     this.shadow   = view.shadow;
     this.changes  = view.changes;
     this.actives  = view.actives;
     this.autoplay = autoplay;
+    // this.activate
+    // this.slotchange
+    // this.time
+    // this.timer
+    // this.ignore
+    // this.before
+    // this.after
 }
 
 assign(Loop.prototype, {
@@ -379,20 +406,25 @@ assign(Loop.prototype, {
         const view     = this.view;
         const children = view.children;
 
-        var t = -Infinity;
-
+        this.time = -Infinity;
         this.slotchange = (children) => {
             // Will trigger a slotchange
             this.remove();
             this.add(children);
+
+            // This was originally AFTER the loop and nav stuff...
+            if (this.view.active) {
+                this.ignore = true;
+                this.view.reposition(this.view.active.id);
+            }
         };
 
         this.activate = (active) => {
             // If the last update was scheduled recently don't bother rescheduling
-            if (window.performance.now() - t < 180) {
+            if (window.performance.now() - this.time < 180) {
                 return;
             }
-        
+
             // Clear the previous scheduled timeout
             if (this.timer) {
                 clearTimeout(this.timer);
@@ -403,9 +435,9 @@ assign(Loop.prototype, {
                 return;
             }
 
-            // Set a new timeout and register the schedule time
+            // Set a timed this.update() and register the schedule time
             this.timer = setTimeout(() => this.update(), 240);
-            t = window.performance.now();
+            this.time  = window.performance.now();
 
             if (active) {
                 this.autoplay.cue();
@@ -482,8 +514,10 @@ function Navigation(view, parent) {
 assign(Navigation.prototype, {
     enable: function(children) {
         const view = this.view;
-        this.previous = create('a', { part: 'previous', class: 'prev-thumb thumb' });
-        this.next     = create('a', { part: 'next', class: 'next-thumb thumb' });
+        //this.previous = create('a', { part: 'previous', class: 'prev-thumb thumb' });
+        //this.next     = create('a', { part: 'next', class: 'next-thumb thumb' });
+        this.previous = create('button', { part: "previous", name: "previous", html: "Previous" });
+        this.next     = create('button', { part: "next", name: "next", html: "Next" });
         this.parent.appendChild(this.previous);
         this.parent.appendChild(this.next);
         view.actives.on(this.activateFn = (active) => this.activate(active));
@@ -499,21 +533,27 @@ assign(Navigation.prototype, {
     },
     
     activate: function(active) {
-        // Change href of prev and next buttons
+        // Change href of prev and next buttons, and hide them where there are 
+        // no previous or next siblings. Href updates are purely advisory, as
+        // we pick up clicks on part(previous) and part(next) before we 
+        // interrogate link hrefs.
+
         const prevChild = previous(active);
-        if (prevChild && prevChild.id) {
-            this.previous.href = '#' + prevChild.id;
+        if (prevChild) {
+            this.previous.hidden = false;
+            this.previous.href = '#' + (prevChild.id || prevChild.dataset.id);
         }
         else {
-            this.previous.removeAttribute('href');
+            this.previous.hidden = true;
         }
 
         const nextChild = next(active);
-        if (nextChild && nextChild.id) {
-            this.next.href = '#' + nextChild.id;
+        if (nextChild) {
+            this.previous.hidden = false;
+            this.previous.href = '#' + (nextChild.id || nextChild.dataset.id);
         }
         else {
-            this.next.removeAttribute('href');
+            this.next.hidden = true;
         }
     }
 });
@@ -622,23 +662,35 @@ const settings = {
         // Hijack links to slides to avoid the document scrolling, (but make 
         // sure they go in the history anyway. NOPE, dont)
         events('click', shadow)
-        .filter((e) => !!e.target.href)
+        //.filter((e) => !!e.target.href)
         .filter(isPrimaryButton)
-        .each(function(e) {
-            const id     = e.target.hash && e.target.hash.replace(/^#/, ''); 
-            const target = elem.getRootNode().getElementById(id);
+        .each(delegate({
+            '[part="previous"]': function(e) {
+                view.show(previous(view.active));
+                e.preventDefault();
+            },
+            
+            '[part="next"]': function(e) {
+                view.show(next(view.active));
+                e.preventDefault();
+            },
 
-            if (!target) {
-                console.warn('<slide-show> links to non-existent id "' + id + '"');
-                return;
+            '[href]': function(e) {
+                const id     = e.target.hash && e.target.hash.replace(/^#/, ''); 
+                const target = elem.getRootNode().getElementById(id);
+                
+                if (!target) {
+                    console.warn('<slide-show> links to non-existent id "' + id + '"');
+                    return;
+                }
+    
+                if (elem.contains(target) && elem !== target) {
+                    view.show(target);
+                    e.preventDefault();
+                    //window.history.pushState({}, '', '#' + id);
+                }
             }
-
-            if (elem.contains(target) && elem !== target) {
-               scrollSmooth(elem, slot, target);
-               e.preventDefault();
-               //window.history.pushState({}, '', '#' + id);
-            }
-        });
+        }));
 
         // Prevent default on immediate clicks after a gesture, and don't let 
         // them out
