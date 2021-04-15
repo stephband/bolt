@@ -37,7 +37,6 @@ import events, { isPrimaryButton } from '../../dom/modules/events.js';
 import gestures   from '../../dom/modules/gestures.js';
 import rect       from '../../dom/modules/rect.js';
 import create     from '../../dom/modules/create.js';
-import styles     from '../../dom/modules/styles.js';
 import identify   from '../../dom/modules/identify.js';
 import { next, previous } from '../../dom/modules/traverse.js';
 import { select } from '../../dom/modules/select.js';
@@ -147,6 +146,7 @@ function View(element, shadow, slot) {
     this.changes = Distributor((e) => {
         const items = e.target
            .assignedElements()
+           // Ignore ghosts
            .filter((element) => !element.dataset.id);
 
         // Test whether mutation has really changed original slides, if not
@@ -202,7 +202,9 @@ function View(element, shadow, slot) {
         // If we are at the very start of the loop on load, and it is 
         // not an original, reposition to be at the start of the 
         // originals
-        if (this.active === this.firstElementChild && !this.active.id) {
+        console.log('LOAD', this.active === this.element.firstElementChild, this.active.id);
+
+        if (this.active === this.element.firstElementChild && !this.active.id) {
             loop.ignore = true;
             this.reposition(this.active.id);
             this.actives.trigger(this.active);
@@ -267,6 +269,7 @@ assign(View.prototype, {
 
     reposition: function(id) {
         const target = this.element.getRootNode().getElementById(id);
+        console.log('REP', target);
         scrollAuto(this.element, this.slot, target);
         this.active = target;
     },
@@ -536,7 +539,7 @@ console.trace('pagination.enable()', this);
         //nav.innerHTML = '';
         children.forEach((slide) => {
            // Id other content and create nav links for them
-           const id = identify(slide);
+           const id = slide.id;
            this.pagination.appendChild(create('a', {
                part: 'link',
                href: '#' + id,
@@ -603,12 +606,14 @@ const settings = {
     construct: function(shadow) {
         const link     = create('link', { rel: 'stylesheet', href: config.path + 'slide-show.shadow.css' });
         const slot     = create('slot', { part: 'grid' });
-        //const optional = create('slot', { name: 'optional', part: 'optional' });
+        // A place to put optional UI (fullscreen close buttons etc)
+        const optional = create('slot', { name: 'optional', part: 'optional' });
+        // A place to put overflow menu stuff
         const overflow = create('slot', { name: 'overflow', part: 'overflow' });
 
         shadow.appendChild(link);
         shadow.appendChild(slot);
-        //shadow.appendChild(optional);
+        shadow.appendChild(optional);
         shadow.appendChild(overflow);
 
         const elem = this;

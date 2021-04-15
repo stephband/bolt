@@ -188,7 +188,7 @@ function update(element) {
 // Capture scroll events in capture phase, as scroll events from elements
 // other than document do not bubble.
 var hashtime;
-
+console.log('ARSE')
 window.addEventListener('scroll', function scroll(e) {
     // Ignore the first scroll event following a hashchange. The browser sends a 
     // scroll event even where a target cannot be scrolled to, such as a 

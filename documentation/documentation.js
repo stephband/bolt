@@ -2,10 +2,11 @@
 import '../modules/device.js';
 import '../modules/toggleable.js';
 import '../modules/popable.js';
-import '../modules/targetable.js';
+//import '../modules/targetable.js';
+
 import { get, overload } from '../../fn/module.js';
 import { events, matches, select, trigger } from  '../../dom/module.js';
-
+/*
 events('input change', document)
 .map(get('target'))
 .filter(matches('.doc-var-input'))
@@ -40,4 +41,4 @@ events('click', document)
     default: function(button) {
         console.log('No click handler for button name="' + button.name + '"');
     }
-}));
+}));*/
