@@ -1,0 +1,244 @@
+
+/**
+.check-label
+
+```html
+<input type="checkbox" class="masked" id="checkbox-1" />
+<label class="check-label" for="checkbox-1">Choose me</label>
+```
+*/
+
+/**
+.radio-label
+
+```html
+<input type="radio" class="masked" id="radio-1" />
+<label class="radio-label" for="radio-1">Choose me</label>
+```
+*/
+
+.radio-label,
+.check-label {
+    color: inherit;
+    font-size: var(--check-font-size);
+    line-height: var(--check-line-height);
+    font-weight: inherit;
+    position: relative;
+    padding-left: 2.25rem;
+    padding-top: calc(0.5 * (var(--input-height) - var(--check-line-height)));
+    padding-bottom: calc(0.5 * (var(--input-height) - var(--check-line-height)));
+    min-height: var(--input-height);
+    text-align: left;
+}
+
+:checked + .radio-label {
+    --mark-background: #46789a;
+}
+
+.radio-label::before,
+.radio-label::after,
+.check-label::before,
+.check-label::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    margin-top: 0;
+    box-sizing: border-box;
+}
+
+.check-label::before,
+.check-label::after {
+    top: calc(0.5 * (var(--input-height) - var(--check-width)));
+    width: var(--check-width);
+    height: var(--check-width);
+    border-radius: var(--check-border-radius);
+}
+
+.radio-label::before {
+    top: calc(0.5 * (var(--input-height) - var(--radio-width)));
+    width: var(--radio-width);
+    height: var(--radio-width);
+}
+
+.right-label::before,
+.right-label::after {
+    left: auto;
+    right: 0;
+}
+
+.radio-label::before,
+.check-label::before {
+    background: var(--input-background);
+    border: var(--check-border-width) solid var(--check-border-color);
+}
+
+.radio-label::before {
+    border-radius: calc(0.5 * var(--radio-width));
+}
+
+.radio-label::after,
+.check-label::after {
+    display: none;
+}
+
+.masked:checked + .radio-label::after,
+.masked:checked + .check-label::after {
+    display: block;
+}
+
+.radio-label::after {
+    top: calc(0.5 * (var(--input-height) - var(--mark-width)));
+    left: calc(0.5 * (var(--radio-width) - var(--mark-width)));
+    width: var(--mark-width);
+    height: var(--mark-width);
+    background: var(--mark-background);
+    border-radius: calc(0.5 * var(--mark-width));
+}
+
+.check-label::after {
+    content: var(--check-content, '');
+    text-align: center;
+    line-height: var(--check-width);
+    background: var(--check-content-background);
+    background-size: auto;
+    background-position: 50% 50%;
+}
+
+.masked + .check-label,
+.masked + .radio-label {
+    margin-top: 0;
+}
+
+label + .masked + .radio-label,
+label + .masked + .check-label {
+    margin-top: var(--label-input-margin);
+}
+
+input + .masked + .radio-label,
+.button + .masked + .check-label {
+    margin-top: var(--input-margin);
+}
+
+.masked:disabled + .check-label,
+.masked:disabled + .radio-label {
+    filter: var(--disabled-filter);
+}
+
+
+/**
+.right-check-label
+
+```html
+<input type="checkbox" class="masked" id="checkbox-2" />
+<label class="right-check-label check-label" for="checkbox-2">Choose me</label>
+```
+*/
+
+/**
+.right-radio-label
+
+```html
+<input type="radio" class="masked" id="radio-2" />
+<label class="right-radio-label radio-label" for="radio-2">Choose me</label>
+```
+*/
+
+.right-radio-label,
+.right-check-label {
+    padding-left: 0;
+    padding-right: 2.5em;
+}
+
+.right-radio-label::before,
+.right-radio-label::after,
+.right-check-label::before,
+.right-check-label::after {
+    left: auto;
+    right: 0;
+}
+
+.right-radio-label::after {
+    right: calc(0.5 * (var(--radio-width) - var(--mark-width)));
+}
+
+
+:root {
+    /**
+    --check-font-size
+    Font size of checkbox labels
+    **/
+    --check-font-size: inherit;
+
+    /**
+    --check-line-height
+    Line height of checkbox labels
+    **/
+    --check-line-height: 1.5rem;
+
+    /**
+    --check-width
+    Size of simulated checkboxes
+    **/
+    --check-width: 1.5rem;
+
+    /**
+    --check-border-width
+    Border width of simulated checkboxes
+    **/
+    --check-border-width: var(--input-border-width, 1px);
+
+    /**
+    --check-border-color
+    **/
+    --check-border-color: var(--input-border-color);
+
+    /**
+    --check-border-radius
+    Border radius of simulated checkboxes
+    **/
+    --check-border-radius: 0;
+
+    /**
+    --check-background
+    Background of simulated checkboxes
+    **/
+    --check-background: var(--input-background);
+
+    /** --check-content
+    The actual check mark **/
+    --check-content: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">\
+            <style>path{stroke:%2346789a;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;fill:none;}</style>\
+            <path d="M5 8 L7 11 L11 5"></path>\
+        </svg>');
+
+    /**
+    --check-content-background
+    **/
+    --check-content-background: transparent;
+
+    /**
+    --check-content
+    The actual check mark
+    **/
+    --check-background-checked: transparent;
+
+    /**
+    --radio-width
+    Size of simulated radio buttons
+    **/
+    --radio-width: 1.625rem;
+
+    /**
+    --radio-border-width
+    Border width of simulated radio buttons
+    **/
+    --radio-border-width: var(--input-border-width, 1px);
+
+    /** --mark-width
+    Size of radio check mark **/
+    --mark-width: 0.75rem;
+
+    /** --mark-background
+    Background of radio check mark **/
+    --mark-background: red;
+}

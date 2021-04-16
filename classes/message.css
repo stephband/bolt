@@ -1,0 +1,148 @@
+
+body > .messages-block {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: auto;
+	z-index: 30;
+}
+
+/**
+.message-block
+
+```html
+<div class="message-block block active">
+	Nasty.
+</div>
+```
+**/
+
+.message-block {
+	opacity: 0;
+	padding-left: 1.3125rem;
+	padding-right: 1.875rem;
+	padding-top: 0.75rem;
+	padding-bottom: 0;
+	line-height: 1.375rem;
+	text-align: left;
+	margin-top: 0;
+	margin-bottom: 0.125rem;
+	min-height: 3.125rem;
+	overflow: hidden;
+	color: var(--black-color);
+	background-color: var(--violet-color);
+	transition: opacity linear 240ms;
+}
+
+.message-block.active {
+	opacity: 1;
+}
+
+.message-block:last-child {
+	max-height: 4.5rem;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+}
+
+.message-block > .close-thumb {
+	position: absolute;
+	top: 0.625rem;
+	right: 0.75rem;
+	color: black;
+}
+
+.message-block + .message-block {
+	margin-top: 0.125rem;
+}
+
+/**
+.info-message-block
+
+```html
+<div class="info-message-block message-block block active">
+	Information.
+</div>
+```
+**/
+
+/**
+.success-message-block
+
+```html
+<div class="success-message-block message-block block active">
+	Success!
+</div>
+```
+**/
+
+.info-message-block,
+.success-message-block {
+	color: white;
+}
+
+.info-message-block {
+	background-color: #e62b24;
+	background-color: var(--info, #46789a);
+}
+
+.success-message-block {
+	background-color: #8aa231;
+	background-color: var(--success, #8aa231);
+}
+
+.info-message-block .close-thumb::before,
+.info-message-block .close-thumb::after,
+.success-message-block .close-thumb::before,
+.success-message-block .close-thumb::after {
+	border-top-color: white;
+	border-bottom-color: white;
+}
+
+
+/**
+.warn-message-block
+
+```html
+<div class="warn-message-block message-block block active">
+	Warning!
+</div>
+```
+**/
+
+.warn-message-block {
+	color: black;
+	background-color: #e6ba1a;
+	background-color: var(--warn-color, #e6ba1a);
+}
+
+
+/**
+.error-message-block
+
+```html
+<div class="error-message-block message-block block active">
+	Error.
+</div>
+```
+**/
+
+.error-message-block {
+	color: white;
+	background-color: #DC0F0E;
+	background-color: var(--error-color, #DC0F0E);
+}
+
+.message-text-block {
+	margin-left: 0;
+	margin-right: auto;
+	width: 80%;
+	/*max-width: 37.5rem;*/
+}
+
+.message-close-thumb {
+	width: 1.875rem;
+	padding-top: 1.875rem;
+	color: inherit;
+	background-color: transparent;
+}

@@ -1,0 +1,382 @@
+
+/**
+.bubble
+
+```html
+<aside class="bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+.bubble {
+    /**
+    --font-size
+    **/
+    --font-size: 1rem;
+
+    /**
+    --line-height
+    **/
+    --line-height: 1.5rem;
+
+    /**
+    --background
+    **/
+    --background: black;
+
+    /**
+    --border-color
+    **/
+    --border-color: black;
+
+    /**
+    --border-width
+    **/
+    --border-width: 0.125rem;
+
+    /**
+    --border-radius
+    **/
+    --border-radius: 0.25rem;
+
+    /**
+    --color
+    **/
+    --color: white;
+
+    /**
+    --pointer-y
+    **/
+    --pointer-y: 1.5rem;
+
+    top: 0;
+    left: 0;
+    /* We want the bubble to expand up to 320px, but it won't
+       do that where it's container is smaller than
+       left + 320, so give it a negative right. */
+    right: -20rem;
+    max-width: 92vw;
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    min-height: calc(2 * var(--border-width) + 2 * 0.75rem + var(--line-height));
+    color: var(--color);
+    border: 0.125rem solid #cadce3;
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    background:   var(--background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.bubble::before {
+    display: block;
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    transform: rotate(45deg) translate(0, -1px);
+    background-color: inherit;
+    border-color: inherit;
+    border-width: inherit;
+    border-style: inherit;
+    transition: left 120ms ease-out;
+    z-index: -1;
+}
+
+/**
+.top-bubble
+
+```html
+<aside class="top-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.left-top-bubble
+
+```html
+<aside class="left-top-bubble top-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.right-top-bubble
+
+```html
+<aside class="right-top-bubble top-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.bottom-bubble
+
+```html
+<aside class="bottom-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.left-bottom-bubble
+
+```html
+<aside class="left-bottom-bubble bottom-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.right-bottom-bubble
+
+```html
+<aside class="right-bottom-bubble bottom-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.left-bubble
+
+```html
+<aside class="left-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.bottom-left-bubble
+
+```html
+<aside class="bottom-left-bubble left-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.right-bubble
+
+```html
+<aside class="right-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+/**
+.bottom-right-bubble
+
+```html
+<aside class="bottom-right-bubble right-bubble bubble active" style="position: relative; margin: 0; top:auto; left:auto;bottom:auto;right:auto;transform: none;">
+Crunchum Ipsum.
+</aside>
+```
+**/
+
+.top-bubble::before,
+.bottom-bubble::before,
+.left-bubble::before,
+.right-bubble::before {
+    content: ' ';
+}
+
+.top-bubble::before,
+.bottom-bubble::before {
+    left: 50%;
+    right: auto;
+    margin-left: -0.625rem;
+}
+
+.left-bubble::before,
+.right-bubble::before {
+    top: 50%;
+    bottom: auto;
+    margin-top: -0.625rem;
+}
+
+.top-bubble::before {
+    bottom: -0.6875rem;
+    border-top-width: 0;
+    border-left-width: 0;
+    box-shadow: 3px 3px 4px rgba(0,0,0,0.3);
+}
+
+.bottom-bubble::before {
+    top: -0.6875rem;
+    border-bottom-width: 0;
+    border-right-width: 0;
+}
+
+.left-bubble::before {
+    right: -0.6875rem;
+    border-bottom: 0;
+    border-left: 0;
+    box-shadow: 3px 0px 4px -2px rgba(0,0,0,0.3);
+}
+
+.right-bubble::before {
+    left: -0.6875rem;
+    border-right: 0;
+    border-top: 0;
+    box-shadow: 0px 3px 4px -2px rgba(0,0,0,0.3);
+}
+
+.left-top-bubble::before,
+.left-bottom-bubble::before {
+    left: 83.3333%;
+}
+
+.right-top-bubble::before,
+.right-bottom-bubble::before {
+    left: 16.6667%;
+}
+
+.bottom-left-bubble::before,
+.bottom-right-bubble::before {
+    top: var(--pointer-y);
+}
+
+.js .bubble {
+    position: absolute;
+    z-index: 4;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition-property: opacity, visibility, transform;
+    transition-duration: 120ms;
+    transition-timing-function: ease-in;
+}
+
+.js .bubble.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.js .top-bubble {
+    transform: translate3d(0, calc(-100% - 1.5rem), 0);
+}
+
+.js .top-bubble.active {
+    transform: translate3d(0, calc(-100% - 1.75rem), 0);
+}
+
+.js .bottom-bubble {
+    transform: translate3d(0, 1.5rem, 0);
+}
+
+.js .bottom-bubble.active {
+    transform: translate3d(0, 1.75rem, 0);
+}
+
+@media screen and (max-width: 31.999em) {
+    .js body > .bubble {
+        /* Override offset given to it by JS when the
+           screen is too small. */
+        left: 4% !important;
+        width: 92%;
+        max-width: 92%;
+    }
+}
+
+@media screen and (min-width: 32em) {
+    .bubble {
+        width: auto;
+        max-width: 20rem;
+    }
+
+    .js .top-bubble {
+        transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
+    }
+
+    .js .top-bubble.active {
+        transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
+    }
+
+    .js .right-top-bubble {
+        transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
+    }
+
+    .js .right-top-bubble.active {
+        transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
+    }
+
+    .js .left-top-bubble {
+        transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
+    }
+
+    .js .left-top-bubble.active {
+        transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
+    }
+
+    .js .bottom-bubble {
+        transform: translate3d(-50%, 1.5rem, 0);
+    }
+
+    .js .bottom-bubble.active {
+        transform: translate3d(-50%, 1.75rem, 0);
+    }
+
+    .js .left-bottom-bubble {
+        transform: translate3d(-83.3333%, 1.5rem, 0);
+    }
+
+    .js .left-bottom-bubble.active {
+        transform: translate3d(-83.3333%, 1.75rem, 0);
+    }
+
+    .js .right-bottom-bubble {
+        transform: translate3d(-16.6667%, 1.5rem, 0);
+    }
+
+    .js .right-bottom-bubble.active {
+        transform: translate3d(-16.6667%, 1.75rem, 0);
+    }
+
+    .js .left-bubble {
+        transform: translate3d(-100%, -50%, 0);
+    }
+
+    .js .left-bubble.active {
+        transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
+    }
+
+    .js .right-bubble {
+        /* Make room for the .bubble::before point. */
+        transform: translate3d(0.9375rem, -50%, 0);
+    }
+
+    .js .right-bubble.active {
+        transform: translate3d(1.25rem, -50%, 0);
+    }
+
+    .js .bottom-left-bubble {
+        transform: translate3d(-100%, calc(-1 * var(--pointer-y)), 0);
+    }
+
+    .js .bottom-left-bubble.active {
+        transform: translate3d(calc(-100% - 0.25rem), calc(-1 * var(--pointer-y)), 0);
+    }
+
+    .js .bottom-right-bubble {
+        transform: translate3d(0.9375rem, calc(-1 * var(--pointer-y)), 0);
+    }
+
+    .js .bottom-right-bubble.active {
+        transform: translate3d(1.25rem, calc(-1 * var(--pointer-y)), 0);
+    }
+}

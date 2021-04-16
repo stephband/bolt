@@ -1,0 +1,172 @@
+
+/**
+.check-button
+
+```html
+<input class="masked" type="checkbox" value="something" id="check-button-input" />
+<label class="check-button button" for="check-button-input">Turn me on</label>
+```
+**/
+
+/**
+.radio-button
+
+```html
+<input class="masked" type="radio" name="radio-button" value="on" id="radio-button-on" />
+<label class="radio-button button" for="radio-button-on">Turn me on</label>
+<input class="masked" type="radio" name="radio-button" value="off" id="radio-button-off" />
+<label class="radio-button button" for="radio-button-off">Turn me off</label>
+```
+**/
+
+.check-button,
+.radio-button {
+    display: block;
+    text-align: left;
+    font-size: var(--input-font-size);
+    line-height: var(--input-line-height);
+    padding-left: 3.33333333em;
+    padding-right: var(--input-padding-right);
+    padding-top: calc(0.5 * (var(--input-height) - var(--input-line-height)) - var(--input-border-width, 1px));
+    padding-bottom: calc(0.5 * (var(--input-height) - var(--input-line-height)) - var(--input-border-width, 1px));
+    min-height: var(--input-height);
+    color: var(--input-color);
+    background-color: #eeeeee;
+    background-clip: border-box;
+    border: var(--input-border-width, 1px) solid transparent;
+    border-radius: var(--input-border-radius);
+}
+
+.check-button::before,
+.check-button::after,
+.radio-button::before,
+.radio-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    box-sizing: border-box;
+}
+
+.check-button::before,
+.check-button::after {
+    left: var(--input-padding-left);
+    right: auto;
+    margin-top: calc(-0.5 * var(--check-width));
+    width: var(--check-width);
+    height: var(--check-width);
+}
+
+.check-button::before,
+.radio-button::before {
+    background: var(--check-background);
+    border: var(--check-border-width) solid var(--check-border-color);
+}
+
+.check-button::before {
+    border-radius: var(--check-border-radius);
+}
+
+.radio-button::before {
+    left: var(--input-padding-left);
+    right: auto;
+    width: var(--radio-width);
+    height: var(--radio-width);
+    margin-top: calc(-0.5 * var(--radio-width));
+    border-radius: calc(0.5 * var(--radio-width));
+}
+
+.check-button::after {
+    display: none;
+    content: var(--check-content);
+    background: var(--check-content-background);
+    text-align: center;
+    line-height: var(--check-width);
+    background-size: auto;
+    background-position: 50% 50%;
+}
+
+.radio-button::after {
+    display: none;
+    left: calc(var(--input-padding-left) + 0.5 * (var(--radio-width) - var(--radio-check-width)));
+    right: auto;
+    width: var(--radio-check-width);
+    height: var(--radio-check-width);
+    margin-top: calc(-0.5 * var(--radio-check-width));
+    background: var(--radio-check-background);
+    border-radius: calc(0.5 * var(--radio-check-width));
+}
+
+.masked + .check-button,
+.masked + .radio-button {
+    margin-top: 0;
+}
+
+:checked + .check-button::after,
+:checked + .radio-button::after {
+    display: block;
+}
+
+:disabled + .check-button {
+    opacity: 0.4;
+}
+
+:focus + .check-button,
+:focus + .radio-button {
+    box-shadow: var(--focus-shadow);
+    border-color: var(--focus-border-color);
+    /* Make focus shadow appear over other elements. */
+    z-index: 1;
+}
+
+:disabled + .check-button,
+:disabled + .radio-button {
+    filter: var(--disabled-filter);
+}
+
+* + .masked + .check-button,
+* + .masked + .radio-button {
+    margin-top: var(--input-margin);
+}
+
+
+
+
+
+/**
+.right-check-button
+
+```html
+<input class="masked" type="checkbox" value="something" id="right-button-input" />
+<label class="right-check-button check-button button" for="right-button-input">Turn me on</label>
+```
+**/
+
+
+/**
+.right-radio-button
+
+```html
+<input class="masked" type="radio" name="right-radio-button" value="on" id="right-radio-button-on" />
+<label class="right-radio-button radio-button button" for="right-radio-button-on">Turn me on</label>
+<input class="masked" type="radio" name="right-radio-button" value="off" id="right-radio-button-off" />
+<label class="right-radio-button radio-button button" for="right-radio-button-off">Turn me off</label>
+```
+**/
+
+.right-check-button,
+.right-radio-button {
+    padding-left: var(--input-padding-left);
+    padding-right: 3.33333333em;
+}
+
+.right-check-button::before,
+.right-check-button::after,
+.right-radio-button::before {
+    left: auto;
+    right: var(--input-padding-right);
+}
+
+.right-radio-button::after {
+    left: auto;
+    right: calc(var(--input-padding-right) + 0.5 * (var(--radio-width) - var(--radio-check-width)));
+}

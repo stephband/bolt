@@ -1,0 +1,23 @@
+.card {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-column-gap: 1.125rem;
+    align-content: center;
+    align-items: center;
+}
+
+.card > * {
+    margin: 0;
+    grid-column: 2;
+}
+
+.card > img,
+.card > .thumb {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.card > img + *,
+.card > .thumb + * {
+    margin-top: auto;
+}

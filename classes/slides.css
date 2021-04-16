@@ -1,0 +1,239 @@
+
+/**
+.slides-block, .slides-grid
+
+```html
+<section class="slides-block block no-scroll" fullscreenable id="slides-1">
+    <div class="slides-grid grid" swipeable>
+        <figure class="block active y-stretch" id="slides-1-slide-1" switchable>
+            <img src="images/scotland-2.jpg" alt="title" draggable="false" />
+            <figcaption class="text-09">Slide 1</figcaption>
+        </figure>
+
+        <figure class="block active y-stretch" id="slides-1-slide-2" switchable>
+            <img src="images/scotland-3.jpg" alt="title" draggable="false" />
+            <figcaption class="text-09">Slide 2</figcaption>
+        </figure>
+
+        <figure class="block active y-stretch" id="slides-1-slide-3" switchable>
+            <img src="images/scotland-4.jpg" alt="title" draggable="false" />
+            <figcaption class="text-09">Slide 3</figcaption>
+        </figure>
+
+        <figure class="block active y-stretch" id="slides-1-slide-4" switchable>
+            <img src="images/glacier-de-moiry.jpg" alt="title" draggable="false" />
+            <figcaption class="text-09">Slide 4</figcaption>
+        </figure>
+    </div>
+
+    <div class="slides-dots-block dots-block block">
+        <a class="x-1 dot-thumb thumb" href="slides-1-slide-1">1</a>
+        <a class="x-2 dot-thumb thumb" href="slides-1-slide-2">2</a>
+        <a class="x-3 dot-thumb thumb" href="slides-1-slide-3">3</a>
+        <a class="x-4 dot-thumb thumb" href="slides-1-slide-4">4</a>
+    </div>
+</section>
+```
+
+Slides require some JS:
+
+```js
+import './components/slides.js';
+```
+**/
+
+.slides-block {
+    background-color: transparent;
+}
+
+.slides-block > .slides-grid {
+    /* Add a px each side to hide rounding errors in the transforms */
+    width: 100%;
+}
+
+.slides-block > .thumb {
+    position: absolute;
+    top: 50%;
+    color: var(--partgrey-color);
+    z-index: 2;
+}
+
+.slides-block > .prev-thumb,
+.slides-block > .next-thumb {
+    margin-top: -40px;
+}
+
+.slides-block > .prev-thumb {
+    left: 0.25rem;
+}
+
+.slides-block > .next-thumb {
+    right: 0.25rem;
+}
+
+
+.slides-block > .dots-block {
+    position: absolute;
+    bottom: 1.875rem;
+    left: 0;
+    right: 0;
+    margin-top: 1.125rem;
+}
+
+@media (min-width: 43.75em) {
+    .slides-block > .prev-thumb {
+        left: 5%;
+        margin-left: -1.875rem;
+    }
+
+    .slides-block > .next-thumb {
+        right: 5%;
+        margin-right: -1.875rem;
+    }
+}
+
+
+/* Fullscreen */
+
+.slides-block:-webkit-full-screen {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+    background-color: black;
+}
+
+.slides-block:-moz-full-screen {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+    background-color: black;
+}
+
+.slides-block:-ms-fullscreen {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+    background-color: black;
+}
+
+.slides-block:fullscreen {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+    background-color: black;
+}
+
+.slides-block:-webkit-full-screen::before,
+.slides-block:-webkit-full-screen::after {
+    content: none;
+}
+
+.slides-block:-moz-full-screen::before,
+.slides-block:-moz-full-screen::after {
+    content: none;
+}
+
+.slides-block:-ms-fullscreen::before,
+.slides-block:-ms-fullscreen::after {
+    content: none;
+}
+
+.slides-block:fullscreen::before,
+.slides-block:fullscreen::after {
+    content: none;
+}
+
+
+/*
+.slides-grid
+*/
+
+.slides-grid {
+    display: grid;
+    grid-auto-flow: column;
+    /* Must override grid-auto-columns from generated grid */
+    grid-auto-columns: 100% !important;
+    grid-gap: 0;
+    align-content: center;
+    justify-content: start;
+    align-items: center;
+    justify-items: center;
+}
+
+.slides-grid > * {
+    width: 100%;
+    height: auto;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    grid-row: 1 / span 1;
+}
+
+.js .slides-grid {
+    /* A nice bit of hardware acceleration should help the transitions run
+       smoothly. */
+    -webkit-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+
+    -webkit-transition-property: transform;
+            transition-property: transform;
+    -webkit-transition-duration: 333ms;
+            transition-duration: 333ms;
+    -webkit-transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+            transition-timing-function: cubic-bezier(0.1, 0.7, 0.7, 1);
+}
+
+@media print {
+    .js .slides-grid {
+        position: static;
+        transition: none !important;
+    }
+}
+
+
+/**
+.dots-block
+Slides navigation container.
+**/
+
+/**
+.dot-thumb
+Slides navigation dot.
+**/
+
+.dots-block {
+    display: grid;
+    grid-auto-columns: 1.25rem;
+}
+
+.dots-block > .dot-thumb {
+    grid-row: 1;
+    z-index: 1;
+}
+
+.dots-block > .dot-thumb.on {
+    z-index: 2;
+}
+
+
+/* Slide blocks */
+
+.slide-block > img {
+    width: 100%;
+    height: auto;
+}
