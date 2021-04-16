@@ -44,6 +44,7 @@ import { select }  from '../../dom/modules/select.js';
 import Distributor from '../../dom/modules/distributor.js';
 import scrollstops from '../../dom/modules/scrollstops.js';
 import parseCSSValue from '../../dom/modules/parse-value.js';
+import Literal     from '../../modules/literal.js';
 
 
 const DEBUG = window.DEBUG === true;
@@ -766,6 +767,33 @@ const settings = {
     },
 
     load: function (shadow) {
+        const id = this.getAttribute('template');
+        const template = id && this
+            .getRootNode()
+            .getElementById(id);
+
+        if (template) {
+            if (template.render) {
+                
+            }
+            else {
+                const render = Literal(template.innerHTML);                
+                this.render = function(data) {
+                    return render(data).then((html) => {
+                        this.nodes && this.nodes.forEach((node) => node.remove());
+                        //content && content.remove();
+                        const content = create('fragment', html);
+                        this.nodes = Array.from(content.childNodes);
+                        shadow.appendChild(content);
+                    });
+                };
+
+                this.render({
+                    barf: 9
+                });
+            }
+        }
+
         const view = this[$];
         view.load();
     },
@@ -850,6 +878,18 @@ const settings = {
 
             get: function() {
                 return this[$].loop;
+            }
+        },
+
+        template: {            
+            /**
+            template="id"
+            Id of optional template to append to the shadow DOM on instantiation.
+            Subsequent changes to this attribute have no effect.
+            **/
+
+            attribute: function(id) {
+                this[$].template = id;
             }
         }
     }

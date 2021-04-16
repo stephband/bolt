@@ -205,7 +205,7 @@ export default function compile(scope, varstring, string, id, consts = 'data', r
     if (cache[key]) { return cache[key]; }
 
     // Alphabetise and format
-    const vars = sanitiseVars(varstring) ;
+    const vars = varstring && sanitiseVars(varstring) ;
 
     // Make it impossible to override render
     scope.render = render;
@@ -228,7 +228,7 @@ export default function compile(scope, varstring, string, id, consts = 'data', r
         fn = compileAsync(scope, 'data = {}', code);
     }
     catch(e) {
-        logError(key, string, e);
+        logError(key, code, e);
         throw e;
     }
 

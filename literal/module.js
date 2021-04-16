@@ -44,7 +44,7 @@ function Literal(template) {
     return typeof template === 'string' ?
         /^#/.test(template) ?
             fromTemplateId(template.slice(1)) :
-            compile(library, 'data', template) :
+            compile(library, undefined, template) :
         template.id ?
             fromTemplateId(template) :
             noop ;
