@@ -1,18 +1,18 @@
 
-<header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
+<header class="x1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
     ${ data.filter((doc) => doc.type === 'element').map((doc) => `
     <h2 class="doctext-02">&lt;${ doc.name }&gt;</h2>
     ${ doc.body }
     `) }
 </header>
 
-<form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
+<form class="x1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
     ${ data[0].examples[0] }
     <!-- for testing form submission values -->
     <input hidden class="button" type="submit" />
 </form>
 
-<div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+<div class="x1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
     ${ this.attributes = data.filter((doc) => doc.type === 'attribute'), '' }
     ${ this.attributes.length ? '<h3 class="doctext-03">Attributes</h3>' : '' }
     ${ Promise.all(this.attributes.map((doc) => include("./entry.literal", doc))).then((array) => array.join('')) }
@@ -30,7 +30,7 @@
     ${ Promise.all(this.events.map((doc) => include("./entry.literal", doc))).then((array) => array.join(''))  }
 </div>
 
-<div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
+<div class="x1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
     ${ this.parts = data.filter((doc) => doc.type === 'part'), '' }
     ${ this.parts.length ? '<h3 class="doctext-03">Parts</h3>' : '' }
     ${ Promise.all(this.parts.map((doc) => include("./entry.literal", doc))).then((array) => array.join(''))  }
