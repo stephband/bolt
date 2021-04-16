@@ -103,7 +103,10 @@ Does not work
     align-content: inherit;
     align-items: inherit;
     justify-items: inherit;
-    justify-content: inherit;
+    /* This is important for alignment in the JS – if content is centered
+       the slot scrolls to he right but not to the left where the first half of 
+       the content is.*/
+    justify-content: start !important;
 }
 
 :host > [part="previous"] {

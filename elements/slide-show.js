@@ -140,7 +140,7 @@ function scrollAuto(element, slot, target) {
     });
 
     requestAnimationFrame(function() {
-        slot.style.setProperty('scroll-behavior', '');          
+        slot.style.setProperty('scroll-behavior', '');
     });
 }
 
@@ -218,17 +218,19 @@ function View(element, shadow, slot) {
             console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'load', this.active);
         }
 
-        //if (this.active === this.element.firstElementChild && !this.active.id) {
-            this.reposition(this.active);
-            this.actives.push(this.active);
-        //}
-        //else {
-        //    this.actives.trigger(this.active);
-        //}
+        this.reposition(this.active);
+        this.actives.push(this.active);
+
+        var resizeTimer;
 
         // Reposition everything on resize
         events('resize', window)
-        .each(() => this.actives.push(this.active));
+        .each(() => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                this.reposition(this.active);
+            }, 120);
+        });
 
         // This only happens where element load is before window load.
         //events('load', window)
@@ -855,5 +857,5 @@ const settings = {
 
 export default element('slide-show', settings);
 
-//element('scroll-ol', 'ol', settings);
-//element('scroll-ul', 'ul', settings);
+//element('div[is=slide-show]', 'ol', settings);
+//element('ul[is=slide-show]', 'ul', settings);
