@@ -100,8 +100,10 @@ Does not work
     grid-auto-columns: inherit;
     grid-auto-rows: min-content;
     column-gap: inherit;
+    align-content: inherit;
     align-items: inherit;
     justify-items: inherit;
+    justify-content: inherit;
 }
 
 :host > [part="previous"] {

@@ -23,9 +23,9 @@ element and upgrades instances already in the DOM.
 </slide-show>
 ```
 
-By default each element inside `<slide-show>` is interpreted as a slide, but
-elements with a `slot` attribute are ignored. This allows for the insertion of 
-fullscreen close buttons and the like.
+By default children of `<slide-show>` are interpreted as slides, but
+elements with a `slot` attribute are not. Slides have default style of
+`scroll-snap-align: center`. Apply `start` or `end` to change the alignment. 
 **/
 
 import id          from '../../fn/modules/id.js';
@@ -43,13 +43,14 @@ import { next, previous } from '../../dom/modules/traverse.js';
 import { select }  from '../../dom/modules/select.js';
 import Distributor from '../../dom/modules/distributor.js';
 import scrollstops from '../../dom/modules/scrollstops.js';
+import parseCSSValue from '../../dom/modules/parse-value.js';
 
 
 const DEBUG = window.DEBUG === true;
 
 const assign = Object.assign;
 const define = Object.defineProperties;
-const $      = Symbol('');
+const $      = Symbol('slide-show');
 
 const config = {
     path: window.customElementStylesheetPath || '',
@@ -122,6 +123,9 @@ function scrollSmooth(element, slot, target) {
 }
 
 function scrollAuto(element, slot, target) {
+    // Check for visibility before measuring anything
+    if (!element.offsetParent) { return; }
+
     const firstRect  = rect(element.firstElementChild);
     const targetRect = rect(target);
 
@@ -140,6 +144,20 @@ function scrollAuto(element, slot, target) {
     });
 }
 
+function getViewport(slot) {
+    const slotRect     = rect(slot);
+    const computed     = window.getComputedStyle(slot, null);
+    const slotPadLeft  = parseCSSValue(computed.getPropertyValue('padding-left'));
+    const slotPadRight = parseCSSValue(computed.getPropertyValue('padding-left'));
+    const left         = slotRect.left + slotPadLeft;
+    const right        = slotRect.left + slotRect.width - slotPadRight;
+    return {
+        left:   left,
+        right:  right,
+        centre: left + (right - left) / 2
+    };
+}
+
 function View(element, shadow, slot) {
     this.element   = element;
     this.shadow    = shadow;
@@ -151,7 +169,7 @@ function View(element, shadow, slot) {
         const items = e.target
            .assignedElements()
            // Ignore ghosts
-           .filter((element) => !element.dataset.id);
+           .filter((element) => !element.dataset.loopId);
 
         // Test whether mutation has really changed original slides, if not
         // it was probably an internal mutation adding or removing loop ghosts
@@ -169,13 +187,11 @@ function View(element, shadow, slot) {
     .on((items) => this.update(items));
     
     this.actives = new Distributor((e) => {
-        // If ignore was true, ignore event. Todo: move this logic into Loop 
-        // view somehow
-        const result = this.ignore;
+        const ignore = this.ignore;
         this.ignore = false;
-        if (result) {
-            return;
-        }
+
+        // If ignore was true, ignore event.
+        if (ignore) { return; }
 
         // Check for element visibility. There's little point in trying to do
         // anything while hidden
@@ -183,7 +199,7 @@ function View(element, shadow, slot) {
             return;
         }
 
-        return this.activate();
+        return this.activate(e);
     });
 
     const autoplay   = new Autoplay(this);
@@ -243,11 +259,17 @@ assign(View.prototype, {
         scrollSmooth(this.element, this.slot, target);
     },
 
-    activate: function() {
-        const elem       = this.element;
-        const elemRect   = rect(elem);
-        const elemCentre = elemRect.left + elemRect.width / 2;
-        const slides     = Array.from(elem.children).filter((element) => !element.hasAttribute('slot'));
+    activate: function(e) {
+        // Cache viewport measurements until a 90ms gap in activates
+        this.viewport = e.timeStamp - 90 > this.activateTime ?
+            getViewport(this.slot) :
+            (this.viewport || getViewport(this.slot)) ;
+
+        this.activateTime = e.timeStamp;
+
+        const view = this.viewport;
+        const slides   = Array.from(this.element.children)
+            .filter((child) => !child.hasAttribute('slot'));
 
         let n = slides.length;
         let slide;
@@ -256,8 +278,29 @@ assign(View.prototype, {
             const slideRect = rect(slide);
             if (!slideRect) { continue; }
 
-            const left = slideRect.left;
-            if (left <= elemCentre) {
+            // Todo: do we need webkit property here?
+            const snap = window
+                .getComputedStyle(slide, null)
+                .getPropertyValue('scroll-snap-align');
+
+            // Imagine a detection line half a slides' width to the right of
+            // the left, the centre, or the right...
+            const detection = (slideRect.width / 2) + (
+                snap === 'start' ? view.left :
+                snap === 'end'   ? view.right :
+                view.centre
+            );
+
+            // ...and a slide registration position at it's corresponding left,
+            // centre or right position
+            const position = (
+                snap === 'start' ? slideRect.left :
+                snap === 'end'   ? slideRect.right :
+                slideRect.left + slideRect.width / 2
+            );
+
+            // If position has crossed the detection going left, we're in the money
+            if (position <= detection) {
                 break;
             }
         }
@@ -371,14 +414,10 @@ assign(Autoplay.prototype, {
 
 function createLoopGhost(slide) {
     const ghost = slide.cloneNode(true);
-    ghost.dataset.id = ghost.id;
+    ghost.dataset.loopId = ghost.id;
     ghost.removeAttribute('id');
     ghost.setAttribute('aria-hidden', 'true');
     return ghost;
-}
-
-function isGhost(node) {
-    return !!node.dataset.id;
 }
 
 function Loop(view, autoplay) {
@@ -443,7 +482,7 @@ assign(Loop.prototype, {
     },
 
     update: function() {
-        const id = this.view.active.dataset.id;
+        const id = this.view.active.dataset.loopId;
     
         // Active child is an original slide, not a copy: do nothing
         if (!id) { return; }
@@ -508,7 +547,7 @@ assign(Navigation.prototype, {
 
         if (prevChild) {
             this.previous.hidden = false;
-            this.previous.href = '#' + (prevChild.id || prevChild.dataset.id);
+            this.previous.href = '#' + (prevChild.id || prevChild.dataset.loopId);
         }
         else {
             this.previous.hidden = true;
@@ -517,7 +556,7 @@ assign(Navigation.prototype, {
         const nextChild = next(active);
         if (nextChild) {
             this.next.hidden = false;
-            this.next.href = '#' + (nextChild.id || nextChild.dataset.id);
+            this.next.href = '#' + (nextChild.id || nextChild.dataset.loopId);
         }
         else {
             this.next.hidden = true;
@@ -572,14 +611,14 @@ console.trace('pagination.enable()', this);
 
         // Remove `on` class from currently highlighted links
         if (this.active) {
-            const id = this.active.dataset && this.active.dataset.id || this.active.id;
+            const id = this.active.dataset && this.active.dataset.loopId || this.active.id;
 
             select('[href="#' + id +'"]', shadow)
             .forEach((node) => node.part.remove('active-link'))
         }
 
         // Highlight links with `on` class
-        const id = active.dataset.id || active.id;
+        const id = active.dataset.loopId || active.id;
 
         select('[href="#' + id +'"]', shadow)
         .forEach((node) => node.part.add('active-link'));
