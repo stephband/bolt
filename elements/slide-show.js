@@ -223,7 +223,7 @@ function View(element, shadow, slot) {
             console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'load', this.active);
         }
 
-        this.reposition(this.active);
+        this.reposition(this.active || this.element.firstElementChild);
         this.actives.push(this.active);
 
         var resizeTimer;
@@ -233,7 +233,7 @@ function View(element, shadow, slot) {
         .each(() => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
-                this.reposition(this.active);
+                this.reposition(this.active || this.element.firstElementChild);
             }, 120);
         });
 
@@ -699,10 +699,9 @@ const settings = {
                 const target = elem.getRootNode().getElementById(id);
 
                 if (!target) {
-                    if (DEBUG) {
+                    /*if (DEBUG) {
                         console.warn('Link to id not found in slide-show "' + id + '"');
-                    }
-
+                    }*/
                     return;
                 }
     

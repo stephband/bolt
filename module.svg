@@ -2577,15 +2577,15 @@
 <path fill="none" stroke="#757575" d="M235.13,-1763.93C255.57,-1759.35 279.24,-1754.05 300.56,-1749.27"/>
 <polygon fill="#757575" stroke="#757575" points="301.49,-1752.65 310.49,-1747.04 299.96,-1745.82 301.49,-1752.65"/>
 </g>
-<!-- modules/switchable.js -->
+<!-- attributes/data-switchable.js -->
 <g id="node145" class="node">
-<title>modules/switchable.js</title>
+<title>attributes/data-switchable.js</title>
 <path fill="none" stroke="#c6c5fe" d="M613.33,-1787C613.33,-1787 479.67,-1787 479.67,-1787 475.83,-1787 472,-1783.17 472,-1779.33 472,-1779.33 472,-1771.67 472,-1771.67 472,-1767.83 475.83,-1764 479.67,-1764 479.67,-1764 613.33,-1764 613.33,-1764 617.17,-1764 621,-1767.83 621,-1771.67 621,-1771.67 621,-1779.33 621,-1779.33 621,-1783.17 617.17,-1787 613.33,-1787"/>
-<text text-anchor="middle" x="546.5" y="-1771.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">modules/switchable.js</text>
+<text text-anchor="middle" x="546.5" y="-1771.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">attributes/data-switchable.js</text>
 </g>
-<!-- components/slides.js&#45;&gt;modules/switchable.js -->
+<!-- components/slides.js&#45;&gt;attributes/data-switchable.js -->
 <g id="edge285" class="edge">
-<title>components/slides.js&#45;&gt;modules/switchable.js</title>
+<title>components/slides.js&#45;&gt;attributes/data-switchable.js</title>
 <path fill="none" stroke="#757575" d="M254.16,-1775.5C313.6,-1775.5 398.73,-1775.5 461.63,-1775.5"/>
 <polygon fill="#757575" stroke="#757575" points="461.92,-1779 471.92,-1775.5 461.91,-1772 461.92,-1779"/>
 </g>
@@ -2601,15 +2601,15 @@
 <path fill="none" stroke="#757575" d="M365.5,-1723.66C380.38,-1611.62 511.62,-742.5 1002.5,-742.5 1002.5,-742.5 1002.5,-742.5 1699.5,-742.5 1854.82,-742.5 1921.99,-784.37 2002,-917.5 2025.82,-957.13 2101.16,-1672.38 2115.23,-1807.56"/>
 <polygon fill="#757575" stroke="#757575" points="2111.78,-1808.28 2116.3,-1817.87 2118.75,-1807.56 2111.78,-1808.28"/>
 </g>
-<!-- modules/swipeable.js&#45;&gt;modules/switchable.js -->
+<!-- modules/swipeable.js&#45;&gt;attributes/data-switchable.js -->
 <g id="edge308" class="edge">
-<title>modules/swipeable.js&#45;&gt;modules/switchable.js</title>
+<title>modules/swipeable.js&#45;&gt;attributes/data-switchable.js</title>
 <path fill="none" stroke="#757575" d="M416.5,-1747.07C437.38,-1751.67 461.57,-1757 483.32,-1761.8"/>
 <polygon fill="#757575" stroke="#757575" points="482.6,-1765.22 493.12,-1763.96 484.11,-1758.39 482.6,-1765.22"/>
 </g>
-<!-- modules/switchable.js&#45;&gt;../dom/module.js -->
+<!-- attributes/data-switchable.js&#45;&gt;../dom/module.js -->
 <g id="edge309" class="edge">
-<title>modules/switchable.js&#45;&gt;../dom/module.js</title>
+<title>attributes/data-switchable.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M621.28,-1771.27C695.6,-1769.19 812.75,-1771.96 909,-1801.5 934.72,-1809.39 960.99,-1825.41 979.1,-1837.96"/>
 <polygon fill="#757575" stroke="#757575" points="977.13,-1840.85 987.31,-1843.79 981.18,-1835.14 977.13,-1840.85"/>
 </g>
@@ -2619,9 +2619,9 @@
 <path fill="none" stroke="#c6c5fe" d="M857.33,-1867C857.33,-1867 708.67,-1867 708.67,-1867 704.83,-1867 701,-1863.17 701,-1859.33 701,-1859.33 701,-1851.67 701,-1851.67 701,-1847.83 704.83,-1844 708.67,-1844 708.67,-1844 857.33,-1844 857.33,-1844 861.17,-1844 865,-1847.83 865,-1851.67 865,-1851.67 865,-1859.33 865,-1859.33 865,-1863.17 861.17,-1867 857.33,-1867"/>
 <text text-anchor="middle" x="783" y="-1851.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">modules/dom&#45;activate.js</text>
 </g>
-<!-- modules/switchable.js&#45;&gt;modules/dom&#45;activate.js -->
+<!-- attributes/data-switchable.js&#45;&gt;modules/dom&#45;activate.js -->
 <g id="edge310" class="edge">
-<title>modules/switchable.js&#45;&gt;modules/dom&#45;activate.js</title>
+<title>attributes/data-switchable.js&#45;&gt;modules/dom&#45;activate.js</title>
 <path fill="none" stroke="#757575" d="M581.35,-1787.05C622.82,-1801.2 693.17,-1825.2 738.59,-1840.69"/>
 <polygon fill="#757575" stroke="#757575" points="737.57,-1844.04 748.16,-1843.96 739.83,-1837.41 737.57,-1844.04"/>
 </g>
@@ -2697,51 +2697,51 @@
 <path fill="none" stroke="#757575" d="M39.27,-1942.69C47.07,-1826.88 114.92,-894.06 290,-690.5 293.06,-686.95 296.64,-683.88 300.54,-681.23"/>
 <polygon fill="#757575" stroke="#757575" points="302.59,-684.09 309.52,-676.08 299.1,-678.02 302.59,-684.09"/>
 </g>
-<!-- modules/targetable.js -->
+<!-- attributes/data-targetable.js -->
 <g id="node150" class="node">
-<title>modules/targetable.js</title>
+<title>attributes/data-targetable.js</title>
 <path fill="none" stroke="#c6c5fe" d="M612.33,-2482C612.33,-2482 480.67,-2482 480.67,-2482 476.83,-2482 473,-2478.17 473,-2474.33 473,-2474.33 473,-2466.67 473,-2466.67 473,-2462.83 476.83,-2459 480.67,-2459 480.67,-2459 612.33,-2459 612.33,-2459 616.17,-2459 620,-2462.83 620,-2466.67 620,-2466.67 620,-2474.33 620,-2474.33 620,-2478.17 616.17,-2482 612.33,-2482"/>
-<text text-anchor="middle" x="546.5" y="-2466.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">modules/targetable.js</text>
+<text text-anchor="middle" x="546.5" y="-2466.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">attributes/data-targetable.js</text>
 </g>
-<!-- module.js&#45;&gt;modules/targetable.js -->
+<!-- module.js&#45;&gt;attributes/data-targetable.js -->
 <g id="edge294" class="edge">
-<title>module.js&#45;&gt;modules/targetable.js</title>
+<title>module.js&#45;&gt;attributes/data-targetable.js</title>
 <path fill="none" stroke="#757575" d="M46.97,-1966.22C60.05,-1984.09 86.25,-2018.98 111,-2046.5 260.42,-2212.62 460.31,-2394.35 524.63,-2451.94"/>
 <polygon fill="#757575" stroke="#757575" points="522.67,-2454.88 532.46,-2458.93 527.33,-2449.66 522.67,-2454.88"/>
 </g>
-<!-- modules/popable.js -->
+<!-- attributes/data-popable.js -->
 <g id="node151" class="node">
-<title>modules/popable.js</title>
+<title>attributes/data-popable.js</title>
 <path fill="none" stroke="#c6c5fe" d="M605.83,-1904C605.83,-1904 487.17,-1904 487.17,-1904 483.33,-1904 479.5,-1900.17 479.5,-1896.33 479.5,-1896.33 479.5,-1888.67 479.5,-1888.67 479.5,-1884.83 483.33,-1881 487.17,-1881 487.17,-1881 605.83,-1881 605.83,-1881 609.67,-1881 613.5,-1884.83 613.5,-1888.67 613.5,-1888.67 613.5,-1896.33 613.5,-1896.33 613.5,-1900.17 609.67,-1904 605.83,-1904"/>
-<text text-anchor="middle" x="546.5" y="-1888.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">modules/popable.js</text>
+<text text-anchor="middle" x="546.5" y="-1888.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">attributes/data-popable.js</text>
 </g>
-<!-- module.js&#45;&gt;modules/popable.js -->
+<!-- module.js&#45;&gt;attributes/data-popable.js -->
 <g id="edge295" class="edge">
-<title>module.js&#45;&gt;modules/popable.js</title>
+<title>module.js&#45;&gt;attributes/data-popable.js</title>
 <path fill="none" stroke="#757575" d="M75.33,-1948.04C86.74,-1946.14 99.38,-1944.13 111,-1942.5 236.32,-1924.93 382.61,-1909.05 469.46,-1900.1"/>
 <polygon fill="#757575" stroke="#757575" points="469.9,-1903.57 479.49,-1899.07 469.18,-1896.61 469.9,-1903.57"/>
 </g>
-<!-- modules/toggleable.js -->
+<!-- attributes/data-toggleable.js -->
 <g id="node152" class="node">
-<title>modules/toggleable.js</title>
+<title>attributes/data-toggleable.js</title>
 <path fill="none" stroke="#c6c5fe" d="M612.83,-1945C612.83,-1945 480.17,-1945 480.17,-1945 476.33,-1945 472.5,-1941.17 472.5,-1937.33 472.5,-1937.33 472.5,-1929.67 472.5,-1929.67 472.5,-1925.83 476.33,-1922 480.17,-1922 480.17,-1922 612.83,-1922 612.83,-1922 616.67,-1922 620.5,-1925.83 620.5,-1929.67 620.5,-1929.67 620.5,-1937.33 620.5,-1937.33 620.5,-1941.17 616.67,-1945 612.83,-1945"/>
-<text text-anchor="middle" x="546.5" y="-1929.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">modules/toggleable.js</text>
+<text text-anchor="middle" x="546.5" y="-1929.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">attributes/data-toggleable.js</text>
 </g>
-<!-- module.js&#45;&gt;modules/toggleable.js -->
+<!-- module.js&#45;&gt;attributes/data-toggleable.js -->
 <g id="edge296" class="edge">
-<title>module.js&#45;&gt;modules/toggleable.js</title>
+<title>module.js&#45;&gt;attributes/data-toggleable.js</title>
 <path fill="none" stroke="#757575" d="M75.37,-1952.97C156.03,-1949.63 349.84,-1941.6 461.82,-1936.97"/>
 <polygon fill="#757575" stroke="#757575" points="462.21,-1940.45 472.06,-1936.54 461.92,-1933.46 462.21,-1940.45"/>
 </g>
-<!-- modules/validateable.js -->
+<!-- attributes/data-validateable.js -->
 <g id="node153" class="node">
-<title>modules/validateable.js</title>
+<title>attributes/data-validateable.js</title>
 <path fill="none" stroke="#c6c5fe" d="M854.33,-1985C854.33,-1985 711.67,-1985 711.67,-1985 707.83,-1985 704,-1981.17 704,-1977.33 704,-1977.33 704,-1969.67 704,-1969.67 704,-1965.83 707.83,-1962 711.67,-1962 711.67,-1962 854.33,-1962 854.33,-1962 858.17,-1962 862,-1965.83 862,-1969.67 862,-1969.67 862,-1977.33 862,-1977.33 862,-1981.17 858.17,-1985 854.33,-1985"/>
-<text text-anchor="middle" x="783" y="-1969.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">modules/validateable.js</text>
+<text text-anchor="middle" x="783" y="-1969.8" font-family="Arial" font-size="14.00" fill="#c6c5fe">attributes/data-validateable.js</text>
 </g>
-<!-- module.js&#45;&gt;modules/validateable.js -->
+<!-- module.js&#45;&gt;attributes/data-validateable.js -->
 <g id="edge297" class="edge">
-<title>module.js&#45;&gt;modules/validateable.js</title>
+<title>module.js&#45;&gt;attributes/data-validateable.js</title>
 <path fill="none" stroke="#757575" d="M75.36,-1957.39C86.78,-1958.19 99.4,-1958.98 111,-1959.5 319.81,-1968.87 565.47,-1971.98 693.8,-1973.01"/>
 <polygon fill="#757575" stroke="#757575" points="693.93,-1976.51 703.96,-1973.09 693.99,-1969.51 693.93,-1976.51"/>
 </g>
@@ -2751,63 +2751,63 @@
 <path fill="none" stroke="#757575" d="M370.32,-676.29C431.15,-789.76 912.42,-1687.48 991.52,-1835.01"/>
 <polygon fill="#757575" stroke="#757575" points="988.51,-1836.82 996.32,-1843.98 994.68,-1833.51 988.51,-1836.82"/>
 </g>
-<!-- modules/targetable.js&#45;&gt;../dom/module.js -->
+<!-- attributes/data-targetable.js&#45;&gt;../dom/module.js -->
 <g id="edge301" class="edge">
-<title>modules/targetable.js&#45;&gt;../dom/module.js</title>
+<title>attributes/data-targetable.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M548.68,-2458.93C555.4,-2395.74 590.71,-2092.99 657,-2032.5 740.72,-1956.11 813.25,-2054.13 909,-1993.5 953.37,-1965.41 981.82,-1907.79 994.63,-1876.63"/>
 <polygon fill="#757575" stroke="#757575" points="997.95,-1877.74 998.37,-1867.16 991.44,-1875.17 997.95,-1877.74"/>
 </g>
-<!-- modules/targetable.js&#45;&gt;../fn/module.js -->
+<!-- attributes/data-targetable.js&#45;&gt;../fn/module.js -->
 <g id="edge303" class="edge">
-<title>modules/targetable.js&#45;&gt;../fn/module.js</title>
+<title>attributes/data-targetable.js&#45;&gt;../fn/module.js</title>
 <path fill="none" stroke="#757575" d="M550.4,-2482.4C566.91,-2550.09 648.61,-2883.64 657,-2890.5 716.53,-2939.17 925.61,-2909.5 1002.5,-2909.5 1002.5,-2909.5 1002.5,-2909.5 1699.5,-2909.5 1767.15,-2909.5 1954.21,-2923.38 2002,-2875.5 2077.24,-2800.11 2111.24,-1994.2 2116.7,-1851.15"/>
 <polygon fill="#757575" stroke="#757575" points="2120.21,-1851.14 2117.09,-1841.01 2113.21,-1850.87 2120.21,-1851.14"/>
 </g>
-<!-- modules/targetable.js&#45;&gt;../dom/polyfills/element.scrollintoview.js -->
+<!-- attributes/data-targetable.js&#45;&gt;../dom/polyfills/element.scrollintoview.js -->
 <g id="edge302" class="edge">
-<title>modules/targetable.js&#45;&gt;../dom/polyfills/element.scrollintoview.js</title>
+<title>attributes/data-targetable.js&#45;&gt;../dom/polyfills/element.scrollintoview.js</title>
 <path fill="none" stroke="#757575" d="M551.09,-2482.21C561.88,-2517.43 594.85,-2625.52 621,-2715.5 637.49,-2772.25 613.79,-2803.18 657,-2843.5 660.9,-2847.14 665.17,-2850.33 669.71,-2853.11"/>
 <polygon fill="#757575" stroke="#757575" points="668.28,-2856.31 678.74,-2857.98 671.61,-2850.15 668.28,-2856.31"/>
 </g>
-<!-- modules/popable.js&#45;&gt;../dom/module.js -->
+<!-- attributes/data-popable.js&#45;&gt;../dom/module.js -->
 <g id="edge304" class="edge">
-<title>modules/popable.js&#45;&gt;../dom/module.js</title>
+<title>attributes/data-popable.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M613.75,-1892.63C686.46,-1892.01 806.5,-1888.78 909,-1875.5 920.96,-1873.95 933.66,-1871.67 945.72,-1869.2"/>
 <polygon fill="#757575" stroke="#757575" points="946.62,-1872.59 955.67,-1867.09 945.16,-1865.74 946.62,-1872.59"/>
 </g>
-<!-- modules/popable.js&#45;&gt;modules/dom&#45;activate.js -->
+<!-- attributes/data-popable.js&#45;&gt;modules/dom&#45;activate.js -->
 <g id="edge305" class="edge">
-<title>modules/popable.js&#45;&gt;modules/dom&#45;activate.js</title>
+<title>attributes/data-popable.js&#45;&gt;modules/dom&#45;activate.js</title>
 <path fill="none" stroke="#757575" d="M613.76,-1882.05C640.17,-1877.88 670.88,-1873.03 698.77,-1868.63"/>
 <polygon fill="#757575" stroke="#757575" points="699.58,-1872.05 708.91,-1867.03 698.49,-1865.13 699.58,-1872.05"/>
 </g>
-<!-- modules/toggleable.js&#45;&gt;../dom/module.js -->
+<!-- attributes/data-toggleable.js&#45;&gt;../dom/module.js -->
 <g id="edge311" class="edge">
-<title>modules/toggleable.js&#45;&gt;../dom/module.js</title>
+<title>attributes/data-toggleable.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M620.79,-1933.52C694.74,-1931.9 811.6,-1924.8 909,-1898.5 931.62,-1892.39 955.6,-1881.26 973.61,-1871.85"/>
 <polygon fill="#757575" stroke="#757575" points="975.28,-1874.93 982.45,-1867.12 971.98,-1868.75 975.28,-1874.93"/>
 </g>
-<!-- modules/toggleable.js&#45;&gt;../fn/module.js -->
+<!-- attributes/data-toggleable.js&#45;&gt;../fn/module.js -->
 <g id="edge312" class="edge">
-<title>modules/toggleable.js&#45;&gt;../fn/module.js</title>
+<title>attributes/data-toggleable.js&#45;&gt;../fn/module.js</title>
 <path fill="none" stroke="#757575" d="M549.73,-1945.21C570.52,-2050.7 740.36,-2833.5 1201.5,-2833.5 1201.5,-2833.5 1201.5,-2833.5 1699.5,-2833.5 1766.97,-2833.5 1953.54,-2854.44 2002,-2807.5 2073.29,-2738.44 2110.28,-1989.91 2116.54,-1851.46"/>
 <polygon fill="#757575" stroke="#757575" points="2120.05,-1851.4 2117,-1841.26 2113.05,-1851.09 2120.05,-1851.4"/>
 </g>
-<!-- modules/toggleable.js&#45;&gt;modules/dom&#45;activate.js -->
+<!-- attributes/data-toggleable.js&#45;&gt;modules/dom&#45;activate.js -->
 <g id="edge313" class="edge">
-<title>modules/toggleable.js&#45;&gt;modules/dom&#45;activate.js</title>
+<title>attributes/data-toggleable.js&#45;&gt;modules/dom&#45;activate.js</title>
 <path fill="none" stroke="#757575" d="M589.61,-1921.95C599.92,-1918.99 610.89,-1915.73 621,-1912.5 662.34,-1899.29 709.03,-1882.55 741.45,-1870.64"/>
 <polygon fill="#757575" stroke="#757575" points="742.86,-1873.85 751.03,-1867.11 740.43,-1867.29 742.86,-1873.85"/>
 </g>
-<!-- modules/validateable.js&#45;&gt;../dom/module.js -->
+<!-- attributes/data-validateable.js&#45;&gt;../dom/module.js -->
 <g id="edge314" class="edge">
-<title>modules/validateable.js&#45;&gt;../dom/module.js</title>
+<title>attributes/data-validateable.js&#45;&gt;../dom/module.js</title>
 <path fill="none" stroke="#757575" d="M862.1,-1964.42C878.21,-1960.6 894.63,-1955.18 909,-1947.5 942.18,-1929.75 971.48,-1896.59 988.09,-1875.3"/>
 <polygon fill="#757575" stroke="#757575" points="990.94,-1877.33 994.2,-1867.25 985.37,-1873.09 990.94,-1877.33"/>
 </g>
-<!-- modules/validateable.js&#45;&gt;../fn/module.js -->
+<!-- attributes/data-validateable.js&#45;&gt;../fn/module.js -->
 <g id="edge315" class="edge">
-<title>modules/validateable.js&#45;&gt;../fn/module.js</title>
+<title>attributes/data-validateable.js&#45;&gt;../fn/module.js</title>
 <path fill="none" stroke="#757575" d="M830.77,-1985.04C857.28,-1993.87 889.03,-2008.69 909,-2032.5 1132.26,-2298.73 854.04,-2757.5 1201.5,-2757.5 1201.5,-2757.5 1201.5,-2757.5 1699.5,-2757.5 1834.52,-2757.5 1904.86,-2823.27 2002,-2729.5 2067.53,-2666.25 2108.92,-1982.82 2116.31,-1851.32"/>
 <polygon fill="#757575" stroke="#757575" points="2119.81,-1851.44 2116.87,-1841.26 2112.82,-1851.05 2119.81,-1851.44"/>
 </g>

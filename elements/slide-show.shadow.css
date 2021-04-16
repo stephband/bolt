@@ -50,30 +50,31 @@
 
     /* Put content in the center, useful when slide-show is bigger than content,
        such as in fullscreen mode. */
-    align-content: center;
+    align-content: center !important;
     align-items: stretch;
-    justify-content: center;
+    justify-content: center !important;
     justify-items: stretch;
     column-gap: var(--column-gap, 0);
 
     /* Reset style applied to un-upgraded slide-show  */
-    grid-auto-flow: row;
+    grid-auto-flow: row !important;
+    grid-template-columns: 100% !important;
+    grid-template-rows: 1fr !important;
     grid-auto-columns: 100%;
     grid-auto-rows: min-content;
-    grid-template-columns: 100%;
-    grid-template-rows: 1fr;
 
-    scroll-snap-type: none;
-    scroll-snap-stop: none;
-    -webkit-scroll-behavior: auto;
-    scroll-behavior: auto;
-    overscroll-behavior-x: none;
-    -ms-overflow-style: none; /* IE 11 */
-    scrollbar-width: none; /* Firefox 64 */
+    scroll-snap-type: none !important;
+    scroll-snap-stop: none !important;
+    -webkit-scroll-behavior: auto !important;
+    scroll-behavior: auto !important;
+    overscroll-behavior-x: none !important;
+    -ms-overflow-style: none !important; /* IE 11 */
+    scrollbar-width: none !important; /* Firefox 64 */
 
     overflow: visible;
 }
 
+:host,
 :host * {
     box-sizing: border-box;
     background-origin: padding-box;

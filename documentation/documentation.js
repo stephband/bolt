@@ -1,8 +1,8 @@
 
 import '../modules/device.js';
-import '../modules/toggleable.js';
-import '../modules/popable.js';
-//import '../modules/targetable.js';
+import '../attributes/data-toggleable.js';
+import '../attributes/data-popable.js';
+//import '../attributes/data-targetable.js';
 
 import { get, overload } from '../../fn/module.js';
 import { events, matches, select, trigger } from  '../../dom/module.js';
