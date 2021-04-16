@@ -427,12 +427,12 @@ function createLoopGhost(slide) {
     return ghost;
 }
 
-function Loop(element, shadow, view, autoplay, changes) {
-    this.element  = element;
-    this.shadow   = shadow;
-    this.view     = view;
-    this.autoplay = autoplay;
-    this.changes  = changes;
+function Loop(element, shadow, view, autoplay, slotchanges) {
+    this.element     = element;
+    this.shadow      = shadow;
+    this.view        = view;
+    this.autoplay    = autoplay;
+    this.slotchanges = slotchanges;
 }
 
 assign(Loop.prototype, {
@@ -441,7 +441,7 @@ assign(Loop.prototype, {
         const children = view.children;
 
         this.add(children);
-        this.changes.on(this.slotchangeFn = () => this.slotchange());
+        this.slotchanges.on(this.slotchangeFn = () => this.slotchange());
 
         this.scrollstops = scrollstops(this.view.slot).each((e) => {
             // Ignore scrollstops while a finger is gesturing
@@ -506,7 +506,7 @@ assign(Loop.prototype, {
     
     disable: function() {
         this.remove();
-        this.changes.off(this.slotchangeFn);
+        this.slotchanges.off(this.slotchangeFn);
         this.slotchangeFn = undefined;
         this.scrollstops.stop();
     }
@@ -524,7 +524,7 @@ function Navigation(element, slot, changes, activates, parent) {
 }
 
 assign(Navigation.prototype, {
-    enable: function(children) {
+    enable: function() {
         this.previous = create('a', { part: 'previous', html: config.trans['Previous'] });
         this.next     = create('a', { part: 'next', html: config.trans['Next'] });
         this.parent.appendChild(this.previous);
@@ -774,18 +774,27 @@ const settings = {
     },
 
     load: function (shadow) {
+        const view = this[$];
+
         const id = this.getAttribute('template');
         const template = id && this
             .getRootNode()
             .getElementById(id);
 
         if (template) {
-            if (template.render) {
+            /*if (template.render) {
                 
             }
-            else {
-                const render = Literal(template.innerHTML);                
-                this.render = function(data) {
+            else {*/
+                const render = Literal(template.innerHTML);
+                const data = {};
+
+                view.actives.on(function(active) {
+                    // Put together template render data
+                    data.activeId    = active.id || active.dataset.loopId;
+                    data.activeIndex = view.children.findIndex((child) => child.id === data.activeId);
+                    data.slidesCount = view.children.length;
+
                     return render(data).then((html) => {
                         this.nodes && this.nodes.forEach((node) => node.remove());
                         //content && content.remove();
@@ -793,15 +802,10 @@ const settings = {
                         this.nodes = Array.from(content.childNodes);
                         shadow.appendChild(content);
                     });
-                };
-
-                this.render({
-                    barf: 9
                 });
-            }
+            /*}*/
         }
 
-        const view = this[$];
         view.load();
     },
 
