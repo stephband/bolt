@@ -53,11 +53,15 @@ const assign = Object.assign;
 const define = Object.defineProperties;
 const $      = Symbol('slide-show');
 
-const config = {
+export const config = {
     path: window.customElementStylesheetPath || '',
-    loopableSlideCount: 5,
-    duration: 8
+    duration: 8,
+    trans: {
+        'Previous': 'Previous',
+        'Next': 'Next'
+    }
 };
+
 
 const parseTime = parseValue({
    's': id,
@@ -204,8 +208,8 @@ function View(element, shadow, slot) {
     });
 
     const autoplay   = new Autoplay(this);
-    const loop       = new Loop(this, autoplay);
-    const navigation = new Navigation(this, shadow);
+    const loop       = new Loop(element, shadow, this, autoplay, this.changes);
+    const navigation = new Navigation(element, slot, this.changes, this.actives, shadow);
     const pagination = new Pagination(this, shadow);
 
     slot.addEventListener('slotchange', this.changes);
@@ -423,19 +427,12 @@ function createLoopGhost(slide) {
     return ghost;
 }
 
-function Loop(view, autoplay) {
+function Loop(element, shadow, view, autoplay, changes) {
+    this.element  = element;
+    this.shadow   = shadow;
     this.view     = view;
-    this.shadow   = view.shadow;
-    this.changes  = view.changes;
-    this.actives  = view.actives;
     this.autoplay = autoplay;
-    // this.activate
-    // this.slotchange
-    // this.time
-    // this.timer
-    // this.ignore
-    // this.before
-    // this.after
+    this.changes  = changes;
 }
 
 assign(Loop.prototype, {
@@ -443,20 +440,8 @@ assign(Loop.prototype, {
         const view     = this.view;
         const children = view.children;
 
-        this.slotchange = (children) => {
-            // Will trigger a slotchange
-            this.remove();
-            this.add(children);
-
-            // This was originally AFTER the loop and nav stuff...
-            if (this.view.active) {
-                this.view.reposition(this.view.active);
-            }
-        };
-
         this.add(children);
-
-        this.view.changes.on(this.slotchange);
+        this.changes.on(this.slotchangeFn = () => this.slotchange());
 
         this.scrollstops = scrollstops(this.view.slot).each((e) => {
             // Ignore scrollstops while a finger is gesturing
@@ -466,6 +451,20 @@ assign(Loop.prototype, {
 
         if (view.active) {
             this.view.reposition(view.active);
+        }
+    },
+
+    slotchange: function() {
+        const view     = this.view;
+        const children = view.children;
+
+        // Will trigger a slotchange
+        this.remove();
+        this.add(children);
+
+        // This was originally AFTER the loop and nav stuff...
+        if (view.active) {
+            view.reposition(view.active);
         }
     },
 
@@ -493,7 +492,7 @@ assign(Loop.prototype, {
         // Realign the original slide as the active slide. Before we do, 
         // set an ignore flag so that this repositioning does not trigger
         // another activate when it resets scroll position
-        const target = this.view.element.getRootNode().getElementById(id);
+        const target = this.element.getRootNode().getElementById(id);
         this.view.reposition(target);
         this.view.actives.push(target);
     },
@@ -507,7 +506,8 @@ assign(Loop.prototype, {
     
     disable: function() {
         this.remove();
-        this.changes.off(this.slotchange);
+        this.changes.off(this.slotchangeFn);
+        this.slotchangeFn = undefined;
         this.scrollstops.stop();
     }
 });
@@ -515,30 +515,30 @@ assign(Loop.prototype, {
 
 /* Navigation */
 
-function Navigation(view, parent) {
-    this.view    = view;
-    this.changes = view.changes;
-    this.actives = view.actives;
-    this.parent  = parent;
+function Navigation(element, slot, changes, activates, parent) {
+    this.element   = element;
+    this.slot      = slot;
+    this.changes   = changes;
+    this.activates = activates;
+    this.parent    = parent;
 }
 
 assign(Navigation.prototype, {
     enable: function(children) {
-        const view = this.view;
-        this.previous = create('a', { part: 'previous', html: 'Previous' });
-        this.next     = create('a', { part: 'next', html: 'Next' });
+        this.previous = create('a', { part: 'previous', html: config.trans['Previous'] });
+        this.next     = create('a', { part: 'next', html: config.trans['Next'] });
         this.parent.appendChild(this.previous);
         this.parent.appendChild(this.next);
-        view.actives.on(this.activateFn = (active) => this.activate(active));
+        this.activates.on(this.activateFn = (active) => this.activate(active));
     },
 
     disable: function() {
-        const view = this.view;
         this.previous.remove();
         this.next.remove();
         this.previous = undefined; 
         this.next = undefined;
-        view.actives.off(this.activateFn);
+        this.activates.off(this.activateFn);
+        this.activateFn = undefined;
     },
     
     activate: function(active) {
@@ -547,6 +547,13 @@ assign(Navigation.prototype, {
         // end user, as we pick up clicks on part(previous) and part(next) 
         // before we interrogate link hrefs.
         const prevChild = previous(active);
+
+        if (this.slot.scrollWidth <= this.slot.clientWidth) {
+            // Nowhere to scroll to
+            this.previous.hidden = true;
+            this.next.hidden = true;
+            return;
+        }
 
         if (prevChild) {
             this.previous.hidden = false;
@@ -833,8 +840,15 @@ const settings = {
             
             <strong>navigation</strong> enables previous and next buttons. The 
             buttons may be styled with `::part(previous)` and `::part(next)` 
-            selectors.
-            
+            selectors. To change their text content, import and modify 
+            `config.trans`:
+
+            ```js
+            import { config } from './bolt/elements/slide-show.js';
+            config.trans['Previous'] = 'Précédent';
+            config.trans['Next']     = 'Suivant';
+            ```
+
             <strong>pagination</strong> enables a row of pagination dots. The
             dots may be styled with `::part(page)`.
             **/
