@@ -1,15 +1,20 @@
 
-/*
-popable
+/**
+data-popable
 
-An element with the `popable` attribute is activated when a link that
-references it is hijacked, and deactivated by user interaction outside of it.
+```html
+<div data-popable class="right-top-bubble top-bubble bubble" id="bolt-popable">Hello.</div>
+<a class="button" href="#bolt-popable">Show bubble</a>
+```
 
-An active `popable` gets the class `"active"`, and all links to it get the
-class `"on"`.
+An element with a `data-popable` attribute is given the class `"active"` when a 
+link that references it is click-hijacked, and then deactivated by user interaction 
+outside of itself. While it is active, all links to it have the class `"on"`.
+
+It is also activated when the page loads with its fragment identifier in the URL.
 
 With a little hide/show style, a popable can be used to make menus, tooltips,
-accordions and so on.
+bubbles, accordions and so on.
 */
 
 import matches from '../../dom/modules/matches.js';

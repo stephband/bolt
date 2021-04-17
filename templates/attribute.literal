@@ -1,0 +1,19 @@
+
+<header class="x1 3x @1-x-3 @1-4x @2-x-4">
+    <h2 class="x1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="${ slugify(title) }" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">${ data.title }</h2>
+    ${ data.header }
+</header>
+
+${ data.docs.map((doc) => `
+<h2 class="x1 3x @1-x-3 @1-4x @2-x-4 ${ doc.type }-doctext-05 doctext-05">
+    <code>${ doc.name.trim() } ${ doc.defaultValue && `<span class="default">=<em>${ doc.defaultValue }</em></span>` || '' }</code>
+</h2>
+
+<form class="x1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
+    ${ doc.examples }
+</form>
+
+<div class="x1 3x @1-x-3 @1-4x @2-x-4 x-stretch y-start">
+    ${ doc.body }
+</div>
+`) }

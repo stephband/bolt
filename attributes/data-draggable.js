@@ -1,18 +1,19 @@
-/*
-draggable
+/**
+data-draggable
 
 The native behaviour of the `draggable="true"`*
-attribute is extended with the `draggable-mimetypes`
+attribute is extended with the `data-draggable`
 attribute, which defines data to be carried by a drag action:
 
 ```html
-<div draggable="true" draggable-mimetypes="application/json: [0,1,2,3]">
+<div draggable="true" data-draggable="application/json: [0,1,2,3]">
     Drag me
 </div>
 ```
 
-<small>* Note that `draggable` must be `"true"`. It is not a boolean attribute.</small>
-*/
+<small>* Note that `draggable` must be `"true"`. It is not strictly a boolean 
+attribute.</small>
+**/
 
 import { capture } from '../../fn/modules/capture.js';
 
@@ -26,7 +27,7 @@ import { on, off }  from '../../dom/modules/events.js';
 
 import { register } from '../../sparky/module.js';
 
-var debug  = true;
+var debug = true;
 
 //                 xxxxx: wef;
 var rmimetype = /^([^:\s]+)\s*:\s*([^;\s]+);\s*/;
@@ -36,7 +37,7 @@ function lastIndex(data) {
 }
 
 function dragstartButton(target, e) {
-	var data = attribute('draggable-mimetypes', target);
+	var data = attribute('data-draggable', target);
 
 	if (data) {
 		data = capture(rmimetype, {
@@ -80,7 +81,7 @@ function dragstartButton(target, e) {
 	}
 }
 
-var dragstart = delegate({ '[draggable]': dragstartButton });
+var dragstart = delegate({ '[draggable], [data-draggable]': dragstartButton });
 
 function dragend(e) {
 	classes(e.target).remove('dragging');
@@ -96,8 +97,8 @@ function dragendButton(e) {
 }
 
 register('data-on-drag', function(node, params) {
-	var dragstart = delegate({ '[draggable]': dragstartButton });
-	var dragend   = delegate({ '[draggable]': dragendButton });
+	var dragstart = delegate({ '[draggable], [data-draggable]': dragstartButton });
+	var dragend   = delegate({ '[draggable], [data-draggable]': dragendButton });
 
 	//.on('selectstart', '.node-button', cache, selectstartIE9)
 	on('dragstart', dragstart, node);

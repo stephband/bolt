@@ -1,5 +1,5 @@
 
-<header class="x1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
+<header class="x1 3x @1-x-3 @1-4x @2-x-4">
     ${ data.filter((doc) => doc.type === 'element').map((doc) => `
     <h2 class="doctext-02">&lt;${ doc.name }&gt;</h2>
     ${ doc.body }

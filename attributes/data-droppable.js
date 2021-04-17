@@ -1,21 +1,16 @@
 
-/*
-droppable
+/**
+data-droppable
 
-Listen for drops on droppables, compare their droppable-mimetypes against
-the drag data and send a dom-drop event with available data.
+The `droppable` attribute turns an element into a drop target for drag-and-drop 
+actions, and is given the class `dragover` while data of an accepted mimetype is 
+being dragged over it.
 
-Adds the class 'dragover' to droppables during the drag-n-drop action.
+Define the mimetypes of data to accept in a `data-droppable`
+attribute:
 
-<p>The <code>droppable</code> attribute turns an element into
-a drop target for drag-and-drop actions, and is given the class
-<code>dragover</code> while data of an accepted mimetype is being
-dragged over it.</p>
-<p>Define the mimetypes of data to accept in the <code>droppable-mimetypes</code>
-attribute:</p>
-
-```
-<div droppable droppable-mimetypes="application/json">
+```html
+<div droppable data-droppable="application/json">
     Drop JSON on me.
 </div>
 ```
@@ -60,7 +55,7 @@ function offOvernode() {
 }
 
 function getDroptypes(node) {
-    var mimetypes = attribute('droppable-mimetypes', node);
+    var mimetypes = attribute('data-droppable', node);
     return mimetypes && mimetypes.trim().split(/\s+/);
 }
 
@@ -68,7 +63,7 @@ function dragenter(e) {
     if (overnode && (overnode === e.target || overnode.contains(e.target))) { return; }
     offOvernode();
 
-    var droppable  = closest('.droppable, [droppable]', e.target);
+    var droppable  = closest('[droppable], [data-droppable]', e.target);
     if (!droppable) { return; }
 
     var dragtypes = e.dataTransfer.types;
@@ -76,7 +71,7 @@ function dragenter(e) {
 
     var droptypes = getDroptypes(droppable);
     if (!droptypes) {
-        // Where droppable-mimetypes is not defined, assume the droppable won't
+        // Where data-droppable is not defined, assume the droppable won't
         // exclude any types. Strange assumption, perhaps?
         e.preventDefault();
         e.dataTransfer.dropEffect = "copy";

@@ -1,6 +1,6 @@
 
 /**
-validateable
+data-validateable
 
 <p>The <strong>validateable</strong> attribute can be set on an
 individual input, or on a form to make all descendant inputs
