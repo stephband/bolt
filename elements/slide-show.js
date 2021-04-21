@@ -326,6 +326,16 @@ assign(View.prototype, {
 
         this.ignore = true;
         scrollAuto(this.element, this.slot, target);
+
+        // If scrollable, style accordingly. Currently this class simply updates 
+        // the cursor to ew-resize
+        if (this.slot.scrollWidth <= this.slot.clientWidth) {
+            this.slot.classList.remove('scrollable')
+        }
+        else {
+            this.slot.classList.add('scrollable');
+        }
+
         this.active = target;
     },
 
@@ -546,7 +556,6 @@ assign(Navigation.prototype, {
         // no previous or next siblings. Href updates are purely a help for the 
         // end user, as we pick up clicks on part(previous) and part(next) 
         // before we interrogate link hrefs.
-        const prevChild = previous(active);
 
         if (this.slot.scrollWidth <= this.slot.clientWidth) {
             // Nowhere to scroll to
@@ -554,6 +563,8 @@ assign(Navigation.prototype, {
             this.next.hidden = true;
             return;
         }
+        
+        const prevChild = previous(active);
 
         if (prevChild) {
             this.previous.hidden = false;
@@ -571,6 +582,8 @@ assign(Navigation.prototype, {
         else {
             this.next.hidden = true;
         }
+        
+        //console.log('\nprevious', prevChild, '\nactive', active, '\nnext', nextChild)
     }
 });
 
