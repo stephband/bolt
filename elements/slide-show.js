@@ -220,7 +220,7 @@ function View(element, shadow, slot) {
         // not an original, reposition to be at the start of the 
         // originals
         if (DEBUG) {
-            console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'load', this.active);
+            console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'load');
         }
 
         this.reposition(this.active || this.element.firstElementChild);
@@ -321,7 +321,7 @@ assign(View.prototype, {
 
     reposition: function(target) {
         if (DEBUG) {
-            console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'reposition', target);
+            console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'reposition');
         }
 
         this.ignore = true;
