@@ -239,6 +239,15 @@ function View(element, shadow, slot) {
             }, 120);
         });
 
+        // Reposition everything on fullscreenchange
+        events('fullscreenchange', window)
+        .each((e) => {
+            // If this slide-show was involved in the fullscreen change
+            if (e.target === this.element || e.target.contains(this.element)) {
+                this.actives.push(this.active);
+            }
+        });
+
         // This only happens where element load is before window load.
         //events('load', window)
         //.map(() => {
