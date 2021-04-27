@@ -43,6 +43,7 @@ import { next, previous } from '../../dom/modules/traverse.js';
 import { select }    from '../../dom/modules/select.js';
 import Distributor   from '../../dom/modules/distributor.js';
 import scrollstops   from '../../dom/modules/scrollstops.js';
+import trigger       from '../../dom/modules/trigger.js';
 import parseCSSValue from '../../dom/modules/parse-value.js';
 import Literal       from '../../modules/literal.js';
 
@@ -62,6 +63,7 @@ export const config = {
     }
 };
 
+const tick = Promise.resolve();
 
 const parseTime = parseValue({
    's': id,
@@ -361,6 +363,14 @@ assign(View.prototype, {
 
         this.slot.style.setProperty('--children-count', items.length);
         this.children = items;
+
+        /** 
+        slidechildren
+        
+        Sent when children of a slide-show element (that are considered to be 
+        'slides') are added or removed.
+        **/
+        tick.then(() => trigger('slidechildren', this.element));
     }
 });
 
