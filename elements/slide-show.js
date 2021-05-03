@@ -28,23 +28,24 @@ elements with a `slot` attribute are not. Slides have default style of
 `scroll-snap-align: center`. Apply `start` or `end` to change the alignment. 
 **/
 
-import id          from '../../fn/modules/id.js';
-import equals      from '../../fn/modules/equals.js';
-import last        from '../../fn/modules/lists/last.js';
-import parseValue  from '../../fn/modules/parse-value.js';
-import delegate    from '../../dom/modules/delegate.js';
-import element     from '../../dom/modules/element.js';
+import id            from '../../fn/modules/id.js';
+import equals        from '../../fn/modules/equals.js';
+import last          from '../../fn/modules/lists/last.js';
+import parseValue    from '../../fn/modules/parse-value.js';
+import delegate      from '../../dom/modules/delegate.js';
+import element       from '../../dom/modules/element.js';
 import events, { isPrimaryButton } from '../../dom/modules/events.js';
-import gestures    from '../../dom/modules/gestures.js';
-import rect        from '../../dom/modules/rect.js';
-import create      from '../../dom/modules/create.js';
-import identify    from '../../dom/modules/identify.js';
+import gestures      from '../../dom/modules/gestures.js';
+import rect          from '../../dom/modules/rect.js';
+import create        from '../../dom/modules/create.js';
+import identify      from '../../dom/modules/identify.js';
 import { next, previous } from '../../dom/modules/traverse.js';
-import { select }  from '../../dom/modules/select.js';
-import Distributor from '../../dom/modules/distributor.js';
-import scrollstops from '../../dom/modules/scrollstops.js';
+import { select }    from '../../dom/modules/select.js';
+import Distributor   from '../../dom/modules/distributor.js';
+import scrollstops   from '../../dom/modules/scrollstops.js';
+import trigger       from '../../dom/modules/trigger.js';
 import parseCSSValue from '../../dom/modules/parse-value.js';
-import Literal     from '../../modules/literal.js';
+import Literal       from '../../modules/literal.js';
 
 
 const DEBUG = window.DEBUG === true;
@@ -62,6 +63,7 @@ export const config = {
     }
 };
 
+const tick = Promise.resolve();
 
 const parseTime = parseValue({
    's': id,
@@ -220,7 +222,7 @@ function View(element, shadow, slot) {
         // not an original, reposition to be at the start of the 
         // originals
         if (DEBUG) {
-            console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'load', this.active);
+            console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'load');
         }
 
         this.reposition(this.active || this.element.firstElementChild);
@@ -235,6 +237,15 @@ function View(element, shadow, slot) {
             resizeTimer = setTimeout(() => {
                 this.reposition(this.active || this.element.firstElementChild);
             }, 120);
+        });
+
+        // Reposition everything on fullscreenchange
+        events('fullscreenchange', window)
+        .each((e) => {
+            // If this slide-show was involved in the fullscreen change
+            if (e.target === this.element || e.target.contains(this.element)) {
+                this.actives.push(this.active);
+            }
         });
 
         // This only happens where element load is before window load.
@@ -321,11 +332,21 @@ assign(View.prototype, {
 
     reposition: function(target) {
         if (DEBUG) {
-            console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'reposition', target);
+            console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'reposition');
         }
 
         this.ignore = true;
         scrollAuto(this.element, this.slot, target);
+
+        // If scrollable, style accordingly. Currently this class simply updates 
+        // the cursor to ew-resize
+        if (this.slot.scrollWidth <= this.slot.clientWidth) {
+            this.slot.classList.remove('scrollable')
+        }
+        else {
+            this.slot.classList.add('scrollable');
+        }
+
         this.active = target;
     },
 
@@ -351,6 +372,14 @@ assign(View.prototype, {
 
         this.slot.style.setProperty('--children-count', items.length);
         this.children = items;
+
+        /** 
+        slidechildren
+        
+        Sent when children of a slide-show element (that are considered to be 
+        'slides') are added or removed.
+        **/
+        tick.then(() => trigger('slidechildren', this.element));
     }
 });
 
@@ -546,7 +575,6 @@ assign(Navigation.prototype, {
         // no previous or next siblings. Href updates are purely a help for the 
         // end user, as we pick up clicks on part(previous) and part(next) 
         // before we interrogate link hrefs.
-        const prevChild = previous(active);
 
         if (this.slot.scrollWidth <= this.slot.clientWidth) {
             // Nowhere to scroll to
@@ -554,6 +582,8 @@ assign(Navigation.prototype, {
             this.next.hidden = true;
             return;
         }
+        
+        const prevChild = previous(active);
 
         if (prevChild) {
             this.previous.hidden = false;
@@ -571,6 +601,8 @@ assign(Navigation.prototype, {
         else {
             this.next.hidden = true;
         }
+        
+        //console.log('\nprevious', prevChild, '\nactive', active, '\nnext', nextChild)
     }
 });
 

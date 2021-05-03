@@ -110,6 +110,10 @@ Does not work
     justify-content: start !important;
 }
 
+:host > [part="grid"].scrollable {
+    cursor: ew-resize;
+}
+
 :host > [part="previous"] {
     align-self: center;
     justify-self: start;
@@ -170,13 +174,13 @@ Does not work
 [part="grid"]::after {
     /* This is a hack fix for the fact that scroll-snapped grids do not scroll
        to the extent of their right padding (or indeed to any of their right 
-       padding). Note that this doesn't work with --padding-left based on
-       percentages, as the dimensionsdo not refer tot he same parent. */
+       padding). Note that this doesn't work with --padding-right based on
+       percentages, as the dimensions do not refer to the same parent. */
     content: '';
-    position: absolute;
+    /*position: absolute;*/
     grid-column: calc(var(--children-count) + 1);
     grid-row: 1;
-    padding-left: var(--padding-right);
+    padding-right: var(--padding-right);
     width: 0px;
     height: 100%;
     top: 0;
@@ -184,6 +188,8 @@ Does not work
     align-self: stretch;
     background-color: transparent;
     z-index: 40;
+    /* width:  1px; */
+    /* background-color:  red; */
 }
 
 :host([loop]) > [part="grid"]::after {
