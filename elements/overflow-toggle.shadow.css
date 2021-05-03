@@ -24,6 +24,16 @@
     font-size: inherit;
     line-height: inherit;
 
+    /* Support content being set in a grid (via ::part(content) { display: grid; }) 
+       by inheriting grid rules set on host. */
+    grid: inherit;
+    justify-content: inherit;
+    justify-items: inherit;
+    align-content: inherit;
+    align-items: inherit;
+    column-gap: inherit;
+    row-gap: inherit;
+
     /* Won't work – multiline text, innit – but we can always dream */
     text-overflow: ellipsis;
     overflow: hidden;
