@@ -70,7 +70,7 @@
             "error",
             "unix"
         ],
-        "lines-around-comment": "off",
+        "lines-around-comment": "error",
         "lines-around-directive": "error",
         "max-depth": "off",
         "max-len": "off",
@@ -135,7 +135,7 @@
         "no-negated-condition": "off",
         "no-nested-ternary": "off",
         "no-new": "off",
-        "no-new-func": "off",
+        "no-new-func": "error",
         "no-new-object": "error",
         "no-new-require": "error",
         "no-new-wrappers": "error",
@@ -231,7 +231,7 @@
             "error",
             "never"
         ],
-        "valid-jsdoc": "off",
+        "valid-jsdoc": "error",
         "vars-on-top": "off",
         "wrap-iife": "off",
         "wrap-regex": "off",

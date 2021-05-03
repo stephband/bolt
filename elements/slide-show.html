@@ -58,9 +58,12 @@
 </head>
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
+    <nav class="x-1 x-stretch y-1 @2-x-1 @2-1x">
+        <a class="thumb thumb-1:1" width="400" height="400" style="background-image: url('../images/logo.svg'); background-size: contain; width: 120%; padding-top: 120%; max-width: 6rem; margin-top: -16%; margin-left: -8%; margin-right: -12%;">Bolt</a>
+    </nav>
 
     <!-- Literal template "templates/element.literal" -->
-<header class="x-1 3x @1-x-3 @1-4x @2-x-4" id="range-control">
+<header class="x1 3x @1-x-3 @1-4x @2-x-4">
     
     <h2 class="doctext-02">&lt;slide-show&gt;</h2>
     <p>Configure stylesheet path with:</p>
@@ -75,14 +78,14 @@ element and upgrades instances already in the DOM.</p>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-1.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span> <span class="token attr-name">draggable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../images/lyngen-3.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>4<span class="token punctuation">"</span></span> <span class="token attr-name">draggable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slide-show</span><span class="token punctuation">></span></span></code></pre>
-<p>By default each element inside <code>&lt;slide-show&gt;</code> is interpreted as a slide, but
-elements with a <code>slot</code> attribute are ignored. This allows for the insertion of 
-fullscreen close buttons and the like.</p>
+<p>By default children of <code>&lt;slide-show&gt;</code> are interpreted as slides, but
+elements with a <code>slot</code> attribute are not. Slides have default style of
+<code>scroll-snap-align: center</code>. Apply <code>start</code> or <code>end</code> to change the alignment. </p>
 
     
 </header>
 
-<form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
+<form class="x1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
     <script type="module" src="../templates/bolt/elements/slide-show.js"></script>
 
 <slide-show loop controls="navigation">
@@ -95,7 +98,7 @@ fullscreen close buttons and the like.</p>
     <input hidden class="button" type="submit" />
 </form>
 
-<div class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+<div class="x1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
     
     <h3 class="doctext-03">Attributes</h3>
     <!-- Literal template "templates/entry.literal" -->
@@ -121,7 +124,14 @@ fullscreen close buttons and the like.</p>
             all tokens are considered to be true. Otherwise, possible tokens are:</p>
 <pre><code>        <span class="token operator">&lt;</span>strong<span class="token operator">></span>navigation<span class="token operator">&lt;</span><span class="token operator">/</span>strong<span class="token operator">></span> enables previous and next buttons<span class="token punctuation">.</span> The 
         buttons may be styled <span class="token keyword">with</span> <span class="token template-string"><span class="token string">`::part(previous)`</span></span> and <span class="token template-string"><span class="token string">`::part(next)`</span></span> 
-        selectors<span class="token punctuation">.</span>
+        selectors<span class="token punctuation">.</span> To change their text content<span class="token punctuation">,</span> <span class="token keyword">import</span> and modify 
+        <span class="token template-string"><span class="token string">`config.trans`</span></span><span class="token punctuation">:</span>
+
+        <span class="token template-string"><span class="token string">``</span></span><span class="token template-string"><span class="token string">`js
+        import { config } from './bolt/elements/slide-show.js';
+        config.trans['Previous'] = 'Précédent';
+        config.trans['Next']     = 'Suivant';
+        `</span></span><span class="token template-string"><span class="token string">``</span></span>
 
         <span class="token operator">&lt;</span>strong<span class="token operator">></span>pagination<span class="token operator">&lt;</span><span class="token operator">/</span>strong<span class="token operator">></span> enables a row <span class="token keyword">of</span> pagination dots<span class="token punctuation">.</span> The
         dots may be styled <span class="token keyword">with</span> <span class="token template-string"><span class="token string">`::part(page)`</span></span><span class="token punctuation">.</span></code></pre>
@@ -135,6 +145,18 @@ fullscreen close buttons and the like.</p>
     </h3>
     
     <p>Boolean attribute. Makes the slideshow behave as a continuous loop.</p>
+
+</section>
+<!-- Literal template "templates/entry.literal" -->
+<section class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-attribute-template">
+    <h3 class="attribute-doctext-05 doctext-05">
+        <a href="#attribute-attribute-template">
+            <code class="token  language-html">template <span class="default">=<em>id</em></span></code>
+        </a>
+    </h3>
+    
+    <p>Id of optional template to append to the shadow DOM on instantiation.
+            Subsequent changes to this attribute have no effect.</p>
 
 </section>
 
@@ -174,7 +196,7 @@ fullscreen close buttons and the like.</p>
     
 </div>
 
-<div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
+<div class="x1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
     
     <h3 class="doctext-03">Parts</h3>
     <!-- Literal template "templates/entry.literal" -->
@@ -208,17 +230,6 @@ fullscreen close buttons and the like.</p>
     </h3>
     
     <p>Style the navigation links.</p>
-
-</section>
-<!-- Literal template "templates/entry.literal" -->
-<section class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-part-part-active-link">
-    <h3 class="part-doctext-05 doctext-05">
-        <a href="#part-part-part-active-link">
-            <code class="  language-js">::part(active-link) </code>
-        </a>
-    </h3>
-    
-    <p>Style the navigation link for the currently active slide.</p>
 
 </section>
 
