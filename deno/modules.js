@@ -27,10 +27,6 @@ function getDateTime() {
     .replace('T', ' ');
 }
 
-console.log('===== ', workingdir + 'package.json', ' =====');
-console.log('DESTINATION', builddir);
-console.log('MODULES', modules, es);
-
 Deno
 .readTextFile(workingdir + 'package.json')
 .then(JSON.parse)
