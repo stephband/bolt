@@ -52,6 +52,9 @@ Deno
     // and are built into static/build-xxx along with shared chunks
     outdir:    builddir,
 
+    // Specify which environments to support
+    //target:    ['es2016'],
+
     minify:    true,
     splitting: true,
     bundle:    true,
@@ -59,7 +62,7 @@ Deno
     logLevel:  'info'
 }))
 
-// Draw dependency graph to SVG
+// Explicitly stop esbuild
 .then((d) => {
     es.stop();
 })
