@@ -16,7 +16,7 @@
 
     /* Default max-height */
     max-height: 7.5rem;
-    --overflow: 1rem;
+    --bleed: 1rem;
 }
 
 :host > slot {
@@ -42,13 +42,13 @@
     text-overflow: ellipsis;
     overflow: hidden;
 
-    margin-top: calc(-1 * var(--overflow));
-    margin-left: calc(-1 * var(--overflow));
-    margin-right: calc(-1 * var(--overflow));
+    margin-top: calc(-1 * var(--bleed));
+    margin-left: calc(-1 * var(--bleed));
+    margin-right: calc(-1 * var(--bleed));
     margin-bottom: 0;
-    padding-top: var(--overflow);
-    padding-left: var(--overflow);
-    padding-right: var(--overflow);
+    padding-top: var(--bleed);
+    padding-left: var(--bleed);
+    padding-right: var(--bleed);
     padding-bottom: 0;
     
     transition:
@@ -58,8 +58,14 @@
 
 :host([open]) > slot {
     /* Allow overflow while open */
-    margin-bottom: calc(-1 * var(--overflow));
-    padding-bottom: var(--overflow);
+    margin-bottom: calc(-1 * var(--bleed));
+    padding-bottom: var(--bleed);
+}
+
+:host > slot:not(.buttoned) {
+    /* Allow overflow while open */
+    margin-bottom: calc(-1 * var(--bleed));
+    padding-bottom: var(--bleed);
 }
 
 :host > [part="button"] {
