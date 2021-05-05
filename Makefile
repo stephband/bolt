@@ -3,7 +3,7 @@ DEBUG=
 # Tell make to allow overwriting existing files
 .PHONY: modules
 
-# Impoerted from node run, must modify
+# Imported from node run, must modify
 literal:
 	node --experimental-json-modules --no-warnings ./literal/index.js ./ debug
 

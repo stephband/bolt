@@ -86,6 +86,7 @@ element('overflow-toggle', {
             this.open = !this.open;
         });
 
+        // Internal view object
         this[$] = { button, changes, element: this, slot, style };
     },
 
