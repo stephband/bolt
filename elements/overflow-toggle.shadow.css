@@ -13,25 +13,65 @@
     font-size: inherit;
     line-height: inherit;
     transition: max-height 0.5s cubic-bezier(0, 0.28, 0.72, 1);
+
+    /* Default max-height */
     max-height: 7.5rem;
+    --bleed: 1rem;
 }
 
 :host > slot {
-    /* Can shrink smaller than its auto size */
+    /* Cannot grow bigger but can shrink smaller than its auto size */
     flex: 0 1 auto;
+
     display: block;
     min-height: 0;
     font-size: inherit;
     line-height: inherit;
 
+    /* Support content being set in a grid (via ::part(content) { display: grid; }) 
+       by inheriting grid rules set on host. */
+    grid: inherit;
+    justify-content: inherit;
+    justify-items: inherit;
+    align-content: inherit;
+    align-items: inherit;
+    column-gap: inherit;
+    row-gap: inherit;
+
     /* Won't work – multiline text, innit – but we can always dream */
     text-overflow: ellipsis;
     overflow: hidden;
+
+    margin-top: calc(-1 * var(--bleed));
+    margin-left: calc(-1 * var(--bleed));
+    margin-right: calc(-1 * var(--bleed));
+    margin-bottom: 0;
+    padding-top: var(--bleed);
+    padding-left: var(--bleed);
+    padding-right: var(--bleed);
+    padding-bottom: 0;
+    
+    transition:
+        margin-bottom 0.5s linear,
+        padding-bottom 0.5s linear;
+}
+
+:host([open]) > slot {
+    /* Allow overflow while open */
+    margin-bottom: calc(-1 * var(--bleed));
+    padding-bottom: var(--bleed);
+}
+
+:host > slot:not(.buttoned) {
+    /* Allow overflow while open */
+    margin-bottom: calc(-1 * var(--bleed));
+    padding-bottom: var(--bleed);
 }
 
 :host > [part="button"] {
     /* Maintains its auto size */
     flex: 0 0 auto;
+
     display: block;
     margin-left: auto;
     margin-right: auto;

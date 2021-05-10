@@ -47,13 +47,20 @@ const config = {
 
 /* Element */
 
-function update(shadow, button, scrollHeight, maxHeight, state) {
+function update(shadow, button, scrollHeight, maxHeight, slot, state) {
     if (scrollHeight > maxHeight) {
-        if (!state) { shadow.appendChild(button); }
+        if (!state) {
+            shadow.appendChild(button);
+            slot.classList.add('buttoned');
+        }
         return true;
     }
-    
-    if (state) { button.remove(); }
+
+    if (state) {
+        button.remove();
+        slot.classList.remove('buttoned');
+    }
+
     return false;
 }
 
@@ -68,7 +75,7 @@ element('overflow-toggle', {
     construct: function(shadow) {
         const link  = create('link', { rel: 'stylesheet', href: config.path + 'overflow-toggle.shadow.css' });
         const style = styles(':host', shadow)[0];
-        const slot  = create('slot');
+        const slot  = create('slot', { part: 'content' });
 
         shadow.appendChild(link);
         shadow.appendChild(slot);
@@ -86,6 +93,7 @@ element('overflow-toggle', {
             this.open = !this.open;
         });
 
+        // Internal view object
         this[$] = { button, changes, element: this, slot, style };
     },
 
@@ -93,14 +101,14 @@ element('overflow-toggle', {
         const view = this[$];
         const { button, slot } = view;
         const style = getComputedStyle(this);
-        const maxHeight = parseValue(view.maxHeight || style['max-height']);
+        const maxHeight = parseValue(view.maxHeight || style['max-height'] || 0);
         
         // maxHeight is cached on view when element is open
-        var state = update(shadow, button, slot.scrollHeight, maxHeight, false);
+        var state = update(shadow, button, slot.scrollHeight, maxHeight, slot, false);
         events('resize', window)
         .each((e) => {
-            const maxHeight = parseValue(view.maxHeight || style['max-height']);
-            state = update(shadow, button, slot.scrollHeight, maxHeight, state)
+            const maxHeight = parseValue(view.maxHeight || style['max-height'] || 0);
+            state = update(shadow, button, slot.scrollHeight, maxHeight, slot, state)
         });
     },
 
@@ -171,13 +179,14 @@ element('overflow-toggle', {
                         // plus button height
                         + button.clientHeight 
                         // plus button margins
-                        + parseValue(computedButton['margin-top']) 
-                        + parseValue(computedButton['margin-bottom'])
+                        + parseValue(computedButton['margin-top'] || 0) 
+                        + parseValue(computedButton['margin-bottom'] || 0)
                         // plus a sneaky safety margin, no-one will notice
                         + 8 ;
 
                     // Store maxHeight while element is open
                     view.maxHeight = computedElement['max-height'];
+                    view.maxHeight = view.maxHeight === 'none' ? 0 : view.maxHeight ;
                     style.setProperty('max-height', rem(px), 'important');
                     button.textContent = view.hideText;
                     

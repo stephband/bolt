@@ -30,6 +30,8 @@
   "module": "module.js",
   "scripts": {
     "literal": "node --experimental-json-modules --no-warnings ./literal/index.js ./ debug",
+    "modules": "rm -rf prod && node --experimental-json-modules scripts/build-module.js ./hello/ ./elements/overflow-toggle.js",
+
     "----": "-----------------------------------------------------------------------------------------------",
     "lint": "eslint modules/*.js",
     "build": "npm run build-sass && npm run build-css && npm run build-module & npm run build-elements && npm run build-html",
