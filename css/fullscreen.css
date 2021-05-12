@@ -1,4 +1,9 @@
 
+/* 
+We implement the .fullscreen class to support Safari on iPhone, which does
+not have the APIs.
+*/
+
 *:-webkit-full-screen {
     display: block;
     opacity: 1 !important;
@@ -21,6 +26,19 @@
     display: block;
     opacity: 1 !important;
     visibility: visible !important;
+}
+
+.fullscreen {
+    display: block;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 100 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background-color: white;
 }
 
 /**
@@ -49,13 +67,18 @@ Hide an element when inside an element in fullscreen mode.
     display: none !important;
 }
 
+.fullscreen-hidden.fullscreen,
+.fullscreen .fullscreen-hidden {
+    display: none !important;
+}
+
 /**
 .fullscreen-shown
 
 Hide an element when not in fullscreen mode.
 **/
 
-:not(:-webkit-full-screen) > .fullscreen-shown:not(:-webkit-full-screen) {
+:not(:-webkit-full-screen):not(.fullscreen) > .fullscreen-shown:not(:-webkit-full-screen):not(.fullscreen) {
     display: none !important;
 }
 
@@ -67,6 +90,6 @@ Hide an element when not in fullscreen mode.
     display: none !important;
 }
 
-:not(:fullscreen) > .fullscreen-shown:not(:fullscreen) {
+:not(:fullscreen):not(.fullscreen) > .fullscreen-shown:not(:fullscreen):not(.fullscreen) {
     display: none !important;
 }

@@ -70,3 +70,8 @@ slide-show:fullscreen {
     align-content: center;
     column-gap: var(--column-gap);
 }
+
+slide-show.fullscreen {
+    align-content: center;
+    column-gap: var(--column-gap);
+}

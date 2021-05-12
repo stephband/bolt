@@ -128,7 +128,7 @@ function renderString(strings, ...values) {
 
 function renderValue(strings, ...values) {
     return Promise.all(strings.map((string, i) => (
-        console.log(typeof string, string),
+        //console.log(typeof string, string),
         i < values.length ?
             // Strings 0 to n - 1
             stringify(values[i], string, id) :
