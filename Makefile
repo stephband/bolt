@@ -1,11 +1,11 @@
 DEBUG=
 
-# Tell make to allow overwriting existing files
-.PHONY: modules
+# Tell make to ignore existing folders and allow overwriting existing files
+.PHONY: modules literal
 
-# Imported from node run, must modify
+# Must format with tabs not spaces
 literal:
-	node --experimental-json-modules --no-warnings ./literal/index.js ./ debug
+	deno run --allow-read --allow-env --allow-net --allow-write --allow-run ../literal/generate.js ./ debug
 
 modules:
 	deno run --allow-read --allow-env --allow-net --allow-write --allow-run ./deno/modules.js packaged elements/overflow-toggle.js elements/slide-show.js elements/slide-show.css elements/slide-show.shadow.css elements/overflow-toggle.css elements/overflow-toggle.shadow.css
