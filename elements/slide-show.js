@@ -131,12 +131,12 @@ function scrollSmooth(element, slot, target) {
 
 function scrollAuto(element, slot, target) {
     // Check for visibility before measuring anything
-    if (!element.offsetParent) { return; }
+    if (!element.offsetParent || !target.offsetParent) { return; }
 
     const firstRect  = rect(element.firstElementChild);
     const targetRect = rect(target);
 
-    // Move scroll position to next slide. Behavior option does not seem
+    // Move scroll position to next slide. Behaviour option does not seem
     // to be respected so override style for safety.
     slot.style.setProperty('scroll-behavior', 'auto');
 
@@ -225,9 +225,6 @@ function View(element, shadow, slot) {
             console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'load');
         }
 
-        this.reposition(this.active || this.element.firstElementChild);
-        this.actives.push(this.active);
-
         var resizeTimer;
 
         // Reposition everything on resize
@@ -247,6 +244,12 @@ function View(element, shadow, slot) {
                 this.actives.push(this.active);
             }
         });
+
+        const target = this.active || this.element.firstElementChild;
+        if (!target) { return; }
+        
+        this.reposition(this.active || this.element.firstElementChild);
+        this.actives.push(this.active);
 
         // This only happens where element load is before window load.
         //events('load', window)
