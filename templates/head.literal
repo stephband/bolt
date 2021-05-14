@@ -15,7 +15,7 @@ ${ author && author.twitter && `
 <title>${title}</title>
 
 ${ favicons && favicons.map((favicon) => `
-<link rel="icon"${ favicon.type && ` type="${ favicon.type }"` } href="${ favicon.url }"${ favicon.sizes && ` sizes="${ favicon.sizes }"` }>`) }
+<link rel="icon"${ favicon.type ? ` type="${ favicon.type }"` : '' } href="${ favicon.url }"${ favicon.sizes ? ` sizes="${ favicon.sizes }"` : '' }>`) }
 
 <script title="load">
     document.documentElement.className += ' js content-loading loading';

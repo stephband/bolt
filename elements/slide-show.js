@@ -47,7 +47,6 @@ import trigger       from '../../dom/modules/trigger.js';
 import parseCSSValue from '../../dom/modules/parse-value.js';
 import Literal       from '../../literal/modules/compile-string.js';
 
-
 const DEBUG = window.DEBUG === true;
 
 const assign = Object.assign;
@@ -215,7 +214,7 @@ function View(element, shadow, slot) {
     const pagination = new Pagination(this, shadow);
 
     slot.addEventListener('slotchange', this.changes);
-    slot.addEventListener('scroll', this.actives, { passive: false });
+    slot.addEventListener('scroll', this.actives/*, { passive: false }*/);
 
     this.load = () => {
         // If we are at the very start of the loop on load, and it is 
@@ -236,14 +235,20 @@ function View(element, shadow, slot) {
             }, 120);
         });
 
-        // Reposition everything on fullscreenchange
-        events('fullscreenchange', window)
-        .each((e) => {
+        window.addEventListener('fullscreenchange', (e) => {
             // If this slide-show was involved in the fullscreen change
             if (e.target === this.element || e.target.contains(this.element)) {
                 this.actives.push(this.active);
             }
         });
+        // Reposition everything on fullscreenchange.
+        /*events('fullscreenchange', window)
+        .each((e) => {
+            // If this slide-show was involved in the fullscreen change
+            if (e.target === this.element || e.target.contains(this.element)) {
+                this.actives.push(this.active);
+            }
+        });*/
 
         const target = this.active || this.element.firstElementChild;
         if (!target) { return; }
@@ -585,7 +590,7 @@ assign(Navigation.prototype, {
             this.next.hidden = true;
             return;
         }
-        
+
         const prevChild = previous(active);
 
         if (prevChild) {
@@ -605,7 +610,7 @@ assign(Navigation.prototype, {
             this.next.hidden = true;
         }
         
-        //console.log('\nprevious', prevChild, '\nactive', active, '\nnext', nextChild)
+        // console.log('\nprevious', prevChild, '\nactive', active, '\nnext', nextChild)
     }
 });
 
@@ -761,8 +766,9 @@ const settings = {
             }
         });
 
-        // Enable single finger scroll 
-        gestures({ threshold: '0.25rem' }, shadow)
+        // Enable single finger scroll on mouse devices. Bad idea, but users
+        // tend to want it.
+        gestures({ threshold: '0.25rem', device: 'mouse' }, shadow)
         .each(function(pointers) {
             // First event is touchstart or mousedown
             var e0     = pointers.shift();
