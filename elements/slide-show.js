@@ -206,7 +206,8 @@ function View(element, shadow, slot) {
         }
 
         return this.activate(e);
-    });
+    })
+    .on((active) => this.active = active);
 
     const autoplay   = new Autoplay(this);
     const loop       = new Loop(element, shadow, this, autoplay, this.changes);
@@ -335,7 +336,7 @@ assign(View.prototype, {
         if (slide === this.active) { return; }
 
         // Return active slide to distributor
-        return (this.active = slide);
+        return slide;
     },
 
     reposition: function(target) {
@@ -850,6 +851,32 @@ const settings = {
     },
 
     properties: {
+        active: {
+            /**
+            .active
+            The id of the currently active child.
+            **/
+
+            set: function(id) {
+                // Accept a child node, get its id
+                const child = typeof id !== 'object' ?
+                    this.querySelector('#' + (/^\d/.test((id + '')[0]) ?
+                        '\\3' + (id + '')[0] + ' ' + (id + '').slice(1) :
+                        id)
+                    ) : id ;
+
+                if (!child) {
+                    throw new Error('Cannot set active – not a child of slide-show');
+                }
+
+                this[$].show(child);
+            },
+
+            get: function() {
+                return this[$].active.id;
+            }
+        },
+
         autoplay: {
             /**
             autoplay=""
@@ -954,6 +981,3 @@ const settings = {
 };
 
 export default element('slide-show', settings);
-
-//element('div[is=slide-show]', 'ol', settings);
-//element('ul[is=slide-show]', 'ul', settings);
