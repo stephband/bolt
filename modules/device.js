@@ -43,9 +43,10 @@ function mousedown(e) {
 
 function keydown(e) {
     // If key is not tab, enter or escape do nothing
-    if ([9, 13, 27].indexOf(e.keyCode) === -1) { return; }
+    if (["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Space", "Escape", "Tab"].indexOf(e.code) === -1) { return; }
     updateClass(config.keyClass);
     device.type = config.keyType;
+    timeStamp = e.timeStamp;
 }
 
 function touchend(e) {
