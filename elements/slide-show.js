@@ -47,7 +47,7 @@ import trigger       from '../../dom/modules/trigger.js';
 import parseCSSValue from '../../dom/modules/parse-value.js';
 import Literal       from '../../literal/modules/compile-string.js';
 
-const DEBUG = window.DEBUG === true;
+const DEBUG = false;//window.DEBUG === true;
 
 const assign = Object.assign;
 const define = Object.defineProperties;
