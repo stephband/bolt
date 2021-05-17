@@ -188,7 +188,8 @@ Does not work
     align-self: stretch;
     background-color: transparent;
     z-index: 40;
-    /* width:  1px; */
+    width: 0px;
+    min-width:  1px;
     /* background-color:  red; */
 }
 

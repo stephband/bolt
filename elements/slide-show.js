@@ -120,6 +120,8 @@ function scrollSmooth(element, slot, target) {
     const firstRect  = rect(element.firstElementChild);
     const targetRect = rect(target);
 
+    if (!firstRect || !targetRect) { return; }
+
     // Move scroll position to next slide
     slot.scrollTo({
         top: slot.scrollTop,
