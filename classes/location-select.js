@@ -21,7 +21,7 @@ events('change', document)
 .filter(matches(selector))
 .map(get('value'))
 // Ignore links for empty spaces
-.filter((value) => !!value )
+.filter((value) => !!value)
 .each(overload(isHashRef, {
     true: function(ref) {
         const id = ref.slice(1);

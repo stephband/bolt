@@ -3,7 +3,8 @@ html {
     font-size: 100%; /* 16px, normally */
 }
 
-body {
+body,
+button {
     /* Enable kerning in FF and WebKit. */
     /*text-rendering: optimizeLegibility;*/
     text-rendering: geometricPrecision;

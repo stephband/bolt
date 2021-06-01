@@ -47,8 +47,7 @@ import trigger       from '../../dom/modules/trigger.js';
 import parseCSSValue from '../../dom/modules/parse-value.js';
 import Literal       from '../../literal/modules/compile-string.js';
 
-
-const DEBUG = window.DEBUG === true;
+const DEBUG = false;//window.DEBUG === true;
 
 const assign = Object.assign;
 const define = Object.defineProperties;
@@ -121,6 +120,8 @@ function scrollSmooth(element, slot, target) {
     const firstRect  = rect(element.firstElementChild);
     const targetRect = rect(target);
 
+    if (!firstRect || !targetRect) { return; }
+
     // Move scroll position to next slide
     slot.scrollTo({
         top: slot.scrollTop,
@@ -131,12 +132,12 @@ function scrollSmooth(element, slot, target) {
 
 function scrollAuto(element, slot, target) {
     // Check for visibility before measuring anything
-    if (!element.offsetParent) { return; }
+    if (!element.offsetParent || !target.offsetParent) { return; }
 
     const firstRect  = rect(element.firstElementChild);
     const targetRect = rect(target);
 
-    // Move scroll position to next slide. Behavior option does not seem
+    // Move scroll position to next slide. Behaviour option does not seem
     // to be respected so override style for safety.
     slot.style.setProperty('scroll-behavior', 'auto');
 
@@ -207,7 +208,8 @@ function View(element, shadow, slot) {
         }
 
         return this.activate(e);
-    });
+    })
+    .on((active) => this.active = active);
 
     const autoplay   = new Autoplay(this);
     const loop       = new Loop(element, shadow, this, autoplay, this.changes);
@@ -215,7 +217,7 @@ function View(element, shadow, slot) {
     const pagination = new Pagination(this, shadow);
 
     slot.addEventListener('slotchange', this.changes);
-    slot.addEventListener('scroll', this.actives, { passive: false });
+    slot.addEventListener('scroll', this.actives/*, { passive: false }*/);
 
     this.load = () => {
         // If we are at the very start of the loop on load, and it is 
@@ -224,9 +226,6 @@ function View(element, shadow, slot) {
         if (DEBUG) {
             console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'load');
         }
-
-        this.reposition(this.active || this.element.firstElementChild);
-        this.actives.push(this.active);
 
         var resizeTimer;
 
@@ -239,14 +238,26 @@ function View(element, shadow, slot) {
             }, 120);
         });
 
-        // Reposition everything on fullscreenchange
-        events('fullscreenchange', window)
-        .each((e) => {
+        window.addEventListener('fullscreenchange', (e) => {
             // If this slide-show was involved in the fullscreen change
             if (e.target === this.element || e.target.contains(this.element)) {
                 this.actives.push(this.active);
             }
         });
+        // Reposition everything on fullscreenchange.
+        /*events('fullscreenchange', window)
+        .each((e) => {
+            // If this slide-show was involved in the fullscreen change
+            if (e.target === this.element || e.target.contains(this.element)) {
+                this.actives.push(this.active);
+            }
+        });*/
+
+        const target = this.active || this.element.firstElementChild;
+        if (!target) { return; }
+        
+        this.reposition(this.active || this.element.firstElementChild);
+        this.actives.push(this.active);
 
         // This only happens where element load is before window load.
         //events('load', window)
@@ -327,7 +338,7 @@ assign(View.prototype, {
         if (slide === this.active) { return; }
 
         // Return active slide to distributor
-        return (this.active = slide);
+        return slide;
     },
 
     reposition: function(target) {
@@ -582,7 +593,7 @@ assign(Navigation.prototype, {
             this.next.hidden = true;
             return;
         }
-        
+
         const prevChild = previous(active);
 
         if (prevChild) {
@@ -602,7 +613,7 @@ assign(Navigation.prototype, {
             this.next.hidden = true;
         }
         
-        //console.log('\nprevious', prevChild, '\nactive', active, '\nnext', nextChild)
+        // console.log('\nprevious', prevChild, '\nactive', active, '\nnext', nextChild)
     }
 });
 
@@ -758,8 +769,9 @@ const settings = {
             }
         });
 
-        // Enable single finger scroll 
-        gestures({ threshold: '0.25rem' }, shadow)
+        // Enable single finger scroll on mouse devices. Bad idea, but users
+        // tend to want it.
+        gestures({ threshold: '0.25rem', device: 'mouse' }, shadow)
         .each(function(pointers) {
             // First event is touchstart or mousedown
             var e0     = pointers.shift();
@@ -841,6 +853,32 @@ const settings = {
     },
 
     properties: {
+        active: {
+            /**
+            .active
+            The id of the currently active child.
+            **/
+
+            set: function(id) {
+                // Accept a child node, get its id
+                const child = typeof id !== 'object' ?
+                    this.querySelector('#' + (/^\d/.test((id + '')[0]) ?
+                        '\\3' + (id + '')[0] + ' ' + (id + '').slice(1) :
+                        id)
+                    ) : id ;
+
+                if (!child) {
+                    throw new Error('Cannot set active – not a child of slide-show');
+                }
+
+                this[$].show(child);
+            },
+
+            get: function() {
+                return this[$].active.id;
+            }
+        },
+
         autoplay: {
             /**
             autoplay=""
@@ -945,6 +983,3 @@ const settings = {
 };
 
 export default element('slide-show', settings);
-
-//element('div[is=slide-show]', 'ol', settings);
-//element('ul[is=slide-show]', 'ul', settings);

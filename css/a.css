@@ -3,6 +3,13 @@
 a
 **/
 
+a {
+    /* Hit zones for buttons and links really must be a minimum of 32x32 (and 
+           preferably >40x40 for finger touches to register reliably) */
+    min-width: 2rem;
+    min-height: 2rem;
+}
+
 a.block,
 a.block:hover,
 a.block:focus {

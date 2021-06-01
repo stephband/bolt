@@ -10,7 +10,14 @@ export const config = {
     simulatedEventDelay: 0.08,
     keyClass:   'key-device',
     mouseClass: 'mouse-device',
-    touchClass: 'touch-device'
+    touchClass: 'touch-device',
+    keyType:    'key',
+    mouseType:  'mouse',
+    touchType:  'touch'
+};
+
+export const device = {
+    type: 'mouse'
 };
 
 var list       = classes(document.documentElement);
@@ -31,17 +38,21 @@ function mousedown(e) {
     if (e.timeStamp < timeStamp + config.simulatedEventDelay * 1000) { return; }
     timeStamp = undefined;
     updateClass(config.mouseClass);
+    device.type = config.mouseType;
 }
 
 function keydown(e) {
     // If key is not tab, enter or escape do nothing
-    if ([9, 13, 27].indexOf(e.keyCode) === -1) { return; }
+    if (["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Space", "Escape", "Tab"].indexOf(e.code) === -1) { return; }
     updateClass(config.keyClass);
+    device.type = config.keyType;
+    timeStamp = e.timeStamp;
 }
 
 function touchend(e) {
     timeStamp = e.timeStamp;
     updateClass(config.touchClass);
+    device.type = config.touchType;
 }
 
 document.addEventListener('mousedown', mousedown);
