@@ -100,12 +100,14 @@ body, .text-08
 	font-family: Helvetica, Arial, sans-serif;
 	font-style: none;
 	text-transform: none;
+    margin: 0;
 }
 
 .text-07, code     {
 	font-family: FiraMono, Courier, monospace;
 	font-style: normal;
 	text-transform: none;
+    margin: 0;
 }
 
 .text-01, h1       { font-size: 2.5rem;    line-height: 2.625rem; font-weight: 700; }
