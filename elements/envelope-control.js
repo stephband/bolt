@@ -32,7 +32,7 @@ import notify      from '../../fn/modules/notify.js';
 import nothing     from '../../fn/modules/nothing.js';
 import remove      from '../../fn/modules/remove.js';
 
-import { clamp } from '../../fn/modules/maths/clamp.js';
+import { clamp } from '../../fn/modules/clamp.js';
 import Privates from '../../fn/modules/privates.js';
 import gestures from '../../dom/modules/gestures.js';
 import element from '../../dom/modules/element.js';

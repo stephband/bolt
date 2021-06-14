@@ -31,7 +31,7 @@ https://github.com/material-components/material-components-web-components/issues
 */
 
 import Privates from '../../fn/modules/privates.js';
-import { clamp } from '../../fn/modules/maths/clamp.js';
+import { clamp } from '../../fn/modules/clamp.js';
 import overload from '../../fn/modules/overload.js';
 import create from '../../dom/modules/create.js';
 import element from '../../dom/modules/element.js';

@@ -1,14 +1,14 @@
 
 /**
-targetable
+locateable
 
-An element with a `data-targetable` (or `targetable`) attribute updates the 
+An element with a `data-locateable` (or `locateable`) attribute updates the 
 browser location hash with its `id` when scrolled into view.
 
-When the location identifier changes to be equal to a `targetable`'s id links 
-that reference that targetable via their `href` attribute get the class `"target-on"`.
+When the location identifier changes to be equal to a `locateable`'s id links 
+that reference that locateable via their `href` attribute get the class `"target-on"`.
 
-Build a list of links that reference targetables and with a little style
+Build a list of links that reference locateables and with a little style
 you have a scrolling navigation:
 
 ```html
@@ -21,8 +21,8 @@ you have a scrolling navigation:
 <a href="#fish">...</a>
 <a href="#chips">...</a>
 
-<article data-targetable id="fish">...</article>
-<article data-targetable id="chips">...</article>
+<article data-locateable id="fish">...</article>
+<article data-locateable id="chips">...</article>
 ```
 **/
 
@@ -46,7 +46,7 @@ Config
 
 export const config = {
     onClass: 'target-on',
-    selector: '[data-targetable]',
+    selector: '[data-locateable]',
     maxScrollEventInterval: 0.25
 };
 
@@ -60,7 +60,7 @@ const captureOptions = {
 Utils
 */
 
-function feedback(fn, value) {
+function reducer(fn, value) {
     return function () {
         return (value = fn(value, ...arguments));
     };
@@ -112,29 +112,35 @@ function toData(element) {
     };
 }
 
-function getTargetable(element) {
-    const targetables = select(config.selector, element);
+function getLocateable(/*element*/) {
+    const body        = document.body;
+    const element     = document.scrollingElement;
+    const locateables = select(config.selector, body);
 
-    if (!targetables.length) {
+    if (!locateables.length) {
         return;
     }
 
     // Default to 0 for browsers without support
-    const scrollPaddingLeft = parseFloat(getComputedStyle(element).scrollPaddingLeft) || 0;
+    //const scrollPaddingLeft = parseFloat(getComputedStyle(element).scrollPaddingLeft) || 0;
     const scrollPaddingTop  = parseFloat(getComputedStyle(element).scrollPaddingTop)  || 0;
 
-    const box = element === document.body || element === document.documentElement ?
-        origin :
-        rect(element) ;
+    //const box = element === document.body || element === document.documentElement ?
+    //    origin :
+    //    rect(element) ;
 
-    const boxes = targetables.map(toData).sort(by(get('top')));
+    const boxes = locateables
+        .map(toData)
+        .sort(by(get('top')));
 
     let  n = -1;
     let target;
 
-    while (boxes[++n]
-        && (boxes[n].left - box.left) < (scrollPaddingLeft + 1)
-        && (boxes[n].top  - box.top)  < (scrollPaddingTop + 1) 
+    while (
+        boxes[++n]
+        //&& (boxes[n].left - box.left) < (scrollPaddingLeft + 1)
+        //&& (boxes[n].top  - box.top)  < (scrollPaddingTop + 1) 
+        && (boxes[n].top  - origin.top) < (scrollPaddingTop + 1) 
     ) {
         target = boxes[n].element;
     }
@@ -142,14 +148,10 @@ function getTargetable(element) {
     return target;
 }
 
-/*
-let animateScrollTime = 0;
-let userScrollTime = 0;
-*/
 const times = [];
 let timer;
 
-function update(element) {
+function update(/*element*/) {
     timer = undefined;
     
     if (times.length < 2) {
@@ -167,11 +169,11 @@ function update(element) {
     interval = interval < 0.0375 ? 0.0375 : interval ;
     config.maxScrollEventInterval = 1.6 * interval;
 
-    const target = getTargetable(element.scrollingElement || element);
+    const target = getLocateable(/*element.scrollingElement || element*/);
     const id = target && target.id || '';
 
     // We use times.length elsewhere as an ignore flag. Make sure times.length
-    // is set to 0 before changing the hash.
+    // is set to 0 length before changing the hash.
     times.length = 0;
 
     if (location.identifier !== id) {
@@ -193,8 +195,8 @@ var hashtime;
 window.addEventListener('scroll', function scroll(e) {
     // Ignore the first scroll event following a hashchange. The browser sends a 
     // scroll event even where a target cannot be scrolled to, such as a 
-    // navigation with position: fixed, for example. This can cause targetable
-    // to recalculate again, and shift the target back to one fo the targetables,
+    // navigation with position: fixed, for example. This can cause locateable
+    // to recalculate again, and shift the target back to one fo the locateables,
     // where it should stay on the navigation element.
     const time = e.timeStamp / 1000;
 
@@ -215,13 +217,11 @@ window.addEventListener('scroll', function scroll(e) {
 
     // Update only when there is a maxScrollEventInterval second pause in scrolling
     clearTimeout(timer);
-    timer = setTimeout(update, config.maxScrollEventInterval * 1000, e.target);
+    timer = setTimeout(update, config.maxScrollEventInterval * 1000/*, e.target */);
 }, captureOptions);
 
-// other than document do not bubble.
 window.addEventListener('hashchange', function hashchange(e) {
     hashtime = e.timeStamp / 1000;
-    //console.log('hashchange', hashtime, window.location.hash);
 });
 
 
@@ -229,7 +229,7 @@ window.addEventListener('hashchange', function hashchange(e) {
 Location
 */
 
-location.on(feedback(function(previous, change) {
+location.on(reducer(function(previous, change) {
     const identifier = change.identifier;
 
     if (identifier === undefined) {
@@ -258,11 +258,11 @@ if (!features.scrollBehavior) {
     /* Safari does not respect scroll-padding unless scroll-snap is switched on,
        which is difficult on the :root or <body>. Instead, let's duplicate the
        elements with id and move them up relatively by one header height. */
-    document.querySelectorAll('[data-targetable]').forEach(function(node) {
+    document.querySelectorAll('[data-locateable]').forEach(function(node) {
         const id = node.id;
-        const anchor = create('a', { id, style: 'position: relative; height: 0px; width: 100%; background-color: limegreen; top: calc(-1 * var(--header-height)); display: block;', 'data-targetable': true });
+        const anchor = create('a', { id, style: 'position: relative; height: 0px; width: 100%; background-color: limegreen; top: calc(-1 * var(--header-height)); display: block;', 'data-locateable': true });
         node.id = id + '-(original)';
-        node.removeAttribute('data-targetable');
+        node.removeAttribute('data-locateable');
         node.before(anchor);
     });
 }

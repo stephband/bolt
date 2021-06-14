@@ -29,7 +29,7 @@ smaller.
 */
 
 import Privates from '../../fn/modules/privates.js';
-import { clamp } from '../../fn/modules/maths/clamp.js';
+import { clamp } from '../../fn/modules/clamp.js';
 import overload from '../../fn/modules/overload.js';
 import create from '../../dom/modules/create.js';
 import { transform } from './control.js';

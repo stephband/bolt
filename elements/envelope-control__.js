@@ -22,7 +22,7 @@ element and upgrades instances already in the DOM.
 
 import Privates from '../../fn/modules/privates.js';
 import { Observer, by, capture, insert, get, noop, overload, toCamelCase, toLevel, toType, id, notify, nothing, observe, remove } from '../../fn/module.js';
-import { clamp } from '../../fn/modules/maths/clamp.js';
+import { clamp } from '../../fn/modules/clamp.js';
 import { rect as box, element, gestures, trigger, create } from '../../dom/module.js';
 import { evaluate, invert, transformTick, transformOutput, transformUnit } from './control.js';
 import Sparky, { mount, config, getScope } from '../../sparky/module.js';
