@@ -856,7 +856,12 @@ const settings = {
         active: {
             /**
             .active
-            The id of the currently active child.
+            Gets the currently active child. May be set to an id of a child or 
+            a child element.
+
+            ```js
+            slides.active = 'slide-1';
+            ```
             **/
 
             set: function(id) {
@@ -875,7 +880,7 @@ const settings = {
             },
 
             get: function() {
-                return this[$].active.id;
+                return this[$].active;
             }
         },
 
