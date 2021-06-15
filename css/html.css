@@ -317,6 +317,10 @@ th {
 	cursor: auto;
 }
 
+[draggable="false"][href] {
+    cursor: pointer;
+}
+
 
 /* Default print styles. */
 
