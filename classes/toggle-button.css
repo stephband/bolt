@@ -29,6 +29,6 @@
 	transform: translate3d(0,-70.7%,0) rotate(45deg);
 }
 
-.content-loading .toggle-button::after {
+.loading .toggle-button::after {
 	transition: none;
 }

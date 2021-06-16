@@ -18,8 +18,8 @@ ${ favicons && favicons.map((favicon) => `
 <link rel="icon"${ favicon.type ? ` type="${ favicon.type }"` : '' } href="${ favicon.url }"${ favicon.sizes ? ` sizes="${ favicon.sizes }"` : '' }>`) }
 
 <script title="load">
-    document.documentElement.className += ' js content-loading loading';
-    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
+    document.documentElement.className += ' js loading';
+    // window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
     // Wait for other load handlers to run first - Bolt does a few things on
     // load (eg. targetable scrolls) and we want them to run before the loading
     // class is removed

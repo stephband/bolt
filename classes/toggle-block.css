@@ -49,8 +49,8 @@
     width: auto;
 }
 
-.content-loading .toggle-block,
-.content-loading .toggle-block.active {
+.loading .toggle-block,
+.loading .toggle-block.active {
     /* No transition during page load */
     transition: none;
 }
