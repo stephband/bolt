@@ -65,6 +65,7 @@ fieldset + input {
     margin-top: 0.375em;
 }
 
+/*
 .x-1 + .error-label,  .x-1 + .help-label  { grid-column-start: 1; }
 .x-2 + .error-label,  .x-2 + .help-label  { grid-column-start: 2; }
 .x-3 + .error-label,  .x-3 + .help-label  { grid-column-start: 3; }
@@ -109,6 +110,7 @@ fieldset + input {
 .y-16 + .error-label, .y-16 + .help-label { grid-row-start: 16; }
 .y-17 + .error-label, .y-17 + .help-label { grid-row-start: 17; }
 .y-18 + .error-label, .y-18 + .help-label { grid-row-start: 18; }
+*/
 
 .error-label + .help-label {
     /* Hide help while there are errors. Errors disappear when you start
