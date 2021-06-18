@@ -99,7 +99,7 @@ Does not work
     justify-self: stretch;
     grid-auto-flow: column;
     grid-auto-columns: inherit;
-    grid-auto-rows: min-content;
+    grid-auto-rows: inherit;
     column-gap: inherit;
     align-content: inherit;
     align-items: inherit;

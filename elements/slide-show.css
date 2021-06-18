@@ -53,7 +53,7 @@ slide-show:not(:defined) > [slot] {
 slide-show > :not([slot]) {
     scroll-snap-align: center;
     /* override slide hidden during load */
-    display: block;
+    /*display: block;*/
 }
 
 slide-show:-webkit-full-screen {
