@@ -173,7 +173,7 @@ function View(element, shadow, slot) {
     this.active    = undefined;
     this.children  = [];
 
-    this.changes = Distributor((e) => {
+    this.changes = new Distributor((e) => {
         const items = e.target
            .assignedElements()
            // Ignore ghosts
@@ -193,7 +193,7 @@ function View(element, shadow, slot) {
         return items;
     })
     .on((items) => this.update(items));
-    
+
     this.actives = new Distributor((e) => {
         const ignore = this.ignore;
         this.ignore = false;
@@ -620,10 +620,10 @@ assign(Navigation.prototype, {
 
 /* Pagination */
 
-function Pagination(view, parent) {
+function Pagination(view, shadow) {
     this.view    = view;
-    this.parent  = parent;
-    this.changes = view.changes;
+    this.shadow  = shadow;
+    this.slotchanges = view.changes;
     this.actives = view.actives;
 }
 
@@ -632,33 +632,42 @@ assign(Pagination.prototype, {
         const view     = this.view;
         const children = view.children;
 console.trace('pagination.enable()', this);
-        this.pagination = create('nav');
-
-        // Empty nav then create a dot link for each slide
-        //nav.innerHTML = '';
-        children.forEach((slide) => {
-           // Id other content and create nav links for them
-           const id = slide.id;
-           this.pagination.appendChild(create('a', {
-               part: 'link',
-               href: '#' + id,
-               html: id
-           }));
+        this.pagination = create('nav', {
+            part: 'pagination'
         });
 
-        this.parent.appendChild(this.pagination);
-        view.actives.on();
-        view.changes.on();
+        this.slotchange();
+
+        this.shadow.appendChild(this.pagination);
+        //view.actives.on();
+        this.slotchanges.on(this.slotchangeFn = () => this.slotchange());
     },
 
     disable: function() {
         const view = this.view;
         this.pagination.remove();
         this.pagination = undefined;
-        view.actives.off();
-        view.changes.off();
+        //view.actives.off();
+        this.slotchanges.changes.off(this.slotchangeFn);
     },
-    
+
+    slotchange: function() {
+        const view     = this.view;
+        const children = view.children;
+
+        // Empty nav then create a dot link for each slide
+        this.pagination.innerHTML = '';
+        children.forEach((slide) => {
+            // Id other content and create nav links for them
+            const id = slide.id;
+            this.pagination.appendChild(create('a', {
+                part: 'link',
+                href: '#' + id,
+                html: id
+            }));
+        });
+    },
+
     activate: function(active) {
         const shadow = this.shadow;
 

@@ -299,6 +299,9 @@ nav > [part*="link"] + [part*="link"] {
 
 
 
+[part="pagination"] {
+    grid-row: 2;
+}
 
 
 
