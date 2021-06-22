@@ -211,7 +211,7 @@ function View(element, shadow, slot) {
     })
     .on((active) => this.active = active);
 
-    const autoplay   = new Autoplay(this);
+    const autoplay   = new Autoplay(this, this.actives);
     const loop       = new Loop(element, shadow, this, autoplay, this.changes);
     const navigation = new Navigation(element, slot, this.changes, this.actives, shadow);
     const pagination = new Pagination(this, shadow);
@@ -397,23 +397,18 @@ assign(View.prototype, {
 
 /* Autoplay */
 
-function Autoplay(view) {
+function Autoplay(view, activates) {
     this.view = view;
+    this.activates = activates;
 }
 
 assign(Autoplay.prototype, {
     enable: function() {
-        this.change = () => {
-            this.timer   = null;
-            const target = next(this.view.active);
+        this.activates.on(this.activateFn = (active) => this.activate(active));
 
-            // Have we reached the end?
-            if (!target) { return; }
-
-            scrollSmooth(this.view.element, this.view.slot, target);
-        };
-
-        this.view.active && this.schedule();
+        if (this.view.active) {
+            this.activate(this.view.active);
+        }
 
         // Expose state as loop view needs to know about autoplay
         this.state = true;
@@ -421,6 +416,7 @@ assign(Autoplay.prototype, {
 
     disable: function() {
         this.timer && clearTimeout(this.timer);
+        this.activates.off(this.activateFn);
         this.state  = false;
     },
 
@@ -435,12 +431,8 @@ assign(Autoplay.prototype, {
     },
 
     activate: function(active) {
-        if (active) {
-            this.autoplay.cue();
-        }
-    },
+        if (!active) { return; }
 
-    cue: function() {
         if (this.timer) {
             clearTimeout(this.timer);
         }
@@ -631,7 +623,7 @@ assign(Pagination.prototype, {
     enable: function() {
         const view     = this.view;
         const children = view.children;
-console.trace('pagination.enable()', this);
+
         this.pagination = create('nav', {
             part: 'pagination'
         });
