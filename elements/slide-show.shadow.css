@@ -336,10 +336,10 @@ Style the navigation links.
 }
 
 /*
-::part(active-link)
+.on
 Style the navigation link for the currently active slide.
 */
 
-[part*="active-link"]::before {
+[part="link on"]::before {
     background: currentcolor;
 }

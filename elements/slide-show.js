@@ -619,28 +619,31 @@ function Pagination(view, shadow) {
     this.actives = view.actives;
 }
 
+function addPartOn(node) {
+    node.part.add('on');
+}
+
+function removePartOn(node) {
+    node.part.remove('on');
+}
+
 assign(Pagination.prototype, {
     enable: function() {
-        const view     = this.view;
-        const children = view.children;
-
         this.pagination = create('nav', {
             part: 'pagination'
         });
 
         this.slotchange();
-
         this.shadow.appendChild(this.pagination);
-        //view.actives.on();
+        this.actives.on(this.activateFn = (active) => this.activate(active));
         this.slotchanges.on(this.slotchangeFn = () => this.slotchange());
     },
 
     disable: function() {
-        const view = this.view;
         this.pagination.remove();
         this.pagination = undefined;
-        //view.actives.off();
-        this.slotchanges.changes.off(this.slotchangeFn);
+        this.actives.off(this.activateFn);
+        this.slotchanges.off(this.slotchangeFn);
     },
 
     slotchange: function() {
@@ -653,7 +656,7 @@ assign(Pagination.prototype, {
             // Id other content and create nav links for them
             const id = slide.id;
             this.pagination.appendChild(create('a', {
-                part: 'link',
+                part: view.active === slide ? 'link on' : 'link',
                 href: '#' + id,
                 html: id
             }));
@@ -666,16 +669,15 @@ assign(Pagination.prototype, {
         // Remove `on` class from currently highlighted links
         if (this.active) {
             const id = this.active.dataset && this.active.dataset.loopId || this.active.id;
-
-            select('[href="#' + id +'"]', shadow)
-            .forEach((node) => node.part.remove('active-link'))
+            select('[href="#' + id +'"]', shadow).forEach(removePartOn)
         }
 
         // Highlight links with `on` class
         const id = active.dataset.loopId || active.id;
+        select('[href="#' + id +'"]', shadow).forEach(addPartOn);
 
-        select('[href="#' + id +'"]', shadow)
-        .forEach((node) => node.part.add('active-link'));
+        // Keep a note of currently active
+        this.active = active;
     }
 });
 
