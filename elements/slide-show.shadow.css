@@ -303,6 +303,11 @@ nav > [part*="link"] + [part*="link"] {
     grid-row: 2;
 }
 
+@media print {
+    [part="pagination"] {
+        display: none !important;
+    }
+}
 
 
 /**

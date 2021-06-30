@@ -116,12 +116,20 @@ function boolean(object, value) {
 
 /* View */
 
+console.log('WANKA');
+window.addEventListener('scroll', function(e) {
+    console.log('SCROLL', e.target)
+}, {
+    capture: true, 
+    passive: true
+});
+
 function scrollSmooth(element, slot, target) {
     const firstRect  = rect(element.firstElementChild);
     const targetRect = rect(target);
 
     if (!firstRect || !targetRect) { return; }
-
+console.log('SMOOTH', element);
     // Move scroll position to next slide
     slot.scrollTo({
         top: slot.scrollTop,
@@ -129,7 +137,7 @@ function scrollSmooth(element, slot, target) {
         behavior: 'smooth'
     });
 }
-
+var promise = Promise.resolve();
 function scrollAuto(element, slot, target) {
     // Check for visibility before measuring anything
     if (!element.offsetParent || !target.offsetParent) { return; }
@@ -141,14 +149,29 @@ function scrollAuto(element, slot, target) {
     // to be respected so override style for safety.
     slot.style.setProperty('scroll-behavior', 'auto');
 
-    slot.scrollTo({
-        top: slot.scrollTop,
-        left: targetRect.left - firstRect.left,
-        behavior: 'auto'
-    });
+    promise = promise.then(() => {
 
-    requestAnimationFrame(function() {
-        slot.style.setProperty('scroll-behavior', '');
+const sss = getComputedStyle(target.parentNode);
+console.log('LEFT', targetRect.left - firstRect.left, element, target, sss['grid-auto-columns'], sss.width, sss.clientWidth, slot);
+
+        slot.scrollTo({
+            top: slot.scrollTop,
+            left: targetRect.left - firstRect.left,
+            behavior: 'auto'
+        });
+    
+        if (Math.abs(slot.scrollLeft - (targetRect.left - firstRect.left)) > 2) {
+            console.log('It is not', slot.scrollLeft, targetRect.left - firstRect.left)
+            slot.scrollLeft = targetRect.left - firstRect.left;
+        }
+
+        return new Promise(function(resolve, reject) {
+            console.log(slot.scrollTop, slot.scrollLeft);
+            requestAnimationFrame(function() {
+                slot.style.setProperty('scroll-behavior', '');
+                setTimeout(resolve, 90);
+            });
+        })
     });
 }
 
@@ -342,9 +365,9 @@ assign(View.prototype, {
     },
 
     reposition: function(target) {
-        if (DEBUG) {
+        //if (DEBUG) {
             console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'reposition');
-        }
+        //}
 
         this.ignore = true;
         scrollAuto(this.element, this.slot, target);
@@ -487,6 +510,7 @@ assign(Loop.prototype, {
     },
 
     slotchange: function() {
+console.log('SLOTCHANGE');
         const view     = this.view;
         const children = view.children;
 
@@ -521,9 +545,7 @@ assign(Loop.prototype, {
         // Active child is an original slide, not a copy: do nothing
         if (!id) { return; }
 
-        // Realign the original slide as the active slide. Before we do, 
-        // set an ignore flag so that this repositioning does not trigger
-        // another activate when it resets scroll position
+        // Realign the original slide as the active slide.
         const target = this.element.getRootNode().getElementById(id);
         this.view.reposition(target);
         this.view.actives.push(target);
