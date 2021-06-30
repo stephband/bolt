@@ -749,36 +749,28 @@ const settings = {
         //.filter((e) => !!e.target.href)
         .filter(isPrimaryButton)
         .each(delegate({
-            // Previous and next links may not have hrefs if loop is on, so we
-            // hijack them first
-            '[part="previous"]': function(link, e) {
+            // Previous and next links may not have hrefs if loop is on, and
+            // they also cannot reference ghosts. We hijack them and launch
+            // previous/next.
+            '[href][part="previous"]': function(link, e) {
+                // Show previous whether a ghost or not
                 view.show(previous(view.active));
                 e.preventDefault();
             },
             
-            '[part="next"]': function(link, e) {
+            '[href][part="next"]': function(link, e) {
+                // Show next whether a ghost or not
                 view.show(next(view.active));
                 e.preventDefault();
             },
 
-            // Then we ask about links with hrefs
-            '[href]': function(e) {
-                const id     = e.target.hash && e.target.hash.replace(/^#/, ''); 
+            // Pagination links alsways reference non-ghost slides
+            '[href]': function(link, e) {
+                const id     = link.hash && link.hash.replace(/^#/, '');
                 const target = elem.getRootNode().getElementById(id);
-
-                if (!target) {
-                    /*if (DEBUG) {
-                        console.warn('Link to id not found in slide-show "' + id + '"');
-                    }*/
-                    return;
-                }
-    
                 if (elem.contains(target) && elem !== target) {
                     view.show(target);
                     e.preventDefault();
-
-                    // Todo: make this selectable by attribute "locator"?
-                    //window.history.pushState({}, '', '#' + id);
                 }
             }
         }));
