@@ -115,7 +115,7 @@ function boolean(object, value) {
 
 
 /* View */
-
+/*
 console.log('WANKA');
 window.addEventListener('scroll', function(e) {
     console.log('SCROLL', e.target)
@@ -123,13 +123,13 @@ window.addEventListener('scroll', function(e) {
     capture: true, 
     passive: true
 });
-
+*/
 function scrollSmooth(element, slot, target) {
     const firstRect  = rect(element.firstElementChild);
     const targetRect = rect(target);
 
     if (!firstRect || !targetRect) { return; }
-console.log('SMOOTH', element);
+/*console.log('SMOOTH', element);*/
     // Move scroll position to next slide
     slot.scrollTo({
         top: slot.scrollTop,
@@ -150,10 +150,10 @@ function scrollAuto(element, slot, target) {
     slot.style.setProperty('scroll-behavior', 'auto');
 
     promise = promise.then(() => {
-
+/*
 const sss = getComputedStyle(target.parentNode);
 console.log('LEFT', targetRect.left - firstRect.left, element, target, sss['grid-auto-columns'], sss.width, sss.clientWidth, slot);
-
+*/
         slot.scrollTo({
             top: slot.scrollTop,
             left: targetRect.left - firstRect.left,
@@ -161,12 +161,12 @@ console.log('LEFT', targetRect.left - firstRect.left, element, target, sss['grid
         });
     
         if (Math.abs(slot.scrollLeft - (targetRect.left - firstRect.left)) > 2) {
-            console.log('It is not', slot.scrollLeft, targetRect.left - firstRect.left)
+/* console.log('It is not', slot.scrollLeft, targetRect.left - firstRect.left) */
             slot.scrollLeft = targetRect.left - firstRect.left;
         }
 
         return new Promise(function(resolve, reject) {
-            console.log(slot.scrollTop, slot.scrollLeft);
+/* console.log(slot.scrollTop, slot.scrollLeft); */
             requestAnimationFrame(function() {
                 slot.style.setProperty('scroll-behavior', '');
                 setTimeout(resolve, 90);
@@ -510,7 +510,7 @@ assign(Loop.prototype, {
     },
 
     slotchange: function() {
-console.log('SLOTCHANGE');
+/*console.log('SLOTCHANGE');*/
         const view     = this.view;
         const children = view.children;
 
