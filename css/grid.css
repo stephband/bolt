@@ -211,6 +211,7 @@ Define the vertical grid gap (with units).
     .\31 x { grid-column-end: span 1 !important; }
     .\32 x { grid-column-end: span 2 !important; }
     .\33 x { grid-column-end: span 3 !important; }
+    .\34 x { grid-column-end: span 4 !important; }
 
     .x-end {
         justify-self: end !important; 
