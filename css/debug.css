@@ -139,16 +139,21 @@ Applies a 'wireframe' background to elements to indicate they are yet to be done
 **/
 
 :root {
-    --TODO: border-box url('data:image/svg+xml;utf8,<svg viewBox="0 0 1 1" version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">\
+    --TODO-bg-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1 1" version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">\
         <line stroke="dimgray" stroke-width="2" vector-effect="non-scaling-stroke" x1="0" y1="0" x2="1" y2="0"></line>\
         <line stroke="dimgray" stroke-width="2" vector-effect="non-scaling-stroke" x1="1" y1="0" x2="1" y2="1"></line>\
         <line stroke="dimgray" stroke-width="2" vector-effect="non-scaling-stroke" x1="1" y1="1" x2="0" y2="1"></line>\
         <line stroke="dimgray" stroke-width="2" vector-effect="non-scaling-stroke" x1="0" y1="1" x2="0" y2="0"></line>\
         <line stroke="dimgray" stroke-width="0.5" vector-effect="non-scaling-stroke" x1="0" y1="0" x2="1" y2="1"></line>\
         <line stroke="dimgray" stroke-width="0.5" vector-effect="non-scaling-stroke" x1="0" y1="1" x2="1" y2="0"></line>\
-    </svg>') 0 0 / 100% 100% rgba(0,0,0,0.06);
+    </svg>');
+    /*--TODO: border-box var(--TODO-bg-image) 0 0 / 100% 100% rgba(0,0,0,0.06);*/
 }
 
 .TODO {
-    background: var(--TODO);
+    background: border-box var(--TODO-bg-image) 0 0 / 100% 100% rgba(0,0,0,0.06);
+}
+
+.masked:checked + .TODO {
+    background: border-box var(--TODO-bg-image) 0 0 / 100% 100% rgba(0,120,0,0.12);
 }
