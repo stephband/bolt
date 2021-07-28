@@ -203,10 +203,12 @@ Define the vertical grid gap (with units).
     .\31 x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
     .\32 x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
     .\33 x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
+    .\34 x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
     
     .x1 { grid-column-start: 1 !important; }
     .x2 { grid-column-start: 2 !important; }
     .x3 { grid-column-start: 3 !important; }
+    .x4 { grid-column-start: 4 !important; }
     
     .\31 x { grid-column-end: span 1 !important; }
     .\32 x { grid-column-end: span 2 !important; }
