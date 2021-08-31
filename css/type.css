@@ -6,7 +6,7 @@ html {
 body,
 button {
     /* Enable kerning in FF and WebKit. */
-    /*text-rendering: optimizeLegibility;*/
+    /* text-rendering: optimizeLegibility; */
     text-rendering: geometricPrecision;
 }
 
