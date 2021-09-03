@@ -315,16 +315,17 @@ assign(View.prototype, {
             // Imagine a detection line half a slides' width to the right of
             // the left, the centre, or the right...
             const detection = (slideRect.width / 2) + (
-                snap === 'start' ? view.left :
-                snap === 'end'   ? view.right :
+                snap.endsWith('start') ? view.left :
+                snap.endsWith('end')   ? view.right :
                 view.centre
             );
 
             // ...and a slide registration position at it's corresponding left,
-            // centre or right position
+            // centre or right position. Safari reports 2 values for 
+            // scroll-snap-align it's the second that is the inline axis value
             const position = (
-                snap === 'start' ? slideRect.left :
-                snap === 'end'   ? slideRect.right :
+                snap.endsWith('start') ? slideRect.left :
+                snap.endsWith('end')   ? slideRect.right :
                 slideRect.left + slideRect.width / 2
             );
 
@@ -612,8 +613,12 @@ assign(Navigation.prototype, {
         else {
             this.next.hidden = true;
         }
-        
-        // console.log('\nprevious', prevChild, '\nactive', active, '\nnext', nextChild)
+
+        /* console.log(
+            'previous', prevChild && Array.prototype.indexOf.call(prevChild.parentNode.children, prevChild),
+            'active', active && Array.prototype.indexOf.call(active.parentNode.children, active), 
+            'next', nextChild && Array.prototype.indexOf.call(nextChild.parentNode.children, nextChild)
+        ); */
     }
 });
 
