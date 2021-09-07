@@ -175,12 +175,15 @@ Does not work
     /* This is a hack fix for the fact that scroll-snapped grids do not scroll
        to the extent of their right padding (or indeed to any of their right 
        padding). Note that this doesn't work with --padding-right based on
-       percentages, as the dimensions do not refer to the same parent. */
+       percentages, as the dimensions do not refer to the same parent. The
+       snag is that if --padding-right is less than --column-gap we still get
+       a whole --column-gap's 'padding' caused by the column-gap in front of
+       this :after element. */
     content: '';
     /*position: absolute;*/
     grid-column: calc(var(--children-count) + 1);
     grid-row: 1;
-    padding-right: var(--padding-right);
+    padding-right: calc(var(--padding-right) - var(--column-gap));
     width: 0px;
     height: 100%;
     top: 0;
@@ -195,7 +198,7 @@ Does not work
 
 :host([loop]) > [part="grid"]::after {
     background-color: transparent !important;
-    /* There are 3 x as many slides in loop mode, as the same nomber are
+    /* There are 3 x as many slides in loop mode, as the same number are
        added to the front and to the back */
     grid-column: calc(3 * var(--children-count) + 1);
 }

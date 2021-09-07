@@ -25,8 +25,9 @@ events('change', document)
 .each(overload(isHashRef, {
     true: function(ref) {
         const id = ref.slice(1);
-        trigger('dom-activate', getById(id));
-        window.location.hash = id;
+        // Where default is prevented triiger returns false
+        const triggered = trigger('dom-activate', getById(id));
+        triggered && (window.location.hash = id);
     },
 
     false: set('location', window)
