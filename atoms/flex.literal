@@ -1,0 +1,2 @@
+
+.${ data.prefix }flex           { display: flex !important; }

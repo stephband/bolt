@@ -11,6 +11,12 @@
     ${ data['row-gap']    ? '--row-gap: '    + rem(data['row-gap'])    + 'rem;' : '' }
 }
 
+a.${ data.prefix }grid,
+a.${ data.prefix }grid:hover,
+a.${ data.prefix }grid:focus {
+    text-decoration: none;
+}
+
 .${ data.prefix }grid[hidden] {
     /* Override display grid !important declaration with hidden attribute */
     display: none !important;

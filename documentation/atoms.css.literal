@@ -1,2 +1,2 @@
 
-${ include('../atomic/atoms.literal', './breakpoints.json') }
+${ include('../atoms/atoms.literal', './breakpoints.json') }

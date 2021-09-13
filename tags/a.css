@@ -10,12 +10,6 @@ a {
     min-height: 2rem;
 }
 
-a.block,
-a.block:hover,
-a.block:focus {
-    text-decoration: none;
-}
-
 a[draggable="false"] {
     /* Firefox changes to pointer text selection, strangely. */
     cursor: pointer;

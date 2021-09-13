@@ -5,7 +5,7 @@ DEBUG=
 
 # Must format with tabs not spaces
 literal:
-	deno run --allow-read --allow-env --allow-net --allow-write --allow-run ../literal/generate.js ./ debug
+	deno run --allow-read --allow-env --allow-net --allow-write --allow-run --unstable ../literal/generate.js ./ debug
 
 modules:
 	deno run --allow-read --allow-env --allow-net --allow-write --allow-run ./deno/modules.js packaged elements/overflow-toggle.js elements/slide-show.js elements/slide-show.css elements/slide-show.shadow.css elements/overflow-toggle.css elements/overflow-toggle.shadow.css

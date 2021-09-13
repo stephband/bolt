@@ -1,5 +1,31 @@
 
 /**
+State
+**/
+
+/**
+.shown
+
+Forces \`display: none\` below a given breakpoint. This class is only available
+with breakpoint prefixes (\`@1-\`, \`@2-\`, ...).
+
+\`\`\`html
+<a class="@1-shown" href="...">Link</a>
+\`\`\`
+**/
+
+/**
+.hidden
+
+Forces \`display: none\` above a given breakpoint. This class is available
+with breakpoint prefixes (\`@1-\`, \`@2-\`, ...).
+
+\`\`\`html
+<a class="@1-hidden" href="...">Link</a>
+\`\`\`
+**/
+
+/**
 Columns.
 **/
 
@@ -165,12 +191,22 @@ Define the vertical grid gap (with units).
 ${ data.map(async (bp) => (px(bp.width) ? `
 /* .${ bp.prefix }atom, ${ em(bp.width) }em (${ px(bp.width) }px) */
 
+@media screen and (max-width: ${ em(px(bp.width) - 1) }em) {
+    .${ bp.prefix }shown          { display: none !important; }
+}
+
 @media (min-width: ${ em(bp.width) }em) {` : `
 /* .${ bp.prefix }atom, ${ em(bp.width) }em (${ px(bp.width) }px) */
 `)
-+ (await include('../atomic/columns.literal', bp) )
-+ (await include('../atomic/grid.literal', bp) ) 
-+ (await include('../atomic/margin.literal', bp) ) 
++ (`
+    .${ bp.prefix }hidden         { display: none !important; }`)
++ (await include('../atoms/columns.literal', bp) )
++ (await include('../atoms/flex.literal', bp) )
++ (await include('../atoms/grid.literal', bp) )
++ (await include('../atoms/inline.literal', bp) )
++ (await include('../atoms/align.literal', bp) )
++ (await include('../atoms/margin.literal', bp) )
+
 + (px(bp.width) ? `}
 
 ` : `

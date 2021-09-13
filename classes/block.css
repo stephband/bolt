@@ -39,6 +39,12 @@ will scale the element to fill the available width.
     margin: 0 auto;
 }
 
+a.block,
+a.block:hover,
+a.block:focus {
+    text-decoration: none;
+}
+
 .block > svg,
 .block > video,
 .block > canvas,

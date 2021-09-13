@@ -1,0 +1,14 @@
+{
+    "excludes": [
+        "archive/",
+        "assets/",
+        "deno/",
+        "documentation/",
+        "elements/",
+        "fonts/",
+        "modules/",
+        "packaged/",
+        "templates/"
+    ]
+}
+    

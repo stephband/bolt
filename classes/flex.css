@@ -1,13 +1,6 @@
 
 /**
 .flex
-Applies \`display: flex\`. This class may also be used with a
-breakpoint prefix.
-**/
-
-
-/**
-.flex
 Applies \`display: flex\` with a default spacing of `space-between`.
 **/
 
@@ -15,6 +8,12 @@ Applies \`display: flex\` with a default spacing of `space-between`.
     display: flex !important;
     justify-content: space-between;
     align-items: center;
+}
+
+a.flex,
+a.flex:hover,
+a.flex:focus {
+    text-decoration: none;
 }
 
 .flex > * {

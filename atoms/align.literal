@@ -1,0 +1,10 @@
+.${ data.prefix }left           { float: left !important; clear: left; }
+.${ data.prefix }right          { float: right !important; clear: right; }
+.${ data.prefix }top-align      { vertical-align: top !important; }
+.${ data.prefix }bottom-align   { vertical-align: bottom !important; }
+.${ data.prefix }middle-align   { vertical-align: middle !important; }
+.${ data.prefix }baseline-align { vertical-align: baseline !important; }
+.${ data.prefix }left-align     { text-align: left !important; }
+.${ data.prefix }right-align    { text-align: right !important; }
+.${ data.prefix }center-align   { text-align: center !important; }
+.${ data.prefix }justify-align  { text-align: justify !important; }
