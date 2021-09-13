@@ -1,28 +1,34 @@
 
-@import "css/html.css";
-@import "css/svg.css";
-@import "css/root.css";
-@import "css/body.css";
-@import "css/type.css";
-@import "css/code.css";
-@import "css/content.css";
-@import "css/button.css";
-@import "css/input.css";
-@import "css/label.css";
-@import "css/progress.css";
-@import "css/table.css";
-@import "css/list.css";
-@import "css/layer.css";
-@import "css/badge.css";
-@import "css/pill.css";
-@import "css/thumb.css";
-@import "css/block.css";
-@import "css/color.css";
-@import "css/text.css";
-@import "css/modifiers.css";
-@import "css/respond.css";
-@import "css/grid.css";
-@import "css/device.css";
+@import '../bolt/fonts/fira-mono.css';
+@import '../bolt/fonts/source-sans-pro.css';
+
+@import "tags/html.css";
+@import "tags/svg.css";
+@import "tags/root.css";
+@import "tags/body.css";
+@import "tags/type.css";
+@import "tags/a.css";
+@import "tags/code.css";
+@import "tags/content.css";
+@import "tags/fullscreen.css";
+@import "tags/input.css";
+@import "tags/label.css";
+@import "tags/progress.css";
+@import "tags/table.css";
+
+@import "classes/js.css";
+@import "classes/button.css";
+@import "classes/list.css";
+@import "classes/layer.css";
+@import "classes/badge.css";
+@import "classes/pill.css";
+@import "classes/thumb.css";
+@import "classes/block.css";
+@import "classes/color.css";
+@import "classes/text.css";
+@import "classes/atoms.css";
+@import "classes/device.css";
+@import "classes/dialog.css";
 @import "classes/check-label.css";
 @import "classes/switch-label.css";
 @import "classes/check-button.css";
@@ -34,5 +40,9 @@
 @import "classes/toggle-block.css";
 @import "classes/bubble.css";
 @import "classes/card.css";
+@import "classes/display.css";
+
+@import "attributes/name=location.css";
+
 @import "elements/overflow-toggle.css";
 @import "elements/slide-show.css";

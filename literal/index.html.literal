@@ -1,3 +1,0 @@
-
-<h1>{<span style="opacity: 0.7">literal</span>}</h1>
-<p>${ (await imports('./package.json')).description }</p>

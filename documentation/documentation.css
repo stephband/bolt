@@ -60,6 +60,11 @@
     opacity: 0.25;
 }
 
+.param {
+    display: inline;
+    opacity: 0.33333333;
+}
+
 /* Entries */
 
 .doc-toggle-block > .doctext-05 {

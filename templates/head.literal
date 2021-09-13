@@ -1,20 +1,20 @@
 <meta charset="utf-8" />
-<meta name="author" content="${ author && author.name }" />
-<meta name="description" content="Documentation for ${title}. ${ description }" />
+<meta name="author" content="${ data.author && data.author.name }" />
+<meta name="description" content="Documentation for ${ data.title }. ${ data.description }" />
 <meta name="viewport" content="width=device-width" />
 
-${ author && author.twitter && `
+${ data.author && data.author.twitter && `
 <meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="${ author && author.twitter }">
-<meta property="og:url" content="${ homepage }" />
-<meta property="og:title" content="${ title }" />
-<meta property="og:description" content="${ description }" />
-<meta property="og:image" content="$ { image }" />
+<meta name="twitter:site" content="${ data.author && data.author.twitter }">
+<meta property="og:url" content="${ data.homepage }" />
+<meta property="og:title" content="${ data.title }" />
+<meta property="og:description" content="${ data.description }" />
+<meta property="og:image" content="$ { data.image }" />
 ` }
 
-<title>${title}</title>
+<title>${ data.title }</title>
 
-${ favicons && favicons.map((favicon) => `
+${ data.favicons && data.favicons.map((favicon) => `
 <link rel="icon"${ favicon.type ? ` type="${ favicon.type }"` : '' } href="${ favicon.url }"${ favicon.sizes ? ` sizes="${ favicon.sizes }"` : '' }>`) }
 
 <script title="load">

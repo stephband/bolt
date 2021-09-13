@@ -9,7 +9,7 @@ import trigger  from '../../dom/modules/trigger.js';
 
 // Support <select name="location"> (or indeed radio or checkbox or text) and
 // the class .location-select for legacy reasons
-const selector = '.location-select, [name="location"]';
+const selector = '[name="location"]';
 
 function isHashRef(ref) {
     return /^#\S+$/.test(ref);
@@ -25,7 +25,7 @@ events('change', document)
 .each(overload(isHashRef, {
     true: function(ref) {
         const id = ref.slice(1);
-        // Where default is prevented triiger returns false
+        // Where default is prevented trigger returns false
         const triggered = trigger('dom-activate', getById(id));
         triggered && (window.location.hash = id);
     },
