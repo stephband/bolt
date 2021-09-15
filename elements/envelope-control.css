@@ -1,6 +1,6 @@
 
-@import '../css/html.css';
-@import '../css/svg.css';
+@import '../tags/html.css';
+@import '../tags/svg.css';
 @import './control.css';
 
 :host {
