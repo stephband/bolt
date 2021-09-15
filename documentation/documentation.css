@@ -102,6 +102,7 @@
     left: -1.125rem;
 }
 
+.method-doctext-05 > a > code,
 .property-doctext-05 > a > code {
     /* Outdent by the width of '.' */
     position: relative;

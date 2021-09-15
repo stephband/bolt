@@ -26,6 +26,7 @@ pre > code {
 
 pre > code .punctuation { color: #779aab; }
 pre > code .keyword     { color: #63ACDD; }
+pre > code .rule        { color: #63ACDD; }
 pre > code .operator    { color: #63ACDD; }
 pre > code .number      { color: #FE267E; }
 pre > code .comment     { color: #485b68; }

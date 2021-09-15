@@ -69,10 +69,22 @@ table {
     width: 100%;
     margin-left: 0;
     margin-right: 0;
-    table-layout:fixed;
+    table-layout: fixed;
 }
 
+/** 
+table.x-bleed
+**/
 
+table.x-bleed th:first-child,
+table.x-bleed td:first-child {
+    padding-left: calc(0.5 * var(--column-gap));
+}
+
+table.x-bleed th:last-child,
+table.x-bleed td:last-child {
+    padding-right: calc(0.5 * var(--column-gap));
+}
 
 /**
 .lined-table
