@@ -17,25 +17,5 @@
   },
   "license": "MIT",
   "homepage": "http://stephen.band/bolt/",
-  "module": "module.js",
-  "scripts": {
-    "literal": "node --experimental-json-modules --no-warnings ./literal/index.js ./ debug",
-    "modules": "rm -rf prod && node --experimental-json-modules scripts/build-module.js ./hello/ ./elements/overflow-toggle.js",
-
-    "----": "-----------------------------------------------------------------------------------------------",
-    "lint": "eslint modules/*.js",
-    "build": "npm run build-sass && npm run build-css && npm run build-module & npm run build-elements && npm run build-html",
-    "build-module": "rollup ./module.js --o ./module.rolled.js --f esm",
-    "build-range-control": "rollup ./elements/range-control.js --o ./elements/range-control.rolled.js --f esm && madge --image ./elements/range-control.svg ./elements/range-control.js",
-    "build-rotary-control": "rollup ./elements/rotary-control.js --o ./elements/rotary-control.rolled.js --f esm && madge --image ./elements/rotary-control.svg ./elements/rotary-control.js",
-    "build-slide-show": "rollup ./elements/slide-show.js --o ./elements/slide-show.rolled.js --f esm && madge --image ./elements/slide-show.svg ./elements/slide-show.js && node ../fn/build-css.js ./elements/slide-show.shadow.css ./elements/slide-show.min.css",
-    "build-envelope-control": "rollup ./elements/envelope-control.js --o ./elements/envelope-control.rolled.js --f esm && madge --image ./elements/envelope-control.svg ./elements/envelope-control.js",
-    "build-elements": "npm run build-range-control && npm run build-rotary-control && npm run build-envelope-control && npm run build-slide-show",
-    "build-css": "node ../fn/build-css.js style.css style.min.css",
-    "build-html": "node ./build-html.js ./ elements/",
-    "build-doc": "node ./build.js",
-    "build-watch": "node ./build-watch.js",
-    "graph": "madge --image ./module.svg ./module.js",
-    "publish": "git pull origin master && npm run build-css && npm run build-module && git add --all && git commit -am 'Builds version 2.2.0' && git push"
-  }
+  "module": "module.js"
 }
