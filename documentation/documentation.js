@@ -1,5 +1,5 @@
 
-import '../modules/device.js';
+import '../classes/device.js';
 import '../attributes/data-toggleable.js';
 import '../attributes/data-popable.js';
 //import '../attributes/data-locateable.js';
