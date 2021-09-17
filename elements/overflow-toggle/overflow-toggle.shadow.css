@@ -1,5 +1,5 @@
 
-@import '../tags/html.css';
+@import '../elements/html.css';
 
 :host {
     display: flex !important;

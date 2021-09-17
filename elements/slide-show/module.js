@@ -1,5 +1,5 @@
 
-import '../../dom/polyfills/element.scrollto.js';
+import '../../../dom/polyfills/element.scrollto.js';
 
 /** <slide-show>
 
@@ -13,7 +13,7 @@ Import `<slide-show>` custom element. This also registers the custom
 element and upgrades instances already in the DOM.
 
 ```html
-<script type="module" src="bolt/elements/slide-show.js"></script>
+<script type="module" src="bolt/elements/slide-show/module.js"></script>
 
 <slide-show loop controls="navigation">
    <img src="../images/lyngen-4.png" id="1" draggable="false" />
@@ -28,24 +28,24 @@ elements with a `slot` attribute are not. Slides have default style of
 `scroll-snap-align: center`. Apply `start` or `end` to change the alignment. 
 **/
 
-import id            from '../../fn/modules/id.js';
-import equals        from '../../fn/modules/equals.js';
-import last          from '../../fn/modules/lists/last.js';
-import parseValue    from '../../fn/modules/parse-value.js';
-import delegate      from '../../dom/modules/delegate.js';
-import element       from '../../dom/modules/element.js';
-import events, { isPrimaryButton } from '../../dom/modules/events.js';
-import gestures      from '../../dom/modules/gestures.js';
-import rect          from '../../dom/modules/rect.js';
-import create        from '../../dom/modules/create.js';
-import identify      from '../../dom/modules/identify.js';
-import { next, previous } from '../../dom/modules/traverse.js';
-import { select }    from '../../dom/modules/select.js';
-import Distributor   from '../../dom/modules/distributor.js';
-import scrollstops   from '../../dom/modules/scrollstops.js';
-import trigger       from '../../dom/modules/trigger.js';
-import parseCSSValue from '../../dom/modules/parse-value.js';
-import Literal       from '../../literal/modules/compile-string.js';
+import id            from '../../../fn/modules/id.js';
+import equals        from '../../../fn/modules/equals.js';
+import last          from '../../../fn/modules/lists/last.js';
+import parseValue    from '../../../fn/modules/parse-value.js';
+import delegate      from '../../../dom/modules/delegate.js';
+import element       from '../../../dom/modules/element.js';
+import events, { isPrimaryButton } from '../../../dom/modules/events.js';
+import gestures      from '../../../dom/modules/gestures.js';
+import rect          from '../../../dom/modules/rect.js';
+import create        from '../../../dom/modules/create.js';
+import identify      from '../../../dom/modules/identify.js';
+import { next, previous } from '../../../dom/modules/traverse.js';
+import { select }    from '../../../dom/modules/select.js';
+import Distributor   from '../../../dom/modules/distributor.js';
+import scrollstops   from '../../../dom/modules/scrollstops.js';
+import trigger       from '../../../dom/modules/trigger.js';
+import parseCSSValue from '../../../dom/modules/parse-value.js';
+import Literal       from '../../../literal/modules/compile-string.js';
 
 const DEBUG = false;//window.DEBUG === true;
 
@@ -944,7 +944,7 @@ const settings = {
             `config.trans`:
 
             ```js
-            import { config } from './bolt/elements/slide-show.js';
+            import { config } from './bolt/elements/slide-show/module.js';
             config.trans['Previous'] = 'Précédent';
             config.trans['Next']     = 'Suivant';
             ```

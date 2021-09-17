@@ -1,18 +1,18 @@
 
-@import "tags/html.css";
-@import "tags/svg.css";
-@import "tags/root.css";
-@import "tags/body.css";
-@import "tags/type.css";
-@import "tags/a.css";
-@import "tags/code.css";
-@import "tags/input.css";
-@import "tags/label.css";
-@import "tags/progress.css";
-@import "tags/table.css";
+@import "elements/html.css";
+@import "elements/svg.css";
+@import "elements/root.css";
+@import "elements/body.css";
+@import "elements/type.css";
+@import "elements/a.css";
+@import "elements/code.css";
+@import "elements/input.css";
+@import "elements/label.css";
+@import "elements/progress.css";
+@import "elements/table.css";
 
-@import "pseudo/content.css";
-@import "pseudo/fullscreen.css";
+@import "elements/content.css";
+@import "elements/fullscreen.css";
 
 @import "classes/js.css";
 @import "classes/button.css";
