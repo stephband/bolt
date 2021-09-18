@@ -34,7 +34,7 @@ import events      from '../../dom/modules/events.js';
 import create      from '../../dom/modules/create.js';
 import styles      from '../../dom/modules/styles.js';
 import Distributor from '../../dom/modules/distributor.js';
-import parseValue, { rem } from '../../dom/modules/parse-value.js';
+import parseValue, { rem } from '../../dom/modules/parse-length.js';
 
 const $ = Symbol('');
 
@@ -187,7 +187,7 @@ element('overflow-toggle', {
                     // Store maxHeight while element is open
                     view.maxHeight = computedElement['max-height'];
                     view.maxHeight = view.maxHeight === 'none' ? 0 : view.maxHeight ;
-                    style.setProperty('max-height', rem(px), 'important');
+                    style.setProperty('max-height', rem(px) + 'rem', 'important');
                     button.textContent = view.hideText;
                     
                     // We have to set state on the view AND on the attribute

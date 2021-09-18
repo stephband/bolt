@@ -44,7 +44,7 @@ import { select }    from '../../../dom/modules/select.js';
 import Distributor   from '../../../dom/modules/distributor.js';
 import scrollstops   from '../../../dom/modules/scrollstops.js';
 import trigger       from '../../../dom/modules/trigger.js';
-import parseCSSValue from '../../../dom/modules/parse-value.js';
+import parseCSSValue from '../../../dom/modules/parse-length.js';
 import Literal       from '../../../literal/modules/compile-string.js';
 
 const DEBUG = false;//window.DEBUG === true;
