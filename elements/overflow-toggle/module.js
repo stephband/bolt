@@ -29,12 +29,12 @@ open, that `max-height` is overridden to include the whole height of the
 content, and the state is transitioned from closed to open via CSS.
 **/
 
-import element     from '../../dom/modules/element.js';
-import events      from '../../dom/modules/events.js';
-import create      from '../../dom/modules/create.js';
-import styles      from '../../dom/modules/styles.js';
-import Distributor from '../../dom/modules/distributor.js';
-import parseValue, { rem } from '../../dom/modules/parse-length.js';
+import element     from '../../../dom/modules/element.js';
+import events      from '../../../dom/modules/events.js';
+import create      from '../../../dom/modules/create.js';
+import styles      from '../../../dom/modules/styles.js';
+import Distributor from '../../../dom/modules/distributor.js';
+import parseValue, { rem } from '../../../dom/modules/parse-length.js';
 
 const $ = Symbol('');
 
