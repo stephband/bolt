@@ -54,7 +54,7 @@
     align-items: stretch;
     justify-content: center !important;
     justify-items: stretch;
-    column-gap: var(--column-gap, 0);
+    column-gap: var(--x-gap, 0);
 
     /* Reset style applied to un-upgraded slide-show  */
     grid-auto-flow: row !important;
@@ -176,14 +176,14 @@ Does not work
        to the extent of their right padding (or indeed to any of their right 
        padding). Note that this doesn't work with --padding-right based on
        percentages, as the dimensions do not refer to the same parent. The
-       snag is that if --padding-right is less than --column-gap we still get
-       a whole --column-gap's 'padding' caused by the column-gap in front of
+       snag is that if --padding-right is less than --x-gap we still get
+       a whole --x-gap's 'padding' caused by the column-gap in front of
        this :after element. */
     content: '';
     /*position: absolute;*/
     grid-column: calc(var(--children-count) + 1);
     grid-row: 1;
-    padding-right: calc(var(--padding-right) - var(--column-gap));
+    padding-right: calc(var(--padding-right) - var(--x-gap));
     width: 0px;
     height: 100%;
     top: 0;

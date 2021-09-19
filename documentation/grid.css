@@ -10,7 +10,7 @@ Columns.
 .2-columns
 
 ```html
-<div class="2-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="2-columns columns" style="--x-gap: 0.9375rem; font-size: 0.875rem;">
     Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 </div>
 ```
@@ -20,7 +20,7 @@ Columns.
 .3-columns
 
 ```html
-<div class="3-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="3-columns columns" style="--x-gap: 0.9375rem; font-size: 0.875rem;">
     Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 </div>
 ```
@@ -30,7 +30,7 @@ Columns.
 .4-columns … .12-columns
 
 ```html
-<div class="4-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="4-columns columns" style="--x-gap: 0.9375rem; font-size: 0.875rem;">
     Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 </div>
 ```
@@ -46,7 +46,7 @@ Grid.
 .grid
 
 ```html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
 </div>
 ```
@@ -58,7 +58,7 @@ Creates a grid with horizontal flow and equal width columns.
 .2x-grid
 
 ```html
-<div class="2x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="2x-grid grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
 </div>
@@ -71,7 +71,7 @@ Creates a grid with 2 equal width columns.
 .3x-grid
 
 ```html
-<div class="3x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="3x-grid grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
@@ -85,7 +85,7 @@ Creates a grid with 3 equal width columns.
 .4x-grid … .12x-grid
 
 ```html
-<div class="4x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="4x-grid grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
@@ -105,7 +105,7 @@ Creates a grid with 3 equal width columns.
 .x-flood
 
 ```html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button x-1">x-1</div>
     <div class="button x-2">x-2</div>
     <div class="button x-3">x-3</div>
@@ -122,7 +122,7 @@ Creates a grid with 3 equal width columns.
 
 Note that `.x-bleed`, which stretches an element half the way across the grid 
 gap, and `.x-flood`, which stretches an element all the way across the grid gap,
-depends on `column-gap` having been set via the custom property `--column-gap`.
+depends on `column-gap` having been set via the custom property `--x-gap`.
 **/
 
 /**
@@ -138,7 +138,7 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 .y-lastline
 
 ```html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button x-1 y-1">y-1</div>
     <div class="button x-1 y-2">y-2</div>
     <div class="button x-1 y-3">y-3</div>
@@ -157,12 +157,12 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 **/
 
 /**
---column-gap
+--x-gap
 Define the horizontal grid gap (with units).
 **/
 
 /**
---row-gap
+--y-gap
 Define the vertical grid gap (with units).
 **/
 
@@ -171,9 +171,9 @@ Define the vertical grid gap (with units).
     /* Columns */
     
     .\@0-columns {
-        --column-gap: 1.5rem;
+        --x-gap: 1.5rem;
         display: block !important;
-        column-gap: var(--column-gap);
+        column-gap: var(--x-gap);
     }
     
     .\@0-1-columns  { columns: 1 !important; }
@@ -183,15 +183,15 @@ Define the vertical grid gap (with units).
     /* Grid */
 
     .\@0-grid {
-        --column-gap: 1.5rem;
-        --row-gap: 1.5rem;
+        --x-gap: 1.5rem;
+        --y-gap: 1.5rem;
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
         /* Create equal columns by default. */
         grid-auto-columns: minmax(0, 1fr);
-        column-gap: var(--column-gap);
-        row-gap: var(--row-gap);
+        column-gap: var(--x-gap);
+        row-gap: var(--y-gap);
     }
 
     .\@0-y-start-grid {
@@ -234,14 +234,14 @@ Define the vertical grid gap (with units).
 
     .\@0-x-bleed {
         justify-self: stretch !important;
-        margin-left:  calc(var(--column-gap) / -2);
-        margin-right: calc(var(--column-gap) / -2);
+        margin-left:  calc(var(--x-gap) / -2);
+        margin-right: calc(var(--x-gap) / -2);
     }
 
     .\@0-x-flood {
         justify-self: stretch !important;
-        margin-left:  calc(-1 * var(--column-gap));
-        margin-right: calc(-1 * var(--column-gap));
+        margin-left:  calc(-1 * var(--x-gap));
+        margin-right: calc(-1 * var(--x-gap));
     }
 
     /* Y */
@@ -288,21 +288,21 @@ Define the vertical grid gap (with units).
 
     .\@0-y-bleed {
         align-self: stretch !important;
-        margin-top:  calc(var(--row-gap) / -2);
-        margin-bottom: calc(var(--row-gap) / -2);
+        margin-top:  calc(var(--y-gap) / -2);
+        margin-bottom: calc(var(--y-gap) / -2);
     }
 
     .\@0-y-flood {
         align-self: stretch !important;
-        margin-top:  calc(-1 * var(--row-gap));
-        margin-bottom: calc(-1 * var(--row-gap));
+        margin-top:  calc(-1 * var(--y-gap));
+        margin-bottom: calc(-1 * var(--y-gap));
     }
 
     /*
     We dont want this it prevents us from putting two grid systems on the page
     :root {
-        --column-gap: 1.5rem;
-        --row-gap: 1.5rem;
+        --x-gap: 1.5rem;
+        --y-gap: 1.5rem;
     }
     */
 
@@ -312,9 +312,9 @@ Define the vertical grid gap (with units).
     /* Columns */
     
     .\@1-columns {
-        --column-gap: 1.5rem;
+        --x-gap: 1.5rem;
         display: block !important;
-        column-gap: var(--column-gap);
+        column-gap: var(--x-gap);
     }
     
     .\@1-1-columns  { columns: 1 !important; }
@@ -327,15 +327,15 @@ Define the vertical grid gap (with units).
     /* Grid */
 
     .\@1-grid {
-        --column-gap: 1.5rem;
-        --row-gap: 1.5rem;
+        --x-gap: 1.5rem;
+        --y-gap: 1.5rem;
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
         /* Create equal columns by default. */
         grid-auto-columns: minmax(0, 1fr);
-        column-gap: var(--column-gap);
-        row-gap: var(--row-gap);
+        column-gap: var(--x-gap);
+        row-gap: var(--y-gap);
     }
 
     .\@1-y-start-grid {
@@ -387,14 +387,14 @@ Define the vertical grid gap (with units).
 
     .\@1-x-bleed {
         justify-self: stretch !important;
-        margin-left:  calc(var(--column-gap) / -2);
-        margin-right: calc(var(--column-gap) / -2);
+        margin-left:  calc(var(--x-gap) / -2);
+        margin-right: calc(var(--x-gap) / -2);
     }
 
     .\@1-x-flood {
         justify-self: stretch !important;
-        margin-left:  calc(-1 * var(--column-gap));
-        margin-right: calc(-1 * var(--column-gap));
+        margin-left:  calc(-1 * var(--x-gap));
+        margin-right: calc(-1 * var(--x-gap));
     }
 
     /* Y */
@@ -450,21 +450,21 @@ Define the vertical grid gap (with units).
 
     .\@1-y-bleed {
         align-self: stretch !important;
-        margin-top:  calc(var(--row-gap) / -2);
-        margin-bottom: calc(var(--row-gap) / -2);
+        margin-top:  calc(var(--y-gap) / -2);
+        margin-bottom: calc(var(--y-gap) / -2);
     }
 
     .\@1-y-flood {
         align-self: stretch !important;
-        margin-top:  calc(-1 * var(--row-gap));
-        margin-bottom: calc(-1 * var(--row-gap));
+        margin-top:  calc(-1 * var(--y-gap));
+        margin-bottom: calc(-1 * var(--y-gap));
     }
 
     /*
     We dont want this it prevents us from putting two grid systems on the page
     :root {
-        --column-gap: 1.5rem;
-        --row-gap: 1.5rem;
+        --x-gap: 1.5rem;
+        --y-gap: 1.5rem;
     }
     */
 }
@@ -475,9 +475,9 @@ Define the vertical grid gap (with units).
     /* Columns */
     
     .\@2-columns {
-        --column-gap: 2.8125rem;
+        --x-gap: 2.8125rem;
         display: block !important;
-        column-gap: var(--column-gap);
+        column-gap: var(--x-gap);
     }
     
     .\@2-1-columns  { columns: 1 !important; }
@@ -493,15 +493,15 @@ Define the vertical grid gap (with units).
     /* Grid */
 
     .\@2-grid {
-        --column-gap: 2.8125rem;
-        --row-gap: 1.875rem;
+        --x-gap: 2.8125rem;
+        --y-gap: 1.875rem;
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
         /* Create equal columns by default. */
         grid-auto-columns: minmax(0, 1fr);
-        column-gap: var(--column-gap);
-        row-gap: var(--row-gap);
+        column-gap: var(--x-gap);
+        row-gap: var(--y-gap);
     }
 
     .\@2-y-start-grid {
@@ -562,14 +562,14 @@ Define the vertical grid gap (with units).
 
     .\@2-x-bleed {
         justify-self: stretch !important;
-        margin-left:  calc(var(--column-gap) / -2);
-        margin-right: calc(var(--column-gap) / -2);
+        margin-left:  calc(var(--x-gap) / -2);
+        margin-right: calc(var(--x-gap) / -2);
     }
 
     .\@2-x-flood {
         justify-self: stretch !important;
-        margin-left:  calc(-1 * var(--column-gap));
-        margin-right: calc(-1 * var(--column-gap));
+        margin-left:  calc(-1 * var(--x-gap));
+        margin-right: calc(-1 * var(--x-gap));
     }
 
     /* Y */
@@ -634,21 +634,21 @@ Define the vertical grid gap (with units).
 
     .\@2-y-bleed {
         align-self: stretch !important;
-        margin-top:  calc(var(--row-gap) / -2);
-        margin-bottom: calc(var(--row-gap) / -2);
+        margin-top:  calc(var(--y-gap) / -2);
+        margin-bottom: calc(var(--y-gap) / -2);
     }
 
     .\@2-y-flood {
         align-self: stretch !important;
-        margin-top:  calc(-1 * var(--row-gap));
-        margin-bottom: calc(-1 * var(--row-gap));
+        margin-top:  calc(-1 * var(--y-gap));
+        margin-bottom: calc(-1 * var(--y-gap));
     }
 
     /*
     We dont want this it prevents us from putting two grid systems on the page
     :root {
-        --column-gap: 2.8125rem;
-        --row-gap: 1.875rem;
+        --x-gap: 2.8125rem;
+        --y-gap: 1.875rem;
     }
     */
 }
@@ -659,9 +659,9 @@ Define the vertical grid gap (with units).
     /* Columns */
     
     .\@3-columns {
-        --column-gap: 3.75rem;
+        --x-gap: 3.75rem;
         display: block !important;
-        column-gap: var(--column-gap);
+        column-gap: var(--x-gap);
     }
     
     .\@3-1-columns  { columns: 1 !important; }
@@ -677,15 +677,15 @@ Define the vertical grid gap (with units).
     /* Grid */
 
     .\@3-grid {
-        --column-gap: 3.75rem;
-        --row-gap: 1.875rem;
+        --x-gap: 3.75rem;
+        --y-gap: 1.875rem;
         display: grid !important;
         /* Horizontal layout */
         grid-auto-flow: row;
         /* Create equal columns by default. */
         grid-auto-columns: minmax(0, 1fr);
-        column-gap: var(--column-gap);
-        row-gap: var(--row-gap);
+        column-gap: var(--x-gap);
+        row-gap: var(--y-gap);
     }
 
     .\@3-y-start-grid {
@@ -746,14 +746,14 @@ Define the vertical grid gap (with units).
 
     .\@3-x-bleed {
         justify-self: stretch !important;
-        margin-left:  calc(var(--column-gap) / -2);
-        margin-right: calc(var(--column-gap) / -2);
+        margin-left:  calc(var(--x-gap) / -2);
+        margin-right: calc(var(--x-gap) / -2);
     }
 
     .\@3-x-flood {
         justify-self: stretch !important;
-        margin-left:  calc(-1 * var(--column-gap));
-        margin-right: calc(-1 * var(--column-gap));
+        margin-left:  calc(-1 * var(--x-gap));
+        margin-right: calc(-1 * var(--x-gap));
     }
 
     /* Y */
@@ -818,21 +818,21 @@ Define the vertical grid gap (with units).
 
     .\@3-y-bleed {
         align-self: stretch !important;
-        margin-top:  calc(var(--row-gap) / -2);
-        margin-bottom: calc(var(--row-gap) / -2);
+        margin-top:  calc(var(--y-gap) / -2);
+        margin-bottom: calc(var(--y-gap) / -2);
     }
 
     .\@3-y-flood {
         align-self: stretch !important;
-        margin-top:  calc(-1 * var(--row-gap));
-        margin-bottom: calc(-1 * var(--row-gap));
+        margin-top:  calc(-1 * var(--y-gap));
+        margin-bottom: calc(-1 * var(--y-gap));
     }
 
     /*
     We dont want this it prevents us from putting two grid systems on the page
     :root {
-        --column-gap: 3.75rem;
-        --row-gap: 1.875rem;
+        --x-gap: 3.75rem;
+        --y-gap: 1.875rem;
     }
     */
 }

@@ -1,4 +1,4 @@
-/* Literal template "/Users/stephband/Sites/bolt/classes/atoms.css.literal" */
+/* Literal template "/Users/stephband/Sites/living-archives/living_archives/static/bolt/classes/atoms.css.literal" */
 
 
 /**
@@ -35,7 +35,7 @@ Columns.
 .2-columns
 
 ```html
-<div class="2-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="2-columns columns" style="--x-gap: 0.9375rem; font-size: 0.875rem;">
     Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 </div>
 ```
@@ -45,7 +45,7 @@ Columns.
 .3-columns
 
 ```html
-<div class="3-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="3-columns columns" style="--x-gap: 0.9375rem; font-size: 0.875rem;">
     Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 </div>
 ```
@@ -55,7 +55,7 @@ Columns.
 .4-columns … .12-columns
 
 ```html
-<div class="4-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="4-columns columns" style="--x-gap: 0.9375rem; font-size: 0.875rem;">
     Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 </div>
 ```
@@ -70,7 +70,7 @@ Grid.
 .grid
 
 ```html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
 </div>
 ```
@@ -82,7 +82,7 @@ Creates a grid with horizontal flow and equal width columns.
 .2x-grid
 
 ```html
-<div class="2x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="2x-grid grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
 </div>
@@ -95,7 +95,7 @@ Creates a grid with 2 equal width columns.
 .3x-grid
 
 ```html
-<div class="3x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="3x-grid grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
@@ -109,7 +109,7 @@ Creates a grid with 3 equal width columns.
 .4x-grid … .12x-grid
 
 ```html
-<div class="4x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="4x-grid grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
@@ -129,7 +129,7 @@ Creates a grid with 3 equal width columns.
 .x-flood
 
 ```html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button x1">x1</div>
     <div class="button x2">x2</div>
     <div class="button x3">x3</div>
@@ -146,7 +146,7 @@ Creates a grid with 3 equal width columns.
 
 Note that `.x-bleed`, which stretches an element half the way across the grid 
 gap, and `.x-flood`, which stretches an element all the way across the grid gap,
-depends on `column-gap` having been set via the custom property `--column-gap`.
+depends on `column-gap` having been set via the custom property `--x-gap`.
 **/
 
 /**
@@ -162,7 +162,7 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 .y-lastline
 
 ```html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button x1 y1">y1</div>
     <div class="button x1 y2">y2</div>
     <div class="button x1 y3">y3</div>
@@ -181,12 +181,12 @@ depends on `column-gap` having been set via the custom property `--column-gap`.
 **/
 
 /**
---column-gap
+--x-gap
 Define the horizontal grid gap (with units).
 **/
 
 /**
---row-gap
+--y-gap
 Define the vertical grid gap (with units).
 **/
 
@@ -196,8 +196,8 @@ Define the vertical grid gap (with units).
     .hidden         { display: none !important; }
 .columns {
     display: block !important;
-    column-gap: var(--column-gap);
-    --column-gap: 1.5rem;
+    column-gap: var(--x-gap);
+    --x-gap: 1.5rem;
 } 
 
 .\31 -columns  { columns: 1 !important; }
@@ -222,10 +222,10 @@ Define the vertical grid gap (with units).
     grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--column-gap);
-    row-gap: var(--row-gap);
-    --column-gap: 1.5rem;
-    --row-gap: 1.5rem;
+    column-gap: var(--x-gap);
+    row-gap: var(--y-gap);
+    --x-gap: 1.5rem;
+    --y-gap: 1.5rem;
 }
 
 a.grid,
@@ -319,72 +319,72 @@ a.grid:focus {
 }
 
 .x-unbleedl {
-    margin-left:  calc(0.5 * var(--column-gap));
+    margin-left:  calc(0.5 * var(--x-gap));
     margin-right: 0;
-    max-width:    calc(100% - var(0.5 * --column-gap));
-    width:        calc(100% - var(0.5 * --column-gap));
+    max-width:    calc(100% - var(0.5 * --x-gap));
+    width:        calc(100% - var(0.5 * --x-gap));
 }
 
 .x-unbleedr {
     margin-left:  0;
-    margin-right: calc(0.5 * var(--column-gap));
-    max-width:    calc(100% - var(0.5 * --column-gap));
-    width:        calc(100% - var(0.5 * --column-gap));
+    margin-right: calc(0.5 * var(--x-gap));
+    max-width:    calc(100% - var(0.5 * --x-gap));
+    width:        calc(100% - var(0.5 * --x-gap));
 }
 
 .x-bleedl {
     justify-self: stretch !important;
-    margin-left:  calc(var(--column-gap) / -2);
+    margin-left:  calc(var(--x-gap) / -2);
     margin-right: 0;
-    max-width:    calc(100% + var(0.5 * --column-gap));
-    width:        calc(100% + var(0.5 * --column-gap));
+    max-width:    calc(100% + var(0.5 * --x-gap));
+    width:        calc(100% + var(0.5 * --x-gap));
 }
 
 .x-bleedr {
     justify-self: stretch !important;
     margin-left:  0;
-    margin-right: calc(var(--column-gap) / -2);
-    max-width:    calc(100% + var(0.5 * --column-gap));
-    width:        calc(100% + var(0.5 * --column-gap));
+    margin-right: calc(var(--x-gap) / -2);
+    max-width:    calc(100% + var(0.5 * --x-gap));
+    width:        calc(100% + var(0.5 * --x-gap));
 }
 
 .x-bleed {
     justify-self: stretch !important;
-    margin-left:  calc(var(--column-gap) / -2);
-    margin-right: calc(var(--column-gap) / -2);
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    margin-left:  calc(var(--x-gap) / -2);
+    margin-right: calc(var(--x-gap) / -2);
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .x-floodl {
     justify-self: stretch !important;
-    margin-left:  calc(-1 * var(--column-gap));
+    margin-left:  calc(-1 * var(--x-gap));
     margin-right: 0;
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .x-floodr {
     justify-self: stretch !important;
     margin-left:  0;
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .x-flood {
     justify-self: stretch !important;
-    margin-left:  calc(-1 * var(--column-gap));
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + 2 * var(--column-gap));
-    width:        calc(100% + 2 * var(--column-gap));
+    margin-left:  calc(-1 * var(--x-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + 2 * var(--x-gap));
+    width:        calc(100% + 2 * var(--x-gap));
 }
 
 .x-bleedl.x-floodr {
-    margin-left:  calc(-0.5 * var(--column-gap));
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + 1.5 * var(--column-gap));
-    width:        calc(100% + 1.5 * var(--column-gap));
+    margin-left:  calc(-0.5 * var(--x-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + 1.5 * var(--x-gap));
+    width:        calc(100% + 1.5 * var(--x-gap));
 }
 
 /* y */
@@ -468,18 +468,18 @@ a.grid:focus {
 
 .y-bleed {
     justify-self:  stretch !important;
-    margin-top:    calc(var(--row-gap) / -2);
-    margin-bottom: calc(var(--row-gap) / -2);
-    max-height:    calc(100% + var(--row-gap));
-    height:        calc(100% + var(--row-gap)); 
+    margin-top:    calc(var(--y-gap) / -2);
+    margin-bottom: calc(var(--y-gap) / -2);
+    max-height:    calc(100% + var(--y-gap));
+    height:        calc(100% + var(--y-gap)); 
 }
 
 .y-flood {
     justify-self:  stretch !important;
-    margin-top:    calc(-1 * var(--row-gap));
-    margin-bottom: calc(-1 * var(--row-gap));
-    max-height:    calc(100% + 2 * var(--row-gap));
-    height:        calc(100% + 2 * var(--row-gap)); 
+    margin-top:    calc(-1 * var(--y-gap));
+    margin-bottom: calc(-1 * var(--y-gap));
+    max-height:    calc(100% + 2 * var(--y-gap));
+    height:        calc(100% + 2 * var(--y-gap)); 
 }
 .inline         { display: inline-block !important; }.left           { float: left !important; clear: left; }
 .right          { float: right !important; clear: right; }
@@ -511,8 +511,8 @@ a.grid:focus {
     .\@1-hidden         { display: none !important; }
 .\@1-columns {
     display: block !important;
-    column-gap: var(--column-gap);
-    --column-gap: 1.5rem;
+    column-gap: var(--x-gap);
+    --x-gap: 1.5rem;
 } 
 
 .\@1-1-columns  { columns: 1 !important; }
@@ -537,10 +537,10 @@ a.grid:focus {
     grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--column-gap);
-    row-gap: var(--row-gap);
-    --column-gap: 1.5rem;
-    --row-gap: 1.5rem;
+    column-gap: var(--x-gap);
+    row-gap: var(--y-gap);
+    --x-gap: 1.5rem;
+    --y-gap: 1.5rem;
 }
 
 a.\@1-grid,
@@ -634,72 +634,72 @@ a.\@1-grid:focus {
 }
 
 .\@1-x-unbleedl {
-    margin-left:  calc(0.5 * var(--column-gap));
+    margin-left:  calc(0.5 * var(--x-gap));
     margin-right: 0;
-    max-width:    calc(100% - var(0.5 * --column-gap));
-    width:        calc(100% - var(0.5 * --column-gap));
+    max-width:    calc(100% - var(0.5 * --x-gap));
+    width:        calc(100% - var(0.5 * --x-gap));
 }
 
 .\@1-x-unbleedr {
     margin-left:  0;
-    margin-right: calc(0.5 * var(--column-gap));
-    max-width:    calc(100% - var(0.5 * --column-gap));
-    width:        calc(100% - var(0.5 * --column-gap));
+    margin-right: calc(0.5 * var(--x-gap));
+    max-width:    calc(100% - var(0.5 * --x-gap));
+    width:        calc(100% - var(0.5 * --x-gap));
 }
 
 .\@1-x-bleedl {
     justify-self: stretch !important;
-    margin-left:  calc(var(--column-gap) / -2);
+    margin-left:  calc(var(--x-gap) / -2);
     margin-right: 0;
-    max-width:    calc(100% + var(0.5 * --column-gap));
-    width:        calc(100% + var(0.5 * --column-gap));
+    max-width:    calc(100% + var(0.5 * --x-gap));
+    width:        calc(100% + var(0.5 * --x-gap));
 }
 
 .\@1-x-bleedr {
     justify-self: stretch !important;
     margin-left:  0;
-    margin-right: calc(var(--column-gap) / -2);
-    max-width:    calc(100% + var(0.5 * --column-gap));
-    width:        calc(100% + var(0.5 * --column-gap));
+    margin-right: calc(var(--x-gap) / -2);
+    max-width:    calc(100% + var(0.5 * --x-gap));
+    width:        calc(100% + var(0.5 * --x-gap));
 }
 
 .\@1-x-bleed {
     justify-self: stretch !important;
-    margin-left:  calc(var(--column-gap) / -2);
-    margin-right: calc(var(--column-gap) / -2);
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    margin-left:  calc(var(--x-gap) / -2);
+    margin-right: calc(var(--x-gap) / -2);
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .\@1-x-floodl {
     justify-self: stretch !important;
-    margin-left:  calc(-1 * var(--column-gap));
+    margin-left:  calc(-1 * var(--x-gap));
     margin-right: 0;
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .\@1-x-floodr {
     justify-self: stretch !important;
     margin-left:  0;
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .\@1-x-flood {
     justify-self: stretch !important;
-    margin-left:  calc(-1 * var(--column-gap));
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + 2 * var(--column-gap));
-    width:        calc(100% + 2 * var(--column-gap));
+    margin-left:  calc(-1 * var(--x-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + 2 * var(--x-gap));
+    width:        calc(100% + 2 * var(--x-gap));
 }
 
 .\@1-x-bleedl.\@1-x-floodr {
-    margin-left:  calc(-0.5 * var(--column-gap));
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + 1.5 * var(--column-gap));
-    width:        calc(100% + 1.5 * var(--column-gap));
+    margin-left:  calc(-0.5 * var(--x-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + 1.5 * var(--x-gap));
+    width:        calc(100% + 1.5 * var(--x-gap));
 }
 
 /* y */
@@ -783,18 +783,18 @@ a.\@1-grid:focus {
 
 .\@1-y-bleed {
     justify-self:  stretch !important;
-    margin-top:    calc(var(--row-gap) / -2);
-    margin-bottom: calc(var(--row-gap) / -2);
-    max-height:    calc(100% + var(--row-gap));
-    height:        calc(100% + var(--row-gap)); 
+    margin-top:    calc(var(--y-gap) / -2);
+    margin-bottom: calc(var(--y-gap) / -2);
+    max-height:    calc(100% + var(--y-gap));
+    height:        calc(100% + var(--y-gap)); 
 }
 
 .\@1-y-flood {
     justify-self:  stretch !important;
-    margin-top:    calc(-1 * var(--row-gap));
-    margin-bottom: calc(-1 * var(--row-gap));
-    max-height:    calc(100% + 2 * var(--row-gap));
-    height:        calc(100% + 2 * var(--row-gap)); 
+    margin-top:    calc(-1 * var(--y-gap));
+    margin-bottom: calc(-1 * var(--y-gap));
+    max-height:    calc(100% + 2 * var(--y-gap));
+    height:        calc(100% + 2 * var(--y-gap)); 
 }
 .\@1-inline         { display: inline-block !important; }.\@1-left           { float: left !important; clear: left; }
 .\@1-right          { float: right !important; clear: right; }
@@ -827,8 +827,8 @@ a.\@1-grid:focus {
     .\@2-hidden         { display: none !important; }
 .\@2-columns {
     display: block !important;
-    column-gap: var(--column-gap);
-    --column-gap: 2.8125rem;
+    column-gap: var(--x-gap);
+    --x-gap: 2.8125rem;
 } 
 
 .\@2-1-columns  { columns: 1 !important; }
@@ -853,10 +853,10 @@ a.\@1-grid:focus {
     grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--column-gap);
-    row-gap: var(--row-gap);
-    --column-gap: 2.8125rem;
-    --row-gap: 1.875rem;
+    column-gap: var(--x-gap);
+    row-gap: var(--y-gap);
+    --x-gap: 2.8125rem;
+    --y-gap: 1.875rem;
 }
 
 a.\@2-grid,
@@ -950,72 +950,72 @@ a.\@2-grid:focus {
 }
 
 .\@2-x-unbleedl {
-    margin-left:  calc(0.5 * var(--column-gap));
+    margin-left:  calc(0.5 * var(--x-gap));
     margin-right: 0;
-    max-width:    calc(100% - var(0.5 * --column-gap));
-    width:        calc(100% - var(0.5 * --column-gap));
+    max-width:    calc(100% - var(0.5 * --x-gap));
+    width:        calc(100% - var(0.5 * --x-gap));
 }
 
 .\@2-x-unbleedr {
     margin-left:  0;
-    margin-right: calc(0.5 * var(--column-gap));
-    max-width:    calc(100% - var(0.5 * --column-gap));
-    width:        calc(100% - var(0.5 * --column-gap));
+    margin-right: calc(0.5 * var(--x-gap));
+    max-width:    calc(100% - var(0.5 * --x-gap));
+    width:        calc(100% - var(0.5 * --x-gap));
 }
 
 .\@2-x-bleedl {
     justify-self: stretch !important;
-    margin-left:  calc(var(--column-gap) / -2);
+    margin-left:  calc(var(--x-gap) / -2);
     margin-right: 0;
-    max-width:    calc(100% + var(0.5 * --column-gap));
-    width:        calc(100% + var(0.5 * --column-gap));
+    max-width:    calc(100% + var(0.5 * --x-gap));
+    width:        calc(100% + var(0.5 * --x-gap));
 }
 
 .\@2-x-bleedr {
     justify-self: stretch !important;
     margin-left:  0;
-    margin-right: calc(var(--column-gap) / -2);
-    max-width:    calc(100% + var(0.5 * --column-gap));
-    width:        calc(100% + var(0.5 * --column-gap));
+    margin-right: calc(var(--x-gap) / -2);
+    max-width:    calc(100% + var(0.5 * --x-gap));
+    width:        calc(100% + var(0.5 * --x-gap));
 }
 
 .\@2-x-bleed {
     justify-self: stretch !important;
-    margin-left:  calc(var(--column-gap) / -2);
-    margin-right: calc(var(--column-gap) / -2);
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    margin-left:  calc(var(--x-gap) / -2);
+    margin-right: calc(var(--x-gap) / -2);
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .\@2-x-floodl {
     justify-self: stretch !important;
-    margin-left:  calc(-1 * var(--column-gap));
+    margin-left:  calc(-1 * var(--x-gap));
     margin-right: 0;
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .\@2-x-floodr {
     justify-self: stretch !important;
     margin-left:  0;
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .\@2-x-flood {
     justify-self: stretch !important;
-    margin-left:  calc(-1 * var(--column-gap));
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + 2 * var(--column-gap));
-    width:        calc(100% + 2 * var(--column-gap));
+    margin-left:  calc(-1 * var(--x-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + 2 * var(--x-gap));
+    width:        calc(100% + 2 * var(--x-gap));
 }
 
 .\@2-x-bleedl.\@2-x-floodr {
-    margin-left:  calc(-0.5 * var(--column-gap));
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + 1.5 * var(--column-gap));
-    width:        calc(100% + 1.5 * var(--column-gap));
+    margin-left:  calc(-0.5 * var(--x-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + 1.5 * var(--x-gap));
+    width:        calc(100% + 1.5 * var(--x-gap));
 }
 
 /* y */
@@ -1099,18 +1099,18 @@ a.\@2-grid:focus {
 
 .\@2-y-bleed {
     justify-self:  stretch !important;
-    margin-top:    calc(var(--row-gap) / -2);
-    margin-bottom: calc(var(--row-gap) / -2);
-    max-height:    calc(100% + var(--row-gap));
-    height:        calc(100% + var(--row-gap)); 
+    margin-top:    calc(var(--y-gap) / -2);
+    margin-bottom: calc(var(--y-gap) / -2);
+    max-height:    calc(100% + var(--y-gap));
+    height:        calc(100% + var(--y-gap)); 
 }
 
 .\@2-y-flood {
     justify-self:  stretch !important;
-    margin-top:    calc(-1 * var(--row-gap));
-    margin-bottom: calc(-1 * var(--row-gap));
-    max-height:    calc(100% + 2 * var(--row-gap));
-    height:        calc(100% + 2 * var(--row-gap)); 
+    margin-top:    calc(-1 * var(--y-gap));
+    margin-bottom: calc(-1 * var(--y-gap));
+    max-height:    calc(100% + 2 * var(--y-gap));
+    height:        calc(100% + 2 * var(--y-gap)); 
 }
 .\@2-inline         { display: inline-block !important; }.\@2-left           { float: left !important; clear: left; }
 .\@2-right          { float: right !important; clear: right; }
@@ -1143,8 +1143,8 @@ a.\@2-grid:focus {
     .\@3-hidden         { display: none !important; }
 .\@3-columns {
     display: block !important;
-    column-gap: var(--column-gap);
-    --column-gap: 3.75rem;
+    column-gap: var(--x-gap);
+    --x-gap: 3.75rem;
 } 
 
 .\@3-1-columns  { columns: 1 !important; }
@@ -1169,10 +1169,10 @@ a.\@2-grid:focus {
     grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--column-gap);
-    row-gap: var(--row-gap);
-    --column-gap: 3.75rem;
-    --row-gap: 1.875rem;
+    column-gap: var(--x-gap);
+    row-gap: var(--y-gap);
+    --x-gap: 3.75rem;
+    --y-gap: 1.875rem;
 }
 
 a.\@3-grid,
@@ -1266,72 +1266,72 @@ a.\@3-grid:focus {
 }
 
 .\@3-x-unbleedl {
-    margin-left:  calc(0.5 * var(--column-gap));
+    margin-left:  calc(0.5 * var(--x-gap));
     margin-right: 0;
-    max-width:    calc(100% - var(0.5 * --column-gap));
-    width:        calc(100% - var(0.5 * --column-gap));
+    max-width:    calc(100% - var(0.5 * --x-gap));
+    width:        calc(100% - var(0.5 * --x-gap));
 }
 
 .\@3-x-unbleedr {
     margin-left:  0;
-    margin-right: calc(0.5 * var(--column-gap));
-    max-width:    calc(100% - var(0.5 * --column-gap));
-    width:        calc(100% - var(0.5 * --column-gap));
+    margin-right: calc(0.5 * var(--x-gap));
+    max-width:    calc(100% - var(0.5 * --x-gap));
+    width:        calc(100% - var(0.5 * --x-gap));
 }
 
 .\@3-x-bleedl {
     justify-self: stretch !important;
-    margin-left:  calc(var(--column-gap) / -2);
+    margin-left:  calc(var(--x-gap) / -2);
     margin-right: 0;
-    max-width:    calc(100% + var(0.5 * --column-gap));
-    width:        calc(100% + var(0.5 * --column-gap));
+    max-width:    calc(100% + var(0.5 * --x-gap));
+    width:        calc(100% + var(0.5 * --x-gap));
 }
 
 .\@3-x-bleedr {
     justify-self: stretch !important;
     margin-left:  0;
-    margin-right: calc(var(--column-gap) / -2);
-    max-width:    calc(100% + var(0.5 * --column-gap));
-    width:        calc(100% + var(0.5 * --column-gap));
+    margin-right: calc(var(--x-gap) / -2);
+    max-width:    calc(100% + var(0.5 * --x-gap));
+    width:        calc(100% + var(0.5 * --x-gap));
 }
 
 .\@3-x-bleed {
     justify-self: stretch !important;
-    margin-left:  calc(var(--column-gap) / -2);
-    margin-right: calc(var(--column-gap) / -2);
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    margin-left:  calc(var(--x-gap) / -2);
+    margin-right: calc(var(--x-gap) / -2);
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .\@3-x-floodl {
     justify-self: stretch !important;
-    margin-left:  calc(-1 * var(--column-gap));
+    margin-left:  calc(-1 * var(--x-gap));
     margin-right: 0;
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .\@3-x-floodr {
     justify-self: stretch !important;
     margin-left:  0;
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .\@3-x-flood {
     justify-self: stretch !important;
-    margin-left:  calc(-1 * var(--column-gap));
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + 2 * var(--column-gap));
-    width:        calc(100% + 2 * var(--column-gap));
+    margin-left:  calc(-1 * var(--x-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + 2 * var(--x-gap));
+    width:        calc(100% + 2 * var(--x-gap));
 }
 
 .\@3-x-bleedl.\@3-x-floodr {
-    margin-left:  calc(-0.5 * var(--column-gap));
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + 1.5 * var(--column-gap));
-    width:        calc(100% + 1.5 * var(--column-gap));
+    margin-left:  calc(-0.5 * var(--x-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + 1.5 * var(--x-gap));
+    width:        calc(100% + 1.5 * var(--x-gap));
 }
 
 /* y */
@@ -1415,18 +1415,18 @@ a.\@3-grid:focus {
 
 .\@3-y-bleed {
     justify-self:  stretch !important;
-    margin-top:    calc(var(--row-gap) / -2);
-    margin-bottom: calc(var(--row-gap) / -2);
-    max-height:    calc(100% + var(--row-gap));
-    height:        calc(100% + var(--row-gap)); 
+    margin-top:    calc(var(--y-gap) / -2);
+    margin-bottom: calc(var(--y-gap) / -2);
+    max-height:    calc(100% + var(--y-gap));
+    height:        calc(100% + var(--y-gap)); 
 }
 
 .\@3-y-flood {
     justify-self:  stretch !important;
-    margin-top:    calc(-1 * var(--row-gap));
-    margin-bottom: calc(-1 * var(--row-gap));
-    max-height:    calc(100% + 2 * var(--row-gap));
-    height:        calc(100% + 2 * var(--row-gap)); 
+    margin-top:    calc(-1 * var(--y-gap));
+    margin-bottom: calc(-1 * var(--y-gap));
+    max-height:    calc(100% + 2 * var(--y-gap));
+    height:        calc(100% + 2 * var(--y-gap)); 
 }
 .\@3-inline         { display: inline-block !important; }.\@3-left           { float: left !important; clear: left; }
 .\@3-right          { float: right !important; clear: right; }

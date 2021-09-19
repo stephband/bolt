@@ -19,8 +19,8 @@ body > .x-bleed {
 *//*
 @media(min-width: 50em) {
     :root {
-        --column-gap: 2.8125rem;
-        --row-gap: 2.8125rem;
+        --x-gap: 2.8125rem;
+        --y-gap: 2.8125rem;
     }
 
     body {
@@ -37,18 +37,18 @@ body > .x-bleed {
 
 @media(min-width: 70em) {
     :root {
-        --row-gap: 3.75rem;
+        --y-gap: 3.75rem;
     }
 }
 
 @media(min-width: 90em) {
     :root {
-        --column-gap: 3.75rem;
+        --x-gap: 3.75rem;
     }
 
     body {
-        padding-left: calc(0.5 * var(--column-gap));
-        padding-right: calc(0.5 * var(--column-gap));
+        padding-left: calc(0.5 * var(--x-gap));
+        padding-right: calc(0.5 * var(--x-gap));
     }
 }*/
 

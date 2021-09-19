@@ -13,7 +13,7 @@ slide-show {
     grid-auto-rows: min-content;
     align-items: center;
     justify-items: stretch;
-    column-gap: var(--column-gap);
+    column-gap: var(--x-gap);
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
     -webkit-scroll-behavior: smooth;
@@ -58,20 +58,20 @@ slide-show > :not([slot]) {
 
 slide-show:-webkit-full-screen {
     align-content: center;
-    column-gap: var(--column-gap);
+    column-gap: var(--x-gap);
 }
 
 slide-show:-ms-fullscreen {
     align-content: center;
-    column-gap: var(--column-gap);
+    column-gap: var(--x-gap);
 }
 
 slide-show:fullscreen {
     align-content: center;
-    column-gap: var(--column-gap);
+    column-gap: var(--x-gap);
 }
 
 slide-show.fullscreen {
     align-content: center;
-    column-gap: var(--column-gap);
+    column-gap: var(--x-gap);
 }

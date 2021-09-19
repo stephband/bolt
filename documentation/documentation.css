@@ -2,8 +2,8 @@
 @import './docs.css';
 
 .docs-grid {
-    --column-gap: 1.875rem;
-    --row-gap: 2.8125rem;
+    --x-gap: 1.875rem;
+    --y-gap: 2.8125rem;
     grid-template-rows: min-content;
     padding-top: 1.875rem;
     padding-bottom: 3.75rem;
@@ -19,8 +19,8 @@
 
 @media(min-width: 50em) {
     .docs-grid {
-        --column-gap: 2.8125rem;
-        --row-gap: 2.8125rem;
+        --x-gap: 2.8125rem;
+        --y-gap: 2.8125rem;
         padding-left: 1.875rem;
         padding-right: 1.875rem;
     }
@@ -28,15 +28,15 @@
 
 @media(min-width: 70em) {
     .docs-grid {
-        --row-gap: 3.75rem;
+        --y-gap: 3.75rem;
     }
 }
 
 @media(min-width: 90em) {
     .docs-grid {
-        --column-gap: 3.75rem;
-        padding-left: calc(0.5 * var(--column-gap));
-        padding-right: calc(0.5 * var(--column-gap));
+        --x-gap: 3.75rem;
+        padding-left: calc(0.5 * var(--x-gap));
+        padding-right: calc(0.5 * var(--x-gap));
     }
 }
 

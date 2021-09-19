@@ -5,10 +5,10 @@
     grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--column-gap);
-    row-gap: var(--row-gap);
-    ${ data['column-gap'] ? '--column-gap: ' + rem(data['column-gap']) + 'rem;' : '' }
-    ${ data['row-gap']    ? '--row-gap: '    + rem(data['row-gap'])    + 'rem;' : '' }
+    column-gap: var(--x-gap);
+    row-gap: var(--y-gap);
+    ${ data['column-gap'] ? '--x-gap: ' + rem(data['column-gap']) + 'rem;' : '' }
+    ${ data['row-gap']    ? '--y-gap: '    + rem(data['row-gap'])    + 'rem;' : '' }
 }
 
 a.${ data.prefix }grid,
@@ -69,72 +69,72 @@ ${ Array.from({ length: data.columns || 12 }).map((nowt, i) => i + 1).map((n) =>
 }
 
 .${ data.prefix }x-unbleedl {
-    margin-left:  calc(0.5 * var(--column-gap));
+    margin-left:  calc(0.5 * var(--x-gap));
     margin-right: 0;
-    max-width:    calc(100% - var(0.5 * --column-gap));
-    width:        calc(100% - var(0.5 * --column-gap));
+    max-width:    calc(100% - var(0.5 * --x-gap));
+    width:        calc(100% - var(0.5 * --x-gap));
 }
 
 .${ data.prefix }x-unbleedr {
     margin-left:  0;
-    margin-right: calc(0.5 * var(--column-gap));
-    max-width:    calc(100% - var(0.5 * --column-gap));
-    width:        calc(100% - var(0.5 * --column-gap));
+    margin-right: calc(0.5 * var(--x-gap));
+    max-width:    calc(100% - var(0.5 * --x-gap));
+    width:        calc(100% - var(0.5 * --x-gap));
 }
 
 .${ data.prefix }x-bleedl {
     justify-self: stretch !important;
-    margin-left:  calc(var(--column-gap) / -2);
+    margin-left:  calc(var(--x-gap) / -2);
     margin-right: 0;
-    max-width:    calc(100% + var(0.5 * --column-gap));
-    width:        calc(100% + var(0.5 * --column-gap));
+    max-width:    calc(100% + var(0.5 * --x-gap));
+    width:        calc(100% + var(0.5 * --x-gap));
 }
 
 .${ data.prefix }x-bleedr {
     justify-self: stretch !important;
     margin-left:  0;
-    margin-right: calc(var(--column-gap) / -2);
-    max-width:    calc(100% + var(0.5 * --column-gap));
-    width:        calc(100% + var(0.5 * --column-gap));
+    margin-right: calc(var(--x-gap) / -2);
+    max-width:    calc(100% + var(0.5 * --x-gap));
+    width:        calc(100% + var(0.5 * --x-gap));
 }
 
 .${ data.prefix }x-bleed {
     justify-self: stretch !important;
-    margin-left:  calc(var(--column-gap) / -2);
-    margin-right: calc(var(--column-gap) / -2);
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    margin-left:  calc(var(--x-gap) / -2);
+    margin-right: calc(var(--x-gap) / -2);
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .${ data.prefix }x-floodl {
     justify-self: stretch !important;
-    margin-left:  calc(-1 * var(--column-gap));
+    margin-left:  calc(-1 * var(--x-gap));
     margin-right: 0;
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .${ data.prefix }x-floodr {
     justify-self: stretch !important;
     margin-left:  0;
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + var(--column-gap));
-    width:        calc(100% + var(--column-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + var(--x-gap));
+    width:        calc(100% + var(--x-gap));
 }
 
 .${ data.prefix }x-flood {
     justify-self: stretch !important;
-    margin-left:  calc(-1 * var(--column-gap));
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + 2 * var(--column-gap));
-    width:        calc(100% + 2 * var(--column-gap));
+    margin-left:  calc(-1 * var(--x-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + 2 * var(--x-gap));
+    width:        calc(100% + 2 * var(--x-gap));
 }
 
 .${ data.prefix }x-bleedl.${ data.prefix }x-floodr {
-    margin-left:  calc(-0.5 * var(--column-gap));
-    margin-right: calc(-1 * var(--column-gap));
-    max-width:    calc(100% + 1.5 * var(--column-gap));
-    width:        calc(100% + 1.5 * var(--column-gap));
+    margin-left:  calc(-0.5 * var(--x-gap));
+    margin-right: calc(-1 * var(--x-gap));
+    max-width:    calc(100% + 1.5 * var(--x-gap));
+    width:        calc(100% + 1.5 * var(--x-gap));
 }
 
 /* y */
@@ -185,16 +185,16 @@ ${ Array.from({ length: data.rows || 12 }).map((nowt, i) => i + 1).map((n) => `
 
 .${ data.prefix }y-bleed {
     justify-self:  stretch !important;
-    margin-top:    calc(var(--row-gap) / -2);
-    margin-bottom: calc(var(--row-gap) / -2);
-    max-height:    calc(100% + var(--row-gap));
-    height:        calc(100% + var(--row-gap)); 
+    margin-top:    calc(var(--y-gap) / -2);
+    margin-bottom: calc(var(--y-gap) / -2);
+    max-height:    calc(100% + var(--y-gap));
+    height:        calc(100% + var(--y-gap)); 
 }
 
 .${ data.prefix }y-flood {
     justify-self:  stretch !important;
-    margin-top:    calc(-1 * var(--row-gap));
-    margin-bottom: calc(-1 * var(--row-gap));
-    max-height:    calc(100% + 2 * var(--row-gap));
-    height:        calc(100% + 2 * var(--row-gap)); 
+    margin-top:    calc(-1 * var(--y-gap));
+    margin-bottom: calc(-1 * var(--y-gap));
+    max-height:    calc(100% + 2 * var(--y-gap));
+    height:        calc(100% + 2 * var(--y-gap)); 
 }

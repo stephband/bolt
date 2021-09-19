@@ -78,12 +78,12 @@ table.x-bleed
 
 table.x-bleed th:first-child,
 table.x-bleed td:first-child {
-    padding-left: calc(0.5 * var(--column-gap));
+    padding-left: calc(0.5 * var(--x-gap));
 }
 
 table.x-bleed th:last-child,
 table.x-bleed td:last-child {
-    padding-right: calc(0.5 * var(--column-gap));
+    padding-right: calc(0.5 * var(--x-gap));
 }
 
 /**

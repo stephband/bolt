@@ -33,7 +33,7 @@ Columns.
 .2-columns
 
 \`\`\`html
-<div class="2-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="2-columns columns" style="--x-gap: 0.9375rem; font-size: 0.875rem;">
     Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 </div>
 \`\`\`
@@ -43,7 +43,7 @@ Columns.
 .3-columns
 
 \`\`\`html
-<div class="3-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="3-columns columns" style="--x-gap: 0.9375rem; font-size: 0.875rem;">
     Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 </div>
 \`\`\`
@@ -53,7 +53,7 @@ Columns.
 .4-columns … .12-columns
 
 \`\`\`html
-<div class="4-columns columns" style="--column-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="4-columns columns" style="--x-gap: 0.9375rem; font-size: 0.875rem;">
     Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
 </div>
 \`\`\`
@@ -68,7 +68,7 @@ Grid.
 .grid
 
 \`\`\`html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
 </div>
 \`\`\`
@@ -80,7 +80,7 @@ Creates a grid with horizontal flow and equal width columns.
 .2x-grid
 
 \`\`\`html
-<div class="2x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="2x-grid grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
 </div>
@@ -93,7 +93,7 @@ Creates a grid with 2 equal width columns.
 .3x-grid
 
 \`\`\`html
-<div class="3x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="3x-grid grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
@@ -107,7 +107,7 @@ Creates a grid with 3 equal width columns.
 .4x-grid … .12x-grid
 
 \`\`\`html
-<div class="4x-grid grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="4x-grid grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
     <div class="button">&nbsp;</div>
@@ -127,7 +127,7 @@ Creates a grid with 3 equal width columns.
 .x-flood
 
 \`\`\`html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button x1">x1</div>
     <div class="button x2">x2</div>
     <div class="button x3">x3</div>
@@ -144,7 +144,7 @@ Creates a grid with 3 equal width columns.
 
 Note that \`.x-bleed\`, which stretches an element half the way across the grid 
 gap, and \`.x-flood\`, which stretches an element all the way across the grid gap,
-depends on \`column-gap\` having been set via the custom property \`--column-gap\`.
+depends on \`column-gap\` having been set via the custom property \`--x-gap\`.
 **/
 
 /**
@@ -160,7 +160,7 @@ depends on \`column-gap\` having been set via the custom property \`--column-gap
 .y-lastline
 
 \`\`\`html
-<div class="grid" style="--column-gap: 0.9375rem; --row-gap: 0.9375rem; font-size: 0.875rem;">
+<div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
     <div class="button x1 y1">y1</div>
     <div class="button x1 y2">y2</div>
     <div class="button x1 y3">y3</div>
@@ -179,12 +179,12 @@ depends on \`column-gap\` having been set via the custom property \`--column-gap
 **/
 
 /**
---column-gap
+--x-gap
 Define the horizontal grid gap (with units).
 **/
 
 /**
---row-gap
+--y-gap
 Define the vertical grid gap (with units).
 **/
 
