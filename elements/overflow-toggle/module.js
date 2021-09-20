@@ -1,12 +1,6 @@
 
 /** <overflow-toggle>
 
-Configure stylesheet path with:
-
-```js
-window.customElementStylesheetPath = 'path/to/bolt/elements/';
-```
-
 Import `<overflow-toggle>` custom element. This also registers the custom 
 element and upgrades instances already in the DOM.
 
@@ -38,8 +32,10 @@ import parseValue, { rem } from '../../../dom/modules/parse-length.js';
 
 const $ = Symbol('');
 
+// Get path to dir of this module
+const path   = import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/');
+
 const config = {
-    path: window.customElementStylesheetPath || '',
     showText: 'Show more',
     hideText: 'Show less'
 };
@@ -73,7 +69,7 @@ element('overflow-toggle', {
     */
 
     construct: function(shadow) {
-        const link  = create('link', { rel: 'stylesheet', href: config.path + 'overflow-toggle.shadow.css' });
+        const link  = create('link', { rel: 'stylesheet', href: path + 'module.css' });
         const style = styles(':host', shadow)[0];
         const slot  = create('slot', { part: 'content' });
 

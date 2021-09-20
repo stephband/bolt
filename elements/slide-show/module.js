@@ -3,12 +3,6 @@ import '../../../dom/polyfills/element.scrollto.js';
 
 /** <slide-show>
 
-Configure stylesheet path with:
-
-```js
-window.customElementStylesheetPath = 'path/to/bolt/elements/';
-```
-
 Import `<slide-show>` custom element. This also registers the custom 
 element and upgrades instances already in the DOM.
 
@@ -49,12 +43,13 @@ import Literal       from '../../../literal/modules/compile-string.js';
 
 const DEBUG = false;//window.DEBUG === true;
 
+// Get path to dir of this module
+const path   = import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/');
 const assign = Object.assign;
 const define = Object.defineProperties;
 const $      = Symbol('slide-show');
 
 export const config = {
-    path: window.customElementStylesheetPath || '',
     duration: 8,
     trans: {
         'Previous': 'Previous',
@@ -733,17 +728,14 @@ const settings = {
     **/
 
     construct: function(shadow) {
-        const link     = create('link', { rel: 'stylesheet', href: config.path + 'slide-show.shadow.css' });
+        const link     = create('link', { rel: 'stylesheet', href: path + 'module.css' });
         const slot     = create('slot', { part: 'grid' });
         // A place to put optional UI (fullscreen close buttons etc)
         const optional = create('slot', { name: 'optional', part: 'optional' });
         // A place to put overflow menu stuff
         const overflow = create('slot', { name: 'overflow', part: 'overflow' });
 
-        shadow.appendChild(link);
-        shadow.appendChild(slot);
-        shadow.appendChild(optional);
-        shadow.appendChild(overflow);
+        shadow.append(link, slot, optional, overflow);
 
         const elem = this;
         var clickSuppressTime = -Infinity;

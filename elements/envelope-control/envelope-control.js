@@ -4,12 +4,6 @@
 /**
 <envelope-control>
 
-Configure stylesheet path with:
-
-```js
-window.customElementStylesheetPath = 'path/to/bolt/elements/';
-```
-
 Import `<envelope-control>` custom element. This also registers the custom 
 element and upgrades instances already in the DOM.
 
@@ -42,10 +36,6 @@ import { parseEnvelope } from './parse-envelope.js';
 import { requestEnvelopeDataURL } from './request-envelope-data-url.js';
 
 const assign = Object.assign;
-
-const config = {
-    path: window.customElementStylesheetPath || ''
-};
 
 const defaults = {
     law: 'linear',

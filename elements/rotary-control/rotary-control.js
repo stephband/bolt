@@ -2,12 +2,6 @@
 /**
 <rotary-control>
 
-Configure stylesheet path with:
-
-```js
-window.customElementStylesheetPath = 'path/to/bolt/elements/';
-```
-
 Import `<rotary-control>` custom element. This also registers the custom 
 element and upgrades instances already in the DOM.
 
@@ -45,21 +39,20 @@ const DEBUG = true;
 
 const assign = Object.assign;
 
+// Get path to dir of this module
+const path   = import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/');
+
 const defaults = {
     law: 'linear',
     min: 0,
     max: 1
 };
 
-const config = {
-    path: window.customElementStylesheetPath || ''
-};
-
 
 /* Shadow */
 
 function createTemplate(elem, shadow, internals) {
-    const link   = create('link',  { rel: 'stylesheet', href: config.path + 'rotary-control.css' });
+    const link   = create('link',  { rel: 'stylesheet', href: path + 'module.css' });
     const style  = create('style', ':host {}');
     const label  = create('label', { for: 'input', html: '<slot></slot>' });
     const handle = create('div', { class: 'handle' });

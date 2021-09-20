@@ -3,12 +3,6 @@
 /**
 <range-control>
 
-Configure stylesheet path with:
-
-```js
-window.customElementStylesheetPath = 'path/to/bolt/elements/';
-```
-
 Import `<range-control>` custom element. This also registers the custom 
 element and upgrades instances already in the DOM.
 
@@ -42,21 +36,20 @@ const DEBUG = true;
 const assign = Object.assign;
 const define = Object.defineProperties;
 
+// Get path to dir of this module
+const path   = import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/');
+
 const defaults = {
     law: 'linear',
     min: 0,
     max: 1
 };
 
-const config = {
-    path: window.customElementStylesheetPath || ''
-};
-
 
 /* Shadow */
 
 function createTemplate(elem, shadow) {
-    const link   = create('link',  { rel: 'stylesheet', href: config.path + 'range-control.css' });
+    const link   = create('link',  { rel: 'stylesheet', href: path + 'module.css' });
     const style  = create('style', ':host {}');
     const label  = create('label', { for: 'input', html: '<slot></slot>', part: 'label' });
     const input  = create('input', { type: 'range', id: 'input', name: 'unit-value', min: '0', max: '1', step: 'any' });

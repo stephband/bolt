@@ -17,10 +17,6 @@
     
     <link rel="stylesheet" href="../style.css">
     {% include ../templates/style.html %}
-    
-    <script title="config">
-        window.customElementStylesheetPath = './';
-    </script>
 
     <style>
     :root {

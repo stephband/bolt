@@ -9,10 +9,6 @@
     
     <link rel="stylesheet" href="../module.css">
     ${ include('../templates/style.html') }
-
-    <script title="config">
-        window.customElementStylesheetPath = './';
-    </script>
     
     <style>
         overflow-toggle {

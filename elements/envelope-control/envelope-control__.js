@@ -4,12 +4,6 @@
 /**
 <envelope-control>
 
-Configure stylesheet path with:
-
-```js
-window.customElementStylesheetPath = 'path/to/bolt/elements/';
-```
-
 Import `<envelope-control>` custom element. This also registers the custom 
 element and upgrades instances already in the DOM.
 
