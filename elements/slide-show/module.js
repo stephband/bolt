@@ -110,21 +110,13 @@ function boolean(object, value) {
 
 
 /* View */
-/*
-console.log('WANKA');
-window.addEventListener('scroll', function(e) {
-    console.log('SCROLL', e.target)
-}, {
-    capture: true, 
-    passive: true
-});
-*/
+
 function scrollSmooth(element, slot, target) {
     const firstRect  = rect(element.firstElementChild);
     const targetRect = rect(target);
 
     if (!firstRect || !targetRect) { return; }
-/*console.log('SMOOTH', element);*/
+
     // Move scroll position to next slide
     slot.scrollTo({
         top: slot.scrollTop,
@@ -145,10 +137,6 @@ function scrollAuto(element, slot, target) {
     slot.style.setProperty('scroll-behavior', 'auto');
 
     promise = promise.then(() => {
-/*
-const sss = getComputedStyle(target.parentNode);
-console.log('LEFT', targetRect.left - firstRect.left, element, target, sss['grid-auto-columns'], sss.width, sss.clientWidth, slot);
-*/
         slot.scrollTo({
             top: slot.scrollTop,
             left: targetRect.left - firstRect.left,
@@ -156,12 +144,10 @@ console.log('LEFT', targetRect.left - firstRect.left, element, target, sss['grid
         });
     
         if (Math.abs(slot.scrollLeft - (targetRect.left - firstRect.left)) > 2) {
-/* console.log('It is not', slot.scrollLeft, targetRect.left - firstRect.left) */
             slot.scrollLeft = targetRect.left - firstRect.left;
         }
 
         return new Promise(function(resolve, reject) {
-/* console.log(slot.scrollTop, slot.scrollLeft); */
             requestAnimationFrame(function() {
                 slot.style.setProperty('scroll-behavior', '');
                 setTimeout(resolve, 90);
@@ -182,6 +168,11 @@ function getViewport(slot) {
         right:  right,
         centre: left + (right - left) / 2
     };
+}
+
+function getActiveFromHash(element) {
+    const hash = window.location.hash;
+    return hash && hash !== '#' && element.querySelector(hash);
 }
 
 function View(element, shadow, slot) {
@@ -205,7 +196,7 @@ function View(element, shadow, slot) {
             return;
         }
 
-        // Gaurantee all items have an id
+        // Guarantee all items have an id
         items.forEach(identify);
 
         return items;
@@ -271,7 +262,7 @@ function View(element, shadow, slot) {
             }
         });*/
 
-        const target = this.active || this.element.firstElementChild;
+        const target = this.active || getActiveFromHash(this.element) || this.element.firstElementChild;
         if (!target) { return; }
         
         this.reposition(this.active || this.element.firstElementChild);
@@ -361,9 +352,9 @@ assign(View.prototype, {
     },
 
     reposition: function(target) {
-        //if (DEBUG) {
+        if (DEBUG) {
             console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'reposition');
-        //}
+        }
 
         this.ignore = true;
         scrollAuto(this.element, this.slot, target);
@@ -397,7 +388,9 @@ assign(View.prototype, {
             }
         }
         else {
-            this.active = items[0];
+            // Follow the current location hash if it refers to one of this 
+            // slide-show's children 
+            this.active = getActiveFromHash(this.element) || items[0];
         }
 
         this.slot.style.setProperty('--children-count', items.length);
@@ -506,7 +499,6 @@ assign(Loop.prototype, {
     },
 
     slotchange: function() {
-/*console.log('SLOTCHANGE');*/
         const view     = this.view;
         const children = view.children;
 
@@ -832,37 +824,6 @@ const settings = {
 
     load: function (shadow) {
         const view = this[$];
-
-        const id = this.getAttribute('template');
-        const template = id && this
-            .getRootNode()
-            .getElementById(id);
-
-        if (template) {
-            /*if (template.render) {
-                
-            }
-            else {*/
-                const render = Literal(template.innerHTML);
-                const data = {};
-
-                view.actives.on(function(active) {
-                    // Put together template render data
-                    data.activeId    = active.id || active.dataset.loopId;
-                    data.activeIndex = view.children.findIndex((child) => child.id === data.activeId);
-                    data.slidesCount = view.children.length;
-
-                    return render(data).then((html) => {
-                        this.nodes && this.nodes.forEach((node) => node.remove());
-                        //content && content.remove();
-                        const content = create('fragment', html);
-                        this.nodes = Array.from(content.childNodes);
-                        shadow.appendChild(content);
-                    });
-                });
-            /*}*/
-        }
-
         view.load();
     },
 
@@ -984,18 +945,6 @@ const settings = {
 
             get: function() {
                 return this[$].loop;
-            }
-        },
-
-        template: {            
-            /**
-            template="id"
-            Id of optional template to append to the shadow DOM on instantiation.
-            Subsequent changes to this attribute have no effect.
-            **/
-
-            attribute: function(id) {
-                this[$].template = id;
             }
         }
     }
