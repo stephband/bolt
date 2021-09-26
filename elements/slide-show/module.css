@@ -40,7 +40,8 @@
     --padding-right: 0;
 
     position: relative;
-    display: grid;
+    /* Must override anything applied to :fullscreen */
+    display: grid !important;
 
     /* Slot takes over viewport duties */
     padding-left: 0 !important;
@@ -95,6 +96,8 @@ Does not work
 }
 
 :host > [part="grid"] {
+    width: 100%;
+    height: 100%;
     align-self: stretch;
     justify-self: stretch;
     grid-auto-flow: column;
@@ -215,7 +218,7 @@ Does not work
     /* During loading make scrolling instant */
     -webkit-scroll-behavior: auto;
             scroll-behavior: auto;
-} 
+}
 
 
 /**
