@@ -43,8 +43,6 @@ import Literal       from '../../../literal/modules/compile-string.js';
 
 const DEBUG = false;//window.DEBUG === true;
 
-// Get path to dir of this module
-const path   = import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/');
 const assign = Object.assign;
 const define = Object.defineProperties;
 const $      = Symbol('slide-show');
@@ -124,7 +122,9 @@ function scrollSmooth(element, slot, target) {
         behavior: 'smooth'
     });
 }
+
 var promise = Promise.resolve();
+
 function scrollAuto(element, slot, target) {
     // Check for visibility before measuring anything
     if (!element.offsetParent || !target.offsetParent) { return; }
@@ -698,12 +698,17 @@ assign(Pagination.prototype, {
 
 /* Element */
 
-const settings = {
+const lifecycle = {
+    // Get path to dir of this module
+    stylesheet:
+        window.elementSlideShowStylesheet ||
+        import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/') + 'shadow.css',
+
     /**
     Create a shadow DOM containing:
 
     ```html
-    <link rel="stylesheet" href="/source/bolt/elements/slide-show.shadow.css" />
+    <link rel="stylesheet" href="/source/bolt/elements/slide-show/module.css" />
     <!- The main scrollable grid --->
     <slot part="grid"></slot>
     <!-- With controls="navigation" -->
@@ -720,14 +725,13 @@ const settings = {
     **/
 
     construct: function(shadow) {
-        const link     = create('link', { rel: 'stylesheet', href: path + 'module.css' });
         const slot     = create('slot', { part: 'grid' });
         // A place to put optional UI (fullscreen close buttons etc)
         const optional = create('slot', { name: 'optional', part: 'optional' });
         // A place to put overflow menu stuff
         const overflow = create('slot', { name: 'overflow', part: 'overflow' });
 
-        shadow.append(link, slot, optional, overflow);
+        shadow.append(slot, optional, overflow);
 
         const elem = this;
         var clickSuppressTime = -Infinity;
@@ -825,129 +829,129 @@ const settings = {
     load: function (shadow) {
         const view = this[$];
         view.load();
+    }
+};
+
+const properties = {
+    active: {
+        /**
+        .active
+        Gets the currently active child. May be set to an id of a child or 
+        a child element.
+
+        ```js
+        slides.active = 'slide-1';
+        ```
+        **/
+
+        set: function(id) {
+            // Accept a child node, get its id
+            const child = typeof id !== 'object' ?
+                this.querySelector('#' + (/^\d/.test((id + '')[0]) ?
+                    '\\3' + (id + '')[0] + ' ' + (id + '').slice(1) :
+                    id)
+                ) : id ;
+
+            if (!child) {
+                throw new Error('Cannot set active – not a child of slide-show');
+            }
+
+            this[$].show(child);
+        },
+
+        get: function() {
+            return this[$].active;
+        }
     },
 
-    properties: {
-        active: {
-            /**
-            .active
-            Gets the currently active child. May be set to an id of a child or 
-            a child element.
+    autoplay: {
+        /**
+        autoplay=""
+        Boolean attribute. 
+        **/
 
-            ```js
-            slides.active = 'slide-1';
-            ```
-            **/
-
-            set: function(id) {
-                // Accept a child node, get its id
-                const child = typeof id !== 'object' ?
-                    this.querySelector('#' + (/^\d/.test((id + '')[0]) ?
-                        '\\3' + (id + '')[0] + ' ' + (id + '').slice(1) :
-                        id)
-                    ) : id ;
-
-                if (!child) {
-                    throw new Error('Cannot set active – not a child of slide-show');
-                }
-
-                this[$].show(child);
-            },
-
-            get: function() {
-                return this[$].active;
-            }
+        attribute: function(value) {
+            // Delegate to property
+            this.autoplay = (value !== null);
         },
 
-        autoplay: {
-            /**
-            autoplay=""
-            Boolean attribute. 
-            **/
+        /**
+        .autoplay
+        Boolean property.
+        **/
 
-            attribute: function(value) {
-                // Delegate to property
-                this.autoplay = (value !== null);
-            },
-
-            /**
-            .autoplay
-            Boolean property.
-            **/
-
-            set: function(state) {
-                this[$].autoplay = state;
-            },
-
-            get: function() {
-                return this[$].autoplay;
-            }
+        set: function(state) {
+            this[$].autoplay = state;
         },
 
-        controls: {
-            /**
-            controls=""
+        get: function() {
+            return this[$].autoplay;
+        }
+    },
 
-            Treated as a boolean or a token list. If it is present but empty
-            all tokens are considered to be true. Otherwise, possible tokens are:
-            
-            <strong>navigation</strong> enables previous and next buttons. The 
-            buttons may be styled with `::part(previous)` and `::part(next)` 
-            selectors. To change their text content, import and modify 
-            `config.trans`:
+    controls: {
+        /**
+        controls=""
 
-            ```js
-            import { config } from './bolt/elements/slide-show/module.js';
-            config.trans['Previous'] = 'Précédent';
-            config.trans['Next']     = 'Suivant';
-            ```
+        Treated as a boolean or a token list. If it is present but empty
+        all tokens are considered to be true. Otherwise, possible tokens are:
+        
+        <strong>navigation</strong> enables previous and next buttons. The 
+        buttons may be styled with `::part(previous)` and `::part(next)` 
+        selectors. To change their text content, import and modify 
+        `config.trans`:
 
-            <strong>pagination</strong> enables a row of pagination dots. The
-            dots may be styled with `::part(page)`.
-            **/
+        ```js
+        import { config } from './bolt/elements/slide-show/module.js';
+        config.trans['Previous'] = 'Précédent';
+        config.trans['Next']     = 'Suivant';
+        ```
 
-            attribute: function(value) {
-                const view = this[$];
+        <strong>pagination</strong> enables a row of pagination dots. The
+        dots may be styled with `::part(page)`.
+        **/
 
-                // If value is a string of tokens
-                if (typeof value === 'string' && value !== '') {
-                    const state = value.split(/\s+/);
-                    view.navigation = state.includes('navigation');
-                    view.pagination = state.includes('pagination');
-                }
-                else {
-                    const state = value !== null;
-                    view.navigation = state;
-                    view.pagination = state;
-                }
+        attribute: function(value) {
+            const view = this[$];
+
+            // If value is a string of tokens
+            if (typeof value === 'string' && value !== '') {
+                const state = value.split(/\s+/);
+                view.navigation = state.includes('navigation');
+                view.pagination = state.includes('pagination');
             }
+            else {
+                const state = value !== null;
+                view.navigation = state;
+                view.pagination = state;
+            }
+        }
+    },
+
+    loop: {            
+        /**
+        loop=""
+        Boolean attribute. Makes the slideshow behave as a continuous loop.
+        **/
+
+        attribute: function(value) {
+            // Delegate to property
+            this.loop = (value !== null);
         },
 
-        loop: {            
-            /**
-            loop=""
-            Boolean attribute. Makes the slideshow behave as a continuous loop.
-            **/
+        /**
+        .loop
+        Boolean property. Makes the slideshow behave as a continuous loop.
+        **/
 
-            attribute: function(value) {
-                // Delegate to property
-                this.loop = (value !== null);
-            },
+        set: function(state) {
+            this[$].loop = state;
+        },
 
-            /**
-            .loop
-            Boolean property. Makes the slideshow behave as a continuous loop.
-            **/
-
-            set: function(state) {
-                this[$].loop = state;
-            },
-
-            get: function() {
-                return this[$].loop;
-            }
+        get: function() {
+            return this[$].loop;
         }
     }
 };
 
-export default element('slide-show', settings);
+export default element('slide-show', lifecycle, properties);

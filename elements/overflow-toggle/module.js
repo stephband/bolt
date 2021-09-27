@@ -32,9 +32,6 @@ import parseValue, { rem } from '../../../dom/modules/parse-length.js';
 
 const $ = Symbol('');
 
-// Get path to dir of this module
-const path   = import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/');
-
 const config = {
     showText: 'Show more',
     hideText: 'Show less'
@@ -61,6 +58,10 @@ function update(shadow, button, scrollHeight, maxHeight, slot, state) {
 }
 
 element('overflow-toggle', {
+    stylesheet: 
+        window.elementOverflowToggleStylesheet ||
+        import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/') + 'shadow.css',
+
     /*
     Create a DOM of the form:
     <link rel="stylesheet" href="/source/bolt/elements/overflow-toggle.shadow.css" />
@@ -69,11 +70,9 @@ element('overflow-toggle', {
     */
 
     construct: function(shadow) {
-        const link  = create('link', { rel: 'stylesheet', href: path + 'module.css' });
         const style = styles(':host', shadow)[0];
         const slot  = create('slot', { part: 'content' });
 
-        shadow.appendChild(link);
         shadow.appendChild(slot);
 
         /**
@@ -106,101 +105,99 @@ element('overflow-toggle', {
             const maxHeight = parseValue(view.maxHeight || style['max-height'] || 0);
             state = update(shadow, button, slot.scrollHeight, maxHeight, slot, state)
         });
+    }
+}, {
+    show: {
+        /**
+        show=""
+        Text rendered into the toggle button.
+        **/
+
+        attribute: function(value) {
+            const view = this[$];
+            view.showText = value || config.showText;
+            if (view.open) { return; }
+            view.button.textContent = value || config.showText ;
+        }
     },
 
-    properties: {
-        show: {
-            /**
-            show=""
-            Text rendered into the toggle button.
-            **/
+    hide: {
+        /**
+        hide=""
+        Text rendered into the toggle button.
+        **/
 
-            attribute: function(value) {
-                const view = this[$];
-                view.showText = value || config.showText;
-                if (view.open) { return; }
-                view.button.textContent = value || config.showText ;
-            }
+        attribute: function(value) {
+            const view = this[$];
+            view.hideText = value || config.hideText;
+            if (!view.open) { return; }
+            view.button.textContent = value || config.hideText ;
+        }
+    },
+
+    open: {
+        /**
+        open=""
+        A boolean attribute describing the state of the `overflow-toggle`.
+        **/
+
+        attribute: function(value) {
+            this.open = value !== null;
         },
 
-        hide: {
-            /**
-            hide=""
-            Text rendered into the toggle button.
-            **/
+        /**
+        .open = false
+        A boolean property describing the state of the `overflow-toggle` – `true`
+        when the `overflow-toggle` is open, `false` when it is not.
+        **/
 
-            attribute: function(value) {
-                const view = this[$];
-                view.hideText = value || config.hideText;
-                if (!view.open) { return; }
-                view.button.textContent = value || config.hideText ;
-            }
+        get: function() {
+            const view = this[$];
+            return view.open;
         },
 
-        open: {
-            /**
-            open=""
-            A boolean attribute describing the state of the `overflow-toggle`.
-            **/
+        set: function(value) {
+            const view = this[$];
+            const { button, slot, style } = view;
 
-            attribute: function(value) {
-                this.open = value !== null;
-            },
+             // If toggle has not changed do nothing
+            if (!!value === view.open) {
+                return;
+            }
 
-            /**
-            .open = false
-            A boolean property describing the state of the `overflow-toggle` – `true`
-            when the `overflow-toggle` is open, `false` when it is not.
-            **/
+            if (value) {
+                const scrollHeight    = slot.scrollHeight;
+                const computedElement = getComputedStyle(this);
+                const computedButton  = getComputedStyle(button);
+                const px = scrollHeight
+                    // plus button height
+                    + button.clientHeight 
+                    // plus button margins
+                    + parseValue(computedButton['margin-top'] || 0) 
+                    + parseValue(computedButton['margin-bottom'] || 0)
+                    // plus a sneaky safety margin, no-one will notice
+                    + 8 ;
 
-            get: function() {
-                const view = this[$];
-                return view.open;
-            },
+                // Store maxHeight while element is open
+                view.maxHeight = computedElement['max-height'];
+                view.maxHeight = view.maxHeight === 'none' ? 0 : view.maxHeight ;
+                style.setProperty('max-height', rem(px) + 'rem', 'important');
+                button.textContent = view.hideText;
+                
+                // We have to set state on the view AND on the attribute
+                // if we want it to update
+                view.open = true;
+                this.setAttribute('open', '');
+            }
+            else {
+                view.maxHeight = undefined;
+                style.setProperty('max-height', '');
+                button.textContent = view.showText;
 
-            set: function(value) {
-                const view = this[$];
-                const { button, slot, style } = view;
-
-                 // If toggle has not changed do nothing
-                if (!!value === view.open) {
-                    return;
-                }
- 
-                if (value) {
-                    const scrollHeight    = slot.scrollHeight;
-                    const computedElement = getComputedStyle(this);
-                    const computedButton  = getComputedStyle(button);
-                    const px = scrollHeight
-                        // plus button height
-                        + button.clientHeight 
-                        // plus button margins
-                        + parseValue(computedButton['margin-top'] || 0) 
-                        + parseValue(computedButton['margin-bottom'] || 0)
-                        // plus a sneaky safety margin, no-one will notice
-                        + 8 ;
-
-                    // Store maxHeight while element is open
-                    view.maxHeight = computedElement['max-height'];
-                    view.maxHeight = view.maxHeight === 'none' ? 0 : view.maxHeight ;
-                    style.setProperty('max-height', rem(px) + 'rem', 'important');
-                    button.textContent = view.hideText;
-                    
-                    // We have to set state on the view AND on the attribute
-                    // if we want it to update
-                    view.open = true;
-                    this.setAttribute('open', '');
-                }
-                else {
-                    view.maxHeight = undefined;
-                    style.setProperty('max-height', '');
-                    button.textContent = view.showText;
-
-                    // We have to set state on the view AND on the attribute
-                    // if we want it to update
-                    view.open = false;
-                    this.removeAttribute('open');
-                }
+                // We have to set state on the view AND on the attribute
+                // if we want it to update
+                view.open = false;
+                this.removeAttribute('open');
             }
         }
     }
