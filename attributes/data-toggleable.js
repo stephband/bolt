@@ -27,7 +27,7 @@ import matches      from '../../dom/modules/matches.js';
 import identify     from '../../dom/modules/identify.js';
 import { trigger }  from '../../dom/modules/trigger.js';
 import { isInternalLink } from '../../dom/modules/node.js';
-import { isPrimaryButton, on } from '../../dom/modules/events.js';
+import events, { isPrimaryButton } from '../../dom/modules/events.js';
 import { matchers } from '../events/dom-activate.js';
 
 
@@ -90,8 +90,8 @@ function deactivate(e, data, fn) {
 	e.default();
 }
 
-on('click', click, document.documentElement);
-on('dom-activate', activate, document);
-on('dom-deactivate', deactivate, document);
+events('click', document.documentElement).each(click);
+events('dom-activate', document).each(activate);
+events('dom-deactivate', document).each(deactivate);
 
 matchers.push(match);

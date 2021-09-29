@@ -7,7 +7,7 @@ import classes   from '../../dom/modules/classes.js';
 //import create    from '../../dom/modules/create.js';
 import delegate  from '../../dom/modules/delegate.js';
 import Event     from '../../dom/modules/event.js';
-import events, { isPrimaryButton, on, off } from '../../dom/modules/events.js';
+import events, { isPrimaryButton } from '../../dom/modules/events.js';
 import { isInternalLink } from '../../dom/modules/node.js';
 import trigger   from '../../dom/modules/trigger.js';
 import tag       from '../../dom/modules/tag.js';
@@ -131,7 +131,7 @@ with a behaviour attribute, and if that event bubbles to
 ```trigger('dom-activate', element);```
 */
 
-on('dom-activate', function(e) {
+events('dom-activate', document).each(function(e) {
 	if (e.defaultPrevented) { return; }
 
 	var data = cacheData(e.target);
@@ -144,7 +144,7 @@ on('dom-activate', function(e) {
 
 	e.data    = data;
 	e.default = defaultActivate;
-}, document);
+});
 
 /*
 dom-deactivate
@@ -165,7 +165,7 @@ element with a behaviour attribute, and if that event bubbles to
 ```trigger('dom-deactivate', element);```
 */
 
-on('dom-deactivate', function(e) {
+events('dom-deactivate', document).each(function(e) {
 	if (e.defaultPrevented) { return; }
 	var data = cacheData(e.target);
 
@@ -177,7 +177,7 @@ on('dom-deactivate', function(e) {
 
 	e.data    = data;
 	e.default = defaultDeactivate;
-}, document);
+});
 
 
 // Listen to clicks
@@ -287,10 +287,11 @@ function preventClick(e) {
 	// Prevent the click that follows the mousedown. The preventDefault
 	// handler unbinds itself as soon as the click is heard.
 	if (e.type === 'mousedown') {
-		on('click', function prevent(e) {
-			off('click', prevent, e.currentTarget);
+		const clicks = events('click', e.currentTarget).each(function prevent(e) {
+            clicks.stop();
+			//off('click', prevent, e.currentTarget);
 			e.preventDefault();
-		}, e.currentTarget);
+		});
 	}
 }
 
@@ -381,7 +382,7 @@ ready(function() {
 	select('.' + config.activeClass, document).forEach(triggerActivate);
 });
 
-on('load', function() {
+events('load', window).each(function() {
 	// Activate the node that corresponds to the hashref in
 	// location.hash, checking if it's an alphanumeric id selector
 	// (not a hash bang, which google abuses for paths in old apps)
@@ -394,4 +395,4 @@ on('load', function() {
 	catch(e) {
 		console.warn('dom: Cannot activate ' + id, e.message);
 	}
-}, window);
+});
