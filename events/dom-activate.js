@@ -1,5 +1,6 @@
 
 import curry     from '../../fn/modules/curry.js';
+import get       from '../../fn/modules/get.js';
 import isDefined from '../../fn/modules/is-defined.js';
 import overload  from '../../fn/modules/overload.js';
 //import append    from '../../dom/modules/append.js';
@@ -8,7 +9,7 @@ import classes   from '../../dom/modules/classes.js';
 import delegate  from '../../dom/modules/delegate.js';
 import Event     from '../../dom/modules/event.js';
 import events, { isPrimaryButton } from '../../dom/modules/events.js';
-import { isInternalLink } from '../../dom/modules/node.js';
+import { isElementNode, isInternalLink } from '../../dom/modules/node.js';
 import trigger   from '../../dom/modules/trigger.js';
 import tag       from '../../dom/modules/tag.js';
 import select    from '../../dom/modules/select.js';
@@ -16,6 +17,8 @@ import ready     from '../../dom/modules/ready.js';
 //import remove    from '../../dom/modules/remove.js';
 
 var DEBUG     = false;
+
+const A = Array.prototype;
 
 var location  = window.location;
 var id        = location.hash;
@@ -349,8 +352,8 @@ function activateHref(a, e) {
 		preventClick(e);
 	}
 
-	// TODO: This doesnt seem to set relatedTarget
-	// trigger(node, 'dom-activate', { relatedTarget: e.delegateTarget });
+//console.log('ACTIVATE', node)
+
 	var event = Event('dom-activate', { relatedTarget: a });
 	node.dispatchEvent(event);
 }
@@ -376,10 +379,60 @@ events('click', document).each(delegate({
 	}
 }));
 
+const addedElements = new WeakSet();
+
+function addElement(element) {
+    addedElements.add(element);
+}
+
+function hasntElement(element) {
+    return !addedElements.has(element);
+}
+
+function pushActives(actives, target) {
+    const elements = select('.' + config.activeClass, target).filter(hasntElement);
+    if (!elements.length) { return actives; }
+
+    actives.push.apply(actives, elements);
+    elements.forEach(addElement);
+
+    return actives;
+}
+
+function pushAddedActives(added, mutation) {
+    const actives = A.filter.call(mutation.addedNodes, isElementNode).reduce(pushActives, []);
+    added.push.apply(added, actives);
+    return added;
+}
+
 // Document setup
 ready(function() {
 	// Setup all things that should start out active
 	select('.' + config.activeClass, document).forEach(triggerActivate);
+
+    // Create an observer instance linked to the callback function
+    const observer = new MutationObserver((mutations, observer) => {
+        if (mutations[0].type !== 'childList') {
+            throw new Error('Not childList', mutations);
+        }
+
+        const actives = mutations.reduce(pushAddedActives, []);
+        if (!actives.length) { return; }
+
+        console.log('dom-activate ' + actives.length + ' elements:', '\n#' + actives.map(get('id')).join(', #'));
+        actives.forEach(triggerActivate);
+        actives.forEach(addElement);
+    });
+
+    // Start observing the target node for mutations
+    observer.observe(document.body, {
+        attributes: false,
+        childList: true,
+        subtree: true 
+    });
+
+    // Later, you can stop observing
+    //observer.disconnect();
 });
 
 events('load', window).each(function() {
