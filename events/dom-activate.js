@@ -391,24 +391,29 @@ function hasntElement(element) {
 
 function pushActives(actives, target) {
     const elements = select('.' + config.activeClass, target).filter(hasntElement);
-    if (!elements.length) { return actives; }
 
-    actives.push.apply(actives, elements);
-    elements.forEach(addElement);
+    if (elements.length) {
+        actives.push.apply(actives, elements);
+        elements.forEach(addElement);
+    }
 
     return actives;
 }
 
 function pushAddedActives(added, mutation) {
-    const actives = A.filter.call(mutation.addedNodes, isElementNode).reduce(pushActives, []);
-    added.push.apply(added, actives);
-    return added;
+    return A.filter
+    .call(mutation.addedNodes, isElementNode)
+    .reduce(pushActives, added);
 }
 
 // Document setup
 ready(function() {
 	// Setup all things that should start out active
-	select('.' + config.activeClass, document).forEach(triggerActivate);
+	const actives = select('.' + config.activeClass, document);
+    if (actives.length) {
+        console.log('%cdom-activate', 'color: #3a8ab0; font-weight: 600;', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
+        actives.forEach(triggerActivate);
+    }
 
     // Create an observer instance linked to the callback function
     const observer = new MutationObserver((mutations, observer) => {
@@ -417,11 +422,11 @@ ready(function() {
         }
 
         const actives = mutations.reduce(pushAddedActives, []);
-        if (!actives.length) { return; }
-
-        console.log('dom-activate ' + actives.length + ' elements:', '\n#' + actives.map(get('id')).join(', #'));
-        actives.forEach(triggerActivate);
-        actives.forEach(addElement);
+        if (actives.length) {
+            console.log('%cdom-activate', 'color: #3a8ab0; font-weight: 600;', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
+            actives.forEach(triggerActivate);
+            actives.forEach(addElement);
+        }
     });
 
     // Start observing the target node for mutations
