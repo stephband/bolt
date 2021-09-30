@@ -14,6 +14,7 @@ import trigger   from '../../dom/modules/trigger.js';
 import tag       from '../../dom/modules/tag.js';
 import select    from '../../dom/modules/select.js';
 import ready     from '../../dom/modules/ready.js';
+import log       from '../modules/log.js';
 //import remove    from '../../dom/modules/remove.js';
 
 var DEBUG     = false;
@@ -185,7 +186,7 @@ events('dom-deactivate', document).each(function(e) {
 
 // Listen to clicks
 
-var triggerActivate = trigger('dom-activate');
+
 /*
 var nodeCache = {};
 
@@ -352,8 +353,6 @@ function activateHref(a, e) {
 		preventClick(e);
 	}
 
-//console.log('ACTIVATE', node)
-
 	var event = Event('dom-activate', { relatedTarget: a });
 	node.dispatchEvent(event);
 }
@@ -378,6 +377,15 @@ events('click', document).each(delegate({
 		e.preventDefault();
 	}
 }));
+
+
+
+
+/* Trigger activation on DOM load and mutations thereafter */
+
+const triggerActivate = trigger('dom-activate');
+
+/* Track activateables added to DOM following DOM ready */
 
 const addedElements = new WeakSet();
 
@@ -411,7 +419,7 @@ ready(function() {
 	// Setup all things that should start out active
 	const actives = select('.' + config.activeClass, document);
     if (actives.length) {
-        console.log('%cdom-activate', 'color: #3a8ab0; font-weight: 600;', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
+        log('dom-activate', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
         actives.forEach(triggerActivate);
     }
 
@@ -423,7 +431,7 @@ ready(function() {
 
         const actives = mutations.reduce(pushAddedActives, []);
         if (actives.length) {
-            console.log('%cdom-activate', 'color: #3a8ab0; font-weight: 600;', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
+            log('dom-activate', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
             actives.forEach(triggerActivate);
             actives.forEach(addElement);
         }
