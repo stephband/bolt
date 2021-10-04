@@ -25,6 +25,7 @@ elements with a `slot` attribute are not. Slides have default style of
 import id            from '../../../fn/modules/id.js';
 import equals        from '../../../fn/modules/equals.js';
 import last          from '../../../fn/modules/lists/last.js';
+import overload      from '../../../fn/modules/overload.js';
 import parseValue    from '../../../fn/modules/parse-value.js';
 import delegate      from '../../../dom/modules/delegate.js';
 import element       from '../../../dom/modules/element.js';
@@ -36,7 +37,7 @@ import identify      from '../../../dom/modules/identify.js';
 import { next, previous } from '../../../dom/modules/traverse.js';
 import { select }    from '../../../dom/modules/select.js';
 import Distributor   from '../../../dom/modules/distributor.js';
-import scrollstops   from '../../../dom/modules/scrollstops.js';
+import scrollends   from '../../../dom/modules/scrollends.js';
 import trigger       from '../../../dom/modules/trigger.js';
 import parseCSSValue from '../../../dom/modules/parse-length.js';
 import Literal       from '../../../literal/modules/compile-string.js';
@@ -487,8 +488,8 @@ assign(Loop.prototype, {
         this.add(children);
         this.slotchanges.on(this.slotchangeFn = () => this.slotchange());
 
-        this.scrollstops = scrollstops(this.view.slot).each((e) => {
-            // Ignore scrollstops while a finger is gesturing
+        this.scrollends = scrollends(this.view.slot).each((e) => {
+            // Ignore scrollends while a finger is gesturing
             if (this.view.gesturing) { return; }
             this.update();
         });
@@ -550,7 +551,7 @@ assign(Loop.prototype, {
         this.remove();
         this.slotchanges.off(this.slotchangeFn);
         this.slotchangeFn = undefined;
-        this.scrollstops.stop();
+        this.scrollends.stop();
     }
 });
 
@@ -698,6 +699,56 @@ assign(Pagination.prototype, {
 
 /* Element */
 
+const processPointerEvents = overload((data, e) => e.type, {
+    pointerdown: function(data, e) {
+        // First event is touchstart or mousedown
+        data.e0 = e;
+        data.x0 = e.clientX;
+        data.y0 = e.clientY;
+
+        return data;
+    },
+
+    pointermove: function(data, e) {
+        const e1 = e;
+        const x1 = e.clientX;
+        const y1 = e.clientY;
+
+        // If the gesture is more vertical than horizontal, don't count it
+        // as a swipe. Stop the stream and get out of here.
+        if (!data.isSwipe) {
+            if (Math.abs(x1 - data.x0) < Math.abs(y1 - data.y0)) {
+                data.pointers.stop();
+                return;
+            }
+
+            data.isSwipe = true;
+            data.scrollLeft0 = data.view.slot.scrollLeft;
+            data.view.slot.classList.add('gesturing');
+            data.view.gesturing = true;
+        }
+
+        const dx = e.clientX - data.x0;
+        data.view.slot.scrollLeft = data.scrollLeft0 - dx;
+
+        return data;
+    },
+
+    default: function(data, e) {
+        //data.view.clickSuppressTime = window.performance.now();
+        data.view.clickSuppressTime = e.timeStamp;
+
+        // Dodgy. If we simple remove the class the end of the gesture 
+        // jumps.
+        const scrollLeft = data.view.slot.scrollLeft;
+        data.view.slot.classList.remove('gesturing');
+        data.view.slot.scrollLeft = scrollLeft;
+        data.view.gesturing  = false;
+
+        return data;
+    }
+});
+
 const lifecycle = {
     // Get path to dir of this module
     stylesheet:
@@ -708,7 +759,6 @@ const lifecycle = {
     Create a shadow DOM containing:
 
     ```html
-    <link rel="stylesheet" href="/source/bolt/elements/slide-show/module.css" />
     <!- The main scrollable grid --->
     <slot part="grid"></slot>
     <!-- With controls="navigation" -->
@@ -734,7 +784,8 @@ const lifecycle = {
         shadow.append(slot, optional, overflow);
 
         const elem = this;
-        var clickSuppressTime = -Infinity;
+        const view = this[$] = new View(this, shadow, slot);
+        view.clickSuppressTime = -Infinity;
 
         // Hijack links to slides to avoid the document scrolling, (but make 
         // sure they go in the history anyway, or not)
@@ -769,11 +820,11 @@ const lifecycle = {
         }));
 
         // Prevent default on immediate clicks after a gesture, and don't let 
-        // them out
+        // them out: this is a gesture not a click
         events('click', shadow)
         .each(function(e) {
             const time = window.performance.now();
-            if (time - clickSuppressTime < 120) {
+            if (time - view.clickSuppressTime < 120) {
                 e.preventDefault();
                 e.stopPropagation();
             }
@@ -782,48 +833,9 @@ const lifecycle = {
         // Enable single finger scroll on mouse devices. Bad idea, but users
         // tend to want it.
         gestures({ threshold: '0.25rem', device: 'mouse' }, shadow)
-        .each(function(pointers) {
-            // First event is touchstart or mousedown
-            var e0     = pointers.shift();
-            var latest = pointers.latest();
-            var e1     = latest.shift();
-            var x0     = e0.clientX;
-            var y0     = e0.clientY;
-            var x1     = e1.clientX;
-            var y1     = e1.clientY;
-
-            // If the gesture is more vertical than horizontal, don't count it
-            // as a swipe. Stop the stream and get out of here.
-            if (Math.abs(x1 - x0) < Math.abs(y1 - y0)) {
-                pointers.stop();
-                return;
-            }
-
-            const scrollLeft0 = slot.scrollLeft;
-            var dx;
-
-            //slot.classList.add('no-select');
-            slot.classList.add('gesturing');
-            view.gesturing = true;
-
-            latest
-            .each(function (e) {
-                dx = e.clientX - x0;
-                slot.scrollLeft = scrollLeft0 - dx;
-            })
-            .done(function() {
-                clickSuppressTime = window.performance.now();
-
-                // Dodgy. If we simple remove the class the end of the gesture 
-                // jumps.
-                const scrollLeft = slot.scrollLeft;
-                slot.classList.remove('gesturing');
-                slot.scrollLeft = scrollLeft;
-                view.gesturing = false;
-            });
-        });
-
-        const view = this[$] = new View(this, shadow, slot);
+        .each((pointers) =>
+            pointers.reduce(processPointerEvents, { view, pointers })
+        );
     },
 
     load: function (shadow) {

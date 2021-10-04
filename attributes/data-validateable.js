@@ -59,9 +59,6 @@ validation messages are shown.</p>
 
 
 
-
-
-
 // Monitors forms and fields with .validateable for input, and generates
 // and manages .error-labels following those that fail validation.
 //
