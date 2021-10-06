@@ -2,8 +2,8 @@
     <!-- Just to get the grid to line up. Todo: find a better way. -->
     <div class="@2-x-1 @2-3x"></div>
 
-    <h2 class="x1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="${ slugify(title) }" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">${ title }</h2>
-    ${ docs
+    <h2 class="x1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="${ console.log('SLUG FLEX', data.title), slugify(data.title) }" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">${ title }</h2>
+    ${ console.log('DATA FLEX', data.docs), data.docs
     .filter((doc) => doc.type === 'selector')
     .map((doc) => `
     <div class="x1 3x @1-x-3 @1-4x @2-x-4 @3-2x x-stretch y-baseline block">
