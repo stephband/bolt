@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +21,7 @@
 </head>
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
-    <nav class="x-1 x-stretch y-1 @2-x-1 @2-1x">
+    <nav class="x1 x-stretch y1 @2-x1 @2-1x">
         <a class="thumb thumb-1:1" width="400" height="400" style="background-image: url('../images/logo.svg'); background-size: contain; width: 120%; padding-top: 120%; max-width: 6rem; margin-top: -16%; margin-left: -8%; margin-right: -12%;">Bolt</a>
     </nav>
 
@@ -30,4 +31,9 @@
     <script type="module" src="./module.js"></script>
 
     ${ include('../../templates/scripts.html') }
+    
+    <script type="module">
+    import events from '../../../dom/modules/events.js';
+    events('slide-activate', document).each((e) => console.log(e.type, e.target));
+    </script>
 </body>

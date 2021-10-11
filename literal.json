@@ -6,7 +6,6 @@
         "documentation/",
         "control/",
         "envelope-control/",
-        "overflow-toggle/",
         "range-control/",
         "rotary-control/",
         "fonts/",

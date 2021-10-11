@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    ${ include('../templates/head.literal', '../package.json') }
+    ${ include('../../templates/head.literal', '../../package.json') }
 
     <script title="debug">
         window.DEBUG = true;
     </script>
     
     <link rel="stylesheet" href="../module.css">
-    ${ include('../templates/style.html') }
+    ${ include('../../templates/style.html') }
     
     <style>
         overflow-toggle {
@@ -18,10 +18,10 @@
 </head>
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
-    ${ include('../templates/element.literal', documentation("./overflow-toggle.js", "./overflow-toggle.shadow.css")) }
+    ${ include('../../templates/element.literal', comments("./module.js", "./shadow.css")) }
 
     <!-- Document interactivity -->
     <script type="module" src="./overflow-toggle.js"></script>
 
-    ${ include('../templates/scripts.html') }
+    ${ include('../../templates/scripts.html') }
 </body>

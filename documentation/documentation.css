@@ -121,6 +121,12 @@
     left: -1.125rem;
 }
 
+.string-doctext-05 > a > code {
+    /* Outdent by the width of '"' */
+    position: relative;
+    left: -0.5625rem;
+}
+
 .doctext-05 + .bottom-bubble {
     left: 3.75rem;
     top: calc(100% - 0.75rem);

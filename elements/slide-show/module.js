@@ -7,7 +7,7 @@ Import `<slide-show>` custom element. This also registers the custom
 element and upgrades instances already in the DOM.
 
 ```html
-<script type="module" src="bolt/elements/slide-show/module.js"></script>
+<script type="module" src="/bolt/elements/slide-show/module.js"></script>
 
 <slide-show loop controls="navigation">
    <img src="../images/lyngen-4.png" id="1" draggable="false" />
@@ -37,8 +37,8 @@ import identify      from '../../../dom/modules/identify.js';
 import { next, previous } from '../../../dom/modules/traverse.js';
 import { select }    from '../../../dom/modules/select.js';
 import Distributor   from '../../../dom/modules/distributor.js';
-import scrollends   from '../../../dom/modules/scrollends.js';
-import trigger       from '../../../dom/modules/trigger.js';
+import scrollends    from '../../../dom/modules/scrollends.js';
+import { trigger }   from '../../../dom/modules/trigger.js';
 import parseCSSValue from '../../../dom/modules/parse-length.js';
 import Literal       from '../../../literal/modules/compile-string.js';
 
@@ -219,7 +219,24 @@ function View(element, shadow, slot) {
 
         return this.activate(e);
     })
-    .on((active) => this.active = active);
+    .on((active) => {
+        const id = active.dataset.loopId || active.id;
+        const activeId = this.active && (this.active.dataset.loopId || this.active.id);
+
+        /** 
+        'slide-activate'
+        Emitted on a `slide-show` child when it become the active slide.
+        **/
+        if (id !== activeId) {
+            this.original = active.id ? 
+                active : 
+                this.element.getRootNode().getElementById(id) ;
+
+            trigger('slide-activate', this.original);
+        }
+
+        return this.active = active;
+    });
 
     const autoplay   = new Autoplay(this, this.actives);
     const loop       = new Loop(element, shadow, this, autoplay, this.changes);
@@ -293,7 +310,7 @@ function View(element, shadow, slot) {
 }
 
 assign(View.prototype, { 
-    // Call to scroll to and activate a slide
+    // Call to scroll to, which then activates a slide
     show: function(target) {
         scrollSmooth(this.element, this.slot, target);
     },
@@ -487,7 +504,6 @@ assign(Loop.prototype, {
 
         this.add(children);
         this.slotchanges.on(this.slotchangeFn = () => this.slotchange());
-
         this.scrollends = scrollends(this.view.slot).each((e) => {
             // Ignore scrollends while a finger is gesturing
             if (this.view.gesturing) { return; }
@@ -872,7 +888,7 @@ const properties = {
         },
 
         get: function() {
-            return this[$].active;
+            return this[$].original;
         }
     },
 

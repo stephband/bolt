@@ -23,7 +23,7 @@ import delegate  from '../../dom/modules/delegate.js';
 import identify  from '../../dom/modules/identify.js';
 import select    from '../../dom/modules/select.js';
 import remove    from '../../dom/modules/remove.js';
-import { on, off }  from '../../dom/modules/events.js';
+import events    from '../../dom/modules/events.js';
 
 import { register } from '../../sparky/module.js';
 
@@ -87,8 +87,8 @@ function dragend(e) {
 	classes(e.target).remove('dragging');
 }
 
-on('dragstart', dragstart, document);
-on('dragend', dragend, document);
+events('dragstart', document).each(dragstart);
+events('dragend', document).each(dragend);
 
 
 function dragendButton(e) {
@@ -101,12 +101,12 @@ register('data-on-drag', function(node, params) {
 	var dragend   = delegate({ '[draggable], [data-draggable]': dragendButton });
 
 	//.on('selectstart', '.node-button', cache, selectstartIE9)
-	on('dragstart', dragstart, node);
+	const dragstarts = events('dragstart', node).each(dragstart);
 	//.on('drag', '.node-button', cache, dragButton)
-	on('dragend', dragend, node);
+	const dragends   = events('dragend', node).each(dragend);
 
 	this.done(function() {
-		off('dragstart', dragstart, node);
-		off('dragend', dragend, node);
+		dragstarts.stop();
+		dragends.stop();
 	});
 });

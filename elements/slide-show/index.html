@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- Literal template "/Users/stephband/Sites/bolt/elements/slide-show/index.html.literal" -->
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -36,9 +38,7 @@
     <link rel="stylesheet" href="../../module.css">
     <link rel="stylesheet" href="../../documentation/prism-cruncher.css" />
 <link rel="stylesheet" href="../../../fn/css/tests.css" />
-<link rel="stylesheet" href="../../documentation/atoms.css" />
 <link rel="stylesheet" href="../../documentation/documentation.css" />
-<link rel="stylesheet" href="../../../fn/css/respond.css" />
 <link rel="stylesheet" href="../../css/debug.css" />
 
 
@@ -52,17 +52,17 @@
 </head>
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
-    <nav class="x-1 x-stretch y-1 @2-x-1 @2-1x">
+    <nav class="x1 x-stretch y1 @2-x1 @2-1x">
         <a class="thumb thumb-1:1" width="400" height="400" style="background-image: url('../images/logo.svg'); background-size: contain; width: 120%; padding-top: 120%; max-width: 6rem; margin-top: -16%; margin-left: -8%; margin-right: -12%;">Bolt</a>
     </nav>
 
     
-<header class="x1 3x @1-x-3 @1-4x @2-x-4">
+<header class="x1 3x @1-x3 @1-4x @2-x4">
     
     <h2 class="doctext-02">&lt;slide-show&gt;</h2>
     <p>Import <code>&lt;slide-show&gt;</code> custom element. This also registers the custom 
 element and upgrades instances already in the DOM.</p>
-<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bolt/elements/slide-show/module.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/bolt/elements/slide-show/module.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slide-show</span> <span class="token attr-name">loop</span> <span class="token attr-name">controls</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>navigation<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>../images/lyngen-4.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token attr-name">draggable</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
@@ -77,8 +77,8 @@ elements with a <code>slot</code> attribute are not. Slides have default style o
     
 </header>
 
-<form class="x1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-    <script type="module" src="bolt/elements/slide-show/module.js"></script>
+<form class="x1 3x @1-x1 @1-2x @2-x1 @2-3x x-stretch y-start">
+    <script type="module" src="/bolt/elements/slide-show/module.js"></script>
 
 <slide-show loop controls="navigation">
    <img src="../../images/lyngen-4.png" id="1" draggable="false" />
@@ -90,7 +90,7 @@ elements with a <code>slot</code> attribute are not. Slides have default style o
     <input hidden class="button" type="submit" />
 </form>
 
-<div class="x1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+<div class="x1 3x @1-x3 @1-2x @2-x4 x-stretch y-start">
     
     <h3 class="doctext-03">Attributes</h3>
     
@@ -188,18 +188,30 @@ a child element.</p>
  
     
     
+    <h3 class="doctext-03">Events</h3>
     
-    
+<div class="string-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="string-slide-activate">
+<h3 class="string-doctext-05 doctext-05">
+    <a href="#string-slide-activate">
+        <code class=" language-js">"slide-activate"</code>
+    </a>
+</h3>
+
+<p>Emitted on a <code>slide-show</code> child when it become the active slide.</p>
+
 </div>
 
-<div class="x1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
+ 
+</div>
+
+<div class="x1 3x @1-x5 @1-2x @2-x6 x-stretch y-start">
     
     <h3 class="doctext-03">Parts</h3>
     
-<div class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-part-previous">
+<div class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-previous">
 <h3 class="part-doctext-05 doctext-05">
-    <a href="#part-part-previous">
-        <code class=" language-css">::part(::part(previous))</code>
+    <a href="#part-previous">
+        <code class=" language-css">::part(previous)</code>
     </a>
 </h3>
 
@@ -208,10 +220,10 @@ a child element.</p>
 </div>
 
  
-<div class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-part-next">
+<div class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-next">
 <h3 class="part-doctext-05 doctext-05">
-    <a href="#part-part-next">
-        <code class=" language-css">::part(::part(next))</code>
+    <a href="#part-next">
+        <code class=" language-css">::part(next)</code>
     </a>
 </h3>
 
@@ -220,10 +232,10 @@ a child element.</p>
 </div>
 
  
-<div class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-part-link">
+<div class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-link">
 <h3 class="part-doctext-05 doctext-05">
-    <a href="#part-part-link">
-        <code class=" language-css">::part(::part(link))</code>
+    <a href="#part-link">
+        <code class=" language-css">::part(link)</code>
     </a>
 </h3>
 
@@ -239,7 +251,7 @@ a child element.</p>
 <div class="var-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="var-duration">
 <h3 class="var-doctext-05 doctext-05">
     <a href="#var-duration">
-        <code class=" language-js">----duration</code>
+        <code class=" language-js">--duration</code>
     </a>
 </h3>
 
@@ -252,7 +264,7 @@ autoplay mode. May be a CSS time value in <code>s</code> or <code>ms</code>.</p>
 <div class="var-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="var-padding-left">
 <h3 class="var-doctext-05 doctext-05">
     <a href="#var-padding-left">
-        <code class=" language-js">----padding-left</code>
+        <code class=" language-js">--padding-left</code>
     </a>
 </h3>
 
@@ -265,7 +277,7 @@ autoplay mode. May be a CSS time value in <code>s</code> or <code>ms</code>.</p>
 <div class="var-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="var-padding-right">
 <h3 class="var-doctext-05 doctext-05">
     <a href="#var-padding-right">
-        <code class=" language-js">----padding-right</code>
+        <code class=" language-js">--padding-right</code>
     </a>
 </h3>
 
@@ -284,6 +296,11 @@ for <code>padding-right</code> on scrollable grids).</p>
 
     <script type="module">
     import '../../module.js';
-    import '../../documentation/documentation.js';
+    import '../../documentation.js';
 </script>
+    
+    <script type="module">
+    import events from '../../../dom/modules/events.js';
+    events('slide-activate', document).each((e) => console.log(e.type, e.target));
+    </script>
 </body>

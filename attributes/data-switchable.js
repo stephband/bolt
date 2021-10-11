@@ -32,7 +32,7 @@ and `.tab-block` classes.
 ```
 **/
 
-import { on }   from '../../dom/modules/events.js';
+import events   from '../../dom/modules/events.js';
 import matches  from '../../dom/modules/matches.js';
 import children from '../../dom/modules/children.js';
 import trigger  from '../../dom/modules/trigger.js';
@@ -72,6 +72,6 @@ function deactivate(e) {
 	e.default();
 }
 
-on('dom-activate', activate, document);
-on('dom-deactivate', deactivate, document);
+events('dom-activate', document).each(activate);
+events('dom-deactivate', document).each(deactivate);
 matchers.push(match);

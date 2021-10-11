@@ -20,6 +20,7 @@ ${ data.body }
             data.type === 'method'      ? '.' :
             data.type === 'part'        ? '::part(' :
             data.type === 'property'    ? '.' :
+            data.type === 'string'      ? '"' :
             data.type === 'var'         ? '--' :
             ''
         }${ data.name }${
@@ -30,6 +31,7 @@ ${ data.body }
             data.type === 'method'      ? '(<span class="param">' + data.params.join('</span>, <span class="param">') + '</span>)' :
             data.type === 'part'        ? ')' :
             data.type === 'element'     ? '&gt;' :
+            data.type === 'string'      ? '"' :
             ''
         }</code>
     </a>

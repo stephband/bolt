@@ -12,18 +12,16 @@
 <meta property="og:url" content="http://stephen.band/bolt/" />
 <meta property="og:title" content="Bolt" />
 <meta property="og:description" content="A front-end toolkit of classes, evented behaviours and custom elements." />
-<meta property="og:image" content="$ { image }" />
+<meta property="og:image" content="undefined" />
 
 
 <title>Bolt</title>
 
-<link rel="icon" type="image/png" href="../images/logo-32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="../images/logo-64.png" sizes="64x64">
-<link rel="icon" type="image/png" href="../images/logo-128.png" sizes="128x128">
+
 
 <script title="load">
-    document.documentElement.className += ' js content-loading loading';
-    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
+    document.documentElement.className += ' js loading';
+    // window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
     // Wait for other load handlers to run first - Bolt does a few things on
     // load (eg. targetable scrolls) and we want them to run before the loading
     // class is removed
@@ -35,13 +33,11 @@
         window.DEBUG = true;
     </script>
     
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../documentation/prism-cruncher.css" />
-<link rel="stylesheet" href="../../fn/css/tests.css" />
-<link rel="stylesheet" href="../documentation/grid.css" />
-<link rel="stylesheet" href="../documentation/documentation.css" />
-<link rel="stylesheet" href="../../fn/css/respond.css" />
-<link rel="stylesheet" href="../css/debug.css" />
+    <link rel="stylesheet" href="../module.css">
+    <link rel="stylesheet" href="../../documentation/prism-cruncher.css" />
+<link rel="stylesheet" href="../../../fn/css/tests.css" />
+<link rel="stylesheet" href="../../documentation/documentation.css" />
+<link rel="stylesheet" href="../../css/debug.css" />
 
     
     <style>
@@ -52,17 +48,15 @@
 </head>
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
-    <!-- Literal template "templates/element.literal" -->
-<header class="x1 3x @1-x-3 @1-4x @2-x-4">
+    
+<header class="x1 3x @1-x3 @1-4x @2-x4">
     
     <h2 class="doctext-02">&lt;overflow-toggle&gt;</h2>
-    <p>Configure stylesheet path with:</p>
-<pre><code class="language-js">window<span class="token punctuation">.</span>customElementStylesheetPath <span class="token operator">=</span> <span class="token string">'path/to/bolt/elements/'</span><span class="token punctuation">;</span></code></pre>
-<p>Import <code>&lt;overflow-toggle&gt;</code> custom element. This also registers the custom 
+    <p>Import <code>&lt;overflow-toggle&gt;</code> custom element. This also registers the custom 
 element and upgrades instances already in the DOM.</p>
-<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bolt/elements/overflow-toggle.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bolt/elements/overflow-toggle.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>overflow-toggle</span> <span class="token attr-name">show</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Show<span class="token punctuation">"</span></span> <span class="token attr-name">hide</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Hide<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>overflow-toggle</span> <span class="token attr-name">show</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Show<span class="token punctuation">"</span></span> <span class="token attr-name">hide</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Hide<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop 
    python orientation semi colon incident. Duis aute irure indent tabs or spaces 
    velit esse cilium buntum how crunchy duntum. Excepteur tranquilis syntax 
@@ -78,8 +72,8 @@ content, and the state is transitioned from closed to open via CSS.</p>
     
 </header>
 
-<form class="x1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-    <script type="module" src="../templates/bolt/elements/overflow-toggle.js"></script>
+<form class="x1 3x @1-x1 @1-2x @2-x1 @2-3x x-stretch y-start">
+    <script type="module" src="bolt/elements/overflow-toggle.js"></script>
 
 <overflow-toggle show="Show" hide="Hide">
    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop 
@@ -93,43 +87,46 @@ content, and the state is transitioned from closed to open via CSS.</p>
     <input hidden class="button" type="submit" />
 </form>
 
-<div class="x1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+<div class="x1 3x @1-x3 @1-2x @2-x4 x-stretch y-start">
     
     <h3 class="doctext-03">Attributes</h3>
-    <!-- Literal template "templates/entry.literal" -->
-<section class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-attribute-show">
-    <h3 class="attribute-doctext-05 doctext-05">
-        <a href="#attribute-attribute-show">
-            <code class="token  language-html">show </code>
-        </a>
-    </h3>
     
-    <p>Text rendered into the toggle button.</p>
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-show">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-show">
+        <code class="token language-html">show</code>
+    </a>
+</h3>
 
-</section>
-<!-- Literal template "templates/entry.literal" -->
-<section class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-attribute-hide">
-    <h3 class="attribute-doctext-05 doctext-05">
-        <a href="#attribute-attribute-hide">
-            <code class="token  language-html">hide </code>
-        </a>
-    </h3>
-    
-    <p>Text rendered into the toggle button.</p>
+<p>Text rendered into the toggle button.</p>
 
-</section>
-<!-- Literal template "templates/entry.literal" -->
-<section class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-attribute-open">
-    <h3 class="attribute-doctext-05 doctext-05">
-        <a href="#attribute-attribute-open">
-            <code class="token  language-html">open </code>
-        </a>
-    </h3>
-    
-    <p>A boolean attribute describing the state of the <code>overflow-toggle</code>.</p>
+</div>
 
-</section>
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-hide">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-hide">
+        <code class="token language-html">hide</code>
+    </a>
+</h3>
 
+<p>Text rendered into the toggle button.</p>
+
+</div>
+
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-open">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-open">
+        <code class="token language-html">open</code>
+    </a>
+</h3>
+
+<p>A boolean attribute describing the state of the <code>overflow-toggle</code>.</p>
+
+</div>
+
+ 
 
     
     
@@ -137,41 +134,43 @@ content, and the state is transitioned from closed to open via CSS.</p>
 
     
     <h3 class="doctext-03">Properties</h3>
-    <!-- Literal template "templates/entry.literal" -->
-<section class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property-property-open">
-    <h3 class="property-doctext-05 doctext-05">
-        <a href="#property-property-open">
-            <code class=" property language-js">.open </code>
-        </a>
-    </h3>
     
-    <p>false
-            A boolean property describing the state of the <code>overflow-toggle</code> – <code>true</code>
-            when the <code>overflow-toggle</code> is open, <code>false</code> when it is not.</p>
+<div class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property-open">
+<h3 class="property-doctext-05 doctext-05">
+    <a href="#property-open">
+        <code class="property language-js">.open</code>
+    </a>
+</h3>
 
-</section>
+<p>false
+A boolean property describing the state of the <code>overflow-toggle</code> – <code>true</code>
+when the <code>overflow-toggle</code> is open, <code>false</code> when it is not.</p>
 
+</div>
+
+ 
     
     
     
     
 </div>
 
-<div class="x1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
+<div class="x1 3x @1-x5 @1-2x @2-x6 x-stretch y-start">
     
     <h3 class="doctext-03">Parts</h3>
-    <!-- Literal template "templates/entry.literal" -->
-<section class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-part-part-button">
-    <h3 class="part-doctext-05 doctext-05">
-        <a href="#part-part-part-button">
-            <code class="  language-js">::part(button) </code>
-        </a>
-    </h3>
     
-    <p>The toggle button that, when clicked, shows and hides overflowing content.</p>
+<div class="part-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="part-button">
+<h3 class="part-doctext-05 doctext-05">
+    <a href="#part-button">
+        <code class=" language-css">::part(button)</code>
+    </a>
+</h3>
 
-</section>
+<p>The toggle button that, when clicked, shows and hides overflowing content.</p>
 
+</div>
+
+ 
 
     
     
@@ -183,7 +182,7 @@ content, and the state is transitioned from closed to open via CSS.</p>
     <script type="module" src="overflow-toggle.js"></script>
 
     <script type="module">
-    import '../module.js';
-    import '../documentation/documentation.js';
+    import '../../module.js';
+    import '../../documentation.js';
 </script>
 </body>

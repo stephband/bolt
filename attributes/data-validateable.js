@@ -80,7 +80,6 @@ validation messages are shown.</p>
 
 import get     from '../../fn/modules/get.js';
 import id      from '../../fn/modules/id.js';
-import invoke  from '../../fn/modules/invoke.js';
 import create  from '../../dom/modules/create.js';
 import events  from '../../dom/modules/events.js';
 import matches from '../../dom/modules/matches.js';
@@ -208,7 +207,7 @@ events('input dom-update', document)
 .map(get('target'))
 .filter(isValidateable)
 // This came from somewhere - is it for nullifying custom messages? Todo: review.
-.tap(invoke('setCustomValidity', ['']))
+.map((element) => (element.setCustomValidity(''), element))
 .filter(isValid)
 .each(removeMessages);
 
