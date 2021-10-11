@@ -81,7 +81,6 @@ validation messages are shown.</p>
 import get     from '../../fn/modules/get.js';
 import id      from '../../fn/modules/id.js';
 import invoke  from '../../fn/modules/invoke.js';
-import Stream  from '../../fn/modules/stream.js';
 import create  from '../../dom/modules/create.js';
 import events  from '../../dom/modules/events.js';
 import matches from '../../dom/modules/matches.js';
@@ -223,20 +222,10 @@ events('submit', document)
 .filter(isValidateable)
 .each(addValidatedClass);
 
-// Add event in capture phase
-document.addEventListener(
-	'invalid',
-
-	// Push to stream
-	Stream.of()
-	.map(get('target'))
-	.filter(isValidateable)
-	.tap(addValidatedClass)
-	.filter(negate(isShowingMessage))
-	.map(toError)
-	.each(renderError)
-	.push,
-
-	// Capture phase
-	true
-);
+events({ type: 'invalid', capture: true }, document)
+.map(get('target'))
+.filter(isValidateable)
+.map((element) => (addValidatedClass(element), element))
+.filter(negate(isShowingMessage))
+.map(toError)
+.each(renderError);

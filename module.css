@@ -11,7 +11,6 @@
 @import "elements/progress.css";
 @import "elements/table.css";
 
-@import "elements/content.css";
 @import "elements/fullscreen.css";
 
 @import "classes/js.css";
@@ -24,6 +23,7 @@
 @import "classes/block.css";
 @import "classes/color.css";
 @import "classes/text.css";
+@import "classes/content.css";
 @import "classes/atoms.css";
 @import "classes/device.css";
 @import "classes/dialog.css";

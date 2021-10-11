@@ -1,4 +1,4 @@
-/* Literal template "/Users/stephband/Sites/living-archives/living_archives/static/bolt/classes/atoms.css.literal" */
+/* Literal template "/Users/stephband/Sites/bolt/classes/atoms.css.literal" */
 
 
 /**
@@ -12,7 +12,7 @@ Forces `display: none` below a given breakpoint. This class is only available
 with breakpoint prefixes (`@1-`, `@2-`, ...).
 
 ```html
-<a class="@1-shown" href="../atoms/...">Link</a>
+<a class="@1-shown" href="...">Link</a>
 ```
 **/
 
@@ -23,7 +23,7 @@ Forces `display: none` above a given breakpoint. This class is available
 with breakpoint prefixes (`@1-`, `@2-`, ...).
 
 ```html
-<a class="@1-hidden" href="../atoms/...">Link</a>
+<a class="@1-hidden" href="...">Link</a>
 ```
 **/
 
