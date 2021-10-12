@@ -23,12 +23,13 @@ open, that `max-height` is overridden to include the whole height of the
 content, and the state is transitioned from closed to open via CSS.
 **/
 
+import create      from '../../../dom/modules/create.js';
 import element     from '../../../dom/modules/element.js';
 import events      from '../../../dom/modules/events.js';
-import create      from '../../../dom/modules/create.js';
 import styles      from '../../../dom/modules/styles.js';
+import { trigger } from '../../../dom/modules/trigger.js';
 import Distributor from '../../../dom/modules/distributor.js';
-import parseValue, { rem } from '../../../dom/modules/parse-length.js';
+import { px, rem } from '../../../dom/modules/parse-length.js';
 
 const $ = Symbol('');
 
@@ -96,21 +97,22 @@ element('overflow-toggle', {
         const view = this[$];
         const { button, slot } = view;
         const style = getComputedStyle(this);
-        const maxHeight = parseValue(view.maxHeight || style['max-height'] || 0);
+        const maxHeight = px(view.maxHeight || style['max-height'] || 0);
         
         // maxHeight is cached on view when element is open
         var state = update(shadow, button, slot.scrollHeight, maxHeight, slot, false);
         events('resize', window)
         .each((e) => {
-            const maxHeight = parseValue(view.maxHeight || style['max-height'] || 0);
+            const maxHeight = px(view.maxHeight || style['max-height'] || 0);
             state = update(shadow, button, slot.scrollHeight, maxHeight, slot, state)
         });
     }
 }, {
     show: {
         /**
-        show=""
-        Text rendered into the toggle button.
+        show="Show"
+        Text rendered into the toggle button when `overflow-toggle` is in
+        `open=false` state. Defaults to `"Show"`.
         **/
 
         attribute: function(value) {
@@ -123,8 +125,9 @@ element('overflow-toggle', {
 
     hide: {
         /**
-        hide=""
-        Text rendered into the toggle button.
+        hide="Hide"
+        Text rendered into the toggle button when `overflow-toggle` is in
+        `open=true` state. Defaults to `"Hide"`.
         **/
 
         attribute: function(value) {
@@ -151,6 +154,16 @@ element('overflow-toggle', {
         when the `overflow-toggle` is open, `false` when it is not.
         **/
 
+        /** 
+        'overflow-activate'
+        Sent from `overflow-toggle` when opened.
+        **/
+
+        /** 
+        'overflow-deactivate'
+        Sent from `overflow-toggle` when closed.
+        **/
+
         get: function() {
             const view = this[$];
             return view.open;
@@ -169,25 +182,26 @@ element('overflow-toggle', {
                 const scrollHeight    = slot.scrollHeight;
                 const computedElement = getComputedStyle(this);
                 const computedButton  = getComputedStyle(button);
-                const px = scrollHeight
+                const maxHeight = scrollHeight
                     // plus button height
                     + button.clientHeight 
                     // plus button margins
-                    + parseValue(computedButton['margin-top'] || 0) 
-                    + parseValue(computedButton['margin-bottom'] || 0)
+                    + px(computedButton['margin-top'] || 0) 
+                    + px(computedButton['margin-bottom'] || 0)
                     // plus a sneaky safety margin, no-one will notice
                     + 8 ;
 
                 // Store maxHeight while element is open
                 view.maxHeight = computedElement['max-height'];
                 view.maxHeight = view.maxHeight === 'none' ? 0 : view.maxHeight ;
-                style.setProperty('max-height', rem(px) + 'rem', 'important');
+                style.setProperty('max-height', rem(maxHeight) + 'rem', 'important');
                 button.textContent = view.hideText;
                 
                 // We have to set state on the view AND on the attribute
                 // if we want it to update
                 view.open = true;
                 this.setAttribute('open', '');
+                trigger('overflow-activate', this);
             }
             else {
                 view.maxHeight = undefined;
@@ -198,6 +212,7 @@ element('overflow-toggle', {
                 // if we want it to update
                 view.open = false;
                 this.removeAttribute('open');
+                trigger('overflow-deactivate', this);
             }
         }
     }

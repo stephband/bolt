@@ -25,7 +25,7 @@
     ${ this.properties.length ? '<h3 class="doctext-03">Properties</h3>' : '' }
     ${ Promise.all(this.properties.map((doc) => include("./entry.literal", doc))).then((array) => array.join(''))  }
     
-    ${ this.events = data.filter((doc) => (console.log(doc.type, doc), doc.type === 'string')), '' }
+    ${ this.events = data.filter((doc) => doc.type === 'string'), '' }
     ${ this.events.length ? '<h3 class="doctext-03">Events</h3>' : '' }
     ${ Promise.all(this.events.map((doc) => include("./entry.literal", doc))).then((array) => array.join(''))  }
 </div>
