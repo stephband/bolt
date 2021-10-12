@@ -1,25 +1,25 @@
 
 import overload         from '../../../fn/modules/overload.js';
 
-import { getPath }      from '../../../fn/modules/get-path.js';
-import { equals }       from '../../../fn/modules/equals.js';
+//import { getPath }      from '../../../fn/modules/get-path.js';
+//import { equals }       from '../../../fn/modules/equals.js';
 
-import { toRad, toDeg } from '../../../fn/modules/maths/core.js';
-import toLevel          from '../../../fn/modules/maths/to-gain.js';
-import todB             from '../../../fn/modules/maths/to-db.js';
-import { clamp }        from '../../../fn/modules/clamp.js';
-import { mod }          from '../../../fn/modules/maths/mod.js';
-import toCartesian      from '../../../fn/modules/maths/to-cartesian.js';
-import toPolar          from '../../../fn/modules/maths/to-polar.js';
+//import { toRad, toDeg } from '../../../fn/modules/maths/core.js';
+//import toLevel          from '../../../fn/modules/maths/to-gain.js';
+//import todB             from '../../../fn/modules/maths/to-db.js';
+//import { clamp }        from '../../../fn/modules/clamp.js';
+//import { mod }          from '../../../fn/modules/maths/mod.js';
+//import toCartesian      from '../../../fn/modules/maths/to-cartesian.js';
+//import toPolar          from '../../../fn/modules/maths/to-polar.js';
 
-import { append }       from '../../../fn/modules/strings/append.js';
-import { prepend }      from '../../../fn/modules/strings/prepend.js';
-import { prepad }       from '../../../fn/modules/strings/prepad.js';
-import { postpad }      from '../../../fn/modules/strings/postpad.js';
-import slugify          from '../../../fn/modules/slugify.js';
+//import { append }       from '../../../fn/modules/strings/append.js';
+//import { prepend }      from '../../../fn/modules/strings/prepend.js';
+//import { prepad }       from '../../../fn/modules/strings/prepad.js';
+//import { postpad }      from '../../../fn/modules/strings/postpad.js';
+//import slugify          from '../../../fn/modules/slugify.js';
 
-import { formatDate, addDate } from '../../../fn/modules/date.js';
-import { formatTime, addTime } from '../../../fn/modules/time.js';
+//import { formatDate, addDate } from '../../../fn/modules/date.js';
+//import { formatTime, addTime } from '../../../fn/modules/time.js';
 
 import { default as px, em, rem } from './parse-length.js';
 
@@ -36,18 +36,18 @@ function toAddType(n) {
 }
 
 register({
-    append:  append,
-    prepend: prepend,
-    prepad:  prepad,
-    postpad: postpad,
-    slugify: slugify,
-    formatdate: formatDate,
-    formattime: formatTime,
+    //append:  append,
+    //prepend: prepend,
+    //prepad:  prepad,
+    //postpad: postpad,
+    //slugify: slugify,
+    //formatdate: formatDate,
+    //formattime: formatTime,
 
     // Override .add() to support dates and times
     add: overload(toAddType, {
-        'date':   addDate,
-        'time':   addTime,
+        //'date':   addDate,
+        //'time':   addTime,
         'string': (a, b) => b + a,
         'number': (a, b) => b + a,
         'default': function(n) {
@@ -55,21 +55,21 @@ register({
         }
     }),
 
-    clamp:   clamp,
-    mod:     mod,
-    equals:  equals,
-    get:     getPath,
+    //clamp:   clamp,
+    //mod:     mod,
+    //equals:  equals,
+    //get:     getPath,
 
-    floor:   Math.floor,
+    //floor:   Math.floor,
 
-    cartesian: toCartesian,
-    polar:     toPolar,
+    //cartesian: toCartesian,
+    //polar:     toPolar,
 
-    deg:       toDeg,
-    rad:       toRad,
+    //deg:       toDeg,
+    //rad:       toRad,
 
-    gain:      toLevel,
-    dB:        todB,
+    //gain:      toLevel,
+    //dB:        todB,
 
     px:        px,
     em:        em,
