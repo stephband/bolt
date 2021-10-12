@@ -58,7 +58,7 @@ function update(shadow, button, scrollHeight, maxHeight, slot, state) {
     return false;
 }
 
-element('overflow-toggle', {
+export default element('overflow-toggle', {
     stylesheet: 
         window.elementOverflowToggleStylesheet ||
         import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/') + 'shadow.css',
