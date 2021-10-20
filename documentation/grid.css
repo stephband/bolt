@@ -111,12 +111,12 @@ Creates a grid with 3 equal width columns.
     <div class="button x3">x3</div>
     <div class="button x1 2x">2x</div>
     <div class="button x1 3x">3x</div>
-    <div class="button x1 x-start y-4">x-start</div>
-    <div class="button x2 x-center y-4">x-center</div>
-    <div class="button x3 x-end y-4">x-end</div>
-    <div class="button x1 x-stretch y-5">x-stretch</div>
-    <div class="button x2 x-bleed y-5">x-bleed</div>
-    <div class="button x3 x-flood y-5">x-flood</div>
+    <div class="button x1 x-start y4">x-start</div>
+    <div class="button x2 x-center y4">x-center</div>
+    <div class="button x3 x-end y4">x-end</div>
+    <div class="button x1 x-stretch y5">x-stretch</div>
+    <div class="button x2 x-bleed y5">x-bleed</div>
+    <div class="button x3 x-flood y5">x-flood</div>
 </div>
 ```
 
@@ -126,7 +126,7 @@ depends on `column-gap` having been set via the custom property `--x-gap`.
 **/
 
 /**
-.y-1 … .y-18,
+.y1 … .y18,
 .2y … .12y,
 .y-start,
 .y-center,
@@ -139,19 +139,19 @@ depends on `column-gap` having been set via the custom property `--x-gap`.
 
 ```html
 <div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
-    <div class="button x1 y-1">y-1</div>
-    <div class="button x1 y-2">y-2</div>
-    <div class="button x1 y-3">y-3</div>
-    <div class="button x2 y-1 2y">2y</div>
-    <div class="button x3 y-1 3y">3y</div>
-    <div class="button x1 y-4 y-start">y-start</div>
-    <div class="button x1 y-5 y-center">y-center</div>
-    <div class="button x1 y-6 y-end">y-end</div>
-    <div class="button x2 y-4 y-stretch">y-stretch</div>
-    <div class="button x2 y-5 y-bleed">y-bleed</div>
-    <div class="button x2 y-6 y-flood">y-flood</div>
-    <div class="button x3 y-4 y-baseline">y-baseline</div>
-    <div class="button x3 y-5 y-lastline">y-lastline</div>
+    <div class="button x1 y1">y1</div>
+    <div class="button x1 y2">y2</div>
+    <div class="button x1 y3">y3</div>
+    <div class="button x2 y1 2y">2y</div>
+    <div class="button x3 y1 3y">3y</div>
+    <div class="button x1 y4 y-start">y-start</div>
+    <div class="button x1 y5 y-center">y-center</div>
+    <div class="button x1 y6 y-end">y-end</div>
+    <div class="button x2 y4 y-stretch">y-stretch</div>
+    <div class="button x2 y5 y-bleed">y-bleed</div>
+    <div class="button x2 y6 y-flood">y-flood</div>
+    <div class="button x3 y4 y-baseline">y-baseline</div>
+    <div class="button x3 y5 y-lastline">y-lastline</div>
 </div>
 ```
 **/
@@ -250,9 +250,9 @@ Define the vertical grid gap (with units).
     .\@0-2y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
     .\@0-3y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
     
-    .\@0-y-1 { grid-row-start: 1 !important; }
-    .\@0-y-2 { grid-row-start: 2 !important; }
-    .\@0-y-3 { grid-row-start: 3 !important; }
+    .\@0-y1 { grid-row-start: 1 !important; }
+    .\@0-y2 { grid-row-start: 2 !important; }
+    .\@0-y3 { grid-row-start: 3 !important; }
     
     .\@0-1y { grid-row-end: span 1 !important; }
     .\@0-2y { grid-row-end: span 2 !important; }
@@ -406,12 +406,12 @@ Define the vertical grid gap (with units).
     .\@1-5y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
     .\@1-6y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
     
-    .\@1-y-1 { grid-row-start: 1 !important; }
-    .\@1-y-2 { grid-row-start: 2 !important; }
-    .\@1-y-3 { grid-row-start: 3 !important; }
-    .\@1-y-4 { grid-row-start: 4 !important; }
-    .\@1-y-5 { grid-row-start: 5 !important; }
-    .\@1-y-6 { grid-row-start: 6 !important; }
+    .\@1-y1 { grid-row-start: 1 !important; }
+    .\@1-y2 { grid-row-start: 2 !important; }
+    .\@1-y3 { grid-row-start: 3 !important; }
+    .\@1-y4 { grid-row-start: 4 !important; }
+    .\@1-y5 { grid-row-start: 5 !important; }
+    .\@1-y6 { grid-row-start: 6 !important; }
     
     .\@1-1y { grid-row-end: span 1 !important; }
     .\@1-2y { grid-row-end: span 2 !important; }
@@ -584,15 +584,15 @@ Define the vertical grid gap (with units).
     .\@2-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
     .\@2-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
     
-    .\@2-y-1 { grid-row-start: 1 !important; }
-    .\@2-y-2 { grid-row-start: 2 !important; }
-    .\@2-y-3 { grid-row-start: 3 !important; }
-    .\@2-y-4 { grid-row-start: 4 !important; }
-    .\@2-y-5 { grid-row-start: 5 !important; }
-    .\@2-y-6 { grid-row-start: 6 !important; }
-    .\@2-y-7 { grid-row-start: 7 !important; }
-    .\@2-y-8 { grid-row-start: 8 !important; }
-    .\@2-y-9 { grid-row-start: 9 !important; }
+    .\@2-y1 { grid-row-start: 1 !important; }
+    .\@2-y2 { grid-row-start: 2 !important; }
+    .\@2-y3 { grid-row-start: 3 !important; }
+    .\@2-y4 { grid-row-start: 4 !important; }
+    .\@2-y5 { grid-row-start: 5 !important; }
+    .\@2-y6 { grid-row-start: 6 !important; }
+    .\@2-y7 { grid-row-start: 7 !important; }
+    .\@2-y8 { grid-row-start: 8 !important; }
+    .\@2-y9 { grid-row-start: 9 !important; }
     
     .\@2-1y { grid-row-end: span 1 !important; }
     .\@2-2y { grid-row-end: span 2 !important; }
@@ -768,15 +768,15 @@ Define the vertical grid gap (with units).
     .\@3-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
     .\@3-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
     
-    .\@3-y-1 { grid-row-start: 1 !important; }
-    .\@3-y-2 { grid-row-start: 2 !important; }
-    .\@3-y-3 { grid-row-start: 3 !important; }
-    .\@3-y-4 { grid-row-start: 4 !important; }
-    .\@3-y-5 { grid-row-start: 5 !important; }
-    .\@3-y-6 { grid-row-start: 6 !important; }
-    .\@3-y-7 { grid-row-start: 7 !important; }
-    .\@3-y-8 { grid-row-start: 8 !important; }
-    .\@3-y-9 { grid-row-start: 9 !important; }
+    .\@3-y1 { grid-row-start: 1 !important; }
+    .\@3-y2 { grid-row-start: 2 !important; }
+    .\@3-y3 { grid-row-start: 3 !important; }
+    .\@3-y4 { grid-row-start: 4 !important; }
+    .\@3-y5 { grid-row-start: 5 !important; }
+    .\@3-y6 { grid-row-start: 6 !important; }
+    .\@3-y7 { grid-row-start: 7 !important; }
+    .\@3-y8 { grid-row-start: 8 !important; }
+    .\@3-y9 { grid-row-start: 9 !important; }
     
     .\@3-1y { grid-row-end: span 1 !important; }
     .\@3-2y { grid-row-end: span 2 !important; }
