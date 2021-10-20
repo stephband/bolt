@@ -1,10 +1,10 @@
 
 {% data.map((doc) => `
-    <form class="x1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;">${ doc.examples[0] }</div>
+    <form class="x1 3x @1-x1 @1-2x @2-x1 @2-3x x-stretch y-start">
+        <div class="@2-x1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;">${ doc.examples[0] }</div>
     </form>
     
-    <div class="x1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+    <div class="x1 3x @1-x3 @1-2x @2-x4 x-stretch y-start">
         <h4 class="{{type|append:-doctext-05}} doctext-05">
             <a href="#{{id}}-description" title="Show HTML markup"><code>${ doc.name }</code></a>
         </h4>

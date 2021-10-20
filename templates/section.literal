@@ -1,17 +1,17 @@
 
 {# Requires title (string), docs (array) #}
 
-<section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" targetable id="${ id  }" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">${ title  }</h2>
+<section class="x1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
+    <h2 class="x1 3x @1-x3 @1-4x @2-x4 @2-4x x-stretch doctext-02" targetable id="${ id  }" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">${ title  }</h2>
 
 ${ docs
 .filter((doc) => doc.type === 'selector')
 .map((doc) => `
-    <form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 20rem; width: 100%;">${ doc.examples[0] }</div>
+    <form class="x1 3x @1-x1 @1-2x @2-x1 @2-3x x-stretch y-start">
+        <div class="@2-x1 @2-3x x-center y-lastline block" style="max-width: 20rem; width: 100%;">${ doc.examples[0] }</div>
     </form>
     
-    <div class="x-1 3x @1-x-3 @1-4x @2-x-4 x-stretch y-start block">
+    <div class="x1 3x @1-x3 @1-4x @2-x4 x-stretch y-start block">
         <h4 class="${ doc.type }-doctext-05 doctext-05">
             <a href="#${ doc.id }-description" title="Show HTML markup"><code>${ doc.name }</code></a>
         </h4>
@@ -19,7 +19,7 @@ ${ docs
     </div>
 `) }
 
-    <div class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start" style="grid-row: 1 / span ${ docs.filter((doc) => doc.type === 'selector').length  };">
+    <div class="x1 3x @1-x5 @1-2x @2-x6 x-stretch y-start" style="grid-row: 1 / span ${ docs.filter((doc) => doc.type === 'selector').length  };">
     ${ docs
     .filter((doc) => doc.type === 'var')
     .map((doc) => render`
