@@ -66,18 +66,18 @@ fieldset + input {
 }
 
 /*
-.x-1 + .error-label,  .x-1 + .help-label  { grid-column-start: 1; }
-.x-2 + .error-label,  .x-2 + .help-label  { grid-column-start: 2; }
-.x-3 + .error-label,  .x-3 + .help-label  { grid-column-start: 3; }
-.x-4 + .error-label,  .x-4 + .help-label  { grid-column-start: 4; }
-.x-5 + .error-label,  .x-5 + .help-label  { grid-column-start: 5; }
-.x-6 + .error-label,  .x-6 + .help-label  { grid-column-start: 6; }
-.x-7 + .error-label,  .x-7 + .help-label  { grid-column-start: 7; }
-.x-8 + .error-label,  .x-8 + .help-label  { grid-column-start: 8; }
-.x-9 + .error-label,  .x-9 + .help-label  { grid-column-start: 9; }
-.x-10 + .error-label, .x-10 + .help-label { grid-column-start: 10; }
-.x-11 + .error-label, .x-11 + .help-label { grid-column-start: 11; }
-.x-12 + .error-label, .x-12 + .help-label { grid-column-start: 12; }
+.x1 + .error-label,  .x1 + .help-label  { grid-column-start: 1; }
+.x2 + .error-label,  .x2 + .help-label  { grid-column-start: 2; }
+.x3 + .error-label,  .x3 + .help-label  { grid-column-start: 3; }
+.x4 + .error-label,  .x4 + .help-label  { grid-column-start: 4; }
+.x5 + .error-label,  .x5 + .help-label  { grid-column-start: 5; }
+.x6 + .error-label,  .x6 + .help-label  { grid-column-start: 6; }
+.x7 + .error-label,  .x7 + .help-label  { grid-column-start: 7; }
+.x8 + .error-label,  .x8 + .help-label  { grid-column-start: 8; }
+.x9 + .error-label,  .x9 + .help-label  { grid-column-start: 9; }
+.x10 + .error-label, .x10 + .help-label { grid-column-start: 10; }
+.x11 + .error-label, .x11 + .help-label { grid-column-start: 11; }
+.x12 + .error-label, .x12 + .help-label { grid-column-start: 12; }
 
 .1x + .error-label,  .1x + .help-label  { grid-column-end: span 1; }
 .2x + .error-label,  .2x + .help-label  { grid-column-end: span 2; }
@@ -92,24 +92,24 @@ fieldset + input {
 .11x + .error-label, .11x + .help-label { grid-column-end: span 11; }
 .12x + .error-label, .12x + .help-label { grid-column-end: span 12; }
 
-.y-1  + .error-label, .y-1  + .help-label { grid-row-start: 1; }
-.y-2  + .error-label, .y-2  + .help-label { grid-row-start: 2; }
-.y-3  + .error-label, .y-3  + .help-label { grid-row-start: 3; }
-.y-4  + .error-label, .y-4  + .help-label { grid-row-start: 4; }
-.y-5  + .error-label, .y-5  + .help-label { grid-row-start: 5; }
-.y-6  + .error-label, .y-6  + .help-label { grid-row-start: 6; }
-.y-7  + .error-label, .y-7  + .help-label { grid-row-start: 7; }
-.y-8  + .error-label, .y-8  + .help-label { grid-row-start: 8; }
-.y-9  + .error-label, .y-9  + .help-label { grid-row-start: 9; }
-.y-10 + .error-label, .y-10 + .help-label { grid-row-start: 10; }
-.y-11 + .error-label, .y-11 + .help-label { grid-row-start: 11; }
-.y-12 + .error-label, .y-12 + .help-label { grid-row-start: 12; }
-.y-13 + .error-label, .y-13 + .help-label { grid-row-start: 13; }
-.y-14 + .error-label, .y-14 + .help-label { grid-row-start: 14; }
-.y-15 + .error-label, .y-15 + .help-label { grid-row-start: 15; }
-.y-16 + .error-label, .y-16 + .help-label { grid-row-start: 16; }
-.y-17 + .error-label, .y-17 + .help-label { grid-row-start: 17; }
-.y-18 + .error-label, .y-18 + .help-label { grid-row-start: 18; }
+.y1  + .error-label, .y1  + .help-label { grid-row-start: 1; }
+.y2  + .error-label, .y2  + .help-label { grid-row-start: 2; }
+.y3  + .error-label, .y3  + .help-label { grid-row-start: 3; }
+.y4  + .error-label, .y4  + .help-label { grid-row-start: 4; }
+.y5  + .error-label, .y5  + .help-label { grid-row-start: 5; }
+.y6  + .error-label, .y6  + .help-label { grid-row-start: 6; }
+.y7  + .error-label, .y7  + .help-label { grid-row-start: 7; }
+.y8  + .error-label, .y8  + .help-label { grid-row-start: 8; }
+.y9  + .error-label, .y9  + .help-label { grid-row-start: 9; }
+.y10 + .error-label, .y10 + .help-label { grid-row-start: 10; }
+.y11 + .error-label, .y11 + .help-label { grid-row-start: 11; }
+.y12 + .error-label, .y12 + .help-label { grid-row-start: 12; }
+.y13 + .error-label, .y13 + .help-label { grid-row-start: 13; }
+.y14 + .error-label, .y14 + .help-label { grid-row-start: 14; }
+.y15 + .error-label, .y15 + .help-label { grid-row-start: 15; }
+.y16 + .error-label, .y16 + .help-label { grid-row-start: 16; }
+.y17 + .error-label, .y17 + .help-label { grid-row-start: 17; }
+.y18 + .error-label, .y18 + .help-label { grid-row-start: 18; }
 */
 
 .error-label + .help-label {

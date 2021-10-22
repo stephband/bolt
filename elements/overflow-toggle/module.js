@@ -60,6 +60,8 @@ function update(shadow, button, scrollHeight, maxHeight, slot, state) {
 
 export default element('overflow-toggle', {
     stylesheet: 
+        // Support the old path system baked into the Nendaz project
+        window.customElementStylesheetPath && window.customElementStylesheetPath + 'overflow-toggle.shadow.css' ||
         window.elementOverflowToggleStylesheet ||
         import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/') + 'shadow.css',
 

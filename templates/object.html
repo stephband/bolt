@@ -1,13 +1,13 @@
 {# Requires title (string), docs (array) #}
 
-<section class="x-1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
-    <h2 class="x-1 3x @1-x-3 @1-4x @2-x-4 @2-4x x-stretch doctext-02" data-targetable id="{{id}}" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">{{title}}</h2>
+<section class="x1 3x 3x-grid @1-6x @1-6x-grid @2-9x @2-9x-grid grid" style="row-gap: 1.5rem;">
+    <h2 class="x1 3x @1-x3 @1-4x @2-x4 @2-4x x-stretch doctext-02" data-targetable id="{{id}}" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">{{title}}</h2>
 
-    <!--form class="x-1 3x @1-x-1 @1-2x @2-x-1 @2-3x x-stretch y-start">
-        <div class="@2-x-1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;">{{examples|get:'0'}}</div>
+    <!--form class="x1 3x @1-x1 @1-2x @2-x1 @2-3x x-stretch y-start">
+        <div class="@2-x1 @2-3x x-center y-lastline block" style="max-width: 300px; width: 100%;">{{examples|get:'0'}}</div>
     </form-->
 
-    <section class="x-1 3x @1-x-3 @1-2x @2-x-4 x-stretch y-start">
+    <section class="x1 3x @1-x3 @1-2x @2-x4 x-stretch y-start">
         <!--Properties-->
         {% context docs|filter-by:type,property %}
         {% each %}
@@ -16,7 +16,7 @@
         {% end %}
     </section>
     
-    <section class="x-1 3x @1-x-5 @1-2x @2-x-6 x-stretch y-start">
+    <section class="x1 3x @1-x5 @1-2x @2-x6 x-stretch y-start">
         <!--Methods-->
         {% context docs|filter-by:type,method %}
         {% each %}

@@ -768,6 +768,8 @@ const processPointerEvents = overload((data, e) => e.type, {
 const lifecycle = {
     // Get path to dir of this module
     stylesheet:
+        // Support the old path system baked into the Nendaz project
+        window.customElementStylesheetPath && window.customElementStylesheetPath + 'slide-show.shadow.css' ||
         window.elementSlideShowStylesheet ||
         import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/') + 'shadow.css',
 

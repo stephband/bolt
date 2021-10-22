@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width" />
 
 ${ data.author && data.author.twitter && (
-console.log('Remember to validate twitter card at https://cards-dev.twitter.com/validator'), `
+(!window.twitterCardValidateWarning && console.log('Remember to validate twitter cards at https://cards-dev.twitter.com/validator'), window.twitterCardValidateWarning = true), `
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="${ data.author && data.author.twitter }">
 <meta property="og:url" content="${ data.homepage }" />
