@@ -537,7 +537,6 @@ element('envelope-control', {
             set: function(value) {
                 const privates = Privates(this);
                 const data     = privates.data;
-                const scope    = privates.scope;
 
                 if (value === data.value) {
                     return;
