@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!-- Literal template "/Users/stephband/Sites/bolt/elements/xy-input/index.html.literal" -->
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+<meta name="author" content="stephband" />
+<meta name="description" content="Documentation for Bolt. A front-end toolkit of classes, evented behaviours and custom elements." />
+<meta name="viewport" content="width=device-width" />
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@stephband">
+<meta property="og:url" content="http://stephen.band/bolt/" />
+<meta property="og:title" content="Bolt" />
+<meta property="og:description" content="A front-end toolkit of classes, evented behaviours and custom elements." />
+<meta property="og:image" content="undefined" />
+
+
+<title>Bolt</title>
+
+
+
+<script title="load">
+    document.documentElement.className += ' js loading';
+    // window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
+    // Wait for other load handlers to run first - Bolt does a few things on
+    // load (eg. targetable scrolls) and we want them to run before the loading
+    // class is removed
+    window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
+</script>
+
+
+    <script title="debug">
+        window.DEBUG = true;
+    </script>
+    
+    <link rel="stylesheet" href="../../module.css">
+    <link rel="stylesheet" href="../../documentation/prism-cruncher.css" />
+<link rel="stylesheet" href="../../documentation.css" />
+<link rel="stylesheet" href="../../debug.css" />
+
+
+    <style></style>
+    
+    <template id="xy-input-shadow">
+        <label>
+            <slot></slot>
+        </label>
+
+        <svg viewbox="0 -1 1 1">
+            <defs>
+                <linearGradient id="handle-gradient" x1="0" x2="0" y1="0" y2="1">
+                    <stop class="stop-1" offset="0%"/>
+                    <stop class="stop-2" offset="100%"/>
+                </linearGradient>
+            </defs>
+            
+            ${ data.yLines.map(include('#y-line-def')) }
+            ${ data.xLines.map(include('#x-line-def')) }
+            ${ data.controls.map(include('#control-def')) }
+        </svg>
+    </template>
+</head>
+
+<body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
+    <svg viewbox="0 0 1 1">   
+        <defs>
+            <line part="x-line" x1="${ data.x }" x2="${ data.x }" y1="0" y2="-100" id="x-line-def"></line>
+            <line part="y-line" x1="0" x2="100" y1="${ -data.y }" y2="${ -data.y }" id="y-line-def"></line>
+            <circle part="handle" class="control control-handle control-point" cx="${ data.x }" cy="${ data.y }" r="0.5" id="control-def"></circle>
+        </defs>
+    </svg>
+    <nav class="x1 x-stretch y1 @2-x1 @2-1x">
+        <a class="thumb thumb-1:1" width="400" height="400" style="background-image: url('../../images/logo.svg'); background-size: contain; width: 120%; padding-top: 120%; max-width: 6rem; margin-top: -16%; margin-left: -8%; margin-right: -12%;">Bolt</a>
+    </nav>
+
+    
+<header class="x1 3x @1-x3 @1-4x @2-x4">
+    
+    <h2 class="doctext-02">&lt;xy-input&gt;</h2>
+    <p>Import <code>&lt;xy-input&gt;</code> custom element. This also registers the custom 
+element and upgrades instances already in the DOM.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>./module.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
+    <span class="token selector">xy-input</span> <span class="token punctuation">{</span>
+        <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+        <span class="token property">height</span><span class="token punctuation">:</span> 5rem<span class="token punctuation">;</span>
+        <span class="token property">background-color</span><span class="token punctuation">:</span> #eeeeee<span class="token punctuation">;</span>
+        <span class="token property">--x-size</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
+        <span class="token property">--y-size</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">min</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">max</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span></code></pre>
+
+    
+</header>
+
+<form class="x1 3x @1-x1 @1-2x @2-x1 @2-3x x-stretch y-start">
+    <script type="module" src="module.js"></script>
+
+<style>
+    xy-input {
+        width: 100%;
+        height: 5rem;
+        background-color: #eeeeee;
+        --x-size: 1rem;
+        --y-size: 1rem;
+    }
+</style>
+
+<xy-input min="" max=""></xy-input>
+    <!-- for testing form submission values -->
+    <input hidden class="button" type="submit" />
+</form>
+
+<div class="x1 3x @1-x3 @1-2x @2-x4 x-stretch y-start">
+    
+    <h3 class="doctext-03">Attributes</h3>
+    
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-min">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-min">
+        <code class="token language-html">min <span class="default">="<em>0</em>"</span></code>
+    </a>
+</h3>
+
+<p>Value at lower limit of fader. Can interpret values with recognised units,
+eg. <code>&quot;0dB&quot;</code>.</p>
+
+</div>
+
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-max">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-max">
+        <code class="token language-html">max <span class="default">="<em>1</em>"</span></code>
+    </a>
+</h3>
+
+<p>Value at upper limit of fader. Can interpret values with recognised units,
+eg. <code>&quot;0dB&quot;</code>.</p>
+
+</div>
+
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-law">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-law">
+        <code class="token language-html">law <span class="default">="<em>linear</em>"</span></code>
+    </a>
+</h3>
+
+<p>Fader law. This is the name of a transform to be applied over the range 
+of the fader travel. Possible values are:</p>
+<ul>
+<li><code>&quot;linear&quot;</code></li>
+<li><code>&quot;linear-logarithmic&quot;</code></li>
+<li><code>&quot;logarithmic&quot;</code></li>
+<li><code>&quot;quadratic&quot;</code></li>
+<li><code>&quot;cubic&quot;</code></li>
+</ul>
+
+</div>
+
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-unit">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-unit">
+        <code class="token language-html">unit</code>
+    </a>
+</h3>
+
+<p>The value’s unit, if it has one. The output value and all ticks are 
+displayed in this unit. Possible values are:</p>
+<ul>
+<li><code>&quot;dB&quot;</code> – <code>0-1</code> is displayed as <code>-∞dB</code> to <code>0dB</code></li>
+<li><code>&quot;Hz&quot;</code></li>
+</ul>
+
+</div>
+
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-ticks">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-ticks">
+        <code class="token language-html">ticks</code>
+    </a>
+</h3>
+
+<p>A space separated list of values at which to display tick marks. Values
+may be listed with or without units, eg:</p>
+<pre><code class="language-html">ticks=&quot;0 0.2 0.4 0.6 0.8 1&quot;
+ticks=&quot;-48dB -36dB -24dB -12dB 0dB&quot;</code></pre>
+
+</div>
+
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-steps">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-steps">
+        <code class="token language-html">steps</code>
+    </a>
+</h3>
+
+<p>Steps is either:</p>
+<ul>
+<li>A space separated list of values. As with <code>ticks</code>, values may be listed with or without units.</li>
+<li>The string <code>&quot;ticks&quot;</code>. The values in the <code>ticks</code> attribute are used as steps.</li>
+</ul>
+
+</div>
+
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-value">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-value">
+        <code class="token language-html">value</code>
+    </a>
+</h3>
+
+<p>The initial value of the fader.</p>
+
+</div>
+
+ 
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+<div class="x1 3x @1-x5 @1-2x @2-x6 x-stretch y-start">
+    
+    
+    
+
+    
+    
+    
+</div>
+
+
+    <script type="module" src="module.js"></script>
+
+    <script type="module">
+    import '../../module.js';
+    import '../../documentation.js';
+</script>
+    
+    <script type="module">
+    // Log events
+    import events from '../../../dom/modules/events.js';
+    events('input', document).each((e) => console.log(e.type, e.target));
+    </script>
+</body>
