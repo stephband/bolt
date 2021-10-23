@@ -54,23 +54,20 @@
                     <stop class="stop-1" offset="0%"/>
                     <stop class="stop-2" offset="100%"/>
                 </linearGradient>
+
+                <line part="x-line" x1="${ data.line.x * data.rangebox[2] }" x2="${ data.line.x * data.rangebox[2] }" y1="${ data.valuebox[1] * data.rangebox[3] }" y2="${ (data.valuebox[1] + data.valuebox[3]) * data.rangebox[3] }" id="x-line-def"></line>
+                <line part="y-line" x1="${ data.valuebox[0] * data.rangebox[2] }" x2="${ data.valuebox[2] * data.rangebox[2] }" y1="${ data.line.y * data.rangebox[3] }" y2="${ data.line.y * data.rangebox[3] }" id="y-line-def"></line>
+                <circle part="handle" class="control control-handle control-point" cx="${ data.point[0] * data.rangebox[2] }" cy="${ data.point[1] * data.rangebox[3] }" r="0.5" data-index="${ data.index }" id="control-def"></circle>
             </defs>
-            
-            ${ data.yLines.map(include('#y-line-def')) }
-            ${ data.xLines.map(include('#x-line-def')) }
-            ${ data.controls.map(include('#control-def')) }
+
+            ${ data.yLines.map((line) => include(this.node.getRootNode().getElementById('y-line-def'), { rangebox: data.rangebox, valuebox: data.valuebox, line })) }
+            ${ data.xLines.map((line) => include(this.node.getRootNode().getElementById('x-line-def'), { rangebox: data.rangebox, valuebox: data.valuebox, line })) }
+            ${ data.values.map((point, index) => include(this.node.getRootNode().getElementById('control-def'), { rangebox: data.rangebox, point, index })) }
         </svg>
     </template>
 </head>
 
 <body class="docs-grid grid 3x-grid @1-6x-grid @2-9x-grid">
-    <svg viewbox="0 0 1 1">   
-        <defs>
-            <line part="x-line" x1="${ data.x }" x2="${ data.x }" y1="0" y2="-100" id="x-line-def"></line>
-            <line part="y-line" x1="0" x2="100" y1="${ -data.y }" y2="${ -data.y }" id="y-line-def"></line>
-            <circle part="handle" class="control control-handle control-point" cx="${ data.x }" cy="${ data.y }" r="0.5" id="control-def"></circle>
-        </defs>
-    </svg>
     <nav class="x1 x-stretch y1 @2-x1 @2-1x">
         <a class="thumb thumb-1:1" width="400" height="400" style="background-image: url('../../images/logo.svg'); background-size: contain; width: 120%; padding-top: 120%; max-width: 6rem; margin-top: -16%; margin-left: -8%; margin-right: -12%;">Bolt</a>
     </nav>
@@ -93,13 +90,13 @@ element and upgrades instances already in the DOM.</p>
     <span class="token punctuation">}</span>
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">min</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">max</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span></code></pre>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>points<span class="token punctuation">"</span></span> <span class="token attr-name">min</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">max</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0 0 1 1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span></code></pre>
 
     
 </header>
 
 <form class="x1 3x @1-x1 @1-2x @2-x1 @2-3x x-stretch y-start">
-    <script type="module" src="module.js"></script>
+    <script type="module" src="../../templates/module.js"></script>
 
 <style>
     xy-input {
@@ -111,7 +108,7 @@ element and upgrades instances already in the DOM.</p>
     }
 </style>
 
-<xy-input min="" max=""></xy-input>
+<xy-input name="points" min="0" max="1" value="0 0 1 1"></xy-input>
     <!-- for testing form submission values -->
     <input hidden class="button" type="submit" />
 </form>
@@ -142,26 +139,6 @@ eg. <code>&quot;0dB&quot;</code>.</p>
 
 <p>Value at upper limit of fader. Can interpret values with recognised units,
 eg. <code>&quot;0dB&quot;</code>.</p>
-
-</div>
-
- 
-<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-law">
-<h3 class="attribute-doctext-05 doctext-05">
-    <a href="#attribute-law">
-        <code class="token language-html">law <span class="default">="<em>linear</em>"</span></code>
-    </a>
-</h3>
-
-<p>Fader law. This is the name of a transform to be applied over the range 
-of the fader travel. Possible values are:</p>
-<ul>
-<li><code>&quot;linear&quot;</code></li>
-<li><code>&quot;linear-logarithmic&quot;</code></li>
-<li><code>&quot;logarithmic&quot;</code></li>
-<li><code>&quot;quadratic&quot;</code></li>
-<li><code>&quot;cubic&quot;</code></li>
-</ul>
 
 </div>
 
@@ -251,7 +228,7 @@ ticks=&quot;-48dB -36dB -24dB -12dB 0dB&quot;</code></pre>
 </div>
 
 
-    <script type="module" src="module.js"></script>
+    <script type="module" src="./module.js"></script>
 
     <script type="module">
     import '../../module.js';
@@ -261,6 +238,7 @@ ticks=&quot;-48dB -36dB -24dB -12dB 0dB&quot;</code></pre>
     <script type="module">
     // Log events
     import events from '../../../dom/modules/events.js';
-    events('input', document).each((e) => console.log(e.type, e.target));
+    events('input change', document)
+    .each((e) => console.log(e.type, JSON.stringify(e.target.value)));
     </script>
 </body>

@@ -17,12 +17,13 @@ element and upgrades instances already in the DOM.
     }
 </style>
 
-<xy-input min="" max=""></xy-input>
+<xy-input name="points" min="0" max="1" value="0 0 1 1"></xy-input>
 ```
 **/
 
 import { clamp }   from '../../../fn/modules/clamp.js';
 import get         from '../../../fn/modules/get.js';
+import last        from '../../../fn/modules/last.js';
 import overload    from '../../../fn/modules/overload.js';
 import noop        from '../../../fn/modules/noop.js';
 
@@ -31,14 +32,17 @@ import delegate    from '../../../dom/modules/delegate.js';
 import element     from '../../../dom/modules/element.js';
 import events      from '../../../dom/modules/events.js';
 import gestures    from '../../../dom/modules/gestures.js';
-import box         from '../../../dom/modules/rect.js';
+import rect        from '../../../dom/modules/rect.js';
 import { trigger } from '../../../dom/modules/trigger.js';
 import Distributor from '../../../dom/modules/distributor.js';
 import { px, rem } from '../../../dom/modules/parse-length.js';
 
 import Literal, { Observer } from '../../../literal/module.js';
 
+const assign = Object.assign;
+
 const $data    = Symbol('xy-data');
+const $state   = Symbol('xy-state');
 const $literal = Symbol('xy-literal');
 
 const maxTapDuration = 0.25;
@@ -49,7 +53,18 @@ const defaultTargetEventDuration = 0.4;
 /* Element */
 
 
+function toPairs(acc, value) {
+    const last = acc[acc.length - 1];
 
+    if (!last || last.length > 1) {
+        acc.push([value]);
+    }
+    else {
+        last.push(value);
+    }
+
+    return acc;
+}
 
 
 /*
@@ -58,20 +73,16 @@ Turn gesture positions into coordinates
 */
 
 function setXY(e, data) {
-    const rect = box(data.element);
+    const box = data.pxbox;
 
     // New pixel position of control, compensating for initial
     // mousedown offset on the control
-    const px = e.clientX - rect.left - data.offset.x;
-    const py = e.clientY - rect.top - data.offset.y;
+    const px = e.clientX - box.left - data.offset.x;
+    const py = e.clientY - box.top - data.offset.y;
 
     // Normalise to 0-1, allowing x position to extend beyond viewbox
-    const rx = clamp(0, 4, px / rect.height);
-    const ry = clamp(0, 1, py / rect.height);
-
-    // Assume viewbox is always full height, use box height as scale
-    data.x = data.viewbox[0] + rx * data.viewbox[3];
-    data.y = data.viewbox[1] + ry * data.viewbox[3];
+    data.x = clamp(data.valuebox[0], data.valuebox[0] + data.valuebox[2], data.valuebox[0] + data.valuebox[2] * px / box.width);
+    data.y = clamp(data.valuebox[1] + data.valuebox[3], data.valuebox[1], data.valuebox[1] + data.valuebox[3] * py / box.height);
 }
 
 const toCoordinates = overload((data, e) => e.type, {
@@ -89,7 +100,7 @@ const toCoordinates = overload((data, e) => e.type, {
             data.target = data.previous.target;
         }
 
-        const controlBox = box(e.target);
+        const controlBox = rect(e.target);
         data.offset = e.target === e.currentTarget ? {
             // Target is the SVG
             x: 0,
@@ -100,6 +111,7 @@ const toCoordinates = overload((data, e) => e.type, {
             y: e.clientY - (controlBox.top + controlBox.height / 2)
         } ;
 
+        data.events.length = 0;
         data.events.push(e);
         return data;
     },
@@ -136,6 +148,12 @@ const toCoordinates = overload((data, e) => e.type, {
     }
 });
 
+function setFormValue(internal, formdata, name, points) {
+    formdata.delete(name);
+    points.forEach((point) => formdata.append(name, point.join(',')));
+    internal.setFormValue(formdata);
+    return formdata;
+}
 
 const handle = delegate({
     '.duration-handle': overload((element, data) => data.type, {
@@ -190,24 +208,20 @@ const handle = delegate({
         },
 
         'move': function(element, gesture) {
-            //const scope =  getScope(data.target);
-            //const y = denormalise[data.yTransform](gesture.yMin, gesture.yMax, -gesture.y);
-
             const data = gesture.data;
-            data.controls[0].x = gesture.x < 0 ? 0 : gesture.x ;
-            data.controls[0].y = gesture.y < 0 ? 0 : gesture.y ;
 
-            /*
-            scope[2] = scope[1] === 'exponential' ?
-                y < minExponential ? minExponential : y :
-                // Don't move target handles in the y direction, y is
-                // controlled by duration handle
-                scope[1] === 'target' ? scope[2] :
-                y ;
-            */
+            data.values[element.dataset.index][0] = gesture.x ;
+            data.values[element.dataset.index][1] = gesture.y ;
 
-            //notify(data.collection, '.', data.collection);
-            //data.scope.unitValue0(scope[2]);
+            const host = gesture.host;
+            if (last(gesture.events).type !== 'pointermove') {
+                // internal, formdata, name, value
+                setFormValue(gesture.internal, gesture.formdata, host.name, data.values);
+                trigger('change', host);
+            }
+            else {
+                trigger('input', host);
+            }
 
             return data;
         },
@@ -237,57 +251,80 @@ export default element('xy-input', {
         window.xyInputStylesheet ||
         import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/') + 'shadow.css',
 
-    construct: function(shadow) {
+    construct: function(shadow, internal) {
         const literal = Literal('#xy-input-shadow');
+
         const data = Observer({
-            controls: [{ x: 0, y: 0 }],
-            xLines: [{ x: 0 }, { x: 1 }, { x: 2 }, { x: 3 }, { x: 4 }, { x: 5 }],
-            yLines: [{ y: 0 }, { y: 1 }, { y: 2 }, { y: 3 }, { y: 4 }, { y: 5 }]
+            rangebox: [0, 1, 1, -1],
+            valuebox: [0, 1, 6, -1],
+            values:   [],
+            xLines:   [{ x: 0 }, { x: 1 }, { x: 2 }, { x: 3 }, { x: 4 }, { x: 5 }],
+            yLines:   [{ y: 0 }, { y: 0.2 }, { y: 0.4 }, { y: 0.6 }, { y: 0.8 }, { y: 1 }]
         });
+
+        const formdata = new FormData();
 
         literal.render(data).then(() => shadow.appendChild(literal.content));
 
-        /*
-        slot.addEventListener('slotchange', changes);
-        button.addEventListener('click', (e) => {
-            this.open = !this.open;
-        });
-        */
+        const state = {
+            data:     data,
+            xScale:   getComputedStyle(this)['--x-scale'],
+            yScale:   getComputedStyle(this)['--y-scale'],
+            events:   [],
+            host:     this,
+            internal: internal,
+            formdata: formdata,
+            rangebox: data.rangebox,
+            valuebox: data.valuebox,
+            // An SVGRect with x, y, width and height props - TODO make other 
+            // boxes look like this too
+            viewbox:  literal.content.querySelector('svg').viewBox.baseVal
+        };
 
-        // Internal view object
         this[$data]    = data;
+        this[$state]   = state;
         this[$literal] = literal;
 
         gestures({ threshold: 0 }, shadow)
         .scan((previous, gesture) => {
-            const context = {
-                data:     data,
-                yMin:     this.min,
-                yMax:     this.max,
-                xScale:   getComputedStyle(this)['--x-scale'],
-                yScale:   getComputedStyle(this)['--y-scale'],
-                events:   [],
-                element:  this,
-                viewbox:  [0, 0, 2, 2],
-                previous: previous
-            };
+            const pxbox    = rect(this);
+            const fontsize = px(getComputedStyle(this)['font-size']);
+
+            data.rangebox[0] = 0;
+            data.rangebox[2] = (pxbox.width / fontsize) / data.valuebox[2];
+            data.rangebox[1] = pxbox.height / fontsize
+            data.rangebox[3] = -pxbox.height / fontsize;
+
+            const gestureState = assign({ pxbox, previous, fontsize }, state);
 
             gesture
-            .scan(toCoordinates, context)
+            .scan(toCoordinates, gestureState)
             .each(handle);
 
-            return context;
+            return gestureState;
         })
         .each(noop);
     },
 
     connect: function(shadow) {
-        // Signal to literal renderer that we have entered the DOM
-        this[$literal].connect();
+        
     },
 
     load: function(shadow) {
+        // Signal to literal renderer that we have entered the DOM
+        this[$literal].connect();
+
         // CSS has loaded
+        const data     = this[$data];
+        const pxbox    = rect(this);
+        const fontsize = px(getComputedStyle(this)['font-size']);
+
+        data.rangebox[0] = 0;
+        data.rangebox[2] = (pxbox.width / fontsize) / data.valuebox[2];
+        data.rangebox[1] = (pxbox.height / fontsize) / data.valuebox[3];
+        data.rangebox[3] = -(pxbox.height / fontsize) / data.valuebox[3];
+
+        console.log('Rangebox', data.rangebox);
     }
 }, {/*
     type: {
@@ -305,6 +342,14 @@ export default element('xy-input', {
     min: {
         attribute: function(value) {
             this.min = value;
+        },
+
+        get: function() {
+            return this[$data].valuebox[1];
+        },
+
+        set: function(value) {
+            this[$data].valuebox[1] = parseFloat(value) || 0;
         }
     },
 
@@ -315,42 +360,18 @@ export default element('xy-input', {
     **/
     max: {
         attribute: function(value) {
-            this.max = value;
+            this.min = value;
+        },
+
+        get: function() {
+            return this[$data].valuebox[1] + this[$data].valuebox[3];
+        },
+
+        set: function(value) {
+            this[$data].valuebox[3] = (parseFloat(value) || 1) - this[$data].valuebox[1];
         }
     },
 
-    /**
-    law="linear"
-    Fader law. This is the name of a transform to be applied over the range 
-    of the fader travel. Possible values are:
-
-    - `"linear"`
-    - `"linear-logarithmic"`
-    - `"logarithmic"`
-    - `"quadratic"`
-    - `"cubic"`
-    **/
-/*
-    law: function(value) {
-        const privates = Privates(this);
-        const data     = privates.data;
-        const scope    = privates.scope;
-
-        data.law = value || 'linear';
-
-        if (data.ticksAttribute) {
-            data.ticks = createTicks(data, data.ticksAttribute);
-        }
-
-        if (data.step) {
-            data.steps = createSteps(data, value === 'ticks' ?
-                data.ticksAttribute || '' :
-                data.stepsAttribute );
-        }
-
-        scope.unitZero(invert(data.law, 0, data.min, data.max));
-    },
-*/
     /**
     unit=""
     The value's unit, if it has one. The output value and all ticks are 
@@ -418,33 +439,19 @@ export default element('xy-input', {
 
     value: {
         attribute: function(value) {
-            this.value = value;
+            const values = value.split(/\s*,?\s*/).map(parseFloat);
+            this[$data].values.length = 0;
+            values.reduce(toPairs, this[$data].values);
+            setFormValue(this[$state].internal, this[$state].formdata, this.name, this[$data].values);
         },
 
         get: function() {
-            const privates = Privates(this);
-            return privates.data.value;
+            return this[$data].values;
         },
 
-        set: function(value) {
-            const privates = Privates(this);
-            const data     = privates.data;
-
-            if (value === data.value) {
-                return;
-            }
-
-            if (typeof value === 'string') {
-                value = parseEnvelope(value);
-            }
-
-            // Force value array to contain at least one control point
-            // at [0,1] if it does not already have one at time 0
-            if (!value.length || value[0][0] !== 0) {
-                value.unshift([0, 1, 'step']);
-            }
-
-            data.value = Observer(value);
+        set: function(values) {
+            assign(this[$data].values, values);
+            setFormValue(this[$state].internal, this[$state].formdata, this.name, this[$data].values);
         },
 
         enumerable: true
