@@ -32,7 +32,7 @@
 
             $\{ data.yLines.map((line) => include(this.node.getRootNode().getElementById('y-line-def'), { rangebox: data.rangebox, valuebox: data.valuebox, line })) }
             $\{ data.xLines.map((line) => include(this.node.getRootNode().getElementById('x-line-def'), { rangebox: data.rangebox, valuebox: data.valuebox, line })) }
-            $\{ data.values.map((point, index) => include(this.node.getRootNode().getElementById('control-def'), { rangebox: data.rangebox, point, index })) }
+            $\{ data.points.map((point, index) => include(this.node.getRootNode().getElementById('control-def'), { rangebox: data.rangebox, point, index })) }
         </svg>
     </template>
 </head>

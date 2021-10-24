@@ -22,28 +22,22 @@ element and upgrades instances already in the DOM.
 **/
 
 import { clamp }   from '../../../fn/modules/clamp.js';
-import get         from '../../../fn/modules/get.js';
 import last        from '../../../fn/modules/last.js';
 import overload    from '../../../fn/modules/overload.js';
 import noop        from '../../../fn/modules/noop.js';
 
-import create      from '../../../dom/modules/create.js';
 import delegate    from '../../../dom/modules/delegate.js';
 import element     from '../../../dom/modules/element.js';
-import events      from '../../../dom/modules/events.js';
 import gestures    from '../../../dom/modules/gestures.js';
 import rect        from '../../../dom/modules/rect.js';
 import { trigger } from '../../../dom/modules/trigger.js';
-import Distributor from '../../../dom/modules/distributor.js';
 import { px, rem } from '../../../dom/modules/parse-length.js';
 
 import Literal, { Observer } from '../../../literal/module.js';
 
 const assign = Object.assign;
 
-const $data    = Symbol('xy-data');
-const $state   = Symbol('xy-state');
-const $literal = Symbol('xy-literal');
+const $state = Symbol('state');
 
 const maxTapDuration = 0.25;
 const maxDoubleTapDuration = 0.4;
@@ -210,13 +204,13 @@ const handle = delegate({
         'move': function(element, gesture) {
             const data = gesture.data;
 
-            data.values[element.dataset.index][0] = gesture.x ;
-            data.values[element.dataset.index][1] = gesture.y ;
+            data.points[element.dataset.index][0] = gesture.x ;
+            data.points[element.dataset.index][1] = gesture.y ;
 
             const host = gesture.host;
             if (last(gesture.events).type !== 'pointermove') {
                 // internal, formdata, name, value
-                setFormValue(gesture.internal, gesture.formdata, host.name, data.values);
+                setFormValue(gesture.internal, gesture.formdata, host.name, data.points);
                 trigger('change', host);
             }
             else {
@@ -253,37 +247,33 @@ export default element('xy-input', {
 
     construct: function(shadow, internal) {
         const literal = Literal('#xy-input-shadow');
-
+        const valuebox = [0, 1, 6, -1];
         const data = Observer({
             rangebox: [0, 1, 1, -1],
-            valuebox: [0, 1, 6, -1],
-            values:   [],
+            valuebox: valuebox,
+            points:   [],
+            xTicks:   [{ x: 0, label: "0" }, { x: 1, label: "1" }, { x: 2, label: "2" }, { x: 3, label: "3" }, { x: 4, label: "4" }],
+            yTicks:   [{ y: 0, label: "0" }, { y: 1, label: "1" }],
             xLines:   [{ x: 0 }, { x: 1 }, { x: 2 }, { x: 3 }, { x: 4 }, { x: 5 }],
             yLines:   [{ y: 0 }, { y: 0.2 }, { y: 0.4 }, { y: 0.6 }, { y: 0.8 }, { y: 1 }]
         });
 
-        const formdata = new FormData();
-
         literal.render(data).then(() => shadow.appendChild(literal.content));
 
-        const state = {
-            data:     data,
-            xScale:   getComputedStyle(this)['--x-scale'],
-            yScale:   getComputedStyle(this)['--y-scale'],
-            events:   [],
+        this[$state] = {
             host:     this,
+            data:     data,
+            //xScale:   getComputedStyle(this)['--x-scale'],
+            //yScale:   getComputedStyle(this)['--y-scale'],
             internal: internal,
-            formdata: formdata,
-            rangebox: data.rangebox,
-            valuebox: data.valuebox,
+            literal:  literal,
+            formdata: new FormData(),
+            /*rangebox: data.rangebox,*/
+            valuebox: valuebox,
             // An SVGRect with x, y, width and height props - TODO make other 
             // boxes look like this too
             viewbox:  literal.content.querySelector('svg').viewBox.baseVal
         };
-
-        this[$data]    = data;
-        this[$state]   = state;
-        this[$literal] = literal;
 
         gestures({ threshold: 0 }, shadow)
         .scan((previous, gesture) => {
@@ -295,13 +285,18 @@ export default element('xy-input', {
             data.rangebox[1] = pxbox.height / fontsize
             data.rangebox[3] = -pxbox.height / fontsize;
 
-            const gestureState = assign({ pxbox, previous, fontsize }, state);
+            const state = assign({
+                pxbox,
+                previous,
+                fontsize,
+                events: []
+            }, this[$state]);
 
             gesture
-            .scan(toCoordinates, gestureState)
+            .scan(toCoordinates, state)
             .each(handle);
 
-            return gestureState;
+            return state;
         })
         .each(noop);
     },
@@ -312,10 +307,10 @@ export default element('xy-input', {
 
     load: function(shadow) {
         // Signal to literal renderer that we have entered the DOM
-        this[$literal].connect();
+        this[$state].literal.connect();
 
         // CSS has loaded
-        const data     = this[$data];
+        const data     = this[$state].data;
         const pxbox    = rect(this);
         const fontsize = px(getComputedStyle(this)['font-size']);
 
@@ -345,11 +340,11 @@ export default element('xy-input', {
         },
 
         get: function() {
-            return this[$data].valuebox[1];
+            return this[$state].data.valuebox[1];
         },
 
         set: function(value) {
-            this[$data].valuebox[1] = parseFloat(value) || 0;
+            this[$state].data.valuebox[1] = parseFloat(value) || 0;
         }
     },
 
@@ -364,11 +359,11 @@ export default element('xy-input', {
         },
 
         get: function() {
-            return this[$data].valuebox[1] + this[$data].valuebox[3];
+            return this[$state].data.valuebox[1] + this[$state].data.valuebox[3];
         },
 
         set: function(value) {
-            this[$data].valuebox[3] = (parseFloat(value) || 1) - this[$data].valuebox[1];
+            this[$state].data.valuebox[3] = (parseFloat(value) || 1) - this[$state].data.valuebox[1];
         }
     },
 
@@ -382,7 +377,7 @@ export default element('xy-input', {
 
     unit: {
         attribute: function(value) {
-            this[$data].unit = value;
+            this[$state].data.unit = value;
         }
     },
 
@@ -399,7 +394,7 @@ export default element('xy-input', {
 
     ticks: {
         attribute: function(value) {
-            const data = this[$data];
+            const data = this[$state].data;
             data.ticksAttribute = value;
     
             // Create ticks
@@ -421,7 +416,7 @@ export default element('xy-input', {
     **/
     steps: {
         attribute: function(value) {
-            const data = this[$data];
+            const data = this[$state].data;
             data.stepsAttribute = value;
 
             // If steps is 'ticks' use ticks attribute as step value list
@@ -439,19 +434,22 @@ export default element('xy-input', {
 
     value: {
         attribute: function(value) {
-            const values = value.split(/\s*,?\s*/).map(parseFloat);
-            this[$data].values.length = 0;
-            values.reduce(toPairs, this[$data].values);
-            setFormValue(this[$state].internal, this[$state].formdata, this.name, this[$data].values);
+            const values = value.split(/\s*,\s*|\s+/).map(parseFloat);
+            const { data, internal, formdata } = this[$state];
+            data.points.length = 0;
+            values.reduce(toPairs, data.points);
+            setFormValue(internal, formdata, this.name, data.points);
         },
 
         get: function() {
-            return this[$data].values;
+            return this[$state].data.points;
         },
 
         set: function(values) {
-            assign(this[$data].values, values);
-            setFormValue(this[$state].internal, this[$state].formdata, this.name, this[$data].values);
+            const { data, internal, formdata } = this[$state];
+            // TODO: do a deep assign, and accept a flat array
+            assign(data.points, values);
+            setFormValue(internal, formdata, this.name, data.points);
         },
 
         enumerable: true
