@@ -78,13 +78,13 @@ Turn gesture positions into coordinates
 function getPaddingBox(element) {
     const box         = rect(element);
     const computed    = getComputedStyle(element);
-    const paddingLeft = px(computed.paddingLeft) || 0;
-    const paddingTop  = px(computed.paddingTop) || 0;
+    const paddingLeft = (px(computed.borderLeftWidth) || 0) + (px(computed.paddingLeft) || 0);
+    const paddingTop  = (px(computed.borderTopWidth) || 0) + (px(computed.paddingTop) || 0);
 
     box.x      = box.x + paddingLeft;
     box.y      = box.y + paddingTop;
-    box.width  = box.width  - paddingLeft - (px(computed.paddingRight) || 0);
-    box.height = box.height - paddingTop - (px(computed.paddingBottom) || 0);
+    box.width  = box.width  - paddingLeft - (px(computed.borderRightWidth) || 0) - (px(computed.paddingRight) || 0);
+    box.height = box.height - paddingTop - (px(computed.borderBottomWidth) || 0) - (px(computed.paddingBottom) || 0);
 
     return box;
 }
@@ -95,11 +95,11 @@ function setXY(e, data) {
     // New pixel position of control, compensating for initial
     // mousedown offset on the control
     const px = e.clientX - box.x - data.offset.x;
-    const py = e.clientY - box.y - data.offset.y;
+    const py = box.height - (e.clientY - box.y - data.offset.y);
 
     // Normalise to 0-1, allowing x position to extend beyond viewbox
     data.x = clamp(data.valuebox[0], data.valuebox[0] + data.valuebox[2], data.valuebox[0] + data.valuebox[2] * px / box.width);
-    data.y = clamp(data.valuebox[1] + data.valuebox[3], data.valuebox[1], data.valuebox[1] + data.valuebox[3] * py / box.height);
+    data.y = clamp(data.valuebox[1], data.valuebox[1] + data.valuebox[3], data.valuebox[1] + data.valuebox[3] * py / box.height);
 }
 
 const toCoordinates = overload((data, e) => e.type, {

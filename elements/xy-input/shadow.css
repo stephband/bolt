@@ -23,6 +23,8 @@
         0 -1px 1px hsla(192, 60%, 8%, 0.4);
 
     --handle-stroke-width: 1px;
+    
+    border-radius: 0.1875rem;
 }
 
 :host > svg {
