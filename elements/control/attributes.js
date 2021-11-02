@@ -99,11 +99,11 @@ export const attributes = {
     Fader law. This is the name of a transform to be applied over the range 
     of the fader travel. Possible values are:
 
-- `"linear"`
-- `"linear-logarithmic"`
-- `"logarithmic"`
-- `"quadratic"`
-- `"cubic"`
+    - `"linear"`
+    - `"linear-logarithmic"`
+    - `"logarithmic"`
+    - `"quadratic"`
+    - `"cubic"`
     **/
 
     law: function(value) {
@@ -130,8 +130,8 @@ export const attributes = {
     unit=""
     The value's unit, if it has one. The output value and all ticks are 
     displayed in this unit. Possible values are:
-- `"dB"` – `0-1` is displayed as `-∞dB` to `0dB`
-- `"Hz"`
+    - `"dB"` – `0-1` is displayed as `-∞dB` to `0dB`
+    - `"Hz"`
     **/
 
     unit: function(value) {
@@ -143,10 +143,10 @@ export const attributes = {
     A space separated list of values at which to display tick marks. Values
     may be listed with or without units, eg:
     
-```html
-ticks="0 0.2 0.4 0.6 0.8 1"
-ticks="-48dB -36dB -24dB -12dB 0dB"
-```
+    ```html
+    ticks="0 0.2 0.4 0.6 0.8 1"
+    ticks="-48dB -36dB -24dB -12dB 0dB"
+    ```
     **/
 
     ticks: function(value) {
@@ -169,8 +169,8 @@ ticks="-48dB -36dB -24dB -12dB 0dB"
     steps=""
     Steps is either:
 
-- A space separated list of values. As with `ticks`, values may be listed with or without units.
-- The string `"ticks"`. The values in the `ticks` attribute are used as steps.
+    - A space separated list of values. As with `ticks`, values may be listed with or without units.
+    - The string `"ticks"`. The values in the `ticks` attribute are used as steps.
     **/
 
     steps: function(value) {

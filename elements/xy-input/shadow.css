@@ -7,6 +7,8 @@
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 100%;
+    
+    padding: 0.5rem;
 
     /* Original soundio green */
     /*--value-color: #acb9b8;*/
@@ -38,8 +40,8 @@
     overflow: visible;
 }
 
-[part="x-line"],
-[part="y-line"] {
+[part="x-line line"],
+[part="y-line line"] {
     stroke: #cccccc;
 }
 

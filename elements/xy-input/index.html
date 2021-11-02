@@ -55,14 +55,31 @@
                     <stop class="stop-2" offset="100%"/>
                 </linearGradient>
 
-                <line part="x-line" x1="${ data.line.x * data.rangebox[2] }" x2="${ data.line.x * data.rangebox[2] }" y1="${ data.valuebox[1] * data.rangebox[3] }" y2="${ (data.valuebox[1] + data.valuebox[3]) * data.rangebox[3] }" id="x-line-def"></line>
-                <line part="y-line" x1="${ data.valuebox[0] * data.rangebox[2] }" x2="${ data.valuebox[2] * data.rangebox[2] }" y1="${ data.line.y * data.rangebox[3] }" y2="${ data.line.y * data.rangebox[3] }" id="y-line-def"></line>
-                <circle part="handle" class="control control-handle control-point" cx="${ data.point[0] * data.rangebox[2] }" cy="${ data.point[1] * data.rangebox[3] }" r="0.5" data-index="${ data.index }" id="control-def"></circle>
+                <line part="${ data.part }" x1="${ data.x1 }" x2="${ data.x2 }" y1="${ data.y1 }"  y2="${ data.y2 }" id="line-def"></line>
+                <circle part="handle" class="control control-handle control-point" cx="${ data.up.toViewX(data.point[0]) }" cy="${ data.up.toViewY(data.point[1]) }" r="0.5" data-index="${ data.index }" id="control-def"></circle>
             </defs>
 
-            ${ data.yLines.map((line) => include(this.node.getRootNode().getElementById('y-line-def'), { rangebox: data.rangebox, valuebox: data.valuebox, line })) }
-            ${ data.xLines.map((line) => include(this.node.getRootNode().getElementById('x-line-def'), { rangebox: data.rangebox, valuebox: data.valuebox, line })) }
-            ${ data.points.map((point, index) => include(this.node.getRootNode().getElementById('control-def'), { rangebox: data.rangebox, point, index })) }
+            ${ data.yLines.map((line) => include(this.node.getRootNode().getElementById('line-def'), {
+                part: 'y-line line',
+                x1: data.toViewX(data.valuebox[0]),
+                x2: data.toViewX(data.valuebox[0] + data.valuebox[2]),
+                y1: data.toViewY(line.y),
+                y2: data.toViewY(line.y)
+            })) }
+
+            ${ data.xLines.map((line) => include(this.node.getRootNode().getElementById('line-def'), {
+                part: 'x-line line',
+                x1: data.toViewX(line.x),
+                x2: data.toViewX(line.x),
+                y1: data.toViewY(data.valuebox[1]),
+                y2: data.toViewY(data.valuebox[1] + data.valuebox[3])
+            })) }
+
+            ${ data.points.map((point, index) => include(this.node.getRootNode().getElementById('control-def'), {
+                up: data,
+                point,
+                index
+            })) }
         </svg>
     </template>
 </head>
@@ -143,6 +160,23 @@ eg. <code>&quot;0dB&quot;</code>.</p>
 </div>
 
  
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-valuebox">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-valuebox">
+        <code class="token language-html">valuebox</code>
+    </a>
+</h3>
+
+<p>Defines an <code>&quot;x y width height&quot;</code> box to use as the range of values that 
+map to the padding box of the <code>&lt;xy-input&gt;</code>. The origin is at the 
+bottom and y increases upwards.</p>
+<p>Where not given, valuebox is internally set to the limits of <code>min</code> 
+and <code>max</code>. Most often this is what you want, and the valuebox attribute
+is safe to ignore.</p>
+
+</div>
+
+ 
 <div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-unit">
 <h3 class="attribute-doctext-05 doctext-05">
     <a href="#attribute-unit">
@@ -191,6 +225,29 @@ ticks=&quot;-48dB -36dB -24dB -12dB 0dB&quot;</code></pre>
 </div>
 
  
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-scale">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-scale">
+        <code class="token language-html">scale</code>
+    </a>
+</h3>
+
+<p>Scale on the y axis. This is the name of a transform to be applied over the 
+y range of the fader travel. Possible values are:</p>
+<ul>
+<li><code>&quot;linear&quot;</code></li>
+<li><code>&quot;db-linear-24&quot;</code></li>
+<li><code>&quot;db-linear-48&quot;</code></li>
+<li><code>&quot;db-linear-60&quot;</code></li>
+<li><code>&quot;db-linear-96&quot;</code></li>
+<li><code>&quot;logarithmic&quot;</code></li>
+<li><code>&quot;quadratic&quot;</code></li>
+<li><code>&quot;cubic&quot;</code></li>
+</ul>
+
+</div>
+
+ 
 <div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-value">
 <h3 class="attribute-doctext-05 doctext-05">
     <a href="#attribute-value">
@@ -198,7 +255,7 @@ ticks=&quot;-48dB -36dB -24dB -12dB 0dB&quot;</code></pre>
     </a>
 </h3>
 
-<p>The initial value of the fader.</p>
+<p>The initial value of the element.</p>
 
 </div>
 
@@ -209,12 +266,74 @@ ticks=&quot;-48dB -36dB -24dB -12dB 0dB&quot;</code></pre>
     
 
     
+    <h3 class="doctext-03">Properties</h3>
+    
+<div class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property|selector-min">
+<h3 class="property-doctext-05 doctext-05">
+    <a href="#property|selector-min">
+        <code class="property language-js">.min</code>
+    </a>
+</h3>
+
+<p>Value at lower limit of fader. Can interpret values with recognised units,
+eg. <code>&quot;0dB&quot;</code>.</p>
+
+</div>
+
+ 
+<div class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property|selector-max">
+<h3 class="property-doctext-05 doctext-05">
+    <a href="#property|selector-max">
+        <code class="property language-js">.max</code>
+    </a>
+</h3>
+
+<p>Value at upper limit of fader. Can interpret values with recognised units,
+eg. <code>&quot;0dB&quot;</code>.</p>
+
+</div>
+
+ 
+<div class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property|selector-value">
+<h3 class="property-doctext-05 doctext-05">
+    <a href="#property|selector-value">
+        <code class="property language-js">.value</code>
+    </a>
+</h3>
+
+<p>The value of the element.</p>
+
+</div>
+
+ 
     
     
+    <h3 class="doctext-03">Events</h3>
     
-    
-    
-    
+<div class="string-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="string-input">
+<h3 class="string-doctext-05 doctext-05">
+    <a href="#string-input">
+        <code class=" language-js">"input"</code>
+    </a>
+</h3>
+
+<p>Event sent when one of the handles moves.</p>
+
+</div>
+
+ 
+<div class="string-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="string-change">
+<h3 class="string-doctext-05 doctext-05">
+    <a href="#string-change">
+        <code class=" language-js">"change"</code>
+    </a>
+</h3>
+
+<p>Event sent on conclusion of a move (and after formdata is updated).</p>
+
+</div>
+
+ 
 </div>
 
 <div class="x1 3x @1-x5 @1-2x @2-x6 x-stretch y-start">

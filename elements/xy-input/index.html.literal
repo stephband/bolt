@@ -25,14 +25,31 @@
                     <stop class="stop-2" offset="100%"/>
                 </linearGradient>
 
-                <line part="x-line" x1="$\{ data.line.x * data.rangebox[2] }" x2="$\{ data.line.x * data.rangebox[2] }" y1="$\{ data.valuebox[1] * data.rangebox[3] }" y2="$\{ (data.valuebox[1] + data.valuebox[3]) * data.rangebox[3] }" id="x-line-def"></line>
-                <line part="y-line" x1="$\{ data.valuebox[0] * data.rangebox[2] }" x2="$\{ data.valuebox[2] * data.rangebox[2] }" y1="$\{ data.line.y * data.rangebox[3] }" y2="$\{ data.line.y * data.rangebox[3] }" id="y-line-def"></line>
-                <circle part="handle" class="control control-handle control-point" cx="$\{ data.point[0] * data.rangebox[2] }" cy="$\{ data.point[1] * data.rangebox[3] }" r="0.5" data-index="$\{ data.index }" id="control-def"></circle>
+                <line part="$\{ data.part }" x1="$\{ data.x1 }" x2="$\{ data.x2 }" y1="$\{ data.y1 }"  y2="$\{ data.y2 }" id="line-def"></line>
+                <circle part="handle" class="control control-handle control-point" cx="$\{ data.up.toViewX(data.point[0]) }" cy="$\{ data.up.toViewY(data.point[1]) }" r="0.5" data-index="$\{ data.index }" id="control-def"></circle>
             </defs>
 
-            $\{ data.yLines.map((line) => include(this.node.getRootNode().getElementById('y-line-def'), { rangebox: data.rangebox, valuebox: data.valuebox, line })) }
-            $\{ data.xLines.map((line) => include(this.node.getRootNode().getElementById('x-line-def'), { rangebox: data.rangebox, valuebox: data.valuebox, line })) }
-            $\{ data.points.map((point, index) => include(this.node.getRootNode().getElementById('control-def'), { rangebox: data.rangebox, point, index })) }
+            $\{ data.yLines.map((line) => include(this.node.getRootNode().getElementById('line-def'), {
+                part: 'y-line line',
+                x1: data.toViewX(data.valuebox[0]),
+                x2: data.toViewX(data.valuebox[0] + data.valuebox[2]),
+                y1: data.toViewY(line.y),
+                y2: data.toViewY(line.y)
+            })) }
+
+            $\{ data.xLines.map((line) => include(this.node.getRootNode().getElementById('line-def'), {
+                part: 'x-line line',
+                x1: data.toViewX(line.x),
+                x2: data.toViewX(line.x),
+                y1: data.toViewY(data.valuebox[1]),
+                y2: data.toViewY(data.valuebox[1] + data.valuebox[3])
+            })) }
+
+            $\{ data.points.map((point, index) => include(this.node.getRootNode().getElementById('control-def'), {
+                up: data,
+                point,
+                index
+            })) }
         </svg>
     </template>
 </head>

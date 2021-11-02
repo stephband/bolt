@@ -185,12 +185,12 @@ export function evaluate(string) {
     if (number || number === 0) { return number; }
 
     const tokens = /^(-?[\d.]+)(?:(dB|bpm)|(m|k)?(\w+))$/.exec(string);
-    if (!tokens) { return 0 };
+    if (!tokens) { return 0; }
 
     const value = parseFloat(tokens[1]) ;
 
     return tokens[2] === 'dB' ? toLevel(value) :
-        // BPM to rate in beats per second
+        // BPM to `rate` in beats per second
         tokens[2] === 'bpm' ? value / 60 :
         // milli-
         tokens[3] === 'm' ? value / 1000 :

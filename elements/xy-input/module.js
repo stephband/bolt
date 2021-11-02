@@ -25,6 +25,7 @@ import { clamp }   from '../../../fn/modules/clamp.js';
 import last        from '../../../fn/modules/last.js';
 import overload    from '../../../fn/modules/overload.js';
 import noop        from '../../../fn/modules/noop.js';
+import { Observer, notify, getTarget } from '../../../fn/observer/observer.js';
 
 import delegate    from '../../../dom/modules/delegate.js';
 import element     from '../../../dom/modules/element.js';
@@ -33,7 +34,7 @@ import rect        from '../../../dom/modules/rect.js';
 import { trigger } from '../../../dom/modules/trigger.js';
 import { px, rem } from '../../../dom/modules/parse-length.js';
 
-import Literal, { Observer } from '../../../literal/module.js';
+import Literal     from '../../../literal/module.js';
 
 const assign = Object.assign;
 
@@ -61,18 +62,40 @@ function toPairs(acc, value) {
 }
 
 
+function dbLinear60(min, max, value) {
+    // The bottom 1/9th of the range is linear from 0 to min, while
+    // the top 8/9ths is dB linear from min to max.
+    return value <= 0.0009765625 ?
+        value * 9 * min :
+        min * Math.pow(max / min, (value - 0.0009765625) * 1.125);
+}
+
 /*
 toCoordinates()
 Turn gesture positions into coordinates
 */
+
+function getPaddingBox(element) {
+    const box         = rect(element);
+    const computed    = getComputedStyle(element);
+    const paddingLeft = px(computed.paddingLeft) || 0;
+    const paddingTop  = px(computed.paddingTop) || 0;
+
+    box.x      = box.x + paddingLeft;
+    box.y      = box.y + paddingTop;
+    box.width  = box.width  - paddingLeft - (px(computed.paddingRight) || 0);
+    box.height = box.height - paddingTop - (px(computed.paddingBottom) || 0);
+
+    return box;
+}
 
 function setXY(e, data) {
     const box = data.pxbox;
 
     // New pixel position of control, compensating for initial
     // mousedown offset on the control
-    const px = e.clientX - box.left - data.offset.x;
-    const py = e.clientY - box.top - data.offset.y;
+    const px = e.clientX - box.x - data.offset.x;
+    const py = e.clientY - box.y - data.offset.y;
 
     // Normalise to 0-1, allowing x position to extend beyond viewbox
     data.x = clamp(data.valuebox[0], data.valuebox[0] + data.valuebox[2], data.valuebox[0] + data.valuebox[2] * px / box.width);
@@ -101,8 +124,8 @@ const toCoordinates = overload((data, e) => e.type, {
             y: 0
         } : {
             // Target is an object in the SVG
-            x: e.clientX - (controlBox.left + controlBox.width / 2),
-            y: e.clientY - (controlBox.top + controlBox.height / 2)
+            x: e.clientX - (controlBox.x + controlBox.width / 2),
+            y: e.clientY - (controlBox.y + controlBox.height / 2)
         } ;
 
         data.events.length = 0;
@@ -246,16 +269,28 @@ export default element('xy-input', {
         import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/') + 'shadow.css',
 
     construct: function(shadow, internal) {
-        const literal = Literal('#xy-input-shadow');
-        const valuebox = [0, 1, 6, -1];
+        const literal  = Literal('#xy-input-shadow');
+        const valuebox = [0, 0, 6, 1]; /*{ x: 0, y: 0, width: 6, height: 1 }*/
         const data = Observer({
+            min:      0,
+            max:      1,
             rangebox: [0, 1, 1, -1],
             valuebox: valuebox,
             points:   [],
             xTicks:   [{ x: 0, label: "0" }, { x: 1, label: "1" }, { x: 2, label: "2" }, { x: 3, label: "3" }, { x: 4, label: "4" }],
             yTicks:   [{ y: 0, label: "0" }, { y: 1, label: "1" }],
             xLines:   [{ x: 0 }, { x: 1 }, { x: 2 }, { x: 3 }, { x: 4 }, { x: 5 }],
-            yLines:   [{ y: 0 }, { y: 0.2 }, { y: 0.4 }, { y: 0.6 }, { y: 0.8 }, { y: 1 }]
+            yLines:   [{ y: 0 }, { y: 0.2 }, { y: 0.4 }, { y: 0.6 }, { y: 0.8 }, { y: 1 }],
+
+            toViewX:  function(x) {
+                const ratio = (x - this.valuebox[0]) / this.valuebox[2];
+                return ratio * this.rangebox[2] + this.rangebox[0];
+            },
+
+            toViewY:  function(y) {
+                const ratio = (y - this.valuebox[1]) / this.valuebox[3];
+                return ratio * this.rangebox[3] + this.rangebox[1];
+            }
         });
 
         literal.render(data).then(() => shadow.appendChild(literal.content));
@@ -277,14 +312,14 @@ export default element('xy-input', {
 
         gestures({ threshold: 0 }, shadow)
         .scan((previous, gesture) => {
-            const pxbox    = rect(this);
+            const pxbox    = getPaddingBox(this);
             const fontsize = px(getComputedStyle(this)['font-size']);
 
             data.rangebox[0] = 0;
-            data.rangebox[2] = (pxbox.width / fontsize) / data.valuebox[2];
-            data.rangebox[1] = pxbox.height / fontsize
+            data.rangebox[2] = pxbox.width / fontsize;
+            data.rangebox[1] = 0;
             data.rangebox[3] = -pxbox.height / fontsize;
-
+console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
             const state = assign({
                 pxbox,
                 previous,
@@ -311,15 +346,15 @@ export default element('xy-input', {
 
         // CSS has loaded
         const data     = this[$state].data;
-        const pxbox    = rect(this);
+        const pxbox    = getPaddingBox(this);
         const fontsize = px(getComputedStyle(this)['font-size']);
 
         data.rangebox[0] = 0;
-        data.rangebox[2] = (pxbox.width / fontsize) / data.valuebox[2];
-        data.rangebox[1] = (pxbox.height / fontsize) / data.valuebox[3];
-        data.rangebox[3] = -(pxbox.height / fontsize) / data.valuebox[3];
+        data.rangebox[2] = pxbox.width / fontsize;
+        data.rangebox[1] = 0;
+        data.rangebox[3] = -pxbox.height / fontsize;
 
-        console.log('Rangebox', data.rangebox);
+        console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
     }
 }, {/*
     type: {
@@ -329,76 +364,144 @@ export default element('xy-input', {
 
     // Remember attributers are setup in this declared order
 
-    /**
-    min="0"
-    Value at lower limit of fader. Can interpret values with recognised units,
-    eg. `"0dB"`.
-    **/
     min: {
+        /**
+        min="0"
+        Value at lower limit of fader. Can interpret values with recognised units,
+        eg. `"0dB"`.
+        **/
+
         attribute: function(value) {
             this.min = value;
         },
 
+        /**
+        .min
+        Value at lower limit of fader. Can interpret values with recognised units,
+        eg. `"0dB"`.
+        **/
+
         get: function() {
-            return this[$state].data.valuebox[1];
+            return this[$state].data.min;
         },
 
         set: function(value) {
-            this[$state].data.valuebox[1] = parseFloat(value) || 0;
+            const min  = parseFloat(value) || 0;
+            const data = getTarget(this[$state].data);
+
+            if (min === data.min) { return; }
+
+            data.min = min;
+            const isValueboxAttribute = this.getAttribute('valuebox');
+
+            if (!isValueboxAttribute) {
+                data.valuebox[1] = min;
+                data.valuebox[3] = data.max - data.valuebox[1];
+            }
+
+            notify('min', data);
+            
+            if (!isValueboxAttribute) {
+                notify('valuebox.1', data);
+                notify('valuebox.3', data);
+            }
         }
     },
 
-    /**
-    max="1"
-    Value at upper limit of fader. Can interpret values with recognised units,
-    eg. `"0dB"`.
-    **/
     max: {
+        /**
+        max="1"
+        Value at upper limit of fader. Can interpret values with recognised units,
+        eg. `"0dB"`.
+        **/
+
         attribute: function(value) {
-            this.min = value;
+            this.max = value;
         },
 
+        /**
+        .max
+        Value at upper limit of fader. Can interpret values with recognised units,
+        eg. `"0dB"`.
+        **/
+
         get: function() {
-            return this[$state].data.valuebox[1] + this[$state].data.valuebox[3];
+            return this[$state].data.max;
         },
 
         set: function(value) {
-            this[$state].data.valuebox[3] = (parseFloat(value) || 1) - this[$state].data.valuebox[1];
+            let max = parseFloat(value);
+
+            if (Number.isNaN(max)) {
+                if (window.DEBUG) {
+                    throw new Error('Invalid value max = ' + value + ' set on <xy-input>');
+                }
+
+                max = 1;
+            }
+
+            const data = getTarget(this[$state].data);
+
+            if (max === data.max) { return; }
+
+            data.max = max;
+
+            const isValueboxAttribute = this.getAttribute('valuebox');
+            !isValueboxAttribute && (data.valuebox[3] = max - data.valuebox[1]);
+            notify('max', data);
+            !isValueboxAttribute && notify('valuebox.3', data);
         }
     },
 
-    /**
-    unit=""
-    The value's unit, if it has one. The output value and all ticks are 
-    displayed in this unit. Possible values are:
-    - `"dB"` – `0-1` is displayed as `-∞dB` to `0dB`
-    - `"Hz"`
-    **/
+    valuebox: {
+        /** 
+        valuebox=""
+        Defines an `"x y width height"` box to use as the range of values that 
+        map to the padding box of the `<xy-input>`. The origin is at the 
+        bottom and y increases upwards.
+
+        Where not given, valuebox is internally set to the limits of `min` 
+        and `max`. Most often this is what you want, and the valuebox attribute
+        is safe to ignore.
+        **/
+
+        attribute: function(value) {
+            // TODO: parse valuebox
+        }
+    },
 
     unit: {
+        /**
+        unit=""
+        The value's unit, if it has one. The output value and all ticks are 
+        displayed in this unit. Possible values are:
+        - `"dB"` – `0-1` is displayed as `-∞dB` to `0dB`
+        - `"Hz"`
+        **/
+
         attribute: function(value) {
             this[$state].data.unit = value;
         }
     },
 
-    /**
-    ticks=""
-    A space separated list of values at which to display tick marks. Values
-    may be listed with or without units, eg:
-    
-    ```html
-    ticks="0 0.2 0.4 0.6 0.8 1"
-    ticks="-48dB -36dB -24dB -12dB 0dB"
-    ```
-    **/
-
     ticks: {
+        /**
+        ticks=""
+        A space separated list of values at which to display tick marks. Values
+        may be listed with or without units, eg:
+        
+        ```html
+        ticks="0 0.2 0.4 0.6 0.8 1"
+        ticks="-48dB -36dB -24dB -12dB 0dB"
+        ```
+        **/
+
         attribute: function(value) {
             const data = this[$state].data;
             data.ticksAttribute = value;
     
             // Create ticks
-            scope.ticks(createTicks(data, value));
+            //scope.ticks(createTicks(data, value));
     
             // If step is 'ticks' update steps
             if (data.stepsAttribute === 'ticks') {
@@ -407,14 +510,15 @@ export default element('xy-input', {
         },
     },
 
-    /**
-    steps=""
-    Steps is either:
-
-    - A space separated list of values. As with `ticks`, values may be listed with or without units.
-    - The string `"ticks"`. The values in the `ticks` attribute are used as steps.
-    **/
     steps: {
+        /**
+        steps=""
+        Steps is either:
+    
+        - A space separated list of values. As with `ticks`, values may be listed with or without units.
+        - The string `"ticks"`. The values in the `ticks` attribute are used as steps.
+        **/
+
         attribute: function(value) {
             const data = this[$state].data;
             data.stepsAttribute = value;
@@ -427,12 +531,54 @@ export default element('xy-input', {
         }
     },
 
-    /**
-    value=""
-    The initial value of the fader.
-    **/
+    scale: {
+        /**
+        scale=""
+        Scale on the y axis. This is the name of a transform to be applied over the 
+        y range of the fader travel. Possible values are:
+    
+        - `"linear"`
+        - `"db-linear-24"`
+        - `"db-linear-48"`
+        - `"db-linear-60"`
+        - `"db-linear-96"`
+        - `"logarithmic"`
+        - `"quadratic"`
+        - `"cubic"`
+        **/
 
-    value: {
+        attribute: function(value) {
+            const data = this[$state].data;
+            data.scale = value;
+
+            /*
+            data.transformY = value === 'db-linear-96' ? dbLinear96 :
+                value === 'db-linear-60' ? dbLinear60 :
+                value === 'db-linear-48' ? dbLinear48 :
+                value === 'linear' ? id :
+                id ;
+            */
+
+            /*
+            if (data.ticksAttribute) {
+                data.ticks = createTicks(data, data.ticksAttribute);
+            }
+    
+            if (data.step) {
+                data.steps = createSteps(data, value === 'ticks' ?
+                    data.ticksAttribute || '' :
+                    data.stepsAttribute );
+            }
+            */
+        }
+    },
+
+    value: {        
+        /**
+        value=""
+        The initial value of the element.
+        **/
+
         attribute: function(value) {
             const values = value.split(/\s*,\s*|\s+/).map(parseFloat);
             const { data, internal, formdata } = this[$state];
@@ -440,6 +586,11 @@ export default element('xy-input', {
             values.reduce(toPairs, data.points);
             setFormValue(internal, formdata, this.name, data.points);
         },
+
+        /**
+        .value
+        The value of the element.
+        **/
 
         get: function() {
             return this[$state].data.points;
@@ -454,4 +605,14 @@ export default element('xy-input', {
 
         enumerable: true
     }
+
+    /** 
+    "input"
+    Event sent when one of the handles moves.
+    **/
+
+    /** 
+    "change"
+    Event sent on conclusion of a move (and after formdata is updated).
+    **/
 });
