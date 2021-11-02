@@ -8,7 +8,7 @@
     grid-template-columns: 100%;
     grid-template-rows: 100%;
     
-    padding: 0.5rem;
+    padding: 0.375rem;
 
     /* Original soundio green */
     /*--value-color: #acb9b8;*/
@@ -24,6 +24,7 @@
 
     --handle-stroke-width: 1px;
     
+    min-height: 7.5rem;
     border-radius: 0.1875rem;
 }
 
