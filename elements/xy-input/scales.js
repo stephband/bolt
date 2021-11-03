@@ -89,5 +89,19 @@ export const scales = {
                 value * dB96 / 0.08 :
                 Math.pow(10, (96 * ((value - 1) / 0.92) / 20)) ;
         }
+    },
+    
+    'linear-log-20': {
+        to: function log20(value) {
+            return value < 20 ?
+                0.08 * value / 20 :
+                1 + 0.92 * Math.log(value) ;
+        },
+
+        from: function(value) {
+            return value < 0.08 ?
+                value * dB96 / 0.08 :
+                Math.pow(10, (96 * ((value - 1) / 0.92) / 20)) ;
+        }
     }
 };

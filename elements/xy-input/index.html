@@ -73,8 +73,8 @@
 
             ${ data.yLines.map((line) => include(this.node.getRootNode().getElementById('line-def'), {
                 part: 'y-line line',
-                x1: data.toViewX(data.valuebox[0]),
-                x2: data.toViewX(data.valuebox[0] + data.valuebox[2]),
+                x1: data.toViewX(data.valuebox.x),
+                x2: data.toViewX(data.valuebox.x + data.valuebox.width),
                 y1: data.toViewY(line.y),
                 y2: data.toViewY(line.y)
             })) }
@@ -83,8 +83,8 @@
                 part: 'x-line line',
                 x1: data.toViewX(line.x),
                 x2: data.toViewX(line.x),
-                y1: data.toViewY(data.valuebox[1]),
-                y2: data.toViewY(data.valuebox[1] + data.valuebox[3])
+                y1: data.toViewY(data.valuebox.y),
+                y2: data.toViewY(data.valuebox.y + data.valuebox.height)
             })) }
 
             ${ data.points.map((point, index) => include(this.node.getRootNode().getElementById('control-def'), {
@@ -257,6 +257,19 @@ y range of the fader travel. Possible values are:</p>
 <li><code>&quot;quadratic&quot;</code></li>
 <li><code>&quot;cubic&quot;</code></li>
 </ul>
+
+</div>
+
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-sequential">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-sequential">
+        <code class="token language-html">sequential</code>
+    </a>
+</h3>
+
+<p>Boolean attribute. When set, data points may not overlap their 
+neighbours, keeping the order of points on the x axis constant.</p>
 
 </div>
 

@@ -29,6 +29,7 @@ import { Observer, notify, getTarget } from '../../../fn/observer/observer.js';
 
 import delegate    from '../../../dom/modules/delegate.js';
 import element     from '../../../dom/modules/element.js';
+import events      from '../../../dom/modules/events.js';
 import gestures    from '../../../dom/modules/gestures.js';
 import rect        from '../../../dom/modules/rect.js';
 import { trigger } from '../../../dom/modules/trigger.js';
@@ -36,7 +37,6 @@ import { px, rem } from '../../../dom/modules/parse-length.js';
 
 import Literal     from '../../../literal/module.js';
 
-import { dB6, dB24, dB30, dB48, dB54, dB60, dB96 } from './constants.js';
 import { scales } from './scales.js';
 import Data from './data.js';
 
@@ -96,8 +96,8 @@ function setXY(e, data) {
     const py = box.height - (e.clientY - box.y - data.offset.y);
 
     // Normalise to 0-1, allowing x position to extend beyond viewbox
-    data.x = clamp(valuebox[0], valuebox[0] + valuebox[2], data.data.toValueX(valuebox[0] + valuebox[2] * px / box.width));
-    data.y = clamp(valuebox[1], valuebox[1] + valuebox[3], data.data.toValueY(valuebox[1] + valuebox[3] * py / box.height));
+    data.x = clamp(valuebox.x, valuebox.x + valuebox.width, data.data.toValueX(valuebox.x + valuebox.width * px / box.width));
+    data.y = clamp(valuebox.y, valuebox.y + valuebox.height, data.data.toValueY(valuebox.y + valuebox.height * py / box.height));
 }
 
 const toCoordinates = overload((data, e) => e.type, {
@@ -263,6 +263,17 @@ const handle = delegate({
 });
 
 
+function updateViewbox(element, data) {
+    const observer = Observer(data);
+    const pxbox    = getPaddingBox(element);
+    const fontsize = px(getComputedStyle(element)['font-size']);
+
+    observer.rangebox[0] = 0;
+    observer.rangebox[2] = pxbox.width / fontsize;
+    observer.rangebox[1] = 0;
+    observer.rangebox[3] = -pxbox.height / fontsize;
+}
+
 
 export default element('xy-input', {
     stylesheet: 
@@ -310,6 +321,8 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
             return state;
         })
         .each(noop);
+        
+        events('resize', window).each((e) => updateViewbox(this, data));
     },
 
     connect: function(shadow) {
@@ -321,14 +334,7 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
         this[$state].literal.connect();
 
         // CSS has loaded
-        const data     = Observer(this[$state].data);
-        const pxbox    = getPaddingBox(this);
-        const fontsize = px(getComputedStyle(this)['font-size']);
-
-        data.rangebox[0] = 0;
-        data.rangebox[2] = pxbox.width / fontsize;
-        data.rangebox[1] = 0;
-        data.rangebox[3] = -pxbox.height / fontsize;
+        updateViewbox(this, this[$state].data);
     }
 }, {/*
     type: {
@@ -369,15 +375,15 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
             const isValueboxAttribute = this.getAttribute('valuebox');
 
             if (!isValueboxAttribute) {
-                data.valuebox[1] = min;
-                data.valuebox[3] = data.max - data.valuebox[1];
+                data.valuebox.y = min;
+                data.valuebox.height = data.max - data.valuebox.y;
             }
 
             notify('min', data);
             
             if (!isValueboxAttribute) {
-                notify('valuebox.1', data);
-                notify('valuebox.3', data);
+                notify('valuebox.y', data);
+                notify('valuebox.height', data);
             }
         }
     },
@@ -421,9 +427,9 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
             data.max = max;
 
             const isValueboxAttribute = this.getAttribute('valuebox');
-            !isValueboxAttribute && (data.valuebox[3] = max - data.valuebox[1]);
+            !isValueboxAttribute && (data.valuebox.height = max - data.valuebox.y);
             notify('max', data);
-            !isValueboxAttribute && notify('valuebox.3', data);
+            !isValueboxAttribute && notify('valuebox.height', data);
         }
     },
 
@@ -549,6 +555,17 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
                     data.stepsAttribute );
             }
             */
+        }
+    },
+
+    sequential: {
+        /** 
+        sequential=""
+        Boolean attribute. When set, data points may not overlap their 
+        neighbours, keeping the order of points on the x axis constant.
+        **/
+        attribute: function(value) {
+            this[$state].data.sequential = value !== null;
         }
     },
 

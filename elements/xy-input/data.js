@@ -17,7 +17,7 @@ export default function Data() {
 
     this.points =   [];
     this.rangebox = [0, 1, 1, -1];
-    this.valuebox = [0, 0, 1, 1];
+    this.valuebox = { x: 0, y: 0, width: 1, height: 1 };
     this.xTicks =   [{ x: 0, label: "0" }, { x: 0.2, label: "0.2" }, { x: 0.4, label: "0.4" }, { x: 0.6, label: "0.6" }, { x: 0.8, label: "0.8" }, { x: 1, label: "1" }];
     this.yTicks =   [{ y: 0, label: "0" }, { y: 0.2, label: "0.2" }, { y: 0.4, label: "0.4" }, { y: 0.6, label: "0.6" }, { y: 0.8, label: "0.8" }, { y: 1, label: "1" }];
     //this.yTicks =   [{ y: 0, label: '-∞' }, { y: dB60, label: '-60' }, { y: dB54, label: '-54' }, { y: dB48, label: '-48' }, { y: 0.0078125, label: '-42' }, { y: 0.015625, label: '-36' }, { y: dB30, label: '-30' }, { y: dB24, label: '-24' }, { y: 0.125, label: '-18' }, { y: 0.25, label: '-12' }, { y: dB6, label: '-6' }, { y: 1, label: '0dB' }],
@@ -29,23 +29,23 @@ export default function Data() {
 assign(Data.prototype, {
     toViewX:  function(x) {
         const data  = this;
-        const ratio = scales[data.xScale].to((x - data.valuebox[0]) / data.valuebox[2]);
+        const ratio = scales[data.xScale].to((x - data.valuebox.x) / data.valuebox.width);
         return ratio * data.rangebox[2] + data.rangebox[0];
     },
 
     toViewY:  function(y) {
         const data  = this;
-        const ratio = scales[data.yScale].to((y - data.valuebox[1]) / data.valuebox[3]);
+        const ratio = scales[data.yScale].to((y - data.valuebox.y) / data.valuebox.height);
         return ratio * data.rangebox[3] + data.rangebox[1];
     },
 
     toValueX:  function(x) {
         const ratio = scales[this.xScale].from(x);
-        return ratio * this.valuebox[2] + this.valuebox[0];
+        return ratio * this.valuebox.width + this.valuebox.x;
     },
 
     toValueY:  function(y) {
         const ratio = scales[this.yScale].from(y);
-        return ratio * this.valuebox[3] + this.valuebox[1];
+        return ratio * this.valuebox.height + this.valuebox.y;
     }
 });
