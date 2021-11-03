@@ -42,8 +42,20 @@
 
 
     <style></style>
-    
+
     <template id="xy-input-shadow">
+        <template id="x-tick">
+            <label part="x-tick tick" style="transform: translate(calc(${ data.up.toViewX(data.tick.x) }em - 50%), 1.75em);">
+                <span>${ data.tick.label }</span>
+            </label>
+        </template>
+
+        <template id="y-tick">
+            <label part="y-tick tick" style="transform: translate(-2.75em, calc(${ data.up.toViewY(data.tick.y) }em + 50%));">
+                <span>${ data.tick.label }</span>
+            </label>
+        </template>
+
         <label>
             <slot></slot>
         </label>
@@ -81,6 +93,9 @@
                 index
             })) }
         </svg>
+
+        ${ data.xTicks.map((tick, index) => include(this.node.getRootNode().getElementById('x-tick'), { up: data, tick })) }
+        ${ data.yTicks.map((tick, index) => include(this.node.getRootNode().getElementById('y-tick'), { up: data, tick })) }
     </template>
 </head>
 
@@ -101,7 +116,6 @@ element and upgrades instances already in the DOM.</p>
     <span class="token selector">xy-input</span> <span class="token punctuation">{</span>
         <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
         <span class="token property">height</span><span class="token punctuation">:</span> 5rem<span class="token punctuation">;</span>
-        <span class="token property">background-color</span><span class="token punctuation">:</span> #eeeeee<span class="token punctuation">;</span>
         <span class="token property">--x-size</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
         <span class="token property">--y-size</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -119,7 +133,6 @@ element and upgrades instances already in the DOM.</p>
     xy-input {
         width: 100%;
         height: 5rem;
-        background-color: #eeeeee;
         --x-size: 1rem;
         --y-size: 1rem;
     }

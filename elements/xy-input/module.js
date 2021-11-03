@@ -11,7 +11,6 @@ element and upgrades instances already in the DOM.
     xy-input {
         width: 100%;
         height: 5rem;
-        background-color: #eeeeee;
         --x-size: 1rem;
         --y-size: 1rem;
     }
@@ -22,6 +21,7 @@ element and upgrades instances already in the DOM.
 **/
 
 import { clamp }   from '../../../fn/modules/clamp.js';
+import id          from '../../../fn/modules/id.js';
 import last        from '../../../fn/modules/last.js';
 import overload    from '../../../fn/modules/overload.js';
 import noop        from '../../../fn/modules/noop.js';
@@ -35,6 +35,10 @@ import { trigger } from '../../../dom/modules/trigger.js';
 import { px, rem } from '../../../dom/modules/parse-length.js';
 
 import Literal     from '../../../literal/module.js';
+
+import { dB6, dB24, dB30, dB48, dB54, dB60, dB96 } from './constants.js';
+import { scales } from './scales.js';
+import Data from './data.js';
 
 const assign = Object.assign;
 
@@ -62,13 +66,6 @@ function toPairs(acc, value) {
 }
 
 
-function dbLinear60(min, max, value) {
-    // The bottom 1/9th of the range is linear from 0 to min, while
-    // the top 8/9ths is dB linear from min to max.
-    return value <= 0.0009765625 ?
-        value * 9 * min :
-        min * Math.pow(max / min, (value - 0.0009765625) * 1.125);
-}
 
 /*
 toCoordinates()
@@ -90,7 +87,8 @@ function getPaddingBox(element) {
 }
 
 function setXY(e, data) {
-    const box = data.pxbox;
+    const box      = data.pxbox;
+    const valuebox = data.data.valuebox;
 
     // New pixel position of control, compensating for initial
     // mousedown offset on the control
@@ -98,8 +96,8 @@ function setXY(e, data) {
     const py = box.height - (e.clientY - box.y - data.offset.y);
 
     // Normalise to 0-1, allowing x position to extend beyond viewbox
-    data.x = clamp(data.valuebox[0], data.valuebox[0] + data.valuebox[2], data.valuebox[0] + data.valuebox[2] * px / box.width);
-    data.y = clamp(data.valuebox[1], data.valuebox[1] + data.valuebox[3], data.valuebox[1] + data.valuebox[3] * py / box.height);
+    data.x = clamp(valuebox[0], valuebox[0] + valuebox[2], data.data.toValueX(valuebox[0] + valuebox[2] * px / box.width));
+    data.y = clamp(valuebox[1], valuebox[1] + valuebox[3], data.data.toValueY(valuebox[1] + valuebox[3] * py / box.height));
 }
 
 const toCoordinates = overload((data, e) => e.type, {
@@ -226,9 +224,10 @@ const handle = delegate({
 
         'move': function(element, gesture) {
             const data = gesture.data;
+            const points = Observer(data.points);
 
-            data.points[element.dataset.index][0] = gesture.x ;
-            data.points[element.dataset.index][1] = gesture.y ;
+            points[element.dataset.index][0] = gesture.x ;
+            points[element.dataset.index][1] = gesture.y ;
 
             const host = gesture.host;
             if (last(gesture.events).type !== 'pointermove') {
@@ -263,50 +262,26 @@ const handle = delegate({
     })
 });
 
+
+
 export default element('xy-input', {
     stylesheet: 
         window.xyInputStylesheet ||
         import.meta.url.replace(/\/[^\/]*([?#].*)?$/, '/') + 'shadow.css',
 
     construct: function(shadow, internal) {
-        const literal  = Literal('#xy-input-shadow');
-        const valuebox = [0, 0, 6, 1]; /*{ x: 0, y: 0, width: 6, height: 1 }*/
-        const data = Observer({
-            min:      0,
-            max:      1,
-            rangebox: [0, 1, 1, -1],
-            valuebox: valuebox,
-            points:   [],
-            xTicks:   [{ x: 0, label: "0" }, { x: 1, label: "1" }, { x: 2, label: "2" }, { x: 3, label: "3" }, { x: 4, label: "4" }],
-            yTicks:   [{ y: 0, label: "0" }, { y: 1, label: "1" }],
-            xLines:   [{ x: 0 }, { x: 1 }, { x: 2 }, { x: 3 }, { x: 4 }, { x: 5 }],
-            yLines:   [{ y: 0 }, { y: 0.2 }, { y: 0.4 }, { y: 0.6 }, { y: 0.8 }, { y: 1 }],
-
-            toViewX:  function(x) {
-                const ratio = (x - this.valuebox[0]) / this.valuebox[2];
-                return ratio * this.rangebox[2] + this.rangebox[0];
-            },
-
-            toViewY:  function(y) {
-                const ratio = (y - this.valuebox[1]) / this.valuebox[3];
-                return ratio * this.rangebox[3] + this.rangebox[1];
-            }
-        });
+        const literal  = new Literal('#xy-input-shadow');
+        const data     = new Data();
+        const formdata = new FormData();
 
         literal.render(data).then(() => shadow.appendChild(literal.content));
 
         this[$state] = {
             host:     this,
             data:     data,
-            //xScale:   getComputedStyle(this)['--x-scale'],
-            //yScale:   getComputedStyle(this)['--y-scale'],
             internal: internal,
             literal:  literal,
-            formdata: new FormData(),
-            /*rangebox: data.rangebox,*/
-            valuebox: valuebox,
-            // An SVGRect with x, y, width and height props - TODO make other 
-            // boxes look like this too
+            formdata: formdata,
             viewbox:  literal.content.querySelector('svg').viewBox.baseVal
         };
 
@@ -315,6 +290,7 @@ export default element('xy-input', {
             const pxbox    = getPaddingBox(this);
             const fontsize = px(getComputedStyle(this)['font-size']);
 
+            // Assign without notify?
             data.rangebox[0] = 0;
             data.rangebox[2] = pxbox.width / fontsize;
             data.rangebox[1] = 0;
@@ -345,7 +321,7 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
         this[$state].literal.connect();
 
         // CSS has loaded
-        const data     = this[$state].data;
+        const data     = Observer(this[$state].data);
         const pxbox    = getPaddingBox(this);
         const fontsize = px(getComputedStyle(this)['font-size']);
 
@@ -353,8 +329,6 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
         data.rangebox[2] = pxbox.width / fontsize;
         data.rangebox[1] = 0;
         data.rangebox[3] = -pxbox.height / fontsize;
-
-        console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
     }
 }, {/*
     type: {
@@ -387,7 +361,7 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
 
         set: function(value) {
             const min  = parseFloat(value) || 0;
-            const data = getTarget(this[$state].data);
+            const data = this[$state].data;
 
             if (min === data.min) { return; }
 
@@ -440,7 +414,7 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
                 max = 1;
             }
 
-            const data = getTarget(this[$state].data);
+            const data = this[$state].data;
 
             if (max === data.max) { return; }
 
@@ -549,7 +523,12 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
 
         attribute: function(value) {
             const data = this[$state].data;
-            data.scale = value;
+
+            if (window.DEBUG && !scales[value]) {
+                throw new Error('<xy-input> invalid attribute scale="' + value + '" (valid values "' + Object.keys(scales).join('" ,"') + '")');
+            }
+
+            Observer(data).yScale = value;
 
             /*
             data.transformY = value === 'db-linear-96' ? dbLinear96 :
@@ -583,7 +562,7 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
             const values = value.split(/\s*,\s*|\s+/).map(parseFloat);
             const { data, internal, formdata } = this[$state];
             data.points.length = 0;
-            values.reduce(toPairs, data.points);
+            values.reduce(toPairs, Observer(data.points));
             setFormValue(internal, formdata, this.name, data.points);
         },
 
@@ -599,7 +578,7 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
         set: function(values) {
             const { data, internal, formdata } = this[$state];
             // TODO: do a deep assign, and accept a flat array
-            assign(data.points, values);
+            assign(Observer(data.points), values);
             setFormValue(internal, formdata, this.name, data.points);
         },
 
