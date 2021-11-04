@@ -71,7 +71,9 @@
                 <circle part="handle" class="control control-handle control-point" cx="${ data.up.toViewX(data.point[0]) }" cy="${ data.up.toViewY(data.point[1]) }" r="0.5" data-index="${ data.index }" id="control-def"></circle>
             </defs>
 
-            ${ data.yLines.map((line) => include(this.node.getRootNode().getElementById('line-def'), {
+            ${ data.yLines
+            .filter((line) => data.valuebox.y + data.valuebox.height >= line.y && line.y >= data.valuebox.y)    
+            .map((line) => include(this.node.getRootNode().getElementById('line-def'), {
                 part: 'y-line line',
                 x1: data.toViewX(data.valuebox.x),
                 x2: data.toViewX(data.valuebox.x + data.valuebox.width),
@@ -79,7 +81,9 @@
                 y2: data.toViewY(line.y)
             })) }
 
-            ${ data.xLines.map((line) => include(this.node.getRootNode().getElementById('line-def'), {
+            ${ data.xLines
+            .filter((line) => data.valuebox.x + data.valuebox.width >= line.x && line.x >= data.valuebox.x)     
+            .map((line) => include(this.node.getRootNode().getElementById('line-def'), {
                 part: 'x-line line',
                 x1: data.toViewX(line.x),
                 x2: data.toViewX(line.x),
@@ -94,8 +98,13 @@
             })) }
         </svg>
 
-        ${ data.xTicks.map((tick, index) => include(this.node.getRootNode().getElementById('x-tick'), { up: data, tick })) }
-        ${ data.yTicks.map((tick, index) => include(this.node.getRootNode().getElementById('y-tick'), { up: data, tick })) }
+        ${ data.xTicks
+        .filter((tick) => data.valuebox.x + data.valuebox.width >= tick.x && tick.x >= data.valuebox.x)
+        .map((tick, index) => include(this.node.getRootNode().getElementById('x-tick'), { up: data, tick })) }
+
+        ${ data.yTicks
+        .filter((tick) => data.valuebox.y + data.valuebox.height >= tick.y && tick.y >= data.valuebox.y)   
+        .map((tick, index) => include(this.node.getRootNode().getElementById('y-tick'), { up: data, tick })) }
     </template>
 </head>
 
@@ -116,12 +125,10 @@ element and upgrades instances already in the DOM.</p>
     <span class="token selector">xy-input</span> <span class="token punctuation">{</span>
         <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
         <span class="token property">height</span><span class="token punctuation">:</span> 5rem<span class="token punctuation">;</span>
-        <span class="token property">--x-size</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
-        <span class="token property">--y-size</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>points<span class="token punctuation">"</span></span> <span class="token attr-name">min</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">max</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0 0 1 1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span></code></pre>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>points<span class="token punctuation">"</span></span> <span class="token attr-name">ymin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">ymax</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token attr-name">xmin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">xmax</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20000<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0 0 1 1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span></code></pre>
 
     
 </header>
@@ -133,12 +140,10 @@ element and upgrades instances already in the DOM.</p>
     xy-input {
         width: 100%;
         height: 5rem;
-        --x-size: 1rem;
-        --y-size: 1rem;
     }
 </style>
 
-<xy-input name="points" min="0" max="1" value="0 0 1 1"></xy-input>
+<xy-input name="points" ymin="0" ymax="1" xmin="0" xmax="20000" value="0 0 1 1"></xy-input>
     <!-- for testing form submission values -->
     <input hidden class="button" type="submit" />
 </form>
@@ -147,10 +152,10 @@ element and upgrades instances already in the DOM.</p>
     
     <h3 class="doctext-03">Attributes</h3>
     
-<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-min">
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-xmin">
 <h3 class="attribute-doctext-05 doctext-05">
-    <a href="#attribute-min">
-        <code class="token language-html">min <span class="default">="<em>0</em>"</span></code>
+    <a href="#attribute-xmin">
+        <code class="token language-html">xmin <span class="default">="<em>0</em>"</span></code>
     </a>
 </h3>
 
@@ -160,15 +165,64 @@ eg. <code>&quot;0dB&quot;</code>.</p>
 </div>
 
  
-<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-max">
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-xmax">
 <h3 class="attribute-doctext-05 doctext-05">
-    <a href="#attribute-max">
-        <code class="token language-html">max <span class="default">="<em>1</em>"</span></code>
+    <a href="#attribute-xmax">
+        <code class="token language-html">xmax <span class="default">="<em>1</em>"</span></code>
     </a>
 </h3>
 
 <p>Value at upper limit of fader. Can interpret values with recognised units,
 eg. <code>&quot;0dB&quot;</code>.</p>
+
+</div>
+
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-ymin">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-ymin">
+        <code class="token language-html">ymin <span class="default">="<em>0</em>"</span></code>
+    </a>
+</h3>
+
+<p>Value at lower limit of fader. Can interpret values with recognised units,
+eg. <code>&quot;0dB&quot;</code>.</p>
+
+</div>
+
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-ymax">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-ymax">
+        <code class="token language-html">ymax <span class="default">="<em>1</em>"</span></code>
+    </a>
+</h3>
+
+<p>Value at upper limit of fader. Can interpret values with recognised units,
+eg. <code>&quot;0dB&quot;</code>.</p>
+
+</div>
+
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-yscale">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-yscale">
+        <code class="token language-html">yscale</code>
+    </a>
+</h3>
+
+<p>Scale on the y axis. This is the name of a transform to be applied over the 
+y range of the fader travel. Possible values are:</p>
+<ul>
+<li><code>&quot;linear&quot;</code></li>
+<li><code>&quot;db-linear-24&quot;</code></li>
+<li><code>&quot;db-linear-48&quot;</code></li>
+<li><code>&quot;db-linear-60&quot;</code></li>
+<li><code>&quot;db-linear-96&quot;</code></li>
+<li><code>&quot;logarithmic&quot;</code></li>
+<li><code>&quot;quadratic&quot;</code></li>
+<li><code>&quot;cubic&quot;</code></li>
+</ul>
 
 </div>
 
@@ -238,29 +292,6 @@ ticks=&quot;-48dB -36dB -24dB -12dB 0dB&quot;</code></pre>
 </div>
 
  
-<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-scale">
-<h3 class="attribute-doctext-05 doctext-05">
-    <a href="#attribute-scale">
-        <code class="token language-html">scale</code>
-    </a>
-</h3>
-
-<p>Scale on the y axis. This is the name of a transform to be applied over the 
-y range of the fader travel. Possible values are:</p>
-<ul>
-<li><code>&quot;linear&quot;</code></li>
-<li><code>&quot;db-linear-24&quot;</code></li>
-<li><code>&quot;db-linear-48&quot;</code></li>
-<li><code>&quot;db-linear-60&quot;</code></li>
-<li><code>&quot;db-linear-96&quot;</code></li>
-<li><code>&quot;logarithmic&quot;</code></li>
-<li><code>&quot;quadratic&quot;</code></li>
-<li><code>&quot;cubic&quot;</code></li>
-</ul>
-
-</div>
-
- 
 <div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-sequential">
 <h3 class="attribute-doctext-05 doctext-05">
     <a href="#attribute-sequential">
@@ -294,10 +325,10 @@ neighbours, keeping the order of points on the x axis constant.</p>
     
     <h3 class="doctext-03">Properties</h3>
     
-<div class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property|selector-min">
+<div class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property|selector-xmin">
 <h3 class="property-doctext-05 doctext-05">
-    <a href="#property|selector-min">
-        <code class="property language-js">.min</code>
+    <a href="#property|selector-xmin">
+        <code class="property language-js">.xmin</code>
     </a>
 </h3>
 
@@ -307,10 +338,36 @@ eg. <code>&quot;0dB&quot;</code>.</p>
 </div>
 
  
-<div class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property|selector-max">
+<div class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property|selector-xmax">
 <h3 class="property-doctext-05 doctext-05">
-    <a href="#property|selector-max">
-        <code class="property language-js">.max</code>
+    <a href="#property|selector-xmax">
+        <code class="property language-js">.xmax</code>
+    </a>
+</h3>
+
+<p>Value at upper limit of fader. Can interpret values with recognised units,
+eg. <code>&quot;0dB&quot;</code>.</p>
+
+</div>
+
+ 
+<div class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property|selector-ymin">
+<h3 class="property-doctext-05 doctext-05">
+    <a href="#property|selector-ymin">
+        <code class="property language-js">.ymin</code>
+    </a>
+</h3>
+
+<p>Value at lower limit of fader. Can interpret values with recognised units,
+eg. <code>&quot;0dB&quot;</code>.</p>
+
+</div>
+
+ 
+<div class="property-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="property|selector-ymax">
+<h3 class="property-doctext-05 doctext-05">
+    <a href="#property|selector-ymax">
+        <code class="property language-js">.ymax</code>
     </a>
 </h3>
 

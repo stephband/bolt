@@ -2,6 +2,24 @@
 import id from '../../../fn/modules/id.js';
 import { dB6, dB24, dB30, dB48, dB54, dB60, dB96 } from './constants.js';
 
+const log24 = Math.log(dB24);
+const log30 = Math.log(dB30);
+const log48 = Math.log(dB48);
+const log60 = Math.log(dB60);
+const log96 = Math.log(dB96);
+
+function linlog(xover, log, value) {
+    return value <= xover ?
+        value / xover :
+        Math.log(value) - (log - 1) ;
+}
+
+function invlinlog(xover, log, value) {
+    return value - 1 <= 0 ?
+        value * xover :
+        Math.pow(Math.E, value + log - 1)
+}
+
 export const scales = {
     'linear': {
         to: id,
@@ -22,86 +40,149 @@ export const scales = {
     // We need to find where the tangent of 20log10(value) hits 0, and use
     // that distance as the ratio to switch between linear and db-linear.
     'db-linear-24': {
-        to: function dbLinear24(value) {
-            return value < dB24 ?
-                0.27 * value / dB24 :
-                1 + 0.73 * (20 * Math.log10(value) / 24) ;
+        to: function(value, min, max) {
+            const rangeMin = linlog(dB24, log24, min);
+            const rangeMax = linlog(dB24, log24, max);
+            const range    = rangeMax - rangeMin;
+            return (linlog(dB24, log24, value) - rangeMin) / range ;
         },
         
-        from: function(value) {
-            return value < 0.27 ?
-                value * dB24 / 0.27 :
-                Math.pow(10, (24 * ((value - 1) / 0.73) / 20)) ;
+        from: function(ratio, min, max) {
+            const rangeMin = linlog(dB24, log24, min);
+            const rangeMax = linlog(dB24, log24, max);
+            const range    = rangeMax - rangeMin;
+            return invlinlog(dB24, log24, ratio * range + rangeMin) ;
         }
     },
     
     'db-linear-30': {
-        to: function dbLinear30(value) {
-            return value < dB30 ?
-                0.22 * value / dB30 :
-                1 + 0.78 * (20 * Math.log10(value) / 30) ;
+        to: function(value, min, max) {
+            const rangeMin = linlog(dB30, log30, min);
+            const rangeMax = linlog(dB30, log30, max);
+            const range    = rangeMax - rangeMin;
+            return (linlog(dB30, log30, value) - rangeMin) / range ;
         },
         
-        from: function(value) {
-            return value < 0.22 ?
-                value * dB30 / 0.22 :
-                Math.pow(10, (30 * ((value - 1) / 0.78) / 20)) ;
+        from: function(ratio, min, max) {
+            const rangeMin = linlog(dB30, log30, min);
+            const rangeMax = linlog(dB30, log30, max);
+            const range    = rangeMax - rangeMin;
+            return invlinlog(dB30, log30, ratio * range + rangeMin) ;
         }
     },
 
     'db-linear-48': {
-        to: function dbLinear48(value) {
-            return value < dB48 ?
-                0.16 * value / dB48 :
-                1 + 0.84 * (20 * Math.log10(value) / 48) ;
+        to: function(value, min, max) {
+            const rangeMin = linlog(dB48, log48, min);
+            const rangeMax = linlog(dB48, log48, max);
+            const range    = rangeMax - rangeMin;
+            return (linlog(dB48, log48, value) - rangeMin) / range ;
         },
-
-        from: function(value) {
-            return value < 0.16 ?
-                value * dB48 / 0.16 :
-                Math.pow(10, (48 * ((value - 1) / 0.84) / 20)) ;
+        
+        from: function(ratio, min, max) {
+            const rangeMin = linlog(dB48, log48, min);
+            const rangeMax = linlog(dB48, log48, max);
+            const range    = rangeMax - rangeMin;
+            return invlinlog(dB48, log48, ratio * range + rangeMin) ;
         }
     },
 
     'db-linear-60': {
-        to: function dbLinear60(value) {
-            return value < dB60 ?
-                0.14 * value / dB60 :
-                1 + 0.86 * (20 * Math.log10(value) / 60) ;
+        to: function dBLinear60(value, min, max) {
+            const rangeMin = linlog(dB60, log60, min);
+            const rangeMax = linlog(dB60, log60, max);
+            const range    = rangeMax - rangeMin;
+            return (linlog(dB60, log60, value) - rangeMin) / range ;
         },
         
-        from: function(value) {
-            return value < 0.14 ?
-                value * dB60 / 0.14 :
-                Math.pow(10, (60 * ((value - 1) / 0.86) / 20)) ;
+        from: function(ratio, min, max) {
+            const rangeMin = linlog(dB60, log60, min);
+            const rangeMax = linlog(dB60, log60, max);
+            const range    = rangeMax - rangeMin;
+            return invlinlog(dB60, log60, ratio * range + rangeMin) ;
         }
     },
 
     'db-linear-96': {
-        to: function dbLinear96(value) {
-            return value < dB96 ?
-                0.08 * value / dB96 :
-                1 + 0.92 * (20 * Math.log10(value) / 96) ;
+        to: function(value, min, max) {
+            const rangeMin = linlog(dB96, log96, min);
+            const rangeMax = linlog(dB96, log96, max);
+            const range    = rangeMax - rangeMin;
+            return (linlog(dB96, log96, value) - rangeMin) / range ;
         },
         
-        from: function(value) {
-            return value < 0.08 ?
-                value * dB96 / 0.08 :
-                Math.pow(10, (96 * ((value - 1) / 0.92) / 20)) ;
+        from: function(ratio, min, max) {
+            const rangeMin = linlog(dB96, log96, min);
+            const rangeMax = linlog(dB96, log96, max);
+            const range    = rangeMax - rangeMin;
+            return invlinlog(dB96, log96, ratio * range + rangeMin) ;
         }
     },
     
-    'linear-log-20': {
-        to: function log20(value) {
-            return value < 20 ?
-                0.08 * value / 20 :
-                1 + 0.92 * Math.log(value) ;
+    'log-20': {
+        to: function(value, min, max) {
+            const rangeMin = linlog(20, Math.log(20), min);
+            const rangeMax = linlog(20, Math.log(20), max);
+            const range    = rangeMax - rangeMin;
+            return (linlog(20, Math.log(20), value) - rangeMin) / range ;
         },
-
-        from: function(value) {
-            return value < 0.08 ?
-                value * dB96 / 0.08 :
-                Math.pow(10, (96 * ((value - 1) / 0.92) / 20)) ;
+        
+        from: function(ratio, min, max) {
+            const rangeMin = linlog(20, Math.log(20), min);
+            const rangeMax = linlog(20, Math.log(20), max);
+            const range    = rangeMax - rangeMin;
+            return invlinlog(20, Math.log(20), ratio * range + rangeMin) ;
         }
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+function dbLinear(min, max, value) {
+    return value < dB96 ?
+        0.08 * value / dB96 :
+        1 + 0.92 * (20 * Math.log10(value) / 96) ;
+}
+
+function dBLinear(min, max, value) {
+    // The bottom 1/9th of the range is linear from 0 to min, while
+    // the top 8/9ths is dB linear from min to max.
+    return value <= min ?
+        (value / min) / 9 :
+        (0.1111111111111111 + (Math.log(value / min) / Math.log(max / min)) / 1.125) ;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

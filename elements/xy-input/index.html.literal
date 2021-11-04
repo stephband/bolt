@@ -41,7 +41,9 @@
                 <circle part="handle" class="control control-handle control-point" cx="$\{ data.up.toViewX(data.point[0]) }" cy="$\{ data.up.toViewY(data.point[1]) }" r="0.5" data-index="$\{ data.index }" id="control-def"></circle>
             </defs>
 
-            $\{ data.yLines.map((line) => include(this.node.getRootNode().getElementById('line-def'), {
+            $\{ data.yLines
+            .filter((line) => data.valuebox.y + data.valuebox.height >= line.y && line.y >= data.valuebox.y)    
+            .map((line) => include(this.node.getRootNode().getElementById('line-def'), {
                 part: 'y-line line',
                 x1: data.toViewX(data.valuebox.x),
                 x2: data.toViewX(data.valuebox.x + data.valuebox.width),
@@ -49,7 +51,9 @@
                 y2: data.toViewY(line.y)
             })) }
 
-            $\{ data.xLines.map((line) => include(this.node.getRootNode().getElementById('line-def'), {
+            $\{ data.xLines
+            .filter((line) => data.valuebox.x + data.valuebox.width >= line.x && line.x >= data.valuebox.x)     
+            .map((line) => include(this.node.getRootNode().getElementById('line-def'), {
                 part: 'x-line line',
                 x1: data.toViewX(line.x),
                 x2: data.toViewX(line.x),
@@ -64,8 +68,13 @@
             })) }
         </svg>
 
-        $\{ data.xTicks.map((tick, index) => include(this.node.getRootNode().getElementById('x-tick'), { up: data, tick })) }
-        $\{ data.yTicks.map((tick, index) => include(this.node.getRootNode().getElementById('y-tick'), { up: data, tick })) }
+        $\{ data.xTicks
+        .filter((tick) => data.valuebox.x + data.valuebox.width >= tick.x && tick.x >= data.valuebox.x)
+        .map((tick, index) => include(this.node.getRootNode().getElementById('x-tick'), { up: data, tick })) }
+
+        $\{ data.yTicks
+        .filter((tick) => data.valuebox.y + data.valuebox.height >= tick.y && tick.y >= data.valuebox.y)   
+        .map((tick, index) => include(this.node.getRootNode().getElementById('y-tick'), { up: data, tick })) }
     </template>
 </head>
 

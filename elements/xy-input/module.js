@@ -11,12 +11,10 @@ element and upgrades instances already in the DOM.
     xy-input {
         width: 100%;
         height: 5rem;
-        --x-size: 1rem;
-        --y-size: 1rem;
     }
 </style>
 
-<xy-input name="points" min="0" max="1" value="0 0 1 1"></xy-input>
+<xy-input name="points" ymin="0" ymax="1" xmin="0" xmax="20000" value="0 0 1 1"></xy-input>
 ```
 **/
 
@@ -50,7 +48,6 @@ const defaultTargetEventDuration = 0.4;
 
 
 /* Element */
-
 
 function toPairs(acc, value) {
     const last = acc[acc.length - 1];
@@ -306,7 +303,7 @@ export default element('xy-input', {
             data.rangebox[2] = pxbox.width / fontsize;
             data.rangebox[1] = 0;
             data.rangebox[3] = -pxbox.height / fontsize;
-console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
+
             const state = assign({
                 pxbox,
                 previous,
@@ -344,19 +341,108 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
 
     // Remember attributers are setup in this declared order
 
-    min: {
+    xmin: {
         /**
-        min="0"
+        xmin="0"
         Value at lower limit of fader. Can interpret values with recognised units,
         eg. `"0dB"`.
         **/
 
         attribute: function(value) {
-            this.min = value;
+            this.xmin = value;
         },
 
         /**
-        .min
+        .xmin
+        Value at lower limit of fader. Can interpret values with recognised units,
+        eg. `"0dB"`.
+        **/
+
+        get: function() {
+            return this[$state].data.xmin;
+        },
+
+        set: function(value) {
+            value = parseFloat(value) || 0;
+            const data = this[$state].data;
+
+            if (value === data.xmin) { return; }
+
+            data.xmin = value;
+            const isValueboxAttribute = this.getAttribute('valuebox');
+
+            if (!isValueboxAttribute) {
+                data.valuebox.x = value;
+                data.valuebox.width = data.xmax - data.valuebox.x;
+            }
+
+            notify('xmin', data);
+            
+            if (!isValueboxAttribute) {
+                notify('valuebox.x', data);
+                notify('valuebox.width', data);
+            }
+        }
+    },
+
+    xmax: {
+        /**
+        xmax="1"
+        Value at upper limit of fader. Can interpret values with recognised units,
+        eg. `"0dB"`.
+        **/
+
+        attribute: function(value) {
+            this.xmax = value;
+        },
+
+        /**
+        .xmax
+        Value at upper limit of fader. Can interpret values with recognised units,
+        eg. `"0dB"`.
+        **/
+
+        get: function() {
+            return this[$state].data.xmax;
+        },
+
+        set: function(value) {
+            value = parseFloat(value);
+
+            if (Number.isNaN(value)) {
+                if (window.DEBUG) {
+                    throw new Error('Invalid value max = ' + value + ' set on <xy-input>');
+                }
+
+                value = 1;
+            }
+
+            const data = this[$state].data;
+
+            if (value === data.xmax) { return; }
+
+            data.xmax = value;
+
+            const isValueboxAttribute = this.getAttribute('valuebox');
+            !isValueboxAttribute && (data.valuebox.width = value - data.valuebox.x);
+            notify('xmax', data);
+            !isValueboxAttribute && notify('valuebox.width', data);
+        }
+    },
+
+    ymin: {
+        /**
+        ymin="0"
+        Value at lower limit of fader. Can interpret values with recognised units,
+        eg. `"0dB"`.
+        **/
+
+        attribute: function(value) {
+            this.ymin = value;
+        },
+
+        /**
+        .ymin
         Value at lower limit of fader. Can interpret values with recognised units,
         eg. `"0dB"`.
         **/
@@ -366,16 +452,15 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
         },
 
         set: function(value) {
-            const min  = parseFloat(value) || 0;
+            value = parseFloat(value) || 0;
             const data = this[$state].data;
 
-            if (min === data.min) { return; }
+            if (value === data.min) { return; }
+            data.min = value;
 
-            data.min = min;
             const isValueboxAttribute = this.getAttribute('valuebox');
-
             if (!isValueboxAttribute) {
-                data.valuebox.y = min;
+                data.valuebox.y = value;
                 data.valuebox.height = data.max - data.valuebox.y;
             }
 
@@ -388,19 +473,19 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
         }
     },
 
-    max: {
+    ymax: {
         /**
-        max="1"
+        ymax="1"
         Value at upper limit of fader. Can interpret values with recognised units,
         eg. `"0dB"`.
         **/
 
         attribute: function(value) {
-            this.max = value;
+            this.ymax = value;
         },
 
         /**
-        .max
+        .ymax
         Value at upper limit of fader. Can interpret values with recognised units,
         eg. `"0dB"`.
         **/
@@ -410,26 +495,72 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
         },
 
         set: function(value) {
-            let max = parseFloat(value);
+            value = parseFloat(value);
 
-            if (Number.isNaN(max)) {
+            if (Number.isNaN(value)) {
                 if (window.DEBUG) {
                     throw new Error('Invalid value max = ' + value + ' set on <xy-input>');
                 }
 
-                max = 1;
+                value = 1;
             }
 
             const data = this[$state].data;
 
-            if (max === data.max) { return; }
-
-            data.max = max;
+            if (value === data.max) { return; }
+            data.max = value;
 
             const isValueboxAttribute = this.getAttribute('valuebox');
-            !isValueboxAttribute && (data.valuebox.height = max - data.valuebox.y);
+            !isValueboxAttribute && (data.valuebox.height = value - data.valuebox.y);
             notify('max', data);
             !isValueboxAttribute && notify('valuebox.height', data);
+        }
+    },
+
+    yscale: {
+        /**
+        yscale=""
+        Scale on the y axis. This is the name of a transform to be applied over the 
+        y range of the fader travel. Possible values are:
+    
+        - `"linear"`
+        - `"db-linear-24"`
+        - `"db-linear-48"`
+        - `"db-linear-60"`
+        - `"db-linear-96"`
+        - `"logarithmic"`
+        - `"quadratic"`
+        - `"cubic"`
+        **/
+
+        attribute: function(value) {
+            const data = this[$state].data;
+
+            if (window.DEBUG && !scales[value]) {
+                throw new Error('<xy-input> invalid attribute scale="' + value + '" (valid values "' + Object.keys(scales).join('" ,"') + '")');
+            }
+
+            Observer(data).yScale = value;
+
+            /*
+            data.transformY = value === 'db-linear-96' ? dbLinear96 :
+                value === 'db-linear-60' ? dbLinear60 :
+                value === 'db-linear-48' ? dbLinear48 :
+                value === 'linear' ? id :
+                id ;
+            */
+
+            /*
+            if (data.ticksAttribute) {
+                data.ticks = createTicks(data, data.ticksAttribute);
+            }
+    
+            if (data.step) {
+                data.steps = createSteps(data, value === 'ticks' ?
+                    data.ticksAttribute || '' :
+                    data.stepsAttribute );
+            }
+            */
         }
     },
 
@@ -508,53 +639,6 @@ console.log('Rangebox', pxbox.height, fontsize, data.rangebox);
                 data.ticksAttribute || '' :
                 value
             );
-        }
-    },
-
-    scale: {
-        /**
-        scale=""
-        Scale on the y axis. This is the name of a transform to be applied over the 
-        y range of the fader travel. Possible values are:
-    
-        - `"linear"`
-        - `"db-linear-24"`
-        - `"db-linear-48"`
-        - `"db-linear-60"`
-        - `"db-linear-96"`
-        - `"logarithmic"`
-        - `"quadratic"`
-        - `"cubic"`
-        **/
-
-        attribute: function(value) {
-            const data = this[$state].data;
-
-            if (window.DEBUG && !scales[value]) {
-                throw new Error('<xy-input> invalid attribute scale="' + value + '" (valid values "' + Object.keys(scales).join('" ,"') + '")');
-            }
-
-            Observer(data).yScale = value;
-
-            /*
-            data.transformY = value === 'db-linear-96' ? dbLinear96 :
-                value === 'db-linear-60' ? dbLinear60 :
-                value === 'db-linear-48' ? dbLinear48 :
-                value === 'linear' ? id :
-                id ;
-            */
-
-            /*
-            if (data.ticksAttribute) {
-                data.ticks = createTicks(data, data.ticksAttribute);
-            }
-    
-            if (data.step) {
-                data.steps = createSteps(data, value === 'ticks' ?
-                    data.ticksAttribute || '' :
-                    data.stepsAttribute );
-            }
-            */
         }
     },
 
