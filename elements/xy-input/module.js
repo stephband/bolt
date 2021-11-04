@@ -14,7 +14,7 @@ element and upgrades instances already in the DOM.
     }
 </style>
 
-<xy-input name="points" ymin="0" ymax="1" xmin="0" xmax="20000" value="0 0 1 1"></xy-input>
+<xy-input name="points" ymin="0.125" ymax="8" xmin="20" xmax="20000" xlaw="db-linear-60" value="100 1 1000 0.5"></xy-input>
 ```
 **/
 
@@ -93,8 +93,8 @@ function setXY(e, data) {
     const py = box.height - (e.clientY - box.y - data.offset.y);
 
     // Normalise to 0-1, allowing x position to extend beyond viewbox
-    data.x = clamp(valuebox.x, valuebox.x + valuebox.width, data.data.toValueX(valuebox.x + valuebox.width * px / box.width));
-    data.y = clamp(valuebox.y, valuebox.y + valuebox.height, data.data.toValueY(valuebox.y + valuebox.height * py / box.height));
+    data.x = clamp(valuebox.x, valuebox.x + valuebox.width,  data.data.toValueX(px / box.width));
+    data.y = clamp(valuebox.y, valuebox.y + valuebox.height, data.data.toValueY(py / box.height));
 }
 
 const toCoordinates = overload((data, e) => e.type, {
@@ -430,6 +430,47 @@ export default element('xy-input', {
         }
     },
 
+    xlaw: {
+        /**
+        xlaw="linear"
+        Scale on the x axis. This is the name of a transform to be applied over the 
+        x domain of the fader travel. Possible values are:
+    
+        - `"linear"`
+        - `"quadratic"`
+        - `"cubic"`
+        - `"db-linear-24"`
+        - `"db-linear-48"`
+        - `"db-linear-60"`
+        - `"db-linear-96"`
+        - `"lin-24dB-log"`
+        **/
+
+        attribute: function(value) {
+            const data = this[$state].data;
+    
+            if (window.DEBUG && !scales[value]) {
+                throw new Error('<xy-input> invalid attribute scale="' + value + '" (valid values "' + Object.keys(scales).join('" ,"') + '")');
+            }
+    
+            Observer(data).xScale = value;
+        }
+    },
+
+    xstep: {
+        /** 
+        xstep="any"
+        Not yet implemented.
+        **/
+    },
+
+    xticks: {
+        /** 
+        xticks=""
+        Not yet implemented.
+        **/
+    },
+
     ymin: {
         /**
         ymin="0"
@@ -517,9 +558,9 @@ export default element('xy-input', {
         }
     },
 
-    yscale: {
+    ylaw: {
         /**
-        yscale=""
+        ylaw="linear"
         Scale on the y axis. This is the name of a transform to be applied over the 
         y range of the fader travel. Possible values are:
     
@@ -564,6 +605,56 @@ export default element('xy-input', {
         }
     },
 
+    ystep: {
+        /** 
+        ystep="any"
+        
+        Either:
+    
+        - A space separated list of values. Values may be listed with units.
+        - The string `"yticks"`. Values in the `yticks` attribute are used as steps.
+        **/
+
+        attribute: function(value) {
+            const data = this[$state].data;
+            //data.ystepAttribute = value;
+
+            // If steps is 'ticks' use ticks attribute as step value list
+            data.ystep = createSteps(data, value === 'yticks' ?
+                data.yticks || '' :
+                value
+            );
+        }
+    },
+
+    yticks: {
+        /**
+        yticks=""
+        Not fully implemented.
+
+        A space separated list of values at which to display tick marks. Values
+        may be listed with or without units, eg:
+        
+        ```html
+        <xy-input yticks="0 0.2 0.4 0.6 0.8 1">
+        <xy-input yticks="-48dB -36dB -24dB -12dB 0dB">
+        ```
+        **/
+
+        attribute: function(value) {
+            const data = this[$state].data;
+            data.yticks = value;
+    
+            // Create ticks
+            //scope.ticks(createTicks(data, value));
+    
+            // If step is 'ticks' update steps
+            if (data.stepsAttribute === 'ticks') {
+                data.ystep = createSteps(data, value || '');
+            }
+        },
+    },
+
     valuebox: {
         /** 
         valuebox=""
@@ -581,75 +672,14 @@ export default element('xy-input', {
         }
     },
 
-    unit: {
-        /**
-        unit=""
-        The value's unit, if it has one. The output value and all ticks are 
-        displayed in this unit. Possible values are:
-        - `"dB"` – `0-1` is displayed as `-∞dB` to `0dB`
-        - `"Hz"`
-        **/
-
-        attribute: function(value) {
-            this[$state].data.unit = value;
-        }
-    },
-
-    ticks: {
-        /**
-        ticks=""
-        A space separated list of values at which to display tick marks. Values
-        may be listed with or without units, eg:
-        
-        ```html
-        ticks="0 0.2 0.4 0.6 0.8 1"
-        ticks="-48dB -36dB -24dB -12dB 0dB"
-        ```
-        **/
-
-        attribute: function(value) {
-            const data = this[$state].data;
-            data.ticksAttribute = value;
-    
-            // Create ticks
-            //scope.ticks(createTicks(data, value));
-    
-            // If step is 'ticks' update steps
-            if (data.stepsAttribute === 'ticks') {
-                data.steps = createSteps(data, value || '');
-            }
-        },
-    },
-
-    steps: {
-        /**
-        steps=""
-        Steps is either:
-    
-        - A space separated list of values. As with `ticks`, values may be listed with or without units.
-        - The string `"ticks"`. The values in the `ticks` attribute are used as steps.
-        **/
-
-        attribute: function(value) {
-            const data = this[$state].data;
-            data.stepsAttribute = value;
-
-            // If steps is 'ticks' use ticks attribute as step value list
-            data.steps = createSteps(data, value === 'ticks' ?
-                data.ticksAttribute || '' :
-                value
-            );
-        }
-    },
-
-    sequential: {
+    ordered: {
         /** 
-        sequential=""
+        ordered=""
         Boolean attribute. When set, data points may not overlap their 
         neighbours, keeping the order of points on the x axis constant.
         **/
         attribute: function(value) {
-            this[$state].data.sequential = value !== null;
+            this[$state].data.ordered = value !== null;
         }
     },
 

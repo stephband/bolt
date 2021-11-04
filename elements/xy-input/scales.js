@@ -22,10 +22,15 @@ function invlinlog(xover, log, value) {
 
 export const scales = {
     'linear': {
-        to: id,
-        from: id
-    },
+        to: function(value, min, max) {
+            return (value - min) / (max - min);
+        },
 
+        from: function(ratio, min, max) {
+            return min + ratio * (max - min);
+        }
+    },
+    /*
     'quadratic': {
         to: (value) =>  value * value,
         from: (value) => Math.pow(value, 0.5)
@@ -35,7 +40,7 @@ export const scales = {
         to: (value) =>  value * value * value,
         from: (value) => Math.pow(value, 0.333333333333)
     },
-
+    */
     // TODO: Calculate proper linear section factors for these fns.
     // We need to find where the tangent of 20log10(value) hits 0, and use
     // that distance as the ratio to switch between linear and db-linear.
@@ -57,17 +62,21 @@ export const scales = {
     
     'db-linear-30': {
         to: function(value, min, max) {
-            const rangeMin = linlog(dB30, log30, min);
-            const rangeMax = linlog(dB30, log30, max);
+            const xover    = dB30 * max;
+            const log      = Math.log(xover);
+            const rangeMin = linlog(xover, log, min);
+            const rangeMax = linlog(xover, log, max);
             const range    = rangeMax - rangeMin;
-            return (linlog(dB30, log30, value) - rangeMin) / range ;
+            return (linlog(xover, log, value) - rangeMin) / range ;
         },
-        
+
         from: function(ratio, min, max) {
-            const rangeMin = linlog(dB30, log30, min);
-            const rangeMax = linlog(dB30, log30, max);
+            const xover    = dB30 * max;
+            const log      = Math.log(xover);
+            const rangeMin = linlog(xover, log, min);
+            const rangeMax = linlog(xover, log, max);
             const range    = rangeMax - rangeMin;
-            return invlinlog(dB30, log30, ratio * range + rangeMin) ;
+            return invlinlog(xover, log, ratio * range + rangeMin) ;
         }
     },
 
@@ -94,7 +103,7 @@ export const scales = {
             const range    = rangeMax - rangeMin;
             return (linlog(dB60, log60, value) - rangeMin) / range ;
         },
-        
+
         from: function(ratio, min, max) {
             const rangeMin = linlog(dB60, log60, min);
             const rangeMax = linlog(dB60, log60, max);
@@ -118,8 +127,8 @@ export const scales = {
             return invlinlog(dB96, log96, ratio * range + rangeMin) ;
         }
     },
-    
-    'log-20': {
+
+    'lin-20-log': {
         to: function(value, min, max) {
             const rangeMin = linlog(20, Math.log(20), min);
             const rangeMax = linlog(20, Math.log(20), max);
