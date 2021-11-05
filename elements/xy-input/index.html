@@ -43,6 +43,10 @@
 
     <style></style>
 
+    <template id="waveform-canvas">
+        <canvas width="${ data.pxbox && data.pxbox.width }" height="${ data.pxbox && data.pxbox.height }" style="grid-column: 1; grid-row: 1; align-self: stretch; justify-self: stretch;"></canvas>
+    </template>
+
     <template id="xy-input-shadow">
         <template id="x-tick">
             <label part="x-tick tick" style="transform: translate(calc(${ data.up.toViewX(data.tick.value) }em - 50%), 1.75em);">
@@ -59,6 +63,8 @@
         <label>
             <slot></slot>
         </label>
+
+        ${ data.include ? include(data.include, data) : '' }
 
         <svg viewbox="0 -1 1 1">
             <defs>
@@ -130,7 +136,7 @@ element and upgrades instances already in the DOM.</p>
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span>
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>points<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>100 1, 200 2, 2000 0.5<span class="token punctuation">"</span></span> <span class="token attr-name">ymin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0.125<span class="token punctuation">"</span></span> <span class="token attr-name">ymax</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>8<span class="token punctuation">"</span></span> <span class="token attr-name">xmin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20<span class="token punctuation">"</span></span> <span class="token attr-name">xmax</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20000<span class="token punctuation">"</span></span> <span class="token attr-name">xlaw</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>db-linear-60<span class="token punctuation">"</span></span> <span class="token attr-name">ylaw</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>db-linear-60<span class="token punctuation">"</span></span> <span class="token attr-name">xaxis</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Hz<span class="token punctuation">"</span></span> <span class="token attr-name">yaxis</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dB<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span></code></pre>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>points<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>100 1, 200 2, 2000 0.5<span class="token punctuation">"</span></span> <span class="token attr-name">ymin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0.125<span class="token punctuation">"</span></span> <span class="token attr-name">ymax</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>8<span class="token punctuation">"</span></span> <span class="token attr-name">xmin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20<span class="token punctuation">"</span></span> <span class="token attr-name">xmax</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20000<span class="token punctuation">"</span></span> <span class="token attr-name">xlaw</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>db-linear-60<span class="token punctuation">"</span></span> <span class="token attr-name">ylaw</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>db-linear-60<span class="token punctuation">"</span></span> <span class="token attr-name">xaxis</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Hz<span class="token punctuation">"</span></span> <span class="token attr-name">yaxis</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dB<span class="token punctuation">"</span></span> <span class="token attr-name">include</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#waveform-canvas<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span></code></pre>
 
     
 </header>
@@ -147,7 +153,7 @@ element and upgrades instances already in the DOM.</p>
 
 <xy-input></xy-input>
 
-<xy-input name="points" value="100 1, 200 2, 2000 0.5" ymin="0.125" ymax="8" xmin="20" xmax="20000" xlaw="db-linear-60" ylaw="db-linear-60" xaxis="Hz" yaxis="dB"></xy-input>
+<xy-input name="points" value="100 1, 200 2, 2000 0.5" ymin="0.125" ymax="8" xmin="20" xmax="20000" xlaw="db-linear-60" ylaw="db-linear-60" xaxis="Hz" yaxis="dB" include="#waveform-canvas"></xy-input>
     <!-- for testing form submission values -->
     <input hidden class="button" type="submit" />
 </form>
@@ -350,6 +356,17 @@ neighbours, keeping the order of points on the x axis constant.</p>
 </h3>
 
 <p>The initial value of the element.</p>
+
+</div>
+
+ 
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-include">
+<h3 class="attribute-doctext-05 doctext-05">
+    <a href="#attribute-include">
+        <code class="token language-html">include</code>
+    </a>
+</h3>
+
 
 </div>
 

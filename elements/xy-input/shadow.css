@@ -38,10 +38,10 @@
     /* Compensate for label height */
     height: calc(100% - 24px);
     width: 100%;
-    
     width: 1em;
     height: 1em;
     overflow: visible;
+    z-index: 1;
 }
 
 [part="x-line line"],

@@ -16,7 +16,7 @@ element and upgrades instances already in the DOM.
 
 <xy-input></xy-input>
 
-<xy-input name="points" value="100 1, 200 2, 2000 0.5" ymin="0.125" ymax="8" xmin="20" xmax="20000" xlaw="db-linear-60" ylaw="db-linear-60" xaxis="Hz" yaxis="dB"></xy-input>
+<xy-input name="points" value="100 1, 200 2, 2000 0.5" ymin="0.125" ymax="8" xmin="20" xmax="20000" xlaw="db-linear-60" ylaw="db-linear-60" xaxis="Hz" yaxis="dB" include="#waveform-canvas"></xy-input>
 ```
 **/
 
@@ -268,6 +268,7 @@ function updateViewbox(element, data) {
     const pxbox    = getPaddingBox(element);
     const fontsize = px(getComputedStyle(element)['font-size']);
 
+    observer.pxbox = pxbox;
     observer.rangebox[0] = 0;
     observer.rangebox[2] = pxbox.width / fontsize;
     observer.rangebox[1] = 0;
@@ -732,7 +733,17 @@ export default element('xy-input', {
         },
 
         enumerable: true
-    }
+    },
+
+    include: {
+        /** 
+        include=""
+        **/
+        attribute: function(url) {
+            const data = this[$state].data;
+            Observer(data).include = url;
+        }
+    },
 
     /** 
     "input"

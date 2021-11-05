@@ -13,6 +13,10 @@
 
     <style></style>
 
+    <template id="waveform-canvas">
+        <canvas width="$\{ data.pxbox && data.pxbox.width }" height="$\{ data.pxbox && data.pxbox.height }" style="grid-column: 1; grid-row: 1; align-self: stretch; justify-self: stretch;"></canvas>
+    </template>
+
     <template id="xy-input-shadow">
         <template id="x-tick">
             <label part="x-tick tick" style="transform: translate(calc($\{ data.up.toViewX(data.tick.value) }em - 50%), 1.75em);">
@@ -29,6 +33,8 @@
         <label>
             <slot></slot>
         </label>
+
+        $\{ data.include ? include(data.include, data) : '' }
 
         <svg viewbox="0 -1 1 1">
             <defs>
