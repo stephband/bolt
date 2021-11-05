@@ -15,13 +15,13 @@
 
     <template id="xy-input-shadow">
         <template id="x-tick">
-            <label part="x-tick tick" style="transform: translate(calc($\{ data.up.toViewX(data.tick.x) }em - 50%), 1.75em);">
+            <label part="x-tick tick" style="transform: translate(calc($\{ data.up.toViewX(data.tick.value) }em - 50%), 1.75em);">
                 <span>$\{ data.tick.label }</span>
             </label>
         </template>
 
         <template id="y-tick">
-            <label part="y-tick tick" style="transform: translate(-2.75em, calc($\{ data.up.toViewY(data.tick.y) }em + 50%));">
+            <label part="y-tick tick" style="transform: translate(-2.75em, calc($\{ data.up.toViewY(data.tick.value) }em + 50%));">
                 <span>$\{ data.tick.label }</span>
             </label>
         </template>
@@ -41,24 +41,24 @@
                 <circle part="handle" class="control control-handle control-point" cx="$\{ data.up.toViewX(data.point[0]) }" cy="$\{ data.up.toViewY(data.point[1]) }" r="0.5" data-index="$\{ data.index }" id="control-def"></circle>
             </defs>
 
-            $\{ data.yLines
-            .filter((line) => data.valuebox.y + data.valuebox.height >= line.y && line.y >= data.valuebox.y)    
+            $\{ data.xaxis
+            .filter((line) => data.valuebox.x + data.valuebox.width >= line.value && line.value >= data.valuebox.x)     
+            .map((line) => include(this.node.getRootNode().getElementById('line-def'), {
+                part: 'x-line line',
+                x1: data.toViewX(line.value),
+                x2: data.toViewX(line.value),
+                y1: data.toViewY(data.valuebox.y),
+                y2: data.toViewY(data.valuebox.y + data.valuebox.height)
+            })) }
+
+            $\{ data.yaxis
+            .filter((line) => data.valuebox.y + data.valuebox.height >= line.value && line.value >= data.valuebox.y)    
             .map((line) => include(this.node.getRootNode().getElementById('line-def'), {
                 part: 'y-line line',
                 x1: data.toViewX(data.valuebox.x),
                 x2: data.toViewX(data.valuebox.x + data.valuebox.width),
-                y1: data.toViewY(line.y),
-                y2: data.toViewY(line.y)
-            })) }
-
-            $\{ data.xLines
-            .filter((line) => data.valuebox.x + data.valuebox.width >= line.x && line.x >= data.valuebox.x)     
-            .map((line) => include(this.node.getRootNode().getElementById('line-def'), {
-                part: 'x-line line',
-                x1: data.toViewX(line.x),
-                x2: data.toViewX(line.x),
-                y1: data.toViewY(data.valuebox.y),
-                y2: data.toViewY(data.valuebox.y + data.valuebox.height)
+                y1: data.toViewY(line.value),
+                y2: data.toViewY(line.value)
             })) }
 
             $\{ data.points.map((point, index) => include(this.node.getRootNode().getElementById('control-def'), {
@@ -68,12 +68,12 @@
             })) }
         </svg>
 
-        $\{ data.xTicks
-        .filter((tick) => data.valuebox.x + data.valuebox.width >= tick.x && tick.x >= data.valuebox.x)
+        $\{ data.xaxis
+        .filter((tick) => tick.label && data.valuebox.x + data.valuebox.width >= tick.value && tick.value >= data.valuebox.x)
         .map((tick, index) => include(this.node.getRootNode().getElementById('x-tick'), { up: data, tick })) }
 
-        $\{ data.yTicks
-        .filter((tick) => data.valuebox.y + data.valuebox.height >= tick.y && tick.y >= data.valuebox.y)   
+        $\{ data.yaxis
+        .filter((tick) => tick.label && data.valuebox.y + data.valuebox.height >= tick.value && tick.value >= data.valuebox.y)   
         .map((tick, index) => include(this.node.getRootNode().getElementById('y-tick'), { up: data, tick })) }
     </template>
 </head>

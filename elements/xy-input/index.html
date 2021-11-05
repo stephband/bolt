@@ -45,13 +45,13 @@
 
     <template id="xy-input-shadow">
         <template id="x-tick">
-            <label part="x-tick tick" style="transform: translate(calc(${ data.up.toViewX(data.tick.x) }em - 50%), 1.75em);">
+            <label part="x-tick tick" style="transform: translate(calc(${ data.up.toViewX(data.tick.value) }em - 50%), 1.75em);">
                 <span>${ data.tick.label }</span>
             </label>
         </template>
 
         <template id="y-tick">
-            <label part="y-tick tick" style="transform: translate(-2.75em, calc(${ data.up.toViewY(data.tick.y) }em + 50%));">
+            <label part="y-tick tick" style="transform: translate(-2.75em, calc(${ data.up.toViewY(data.tick.value) }em + 50%));">
                 <span>${ data.tick.label }</span>
             </label>
         </template>
@@ -71,24 +71,24 @@
                 <circle part="handle" class="control control-handle control-point" cx="${ data.up.toViewX(data.point[0]) }" cy="${ data.up.toViewY(data.point[1]) }" r="0.5" data-index="${ data.index }" id="control-def"></circle>
             </defs>
 
-            ${ data.yLines
-            .filter((line) => data.valuebox.y + data.valuebox.height >= line.y && line.y >= data.valuebox.y)    
+            ${ data.xaxis
+            .filter((line) => data.valuebox.x + data.valuebox.width >= line.value && line.value >= data.valuebox.x)     
+            .map((line) => include(this.node.getRootNode().getElementById('line-def'), {
+                part: 'x-line line',
+                x1: data.toViewX(line.value),
+                x2: data.toViewX(line.value),
+                y1: data.toViewY(data.valuebox.y),
+                y2: data.toViewY(data.valuebox.y + data.valuebox.height)
+            })) }
+
+            ${ data.yaxis
+            .filter((line) => data.valuebox.y + data.valuebox.height >= line.value && line.value >= data.valuebox.y)    
             .map((line) => include(this.node.getRootNode().getElementById('line-def'), {
                 part: 'y-line line',
                 x1: data.toViewX(data.valuebox.x),
                 x2: data.toViewX(data.valuebox.x + data.valuebox.width),
-                y1: data.toViewY(line.y),
-                y2: data.toViewY(line.y)
-            })) }
-
-            ${ data.xLines
-            .filter((line) => data.valuebox.x + data.valuebox.width >= line.x && line.x >= data.valuebox.x)     
-            .map((line) => include(this.node.getRootNode().getElementById('line-def'), {
-                part: 'x-line line',
-                x1: data.toViewX(line.x),
-                x2: data.toViewX(line.x),
-                y1: data.toViewY(data.valuebox.y),
-                y2: data.toViewY(data.valuebox.y + data.valuebox.height)
+                y1: data.toViewY(line.value),
+                y2: data.toViewY(line.value)
             })) }
 
             ${ data.points.map((point, index) => include(this.node.getRootNode().getElementById('control-def'), {
@@ -98,12 +98,12 @@
             })) }
         </svg>
 
-        ${ data.xTicks
-        .filter((tick) => data.valuebox.x + data.valuebox.width >= tick.x && tick.x >= data.valuebox.x)
+        ${ data.xaxis
+        .filter((tick) => tick.label && data.valuebox.x + data.valuebox.width >= tick.value && tick.value >= data.valuebox.x)
         .map((tick, index) => include(this.node.getRootNode().getElementById('x-tick'), { up: data, tick })) }
 
-        ${ data.yTicks
-        .filter((tick) => data.valuebox.y + data.valuebox.height >= tick.y && tick.y >= data.valuebox.y)   
+        ${ data.yaxis
+        .filter((tick) => tick.label && data.valuebox.y + data.valuebox.height >= tick.value && tick.value >= data.valuebox.y)   
         .map((tick, index) => include(this.node.getRootNode().getElementById('y-tick'), { up: data, tick })) }
     </template>
 </head>
@@ -124,11 +124,13 @@ element and upgrades instances already in the DOM.</p>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
     <span class="token selector">xy-input</span> <span class="token punctuation">{</span>
         <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
-        <span class="token property">height</span><span class="token punctuation">:</span> 5rem<span class="token punctuation">;</span>
+        <span class="token property">height</span><span class="token punctuation">:</span> 6.25rem<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>points<span class="token punctuation">"</span></span> <span class="token attr-name">ymin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0.125<span class="token punctuation">"</span></span> <span class="token attr-name">ymax</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>8<span class="token punctuation">"</span></span> <span class="token attr-name">xmin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20<span class="token punctuation">"</span></span> <span class="token attr-name">xmax</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20000<span class="token punctuation">"</span></span> <span class="token attr-name">xlaw</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>db-linear-60<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>100 1 1000 0.5<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span></code></pre>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>points<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>100 1, 200 2, 2000 0.5<span class="token punctuation">"</span></span> <span class="token attr-name">ymin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0.125<span class="token punctuation">"</span></span> <span class="token attr-name">ymax</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>8<span class="token punctuation">"</span></span> <span class="token attr-name">xmin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20<span class="token punctuation">"</span></span> <span class="token attr-name">xmax</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20000<span class="token punctuation">"</span></span> <span class="token attr-name">xlaw</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>db-linear-60<span class="token punctuation">"</span></span> <span class="token attr-name">ylaw</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>db-linear-60<span class="token punctuation">"</span></span> <span class="token attr-name">xaxis</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Hz<span class="token punctuation">"</span></span> <span class="token attr-name">yaxis</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dB<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span></code></pre>
 
     
 </header>
@@ -139,11 +141,13 @@ element and upgrades instances already in the DOM.</p>
 <style>
     xy-input {
         width: 100%;
-        height: 5rem;
+        height: 6.25rem;
     }
 </style>
 
-<xy-input name="points" ymin="0.125" ymax="8" xmin="20" xmax="20000" xlaw="db-linear-60" value="100 1 1000 0.5"></xy-input>
+<xy-input></xy-input>
+
+<xy-input name="points" value="100 1, 200 2, 2000 0.5" ymin="0.125" ymax="8" xmin="20" xmax="20000" xlaw="db-linear-60" ylaw="db-linear-60" xaxis="Hz" yaxis="dB"></xy-input>
     <!-- for testing form submission values -->
     <input hidden class="button" type="submit" />
 </form>
@@ -213,14 +217,17 @@ x domain of the fader travel. Possible values are:</p>
 </div>
 
  
-<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-xticks">
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-xaxis">
 <h3 class="attribute-doctext-05 doctext-05">
-    <a href="#attribute-xticks">
-        <code class="token language-html">xticks</code>
+    <a href="#attribute-xaxis">
+        <code class="token language-html">xaxis</code>
     </a>
 </h3>
 
-<p>Not yet implemented.</p>
+<p>A space separated list of values at which to display tick marks. Values
+may be listed with or without units, eg:</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">yticks</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0 0.2 0.4 0.6 0.8 1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">yticks</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>-48dB -36dB -24dB -12dB 0dB<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></code></pre>
 
 </div>
 
@@ -290,14 +297,13 @@ y range of the fader travel. Possible values are:</p>
 </div>
 
  
-<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-yticks">
+<div class="attribute-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="attribute-yaxis">
 <h3 class="attribute-doctext-05 doctext-05">
-    <a href="#attribute-yticks">
-        <code class="token language-html">yticks</code>
+    <a href="#attribute-yaxis">
+        <code class="token language-html">yaxis</code>
     </a>
 </h3>
 
-<p>Not fully implemented.</p>
 <p>A space separated list of values at which to display tick marks. Values
 may be listed with or without units, eg:</p>
 <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">yticks</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0 0.2 0.4 0.6 0.8 1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>

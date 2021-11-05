@@ -21,6 +21,7 @@
         0 -1px 1px hsla(192, 60%, 8%, 0.4);
     --handle-stroke-width: 1px;
     min-height: 7.5rem;
+    margin-bottom: 1.25rem;
 
     background: #f6f6f6;
     border: 1px solid #cccccc;

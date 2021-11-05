@@ -10,11 +10,13 @@ element and upgrades instances already in the DOM.
 <style>
     xy-input {
         width: 100%;
-        height: 5rem;
+        height: 6.25rem;
     }
 </style>
 
-<xy-input name="points" ymin="0.125" ymax="8" xmin="20" xmax="20000" xlaw="db-linear-60" value="100 1 1000 0.5"></xy-input>
+<xy-input></xy-input>
+
+<xy-input name="points" value="100 1, 200 2, 2000 0.5" ymin="0.125" ymax="8" xmin="20" xmax="20000" xlaw="db-linear-60" ylaw="db-linear-60" xaxis="Hz" yaxis="dB"></xy-input>
 ```
 **/
 
@@ -35,8 +37,9 @@ import { px, rem } from '../../../dom/modules/parse-length.js';
 
 import Literal     from '../../../literal/module.js';
 
-import { scales } from './scales.js';
-import Data from './data.js';
+import axes   from './axes.js';
+import scales from './scales.js';
+import Data   from './data.js';
 
 const assign = Object.assign;
 
@@ -271,7 +274,6 @@ function updateViewbox(element, data) {
     observer.rangebox[3] = -pxbox.height / fontsize;
 }
 
-
 export default element('xy-input', {
     stylesheet: 
         window.xyInputStylesheet ||
@@ -464,11 +466,25 @@ export default element('xy-input', {
         **/
     },
 
-    xticks: {
+    xaxis: {
         /** 
-        xticks=""
-        Not yet implemented.
+        xaxis=""
+        
+        A space separated list of values at which to display tick marks. Values
+        may be listed with or without units, eg:
+        
+        ```html
+        <xy-input yticks="0 0.2 0.4 0.6 0.8 1">
+        <xy-input yticks="-48dB -36dB -24dB -12dB 0dB">
+        ```
         **/
+        attribute: function(value) {
+            const data = this[$state].data;
+            Observer(data).xaxis = value !== null ?
+                // Todo: parse xaxis attribute
+                axes[value] || value :
+                axes.default ;
+        }
     },
 
     ymin: {
@@ -627,10 +643,9 @@ export default element('xy-input', {
         }
     },
 
-    yticks: {
+    yaxis: {
         /**
-        yticks=""
-        Not fully implemented.
+        yaxis=""
 
         A space separated list of values at which to display tick marks. Values
         may be listed with or without units, eg:
@@ -640,10 +655,13 @@ export default element('xy-input', {
         <xy-input yticks="-48dB -36dB -24dB -12dB 0dB">
         ```
         **/
-
         attribute: function(value) {
             const data = this[$state].data;
-            data.yticks = value;
+
+            Observer(data).yaxis = value !== null ?
+                // Todo: parse yaxis attribute
+                axes[value] || value :
+                axes.default ;
     
             // Create ticks
             //scope.ticks(createTicks(data, value));

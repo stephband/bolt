@@ -20,7 +20,7 @@ function invlinlog(xover, log, value) {
         Math.pow(Math.E, value + log - 1)
 }
 
-export const scales = {
+export default {
     'linear': {
         to: function(value, min, max) {
             return (value - min) / (max - min);
