@@ -1,9 +1,17 @@
 
-import { dB6, dB24, dB30, dB48, dB54, dB60, dB96 } from './constants.js';
+import { dB6, dB24, dB30, dB48, dB54, dB60, dB66, dB72, dB78, dB84, dB90, dB96 } from './constants.js';
 
 export default {
     dB: [
-        { value: 0, label: '-∞' }, 
+        { value: 0, label: '-∞' },
+        { value: dB96/2/2 }, 
+        { value: dB96/2 }, 
+        { value: dB96, label: '-96' }, 
+        { value: dB90, label: '-90' }, 
+        { value: dB84, label: '-84' }, 
+        { value: dB78, label: '-78' }, 
+        { value: dB72, label: '-72' }, 
+        { value: dB66, label: '-66' }, 
         { value: dB60, label: '-60' }, 
         { value: dB54, label: '-54' }, 
         { value: dB48, label: '-48' }, 

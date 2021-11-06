@@ -58,7 +58,18 @@
             })) }
 
             $\{ data.yaxis
-            .filter((line) => data.valuebox.y + data.valuebox.height >= line.value && line.value >= data.valuebox.y)    
+            .filter((line) => data.valuebox.y + data.valuebox.height >= line.value && (
+                data.yScale.startsWith('log') ? line.value === data.valuebox.y || line.value >= ({
+                    'logarithmic-24dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2,
+                    'logarithmic-30dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2/2,
+                    'logarithmic-36dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2/2/2,
+                    'logarithmic-48dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2/2/2/2,
+                    'logarithmic-60dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2/2/2/2/2/2,
+                    'logarithmic-72dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2/2/2/2/2/2/2/2,
+                    'logarithmic-96dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2/2/2/2/2/2/2/2/2/2/2/2
+                })[data.yScale] :
+                line.value >= data.valuebox.y
+            ))    
             .map((line) => include(this.node.getRootNode().getElementById('line-def'), {
                 part: 'y-line line',
                 x1: data.toViewX(data.valuebox.x),
@@ -79,7 +90,18 @@
         .map((tick, index) => include(this.node.getRootNode().getElementById('x-tick'), { up: data, tick })) }
 
         $\{ data.yaxis
-        .filter((tick) => tick.label && data.valuebox.y + data.valuebox.height >= tick.value && tick.value >= data.valuebox.y)   
+        .filter((tick) => tick.label && data.valuebox.y + data.valuebox.height >= tick.value && (
+            data.yScale.startsWith('log') ? tick.value === data.valuebox.y || tick.value >= ({
+                'logarithmic-24dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2,
+                'logarithmic-30dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2,
+                'logarithmic-36dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2,
+                'logarithmic-48dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2/2/2,
+                'logarithmic-60dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2/2/2/2,
+                'logarithmic-72dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2/2/2/2/2/2,
+                'logarithmic-96dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2/2/2/2/2/2/2/2/2/2/2
+            })[data.yScale] :
+            tick.value >= data.valuebox.y
+        ))   
         .map((tick, index) => include(this.node.getRootNode().getElementById('y-tick'), { up: data, tick })) }
     </template>
 </head>

@@ -16,7 +16,7 @@ element and upgrades instances already in the DOM.
 
 <xy-input></xy-input>
 
-<xy-input name="points" value="100 1, 200 2, 2000 0.5" ymin="0.125" ymax="8" xmin="20" xmax="20000" xlaw="db-linear-60" ylaw="db-linear-60" xaxis="Hz" yaxis="dB" include="#waveform-canvas"></xy-input>
+<xy-input name="points" value="100 1, 200 2, 2000 0.5" ymin="0" ymax="1" xmin="20" xmax="20000" xlaw="logarithmic-96dB" ylaw="logarithmic-48dB" xaxis="Hz" yaxis="dB" include="#waveform-canvas"></xy-input>
 ```
 **/
 

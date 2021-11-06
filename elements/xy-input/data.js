@@ -21,20 +21,20 @@ export default function Data() {
 
 assign(Data.prototype, {
     toViewX: function(x) {
-        const ratio = scales[this.xScale].to(x, this.valuebox.x, this.valuebox.x + this.valuebox.width);
+        const ratio = scales[this.xScale].to(this.valuebox.x, this.valuebox.x + this.valuebox.width, x);
         return ratio * this.rangebox[2] + this.rangebox[0];
     },
 
     toViewY: function(y) {
-        const ratio = scales[this.yScale].to(y, this.valuebox.y, this.valuebox.y + this.valuebox.height);
+        const ratio = scales[this.yScale].to(this.valuebox.y, this.valuebox.y + this.valuebox.height, y);
         return ratio * this.rangebox[3] + this.rangebox[1];
     },
 
     toValueX: function(xratio) {
-        return scales[this.xScale].from(xratio, this.valuebox.x, this.valuebox.x + this.valuebox.width);
+        return scales[this.xScale].from(this.valuebox.x, this.valuebox.x + this.valuebox.width, xratio);
     },
 
     toValueY: function(yratio) {
-        return scales[this.yScale].from(yratio, this.valuebox.y, this.valuebox.y + this.valuebox.height);
+        return scales[this.yScale].from(this.valuebox.y, this.valuebox.y + this.valuebox.height, yratio);
     }
 });
