@@ -14,10 +14,19 @@ import toCamelCase from '../../fn/modules/to-camel-case.js';
 import events      from '../../dom/modules/events.js';
 import matches     from '../../dom/modules/matches.js';
 
+function isVisible(element) {
+    return element.offsetParent !== null;
+}
+
 events('dom-activate', document.body)
 .map(get('target'))
 .filter(matches('.toggle-block'))
-.each(function(node) {
+.each(function(node) {    
+    if (!isVisible(node)) {
+        node.style.maxHeight = '';
+        return;
+    }
+
     const box       = node.getBoundingClientRect();
     const computed  = getComputedStyle(node);
     const lastChild = last(node.children);
