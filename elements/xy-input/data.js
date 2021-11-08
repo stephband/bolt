@@ -14,11 +14,13 @@ const defaults = {
     yaxis:    axes.default
 };
 
-export default function Data() {
+export default function Data(host) {
     assign(this, defaults);
-    this.points   = [[0, 0]];
-    this.rangebox = [0, 1, 1, -1];
-    this.valuebox   = { x: 0, y: 0, width: 1, height: 1 };
+    this.host     = host;
+    this.points   = [{ x: 0, y: 0 }];
+    // Start in the 100px range to avoid a flash of ultra large SVG content
+    this.rangebox = [0, 6.75, 6.75, -6.75];
+    this.valuebox = { x: 0, y: 0, width: 1, height: 1 };
 }
 
 assign(Data.prototype, {

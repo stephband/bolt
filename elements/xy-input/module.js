@@ -15,13 +15,13 @@ element and upgrades instances already in the DOM.
 </style>
 
 <xy-input></xy-input>
-
 <xy-input name="points" value="100 0dB one 200 6dB two 2000 -6dB three" ymin="-18dB" ymax="18dB" xmin="20" xmax="20000" xlaw="logarithmic-96dB" ylaw="logarithmic-48dB" xaxis="Hz" yaxis="dB"></xy-input>
 ```
 **/
 
 import { clamp }   from '../../../fn/modules/clamp.js';
 import id          from '../../../fn/modules/id.js';
+import get         from '../../../fn/modules/get.js';
 import last        from '../../../fn/modules/last.js';
 import overload    from '../../../fn/modules/overload.js';
 import noop        from '../../../fn/modules/noop.js';
@@ -139,6 +139,7 @@ const toCoordinates = overload((data, e) => e.type, {
 
         data.events.length = 0;
         data.events.push(e);
+
         return data;
     },
 
@@ -277,12 +278,12 @@ const handle = delegate({
 function updateViewbox(element, data) {
     const observer = Observer(data);
 
-    data.pxbox || (observer.pxbox = {});
+    data.pxbox      || (observer.pxbox = {});
     data.paddingbox || (observer.paddingbox = {});
     data.contentbox || (observer.contentbox = {});
-    data.rangebox || (observer.rangebox = []);
+    data.rangebox   || (observer.rangebox = []);
 
-    updateBoxes(element, observer.pxbox, observer.paddingbox, observer.contentbox, observer.rangebox);
+    observer.box = updateBoxes(element, observer.pxbox, observer.paddingbox, observer.contentbox, observer.rangebox);
 }
 
 export default element('xy-input', {
@@ -292,12 +293,11 @@ export default element('xy-input', {
 
     construct: function(shadow, internal) {
         const literal  = new Literal('#xy-input-shadow');
-        const data     = new Data();
+        const data     = new Data(this);
         const formdata = new FormData();
 
-        literal.render(data).then(() => shadow.appendChild(literal.content));
-
         this[$state] = {
+            rendered: literal.render(data),
             host:     this,
             data:     data,
             internal: internal,
@@ -308,12 +308,12 @@ export default element('xy-input', {
 
         gestures({ threshold: 0 }, shadow)
         .scan((previous, gesture) => {
-            updateBoxes(this, data.pxbox, data.paddingbox, data.contentbox, data.rangebox);
-
+            data.box = updateBoxes(this, data.pxbox, data.paddingbox, data.contentbox, data.rangebox);
             const state = assign({ previous, events: [] }, this[$state]);
 
             gesture
             .scan(toCoordinates, state)
+            .filter(get('type'))
             .each(handle);
 
             return state;
@@ -323,16 +323,17 @@ export default element('xy-input', {
         events('resize', window).each((e) => updateViewbox(this, data));
     },
 
-    connect: function(shadow) {
-        
-    },
-
     load: function(shadow) {
-        // Signal to literal renderer that we have entered the DOM
-        this[$state].literal.connect();
-console.log('LOAD');
-        // CSS has loaded
+        const literal = this[$state].literal;
+
         updateViewbox(this, this[$state].data);
+
+        // Insert content now that CSS has loaded to avoid flash of unstyled 
+        // content.
+        this[$state].rendered.then(() => {
+            shadow.appendChild(literal.content);
+            literal.connect();
+        });
     }
 }, {/*
     type: {

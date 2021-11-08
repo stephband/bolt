@@ -14,12 +14,15 @@
     grid-template-columns: 1fr;
     grid-template-rows: min-content;
 
-    /* --grid-color */
-    /* --grid-color-x */
-    /* --grid-color-y */
-    --grid-color: #cccccc;
-    --grid-color-x: var(--grid-color);
-    --grid-color-y: var(--grid-color);
+    /** --line-color **/
+    /** --line-color-x **/
+    /** --line-color-y **/
+    --line-color: #cccccc;
+    --line-color-x: var(--line-color);
+    --line-color-y: var(--line-color);
+
+    /** --plot-color **/
+    --plot-color: #00bb55;
 
     --track-background: #01181e;
     --track-radius: 0.1875rem;

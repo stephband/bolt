@@ -32,13 +32,28 @@
 
         <canvas>$\{
             this.ctx      = this.ctx || element.getContext('2d'),
-            this.computed = this.computed || getComputedStyle(element),
-            data.paddingbox && (
-                console.log('DRAWWWWW'),
+            this.computed = this.computed || getComputedStyle(data.host),
 
+            // Todo: Observers are not being registered on first render, because
+            // they are protected by the paddingbox check, but then not on any 
+            // other render either. This is because this is a TextRenderer being
+            // told to rerender, where the observers are only updated on 
+            // rerenders of the parent TemplateRenderer. And this is a bit of a 
+            // worry, because it's a hole in my thinking that I had not... well, 
+            // to be fair I smelled something off about the observation system, 
+            // I guess this is where it's coming from.
+            //
+            // For the moment, kick start the observation here by reading them
+            // before the paddingbox check.
+            data.points.map((point) => (point.x, point.y)),
+
+            // And observe each box change (TEMP, get rid of data.box, we only 
+            // use it for this)
+            data.box && (
                 this.viewbox    = { x: data.contentbox.x * 2, y: data.contentbox.y * 2, width: data.contentbox.width * 2, height: data.contentbox.height * 2 },
-                this.xGridColor = this.computed.getPropertyValue('--grid-color-x').trim(),
-                this.yGridColor = this.computed.getPropertyValue('--grid-color-y').trim(),
+                this.xGridColor = this.computed.getPropertyValue('--line-color-x').trim(),
+                this.yGridColor = this.computed.getPropertyValue('--line-color-y').trim(),
+                this.graphColor = this.computed.getPropertyValue('--plot-color').trim(),
 
                 // Clears canvas as well as setting up size
                 element.width  = data.paddingbox.width * 2,
@@ -60,8 +75,11 @@
                 data.drawCurve(
                     this.ctx,
                     this.viewbox, 
-                    data.points.map((point) => ({ x: data.toRatioX(point.x), y: data.toRatioY(point.y) })).sort(by(get('x'))),
-                    '#00bb55'
+                    data.points.map((point, i) => ({
+                        x: data.toRatioX(point.x),
+                        y: data.toRatioY(point.y)
+                    })).sort(by(get('x'))),
+                    this.graphColor
                 )
             ), ''
         }</canvas>
