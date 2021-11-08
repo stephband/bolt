@@ -16,7 +16,7 @@ element and upgrades instances already in the DOM.
 
 <xy-input></xy-input>
 
-<xy-input name="points" value="100 1, 200 2, 2000 0.5" ymin="0" ymax="1" xmin="20" xmax="20000" xlaw="logarithmic-96dB" ylaw="logarithmic-48dB" xaxis="Hz" yaxis="dB" include="#waveform-canvas"></xy-input>
+<xy-input name="points" value="100 0dB one 200 6dB two 2000 -6dB three" ymin="-18dB" ymax="18dB" xmin="20" xmax="20000" xlaw="logarithmic-96dB" ylaw="logarithmic-48dB" xaxis="Hz" yaxis="dB"></xy-input>
 ```
 **/
 
@@ -37,9 +37,12 @@ import { px, rem } from '../../../dom/modules/parse-length.js';
 
 import Literal     from '../../../literal/module.js';
 
-import axes   from './axes.js';
-import scales from './scales.js';
-import Data   from './data.js';
+import axes        from './axes.js';
+import scales      from './scales.js';
+import Data        from './data.js';
+import parseValue  from './parse-value.js';
+import parseTicks  from './parse-ticks.js';
+import parsePoints from './parse-points.js';
 
 const assign = Object.assign;
 
@@ -50,20 +53,6 @@ const maxDoubleTapDuration = 0.4;
 const defaultTargetEventDuration = 0.4;
 
 
-/* Element */
-
-function toPairs(acc, value) {
-    const last = acc[acc.length - 1];
-
-    if (!last || last.length > 1) {
-        acc.push([value]);
-    }
-    else {
-        last.push(value);
-    }
-
-    return acc;
-}
 
 
 
@@ -72,22 +61,44 @@ toCoordinates()
 Turn gesture positions into coordinates
 */
 
-function getPaddingBox(element) {
-    const box         = rect(element);
-    const computed    = getComputedStyle(element);
-    const paddingLeft = (px(computed.borderLeftWidth) || 0) + (px(computed.paddingLeft) || 0);
-    const paddingTop  = (px(computed.borderTopWidth) || 0) + (px(computed.paddingTop) || 0);
+function updateBoxes(element, pxbox, paddingbox, contentbox, rangebox) {
+    const box           = rect(element);
+    const computed      = getComputedStyle(element);
+    const fontsize      = px(computed['font-size']);
+    const borderLeft    = px(computed.borderLeftWidth) || 0;
+    const borderTop     = px(computed.borderTopWidth) || 0;
+    const borderRight   = px(computed.borderRightWidth) || 0;
+    const borderBottom  = px(computed.borderBottomWidth) || 0;
+    const paddingLeft   = px(computed.paddingLeft) || 0;
+    const paddingTop    = px(computed.paddingTop) || 0;
+    const paddingRight  = px(computed.paddingRight) || 0;
+    const paddingBottom = px(computed.paddingBottom) || 0;
 
-    box.x      = box.x + paddingLeft;
-    box.y      = box.y + paddingTop;
-    box.width  = box.width  - paddingLeft - (px(computed.borderRightWidth) || 0) - (px(computed.paddingRight) || 0);
-    box.height = box.height - paddingTop - (px(computed.borderBottomWidth) || 0) - (px(computed.paddingBottom) || 0);
+    pxbox.x      = box.x + borderLeft + paddingLeft;
+    pxbox.y      = box.y + borderTop + paddingTop;
+    pxbox.width  = box.width  - borderLeft - paddingLeft - borderRight - paddingRight;
+    pxbox.height = box.height - borderTop - paddingTop - borderBottom - paddingBottom;
+
+    paddingbox.x      = 0;
+    paddingbox.y      = 0;
+    paddingbox.width  = box.width - borderLeft - borderRight;
+    paddingbox.height = box.height - borderTop - borderBottom;
+
+    contentbox.x      = paddingLeft;
+    contentbox.y      = paddingTop;
+    contentbox.width  = box.width  - borderLeft - paddingLeft - borderRight - paddingRight;
+    contentbox.height = box.height - borderTop - paddingTop - borderBottom - paddingBottom;
+
+    rangebox[0] = 0;
+    rangebox[2] = contentbox.width / fontsize;
+    rangebox[1] = 0;
+    rangebox[3] = -contentbox.height / fontsize;
 
     return box;
 }
 
 function setXY(e, data) {
-    const box      = data.pxbox;
+    const box      = data.data.pxbox;
     const valuebox = data.data.valuebox;
 
     // New pixel position of control, compensating for initial
@@ -165,7 +176,7 @@ const toCoordinates = overload((data, e) => e.type, {
 
 function setFormValue(internal, formdata, name, points) {
     formdata.delete(name);
-    points.forEach((point) => formdata.append(name, point.join(',')));
+    points.forEach((point) => formdata.append(name, point.x + ',' + point.y));
     internal.setFormValue(formdata);
     return formdata;
 }
@@ -226,8 +237,8 @@ const handle = delegate({
             const data = gesture.data;
             const points = Observer(data.points);
 
-            points[element.dataset.index][0] = gesture.x ;
-            points[element.dataset.index][1] = gesture.y ;
+            points[element.dataset.index].x = gesture.x ;
+            points[element.dataset.index].y = gesture.y ;
 
             const host = gesture.host;
             if (last(gesture.events).type !== 'pointermove') {
@@ -265,14 +276,13 @@ const handle = delegate({
 
 function updateViewbox(element, data) {
     const observer = Observer(data);
-    const pxbox    = getPaddingBox(element);
-    const fontsize = px(getComputedStyle(element)['font-size']);
 
-    observer.pxbox = pxbox;
-    observer.rangebox[0] = 0;
-    observer.rangebox[2] = pxbox.width / fontsize;
-    observer.rangebox[1] = 0;
-    observer.rangebox[3] = -pxbox.height / fontsize;
+    data.pxbox || (observer.pxbox = {});
+    data.paddingbox || (observer.paddingbox = {});
+    data.contentbox || (observer.contentbox = {});
+    data.rangebox || (observer.rangebox = []);
+
+    updateBoxes(element, observer.pxbox, observer.paddingbox, observer.contentbox, observer.rangebox);
 }
 
 export default element('xy-input', {
@@ -298,21 +308,9 @@ export default element('xy-input', {
 
         gestures({ threshold: 0 }, shadow)
         .scan((previous, gesture) => {
-            const pxbox    = getPaddingBox(this);
-            const fontsize = px(getComputedStyle(this)['font-size']);
+            updateBoxes(this, data.pxbox, data.paddingbox, data.contentbox, data.rangebox);
 
-            // Assign without notify?
-            data.rangebox[0] = 0;
-            data.rangebox[2] = pxbox.width / fontsize;
-            data.rangebox[1] = 0;
-            data.rangebox[3] = -pxbox.height / fontsize;
-
-            const state = assign({
-                pxbox,
-                previous,
-                fontsize,
-                events: []
-            }, this[$state]);
+            const state = assign({ previous, events: [] }, this[$state]);
 
             gesture
             .scan(toCoordinates, state)
@@ -332,7 +330,7 @@ export default element('xy-input', {
     load: function(shadow) {
         // Signal to literal renderer that we have entered the DOM
         this[$state].literal.connect();
-
+console.log('LOAD');
         // CSS has loaded
         updateViewbox(this, this[$state].data);
     }
@@ -366,7 +364,7 @@ export default element('xy-input', {
         },
 
         set: function(value) {
-            value = parseFloat(value) || 0;
+            value = parseValue(value);
             const data = this[$state].data;
 
             if (value === data.xmin) { return; }
@@ -410,7 +408,7 @@ export default element('xy-input', {
         },
 
         set: function(value) {
-            value = parseFloat(value);
+            value = parseValue(value);
 
             if (Number.isNaN(value)) {
                 if (window.DEBUG) {
@@ -482,8 +480,7 @@ export default element('xy-input', {
         attribute: function(value) {
             const data = this[$state].data;
             Observer(data).xaxis = value !== null ?
-                // Todo: parse xaxis attribute
-                axes[value] || value :
+                axes[value] || parseTicks(value) :
                 axes.default ;
         }
     },
@@ -510,7 +507,7 @@ export default element('xy-input', {
         },
 
         set: function(value) {
-            value = parseFloat(value) || 0;
+            value = parseValue(value);
             const data = this[$state].data;
 
             if (value === data.min) { return; }
@@ -553,7 +550,7 @@ export default element('xy-input', {
         },
 
         set: function(value) {
-            value = parseFloat(value);
+            value = parseValue(value);
 
             if (Number.isNaN(value)) {
                 if (window.DEBUG) {
@@ -660,8 +657,7 @@ export default element('xy-input', {
             const data = this[$state].data;
 
             Observer(data).yaxis = value !== null ?
-                // Todo: parse yaxis attribute
-                axes[value] || value :
+                axes[value] || parseTicks(value) :
                 axes.default ;
     
             // Create ticks
@@ -707,43 +703,40 @@ export default element('xy-input', {
         value=""
         The initial value of the element.
         **/
-
         attribute: function(value) {
-            const values = value.split(/\s*,\s*|\s+/).map(parseFloat);
-            const { data, internal, formdata } = this[$state];
-            data.points.length = 0;
-            values.reduce(toPairs, Observer(data.points));
-            setFormValue(internal, formdata, this.name, data.points);
+            this.value = value;
         },
 
         /**
         .value
         The value of the element.
         **/
-
         get: function() {
-            return this[$state].data.points;
+            return Observer(this[$state].data.points);
         },
 
         set: function(values) {
             const { data, internal, formdata } = this[$state];
-            // TODO: do a deep assign, and accept a flat array
-            assign(Observer(data.points), values);
+
+            Observer(data).points = typeof values === 'string' ?
+                parsePoints(values) :
+                getTarget(values) ;
+
             setFormValue(internal, formdata, this.name, data.points);
         },
 
         enumerable: true
     },
-
+    /*
     include: {
         /** 
         include=""
         **/
-        attribute: function(url) {
+    /*    attribute: function(url) {
             const data = this[$state].data;
             Observer(data).include = url;
         }
-    },
+    },*/
 
     /** 
     "input"

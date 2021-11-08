@@ -1,11 +1,11 @@
 
-import id from '../../fn/modules/id.js';
-import overload from '../../fn/modules/overload.js';
-import todB from '../../fn/modules/maths/to-db.js';
-import toLevel from '../../fn/modules/maths/to-gain.js';
-import toCamelCase from '../../fn/modules/to-camel-case.js';
-import * as normalise   from '../../fn/modules/normalisers.js';
-import * as denormalise from '../../fn/modules/denormalisers.js';
+import id          from '../../../fn/modules/id.js';
+import overload    from '../../../fn/modules/overload.js';
+import todB        from '../../../fn/modules/to-db.js';
+import toLevel     from '../../../fn/modules/to-gain.js';
+import toCamelCase from '../../../fn/modules/to-camel-case.js';
+import * as normalise   from '../../../fn/modules/normalisers.js';
+import * as denormalise from '../../../fn/modules/denormalisers.js';
 
 export const attributes = ['min', 'max', 'value'];
 
@@ -181,14 +181,15 @@ export function evaluate(string) {
     // Coerce null, undefined, false, '' to 0
     if (!string) { return 0; }
 
+    // Returns numbers without units
     const number = +string;
     if (number || number === 0) { return number; }
 
+    // Detect units
     const tokens = /^(-?[\d.]+)(?:(dB|bpm)|(m|k)?(\w+))$/.exec(string);
     if (!tokens) { return 0; }
 
     const value = parseFloat(tokens[1]) ;
-
     return tokens[2] === 'dB' ? toLevel(value) :
         // BPM to `rate` in beats per second
         tokens[2] === 'bpm' ? value / 60 :

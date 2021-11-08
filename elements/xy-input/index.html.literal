@@ -13,13 +13,9 @@
 
     <style></style>
 
-    <template id="waveform-canvas">
-        <canvas width="$\{ data.pxbox && data.pxbox.width }" height="$\{ data.pxbox && data.pxbox.height }" style="grid-column: 1; grid-row: 1; align-self: stretch; justify-self: stretch;"></canvas>
-    </template>
-
     <template id="xy-input-shadow">
         <template id="x-tick">
-            <label part="x-tick tick" style="transform: translate(calc($\{ data.up.toViewX(data.tick.value) }em - 50%), 1.75em);">
+            <label part="x-tick tick" style="transform: translate(calc($\{ data.up.toViewX(data.tick.value) }em - 50%), 1.5em);">
                 <span>$\{ data.tick.label }</span>
             </label>
         </template>
@@ -34,9 +30,43 @@
             <slot></slot>
         </label>
 
-        $\{ data.include ? include(data.include, data) : '' }
+        <canvas>$\{
+            this.ctx = this.ctx || element.getContext('2d'),
+            data.paddingbox && (
+                console.log('DRAWWWWW'),
 
-        <svg viewbox="0 -1 1 1">
+                this.viewbox    = { x: data.contentbox.x * 2, y: data.contentbox.y * 2, width: data.contentbox.width * 2, height: data.contentbox.height * 2 },
+                this.computed   = this.computed || getComputedStyle(element),
+                this.xGridColor = this.computed.getPropertyValue('--grid-color-x').trim(),
+                this.yGridColor = this.computed.getPropertyValue('--grid-color-y').trim(),
+
+                element.width  = data.paddingbox.width * 2,
+                element.height = data.paddingbox.height * 2,
+                //data.clear(this.ctx, { x: 0, y: 0, width: element.width, height: element.height }),
+
+                data.drawXLines(this.ctx, this.viewbox, data.xaxis
+                    .filter((line) => data.valuebox.x + data.valuebox.width >= line.value && line.value >= data.valuebox.x)     
+                    .map((line) => ({ x: data.toRatioX(line.value) })),
+                    this.xGridColor
+                ),
+
+                data.drawYLines(this.ctx, this.viewbox, data.yaxis
+                    .filter((line) => data.valuebox.y + data.valuebox.height >= line.value && line.value >= data.valuebox.y)     
+                    .map((line) => ({ y: data.toRatioY(line.value) })),
+                    this.yGridColor
+                ),
+
+                data.drawCurve(
+                    this.ctx,
+                    this.viewbox, 
+                    data.points.map((point) => ({ x: data.toRatioX(point.x), y: data.toRatioY(point.y) })).sort(by(get('x'))),
+                    '#00bb55'
+                )
+            )
+        }</canvas>
+
+        <!-- SVG must be made to cover the available space else the shapes are not clickable in Safari -->
+        <svg viewbox="$\{ data.rangebox[0] } $\{ data.rangebox[1] + data.rangebox[3] } $\{ data.rangebox[2] } $\{ -data.rangebox[3] }">
             <defs>
                 <linearGradient id="handle-gradient" x1="0" x2="0" y1="0" y2="1">
                     <stop class="stop-1" offset="0%"/>
@@ -44,22 +74,16 @@
                 </linearGradient>
 
                 <line part="$\{ data.part }" x1="$\{ data.x1 }" x2="$\{ data.x2 }" y1="$\{ data.y1 }"  y2="$\{ data.y2 }" id="line-def"></line>
-                <circle part="handle" class="control control-handle control-point" cx="$\{ data.up.toViewX(data.point[0]) }" cy="$\{ data.up.toViewY(data.point[1]) }" r="0.5" data-index="$\{ data.index }" id="control-def"></circle>
+
+                <circle part="handle" class="control control-handle control-point" cx="$\{ data.up.toViewX(data.point.x) }" cy="$\{ data.up.toViewY(data.point.y) }" r="0.5" data-index="$\{ data.index }" id="control-def">
+                    <title>$\{data.point.label} $\{data.point.x && data.point.x.toFixed(2)}, $\{data.point.y && data.point.y.toFixed(2)}</title>
+                </circle>
             </defs>
 
-            $\{ data.xaxis
-            .filter((line) => data.valuebox.x + data.valuebox.width >= line.value && line.value >= data.valuebox.x)     
-            .map((line) => include(this.node.getRootNode().getElementById('line-def'), {
-                part: 'x-line line',
-                x1: data.toViewX(line.value),
-                x2: data.toViewX(line.value),
-                y1: data.toViewY(data.valuebox.y),
-                y2: data.toViewY(data.valuebox.y + data.valuebox.height)
-            })) }
-
+            <!--
             $\{ data.yaxis
             .filter((line) => data.valuebox.y + data.valuebox.height >= line.value && (
-                data.yScale.startsWith('log') ? line.value === data.valuebox.y || line.value >= ({
+                data.yScale.startsWith('log') ? line.value === data.valuebox.y || line.value > data.valuebox.y && line.value >= ({
                     'logarithmic-24dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2,
                     'logarithmic-30dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2/2,
                     'logarithmic-36dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2/2/2,
@@ -77,6 +101,7 @@
                 y1: data.toViewY(line.value),
                 y2: data.toViewY(line.value)
             })) }
+            -->
 
             $\{ data.points.map((point, index) => include(this.node.getRootNode().getElementById('control-def'), {
                 up: data,
@@ -91,7 +116,7 @@
 
         $\{ data.yaxis
         .filter((tick) => tick.label && data.valuebox.y + data.valuebox.height >= tick.value && (
-            data.yScale.startsWith('log') ? tick.value === data.valuebox.y || tick.value >= ({
+            data.yScale.startsWith('log') ? tick.value === data.valuebox.y || tick.value > data.valuebox.y && tick.value >= ({
                 'logarithmic-24dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2,
                 'logarithmic-30dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2,
                 'logarithmic-36dB': (data.valuebox.y + data.valuebox.height)/2/2/2/2/2/2/2,

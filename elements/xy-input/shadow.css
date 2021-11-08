@@ -4,22 +4,30 @@
 @import '../control/control.css';
 
 :host {
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 100%;
+    display: block;
     padding: 0.3125rem;
-
-    /* Original soundio green */
-    /*--value-color: #acb9b8;*/
+    
+    /* We rely on maintaining the height of the SVG via viewbox to determine the
+       height of the grid row. Safari has a bad habit of making 100% and 1fr 
+       bigger than they should be (seemingly ignoring padding top/bottom), which
+       causes the labels to render too low. */
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content;
 
     /* --grid-color */
-    --grid-color: black;
+    /* --grid-color-x */
+    /* --grid-color-y */
+    --grid-color: #cccccc;
+    --grid-color-x: var(--grid-color);
+    --grid-color-y: var(--grid-color);
+
     --track-background: #01181e;
     --track-radius: 0.1875rem;
     --track-shadow: inset 0 0 90px hsla(192, 94%, 6%, 0.16875),
         0 1px 1px hsla(192, 18%, 64%, 0.15),
         0 -1px 1px hsla(192, 60%, 8%, 0.4);
     --handle-stroke-width: 1px;
+
     min-height: 7.5rem;
     margin-bottom: 1.25rem;
 
@@ -27,21 +35,55 @@
     border: 1px solid #cccccc;
     border-radius: var(--track-radius);
     box-shadow: var(--track-shadow);
+    
+    box-sizing: border-box;
+    position: relative;
+}
+
+:host > canvas {
+    pointer-events: none;
+    grid-column: 1;
+    grid-row: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    margin: 0;
 }
 
 :host > svg {
     grid-column: 1;
     grid-row: 1;
-    align-self: end;
-    justify-self: start;
 
-    /* Compensate for label height */
-    height: calc(100% - 24px);
+    /* For some reason aligning to anything other than start causes the SVG to
+       render too low down in Safari. */
+    align-self: stretch;
+    /* Height must be auto (100% too big in Safari) and controlled by viewbox
+       to cover the area else shapes inside are not clickable. */
+    height: auto;
+
+    justify-self: stretch;
     width: 100%;
-    width: 1em;
-    height: 1em;
+    
     overflow: visible;
-    z-index: 1;
+    position: relative;
+    z-index: 2;
+    transform: translate3d(0,0,0);
+}
+
+:host > svg > circle {
+    z-index: 2;
+    transform: translate3d(0,0,0);
+}
+
+:host > [part="x-tick tick"],
+:host > [part="y-tick tick"] {
+    position: absolute;
+    left: 6px;
+    bottom: 6px;
 }
 
 [part="x-line line"],
@@ -57,7 +99,10 @@
     justify-self: start;
     margin: 0;
     font-size: inherit !important;
+    line-height: 1em;
+    height: auto;
     color: #888888;
+    white-space: nowrap;
 }
 
 [part="x-tick tick"] {

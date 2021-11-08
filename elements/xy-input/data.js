@@ -1,6 +1,8 @@
 import axes   from './axes.js';
 import scales from './scales.js';
 
+import { requestDrawCurve, clear, drawXLines, drawYLines } from './canvas.js';
+
 const assign = Object.assign;
 
 const defaults = {
@@ -16,10 +18,23 @@ export default function Data() {
     assign(this, defaults);
     this.points   = [[0, 0]];
     this.rangebox = [0, 1, 1, -1];
-    this.valuebox = { x: 0, y: 0, width: 1, height: 1 };
+    this.valuebox   = { x: 0, y: 0, width: 1, height: 1 };
 }
 
 assign(Data.prototype, {
+    clear:     clear,
+    drawCurve: requestDrawCurve,
+    drawXLines: drawXLines,
+    drawYLines: drawYLines,
+
+    toRatioX: function(x) {
+        return scales[this.xScale].to(this.valuebox.x, this.valuebox.x + this.valuebox.width, x);
+    },
+
+    toRatioY: function(y) {
+        return scales[this.yScale].to(this.valuebox.y, this.valuebox.y + this.valuebox.height, y);
+    },
+
     toViewX: function(x) {
         const ratio = scales[this.xScale].to(this.valuebox.x, this.valuebox.x + this.valuebox.width, x);
         return ratio * this.rangebox[2] + this.rangebox[0];
