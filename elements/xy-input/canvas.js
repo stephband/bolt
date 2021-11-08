@@ -86,8 +86,8 @@ export function drawXLines(ctx, box, lines, color) {
 
     let n = -1;
     while (++n < lines.length) {
-        ctx.moveTo(box.x + lines[n].x * box.width, box.y);
-        ctx.lineTo(box.x + lines[n].x * box.width, box.y + box.height);
+        ctx.moveTo(box.x + lines[n] * box.width, box.y);
+        ctx.lineTo(box.x + lines[n] * box.width, box.y + box.height);
     }
 
     ctx.stroke();
@@ -103,8 +103,8 @@ export function drawYLines(ctx, box, lines, color) {
 
     let n = -1;
     while (++n < lines.length) {
-        ctx.moveTo(box.x,             box.y + (1 - lines[n].y) * box.height);
-        ctx.lineTo(box.x + box.width, box.y + (1 - lines[n].y) * box.height);
+        ctx.moveTo(box.x,             box.y + (1 - lines[n]) * box.height);
+        ctx.lineTo(box.x + box.width, box.y + (1 - lines[n]) * box.height);
     }
 
     ctx.stroke();

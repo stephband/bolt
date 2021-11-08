@@ -61,28 +61,29 @@
         </label>
 
         <canvas>${
-            this.ctx = this.ctx || element.getContext('2d'),
+            this.ctx      = this.ctx || element.getContext('2d'),
+            this.computed = this.computed || getComputedStyle(element),
             data.paddingbox && (
                 console.log('DRAWWWWW'),
 
                 this.viewbox    = { x: data.contentbox.x * 2, y: data.contentbox.y * 2, width: data.contentbox.width * 2, height: data.contentbox.height * 2 },
-                this.computed   = this.computed || getComputedStyle(element),
                 this.xGridColor = this.computed.getPropertyValue('--grid-color-x').trim(),
                 this.yGridColor = this.computed.getPropertyValue('--grid-color-y').trim(),
 
+                // Clears canvas as well as setting up size
                 element.width  = data.paddingbox.width * 2,
                 element.height = data.paddingbox.height * 2,
                 //data.clear(this.ctx, { x: 0, y: 0, width: element.width, height: element.height }),
 
                 data.drawXLines(this.ctx, this.viewbox, data.xaxis
                     .filter((line) => data.valuebox.x + data.valuebox.width >= line.value && line.value >= data.valuebox.x)     
-                    .map((line) => ({ x: data.toRatioX(line.value) })),
+                    .map((line) => data.toRatioX(line.value)),
                     this.xGridColor
                 ),
 
                 data.drawYLines(this.ctx, this.viewbox, data.yaxis
                     .filter((line) => data.valuebox.y + data.valuebox.height >= line.value && line.value >= data.valuebox.y)     
-                    .map((line) => ({ y: data.toRatioY(line.value) })),
+                    .map((line) => data.toRatioY(line.value)),
                     this.yGridColor
                 ),
 
@@ -92,7 +93,7 @@
                     data.points.map((point) => ({ x: data.toRatioX(point.x), y: data.toRatioY(point.y) })).sort(by(get('x'))),
                     '#00bb55'
                 )
-            )
+            ), ''
         }</canvas>
 
         <!-- SVG must be made to cover the available space else the shapes are not clickable in Safari -->
