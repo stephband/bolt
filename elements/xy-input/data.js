@@ -1,7 +1,7 @@
 import axes   from './axes.js';
 import scales from './scales.js';
 
-import { requestDrawCurve, clear, drawXLines, drawYLines } from './canvas.js';
+import { requestDrawCurve, clear, drawXLines, drawYLines, drawCrosshair } from './canvas.js';
 
 const assign = Object.assign;
 
@@ -26,6 +26,7 @@ export default function Data(host) {
 assign(Data.prototype, {
     clear:     clear,
     drawCurve: requestDrawCurve,
+    drawCrosshair: drawCrosshair,
     drawXLines: drawXLines,
     drawYLines: drawYLines,
 

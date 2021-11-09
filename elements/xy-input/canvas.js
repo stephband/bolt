@@ -111,6 +111,28 @@ export function drawYLines(ctx, box, lines, color) {
     ctx.closePath();
 }
 
+export function drawCrosshair(ctx, box, radius, point, color) {
+    ctx.lineWidth   = '1';
+    ctx.lineCap     = 'round';
+    ctx.strokeStyle = color;
+    ctx.fillStyle   = color + '2b';
+
+    ctx.beginPath();
+
+    ctx.moveTo(0,                                    box.y + (1 - point.y) * box.height);
+    ctx.lineTo(box.x + point.x * box.width - radius, box.y + (1 - point.y) * box.height);
+    ctx.moveTo(box.x + point.x * box.width + radius, box.y + (1 - point.y) * box.height);
+    ctx.lineTo(box.x + box.width + 100,              box.y + (1 - point.y) * box.height);
+
+    ctx.moveTo(box.x + point.x * box.width, 0);
+    ctx.lineTo(box.x + point.x * box.width, box.y + (1 - point.y) * box.height - radius);
+    ctx.moveTo(box.x + point.x * box.width, box.y + (1 - point.y) * box.height + radius);
+    ctx.lineTo(box.x + point.x * box.width, box.y + box.height + 100);
+
+    ctx.stroke();
+    ctx.closePath();
+}
+
 export function requestDrawCurve(ctx, box, points, color) {
     ctx.lineWidth   = '1';
     ctx.lineCap     = 'round';

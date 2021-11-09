@@ -102,6 +102,13 @@
                     this.yGridColor
                 ),
 
+                data.xScale === 'linear' ?
+                data.points.forEach((point) => data.drawCrosshair(this.ctx, this.viewbox, 28, {
+                    x: data.toRatioX(point.x), 
+                    y: data.toRatioY(point.y) 
+                }, this.graphColor)) :
+
+
                 data.drawCurve(
                     this.ctx,
                     this.viewbox, 
