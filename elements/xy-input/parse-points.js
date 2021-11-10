@@ -8,7 +8,7 @@ function toPoints(points, value) {
         point.y = parseValue(value);
     }
     else if (point && !/^-?\d/.test(value)) {
-        point.label = value;
+        point.type = value;
     }
     else {
         points.push({

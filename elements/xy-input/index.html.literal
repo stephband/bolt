@@ -71,7 +71,7 @@
                     .map((line) => data.toRatioY(line.value)),
                     this.yGridColor
                 ),
-
+/*
                 data.xScale === 'linear' ?
                     data.points.forEach((point) => data.drawCrosshair(this.ctx, this.viewbox, 28, {
                         x: data.toRatioX(point.x), 
@@ -86,7 +86,7 @@
                         })).sort(by(get('x'))),
                         this.graphColor
                     ),
-
+*/
                 data.drawAudioEnvelope(this.ctx, this.viewbox, data.valuebox, data.points, '#440066')
             ), ''
         }</canvas>

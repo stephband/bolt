@@ -101,7 +101,7 @@
                     .map((line) => data.toRatioY(line.value)),
                     this.yGridColor
                 ),
-
+/*
                 data.xScale === 'linear' ?
                     data.points.forEach((point) => data.drawCrosshair(this.ctx, this.viewbox, 28, {
                         x: data.toRatioX(point.x), 
@@ -116,7 +116,7 @@
                         })).sort(by(get('x'))),
                         this.graphColor
                     ),
-
+*/
                 data.drawAudioEnvelope(this.ctx, this.viewbox, data.valuebox, data.points, '#440066')
             ), ''
         }</canvas>
@@ -208,7 +208,7 @@ element and upgrades instances already in the DOM.</p>
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xy-input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>points<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>100 0dB one 200 6dB two 2000 -6dB three<span class="token punctuation">"</span></span> <span class="token attr-name">ymin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>-18dB<span class="token punctuation">"</span></span> <span class="token attr-name">ymax</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>18dB<span class="token punctuation">"</span></span> <span class="token attr-name">xmin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20<span class="token punctuation">"</span></span> <span class="token attr-name">xmax</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20000<span class="token punctuation">"</span></span> <span class="token attr-name">xlaw</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>logarithmic-96dB<span class="token punctuation">"</span></span> <span class="token attr-name">ylaw</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>logarithmic-48dB<span class="token punctuation">"</span></span> <span class="token attr-name">xaxis</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Hz<span class="token punctuation">"</span></span> <span class="token attr-name">yaxis</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dB<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xy-input</span><span class="token punctuation">></span></span></code></pre>
+<span class="token comment">&lt;!--xy-input name="points" value="100 0dB one 200 6dB two 2000 -6dB three" ymin="-18dB" ymax="18dB" xmin="20" xmax="20000" xlaw="logarithmic-96dB" ylaw="logarithmic-48dB" xaxis="Hz" yaxis="dB">&lt;/xy-input--></span></code></pre>
 
     
 </header>
@@ -224,7 +224,7 @@ element and upgrades instances already in the DOM.</p>
 </style>
 
 <xy-input></xy-input>
-<xy-input name="points" value="100 0dB one 200 6dB two 2000 -6dB three" ymin="-18dB" ymax="18dB" xmin="20" xmax="20000" xlaw="logarithmic-96dB" ylaw="logarithmic-48dB" xaxis="Hz" yaxis="dB"></xy-input>
+<!--xy-input name="points" value="100 0dB one 200 6dB two 2000 -6dB three" ymin="-18dB" ymax="18dB" xmin="20" xmax="20000" xlaw="logarithmic-96dB" ylaw="logarithmic-48dB" xaxis="Hz" yaxis="dB"></xy-input-->
     <!-- for testing form submission values -->
     <input hidden class="button" type="submit" />
 </form>

@@ -19,7 +19,7 @@ const defaults = {
 export default function Data(host) {
     assign(this, defaults);
     this.host     = host;
-    this.points   = [{ x: 0, y: 0, type: 'step' }];
+    this.points   = [{ x: 0, y: 0, type: 'step' }, { x: 0.5, y: 0.5, type: 'linear' }, { x: 0.7, y: 0.8, type: 'exponential' }, { x: 0.8, y: 0.2, type: 'target', duration: 0.1 }];
     // Start in the 100px range to avoid a flash of ultra large SVG content
     this.rangebox = [0, 6.75, 6.75, -6.75];
     this.valuebox = { x: 0, y: 0, width: 1, height: 1 };
