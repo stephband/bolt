@@ -73,21 +73,21 @@
                 ),
 
                 data.xScale === 'linear' ?
-                data.points.forEach((point) => data.drawCrosshair(this.ctx, this.viewbox, 28, {
-                    x: data.toRatioX(point.x), 
-                    y: data.toRatioY(point.y) 
-                }, this.graphColor)) :
+                    data.points.forEach((point) => data.drawCrosshair(this.ctx, this.viewbox, 28, {
+                        x: data.toRatioX(point.x), 
+                        y: data.toRatioY(point.y) 
+                    }, this.graphColor)) :
+                    data.drawCurve(
+                        this.ctx,
+                        this.viewbox, 
+                        data.points.map((point, i) => ({
+                            x: data.toRatioX(point.x),
+                            y: data.toRatioY(point.y)
+                        })).sort(by(get('x'))),
+                        this.graphColor
+                    ),
 
-
-                data.drawCurve(
-                    this.ctx,
-                    this.viewbox, 
-                    data.points.map((point, i) => ({
-                        x: data.toRatioX(point.x),
-                        y: data.toRatioY(point.y)
-                    })).sort(by(get('x'))),
-                    this.graphColor
-                )
+                data.drawAudioEnvelope(this.ctx, this.viewbox, data.valuebox, data.points, '#440066')
             ), ''
         }</canvas>
 

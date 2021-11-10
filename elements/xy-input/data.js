@@ -2,6 +2,8 @@ import axes   from './axes.js';
 import scales from './scales.js';
 
 import { requestDrawCurve, clear, drawXLines, drawYLines, drawCrosshair } from './canvas.js';
+import { drawAudioEnvelope } from './draw-audio.js';
+
 
 const assign = Object.assign;
 
@@ -17,7 +19,7 @@ const defaults = {
 export default function Data(host) {
     assign(this, defaults);
     this.host     = host;
-    this.points   = [{ x: 0, y: 0 }];
+    this.points   = [{ x: 0, y: 0, type: 'step' }];
     // Start in the 100px range to avoid a flash of ultra large SVG content
     this.rangebox = [0, 6.75, 6.75, -6.75];
     this.valuebox = { x: 0, y: 0, width: 1, height: 1 };
@@ -29,6 +31,7 @@ assign(Data.prototype, {
     drawCrosshair: drawCrosshair,
     drawXLines: drawXLines,
     drawYLines: drawYLines,
+    drawAudioEnvelope: drawAudioEnvelope,
 
     toRatioX: function(x) {
         return scales[this.xScale].to(this.valuebox.x, this.valuebox.x + this.valuebox.width, x);
