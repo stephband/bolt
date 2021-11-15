@@ -297,7 +297,7 @@ export default element('xy-input', {
         const formdata = new FormData();
 
         this[$state] = {
-            rendered: literal.render(data),
+            rendered: literal.push(data),
             host:     this,
             data:     data,
             internal: internal,
@@ -669,6 +669,24 @@ export default element('xy-input', {
                 data.ystep = createSteps(data, value || '');
             }
         },
+    },
+
+    properties: {
+        /** 
+        properties="x y"
+        By default the points data `element.value` use the property keys `'x'`
+        and `'y'` of a point to render. Where `.value` is data owned by you, you 
+        may require the element to use other keys. They may be set with this 
+        attribute.
+        **/
+        attribute: function(value) {
+            const [x, y] = value ?
+                value.trim().split(/\s+|\s*,\s*/) :
+                ['x', 'y'] ;
+
+            this[$state].data.xname = value || 'x';
+            this[$state].data.yname = value || 'y';
+        }
     },
 
     valuebox: {
