@@ -1,16 +1,34 @@
-/* Normalise SVG */
+/* Normalise SVG to draw 1px line drawings because why not */
 
-path,
+svg {
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 1;
+}
+
+altGlyph,
+circle,
+ellipse,
 line,
+path,
 polygon,
 polyline,
 rect,
-circle,
-ellipse,
-text {
-	vector-effect: non-scaling-stroke;
+text,
+textpath,
+tref,
+tspan {
+    fill: inherit;
+    stroke: inherit;
+    stroke-width: inherit;
+    vector-effect: non-scaling-stroke;
 }
 
-line {
-	stroke-width: 1;
+.fill {
+    fill: currentcolor;
+    stroke: none;
+}
+
+.stroke {
+    stroke: currentcolor;
 }
