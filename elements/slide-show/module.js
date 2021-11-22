@@ -11,6 +11,10 @@ element and upgrades instances already in the DOM.
 
 <slide-show loop controls="navigation">
    <img src="../images/lyngen-4.png" id="1" draggable="false" />
+</slide-show>
+
+<slide-show loop controls="navigation">
+   <img src="../images/lyngen-4.png" id="1" draggable="false" />
    <img src="../images/lyngen-2.png" id="2" draggable="false" />
    <img src="../images/lyngen-1.png" id="3" draggable="false" />
    <img src="../images/lyngen-3.png" id="4" draggable="false" />
@@ -412,6 +416,9 @@ assign(View.prototype, {
         }
 
         this.slot.style.setProperty('--children-count', items.length);
+
+        // Where there are fewer than 2 children, dont scroll
+        this.slot.style.setProperty('overflow', items.length > 1 ? '' : 'hidden');
         this.children = items;
 
         /** 
@@ -589,6 +596,7 @@ assign(Navigation.prototype, {
         this.parent.appendChild(this.previous);
         this.parent.appendChild(this.next);
         this.activates.on(this.activateFn = (active) => this.activate(active));
+        this.changes.on(this.changesFn = (items) => this.slotchange(items));
     },
 
     disable: function() {
@@ -598,8 +606,10 @@ assign(Navigation.prototype, {
         this.next = undefined;
         this.activates.off(this.activateFn);
         this.activateFn = undefined;
+        this.changes.off(this.changesFn);
+        this.changesFn = undefined;
     },
-    
+
     activate: function(active) {
         // Change href of prev and next buttons, and hide them where there are 
         // no previous or next siblings. Href updates are purely a help for the 
@@ -637,6 +647,11 @@ assign(Navigation.prototype, {
             'active', active && Array.prototype.indexOf.call(active.parentNode.children, active), 
             'next', nextChild && Array.prototype.indexOf.call(nextChild.parentNode.children, nextChild)
         ); */
+    },
+
+    slotchange: function(items) {
+        this.previous.style.setProperty('display', items.length < 2 ? 'none' : '');
+        this.next.style.setProperty('display', items.length < 2 ? 'none' : '');
     }
 });
 
@@ -667,7 +682,7 @@ assign(Pagination.prototype, {
         this.slotchange();
         this.shadow.appendChild(this.pagination);
         this.actives.on(this.activateFn = (active) => this.activate(active));
-        this.slotchanges.on(this.slotchangeFn = () => this.slotchange());
+        this.slotchanges.on(this.slotchangeFn = (items) => this.slotchange(items));
     },
 
     disable: function() {
@@ -677,12 +692,18 @@ assign(Pagination.prototype, {
         this.slotchanges.off(this.slotchangeFn);
     },
 
-    slotchange: function() {
+    slotchange: function(items) {
         const view     = this.view;
         const children = view.children;
 
         // Empty nav then create a dot link for each slide
         this.pagination.innerHTML = '';
+
+        // Don't generate pagination when there are 0 or 1 slides
+        if (items.length < 2) {
+            return;
+        }
+
         children.forEach((slide) => {
             // Id other content and create nav links for them
             const id = slide.id;
@@ -851,6 +872,7 @@ const lifecycle = {
         // Enable single finger scroll on mouse devices. Bad idea, but users
         // tend to want it.
         gestures({ threshold: '0.25rem', device: 'mouse' }, shadow)
+        .filter(() => view.children.length > 1)
         .each((pointers) =>
             pointers.reduce(processPointerEvents, { view, pointers })
         );
@@ -866,11 +888,17 @@ const properties = {
     active: {
         /**
         .active
-        Gets the currently active child. May be set to an id of a child or 
-        a child element.
+        Returns the currently active child element - the current slide.
 
         ```js
-        slides.active = 'slide-1';
+        const activeSlideElement = slideshow.active;
+        ```
+
+        May be set to one of the child elements, or to the id of one of the 
+        child elements. Setting this property causes the slide to change.
+
+        ```js
+        slideshow.active = 'slide-1';
         ```
         **/
 
@@ -909,7 +937,9 @@ const properties = {
 
         /**
         .autoplay
-        Boolean property.
+        Boolean property. When `true` the slide-show activates the next 
+        slide after a pause. The pause duration may be set in CSS via the 
+        `--duration` variable.
         **/
 
         set: function(state) {
