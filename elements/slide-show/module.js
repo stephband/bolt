@@ -897,7 +897,9 @@ const properties = {
     autoplay: {
         /**
         autoplay=""
-        Boolean attribute. 
+        Boolean attribute. When present the slide-show activates the next 
+        slide after a pause. The pause duration may be set in CSS via the 
+        `--duration` variable.
         **/
 
         attribute: function(value) {
