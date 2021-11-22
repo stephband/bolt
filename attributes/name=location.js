@@ -36,7 +36,7 @@ events('change', document)
 
 // Delegate click events on button[name="location"] elements
 events('click', document)
-.map((e) => e.target.closest('button' + selector))
+.map((e) => (e.target.closest('button' + selector) || undefined))
 .map(get('value'))
 .filter((method) => !!method)
 .each((method) => (history[method] ? history[method]() : ''));
