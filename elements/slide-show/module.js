@@ -11,10 +11,6 @@ element and upgrades instances already in the DOM.
 
 <slide-show loop controls="navigation">
    <img src="../images/lyngen-4.png" id="1" draggable="false" />
-</slide-show>
-
-<slide-show loop controls="navigation">
-   <img src="../images/lyngen-4.png" id="1" draggable="false" />
    <img src="../images/lyngen-2.png" id="2" draggable="false" />
    <img src="../images/lyngen-1.png" id="3" draggable="false" />
    <img src="../images/lyngen-3.png" id="4" draggable="false" />
