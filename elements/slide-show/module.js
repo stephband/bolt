@@ -241,7 +241,7 @@ function View(element, shadow, slot) {
     const autoplay   = new Autoplay(this, this.actives);
     const loop       = new Loop(element, shadow, this, autoplay, this.changes);
     const navigation = new Navigation(element, slot, this.changes, this.actives, shadow);
-    const pagination = new Pagination(this, shadow);
+    const pagination = new Pagination(this, shadow, this.changes);
 
     slot.addEventListener('slotchange', this.changes);
     slot.addEventListener('scroll', this.actives/*, { passive: false }*/);
@@ -424,6 +424,8 @@ assign(View.prototype, {
         'slides') are added or removed.
         **/
         tick.then(() => trigger('slidechildren', this.element));
+
+        return items;
     }
 });
 
@@ -506,7 +508,7 @@ assign(Loop.prototype, {
         const children = view.children;
 
         this.add(children);
-        this.slotchanges.on(this.slotchangeFn = () => this.slotchange());
+        this.slotchanges.on(this.slotchangeFn = (items) => this.slotchange(items));
         this.scrollends = scrollends(this.view.slot).each((e) => {
             // Ignore scrollends while a finger is gesturing
             if (this.view.gesturing) { return; }
@@ -518,7 +520,7 @@ assign(Loop.prototype, {
         }
     },
 
-    slotchange: function() {
+    slotchange: function(items) {
         const view     = this.view;
         const children = view.children;
 
@@ -530,6 +532,8 @@ assign(Loop.prototype, {
         if (view.active) {
             view.reposition(view.active);
         }
+
+        return items;
     },
 
     add: function() {
@@ -648,17 +652,18 @@ assign(Navigation.prototype, {
     slotchange: function(items) {
         this.previous.style.setProperty('display', items.length < 2 ? 'none' : '');
         this.next.style.setProperty('display', items.length < 2 ? 'none' : '');
+        return items;
     }
 });
 
 
 /* Pagination */
 
-function Pagination(view, shadow) {
-    this.view    = view;
-    this.shadow  = shadow;
-    this.slotchanges = view.changes;
-    this.actives = view.actives;
+function Pagination(view, shadow, changes) {
+    this.view        = view;
+    this.shadow      = shadow;
+    this.slotchanges = changes;
+    this.actives     = view.actives;
 }
 
 function addPartOn(node) {
@@ -675,7 +680,7 @@ assign(Pagination.prototype, {
             part: 'pagination'
         });
 
-        this.slotchange();
+        this.slotchange(this.view.children);
         this.shadow.appendChild(this.pagination);
         this.actives.on(this.activateFn = (active) => this.activate(active));
         this.slotchanges.on(this.slotchangeFn = (items) => this.slotchange(items));
@@ -709,6 +714,8 @@ assign(Pagination.prototype, {
                 html: id
             }));
         });
+
+        return items;
     },
 
     activate: function(active) {
