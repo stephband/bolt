@@ -1,6 +1,9 @@
 /* Normalise SVG to draw 1px line drawings because why not */
 
 svg {
+    /* Allow SVG elements to escape the SVG container. */
+    overflow: visible;
+
     fill: none;
     stroke: currentcolor;
     stroke-width: 1;

@@ -218,16 +218,6 @@ img {
     object-position: 50% t;
 }
 
-svg {
-	/* Allow SVG elements to escape the SVG container. */
-	overflow: visible;
-
-	/* Make SVGs fill and stroke to the color of their parents by default. */
-	fill: currentColor;
-	stroke: currentColor;
-	stroke-width: 0;
-}
-
 audio:not([controls]) {
 	/* Prevents modern browsers from displaying 'audio' without controls
 	   Remove excess height in iOS5 devices */
