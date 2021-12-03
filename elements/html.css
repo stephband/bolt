@@ -304,7 +304,7 @@ th {
 	   -moz-user-select: text;
 	    -ms-user-select: text;
 
-	cursor: auto;
+	cursor: inherit;
 }
 
 [draggable="false"][href] {
