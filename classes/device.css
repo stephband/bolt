@@ -14,9 +14,13 @@
 .mouse-device a:focus,
 .mouse-device button:focus,
 .mouse-device input:focus,
+.mouse-device audio:focus,
+.mouse-device video:focus,
 .touch-device a:focus,
 .touch-device button:focus,
-.touch-device input:focus {
+.touch-device input:focus,
+.touch-device audio:focus,
+.touch-device video:focus {
      outline-width: 0;
 }
 
