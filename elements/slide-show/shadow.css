@@ -26,15 +26,15 @@
 
     /**
     --padding-left
-    Adjusts the space to the left of the leftmost slide. Internally it sets 
-    `padding` and `scroll-padding`. 
+    Adjusts the space to the left of the leftmost slide. Internally it sets
+    `padding` and `scroll-padding`.
     **/
     --padding-left: 0;
 
     /**
     --padding-right
-    Adjusts the space to the right of the rightmost slide. Internally it sets 
-    `padding` and `scroll-padding` (and hacks around browsers' lack of respect 
+    Adjusts the space to the right of the rightmost slide. Internally it sets
+    `padding` and `scroll-padding` (and hacks around browsers' lack of respect
     for `padding-right` on scrollable grids).
     **/
     --padding-right: 0;
@@ -105,7 +105,7 @@ Does not work
     align-items: inherit;
     justify-items: inherit;
     /* This is important for alignment in the JS – if content is centered
-       the slot scrolls to he right but not to the left where the first half of 
+       the slot scrolls to he right but not to the left where the first half of
        the content is.*/
     justify-content: start !important;
 }
@@ -173,7 +173,7 @@ Does not work
 
 [part="grid"]::after {
     /* This is a hack fix for the fact that scroll-snapped grids do not scroll
-       to the extent of their right padding (or indeed to any of their right 
+       to the extent of their right padding (or indeed to any of their right
        padding). Note that this doesn't work with --padding-right based on
        percentages, as the dimensions do not refer to the same parent. The
        snag is that if --padding-right is less than --column-gap we still get
@@ -217,6 +217,11 @@ Does not work
             scroll-behavior: auto;
 }
 
+
+slot[name="optional"]::slotted(*) {
+    grid-column: 1;
+    grid-row: 1;
+}
 
 /**
 ::part(previous)
