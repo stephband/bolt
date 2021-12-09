@@ -1,8 +1,8 @@
 /**
 data-toggleable
 
-An element with the `data-toggleable` attribute is activated and deactivated 
-whenever a link to it is click-hijacked. An active toggleable has the class 
+An element with the `data-toggleable` attribute is activated and deactivated
+whenever a link to it is click-hijacked. An active toggleable has the class
 `"active"`, and links to it have the class `"on"`.
 
 It is also activated when the page loads with its fragment identifier in the URL.
@@ -13,8 +13,8 @@ accordions and so on.
 ```html
 <a class="toggle-button button" href="#toggle-block">Show toggle-block</a>
 <section class="toggle-block block" data-toggleable id="toggle-block">
-    Crunchum ipsum dolor sit coder void, constructor function, sed do while 
-    loop python orientation semi colon incident. Duis aute irure indent tabs 
+    Crunchum ipsum dolor sit coder void, constructor function, sed do while
+    loop python orientation semi colon incident. Duis aute irure indent tabs
     or spaces velit esse cilium buntum how crunchy duntum.
 </section>
 ```

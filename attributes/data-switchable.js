@@ -1,15 +1,15 @@
 /**
 data-switchable
 
-A `data-switchable` is given the class `"active"` when a link to it is click-hijacked, 
-and all links to it are given the class `"on"`. In any group of siblings with 
+A `data-switchable` is given the class `"active"` when a link to it is click-hijacked,
+and all links to it are given the class `"on"`. In any group of siblings with
 the `data-switchable` attribute, exactly one is always active.
 
-A switchable is also activated if the page loads with its fragment identifier in 
+A switchable is also activated if the page loads with its fragment identifier in
 the URL.
 
 Switchables can be used to make tabs, slideshows, accordions and so on. Here
-are three `data-switchable` sections with tab style, applied via `.tab-button` 
+are three `data-switchable` sections with tab style, applied via `.tab-button`
 and `.tab-block` classes.
 
 ```html
@@ -20,7 +20,7 @@ and `.tab-block` classes.
         <a class="tab-button button" href="#tab-3">Tab 3</a>
     </nav>
     <section class="x1 y2 tab-block block active" data-switchable id="tab-1">
-        Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident. 
+        Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
     </section>
     <section class="x1 y2 tab-block block" data-switchable id="tab-2">
         Duis aute irure indent tabs or spaces velit esse cilium buntum how crunchy duntum. Excepteur tranquilis syntax error memorandum qui officia nostrud operating system alertus.
@@ -37,6 +37,7 @@ import matches  from '../../dom/modules/matches.js';
 import children from '../../dom/modules/children.js';
 import trigger  from '../../dom/modules/trigger.js';
 import { matchers } from '../events/dom-activate.js';
+
 
 // Define
 

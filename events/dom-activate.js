@@ -13,7 +13,7 @@ import { isElementNode, isInternalLink } from '../../dom/modules/node.js';
 import trigger   from '../../dom/modules/trigger.js';
 import tag       from '../../dom/modules/tag.js';
 import select    from '../../dom/modules/select.js';
-import ready     from '../../dom/modules/ready.js';
+//import ready     from '../../dom/modules/ready.js';
 import log       from '../modules/log.js';
 //import remove    from '../../dom/modules/remove.js';
 
@@ -415,7 +415,7 @@ function pushAddedActives(added, mutation) {
 }
 
 // Document setup
-ready(function() {
+events('DOMContentLoaded', document).each(function() {
 	// Setup all things that should start out active
 	const actives = select('.' + config.activeClass, document);
     if (actives.length) {
@@ -441,7 +441,7 @@ ready(function() {
     observer.observe(document.body, {
         attributes: false,
         childList: true,
-        subtree: true 
+        subtree: true
     });
 
     // Later, you can stop observing
