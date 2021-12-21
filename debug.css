@@ -25,7 +25,7 @@ strong:empty,
 It's fine to be empty and hidden.
 It's not fine to be empty and display: none, because we should prioritise
 the hidden attribute over display: none (and display: none may have been set in
-type.css as a visual fallback so we override it here to flag it as an error). 
+type.css as a visual fallback so we override it here to flag it as an error).
 */
 p:empty:not([hidden]),
 h1:empty:not([hidden]),
@@ -123,7 +123,7 @@ button:not([type])::before {
 }
 
 
-/** 
+/**
 :target
 **/
 
