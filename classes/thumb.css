@@ -95,11 +95,6 @@ overflow, and only the `background-image`, centered and 'cropped' via
 ```
 */
 
-.burger-thumb {
-    padding-top: 2.8125rem;
-    width: 2.8125rem;
-}
-
 .burger-thumb.on {
     color: black;
     background-color:  #e6e6e6;
