@@ -11,6 +11,8 @@ Badges.
 **/
 
 .badge {
+    --size: 1.5rem;
+
     display: inline-block;
     font-size: inherit;
     line-height: var(--size);
@@ -24,7 +26,6 @@ Badges.
     color: white;
     background: black;
     border-radius: calc(0.5 * var(--size));
-    --size: 1.5rem;
 }
 
 .thumb > .badge {
