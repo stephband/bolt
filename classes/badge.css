@@ -8,6 +8,9 @@ Badges.
 ```html
 <span class="badge">3</span>
 ```
+
+A rounded badge style. When used inside buttons or thumbs it is positioned
+absolutely, where it can be used as, say, a notifications count.
 **/
 
 .badge {
@@ -28,6 +31,8 @@ Badges.
     border-radius: calc(0.5 * var(--size));
 }
 
+button > .badge,
+.button > .badge,
 .thumb > .badge {
     position: absolute;
     top: 0;
