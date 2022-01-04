@@ -3,13 +3,23 @@
 
 ```html
 <a class="toggle-button button" href="#toggle-block">Click to show</a>
-<div class="toggle-block block toggle" data-toggleable id="toggle-block">
+
+<div class="toggle-block block" data-toggleable id="toggle-block">
   <p>Crunchum ipsum dolor sit coder void, constructor function, sed do while loop
   python orientation semi colon incident. Duis aute irure indent tabs or
   spaces velit esse cilium buntum how crunchy duntum.</p>
 </div>
 ```
-*/
+
+A `toggle-block` is a drawer, closed by default, that opens when given the 
+class `active`. 
+
+As its `overflow` is `hidden`, in order not to truncate focus rings and 
+box-shadows in its content, it is given negative margins and equal padding.
+
+Include `attributes/data-toggleable.js` and links to the `toggle-block` will
+toggle the `active` class when clicked. The links are given the class `on`.
+**/
 
 .toggle-block {
     max-height: 0;
