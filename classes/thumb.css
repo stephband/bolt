@@ -27,10 +27,10 @@ overflow, and only the `background-image`, centered and 'cropped' via
     /* Hide overflowing text. This technique is better
        than using -ve text-indent because IE7 moves
        the background image with the text-indent. */
-    padding-top: 2.8125em;
-    height: 0;
+    padding-left: 2.8125em;
+    height: 2.8125em;
     min-height: 0;
-    width: 2.8125em;
+    width: 0;
 
     /* Keep top of text safely away from the bottom of
        the thumb. */
@@ -94,11 +94,6 @@ overflow, and only the `background-image`, centered and 'cropped' via
 <a class="burger-thumb thumb" href="#">Navigation</a>
 ```
 */
-
-.burger-thumb {
-    padding-top: 2.8125rem;
-    width: 2.8125rem;
-}
 
 .burger-thumb.on {
     color: black;
