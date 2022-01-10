@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Literal template "/Users/stephband/Sites/bolt/elements/slide-show/index.html.literal" -->
+<!-- Literal template "/Users/stephband/Sites/ecal/ecal/static/bolt/elements/slide-show/index.html.literal" -->
 
 <html lang="en">
 <head>
@@ -59,7 +59,7 @@
 <header class="x1 3x @1-x3 @1-4x @2-x4">
     
     <h2 class="doctext-02">&lt;slide-show&gt;</h2>
-    <p>Import <code>&lt;slide-show&gt;</code> custom element. This also registers the custom 
+    <p>Import <code>&lt;slide-show&gt;</code> custom element. This registers the custom
 element and upgrades instances already in the DOM.</p>
 <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/bolt/elements/slide-show/module.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
 
@@ -69,9 +69,9 @@ element and upgrades instances already in the DOM.</p>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>../images/lyngen-1.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span> <span class="token attr-name">draggable</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>../images/lyngen-3.png<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>4<span class="token punctuation">"</span></span> <span class="token attr-name">draggable</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slide-show</span><span class="token punctuation">></span></span></code></pre>
-<p>By default children of <code>&lt;slide-show&gt;</code> are interpreted as slides, but
+<p>By default children of <code>&lt;slide-show&gt;</code> are interpreted as ‘slides’, but
 elements with a <code>slot</code> attribute are not. Slides have default style of
-<code>scroll-snap-align: center</code>. Apply <code>start</code> or <code>end</code> to change the alignment. </p>
+<code>scroll-snap-align: center</code>. Apply <code>start</code> or <code>end</code> to change the alignment.</p>
 
     
 </header>
@@ -100,8 +100,8 @@ elements with a <code>slot</code> attribute are not. Slides have default style o
     </a>
 </h3>
 
-<p>Boolean attribute. When present the slide-show activates the next 
-slide after a pause. The pause duration may be set in CSS via the 
+<p>Boolean attribute. When present the slide-show activates the next
+slide after a pause. The pause duration may be set in CSS via the
 <code>--duration</code> variable.</p>
 
 </div>
@@ -116,11 +116,11 @@ slide after a pause. The pause duration may be set in CSS via the
 
 <p>Treated as a boolean or a token list. If it is present but empty
 all tokens are considered to be true. Otherwise, possible tokens are:</p>
-<p><strong>navigation</strong> enables previous and next buttons. The 
-buttons may be styled with <code>::part(previous)</code> and <code>::part(next)</code> 
-selectors. To change their text content, import and modify 
+<p><strong>navigation</strong> enables previous and next buttons. The
+buttons may be styled with <code>::part(previous)</code> and <code>::part(next)</code>
+selectors. To change their text content, import and modify
 <code>config.trans</code>:</p>
-<pre><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> config <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../templates/bolt/elements/slide-show/module.js'</span><span class="token punctuation">;</span>
+<pre><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> config <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'bolt/elements/slide-show/module.js'</span><span class="token punctuation">;</span>
 config<span class="token punctuation">.</span>trans<span class="token punctuation">[</span><span class="token string">'Previous'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'Précédent'</span><span class="token punctuation">;</span>
 config<span class="token punctuation">.</span>trans<span class="token punctuation">[</span><span class="token string">'Next'</span><span class="token punctuation">]</span>     <span class="token operator">=</span> <span class="token string">'Suivant'</span><span class="token punctuation">;</span></code></pre>
 <p><strong>pagination</strong> enables a row of pagination dots. The
@@ -158,7 +158,7 @@ dots may be styled with <code>::part(page)</code>.</p>
 
 <p>Returns the currently active child element - the current slide.</p>
 <pre><code class="language-js"><span class="token keyword">const</span> activeSlideElement <span class="token operator">=</span> slideshow<span class="token punctuation">.</span>active<span class="token punctuation">;</span></code></pre>
-<p>May be set to one of the child elements, or to the id of one of the 
+<p>May be set to one of the child elements, or to the id of one of the
 child elements. Setting this property causes the slide to change.</p>
 <pre><code class="language-js">slideshow<span class="token punctuation">.</span>active <span class="token operator">=</span> <span class="token string">'slide-1'</span><span class="token punctuation">;</span></code></pre>
 
@@ -172,8 +172,8 @@ child elements. Setting this property causes the slide to change.</p>
     </a>
 </h3>
 
-<p>Boolean property. When <code>true</code> the slide-show activates the next 
-slide after a pause. The pause duration may be set in CSS via the 
+<p>Boolean property. When <code>true</code> the slide-show activates the next
+slide after a pause. The pause duration may be set in CSS via the
 <code>--duration</code> variable.</p>
 
 </div>
@@ -273,8 +273,8 @@ autoplay mode. May be a CSS time value in <code>s</code> or <code>ms</code>.</p>
     </a>
 </h3>
 
-<p>Adjusts the space to the left of the leftmost slide. Internally it sets 
-<code>padding</code> and <code>scroll-padding</code>. </p>
+<p>Adjusts the space to the left of the leftmost slide. Internally it sets
+<code>padding</code> and <code>scroll-padding</code>.</p>
 
 </div>
 
@@ -286,8 +286,8 @@ autoplay mode. May be a CSS time value in <code>s</code> or <code>ms</code>.</p>
     </a>
 </h3>
 
-<p>Adjusts the space to the right of the rightmost slide. Internally it sets 
-<code>padding</code> and <code>scroll-padding</code> (and hacks around browsers’ lack of respect 
+<p>Adjusts the space to the right of the rightmost slide. Internally it sets
+<code>padding</code> and <code>scroll-padding</code> (and hacks around browsers’ lack of respect
 for <code>padding-right</code> on scrollable grids).</p>
 
 </div>
@@ -296,7 +296,7 @@ for <code>padding-right</code> on scrollable grids).</p>
 </div>
 
 
-    <script type="module" src="./module.js"></script>
+    <script type="module" src="module.js"></script>
 
     <script type="module">
     import '../../module.js';
