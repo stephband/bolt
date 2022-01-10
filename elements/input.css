@@ -54,7 +54,7 @@ Forms.
 
     /** --track-height **/
     --track-height: 0.375rem;
-  
+
     /** --track-background **/
     --track-background: #eeeeee;
 
@@ -72,7 +72,7 @@ Forms.
 
     /** --handle-background **/
     --handle-background: white;
-   
+
     /** --handle-border **/
     --handle-border: 1px solid rgb(122 144 158);
 
@@ -529,7 +529,7 @@ textarea {
     border-bottom-right-radius: 0 !important;
 }
 
-/* 
+/*
 This does the same as line 211, do we really need it?
 input + select,
 input + textarea,
@@ -655,13 +655,13 @@ input[type='file'] {
    https://www.filamentgroup.com/lab/select-css.html */
 
 select {
-    /* Appearance rule and its and prefixed versions unset some default browser 
+    /* Appearance rule and its and prefixed versions unset some default browser
        select styling */
 	-webkit-appearance: none;
        -moz-appearance: none;
-	        appearance: none;    
+	        appearance: none;
 
-    /* iOS Safari will zoom-in the site layout if the select's text is less 
+    /* iOS Safari will zoom-in the site layout if the select's text is less
        than 16px */
 	/*font-size: 1rem;*/
 
@@ -678,20 +678,20 @@ select {
     min-height: var(--input-height);
 	 /*box-shadow: 0 1px 0 1px rgba(0,0,0,.04);*/
 
-    background-image: 
+    background-image:
         /* Arrow icon */
         url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
-        /* The linear gradient background is important to keep, because its presence actually 
+        /* The linear gradient background is important to keep, because its presence actually
            prevents IE9 and older from recognizing the background property. */
         linear-gradient(to bottom, #ffffff 0%, #ffffff 100%) ;
 
-    /* Setting background color on the select can cause option elements to 
+    /* Setting background color on the select can cause option elements to
        inherit, which can cause problems */
 	background-color: transparent;
 }
 
 select::-ms-expand {
-    /* Instruct IE11 and IE10 to hide the menu icon pseudo element, so the custom icon behind 
+    /* Instruct IE11 and IE10 to hide the menu icon pseudo element, so the custom icon behind
        it can appear*/
 	display: none;
 }
@@ -705,15 +705,15 @@ select option {
 	font-weight: normal;
 }
 
-*[dir="rtl"] select, 
-:root:lang(ar) select, 
+*[dir="rtl"] select,
+:root:lang(ar) select,
 :root:lang(iw) select {
 	/* Support for rtl text, explicit support for Arabic and Hebrew */
     background-position: left .7em top 50%, 0 0;
 	padding: .6em .8em .5em 1.4em;
 }
 
-select:disabled, 
+select:disabled,
 select[aria-disabled="true"] {
     /* Disabled styles */
 	color: graytext;
@@ -721,7 +721,7 @@ select[aria-disabled="true"] {
         linear-gradient(to bottom, #ffffff 0%,#ffffff 100%);
 }
 
-select:disabled:hover, 
+select:disabled:hover,
 select[aria-disabled="true"] {
 	border-color: #aaa;
 }
@@ -783,10 +783,23 @@ select[aria-disabled="true"] {
 input.validated:invalid,
 select.validated:invalid,
 textarea.validated:invalid {
-    box-shadow: var(--invalid-box-shadow);
+    /* Todo: you sure we want to do this to selects? */
+    background-color: var(--invalid-background);
+    box-shadow:   var(--invalid-box-shadow);
     border-color: var(--invalid-border-color) !important;
 }
 
+.validated input:valid,
+.validated select:valid,
+.validated textarea:valid,
+input.validated:valid,
+select.validated:valid,
+textarea.validated:valid {
+    /* Ditto? */
+    background-color: var(--valid-background);
+    box-shadow:       var(--valid-box-shadow);
+    border-color:     var(--valid-border-color) !important;
+}
 
 button:focus,
 input:focus,
