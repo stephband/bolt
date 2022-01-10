@@ -7,8 +7,8 @@ data-popable
 <a class="button" href="#bolt-popable">Show bubble</a>
 ```
 
-An element with a `data-popable` attribute is given the class `"active"` when a 
-link that references it is click-hijacked, and then deactivated by user interaction 
+An element with a `data-popable` attribute is given the class `"active"` when a
+link that references it is click-hijacked, and then deactivated by user interaction
 outside of itself. While it is active, all links to it have the class `"on"`.
 
 It is also activated when the page loads with its fragment identifier in the URL.
@@ -21,7 +21,7 @@ import matches from '../../dom/modules/matches.js';
 import { trigger } from '../../dom/modules/trigger.js';
 import { matchers } from '../events/dom-activate.js';
 
-var match   = matches('[data-popable], [popable]');
+var match = matches('[data-popable], [popable]');
 
 function activate(e) {
     // Use method detection - e.defaultPrevented is not set in time for
