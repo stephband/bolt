@@ -4,8 +4,8 @@
     z-index: 1;
 }
 
-.mouse-device :focus,
-.touch-device :focus {
+.mouse-device :not(input, select, textarea):focus,
+.touch-device :not(input, select, textarea):focus {
     box-shadow: none;
 }
 
