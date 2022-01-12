@@ -122,8 +122,8 @@ body, .text-08
 
 
 /* Vertical typographic spacings.
-   
-   We use `body` in `body tag + .class` to increase the specificity of that 
+
+   We use `body` in `body tag + .class` to increase the specificity of that
    selector by 1, making it override `.class + tag` but not `.class + .class` */
 
 
@@ -461,15 +461,6 @@ p + .text-08,  .text-10 + .text-08 { margin-top: 0.375rem; }
 h3 + .text-11, .text-03 + .text-11 { margin-top: 0.125rem; }
 
 
-
-
-
-.light-text     { font-weight: 300 !important; }
-.normal-text    { font-weight: 400 !important; }
-.book-text      { font-weight: 450 !important; }
-.medium-text    { font-weight: 500 !important; }
-.semi-text      { font-weight: 600 !important; }
-.bold-text      { font-weight: 700 !important; }
 
 /* Selection */
 

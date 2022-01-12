@@ -21,7 +21,7 @@ button {
     color: inherit;
     background: transparent;
 
-    /* Hit zones for buttons and links really must be a minimum of 32x32 (and 
+    /* Hit zones for buttons and links really must be a minimum of 32x32 (and
        preferably >40x40 for finger touches to register reliably) */
     min-width: 2rem;
     min-height: 2rem;
@@ -125,6 +125,16 @@ button,
     transition:
         background-color 120ms linear,
         color 120ms linear;
+}
+
+button > svg,
+[type="button"] > svg,
+.button > svg {
+    /* Allow SVGs to render as inline icons */
+    display: inline-block;
+    width: auto;
+    height: var(--line-height);
+    vertical-align: middle;
 }
 
 button:hover,

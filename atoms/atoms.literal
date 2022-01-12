@@ -142,7 +142,7 @@ Creates a grid with 3 equal width columns.
 </div>
 \`\`\`
 
-Note that \`.x-bleed\`, which stretches an element half the way across the grid 
+Note that \`.x-bleed\`, which stretches an element half the way across the grid
 gap, and \`.x-flood\`, which stretches an element all the way across the grid gap,
 depends on \`column-gap\` having been set via the custom property \`--x-gap\`.
 **/
@@ -204,6 +204,7 @@ ${ data.map(async (bp) => (px(bp.width) ? `
 + (await include('../atoms/flex.literal', bp) )
 + (await include('../atoms/grid.literal', bp) )
 + (await include('../atoms/inline.literal', bp) )
++ (await include('../atoms/text.literal', bp) )
 + (await include('../atoms/align.literal', bp) )
 + (await include('../atoms/margin.literal', bp) )
 
