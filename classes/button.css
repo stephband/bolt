@@ -170,6 +170,10 @@ button.loading,
     margin-right: 0.25em;
 }
 
+.button.block {
+    display: block;
+}
+
 /*
 .button > input[type="file"]
 
