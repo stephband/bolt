@@ -36,14 +36,17 @@ a.${ data.prefix }grid:focus {
 
 /* x */
 ${ Array.from({ length: data.columns || 12 }).map((nowt, i) => i + 1).map((n) => `
-.${ data.prefix ? data.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }x-grid  { grid-template-columns: repeat(${ n },  minmax(0, 1fr)); }`).join('') }
+.${ data.prefix ? data.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }x-grid  { grid-template-columns: repeat(${ n },  minmax(0, 1fr)); }`).join('')
+}
 ${ Array.from({ length: data.columns || 12 }).map((nowt, i) => i + 1).map((n) => `
-.${ data.prefix ? data.prefix + 'x' + n : 'x' + n } { grid-column-start: ${ n } !important; }`).join('') }
+.${ data.prefix ? data.prefix + 'x' + n : 'x' + n } { grid-column-start: ${ n } !important; }`).join('')
+}
 ${ Array.from({ length: data.columns || 12 }).map((nowt, i) => i + 1).map((n) => `
-.${ data.prefix ? data.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }x { grid-column-end: span ${ n } !important; }`).join('') }
+.${ data.prefix ? data.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }x { grid-column-end: span ${ n } !important; }`).join('')
+}
 
 .${ data.prefix }x-end {
-    justify-self: end !important; 
+    justify-self: end !important;
     margin-left: auto;
     margin-right: 0;
 }
@@ -54,18 +57,18 @@ ${ Array.from({ length: data.columns || 12 }).map((nowt, i) => i + 1).map((n) =>
     margin-right: auto;
 }
 
-.${ data.prefix }x-center { 
-    justify-self: center !important; 
-    margin-left: auto; 
+.${ data.prefix }x-center {
+    justify-self: center !important;
+    margin-left: auto;
     margin-right: auto;
 }
 
 .${ data.prefix }x-stretch {
     justify-self: stretch !important;
-    margin-left: 0; 
+    margin-left: 0;
     margin-right: 0;
     max-width: 100%;
-    width: 100%; 
+    width: 100%;
 }
 
 .${ data.prefix }x-unbleedl {
@@ -159,28 +162,28 @@ ${ Array.from({ length: data.rows || 12 }).map((nowt, i) => i + 1).map((n) => `
 
 .${ data.prefix }y-center {
     align-self:    center !important;
-    margin-top:    auto; 
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .${ data.prefix }y-baseline  {
-    align-self:    baseline !important; 
-    margin-top:    auto; 
+    align-self:    baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .${ data.prefix }y-lastline  {
-    align-self:    last baseline !important; 
-    margin-top:    auto; 
+    align-self:    last baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .${ data.prefix }y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0; 
+    margin-top:    0;
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%; 
+    height:        100%;
 }
 
 .${ data.prefix }y-bleed {
@@ -188,7 +191,7 @@ ${ Array.from({ length: data.rows || 12 }).map((nowt, i) => i + 1).map((n) => `
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap)); 
+    height:        calc(100% + var(--y-gap));
 }
 
 .${ data.prefix }y-flood {
@@ -196,5 +199,5 @@ ${ Array.from({ length: data.rows || 12 }).map((nowt, i) => i + 1).map((n) => `
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap)); 
+    height:        calc(100% + 2 * var(--y-gap));
 }
