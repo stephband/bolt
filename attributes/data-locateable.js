@@ -2,10 +2,10 @@
 /**
 locateable
 
-An element with a `data-locateable` (or `locateable`) attribute updates the 
+An element with a `data-locateable` (or `locateable`) attribute updates the
 browser location hash with its `id` when scrolled into view.
 
-When the location identifier changes to be equal to a `locateable`'s id links 
+When the location identifier changes to be equal to a `locateable`'s id links
 that reference that locateable via their `href` attribute get the class `"target-on"`.
 
 Build a list of links that reference locateables and with a little style
@@ -29,10 +29,11 @@ you have a scrolling navigation:
 import '../../dom/scripts/scroll-behavior.js';
 
 import by       from '../../fn/modules/by.js';
+import observe  from '../../fn/observer/observe.js';
 import create   from '../../dom/modules/create.js';
 import features from '../../dom/modules/features.js';
 import get      from '../../fn/modules/get.js';
-import location from '../../dom/modules/location.js';
+import location from '../../literal/library/location.js';
 import rect     from '../../dom/modules/rect.js';
 import select   from '../../dom/modules/select.js';
 import { isDocumentLink } from '../../dom/modules/node.js';
@@ -85,6 +86,7 @@ function removeOn(node) {
 }
 
 function locate(id) {
+    console.log('locate', id);
     if (!id) { return; }
     selectLinks(id).forEach(addOn);
 }
@@ -139,8 +141,8 @@ function getLocateable(/*element*/) {
     while (
         boxes[++n]
         //&& (boxes[n].left - box.left) < (scrollPaddingLeft + 1)
-        //&& (boxes[n].top  - box.top)  < (scrollPaddingTop + 1) 
-        && (boxes[n].top  - origin.top) < (scrollPaddingTop + 1) 
+        //&& (boxes[n].top  - box.top)  < (scrollPaddingTop + 1)
+        && (boxes[n].top  - origin.top) < (scrollPaddingTop + 1)
     ) {
         target = boxes[n].element;
     }
@@ -153,7 +155,7 @@ let timer;
 
 function update(/*element*/) {
     timer = undefined;
-    
+
     if (times.length < 2) {
         times.length = 0;
         return;
@@ -184,8 +186,8 @@ function update(/*element*/) {
 }
 
 
-// Any call to replaceState or pushState in iOS opens the URL bar - 
-// disturbing at the best of times, nevermind mid-scroll. So probably 
+// Any call to replaceState or pushState in iOS opens the URL bar -
+// disturbing at the best of times, nevermind mid-scroll. So probably
 // best not update on scrolling on small iOS screens
 
 // Capture scroll events in capture phase, as scroll events from elements
@@ -193,8 +195,8 @@ function update(/*element*/) {
 var hashtime;
 
 window.addEventListener('scroll', function scroll(e) {
-    // Ignore the first scroll event following a hashchange. The browser sends a 
-    // scroll event even where a target cannot be scrolled to, such as a 
+    // Ignore the first scroll event following a hashchange. The browser sends a
+    // scroll event even where a target cannot be scrolled to, such as a
     // navigation with position: fixed, for example. This can cause locateable
     // to recalculate again, and shift the target back to one fo the locateables,
     // where it should stay on the navigation element.
@@ -229,6 +231,29 @@ window.addEventListener('hashchange', function hashchange(e) {
 Location
 */
 
+observe('identifier', location)
+.each(reducer(function(previous, identifier) {
+    if (!identifier) {
+        unlocate(previous);
+        return;
+    }
+
+    //const time = change.time;
+
+    // Dodgy heuristics
+    /*
+    if (time - userScrollTime > config.maxScrollEventInterval) {
+        // If we were not already scrolling we want to ignore scroll
+        // updates for a short time until the automatic scroll settles
+        animateScrollTime = change.time + config.minScrollAnimationDuration;
+    }
+    */
+
+    unlocate(previous);
+    locate(identifier);
+    return identifier;
+}, {}));
+/*
 location.on(reducer(function(previous, change) {
     const identifier = change.identifier;
 
@@ -246,15 +271,15 @@ location.on(reducer(function(previous, change) {
         animateScrollTime = change.time + config.minScrollAnimationDuration;
     }
     */
-
+/*
     unlocate(previous.identifier);
     locate(identifier);
     return assign(previous, change);
 }, {}));
-
+*/
 
 /* Safari's not the messiah, he's a very naughty boy. */
-if (!features.scrollBehavior) {    
+if (!features.scrollBehavior) {
     /* Safari does not respect scroll-padding unless scroll-snap is switched on,
        which is difficult on the :root or <body>. Instead, let's duplicate the
        elements with id and move them up relatively by one header height. */
