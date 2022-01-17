@@ -1,9 +1,13 @@
 
+/*
+Polyfill Element.scrollTo() in Safari.
+*/
+
 import '../../../dom/polyfills/element.scrollto.js';
 
 /** <slide-show>
 
-Import `<slide-show>` custom element. This also registers the custom 
+Import `<slide-show>` custom element. This registers the custom
 element and upgrades instances already in the DOM.
 
 ```html
@@ -17,30 +21,30 @@ element and upgrades instances already in the DOM.
 </slide-show>
 ```
 
-By default children of `<slide-show>` are interpreted as slides, but
+By default children of `<slide-show>` are interpreted as 'slides', but
 elements with a `slot` attribute are not. Slides have default style of
-`scroll-snap-align: center`. Apply `start` or `end` to change the alignment. 
+`scroll-snap-align: center`. Apply `start` or `end` to change the alignment.
 **/
 
-import id            from '../../../fn/modules/id.js';
-import equals        from '../../../fn/modules/equals.js';
-import last          from '../../../fn/modules/lists/last.js';
-import overload      from '../../../fn/modules/overload.js';
-import parseValue    from '../../../fn/modules/parse-value.js';
-import delegate      from '../../../dom/modules/delegate.js';
-import element       from '../../../dom/modules/element.js';
+import id                 from '../../../fn/modules/id.js';
+import equals             from '../../../fn/modules/equals.js';
+import last               from '../../../fn/modules/lists/last.js';
+import overload           from '../../../fn/modules/overload.js';
+import parseValue         from '../../../fn/modules/parse-value.js';
+import delegate           from '../../../dom/modules/delegate.js';
+import element            from '../../../dom/modules/element.js';
 import events, { isPrimaryButton } from '../../../dom/modules/events.js';
-import gestures      from '../../../dom/modules/gestures.js';
-import rect          from '../../../dom/modules/rect.js';
-import create        from '../../../dom/modules/create.js';
-import identify      from '../../../dom/modules/identify.js';
+import gestures           from '../../../dom/modules/gestures.js';
+import rect               from '../../../dom/modules/rect.js';
+import create             from '../../../dom/modules/create.js';
+import identify           from '../../../dom/modules/identify.js';
 import { next, previous } from '../../../dom/modules/traverse.js';
-import { select }    from '../../../dom/modules/select.js';
-import Distributor   from '../../../dom/modules/distributor.js';
-import scrollends    from '../../../dom/modules/scrollends.js';
-import { trigger }   from '../../../dom/modules/trigger.js';
-import parseCSSValue from '../../../dom/modules/parse-length.js';
-import Literal       from '../../../literal/modules/compile-string.js';
+import { select }         from '../../../dom/modules/select.js';
+import Distributor        from '../../../dom/modules/distributor.js';
+import scrollends         from '../../../dom/modules/scrollends.js';
+import { trigger }        from '../../../dom/modules/trigger.js';
+import parseCSSValue      from '../../../dom/modules/parse-length.js';
+import Literal            from '../../../literal/modules/compile-string.js';
 
 const DEBUG = false;//window.DEBUG === true;
 
@@ -67,7 +71,7 @@ const parseTime = parseValue({
 /*
 boolean(object, state)
 
-Returns a boolean getter/setter property definition from an `object` with the 
+Returns a boolean getter/setter property definition from an `object` with the
 shape:
 
 ```js
@@ -80,7 +84,7 @@ shape:
 }
 ```
 
-Pass the initial `state` parameter to set the initial state to `true` or 
+Pass the initial `state` parameter to set the initial state to `true` or
 `false`.
 */
 
@@ -126,11 +130,25 @@ function scrollSmooth(element, slot, target) {
 
 var promise = Promise.resolve();
 
+function getFirstSlide(element) {
+    // Select the first child whose slot is empty or is 'grid'. This is either
+    // a slide or a ghost.
+    const children = element.children;
+    var n = -1;
+    var child;
+
+    while (child = children[++n]) {
+        if (!child.slot || child.slot === 'grid') {
+            return child;
+        }
+    }
+}
+
 function scrollAuto(element, slot, target) {
     // Check for visibility before measuring anything
     if (!element.offsetParent || !target.offsetParent) { return; }
 
-    const firstRect  = rect(element.firstElementChild);
+    const firstRect  = rect(getFirstSlide(element));
     const targetRect = rect(target);
 
     // Move scroll position to next slide. Behaviour option does not seem
@@ -143,7 +161,7 @@ function scrollAuto(element, slot, target) {
             left: targetRect.left - firstRect.left,
             behavior: 'auto'
         });
-    
+
         if (Math.abs(slot.scrollLeft - (targetRect.left - firstRect.left)) > 2) {
             slot.scrollLeft = targetRect.left - firstRect.left;
         }
@@ -176,6 +194,13 @@ function getActiveFromHash(element) {
     return hash && hash !== '#' && element.querySelector(hash);
 }
 
+function getFullscreenElement() {
+    return document.fullscreenElement
+        || document.webkitFullscreenElement
+        || document.mozFullScreenElement
+        || document.msFullscreenElement ;
+}
+
 function View(element, shadow, slot) {
     this.element   = element;
     this.shadow    = shadow;
@@ -191,7 +216,7 @@ function View(element, shadow, slot) {
 
         // Test whether mutation has really changed original slides, if not
         // it was probably an internal mutation adding or removing loop ghosts
-        // Todo: modify the grid/scroll system to put loop ghosts in the shadow 
+        // Todo: modify the grid/scroll system to put loop ghosts in the shadow
         // DOM
         if (equals(items, this.children)) {
             return;
@@ -212,8 +237,9 @@ function View(element, shadow, slot) {
         if (ignore) { return; }
 
         // Check for element visibility. There's little point in trying to do
-        // anything while hidden
-        if (element.offsetParent === null) {
+        // anything while hidden. Any style calculations will error. Note that
+        // offsetParent is null in fullscreen mode as well as when not visible
+        if (element.offsetParent === null && getFullscreenElement() !== element) {
             return;
         }
 
@@ -223,13 +249,13 @@ function View(element, shadow, slot) {
         const id = active.dataset.loopId || active.id;
         const activeId = this.active && (this.active.dataset.loopId || this.active.id);
 
-        /** 
+        /**
         'slide-activate'
         Emitted on a `slide-show` child when it become the active slide.
         **/
         if (id !== activeId) {
-            this.original = active.id ? 
-                active : 
+            this.original = active.id ?
+                active :
                 this.element.getRootNode().getElementById(id) ;
 
             trigger('slide-activate', this.original);
@@ -247,8 +273,8 @@ function View(element, shadow, slot) {
     slot.addEventListener('scroll', this.actives/*, { passive: false }*/);
 
     this.load = () => {
-        // If we are at the very start of the loop on load, and it is 
-        // not an original, reposition to be at the start of the 
+        // If we are at the very start of the loop on load, and it is
+        // not an original, reposition to be at the start of the
         // originals
         if (DEBUG) {
             console.log('%c<slide-show>', 'color: #46789a; font-weight: 600;', 'load');
@@ -282,7 +308,7 @@ function View(element, shadow, slot) {
 
         const target = this.active || getActiveFromHash(this.element) || this.element.firstElementChild;
         if (!target) { return; }
-        
+
         this.reposition(this.active || this.element.firstElementChild);
         this.actives.push(this.active);
 
@@ -309,7 +335,7 @@ function View(element, shadow, slot) {
     });
 }
 
-assign(View.prototype, { 
+assign(View.prototype, {
     // Call to scroll to, which then activates a slide
     show: function(target) {
         scrollSmooth(this.element, this.slot, target);
@@ -348,7 +374,7 @@ assign(View.prototype, {
             );
 
             // ...and a slide registration position at it's corresponding left,
-            // centre or right position. Safari reports 2 values for 
+            // centre or right position. Safari reports 2 values for
             // scroll-snap-align it's the second that is the inline axis value
             const position = (
                 snap.endsWith('start') ? slideRect.left :
@@ -377,7 +403,7 @@ assign(View.prototype, {
         this.ignore = true;
         scrollAuto(this.element, this.slot, target);
 
-        // If scrollable, style accordingly. Currently this class simply updates 
+        // If scrollable, style accordingly. Currently this class simply updates
         // the cursor to ew-resize
         if (this.slot.scrollWidth <= this.slot.clientWidth) {
             this.slot.classList.remove('scrollable')
@@ -406,8 +432,8 @@ assign(View.prototype, {
             }
         }
         else {
-            // Follow the current location hash if it refers to one of this 
-            // slide-show's children 
+            // Follow the current location hash if it refers to one of this
+            // slide-show's children
             this.active = getActiveFromHash(this.element) || items[0];
         }
 
@@ -417,10 +443,10 @@ assign(View.prototype, {
         this.slot.style.setProperty('overflow', items.length > 1 ? '' : 'hidden');
         this.children = items;
 
-        /** 
+        /**
         slidechildren
-        
-        Sent when children of a slide-show element (that are considered to be 
+
+        Sent when children of a slide-show element (that are considered to be
         'slides') are added or removed.
         **/
         tick.then(() => trigger('slidechildren', this.element));
@@ -540,20 +566,20 @@ assign(Loop.prototype, {
         const view     = this.view;
         const children = view.children;
 
-        // To loop slides we need an extra couple on the front and an 
+        // To loop slides we need an extra couple on the front and an
         // extra couple on the back to simulate the continuous loop
         this.before = Array.from(children).map(createLoopGhost);
         this.after  = Array.from(children).map(createLoopGhost);
 
         if (children.length) {
             children[0].before.apply(children[0], this.before);
-            last(children).after.apply(last(children), this.after);    
+            last(children).after.apply(last(children), this.after);
         }
     },
 
     update: function() {
         const id = this.view.active.dataset.loopId;
-    
+
         // Active child is an original slide, not a copy: do nothing
         if (!id) { return; }
 
@@ -569,7 +595,7 @@ assign(Loop.prototype, {
         this.before = undefined;
         this.after = undefined;
     },
-    
+
     disable: function() {
         this.remove();
         this.slotchanges.off(this.slotchangeFn);
@@ -602,7 +628,7 @@ assign(Navigation.prototype, {
     disable: function() {
         this.previous.remove();
         this.next.remove();
-        this.previous = undefined; 
+        this.previous = undefined;
         this.next = undefined;
         this.activates.off(this.activateFn);
         this.activateFn = undefined;
@@ -611,9 +637,9 @@ assign(Navigation.prototype, {
     },
 
     activate: function(active) {
-        // Change href of prev and next buttons, and hide them where there are 
-        // no previous or next siblings. Href updates are purely a help for the 
-        // end user, as we pick up clicks on part(previous) and part(next) 
+        // Change href of prev and next buttons, and hide them where there are
+        // no previous or next siblings. Href updates are purely a help for the
+        // end user, as we pick up clicks on part(previous) and part(next)
         // before we interrogate link hrefs.
 
         if (this.slot.scrollWidth <= this.slot.clientWidth) {
@@ -644,7 +670,7 @@ assign(Navigation.prototype, {
 
         /* console.log(
             'previous', prevChild && Array.prototype.indexOf.call(prevChild.parentNode.children, prevChild),
-            'active', active && Array.prototype.indexOf.call(active.parentNode.children, active), 
+            'active', active && Array.prototype.indexOf.call(active.parentNode.children, active),
             'next', nextChild && Array.prototype.indexOf.call(nextChild.parentNode.children, nextChild)
         ); */
     },
@@ -778,7 +804,7 @@ const processPointerEvents = overload((data, e) => e.type, {
         //data.view.clickSuppressTime = window.performance.now();
         data.view.clickSuppressTime = e.timeStamp;
 
-        // Dodgy. If we simple remove the class the end of the gesture 
+        // Dodgy. If we simple remove the class the end of the gesture
         // jumps.
         const scrollLeft = data.view.slot.scrollLeft;
         data.view.slot.classList.remove('gesturing');
@@ -801,7 +827,7 @@ const lifecycle = {
     Create a shadow DOM containing:
 
     ```html
-    <!- The main scrollable grid --->
+    <!-- The main scrollable grid -->
     <slot part="grid"></slot>
     <!-- With controls="navigation" -->
     <a part="previous" href=""></a>
@@ -829,7 +855,7 @@ const lifecycle = {
         const view = this[$] = new View(this, shadow, slot);
         view.clickSuppressTime = -Infinity;
 
-        // Hijack links to slides to avoid the document scrolling, (but make 
+        // Hijack links to slides to avoid the document scrolling, (but make
         // sure they go in the history anyway, or not)
         events('click', shadow)
         //.filter((e) => !!e.target.href)
@@ -843,7 +869,7 @@ const lifecycle = {
                 view.show(previous(view.active));
                 e.preventDefault();
             },
-            
+
             '[href][part="next"]': function(link, e) {
                 // Show next whether a ghost or not
                 view.show(next(view.active));
@@ -861,7 +887,7 @@ const lifecycle = {
             }
         }));
 
-        // Prevent default on immediate clicks after a gesture, and don't let 
+        // Prevent default on immediate clicks after a gesture, and don't let
         // them out: this is a gesture not a click
         events('click', shadow)
         .each(function(e) {
@@ -897,7 +923,7 @@ const properties = {
         const activeSlideElement = slideshow.active;
         ```
 
-        May be set to one of the child elements, or to the id of one of the 
+        May be set to one of the child elements, or to the id of one of the
         child elements. Setting this property causes the slide to change.
 
         ```js
@@ -928,8 +954,8 @@ const properties = {
     autoplay: {
         /**
         autoplay=""
-        Boolean attribute. When present the slide-show activates the next 
-        slide after a pause. The pause duration may be set in CSS via the 
+        Boolean attribute. When present the slide-show activates the next
+        slide after a pause. The pause duration may be set in CSS via the
         `--duration` variable.
         **/
 
@@ -940,8 +966,8 @@ const properties = {
 
         /**
         .autoplay
-        Boolean property. When `true` the slide-show activates the next 
-        slide after a pause. The pause duration may be set in CSS via the 
+        Boolean property. When `true` the slide-show activates the next
+        slide after a pause. The pause duration may be set in CSS via the
         `--duration` variable.
         **/
 
@@ -960,10 +986,10 @@ const properties = {
 
         Treated as a boolean or a token list. If it is present but empty
         all tokens are considered to be true. Otherwise, possible tokens are:
-        
-        <strong>navigation</strong> enables previous and next buttons. The 
-        buttons may be styled with `::part(previous)` and `::part(next)` 
-        selectors. To change their text content, import and modify 
+
+        <strong>navigation</strong> enables previous and next buttons. The
+        buttons may be styled with `::part(previous)` and `::part(next)`
+        selectors. To change their text content, import and modify
         `config.trans`:
 
         ```js
@@ -993,7 +1019,7 @@ const properties = {
         }
     },
 
-    loop: {            
+    loop: {
         /**
         loop=""
         Boolean attribute. Makes the slideshow behave as a continuous loop.

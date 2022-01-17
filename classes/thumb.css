@@ -24,13 +24,14 @@ overflow, and only the `background-image`, centered and 'cropped' via
     padding-left: 0;
     padding-right: 0;
 
-    /* Hide overflowing text. This technique is better
-       than using -ve text-indent because IE7 moves
-       the background image with the text-indent. */
-    padding-top: 2.8125em;
-    height: 0;
+    /* Hide overflowing text by pushing it out of the overflow with left padding.
+       This technique keeps it on the same baseline (better than using
+       text-indent because IE7 moves the background image with the text-indent). */
+    min-width: 0;
+    padding-left: 2.8125em;
+    height: 2.8125em;
     min-height: 0;
-    width: 2.8125em;
+    width: 0;
 
     /* Keep top of text safely away from the bottom of
        the thumb. */
@@ -44,16 +45,14 @@ overflow, and only the `background-image`, centered and 'cropped' via
          -o-background-size: cover;
             background-size: cover;
 
+    /* background-position is set 50% to keep it centred, and 40% because faces
+       are frequently centred in the upper portion of avatars. */
     background-size: cover;
-    /* background-position is set for the case where an image is used as the
-       the background. 50% to keep it centred, and 40% because faces are often
-       centred in the upper portion of the image. */
     background-position: 50% 40%;
     background-repeat: no-repeat;
     background-color: transparent;
     border-width: 0;
     border-radius: 0;
-
     text-decoration: none;
     color: inherit;
 }
@@ -94,11 +93,6 @@ overflow, and only the `background-image`, centered and 'cropped' via
 <a class="burger-thumb thumb" href="#">Navigation</a>
 ```
 */
-
-.burger-thumb {
-    padding-top: 2.8125rem;
-    width: 2.8125rem;
-}
 
 .burger-thumb.on {
     color: black;
@@ -161,8 +155,8 @@ overflow, and only the `background-image`, centered and 'cropped' via
 .add-thumb,
 .subtract-thumb,
 .remove-thumb {
-    width: 1.875rem;
-    padding-top: 1.875rem;
+    padding-left: 1.875rem;
+    height: 1.875rem;
     border-radius: 50%;
 }
 
@@ -244,8 +238,8 @@ Navigation thumbs for slideshows.
 .prev-thumb,
 .next-thumb {
     position: relative;
-    width: 3.75rem;
-    padding-top: 5rem;
+    padding-left: 3.75rem;
+    height: 5rem;
     background-image: none;
 }
 

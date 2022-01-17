@@ -247,7 +247,3 @@ blockquote        { margin-left: 2.6667em; }
 
 .break-wrap       { white-space: normal; overflow-wrap: break-word; }
 .line-wrap        { white-space: pre; }
-
-/* Modifiers */
-
-.uppercase-text   { text-transform: uppercase !important; }

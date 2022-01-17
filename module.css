@@ -37,6 +37,8 @@
 @import "classes/pill-input.css";
 @import "classes/toggle-button.css";
 @import "classes/toggle-block.css";
+@import "classes/lined-table.css";
+@import "classes/striped-table.css";
 @import "classes/bubble.css";
 @import "classes/card.css";
 @import "classes/modifiers.css";
