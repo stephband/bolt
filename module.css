@@ -41,7 +41,8 @@
 @import "classes/striped-table.css";
 @import "classes/bubble.css";
 @import "classes/card.css";
-@import "classes/modifiers.css";
+@import "classes/active.css";
+@import "classes/states.css";
 
 @import "elements/overflow-toggle.css";
 @import "elements/slide-show.css";

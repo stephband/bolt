@@ -1,31 +1,19 @@
 
-/**
-Modifiers.
-**/
-
 /*
-.active
-Modify a two-state component to represent active state.
+.focus-shown
+Show an element only when focused
 */
 
-.active {}
+.focus-shown:not(:focus) {
+	opacity: 0 !important;
+	/*visibility: hidden !important;*/
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	width: 1px !important;
+	height: 1px important;
 
-/*
-.on
-Modify a link or button that references a two-state component to represent
-active state.
-*/
-
-.on {}
-
-/*
-.hidden
-
-Hide element.
-*/
-
-.hidden {
-	display: none !important;
+	background: red;
 }
 
 /**
@@ -39,95 +27,7 @@ Hide an element on printed page.
 	}
 }
 
-/*
-.active-hidden
-Hide an element when its parent has class <code>active</code>.
-*/
 
-.active-hidden.active,
-.active > .parent-active-hidden {
-	display: none !important;
-}
-
-/*
-.active-shown
-Show an element when its parent has class <code>active</code>.
-*/
-
-.active-shown:not(.active) {
-	display: none !important;
-}
-
-:not(.active) > .parent-active-shown:not(.active) {
-	display: none !important;
-}
-
-/*
-.focus-shown
-Show an element only when focused
-*/
-
-.focus-shown:not(:focus) {
-
-	opacity: 0 !important;
-	/*visibility: hidden !important;*/
-	position: absolute !important;
-	top: 0 !important;
-	left: 0 !important;
-	width: 1px !important;
-	height: 1px important;
-
-	background: red;
-}
-
-
-/*
-.on-hidden
-Hide an element when its parent has class <code>on</code>.
-*/
-
-.on-hidden.on,
-.on > .on-hidden {
-	display: none !important;
-}
-
-/*
-.on-shown
-Show an element when its parent has class <code>on</code>.
-*/
-
-:not(.on) > .on-shown:not(.on) {
-	display: none !important;
-}
-
-/*
-.requested-hidden
-Hide an element when its parent has class <code>requested</code>.
-*/
-
-.requested-hidden.requested,
-.requested > .requested-hidden {
-	display: none !important;
-}
-
-/*
-.requested-shown
-Show an element when its parent has class <code>requested</code>.
-*/
-
-:not(.requested) > .requested-shown:not(.requested) {
-	display: none !important;
-}
-
-
-/**
-.disabled
-**/
-
-.disabled,
-:disabled {
-	opacity: 0.4;
-}
 
 /**
 .requested
@@ -168,6 +68,25 @@ Add <code>::after</code> content representing a loading animation.
 	z-index: 100;
 }
 
+/*
+.requested-hidden
+Hide an element when its parent has class <code>requested</code>.
+*/
+
+.requested-hidden.requested,
+.requested > .requested-hidden {
+	display: none !important;
+}
+
+/*
+.requested-shown
+Show an element when its parent has class <code>requested</code>.
+*/
+
+:not(.requested) > .requested-shown:not(.requested) {
+	display: none !important;
+}
+
 /**
 .no-select
 Prohibit user selection.
@@ -185,6 +104,7 @@ Prohibit user selection.
 Cancel transitions on an element and all descendents.
 **/
 
+/*
 .no-transition,
 .no-transition *,
 .no-transition::before,
@@ -196,6 +116,7 @@ Cancel transitions on an element and all descendents.
 	     -o-transition: all 0 linear 0 !important;
 	        transition: none !important;
 }
+*/
 
 /**
 .clear
@@ -209,24 +130,4 @@ The clearfix hack.
 	content: " ";
 	clear: both;
 	height: 0;
-}
-
-
-/*
-.fixed
-*/
-
-.fixed {
-	position: fixed !important;
-}
-
-
-/*
-.sticky
-*/
-
-.sticky {
-	position: -webkit-sticky !important;
-	position: sticky !important;
-	top: 0;
 }

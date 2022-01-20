@@ -200,6 +200,7 @@ ${ data.map(async (bp) => (px(bp.width) ? `
 `)
 + (`
     .${ bp.prefix }hidden         { display: none !important; }`)
++ (await include('../atoms/position.literal', bp) )
 + (await include('../atoms/columns.literal', bp) )
 + (await include('../atoms/flex.literal', bp) )
 + (await include('../atoms/grid.literal', bp) )
