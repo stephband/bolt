@@ -398,8 +398,15 @@ function hasntElement(element) {
 }
 
 function pushActives(actives, target) {
-    const elements = select('.' + config.activeClass, target).filter(hasntElement);
+	// Select #identifier and .active elements that have not already been registered
+	const selector = (window.location.hash ? window.location.hash + ', ' : '') + ('.' + config.activeClass);
+    const elements = select(selector, target).filter(hasntElement);
 
+	if (target.matches(selector) && hasntElement(target)) {
+		elements.push(target);
+	}
+
+	// Push them into the output collection, registering that we seen 'em
     if (elements.length) {
         actives.push.apply(actives, elements);
         elements.forEach(addElement);
@@ -415,7 +422,7 @@ function pushAddedActives(added, mutation) {
 }
 
 // Document setup
-ready(function() {
+events('DOMContentLoaded', document).each(function() {
 	// Setup all things that should start out active
 	const actives = select('.' + config.activeClass, document);
     if (actives.length) {
@@ -429,6 +436,7 @@ ready(function() {
             throw new Error('Not childList', mutations);
         }
 
+		// Activate .active elements
         const actives = mutations.reduce(pushAddedActives, []);
         if (actives.length) {
             log('dom-activate', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
@@ -441,7 +449,7 @@ ready(function() {
     observer.observe(document.body, {
         attributes: false,
         childList: true,
-        subtree: true 
+        subtree: true
     });
 
     // Later, you can stop observing
