@@ -11,10 +11,10 @@
 </div>
 ```
 
-A `toggle-block` is a drawer, closed by default, that opens when given the 
-class `active`. 
+A `toggle-block` is a drawer, closed by default, that opens when given the
+class `active`.
 
-As its `overflow` is `hidden`, in order not to truncate focus rings and 
+As its `overflow` is `hidden`, in order not to truncate focus rings and
 box-shadows in its content, it is given negative margins and equal padding.
 
 Include `attributes/data-toggleable.js` and links to the `toggle-block` will

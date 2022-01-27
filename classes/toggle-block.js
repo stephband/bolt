@@ -1,7 +1,6 @@
 
 /*
-toggle-block.js
-
+.toggle-block
 Enable toggle-block transitions of max-height to go to and from height: auto
 for smoother opening and closing animations.
 */
@@ -21,7 +20,7 @@ function isVisible(element) {
 events('dom-activate', document.body)
 .map(get('target'))
 .filter(matches('.toggle-block'))
-.each(function(node) {    
+.each(function(node) {
     if (!isVisible(node)) {
         node.style.maxHeight = '';
         return;
