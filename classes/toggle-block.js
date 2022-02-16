@@ -21,7 +21,8 @@ events('dom-activate', document.body)
 .map(get('target'))
 .filter(matches('.toggle-block'))
 .each(function(node) {
-    if (!isVisible(node)) {
+    // There are no transitions inside loading containers
+    if (!isVisible(node) || matches('.loading .toggle-block')) {
         node.style.maxHeight = '';
         return;
     }
@@ -39,6 +40,7 @@ events('dom-activate', document.body)
 
     events('transitionend', node)
     .each(function(e) {
+        console.log('BOO', e.type);
         node.style.maxHeight = '';
     });
 });
