@@ -1,5 +1,6 @@
 
 .${ data.prefix }normal-text    { text-transform: none !important; }
+.${ data.prefix }lowercase-text { text-transform: lowercase !important; }
 .${ data.prefix }uppercase-text { text-transform: uppercase !important; }
 
 .${ data.prefix }light-text     { font-weight: 300 !important; }
