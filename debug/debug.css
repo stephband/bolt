@@ -20,17 +20,20 @@
     position: absolute;
     font-family: 'Andale Mono', 'Courier New', monospace;
     font-size: 0.6875rem;
+    text-transform: none;
     line-height: 0.9375rem;
-    width: 3.125rem;
-    opacity: 0.8;
+    min-width: 3.125rem;
     padding: 0.0625rem;
     white-space: nowrap;
-    color: rgb(255, 0, 74);
+    color: white;
+    background-color: rgb(255, 0, 74);
+    /* Maximum possible z-index */
+    z-index: 2147483647;
 }
 
-[href=""]::before  { content: 'Empty href=""'; }
-[href="#"]::before { content: 'Empty href="#"'; }
-[alt=""]::before   { content: 'Empty alt=""'; }
+[href=""]::before  { content: 'href=""'; }
+[href="#"]::before { content: 'href="#"'; }
+[alt=""]::before   { content: 'alt=""'; }
 
 
 /* Buttons must have a type attribute lest they behave as submit buttons. */
@@ -47,12 +50,15 @@ button:not([type])::before {
     position: absolute;
     font-family: 'Andale Mono', 'Courier New', monospace;
     font-size: 0.6875rem;
+    text-transform: none;
     line-height: 0.9375rem;
-    width: 3.125rem;
-    opacity: 0.8;
+    min-width: 3.125rem;
     padding: 0.0625rem;
     white-space: nowrap;
-    color: rgb(255, 0, 74);
+    color: white;
+    background-color: rgb(255, 0, 74);
+    /* Maximum possible z-index */
+    z-index: 2147483647;
 }
 
 
