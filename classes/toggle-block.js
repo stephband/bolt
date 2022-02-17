@@ -38,9 +38,9 @@ events('dom-activate', document.body)
 
     node.style.maxHeight = height + 'px';
 
-    events('transitionend', node)
+    const transitionend = events('transitionend', node)
     .each(function(e) {
-        console.log('BOO', e.type);
+        transitionend.stop();
         node.style.maxHeight = '';
     });
 });

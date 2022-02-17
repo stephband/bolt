@@ -11,8 +11,13 @@ h6:empty,
 ul:empty,
 ol:empty,
 li:empty,
+dl:empty,
+dt:empty,
+dd:empty,
+em:empty,
 blockquote:empty,
 strong:empty {
+    position: relative;
     box-shadow: inset 0 0 0px 1px rgba(255,0,74,0.75) !important;
     border-color: rgb(255, 0, 74) !important;
 }
@@ -33,7 +38,12 @@ h6:empty:not([hidden]),
 ul:empty:not([hidden]),
 ol:empty:not([hidden]),
 li:empty:not([hidden]),
-blockquote:empty:not([hidden]) {
+dl:empty:not([hidden]),
+dt:empty:not([hidden]),
+dd:empty:not([hidden]),
+em:empty:not([hidden]),
+blockquote:empty:not([hidden]),
+strong:empty:not([hidden]) {
     /* Overide hiders in text.css */
     display: block !important;
     min-width: 3.125rem;
@@ -50,7 +60,12 @@ h6:empty::before,
 ul:empty::before,
 ol:empty::before,
 li:empty::before,
-blockquote:empty::before {
+dl:empty::before,
+dt:empty::before,
+dd:empty::before,
+em:empty::before,
+blockquote:empty::before,
+strong:empty::before {
     /* Do not position it with top, left, etc. We cannot give the parent
        position: relative */
     position: absolute;
@@ -74,24 +89,9 @@ h6:empty::before { content: 'Empty <h6>'; }
 ul:empty::before { content: 'Empty <ul>'; }
 ol:empty::before { content: 'Empty <ol>'; }
 li:empty::before { content: 'Empty <li>'; }
+dl:empty::before { content: 'Empty <dl>'; }
+dt:empty::before { content: 'Empty <dt>'; }
+dd:empty::before { content: 'Empty <dd>'; }
+dd:empty::before { content: 'Empty <em>'; }
 blockquote:empty::before { content: 'Empty <blockquote>'; }
-
-button:not([type]) {
-    box-shadow: inset 0 0 0px 1px rgba(255,0,74,0.75) !important;
-    border-color: rgb(255, 0, 74) !important;
-}
-
-button:not([type])::before {
-    content: 'Missing type="button"';
-    /* Do not position it with top, left, etc. We cannot give the parent
-       position: relative */
-    position: absolute;
-    font-family: 'Andale Mono', 'Courier New', monospace;
-    font-size: 0.6875rem;
-    line-height: 0.9375rem;
-    width: 3.125rem;
-    opacity: 0.8;
-    padding: 0.0625rem;
-    white-space: nowrap;
-    color: rgb(255, 0, 74);
-}
+strong:empty::before     { content: 'Empty <strong>'; }
