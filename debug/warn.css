@@ -1,0 +1,97 @@
+
+[href=""],
+img:not([alt]),
+p:empty,
+h1:empty,
+h2:empty,
+h3:empty,
+h4:empty,
+h5:empty,
+h6:empty,
+ul:empty,
+ol:empty,
+li:empty,
+blockquote:empty,
+strong:empty {
+    box-shadow: inset 0 0 0px 1px rgba(255,0,74,0.75) !important;
+    border-color: rgb(255, 0, 74) !important;
+}
+
+/*
+It's fine to be empty and hidden.
+It's not fine to be empty and display: none, because we should prioritise
+the hidden attribute over display: none (and display: none may have been set in
+type.css as a visual fallback so we override it here to flag it as an error).
+*/
+p:empty:not([hidden]),
+h1:empty:not([hidden]),
+h2:empty:not([hidden]),
+h3:empty:not([hidden]),
+h4:empty:not([hidden]),
+h5:empty:not([hidden]),
+h6:empty:not([hidden]),
+ul:empty:not([hidden]),
+ol:empty:not([hidden]),
+li:empty:not([hidden]),
+blockquote:empty:not([hidden]) {
+    /* Overide hiders in text.css */
+    display: block !important;
+    min-width: 3.125rem;
+    min-height: 1rem;
+}
+
+p:empty::before,
+h1:empty::before,
+h2:empty::before,
+h3:empty::before,
+h4:empty::before,
+h5:empty::before,
+h6:empty::before,
+ul:empty::before,
+ol:empty::before,
+li:empty::before,
+blockquote:empty::before {
+    /* Do not position it with top, left, etc. We cannot give the parent
+       position: relative */
+    position: absolute;
+    font-family: 'Andale Mono', 'Courier New', monospace;
+    font-size: 0.6875rem;
+    line-height: 0.9375rem;
+    width: 3.125rem;
+    opacity: 0.8;
+    padding: 0.0625rem;
+    white-space: nowrap;
+    color: rgb(255, 0, 74);
+}
+
+p:empty::before  { content: 'Empty <p>'; }
+h1:empty::before { content: 'Empty <h1>'; }
+h2:empty::before { content: 'Empty <h2>'; }
+h3:empty::before { content: 'Empty <h3>'; }
+h4:empty::before { content: 'Empty <h4>'; }
+h5:empty::before { content: 'Empty <h5>'; }
+h6:empty::before { content: 'Empty <h6>'; }
+ul:empty::before { content: 'Empty <ul>'; }
+ol:empty::before { content: 'Empty <ol>'; }
+li:empty::before { content: 'Empty <li>'; }
+blockquote:empty::before { content: 'Empty <blockquote>'; }
+
+button:not([type]) {
+    box-shadow: inset 0 0 0px 1px rgba(255,0,74,0.75) !important;
+    border-color: rgb(255, 0, 74) !important;
+}
+
+button:not([type])::before {
+    content: 'Missing type="button"';
+    /* Do not position it with top, left, etc. We cannot give the parent
+       position: relative */
+    position: absolute;
+    font-family: 'Andale Mono', 'Courier New', monospace;
+    font-size: 0.6875rem;
+    line-height: 0.9375rem;
+    width: 3.125rem;
+    opacity: 0.8;
+    padding: 0.0625rem;
+    white-space: nowrap;
+    color: rgb(255, 0, 74);
+}
