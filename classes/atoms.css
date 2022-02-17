@@ -144,7 +144,7 @@ Creates a grid with 3 equal width columns.
 </div>
 ```
 
-Note that `.x-bleed`, which stretches an element half the way across the grid 
+Note that `.x-bleed`, which stretches an element half the way across the grid
 gap, and `.x-flood`, which stretches an element all the way across the grid gap,
 depends on `column-gap` having been set via the custom property `--x-gap`.
 **/
@@ -198,7 +198,7 @@ Define the vertical grid gap (with units).
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 1.5rem;
-} 
+}
 
 .\31 -columns  { columns: 1 !important; }
 .\32 -columns  { columns: 2 !important; }
@@ -293,7 +293,7 @@ a.grid:focus {
 .\31 2x { grid-column-end: span 12 !important; }
 
 .x-end {
-    justify-self: end !important; 
+    justify-self: end !important;
     margin-left: auto;
     margin-right: 0;
 }
@@ -304,18 +304,18 @@ a.grid:focus {
     margin-right: auto;
 }
 
-.x-center { 
-    justify-self: center !important; 
-    margin-left: auto; 
+.x-center {
+    justify-self: center !important;
+    margin-left: auto;
     margin-right: auto;
 }
 
 .x-stretch {
     justify-self: stretch !important;
-    margin-left: 0; 
+    margin-left: 0;
     margin-right: 0;
     max-width: 100%;
-    width: 100%; 
+    width: 100%;
 }
 
 .x-unbleedl {
@@ -442,28 +442,28 @@ a.grid:focus {
 
 .y-center {
     align-self:    center !important;
-    margin-top:    auto; 
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .y-baseline  {
-    align-self:    baseline !important; 
-    margin-top:    auto; 
+    align-self:    baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .y-lastline  {
-    align-self:    last baseline !important; 
-    margin-top:    auto; 
+    align-self:    last baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0; 
+    margin-top:    0;
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%; 
+    height:        100%;
 }
 
 .y-bleed {
@@ -471,7 +471,7 @@ a.grid:focus {
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap)); 
+    height:        calc(100% + var(--y-gap));
 }
 
 .y-flood {
@@ -479,7 +479,7 @@ a.grid:focus {
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap)); 
+    height:        calc(100% + 2 * var(--y-gap));
 }
 .inline         { display: inline-block !important; }.left           { float: left !important; clear: left; }
 .right          { float: right !important; clear: right; }
@@ -513,7 +513,7 @@ a.grid:focus {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 1.5rem;
-} 
+}
 
 .\@1-1-columns  { columns: 1 !important; }
 .\@1-2-columns  { columns: 2 !important; }
@@ -608,7 +608,7 @@ a.\@1-grid:focus {
 .\@1-12x { grid-column-end: span 12 !important; }
 
 .\@1-x-end {
-    justify-self: end !important; 
+    justify-self: end !important;
     margin-left: auto;
     margin-right: 0;
 }
@@ -619,18 +619,18 @@ a.\@1-grid:focus {
     margin-right: auto;
 }
 
-.\@1-x-center { 
-    justify-self: center !important; 
-    margin-left: auto; 
+.\@1-x-center {
+    justify-self: center !important;
+    margin-left: auto;
     margin-right: auto;
 }
 
 .\@1-x-stretch {
     justify-self: stretch !important;
-    margin-left: 0; 
+    margin-left: 0;
     margin-right: 0;
     max-width: 100%;
-    width: 100%; 
+    width: 100%;
 }
 
 .\@1-x-unbleedl {
@@ -757,28 +757,28 @@ a.\@1-grid:focus {
 
 .\@1-y-center {
     align-self:    center !important;
-    margin-top:    auto; 
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@1-y-baseline  {
-    align-self:    baseline !important; 
-    margin-top:    auto; 
+    align-self:    baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@1-y-lastline  {
-    align-self:    last baseline !important; 
-    margin-top:    auto; 
+    align-self:    last baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@1-y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0; 
+    margin-top:    0;
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%; 
+    height:        100%;
 }
 
 .\@1-y-bleed {
@@ -786,7 +786,7 @@ a.\@1-grid:focus {
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap)); 
+    height:        calc(100% + var(--y-gap));
 }
 
 .\@1-y-flood {
@@ -794,7 +794,7 @@ a.\@1-grid:focus {
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap)); 
+    height:        calc(100% + 2 * var(--y-gap));
 }
 .\@1-inline         { display: inline-block !important; }.\@1-left           { float: left !important; clear: left; }
 .\@1-right          { float: right !important; clear: right; }
@@ -829,7 +829,7 @@ a.\@1-grid:focus {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 2.8125rem;
-} 
+}
 
 .\@2-1-columns  { columns: 1 !important; }
 .\@2-2-columns  { columns: 2 !important; }
@@ -924,7 +924,7 @@ a.\@2-grid:focus {
 .\@2-12x { grid-column-end: span 12 !important; }
 
 .\@2-x-end {
-    justify-self: end !important; 
+    justify-self: end !important;
     margin-left: auto;
     margin-right: 0;
 }
@@ -935,18 +935,18 @@ a.\@2-grid:focus {
     margin-right: auto;
 }
 
-.\@2-x-center { 
-    justify-self: center !important; 
-    margin-left: auto; 
+.\@2-x-center {
+    justify-self: center !important;
+    margin-left: auto;
     margin-right: auto;
 }
 
 .\@2-x-stretch {
     justify-self: stretch !important;
-    margin-left: 0; 
+    margin-left: 0;
     margin-right: 0;
     max-width: 100%;
-    width: 100%; 
+    width: 100%;
 }
 
 .\@2-x-unbleedl {
@@ -1073,28 +1073,28 @@ a.\@2-grid:focus {
 
 .\@2-y-center {
     align-self:    center !important;
-    margin-top:    auto; 
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@2-y-baseline  {
-    align-self:    baseline !important; 
-    margin-top:    auto; 
+    align-self:    baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@2-y-lastline  {
-    align-self:    last baseline !important; 
-    margin-top:    auto; 
+    align-self:    last baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@2-y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0; 
+    margin-top:    0;
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%; 
+    height:        100%;
 }
 
 .\@2-y-bleed {
@@ -1102,7 +1102,7 @@ a.\@2-grid:focus {
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap)); 
+    height:        calc(100% + var(--y-gap));
 }
 
 .\@2-y-flood {
@@ -1110,7 +1110,7 @@ a.\@2-grid:focus {
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap)); 
+    height:        calc(100% + 2 * var(--y-gap));
 }
 .\@2-inline         { display: inline-block !important; }.\@2-left           { float: left !important; clear: left; }
 .\@2-right          { float: right !important; clear: right; }
@@ -1145,7 +1145,7 @@ a.\@2-grid:focus {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 3.75rem;
-} 
+}
 
 .\@3-1-columns  { columns: 1 !important; }
 .\@3-2-columns  { columns: 2 !important; }
@@ -1240,7 +1240,7 @@ a.\@3-grid:focus {
 .\@3-12x { grid-column-end: span 12 !important; }
 
 .\@3-x-end {
-    justify-self: end !important; 
+    justify-self: end !important;
     margin-left: auto;
     margin-right: 0;
 }
@@ -1251,18 +1251,18 @@ a.\@3-grid:focus {
     margin-right: auto;
 }
 
-.\@3-x-center { 
-    justify-self: center !important; 
-    margin-left: auto; 
+.\@3-x-center {
+    justify-self: center !important;
+    margin-left: auto;
     margin-right: auto;
 }
 
 .\@3-x-stretch {
     justify-self: stretch !important;
-    margin-left: 0; 
+    margin-left: 0;
     margin-right: 0;
     max-width: 100%;
-    width: 100%; 
+    width: 100%;
 }
 
 .\@3-x-unbleedl {
@@ -1389,28 +1389,28 @@ a.\@3-grid:focus {
 
 .\@3-y-center {
     align-self:    center !important;
-    margin-top:    auto; 
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@3-y-baseline  {
-    align-self:    baseline !important; 
-    margin-top:    auto; 
+    align-self:    baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@3-y-lastline  {
-    align-self:    last baseline !important; 
-    margin-top:    auto; 
+    align-self:    last baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@3-y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0; 
+    margin-top:    0;
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%; 
+    height:        100%;
 }
 
 .\@3-y-bleed {
@@ -1418,7 +1418,7 @@ a.\@3-grid:focus {
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap)); 
+    height:        calc(100% + var(--y-gap));
 }
 
 .\@3-y-flood {
@@ -1426,7 +1426,7 @@ a.\@3-grid:focus {
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap)); 
+    height:        calc(100% + 2 * var(--y-gap));
 }
 .\@3-inline         { display: inline-block !important; }.\@3-left           { float: left !important; clear: left; }
 .\@3-right          { float: right !important; clear: right; }
