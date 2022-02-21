@@ -1,22 +1,23 @@
 
 [href=""],
 img:not([alt]),
-p:empty,
-h1:empty,
-h2:empty,
-h3:empty,
-h4:empty,
-h5:empty,
-h6:empty,
-ul:empty,
-ol:empty,
-li:empty,
-dl:empty,
-dt:empty,
-dd:empty,
-em:empty,
-blockquote:empty,
-strong:empty {
+p:empty,  p.empty-warning,
+h1:empty, h1.empty-warning,
+h2:empty, h2.empty-warning,
+h3:empty, h3.empty-warning,
+h4:empty, h4.empty-warning,
+h5:empty, h5.empty-warning,
+h6:empty, h6.empty-warning,
+ul:empty, ul.empty-warning,
+ol:empty, ol.empty-warning,
+li:empty, li.empty-warning,
+dl:empty, dl.empty-warning,
+dt:empty, dt.empty-warning,
+dd:empty, dd.empty-warning,
+em:empty, em.empty-warning,
+blockquote:empty, blockquote.empty-warning,
+strong:empty,     strong.empty-warning,
+strong strong {
     position: relative;
     box-shadow: inset 0 0 0px 1px rgba(255,0,74,0.75) !important;
     border-color: rgb(255, 0, 74) !important;
@@ -50,27 +51,29 @@ strong:empty:not([hidden]) {
     min-height: 1rem;
 }
 
-p:empty::before,
-h1:empty::before,
-h2:empty::before,
-h3:empty::before,
-h4:empty::before,
-h5:empty::before,
-h6:empty::before,
-ul:empty::before,
-ol:empty::before,
-li:empty::before,
-dl:empty::before,
-dt:empty::before,
-dd:empty::before,
-em:empty::before,
-blockquote:empty::before,
-strong:empty::before {
+p:empty::before,  p.empty-warning::before,
+h1:empty::before, h1.empty-warning::before,
+h2:empty::before, h2.empty-warning::before,
+h3:empty::before, h3.empty-warning::before,
+h4:empty::before, h4.empty-warning::before,
+h5:empty::before, h5.empty-warning::before,
+h6:empty::before, h6.empty-warning::before,
+ul:empty::before, ul.empty-warning::before,
+ol:empty::before, ol.empty-warning::before,
+li:empty::before, li.empty-warning::before,
+dl:empty::before, dl.empty-warning::before,
+dt:empty::before, dt.empty-warning::before,
+dd:empty::before, dd.empty-warning::before,
+em:empty::before, em.empty-warning::before,
+blockquote:empty::before, blockquote.empty-warning::before,
+strong:empty::before,     strong.empty-warning::before,
+strong strong::before {
     /* Do not position it with top, left, etc. We cannot give the parent
        position: relative */
     position: absolute;
     font-family: 'Andale Mono', 'Courier New', monospace;
     font-size: 0.6875rem;
+    font-style: normal;
     line-height: 0.9375rem;
     text-transform: none;
     min-width: 3.125rem;
@@ -82,19 +85,20 @@ strong:empty::before {
     z-index: 2147483647;
 }
 
-p:empty::before  { content: 'Empty <p>'; }
-h1:empty::before { content: 'Empty <h1>'; }
-h2:empty::before { content: 'Empty <h2>'; }
-h3:empty::before { content: 'Empty <h3>'; }
-h4:empty::before { content: 'Empty <h4>'; }
-h5:empty::before { content: 'Empty <h5>'; }
-h6:empty::before { content: 'Empty <h6>'; }
-ul:empty::before { content: 'Empty <ul>'; }
-ol:empty::before { content: 'Empty <ol>'; }
-li:empty::before { content: 'Empty <li>'; }
-dl:empty::before { content: 'Empty <dl>'; }
-dt:empty::before { content: 'Empty <dt>'; }
-dd:empty::before { content: 'Empty <dd>'; }
-dd:empty::before { content: 'Empty <em>'; }
-blockquote:empty::before { content: 'Empty <blockquote>'; }
-strong:empty::before     { content: 'Empty <strong>'; }
+p:empty::before,  p.empty-warning:before   { content: 'Empty <p>'; }
+h1:empty::before, h1.empty-warning::before { content: 'Empty <h1>'; }
+h2:empty::before, h2.empty-warning::before { content: 'Empty <h2>'; }
+h3:empty::before, h3.empty-warning::before { content: 'Empty <h3>'; }
+h4:empty::before, h4.empty-warning::before { content: 'Empty <h4>'; }
+h5:empty::before, h5.empty-warning::before { content: 'Empty <h5>'; }
+h6:empty::before, h6.empty-warning::before { content: 'Empty <h6>'; }
+ul:empty::before, ul.empty-warning::before { content: 'Empty <ul>'; }
+ol:empty::before, ol.empty-warning::before { content: 'Empty <ol>'; }
+li:empty::before, li.empty-warning::before { content: 'Empty <li>'; }
+dl:empty::before, dl.empty-warning::before { content: 'Empty <dl>'; }
+dt:empty::before, dt.empty-warning::before { content: 'Empty <dt>'; }
+dd:empty::before, dd.empty-warning::before { content: 'Empty <dd>'; }
+em:empty::before, em.empty-warning::before { content: 'Empty <em>'; }
+blockquote:empty::before, blockquote.empty-warning::before { content: 'Empty <blockquote>'; }
+strong:empty::before,     strong.empty-warning::before     { content: 'Empty <strong>'; }
+strong strong::before { content: '<strong> inside <strong>'; }
