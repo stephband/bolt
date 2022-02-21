@@ -98,3 +98,17 @@ dd:empty::before { content: 'Empty <dd>'; }
 dd:empty::before { content: 'Empty <em>'; }
 blockquote:empty::before { content: 'Empty <blockquote>'; }
 strong:empty::before     { content: 'Empty <strong>'; }
+
+/*
+Avoid highlighting bad HTML in the DjangoCMS toolbar
+*/
+
+.cms [href=""],
+.cms img:not([alt]),
+.cms *:empty {
+    box-shadow: none;
+    box-shadow: none !important;
+    border-color: transparent !important;
+}
+
+.cms *:empty::before { content: none; }
