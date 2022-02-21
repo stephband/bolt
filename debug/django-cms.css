@@ -1,0 +1,20 @@
+
+
+/*
+Avoid highlighting bad HTML in the DjangoCMS toolbar
+*/
+
+.cms [href=""],
+.cms [href="#"],
+.cms img:not([alt]),
+.cms [alt=""],
+.cms *:empty {
+    box-shadow: none;
+    box-shadow: none !important;
+    border-color: transparent !important;
+}
+
+.cms [href=""]::before,
+.cms [href="#"]::before,
+.cms [alt=""]::before,
+.cms *:empty::before { content: none; }
