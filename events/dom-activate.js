@@ -337,6 +337,12 @@ function activateHref(a, e) {
 	var node = document.getElementById(id);
 	if (!node) { return; }
 
+	// Is the node inactive?
+	if (node.classList.contains('active')) {
+		e.preventDefault();
+		return;
+	}
+
     // Is the node handleable
     var handleCount = handlers.map(apply(node)).reduce(sum, 0);
 	if (handleCount) {
