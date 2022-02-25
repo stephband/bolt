@@ -93,6 +93,18 @@ function defaultActivate() {
 			classes(node).add(config.onClass);
 		});
 	}
+
+	// Focus the first element with class .active-focus
+	const focusNode = this.target.querySelector('.active-focus');
+    if (focusNode) {
+		// The click that activated this target is not over yet, wait two frames
+		// to focus the element. Don't know why we need two.
+		requestAnimationFrame(() =>
+			requestAnimationFrame(() =>
+				focusNode.focus()
+			)
+		);
+	}
 }
 
 function defaultDeactivate() {
