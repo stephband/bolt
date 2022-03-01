@@ -34,6 +34,14 @@ a.${ data.prefix }grid:focus {
     align-content: center;
 }
 
+.${ data.prefix }x-start-grid {
+    justify-content: start;
+}
+
+.${ data.prefix }x-center-grid {
+    justify-content: center;
+}
+
 /* x */
 ${ Array.from({ length: data.columns || 12 }).map((nowt, i) => i + 1).map((n) => `
 .${ data.prefix ? data.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }x-grid  { grid-template-columns: repeat(${ n },  minmax(0, 1fr)); }`).join('')
