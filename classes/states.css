@@ -99,24 +99,6 @@ Prohibit user selection.
 	          user-select: none !important;
 }
 
-/**
-.no-transition
-Cancel transitions on an element and all descendents.
-**/
-
-/*
-.no-transition,
-.no-transition *,
-.no-transition::before,
-.no-transition::after,
-.no-transition *::before,
-.no-transition *::after {
-	-webkit-transition: none !important;
-	   -moz-transition: none !important;
-	     -o-transition: all 0 linear 0 !important;
-	        transition: none !important;
-}
-*/
 
 /**
 .clear
