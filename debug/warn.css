@@ -52,6 +52,7 @@ strong:empty:not([hidden]) {
 }
 
 p:empty::before,  p.empty-warning::before,
+b:empty::before,  b.empty-warning::before,
 h1:empty::before, h1.empty-warning::before,
 h2:empty::before, h2.empty-warning::before,
 h3:empty::before, h3.empty-warning::before,
@@ -86,6 +87,7 @@ strong strong::before {
 }
 
 p:empty::before,  p.empty-warning:before   { content: 'Empty <p>'; }
+b:empty::before,  b.empty-warning:before   { content: 'Empty <b>'; }
 h1:empty::before, h1.empty-warning::before { content: 'Empty <h1>'; }
 h2:empty::before, h2.empty-warning::before { content: 'Empty <h2>'; }
 h3:empty::before, h3.empty-warning::before { content: 'Empty <h3>'; }
