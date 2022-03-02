@@ -285,7 +285,7 @@ if (!features.scrollBehavior) {
        elements with id and move them up relatively by one header height. */
     document.querySelectorAll('[data-locateable]').forEach(function(node) {
         const id = node.id;
-        const anchor = create('a', { id, style: 'position: relative; height: 0px; width: 100%; background-color: limegreen; top: calc(-1 * var(--header-height)); display: block;', 'data-locateable': true });
+        const anchor = create('a', { id, style: 'position: relative; height: 0px; min-height: 0; width: 100%; background-color: limegreen; top: calc(-1 * var(--header-height)); display: block;', 'data-locateable': true });
         node.id = id + '-(original)';
         node.removeAttribute('data-locateable');
         node.before(anchor);
