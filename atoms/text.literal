@@ -3,9 +3,11 @@
 .${ data.prefix }lowercase-text { text-transform: lowercase !important; }
 .${ data.prefix }uppercase-text { text-transform: uppercase !important; }
 
+.${ data.prefix }thin-text      { font-weight: 200 !important; }
 .${ data.prefix }light-text     { font-weight: 300 !important; }
 .${ data.prefix }regular-text   { font-weight: 400 !important; }
 .${ data.prefix }book-text      { font-weight: 450 !important; }
 .${ data.prefix }medium-text    { font-weight: 500 !important; }
 .${ data.prefix }semi-text      { font-weight: 600 !important; }
 .${ data.prefix }bold-text      { font-weight: 700 !important; }
+.${ data.prefix }black-text     { font-weight: 800 !important; }
