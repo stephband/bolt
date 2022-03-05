@@ -3,12 +3,12 @@
     display: block !important;
     column-gap: var(--x-gap);
     ${ data['column-gap'] && '--x-gap: ' + rem(data['column-gap']) + 'rem;' }
-} 
+}
 
 ${ Array
     .from({ length: data.columns || 12 })
     .map((nowt, i) => i + 1)
     .map((n) => `.${ data.prefix ? data.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }-columns  { columns: ${ n } !important; }
 `)
-    .join('') 
+    .join('')
 }
