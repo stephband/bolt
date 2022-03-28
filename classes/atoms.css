@@ -1,4 +1,4 @@
-/* Literal template "/Users/stephband/Sites/bolt/classes/atoms.css.literal" */
+/* Literal template "/home/marco/Code/unipop/unipop/static/bolt/classes/atoms.css.literal" */
 
 
 /**
@@ -194,6 +194,25 @@ Define the vertical grid gap (with units).
 /* .atom, 0em (0px) */
 
     .hidden         { display: none !important; }
+/**
+.fixed
+**/
+
+.fixed {
+	position: fixed !important;
+}
+
+
+/**
+.sticky
+**/
+
+.sticky {
+    position: -webkit-sticky !important;
+	position: sticky !important;
+	top: 0;
+}
+
 .columns {
     display: block !important;
     column-gap: var(--x-gap);
@@ -249,6 +268,14 @@ a.grid:focus {
 
 .y-center-grid {
     align-content: center;
+}
+
+.x-start-grid {
+    justify-content: start;
+}
+
+.x-center-grid {
+    justify-content: center;
 }
 
 /* x */
@@ -481,7 +508,20 @@ a.grid:focus {
     max-height:    calc(100% + 2 * var(--y-gap));
     height:        calc(100% + 2 * var(--y-gap));
 }
-.inline         { display: inline-block !important; }.left           { float: left !important; clear: left; }
+.inline         { display: inline-block !important; }
+.normal-text    { text-transform: none !important; }
+.lowercase-text { text-transform: lowercase !important; }
+.uppercase-text { text-transform: uppercase !important; }
+
+.thin-text      { font-weight: 200 !important; }
+.light-text     { font-weight: 300 !important; }
+.regular-text   { font-weight: 400 !important; }
+.book-text      { font-weight: 450 !important; }
+.medium-text    { font-weight: 500 !important; }
+.semi-text      { font-weight: 600 !important; }
+.bold-text      { font-weight: 700 !important; }
+.black-text     { font-weight: 800 !important; }
+.left           { float: left !important; clear: left; }
 .right          { float: right !important; clear: right; }
 .top-align      { vertical-align: top !important; }
 .bottom-align   { vertical-align: bottom !important; }
@@ -509,6 +549,25 @@ a.grid:focus {
 
 @media (min-width: 50em) {
     .\@1-hidden         { display: none !important; }
+/**
+.fixed
+**/
+
+.\@1-fixed {
+	position: fixed !important;
+}
+
+
+/**
+.sticky
+**/
+
+.\@1-sticky {
+    position: -webkit-sticky !important;
+	position: sticky !important;
+	top: 0;
+}
+
 .\@1-columns {
     display: block !important;
     column-gap: var(--x-gap);
@@ -564,6 +623,14 @@ a.\@1-grid:focus {
 
 .\@1-y-center-grid {
     align-content: center;
+}
+
+.\@1-x-start-grid {
+    justify-content: start;
+}
+
+.\@1-x-center-grid {
+    justify-content: center;
 }
 
 /* x */
@@ -796,7 +863,20 @@ a.\@1-grid:focus {
     max-height:    calc(100% + 2 * var(--y-gap));
     height:        calc(100% + 2 * var(--y-gap));
 }
-.\@1-inline         { display: inline-block !important; }.\@1-left           { float: left !important; clear: left; }
+.\@1-inline         { display: inline-block !important; }
+.\@1-normal-text    { text-transform: none !important; }
+.\@1-lowercase-text { text-transform: lowercase !important; }
+.\@1-uppercase-text { text-transform: uppercase !important; }
+
+.\@1-thin-text      { font-weight: 200 !important; }
+.\@1-light-text     { font-weight: 300 !important; }
+.\@1-regular-text   { font-weight: 400 !important; }
+.\@1-book-text      { font-weight: 450 !important; }
+.\@1-medium-text    { font-weight: 500 !important; }
+.\@1-semi-text      { font-weight: 600 !important; }
+.\@1-bold-text      { font-weight: 700 !important; }
+.\@1-black-text     { font-weight: 800 !important; }
+.\@1-left           { float: left !important; clear: left; }
 .\@1-right          { float: right !important; clear: right; }
 .\@1-top-align      { vertical-align: top !important; }
 .\@1-bottom-align   { vertical-align: bottom !important; }
@@ -825,6 +905,25 @@ a.\@1-grid:focus {
 
 @media (min-width: 70em) {
     .\@2-hidden         { display: none !important; }
+/**
+.fixed
+**/
+
+.\@2-fixed {
+	position: fixed !important;
+}
+
+
+/**
+.sticky
+**/
+
+.\@2-sticky {
+    position: -webkit-sticky !important;
+	position: sticky !important;
+	top: 0;
+}
+
 .\@2-columns {
     display: block !important;
     column-gap: var(--x-gap);
@@ -880,6 +979,14 @@ a.\@2-grid:focus {
 
 .\@2-y-center-grid {
     align-content: center;
+}
+
+.\@2-x-start-grid {
+    justify-content: start;
+}
+
+.\@2-x-center-grid {
+    justify-content: center;
 }
 
 /* x */
@@ -1112,7 +1219,20 @@ a.\@2-grid:focus {
     max-height:    calc(100% + 2 * var(--y-gap));
     height:        calc(100% + 2 * var(--y-gap));
 }
-.\@2-inline         { display: inline-block !important; }.\@2-left           { float: left !important; clear: left; }
+.\@2-inline         { display: inline-block !important; }
+.\@2-normal-text    { text-transform: none !important; }
+.\@2-lowercase-text { text-transform: lowercase !important; }
+.\@2-uppercase-text { text-transform: uppercase !important; }
+
+.\@2-thin-text      { font-weight: 200 !important; }
+.\@2-light-text     { font-weight: 300 !important; }
+.\@2-regular-text   { font-weight: 400 !important; }
+.\@2-book-text      { font-weight: 450 !important; }
+.\@2-medium-text    { font-weight: 500 !important; }
+.\@2-semi-text      { font-weight: 600 !important; }
+.\@2-bold-text      { font-weight: 700 !important; }
+.\@2-black-text     { font-weight: 800 !important; }
+.\@2-left           { float: left !important; clear: left; }
 .\@2-right          { float: right !important; clear: right; }
 .\@2-top-align      { vertical-align: top !important; }
 .\@2-bottom-align   { vertical-align: bottom !important; }
@@ -1141,6 +1261,25 @@ a.\@2-grid:focus {
 
 @media (min-width: 90em) {
     .\@3-hidden         { display: none !important; }
+/**
+.fixed
+**/
+
+.\@3-fixed {
+	position: fixed !important;
+}
+
+
+/**
+.sticky
+**/
+
+.\@3-sticky {
+    position: -webkit-sticky !important;
+	position: sticky !important;
+	top: 0;
+}
+
 .\@3-columns {
     display: block !important;
     column-gap: var(--x-gap);
@@ -1196,6 +1335,14 @@ a.\@3-grid:focus {
 
 .\@3-y-center-grid {
     align-content: center;
+}
+
+.\@3-x-start-grid {
+    justify-content: start;
+}
+
+.\@3-x-center-grid {
+    justify-content: center;
 }
 
 /* x */
@@ -1428,7 +1575,20 @@ a.\@3-grid:focus {
     max-height:    calc(100% + 2 * var(--y-gap));
     height:        calc(100% + 2 * var(--y-gap));
 }
-.\@3-inline         { display: inline-block !important; }.\@3-left           { float: left !important; clear: left; }
+.\@3-inline         { display: inline-block !important; }
+.\@3-normal-text    { text-transform: none !important; }
+.\@3-lowercase-text { text-transform: lowercase !important; }
+.\@3-uppercase-text { text-transform: uppercase !important; }
+
+.\@3-thin-text      { font-weight: 200 !important; }
+.\@3-light-text     { font-weight: 300 !important; }
+.\@3-regular-text   { font-weight: 400 !important; }
+.\@3-book-text      { font-weight: 450 !important; }
+.\@3-medium-text    { font-weight: 500 !important; }
+.\@3-semi-text      { font-weight: 600 !important; }
+.\@3-bold-text      { font-weight: 700 !important; }
+.\@3-black-text     { font-weight: 800 !important; }
+.\@3-left           { float: left !important; clear: left; }
 .\@3-right          { float: right !important; clear: right; }
 .\@3-top-align      { vertical-align: top !important; }
 .\@3-bottom-align   { vertical-align: bottom !important; }
