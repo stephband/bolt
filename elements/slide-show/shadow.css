@@ -205,23 +205,21 @@ Does not work
 }
 
 [part="grid"]::-webkit-scrollbar {
+    /* Not convinced this is necessary */
+    -webkit-appearance: none;
     /* Hide scrollbar by default */
-    display: var(--webkit-scrollbar-display, none);
-    /* Force scrollbars to display in mobile WebKit devices. For a demo
-       of scrollbar configurations:
-       http://trac.webkit.org/export/41842/trunk/LayoutTests/scrollbars/overflow-scrollbar-combinations.html
-    */
-    width: var(--webkit-scrollbar-width);
-    height: var(--webkit-scrollbar-width);
-    background: var(--webkit-scrollbar-background);
-    border: var(--webkit-scrollbar-border);
+    display:       var(--webkit-scrollbar-display, none);
+    width:         var(--webkit-scrollbar-width);
+    height:        var(--webkit-scrollbar-width);
+    background:    var(--webkit-scrollbar-background);
+    border:        var(--webkit-scrollbar-border);
     border-radius: var(--webkit-scrollbar-border-radius);
 }
 
 [part="grid"]::-webkit-scrollbar-thumb:vertical,
 [part="grid"]::-webkit-scrollbar-thumb:horizontal {
-    background: var(--webkit-scrollbar-thumb-background);
-    border: var(--webkit-scrollbar-thumb-border);
+    background:    var(--webkit-scrollbar-thumb-background);
+    border:        var(--webkit-scrollbar-thumb-border);
     border-radius: var(--webkit-scrollbar-thumb-border-radius);
 }
 
