@@ -34,10 +34,53 @@ function reflow(data, target) {
 
 function updateNavigation(data, active) {
     console.log('updateNavigation');
+
+    /*
+    // Change href of prev and next buttons, and hide them where there are
+    // no previous or next siblings. Href updates are purely a help for the
+    // end user, as we pick up clicks on part(previous) and part(next)
+    // before we interrogate link hrefs.
+
+    if (this.slot.scrollWidth <= this.slot.clientWidth) {
+        // Nowhere to scroll to
+        this.previous.hidden = true;
+        this.next.hidden = true;
+        return;
+    }
+
+    const prevChild = previous(active);
+
+    if (prevChild) {
+        this.previous.hidden = false;
+        this.previous.href = '#' + (prevChild.id || prevChild.dataset.loopId);
+    }
+    else {
+        this.previous.hidden = true;
+    }
+
+    const nextChild = next(active);
+    if (nextChild) {
+        this.next.hidden = false;
+        this.next.href = '#' + (nextChild.id || nextChild.dataset.loopId);
+    }
+    else {
+        this.next.hidden = true;
+    }
+
+    /* console.log(
+        'previous', prevChild && Array.prototype.indexOf.call(prevChild.parentNode.children, prevChild),
+        'active', active && Array.prototype.indexOf.call(active.parentNode.children, active),
+        'next', nextChild && Array.prototype.indexOf.call(nextChild.parentNode.children, nextChild)
+    ); */
 }
 
 function renderNavigation(data, active) {
     console.log('renderNavigation');
+    /*
+    this.previous.style.setProperty('display', items.length < 2 ? 'none' : '');
+    this.next.style.setProperty('display', items.length < 2 ? 'none' : '');
+    return items;
+    */
 }
 
 function setupNavigation(data, state) {
@@ -47,6 +90,14 @@ function setupNavigation(data, state) {
     data.reflows.pipe(update);
     data.activates.pipe(render);
     data.navigation = { update, render };
+    /*
+    this.previous = create('a', { part: 'previous', html: config.trans['Previous'] });
+    this.next     = create('a', { part: 'next', html: config.trans['Next'] });
+    this.parent.appendChild(this.previous);
+    this.parent.appendChild(this.next);
+    this.activates.on(this.activateFn = (active) => this.activate(active));
+    this.changes.on(this.changesFn = (items) => this.slotchange(items));
+    */
 }
 
 function teardownNavigation() {
@@ -54,16 +105,78 @@ function teardownNavigation() {
     update.stop();
     render.stop();
     data.navigation = undefined;
+
+    /*
+    this.previous.remove();
+    this.next.remove();
+    this.previous = undefined;
+    this.next = undefined;
+    this.activates.off(this.activateFn);
+    this.activateFn = undefined;
+    this.changes.off(this.changesFn);
+    this.changesFn = undefined;
+    */
 }
+
 
 /* Pagination */
 
+function addPartOn(node) {
+    node.part.add('on');
+}
+
+function removePartOn(node) {
+    node.part.remove('on');
+}
+
 function updatePagination(data, active) {
     console.log('updatePagination');
+
+    /*
+    const shadow = this.shadow;
+
+    // Remove `on` class from currently highlighted links
+    if (this.active) {
+        const id = this.active.dataset && this.active.dataset.loopId || this.active.id;
+        select('[href="#' + id +'"]', shadow).forEach(removePartOn)
+    }
+
+    // Highlight links with `on` class
+    const id = active.dataset.loopId || active.id;
+    select('[href="#' + id +'"]', shadow).forEach(addPartOn);
+
+    // Keep a note of currently active
+    this.active = active;
+    */
 }
 
 function renderPagination(data, active) {
     console.log('renderPagination');
+
+    /*
+    const view     = this.view;
+    const children = view.children;
+
+    // Empty nav then create a dot link for each slide
+    this.pagination.innerHTML = '';
+
+    // Don't generate pagination when there are 0 or 1 slides
+    if (items.length < 2) {
+        return;
+    }
+
+    children.forEach((slide) => {
+        // Id other content and create nav links for them
+        const id = slide.id;
+        this.pagination.appendChild(create('a', {
+            part: view.active === slide ? 'link on' : 'link',
+            href: '#' + id,
+            html: id
+        }));
+    });
+
+    return items;
+    */
 }
 
 function setupPagination(data, state) {
@@ -73,6 +186,17 @@ function setupPagination(data, state) {
     data.reflows.pipe(update);
     data.activates.pipe(render);
     data.pagination = { update, render };
+
+    /*
+    this.pagination = create('nav', {
+        part: 'pagination'
+    });
+
+    this.slotchange(this.view.children);
+    this.shadow.appendChild(this.pagination);
+    this.actives.on(this.activateFn = (active) => this.activate(active));
+    this.slotchanges.on(this.slotchangeFn = (items) => this.slotchange(items));
+    */
 }
 
 function teardownPagination() {
@@ -80,16 +204,58 @@ function teardownPagination() {
     update.stop();
     render.stop();
     data.pagination = undefined;
+
+    /*
+    this.pagination.remove();
+    this.pagination = undefined;
+    this.actives.off(this.activateFn);
+    this.slotchanges.off(this.slotchangeFn);
+    */
 }
+
 
 /* Loop */
 
+function createLoopGhost(slide) {
+    const ghost = slide.cloneNode(true);
+    ghost.dataset.loopId = ghost.id;
+    ghost.removeAttribute('id');
+    ghost.setAttribute('aria-hidden', 'true');
+    return ghost;
+}
+
 function updateLoop(data, active) {
     console.log('updateLoop');
+    /*
+    const id = this.view.active.dataset.loopId;
+
+    // Active child is an original slide, not a copy: do nothing
+    if (!id) { return; }
+
+    // Realign the original slide as the active slide.
+    const target = this.element.getRootNode().getElementById(id);
+    this.view.reposition(target);
+    this.view.actives.push(target);
+    */
 }
 
 function renderLoop(data, active) {
     console.log('renderLoop');
+    /*
+    const view     = this.view;
+    const children = view.children;
+
+    // Will trigger a slotchange
+    this.remove();
+    this.add(children);
+
+    // This was originally AFTER the loop and nav stuff...
+    if (view.active) {
+        view.reposition(view.active);
+    }
+
+    return items;
+    */
 }
 
 function setupLoop() {
@@ -99,6 +265,23 @@ function setupLoop() {
     data.reflows.pipe(update);
     data.activates.pipe(render);
     data.loop = { update, render };
+
+    /*
+    const view     = this.view;
+    const children = view.children;
+
+    this.add(children);
+    this.slotchanges.on(this.slotchangeFn = (items) => this.slotchange(items));
+    this.scrollends = scrollends(this.view.slot).each((e) => {
+        // Ignore scrollends while a finger is gesturing
+        if (this.view.gesturing) { return; }
+        this.update();
+    });
+
+    if (view.active) {
+        this.view.reposition(view.active);
+    }
+    */
 }
 
 function teardownLoop() {
@@ -106,25 +289,63 @@ function teardownLoop() {
     update.stop();
     render.stop();
     data.loop = undefined;
+
+    /*
+    this.remove();
+    this.slotchanges.off(this.slotchangeFn);
+    this.slotchangeFn = undefined;
+    this.scrollends.stop();
+    */
 }
 
 /* Autoplay */
+/*
+function change() {
+    this.timer   = null;
+    const target = next(this.view.active);
 
+    // Have we reached the end?
+    if (!target) { return; }
+
+    scrollSmooth(this.view.element, this.view.slot, target);
+}
+*/
 function updateAutoplay(data, active) {
     console.log('updateAutoplay');
-}
+/*
+    if (!active) { return; }
 
-function renderAutoplay(data, active) {
-    console.log('renderAutoplay');
+    if (this.timer) {
+        clearTimeout(this.timer);
+    }
+
+    // Set a new autoplay timeout
+    const duration = parseTime(
+        window
+        .getComputedStyle(this.view.active)
+        .getPropertyValue('--duration') || config.duration
+    );
+
+    this.timer = setTimeout(() => this.change(), duration * 1000);
+*/
 }
 
 function setupAutoplay() {
     const update = new Stream((stream) => stream.each(updateAutoplay));
-    const render = new Stream((stream) => stream.each(renderAutoplay));
 
     data.reflows.pipe(update);
     data.activates.pipe(render);
     data.autoplay = { update, render };
+    /*
+    this.activates.on(this.activateFn = (active) => this.activate(active));
+
+    if (this.view.active) {
+        this.activate(this.view.active);
+    }
+
+    // Expose state as loop view needs to know about autoplay
+    this.state = true;
+    */
 }
 
 function teardownAutoplay() {
@@ -132,6 +353,12 @@ function teardownAutoplay() {
     update.stop();
     render.stop();
     data.autoplay = undefined;
+
+    /*
+    this.timer && clearTimeout(this.timer);
+    this.activates.off(this.activateFn);
+    this.state  = false;
+    */
 }
 
 
