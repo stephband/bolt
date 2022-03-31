@@ -1,106 +1,39 @@
-/* Empty links */
+
+/* Empty attributes */
 
 [href=""],
-/*[href="#"],*/
-[alt=""],
-img:not([alt]),
-p:empty,
-h1:empty,
-h2:empty,
-h3:empty,
-h4:empty,
-h5:empty,
-h6:empty,
-ul:empty,
-ol:empty,
-li:empty,
-blockquote:empty,
-strong:empty,
-.debug {
+[href="#"],
+[alt=""] {
+    position: relative;
     box-shadow: inset 0 0 0px 1px rgba(255,0,74,0.75) !important;
     border-color: rgb(255, 0, 74) !important;
 }
 
-/*
-It's fine to be empty and hidden.
-It's not fine to be empty and display: none, because we should prioritise
-the hidden attribute over display: none (and display: none may have been set in
-type.css as a visual fallback so we override it here to flag it as an error).
-*/
-p:empty:not([hidden]),
-h1:empty:not([hidden]),
-h2:empty:not([hidden]),
-h3:empty:not([hidden]),
-h4:empty:not([hidden]),
-h5:empty:not([hidden]),
-h6:empty:not([hidden]),
-ul:empty:not([hidden]),
-ol:empty:not([hidden]),
-li:empty:not([hidden]),
-blockquote:empty:not([hidden]) {
-    /* Overide hiders in text.css */
-    display: block !important;
-    min-width: 3.125rem;
-    min-height: 1rem;
-}
-
-p.debug::before,
-p:empty::before,
-h1.debug::before,
-h1:empty::before,
-h2.debug::before,
-h2:empty::before,
-h3.debug::before,
-h3:empty::before,
-h4.debug::before,
-h4:empty::before,
-h5.debug::before,
-h5:empty::before,
-h6.debug::before,
-h6:empty::before,
-ul.debug::before,
-ul:empty::before,
-ol.debug::before,
-ol:empty::before,
-li.debug::before,
-li:empty::before,
-blockquote.debug::before,
-blockquote:empty::before {
+[href=""]::before,
+[href="#"]::before,
+[alt=""]::before {
     /* Do not position it with top, left, etc. We cannot give the parent
        position: relative */
     position: absolute;
     font-family: 'Andale Mono', 'Courier New', monospace;
     font-size: 0.6875rem;
+    text-transform: none;
     line-height: 0.9375rem;
-    width: 3.125rem;
-    opacity: 0.8;
+    min-width: 3.125rem;
     padding: 0.0625rem;
     white-space: nowrap;
-    color: rgb(255, 0, 74);
+    color: white;
+    background-color: rgb(255, 0, 74);
+    /* Maximum possible z-index */
+    z-index: 2147483647;
 }
 
-p.debug::before,
-p:empty::before  { content: '<p>'; }
-h1.debug::before,
-h1:empty::before { content: '<h1>'; }
-h2.debug::before,
-h2:empty::before { content: '<h2>'; }
-h3.debug::before,
-h3:empty::before { content: '<h3>'; }
-h4.debug::before,
-h4:empty::before { content: '<h4>'; }
-h5.debug::before,
-h5:empty::before { content: '<h5>'; }
-h6.debug::before,
-h6:empty::before { content: '<h6>'; }
-ul.debug::before,
-ul:empty::before { content: '<ul>'; }
-ol.debug::before,
-ol:empty::before { content: '<ol>'; }
-li.debug::before,
-li:empty::before { content: '<li>'; }
-blockquote.debug::before,
-blockquote:empty::before { content: '<blockquote>'; }
+[href=""]::before  { content: 'href=""'; }
+[href="#"]::before { content: 'href="#"'; }
+[alt=""]::before   { content: 'alt=""'; }
+
+
+/* Buttons must have a type attribute lest they behave as submit buttons. */
 
 button:not([type]) {
     box-shadow: inset 0 0 0px 1px rgba(255,0,74,0.75) !important;
@@ -108,24 +41,25 @@ button:not([type]) {
 }
 
 button:not([type])::before {
-    content: 'Missing type';
+    content: 'Missing type="button"';
     /* Do not position it with top, left, etc. We cannot give the parent
        position: relative */
     position: absolute;
     font-family: 'Andale Mono', 'Courier New', monospace;
     font-size: 0.6875rem;
+    text-transform: none;
     line-height: 0.9375rem;
-    width: 3.125rem;
-    opacity: 0.8;
+    min-width: 3.125rem;
     padding: 0.0625rem;
     white-space: nowrap;
-    color: rgb(255, 0, 74);
+    color: white;
+    background-color: rgb(255, 0, 74);
+    /* Maximum possible z-index */
+    z-index: 2147483647;
 }
 
 
-/**
-:target
-**/
+/* :target */
 
 :target {
     outline: 16px solid rgba(80, 60, 255, 0.2) !important;
@@ -134,7 +68,6 @@ button:not([type])::before {
 
 /**
 .TODO
-
 Applies a 'wireframe' background to elements to indicate they are yet to be done.
 **/
 
@@ -157,3 +90,5 @@ Applies a 'wireframe' background to elements to indicate they are yet to be done
 .masked:checked + .TODO {
     background: border-box var(--wireframe) 0 0 / 100% 100% rgba(0,120,0,0.12);
 }
+
+

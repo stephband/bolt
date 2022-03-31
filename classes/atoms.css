@@ -1,4 +1,4 @@
-/* Literal template "/Users/stephband/Sites/bolt/classes/atoms.css.literal" */
+/* Literal template "/home/marco/Code/unipop/unipop/static/bolt/classes/atoms.css.literal" */
 
 
 /**
@@ -144,7 +144,7 @@ Creates a grid with 3 equal width columns.
 </div>
 ```
 
-Note that `.x-bleed`, which stretches an element half the way across the grid 
+Note that `.x-bleed`, which stretches an element half the way across the grid
 gap, and `.x-flood`, which stretches an element all the way across the grid gap,
 depends on `column-gap` having been set via the custom property `--x-gap`.
 **/
@@ -194,11 +194,30 @@ Define the vertical grid gap (with units).
 /* .atom, 0em (0px) */
 
     .hidden         { display: none !important; }
+/**
+.fixed
+**/
+
+.fixed {
+	position: fixed !important;
+}
+
+
+/**
+.sticky
+**/
+
+.sticky {
+    position: -webkit-sticky !important;
+	position: sticky !important;
+	top: 0;
+}
+
 .columns {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 1.5rem;
-} 
+}
 
 .\31 -columns  { columns: 1 !important; }
 .\32 -columns  { columns: 2 !important; }
@@ -251,6 +270,14 @@ a.grid:focus {
     align-content: center;
 }
 
+.x-start-grid {
+    justify-content: start;
+}
+
+.x-center-grid {
+    justify-content: center;
+}
+
 /* x */
 
 .\31 x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
@@ -293,7 +320,7 @@ a.grid:focus {
 .\31 2x { grid-column-end: span 12 !important; }
 
 .x-end {
-    justify-self: end !important; 
+    justify-self: end !important;
     margin-left: auto;
     margin-right: 0;
 }
@@ -304,18 +331,18 @@ a.grid:focus {
     margin-right: auto;
 }
 
-.x-center { 
-    justify-self: center !important; 
-    margin-left: auto; 
+.x-center {
+    justify-self: center !important;
+    margin-left: auto;
     margin-right: auto;
 }
 
 .x-stretch {
     justify-self: stretch !important;
-    margin-left: 0; 
+    margin-left: 0;
     margin-right: 0;
     max-width: 100%;
-    width: 100%; 
+    width: 100%;
 }
 
 .x-unbleedl {
@@ -442,28 +469,28 @@ a.grid:focus {
 
 .y-center {
     align-self:    center !important;
-    margin-top:    auto; 
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .y-baseline  {
-    align-self:    baseline !important; 
-    margin-top:    auto; 
+    align-self:    baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .y-lastline  {
-    align-self:    last baseline !important; 
-    margin-top:    auto; 
+    align-self:    last baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0; 
+    margin-top:    0;
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%; 
+    height:        100%;
 }
 
 .y-bleed {
@@ -471,7 +498,7 @@ a.grid:focus {
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap)); 
+    height:        calc(100% + var(--y-gap));
 }
 
 .y-flood {
@@ -479,9 +506,22 @@ a.grid:focus {
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap)); 
+    height:        calc(100% + 2 * var(--y-gap));
 }
-.inline         { display: inline-block !important; }.left           { float: left !important; clear: left; }
+.inline         { display: inline-block !important; }
+.normal-text    { text-transform: none !important; }
+.lowercase-text { text-transform: lowercase !important; }
+.uppercase-text { text-transform: uppercase !important; }
+
+.thin-text      { font-weight: 200 !important; }
+.light-text     { font-weight: 300 !important; }
+.regular-text   { font-weight: 400 !important; }
+.book-text      { font-weight: 450 !important; }
+.medium-text    { font-weight: 500 !important; }
+.semi-text      { font-weight: 600 !important; }
+.bold-text      { font-weight: 700 !important; }
+.black-text     { font-weight: 800 !important; }
+.left           { float: left !important; clear: left; }
 .right          { float: right !important; clear: right; }
 .top-align      { vertical-align: top !important; }
 .bottom-align   { vertical-align: bottom !important; }
@@ -509,11 +549,30 @@ a.grid:focus {
 
 @media (min-width: 50em) {
     .\@1-hidden         { display: none !important; }
+/**
+.fixed
+**/
+
+.\@1-fixed {
+	position: fixed !important;
+}
+
+
+/**
+.sticky
+**/
+
+.\@1-sticky {
+    position: -webkit-sticky !important;
+	position: sticky !important;
+	top: 0;
+}
+
 .\@1-columns {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 1.5rem;
-} 
+}
 
 .\@1-1-columns  { columns: 1 !important; }
 .\@1-2-columns  { columns: 2 !important; }
@@ -566,6 +625,14 @@ a.\@1-grid:focus {
     align-content: center;
 }
 
+.\@1-x-start-grid {
+    justify-content: start;
+}
+
+.\@1-x-center-grid {
+    justify-content: center;
+}
+
 /* x */
 
 .\@1-1x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
@@ -608,7 +675,7 @@ a.\@1-grid:focus {
 .\@1-12x { grid-column-end: span 12 !important; }
 
 .\@1-x-end {
-    justify-self: end !important; 
+    justify-self: end !important;
     margin-left: auto;
     margin-right: 0;
 }
@@ -619,18 +686,18 @@ a.\@1-grid:focus {
     margin-right: auto;
 }
 
-.\@1-x-center { 
-    justify-self: center !important; 
-    margin-left: auto; 
+.\@1-x-center {
+    justify-self: center !important;
+    margin-left: auto;
     margin-right: auto;
 }
 
 .\@1-x-stretch {
     justify-self: stretch !important;
-    margin-left: 0; 
+    margin-left: 0;
     margin-right: 0;
     max-width: 100%;
-    width: 100%; 
+    width: 100%;
 }
 
 .\@1-x-unbleedl {
@@ -757,28 +824,28 @@ a.\@1-grid:focus {
 
 .\@1-y-center {
     align-self:    center !important;
-    margin-top:    auto; 
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@1-y-baseline  {
-    align-self:    baseline !important; 
-    margin-top:    auto; 
+    align-self:    baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@1-y-lastline  {
-    align-self:    last baseline !important; 
-    margin-top:    auto; 
+    align-self:    last baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@1-y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0; 
+    margin-top:    0;
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%; 
+    height:        100%;
 }
 
 .\@1-y-bleed {
@@ -786,7 +853,7 @@ a.\@1-grid:focus {
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap)); 
+    height:        calc(100% + var(--y-gap));
 }
 
 .\@1-y-flood {
@@ -794,9 +861,22 @@ a.\@1-grid:focus {
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap)); 
+    height:        calc(100% + 2 * var(--y-gap));
 }
-.\@1-inline         { display: inline-block !important; }.\@1-left           { float: left !important; clear: left; }
+.\@1-inline         { display: inline-block !important; }
+.\@1-normal-text    { text-transform: none !important; }
+.\@1-lowercase-text { text-transform: lowercase !important; }
+.\@1-uppercase-text { text-transform: uppercase !important; }
+
+.\@1-thin-text      { font-weight: 200 !important; }
+.\@1-light-text     { font-weight: 300 !important; }
+.\@1-regular-text   { font-weight: 400 !important; }
+.\@1-book-text      { font-weight: 450 !important; }
+.\@1-medium-text    { font-weight: 500 !important; }
+.\@1-semi-text      { font-weight: 600 !important; }
+.\@1-bold-text      { font-weight: 700 !important; }
+.\@1-black-text     { font-weight: 800 !important; }
+.\@1-left           { float: left !important; clear: left; }
 .\@1-right          { float: right !important; clear: right; }
 .\@1-top-align      { vertical-align: top !important; }
 .\@1-bottom-align   { vertical-align: bottom !important; }
@@ -825,11 +905,30 @@ a.\@1-grid:focus {
 
 @media (min-width: 70em) {
     .\@2-hidden         { display: none !important; }
+/**
+.fixed
+**/
+
+.\@2-fixed {
+	position: fixed !important;
+}
+
+
+/**
+.sticky
+**/
+
+.\@2-sticky {
+    position: -webkit-sticky !important;
+	position: sticky !important;
+	top: 0;
+}
+
 .\@2-columns {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 2.8125rem;
-} 
+}
 
 .\@2-1-columns  { columns: 1 !important; }
 .\@2-2-columns  { columns: 2 !important; }
@@ -882,6 +981,14 @@ a.\@2-grid:focus {
     align-content: center;
 }
 
+.\@2-x-start-grid {
+    justify-content: start;
+}
+
+.\@2-x-center-grid {
+    justify-content: center;
+}
+
 /* x */
 
 .\@2-1x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
@@ -924,7 +1031,7 @@ a.\@2-grid:focus {
 .\@2-12x { grid-column-end: span 12 !important; }
 
 .\@2-x-end {
-    justify-self: end !important; 
+    justify-self: end !important;
     margin-left: auto;
     margin-right: 0;
 }
@@ -935,18 +1042,18 @@ a.\@2-grid:focus {
     margin-right: auto;
 }
 
-.\@2-x-center { 
-    justify-self: center !important; 
-    margin-left: auto; 
+.\@2-x-center {
+    justify-self: center !important;
+    margin-left: auto;
     margin-right: auto;
 }
 
 .\@2-x-stretch {
     justify-self: stretch !important;
-    margin-left: 0; 
+    margin-left: 0;
     margin-right: 0;
     max-width: 100%;
-    width: 100%; 
+    width: 100%;
 }
 
 .\@2-x-unbleedl {
@@ -1073,28 +1180,28 @@ a.\@2-grid:focus {
 
 .\@2-y-center {
     align-self:    center !important;
-    margin-top:    auto; 
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@2-y-baseline  {
-    align-self:    baseline !important; 
-    margin-top:    auto; 
+    align-self:    baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@2-y-lastline  {
-    align-self:    last baseline !important; 
-    margin-top:    auto; 
+    align-self:    last baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@2-y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0; 
+    margin-top:    0;
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%; 
+    height:        100%;
 }
 
 .\@2-y-bleed {
@@ -1102,7 +1209,7 @@ a.\@2-grid:focus {
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap)); 
+    height:        calc(100% + var(--y-gap));
 }
 
 .\@2-y-flood {
@@ -1110,9 +1217,22 @@ a.\@2-grid:focus {
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap)); 
+    height:        calc(100% + 2 * var(--y-gap));
 }
-.\@2-inline         { display: inline-block !important; }.\@2-left           { float: left !important; clear: left; }
+.\@2-inline         { display: inline-block !important; }
+.\@2-normal-text    { text-transform: none !important; }
+.\@2-lowercase-text { text-transform: lowercase !important; }
+.\@2-uppercase-text { text-transform: uppercase !important; }
+
+.\@2-thin-text      { font-weight: 200 !important; }
+.\@2-light-text     { font-weight: 300 !important; }
+.\@2-regular-text   { font-weight: 400 !important; }
+.\@2-book-text      { font-weight: 450 !important; }
+.\@2-medium-text    { font-weight: 500 !important; }
+.\@2-semi-text      { font-weight: 600 !important; }
+.\@2-bold-text      { font-weight: 700 !important; }
+.\@2-black-text     { font-weight: 800 !important; }
+.\@2-left           { float: left !important; clear: left; }
 .\@2-right          { float: right !important; clear: right; }
 .\@2-top-align      { vertical-align: top !important; }
 .\@2-bottom-align   { vertical-align: bottom !important; }
@@ -1141,11 +1261,30 @@ a.\@2-grid:focus {
 
 @media (min-width: 90em) {
     .\@3-hidden         { display: none !important; }
+/**
+.fixed
+**/
+
+.\@3-fixed {
+	position: fixed !important;
+}
+
+
+/**
+.sticky
+**/
+
+.\@3-sticky {
+    position: -webkit-sticky !important;
+	position: sticky !important;
+	top: 0;
+}
+
 .\@3-columns {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 3.75rem;
-} 
+}
 
 .\@3-1-columns  { columns: 1 !important; }
 .\@3-2-columns  { columns: 2 !important; }
@@ -1198,6 +1337,14 @@ a.\@3-grid:focus {
     align-content: center;
 }
 
+.\@3-x-start-grid {
+    justify-content: start;
+}
+
+.\@3-x-center-grid {
+    justify-content: center;
+}
+
 /* x */
 
 .\@3-1x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
@@ -1240,7 +1387,7 @@ a.\@3-grid:focus {
 .\@3-12x { grid-column-end: span 12 !important; }
 
 .\@3-x-end {
-    justify-self: end !important; 
+    justify-self: end !important;
     margin-left: auto;
     margin-right: 0;
 }
@@ -1251,18 +1398,18 @@ a.\@3-grid:focus {
     margin-right: auto;
 }
 
-.\@3-x-center { 
-    justify-self: center !important; 
-    margin-left: auto; 
+.\@3-x-center {
+    justify-self: center !important;
+    margin-left: auto;
     margin-right: auto;
 }
 
 .\@3-x-stretch {
     justify-self: stretch !important;
-    margin-left: 0; 
+    margin-left: 0;
     margin-right: 0;
     max-width: 100%;
-    width: 100%; 
+    width: 100%;
 }
 
 .\@3-x-unbleedl {
@@ -1389,28 +1536,28 @@ a.\@3-grid:focus {
 
 .\@3-y-center {
     align-self:    center !important;
-    margin-top:    auto; 
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@3-y-baseline  {
-    align-self:    baseline !important; 
-    margin-top:    auto; 
+    align-self:    baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@3-y-lastline  {
-    align-self:    last baseline !important; 
-    margin-top:    auto; 
+    align-self:    last baseline !important;
+    margin-top:    auto;
     margin-bottom: auto;
 }
 
 .\@3-y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0; 
+    margin-top:    0;
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%; 
+    height:        100%;
 }
 
 .\@3-y-bleed {
@@ -1418,7 +1565,7 @@ a.\@3-grid:focus {
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap)); 
+    height:        calc(100% + var(--y-gap));
 }
 
 .\@3-y-flood {
@@ -1426,9 +1573,22 @@ a.\@3-grid:focus {
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap)); 
+    height:        calc(100% + 2 * var(--y-gap));
 }
-.\@3-inline         { display: inline-block !important; }.\@3-left           { float: left !important; clear: left; }
+.\@3-inline         { display: inline-block !important; }
+.\@3-normal-text    { text-transform: none !important; }
+.\@3-lowercase-text { text-transform: lowercase !important; }
+.\@3-uppercase-text { text-transform: uppercase !important; }
+
+.\@3-thin-text      { font-weight: 200 !important; }
+.\@3-light-text     { font-weight: 300 !important; }
+.\@3-regular-text   { font-weight: 400 !important; }
+.\@3-book-text      { font-weight: 450 !important; }
+.\@3-medium-text    { font-weight: 500 !important; }
+.\@3-semi-text      { font-weight: 600 !important; }
+.\@3-bold-text      { font-weight: 700 !important; }
+.\@3-black-text     { font-weight: 800 !important; }
+.\@3-left           { float: left !important; clear: left; }
 .\@3-right          { float: right !important; clear: right; }
 .\@3-top-align      { vertical-align: top !important; }
 .\@3-bottom-align   { vertical-align: bottom !important; }

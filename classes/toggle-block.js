@@ -1,7 +1,6 @@
 
 /*
-toggle-block.js
-
+.toggle-block
 Enable toggle-block transitions of max-height to go to and from height: auto
 for smoother opening and closing animations.
 */
@@ -21,8 +20,9 @@ function isVisible(element) {
 events('dom-activate', document.body)
 .map(get('target'))
 .filter(matches('.toggle-block'))
-.each(function(node) {    
-    if (!isVisible(node)) {
+.each(function(node) {
+    // There are no transitions inside loading containers
+    if (!isVisible(node) || matches('.loading .toggle-block')) {
         node.style.maxHeight = '';
         return;
     }
@@ -38,8 +38,9 @@ events('dom-activate', document.body)
 
     node.style.maxHeight = height + 'px';
 
-    events('transitionend', node)
+    const transitionend = events('transitionend', node)
     .each(function(e) {
+        transitionend.stop();
         node.style.maxHeight = '';
     });
 });

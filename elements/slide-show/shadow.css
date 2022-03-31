@@ -39,8 +39,9 @@
     **/
     --padding-right: 0;
     position: relative;
-    /* Must override anything applied to :fullscreen */
-    display: grid !important;
+    /* Must override anything applied to :fullscreen, however must not be
+       !important as that can't be overridden externally. I don't think. */
+    display: grid;
 
     /* Slot takes over viewport duties */
     padding-left: 0 !important;
@@ -204,7 +205,22 @@ Does not work
 }
 
 [part="grid"]::-webkit-scrollbar {
-    display: none;
+    /* Not convinced this is necessary */
+    -webkit-appearance: none;
+    /* Hide scrollbar by default */
+    display:       var(--webkit-scrollbar-display, none);
+    width:         var(--webkit-scrollbar-width);
+    height:        var(--webkit-scrollbar-width);
+    background:    var(--webkit-scrollbar-background);
+    border:        var(--webkit-scrollbar-border);
+    border-radius: var(--webkit-scrollbar-border-radius);
+}
+
+[part="grid"]::-webkit-scrollbar-thumb:vertical,
+[part="grid"]::-webkit-scrollbar-thumb:horizontal {
+    background:    var(--webkit-scrollbar-thumb-background);
+    border:        var(--webkit-scrollbar-thumb-border);
+    border-radius: var(--webkit-scrollbar-thumb-border-radius);
 }
 
 [part="grid"]::slotted(*) {

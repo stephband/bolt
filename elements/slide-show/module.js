@@ -44,7 +44,7 @@ import Distributor        from '../../../dom/modules/distributor.js';
 import scrollends         from '../../../dom/modules/scrollends.js';
 import { trigger }        from '../../../dom/modules/trigger.js';
 import parseCSSValue      from '../../../dom/modules/parse-length.js';
-import Literal            from '../../../literal/modules/compile-string.js';
+//import Literal            from '../../../literal/modules/compile-string.js';
 
 const DEBUG = false;//window.DEBUG === true;
 

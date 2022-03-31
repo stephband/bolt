@@ -3,35 +3,7 @@ import events   from '../../dom/modules/events.js';
 import delegate from '../../dom/modules/delegate.js';
 import trigger  from '../../dom/modules/trigger.js';
 import { disableScroll, enableScroll } from '../../dom/modules/scroll.js';
-
-// Not true in iPhone iOS.
-const fullscreenEnabled = document.fullscreenEnabled
-    || document.mozFullscreenEnabled
-    || document.webkitFullscreenEnabled
-    || document.msFullscreenEnabled ;
-
-function getFullscreenElement() {
-    return document.fullscreenElement
-        || document.webkitFullscreenElement
-        || document.mozFullScreenElement
-        || document.msFullscreenElement ;
-}
-
-function enterFullscreen(node) {
-    return node.requestFullscreen ? node.requestFullscreen() :
-        node.webkitRequestFullscreen ? node.webkitRequestFullscreen() :
-        node.mozRequestFullScreen ? node.mozRequestFullScreen() :
-        node.msRequestFullscreen ? node.msRequestFullscreen() :
-        undefined ;
-}
-
-function exitFullscreen() {
-    document.exitFullscreen ? document.exitFullscreen() :
-    document.webkitExitFullscreen ? document.webkitExitFullscreen() :
-    document.mozCancelFullScreen ? document.mozCancelFullScreen() :
-    document.msExitFullscreen ? document.msExitFullscreen() :
-    undefined ;
-}
+import { fullscreenEnabled, getFullscreenElement, enterFullscreen, exitFullscreen } from '../../dom/modules/fullscreen.js';
 
 if (fullscreenEnabled) {
     // This should really be accessible to CSS via an @supports query or some

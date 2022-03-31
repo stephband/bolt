@@ -93,6 +93,18 @@ function defaultActivate() {
 			classes(node).add(config.onClass);
 		});
 	}
+
+	// Focus the first element with class .active-focus
+	const focusNode = this.target.querySelector('.active-focus');
+    if (focusNode) {
+		// The click that activated this target is not over yet, wait two frames
+		// to focus the element. Don't know why we need two.
+		requestAnimationFrame(() =>
+			requestAnimationFrame(() =>
+				focusNode.focus()
+			)
+		);
+	}
 }
 
 function defaultDeactivate() {
@@ -336,6 +348,12 @@ function activateHref(a, e) {
 	// Does it point to a node?
 	var node = document.getElementById(id);
 	if (!node) { return; }
+
+	// Is the node inactive?
+	if (node.classList.contains('active')) {
+		e.preventDefault();
+		return;
+	}
 
     // Is the node handleable
     var handleCount = handlers.map(apply(node)).reduce(sum, 0);

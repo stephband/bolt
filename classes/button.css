@@ -10,7 +10,8 @@ button,
 ```
 **/
 
-button {
+button,
+[type="button"] {
     /* And they don't automatically inherit font styles. */
     font-size: inherit;
     font-family: inherit;
@@ -53,7 +54,7 @@ button,
     /*
     --background
     */
-    --background: white;
+    /*--background: white;*/
 
     /*
     --border-color

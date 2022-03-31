@@ -77,6 +77,7 @@ function activate(e) {
 	if (!match(target)) { return; }
 
 	actives.push(identify(target));
+
 	e.default();
 }
 

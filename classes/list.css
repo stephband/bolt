@@ -7,7 +7,7 @@ List.
 .list
 
 Applied to `ul`, `ol` and `dl` elements to zero their default typographic
-style. Child `li`s are blocks, but they are set up to play nice as 
+style. Child `li`s are blocks, but they are set up to play nice as
 inline-blocks too.
 
 ```html
@@ -42,7 +42,9 @@ inline-blocks too.
 
 	/* Prepare for inline-block layout. */
 	vertical-align: top;
-	overflow: visible;
+
+	/* Todo: WTF? Why? */
+	/*overflow: visible;*/
 }
 
 
