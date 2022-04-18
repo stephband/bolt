@@ -1,5 +1,5 @@
 
-import Stream        from '../../fn/stream/stream.js';
+import Stream        from '../../fn/modules/stream.js';
 import { mutations } from '../../dom/modules/mutations.js';
 import { select }    from '../../dom/modules/select.js';
 

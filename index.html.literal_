@@ -19,7 +19,7 @@
 {% import messages from-comments ['./components/message.css'] %}
 {% import toggles  from-comments ['./components/toggle-block.css'] %}
 
-{% import slideshow       from-comments ['./elements/slide-show/module.js', './elements/slide-show.shadow.css'] %}
+{#% import slideshow       from-comments ['./elements/slide-show/module.js', './elements/slide-show.shadow.css'] %#}
 {% import rangecontrol    from-comments ['./elements/range-control.js', './elements/attributes.js', './elements/range-control.css', './elements/control.css'] %}
 {% import rotarycontrol   from-comments ['./elements/rotary-control.js', './elements/attributes.js', './elements/rotary-control.css', './elements/control.css'] %}
 {% import envelopecontrol from-comments ['./elements/envelope-control.js', './elements/attributes.js', './elements/envelope-control.css', './elements/control.css'] %}
@@ -44,11 +44,11 @@
         .button {
             background-color: rgba(127, 127, 127, 0.15);
         }
-        
+
         button:not([type]) {
             font-size: 0.875rem;
         }
-    
+
         /* Colour swatch thumbs */
         .thumb[class$="bg"] {
             box-shadow: inset 0 0 0 1px currentcolor;
@@ -58,21 +58,21 @@
     <style>
         /* Copied from elements range-control.html.bolt */
         range-control {
-            min-width: 9rem; 
+            min-width: 9rem;
             max-width: 15rem;
             width: 100%;
             margin: 0 auto 0 auto;
         }
-    
+
         range-control:focus {
             /* Make sure any recreated focus outline is nullified. */
             box-shadow: none !important;
         }
-    
+
         * + range-control {
             margin-top: 1.875rem;
         }
-    
+
         /* Copied from elements rotary-control.html.bolt */
         rotary-control {
             min-width: 8rem;
@@ -81,30 +81,30 @@
             /* Nullify focus box-shadow */
             box-shadow: none !important;
         }
-    
+
         * + rotary-control {
             margin-top: 1.875rem;
         }
-    
+
         rotary-control::part(tick) {
             background-color: var(--label-color);
         }
-    
+
         /* Copied from elements slide-show.html.bolt */
         slide-show {
             background: #cccccc;
             margin: 0 auto;
         }
-    
+
         slide-show::part(prev),
         slide-show::part(next) {
             display: none;
         }
-    
+
         slide-show > * + * {
             display: none;
         }
-    
+
         slide-show:defined > * + * {
             display: block;
         }

@@ -22,6 +22,11 @@ a.${ data.prefix }grid:focus {
     display: none !important;
 }
 
+.${ data.prefix }grid > li {
+    /* Stop list items from displaying as `list-item` */
+    display: block;
+}
+
 .${ data.prefix }dense-grid {
     grid-auto-flow: dense;
 }
