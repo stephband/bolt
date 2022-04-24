@@ -17,17 +17,14 @@ With a little hide/show style, a popable can be used to make menus, tooltips,
 bubbles, accordions and so on.
 */
 
-import matches from '../../dom/modules/matches.js';
-import { trigger } from '../../dom/modules/trigger.js';
+import events       from '../../dom/modules/events.js';
+import matches      from '../../dom/modules/matches.js';
+import { trigger }  from '../../dom/modules/trigger.js';
 import { matchers } from '../events/dom-activate.js';
 
-var match = matches('[data-popable], [popable]');
+var match = matches('[data-popable]');
 
 function activate(e) {
-    // Use method detection - e.defaultPrevented is not set in time for
-    // subsequent listeners on the same node
-    if (!e.default) { return; }
-
     const node = e.target;
     if (!match(node)) { return; }
 
@@ -49,25 +46,14 @@ function activate(e) {
         function deactivate(e) {
             if (node !== e.target) { return; }
             if (e.defaultPrevented) { return; }
-            document.removeEventListener('click', click);
-            document.documentElement.removeEventListener('dom-deactivate', deactivate);
+            clicks.stop();
+            activates.stop();
         }
 
-        document.addEventListener('click', click);
-        document.documentElement.addEventListener('dom-deactivate', deactivate);
+        const clicks = events('click', document).each(click);
+        const activates = events('dom-deactivate', document.documentElement).each(deactivate);
     });
-
-    e.default();
-}
-
-function deactivate(e) {
-    if (!e.default) { return; }
-
-    var target = e.target;
-    if (!match(target)) { return; }
-    e.default();
 }
 
 document.addEventListener('dom-activate', activate);
-document.addEventListener('dom-deactivate', deactivate);
 matchers.push(match);

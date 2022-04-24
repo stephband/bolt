@@ -1,6 +1,6 @@
 
-<h1 class="doctext-01">${ data.title } <span class="doctext-06">${ data.version }</span></h1>
-<p class="doctext-08">${ data.description }</p>
+<h1 class="docs-text-01">${ data.title } <span class="docs-text-06">${ data.version }</span></h1>
+<p class="docs-text-08">${ data.description }</p>
 <ul class="link-index index">${ data.repository && `
     <li><strong>repo:</strong> <a href="${ data.repository.url }">${ data.repository.url.replace('https://','') }</a></li>`
     }${ data.bugs && `

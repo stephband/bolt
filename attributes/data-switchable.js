@@ -41,7 +41,7 @@ import { matchers } from '../events/dom-activate.js';
 
 // Define
 
-var match = matches('[switchable], [data-switchable]');
+var match = matches('[data-switchable]');
 var triggerDeactivate = trigger('dom-deactivate');
 
 function activate(e) {
@@ -56,23 +56,11 @@ function activate(e) {
 	nodes.splice(i, 1);
 	var active = nodes.filter(matches('.active'));
 
-	e.default();
-
 	// Deactivate the previous active pane AFTER this pane has been
 	// activated. It's important for panes who's style depends on the
 	// current active pane, eg: .slide.active ~ .slide
-	active.forEach(triggerDeactivate);
-}
-
-function deactivate(e) {
-	if (!e.default) { return; }
-
-	var target = e.target;
-	if (!match(target)) { return; }
-
-	e.default();
+	requestAnimationFrame(() => active.forEach(triggerDeactivate));
 }
 
 events('dom-activate', document).each(activate);
-events('dom-deactivate', document).each(deactivate);
 matchers.push(match);

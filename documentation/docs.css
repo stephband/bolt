@@ -86,143 +86,143 @@ body > .docdemo-block + .grid {
 }
 
 
-/* .doctext */
+/* .docs-text */
 
-.doctext-01,
-.doctext-02,
-.doctext-03,
-.doctext-04,
-.doctext-05,
-.doctext-06,
-.doctext-08,
-.doctext-09 {
+.docs-text-01,
+.docs-text-02,
+.docs-text-03,
+.docs-text-04,
+.docs-text-05,
+.docs-text-06,
+.docs-text-08,
+.docs-text-09 {
     font-family: Helvetica, Arial, sans-serif;
     font-style: none;
     text-transform: none;
 }
 
-.doctext-07, code {
+.docs-text-07, code {
     font-family: 'Fira Code', 'Fira Mono', 'Roboto Mono', Courier, monospace;
     font-style: normal;
     text-transform: none;
 }
 
-.doctext-01 { font-size: 2.5rem;    line-height: 2.625rem;  font-weight: 700; }
-.doctext-02 {font-size: 1.5625rem;line-height: 1.875rem;font-weight: 400;}
-.doctext-03 { font-size: 1.25rem;   line-height: 1.875rem;  font-weight: 600; }
-.doctext-04 { font-size: 0.75rem;   line-height: 0.9375rem; font-weight: 400; text-transform: uppercase; }
-.doctext-05 { font-size: 1rem;      line-height: 1.375rem;  font-weight: 700; }
-.doctext-06 { font-size: 1.5rem;    line-height: 1.875rem;  font-weight: 300; }
-.doctext-07 { font-size: 0.9375rem; line-height: 1.5rem;    font-weight: 400; }
-.doctext-08 { font-size: 1rem;      line-height: 1.5rem;    font-weight: 300; }
-.doctext-09 { font-size: 0.9375rem; line-height: 1.5rem;    font-weight: 400; }
+.docs-text-01 { font-size: 2.5rem;    line-height: 2.625rem;  font-weight: 700; }
+.docs-text-02 {font-size: 1.5625rem;line-height: 1.875rem;font-weight: 400;}
+.docs-text-03 { font-size: 1.25rem;   line-height: 1.875rem;  font-weight: 600; }
+.docs-text-04 { font-size: 0.75rem;   line-height: 0.9375rem; font-weight: 400; text-transform: uppercase; }
+.docs-text-05 { font-size: 1rem;      line-height: 1.375rem;  font-weight: 700; }
+.docs-text-06 { font-size: 1.5rem;    line-height: 1.875rem;  font-weight: 300; }
+.docs-text-07 { font-size: 0.9375rem; line-height: 1.5rem;    font-weight: 400; }
+.docs-text-08 { font-size: 1rem;      line-height: 1.5rem;    font-weight: 300; }
+.docs-text-09 { font-size: 0.9375rem; line-height: 1.5rem;    font-weight: 400; }
 
 /* Vertical typographic spacings pairs.
    (We use 'body' in 'body tag + .class' to increase the
    specificity of that selector by 1, making it override
    '.class + tag' but not '.class + .class'). */
 
-* + .doctext-01                                            { margin-top: 2.5rem; }
-* + .doctext-02                                            { margin-top: 2.5rem; }
-.doctext-08 + .doctext-02, body p + .doctext-02, .doctext-08 + .doctext-02 { margin-top: 2.5rem; }
-* + .doctext-03                                            { margin-top: 1.25rem; }
-.doctext-02 + h3,   body h2 + .doctext-03,   .doctext-02 + .doctext-03 { margin-top: 1.5625rem; }
-.doctext-08 + h3,  body p  + .doctext-03,  .doctext-08 + .doctext-03,
-dl + .doctext-03,
-ul + .doctext-03                                          { margin-top: 2.5rem; }
- * + .doctext-04                                           { margin-top: 1.25rem; }
- .doctext-01 + h4,  body h1 + .doctext-04,  .doctext-01 + .doctext-04,
- .doctext-02 + h4,  body h2 + .doctext-04,  .doctext-02 + .doctext-04  { margin-top: 1.625rem; }
- .doctext-03 + h4,  body h3 + .doctext-04,  .doctext-03 + .doctext-04  { margin-top: 1.125rem; }
- .doctext-08 + h4,  body p  + .doctext-04,  .doctext-08 + .doctext-04,
- dl + .doctext-04,
- ul + .doctext-04                                          { margin-top: 2.5rem; }
- * + .doctext-05                                           { margin-top: 1.25rem; }
- .doctext-02 + h5,  body h2 + .doctext-05,  .doctext-02 + .doctext-05  { margin-top: 1.25rem; }
- .doctext-04 + h5,  body h4 + .doctext-05,  .doctext-04 + .doctext-05,
- .doctext-08 + h5,  body p  + .doctext-05,  .doctext-08 + .doctext-05  { margin-top: 0.9375rem; }
- * + .doctext-08                                           { margin-top: 0.625rem; }
- .doctext-01 + p,   body h1 + .doctext-08,  .doctext-01 + .doctext-08  { margin-top: 2.1875rem; }
- .doctext-03 + p,   body h3 + .doctext-08,  .doctext-03 + .doctext-08  { margin-top: 0.625rem; }
- .doctext-05 + p,   body h5 + .doctext-08,  .doctext-05 + .doctext-08,
- .doctext-05 + ul                                          { margin-top: 0; }
- .doctext-08 + p,   body p  + .doctext-08,  .doctext-08 + .doctext-08  { margin-top: 0.9375rem; }
+* + .docs-text-01                                            { margin-top: 2.5rem; }
+* + .docs-text-02                                            { margin-top: 2.5rem; }
+.docs-text-08 + .docs-text-02, body p + .docs-text-02, .docs-text-08 + .docs-text-02 { margin-top: 2.5rem; }
+* + .docs-text-03                                            { margin-top: 1.25rem; }
+.docs-text-02 + h3,   body h2 + .docs-text-03,   .docs-text-02 + .docs-text-03 { margin-top: 1.5625rem; }
+.docs-text-08 + h3,  body p  + .docs-text-03,  .docs-text-08 + .docs-text-03,
+dl + .docs-text-03,
+ul + .docs-text-03                                          { margin-top: 2.5rem; }
+ * + .docs-text-04                                           { margin-top: 1.25rem; }
+ .docs-text-01 + h4,  body h1 + .docs-text-04,  .docs-text-01 + .docs-text-04,
+ .docs-text-02 + h4,  body h2 + .docs-text-04,  .docs-text-02 + .docs-text-04  { margin-top: 1.625rem; }
+ .docs-text-03 + h4,  body h3 + .docs-text-04,  .docs-text-03 + .docs-text-04  { margin-top: 1.125rem; }
+ .docs-text-08 + h4,  body p  + .docs-text-04,  .docs-text-08 + .docs-text-04,
+ dl + .docs-text-04,
+ ul + .docs-text-04                                          { margin-top: 2.5rem; }
+ * + .docs-text-05                                           { margin-top: 1.25rem; }
+ .docs-text-02 + h5,  body h2 + .docs-text-05,  .docs-text-02 + .docs-text-05  { margin-top: 1.25rem; }
+ .docs-text-04 + h5,  body h4 + .docs-text-05,  .docs-text-04 + .docs-text-05,
+ .docs-text-08 + h5,  body p  + .docs-text-05,  .docs-text-08 + .docs-text-05  { margin-top: 0.9375rem; }
+ * + .docs-text-08                                           { margin-top: 0.625rem; }
+ .docs-text-01 + p,   body h1 + .docs-text-08,  .docs-text-01 + .docs-text-08  { margin-top: 2.1875rem; }
+ .docs-text-03 + p,   body h3 + .docs-text-08,  .docs-text-03 + .docs-text-08  { margin-top: 0.625rem; }
+ .docs-text-05 + p,   body h5 + .docs-text-08,  .docs-text-05 + .docs-text-08,
+ .docs-text-05 + ul                                          { margin-top: 0; }
+ .docs-text-08 + p,   body p  + .docs-text-08,  .docs-text-08 + .docs-text-08  { margin-top: 0.9375rem; }
 
 
-h2 + ul,   .doctext-02 + ul { margin-top: 1.875rem; }
-h3 + ul,   .doctext-03 + ul { margin-top: 1.25rem; }
-p + pre,  .doctext-08 + pre, pre + p,  pre + .doctext-08 { margin-top: 1.25rem; }
+h2 + ul,   .docs-text-02 + ul { margin-top: 1.875rem; }
+h3 + ul,   .docs-text-03 + ul { margin-top: 1.25rem; }
+p + pre,  .docs-text-08 + pre, pre + p,  pre + .docs-text-08 { margin-top: 1.25rem; }
 
-p + form,     .doctext-08 + form     { margin-top: 0.5rem; }
-p + fieldset, .doctext-08 + fieldset { margin-top: 2rem; }
+p + form,     .docs-text-08 + form     { margin-top: 0.5rem; }
+p + fieldset, .docs-text-08 + fieldset { margin-top: 2rem; }
 
 
-.doctext-02 + .doc-toggle-block {
+.docs-text-02 + .doc-toggle-block {
     margin-top: 0.9375rem;
 }
 
-.doctext-03 + .doc-toggle-block {
+.docs-text-03 + .doc-toggle-block {
     margin-top: 0rem;
 }
 
-.doctext-10,
-.doctext-05 code:not(.pill),
-.doctext-05 + pre code {
+.docs-text-10,
+.docs-text-05 code:not(.pill),
+.docs-text-05 + pre code {
     font-family: 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
     font-size: 1.0625rem;
 }
 
-.doctext-05 + pre {
+.docs-text-05 + pre {
     margin-top: 0.75rem;
 }
 
-.doctext-05 code {
+.docs-text-05 code {
     white-space: pre;
 }
 
-.doctext-05 code {
+.docs-text-05 code {
     font-size: 0.8125rem;
 }
 
-* + .doctext-02 {
+* + .docs-text-02 {
     margin-top: 1.875rem;
 }
 
-.doctext-03 > code {
+.docs-text-03 > code {
     color: inherit;
     font-weight: 600;
     letter-spacing: 0;
 }
 
-.doctext-03 a {
+.docs-text-03 a {
     text-decoration: none;
 }
 
-.doctext-03 + pre {
+.docs-text-03 + pre {
     margin-top: 1.5rem;
 }
 
-.doctext-03 + pre + * {
+.docs-text-03 + pre + * {
     margin-top: 1.5rem;
 }
 
-.doctext-04 {
+.docs-text-04 {
     /* WHY? */
     opacity: 0.5;
 }
 
-.doctext-04 + p, h4 + p { margin-top: 0; }
-p + .doctext-04, p + h4 { margin-top: 1.5rem; }
+.docs-text-04 + p, h4 + p { margin-top: 0; }
+p + .docs-text-04, p + h4 { margin-top: 1.5rem; }
 
-.doctext-04 + .doc-toggle-block {
+.docs-text-04 + .doc-toggle-block {
     margin-top: 9px;
 }
 
-.doctext-08 + .index {
+.docs-text-08 + .index {
     margin-top: 0.9375rem;
 }
 
-button.doctext-09 {
+button.docs-text-09 {
     display: inline-block;
     min-height: 0;
     padding-left: 0;
@@ -347,7 +347,7 @@ a.block:hover {
     margin-top: 1.5rem;
 }
 
-.doc-toggle-block > .doctext-05 {
+.doc-toggle-block > .docs-text-05 {
     overflow: hidden;
     text-overflow: ellipsis;
     /* Make sure hanging '.' is still seen */
@@ -358,13 +358,13 @@ a.block:hover {
     margin-right: 0;
 }
 
-.doctext-05 > a {
+.docs-text-05 > a {
     text-decoration: none;
     padding-bottom: 2px;
     border-bottom: none;
 }
 
-.doctext-05 code:not(.pill) {
+.docs-text-05 code:not(.pill) {
     font-size: inherit;
     font-weight: 500;
     background-color: transparent;
@@ -373,15 +373,15 @@ a.block:hover {
     letter-spacing: -0.0125em;
 }
 
-.doctext-02 + p { margin-top: 0.9375rem; }
-.doctext-02 + pre { margin-top: 1.875rem; }
-.doctext-05 + p { margin-top: 0.75rem; }
-.doctext-03 code:not(.pill) > span,
-.doctext-05 code:not(.pill) > span {
+.docs-text-02 + p { margin-top: 0.9375rem; }
+.docs-text-02 + pre { margin-top: 1.875rem; }
+.docs-text-05 + p { margin-top: 0.75rem; }
+.docs-text-03 code:not(.pill) > span,
+.docs-text-05 code:not(.pill) > span {
     color: var(--name-color);
 }
 
-h5, .doctext-05 {
+h5, .docs-text-05 {
     margin-bottom: 2px;
 }
 
@@ -496,21 +496,21 @@ line { stroke-width: 1; stroke: inherit; }
     break-inside: avoid-column;
 }
 
-.columns > .doctext-04 ~ .doctext-04 {
+.columns > .docs-text-04 ~ .docs-text-04 {
     break-before: column;
     break-after: avoid;
     break-after: avoid-column;
 }
 
-.columns > .doctext-04 ~ .doctext-04 ~ .doctext-04 {
+.columns > .docs-text-04 ~ .docs-text-04 ~ .docs-text-04 {
     break-before: auto;
 }
 
-.columns > .doctext-04 ~ .doctext-04 ~ .doctext-04 ~ .doctext-04 {
+.columns > .docs-text-04 ~ .docs-text-04 ~ .docs-text-04 ~ .docs-text-04 {
     break-before: auto;
 }
 
-.columns > .doctext-04 ~ .doctext-04 ~ .doctext-04 ~ .doctext-04 ~ .doctext-04 {
+.columns > .docs-text-04 ~ .docs-text-04 ~ .docs-text-04 ~ .docs-text-04 ~ .docs-text-04 {
     break-before: auto;
 }
 
@@ -581,7 +581,7 @@ line { stroke-width: 1; stroke: inherit; }
     grid-row-gap: 0;
 }
 
-.list-grid > .doctext-04 {
+.list-grid > .docs-text-04 {
     margin-top: 1.875rem;
     margin-left: 0;
 }
@@ -609,7 +609,7 @@ header + .component-doc-toggle-block {
 }
 
 
-.grid > .doctext-05 {
+.grid > .docs-text-05 {
     margin-top: 0;
 }
 
@@ -636,7 +636,7 @@ header + .component-doc-toggle-block {
     align-self: start;
 }
 
-.class-grid > .doctext-05 {
+.class-grid > .docs-text-05 {
     grid-column: 1 / span 1;
     justify-self: end;
     align-self: start;
@@ -647,7 +647,7 @@ header + .component-doc-toggle-block {
     margin-right: 0;
 }
 
-.class-grid > .doctext-05 + * {
+.class-grid > .docs-text-05 + * {
     margin-top: 0 !important;
 }
 
@@ -680,15 +680,15 @@ header + .component-doc-toggle-block {
         grid-column: 4 / span 3;
     }
 
-    .class-grid > .doctext-05 {
+    .class-grid > .docs-text-05 {
         align-self: baseline;
     }
 
-    .class-grid > .doctext-05 + pre {
+    .class-grid > .docs-text-05 + pre {
         align-self: baseline;
     }
 
-    .class-grid > .doctext-05 + pre + * {
+    .class-grid > .docs-text-05 + pre + * {
         align-self: baseline;
     }
 }
@@ -705,7 +705,7 @@ header + .component-doc-toggle-block {
 }
 
 /*
-.columns > .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doctext-04 {
+.columns > .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .doc-toggle-block + .docs-text-04 {
     break-before: column;
 }
 */

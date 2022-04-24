@@ -1,11 +1,11 @@
 
 <header class="x1 3x @1-x3 @1-4x @2-x4">
-    <h2 class="x1 3x @1-x3 @1-4x @2-x4 @2-4x x-stretch doctext-02" targetable id="${ slugify(data.title) }" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">${ data.title }</h2>
+    <h2 class="x1 3x @1-x3 @1-4x @2-x4 @2-4x x-stretch docs-text-02" targetable id="${ slugify(data.title) }" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">${ data.title }</h2>
     ${ data.header }
 </header>
 
 ${ data.docs.map((doc) => `
-<h2 class="x1 3x @1-x3 @1-4x @2-x4 ${ doc.type }-doctext-05 doctext-05">
+<h2 class="x1 3x @1-x3 @1-4x @2-x4 ${ doc.type }-docs-text-05 docs-text-05">
     <code>${ doc.name.trim() } ${ doc.defaultValue && `<span class="default">=<em>${ doc.defaultValue }</em></span>` || '' }</code>
 </h2>
 

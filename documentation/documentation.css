@@ -67,28 +67,28 @@
 
 /* Entries */
 
-.doc-toggle-block > .doctext-05 {
+.doc-toggle-block > .docs-text-05 {
     display: flex;
     justify-content: space-between;
     align-content: center;
     align-items: center;
 }
 
-.doc-toggle-block > .doctext-05 > .pill {
+.doc-toggle-block > .docs-text-05 > .pill {
     margin: 0;
     text-indent: 0;
 }
 
 /* Text */
 
-.doctext-05 > a {
+.docs-text-05 > a {
     /* Make this inline to have first baseline align with baseline of 
        example and to make the click zone the same as the shape of the 
        text */
     display: inline;
 }
 
-.doctext-05 > a > code {
+.docs-text-05 > a > code {
     /* Make this inline to have first baseline align with baseline of 
        example and to make the click zone the same as the shape of the 
        text */
@@ -97,37 +97,37 @@
     white-space: pre;
 }
 
-.part-doctext-05 > a > code {
+.part-docs-text-05 > a > code {
     position: relative;
     left: -1.125rem;
 }
 
-.method-doctext-05 > a > code,
-.property-doctext-05 > a > code {
+.method-docs-text-05 > a > code,
+.property-docs-text-05 > a > code {
     /* Outdent by the width of '.' */
     position: relative;
     left: -0.5625rem;
 }
 
-.selector-doctext-05 > a > code {
+.selector-docs-text-05 > a > code {
     /* Outdent by the width of one space */
     position: relative;
     left: -0.5625rem;
 }
 
-.var-doctext-05 > a > code {
+.var-docs-text-05 > a > code {
     /* Outdent by the width of '--' */
     position: relative;
     left: -1.125rem;
 }
 
-.string-doctext-05 > a > code {
+.string-docs-text-05 > a > code {
     /* Outdent by the width of '"' */
     position: relative;
     left: -0.5625rem;
 }
 
-.doctext-05 + .bottom-bubble {
+.docs-text-05 + .bottom-bubble {
     left: 3.75rem;
     top: calc(100% - 0.75rem);
     max-width: 150%;

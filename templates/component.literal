@@ -5,7 +5,7 @@
     </form>
     
     <div class="x1 3x @1-x3 @1-2x @2-x4 x-stretch y-start">
-        <h4 class="{{type|append:-doctext-05}} doctext-05">
+        <h4 class="{{type|append:-docs-text-05}} docs-text-05">
             <a href="#{{id}}-description" title="Show HTML markup"><code>${ doc.name }</code></a>
         </h4>
     </div>

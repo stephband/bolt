@@ -3,12 +3,12 @@
     <!-- Just to get the grid to line up. Todo: find a better way. -->
     <div class="@2-x1 @2-3x"></div>
 
-    <h2 class="x1 3x @1-x3 @1-4x @2-x4 @2-4x x-stretch doctext-02" targetable id="${ slugify(data.title) }" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">${ data.title }</h2>
+    <h2 class="x1 3x @1-x3 @1-4x @2-x4 @2-4x x-stretch docs-text-02" targetable id="${ slugify(data.title) }" style="border-bottom: 0.08em solid currentcolor; padding-bottom: 0.16em; margin-bottom: 1.875rem;">${ data.title }</h2>
     ${ data.docs
     .filter((doc) => doc.type === 'selector')
     .map((doc) => `
     <div class="x1 3x @1-x3 @1-4x @2-x4 @3-2x x-stretch y-baseline block">
-        <h4 class="${ doc.type }-doctext-05 doctext-05"><a href="#${ doc.id }-description" title="Show HTML markup"><code>${ doc.name }</code></a></h4>
+        <h4 class="${ doc.type }-docs-text-05 docs-text-05"><a href="#${ doc.id }-description" title="Show HTML markup"><code>${ doc.name }</code></a></h4>
         <div class="right-bottom-bubble bottom-bubble bubble" popable id="${ doc.id }-description">${ doc.body }</div>
     </div>
     

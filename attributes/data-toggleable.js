@@ -33,7 +33,7 @@ import { matchers } from '../events/dom-activate.js';
 
 // Define
 
-var match = matches('.toggleable, [toggleable], [data-toggleable]');
+var match = matches('[data-toggleable]');
 
 // Functions
 
@@ -60,35 +60,20 @@ function click(e) {
 	if (!id) { return; }
 	if (actives.indexOf(id) === -1) { return; }
 
-	trigger({
-        type: 'dom-deactivate',
-		relatedTarget: node
-	}, get(id));
-
+	trigger({ type: 'dom-deactivate', relatedTarget: node }, get(id));
 	e.preventDefault();
 }
 
 function activate(e) {
-	// Use method detection - e.defaultPrevented is not set in time for
-	// subsequent listeners on the same node
-	if (!e.default) { return; }
-
 	var target = e.target;
 	if (!match(target)) { return; }
-
 	actives.push(identify(target));
-
-	e.default();
 }
 
 function deactivate(e, data, fn) {
-	if (!e.default) { return; }
-
 	var target = e.target;
 	if (!match(target)) { return; }
-
 	remove(actives, target.id);
-	e.default();
 }
 
 events('click', document.documentElement).each(click);

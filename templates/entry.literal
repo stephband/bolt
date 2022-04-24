@@ -1,9 +1,9 @@
 ${ data.type === 'text' ? `
-<h2 class="doctext-02" id="${ slugify(data.name) }">${ data.name }</h2>
+<h2 class="docs-text-02" id="${ slugify(data.name) }">${ data.name }</h2>
 ${ data.body }
 ` : `
 <div class="${ data.type }-doc-toggle-block doc-toggle-block toggle-block block" data-toggleable id="${ data.id }">
-<h3 class="${ data.type }-doctext-05 doctext-05">
+<h3 class="${ data.type }-docs-text-05 docs-text-05">
     <a href="#${ data.id }">
         <code class="${
             data.type === 'attribute' ? 'token' : 
