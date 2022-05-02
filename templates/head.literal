@@ -6,11 +6,11 @@
 ${ data.author && data.author.twitter && (
 (!window.twitterCardValidateWarning && console.log('Remember to validate twitter cards at https://cards-dev.twitter.com/validator'), window.twitterCardValidateWarning = true), `
 <meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="${ data.author && data.author.twitter }">
-<meta property="og:url" content="${ data.homepage }" />
+<meta name="twitter:site" content="${ data.author.twitter }">
 <meta property="og:title" content="${ data.title }" />
 <meta property="og:description" content="${ data.description }" />
-<meta property="og:image" content="${ data.image }" />
+<meta property="og:image" content="${ data.card && data.card.image }" />
+<meta property="og:url" content="${ data.homepage }" />
 `) }
 
 <title>${ data.title }</title>

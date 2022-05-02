@@ -25,15 +25,17 @@ import get          from '../../dom/modules/get.js';
 import closest      from '../../dom/modules/closest.js';
 import matches      from '../../dom/modules/matches.js';
 import identify     from '../../dom/modules/identify.js';
-import { trigger }  from '../../dom/modules/trigger.js';
 import { isInternalLink } from '../../dom/modules/node.js';
 import events, { isPrimaryButton } from '../../dom/modules/events.js';
-import { matchers } from '../events/dom-activate.js';
+import { deactivate, matchers } from '../events/dom-activate.js';
 
 
 // Define
 
 var match = matches('[data-toggleable]');
+
+matchers.push(match);
+
 
 // Functions
 
@@ -46,7 +48,7 @@ function getHash(node) {
 	).substring(1);
 }
 
-function click(e) {
+events('click', document.documentElement).each((e) => {
 	// A prevented default means this link has already been handled.
 	if (e.defaultPrevented) { return; }
 	if (!isPrimaryButton(e)) { return; }
@@ -60,24 +62,18 @@ function click(e) {
 	if (!id) { return; }
 	if (actives.indexOf(id) === -1) { return; }
 
-	trigger({ type: 'dom-deactivate', relatedTarget: node }, get(id));
+	deactivate(get(id), node);
 	e.preventDefault();
-}
+});
 
-function activate(e) {
+events('dom-activate', document).each((e) => {
 	var target = e.target;
 	if (!match(target)) { return; }
 	actives.push(identify(target));
-}
+});
 
-function deactivate(e, data, fn) {
+events('dom-deactivate', document).each((e) => {
 	var target = e.target;
 	if (!match(target)) { return; }
 	remove(actives, target.id);
-}
-
-events('click', document.documentElement).each(click);
-events('dom-activate', document).each(activate);
-events('dom-deactivate', document).each(deactivate);
-
-matchers.push(match);
+});

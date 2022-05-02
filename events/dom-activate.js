@@ -5,15 +5,12 @@ import isDefined from '../../fn/modules/is-defined.js';
 import overload  from '../../fn/modules/overload.js';
 import classes   from '../../dom/modules/classes.js';
 import delegate  from '../../dom/modules/delegate.js';
-import Event     from '../../dom/modules/event.js';
 import events, { isPrimaryButton } from '../../dom/modules/events.js';
 import { isElementNode, isInternalLink } from '../../dom/modules/node.js';
 import trigger   from '../../dom/modules/trigger.js';
 import tag       from '../../dom/modules/tag.js';
 import select    from '../../dom/modules/select.js';
 import log       from '../modules/log.js';
-
-var DEBUG     = false;
 
 const A = Array.prototype;
 
@@ -72,6 +69,7 @@ function getButtons(data) {
 function preventClick(e) {
 	// Prevent the click that follows the mousedown. The preventDefault
 	// handler unbinds itself as soon as the click is heard.
+	// Todo: tighten this logic up... store timeStamp?
 	if (e.type === 'mousedown') {
 		const clicks = events('click', e.currentTarget).each(function prevent(e) {
             clicks.stop();
@@ -105,8 +103,14 @@ function sum(total, n) {
     return total + !!n;
 }
 
-function activate(element, data) {
-	if (window.DEBUG) { console.log('[activate] default | target:', element.id, 'data:', data); }
+export function activate(element, related) {
+	const ok = trigger({ type: 'dom-activate', relatedTarget: related }, element);
+	if (!ok) { return; }
+
+	const data = cacheData(element);
+	if (window.DEBUG) {
+		console.log('[activate] default | target:', element.id, 'data:', data);
+	}
 
 	data.active = true;
 	classes(data.node).add(config.activeClass);
@@ -131,10 +135,15 @@ function activate(element, data) {
 	}
 }
 
-function deactivate(element, data) {
-	if (window.DEBUG) { console.log('[deactivate] default | target:', element.id, 'data:', data); }
+export function deactivate(element, related) {
+	const ok = trigger({ type: 'dom-deactivate', relatedTarget: related }, element);
+	if (!ok) { return; }
 
-	data.active = false;
+	const data = cacheData(element);
+	if (window.DEBUG) {
+		console.log('[deactivate] default | target:', element.id, 'data:', data);
+	}
+
 	classes(data.node).remove(config.activeClass);
 	const buttons = getButtons(data);
 
@@ -143,6 +152,8 @@ function deactivate(element, data) {
 			classes(node).remove(config.onClass);
 		});
 	}
+
+	data.active = false;
 }
 
 events('click', document).each(delegate({
@@ -158,24 +169,24 @@ events('click', document).each(delegate({
 		if (!id) { return; }
 
 		// Does it point to a node?
-		var node = document.getElementById(id);
-		if (!node) { return; }
+		var element = document.getElementById(id);
+		if (!element) { return; }
 
 		// Is the node inactive?
-		if (node.classList.contains('active')) {
+		if (element.classList.contains('active')) {
 			e.preventDefault();
 			return;
 		}
 
 		// Is the node handleable
-		var handleCount = handlers.map(apply(node)).reduce(sum, 0);
+		var handleCount = handlers.map(apply(element)).reduce(sum, 0);
 		if (handleCount) {
 			e.preventDefault();
 			return;
 		}
 
 		// Is the node activateable?
-		if (!matchers.find(apply(node))) { return; }
+		if (!matchers.find(apply(element))) { return; }
 
 		var data = cacheData(element);
 
@@ -189,11 +200,8 @@ events('click', document).each(delegate({
 			preventClick(e);
 		}
 
-		const prevented = trigger({ type: 'dom-activate', relatedTarget: a }, node);
-
-		if (!prevented) {
-			activate(element, data);
-		}
+		// Activate
+		activate(element, a);
 	},
 
 	// Clicks on buttons named activate trigger activate on their value target
@@ -214,11 +222,8 @@ events('click', document).each(delegate({
 		// Flag click as handled
 		e.preventDefault();
 
-		const prevented = trigger({ type: 'dom-activate', relatedTarget: button } element);
-
-		if (!prevented) {
-			activate(element, data);
-		}
+		// Activate
+		activate(element, button);
 	},
 
 	// Clicks on buttons named deactivate trigger deactivate on their value target
@@ -239,11 +244,8 @@ events('click', document).each(delegate({
 		// Flag click as handled
 		e.preventDefault();
 
-		const prevented = trigger({ type: 'dom-deactivate', relatedTarget: button } element);
-
-		if (!prevented) {
-			deactivate(element, data);
-		}
+		// Deactivate
+		deactivate(element, button);
 	}
 }));
 

@@ -206,10 +206,10 @@ p + fieldset, .docs-text-08 + fieldset { margin-top: 2rem; }
     margin-top: 1.5rem;
 }
 
+/* WHY?
 .docs-text-04 {
-    /* WHY? */
     opacity: 0.5;
-}
+}*/
 
 .docs-text-04 + p, h4 + p { margin-top: 0; }
 p + .docs-text-04, p + h4 { margin-top: 1.5rem; }

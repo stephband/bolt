@@ -11,3 +11,9 @@
 .${ data.prefix }semi-text      { font-weight: 600 !important; }
 .${ data.prefix }bold-text      { font-weight: 700 !important; }
 .${ data.prefix }black-text     { font-weight: 800 !important; }
+
+.${ data.prefix }no-wrap {
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    text-overflow: ellipsis;
+}
