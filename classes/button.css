@@ -175,6 +175,13 @@ button.loading,
     display: block;
 }
 
+.loading button,
+.loading .button,
+.resizing button,
+.resizing .button {
+    transition: none !important;
+}
+
 /*
 .button > input[type="file"]
 

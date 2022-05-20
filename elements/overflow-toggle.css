@@ -7,3 +7,8 @@ overflow-toggle {
 overflow-toggle:not(:defined) {
     max-height: none;
 }
+
+.loading overflow-toggle,
+.resizing overflow-toggle {
+    transition: none !important;
+}

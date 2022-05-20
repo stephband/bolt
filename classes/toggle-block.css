@@ -67,7 +67,9 @@ toggle the `active` class when clicked. The links are given the class `on`.
 }
 
 .loading .toggle-block,
-.loading .toggle-block.active {
+.loading .toggle-block.active,
+.resizing .toggle-block,
+.resizing .toggle-block.active {
     /* No transition during page load */
-    transition: none;
+    transition: none !important;
 }
