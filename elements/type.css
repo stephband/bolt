@@ -96,7 +96,7 @@ ol                {
        difference between FF and Chrome */
     list-style-position: inside;
 }
-
+/*
 dl {
     display: grid;
     grid-column-gap: 1.125rem;
@@ -109,7 +109,7 @@ dl > dt {
     grid-column: 1 / span 1;
     max-width: 40vw;
 }
-
+*/
 blockquote        { font-style: italic; font-family: Georgia, serif; }
 blockquote::before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
 
