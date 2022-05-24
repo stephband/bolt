@@ -22,8 +22,9 @@ events('dom-activate', document.body)
 .filter(matches('.toggle-block'))
 .each(function(node) {
     // There are no transitions inside loading containers
-    if (!isVisible(node) || matches('.loading .toggle-block')) {
+    if (!isVisible(node) || matches('.loading .toggle-block', node)) {
         node.style.maxHeight = '';
+        node.style.overflow = 'visible';
         return;
     }
 
@@ -42,6 +43,12 @@ events('dom-activate', document.body)
     .each(function(e) {
         transitionend.stop();
         node.style.maxHeight = '';
+
+        // Position sticky inside a toggle-block will not work while the
+        // toggle-block is the scroll container because it has overflow: hidden.
+        // Therefore we must remove it while the toggle-block is open.
+        // Note that sticky things with a non-zero top or left value will jump.
+        node.style.overflow  = 'visible';
     });
 });
 
@@ -57,6 +64,8 @@ events('dom-deactivate', document.body)
 .map(get('target'))
 .filter(matches('.toggle-block'))
 .each(function(node) {
+    node.style.overflow = '';
+
     const style = node.getAttribute('style');
     const computed = getComputedStyle(node);
 
