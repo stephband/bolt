@@ -9,6 +9,7 @@
     ${ data.prefix && data['column-gap'] ? '--x-gap: ' + rem(data['column-gap']) + 'rem;' : '' }
 }
 
+
 ${ Array
     .from({ length: data.columns || 12 })
     .map((nowt, i) => i + 1)

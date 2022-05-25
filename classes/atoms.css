@@ -1,4 +1,4 @@
-/* Literal template "/Users/stephband/Sites/bolt/classes/atoms.css.literal" */
+/* Literal template "/Users/stephband/Sites/unipop/unipop/static/bolt/classes/atoms.css.literal" */
 
 
 /**
@@ -214,10 +214,15 @@ Define the vertical grid gap (with units).
 }
 
 .columns {
-    display: block !important;
-    column-gap: var(--x-gap);
     --x-gap: 1.5rem;
 }
+
+.columns {
+    display: block !important;
+    column-gap: var(--x-gap);
+    
+}
+
 
 .\31 -columns  { columns: 1 !important; }
 .\32 -columns  { columns: 2 !important; }
@@ -236,15 +241,20 @@ Define the vertical grid gap (with units).
 .flex           { display: flex !important; }
 
 .grid {
-    display: grid !important;
-    /* Horizontal layout */
-    grid-auto-flow: row;
-    /* Create equal columns by default. */
-    grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--x-gap);
-    row-gap: var(--y-gap);
     --x-gap: 1.5rem;
     --y-gap: 1.5rem;
+}
+
+.grid {
+    display: grid !important;
+    /* Horizontal layout */
+    grid-auto-flow: column;
+    /* Create equal columns by default. */
+    grid-auto-columns: minmax(0, 1fr);
+    column-gap: var(--x-gap, 0);
+    row-gap:    var(--y-gap, 0);
+    
+    
 }
 
 a.grid,
@@ -256,6 +266,11 @@ a.grid:focus {
 .grid[hidden] {
     /* Override display grid !important declaration with hidden attribute */
     display: none !important;
+}
+
+.grid > li {
+    /* Stop list items from displaying as list-item */
+    display: block;
 }
 
 .dense-grid {
@@ -508,7 +523,9 @@ a.grid:focus {
     max-height:    calc(100% + 2 * var(--y-gap));
     height:        calc(100% + 2 * var(--y-gap));
 }
+
 .inline         { display: inline-block !important; }
+
 .normal-text    { text-transform: none !important; }
 .lowercase-text { text-transform: lowercase !important; }
 .uppercase-text { text-transform: uppercase !important; }
@@ -521,6 +538,12 @@ a.grid:focus {
 .semi-text      { font-weight: 600 !important; }
 .bold-text      { font-weight: 700 !important; }
 .black-text     { font-weight: 800 !important; }
+
+.no-wrap {
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    text-overflow: ellipsis;
+}
 .left           { float: left !important; clear: left; }
 .right          { float: right !important; clear: right; }
 .top-align      { vertical-align: top !important; }
@@ -568,11 +591,16 @@ a.grid:focus {
 	top: 0;
 }
 
+.columns {
+    --x-gap: 1.5rem;
+}
+
 .\@1-columns {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 1.5rem;
 }
+
 
 .\@1-1-columns  { columns: 1 !important; }
 .\@1-2-columns  { columns: 2 !important; }
@@ -590,14 +618,19 @@ a.grid:focus {
 
 .\@1-flex           { display: flex !important; }
 
+.grid {
+    --x-gap: 1.5rem;
+    --y-gap: 1.5rem;
+}
+
 .\@1-grid {
     display: grid !important;
     /* Horizontal layout */
-    grid-auto-flow: row;
+    grid-auto-flow: column;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--x-gap);
-    row-gap: var(--y-gap);
+    column-gap: var(--x-gap, 0);
+    row-gap:    var(--y-gap, 0);
     --x-gap: 1.5rem;
     --y-gap: 1.5rem;
 }
@@ -611,6 +644,11 @@ a.\@1-grid:focus {
 .\@1-grid[hidden] {
     /* Override display grid !important declaration with hidden attribute */
     display: none !important;
+}
+
+.\@1-grid > li {
+    /* Stop list items from displaying as list-item */
+    display: block;
 }
 
 .\@1-dense-grid {
@@ -863,7 +901,9 @@ a.\@1-grid:focus {
     max-height:    calc(100% + 2 * var(--y-gap));
     height:        calc(100% + 2 * var(--y-gap));
 }
+
 .\@1-inline         { display: inline-block !important; }
+
 .\@1-normal-text    { text-transform: none !important; }
 .\@1-lowercase-text { text-transform: lowercase !important; }
 .\@1-uppercase-text { text-transform: uppercase !important; }
@@ -876,6 +916,12 @@ a.\@1-grid:focus {
 .\@1-semi-text      { font-weight: 600 !important; }
 .\@1-bold-text      { font-weight: 700 !important; }
 .\@1-black-text     { font-weight: 800 !important; }
+
+.\@1-no-wrap {
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    text-overflow: ellipsis;
+}
 .\@1-left           { float: left !important; clear: left; }
 .\@1-right          { float: right !important; clear: right; }
 .\@1-top-align      { vertical-align: top !important; }
@@ -924,11 +970,16 @@ a.\@1-grid:focus {
 	top: 0;
 }
 
+.columns {
+    --x-gap: 2.8125rem;
+}
+
 .\@2-columns {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 2.8125rem;
 }
+
 
 .\@2-1-columns  { columns: 1 !important; }
 .\@2-2-columns  { columns: 2 !important; }
@@ -946,14 +997,19 @@ a.\@1-grid:focus {
 
 .\@2-flex           { display: flex !important; }
 
+.grid {
+    --x-gap: 2.8125rem;
+    --y-gap: 1.875rem;
+}
+
 .\@2-grid {
     display: grid !important;
     /* Horizontal layout */
-    grid-auto-flow: row;
+    grid-auto-flow: column;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--x-gap);
-    row-gap: var(--y-gap);
+    column-gap: var(--x-gap, 0);
+    row-gap:    var(--y-gap, 0);
     --x-gap: 2.8125rem;
     --y-gap: 1.875rem;
 }
@@ -967,6 +1023,11 @@ a.\@2-grid:focus {
 .\@2-grid[hidden] {
     /* Override display grid !important declaration with hidden attribute */
     display: none !important;
+}
+
+.\@2-grid > li {
+    /* Stop list items from displaying as list-item */
+    display: block;
 }
 
 .\@2-dense-grid {
@@ -1219,7 +1280,9 @@ a.\@2-grid:focus {
     max-height:    calc(100% + 2 * var(--y-gap));
     height:        calc(100% + 2 * var(--y-gap));
 }
+
 .\@2-inline         { display: inline-block !important; }
+
 .\@2-normal-text    { text-transform: none !important; }
 .\@2-lowercase-text { text-transform: lowercase !important; }
 .\@2-uppercase-text { text-transform: uppercase !important; }
@@ -1232,6 +1295,12 @@ a.\@2-grid:focus {
 .\@2-semi-text      { font-weight: 600 !important; }
 .\@2-bold-text      { font-weight: 700 !important; }
 .\@2-black-text     { font-weight: 800 !important; }
+
+.\@2-no-wrap {
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    text-overflow: ellipsis;
+}
 .\@2-left           { float: left !important; clear: left; }
 .\@2-right          { float: right !important; clear: right; }
 .\@2-top-align      { vertical-align: top !important; }
@@ -1280,11 +1349,16 @@ a.\@2-grid:focus {
 	top: 0;
 }
 
+.columns {
+    --x-gap: 3.75rem;
+}
+
 .\@3-columns {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 3.75rem;
 }
+
 
 .\@3-1-columns  { columns: 1 !important; }
 .\@3-2-columns  { columns: 2 !important; }
@@ -1302,14 +1376,19 @@ a.\@2-grid:focus {
 
 .\@3-flex           { display: flex !important; }
 
+.grid {
+    --x-gap: 3.75rem;
+    --y-gap: 1.875rem;
+}
+
 .\@3-grid {
     display: grid !important;
     /* Horizontal layout */
-    grid-auto-flow: row;
+    grid-auto-flow: column;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--x-gap);
-    row-gap: var(--y-gap);
+    column-gap: var(--x-gap, 0);
+    row-gap:    var(--y-gap, 0);
     --x-gap: 3.75rem;
     --y-gap: 1.875rem;
 }
@@ -1323,6 +1402,11 @@ a.\@3-grid:focus {
 .\@3-grid[hidden] {
     /* Override display grid !important declaration with hidden attribute */
     display: none !important;
+}
+
+.\@3-grid > li {
+    /* Stop list items from displaying as list-item */
+    display: block;
 }
 
 .\@3-dense-grid {
@@ -1575,7 +1659,9 @@ a.\@3-grid:focus {
     max-height:    calc(100% + 2 * var(--y-gap));
     height:        calc(100% + 2 * var(--y-gap));
 }
+
 .\@3-inline         { display: inline-block !important; }
+
 .\@3-normal-text    { text-transform: none !important; }
 .\@3-lowercase-text { text-transform: lowercase !important; }
 .\@3-uppercase-text { text-transform: uppercase !important; }
@@ -1588,6 +1674,12 @@ a.\@3-grid:focus {
 .\@3-semi-text      { font-weight: 600 !important; }
 .\@3-bold-text      { font-weight: 700 !important; }
 .\@3-black-text     { font-weight: 800 !important; }
+
+.\@3-no-wrap {
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    text-overflow: ellipsis;
+}
 .\@3-left           { float: left !important; clear: left; }
 .\@3-right          { float: right !important; clear: right; }
 .\@3-top-align      { vertical-align: top !important; }
