@@ -50,7 +50,7 @@ Forms.
     --input-margin: 0.9375em;
 
     /** --range-height **/
-    --range-height: var(--input-height);
+    --range-height: var(--height);
 
     /** --track-height **/
     --track-height: 0.375rem;
@@ -353,6 +353,11 @@ textarea {
 input,
 select,
 textarea {
+    --font-size:    var(--input-font-size);
+    --height:       var(--input-height, 2.8125rem);
+    --line-height:  var(--input-line-height, 1.5rem);
+    --border-width: var(--input-border-width, 1px);
+
     /* iOS has padding in the UA stylesheet. */
     padding-top: 0px;
     padding-bottom: 0px;
@@ -400,7 +405,7 @@ textarea,
 [type="password"] {
     display: block;
     color: var(--input-color);
-    border: var(--input-border-width, 1px) solid var(--input-border-color);
+    border: var(--border-width, 1px) solid var(--input-border-color);
     border-radius: var(--input-border-radius);
 }
 
@@ -433,8 +438,8 @@ textarea,
 [type="search"],
 [type="password"] {
     padding-left: 0;
-    padding-right: calc(var(--input-padding-right) - var(--input-border-width, 1px));
-    text-indent: calc(var(--input-padding-left) - var(--input-border-width, 1px));
+    padding-right: calc(var(--input-padding-right) - var(--border-width, 1px));
+    text-indent: calc(var(--input-padding-left) - var(--border-width, 1px));
 }
 
 .right-align[type="tel"],
@@ -448,7 +453,7 @@ textarea,
 .right-align[type="number"],
 .right-align[type="search"],
 .right-align[type="password"] {
-    padding-left: calc(var(--input-padding-left) - var(--input-border-width, 1px));
+    padding-left: calc(var(--input-padding-left) - var(--border-width, 1px));
     text-indent: 0;
 }
 
@@ -464,7 +469,7 @@ textarea,
 [type="number"],
 [type="search"],
 [type="password"] {
-    font-size: var(--input-font-size);
+    font-size: var(--font-size);
 }
 
 [type="tel"],
@@ -480,7 +485,7 @@ textarea,
 [type="search"],
 [type="password"] {
     /* Compensate for border */
-    line-height: calc(var(--input-height) - 2 * var(--input-border-width, 1px));
+    line-height: calc(var(--height) - 2 * var(--border-width, 1px));
     padding-top: 0px;
     padding-bottom: 0px;
 }
@@ -507,13 +512,13 @@ input[type='month'] {
 }
 
 textarea {
-    min-height: calc(var(--input-height) + 4 * var(--input-line-height));
-    line-height: var(--input-line-height);
-    padding-left: calc(var(--input-padding-left) - var(--input-border-width, 1px));
-    padding-right: calc(var(--input-padding-left) - var(--input-border-width, 1px));
+    min-height: calc(var(--height) + 4 * var(--line-height));
+    line-height: var(--line-height);
+    padding-left: calc(var(--input-padding-left) - var(--border-width, 1px));
+    padding-right: calc(var(--input-padding-left) - var(--border-width, 1px));
     /* Nudged up by 1px to make it look more even. */
-    padding-top: calc(0.5 * (var(--input-height) - var(--input-line-height) - 2 * var(--input-border-width, 1px)) - 1px);
-    padding-bottom: calc(0.5 * (var(--input-height) - var(--input-line-height) - 2 * var(--input-border-width, 1px)) + 1px);
+    padding-top: calc(0.5 * (var(--height) - var(--line-height) - 2 * var(--border-width, 1px)) - 1px);
+    padding-bottom: calc(0.5 * (var(--height) - var(--line-height) - 2 * var(--border-width, 1px)) + 1px);
 
     /* IE is set to overflow: scroll by default */
     overflow: auto;
@@ -665,17 +670,17 @@ select {
        than 16px */
 	/*font-size: 1rem;*/
 
-    line-height: var(--input-line-height);
-    padding-left:   calc(var(--input-padding-left)  - var(--input-border-width, 1px));
-    padding-right:  calc(var(--input-padding-right) - var(--input-border-width, 1px));
-    padding-top:    calc(0.5 * (var(--input-height) - var(--input-line-height) - 2 * var(--input-border-width, 1px)) - 1px);
-    padding-bottom: calc(0.5 * (var(--input-height) - var(--input-line-height) - 2 * var(--input-border-width, 1px)) + 1px);
+    line-height: var(--line-height);
+    padding-left:   calc(var(--input-padding-left)  - var(--border-width, 1px));
+    padding-right:  calc(var(--input-padding-right) - var(--border-width, 1px));
+    padding-top:    calc(0.5 * (var(--height) - var(--line-height) - 2 * var(--border-width, 1px)) - 1px);
+    padding-bottom: calc(0.5 * (var(--height) - var(--line-height) - 2 * var(--border-width, 1px)) + 1px);
 
     width: 100%;
 	max-width: 100%;
 
     height: auto;
-    min-height: var(--input-height);
+    min-height: var(--height);
 	 /*box-shadow: 0 1px 0 1px rgba(0,0,0,.04);*/
 
     background-image:
@@ -745,7 +750,7 @@ select[aria-disabled="true"] {
 
     /* Position it so that the validation message appears in the correct place */
     position: relative;
-    top: calc(var(--input-margin) + var(--input-height), 2.5rem);
+    top: calc(var(--input-margin) + var(--height), 2.5rem);
     /*margin-top: 0 !important;*/
     margin-bottom: -1px !important;
     margin-left: var(--input-padding-left, 0.75rem) !important;
@@ -954,7 +959,7 @@ select:focus {
     border-width: 0;
 
     /* For IE height should be big enough to accomodate the thumb. */
-    height: var(--range-height, var(--input-height, 1.5625rem));
+    height: var(--range-height, var(--height, 1.5625rem));
 
     /*required for proper track sizing in FF*/
     width: 100%;
