@@ -1,8 +1,12 @@
 
+.columns {
+    ${ data['column-gap'] && '--x-gap: ' + rem(data['column-gap']) + 'rem;' }
+}
+
 .${ data.prefix }columns {
     display: block !important;
     column-gap: var(--x-gap);
-    ${ data['column-gap'] && '--x-gap: ' + rem(data['column-gap']) + 'rem;' }
+    ${ data.prefix && data['column-gap'] ? '--x-gap: ' + rem(data['column-gap']) + 'rem;' : '' }
 }
 
 ${ Array

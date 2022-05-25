@@ -1,4 +1,9 @@
 
+.grid {
+    ${ data['column-gap'] ? '--x-gap: ' + rem(data['column-gap']) + 'rem;' : '' }
+    ${ data['row-gap']    ? '--y-gap: ' + rem(data['row-gap'])    + 'rem;' : '' }
+}
+
 .${ data.prefix }grid {
     display: grid !important;
     /* Horizontal layout */
@@ -7,8 +12,8 @@
     grid-auto-columns: minmax(0, 1fr);
     column-gap: var(--x-gap, 0);
     row-gap:    var(--y-gap, 0);
-    ${ data['column-gap'] ? '--x-gap: ' + rem(data['column-gap']) + 'rem;' : '' }
-    ${ data['row-gap']    ? '--y-gap: ' + rem(data['row-gap'])    + 'rem;' : '' }
+    ${ data.prefix && data['column-gap'] ? '--x-gap: ' + rem(data['column-gap']) + 'rem;' : '' }
+    ${ data.prefix && data['row-gap']    ? '--y-gap: ' + rem(data['row-gap'])    + 'rem;' : '' }
 }
 
 a.${ data.prefix }grid,

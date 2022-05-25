@@ -5,10 +5,15 @@ label {
     width: auto;
     height: auto;
 
-    font-size: var(--label-font-size);
-    line-height: var(--label-line-height);
-    color: var(--label-color);
+    --font-size:    var(--label-font-size);
+    --line-height:  var(--label-line-height);
 
+    font-size:      var(--font-size);
+    line-height:    var(--line-height);
+    padding-top:    calc(0.5 * (var(--height, 0) - var(--line-height)));
+    padding-bottom: calc(0.5 * (var(--height, 0) - var(--line-height)));
+
+    color: var(--label-color);
     border: 0;
     -webkit-tap-highlight-color: transparent;
 }
