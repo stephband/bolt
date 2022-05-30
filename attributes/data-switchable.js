@@ -47,13 +47,13 @@ function activate(e) {
 	if (!match(target)) { return; }
 
 	var nodes = children(target.parentNode).filter(match);
-	var i     = nodes.indexOf(target);
+	var i = nodes.indexOf(target);
 
 	nodes.splice(i, 1);
 
     nodes
     .filter(matches('.active'))
-    .forEach(deactivate);
+    .forEach((active) => deactivate(active, target));
 }
 
 events('dom-activate', document).each(activate);

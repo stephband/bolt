@@ -133,6 +133,8 @@ export function activate(element, related) {
 			)
 		);
 	}
+
+	return true;
 }
 
 export function deactivate(element, related) {
@@ -154,6 +156,7 @@ export function deactivate(element, related) {
 	}
 
 	data.active = false;
+	return true;
 }
 
 events('click', document).each(delegate({

@@ -19,8 +19,7 @@ bubbles, accordions and so on.
 
 import events       from '../../dom/modules/events.js';
 import matches      from '../../dom/modules/matches.js';
-import { trigger }  from '../../dom/modules/trigger.js';
-import { matchers } from '../events/dom-activate.js';
+import { matchers, deactivate } from '../events/dom-activate.js';
 
 var match = matches('[data-popable]');
 
@@ -40,20 +39,21 @@ function activate(e) {
             timeStamp = e.timeStamp;
 
             if (node.contains(e.target) || node === e.target) { return; }
-            trigger('dom-deactivate', node);
+            deactivate(node);
         }
 
-        function deactivate(e) {
+        const clicks = events('click', document)
+        .each(click);
+
+        const activates = events('dom-deactivate', document.documentElement)
+        .each((e) => {
             if (node !== e.target) { return; }
             if (e.defaultPrevented) { return; }
             clicks.stop();
             activates.stop();
-        }
-
-        const clicks = events('click', document).each(click);
-        const activates = events('dom-deactivate', document.documentElement).each(deactivate);
+        });
     });
 }
 
-document.addEventListener('dom-activate', activate);
+events('dom-activate', document).each(activate);
 matchers.push(match);
