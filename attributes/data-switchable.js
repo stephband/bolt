@@ -35,18 +35,14 @@ and `.tab-block` classes.
 import events   from '../../dom/modules/events.js';
 import matches  from '../../dom/modules/matches.js';
 import children from '../../dom/modules/children.js';
-import trigger  from '../../dom/modules/trigger.js';
-import { matchers } from '../events/dom-activate.js';
+import { deactivate, matchers } from '../events/dom-activate.js';
 
 
 // Define
 
 var match = matches('[data-switchable]');
-var triggerDeactivate = trigger('dom-deactivate');
 
 function activate(e) {
-	if (!e.default) { return; }
-
 	var target = e.target;
 	if (!match(target)) { return; }
 
@@ -54,12 +50,10 @@ function activate(e) {
 	var i     = nodes.indexOf(target);
 
 	nodes.splice(i, 1);
-	var active = nodes.filter(matches('.active'));
 
-	// Deactivate the previous active pane AFTER this pane has been
-	// activated. It's important for panes who's style depends on the
-	// current active pane, eg: .slide.active ~ .slide
-	requestAnimationFrame(() => active.forEach(triggerDeactivate));
+    nodes
+    .filter(matches('.active'))
+    .forEach(deactivate);
 }
 
 events('dom-activate', document).each(activate);
