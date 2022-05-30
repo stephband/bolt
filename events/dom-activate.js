@@ -109,7 +109,11 @@ export function activate(element, related) {
 
 	const data = cacheData(element);
 	if (window.DEBUG) {
-		console.log('[activate] default | target:', element.id, 'data:', data);
+		console.log('%cactivate %c#' + element.id + ', ' +  data.buttons.length + ' button' + (data.buttons.length === 1 ? '' : 's') + '%c',
+			'color: #3a8ab0; font-weight: 600;',
+			'color: #888888; font-weight: 400;',
+			'color: inherit; font-weight: 400;'
+		);
 	}
 
 	data.active = true;
@@ -143,7 +147,11 @@ export function deactivate(element, related) {
 
 	const data = cacheData(element);
 	if (window.DEBUG) {
-		console.log('[deactivate] default | target:', element.id, 'data:', data);
+		console.log('%cdeactivate %c#' + element.id + ', ' +  data.buttons.length + ' button' + (data.buttons.length === 1 ? '' : 's') + '%c',
+			'color: #3a8ab0; font-weight: 600;',
+			'color: #888888; font-weight: 400;',
+			'color: inherit; font-weight: 400;'
+		);
 	}
 
 	classes(data.node).remove(config.activeClass);
