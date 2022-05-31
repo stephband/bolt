@@ -25,7 +25,7 @@ inline-blocks too.
 	padding: 0;
 }
 
-.list > li {
+.list > * {
 	display: block;
 
 	/* Specifically remove default margin and padding from
