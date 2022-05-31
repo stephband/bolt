@@ -327,7 +327,7 @@ events('DOMContentLoaded', document).each(function() {
         }
     });
 
-    // Start observing the target node for mutations
+    // Start observing body for mutations
     observer.observe(document.body, {
         attributes: false,
         childList: true,
