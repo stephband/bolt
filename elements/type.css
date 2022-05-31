@@ -227,8 +227,6 @@ blockquote        { margin-left: 2.6667em; }
 
 /* Classes */
 
-.left             { margin: 0.75em 1em 0.75em 0; }
-.right            { margin: 0.75em 0 0.75em 1em; }
 .note             { font-size: 0.9167em; line-height: 1.8181; font-style: italic; }
 
 .tag-code::before { content: '<'; margin-right: -0.1em; }
