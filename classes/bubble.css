@@ -11,26 +11,6 @@ Crunchum Ipsum.
 
 .bubble {
     /**
-    --font-size
-    **/
-    --font-size: 1rem;
-
-    /**
-    --line-height
-    **/
-    --line-height: 1.5rem;
-
-    /**
-    --background
-    **/
-    --background: black;
-
-    /**
-    --border-color
-    **/
-    --border-color: black;
-
-    /**
     --border-width
     **/
     --border-width: 0.125rem;
@@ -41,9 +21,9 @@ Crunchum Ipsum.
     --border-radius: 0.25rem;
 
     /**
-    --color
+    --point-size
     **/
-    --color: white;
+    --point-size: 1.25rem;
 
     /**
     --pointer-y
@@ -57,18 +37,16 @@ Crunchum Ipsum.
        left + 320, so give it a negative right. */
     right: -20rem;
     max-width: 92vw;
-    font-size: var(--font-size);
-    line-height: var(--line-height);
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
     min-height: calc(2 * var(--border-width) + 2 * 0.75rem + var(--line-height));
-    color: var(--color);
-    border: 0.125rem solid #cadce3;
-    border-width: var(--border-width);
-    border-color: var(--border-color);
-    background:   var(--background);
+    color: white;
+    border-style: solid;
+    border-width: var(--border-width, 0.125rem);
+    border-color: #cadce3;
+    background: black;
     border-radius: var(--border-radius);
     box-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
@@ -76,9 +54,9 @@ Crunchum Ipsum.
 .bubble::before {
     display: block;
     position: absolute;
-    width: 1.25rem;
-    height: 1.25rem;
-    transform: rotate(45deg) translate(0, -1px);
+    width:  var(--point-size, 1.25rem);
+    height: var(--point-size, 1.25rem);
+    transform: rotate(45deg);
     background-color: inherit;
     border-color: inherit;
     border-width: inherit;
@@ -191,7 +169,7 @@ Crunchum Ipsum.
 .bottom-bubble::before,
 .left-bubble::before,
 .right-bubble::before {
-    content: ' ';
+    content: '';
 }
 
 .top-bubble::before,
@@ -209,29 +187,30 @@ Crunchum Ipsum.
 }
 
 .top-bubble::before {
-    bottom: -0.6875rem;
-    border-top-width: 0;
-    border-left-width: 0;
+    bottom: calc(-0.5 * var(--point-size, 1.25rem));
+    border-top-color: transparent;
+    border-left-color: transparent;
     box-shadow: 3px 3px 4px rgba(0,0,0,0.3);
 }
 
 .bottom-bubble::before {
-    top: -0.6875rem;
-    border-bottom-width: 0;
-    border-right-width: 0;
+    top: calc(-0.5 * var(--point-size, 1.25rem));
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    box-shadow: -3px -3px 4px rgba(0,0,0,0.3);
 }
 
 .left-bubble::before {
-    right: -0.6875rem;
-    border-bottom: 0;
-    border-left: 0;
+    right: calc(-0.5 * var(--point-size, 1.25rem));
+    border-bottom-color: transparent;
+    border-left-color: transparent;
     box-shadow: 3px 0px 4px -2px rgba(0,0,0,0.3);
 }
 
 .right-bubble::before {
-    left: -0.6875rem;
-    border-right: 0;
-    border-top: 0;
+    left: calc(-0.5 * var(--point-size, 1.25rem));
+    border-right-color: transparent;
+    border-top-color: transparent;
     box-shadow: 0px 3px 4px -2px rgba(0,0,0,0.3);
 }
 

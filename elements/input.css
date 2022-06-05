@@ -484,10 +484,26 @@ textarea,
 [type="number"],
 [type="search"],
 [type="password"] {
-    /* Compensate for border */
-    line-height: calc(var(--height) - 2 * var(--border-width, 1px));
     padding-top: 0px;
     padding-bottom: 0px;
+}
+
+input[type="tel"],
+input[type="url"],
+input[type="date"],
+input[type="text"],
+input[type="time"],
+input[type="week"],
+input[type="month"],
+input[type="email"],
+input[type="color"],
+input[type="number"],
+input[type="search"],
+input[type="password"] {
+    /* Compensate for border. We want this selector to be more important than
+       a class selector because we don't want .text- classes to override
+       line-height. */
+    line-height: calc(var(--height) - 2 * var(--border-width, 1px));
 }
 
 input[type='date'],
