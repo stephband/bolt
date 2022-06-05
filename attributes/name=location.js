@@ -3,7 +3,6 @@ import get      from '../../fn/modules/get.js';
 import set      from '../../fn/modules/set.js';
 import overload from '../../fn/modules/overload.js';
 import { default as getById } from '../../dom/modules/get.js';
-import closest  from '../../dom/modules/closest.js';
 import events   from '../../dom/modules/events.js';
 import matches  from '../../dom/modules/matches.js';
 import trigger  from '../../dom/modules/trigger.js';
