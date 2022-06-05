@@ -17,9 +17,7 @@
 
 	assign(jQuery.event.special, {
 		'dom-activate': definition,
-		'dom-deactivate': definition,
-		'dom-gesture': definition,
-		'dom-swipe': definition
+		'dom-deactivate': definition
 	});
 
 })(window);
