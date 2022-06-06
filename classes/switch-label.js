@@ -32,7 +32,7 @@ function switchOff(label) {
     trigger('change', input);
 }
 
-gestures({ selector: selector, threshold: 4 }, document)
+gestures({ select: selector, threshold: 4 }, document)
 .each(function(events) {
     // First event is touchstart or mousedown
     var e0     = events.shift();
