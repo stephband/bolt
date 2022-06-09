@@ -267,7 +267,7 @@ Crunchum Ipsum.
     transition: none !important;
 }
 
-@media screen and (max-width: 39.999em) {
+@media screen and (max-width: 44.999em) {
     .js body > .bubble {
         /* Override offset given to it by JS when the
            screen is too small. */
@@ -277,7 +277,7 @@ Crunchum Ipsum.
     }
 }
 
-@media screen and (min-width: 40em) {
+@media screen and (min-width: 45em) {
     .bubble {
         width: auto;
         max-width: 20rem;
