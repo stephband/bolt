@@ -262,7 +262,12 @@ Crunchum Ipsum.
     transform: translate3d(0, 1.75rem, 0);
 }
 
-@media screen and (max-width: 31.999em) {
+.loading .bubble,
+.resizing .bubble {
+    transition: none !important;
+}
+
+@media screen and (max-width: 39.999em) {
     .js body > .bubble {
         /* Override offset given to it by JS when the
            screen is too small. */
@@ -272,7 +277,7 @@ Crunchum Ipsum.
     }
 }
 
-@media screen and (min-width: 32em) {
+@media screen and (min-width: 40em) {
     .bubble {
         width: auto;
         max-width: 20rem;
