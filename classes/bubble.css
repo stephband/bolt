@@ -39,8 +39,8 @@ Crunchum Ipsum.
     max-width: 92vw;
     padding-top:    calc(0.5 * var(--y-gap, 1.5rem));
     padding-bottom: calc(0.5 * var(--y-gap, 1.5rem));
-    padding-left:   calc(var(--x-gap, 1.5rem));
-    padding-right:  calc(var(--x-gap, 1.5rem));
+    padding-left:   calc(0.5 * var(--x-gap, 1.5rem));
+    padding-right:  calc(0.5 * var(--x-gap, 1.5rem));
     min-height:     calc(2 * var(--border-width) + var(--y-gap, 1.5rem) + var(--line-height));
     color: white;
     border-style: solid;
