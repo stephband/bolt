@@ -64,3 +64,16 @@ inline-blocks too.
 .inline-list > li {
 	display: inline-block;
 }
+
+
+/**
+.question-list
+**/
+
+.question-list > li + li {
+	margin-top: 2rem;
+}
+
+* + .question-list {
+	margin-top: 2rem;
+}
