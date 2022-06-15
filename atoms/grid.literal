@@ -53,7 +53,7 @@ a.${ data.prefix }grid:focus {
 }
 
 .${ data.prefix }x-end-grid {
-    justify-content: center;
+    justify-content: end;
 }
 
 /* x */
