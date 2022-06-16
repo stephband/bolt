@@ -4,8 +4,8 @@
 .bleed-l,
 .bleed-r
 
-Set bleed with variable `--bleed`. Bleed falls back to `--x-gap` where not
-defined, or to a default of `1.5rem` where `--x-gap` is not defined.
+Set bleed with variable \`--bleed\`. Bleed falls back to \`--x-gap\` where not
+defined, or to a default of \`1.5rem\` where \`--x-gap\` is not defined.
 **/
 
 .${ data.prefix }bleed {
