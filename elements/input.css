@@ -87,10 +87,6 @@ Forms.
     Line height of labels **/
     --label-line-height: 1.5rem;
 
-    /** --label-color
-    Colour of labels **/
-    --label-color: #444444;
-
     /** --label-margin **/
     --label-margin: 1.125rem;
 
@@ -422,7 +418,7 @@ textarea,
 [type="number"],
 [type="search"],
 [type="password"] {
-    background: var(--input-background);
+    background: var(--input-background) no-repeat;
     box-shadow: var(--input-shadow);
 }
 

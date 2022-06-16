@@ -68,7 +68,7 @@
 
 .radio-label::before,
 .check-label::before {
-    background: var(--input-background);
+    background: var(--input-background) no-repeat;
     border: var(--check-border-width) solid var(--check-border-color);
 }
 
