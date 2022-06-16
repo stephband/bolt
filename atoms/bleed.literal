@@ -1,0 +1,33 @@
+
+/**
+.bleed,
+.bleed-l,
+.bleed-r
+
+Set bleed with variable `--bleed`. Bleed falls back to `--x-gap` where not
+defined, or to a default of `1.5rem` where `--x-gap` is not defined.
+**/
+
+.${ data.prefix }bleed {
+    width: calc(100% + 2 * var(--bleed, var(--x-gap, 1.5rem)));
+}
+
+.${ data.prefix }bleed-l,
+.${ data.prefix }bleed-r {
+    width: calc(100% + var(--bleed, var(--x-gap, 1.5rem)));
+}
+
+.${ data.prefix }bleed,
+.${ data.prefix }bleed-l {
+    margin-left: calc(-1 * var(--bleed, var(--x-gap, 1.5rem)));
+}
+
+.${ data.prefix }bleed,
+.${ data.prefix }bleed-r {
+    margin-right: calc(-1 * var(--bleed, var(--x-gap, 1.5rem)));
+}
+
+.${ data.prefix }bleed:not(img) {
+    padding-left:  var(--bleed);
+    padding-right: var(--bleed);
+}

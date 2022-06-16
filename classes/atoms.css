@@ -239,6 +239,7 @@ Define the vertical grid gap (with units).
 
 
 .flex           { display: flex !important; }
+.flex > li      { display: block; }
 
 .grid {
     --x-gap: 1.5rem;
@@ -248,7 +249,7 @@ Define the vertical grid gap (with units).
 .grid {
     display: grid !important;
     /* Horizontal layout */
-    grid-auto-flow: column;
+    grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
     column-gap: var(--x-gap, 0);
@@ -291,6 +292,10 @@ a.grid:focus {
 
 .x-center-grid {
     justify-content: center;
+}
+
+.x-end-grid {
+    justify-content: end;
 }
 
 /* x */
@@ -544,8 +549,11 @@ a.grid:focus {
     flex-wrap: nowrap;
     text-overflow: ellipsis;
 }
-.left           { float: left !important; clear: left; }
-.right          { float: right !important; clear: right; }
+.left           { float: left !important; clear: left; margin-right: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
+.right          { float: right !important; clear: right; margin-left: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
+* + .left       { margin-top: calc(0.5 * var(--y-gap)); }
+* + .right      { margin-top: calc(0.5 * var(--y-gap)); }
+
 .top-align      { vertical-align: top !important; }
 .bottom-align   { vertical-align: bottom !important; }
 .middle-align   { vertical-align: middle !important; }
@@ -553,7 +561,8 @@ a.grid:focus {
 .left-align     { text-align: left !important; }
 .right-align    { text-align: right !important; }
 .center-align   { text-align: center !important; }
-.justify-align  { text-align: justify !important; }/*
+.justify-align  { text-align: justify !important; }
+
 .margin-0         { margin-top: 0      !important; }
 .margin-8         { margin-top: 0.5rem !important; }
 .margin-16        { margin-top: 1rem   !important; }
@@ -562,7 +571,9 @@ a.grid:focus {
 .margin-40        { margin-top: 2.5rem !important; }
 .margin-48        { margin-top: 3rem   !important; }
 .margin-64        { margin-top: 4rem   !important; }
-*/
+.margin-80        { margin-top: 5rem   !important; }
+.margin-96        { margin-top: 6rem   !important; }
+
 
 /* .\@1-atom, 50em (800px) */
 
@@ -617,6 +628,7 @@ a.grid:focus {
 
 
 .\@1-flex           { display: flex !important; }
+.\@1-flex > li      { display: block; }
 
 .grid {
     --x-gap: 1.5rem;
@@ -626,7 +638,7 @@ a.grid:focus {
 .\@1-grid {
     display: grid !important;
     /* Horizontal layout */
-    grid-auto-flow: column;
+    grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
     column-gap: var(--x-gap, 0);
@@ -669,6 +681,10 @@ a.\@1-grid:focus {
 
 .\@1-x-center-grid {
     justify-content: center;
+}
+
+.\@1-x-end-grid {
+    justify-content: end;
 }
 
 /* x */
@@ -922,8 +938,11 @@ a.\@1-grid:focus {
     flex-wrap: nowrap;
     text-overflow: ellipsis;
 }
-.\@1-left           { float: left !important; clear: left; }
-.\@1-right          { float: right !important; clear: right; }
+.\@1-left           { float: left !important; clear: left; margin-right: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
+.\@1-right          { float: right !important; clear: right; margin-left: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
+* + .\@1-left       { margin-top: calc(0.5 * var(--y-gap)); }
+* + .\@1-right      { margin-top: calc(0.5 * var(--y-gap)); }
+
 .\@1-top-align      { vertical-align: top !important; }
 .\@1-bottom-align   { vertical-align: bottom !important; }
 .\@1-middle-align   { vertical-align: middle !important; }
@@ -931,7 +950,8 @@ a.\@1-grid:focus {
 .\@1-left-align     { text-align: left !important; }
 .\@1-right-align    { text-align: right !important; }
 .\@1-center-align   { text-align: center !important; }
-.\@1-justify-align  { text-align: justify !important; }/*
+.\@1-justify-align  { text-align: justify !important; }
+
 .\@1-margin-0         { margin-top: 0      !important; }
 .\@1-margin-8         { margin-top: 0.5rem !important; }
 .\@1-margin-16        { margin-top: 1rem   !important; }
@@ -940,7 +960,9 @@ a.\@1-grid:focus {
 .\@1-margin-40        { margin-top: 2.5rem !important; }
 .\@1-margin-48        { margin-top: 3rem   !important; }
 .\@1-margin-64        { margin-top: 4rem   !important; }
-*/}
+.\@1-margin-80        { margin-top: 5rem   !important; }
+.\@1-margin-96        { margin-top: 6rem   !important; }
+}
 
 
 /* .\@2-atom, 70em (1120px) */
@@ -996,6 +1018,7 @@ a.\@1-grid:focus {
 
 
 .\@2-flex           { display: flex !important; }
+.\@2-flex > li      { display: block; }
 
 .grid {
     --x-gap: 2.8125rem;
@@ -1005,7 +1028,7 @@ a.\@1-grid:focus {
 .\@2-grid {
     display: grid !important;
     /* Horizontal layout */
-    grid-auto-flow: column;
+    grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
     column-gap: var(--x-gap, 0);
@@ -1048,6 +1071,10 @@ a.\@2-grid:focus {
 
 .\@2-x-center-grid {
     justify-content: center;
+}
+
+.\@2-x-end-grid {
+    justify-content: end;
 }
 
 /* x */
@@ -1301,8 +1328,11 @@ a.\@2-grid:focus {
     flex-wrap: nowrap;
     text-overflow: ellipsis;
 }
-.\@2-left           { float: left !important; clear: left; }
-.\@2-right          { float: right !important; clear: right; }
+.\@2-left           { float: left !important; clear: left; margin-right: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
+.\@2-right          { float: right !important; clear: right; margin-left: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
+* + .\@2-left       { margin-top: calc(0.5 * var(--y-gap)); }
+* + .\@2-right      { margin-top: calc(0.5 * var(--y-gap)); }
+
 .\@2-top-align      { vertical-align: top !important; }
 .\@2-bottom-align   { vertical-align: bottom !important; }
 .\@2-middle-align   { vertical-align: middle !important; }
@@ -1310,7 +1340,8 @@ a.\@2-grid:focus {
 .\@2-left-align     { text-align: left !important; }
 .\@2-right-align    { text-align: right !important; }
 .\@2-center-align   { text-align: center !important; }
-.\@2-justify-align  { text-align: justify !important; }/*
+.\@2-justify-align  { text-align: justify !important; }
+
 .\@2-margin-0         { margin-top: 0      !important; }
 .\@2-margin-8         { margin-top: 0.5rem !important; }
 .\@2-margin-16        { margin-top: 1rem   !important; }
@@ -1319,7 +1350,9 @@ a.\@2-grid:focus {
 .\@2-margin-40        { margin-top: 2.5rem !important; }
 .\@2-margin-48        { margin-top: 3rem   !important; }
 .\@2-margin-64        { margin-top: 4rem   !important; }
-*/}
+.\@2-margin-80        { margin-top: 5rem   !important; }
+.\@2-margin-96        { margin-top: 6rem   !important; }
+}
 
 
 /* .\@3-atom, 90em (1440px) */
@@ -1375,6 +1408,7 @@ a.\@2-grid:focus {
 
 
 .\@3-flex           { display: flex !important; }
+.\@3-flex > li      { display: block; }
 
 .grid {
     --x-gap: 3.75rem;
@@ -1384,7 +1418,7 @@ a.\@2-grid:focus {
 .\@3-grid {
     display: grid !important;
     /* Horizontal layout */
-    grid-auto-flow: column;
+    grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
     column-gap: var(--x-gap, 0);
@@ -1427,6 +1461,10 @@ a.\@3-grid:focus {
 
 .\@3-x-center-grid {
     justify-content: center;
+}
+
+.\@3-x-end-grid {
+    justify-content: end;
 }
 
 /* x */
@@ -1680,8 +1718,11 @@ a.\@3-grid:focus {
     flex-wrap: nowrap;
     text-overflow: ellipsis;
 }
-.\@3-left           { float: left !important; clear: left; }
-.\@3-right          { float: right !important; clear: right; }
+.\@3-left           { float: left !important; clear: left; margin-right: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
+.\@3-right          { float: right !important; clear: right; margin-left: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
+* + .\@3-left       { margin-top: calc(0.5 * var(--y-gap)); }
+* + .\@3-right      { margin-top: calc(0.5 * var(--y-gap)); }
+
 .\@3-top-align      { vertical-align: top !important; }
 .\@3-bottom-align   { vertical-align: bottom !important; }
 .\@3-middle-align   { vertical-align: middle !important; }
@@ -1689,7 +1730,8 @@ a.\@3-grid:focus {
 .\@3-left-align     { text-align: left !important; }
 .\@3-right-align    { text-align: right !important; }
 .\@3-center-align   { text-align: center !important; }
-.\@3-justify-align  { text-align: justify !important; }/*
+.\@3-justify-align  { text-align: justify !important; }
+
 .\@3-margin-0         { margin-top: 0      !important; }
 .\@3-margin-8         { margin-top: 0.5rem !important; }
 .\@3-margin-16        { margin-top: 1rem   !important; }
@@ -1698,7 +1740,9 @@ a.\@3-grid:focus {
 .\@3-margin-40        { margin-top: 2.5rem !important; }
 .\@3-margin-48        { margin-top: 3rem   !important; }
 .\@3-margin-64        { margin-top: 4rem   !important; }
-*/}
+.\@3-margin-80        { margin-top: 5rem   !important; }
+.\@3-margin-96        { margin-top: 6rem   !important; }
+}
 
 
 
