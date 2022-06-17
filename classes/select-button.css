@@ -23,6 +23,7 @@
     --padding-left:  var(--input-padding-left, 0.5625rem);
     --padding-right: var(--input-padding-right, 0.5625rem);
     --border-width:  var(--input-border-width, 1px);
+    --border-color:  var(--input-border-color, #bbbbbb);
     --border-radius: var(--input-border-radius, 0.3125rem);
 
     display: block;
@@ -129,4 +130,8 @@
 
 input + .select-button {
     margin-top: var(--input-margin);
+}
+
+label + .select-button {
+    margin-top: var(--label-input-margin);
 }

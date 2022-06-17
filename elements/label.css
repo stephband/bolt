@@ -61,9 +61,10 @@ fieldset + input {
     margin-top: 0;
 }
 
-.error-label,
-.help-label {
-    display: block;
+.required-label::after {
+    content: '*';
+    margin-left: 0.1875em;
+    color: var(--error);
 }
 
 .error-label {

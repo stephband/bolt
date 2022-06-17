@@ -281,7 +281,7 @@ input[type="url"]
 input[required]
 
 ```html
-<label class="required-after after" for="required-input">Required</label>
+<label class="required-label" for="required-input">Required</label>
 <input type="text" required placeholder="Enter text" id="required-input" />
 <label class="help-label text-11" for="required-input">Help text</label>
 ```
@@ -291,7 +291,7 @@ input[required]
 input:invalid
 
 ```html
-<label class="required-after after" for="error-input">Error</label>
+<label class="required-label" for="error-input">Error</label>
 <input type="text" required placeholder="Enter text" id="error-input" />
 <label class="error-label text-11" for="error-input">This field is required</label>
 ```
@@ -349,9 +349,10 @@ textarea {
     --font-size:     var(--input-font-size, inherit);
     --height:        var(--input-height, 2.8125rem);
     --line-height:   var(--input-line-height, 1.5rem);
-    --border-width:  var(--input-border-width, 1px);
     --padding-left:  var(--input-padding-left, 0.5625rem);
     --padding-right: var(--input-padding-right, 0.5625rem);
+    --border-width:  var(--input-border-width, 1px);
+    --border-color:  var(--input-border-color, #bbbbbb);
     --border-radius: var(--input-border-radius, 0.3125rem);
 
     /* iOS has padding in the UA stylesheet. */
@@ -401,7 +402,7 @@ textarea,
 [type="password"] {
     display: block;
     color: var(--input-color);
-    border: var(--border-width, 1px) solid var(--input-border-color);
+    border: var(--border-width, 1px) solid var(--border-color);
     border-radius: var(--border-radius);
 }
 
