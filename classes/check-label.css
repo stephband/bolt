@@ -24,10 +24,6 @@
     text-align: left;
 }
 
-:checked + .radio-label {
-    --mark-background: #46789a;
-}
-
 .radio-label::before,
 .radio-label::after,
 .check-label::before,
@@ -84,7 +80,7 @@
     left: calc(0.5 * (var(--radio-width) - var(--mark-width)));
     width: var(--mark-width);
     height: var(--mark-width);
-    background: var(--mark-background);
+    background-color: var(--mark-color);
     border-radius: calc(0.5 * var(--mark-width));
 }
 
@@ -92,6 +88,7 @@
     content: var(--check-content, '');
     text-align: center;
     line-height: var(--check-width);
+    color: var(--mark-color);
     background: var(--check-content-background);
     background-size: auto;
     background-position: 50% 50%;
@@ -221,5 +218,5 @@ input + .masked + .radio-label,
 
     /** --mark-background
     Background of radio check mark **/
-    --mark-background: red;
+    --mark-color: #46789a;
 }

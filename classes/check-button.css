@@ -84,19 +84,20 @@
     background: var(--check-content-background);
     text-align: center;
     line-height: var(--check-width);
+    color: var(--mark-color);
     background-size: auto;
     background-position: 50% 50%;
 }
 
 .radio-button::after {
     display: none;
-    left: calc(var(--input-padding-left) + 0.5 * (var(--radio-width) - var(--radio-check-width)));
+    left: calc(var(--input-padding-left) + 0.5 * (var(--radio-width) - var(--mark-width)));
     right: auto;
-    width: var(--radio-check-width);
-    height: var(--radio-check-width);
-    margin-top: calc(-0.5 * var(--radio-check-width));
-    background: var(--radio-check-background);
-    border-radius: calc(0.5 * var(--radio-check-width));
+    width: var(--mark-width);
+    height: var(--mark-width);
+    margin-top: calc(-0.5 * var(--mark-width));
+    background: var(--mark-color);
+    border-radius: calc(0.5 * var(--mark-width));
 }
 
 .masked + .check-button,
@@ -171,5 +172,5 @@
 
 .right-radio-button::after {
     left: auto;
-    right: calc(var(--input-padding-right) + 0.5 * (var(--radio-width) - var(--radio-check-width)));
+    right: calc(var(--input-padding-right) + 0.5 * (var(--radio-width) - var(--mark-width)));
 }
