@@ -17,7 +17,7 @@ import './components/switch-label.js';
 .switch-label {
     /** --handle-width **/
     --handle-width: 1.5rem;
-      
+
     /** --handle-shadow **/
     --handle-shadow: 0 0.125rem 0.25rem 0.0625rem rgba(0,0,0,0.25);
 
@@ -39,16 +39,8 @@ import './components/switch-label.js';
     /** --track-border **/
     /*--track-border: none;*/
 
-    display: block;
     position: relative;
-    font-size: var(--check-font-size);
-    line-height: var(--check-line-height);
-    font-weight: inherit;
     padding-left: calc(var(--track-width) + 1em);
-    padding-top: calc(0.5 * (var(--input-height) - var(--check-line-height)));
-    padding-bottom: calc(0.5 * (var(--input-height) - var(--check-line-height)));
-    min-height: var(--input-height);
-    color: inherit;
 }
 
 :checked + .switch-label {

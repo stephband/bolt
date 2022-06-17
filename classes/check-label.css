@@ -19,15 +19,8 @@
 
 .radio-label,
 .check-label {
-    color: inherit;
-    font-size: var(--check-font-size);
-    line-height: var(--check-line-height);
-    font-weight: inherit;
     position: relative;
     padding-left: 2.25rem;
-    padding-top: calc(0.5 * (var(--input-height) - var(--check-line-height)));
-    padding-bottom: calc(0.5 * (var(--input-height) - var(--check-line-height)));
-    min-height: var(--input-height);
     text-align: left;
 }
 
@@ -48,14 +41,14 @@
 
 .check-label::before,
 .check-label::after {
-    top: calc(0.5 * (var(--input-height) - var(--check-width)));
+    top: calc(0.5 * (var(--height) - var(--check-width)));
     width: var(--check-width);
     height: var(--check-width);
     border-radius: var(--check-border-radius);
 }
 
 .radio-label::before {
-    top: calc(0.5 * (var(--input-height) - var(--radio-width)));
+    top: calc(0.5 * (var(--height) - var(--radio-width)));
     width: var(--radio-width);
     height: var(--radio-width);
 }
@@ -87,7 +80,7 @@
 }
 
 .radio-label::after {
-    top: calc(0.5 * (var(--input-height) - var(--mark-width)));
+    top: calc(0.5 * (var(--height) - var(--mark-width)));
     left: calc(0.5 * (var(--radio-width) - var(--mark-width)));
     width: var(--mark-width);
     height: var(--mark-width);
@@ -163,18 +156,6 @@ input + .masked + .radio-label,
 
 
 :root {
-    /**
-    --check-font-size
-    Font size of checkbox labels
-    **/
-    --check-font-size: inherit;
-
-    /**
-    --check-line-height
-    Line height of checkbox labels
-    **/
-    --check-line-height: 1.5rem;
-
     /**
     --check-width
     Size of simulated checkboxes

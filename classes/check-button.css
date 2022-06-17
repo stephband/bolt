@@ -21,20 +21,22 @@
 
 .check-button,
 .radio-button {
+    --font-size:     var(--input-font-size, inherit);
+    --height:        var(--input-height, 2.8125rem);
+    --line-height:   var(--input-line-height, 1.5rem);
+    --padding-left:  var(--input-padding-left, 0.5625rem);
+    --padding-right: var(--input-padding-right, 0.5625rem);
+    --border-width:  var(--input-border-width, 1px);
+    --border-radius: var(--input-border-radius, 0.3125rem);
+
     display: block;
     text-align: left;
-    font-size: var(--input-font-size);
-    line-height: var(--input-line-height);
+
+    /* Make space for the simulated check or radio */
     padding-left: 3.33333333em;
-    padding-right: var(--input-padding-right);
-    padding-top: calc(0.5 * (var(--input-height) - var(--input-line-height)) - var(--input-border-width, 1px));
-    padding-bottom: calc(0.5 * (var(--input-height) - var(--input-line-height)) - var(--input-border-width, 1px));
-    min-height: var(--input-height);
+
     color: var(--input-color);
     background-color: #eeeeee;
-    background-clip: border-box;
-    border: var(--input-border-width, 1px) solid transparent;
-    border-radius: var(--input-border-radius);
 }
 
 .check-button::before,

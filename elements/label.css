@@ -1,20 +1,28 @@
 
 label {
+    --font-size:     var(--label-font-size, inherit);
+    --height:        var(--label-height, 2.8125rem);
+    --line-height:   var(--label-line-height, 1.5rem);
+    --padding-left:  var(--label-padding-left, 0rem);
+    --padding-right: var(--label-padding-right, 0rem);
+    --border-radius: var(--label-border-radius, 0.3125rem);
+
     display: block;
     max-width: 100%;
     width: auto;
     height: auto;
 
-    --font-size:    var(--label-font-size);
-    --line-height:  var(--label-line-height);
-
     font-size:      var(--font-size);
     line-height:    var(--line-height);
-    padding-top:    calc(0.5 * (var(--height, 0) - var(--line-height)));
-    padding-bottom: calc(0.5 * (var(--height, 0) - var(--line-height)));
+    padding-left:   var(--padding-left);
+    padding-right:  var(--padding-right);
+    padding-top:    calc(0.5 * (var(--height) - var(--line-height)));
+    padding-bottom: calc(0.5 * (var(--height) - var(--line-height)));
+    min-height:     var(--height);
+    border-width:   0;
+    font-weight:    inherit;
 
     color: inherit;
-    border: 0;
     -webkit-tap-highlight-color: transparent;
 }
 
