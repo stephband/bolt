@@ -33,7 +33,6 @@ import { deactivate, matchers } from '../events/dom-activate.js';
 // Define
 
 var match = matches('[data-toggleable]');
-
 matchers.push(match);
 
 

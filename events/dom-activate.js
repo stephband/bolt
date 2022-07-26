@@ -56,8 +56,9 @@ function cacheData(target) {
 	var data = getData(target);
 	var id   = target.id;
 
-	if (!data.node) { data.node = target; }
-	if (!data.buttons) { data.buttons = config.cache && id && findButtons(id); }
+	if (!data.node)          { data.node    = target; }
+	if (!data.buttons)       { data.buttons = config.cache && id && findButtons(id); }
+	if (!('active' in data)) { data.active  = target.classList.contains('active'); }
 
 	return data;
 }
@@ -259,8 +260,6 @@ events('click', document).each(delegate({
 		deactivate(element, button);
 	}
 }));
-
-
 
 
 /* Trigger activation on DOM load and mutations thereafter */

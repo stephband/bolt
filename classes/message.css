@@ -8,6 +8,7 @@ body > .messages-block {
 	z-index: 30;
 }
 
+
 /**
 .message-block
 
@@ -55,6 +56,7 @@ body > .messages-block {
 .message-block + .message-block {
 	margin-top: 0.125rem;
 }
+
 
 /**
 .info-message-block

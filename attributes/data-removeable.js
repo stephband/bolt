@@ -6,44 +6,34 @@
 <p>Can be used to make one-off messages, like <a href="#one-off-dialog">this dialog</a>.</p>
 */
 
-import { remove, on, off, matches } from '../../dom/module.js';
-import '../events/dom-activate.js';
+import matches      from '../../dom/modules/matches.js';
+import events       from '../../dom/modules/events.js';
+import { matchers } from '../events/dom-activate.js';
+
 
 // Define
-var match = matches('[data-removeable], [removeable]');
+var match = matches('[data-removeable]');
+matchers.push(match);
 
 // Max duration of deactivation transition in seconds
 var maxDuration = 1;
 
-function activate(e) {
-	// Use method detection - e.defaultPrevented is not set in time for
-	// subsequent listeners on the same node
-	if (!e.default) { return; }
-
-	var target = e.target;
-	if (!match(target)) { return; }
-
-	//dom.identify(target);
-	e.default();
-}
-
-function deactivate(e, data, fn) {
-	if (!e.default) { return; }
-
+function deactivate(e) {
 	var target = e.target;
 	if (!match(target)) { return; }
 
 	function update() {
 		clearTimeout(timer);
-		off('transitionend', update, target);
-		remove(target);
+		ends.stop();
+		target.remove();
 	}
 
 	var timer = setTimeout(update, maxDuration * 1000);
-	on('transitionend', update, target);
-
-	e.default();
+	var ends  = events('transitionend', update, target);
 }
 
-on('dom-activate', activate, document);
-on('dom-deactivate', deactivate, document);
+events('dom-deactivate', document).each((e) => {
+	var target = e.target;
+	if (!match(target)) { return; }
+	deactivate(e);
+});
