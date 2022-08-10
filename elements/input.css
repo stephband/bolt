@@ -945,6 +945,7 @@ select:focus {
     line-height: inherit;
 }
 
-:placeholder-shown {
+::placeholder {
     font-style: italic;
+    line-height: inherit;
 }
