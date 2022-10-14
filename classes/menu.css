@@ -23,6 +23,7 @@
     --padding-right: inherit;
     margin-left: calc(-1 * var(--padding-left));
     margin-right: calc(-1 * var(--padding-right));
+    width: calc(100% + var(--padding-left) + var(--padding-right));
 }
 
 
@@ -74,10 +75,10 @@
     /* If you need this, you need to specify width in .menu-block > .menu-button too */
     /*width: 100%;*/
     text-align: left;
-    border-width: 0;
+    --border-width: 0;
     border-radius: 0;
 }
 
 .menu-button + .menu-button {
-    border-top: 1px solid var(--border-color);
+    border-top-width: 1px;
 }
