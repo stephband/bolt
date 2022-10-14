@@ -82,8 +82,10 @@ h6 {
 
 hr {
     /* IE9 does not properly get border-color for <hr>s that
-       have border-width > 1px. Use background-color. */
+       have border-width > 1px. Use background-color */
     height: 1px;
+    /* As a child of a flexbox, hr collapses without min-height */
+    min-height: 1px;
     border-width: 0;
     margin-bottom: -1px;
     background-color: currentcolor;

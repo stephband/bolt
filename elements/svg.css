@@ -1,17 +1,27 @@
 /* Normalise SVG to draw 1px line drawings because why not */
 
 svg {
-    /* Allow SVG elements to escape the SVG container. */
-    overflow: visible;
-
     fill: none;
     stroke: currentcolor;
     stroke-width: 1;
 }
 
+svg,
+foreignObject,
+image,
+marker,
+pattern,
+symbol,
+text {
+    /* Allow SVG elements to escape their containers. */
+    overflow: visible;
+}
+
 altGlyph,
 circle,
 ellipse,
+foreignObject,
+image,
 line,
 path,
 polygon,
@@ -19,9 +29,9 @@ polyline,
 rect,
 text,
 textpath,
-tref,
-tspan {
-    fill: inherit;
+tspan,
+use {
+    fill:   inherit;
     stroke: inherit;
     stroke-width: inherit;
     vector-effect: non-scaling-stroke;

@@ -18,14 +18,13 @@
     padding-right: var(--padding-right);
 }
 
-.menu-block > .menu-button {
+.menu-block > .button {
     --padding-left: inherit;
     --padding-right: inherit;
     margin-left: calc(-1 * var(--padding-left));
     margin-right: calc(-1 * var(--padding-right));
     width: calc(100% + var(--padding-left) + var(--padding-right));
 }
-
 
 /*
 .menu-list, .menu-button
