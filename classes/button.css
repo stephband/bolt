@@ -121,7 +121,7 @@ button,
 
     background-repeat: no-repeat;
     background-clip: border-box;
-    background-origin: padding-box;
+    background-origin: border-box;
     border-style: solid;
     border-width:  var(--border-width);
     border-color:  var(--border-color);
