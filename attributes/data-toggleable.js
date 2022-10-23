@@ -20,13 +20,14 @@ accordions and so on.
 ```
 **/
 
-import { remove }   from '../../fn/modules/remove.js';
-import get          from '../../dom/modules/get.js';
-import closest      from '../../dom/modules/closest.js';
-import matches      from '../../dom/modules/matches.js';
-import identify     from '../../dom/modules/identify.js';
+import { remove }      from '../../fn/modules/remove.js';
+import get             from '../../dom/modules/get.js';
+import closest         from '../../dom/modules/closest.js';
+import matches         from '../../dom/modules/matches.js';
+import identify        from '../../dom/modules/identify.js';
+import events          from '../../dom/modules/events.js';
+import isPrimaryButton from '../../dom/modules/is-primary-button.js';
 import { isInternalLink } from '../../dom/modules/node.js';
-import events, { isPrimaryButton } from '../../dom/modules/events.js';
 import { deactivate, matchers } from '../events/dom-activate.js';
 
 
