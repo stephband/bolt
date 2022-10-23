@@ -1,16 +1,17 @@
 
-import curry     from '../../fn/modules/curry.js';
-import get       from '../../fn/modules/get.js';
-import isDefined from '../../fn/modules/is-defined.js';
-import overload  from '../../fn/modules/overload.js';
-import classes   from '../../dom/modules/classes.js';
-import delegate  from '../../dom/modules/delegate.js';
-import events, { isPrimaryButton } from '../../dom/modules/events.js';
+import curry           from '../../fn/modules/curry.js';
+import get             from '../../fn/modules/get.js';
+import isDefined       from '../../fn/modules/is-defined.js';
+import overload        from '../../fn/modules/overload.js';
+import classes         from '../../dom/modules/classes.js';
+import delegate        from '../../dom/modules/delegate.js';
+import events          from '../../dom/modules/events.js';
+import isPrimaryButton from '../../dom/modules/is-primary-button.js';
 import { isElementNode, isInternalLink } from '../../dom/modules/node.js';
-import trigger   from '../../dom/modules/trigger.js';
-import tag       from '../../dom/modules/tag.js';
-import select    from '../../dom/modules/select.js';
-import log       from '../modules/log.js';
+import trigger         from '../../dom/modules/trigger.js';
+import tag             from '../../dom/modules/tag.js';
+import select          from '../../dom/modules/select.js';
+import log             from '../modules/log.js';
 
 const A = Array.prototype;
 
