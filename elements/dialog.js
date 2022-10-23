@@ -74,6 +74,7 @@ events('click', document)
         // Is the element closed?
         if (element.open) { return; }
 
+        // Then open it
         element.showModal();
     },
 
@@ -96,7 +97,15 @@ events('click', document)
         // Is the element open?
         if ('open' in element && !element.open) { return; }
 
+        // Attach the current margin-top, otherwise the dialog jumps
+        const computed = getComputedStyle(element);
+        element.style.marginTop = computed.marginTop;
+
         // Close
         element.close();
+
+        events('transitionend', element)
+        .take(1)
+        .each((e) => element.style.marginTop = '');
     }
 }));
