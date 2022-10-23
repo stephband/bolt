@@ -2,6 +2,7 @@
 import events          from '../../dom/modules/events.js';
 import delegate        from '../../dom/modules/delegate.js';
 import isPrimaryButton from '../../dom/modules/is-primary-button.js';
+import isTargetEvent   from '../../dom/modules/is-target-event.js';
 import { isInternalLink } from '../../dom/modules/node.js';
 
 
@@ -101,11 +102,13 @@ events('click', document)
         const computed = getComputedStyle(element);
         element.style.marginTop = computed.marginTop;
 
-        // Close
-        element.close();
-
+        // And take it off when the closing transition is over
         events('transitionend', element)
+        .filter(isTargetEvent)
         .take(1)
         .each((e) => element.style.marginTop = '');
+
+        // Close
+        element.close();
     }
 }));
