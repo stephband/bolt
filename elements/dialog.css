@@ -1,5 +1,6 @@
 
 dialog:not([open]) {
+    position: fixed;
     top: 0;
     visibility: hidden;
     opacity: 0;

@@ -1,9 +1,12 @@
 .card {
     display: grid;
     grid-template-columns: min-content 1fr;
-    grid-column-gap: 1.125rem;
+    column-gap: 1.125rem;
     align-content: center;
     align-items: center;
+
+    /* Nullify underline on cards that are links */
+    text-decoration: none;
 }
 
 .card > * {
