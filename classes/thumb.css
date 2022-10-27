@@ -133,8 +133,19 @@ overflow, and only the `background-image`, centered and 'cropped' via
 ```
 **/
 
+/**
+.thumb-A
+
+Thumb with the ratio 1:√2, as ISO 216 (A0-A8) paper sizes.
+
+```html
+<a class="thumb thumb-A" href="#" style="background-image: url('../images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
+```
+**/
+
 .thumb-1\:2,
 .thumb-2\:3,
+.thumb-A,
 .thumb-3\:4,
 .thumb-4\:5,
 .thumb-1\:1,
@@ -149,6 +160,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
 
 .thumb-1\:2  { padding-top: 200%; }
 .thumb-2\:3  { padding-top: 150%; }
+.thumb-A     { padding-top: 141.42135624%; }
 .thumb-3\:4  { padding-top: 133.333333%; }
 .thumb-4\:5  { padding-top: 125%; }
 .thumb-1\:1  { padding-top: 100%; }
