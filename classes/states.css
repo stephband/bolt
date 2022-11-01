@@ -30,7 +30,7 @@ Hide an element on printed page.
 
 
 /**
-.requested
+.loading
 Add <code>::after</code> content representing a loading animation.
 
 ```html
@@ -48,7 +48,7 @@ Add <code>::after</code> content representing a loading animation.
 	to {transform: rotate(359deg);}
 }
 
-.js .requested::after {
+.js .loading::after {
 	content: '';
 	position: absolute;
 	left: 50%;
@@ -69,21 +69,21 @@ Add <code>::after</code> content representing a loading animation.
 }
 
 /*
-.requested-hidden
+.loading-hidden
 Hide an element when its parent has class <code>requested</code>.
 */
 
-.requested-hidden.requested,
-.requested > .requested-hidden {
+.loading-hidden.loading,
+.loading > .loading-hidden {
 	display: none !important;
 }
 
 /*
-.requested-shown
+.loading-shown
 Show an element when its parent has class <code>requested</code>.
 */
 
-:not(.requested) > .requested-shown:not(.requested) {
+:not(.loading) > .loading-shown:not(.loading) {
 	display: none !important;
 }
 

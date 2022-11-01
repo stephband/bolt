@@ -154,12 +154,12 @@ button:focus,
         background-color 80ms linear,
         color 80ms linear;
 }
-
+/*
 button.loading,
 .button.loading {
     opacity: 0.4;
 }
-
+*/
 .button > input[type="radio"],
 .button > input[type="checkbox"] {
     display: inline;
