@@ -508,6 +508,10 @@ input[type='time'],
 input[type='week'],
 input[type='month'] {
     max-width: 12em;
+
+    /* Safari does not respect line-height + border width as auto height for
+       these fields, be explicit */
+    height: var(--height);
 }
 
 /* Make search fields appear as other inputs in WebKit. */
