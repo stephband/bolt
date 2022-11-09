@@ -347,7 +347,7 @@ input,
 select,
 textarea {
     --font-size:     var(--input-font-size, inherit);
-    --height:        var(--input-height, 2.8125rem);
+    --size:        var(--input-height, 2.8125rem);
     --line-height:   var(--input-line-height, 1.5rem);
     --padding-left:  var(--input-padding-left, 0.5625rem);
     --padding-right: var(--input-padding-right, 0.5625rem);
@@ -500,7 +500,7 @@ input[type="password"] {
     /* Compensate for border. We want this selector to be more important than
        a class selector because we don't want .text- classes to override
        line-height. */
-    line-height: calc(var(--height) - 2 * var(--border-width, 1px));
+    line-height: calc(var(--size) - 2 * var(--border-width, 1px));
 }
 
 input[type='date'],
@@ -511,7 +511,7 @@ input[type='month'] {
 
     /* Safari does not respect line-height + border width as auto height for
        these fields, be explicit */
-    height: var(--height);
+    height: var(--size);
 }
 
 /* Make search fields appear as other inputs in WebKit. */
@@ -529,13 +529,13 @@ input[type='month'] {
 }
 
 textarea {
-    min-height: calc(var(--height) + 4 * var(--line-height));
+    min-height: calc(var(--size) + 4 * var(--line-height));
     line-height: var(--line-height);
     padding-left: calc(var(--padding-left) - var(--border-width, 1px));
     padding-right: calc(var(--padding-left) - var(--border-width, 1px));
     /* Nudged up by 1px to make it look more even. */
-    padding-top: calc(0.5 * (var(--height) - var(--line-height) - 2 * var(--border-width, 1px)) - 1px);
-    padding-bottom: calc(0.5 * (var(--height) - var(--line-height) - 2 * var(--border-width, 1px)) + 1px);
+    padding-top: calc(0.5 * (var(--size) - var(--line-height) - 2 * var(--border-width, 1px)) - 1px);
+    padding-bottom: calc(0.5 * (var(--size) - var(--line-height) - 2 * var(--border-width, 1px)) + 1px);
 
     /* IE is set to overflow: scroll by default */
     overflow: auto;
@@ -689,14 +689,14 @@ select {
     line-height:    var(--line-height);
     padding-left:   calc(var(--padding-left)  - var(--border-width, 1px));
     padding-right:  calc(var(--padding-right) - var(--border-width, 1px));
-    padding-top:    calc(0.5 * (var(--height) - var(--line-height) - 2 * var(--border-width, 1px)) - 1px);
-    padding-bottom: calc(0.5 * (var(--height) - var(--line-height) - 2 * var(--border-width, 1px)) + 1px);
+    padding-top:    calc(0.5 * (var(--size) - var(--line-height) - 2 * var(--border-width, 1px)) - 1px);
+    padding-bottom: calc(0.5 * (var(--size) - var(--line-height) - 2 * var(--border-width, 1px)) + 1px);
 
     width: 100%;
 	 max-width: 100%;
 
     height: auto;
-    min-height: var(--height);
+    min-height: var(--size);
 	 /*box-shadow: 0 1px 0 1px rgba(0,0,0,.04);*/
 
     background-image:
@@ -766,7 +766,7 @@ select[aria-disabled="true"] {
 
     /* Position it so that the validation message appears in the correct place */
     position: relative;
-    top: calc(var(--input-margin) + var(--height), 2.5rem);
+    top: calc(var(--input-margin) + var(--size), 2.5rem);
     /*margin-top: 0 !important;*/
     margin-bottom: -1px !important;
     margin-left: var(--padding-left, 0.75rem) !important;

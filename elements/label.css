@@ -1,7 +1,7 @@
 
 label {
     --font-size:     var(--label-font-size, inherit);
-    --height:        var(--label-height, 2.8125rem);
+    --size:        var(--label-height, 2.8125rem);
     --line-height:   var(--label-line-height, 1.5rem);
     --padding-left:  var(--label-padding-left, 0rem);
     --padding-right: var(--label-padding-right, 0rem);
@@ -16,9 +16,9 @@ label {
     line-height:    var(--line-height);
     padding-left:   var(--padding-left);
     padding-right:  var(--padding-right);
-    padding-top:    calc(0.5 * (var(--height) - var(--line-height)));
-    padding-bottom: calc(0.5 * (var(--height) - var(--line-height)));
-    min-height:     var(--height);
+    padding-top:    calc(0.5 * (var(--size) - var(--line-height)));
+    padding-bottom: calc(0.5 * (var(--size) - var(--line-height)));
+    min-height:     var(--size);
     border-width:   0;
     font-weight:    inherit;
 

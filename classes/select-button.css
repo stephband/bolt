@@ -18,7 +18,7 @@
     /* Note that iOS Safari will zoom-in the site layout if the select's text
        is less than 16px */
     --font-size:     var(--input-font-size, inherit);
-    --height:        var(--input-height, 2.8125rem);
+    --size:        var(--input-height, 2.8125rem);
     --line-height:   var(--input-line-height, 1.5rem);
     --padding-left:  var(--input-padding-left, 0.5625rem);
     --padding-right: var(--input-padding-right, 0.5625rem);
@@ -32,7 +32,7 @@
     padding: 0 !important;
 
     /* Compensate for border */
-    line-height: calc(var(--height) - 2 * var(--border-width));
+    line-height: calc(var(--size) - 2 * var(--border-width));
 
     color: var(--input-color);
     background: var(--input-background) no-repeat;

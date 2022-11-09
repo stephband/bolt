@@ -37,9 +37,9 @@ button,
     --font-size: inherit;
 
     /**
-    --height
+    --size
     **/
-    --height: 3rem;
+    --size: 3rem;
 
     /**
     --line-height
@@ -89,9 +89,9 @@ button,
     line-height:    var(--line-height);
     padding-left:   var(--padding-left);
     padding-right:  var(--padding-right);
-    padding-top:    calc(0.5 * (var(--height) - var(--line-height)) - var(--border-width));
-    padding-bottom: calc(0.5 * (var(--height) - var(--line-height)) - var(--border-width));
-    min-height:     var(--height);
+    padding-top:    calc(0.5 * (var(--size) - var(--line-height)) - var(--border-width));
+    padding-bottom: calc(0.5 * (var(--size) - var(--line-height)) - var(--border-width));
+    min-height:     var(--size);
     width: auto;
     height: auto;
     vertical-align: baseline;
