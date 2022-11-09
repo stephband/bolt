@@ -33,12 +33,10 @@ import observe  from '../../fn/observer/observe.js';
 import create   from '../../dom/modules/create.js';
 import features from '../../dom/modules/features.js';
 import get      from '../../fn/modules/get.js';
-import location from '../../literal/library/location.js';
+import location from '../../literal/modules/library/location.js';
 import rect     from '../../dom/modules/rect.js';
 import select   from '../../dom/modules/select.js';
 import { isDocumentLink } from '../../dom/modules/node.js';
-
-const assign = Object.assign;
 
 
 /*
