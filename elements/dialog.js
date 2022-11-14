@@ -105,7 +105,7 @@ events('click', document)
         // And take it off when the closing transition is over
         events('transitionend', element)
         .filter(isTargetEvent)
-        .take(1)
+        .slice(0, 1)
         .each((e) => element.style.marginTop = '');
 
         // Close

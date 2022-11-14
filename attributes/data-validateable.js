@@ -184,7 +184,7 @@ function renderError(error) {
 		input.setCustomValidity(error.text);
 
 		events('input', input)
-		.take(1)
+		.slice(0, 1)
 		.each(function(e) {
 			e.target.setCustomValidity('');
 		});
