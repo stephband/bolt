@@ -26,17 +26,19 @@ var match = matches('[data-popable]');
 function activate(e) {
     const element = e.target;
     if (!match(element)) { return; }
-console.log('WOO');
+
     // Make user actions outside node deactivate the node
     requestAnimationFrame(() => {
-        const clicks = events('mousedown', document)
+        const mousedowns = events('mousedown', document)
             .filter((e) => !element.contains(e.target) && element !== e.target)
+            // TODO disable sebsequent click on buttons that point back to this
+            // popable
             .each((e) => deactivate(element));
 
         const deactivates = events('dom-deactivate', element)
             .filter((e) => e.target === e.currentTarget)
             .each((e) => {
-                clicks.stop();
+                mousedowns.stop();
                 deactivates.stop();
             });
     });
