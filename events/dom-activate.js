@@ -1,8 +1,9 @@
 
 import curry           from '../../fn/modules/curry.js';
-import get             from '../../fn/modules/get.js';
 import isDefined       from '../../fn/modules/is-defined.js';
+import noop            from '../../fn/modules/noop.js';
 import overload        from '../../fn/modules/overload.js';
+import pattern         from '../../fn/modules/pattern.js';
 import classes         from '../../dom/modules/classes.js';
 import delegate        from '../../dom/modules/delegate.js';
 import events          from '../../dom/modules/events.js';
@@ -11,7 +12,6 @@ import { isElementNode, isInternalLink } from '../../dom/modules/node.js';
 import trigger         from '../../dom/modules/trigger.js';
 import tag             from '../../dom/modules/tag.js';
 import select          from '../../dom/modules/select.js';
-import log             from '../modules/log.js';
 
 const A = Array.prototype;
 
@@ -53,12 +53,24 @@ function getData(node) {
 	return data;
 }
 
-function cacheData(target) {
+function cacheData(target, button) {
 	var data = getData(target);
 	var id   = target.id;
 
 	if (!data.node)          { data.node    = target; }
 	if (!data.buttons)       { data.buttons = config.cache && id && findButtons(id); }
+
+	if (button) {
+		if (data.buttons) {
+			if (!data.buttons.includes(button)) {
+				data.buttons.push(button);
+			}
+		}
+		else {
+			data.buttons = [button];
+		}
+	}
+
 	if (!('active' in data)) { data.active  = target.classList.contains('active'); }
 
 	return data;
@@ -105,17 +117,21 @@ function sum(total, n) {
     return total + !!n;
 }
 
+function log(type, element, data) {
+	console.log('%c' + type + ' %c' + (element.id ? '#' + element.id : '<' + element.tagName.toLowerCase() + '>') + ', ' +  data.buttons.length + ' button' + (data.buttons.length === 1 ? '' : 's') + '%c',
+		'color: #3a8ab0; font-weight: 600;',
+		'color: #888888; font-weight: 400;',
+		'color: inherit; font-weight: 400;'
+	);
+}
+
 export function activate(element, related) {
 	const ok = trigger({ type: 'dom-activate', relatedTarget: related }, element);
 	if (!ok) { return; }
 
 	const data = cacheData(element);
 	if (window.DEBUG) {
-		console.log('%cactivate %c#' + element.id + ', ' +  data.buttons.length + ' button' + (data.buttons.length === 1 ? '' : 's') + '%c',
-			'color: #3a8ab0; font-weight: 600;',
-			'color: #888888; font-weight: 400;',
-			'color: inherit; font-weight: 400;'
-		);
+		log('activate', element, data);
 	}
 
 	data.active = true;
@@ -149,11 +165,7 @@ export function deactivate(element, related) {
 
 	const data = cacheData(element);
 	if (window.DEBUG) {
-		console.log('%cdeactivate %c#' + element.id + ', ' +  data.buttons.length + ' button' + (data.buttons.length === 1 ? '' : 's') + '%c',
-			'color: #3a8ab0; font-weight: 600;',
-			'color: #888888; font-weight: 400;',
-			'color: inherit; font-weight: 400;'
-		);
+		log('deactivate', element, data);
 	}
 
 	classes(data.node).remove(config.activeClass);
@@ -168,6 +180,19 @@ export function deactivate(element, related) {
 	data.active = false;
 	return true;
 }
+
+const elementFromButton = pattern((button) => button.value.trim(), {
+	'^#':                  (button) => document.getElementById(button.value.slice(1)),
+	'^next-element$':      (button) => button.nextElementSibling,
+	'^previous-element$':  (button) => button.previousElementSibling,
+	'^closest\\((.+)\\)$': (button, selector) => button.closest(selector),
+
+	// Empty values do nothing
+	'^$':                  noop,
+
+	// Default to accept a selector
+	default:               (button) => document.querySelector(button.value)
+});
 
 events('click', document).each(delegate({
 	// Clicks on links toggle activate on their href target
@@ -201,9 +226,9 @@ events('click', document).each(delegate({
 		// Is the node activateable?
 		if (!matchers.find(apply(element))) { return; }
 
-		var data = cacheData(element);
+		var data = cacheData(element, a);
 
-		// Don't do anything if elem is already active
+		// Don't do anything if element is already active
 		if (data.active) { return; }
 
 		// Flag click as handled
@@ -219,17 +244,15 @@ events('click', document).each(delegate({
 
 	// Clicks on buttons named activate trigger activate on their value target
 	'[name="activate"]': function(button, e) {
-		const href    = button.value;
-		const id      = href.replace(/^#/, '');
-		const element = document.getElementById(id);
+		const element = elementFromButton(button);
 
 		if (!element) {
-			throw new Error('Button action name="activate" target "' + href + '" not found');
+			throw new Error('Button action name="activate" target value="' + button.value + '" not found');
 		}
 
-		var data = cacheData(element);
+		var data = cacheData(element, button);
 
-		// Don't do anything if elem is already active
+		// Don't do anything if element is already active
 		if (data.active) { return; }
 
 		// Flag click as handled
@@ -241,17 +264,15 @@ events('click', document).each(delegate({
 
 	// Clicks on buttons named deactivate trigger deactivate on their value target
 	'[name="deactivate"]': function(button, e) {
-		const href    = button.value;
-		const id      = href.replace(/^#/, '');
-		const element = document.getElementById(id);
+		const element = elementFromButton(button);
 
 		if (!element) {
-			throw new Error('Button action name="deactivate" target "' + href + '" not found');
+			throw new Error('Button action name="deactivate" target "' + button.value + '" not found');
 		}
 
-		var data = cacheData(element);
+		var data = cacheData(element, button);
 
-		// Don't do anything if elem is already inactive
+		// Don't do anything if element is already inactive
 		if (!data.active) { return; }
 
 		// Flag click as handled
@@ -308,7 +329,7 @@ events('DOMContentLoaded', document).each(function() {
 	// Setup all things that should start out active
 	const actives = select('.' + config.activeClass, document);
     if (actives.length) {
-        log('dom-activate', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
+        //log('dom-activate', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
         actives.forEach(triggerActivate);
     }
 
@@ -321,7 +342,7 @@ events('DOMContentLoaded', document).each(function() {
 		// Activate .active elements
         const actives = mutations.reduce(pushAddedActives, []);
         if (actives.length) {
-            log('dom-activate', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
+            //log('dom-activate', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
             actives.forEach(triggerActivate);
             actives.forEach(addElement);
         }
