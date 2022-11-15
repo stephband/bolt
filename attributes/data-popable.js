@@ -24,34 +24,21 @@ import { matchers, deactivate } from '../events/dom-activate.js';
 var match = matches('[data-popable]');
 
 function activate(e) {
-    const node = e.target;
-    if (!match(node)) { return; }
-
+    const element = e.target;
+    if (!match(element)) { return; }
+console.log('WOO');
     // Make user actions outside node deactivate the node
-    requestAnimationFrame(function() {
-        var timeStamp = 0;
+    requestAnimationFrame(() => {
+        const clicks = events('mousedown', document)
+            .filter((e) => !element.contains(e.target) && element !== e.target)
+            .each((e) => deactivate(element));
 
-        function click(e) {
-            // Ignore clicks that follow clicks with the same timeStamp – this
-            // is true of clicks simulated by browsers on inputs when a label
-            // with a corresponding for="id" is clicked.
-            if (e.timeStamp === timeStamp) { return; }
-            timeStamp = e.timeStamp;
-
-            if (node.contains(e.target) || node === e.target) { return; }
-            deactivate(node);
-        }
-
-        const clicks = events('click', document)
-        .each(click);
-
-        const activates = events('dom-deactivate', document.documentElement)
-        .each((e) => {
-            if (node !== e.target) { return; }
-            if (e.defaultPrevented) { return; }
-            clicks.stop();
-            activates.stop();
-        });
+        const deactivates = events('dom-deactivate', element)
+            .filter((e) => e.target === e.currentTarget)
+            .each((e) => {
+                clicks.stop();
+                deactivates.stop();
+            });
     });
 }
 
