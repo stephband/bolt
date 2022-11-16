@@ -1,5 +1,4 @@
 
-import curry           from '../../fn/modules/curry.js';
 import isDefined       from '../../fn/modules/is-defined.js';
 import noop            from '../../fn/modules/noop.js';
 import pattern         from '../../fn/modules/pattern.js';
@@ -15,18 +14,13 @@ const A = Array.prototype;
 var location  = window.location;
 var id        = location.hash;
 
-var apply = curry(function apply(node, fn) {
-	return fn(node);
-});
-
 export const config = {
 	activeClass: 'active',
 	onClass:     'on'
 };
 
-export const matchers = [];
-export const handlers = [];
-
+// A map of behaviour functions keyed by selector
+export const behaviours = {};
 
 function selectButtons(id) {
 	return select('[href$="#' + id + '"]', document.body)
@@ -41,7 +35,6 @@ function preventClick(e) {
 	if (e.type === 'mousedown') {
 		const clicks = events('click', e.currentTarget).each(function prevent(e) {
             clicks.stop();
-			//off('click', prevent, e.currentTarget);
 			e.preventDefault();
 		});
 	}
@@ -65,10 +58,6 @@ function getHash(node) {
 		node.hash :
 		node.getAttribute('href')
 	).substring(1);
-}
-
-function sum(total, n) {
-    return total + !!n;
 }
 
 function log(type, element, buttons) {
@@ -164,15 +153,10 @@ events('click', document).each(delegate({
 			return;
 		}
 
-		// Is the node handleable
-		var handleCount = handlers.map(apply(element)).reduce(sum, 0);
-		if (handleCount) {
-			e.preventDefault();
+		// Is the node activateable?
+		if (Object.keys(behaviours).find((selector) => element.matches(selector))) {
 			return;
 		}
-
-		// Is the node activateable?
-		if (!matchers.find(apply(element))) { return; }
 
 		// Flag click as handled
 		e.preventDefault();
@@ -316,3 +300,5 @@ events('load', window).each(function() {
 		console.warn('dom: Cannot activate ' + id, e.message);
 	}
 });
+
+events('dom-activate', document).each(delegate(behaviours));

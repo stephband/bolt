@@ -23,18 +23,12 @@ accordions and so on.
 import { remove }      from '../../fn/modules/remove.js';
 import get             from '../../dom/modules/get.js';
 import closest         from '../../dom/modules/closest.js';
-import matches         from '../../dom/modules/matches.js';
 import identify        from '../../dom/modules/identify.js';
 import events          from '../../dom/modules/events.js';
 import isPrimaryButton from '../../dom/modules/is-primary-button.js';
 import { isInternalLink } from '../../dom/modules/node.js';
-import { deactivate, matchers } from '../events/dom-activate.js';
+import { behaviours, deactivate } from '../events/dom-activate.js';
 
-
-// Define
-
-var match = matches('[data-toggleable]');
-matchers.push(match);
 
 
 // Functions
@@ -66,12 +60,11 @@ events('click', document.documentElement).each((e) => {
 	e.preventDefault();
 });
 
-events('dom-activate', document).each((e) => {
-	var target = e.target;
-	if (!match(target)) { return; }
-	actives.push(identify(target));
-});
+behaviours['[data-toggleable]'] = (e) => actives.push(identify(e.target));
 
+
+import matches         from '../../dom/modules/matches.js';
+var match = matches('[data-toggleable]');
 events('dom-deactivate', document).each((e) => {
 	var target = e.target;
 	if (!match(target)) { return; }

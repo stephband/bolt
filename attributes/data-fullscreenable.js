@@ -10,50 +10,17 @@ document root in navigators where support is detected, for styling of UI that
 depends on fullscreen support.
 **/
 
-import matches from '../../dom/modules/matches.js';
-import { handlers } from '../events/dom-activate.js';
-
-const match = matches('.fullscreenable, [fullscreenable]');
-const fullscreenEnabled = document.fullscreenEnabled
-    || document.mozFullscreenEnabled
-    || document.webkitFullscreenEnabled
-    || document.msFullscreenEnabled ;
-
-function fullscreenElement() {
-    return document.fullscreenElement
-        || document.webkitFullscreenElement
-        || document.mozFullScreenElement
-        || document.msFullscreenElement ;
-}
-
-function enterFullscreen(node) {
-    return node.requestFullscreen ? node.requestFullscreen() :
-        node.webkitRequestFullscreen ? node.webkitRequestFullscreen() :
-        node.mozRequestFullScreen ? node.mozRequestFullScreen() :
-        node.msRequestFullscreen ? node.msRequestFullscreen() :
-        undefined ;
-}
-
-function exitFullscreen() {
-    document.exitFullscreen ? document.exitFullscreen() :
-    document.webkitExitFullscreen ? document.webkitExitFullscreen() :
-    document.mozCancelFullScreen ? document.mozCancelFullScreen() :
-    document.msExitFullscreen ? document.msExitFullscreen() :
-    undefined ;
-}
+import { fullscreenEnabled, fullscreenElement, enterFullscreen, exitFullscreen } from '../../dom/modules/fullscreen.js';
+import { behaviours } from '../events/dom-activate.js';
 
 if (fullscreenEnabled) {
     // This should really be accessible to CSS via an @supports query or some
     // such, but it is not, or not in a way that works. Add a supports class.
     document.documentElement.classList.add('fullscreen-support');
 
-    handlers.push(function(node, e) {
-        if (!match(node)) {
-            // Return flag as not handled
-            return false;
-        }
-
+    behaviours['data-fullscreenable'] = (e) => {
         var fullscreenNode = fullscreenElement();
+
         if (fullscreenNode) {
             exitFullscreen();
 
@@ -62,8 +29,9 @@ if (fullscreenEnabled) {
                 return true;
             }
         }
-
-        enterFullscreen(node);
+        else {
+            enterFullscreen(node);
+        }
 
         // Flag as handled
         return true;

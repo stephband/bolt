@@ -17,15 +17,11 @@ With a little hide/show style, a popable can be used to make menus, tooltips,
 bubbles, accordions and so on.
 */
 
-import events  from '../../dom/modules/events.js';
-import matches from '../../dom/modules/matches.js';
-import { matchers, deactivate } from '../events/dom-activate.js';
-
-var match = matches('[data-popable]');
+import events from '../../dom/modules/events.js';
+import { behaviours, deactivate } from '../events/dom-activate.js';
 
 function activate(e) {
     const element = e.target;
-    if (!match(element)) { return; }
 
     // Make user actions outside node deactivate the node
     const mousedowns = events('mousedown', document)
@@ -42,5 +38,4 @@ function activate(e) {
         });
 }
 
-events('dom-activate', document).each(activate);
-matchers.push(match);
+behaviours['[data-popable]'] = activate;

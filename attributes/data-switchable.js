@@ -32,20 +32,19 @@ and `.tab-block` classes.
 ```
 **/
 
-import events   from '../../dom/modules/events.js';
 import matches  from '../../dom/modules/matches.js';
 import children from '../../dom/modules/children.js';
-import { deactivate, matchers } from '../events/dom-activate.js';
+import { behaviours, deactivate } from '../events/dom-activate.js';
 
 
 // Define
 
-var match = matches('[data-switchable]');
+function match(element) {
+    return element.matches('[data-switchable]');
+}
 
 function activate(e) {
 	var target = e.target;
-	if (!match(target)) { return; }
-
 	var nodes = children(target.parentNode).filter(match);
 	var i = nodes.indexOf(target);
 
@@ -56,5 +55,4 @@ function activate(e) {
     .forEach((active) => deactivate(active, target));
 }
 
-events('dom-activate', document).each(activate);
-matchers.push(match);
+behaviours['[data-switchable]'] = activate;
