@@ -1,39 +1,32 @@
 /*
-`removeable`
-
-<p>A <strong>removeable</strong> is removed from the DOM after
-<code>dom-deactivate</code>.</p>
-<p>Can be used to make one-off messages, like <a href="#one-off-dialog">this dialog</a>.</p>
+`data-removeable`
+A `data-removeable` is removed from the DOM after `dom-deactivate`.
 */
 
-import matches      from '../../dom/modules/matches.js';
-import events       from '../../dom/modules/events.js';
-import { matchers } from '../events/dom-activate.js';
-
-
-// Define
-var match = matches('[data-removeable]');
-matchers.push(match);
+import events from '../../dom/modules/events.js';
+import { behaviours } from '../events/dom-activate.js';
 
 // Max duration of deactivation transition in seconds
-var maxDuration = 1;
+const maxDuration = 1;
 
-function deactivate(e) {
-	var target = e.target;
-	if (!match(target)) { return; }
+function activate(e) {
+	const element = e.target;
+	const deactivates = events('dom-deactivate', element)
+		.filter((e) => e.target === e.currentTarget)
+		.each((e) => {
+			// TODO: wait for .active to be removed, inspect transition durations,
+			// wait for all non-zero transitions
+			const timer = setTimeout(update, maxDuration * 1000);
+			const ends  = events('transitionend', update, element);
 
-	function update() {
-		clearTimeout(timer);
-		ends.stop();
-		target.remove();
-	}
+			function update() {
+				clearTimeout(timer);
+				ends.stop();
+				element.remove();
+			}
 
-	var timer = setTimeout(update, maxDuration * 1000);
-	var ends  = events('transitionend', update, target);
+			deactivates.stop();
+		});
 }
 
-events('dom-deactivate', document).each((e) => {
-	var target = e.target;
-	if (!match(target)) { return; }
-	deactivate(e);
-});
+behaviours['[data-removeable]'] = activate;

@@ -9,10 +9,9 @@ import { isElementNode, isInternalLink } from '../../dom/modules/node.js';
 import trigger         from '../../dom/modules/trigger.js';
 import select          from '../../dom/modules/select.js';
 
-const A = Array.prototype;
-
-var location  = window.location;
-var id        = location.hash;
+const A         = Array.prototype;
+const location  = window.location;
+const id        = location.hash;
 
 export const config = {
 	activeClass: 'active',
@@ -21,6 +20,16 @@ export const config = {
 
 // A map of behaviour functions keyed by selector
 export const behaviours = {};
+
+const triggerActivate = trigger('dom-activate');
+
+function log(type, element, buttons) {
+	console.log('%c' + type + ' %c' + (element.id ? '#' + element.id : '<' + element.tagName.toLowerCase() + '>') + ', ' +  buttons.length + ' button' + (buttons.length === 1 ? '' : 's') + '%c',
+		'color: #3a8ab0; font-weight: 600;',
+		'color: #888888; font-weight: 400;',
+		'color: inherit; font-weight: 400;'
+	);
+}
 
 function selectButtons(id) {
 	return select('[href$="#' + id + '"]', document.body)
@@ -58,14 +67,6 @@ function getHash(node) {
 		node.hash :
 		node.getAttribute('href')
 	).substring(1);
-}
-
-function log(type, element, buttons) {
-	console.log('%c' + type + ' %c' + (element.id ? '#' + element.id : '<' + element.tagName.toLowerCase() + '>') + ', ' +  buttons.length + ' button' + (buttons.length === 1 ? '' : 's') + '%c',
-		'color: #3a8ab0; font-weight: 600;',
-		'color: #888888; font-weight: 400;',
-		'color: inherit; font-weight: 400;'
-	);
 }
 
 function addOnClass(element) {
@@ -211,10 +212,6 @@ events('click', document).each(delegate({
 }));
 
 
-/* Trigger activation on DOM load and mutations thereafter */
-
-const triggerActivate = trigger('dom-activate');
-
 /* Track activateables added to DOM following DOM ready */
 
 const addedElements = new WeakSet();
@@ -281,9 +278,6 @@ events('DOMContentLoaded', document).each(function() {
         childList: true,
         subtree: true
     });
-
-    // Later, you can stop observing
-    //observer.disconnect();
 });
 
 events('load', window).each(function() {
