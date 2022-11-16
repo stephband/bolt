@@ -2,22 +2,18 @@
 import curry           from '../../fn/modules/curry.js';
 import isDefined       from '../../fn/modules/is-defined.js';
 import noop            from '../../fn/modules/noop.js';
-import overload        from '../../fn/modules/overload.js';
 import pattern         from '../../fn/modules/pattern.js';
-import classes         from '../../dom/modules/classes.js';
 import delegate        from '../../dom/modules/delegate.js';
 import events          from '../../dom/modules/events.js';
 import isPrimaryButton from '../../dom/modules/is-primary-button.js';
 import { isElementNode, isInternalLink } from '../../dom/modules/node.js';
 import trigger         from '../../dom/modules/trigger.js';
-import tag             from '../../dom/modules/tag.js';
 import select          from '../../dom/modules/select.js';
 
 const A = Array.prototype;
 
 var location  = window.location;
 var id        = location.hash;
-var store     = new WeakMap();
 
 var apply = curry(function apply(node, fn) {
 	return fn(node);
@@ -25,59 +21,17 @@ var apply = curry(function apply(node, fn) {
 
 export const config = {
 	activeClass: 'active',
-	onClass:     'on',
-	cache:       true
+	onClass:     'on'
 };
 
 export const matchers = [];
 export const handlers = [];
 
 
-function findButtons(id) {
+function selectButtons(id) {
 	return select('[href$="#' + id + '"]', document.body)
-	.filter(overload(tag, {
-		a:       isInternalLink,
-		default: function() { return true; }
-	}))
-	.concat(select('[data-href="#' + id + '"]', document));
-}
-
-function getData(node) {
-	let data = store.get(node);
-
-	if (!data) {
-		data = {};
-		store.set(node, data);
-	}
-
-	return data;
-}
-
-function cacheData(target, button) {
-	var data = getData(target);
-	var id   = target.id;
-
-	if (!data.node)          { data.node    = target; }
-	if (!data.buttons)       { data.buttons = config.cache && id && findButtons(id); }
-
-	if (button) {
-		if (data.buttons) {
-			if (!data.buttons.includes(button)) {
-				data.buttons.push(button);
-			}
-		}
-		else {
-			data.buttons = [button];
-		}
-	}
-
-	if (!('active' in data)) { data.active  = target.classList.contains('active'); }
-
-	return data;
-}
-
-function getButtons(data) {
-	return (config.cache && data.buttons) || (data.node.id && findButtons(data.node.id));
+		.filter(isInternalLink)
+		.concat(select('[value="#' + id + '"]', document));
 }
 
 function preventClick(e) {
@@ -117,31 +71,32 @@ function sum(total, n) {
     return total + !!n;
 }
 
-function log(type, element, data) {
-	console.log('%c' + type + ' %c' + (element.id ? '#' + element.id : '<' + element.tagName.toLowerCase() + '>') + ', ' +  data.buttons.length + ' button' + (data.buttons.length === 1 ? '' : 's') + '%c',
+function log(type, element, buttons) {
+	console.log('%c' + type + ' %c' + (element.id ? '#' + element.id : '<' + element.tagName.toLowerCase() + '>') + ', ' +  buttons.length + ' button' + (buttons.length === 1 ? '' : 's') + '%c',
 		'color: #3a8ab0; font-weight: 600;',
 		'color: #888888; font-weight: 400;',
 		'color: inherit; font-weight: 400;'
 	);
 }
 
-export function activate(element, related) {
-	const ok = trigger({ type: 'dom-activate', relatedTarget: related }, element);
+function addOnClass(element) {
+	element.classlist.add(config.onClass);
+}
+
+function removeOnClass(element) {
+	element.classlist.remove(config.onClass);
+}
+
+export function activate(element, button) {
+	const ok = trigger({ type: 'dom-activate', relatedTarget: button }, element);
 	if (!ok) { return; }
 
-	const data = cacheData(element);
+	const buttons = selectButtons(element.id);
+	element.classList.add(config.activeClass);
+	buttons.forEach(addOnClass);
+
 	if (window.DEBUG) {
-		log('activate', element, data);
-	}
-
-	data.active = true;
-	classes(data.node).add(config.activeClass);
-	const buttons = getButtons(data);
-
-	if (buttons) {
-		buttons.forEach(function(node) {
-			classes(node).add(config.onClass);
-		});
+		log('activate', element, buttons);
 	}
 
 	// Focus the first element with class .active-focus
@@ -159,25 +114,18 @@ export function activate(element, related) {
 	return true;
 }
 
-export function deactivate(element, related) {
-	const ok = trigger({ type: 'dom-deactivate', relatedTarget: related }, element);
+export function deactivate(element, button) {
+	const ok = trigger({ type: 'dom-deactivate', relatedTarget: button }, element);
 	if (!ok) { return; }
 
-	const data = cacheData(element);
+	const buttons = selectButtons(element.id);
+	element.classList.remove(config.activeClass);
+	buttons.forEach(removeOnClass);
+
 	if (window.DEBUG) {
-		log('deactivate', element, data);
+		log('deactivate', element, buttons);
 	}
 
-	classes(data.node).remove(config.activeClass);
-	const buttons = getButtons(data);
-
-	if (buttons) {
-		buttons.forEach(function(node) {
-			classes(node).remove(config.onClass);
-		});
-	}
-
-	data.active = false;
 	return true;
 }
 
@@ -226,11 +174,6 @@ events('click', document).each(delegate({
 		// Is the node activateable?
 		if (!matchers.find(apply(element))) { return; }
 
-		var data = cacheData(element, a);
-
-		// Don't do anything if element is already active
-		if (data.active) { return; }
-
 		// Flag click as handled
 		e.preventDefault();
 
@@ -250,13 +193,13 @@ events('click', document).each(delegate({
 			throw new Error('Button action name="activate" target value="' + button.value + '" not found');
 		}
 
-		var data = cacheData(element, button);
-
-		// Don't do anything if element is already active
-		if (data.active) { return; }
-
 		// Flag click as handled
 		e.preventDefault();
+
+		// Is element already active?
+		if (element.classList.contains('active')) {
+			return;
+		}
 
 		// Activate
 		activate(element, button);
@@ -270,13 +213,13 @@ events('click', document).each(delegate({
 			throw new Error('Button action name="deactivate" target "' + button.value + '" not found');
 		}
 
-		var data = cacheData(element, button);
-
-		// Don't do anything if element is already inactive
-		if (!data.active) { return; }
-
 		// Flag click as handled
 		e.preventDefault();
+
+		// Is element already inactive?
+		if (!element.classList.contains('active')) {
+			return;
+		}
 
 		// Deactivate
 		deactivate(element, button);

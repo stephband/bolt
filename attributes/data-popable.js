@@ -17,8 +17,8 @@ With a little hide/show style, a popable can be used to make menus, tooltips,
 bubbles, accordions and so on.
 */
 
-import events       from '../../dom/modules/events.js';
-import matches      from '../../dom/modules/matches.js';
+import events  from '../../dom/modules/events.js';
+import matches from '../../dom/modules/matches.js';
 import { matchers, deactivate } from '../events/dom-activate.js';
 
 var match = matches('[data-popable]');
@@ -28,20 +28,18 @@ function activate(e) {
     if (!match(element)) { return; }
 
     // Make user actions outside node deactivate the node
-    requestAnimationFrame(() => {
-        const mousedowns = events('mousedown', document)
-            .filter((e) => !element.contains(e.target) && element !== e.target)
-            // TODO disable sebsequent click on buttons that point back to this
-            // popable
-            .each((e) => deactivate(element));
+    const mousedowns = events('mousedown', document)
+        .filter((e) => !element.contains(e.target) && element !== e.target)
+        // TODO disable sebsequent click on buttons that point back to this
+        // popable
+        .each((e) => deactivate(element));
 
-        const deactivates = events('dom-deactivate', element)
-            .filter((e) => e.target === e.currentTarget)
-            .each((e) => {
-                mousedowns.stop();
-                deactivates.stop();
-            });
-    });
+    const deactivates = events('dom-deactivate', element)
+        .filter((e) => e.target === e.currentTarget)
+        .each((e) => {
+            mousedowns.stop();
+            deactivates.stop();
+        });
 }
 
 events('dom-activate', document).each(activate);
