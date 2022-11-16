@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+
+    <title>targetable</title>
+
+    <script>
+    document.documentElement.className = 'js dom-loading loading';
+    window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('dom-loading'));
+    window.addEventListener('load', () => document.documentElement.classList.remove('loading'));
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <link rel="stylesheet" href="../css/html.css" />
+
+    <style>
+        :root {
+            height: 100%;
+            scroll-behavior: smooth;
+            -webkit-scroll-behavior: smooth;
+            scroll-padding: 40px 0 0 0;
+        }
+
+        :root.loading {
+            /* In Chrome smooth scrolling affects initial load when a hashref
+               is sought. Neuter it during load. */
+            scroll-behavior: auto;
+        }
+
+        body {
+            /* In Chromium, even though document.scrollingElement is the root,
+               scroll-padding only works on <body>. Make it inherit from root. */
+            scroll-padding: inherit;
+        }
+
+        p {
+            font-family: Menlo, monospace;
+            font-size: 11px;
+            line-height: 19px;
+            height: 20px;
+            border-top: 1px solid #dddddd;
+            white-space: pre;
+            margin-top: 0;
+        }
+
+        body > pre {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 240px;
+            height: 40px;
+            margin-top: -20px;
+            margin-left: -120px;
+        }
+
+        pre {
+            font-family: 'Menlo', 'Andale Mono', monospace;
+            font-size: 0.75em;
+        }
+
+        body > header {
+            position: fixed;
+            top: 0;
+            left: 40px;
+            right: 0;
+        }
+
+        header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            background-color: #eeeeee;
+            height: 40px;
+            padding-top: 10px;
+
+        }
+
+        header > a {
+            font-family: 'Menlo', 'Andale Mono', monospace;
+            font-size: 0.875em;
+            line-height: 20px;
+        }
+
+        [id] {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="#0">#0</a>
+        <a href="#500">#500</a>
+        <a href="#1000">#1000</a>
+        <a href="#1500">#1500</a>
+        <a href="#2000">#2000</a>
+    </header>
+
+    <p id="0">   0</p>
+    <p>  20</p>
+    <p>  40</p>
+    <p>  60</p>
+    <p>  80</p>
+    <p> 100</p>
+    <p> 120</p>
+    <p> 140</p>
+    <p> 160</p>
+    <p> 180</p>
+    <p> 200</p>
+    <p> 220</p>
+    <p> 240</p>
+    <p> 260</p>
+    <p> 280</p>
+    <p> 300</p>
+    <p> 320</p>
+    <p> 340</p>
+    <p> 360</p>
+    <p> 380</p>
+    <p> 400</p>
+    <p> 420</p>
+    <p> 440</p>
+    <p> 460</p>
+    <p> 480</p>
+    <p id="500" data-locateable> 500</p>
+    <p> 520</p>
+    <p> 540</p>
+    <p> 560</p>
+    <p> 580</p>
+    <p> 600</p>
+    <p> 620</p>
+    <p> 640</p>
+    <p> 660</p>
+    <p> 680</p>
+    <p> 700</p>
+    <p> 720</p>
+    <p> 740</p>
+    <p> 760</p>
+    <p> 780</p>
+    <p> 800</p>
+    <p> 820</p>
+    <p> 840</p>
+    <p> 860</p>
+    <p> 880</p>
+    <p> 900</p>
+    <p> 920</p>
+    <p> 940</p>
+    <p> 960</p>
+    <p> 980</p>
+    <p id="1000" data-locateable>1000</p>
+    <p>1020</p>
+    <p>1040</p>
+    <p>1060</p>
+    <p>1080</p>
+    <p>1100</p>
+    <p>1120</p>
+    <p>1140</p>
+    <p>1160</p>
+    <p>1180</p>
+    <p>1200</p>
+    <p>1220</p>
+    <p>1240</p>
+    <p>1260</p>
+    <p>1280</p>
+    <p>1300</p>
+    <p>1320</p>
+    <p>1340</p>
+    <p>1360</p>
+    <p>1380</p>
+    <p>1400</p>
+    <p>1420</p>
+    <p>1440</p>
+    <p>1460</p>
+    <p>1480</p>
+    <p id="1500" data-locateable>1500</p>
+    <p>1520</p>
+    <p>1540</p>
+    <p>1560</p>
+    <p>1580</p>
+    <p>1600</p>
+    <p>1620</p>
+    <p>1640</p>
+    <p>1660</p>
+    <p>1680</p>
+    <p>1700</p>
+    <p>1720</p>
+    <p>1740</p>
+    <p>1760</p>
+    <p>1780</p>
+    <p>1800</p>
+    <p>1820</p>
+    <p>1840</p>
+    <p>1860</p>
+    <p>1880</p>
+    <p>1900</p>
+    <p>1920</p>
+    <p>1940</p>
+    <p>1960</p>
+    <p>1980</p>
+    <p id="2000" data-locateable>2000</p>
+
+    <pre>
+        scrollBehavior <b id="scrollBehavior"></b>
+    </pre>
+
+    <script type="module">
+        import '../attributes/data-locateable.js';
+
+        setTimeout(function() {
+            location.hash = '1000';
+        }, 3000);
+
+        document.getElementById('scrollBehavior').textContent = 'scrollBehavior' in document.documentElement.style ;
+
+        // Log scrollTop at various times, to show how document behaves when
+        // loading a #hashref
+        console.log('script', document.scrollingElement.scrollTop);
+
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('ready', document.scrollingElement.scrollTop);
+        });
+
+        window.addEventListener('load', function() {
+            console.log('load ', document.scrollingElement.scrollTop);
+
+            requestAnimationFrame(function() {
+                console.log('frame', document.scrollingElement.scrollTop);
+            });
+        });
+    </script>
+</body>
+</html>

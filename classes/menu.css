@@ -1,0 +1,83 @@
+/**
+.menu-block, .menu-button
+
+```html
+<div class="menu-block block">
+    <a class="menu-button button" href="#">Menu button</a>
+    <a class="menu-button button" href="#">Menu button</a>
+    <a class="menu-button button" href="#">Menu button</a>
+</div>
+```
+**/
+
+.menu-list,
+.menu-block {
+    --padding-left: 1.125rem;
+    --padding-right: 1.125rem;
+    padding-left: var(--padding-left);
+    padding-right: var(--padding-right);
+}
+
+.menu-block > .button {
+    --padding-left: inherit;
+    --padding-right: inherit;
+    margin-left: calc(-1 * var(--padding-left));
+    margin-right: calc(-1 * var(--padding-right));
+    width: calc(100% + var(--padding-left) + var(--padding-right));
+}
+
+/*
+.menu-list, .menu-button
+
+```html
+<ul class="menu-list list">
+    <li><a class="menu-button button" href="#">Menu button</a></li>
+    <li><a class="menu-button button" href="#">Menu button</a></li>
+    <li><a class="menu-button button" href="#">Menu button</a></li>
+</ul>
+```
+*/
+
+.menu-list {
+    --padding-left: 1.125rem;
+    --padding-right: 1.125rem;
+    padding-left: var(--padding-left);
+    padding-right: var(--padding-right);
+}
+
+.menu-list > li {
+    padding-left: var(--padding-left);
+    padding-right: var(--padding-right);
+    margin-left: calc(-1 * var(--padding-left));
+    margin-right: calc(-1 * var(--padding-right));
+}
+
+.menu-list > li + li {
+    border-top: 1px solid var(--black);
+}
+
+.menu-list > li > .menu-button {
+    width: calc(100% + var(--padding-left) + var(--padding-right));
+    padding-left: var(--padding-left);
+    padding-right: var(--padding-right);
+    margin-left: calc(-1 * var(--padding-left));
+    margin-right: calc(-1 * var(--padding-right));
+}
+
+
+/* .menu-button */
+
+.menu-button {
+    display: grid;
+    justify-content: start;
+    justify-items: start;
+    /* If you need this, you need to specify width in .menu-block > .menu-button too */
+    /*width: 100%;*/
+    text-align: left;
+    --border-width: 0;
+    border-radius: 0;
+}
+
+.menu-button + .menu-button {
+    border-top-width: 1px;
+}

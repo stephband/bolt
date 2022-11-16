@@ -1,0 +1,171 @@
+
+/**
+.thumb
+
+```html
+<a class="thumb" href="#" style="background-image: url('../images/logo-64.png');">Thumb text</a>
+```
+
+Base class for thumbnails, avatars, icons and other cases where an image
+replaces some semantic text. Text is hidden by pushing it outside the hidden
+overflow, and only the `background-image`, centered and 'cropped' via
+`background-size` and `background-position`, remains.
+**/
+
+.thumb {
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    position: relative;
+
+    /* Nullify padding that may have been put there by other
+       styling, say for example by <button class="thumb"> */
+    padding-bottom: 0;
+    padding-right: 0;
+
+    /* Hide overflowing text by pushing it out of the overflow with left padding.
+       This technique keeps it on the same baseline (better than using
+       text-indent because IE7 moves the background image with the text-indent). */
+    min-width: 0;
+    padding-left: 2.8125em;
+    height: 2.8125em;
+    min-height: 0;
+    width: 0;
+
+    /* Keep top of text safely away from the bottom of
+       the thumb. */
+    line-height: 2;
+
+    /* Avoid breaking in columns */
+    break-inside: avoid;
+
+    -webkit-background-size: cover;
+       -moz-background-size: cover;
+         -o-background-size: cover;
+            background-size: cover;
+
+    /* background-position is set 50% to keep it centred, and 40% because faces
+       are frequently centred in the upper portion of avatars. */
+    background-size: cover;
+    background-position: 50% 40%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border-width: 0;
+    border-radius: 0;
+    text-decoration: none;
+    color: inherit;
+}
+
+.thumb > img,
+.thumb > svg,
+.thumb > iframe {
+    /* Make media fill thumbs. */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.thumb > img {
+    object-fit: cover;
+}
+
+.thumb.block {
+    /* Be explicit about who wins */
+    display: block;
+    overflow: hidden;
+}
+
+@media print {
+    .thumb {
+        /* Encourage webkit to print background image. */
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+
+/**
+.thumb-2:1
+
+```html
+<a class="thumb thumb-2:1" href="#" style="background-image: url('../images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
+```
+**/
+
+/**
+.thumb-16:9
+
+```html
+<a class="thumb thumb-16:9" href="#" style="background-image: url('../images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
+```
+**/
+
+/**
+.thumb-3:2
+
+```html
+<a class="thumb thumb-3:2" href="#" style="background-image: url('../images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
+```
+**/
+
+/**
+.thumb-4:3
+
+```html
+<a class="thumb thumb-4:3" href="#" style="background-image: url('../images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
+```
+**/
+
+/**
+.thumb-5:4
+
+```html
+<a class="thumb thumb-5:4" href="#" style="background-image: url('../images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
+```
+**/
+
+/**
+.thumb-1:1
+
+```html
+<a class="thumb thumb-1:1" href="#" style="background-image: url('../images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
+```
+**/
+
+/**
+.thumb-A
+
+Thumb with the ratio 1:√2, as ISO 216 (A0-A8) paper sizes.
+
+```html
+<a class="thumb thumb-A" href="#" style="background-image: url('../images/wireframe.svg'); background-size: 100% 100%;">Thumb text</a>
+```
+**/
+
+.thumb-1\:2,
+.thumb-2\:3,
+.thumb-A,
+.thumb-3\:4,
+.thumb-4\:5,
+.thumb-1\:1,
+.thumb-5\:4,
+.thumb-4\:3,
+.thumb-3\:2,
+.thumb-16\:9,
+.thumb-2\:1 {
+    padding-left: 100%;
+    height: 0;
+}
+
+.thumb-1\:2  { padding-top: 200%; }
+.thumb-2\:3  { padding-top: 150%; }
+.thumb-A     { padding-top: 141.42135624%; }
+.thumb-3\:4  { padding-top: 133.333333%; }
+.thumb-4\:5  { padding-top: 125%; }
+.thumb-1\:1  { padding-top: 100%; }
+.thumb-5\:4  { padding-top: 80%; }
+.thumb-4\:3  { padding-top: 75%; }
+.thumb-3\:2  { padding-top: 66.666667%; }
+.thumb-16\:9 { padding-top: 56.25%; }
+.thumb-2\:1  { padding-top: 50%; }

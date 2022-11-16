@@ -1,0 +1,8 @@
+
+:root.js .js-hidden {
+    display: none !important;
+}
+
+:root:not(.js) .js-shown {
+    display: none !important;
+}

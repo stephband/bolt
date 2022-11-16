@@ -1,0 +1,38 @@
+
+:root {
+    height: 100%;
+
+    /* Setting a background on <html> means that a background
+       on <body> does not get set on <html>. Win. */
+    color: #000000;
+    background-color: white;
+
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
+    scroll-behavior: smooth;
+    scroll-padding: 0;
+}
+
+:root.loading {
+    /* In Chrome smooth scrolling affects initial load when a hashref
+       is sought. Neuter it during load. A good way to do this is to put a
+       script in your <head>:
+
+       <script>
+          document.documentElement.classList.add('loading');
+          // Wait for other load handlers to run first - Bolt does a few things on
+          // load (eg. targetable scrolls) and we want them to run before the loading
+          // class is removed.
+          window.addEventListener('load', () => window.requestAnimationFrame(() => document.documentElement.classList.remove('loading')));
+       </script>
+    */
+    scroll-behavior: auto;
+}
+
+:root > body {
+    /* In Chromium, even though document.scrollingElement is the root,
+       scroll rules only work on <body>. Make it inherit from root. */
+    scroll-padding: inherit;
+    scroll-snap-type: inherit;
+    scroll-snap-stop: inherit;
+    scroll-snap-points-y: inherit;
+}

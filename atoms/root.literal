@@ -1,0 +1,4 @@
+:root {
+    ${ data['column-gap'] ? '--x-gap: ' + rem(data['column-gap']) + 'rem;' : '' }
+    ${ data['row-gap']    ? '--y-gap: ' + rem(data['row-gap'])    + 'rem;' : '' }
+}

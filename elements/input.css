@@ -1,0 +1,971 @@
+
+/**
+Forms.
+**/
+
+:root {
+    /** --input-font-size
+    Font size of inputs, selects and textareas **/
+    --input-font-size: inherit;
+
+    /** --input-line-height
+    Line height of textareas **/
+    --input-line-height: 1.5rem;
+
+    /** --input-background
+    Background of input, select and textareas **/
+    --input-background: white;
+
+    /** --input-border-color
+    Border colour of inputs, selects and textareas **/
+    --input-border-color: #bbbbbb;
+
+    /** --input-border-width
+    Border width of inputs, selects and textareas **/
+    --input-border-width: 1px;
+
+    /** --input-border-radius
+    Border radius of inputs, selects and textareas **/
+    --input-border-radius: 0.1875rem;
+
+    /** --input-shadow
+    Box shadow of inputs, selects and textareas **/
+    --input-shadow: none;
+
+    /** --input-padding-left **/
+    --input-padding-left: 0.5625rem;
+
+    /** --input-padding-right **/
+    --input-padding-right: 0.5625rem;
+
+    /** --input-height
+    Height of inputs and selects **/
+    --input-height: 2.8125rem;
+
+    /** --input-color
+    Text colour of inputs, selects and textareas **/
+    --input-color: inherit;
+
+    /** --input-margin **/
+    --input-margin: 0.9375em;
+
+    /** --track-height **/
+    --track-height: 0.375rem;
+
+    /** --track-background **/
+    --track-background: #eeeeee;
+
+    /** --track-border **/
+    --track-border: none;
+
+    /** --track-shadow **/
+    --track-shadow: inset 0 0.0625rem 0.25rem rgba(0,0,0,0.2);
+
+    /** --track-radius **/
+    /*--track-radius: ;*/
+
+    /** --handle-width **/
+    --handle-width: 1.25rem;
+
+    /** --handle-background **/
+    --handle-background: white;
+
+    /** --handle-border **/
+    --handle-border: 1px solid rgb(122 144 158);
+
+    /** --handle-radius **/
+    /*--handle-radius: ;*/
+
+    /** --label-font-size
+    Font size of labels **/
+    --label-font-size: 1rem;
+
+    /** --label-line-height
+    Line height of labels **/
+    --label-line-height: 1.5rem;
+
+    /** --label-margin **/
+    --label-margin: 1.125rem;
+
+    /** --label-input-margin **/
+    --label-input-margin: 0.1875rem;
+
+    /** --fieldset-margin **/
+    --fieldset-margin: 2rem;
+
+    /** --fieldset-input-margin **/
+    --fieldset-input-margin: 2rem;
+
+    /** --focus-background
+    Background of focused inputs, selects and textareas **/
+    --focus-background: var(--input-background);
+
+    /** --focus-border-color
+    Border colour of focused inputs, selects and textareas **/
+    --focus-border-color: #2c9bd3;
+
+    /** --focus-shadow
+    Box shadow of focused links, inputs, selects and textareas **/
+    --focus-shadow:
+        0 0 5px 2px hsla(200,56%,49%,0.8),
+        inset 0 0 0 1px hsl(200,56%,49%),
+        inset 0 0 0.5rem hsla(200,65%,60%,0.6);
+
+    /** --invalid-background
+    Background of invalid inputs, selects and textareas **/
+    --invalid-background: var(--input-background);
+
+    /** --invalid-border-color
+    Border colour of invalid inputs, selects and textareas **/
+    --invalid-border-color: rgba(214,23,41);
+
+    /** --invalid-box-shadow
+    Box shadow of invalid inputs, selects and textareas **/
+    --invalid-box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
+
+
+    /** --disabled-filter **/
+    --disabled-filter: opacity(0.4);
+
+    /** --error-font-size **/
+    --error-font-size: 0.875rem;
+
+    /** --help-font-size **/
+    --help-font-size: 0.875rem;
+}
+
+
+/* IE/Edge fails to update styles for changed disabled properties. This rule
+   targetting the attribute rather than the pseudo-selector keeps the
+   pseudo-selectors up-to-date.
+   https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11295231/
+*/
+[disabled] ~ _ {}
+
+
+/*
+:enabled
+:disabled
+:required
+:optional
+:checked
+:valid
+:invalid
+
+Slightly less support:
+
+:in-range
+:out-of-range
+*/
+
+
+form,
+fieldset,
+legend,
+input,
+output,
+button,
+select,
+textarea {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+form,
+fieldset {
+    /* Act as position parent */
+    position: relative;
+}
+
+fieldset {
+    /* Reset padding, margin, border */
+    padding: 0;
+    margin: auto;
+    border: 0;
+}
+
+legend {
+    border: 0;
+    padding: 0;
+    /* Text should wrap (FF3) */
+    white-space: normal;
+
+    font-weight: bold;
+    font-size: 1.1667em;
+}
+
+option {
+    /* In Firefox options are partially styleable. Make sure they don't
+       become unreadable by inheriting colors. */
+    color: black;
+    background: white;
+    padding: 0.3125rem 0.9375rem;
+}
+
+
+/**
+input[type="text"]
+
+```html
+<label for="text-input">Text</label>
+<input type="text" placeholder="Enter text" id="text-input" />
+```
+**/
+
+/**
+input[type="number"]
+
+```html
+<label for="number-input">Number</label>
+<input type="number" placeholder="100" id="number-input" />
+```
+**/
+
+/**
+input[type="email"]
+
+```html
+<label for="email">Email</label>
+<input type="email" placeholder="name@example.com" id="email" name="email" />
+```
+**/
+
+/**
+input[type="password"]
+
+```html
+<label for="password-input">Password</label>
+<input type="password" placeholder="Enter password" id="password-input" />
+```
+**/
+
+/**
+input[type="search"]
+
+```html
+<label for="search">Search</label>
+<input type="search" id="search" name="search" />
+```
+**/
+
+/**
+input[type="tel"]
+
+```html
+<label for="tel">Tel</label>
+<input type="tel" id="tel" name="tel" />
+```
+**/
+
+/**
+input[type="time"]
+
+```html
+<label for="time-input">Time</label>
+<input type="time" placeholder="10:00" id="time-input" />
+```
+**/
+
+/**
+input[type="url"]
+
+```html
+<label for="url-input">URL</label>
+<input type="url" placeholder="http://cruncher.ch/" id="url-input" />
+```
+**/
+
+/**
+input[required]
+
+```html
+<label class="required-label" for="required-input">Required</label>
+<input type="text" required placeholder="Enter text" id="required-input" />
+<label class="help-label text-11" for="required-input">Help text</label>
+```
+**/
+
+/**
+input:invalid
+
+```html
+<label class="required-label" for="error-input">Error</label>
+<input type="text" required placeholder="Enter text" id="error-input" />
+<label class="error-label text-11" for="error-input">This field is required</label>
+```
+**/
+
+/**
+input[type="range"]
+
+```html
+<label for="range-input">Range</label>
+<input type="range" value="0" id="range-input" />
+```
+**/
+
+/**
+textarea
+
+```html
+<label for="textarea">textarea</label>
+<textarea id="textarea" name="textarea"></textarea>
+```
+**/
+
+label,
+input,
+button,
+select,
+textarea {
+    display: inline-block;
+    /* Vertical align middle to stop extra line space creeping into the vertical
+       rhythm when inputs stack up. It also has the effect of removing the
+       annoying extra margin-bottom that textareas have in webkit. */
+    vertical-align: middle;
+    margin: 0;
+
+    /* Font size is not automaticlly inherited in all browsers. */
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+
+    /* FF and WebKit ignore line-height on inputs, automatically centring the
+       text, but IE8 needs it. */
+    line-height: inherit;
+
+    /* Make input shadows appear over the top of other elements. */
+    /* But this buggers up native validation message stacking...
+       what's it for again? */
+    /*z-index: 2;
+    position: relative;*/
+}
+
+input,
+select,
+textarea {
+    --font-size:     var(--input-font-size, inherit);
+    --size:        var(--input-height, 2.8125rem);
+    --line-height:   var(--input-line-height, 1.5rem);
+    --padding-left:  var(--input-padding-left, 0.5625rem);
+    --padding-right: var(--input-padding-right, 0.5625rem);
+    --border-width:  var(--input-border-width, 1px);
+    --border-color:  var(--input-border-color, #bbbbbb);
+    --border-radius: var(--input-border-radius, 0.3125rem);
+
+    /* iOS has padding in the UA stylesheet. */
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+input,
+button,
+textarea {
+    /* Firefox OS (now KaiOS) adds a background gradient to things. No no no.
+       Don't apply to selects as it causes them to be rendered old-style in
+       FF desktop */
+    background-image: none;
+}
+
+input,
+textarea {
+    width: 100%;
+}
+
+* + input,
+* + select,
+* + textarea {
+    margin-top: var(--input-margin);
+}
+
+label + input,
+label + select,
+label + textarea {
+    margin-top: var(--label-input-margin);
+}
+
+select,
+textarea,
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="color"],
+[type="number"],
+[type="search"],
+[type="password"] {
+    display: block;
+    color: var(--input-color);
+    border: var(--border-width, 1px) solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+textarea,
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="color"],
+[type="number"],
+[type="search"],
+[type="password"] {
+    background: var(--input-background) no-repeat;
+    box-shadow: var(--input-shadow);
+}
+
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="number"],
+[type="search"],
+[type="password"] {
+    padding-left: 0;
+    padding-right: calc(var(--padding-right) - var(--border-width, 1px));
+    text-indent: calc(var(--padding-left) - var(--border-width, 1px));
+}
+
+.right-align[type="tel"],
+.right-align[type="url"],
+.right-align[type="date"],
+.right-align[type="text"],
+.right-align[type="time"],
+.right-align[type="week"],
+.right-align[type="month"],
+.right-align[type="email"],
+.right-align[type="number"],
+.right-align[type="search"],
+.right-align[type="password"] {
+    padding-left: calc(var(--padding-left) - var(--border-width, 1px));
+    text-indent: 0;
+}
+
+textarea,
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="number"],
+[type="search"],
+[type="password"] {
+    font-size: var(--font-size);
+}
+
+[type="tel"],
+[type="url"],
+[type="date"],
+[type="text"],
+[type="time"],
+[type="week"],
+[type="month"],
+[type="email"],
+[type="color"],
+[type="number"],
+[type="search"],
+[type="password"] {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+input[type="tel"],
+input[type="url"],
+input[type="date"],
+input[type="text"],
+input[type="time"],
+input[type="week"],
+input[type="month"],
+input[type="email"],
+input[type="color"],
+input[type="number"],
+input[type="search"],
+input[type="password"] {
+    /* Compensate for border. We want this selector to be more important than
+       a class selector because we don't want .text- classes to override
+       line-height. */
+    line-height: calc(var(--size) - 2 * var(--border-width, 1px));
+}
+
+input[type='date'],
+input[type='time'],
+input[type='week'],
+input[type='month'] {
+    max-width: 12em;
+
+    /* Safari does not respect line-height + border width as auto height for
+       these fields, be explicit */
+    height: var(--size);
+}
+
+/* Make search fields appear as other inputs in WebKit. */
+@media (-webkit-min-device-pixel-ratio: 0) {
+    [type="search"] {
+        -webkit-appearance: textfield;
+        padding-left: 0;
+    }
+}
+
+/* Position the 'x' cancel button */
+[type="search"]::-webkit-search-cancel-button {
+    position: relative;
+    right: 0.5em;
+}
+
+textarea {
+    min-height: calc(var(--size) + 4 * var(--line-height));
+    line-height: var(--line-height);
+    padding-left: calc(var(--padding-left) - var(--border-width, 1px));
+    padding-right: calc(var(--padding-left) - var(--border-width, 1px));
+    /* Nudged up by 1px to make it look more even. */
+    padding-top: calc(0.5 * (var(--size) - var(--line-height) - 2 * var(--border-width, 1px)) - 1px);
+    padding-bottom: calc(0.5 * (var(--size) - var(--line-height) - 2 * var(--border-width, 1px)) + 1px);
+
+    /* IE is set to overflow: scroll by default */
+    overflow: auto;
+    /* Switch off resizing (Webkit) by default */
+    resize: none;
+}
+
+.resizeable-textarea {
+    /* limit resize direction. */
+    resize: vertical;
+
+    /* Make sure the bottom right corner doesn't clip the resize icon */
+    border-bottom-right-radius: 0 !important;
+}
+
+/*
+This does the same as line 211, do we really need it?
+input + select,
+input + textarea,
+input + [type="tel"],
+input + [type="url"],
+input + [type="date"],
+input + [type="text"],
+input + [type="time"],
+input + [type="week"],
+input + [type="month"],
+input + [type="email"],
+input + [type="color"],
+input + [type="number"],
+input + [type="search"],
+input + [type="password"] {
+    margin-top: var(--input-margin);
+}
+*/
+
+button,
+select,
+input[type="file"],
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    /* Clickable stuff gets a pointer cursor... */
+    cursor: pointer;
+}
+
+button:disabled,
+select:disabled,
+input[type="file"]:disabled,
+input[type="button"]:disabled,
+input[type="reset"]:disabled,
+input[type="submit"]:disabled {
+    /* ...unless it's disabled. */
+    cursor: default;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    /* Corrects inability to style clickable 'input' types in iOS */
+    -webkit-appearance: button;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: 1px;
+    padding-left: 0;
+    padding-right: 0;
+    width: auto;
+    height: auto;
+    /* WebKit clips radio buttons edges slightly when not fully opaque. */
+    opacity: 1;
+}
+
+[type="range"],
+input[type="image"] {
+    padding: 0;
+    opacity: 1;
+}
+
+input[type="file"] {
+    /* Part of the button is cut off without a little padding-left in WebKit. */
+    padding-left: 1px;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    /* Removes inner padding and border in FF3+
+       www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/ */
+    border: 0;
+    padding: 0;
+}
+
+/* File inputs. You're on your own. Good luck. The best way to handle
+   these, frankly, is to make them opacity 0, and overlay a label. You
+   don't get to display the filename, but at least you get some style. */
+input[type='file'] {
+    color: inherit;
+    background: none;
+}
+
+/* File inputs are especially problematic in FF. They
+   require a wrapper to get rid of their system border. */
+@-moz-document url-prefix() {
+    .file_wrap {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .file_wrap input[type='file'] {
+        position: relative;
+        top: -2px;
+        left: -1px;
+        margin-bottom: -3px;
+    }
+}
+
+[type="color"] {
+    padding: 0;
+    /* Make color swatches square. */
+    width: 2.5rem;
+}
+
+[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+[type="color"]::-webkit-color-swatch {
+    border: none;
+}
+
+
+
+/* select
+   Styling a Select
+   https://www.filamentgroup.com/lab/select-css.html */
+
+select {
+    /* Appearance rule and its and prefixed versions unset some default browser
+       select styling */
+	-webkit-appearance: none;
+      -moz-appearance: none;
+	        appearance: none;
+
+    /* iOS Safari will zoom-in the site layout if the select's text is less
+       than 16px */
+    font-size:      var(--font-size);
+    line-height:    var(--line-height);
+    padding-left:   calc(var(--padding-left)  - var(--border-width, 1px));
+    padding-right:  calc(var(--padding-right) - var(--border-width, 1px));
+    padding-top:    calc(0.5 * (var(--size) - var(--line-height) - 2 * var(--border-width, 1px)) - 1px);
+    padding-bottom: calc(0.5 * (var(--size) - var(--line-height) - 2 * var(--border-width, 1px)) + 1px);
+
+    width: 100%;
+	 max-width: 100%;
+
+    height: auto;
+    min-height: var(--size);
+	 /*box-shadow: 0 1px 0 1px rgba(0,0,0,.04);*/
+
+    background-image:
+        /* Arrow icon */
+        url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+        /* The linear gradient background is important to keep, because its presence actually
+           prevents IE9 and older from recognizing the background property. */
+        linear-gradient(to bottom, #ffffff 0%, #ffffff 100%) ;
+
+    /* Setting background color on the select can cause option elements to
+       inherit, which can cause problems */
+	background-color: transparent;
+}
+
+select::-ms-expand {
+    /* Instruct IE11 and IE10 to hide the menu icon pseudo element, so the custom icon behind
+       it can appear*/
+	display: none;
+}
+
+select:hover {
+	/* border-color: #888; */
+}
+
+select option {
+    /* Keep options from inheriting the weight of the select */
+	font-weight: normal;
+}
+
+*[dir="rtl"] select,
+:root:lang(ar) select,
+:root:lang(iw) select {
+	/* Support for rtl text, explicit support for Arabic and Hebrew */
+    background-position: left .7em top 50%, 0 0;
+	padding: .6em .8em .5em 1.4em;
+}
+
+select:disabled,
+select[aria-disabled="true"] {
+    /* Disabled styles */
+	color: graytext;
+	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22graytext%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+        linear-gradient(to bottom, #ffffff 0%,#ffffff 100%);
+}
+
+select:disabled:hover,
+select[aria-disabled="true"] {
+	border-color: #aaa;
+}
+
+
+
+
+
+
+/*
+.masked
+*/
+
+.masked {
+    display: block !important;
+    opacity: 0 !important;
+
+    /* Width and height 0 cause browser validation bubbles to dissappear. */
+    width: 1px !important;
+    height: 1px !important;
+
+    /* Position it so that the validation message appears in the correct place */
+    position: relative;
+    top: calc(var(--input-margin) + var(--size), 2.5rem);
+    /*margin-top: 0 !important;*/
+    margin-bottom: -1px !important;
+    margin-left: var(--padding-left, 0.75rem) !important;
+
+    /* Firefox: force no rendering or it'll inherit the default widget
+      height of 18px not matter what. */;
+    -moz-appearance: none;
+
+}
+
+.invisible {
+    /* Keep content accessible but not visible. */
+    position: absolute;
+    clip: rect(0 0 0 0);
+    -webkit-clip-path: inset(50%);
+            clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: 0 -1px -1px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-width: 0;
+}
+
+
+
+/* Focus and error styles */
+
+/* IE hates having border-color applied to select boxes. It forces
+   them into a state where they have to be doubleclicked to open -
+   once to focus, once to open. Even IE10. We are forced to hack
+   around it with the @media screen hack, which nets Safari as well,
+   unfortunately.
+
+   Chrome doesn't like having box-shadow applied to select boxes,
+   as it renders them with a bigger height. That's ok, I guess.
+   It's pretty difficult to have an error on a select box anyway. */
+
+[type="range"]:focus {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+:root:not(.js) input:invalid,
+:root:not(.js) select:invalid,
+:root:not(.js) textarea:invalid,
+.validated input:invalid,
+.validated select:invalid,
+.validated textarea:invalid,
+input.validated:invalid,
+select.validated:invalid,
+textarea.validated:invalid {
+    /* Todo: you sure we want to do this to selects? */
+    background-color: var(--invalid-background);
+    box-shadow:   var(--invalid-box-shadow);
+    border-color: var(--invalid-border-color) !important;
+}
+
+.validated input:valid,
+.validated select:valid,
+.validated textarea:valid,
+input.validated:valid,
+select.validated:valid,
+textarea.validated:valid {
+    /* Ditto? */
+    background-color: var(--valid-background);
+    box-shadow:       var(--valid-box-shadow);
+    border-color:     var(--valid-border-color) !important;
+}
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+.validated input:focus,
+.validated select:focus,
+.validated textarea:focus,
+input.validated:focus,
+select.validated:focus,
+textarea.validated:focus,
+.masked:focus + .focus-label:before,
+.masked:focus + .check-label:before,
+.masked:focus + .radio-label:before {
+    /* In Webkit, outline doesn't fit the border curves, and in FF outline
+       is ugly. Lets recreate it with box-shadow */
+    outline: none;
+    box-shadow: var(--focus-shadow);
+    border-color: var(--focus-border-color);
+}
+
+@media screen { @media (min-width: 0px) {
+    /* Hack to apply border color but avoid IE, which hates
+       having border-color applied to select boxes. Unfortunately
+       this hack also ignores Safari. But that's ok. */
+    select:focus
+    select.error:focus {
+        border-color: #5086c5 !important;
+    }
+
+    select.error {
+        border-color: #e62b24 !important;
+    }
+}}
+
+select:focus {
+    /* In Webkit, select boxes don't accept box-shadow. Outline-style: auto
+       kills the outline in FF, which is ok, because we re-created it (better)
+       using a box-shadow (for non-system-style select boxes. FF ignores outline
+       declarations for system-style select boxes, and uses system blue (Mac). Hey-ho.) */
+    outline: #639ACA auto 6px;
+    -moz-outline-color: #639ACA;
+    outline-offset: -3px;
+}
+
+:disabled,
+[aria-disabled="true"] {
+	opacity: 0.4;
+}
+
+
+/* Submit, reset and button inputs.
+
+   Use pure attribute selectors because they are weak, and classes
+   are able to override them. Pure attribute selectors are a known
+   performance drag, so keep them to a minimum. */
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    width: auto;
+    opacity: 1;
+    text-indent: 0;
+    vertical-align: baseline;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+
+/* Legacy */
+.error [type="button"],
+.error [type="reset"],
+.error [type="submit"] {
+    /* Negate error styles applied to inputs. */
+    -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none;
+}
+/* ------ */
+
+
+
+/* Date and time inputs. */
+
+::-webkit-datetime-edit-text {
+    /* Space the separators and make them lighter. */
+    opacity: 0.333333;
+    padding-left: 0.0625rem;
+    padding-right: 0.0625rem;
+}
+
+[type="date"]::-webkit-inner-spin-button {
+    /* Hide the increment/decrement control. */
+    display: none;
+}
+
+/*
+::-webkit-datetime-edit { padding: 0; }
+::-webkit-datetime-edit-fields-wrapper { background: transparent; }
+::-webkit-datetime-edit-month-field { color: ; }
+::-webkit-datetime-edit-day-field { color: ; }
+::-webkit-datetime-edit-year-field { color: ; }
+::-webkit-inner-spin-button { display: none; }
+::-webkit-calendar-picker-indicator { }
+*/
+
+
+
+/* Placeholders. */
+::-webkit-input-placeholder {
+    font-style: italic;
+    line-height: inherit;
+}
+
+::-moz-placeholder {
+    font-style: italic;
+    line-height: inherit;
+}
+
+:-ms-input-placeholder {
+    font-style: italic;
+    line-height: inherit;
+}
+
+::-ms-input-placeholder {
+    font-style: italic;
+    line-height: inherit;
+}
+
+::placeholder {
+    font-style: italic;
+    line-height: inherit;
+}

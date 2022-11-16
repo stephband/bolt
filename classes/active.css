@@ -1,0 +1,53 @@
+
+/**
+.active
+Modify a two-state component to represent active state.
+**/
+
+/*
+.active-hidden
+Hide an element when its parent has class <code>active</code>.
+*/
+
+.active-hidden.active,
+.active > .parent-active-hidden {
+	display: none !important;
+}
+
+/*
+.active-shown
+Show an element when its parent has class <code>active</code>.
+*/
+
+.active-shown:not(.active) {
+	display: none !important;
+}
+
+:not(.active) > .parent-active-shown:not(.active) {
+	display: none !important;
+}
+
+/**
+.on
+Modify a link or button that references a two-state component to represent
+active state.
+**/
+
+/*
+.on-hidden
+Hide an element when its parent has class <code>on</code>.
+*/
+
+.on-hidden.on,
+.on > .on-hidden {
+	display: none !important;
+}
+
+/*
+.on-shown
+Show an element when its parent has class <code>on</code>.
+*/
+
+:not(.on) > .on-shown:not(.on) {
+	display: none !important;
+}

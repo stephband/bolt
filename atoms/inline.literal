@@ -1,0 +1,2 @@
+
+.${ data.prefix }inline         { display: inline-block !important; }

@@ -1,0 +1,42 @@
+/**
+Badges.
+**/
+
+/**
+.badge
+
+```html
+<span class="badge">3</span>
+```
+
+A rounded badge style. When used inside buttons or thumbs it is positioned
+absolutely, where it can be used as, say, a notifications count.
+**/
+
+.badge {
+    --size: 1.5rem;
+
+    display: inline-block;
+    font-size: inherit;
+    line-height: var(--size);
+    min-width: var(--size);
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    text-align: center;
+    white-space: nowrap;
+    color: white;
+    background: black;
+    border-radius: calc(0.5 * var(--size));
+}
+
+button > .badge,
+.button > .badge,
+.thumb > .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: -0.6em;
+    margin-right: -0.6em;
+}

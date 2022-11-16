@@ -1,0 +1,67 @@
+
+/**
+.layer
+
+An absolutely positioned block that fills it's position parent.
+
+Typically, used behind a .dialog to cover the page. layers are absolutely
+positioned, so they are not in the flow. By default a layer is scrollable,
+in case the content put inside it is too big for it.
+
+```html
+<div class="block" style="height: 200px">
+  <div class="layer white-fg black-bg">Layer</div>
+</div>
+```
+*/
+
+.layer {
+	/* Permit possible scrollbars. */
+	overflow: auto;
+
+	/* Make layer occupy the whole of the area in its position parent. */
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	/* Height and width override the top, right, bottom, left declaration.
+	   To use height and width we must change the box model to make sure
+	   padding and border do not make the layer bigger than its container.
+	   The technique above does not work for iframes and can break as soon
+	   as height or width are declared, but the technique below will not
+	   work in IE7, where the box model can't be changed. */
+	width: 100%;
+	height: 100%;
+
+	/* Make the corners of layers the same as their parents', allowing you
+	   to use layers as masks over rounded elements. */
+	-webkit-border-radius: inherit;
+	   -moz-border-radius: inherit;
+	        border-radius: inherit;
+}
+
+.screen-layer {
+	background-color: rgba(0,0,0,0.6);
+}
+
+.scroll-layer {
+	/* A technique for hiding scrollbars by nesting two layers, and pushing
+	   the scrollbars on the inner .scroll outside the hidden boundary
+	   of the outer .scroll-layer. */
+
+	/* These values, representing the thickness of a scrollbar, should be
+	   overriden by feature testing with some js */
+	padding-right: 16px;
+	padding-bottom: 16px;
+
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+
+	/* Make sure we're using the right box model for this technique */
+	-webkit-box-sizing: content-box;
+	   -moz-box-sizing: content-box;
+	        box-sizing: content-box;
+}

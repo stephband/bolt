@@ -1,0 +1,14 @@
+
+/**
+.${ data.name }-fg,
+.${ data.name }-bg
+
+\`\`\`html
+<p class="${ data.name }-fg">Crunchum Ipsum</p>
+<p class="thumb ${ data.name }-bg">${ data.name }</p>
+\`\`\`
+**/
+
+:root              { --${ data.name }: ${ data.value }; }
+.${ data.name }-fg { color: ${ data.value }; stroke: ${ data.value }; }
+.${ data.name }-bg { background-color: ${ data.value }; fill: ${ data.value }; }

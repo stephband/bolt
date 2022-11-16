@@ -1,0 +1,215 @@
+
+/**
+State
+**/
+
+/**
+.shown
+
+Forces \`display: none\` below a given breakpoint. This class is only available
+with breakpoint prefixes (\`@1-\`, \`@2-\`, ...).
+
+\`\`\`html
+<a class="@1-shown" href="...">Link</a>
+\`\`\`
+**/
+
+/**
+.hidden
+
+Forces \`display: none\` above a given breakpoint. This class is available
+with breakpoint prefixes (\`@1-\`, \`@2-\`, ...).
+
+\`\`\`html
+<a class="@1-hidden" href="...">Link</a>
+\`\`\`
+**/
+
+/**
+Columns.
+**/
+
+/**
+.2-columns
+
+\`\`\`html
+<div class="2-columns columns" style="--x-gap: 0.9375rem; font-size: 0.875rem;">
+    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+</div>
+\`\`\`
+**/
+
+/**
+.3-columns
+
+\`\`\`html
+<div class="3-columns columns" style="--x-gap: 0.9375rem; font-size: 0.875rem;">
+    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+</div>
+\`\`\`
+**/
+
+/**
+.4-columns … .12-columns
+
+\`\`\`html
+<div class="4-columns columns" style="--x-gap: 0.9375rem; font-size: 0.875rem;">
+    Crunchum ipsum dolor sit coder void, constructor function, sed do while loop python orientation semi colon incident.
+</div>
+\`\`\`
+**/
+
+
+/**
+Grid.
+**/
+
+/**
+.grid
+
+\`\`\`html
+<div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button">&nbsp;</div>
+</div>
+\`\`\`
+
+Creates a grid with horizontal flow and equal width columns.
+**/
+
+/**
+.2x-grid
+
+\`\`\`html
+<div class="2x-grid grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+</div>
+\`\`\`
+
+Creates a grid with 2 equal width columns.
+**/
+
+/**
+.3x-grid
+
+\`\`\`html
+<div class="3x-grid grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+</div>
+\`\`\`
+
+Creates a grid with 3 equal width columns.
+**/
+
+/**
+.4x-grid … .12x-grid
+
+\`\`\`html
+<div class="4x-grid grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+    <div class="button">&nbsp;</div>
+</div>
+\`\`\`
+**/
+
+/**
+.x1 … .x12,
+.2x … .12x,
+.x-start,
+.x-center,
+.x-end,
+.x-stretch,
+.x-bleed,
+.x-flood
+
+\`\`\`html
+<div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button x1">x1</div>
+    <div class="button x2">x2</div>
+    <div class="button x3">x3</div>
+    <div class="button x1 2x">2x</div>
+    <div class="button x1 3x">3x</div>
+    <div class="button x1 x-start y4">x-start</div>
+    <div class="button x2 x-center y4">x-center</div>
+    <div class="button x3 x-end y4">x-end</div>
+    <div class="button x1 x-stretch y5">x-stretch</div>
+    <div class="button x2 x-bleed y5">x-bleed</div>
+    <div class="button x3 x-flood y5">x-flood</div>
+</div>
+\`\`\`
+
+Note that \`.x-bleed\`, which stretches an element half the way across the grid
+gap, and \`.x-flood\`, which stretches an element all the way across the grid gap,
+depends on \`column-gap\` having been set via the custom property \`--x-gap\`.
+**/
+
+/**
+.y1 … .y18,
+.2y … .12y,
+.y-start,
+.y-center,
+.y-end,
+.y-stretch,
+.y-bleed,
+.y-flood,
+.y-baseline,
+.y-lastline
+
+\`\`\`html
+<div class="grid" style="--x-gap: 0.9375rem; --y-gap: 0.9375rem; font-size: 0.875rem;">
+    <div class="button x1 y1">y1</div>
+    <div class="button x1 y2">y2</div>
+    <div class="button x1 y3">y3</div>
+    <div class="button x2 y1 2y">2y</div>
+    <div class="button x3 y1 3y">3y</div>
+    <div class="button x1 y4 y-start">y-start</div>
+    <div class="button x1 y5 y-center">y-center</div>
+    <div class="button x1 y6 y-end">y-end</div>
+    <div class="button x2 y4 y-stretch">y-stretch</div>
+    <div class="button x2 y5 y-bleed">y-bleed</div>
+    <div class="button x2 y6 y-flood">y-flood</div>
+    <div class="button x3 y4 y-baseline">y-baseline</div>
+    <div class="button x3 y5 y-lastline">y-lastline</div>
+</div>
+\`\`\`
+**/
+
+/**
+--x-gap
+Define the horizontal grid gap (with units).
+**/
+
+/**
+--y-gap
+Define the vertical grid gap (with units).
+**/
+
+${ data.map(async (bp) => (px(bp.width) ? `
+/* .${ bp.prefix }atom, ${ em(bp.width) }em (${ px(bp.width) }px) */
+
+@media screen and (max-width: ${ em(px(bp.width) - 1) }em) {
+    .${ bp.prefix }shown          { display: none !important; }
+}
+
+@media (min-width: ${ em(bp.width) }em) {` : `
+/* .${ bp.prefix }atom, ${ em(bp.width) }em (${ px(bp.width) }px) */
+`)
++ (`
+    .${ bp.prefix }hidden         { display: none !important; }`)
++ (await include('../atoms/position.literal', bp) )
++ (await include('../atoms/columns.literal', bp) )
++ (await include('../atoms/flex.literal', bp) )
++ (await include('../atoms/grid.literal', bp) )
++ (await include('../atoms/inline.literal', bp) )
++ (await include('../atoms/text.literal', bp) )
++ (await include('../atoms/align.literal', bp) )
++ (await include('../atoms/margin.literal', bp) )
+
++ (px(bp.width) ? `}
+
+` : `
+`)) }

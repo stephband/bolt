@@ -1,0 +1,226 @@
+
+/**
+button,
+.button,
+[type="button"]
+
+```html
+<button type="button">Button</button>
+<a class="button" href="#buttons">Link</a>
+```
+**/
+
+button,
+[type="button"] {
+    /* And they don't automatically inherit font styles. */
+    font-size: inherit;
+    font-family: inherit;
+
+    -ms-hyphens: none;
+        hyphens: none;
+
+    color: inherit;
+    background: transparent;
+
+    /* Hit zones for buttons and links really must be a minimum of 32x32 (and
+       preferably >40x40 for finger touches to register reliably) */
+    min-width: 2rem;
+    min-height: 2rem;
+}
+
+button,
+[type="button"],
+.button {
+    /**
+    --font-size
+    **/
+    --font-size: inherit;
+
+    /**
+    --size
+    **/
+    --size: 3rem;
+
+    /**
+    --line-height
+    **/
+    --line-height: 1.5rem;
+
+    /*
+    --color
+    */
+    --color: black;
+
+    /*
+    --background
+    */
+    /*--background: white;*/
+
+    /*
+    --border-color
+    */
+    --border-color: transparent;
+
+    /**
+    --border-width
+    **/
+    --border-width: 0.0625rem;
+
+    /*
+    --border-radius
+    */
+    --border-radius: 0.3125rem;
+
+    /*
+    --padding-left
+    */
+    --padding-left: 0.5625em;
+
+    /*
+    --padding-right
+    */
+    --padding-right: var(--padding-left);
+
+    /* Making buttons a grid helps layout internal icons, and also
+       equalises the baseline of button and a.button elements. */
+    display: inline-block;
+
+    font-size:      var(--font-size);
+    line-height:    var(--line-height);
+    padding-left:   var(--padding-left);
+    padding-right:  var(--padding-right);
+    padding-top:    calc(0.5 * (var(--size) - var(--line-height)) - var(--border-width));
+    padding-bottom: calc(0.5 * (var(--size) - var(--line-height)) - var(--border-width));
+    min-height:     var(--size);
+    width: auto;
+    height: auto;
+    vertical-align: baseline;
+    text-overflow: ellipsis;
+    text-align: center;
+    text-decoration: none;
+
+    /* Override default browser style on input type=submit (white-space: pre) */
+    white-space: normal;
+
+    /* Avoid breaking in columns */
+    break-inside: avoid;
+
+    /* Set buttons up for grid layout. Chrome has a bug that doesn't allow
+       grid layout on <button> elements, so be cautious */
+    grid-auto-flow: column;
+    /* grid-auto-columns: minmax(max-content, 1fr); */
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+    /* Allow absolutely positioned children */
+    position: relative;
+    /* Has it's own stacking context to prevent absolutely positioned children
+       overflowing stacks outside the button */
+    z-index: 0;
+
+    background-repeat: no-repeat;
+    background-clip: border-box;
+    background-origin: border-box;
+    border-style: solid;
+    border-width:  var(--border-width);
+    border-color:  var(--border-color);
+    border-radius: var(--border-radius);
+    transition:
+        border-color 120ms linear,
+        background-color 120ms linear,
+        color 120ms linear;
+}
+
+button > svg,
+[type="button"] > svg,
+.button > svg {
+    /* Allow SVGs to render as inline icons */
+    display: inline-block;
+    width: auto;
+    height: var(--line-height);
+    vertical-align: middle;
+}
+
+button:hover,
+button:focus,
+.button:hover,
+.button:focus {
+    /* If button is link, it may have hover styles. */
+    text-decoration: none;
+
+    transition:
+        border-color 80ms linear,
+        background-color 80ms linear,
+        color 80ms linear;
+}
+/*
+button.loading,
+.button.loading {
+    opacity: 0.4;
+}
+*/
+.button > input[type="radio"],
+.button > input[type="checkbox"] {
+    display: inline;
+    height: auto;
+    vertical-align: baseline;
+    margin-right: 0.5em;
+    /* Stop radio's left edges getting cut off inside buttons. */
+    margin-left: 1px;
+}
+
+.button.block {
+    display: block;
+    /* Necessary?? */
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.loading button,
+.loading .button,
+.resizing button,
+.resizing .button {
+    transition: none !important;
+}
+
+/*
+.button > input[type="file"]
+
+```html
+<label class="button" for="file-input">
+  Select file...
+  <input type="file" id="file-input" />
+</label>
+```
+
+File inputs can be wrapped in buttons for custom styling. The caveat: there is
+no way to display the selected file name if you do this.
+*/
+
+.thumb > select,
+.button > input[type="file"],
+.button > input[type="submit"] {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.js .thumb > select,
+.js .button > input[type="file"],
+.js .button > input[type="submit"] {
+    -webkit-appearance: none;
+    opacity: 0;
+}
+

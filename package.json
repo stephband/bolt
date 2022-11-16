@@ -1,0 +1,21 @@
+{
+  "title": "Bolt",
+  "name": "bolt",
+  "description": "A front-end toolkit of classes, evented behaviours and custom elements.",
+  "version": "2.2.0",
+  "author": {
+    "name": "stephband",
+    "url": "http://stephen.band",
+    "twitter": "@stephband"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephband/bolt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stephband/bolt/issues/"
+  },
+  "license": "MIT",
+  "homepage": "http://stephen.band/bolt/",
+  "module": "module.js"
+}

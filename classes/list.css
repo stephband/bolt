@@ -1,0 +1,66 @@
+
+/**
+List.
+**/
+
+/**
+.list
+
+Applied to `ul`, `ol` and `dl` elements to zero their default typographic
+style. Child `li`s are blocks, but they are set up to play nice as
+inline-blocks too.
+
+```html
+<ul class="list">
+  <li>One</li>
+  <li>Two</li>
+</ul>
+```
+*/
+
+.list {
+	/* Remove default styling from list items. */
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.list > * {
+	display: block;
+
+	/* Specifically remove default margin and padding from
+	   list items in case some typography rules have added
+	   these back in after the reset. */
+	margin: 0;
+	padding: 0;
+
+	/* Make list items act as position parents. */
+	position: relative;
+
+	/* Avoid breaking in columns */
+	break-inside: avoid;
+
+	/* Prepare for inline-block layout. */
+	vertical-align: top;
+
+	/* Todo: WTF? Why? */
+	/*overflow: visible;*/
+}
+
+
+/**
+.inline-list
+
+```html
+<ul class="inline-list list">
+   <li><a class="button" href="#">One</a></li
+  ><li><a class="button" href="#">Two</a></li
+  ><li><a class="button" href="#">Three</a></li
+  ><li><a class="button" href="#">Four</a></li>
+</ul>
+```
+*/
+
+.inline-list > li {
+	display: inline-block;
+}

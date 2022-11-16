@@ -1,0 +1,87 @@
+
+/**
+table
+
+```html
+<table>
+  <thead>
+    <tr><th></th><th>1</th><th>2</th><th>3</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>English</th><td>One</td><td>Two</td><td>Three</td></tr>
+    <tr><th>Français</th><td>Un</td><td>Deux</td><td>Trois</td></tr>
+    <tr><th>Italiano</th><td>Uno</td><td>Due</td><td>Tre</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><th>Notes</th><td>Small</td><th>Medium</td><td>Large</td></tr>
+  </tfoot>
+</table>
+```
+**/
+
+th,
+td {
+    font-style: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    padding-left: 0.1875rem;
+    padding-right: 0.1875rem;
+    background-clip: border-box;
+}
+
+th:first-child,
+td:first-child {
+    padding-left: 0;
+}
+
+th:last-child,
+td:last-child {
+    padding-right: 0;
+}
+
+thead > tr > th,
+thead > tr > td {
+    padding-top:    0.75rem;
+    padding-bottom: 0.375rem;
+    vertical-align: bottom;
+}
+
+thead > tr:last-child > th,
+thead > tr:last-child > td {
+    padding-bottom: 0.375rem;
+}
+
+tbody > tr > th,
+tbody > tr > td {
+    padding-top:    0.1875rem;
+    padding-bottom: 0.1875rem;
+    vertical-align: middle;
+}
+
+tfoot > tr > th,
+tfoot > tr > td {
+    padding-top:    0.875rem;
+    padding-bottom: 0.875rem;
+    vertical-align: top;
+}
+
+table {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    table-layout: fixed;
+}
+
+/**
+table.x-bleed
+**/
+
+table.x-bleed th:first-child,
+table.x-bleed td:first-child {
+    padding-left: calc(0.5 * var(--x-gap));
+}
+
+table.x-bleed th:last-child,
+table.x-bleed td:last-child {
+    padding-right: calc(0.5 * var(--x-gap));
+}

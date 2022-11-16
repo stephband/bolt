@@ -1,0 +1,38 @@
+
+@media (max-width: 45em) {
+    .panel-bubble {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        /* Overflow makes us lose the bubble point, of course, because it lies
+           outside the box. Does this want to be a custom element? I fear it does. */
+        overflow: auto;
+        overscroll-behavior: contain;
+        margin: 0;
+        border-left-width: 0;
+        border-right-width: 0;
+        border-bottom-width: 0;
+    }
+
+    .js .panel-bubble {
+        position: fixed;
+        opacity: 1;
+        transform: translate3d(0,100%,0);
+        transition:
+            visibility 0.72s linear,
+            transform 0.72s ease-out;
+    }
+
+    .js .panel-bubble.active {
+        transform: translate3d(0,0,0);
+        transition:
+            visibility 0.24s linear,
+            transform 0.24s ease-in;
+    }
+}

@@ -1,0 +1,130 @@
+
+/**
+Colour.
+**/
+
+/*
+Colour classes set `color`, `background-color`, `stroke` and `fill`,
+and variables are available to set colors in CSS:
+
+- `.black-fg` sets color or stroke to black
+- `.black-bg` sets background-color or fill to black
+- `var(--black)` sets the color black in CSS
+*/
+
+/**
+.current-fg,
+.current-bg
+
+```html
+<p class="current-fg">Crunchum Ipsum</p>
+<p class="thumb current-bg">Current</p>
+```
+**/
+
+.current-fg   { color: currentcolor; stroke: currentcolor; }
+.current-bg   { background-color: currentcolor; fill: currentcolor; }
+
+
+/**
+.transparent-fg,
+.transparent-bg
+
+```html
+<p class="transparent-fg">Crunchum Ipsum</p>
+<p class="thumb transparent-bg">Transparent</p>
+```
+**/
+
+.transparent-fg { color: transparent; }
+.transparent-bg { background-color: transparent; }
+
+
+/**
+.black-fg,
+.black-bg
+
+```html
+<p class="black-fg">Crunchum Ipsum</p>
+<p class="thumb black-bg">Black</p>
+```
+**/
+
+:root       { --black: black; }
+.black-fg   { color: black; stroke: black; }
+.black-bg   { background-color: black; fill: black; }
+
+
+/**
+.white-fg,
+.white-bg
+
+```html
+<p class="white-fg">Crunchum Ipsum</p>
+<p class="thumb white-bg">White</p>
+```
+**/
+
+:root       { --white: white; }
+.white-fg   { color: white; stroke: white; }
+.white-bg   { background-color: white; fill: white; }
+
+
+/**
+.info-fg,
+.info-bg
+
+```html
+<p class="info-fg">Crunchum Ipsum</p>
+<p class="thumb info-bg">Info colour</p>
+```
+**/
+
+:root       { --info: #46789a; }
+.info-fg    { color: #46789a; stroke: #46789a; }
+.info-bg    { background-color: #46789a; fill: #46789a; }
+
+
+/**
+.success-fg,
+.success-bg
+
+```html
+<p class="success-fg">Crunchum Ipsum</p>
+<p class="thumb success-bg">Success colour</p>
+```
+**/
+
+:root       { --success: #8aa231; }
+.success-fg { color: #8aa231; stroke: #8aa231; }
+.success-bg { background-color: #8aa231; fill: #8aa231; }
+
+
+/**
+.warn-fg,
+.warn-bg
+
+```html
+<p class="warn-fg">Crunchum Ipsum</p>
+<p class="thumb warn-bg">Warn colour</p>
+```
+**/
+
+:root       { --warn: #e6ba1a; }
+.warn-fg    { color: #e6ba1a; stroke: #e6ba1a; }
+.warn-bg    { background-color: #e6ba1a; fill: #e6ba1a; }
+
+
+/**
+.error-fg,
+.error-bg
+
+```html
+<p class="error-fg">Crunchum Ipsum</p>
+<p class="thumb error-bg">Error colour</p>
+```
+**/
+
+:root         { --error: #DC0F0E; }
+.error-fg     { color: #DC0F0E; stroke: #DC0F0E; }
+.error-bg     { background-color: #DC0F0E; fill: #DC0F0E; }

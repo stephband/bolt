@@ -1,0 +1,66 @@
+
+/* Empty attributes */
+
+[href=""],
+[href="#"],
+[alt=""] {
+    position: relative;
+    box-shadow: inset 0 0 0px 1px rgba(255,0,74,0.75) !important;
+    border-color: rgb(255, 0, 74) !important;
+}
+
+[href=""]::before,
+[href="#"]::before,
+[alt=""]::before {
+    /* Do not position it with top, left, etc. We cannot give the parent
+       position: relative */
+    position: absolute;
+    font-family: 'Andale Mono', 'Courier New', monospace;
+    font-size: 0.6875rem;
+    text-transform: none;
+    line-height: 0.9375rem;
+    min-width: 3.125rem;
+    padding: 0.0625rem;
+    white-space: nowrap;
+    color: white;
+    background-color: rgb(255, 0, 74);
+    /* Maximum possible z-index */
+    z-index: 2147483647;
+}
+
+[href=""]::before  { content: 'href=""'; }
+[href="#"]::before { content: 'href="#"'; }
+[alt=""]::before   { content: 'alt=""'; }
+
+
+/* Buttons must have a type attribute lest they behave as submit buttons. */
+
+button:not([type]) {
+    box-shadow: inset 0 0 0px 1px rgba(255,0,74,0.75) !important;
+    border-color: rgb(255, 0, 74) !important;
+}
+
+button:not([type])::before {
+    content: 'Missing type="button"';
+    /* Do not position it with top, left, etc. We cannot give the parent
+       position: relative */
+    position: absolute;
+    font-family: 'Andale Mono', 'Courier New', monospace;
+    font-size: 0.6875rem;
+    text-transform: none;
+    line-height: 0.9375rem;
+    min-width: 3.125rem;
+    padding: 0.0625rem;
+    white-space: nowrap;
+    color: white;
+    background-color: rgb(255, 0, 74);
+    /* Maximum possible z-index */
+    z-index: 2147483647;
+}
+
+
+/* :target */
+
+:target {
+    outline: 16px solid rgba(80, 60, 255, 0.2) !important;
+}

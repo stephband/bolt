@@ -1,0 +1,17 @@
+{
+    "excludes": [
+        "archive/",
+        "assets/",
+        "deno/",
+        "documentation/",
+        "control/",
+        "envelope-control/",
+        "range-control/",
+        "rotary-control/",
+        "fonts/",
+        "modules/",
+        "packaged/",
+        "templates/"
+    ]
+}
+    

@@ -1,0 +1,45 @@
+/**
+.striped-table
+
+```html
+<table class="striped-table">
+  <thead>
+    <tr><th></th><th>1</th><th>2</th><th>3</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>English</th><td>One</td><td>Two</td><td>Three</td></tr>
+    <tr><th>Français</th><td>Un</td><td>Deux</td><td>Trois</td></tr>
+    <tr><th>Italiano</th><td>Uno</td><td>Due</td><td>Tre</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><th>Notes</th><td>Small</td><th>Medium</td><td>Large</td></tr>
+  </tfoot>
+</table>
+```
+**/
+
+.striped-table th:first-child,
+.striped-table td:first-child {
+    padding-left: 0.75rem;
+}
+
+.striped-table th:last-child,
+.striped-table td:last-child {
+    padding-right: 0.75rem;
+}
+
+.striped-table > tbody > tr > th,
+.striped-table > tbody > tr > td {
+    padding-top:    0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.striped-table > tbody > tr:nth-child(2n) > th,
+.striped-table > tbody > tr:nth-child(2n) > td {
+    background-color: hsla(198, 8%, 100%, 0.2);
+}
+
+.striped-table > tbody > tr:nth-child(2n + 1) > th,
+.striped-table > tbody > tr:nth-child(2n + 1) > td {
+    background-color: hsla(198, 8%, 50%, 0.05);
+}

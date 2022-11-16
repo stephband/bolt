@@ -1,0 +1,19 @@
+
+/**
+.fixed
+**/
+
+.${ data.prefix }fixed {
+	position: fixed !important;
+}
+
+
+/**
+.sticky
+**/
+
+.${ data.prefix }sticky {
+    position: -webkit-sticky !important;
+	position: sticky !important;
+	top: 0;
+}

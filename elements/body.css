@@ -1,0 +1,16 @@
+
+body {
+    /* Act as position parent */
+    position: relative;
+
+    /* Fill the available space */
+    min-height: 100%;
+}
+
+@media screen and (min-aspect-ratio: 3/1) {
+    /* Enforce an aspect ratio of max 3:1 (which should comfortably
+       accomodate 16:9 screens minus URL and status bars) */
+    body {
+        min-height: 33.3333vw;
+    }
+}

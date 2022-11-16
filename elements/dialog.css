@@ -1,0 +1,29 @@
+
+dialog:not([open]) {
+    position: fixed;
+    top: 0;
+    visibility: hidden;
+    opacity: 0;
+    transform: translate3d(0,1.5rem,0);
+    transition:
+        visibility 0.9s linear,
+        opacity 0.9s linear,
+        transform 0.9s ease-in;
+}
+
+dialog {
+    border-width: 0;
+    visibility: visible;
+    opacity: 1;
+    transform: translate3d(0,0,0);
+    transition:
+        visibility 0.3s linear,
+        opacity 0.3s linear,
+        transform 0.3s ease-out;
+}
+
+dialog > .thumb {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+}

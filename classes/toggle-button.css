@@ -1,0 +1,40 @@
+
+/**
+.toggle-button
+
+```html
+<a class="toggle-button button" href="#id">Open</a>
+```
+
+A `toggle-button` has in icon (styleable as `:after` content) that rotates 90˚ when
+the button is given the class `on`.
+
+Include `attributes/data-toggleable.js` and links to an element data-toggleable will
+toggle the `active` class when clicked. The links are given the class `on`.
+**/
+
+.toggle-button {
+    display: block;
+	padding-right: 1.875rem;
+}
+
+.toggle-button::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	right: 0.75rem;
+	width: 0.5625rem;
+	height: 0.5625rem;
+	border-right: 1px solid currentcolor;
+	border-bottom: 1px solid currentcolor;
+	transform: translate3d(-20%,-50%,0) rotate(-45deg);
+	transition: transform 0.2s linear;
+}
+
+.toggle-button.on::after {
+	transform: translate3d(0,-70.7%,0) rotate(45deg);
+}
+
+.loading .toggle-button::after {
+	transition: none;
+}

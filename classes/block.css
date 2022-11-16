@@ -1,0 +1,72 @@
+
+
+/**
+Blocks.
+**/
+
+/**
+.block
+
+For layout. There are two ways a `.block` can be styled: as a
+`block`, for a vertical layout, or as `inline-block`, for
+a horizontal layout. `block` by default, obviously.
+
+Applied to a media tag like img, svg, video and canvas, `.block`
+will scale the element to fill the available width.
+**/
+
+.block {
+    display: block;
+
+    /* Set as position parent */
+    position: relative;
+
+    /* Force img, video, svg to scale. */
+    height: auto;
+
+    /* Set them up to play nice as inline-blocks. */
+    vertical-align: top;
+    overflow: visible;
+
+    /* Avoid breaking in columns */
+    break-inside: avoid;
+
+    /* Set them up to place nice as flexboxes. */
+    justify-content: center;
+
+    /* Negate possible spacing when .block is used on something typographic like
+       a <p>, for example. Also, make blocks behave as centered wraps by default. */
+    margin: 0 auto;
+}
+
+a.block,
+a.block:hover,
+a.block:focus {
+    text-decoration: none;
+}
+
+.block > svg,
+.block > video,
+.block > canvas,
+.block > object,
+.block > embed,
+.block > iframe {
+    /* Don't allow media to break out of .block bounds. */
+    max-width: 100%;
+}
+
+hr.block {
+    height: 1px;
+}
+
+.block[href] {
+    text-decoration: none;
+}
+
+/**
+.inline-block
+**/
+
+.inline-block {
+    display: inline-block;
+}

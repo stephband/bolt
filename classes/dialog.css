@@ -1,0 +1,121 @@
+
+.dialog-layer {
+	background-image: none;
+	background-color: rgba(31, 32, 33, 0.746094);
+	opacity: 0;
+	visibility: hidden;
+	transition:
+		visibility 0.3s linear,
+		opacity 0.3s linear;
+	z-index: 6;
+	cursor: pointer;
+}
+
+.dialog-layer.on,
+.dialog-layer.active {
+	opacity: 1;
+	visibility: visible;
+}
+
+.middle,
+.dialog-layer {
+	/* Center inline-block contents horizontally */
+	text-align: center;
+}
+
+.middle::before,
+.dialog-layer::before {
+	/* Center inline-block contents vertically. Note that to
+	   keep .dialog centered horizontally there should be no
+	   space in front of the .dialog box. */
+	display: inline-block;
+	content: '';
+	height: 100%;
+	width: 0;
+	vertical-align: middle;
+}
+
+.middle > .block,
+.dialog-layer > .dialog {
+	text-align: left;
+
+	/* Use inline-block to make dialog collapse
+	   to the width of its contents. */
+	display: inline-block;
+
+	/* Center the dialog vertically, working in tandem
+	   with the :before rule of .dialog-layer. */
+	vertical-align: middle;
+
+    /* Act as position parent */
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+}
+
+body > .dialog-layer {
+	position: fixed;
+}
+
+
+/**
+.dialog
+
+```html
+<div class="block" style="height: 7.5rem;">
+  <div class="dialog-layer layer">
+    <div class="dialog">
+      <h1>Hello</h1>
+    </div>
+  </div>
+</div>
+```
+*/
+
+.dialog {
+	cursor: default;
+
+	/* Act as position parent */
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+
+	padding: 0.75rem;
+	margin: 0;
+	max-width: 72%;
+
+	/* But let's make sure it doesn't touch the top or
+	   bottom. */
+	max-height: calc(100% - 4.5rem);
+
+	background-color: white;
+
+	-webkit-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+	   -moz-box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+	        box-shadow: 0 2px 24px rgba(0,0,0,0.6);
+}
+
+.dialog > img,
+.dialog > svg,
+.dialog > video,
+.dialog > canvas,
+.dialog > object,
+.dialog > embed,
+.dialog > iframe {
+	/* Don't allow media to break out of container bounds. */
+	width: 100%;
+	max-width: none;
+	object-fit: contain;
+	object-position: 50% 50%;
+}
+
+.dialog > img,
+.dialog > svg,
+.dialog > video,
+.dialog > canvas {
+	/* Allow images to rescale freely. */
+	height: auto;
+	max-height: calc(100vh - 6rem);
+}
