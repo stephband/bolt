@@ -295,4 +295,12 @@ events('load', window).each(function() {
 	}
 });
 
-events('dom-activate', document).each(delegate(behaviours));
+events('dom-activate', document).each((e) => {
+	let selector;
+	for (selector in behaviours) {
+		const node = e.target.matches(selector);
+		if (node) {
+			return behaviours[selector](e);
+		}
+	}
+});

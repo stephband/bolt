@@ -22,7 +22,6 @@ import { behaviours, deactivate } from '../events/dom-activate.js';
 
 function activate(e) {
     const element = e.target;
-
     // Make user actions outside node deactivate the node
     const mousedowns = events('mousedown', document)
         .filter((e) => !element.contains(e.target) && element !== e.target)
