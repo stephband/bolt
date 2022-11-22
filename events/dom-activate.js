@@ -70,11 +70,11 @@ function getHash(node) {
 }
 
 function addOnClass(element) {
-	element.classlist.add(config.onClass);
+	element.classList.add(config.onClass);
 }
 
 function removeOnClass(element) {
-	element.classlist.remove(config.onClass);
+	element.classList.remove(config.onClass);
 }
 
 export function activate(element, button) {
