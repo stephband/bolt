@@ -1,0 +1,5 @@
+.${ data.prefix }size-18  { --size: 1.125rem; }
+.${ data.prefix }size-24  { --size: 1.5rem; }
+.${ data.prefix }size-30  { --size: 1.875rem; }
+.${ data.prefix }size-48  { --size: 3rem; }
+.${ data.prefix }size-60  { --size: 3.75rem; }

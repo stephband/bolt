@@ -207,6 +207,7 @@ ${ data.map(async (bp) => (px(bp.width) ? `
 + (await include('../atoms/inline.literal', bp) )
 + (await include('../atoms/text.literal', bp) )
 + (await include('../atoms/align.literal', bp) )
++ (await include('../atoms/size.literal', bp) )
 + (await include('../atoms/margin.literal', bp) )
 
 + (px(bp.width) ? `}

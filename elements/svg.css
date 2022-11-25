@@ -4,6 +4,8 @@ svg {
     fill: none;
     stroke: currentcolor;
     stroke-width: 1;
+    width: var(--size, 100%);
+    height: auto;
 }
 
 svg,
