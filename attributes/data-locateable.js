@@ -86,7 +86,6 @@ function removeOn(node) {
 }
 
 function locate(id) {
-    console.log('locate', id);
     if (!id) { return; }
     selectLinks(id).forEach(addOn);
 }
