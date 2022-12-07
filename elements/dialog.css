@@ -20,6 +20,7 @@ dialog {
         visibility 0.3s linear,
         opacity 0.3s linear,
         transform 0.3s ease-out;
+    z-index: 1000;
 }
 
 dialog > .thumb {
