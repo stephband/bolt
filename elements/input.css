@@ -111,6 +111,18 @@ Forms.
         inset 0 0 0 1px hsl(200,56%,49%),
         inset 0 0 0.5rem hsla(200,65%,60%,0.6);
 
+    /** --valid-background
+    Background of input after validation. **/
+    --valid-background: var(--input-background);
+
+    /** --valid-border-color
+    Border of input after validation. **/
+    --valid-border-color: var(--input-border-color);
+
+    /** --valid-box-shadow
+    Box shadow input after validation. **/
+    --valid-box-shadow: var(--input-box-shadow);
+
     /** --invalid-background
     Background of invalid inputs, selects and textareas **/
     --invalid-background: var(--input-background);
@@ -346,14 +358,17 @@ textarea {
 input,
 select,
 textarea {
-    --font-size:     var(--input-font-size, inherit);
-    --size:        var(--input-height, 2.8125rem);
-    --line-height:   var(--input-line-height, 1.5rem);
-    --padding-left:  var(--input-padding-left, 0.5625rem);
-    --padding-right: var(--input-padding-right, 0.5625rem);
-    --border-width:  var(--input-border-width, 1px);
-    --border-color:  var(--input-border-color, #bbbbbb);
-    --border-radius: var(--input-border-radius, 0.3125rem);
+    --font-size:            var(--input-font-size, inherit);
+    --size:                 var(--input-height, 2.8125rem);
+    --line-height:          var(--input-line-height, 1.5rem);
+    --padding-left:         var(--input-padding-left, 0.5625rem);
+    --padding-right:        var(--input-padding-right, 0.5625rem);
+    --border-width:         var(--input-border-width, 1px);
+    --border-radius:        var(--input-border-radius, 0.3125rem);
+    --background:           var(--input-background);
+    --border-color:         var(--input-border-color, #bbbbbb);
+    --valid-border-color:   var(--border-color);
+    --invalid-border-color: var(--border-color);
 
     /* iOS has padding in the UA stylesheet. */
     padding-top: 0px;
@@ -419,7 +434,7 @@ textarea,
 [type="number"],
 [type="search"],
 [type="password"] {
-    background: var(--input-background) no-repeat;
+    background: var(--background) no-repeat;
     box-shadow: var(--input-shadow);
 }
 
@@ -833,9 +848,9 @@ input.validated:valid,
 select.validated:valid,
 textarea.validated:valid {
     /* Ditto? */
-    background-color: var(--valid-background);
-    box-shadow:       var(--valid-box-shadow);
-    border-color:     var(--valid-border-color) !important;
+    background-color: var(--valid-background, var(--background));
+    box-shadow:       var(--valid-box-shadow, var(--box-shadow));
+    border-color:     var(--valid-border-color, var(--border-color)) !important;
 }
 
 button:focus,
