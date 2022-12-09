@@ -365,7 +365,11 @@ textarea {
     --padding-right:        var(--input-padding-right, 0.5625rem);
     --border-width:         var(--input-border-width, 1px);
     --border-radius:        var(--input-border-radius, 0.3125rem);
+
     --background:           var(--input-background);
+    --valid-background:     var(--background);
+    --invalid-background:   var(--background);
+
     --border-color:         var(--input-border-color, #bbbbbb);
     --valid-border-color:   var(--border-color);
     --invalid-border-color: var(--border-color);
