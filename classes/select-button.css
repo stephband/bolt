@@ -27,13 +27,8 @@
     --border-width:  var(--input-border-width, 1px);
     --border-radius: var(--input-border-radius, 0.3125rem);
 
-    --background:           var(--input-background);
-    --valid-background:     var(--background);
-    --invalid-background:   var(--background);
-
-    --border-color:         var(--input-border-color, #bbbbbb);
-    --valid-border-color:   var(--border-color);
-    --invalid-border-color: var(--border-color);
+    --fg:            var(--input-border-color, #bbbbbb);
+    --bg:            var(--input-background);
 
     display: block;
     /* There should never be padding on select-button, it's padding is
@@ -44,7 +39,7 @@
     line-height: calc(var(--size) - 2 * var(--border-width));
 
     color: var(--input-color);
-    background: var(--background) no-repeat;
+    background: var(--bg) no-repeat;
     box-shadow: var(--input-shadow);
 }
 
@@ -67,7 +62,7 @@
     padding-right: calc(var(--padding-left) - var(--border-width));
     outline: none;
     color: inherit;
-    border: var(--border-width) solid transparent;
+    border-width: var(--border-width);
     border-radius: inherit;
     box-sizing: border-box;
 }

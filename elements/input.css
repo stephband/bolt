@@ -96,13 +96,13 @@ Forms.
     /** --fieldset-input-margin **/
     --fieldset-input-margin: 2rem;
 
-    /** --focus-background
-    Background of focused inputs, selects and textareas **/
-    --focus-background: var(--input-background);
-
-    /** --focus-border-color
+    /** --focus-fg
     Border colour of focused inputs, selects and textareas **/
-    --focus-border-color: #2c9bd3;
+    --focus-fg: #2c9bd3;
+
+    /** --focus-bg
+    Background of focused inputs, selects and textareas **/
+    --focus-bg: var(--input-background);
 
     /** --focus-shadow
     Box shadow of focused links, inputs, selects and textareas **/
@@ -111,29 +111,31 @@ Forms.
         inset 0 0 0 1px hsl(200,56%,49%),
         inset 0 0 0.5rem hsla(200,65%,60%,0.6);
 
-    /** --valid-background
+    /** --valid-bg
     Background of input after validation. **/
-    --valid-background: var(--input-background);
+    --valid-bg: var(--input-background);
 
-    /** --valid-border-color
+    /** --valid-fg
     Border of input after validation. **/
-    --valid-border-color: var(--input-border-color);
+    --valid-fg: var(--input-border-color);
 
-    /** --valid-box-shadow
+    /** --valid-shadow
     Box shadow input after validation. **/
-    --valid-box-shadow: var(--input-box-shadow);
+    --valid-shadow: var(--input-box-shadow);
 
-    /** --invalid-background
-    Background of invalid inputs, selects and textareas **/
-    --invalid-background: var(--input-background);
-
-    /** --invalid-border-color
+    /** --invalid-fg
     Border colour of invalid inputs, selects and textareas **/
-    --invalid-border-color: rgba(214,23,41);
+    --invalid-fg: rgb(214,23,41);
 
-    /** --invalid-box-shadow
+    /** --invalid-bg
+    Background of invalid inputs, selects and textareas **/
+    --invalid-bg: var(--input-background);
+
+    /** --invalid-shadow
     Box shadow of invalid inputs, selects and textareas **/
-    --invalid-box-shadow: 0 0 1px 2px rgba(214,23,41,0.875), inset 0 0 1px rgba(214,23,41,0.875);
+    --invalid-shadow:
+        0 0 1px 2px rgba(214,23,41,0.875),
+        inset 0 0 1px rgba(214,23,41,0.875);
 
 
     /** --disabled-filter **/
@@ -366,13 +368,13 @@ textarea {
     --border-width:         var(--input-border-width, 1px);
     --border-radius:        var(--input-border-radius, 0.3125rem);
 
-    --background:           var(--input-background);
-    --valid-background:     var(--background);
-    --invalid-background:   var(--background);
+    --bg:           var(--input-background);
+    --valid-bg:     var(--bg);
+    --invalid-bg:   var(--bg);
 
-    --border-color:         var(--input-border-color, #bbbbbb);
-    --valid-border-color:   var(--border-color);
-    --invalid-border-color: var(--border-color);
+    --fg:         var(--input-border-color, #bbbbbb);
+    --valid-fg:   var(--fg);
+    --invalid-fg: var(--fg);
 
     /* iOS has padding in the UA stylesheet. */
     padding-top: 0px;
@@ -421,7 +423,7 @@ textarea,
 [type="password"] {
     display: block;
     color: var(--input-color);
-    border: var(--border-width, 1px) solid var(--border-color);
+    border: var(--border-width, 1px) solid var(--fg);
     border-radius: var(--border-radius);
 }
 
@@ -438,7 +440,7 @@ textarea,
 [type="number"],
 [type="search"],
 [type="password"] {
-    background: var(--background) no-repeat;
+    background: var(--bg) no-repeat;
     box-shadow: var(--input-shadow);
 }
 
@@ -839,10 +841,9 @@ select[aria-disabled="true"] {
 input.validated:invalid,
 select.validated:invalid,
 textarea.validated:invalid {
-    /* Todo: you sure we want to do this to selects? */
-    background-color: var(--invalid-background);
-    box-shadow:   var(--invalid-box-shadow);
-    border-color: var(--invalid-border-color) !important;
+    border-color:     var(--invalid-fg);
+    background-color: var(--invalid-bg);
+    box-shadow:       var(--invalid-shadow);
 }
 
 .validated input:valid,
@@ -851,10 +852,9 @@ textarea.validated:invalid {
 input.validated:valid,
 select.validated:valid,
 textarea.validated:valid {
-    /* Ditto? */
-    background-color: var(--valid-background, var(--background));
-    box-shadow:       var(--valid-box-shadow, var(--box-shadow));
-    border-color:     var(--valid-border-color, var(--border-color)) !important;
+    border-color:     var(--valid-fg, var(--fg));
+    background-color: var(--valid-bg, var(--bg));
+    box-shadow:       var(--valid-shadow, var(--box-shadow));
 }
 
 button:focus,
@@ -874,7 +874,7 @@ textarea.validated:focus,
        is ugly. Lets recreate it with box-shadow */
     outline: none;
     box-shadow: var(--focus-shadow);
-    border-color: var(--focus-border-color);
+    border-color: var(--focus-fg);
 }
 
 @media screen { @media (min-width: 0px) {

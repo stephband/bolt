@@ -116,7 +116,7 @@ export const config = {
     // Given an input, select or textarea (that may have been augmented in some
     // way such that it is not the node that an error should be attached to),
     // selectNode() should return the node that the error should follow.
-    selectNode: id
+    selectNode: (input) => input.closest('label') || input
 };
 
 // Global object for validation messages, overriding the browser defaults.

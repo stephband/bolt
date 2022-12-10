@@ -52,14 +52,14 @@ button,
     --color: black;
 
     /*
-    --background
+    --bg
     */
-    /*--background: white;*/
+    /*--bg: white;*/
 
     /*
-    --border-color
+    --fg
     */
-    --border-color: transparent;
+    --fg: transparent;
 
     /**
     --border-width
@@ -124,7 +124,7 @@ button,
     background-origin: border-box;
     border-style: solid;
     border-width:  var(--border-width);
-    border-color:  var(--border-color);
+    border-color:  var(--fg);
     border-radius: var(--border-radius);
     transition:
         border-color 120ms linear,

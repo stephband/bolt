@@ -105,7 +105,7 @@ import './components/switch-label.js';
 }
 
 :focus + .switch-label::before{
-    border-color: var(--focus-border-color);
+    border-color: var(--focus-fg);
     box-shadow: var(--focus-shadow);
 }
 

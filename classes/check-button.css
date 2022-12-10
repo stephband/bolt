@@ -26,7 +26,7 @@
     --line-height:   var(--input-line-height, 1.5rem);
     --padding-left:  var(--input-padding-left, 0.5625rem);
     --padding-right: var(--input-padding-right, 0.5625rem);
-    --border-color:  var(--input-border-color, #bbbbbb);
+    --fg:  var(--input-border-color, #bbbbbb);
     --border-width:  var(--input-border-width, 1px);
     --border-radius: var(--input-border-radius, 0.3125rem);
 
@@ -117,7 +117,7 @@
 :focus + .check-button,
 :focus + .radio-button {
     box-shadow: var(--focus-shadow);
-    border-color: var(--focus-border-color);
+    border-color: var(--focus-fg);
     /* Make focus shadow appear over other elements. */
     z-index: 1;
 }
