@@ -155,7 +155,7 @@ events('click', document).each(delegate({
 		}
 
 		// Is the node activateable?
-		if (Object.keys(behaviours).find((selector) => element.matches(selector))) {
+		if (!Object.keys(behaviours).find((selector) => element.matches(selector))) {
 			return;
 		}
 
