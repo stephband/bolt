@@ -827,7 +827,7 @@ select[aria-disabled="true"] {
    as it renders them with a bigger height. That's ok, I guess.
    It's pretty difficult to have an error on a select box anyway. */
 
-[type="range"]:focus {
+[type="range"]:focus-visible-visible {
     background-color: transparent;
     box-shadow: none;
 }
@@ -860,19 +860,25 @@ textarea.validated:valid {
 button:focus,
 input:focus,
 select:focus,
-textarea:focus,
-.validated input:focus,
-.validated select:focus,
-.validated textarea:focus,
-input.validated:focus,
-select.validated:focus,
-textarea.validated:focus,
-.masked:focus + .focus-label:before,
-.masked:focus + .check-label:before,
-.masked:focus + .radio-label:before {
+textarea:focus {
+    outline: none;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.validated input:focus-visible,
+.validated select:focus-visible,
+.validated textarea:focus-visible,
+input.validated:focus-visible,
+select.validated:focus-visible,
+textarea.validated:focus-visible,
+.masked:focus-visible + .focus-label:before,
+.masked:focus-visible + .check-label:before,
+.masked:focus-visible + .radio-label:before {
     /* In Webkit, outline doesn't fit the border curves, and in FF outline
        is ugly. Lets recreate it with box-shadow */
-    outline: none;
     box-shadow: var(--focus-shadow);
     border-color: var(--focus-fg);
 }
@@ -881,8 +887,8 @@ textarea.validated:focus,
     /* Hack to apply border color but avoid IE, which hates
        having border-color applied to select boxes. Unfortunately
        this hack also ignores Safari. But that's ok. */
-    select:focus
-    select.error:focus {
+    select:focus-visible
+    select.error:focus-visible {
         border-color: #5086c5 !important;
     }
 
@@ -891,7 +897,7 @@ textarea.validated:focus,
     }
 }}
 
-select:focus {
+select:focus-visible {
     /* In Webkit, select boxes don't accept box-shadow. Outline-style: auto
        kills the outline in FF, which is ok, because we re-created it (better)
        using a box-shadow (for non-system-style select boxes. FF ignores outline
