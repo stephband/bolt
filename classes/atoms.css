@@ -1,4 +1,4 @@
-/* Literal template "/Users/stephband/Sites/unipop/unipop/static/bolt/classes/atoms.css.literal" */
+/* Literal template "/Users/stephband/Sites/bolt/classes/atoms.css.literal" */
 
 
 /**
@@ -562,6 +562,11 @@ a.grid:focus {
 .right-align    { text-align: right !important; }
 .center-align   { text-align: center !important; }
 .justify-align  { text-align: justify !important; }
+.size-18  { --size: 1.125rem; }
+.size-24  { --size: 1.5rem; }
+.size-30  { --size: 1.875rem; }
+.size-48  { --size: 3rem; }
+.size-60  { --size: 3.75rem; }
 
 .margin-0         { margin-top: 0      !important; }
 .margin-8         { margin-top: 0.5rem !important; }
@@ -951,6 +956,11 @@ a.\@1-grid:focus {
 .\@1-right-align    { text-align: right !important; }
 .\@1-center-align   { text-align: center !important; }
 .\@1-justify-align  { text-align: justify !important; }
+.\@1-size-18  { --size: 1.125rem; }
+.\@1-size-24  { --size: 1.5rem; }
+.\@1-size-30  { --size: 1.875rem; }
+.\@1-size-48  { --size: 3rem; }
+.\@1-size-60  { --size: 3.75rem; }
 
 .\@1-margin-0         { margin-top: 0      !important; }
 .\@1-margin-8         { margin-top: 0.5rem !important; }
@@ -1341,6 +1351,11 @@ a.\@2-grid:focus {
 .\@2-right-align    { text-align: right !important; }
 .\@2-center-align   { text-align: center !important; }
 .\@2-justify-align  { text-align: justify !important; }
+.\@2-size-18  { --size: 1.125rem; }
+.\@2-size-24  { --size: 1.5rem; }
+.\@2-size-30  { --size: 1.875rem; }
+.\@2-size-48  { --size: 3rem; }
+.\@2-size-60  { --size: 3.75rem; }
 
 .\@2-margin-0         { margin-top: 0      !important; }
 .\@2-margin-8         { margin-top: 0.5rem !important; }
@@ -1731,6 +1746,11 @@ a.\@3-grid:focus {
 .\@3-right-align    { text-align: right !important; }
 .\@3-center-align   { text-align: center !important; }
 .\@3-justify-align  { text-align: justify !important; }
+.\@3-size-18  { --size: 1.125rem; }
+.\@3-size-24  { --size: 1.5rem; }
+.\@3-size-30  { --size: 1.875rem; }
+.\@3-size-48  { --size: 3rem; }
+.\@3-size-60  { --size: 3.75rem; }
 
 .\@3-margin-0         { margin-top: 0      !important; }
 .\@3-margin-8         { margin-top: 0.5rem !important; }
