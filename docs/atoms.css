@@ -1,4 +1,4 @@
-/* Literal template "/Users/stephband/Sites/bolt/classes/atoms.css.literal" */
+/* Literal template "/Users/stephband/Sites/bolt/docs/atoms.css.literal" */
 
 
 /**
@@ -227,15 +227,6 @@ Define the vertical grid gap (with units).
 .\31 -columns  { columns: 1 !important; }
 .\32 -columns  { columns: 2 !important; }
 .\33 -columns  { columns: 3 !important; }
-.\34 -columns  { columns: 4 !important; }
-.\35 -columns  { columns: 5 !important; }
-.\36 -columns  { columns: 6 !important; }
-.\37 -columns  { columns: 7 !important; }
-.\38 -columns  { columns: 8 !important; }
-.\39 -columns  { columns: 9 !important; }
-.\31 0-columns  { columns: 10 !important; }
-.\31 1-columns  { columns: 11 !important; }
-.\31 2-columns  { columns: 12 !important; }
 
 
 .flex           { display: flex !important; }
@@ -303,41 +294,14 @@ a.grid:focus {
 .\31 x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
 .\32 x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
 .\33 x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
-.\34 x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
-.\35 x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
-.\36 x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
-.\37 x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
-.\38 x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
-.\39 x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-.\31 0x-grid  { grid-template-columns: repeat(10,  minmax(0, 1fr)); }
-.\31 1x-grid  { grid-template-columns: repeat(11,  minmax(0, 1fr)); }
-.\31 2x-grid  { grid-template-columns: repeat(12,  minmax(0, 1fr)); }
 
 .x1 { grid-column-start: 1 !important; }
 .x2 { grid-column-start: 2 !important; }
 .x3 { grid-column-start: 3 !important; }
-.x4 { grid-column-start: 4 !important; }
-.x5 { grid-column-start: 5 !important; }
-.x6 { grid-column-start: 6 !important; }
-.x7 { grid-column-start: 7 !important; }
-.x8 { grid-column-start: 8 !important; }
-.x9 { grid-column-start: 9 !important; }
-.x10 { grid-column-start: 10 !important; }
-.x11 { grid-column-start: 11 !important; }
-.x12 { grid-column-start: 12 !important; }
 
 .\31 x { grid-column-end: span 1 !important; }
 .\32 x { grid-column-end: span 2 !important; }
 .\33 x { grid-column-end: span 3 !important; }
-.\34 x { grid-column-end: span 4 !important; }
-.\35 x { grid-column-end: span 5 !important; }
-.\36 x { grid-column-end: span 6 !important; }
-.\37 x { grid-column-end: span 7 !important; }
-.\38 x { grid-column-end: span 8 !important; }
-.\39 x { grid-column-end: span 9 !important; }
-.\31 0x { grid-column-end: span 10 !important; }
-.\31 1x { grid-column-end: span 11 !important; }
-.\31 2x { grid-column-end: span 12 !important; }
 
 .x-end {
     justify-self: end !important;
@@ -442,12 +406,6 @@ a.grid:focus {
 .\34 y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
 .\35 y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
 .\36 y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
-.\37 y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
-.\38 y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
-.\39 y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-.\31 0y-grid  { grid-template-rows: repeat(10,  minmax(0, 1fr)); }
-.\31 1y-grid  { grid-template-rows: repeat(11,  minmax(0, 1fr)); }
-.\31 2y-grid  { grid-template-rows: repeat(12,  minmax(0, 1fr)); }
 
 .y1 { grid-row-start: 1 !important; }
 .y2 { grid-row-start: 2 !important; }
@@ -455,12 +413,6 @@ a.grid:focus {
 .y4 { grid-row-start: 4 !important; }
 .y5 { grid-row-start: 5 !important; }
 .y6 { grid-row-start: 6 !important; }
-.y7 { grid-row-start: 7 !important; }
-.y8 { grid-row-start: 8 !important; }
-.y9 { grid-row-start: 9 !important; }
-.y10 { grid-row-start: 10 !important; }
-.y11 { grid-row-start: 11 !important; }
-.y12 { grid-row-start: 12 !important; }
 
 .\31 y { grid-row-end: span 1 !important; }
 .\32 y { grid-row-end: span 2 !important; }
@@ -468,12 +420,6 @@ a.grid:focus {
 .\34 y { grid-row-end: span 4 !important; }
 .\35 y { grid-row-end: span 5 !important; }
 .\36 y { grid-row-end: span 6 !important; }
-.\37 y { grid-row-end: span 7 !important; }
-.\38 y { grid-row-end: span 8 !important; }
-.\39 y { grid-row-end: span 9 !important; }
-.\31 0y { grid-row-end: span 10 !important; }
-.\31 1y { grid-row-end: span 11 !important; }
-.\31 2y { grid-row-end: span 12 !important; }
 
 .y-end {
     align-self:    end !important;
@@ -624,12 +570,6 @@ a.grid:focus {
 .\@1-4-columns  { columns: 4 !important; }
 .\@1-5-columns  { columns: 5 !important; }
 .\@1-6-columns  { columns: 6 !important; }
-.\@1-7-columns  { columns: 7 !important; }
-.\@1-8-columns  { columns: 8 !important; }
-.\@1-9-columns  { columns: 9 !important; }
-.\@1-10-columns  { columns: 10 !important; }
-.\@1-11-columns  { columns: 11 !important; }
-.\@1-12-columns  { columns: 12 !important; }
 
 
 .\@1-flex           { display: flex !important; }
@@ -700,12 +640,6 @@ a.\@1-grid:focus {
 .\@1-4x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
 .\@1-5x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
 .\@1-6x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
-.\@1-7x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
-.\@1-8x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
-.\@1-9x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-.\@1-10x-grid  { grid-template-columns: repeat(10,  minmax(0, 1fr)); }
-.\@1-11x-grid  { grid-template-columns: repeat(11,  minmax(0, 1fr)); }
-.\@1-12x-grid  { grid-template-columns: repeat(12,  minmax(0, 1fr)); }
 
 .\@1-x1 { grid-column-start: 1 !important; }
 .\@1-x2 { grid-column-start: 2 !important; }
@@ -713,12 +647,6 @@ a.\@1-grid:focus {
 .\@1-x4 { grid-column-start: 4 !important; }
 .\@1-x5 { grid-column-start: 5 !important; }
 .\@1-x6 { grid-column-start: 6 !important; }
-.\@1-x7 { grid-column-start: 7 !important; }
-.\@1-x8 { grid-column-start: 8 !important; }
-.\@1-x9 { grid-column-start: 9 !important; }
-.\@1-x10 { grid-column-start: 10 !important; }
-.\@1-x11 { grid-column-start: 11 !important; }
-.\@1-x12 { grid-column-start: 12 !important; }
 
 .\@1-1x { grid-column-end: span 1 !important; }
 .\@1-2x { grid-column-end: span 2 !important; }
@@ -726,12 +654,6 @@ a.\@1-grid:focus {
 .\@1-4x { grid-column-end: span 4 !important; }
 .\@1-5x { grid-column-end: span 5 !important; }
 .\@1-6x { grid-column-end: span 6 !important; }
-.\@1-7x { grid-column-end: span 7 !important; }
-.\@1-8x { grid-column-end: span 8 !important; }
-.\@1-9x { grid-column-end: span 9 !important; }
-.\@1-10x { grid-column-end: span 10 !important; }
-.\@1-11x { grid-column-end: span 11 !important; }
-.\@1-12x { grid-column-end: span 12 !important; }
 
 .\@1-x-end {
     justify-self: end !important;
@@ -836,12 +758,6 @@ a.\@1-grid:focus {
 .\@1-4y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
 .\@1-5y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
 .\@1-6y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
-.\@1-7y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
-.\@1-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
-.\@1-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-.\@1-10y-grid  { grid-template-rows: repeat(10,  minmax(0, 1fr)); }
-.\@1-11y-grid  { grid-template-rows: repeat(11,  minmax(0, 1fr)); }
-.\@1-12y-grid  { grid-template-rows: repeat(12,  minmax(0, 1fr)); }
 
 .\@1-y1 { grid-row-start: 1 !important; }
 .\@1-y2 { grid-row-start: 2 !important; }
@@ -849,12 +765,6 @@ a.\@1-grid:focus {
 .\@1-y4 { grid-row-start: 4 !important; }
 .\@1-y5 { grid-row-start: 5 !important; }
 .\@1-y6 { grid-row-start: 6 !important; }
-.\@1-y7 { grid-row-start: 7 !important; }
-.\@1-y8 { grid-row-start: 8 !important; }
-.\@1-y9 { grid-row-start: 9 !important; }
-.\@1-y10 { grid-row-start: 10 !important; }
-.\@1-y11 { grid-row-start: 11 !important; }
-.\@1-y12 { grid-row-start: 12 !important; }
 
 .\@1-1y { grid-row-end: span 1 !important; }
 .\@1-2y { grid-row-end: span 2 !important; }
@@ -862,12 +772,6 @@ a.\@1-grid:focus {
 .\@1-4y { grid-row-end: span 4 !important; }
 .\@1-5y { grid-row-end: span 5 !important; }
 .\@1-6y { grid-row-end: span 6 !important; }
-.\@1-7y { grid-row-end: span 7 !important; }
-.\@1-8y { grid-row-end: span 8 !important; }
-.\@1-9y { grid-row-end: span 9 !important; }
-.\@1-10y { grid-row-end: span 10 !important; }
-.\@1-11y { grid-row-end: span 11 !important; }
-.\@1-12y { grid-row-end: span 12 !important; }
 
 .\@1-y-end {
     align-self:    end !important;
@@ -1022,9 +926,6 @@ a.\@1-grid:focus {
 .\@2-7-columns  { columns: 7 !important; }
 .\@2-8-columns  { columns: 8 !important; }
 .\@2-9-columns  { columns: 9 !important; }
-.\@2-10-columns  { columns: 10 !important; }
-.\@2-11-columns  { columns: 11 !important; }
-.\@2-12-columns  { columns: 12 !important; }
 
 
 .\@2-flex           { display: flex !important; }
@@ -1098,9 +999,6 @@ a.\@2-grid:focus {
 .\@2-7x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
 .\@2-8x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
 .\@2-9x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-.\@2-10x-grid  { grid-template-columns: repeat(10,  minmax(0, 1fr)); }
-.\@2-11x-grid  { grid-template-columns: repeat(11,  minmax(0, 1fr)); }
-.\@2-12x-grid  { grid-template-columns: repeat(12,  minmax(0, 1fr)); }
 
 .\@2-x1 { grid-column-start: 1 !important; }
 .\@2-x2 { grid-column-start: 2 !important; }
@@ -1111,9 +1009,6 @@ a.\@2-grid:focus {
 .\@2-x7 { grid-column-start: 7 !important; }
 .\@2-x8 { grid-column-start: 8 !important; }
 .\@2-x9 { grid-column-start: 9 !important; }
-.\@2-x10 { grid-column-start: 10 !important; }
-.\@2-x11 { grid-column-start: 11 !important; }
-.\@2-x12 { grid-column-start: 12 !important; }
 
 .\@2-1x { grid-column-end: span 1 !important; }
 .\@2-2x { grid-column-end: span 2 !important; }
@@ -1124,9 +1019,6 @@ a.\@2-grid:focus {
 .\@2-7x { grid-column-end: span 7 !important; }
 .\@2-8x { grid-column-end: span 8 !important; }
 .\@2-9x { grid-column-end: span 9 !important; }
-.\@2-10x { grid-column-end: span 10 !important; }
-.\@2-11x { grid-column-end: span 11 !important; }
-.\@2-12x { grid-column-end: span 12 !important; }
 
 .\@2-x-end {
     justify-self: end !important;
@@ -1231,12 +1123,6 @@ a.\@2-grid:focus {
 .\@2-4y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
 .\@2-5y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
 .\@2-6y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
-.\@2-7y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
-.\@2-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
-.\@2-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-.\@2-10y-grid  { grid-template-rows: repeat(10,  minmax(0, 1fr)); }
-.\@2-11y-grid  { grid-template-rows: repeat(11,  minmax(0, 1fr)); }
-.\@2-12y-grid  { grid-template-rows: repeat(12,  minmax(0, 1fr)); }
 
 .\@2-y1 { grid-row-start: 1 !important; }
 .\@2-y2 { grid-row-start: 2 !important; }
@@ -1244,12 +1130,6 @@ a.\@2-grid:focus {
 .\@2-y4 { grid-row-start: 4 !important; }
 .\@2-y5 { grid-row-start: 5 !important; }
 .\@2-y6 { grid-row-start: 6 !important; }
-.\@2-y7 { grid-row-start: 7 !important; }
-.\@2-y8 { grid-row-start: 8 !important; }
-.\@2-y9 { grid-row-start: 9 !important; }
-.\@2-y10 { grid-row-start: 10 !important; }
-.\@2-y11 { grid-row-start: 11 !important; }
-.\@2-y12 { grid-row-start: 12 !important; }
 
 .\@2-1y { grid-row-end: span 1 !important; }
 .\@2-2y { grid-row-end: span 2 !important; }
@@ -1257,12 +1137,6 @@ a.\@2-grid:focus {
 .\@2-4y { grid-row-end: span 4 !important; }
 .\@2-5y { grid-row-end: span 5 !important; }
 .\@2-6y { grid-row-end: span 6 !important; }
-.\@2-7y { grid-row-end: span 7 !important; }
-.\@2-8y { grid-row-end: span 8 !important; }
-.\@2-9y { grid-row-end: span 9 !important; }
-.\@2-10y { grid-row-end: span 10 !important; }
-.\@2-11y { grid-row-end: span 11 !important; }
-.\@2-12y { grid-row-end: span 12 !important; }
 
 .\@2-y-end {
     align-self:    end !important;
@@ -1417,9 +1291,6 @@ a.\@2-grid:focus {
 .\@3-7-columns  { columns: 7 !important; }
 .\@3-8-columns  { columns: 8 !important; }
 .\@3-9-columns  { columns: 9 !important; }
-.\@3-10-columns  { columns: 10 !important; }
-.\@3-11-columns  { columns: 11 !important; }
-.\@3-12-columns  { columns: 12 !important; }
 
 
 .\@3-flex           { display: flex !important; }
@@ -1493,9 +1364,6 @@ a.\@3-grid:focus {
 .\@3-7x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
 .\@3-8x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
 .\@3-9x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-.\@3-10x-grid  { grid-template-columns: repeat(10,  minmax(0, 1fr)); }
-.\@3-11x-grid  { grid-template-columns: repeat(11,  minmax(0, 1fr)); }
-.\@3-12x-grid  { grid-template-columns: repeat(12,  minmax(0, 1fr)); }
 
 .\@3-x1 { grid-column-start: 1 !important; }
 .\@3-x2 { grid-column-start: 2 !important; }
@@ -1506,9 +1374,6 @@ a.\@3-grid:focus {
 .\@3-x7 { grid-column-start: 7 !important; }
 .\@3-x8 { grid-column-start: 8 !important; }
 .\@3-x9 { grid-column-start: 9 !important; }
-.\@3-x10 { grid-column-start: 10 !important; }
-.\@3-x11 { grid-column-start: 11 !important; }
-.\@3-x12 { grid-column-start: 12 !important; }
 
 .\@3-1x { grid-column-end: span 1 !important; }
 .\@3-2x { grid-column-end: span 2 !important; }
@@ -1519,9 +1384,6 @@ a.\@3-grid:focus {
 .\@3-7x { grid-column-end: span 7 !important; }
 .\@3-8x { grid-column-end: span 8 !important; }
 .\@3-9x { grid-column-end: span 9 !important; }
-.\@3-10x { grid-column-end: span 10 !important; }
-.\@3-11x { grid-column-end: span 11 !important; }
-.\@3-12x { grid-column-end: span 12 !important; }
 
 .\@3-x-end {
     justify-self: end !important;
@@ -1626,12 +1488,6 @@ a.\@3-grid:focus {
 .\@3-4y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
 .\@3-5y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
 .\@3-6y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
-.\@3-7y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
-.\@3-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
-.\@3-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-.\@3-10y-grid  { grid-template-rows: repeat(10,  minmax(0, 1fr)); }
-.\@3-11y-grid  { grid-template-rows: repeat(11,  minmax(0, 1fr)); }
-.\@3-12y-grid  { grid-template-rows: repeat(12,  minmax(0, 1fr)); }
 
 .\@3-y1 { grid-row-start: 1 !important; }
 .\@3-y2 { grid-row-start: 2 !important; }
@@ -1639,12 +1495,6 @@ a.\@3-grid:focus {
 .\@3-y4 { grid-row-start: 4 !important; }
 .\@3-y5 { grid-row-start: 5 !important; }
 .\@3-y6 { grid-row-start: 6 !important; }
-.\@3-y7 { grid-row-start: 7 !important; }
-.\@3-y8 { grid-row-start: 8 !important; }
-.\@3-y9 { grid-row-start: 9 !important; }
-.\@3-y10 { grid-row-start: 10 !important; }
-.\@3-y11 { grid-row-start: 11 !important; }
-.\@3-y12 { grid-row-start: 12 !important; }
 
 .\@3-1y { grid-row-end: span 1 !important; }
 .\@3-2y { grid-row-end: span 2 !important; }
@@ -1652,12 +1502,6 @@ a.\@3-grid:focus {
 .\@3-4y { grid-row-end: span 4 !important; }
 .\@3-5y { grid-row-end: span 5 !important; }
 .\@3-6y { grid-row-end: span 6 !important; }
-.\@3-7y { grid-row-end: span 7 !important; }
-.\@3-8y { grid-row-end: span 8 !important; }
-.\@3-9y { grid-row-end: span 9 !important; }
-.\@3-10y { grid-row-end: span 10 !important; }
-.\@3-11y { grid-row-end: span 11 !important; }
-.\@3-12y { grid-row-end: span 12 !important; }
 
 .\@3-y-end {
     align-self:    end !important;
