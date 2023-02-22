@@ -1,31 +1,5 @@
-/* Literal template "/Users/stephband/Sites/unipop/unipop/static/bolt/classes/atoms.css.literal" */
+/* Literal template "/Users/stephband/Sites/literal/atoms.css.literal" */
 
-
-/**
-State
-**/
-
-/**
-.shown
-
-Forces `display: none` below a given breakpoint. This class is only available
-with breakpoint prefixes (`@1-`, `@2-`, ...).
-
-```html
-<a class="@1-shown" href="...">Link</a>
-```
-**/
-
-/**
-.hidden
-
-Forces `display: none` above a given breakpoint. This class is available
-with breakpoint prefixes (`@1-`, `@2-`, ...).
-
-```html
-<a class="@1-hidden" href="...">Link</a>
-```
-**/
 
 /**
 Columns.
@@ -144,7 +118,7 @@ Creates a grid with 3 equal width columns.
 </div>
 ```
 
-Note that `.x-bleed`, which stretches an element half the way across the grid
+Note that `.x-bleed`, which stretches an element half the way across the grid 
 gap, and `.x-flood`, which stretches an element all the way across the grid gap,
 depends on `column-gap` having been set via the custom property `--x-gap`.
 **/
@@ -191,195 +165,103 @@ Define the vertical grid gap (with units).
 **/
 
 
-/* .atom, 0em (0px) */
+/* .\@0-atom, 0em (0px) */
 
-    .hidden         { display: none !important; }
-/**
-.fixed
-**/
-
-.fixed {
-	position: fixed !important;
-}
-
-
-/**
-.sticky
-**/
-
-.sticky {
-    position: -webkit-sticky !important;
-	position: sticky !important;
-	top: 0;
-}
-
-.columns {
-    --x-gap: 1.5rem;
-}
-
-.columns {
+.\@0-columns {
     display: block !important;
     column-gap: var(--x-gap);
-    
-}
-
-
-.\31 -columns  { columns: 1 !important; }
-.\32 -columns  { columns: 2 !important; }
-.\33 -columns  { columns: 3 !important; }
-.\34 -columns  { columns: 4 !important; }
-.\35 -columns  { columns: 5 !important; }
-.\36 -columns  { columns: 6 !important; }
-.\37 -columns  { columns: 7 !important; }
-.\38 -columns  { columns: 8 !important; }
-.\39 -columns  { columns: 9 !important; }
-.\31 0-columns  { columns: 10 !important; }
-.\31 1-columns  { columns: 11 !important; }
-.\31 2-columns  { columns: 12 !important; }
-
-
-.flex           { display: flex !important; }
-.flex > li      { display: block; }
-
-.grid {
     --x-gap: 1.5rem;
-    --y-gap: 1.5rem;
-}
+} 
 
-.grid {
+.\@0-1-columns  { columns: 1 !important; }
+.\@0-2-columns  { columns: 2 !important; }
+.\@0-3-columns  { columns: 3 !important; }
+
+
+.\@0-grid {
     display: grid !important;
     /* Horizontal layout */
     grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--x-gap, 0);
-    row-gap:    var(--y-gap, 0);
-    
-    
+    column-gap: var(--x-gap);
+    row-gap: var(--y-gap);
+    --x-gap: 1.5rem;
+    --y-gap: 1.5rem;
 }
 
-a.grid,
-a.grid:hover,
-a.grid:focus {
-    text-decoration: none;
-}
-
-.grid[hidden] {
+.\@0-grid[hidden] {
     /* Override display grid !important declaration with hidden attribute */
     display: none !important;
 }
 
-.grid > li {
-    /* Stop list items from displaying as list-item */
-    display: block;
-}
-
-.dense-grid {
+.\@0-dense-grid {
     grid-auto-flow: dense;
 }
 
-.y-start-grid {
+.\@0-y-start-grid {
     align-content: start;
 }
 
-.y-center-grid {
+.\@0-y-center-grid {
     align-content: center;
-}
-
-.x-start-grid {
-    justify-content: start;
-}
-
-.x-center-grid {
-    justify-content: center;
-}
-
-.x-end-grid {
-    justify-content: end;
 }
 
 /* x */
 
-.\31 x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
-.\32 x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
-.\33 x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
-.\34 x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
-.\35 x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
-.\36 x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
-.\37 x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
-.\38 x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
-.\39 x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-.\31 0x-grid  { grid-template-columns: repeat(10,  minmax(0, 1fr)); }
-.\31 1x-grid  { grid-template-columns: repeat(11,  minmax(0, 1fr)); }
-.\31 2x-grid  { grid-template-columns: repeat(12,  minmax(0, 1fr)); }
+.\@0-1x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
+.\@0-2x-grid  { grid-template-columns: repeat(2,  minmax(0, 1fr)); }
+.\@0-3x-grid  { grid-template-columns: repeat(3,  minmax(0, 1fr)); }
 
-.x1 { grid-column-start: 1 !important; }
-.x2 { grid-column-start: 2 !important; }
-.x3 { grid-column-start: 3 !important; }
-.x4 { grid-column-start: 4 !important; }
-.x5 { grid-column-start: 5 !important; }
-.x6 { grid-column-start: 6 !important; }
-.x7 { grid-column-start: 7 !important; }
-.x8 { grid-column-start: 8 !important; }
-.x9 { grid-column-start: 9 !important; }
-.x10 { grid-column-start: 10 !important; }
-.x11 { grid-column-start: 11 !important; }
-.x12 { grid-column-start: 12 !important; }
+.\@0-x1 { grid-column-start: 1 !important; }
+.\@0-x2 { grid-column-start: 2 !important; }
+.\@0-x3 { grid-column-start: 3 !important; }
 
-.\31 x { grid-column-end: span 1 !important; }
-.\32 x { grid-column-end: span 2 !important; }
-.\33 x { grid-column-end: span 3 !important; }
-.\34 x { grid-column-end: span 4 !important; }
-.\35 x { grid-column-end: span 5 !important; }
-.\36 x { grid-column-end: span 6 !important; }
-.\37 x { grid-column-end: span 7 !important; }
-.\38 x { grid-column-end: span 8 !important; }
-.\39 x { grid-column-end: span 9 !important; }
-.\31 0x { grid-column-end: span 10 !important; }
-.\31 1x { grid-column-end: span 11 !important; }
-.\31 2x { grid-column-end: span 12 !important; }
+.\@0-1x { grid-column-end: span 1 !important; }
+.\@0-2x { grid-column-end: span 2 !important; }
+.\@0-3x { grid-column-end: span 3 !important; }
 
-.x-end {
-    justify-self: end !important;
+.\@0-x-end {
+    justify-self: end !important; 
     margin-left: auto;
     margin-right: 0;
 }
 
-.x-start {
+.\@0-x-start {
     justify-self: start !important;
     margin-left: 0;
     margin-right: auto;
 }
 
-.x-center {
-    justify-self: center !important;
-    margin-left: auto;
+.\@0-x-center { 
+    justify-self: center !important; 
+    margin-left: auto; 
     margin-right: auto;
 }
 
-.x-stretch {
+.\@0-x-stretch {
     justify-self: stretch !important;
-    margin-left: 0;
+    margin-left: 0; 
     margin-right: 0;
     max-width: 100%;
-    width: 100%;
+    width: 100%; 
 }
 
-.x-unbleedl {
+.\@0-x-unbleedl {
     margin-left:  calc(0.5 * var(--x-gap));
     margin-right: 0;
     max-width:    calc(100% - var(0.5 * --x-gap));
     width:        calc(100% - var(0.5 * --x-gap));
 }
 
-.x-unbleedr {
+.\@0-x-unbleedr {
     margin-left:  0;
     margin-right: calc(0.5 * var(--x-gap));
     max-width:    calc(100% - var(0.5 * --x-gap));
     width:        calc(100% - var(0.5 * --x-gap));
 }
 
-.x-bleedl {
+.\@0-x-bleedl {
     justify-self: stretch !important;
     margin-left:  calc(var(--x-gap) / -2);
     margin-right: 0;
@@ -387,7 +269,7 @@ a.grid:focus {
     width:        calc(100% + var(0.5 * --x-gap));
 }
 
-.x-bleedr {
+.\@0-x-bleedr {
     justify-self: stretch !important;
     margin-left:  0;
     margin-right: calc(var(--x-gap) / -2);
@@ -395,7 +277,7 @@ a.grid:focus {
     width:        calc(100% + var(0.5 * --x-gap));
 }
 
-.x-bleed {
+.\@0-x-bleed {
     justify-self: stretch !important;
     margin-left:  calc(var(--x-gap) / -2);
     margin-right: calc(var(--x-gap) / -2);
@@ -403,7 +285,7 @@ a.grid:focus {
     width:        calc(100% + var(--x-gap));
 }
 
-.x-floodl {
+.\@0-x-floodl {
     justify-self: stretch !important;
     margin-left:  calc(-1 * var(--x-gap));
     margin-right: 0;
@@ -411,7 +293,7 @@ a.grid:focus {
     width:        calc(100% + var(--x-gap));
 }
 
-.x-floodr {
+.\@0-x-floodr {
     justify-self: stretch !important;
     margin-left:  0;
     margin-right: calc(-1 * var(--x-gap));
@@ -419,7 +301,7 @@ a.grid:focus {
     width:        calc(100% + var(--x-gap));
 }
 
-.x-flood {
+.\@0-x-flood {
     justify-self: stretch !important;
     margin-left:  calc(-1 * var(--x-gap));
     margin-right: calc(-1 * var(--x-gap));
@@ -427,7 +309,7 @@ a.grid:focus {
     width:        calc(100% + 2 * var(--x-gap));
 }
 
-.x-bleedl.x-floodr {
+.\@0-x-bleedl.\@0-x-floodr {
     margin-left:  calc(-0.5 * var(--x-gap));
     margin-right: calc(-1 * var(--x-gap));
     max-width:    calc(100% + 1.5 * var(--x-gap));
@@ -436,182 +318,90 @@ a.grid:focus {
 
 /* y */
 
-.\31 y-grid  { grid-template-rows: repeat(1,  minmax(0, 1fr)); }
-.\32 y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
-.\33 y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
-.\34 y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
-.\35 y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
-.\36 y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
-.\37 y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
-.\38 y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
-.\39 y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-.\31 0y-grid  { grid-template-rows: repeat(10,  minmax(0, 1fr)); }
-.\31 1y-grid  { grid-template-rows: repeat(11,  minmax(0, 1fr)); }
-.\31 2y-grid  { grid-template-rows: repeat(12,  minmax(0, 1fr)); }
+.\@0-1y-grid  { grid-template-rows: repeat(1,  minmax(0, 1fr)); }
+.\@0-2y-grid  { grid-template-rows: repeat(2,  minmax(0, 1fr)); }
+.\@0-3y-grid  { grid-template-rows: repeat(3,  minmax(0, 1fr)); }
+.\@0-4y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
+.\@0-5y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
+.\@0-6y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
 
-.y1 { grid-row-start: 1 !important; }
-.y2 { grid-row-start: 2 !important; }
-.y3 { grid-row-start: 3 !important; }
-.y4 { grid-row-start: 4 !important; }
-.y5 { grid-row-start: 5 !important; }
-.y6 { grid-row-start: 6 !important; }
-.y7 { grid-row-start: 7 !important; }
-.y8 { grid-row-start: 8 !important; }
-.y9 { grid-row-start: 9 !important; }
-.y10 { grid-row-start: 10 !important; }
-.y11 { grid-row-start: 11 !important; }
-.y12 { grid-row-start: 12 !important; }
+.\@0-y1 { grid-row-start: 1 !important; }
+.\@0-y2 { grid-row-start: 2 !important; }
+.\@0-y3 { grid-row-start: 3 !important; }
+.\@0-y4 { grid-row-start: 4 !important; }
+.\@0-y5 { grid-row-start: 5 !important; }
+.\@0-y6 { grid-row-start: 6 !important; }
 
-.\31 y { grid-row-end: span 1 !important; }
-.\32 y { grid-row-end: span 2 !important; }
-.\33 y { grid-row-end: span 3 !important; }
-.\34 y { grid-row-end: span 4 !important; }
-.\35 y { grid-row-end: span 5 !important; }
-.\36 y { grid-row-end: span 6 !important; }
-.\37 y { grid-row-end: span 7 !important; }
-.\38 y { grid-row-end: span 8 !important; }
-.\39 y { grid-row-end: span 9 !important; }
-.\31 0y { grid-row-end: span 10 !important; }
-.\31 1y { grid-row-end: span 11 !important; }
-.\31 2y { grid-row-end: span 12 !important; }
+.\@0-1y { grid-row-end: span 1 !important; }
+.\@0-2y { grid-row-end: span 2 !important; }
+.\@0-3y { grid-row-end: span 3 !important; }
+.\@0-4y { grid-row-end: span 4 !important; }
+.\@0-5y { grid-row-end: span 5 !important; }
+.\@0-6y { grid-row-end: span 6 !important; }
 
-.y-end {
+.\@0-y-end {
     align-self:    end !important;
     margin-top:    auto;
     margin-bottom: 0;
 }
 
-.y-start {
+.\@0-y-start {
     align-self:    start !important;
     margin-top:    0;
     margin-bottom: auto;
 }
 
-.y-center {
+.\@0-y-center {
     align-self:    center !important;
-    margin-top:    auto;
+    margin-top:    auto; 
     margin-bottom: auto;
 }
 
-.y-baseline  {
-    align-self:    baseline !important;
-    margin-top:    auto;
+.\@0-y-baseline  {
+    align-self:    baseline !important; 
+    margin-top:    auto; 
     margin-bottom: auto;
 }
 
-.y-lastline  {
-    align-self:    last baseline !important;
-    margin-top:    auto;
+.\@0-y-lastline  {
+    align-self:    last baseline !important; 
+    margin-top:    auto; 
     margin-bottom: auto;
 }
 
-.y-stretch {
+.\@0-y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0;
+    margin-top:    0; 
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%;
+    height:        100%; 
 }
 
-.y-bleed {
+.\@0-y-bleed {
     justify-self:  stretch !important;
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap));
+    height:        calc(100% + var(--y-gap)); 
 }
 
-.y-flood {
+.\@0-y-flood {
     justify-self:  stretch !important;
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap));
+    height:        calc(100% + 2 * var(--y-gap)); 
 }
-
-.inline         { display: inline-block !important; }
-
-.normal-text    { text-transform: none !important; }
-.lowercase-text { text-transform: lowercase !important; }
-.uppercase-text { text-transform: uppercase !important; }
-
-.thin-text      { font-weight: 200 !important; }
-.light-text     { font-weight: 300 !important; }
-.regular-text   { font-weight: 400 !important; }
-.book-text      { font-weight: 450 !important; }
-.medium-text    { font-weight: 500 !important; }
-.semi-text      { font-weight: 600 !important; }
-.bold-text      { font-weight: 700 !important; }
-.black-text     { font-weight: 800 !important; }
-
-.no-wrap {
-    white-space: nowrap;
-    flex-wrap: nowrap;
-    text-overflow: ellipsis;
-}
-.left           { float: left !important; clear: left; margin-right: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
-.right          { float: right !important; clear: right; margin-left: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
-* + .left       { margin-top: calc(0.5 * var(--y-gap)); }
-* + .right      { margin-top: calc(0.5 * var(--y-gap)); }
-
-.top-align      { vertical-align: top !important; }
-.bottom-align   { vertical-align: bottom !important; }
-.middle-align   { vertical-align: middle !important; }
-.baseline-align { vertical-align: baseline !important; }
-.left-align     { text-align: left !important; }
-.right-align    { text-align: right !important; }
-.center-align   { text-align: center !important; }
-.justify-align  { text-align: justify !important; }
-
-.margin-0         { margin-top: 0      !important; }
-.margin-8         { margin-top: 0.5rem !important; }
-.margin-16        { margin-top: 1rem   !important; }
-.margin-24        { margin-top: 1.5rem !important; }
-.margin-32        { margin-top: 2rem   !important; }
-.margin-40        { margin-top: 2.5rem !important; }
-.margin-48        { margin-top: 3rem   !important; }
-.margin-64        { margin-top: 4rem   !important; }
-.margin-80        { margin-top: 5rem   !important; }
-.margin-96        { margin-top: 6rem   !important; }
 
 
 /* .\@1-atom, 50em (800px) */
 
-@media screen and (max-width: 49.9375em) {
-    .\@1-shown          { display: none !important; }
-}
-
 @media (min-width: 50em) {
-    .\@1-hidden         { display: none !important; }
-/**
-.fixed
-**/
-
-.\@1-fixed {
-	position: fixed !important;
-}
-
-
-/**
-.sticky
-**/
-
-.\@1-sticky {
-    position: -webkit-sticky !important;
-	position: sticky !important;
-	top: 0;
-}
-
-.columns {
-    --x-gap: 1.5rem;
-}
-
 .\@1-columns {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 1.5rem;
-}
-
+} 
 
 .\@1-1-columns  { columns: 1 !important; }
 .\@1-2-columns  { columns: 2 !important; }
@@ -619,21 +409,7 @@ a.grid:focus {
 .\@1-4-columns  { columns: 4 !important; }
 .\@1-5-columns  { columns: 5 !important; }
 .\@1-6-columns  { columns: 6 !important; }
-.\@1-7-columns  { columns: 7 !important; }
-.\@1-8-columns  { columns: 8 !important; }
-.\@1-9-columns  { columns: 9 !important; }
-.\@1-10-columns  { columns: 10 !important; }
-.\@1-11-columns  { columns: 11 !important; }
-.\@1-12-columns  { columns: 12 !important; }
 
-
-.\@1-flex           { display: flex !important; }
-.\@1-flex > li      { display: block; }
-
-.grid {
-    --x-gap: 1.5rem;
-    --y-gap: 1.5rem;
-}
 
 .\@1-grid {
     display: grid !important;
@@ -641,26 +417,15 @@ a.grid:focus {
     grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--x-gap, 0);
-    row-gap:    var(--y-gap, 0);
+    column-gap: var(--x-gap);
+    row-gap: var(--y-gap);
     --x-gap: 1.5rem;
     --y-gap: 1.5rem;
-}
-
-a.\@1-grid,
-a.\@1-grid:hover,
-a.\@1-grid:focus {
-    text-decoration: none;
 }
 
 .\@1-grid[hidden] {
     /* Override display grid !important declaration with hidden attribute */
     display: none !important;
-}
-
-.\@1-grid > li {
-    /* Stop list items from displaying as list-item */
-    display: block;
 }
 
 .\@1-dense-grid {
@@ -675,18 +440,6 @@ a.\@1-grid:focus {
     align-content: center;
 }
 
-.\@1-x-start-grid {
-    justify-content: start;
-}
-
-.\@1-x-center-grid {
-    justify-content: center;
-}
-
-.\@1-x-end-grid {
-    justify-content: end;
-}
-
 /* x */
 
 .\@1-1x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
@@ -695,12 +448,6 @@ a.\@1-grid:focus {
 .\@1-4x-grid  { grid-template-columns: repeat(4,  minmax(0, 1fr)); }
 .\@1-5x-grid  { grid-template-columns: repeat(5,  minmax(0, 1fr)); }
 .\@1-6x-grid  { grid-template-columns: repeat(6,  minmax(0, 1fr)); }
-.\@1-7x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
-.\@1-8x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
-.\@1-9x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-.\@1-10x-grid  { grid-template-columns: repeat(10,  minmax(0, 1fr)); }
-.\@1-11x-grid  { grid-template-columns: repeat(11,  minmax(0, 1fr)); }
-.\@1-12x-grid  { grid-template-columns: repeat(12,  minmax(0, 1fr)); }
 
 .\@1-x1 { grid-column-start: 1 !important; }
 .\@1-x2 { grid-column-start: 2 !important; }
@@ -708,12 +455,6 @@ a.\@1-grid:focus {
 .\@1-x4 { grid-column-start: 4 !important; }
 .\@1-x5 { grid-column-start: 5 !important; }
 .\@1-x6 { grid-column-start: 6 !important; }
-.\@1-x7 { grid-column-start: 7 !important; }
-.\@1-x8 { grid-column-start: 8 !important; }
-.\@1-x9 { grid-column-start: 9 !important; }
-.\@1-x10 { grid-column-start: 10 !important; }
-.\@1-x11 { grid-column-start: 11 !important; }
-.\@1-x12 { grid-column-start: 12 !important; }
 
 .\@1-1x { grid-column-end: span 1 !important; }
 .\@1-2x { grid-column-end: span 2 !important; }
@@ -721,15 +462,9 @@ a.\@1-grid:focus {
 .\@1-4x { grid-column-end: span 4 !important; }
 .\@1-5x { grid-column-end: span 5 !important; }
 .\@1-6x { grid-column-end: span 6 !important; }
-.\@1-7x { grid-column-end: span 7 !important; }
-.\@1-8x { grid-column-end: span 8 !important; }
-.\@1-9x { grid-column-end: span 9 !important; }
-.\@1-10x { grid-column-end: span 10 !important; }
-.\@1-11x { grid-column-end: span 11 !important; }
-.\@1-12x { grid-column-end: span 12 !important; }
 
 .\@1-x-end {
-    justify-self: end !important;
+    justify-self: end !important; 
     margin-left: auto;
     margin-right: 0;
 }
@@ -740,18 +475,18 @@ a.\@1-grid:focus {
     margin-right: auto;
 }
 
-.\@1-x-center {
-    justify-self: center !important;
-    margin-left: auto;
+.\@1-x-center { 
+    justify-self: center !important; 
+    margin-left: auto; 
     margin-right: auto;
 }
 
 .\@1-x-stretch {
     justify-self: stretch !important;
-    margin-left: 0;
+    margin-left: 0; 
     margin-right: 0;
     max-width: 100%;
-    width: 100%;
+    width: 100%; 
 }
 
 .\@1-x-unbleedl {
@@ -831,12 +566,6 @@ a.\@1-grid:focus {
 .\@1-4y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
 .\@1-5y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
 .\@1-6y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
-.\@1-7y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
-.\@1-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
-.\@1-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-.\@1-10y-grid  { grid-template-rows: repeat(10,  minmax(0, 1fr)); }
-.\@1-11y-grid  { grid-template-rows: repeat(11,  minmax(0, 1fr)); }
-.\@1-12y-grid  { grid-template-rows: repeat(12,  minmax(0, 1fr)); }
 
 .\@1-y1 { grid-row-start: 1 !important; }
 .\@1-y2 { grid-row-start: 2 !important; }
@@ -844,12 +573,6 @@ a.\@1-grid:focus {
 .\@1-y4 { grid-row-start: 4 !important; }
 .\@1-y5 { grid-row-start: 5 !important; }
 .\@1-y6 { grid-row-start: 6 !important; }
-.\@1-y7 { grid-row-start: 7 !important; }
-.\@1-y8 { grid-row-start: 8 !important; }
-.\@1-y9 { grid-row-start: 9 !important; }
-.\@1-y10 { grid-row-start: 10 !important; }
-.\@1-y11 { grid-row-start: 11 !important; }
-.\@1-y12 { grid-row-start: 12 !important; }
 
 .\@1-1y { grid-row-end: span 1 !important; }
 .\@1-2y { grid-row-end: span 2 !important; }
@@ -857,12 +580,6 @@ a.\@1-grid:focus {
 .\@1-4y { grid-row-end: span 4 !important; }
 .\@1-5y { grid-row-end: span 5 !important; }
 .\@1-6y { grid-row-end: span 6 !important; }
-.\@1-7y { grid-row-end: span 7 !important; }
-.\@1-8y { grid-row-end: span 8 !important; }
-.\@1-9y { grid-row-end: span 9 !important; }
-.\@1-10y { grid-row-end: span 10 !important; }
-.\@1-11y { grid-row-end: span 11 !important; }
-.\@1-12y { grid-row-end: span 12 !important; }
 
 .\@1-y-end {
     align-self:    end !important;
@@ -878,28 +595,28 @@ a.\@1-grid:focus {
 
 .\@1-y-center {
     align-self:    center !important;
-    margin-top:    auto;
+    margin-top:    auto; 
     margin-bottom: auto;
 }
 
 .\@1-y-baseline  {
-    align-self:    baseline !important;
-    margin-top:    auto;
+    align-self:    baseline !important; 
+    margin-top:    auto; 
     margin-bottom: auto;
 }
 
 .\@1-y-lastline  {
-    align-self:    last baseline !important;
-    margin-top:    auto;
+    align-self:    last baseline !important; 
+    margin-top:    auto; 
     margin-bottom: auto;
 }
 
 .\@1-y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0;
+    margin-top:    0; 
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%;
+    height:        100%; 
 }
 
 .\@1-y-bleed {
@@ -907,7 +624,7 @@ a.\@1-grid:focus {
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap));
+    height:        calc(100% + var(--y-gap)); 
 }
 
 .\@1-y-flood {
@@ -915,93 +632,19 @@ a.\@1-grid:focus {
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap));
+    height:        calc(100% + 2 * var(--y-gap)); 
 }
-
-.\@1-inline         { display: inline-block !important; }
-
-.\@1-normal-text    { text-transform: none !important; }
-.\@1-lowercase-text { text-transform: lowercase !important; }
-.\@1-uppercase-text { text-transform: uppercase !important; }
-
-.\@1-thin-text      { font-weight: 200 !important; }
-.\@1-light-text     { font-weight: 300 !important; }
-.\@1-regular-text   { font-weight: 400 !important; }
-.\@1-book-text      { font-weight: 450 !important; }
-.\@1-medium-text    { font-weight: 500 !important; }
-.\@1-semi-text      { font-weight: 600 !important; }
-.\@1-bold-text      { font-weight: 700 !important; }
-.\@1-black-text     { font-weight: 800 !important; }
-
-.\@1-no-wrap {
-    white-space: nowrap;
-    flex-wrap: nowrap;
-    text-overflow: ellipsis;
-}
-.\@1-left           { float: left !important; clear: left; margin-right: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
-.\@1-right          { float: right !important; clear: right; margin-left: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
-* + .\@1-left       { margin-top: calc(0.5 * var(--y-gap)); }
-* + .\@1-right      { margin-top: calc(0.5 * var(--y-gap)); }
-
-.\@1-top-align      { vertical-align: top !important; }
-.\@1-bottom-align   { vertical-align: bottom !important; }
-.\@1-middle-align   { vertical-align: middle !important; }
-.\@1-baseline-align { vertical-align: baseline !important; }
-.\@1-left-align     { text-align: left !important; }
-.\@1-right-align    { text-align: right !important; }
-.\@1-center-align   { text-align: center !important; }
-.\@1-justify-align  { text-align: justify !important; }
-
-.\@1-margin-0         { margin-top: 0      !important; }
-.\@1-margin-8         { margin-top: 0.5rem !important; }
-.\@1-margin-16        { margin-top: 1rem   !important; }
-.\@1-margin-24        { margin-top: 1.5rem !important; }
-.\@1-margin-32        { margin-top: 2rem   !important; }
-.\@1-margin-40        { margin-top: 2.5rem !important; }
-.\@1-margin-48        { margin-top: 3rem   !important; }
-.\@1-margin-64        { margin-top: 4rem   !important; }
-.\@1-margin-80        { margin-top: 5rem   !important; }
-.\@1-margin-96        { margin-top: 6rem   !important; }
 }
 
 
 /* .\@2-atom, 70em (1120px) */
 
-@media screen and (max-width: 69.9375em) {
-    .\@2-shown          { display: none !important; }
-}
-
 @media (min-width: 70em) {
-    .\@2-hidden         { display: none !important; }
-/**
-.fixed
-**/
-
-.\@2-fixed {
-	position: fixed !important;
-}
-
-
-/**
-.sticky
-**/
-
-.\@2-sticky {
-    position: -webkit-sticky !important;
-	position: sticky !important;
-	top: 0;
-}
-
-.columns {
-    --x-gap: 2.8125rem;
-}
-
 .\@2-columns {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 2.8125rem;
-}
-
+} 
 
 .\@2-1-columns  { columns: 1 !important; }
 .\@2-2-columns  { columns: 2 !important; }
@@ -1012,18 +655,7 @@ a.\@1-grid:focus {
 .\@2-7-columns  { columns: 7 !important; }
 .\@2-8-columns  { columns: 8 !important; }
 .\@2-9-columns  { columns: 9 !important; }
-.\@2-10-columns  { columns: 10 !important; }
-.\@2-11-columns  { columns: 11 !important; }
-.\@2-12-columns  { columns: 12 !important; }
 
-
-.\@2-flex           { display: flex !important; }
-.\@2-flex > li      { display: block; }
-
-.grid {
-    --x-gap: 2.8125rem;
-    --y-gap: 1.875rem;
-}
 
 .\@2-grid {
     display: grid !important;
@@ -1031,26 +663,15 @@ a.\@1-grid:focus {
     grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--x-gap, 0);
-    row-gap:    var(--y-gap, 0);
+    column-gap: var(--x-gap);
+    row-gap: var(--y-gap);
     --x-gap: 2.8125rem;
     --y-gap: 1.875rem;
-}
-
-a.\@2-grid,
-a.\@2-grid:hover,
-a.\@2-grid:focus {
-    text-decoration: none;
 }
 
 .\@2-grid[hidden] {
     /* Override display grid !important declaration with hidden attribute */
     display: none !important;
-}
-
-.\@2-grid > li {
-    /* Stop list items from displaying as list-item */
-    display: block;
 }
 
 .\@2-dense-grid {
@@ -1065,18 +686,6 @@ a.\@2-grid:focus {
     align-content: center;
 }
 
-.\@2-x-start-grid {
-    justify-content: start;
-}
-
-.\@2-x-center-grid {
-    justify-content: center;
-}
-
-.\@2-x-end-grid {
-    justify-content: end;
-}
-
 /* x */
 
 .\@2-1x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
@@ -1088,9 +697,6 @@ a.\@2-grid:focus {
 .\@2-7x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
 .\@2-8x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
 .\@2-9x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-.\@2-10x-grid  { grid-template-columns: repeat(10,  minmax(0, 1fr)); }
-.\@2-11x-grid  { grid-template-columns: repeat(11,  minmax(0, 1fr)); }
-.\@2-12x-grid  { grid-template-columns: repeat(12,  minmax(0, 1fr)); }
 
 .\@2-x1 { grid-column-start: 1 !important; }
 .\@2-x2 { grid-column-start: 2 !important; }
@@ -1101,9 +707,6 @@ a.\@2-grid:focus {
 .\@2-x7 { grid-column-start: 7 !important; }
 .\@2-x8 { grid-column-start: 8 !important; }
 .\@2-x9 { grid-column-start: 9 !important; }
-.\@2-x10 { grid-column-start: 10 !important; }
-.\@2-x11 { grid-column-start: 11 !important; }
-.\@2-x12 { grid-column-start: 12 !important; }
 
 .\@2-1x { grid-column-end: span 1 !important; }
 .\@2-2x { grid-column-end: span 2 !important; }
@@ -1114,12 +717,9 @@ a.\@2-grid:focus {
 .\@2-7x { grid-column-end: span 7 !important; }
 .\@2-8x { grid-column-end: span 8 !important; }
 .\@2-9x { grid-column-end: span 9 !important; }
-.\@2-10x { grid-column-end: span 10 !important; }
-.\@2-11x { grid-column-end: span 11 !important; }
-.\@2-12x { grid-column-end: span 12 !important; }
 
 .\@2-x-end {
-    justify-self: end !important;
+    justify-self: end !important; 
     margin-left: auto;
     margin-right: 0;
 }
@@ -1130,18 +730,18 @@ a.\@2-grid:focus {
     margin-right: auto;
 }
 
-.\@2-x-center {
-    justify-self: center !important;
-    margin-left: auto;
+.\@2-x-center { 
+    justify-self: center !important; 
+    margin-left: auto; 
     margin-right: auto;
 }
 
 .\@2-x-stretch {
     justify-self: stretch !important;
-    margin-left: 0;
+    margin-left: 0; 
     margin-right: 0;
     max-width: 100%;
-    width: 100%;
+    width: 100%; 
 }
 
 .\@2-x-unbleedl {
@@ -1221,12 +821,6 @@ a.\@2-grid:focus {
 .\@2-4y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
 .\@2-5y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
 .\@2-6y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
-.\@2-7y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
-.\@2-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
-.\@2-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-.\@2-10y-grid  { grid-template-rows: repeat(10,  minmax(0, 1fr)); }
-.\@2-11y-grid  { grid-template-rows: repeat(11,  minmax(0, 1fr)); }
-.\@2-12y-grid  { grid-template-rows: repeat(12,  minmax(0, 1fr)); }
 
 .\@2-y1 { grid-row-start: 1 !important; }
 .\@2-y2 { grid-row-start: 2 !important; }
@@ -1234,12 +828,6 @@ a.\@2-grid:focus {
 .\@2-y4 { grid-row-start: 4 !important; }
 .\@2-y5 { grid-row-start: 5 !important; }
 .\@2-y6 { grid-row-start: 6 !important; }
-.\@2-y7 { grid-row-start: 7 !important; }
-.\@2-y8 { grid-row-start: 8 !important; }
-.\@2-y9 { grid-row-start: 9 !important; }
-.\@2-y10 { grid-row-start: 10 !important; }
-.\@2-y11 { grid-row-start: 11 !important; }
-.\@2-y12 { grid-row-start: 12 !important; }
 
 .\@2-1y { grid-row-end: span 1 !important; }
 .\@2-2y { grid-row-end: span 2 !important; }
@@ -1247,12 +835,6 @@ a.\@2-grid:focus {
 .\@2-4y { grid-row-end: span 4 !important; }
 .\@2-5y { grid-row-end: span 5 !important; }
 .\@2-6y { grid-row-end: span 6 !important; }
-.\@2-7y { grid-row-end: span 7 !important; }
-.\@2-8y { grid-row-end: span 8 !important; }
-.\@2-9y { grid-row-end: span 9 !important; }
-.\@2-10y { grid-row-end: span 10 !important; }
-.\@2-11y { grid-row-end: span 11 !important; }
-.\@2-12y { grid-row-end: span 12 !important; }
 
 .\@2-y-end {
     align-self:    end !important;
@@ -1268,28 +850,28 @@ a.\@2-grid:focus {
 
 .\@2-y-center {
     align-self:    center !important;
-    margin-top:    auto;
+    margin-top:    auto; 
     margin-bottom: auto;
 }
 
 .\@2-y-baseline  {
-    align-self:    baseline !important;
-    margin-top:    auto;
+    align-self:    baseline !important; 
+    margin-top:    auto; 
     margin-bottom: auto;
 }
 
 .\@2-y-lastline  {
-    align-self:    last baseline !important;
-    margin-top:    auto;
+    align-self:    last baseline !important; 
+    margin-top:    auto; 
     margin-bottom: auto;
 }
 
 .\@2-y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0;
+    margin-top:    0; 
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%;
+    height:        100%; 
 }
 
 .\@2-y-bleed {
@@ -1297,7 +879,7 @@ a.\@2-grid:focus {
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap));
+    height:        calc(100% + var(--y-gap)); 
 }
 
 .\@2-y-flood {
@@ -1305,93 +887,19 @@ a.\@2-grid:focus {
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap));
+    height:        calc(100% + 2 * var(--y-gap)); 
 }
-
-.\@2-inline         { display: inline-block !important; }
-
-.\@2-normal-text    { text-transform: none !important; }
-.\@2-lowercase-text { text-transform: lowercase !important; }
-.\@2-uppercase-text { text-transform: uppercase !important; }
-
-.\@2-thin-text      { font-weight: 200 !important; }
-.\@2-light-text     { font-weight: 300 !important; }
-.\@2-regular-text   { font-weight: 400 !important; }
-.\@2-book-text      { font-weight: 450 !important; }
-.\@2-medium-text    { font-weight: 500 !important; }
-.\@2-semi-text      { font-weight: 600 !important; }
-.\@2-bold-text      { font-weight: 700 !important; }
-.\@2-black-text     { font-weight: 800 !important; }
-
-.\@2-no-wrap {
-    white-space: nowrap;
-    flex-wrap: nowrap;
-    text-overflow: ellipsis;
-}
-.\@2-left           { float: left !important; clear: left; margin-right: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
-.\@2-right          { float: right !important; clear: right; margin-left: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
-* + .\@2-left       { margin-top: calc(0.5 * var(--y-gap)); }
-* + .\@2-right      { margin-top: calc(0.5 * var(--y-gap)); }
-
-.\@2-top-align      { vertical-align: top !important; }
-.\@2-bottom-align   { vertical-align: bottom !important; }
-.\@2-middle-align   { vertical-align: middle !important; }
-.\@2-baseline-align { vertical-align: baseline !important; }
-.\@2-left-align     { text-align: left !important; }
-.\@2-right-align    { text-align: right !important; }
-.\@2-center-align   { text-align: center !important; }
-.\@2-justify-align  { text-align: justify !important; }
-
-.\@2-margin-0         { margin-top: 0      !important; }
-.\@2-margin-8         { margin-top: 0.5rem !important; }
-.\@2-margin-16        { margin-top: 1rem   !important; }
-.\@2-margin-24        { margin-top: 1.5rem !important; }
-.\@2-margin-32        { margin-top: 2rem   !important; }
-.\@2-margin-40        { margin-top: 2.5rem !important; }
-.\@2-margin-48        { margin-top: 3rem   !important; }
-.\@2-margin-64        { margin-top: 4rem   !important; }
-.\@2-margin-80        { margin-top: 5rem   !important; }
-.\@2-margin-96        { margin-top: 6rem   !important; }
 }
 
 
 /* .\@3-atom, 90em (1440px) */
 
-@media screen and (max-width: 89.9375em) {
-    .\@3-shown          { display: none !important; }
-}
-
 @media (min-width: 90em) {
-    .\@3-hidden         { display: none !important; }
-/**
-.fixed
-**/
-
-.\@3-fixed {
-	position: fixed !important;
-}
-
-
-/**
-.sticky
-**/
-
-.\@3-sticky {
-    position: -webkit-sticky !important;
-	position: sticky !important;
-	top: 0;
-}
-
-.columns {
-    --x-gap: 3.75rem;
-}
-
 .\@3-columns {
     display: block !important;
     column-gap: var(--x-gap);
     --x-gap: 3.75rem;
-}
-
+} 
 
 .\@3-1-columns  { columns: 1 !important; }
 .\@3-2-columns  { columns: 2 !important; }
@@ -1402,18 +910,7 @@ a.\@2-grid:focus {
 .\@3-7-columns  { columns: 7 !important; }
 .\@3-8-columns  { columns: 8 !important; }
 .\@3-9-columns  { columns: 9 !important; }
-.\@3-10-columns  { columns: 10 !important; }
-.\@3-11-columns  { columns: 11 !important; }
-.\@3-12-columns  { columns: 12 !important; }
 
-
-.\@3-flex           { display: flex !important; }
-.\@3-flex > li      { display: block; }
-
-.grid {
-    --x-gap: 3.75rem;
-    --y-gap: 1.875rem;
-}
 
 .\@3-grid {
     display: grid !important;
@@ -1421,26 +918,15 @@ a.\@2-grid:focus {
     grid-auto-flow: row;
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
-    column-gap: var(--x-gap, 0);
-    row-gap:    var(--y-gap, 0);
+    column-gap: var(--x-gap);
+    row-gap: var(--y-gap);
     --x-gap: 3.75rem;
     --y-gap: 1.875rem;
-}
-
-a.\@3-grid,
-a.\@3-grid:hover,
-a.\@3-grid:focus {
-    text-decoration: none;
 }
 
 .\@3-grid[hidden] {
     /* Override display grid !important declaration with hidden attribute */
     display: none !important;
-}
-
-.\@3-grid > li {
-    /* Stop list items from displaying as list-item */
-    display: block;
 }
 
 .\@3-dense-grid {
@@ -1455,18 +941,6 @@ a.\@3-grid:focus {
     align-content: center;
 }
 
-.\@3-x-start-grid {
-    justify-content: start;
-}
-
-.\@3-x-center-grid {
-    justify-content: center;
-}
-
-.\@3-x-end-grid {
-    justify-content: end;
-}
-
 /* x */
 
 .\@3-1x-grid  { grid-template-columns: repeat(1,  minmax(0, 1fr)); }
@@ -1478,9 +952,6 @@ a.\@3-grid:focus {
 .\@3-7x-grid  { grid-template-columns: repeat(7,  minmax(0, 1fr)); }
 .\@3-8x-grid  { grid-template-columns: repeat(8,  minmax(0, 1fr)); }
 .\@3-9x-grid  { grid-template-columns: repeat(9,  minmax(0, 1fr)); }
-.\@3-10x-grid  { grid-template-columns: repeat(10,  minmax(0, 1fr)); }
-.\@3-11x-grid  { grid-template-columns: repeat(11,  minmax(0, 1fr)); }
-.\@3-12x-grid  { grid-template-columns: repeat(12,  minmax(0, 1fr)); }
 
 .\@3-x1 { grid-column-start: 1 !important; }
 .\@3-x2 { grid-column-start: 2 !important; }
@@ -1491,9 +962,6 @@ a.\@3-grid:focus {
 .\@3-x7 { grid-column-start: 7 !important; }
 .\@3-x8 { grid-column-start: 8 !important; }
 .\@3-x9 { grid-column-start: 9 !important; }
-.\@3-x10 { grid-column-start: 10 !important; }
-.\@3-x11 { grid-column-start: 11 !important; }
-.\@3-x12 { grid-column-start: 12 !important; }
 
 .\@3-1x { grid-column-end: span 1 !important; }
 .\@3-2x { grid-column-end: span 2 !important; }
@@ -1504,12 +972,9 @@ a.\@3-grid:focus {
 .\@3-7x { grid-column-end: span 7 !important; }
 .\@3-8x { grid-column-end: span 8 !important; }
 .\@3-9x { grid-column-end: span 9 !important; }
-.\@3-10x { grid-column-end: span 10 !important; }
-.\@3-11x { grid-column-end: span 11 !important; }
-.\@3-12x { grid-column-end: span 12 !important; }
 
 .\@3-x-end {
-    justify-self: end !important;
+    justify-self: end !important; 
     margin-left: auto;
     margin-right: 0;
 }
@@ -1520,18 +985,18 @@ a.\@3-grid:focus {
     margin-right: auto;
 }
 
-.\@3-x-center {
-    justify-self: center !important;
-    margin-left: auto;
+.\@3-x-center { 
+    justify-self: center !important; 
+    margin-left: auto; 
     margin-right: auto;
 }
 
 .\@3-x-stretch {
     justify-self: stretch !important;
-    margin-left: 0;
+    margin-left: 0; 
     margin-right: 0;
     max-width: 100%;
-    width: 100%;
+    width: 100%; 
 }
 
 .\@3-x-unbleedl {
@@ -1611,12 +1076,6 @@ a.\@3-grid:focus {
 .\@3-4y-grid  { grid-template-rows: repeat(4,  minmax(0, 1fr)); }
 .\@3-5y-grid  { grid-template-rows: repeat(5,  minmax(0, 1fr)); }
 .\@3-6y-grid  { grid-template-rows: repeat(6,  minmax(0, 1fr)); }
-.\@3-7y-grid  { grid-template-rows: repeat(7,  minmax(0, 1fr)); }
-.\@3-8y-grid  { grid-template-rows: repeat(8,  minmax(0, 1fr)); }
-.\@3-9y-grid  { grid-template-rows: repeat(9,  minmax(0, 1fr)); }
-.\@3-10y-grid  { grid-template-rows: repeat(10,  minmax(0, 1fr)); }
-.\@3-11y-grid  { grid-template-rows: repeat(11,  minmax(0, 1fr)); }
-.\@3-12y-grid  { grid-template-rows: repeat(12,  minmax(0, 1fr)); }
 
 .\@3-y1 { grid-row-start: 1 !important; }
 .\@3-y2 { grid-row-start: 2 !important; }
@@ -1624,12 +1083,6 @@ a.\@3-grid:focus {
 .\@3-y4 { grid-row-start: 4 !important; }
 .\@3-y5 { grid-row-start: 5 !important; }
 .\@3-y6 { grid-row-start: 6 !important; }
-.\@3-y7 { grid-row-start: 7 !important; }
-.\@3-y8 { grid-row-start: 8 !important; }
-.\@3-y9 { grid-row-start: 9 !important; }
-.\@3-y10 { grid-row-start: 10 !important; }
-.\@3-y11 { grid-row-start: 11 !important; }
-.\@3-y12 { grid-row-start: 12 !important; }
 
 .\@3-1y { grid-row-end: span 1 !important; }
 .\@3-2y { grid-row-end: span 2 !important; }
@@ -1637,12 +1090,6 @@ a.\@3-grid:focus {
 .\@3-4y { grid-row-end: span 4 !important; }
 .\@3-5y { grid-row-end: span 5 !important; }
 .\@3-6y { grid-row-end: span 6 !important; }
-.\@3-7y { grid-row-end: span 7 !important; }
-.\@3-8y { grid-row-end: span 8 !important; }
-.\@3-9y { grid-row-end: span 9 !important; }
-.\@3-10y { grid-row-end: span 10 !important; }
-.\@3-11y { grid-row-end: span 11 !important; }
-.\@3-12y { grid-row-end: span 12 !important; }
 
 .\@3-y-end {
     align-self:    end !important;
@@ -1658,28 +1105,28 @@ a.\@3-grid:focus {
 
 .\@3-y-center {
     align-self:    center !important;
-    margin-top:    auto;
+    margin-top:    auto; 
     margin-bottom: auto;
 }
 
 .\@3-y-baseline  {
-    align-self:    baseline !important;
-    margin-top:    auto;
+    align-self:    baseline !important; 
+    margin-top:    auto; 
     margin-bottom: auto;
 }
 
 .\@3-y-lastline  {
-    align-self:    last baseline !important;
-    margin-top:    auto;
+    align-self:    last baseline !important; 
+    margin-top:    auto; 
     margin-bottom: auto;
 }
 
 .\@3-y-stretch {
     justify-self:  stretch !important;
-    margin-top:    0;
+    margin-top:    0; 
     margin-bottom: 0;
     max-height:    100%;
-    height:        100%;
+    height:        100%; 
 }
 
 .\@3-y-bleed {
@@ -1687,7 +1134,7 @@ a.\@3-grid:focus {
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
-    height:        calc(100% + var(--y-gap));
+    height:        calc(100% + var(--y-gap)); 
 }
 
 .\@3-y-flood {
@@ -1695,53 +1142,8 @@ a.\@3-grid:focus {
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
-    height:        calc(100% + 2 * var(--y-gap));
+    height:        calc(100% + 2 * var(--y-gap)); 
 }
-
-.\@3-inline         { display: inline-block !important; }
-
-.\@3-normal-text    { text-transform: none !important; }
-.\@3-lowercase-text { text-transform: lowercase !important; }
-.\@3-uppercase-text { text-transform: uppercase !important; }
-
-.\@3-thin-text      { font-weight: 200 !important; }
-.\@3-light-text     { font-weight: 300 !important; }
-.\@3-regular-text   { font-weight: 400 !important; }
-.\@3-book-text      { font-weight: 450 !important; }
-.\@3-medium-text    { font-weight: 500 !important; }
-.\@3-semi-text      { font-weight: 600 !important; }
-.\@3-bold-text      { font-weight: 700 !important; }
-.\@3-black-text     { font-weight: 800 !important; }
-
-.\@3-no-wrap {
-    white-space: nowrap;
-    flex-wrap: nowrap;
-    text-overflow: ellipsis;
-}
-.\@3-left           { float: left !important; clear: left; margin-right: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
-.\@3-right          { float: right !important; clear: right; margin-left: calc(0.5 * var(--x-gap)); margin-bottom: calc(0.5 * var(--y-gap)); }
-* + .\@3-left       { margin-top: calc(0.5 * var(--y-gap)); }
-* + .\@3-right      { margin-top: calc(0.5 * var(--y-gap)); }
-
-.\@3-top-align      { vertical-align: top !important; }
-.\@3-bottom-align   { vertical-align: bottom !important; }
-.\@3-middle-align   { vertical-align: middle !important; }
-.\@3-baseline-align { vertical-align: baseline !important; }
-.\@3-left-align     { text-align: left !important; }
-.\@3-right-align    { text-align: right !important; }
-.\@3-center-align   { text-align: center !important; }
-.\@3-justify-align  { text-align: justify !important; }
-
-.\@3-margin-0         { margin-top: 0      !important; }
-.\@3-margin-8         { margin-top: 0.5rem !important; }
-.\@3-margin-16        { margin-top: 1rem   !important; }
-.\@3-margin-24        { margin-top: 1.5rem !important; }
-.\@3-margin-32        { margin-top: 2rem   !important; }
-.\@3-margin-40        { margin-top: 2.5rem !important; }
-.\@3-margin-48        { margin-top: 3rem   !important; }
-.\@3-margin-64        { margin-top: 4rem   !important; }
-.\@3-margin-80        { margin-top: 5rem   !important; }
-.\@3-margin-96        { margin-top: 6rem   !important; }
 }
 
 
