@@ -4,11 +4,11 @@
 
 ```html
 <label class="select-button button">
-  <select>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
-  </select>
+    <select>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+    </select>
 </label>
 ```
 **/
@@ -18,13 +18,17 @@
     /* Note that iOS Safari will zoom-in the site layout if the select's text
        is less than 16px */
     --font-size:     var(--input-font-size, inherit);
-    --size:        var(--input-height, 2.8125rem);
+    --size:          var(--input-height, 2.8125rem);
     --line-height:   var(--input-line-height, 1.5rem);
+
     --padding-left:  var(--input-padding-left, 0.5625rem);
     --padding-right: var(--input-padding-right, 0.5625rem);
+
     --border-width:  var(--input-border-width, 1px);
-    --border-color:  var(--input-border-color, #bbbbbb);
     --border-radius: var(--input-border-radius, 0.3125rem);
+
+    --fg:            var(--input-border-color, #bbbbbb);
+    --bg:            var(--input-background);
 
     display: block;
     /* There should never be padding on select-button, it's padding is
@@ -35,7 +39,7 @@
     line-height: calc(var(--size) - 2 * var(--border-width));
 
     color: var(--input-color);
-    background: var(--input-background) no-repeat;
+    background: var(--bg) no-repeat;
     box-shadow: var(--input-shadow);
 }
 
@@ -58,7 +62,7 @@
     padding-right: calc(var(--padding-left) - var(--border-width));
     outline: none;
     color: inherit;
-    border: var(--border-width) solid transparent;
+    border-width: var(--border-width);
     border-radius: inherit;
     box-sizing: border-box;
 }

@@ -17,11 +17,11 @@ absolutely, where it can be used as, say, a notifications count.
     --size: 1.5rem;
 
     display: inline-block;
-    font-size: inherit;
-    line-height: var(--size);
+    font-size: var(--font-size, inherit);
+    line-height: var(--line-height, inherit);
     min-width: var(--size);
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: calc(0.5 * (var(--size) - var(--line-height)));
+    padding-bottom: calc(0.5 * (var(--size) - var(--line-height)));
     padding-left: 0.25em;
     padding-right: 0.25em;
     text-align: center;

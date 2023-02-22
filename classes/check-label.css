@@ -19,6 +19,14 @@
 
 .radio-label,
 .check-label {
+    --bg:           var(--check-background);
+    --valid-bg:     var(--bg);
+    --invalid-bg:   var(--bg);
+
+    --fg:         var(--check-border-color, #bbbbbb);
+    --valid-fg:   var(--fg);
+    --invalid-fg: var(--fg);
+
     position: relative;
     padding-left: 2.25rem;
     text-align: left;
@@ -57,8 +65,8 @@
 
 .radio-label::before,
 .check-label::before {
-    background: var(--input-background) no-repeat;
-    border: var(--check-border-width) solid var(--check-border-color);
+    background: var(--bg) no-repeat;
+    border: var(--check-border-width) solid var(--fg);
 }
 
 .radio-label::before {

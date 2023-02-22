@@ -70,11 +70,11 @@ function getHash(node) {
 }
 
 function addOnClass(element) {
-	element.classlist.add(config.onClass);
+	element.classList.add(config.onClass);
 }
 
 function removeOnClass(element) {
-	element.classlist.remove(config.onClass);
+	element.classList.remove(config.onClass);
 }
 
 export function activate(element, button) {
@@ -155,7 +155,7 @@ events('click', document).each(delegate({
 		}
 
 		// Is the node activateable?
-		if (Object.keys(behaviours).find((selector) => element.matches(selector))) {
+		if (!Object.keys(behaviours).find((selector) => element.matches(selector))) {
 			return;
 		}
 
@@ -295,4 +295,12 @@ events('load', window).each(function() {
 	}
 });
 
-events('dom-activate', document).each(delegate(behaviours));
+events('dom-activate', document).each((e) => {
+	let selector;
+	for (selector in behaviours) {
+		const node = e.target.matches(selector);
+		if (node) {
+			return behaviours[selector](e);
+		}
+	}
+});

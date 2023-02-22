@@ -23,6 +23,32 @@ function getHash(node) {
     return node.hash.substring(1);
 }
 
+export function open(element) {
+    // Is the element closed?
+    if (element.open) { return; }
+
+    // Then open it
+    element.showModal();
+}
+
+export function close(element) {
+    // Is the element open?
+    if ('open' in element && !element.open) { return; }
+
+    // Attach the current margin-top, otherwise the dialog jumps
+    const computed = getComputedStyle(element);
+    element.style.marginTop = computed.marginTop;
+
+    // And take it off when the closing transition is over
+    events('transitionend', element)
+    .filter(isTargetEvent)
+    .slice(0, 1)
+    .each((e) => element.style.marginTop = '');
+
+    // Close
+    element.close();
+}
+
 events('click', document)
 .each(delegate({
     // Clicks on links toggle activate on their href target
@@ -49,11 +75,7 @@ events('click', document)
             e.preventDefault();
         }
 
-        // Is the element closed?
-        if (element.open) { return; }
-
-        // Then open it
-        element.showModal();
+        open(element);
     },
 
     '[name="open"]': function(button, e) {
@@ -72,11 +94,7 @@ events('click', document)
         // Flag click as handled
         e.preventDefault();
 
-        // Is the element closed?
-        if (element.open) { return; }
-
-        // Then open it
-        element.showModal();
+        open(element);
     },
 
     '[name="close"]': function(button, e) {
@@ -95,20 +113,7 @@ events('click', document)
         // Flag click as handled
         e.preventDefault();
 
-        // Is the element open?
-        if ('open' in element && !element.open) { return; }
-
-        // Attach the current margin-top, otherwise the dialog jumps
-        const computed = getComputedStyle(element);
-        element.style.marginTop = computed.marginTop;
-
-        // And take it off when the closing transition is over
-        events('transitionend', element)
-        .filter(isTargetEvent)
-        .slice(0, 1)
-        .each((e) => element.style.marginTop = '');
-
-        // Close
-        element.close();
+        close(element);
     }
 }));
+

@@ -70,7 +70,7 @@ validation messages are shown.</p>
 //    config.attributePrefix. The postfix word is always one of 'pattern',
 //    'max', 'min', 'step', 'maxlength', 'type' or 'required'.
 //
-// 2. The messages in config.messages.
+// 2. The messages in messages.
 //
 // 3. The browser's default validation message (which is available on the
 //    input at the point that it fails validation).
@@ -113,22 +113,23 @@ export const config = {
     // Example: data-validation-max="You have gone too far"
     messageAttributePrefix: 'data-validation-',
 
-	// Global object for validation messages, overiding the browser defaults.
-	messages: {
-		// pattern:
-		// max:
-		// min:
-		// step:
-		// maxlength:
-		// type:
-		// required:
-	},
-
     // Given an input, select or textarea (that may have been augmented in some
     // way such that it is not the node that an error should be attached to),
     // selectNode() should return the node that the error should follow.
-    selectNode: id
+    selectNode: (input) => input.closest('label') || input
 };
+
+// Global object for validation messages, overriding the browser defaults.
+export const messages = {
+	// pattern:
+	// max:
+	// min:
+	// step:
+	// maxlength:
+	// type:
+	// required:
+};
+
 
 function negate(fn) {
 	return function() {
@@ -145,7 +146,7 @@ function isShowingMessage(input) {
 function toError(node) {
 	var validity = node.validity;
 	var prefix   = config.messageAttributePrefix;
-	var messages = config.messages;
+	var messages = messages;
 	var name;
 
 	for (name in validity) {
