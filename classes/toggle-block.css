@@ -22,7 +22,7 @@ toggle the `active` class when clicked. The links are given the class `on`.
 **/
 
 .toggle-block {
-    max-height: 0;
+    max-height: 2rem;
     opacity: 0.5;
     overflow: hidden;
     visibility: hidden;
@@ -60,7 +60,6 @@ toggle the `active` class when clicked. The links are given the class `on`.
 }
 
 * > .toggle-block {
-    max-height: 2rem;
     /* Toggle blocks hide overflow. Make them bigger than they appear to be
        so that inner elements' focus rings, box-shadows, list-style bullets, etc.
        are not truncated. 1rem is enough for the bullets. */

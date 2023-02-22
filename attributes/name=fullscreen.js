@@ -20,6 +20,10 @@ if (fullscreenEnabled) {
             const fullscreenCurrent = getFullscreenElement();
             const element = document.getElementById(button.value.replace(/^#/, ''));
 
+            if (window.DEBUG && !element) {
+                throw new Error('Element id="' + button.value.replace(/^#/, '') + '" not found');
+            }
+
             // Make button act as toggle: close the fullscreen
             if (fullscreenCurrent === element) {
                 exitFullscreen();
