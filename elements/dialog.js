@@ -4,6 +4,7 @@ import delegate        from '../../dom/modules/delegate.js';
 import isPrimaryButton from '../../dom/modules/is-primary-button.js';
 import isTargetEvent   from '../../dom/modules/is-target-event.js';
 import { isInternalLink } from '../../dom/modules/node.js';
+import rect            from '../../dom/modules/rect.js';
 
 
 function isIgnorable(e) {
@@ -114,6 +115,26 @@ events('click', document)
         e.preventDefault();
 
         close(element);
+    },
+
+    // Clicks on a dialog[data-closeable] backdrop close the dialog
+    'dialog[data-closeable]': function(dialog, e) {
+        // Ignore clicks not on the dialog itself
+        if (dialog !== e.target) {
+            return;
+        }
+
+        const box = rect(dialog);
+        const isInDialog = (
+            box.top <= e.clientY
+            && e.clientY <= box.top + box.height
+            && box.left <= e.clientX
+            && e.clientX <= box.left + box.width
+        );
+
+        if (!isInDialog) {
+            close(dialog);
+        }
     }
 }));
 
