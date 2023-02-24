@@ -5,6 +5,7 @@ import isPrimaryButton from '../../dom/modules/is-primary-button.js';
 import isTargetEvent   from '../../dom/modules/is-target-event.js';
 import { isInternalLink } from '../../dom/modules/node.js';
 import rect            from '../../dom/modules/rect.js';
+import { trigger }     from '../../dom/modules/trigger.js';
 
 
 function isIgnorable(e) {
@@ -30,6 +31,9 @@ export function open(element) {
 
     // Then open it
     element.showModal();
+
+    // Notify activation
+    trigger('dom-activate', element);
 }
 
 export function close(element) {
