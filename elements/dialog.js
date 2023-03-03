@@ -5,6 +5,7 @@ import isPrimaryButton from '../../dom/modules/is-primary-button.js';
 import isTargetEvent   from '../../dom/modules/is-target-event.js';
 import { isInternalLink } from '../../dom/modules/node.js';
 import rect            from '../../dom/modules/rect.js';
+import { disableScroll, enableScroll } from '../../dom/modules/scroll.js';
 import { trigger }     from '../../dom/modules/trigger.js';
 
 
@@ -142,3 +143,24 @@ events('click', document)
     }
 }));
 
+let n = 0;
+
+events({ type: 'dom-activate', select: 'dialog' }, document)
+.each((e) => {
+    // Disable scolling on document element
+    if (n === 0) { disableScroll(); }
+
+    // As it is possible to have multiple dialogs open, we must enumerate them
+    ++n;
+});
+
+events({ type: 'close', select: 'dialog' }, document)
+.each((e) => {
+    --n;
+
+    // This shouldn't happen, but if there's an error somewhere it's possible
+    if (n < 0) { n = 0; }
+
+    // Enable scrolling on document element
+    if (n === 0) { enableScroll(); }
+});
