@@ -8,6 +8,8 @@ import rect            from '../../dom/modules/rect.js';
 import { disableScroll, enableScroll } from '../../dom/modules/scroll.js';
 import { trigger }     from '../../dom/modules/trigger.js';
 
+// As it is possible to have multiple dialogs open, we must enumerate them
+let n = 0;
 
 function isIgnorable(e) {
     // Default is prevented indicates that this link has already
@@ -34,7 +36,13 @@ export function open(element) {
     element.showModal();
 
     // Notify activation
-    trigger('dom-activate', element);
+    if (trigger('dom-activate', element)) {
+        // Disable scolling on document element
+        if (n === 0) { disableScroll(); }
+
+        // As it is possible to have multiple dialogs open, we must enumerate them
+        ++n;
+    }
 }
 
 export function close(element) {
@@ -53,6 +61,18 @@ export function close(element) {
 
     // Close
     element.close();
+
+    // Notify deactivation. Dialogs do have a 'close' event that fires here,
+    // but the powers that be have decided that it should not bubble.
+    if (trigger('dom-deactivate', element)) {
+        --n;
+
+        // This shouldn't happen, but if there's an error somewhere it's possible
+        if (n < 0) { n = 0; }
+
+        // Enable scrolling on document element
+        if (n === 0) { enableScroll(); }
+    }
 }
 
 events('click', document)
@@ -142,25 +162,3 @@ events('click', document)
         }
     }
 }));
-
-let n = 0;
-
-events({ type: 'dom-activate', select: 'dialog' }, document)
-.each((e) => {
-    // Disable scolling on document element
-    if (n === 0) { disableScroll(); }
-
-    // As it is possible to have multiple dialogs open, we must enumerate them
-    ++n;
-});
-
-events({ type: 'close', select: 'dialog' }, document)
-.each((e) => {
-    --n;
-
-    // This shouldn't happen, but if there's an error somewhere it's possible
-    if (n < 0) { n = 0; }
-
-    // Enable scrolling on document element
-    if (n === 0) { enableScroll(); }
-});
