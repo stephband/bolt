@@ -130,7 +130,6 @@ export const messages = {
 	// required:
 };
 
-
 function negate(fn) {
 	return function() {
 		return !fn.apply(this, arguments);
@@ -146,11 +145,11 @@ function isShowingMessage(input) {
 function toError(node) {
 	var validity = node.validity;
 	var prefix   = config.messageAttributePrefix;
-	var messages = messages;
 	var name;
 
 	for (name in validity) {
 		if (name !== 'valid' && validity[name]) {
+			console.log('MESSAGE', messages);
 			return {
 				type: name,
 				attr: types[name],
