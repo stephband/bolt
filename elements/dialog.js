@@ -1,4 +1,5 @@
 
+import get             from '../../fn/modules/get.js';
 import events          from '../../dom/modules/events.js';
 import delegate        from '../../dom/modules/delegate.js';
 import isPrimaryButton from '../../dom/modules/is-primary-button.js';
@@ -10,6 +11,7 @@ import { trigger }     from '../../dom/modules/trigger.js';
 
 // As it is possible to have multiple dialogs open, we must enumerate them
 let n = 0;
+let timer;
 
 function isIgnorable(e) {
     // Default is prevented indicates that this link has already
@@ -28,6 +30,33 @@ function getHash(node) {
     return node.hash.substring(1);
 }
 
+function disableDocumentScroll() {
+    if (n === 0) {
+        // In Linux Chrome (at least), disabling scroll interrupts scrolling
+        // that is launched on any internal elements responding to hash change,
+        // so we must delay it. I wish we could ask for scroll events and wait
+        // until they are finished, but we cannot listen to scroll events inside
+        // of a shadow DOM, so we are forced to use setTimeout.
+        timer = setTimeout(disableScroll, 900);
+    }
+
+    // As it is possible to have multiple dialogs open, we must enumerate them
+    ++n;
+}
+
+function enableDocumentScroll() {
+    --n;
+
+    // This shouldn't happen, but if there's an error somewhere it's possible
+    if (n < 0) { n = 0; }
+
+    // Enable scrolling on document element
+    if (n === 0) {
+        clearTimeout(timer);
+        enableScroll();
+    }
+}
+
 export function open(element) {
     // Is the element closed?
     if (element.open) { return; }
@@ -37,11 +66,8 @@ export function open(element) {
 
     // Notify activation
     if (trigger('dom-activate', element)) {
-        // Disable scolling on document element
-        if (n === 0) { disableScroll(); }
-
-        // As it is possible to have multiple dialogs open, we must enumerate them
-        ++n;
+        // Disable scolling on the document.
+        disableDocumentScroll();
     }
 }
 
@@ -65,13 +91,7 @@ export function close(element) {
     // Notify deactivation. Dialogs do have a 'close' event that fires here,
     // but the powers that be have decided that it should not bubble.
     if (trigger('dom-deactivate', element)) {
-        --n;
-
-        // This shouldn't happen, but if there's an error somewhere it's possible
-        if (n < 0) { n = 0; }
-
-        // Enable scrolling on document element
-        if (n === 0) { enableScroll(); }
+        enableDocumentScroll();
     }
 }
 
