@@ -1,0 +1,11 @@
+
+/* TODO: open/close transitions as in toggle-block */
+
+details[open] summary ~ * {
+    animation: sweep 0.5s ease-in-out;
+}
+
+@keyframes sweep {
+    0%   { opacity: 0; transform: translateX(-0.625rem); }
+    100% { opacity: 1; transform: translateX(0); }
+}
