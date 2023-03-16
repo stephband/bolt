@@ -55,6 +55,7 @@
 
 .lined-table > tbody > tr > th,
 .lined-table > tbody > tr > td {
+    border-top: 1px solid currentcolor;
     /* Compensate for border-top */
     padding-top:    0.8125rem;
     padding-bottom: 0.875rem;
