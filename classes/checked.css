@@ -4,7 +4,8 @@
 Hide an element when its parent label refers to a checked input.
 */
 
-.invisible:checked + label .checked-hidden {
+.invisible:checked + label .checked-hidden,
+.invisible:checked + label ~ .checked-hidden {
     display: none !important;
 }
 
@@ -13,6 +14,7 @@ Hide an element when its parent label refers to a checked input.
 Show an element when its parent label refers to a checked input.
 */
 
-.invisible:not(:checked) + label .checked-shown {
+.invisible:not(:checked) + label .checked-shown,
+.invisible:not(:checked) + label ~ .checked-shown {
     display: none !important;
 }

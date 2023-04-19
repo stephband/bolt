@@ -41,6 +41,8 @@ import './components/switch-label.js';
 
     position: relative;
     padding-left: calc(var(--track-width) + 1em);
+    min-width:  var(--track-width);
+    min-height: var(--track-height);
 }
 
 :checked + .switch-label {
@@ -75,7 +77,7 @@ import './components/switch-label.js';
 }
 
 .switch-label::after {
-    width: var(--handle-width);
+    width:  var(--handle-width);
     height: var(--handle-width);
     top: 50%;
     left: 0;
@@ -113,7 +115,7 @@ import './components/switch-label.js';
     /* Enables swipe interaction when switch-label.js is included */
     transition: none;
     transform:
-        translate(calc(0.5 * var(--track-height) - 0.5 * var(--handle-width) + var(--handle-gesture-x) * (
+        translate(calc(0.5 * var(--track-height) - 0.5 * var(--handle-width) + var(--normal-value) * (
             var(--track-width) - var(--track-height)
         )), -50%);
 }

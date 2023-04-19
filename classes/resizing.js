@@ -7,7 +7,7 @@ const classes =  document.documentElement.classList;
 
 events('resize', window)
 .batch(0.333333333)
-.each((burst) => {
+.each((batch) => {
     classes.add('resizing');
-    burst.done(() => classes.remove('resizing'));
+    batch.done(() => classes.remove('resizing'));
 });

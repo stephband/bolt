@@ -26,6 +26,7 @@ events('change', document)
         // Where default is prevented trigger returns false
         const triggered = trigger('dom-activate', getById(id));
         triggered && (window.location.hash = id);
+        //document.activeElement.blur();
     },
 
     false: set('location', window)

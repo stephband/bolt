@@ -1,14 +1,17 @@
 
 /* Enabales left-right swipe gestures on .switch-label */
 
-import clamp       from '../../fn/modules/clamp.js';
+import { clamp }   from '../../fn/modules/clamp.js';
+import overload    from '../../fn/modules/overload.js';
 import attribute   from '../../dom/modules/attribute.js';
 import closest     from '../../dom/modules/closest.js';
 import gestures    from '../../dom/modules/gestures.js';
 import { trigger } from '../../dom/modules/trigger.js';
+import { px }      from '../../dom/modules/parse-length.js';
 
-var selector     = '.switch-label';
-var swipeRangePx = 40;
+
+const selector = '.switch-label';
+
 
 function switchState(label) {
     var id = attribute('for', label);
@@ -32,50 +35,71 @@ function switchOff(label) {
     trigger('change', input);
 }
 
-gestures({ select: selector, threshold: 4 }, document)
-.each(function(events) {
-    // First event is touchstart or mousedown
-    var e0     = events.shift();
-    var latest = events.latest();
-    var e1     = latest.shift();
-    var x0     = e0.clientX;
-    var y0     = e0.clientY;
-    var x1     = e1.clientX;
-    var y1     = e1.clientY;
-
+gestures({ select: selector, threshold: 2
+    // Todo: Threshold should be a function?
     // If the gesture is more vertical than horizontal, don't count it
     // as a swipe. Stop the stream and get out of here.
-    if (Math.abs(x1 - x0) < Math.abs(y1 - y0)) {
-        events.stop();
-        return;
-    }
+    //() => {
+        //if (Math.abs(x1 - x0) < Math.abs(y1 - y0)) {
+            // Meheh??
+            //    events.stop();
+            //    return;
+        //}
+    //}
+}, document)
+.each((events) => events
+    .reduce(overload((data, e) => e.type, {
+        pointerdown: (data, e) => {
+            data.e0     = e;
+            data.x0     = e.clientX;
+            data.y0     = e.clientY;
 
-    var label = closest(selector, e0.target);
-    var state = switchState(label);
-    var x = state ? 1 : 0 ;
-    var dx;
+            const label = closest(selector, e.target);
+            const state = switchState(label);
 
-    label.classList.add('no-select');
-    label.classList.add('gesturing');
+            data.label  = label;
+            data.state  = state;
+            data.x      = state ? 1 : 0 ;
 
-    latest.each(function (e) {
-        dx = e.clientX - x0;
+            // Work out range of travel
+            const trackWidth  = getComputedStyle(label).getPropertyValue('--track-width');
+            const handleWidth = getComputedStyle(label).getPropertyValue('--handle-width');
+            data.xRange = px(trackWidth) - px(handleWidth);
 
-        var rx = clamp(0, 1, x + dx / swipeRangePx);
-        label.style.setProperty('--switch-handle-gesture-x', rx);
+            label.classList.add('no-select');
+            label.classList.add('gesturing');
 
-        if (rx >= 0.666667 && !state) {
-            state = true;
-            switchOn(label);
+            return data;
+        },
+
+        pointermove: (data, e) => {
+            const { x0, y0, label, state, xRange } = data;
+            const x1 = e.clientX;
+            const y1 = e.clientY;
+
+            const dx = x1 - x0;
+            const rx = clamp(0, 1, data.x + dx / xRange);
+
+            label.style.setProperty('--normal-value', rx);
+
+            if (rx >= 0.666667 && !state) {
+                data.state = true;
+                switchOn(label);
+            }
+            else if (rx < 0.666667 && state) {
+                data.state = false;
+                switchOff(label);
+            }
+
+            return data;
+        },
+
+        default: (data, e) => {
+            const { label } = data;
+            label.classList.remove('no-select');
+            label.classList.remove('gesturing');
+            label.style.removeProperty('--normal-value');
+            return data;
         }
-        else if (rx < 0.666667 && state) {
-            state = false;
-            switchOff(label);
-        }
-    })
-    .done(function() {
-        label.classList.remove('no-select');
-        label.classList.remove('gesturing');
-        label.style.removeProperty('--switch-handle-gesture-x');
-    });
-});
+    }), {})
+);
