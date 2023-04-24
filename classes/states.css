@@ -12,8 +12,6 @@ Show an element only when focused
 	left: 0 !important;
 	width: 1px !important;
 	height: 1px important;
-
-	background: red;
 }
 
 /**
