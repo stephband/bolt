@@ -42,7 +42,7 @@ toggle the `active` class when clicked. The links are given the class `on`.
 .toggle-block.active,
 /* UNDER CONSIDERATION ... */
 :checked + .toggle-block,
-.masked:checked + label + .toggle-block {
+.invisible:checked + label + .toggle-block {
     max-height: 100rem;
     opacity: 1;
     visibility: visible;

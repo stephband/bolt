@@ -3,7 +3,7 @@
 .check-button
 
 ```html
-<input class="masked" type="checkbox" value="something" id="check-button-input" />
+<input class="invisible" type="checkbox" value="something" id="check-button-input" />
 <label class="check-button button" for="check-button-input">Turn me on</label>
 ```
 **/
@@ -12,9 +12,9 @@
 .radio-button
 
 ```html
-<input class="masked" type="radio" name="radio-button" value="on" id="radio-button-on" />
+<input class="invisible" type="radio" name="radio-button" value="on" id="radio-button-on" />
 <label class="radio-button button" for="radio-button-on">Turn me on</label>
-<input class="masked" type="radio" name="radio-button" value="off" id="radio-button-off" />
+<input class="invisible" type="radio" name="radio-button" value="off" id="radio-button-off" />
 <label class="radio-button button" for="radio-button-off">Turn me off</label>
 ```
 **/
@@ -100,8 +100,8 @@
     border-radius: calc(0.5 * var(--mark-width));
 }
 
-.masked + .check-button,
-.masked + .radio-button {
+.invisible + .check-button,
+.invisible + .radio-button {
     margin-top: 0;
 }
 
@@ -127,8 +127,8 @@
     filter: var(--disabled-filter);
 }
 
-* + .masked + .check-button,
-* + .masked + .radio-button {
+* + .invisible + .check-button,
+* + .invisible + .radio-button {
     margin-top: var(--input-margin);
 }
 
@@ -140,7 +140,7 @@
 .right-check-button
 
 ```html
-<input class="masked" type="checkbox" value="something" id="right-button-input" />
+<input class="invisible" type="checkbox" value="something" id="right-button-input" />
 <label class="right-check-button check-button button" for="right-button-input">Turn me on</label>
 ```
 **/
@@ -150,9 +150,9 @@
 .right-radio-button
 
 ```html
-<input class="masked" type="radio" name="right-radio-button" value="on" id="right-radio-button-on" />
+<input class="invisible" type="radio" name="right-radio-button" value="on" id="right-radio-button-on" />
 <label class="right-radio-button radio-button button" for="right-radio-button-on">Turn me on</label>
-<input class="masked" type="radio" name="right-radio-button" value="off" id="right-radio-button-off" />
+<input class="invisible" type="radio" name="right-radio-button" value="off" id="right-radio-button-off" />
 <label class="right-radio-button radio-button button" for="right-radio-button-off">Turn me off</label>
 ```
 **/

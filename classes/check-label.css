@@ -3,7 +3,7 @@
 .check-label
 
 ```html
-<input type="checkbox" class="masked" id="checkbox-1" />
+<input type="checkbox" class="invisible" id="checkbox-1" />
 <label class="check-label" for="checkbox-1">Choose me</label>
 ```
 */
@@ -12,7 +12,7 @@
 .radio-label
 
 ```html
-<input type="radio" class="masked" id="radio-1" />
+<input type="radio" class="invisible" id="radio-1" />
 <label class="radio-label" for="radio-1">Choose me</label>
 ```
 */
@@ -78,8 +78,8 @@
     display: none;
 }
 
-.masked:checked + .radio-label::after,
-.masked:checked + .check-label::after {
+.invisible:checked + .radio-label::after,
+.invisible:checked + .check-label::after {
     display: block;
 }
 
@@ -102,23 +102,23 @@
     background-position: 50% 50%;
 }
 
-.masked + .check-label,
-.masked + .radio-label {
+.invisible + .check-label,
+.invisible + .radio-label {
     margin-top: 0;
 }
 
-label + .masked + .radio-label,
-label + .masked + .check-label {
+label + .invisible + .radio-label,
+label + .invisible + .check-label {
     margin-top: var(--label-input-margin);
 }
 
-input + .masked + .radio-label,
-.button + .masked + .check-label {
+input + .invisible + .radio-label,
+.button + .invisible + .check-label {
     margin-top: var(--input-margin);
 }
 
-.masked:disabled + .check-label,
-.masked:disabled + .radio-label {
+.invisible:disabled + .check-label,
+.invisible:disabled + .radio-label {
     filter: var(--disabled-filter);
 }
 
@@ -127,7 +127,7 @@ input + .masked + .radio-label,
 .right-check-label
 
 ```html
-<input type="checkbox" class="masked" id="checkbox-2" />
+<input type="checkbox" class="invisible" id="checkbox-2" />
 <label class="right-check-label check-label" for="checkbox-2">Choose me</label>
 ```
 */
@@ -136,7 +136,7 @@ input + .masked + .radio-label,
 .right-radio-label
 
 ```html
-<input type="radio" class="masked" id="radio-2" />
+<input type="radio" class="invisible" id="radio-2" />
 <label class="right-radio-label radio-label" for="radio-2">Choose me</label>
 ```
 */
