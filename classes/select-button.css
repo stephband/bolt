@@ -44,6 +44,9 @@
 }
 
 .select-button > select {
+    /* Override default --size set on select */
+    --size: inherit;
+
     display: block;
     max-width: none;
 
