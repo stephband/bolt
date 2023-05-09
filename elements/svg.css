@@ -20,7 +20,8 @@ rect,
 text,
 textpath,
 tref,
-tspan {
+tspan,
+use {
     fill: inherit;
     stroke: inherit;
     stroke-width: inherit;
