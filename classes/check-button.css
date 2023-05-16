@@ -22,11 +22,11 @@
 .check-button,
 .radio-button {
     --font-size:     var(--input-font-size, inherit);
-    --size:        var(--input-height, 2.8125rem);
+    --size:          var(--input-height, 2.8125rem);
     --line-height:   var(--input-line-height, 1.5rem);
     --padding-left:  var(--input-padding-left, 0.5625rem);
     --padding-right: var(--input-padding-right, 0.5625rem);
-    --fg:  var(--input-border-color, #bbbbbb);
+    --fg:            var(--input-border-color, #bbbbbb);
     --border-width:  var(--input-border-width, 1px);
     --border-radius: var(--input-border-radius, 0.3125rem);
 
@@ -54,9 +54,9 @@
 .check-button::after {
     left: var(--input-padding-left);
     right: auto;
-    margin-top: calc(-0.5 * var(--check-width));
-    width: var(--check-width);
-    height: var(--check-width);
+    margin-top: calc(-0.5 * var(--check-size));
+    width: var(--check-size);
+    height: var(--check-size);
 }
 
 .check-button::before,
@@ -72,10 +72,10 @@
 .radio-button::before {
     left: var(--input-padding-left);
     right: auto;
-    width: var(--radio-width);
-    height: var(--radio-width);
-    margin-top: calc(-0.5 * var(--radio-width));
-    border-radius: calc(0.5 * var(--radio-width));
+    width: var(--radio-size);
+    height: var(--radio-size);
+    margin-top: calc(-0.5 * var(--radio-size));
+    border-radius: calc(0.5 * var(--radio-size));
 }
 
 .check-button::after {
@@ -83,7 +83,7 @@
     content: var(--check-content);
     background: var(--check-content-background);
     text-align: center;
-    line-height: var(--check-width);
+    line-height: var(--check-size);
     color: var(--mark-color);
     background-size: auto;
     background-position: 50% 50%;
@@ -91,13 +91,13 @@
 
 .radio-button::after {
     display: none;
-    left: calc(var(--input-padding-left) + 0.5 * (var(--radio-width) - var(--mark-width)));
+    left: calc(var(--input-padding-left) + 0.5 * (var(--radio-size) - var(--mark-size)));
     right: auto;
-    width: var(--mark-width);
-    height: var(--mark-width);
-    margin-top: calc(-0.5 * var(--mark-width));
+    width: var(--mark-size);
+    height: var(--mark-size);
+    margin-top: calc(-0.5 * var(--mark-size));
     background: var(--mark-color);
-    border-radius: calc(0.5 * var(--mark-width));
+    border-radius: calc(0.5 * var(--mark-size));
 }
 
 .invisible + .check-button,
@@ -172,5 +172,5 @@
 
 .right-radio-button::after {
     left: auto;
-    right: calc(var(--input-padding-right) + 0.5 * (var(--radio-width) - var(--mark-width)));
+    right: calc(var(--input-padding-right) + 0.5 * (var(--radio-size) - var(--mark-size)));
 }
