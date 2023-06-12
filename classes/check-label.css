@@ -3,32 +3,32 @@
 .check-label
 
 ```html
-<input type="checkbox" class="masked" id="checkbox-1" />
+<input type="checkbox" class="invisible" id="checkbox-1" />
 <label class="check-label" for="checkbox-1">Choose me</label>
 ```
-*/
+**/
 
 /**
 .radio-label
 
 ```html
-<input type="radio" class="masked" id="radio-1" />
+<input type="radio" class="invisible" id="radio-1" />
 <label class="radio-label" for="radio-1">Choose me</label>
 ```
-*/
+**/
 
 .radio-label,
 .check-label {
-    --bg:           var(--check-background);
-    --valid-bg:     var(--bg);
-    --invalid-bg:   var(--bg);
+    --bg:         var(--input-background, white);
+    --valid-bg:   var(--bg);
+    --invalid-bg: var(--bg);
 
     --fg:         var(--check-border-color, #bbbbbb);
     --valid-fg:   var(--fg);
     --invalid-fg: var(--fg);
 
     position: relative;
-    padding-left: 2.25rem;
+    padding-left: calc(1.6 * var(--check-size));
     text-align: left;
 }
 
@@ -45,16 +45,16 @@
 
 .check-label::before,
 .check-label::after {
-    top: calc(0.5 * (var(--size) - var(--check-width)));
-    width: var(--check-width);
-    height: var(--check-width);
+    top: calc(0.5 * (var(--size) - var(--check-size)));
+    width: var(--check-size);
+    height: var(--check-size);
     border-radius: var(--check-border-radius);
 }
 
 .radio-label::before {
-    top: calc(0.5 * (var(--size) - var(--radio-width)));
-    width: var(--radio-width);
-    height: var(--radio-width);
+    top: calc(0.5 * (var(--size) - var(--radio-size)));
+    width: var(--radio-size);
+    height: var(--radio-size);
 }
 
 .right-label::before,
@@ -70,7 +70,7 @@
 }
 
 .radio-label::before {
-    border-radius: calc(0.5 * var(--radio-width));
+    border-radius: calc(0.5 * var(--radio-size));
 }
 
 .radio-label::after,
@@ -78,47 +78,47 @@
     display: none;
 }
 
-.masked:checked + .radio-label::after,
-.masked:checked + .check-label::after {
+.invisible:checked + .radio-label::after,
+.invisible:checked + .check-label::after {
     display: block;
 }
 
 .radio-label::after {
-    top: calc(0.5 * (var(--size) - var(--mark-width)));
-    left: calc(0.5 * (var(--radio-width) - var(--mark-width)));
-    width: var(--mark-width);
-    height: var(--mark-width);
+    top: calc(0.5 * (var(--size) - var(--mark-size)));
+    left: calc(0.5 * (var(--radio-size) - var(--mark-size)));
+    width: var(--mark-size);
+    height: var(--mark-size);
     background-color: var(--mark-color);
-    border-radius: calc(0.5 * var(--mark-width));
+    border-radius: calc(0.5 * var(--mark-size));
 }
 
 .check-label::after {
     content: var(--check-content, '');
     text-align: center;
-    line-height: var(--check-width);
+    line-height: var(--check-size);
     color: var(--mark-color);
     background: var(--check-content-background);
     background-size: auto;
     background-position: 50% 50%;
 }
 
-.masked + .check-label,
-.masked + .radio-label {
+.invisible + .check-label,
+.invisible + .radio-label {
     margin-top: 0;
 }
 
-label + .masked + .radio-label,
-label + .masked + .check-label {
+label + .invisible + .radio-label,
+label + .invisible + .check-label {
     margin-top: var(--label-input-margin);
 }
 
-input + .masked + .radio-label,
-.button + .masked + .check-label {
+input + .invisible + .radio-label,
+.button + .invisible + .check-label {
     margin-top: var(--input-margin);
 }
 
-.masked:disabled + .check-label,
-.masked:disabled + .radio-label {
+.invisible:disabled + .check-label,
+.invisible:disabled + .radio-label {
     filter: var(--disabled-filter);
 }
 
@@ -127,7 +127,7 @@ input + .masked + .radio-label,
 .right-check-label
 
 ```html
-<input type="checkbox" class="masked" id="checkbox-2" />
+<input type="checkbox" class="invisible" id="checkbox-2" />
 <label class="right-check-label check-label" for="checkbox-2">Choose me</label>
 ```
 */
@@ -136,7 +136,7 @@ input + .masked + .radio-label,
 .right-radio-label
 
 ```html
-<input type="radio" class="masked" id="radio-2" />
+<input type="radio" class="invisible" id="radio-2" />
 <label class="right-radio-label radio-label" for="radio-2">Choose me</label>
 ```
 */
@@ -156,16 +156,16 @@ input + .masked + .radio-label,
 }
 
 .right-radio-label::after {
-    right: calc(0.5 * (var(--radio-width) - var(--mark-width)));
+    right: calc(0.5 * (var(--radio-size) - var(--mark-size)));
 }
 
 
 :root {
     /**
-    --check-width
+    --check-size
     Size of simulated checkboxes
     **/
-    --check-width: 1.5rem;
+    --check-size: 1.5rem;
 
     /**
     --check-border-width
@@ -209,10 +209,10 @@ input + .masked + .radio-label,
     --check-background-checked: transparent;
 
     /**
-    --radio-width
+    --radio-size
     Size of simulated radio buttons
     **/
-    --radio-width: 1.625rem;
+    --radio-size: 1.625rem;
 
     /**
     --radio-border-width
@@ -220,9 +220,9 @@ input + .masked + .radio-label,
     **/
     --radio-border-width: var(--input-border-width, 1px);
 
-    /** --mark-width
+    /** --mark-size
     Size of radio check mark **/
-    --mark-width: 0.75rem;
+    --mark-size: 0.75rem;
 
     /** --mark-background
     Background of radio check mark **/
