@@ -35,6 +35,9 @@ Modify a link or button that references a two-state component to represent
 active state.
 **/
 
+/* Keep box-shadows for .on over the top of their siblings */
+.flex > .on { z-index: 2; }
+
 /**
 .on-hidden
 Hide an element when its parent has class <code>on</code>.
