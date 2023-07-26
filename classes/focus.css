@@ -1,9 +1,9 @@
 
-:focus {
-    outline-width: 0;
+*:focus {
+     outline-width: 0;
 }
 
-:focus-visible {
+*:focus-visible {
     box-shadow: var(--focus-shadow);
     z-index: 1;
 }
