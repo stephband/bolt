@@ -121,6 +121,8 @@ export function deactivate(element, button) {
 
 const elementFromButton = pattern((button) => button.value.trim(), {
 	'^#':                  (button) => document.getElementById(button.value.slice(1)),
+	'^next$':              (button) => button.nextElementSibling,
+	'^previous$':          (button) => button.previousElementSibling,
 	'^next-element$':      (button) => button.nextElementSibling,
 	'^previous-element$':  (button) => button.previousElementSibling,
 	'^closest\\((.+)\\)$': (button, selector) => button.closest(selector),

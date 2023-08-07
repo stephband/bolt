@@ -1,7 +1,7 @@
 
 /*
-.toggle-block
-Enable toggle-block transitions of max-height to go to and from height: auto
+.folder-block
+Enable folder-block transitions of max-height to go to and from height: auto
 for smoother opening and closing animations.
 */
 
@@ -19,10 +19,10 @@ function isVisible(element) {
 
 events('dom-activate', document.body)
 .map(get('target'))
-.filter(matches('.toggle-block'))
+.filter(matches('.folder-block'))
 .each(function(node) {
     // There are no transitions inside loading containers
-    if (!isVisible(node) || matches('.loading .toggle-block')) {
+    if (!isVisible(node) || matches('.loading .folder-block')) {
         node.style.maxHeight = '';
         return;
     }
@@ -55,7 +55,7 @@ const measure = choose({
 
 events('dom-deactivate', document.body)
 .map(get('target'))
-.filter(matches('.toggle-block'))
+.filter(matches('.folder-block'))
 .each(function(node) {
     const style = node.getAttribute('style');
     const computed = getComputedStyle(node);

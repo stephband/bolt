@@ -1,24 +1,27 @@
 
 /**
-.toggle-button
+.folder-button
 
 ```html
-<a class="toggle-button button" href="#id">Open</a>
+<a class="folder-button button" href="#id">Open</a>
 ```
 
-A `toggle-button` has in icon (styleable as `:after` content) that rotates 90˚ when
+A `folder-button` has in icon (styleable as `:after` content) that rotates 90˚ when
 the button is given the class `on`.
 
 Include `attributes/data-toggleable.js` and links to an element data-toggleable will
 toggle the `active` class when clicked. The links are given the class `on`.
 **/
 
-.toggle-button {
+.folder-button {
     display: block;
+	width: 100%;
 	padding-right: 1.875rem;
+	text-align: left;
+	border-radius: 0;
 }
 
-.toggle-button::after {
+.folder-button::after {
 	content: '';
 	position: absolute;
 	top: 50%;
@@ -31,10 +34,10 @@ toggle the `active` class when clicked. The links are given the class `on`.
 	transition: transform 0.2s linear;
 }
 
-.toggle-button.on::after {
+.folder-button.on::after {
 	transform: translate3d(0,-70.7%,0) rotate(45deg);
 }
 
-.loading .toggle-button::after {
+.loading .folder-button::after {
 	transition: none;
 }

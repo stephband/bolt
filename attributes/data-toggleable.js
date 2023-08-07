@@ -11,8 +11,8 @@ With a little hide/show style, a toggleable can be used to make menus, drawers,
 accordions and so on.
 
 ```html
-<a class="toggle-button button" href="#toggle-block">Show toggle-block</a>
-<section class="toggle-block block" data-toggleable id="toggle-block">
+<a class="folder-button button" href="#folder-block">Show folder-block</a>
+<section class="folder-block block" data-toggleable id="folder-block">
     Crunchum ipsum dolor sit coder void, constructor function, sed do while
     loop python orientation semi colon incident. Duis aute irure indent tabs
     or spaces velit esse cilium buntum how crunchy duntum.
