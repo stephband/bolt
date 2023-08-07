@@ -5,6 +5,7 @@ data-popable
 ```html
 <div data-popable class="right-top-bubble top-bubble bubble" id="bolt-popable">Hello.</div>
 <a class="button" href="#bolt-popable">Show bubble</a>
+<button class="button" name="activate" value="#bolt-popable">Show bubble</button>
 ```
 
 An element with a `data-popable` attribute is given the class `"active"` when a
@@ -20,9 +21,10 @@ bubbles, accordions and so on.
 import events from '../../dom/modules/events.js';
 import { behaviours, deactivate } from '../events/dom-activate.js';
 
-function activate(e) {
+behaviours['[data-popable]'] = function activate(e) {
     const element = e.target;
-    // Make user actions outside node deactivate the node
+
+    // Make user actions outside element deactivate it
     const mousedowns = events('mousedown', document)
         .filter((e) => !element.contains(e.target) && element !== e.target)
         // TODO disable sebsequent click on buttons that point back to this
@@ -36,5 +38,3 @@ function activate(e) {
             deactivates.stop();
         });
 }
-
-behaviours['[data-popable]'] = activate;

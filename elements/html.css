@@ -82,6 +82,10 @@ body {
 	margin: 0;
 }
 
+button {
+	margin: 0;
+}
+
 article,
 aside,
 details,
@@ -160,6 +164,10 @@ a:active {
 	   people.opera.com/patrickl/experiments/keyboard/test */
 	/*outline-width: 0;
 }*/
+
+address {
+	font-style: normal;
+}
 
 abbr[title] {
 	/* Remove the bottom border in FF 39- */

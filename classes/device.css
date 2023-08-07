@@ -1,16 +1,12 @@
-:focus {
-    outline-width: 0;
-    box-shadow: var(--focus-shadow);
-    z-index: 1;
-}
 
+/*
 .mouse-device :not(input, select, textarea):focus,
 .touch-device :not(input, select, textarea):focus {
     box-shadow: none;
 }
-
+*/
 /* Respond to device input classes. */
-
+/*
 .mouse-device a:focus,
 .mouse-device button:focus,
 .mouse-device input:focus,
@@ -27,7 +23,7 @@
 .mouse-device button:focus {
     box-shadow: none;
 }
-
+*/
 
 /**
 .touch-hidden,
