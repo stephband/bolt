@@ -164,9 +164,9 @@ events('click', document).each(delegate({
 		// Flag click as handled
 		e.preventDefault();
 
-		if (e.type === 'mousedown') {
+		/*if (e.type === 'mousedown') {
 			preventClick(e);
-		}
+		}*/
 
 		// Activate
 		activate(element, a);
@@ -210,7 +210,29 @@ events('click', document).each(delegate({
 
 		// Deactivate
 		deactivate(element, button);
-	}
+	},
+
+	// Clicks on buttons named activate trigger activate on their value target
+	'[name="activate-deactivate"]': function(button, e) {
+		const element = elementFromButton(button);
+
+		if (!element) {
+			throw new Error('Button action name="activate-deactivate" target value="' + button.value + '" not found');
+		}
+
+		// Flag click as handled
+		e.preventDefault();
+
+		// Is element already active?
+		if (element.classList.contains('active')) {
+			// Deactivate
+			deactivate(element, button);
+		}
+		else {
+			// Activate
+			activate(element, button);
+		}
+	},
 }));
 
 

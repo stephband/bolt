@@ -37,6 +37,7 @@ toggle the `active` class when clicked. The links are given the class `on`.
         border-color 400ms linear,
         background-color 200ms linear,
         visibility 400ms linear;
+    z-index: 1;
 }
 
 .folder-block.active,
@@ -73,5 +74,51 @@ toggle the `active` class when clicked. The links are given the class `on`.
 .resizing .folder-block,
 .resizing .folder-block.active {
     /* No transition during page load */
+    transition: none !important;
+}
+
+
+/**
+.folder-button
+
+```html
+<a class="folder-button button" href="#id">Open</a>
+```
+
+A `folder-button` has in icon (styleable as `:after` content) that rotates 90˚ when
+the button is given the class `on`.
+
+Include `attributes/data-toggleable.js` and links to an element data-toggleable will
+toggle the `active` class when clicked. The links are given the class `on`.
+**/
+
+.folder-button {
+    display: block;
+    width: 100%;
+    padding-right: 1.875rem;
+    text-align: left;
+    border-radius: 0;
+    /* Buttons must appear above blocks, as blocks have overlapping -ve margins */
+    z-index: 2;
+}
+
+.folder-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    width: 0.5625rem;
+    height: 0.5625rem;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"><path stroke="black" d="M0.134,0 L1,0.5 L0.134,1"/></svg>');
+    background-size: contain;
+    transform: translate3d(0,-50%,0) rotate(0deg);
+    transition: transform 0.2s linear;
+}
+
+.folder-button.on::after {
+    transform: translate3d(0,-50%,0) rotate(90deg);
+}
+
+.loading .folder-button::after {
     transition: none !important;
 }
