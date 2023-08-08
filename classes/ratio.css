@@ -1,0 +1,74 @@
+
+/**
+.ratio-2:1
+
+```html
+<img class="ratio-2:1" src="../images/wireframe.svg" style="object-fit: fill;" />
+```
+**/
+
+/**
+.ratio-16:9
+
+```html
+<img class="ratio-16:9" src="../images/wireframe.svg" style="object-fit: fill;" />
+```
+**/
+
+/**
+.ratio-3:2
+
+```html
+<img class="ratio-3:2" src="../images/wireframe.svg" style="object-fit: fill;" />
+```
+**/
+
+/**
+.ratio-4:3
+
+```html
+<img class="ratio-4:3" src="../images/wireframe.svg" style="object-fit: fill;" />
+```
+**/
+
+/**
+.ratio-5:4
+
+```html
+<img class="ratio-5:4" src="../images/wireframe.svg" style="object-fit: fill;" />
+```
+**/
+
+/**
+.ratio-1:1
+
+```html
+<img class="ratio-1:1" src="../images/wireframe.svg" style="object-fit: fill;" />
+```
+**/
+
+/**
+.ratio-A-portrait, .ratio-A-landscape
+
+ratio with the ratio 1:√2, as ISO 216 (A0-A8) paper sizes.
+
+```html
+<img class="ratio-A-portrait" src="../images/wireframe.svg" style="object-fit: fill;" />
+<img class="ratio-A-landscape" src="../images/wireframe.svg" style="object-fit: fill;" />
+```
+**/
+
+.ratio-1\:2        { aspect-ratio: 0.5; }
+.ratio-9\:16       { aspect-ratio: 0.5625; }
+.ratio-2\:3        { aspect-ratio: 0.666666667; }
+.ratio-A,
+.ratio-A-portrait  { aspect-ratio: 0.707106781; }
+.ratio-3\:4        { aspect-ratio: 0.75; }
+.ratio-4\:5        { aspect-ratio: 0.8; }
+.ratio-1\:1        { aspect-ratio: 1; }
+.ratio-5\:4        { aspect-ratio: 1.25; }
+.ratio-4\:3        { aspect-ratio: 1.333333333; }
+.ratio-A-landscape { aspect-ratio: 1.414213562; }
+.ratio-3\:2        { aspect-ratio: 1.5; }
+.ratio-16\:9       { aspect-ratio: 1.777777778; }
+.ratio-2\:1        { aspect-ratio: 2; }
