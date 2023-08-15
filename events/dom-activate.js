@@ -1,4 +1,5 @@
 
+import get            from '../../fn/modules/get.js';
 import isDefined       from '../../fn/modules/is-defined.js';
 import noop            from '../../fn/modules/noop.js';
 import pattern         from '../../fn/modules/pattern.js';
@@ -277,8 +278,7 @@ events('DOMContentLoaded', document).each(function() {
 	// Setup all things that should start out active
 	const actives = select('.' + config.activeClass, document);
     if (actives.length) {
-        //log('dom-activate', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
-        actives.forEach(triggerActivate);
+		actives.forEach((element) => activate(element, window));
     }
 
     // Create an observer instance linked to the callback function
@@ -290,9 +290,10 @@ events('DOMContentLoaded', document).each(function() {
 		// Activate .active elements
         const actives = mutations.reduce(pushAddedActives, []);
         if (actives.length) {
-            //log('dom-activate', actives.length + ' elements – #' + actives.map(get('id')).join(', #'));
-            actives.forEach(triggerActivate);
-            actives.forEach(addElement);
+            actives.forEach((element) => {
+				activate(element, window)
+				addElement(element);
+			});
         }
     });
 

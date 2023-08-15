@@ -1,3 +1,16 @@
 
 .${ data.prefix }flex           { display: flex !important; }
+.${ data.prefix }flex > *       { flex: 0 0 auto; margin: 0; }
 .${ data.prefix }flex > li      { display: block; }
+
+.${ data.prefix }x-flex         { flex-direction: row; }
+.${ data.prefix }y-flex         { flex-direction: column; }
+
+.${ data.prefix }y-flex > .x-start  { align-self: start; }
+.${ data.prefix }y-flex > .x-center { align-self: center; }
+.${ data.prefix }y-flex > .x-end    { align-self: end; }
+
+/* Keep focus box-shadows over the top of their siblings */
+.${ data.prefix }flex *              { z-index: 0; }
+.${ data.prefix }flex .select-button { z-index: 1; }
+.${ data.prefix }flex *:focus        { z-index: 2; }
