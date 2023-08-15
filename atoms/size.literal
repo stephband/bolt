@@ -3,6 +3,6 @@ ${ /* Provide some default sizes in no prefix breakpoint to match legacy
       defaults, otherwise none */ '' }
 
 ${ (data.sizes || (data.prefix === '' && [18,24,30,36,42,48,60]) || [])
-.map((size) => `.${ data.prefix }size-${ size } { --size: ${ rem(size) }rem; }`)
+.map((size) => `.${ data.prefix }size-${ px(size) } { --size: ${ rem(size) }rem; }`)
 .join('')
 }

@@ -1,19 +1,18 @@
 
-.grid {
-    ${ data['column-gap'] ? '--x-gap: ' + em(data['column-gap']) + 'em;' : '' }
-    ${ data['row-gap']    ? '--y-gap: ' + em(data['row-gap'])    + 'em;' : '' }
-}
-
 .${ data.prefix }grid {
+    ${ data['column-gap'] ? '--x-gap: ' + rem(data['column-gap']) + 'rem;' : '' }
+    ${ data['row-gap']    ? '--y-gap: ' + rem(data['row-gap'])    + 'rem;' : '' }
+
     display: grid !important;
+
     /* Horizontal layout */
     grid-auto-flow: row;
+
     /* Create equal columns by default. */
     grid-auto-columns: minmax(0, 1fr);
     column-gap: var(--x-gap, 0);
     row-gap:    var(--y-gap, 0);
-    ${ data.prefix && data['column-gap'] ? '--x-gap: ' + em(data['column-gap']) + 'em;' : '' }
-    ${ data.prefix && data['row-gap']    ? '--y-gap: ' + em(data['row-gap'])    + 'em;' : '' }
+
     /* Stretch by default */
     justify-items: stretch;
     align-items: stretch;
