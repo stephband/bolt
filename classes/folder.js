@@ -22,7 +22,7 @@ events('dom-activate', document.body)
 .filter(matches('.folder-block'))
 .each(function(node) {
     // There are no transitions inside loading containers
-    if (!isVisible(node) || matches('.loading .folder-block')) {
+    if (!isVisible(node) || matches('.loading .folder-block', node)) {
         node.style.maxHeight = '';
         return;
     }
