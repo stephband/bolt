@@ -12,6 +12,7 @@ dialog:not([open]) {
 }
 
 dialog {
+    max-height: calc(100% - 4rem);
     border-width: 0;
     visibility: visible;
     opacity: 1;
@@ -21,6 +22,28 @@ dialog {
         opacity 0.3s linear,
         transform 0.3s ease-out;
     z-index: 1000;
+}
+
+dialog > img,
+dialog > svg,
+dialog > video,
+dialog > canvas,
+dialog > object,
+dialog > embed,
+dialog > iframe {
+    /* Don't allow media to break out of container bounds. */
+    max-width: 100%;
+    object-fit: contain;
+    object-position: 50% 50%;
+}
+
+dialog > img,
+dialog > svg,
+dialog > video,
+dialog > canvas {
+    /* Allow images to rescale freely. */
+    height: auto;
+    max-height: 100%;
 }
 
 dialog > .thumb {
