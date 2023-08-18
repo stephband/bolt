@@ -163,7 +163,7 @@ events('click', document)
     },
 
     // Clicks on a dialog[data-closeable] backdrop close the dialog
-    'dialog[data-closeable]': function(dialog, e) {
+    'dialog[data-popable]': function(dialog, e) {
         // Ignore clicks not on the dialog itself
         if (dialog !== e.target) {
             return;
