@@ -67,10 +67,10 @@ validation messages are shown.</p>
 // 1. A validation attribute on the input:
 //    <input type="email" data-validation-type="That is not an email address" />
 //    The attribute name can be modified globally by setting
-//    config.attributePrefix. The postfix word is always one of 'pattern',
-//    'max', 'min', 'step', 'maxlength', 'type' or 'required'.
+//    config.attributePrefix. The postfix word `xxx` on `data-validation-xxx` is
+//    one of 'pattern', 'max', 'min', 'step', 'maxlength', 'type' or 'required'.
 //
-// 2. The messages in messages.
+// 2. The messages in the `messages` object.
 //
 // 3. The browser's default validation message (which is available on the
 //    input at the point that it fails validation).
@@ -78,15 +78,16 @@ validation messages are shown.</p>
 // Inputs inside or with .validateable are given .validated after they are
 // first validated, enabling pre- as well as post- validation styles.
 
-import get     from '../../fn/modules/get.js';
-import id      from '../../fn/modules/id.js';
-import create  from '../../dom/modules/create.js';
-import events  from '../../dom/modules/events.js';
-import matches from '../../dom/modules/matches.js';
-import { next } from '../../dom/modules/traverse.js';
-import remove  from '../../dom/modules/remove.js';
-import { validate, isValid } from '../../dom/modules/validation.js';
-import classes from '../../dom/modules/classes.js';
+import get       from '../../fn/modules/get.js';
+import id        from '../../fn/modules/id.js';
+import create    from '../../dom/modules/create.js';
+import events    from '../../dom/modules/events.js';
+import matches   from '../../dom/modules/matches.js';
+import { next }  from '../../dom/modules/traverse.js';
+import remove    from '../../dom/modules/remove.js';
+import validate  from '../../dom/modules/validate.js';
+import isValid   from '../../dom/modules/is-valid.js';
+import classes   from '../../dom/modules/classes.js';
 import { after } from '../../dom/modules/mutate.js';
 
 var isValidateable = matches('[validateable], [validateable] input, [validateable] textarea, [validateable] select, [data-validateable], [data-validateable] input, [data-validateable] textarea, [data-validateable] select');
@@ -149,7 +150,6 @@ function toError(node) {
 
 	for (name in validity) {
 		if (name !== 'valid' && validity[name]) {
-			console.log('MESSAGE', messages);
 			return {
 				type: name,
 				attr: types[name],
