@@ -263,6 +263,8 @@ events('click', document).each(delegate({
 }));
 
 
+
+
 /* Track activateables added to DOM following DOM ready */
 
 const addedElements = new WeakSet();
@@ -345,14 +347,3 @@ events('load', window).each(function() {
 		console.warn('dom: Cannot activate ' + id, e.message);
 	}
 });
-/*
-events('dom-activate', document).each((e) => {
-	let selector;
-	for (selector in behaviours) {
-		const node = e.target.matches(selector);
-		if (node) {
-			return behaviours[selector](e);
-		}
-	}
-});
-*/
