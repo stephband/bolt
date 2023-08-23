@@ -102,7 +102,7 @@ export function activate(element, button) {
 	}
 
 	// Focus the first element with class .active-focus
-	const focusNode = element.querySelector('.active-focus');
+	/*const focusNode = element.querySelector('.active-focus');
 	if (focusNode) {
 		// The click that activated this target is not over yet, wait two frames
 		// to focus the element. Don't know why we need two.
@@ -111,7 +111,7 @@ export function activate(element, button) {
 				focusNode.focus()
 			)
 		);
-	}
+	}*/
 
 	return true;
 }

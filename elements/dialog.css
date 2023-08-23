@@ -1,10 +1,10 @@
 
 @keyframes backdrop-fade {
     from {
-        background-color: transparent;
+        opacity: 0;
     }
     to {
-        background-color: rgba(0, 0, 0, 0.333333333);
+        opacity: 1;
     }
 }
 
@@ -31,6 +31,12 @@ dialog {
         opacity 0.3s linear,
         transform 0.3s ease-out;
     z-index: 1000;
+}
+
+dialog::backdrop {
+    background-color: rgba(25,25,25,0.4);
+    animation: backdrop-fade 1.8s ease-out forwards;
+    animation-direction: reverse;
 }
 
 dialog[open]::backdrop {

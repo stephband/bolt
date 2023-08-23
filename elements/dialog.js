@@ -1,6 +1,7 @@
 
 import events          from '../../dom/modules/events.js';
 import delegate        from '../../dom/modules/delegate.js';
+import { focusInside } from '../../dom/modules/focus.js';
 import isTargetEvent   from '../../dom/modules/is-target-event.js';
 import rect            from '../../dom/modules/rect.js';
 import { disableScroll, enableScroll } from '../../dom/modules/scroll.js';
@@ -46,6 +47,17 @@ export function open(element) {
 
     // Disable scrolling on the document.
     disableDocumentScroll();
+
+    // Move focus inside the dialog
+    if (!element.contains(document.activeElement)) {
+        // The click that activated this target is not over yet, wait two frames
+        // to focus the element. Don't know why we need two.
+        requestAnimationFrame(() =>
+            requestAnimationFrame(() =>
+                focusInside(element)
+            )
+        );
+    }
 }
 
 export function close(element) {
