@@ -18,7 +18,8 @@ With a little hide/show style, a popable can be used to make menus, tooltips,
 bubbles, accordions and so on.
 */
 
-import events from '../../dom/modules/events.js';
+import events          from '../../dom/modules/events.js';
+import isPrimaryButton from '../../dom/modules/is-primary-button.js';
 import { behaviours, deactivate } from '../events/dom-activate.js';
 
 behaviours['[data-popable]'] = function activate(e) {
@@ -26,10 +27,23 @@ behaviours['[data-popable]'] = function activate(e) {
 
     // Make user actions outside element deactivate it
     const mousedowns = events('mousedown', document)
+        .filter(isPrimaryButton)
         .filter((e) => !element.contains(e.target) && element !== e.target)
-        // TODO disable sebsequent click on buttons that point back to this
-        // popable
-        .each((e) => deactivate(element));
+        .each((e) => {
+            deactivate(element);
+
+            // If we just mousedowned on a button that points to this popable
+            const button = e.target.closest(`[href$="#${ element.id }"], [name="activate"][value="#${ element.id }"], [name="activate-deactivate"][value="#${ element.id }"]`);
+
+            if (button) {
+                // We do not want the following click to reactivate popable
+                const clicks = events('click', document.body)
+                .each((e) => {
+                    clicks.stop();
+                    e.preventDefault();
+                });
+            }
+        });
 
     const deactivates = events('dom-deactivate', element)
         .filter((e) => e.target === e.currentTarget)

@@ -1,4 +1,13 @@
 
+@keyframes backdrop-fade {
+    from {
+        background-color: transparent;
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.333333333);
+    }
+}
+
 dialog:not([open]) {
     position: fixed;
     top: 0;
@@ -22,6 +31,10 @@ dialog {
         opacity 0.3s linear,
         transform 0.3s ease-out;
     z-index: 1000;
+}
+
+dialog[open]::backdrop {
+    animation: backdrop-fade 0.9s ease-out forwards;
 }
 
 dialog > img,

@@ -24,6 +24,7 @@ export const behaviours = {};
 
 const triggerActivate = trigger('dom-activate');
 
+
 function log(type, element, buttons) {
 	console.log('%c' + type + ' %c' + (element.id ? '#' + element.id : '<' + element.tagName.toLowerCase() + '>') + ', ' +  buttons.length + ' button' + (buttons.length === 1 ? '' : 's') + '%c',
 		'color: #3a8ab0; font-weight: 600;',
@@ -188,10 +189,6 @@ events('click', document).each(delegate({
 		// Flag click as handled
 		e.preventDefault();
 
-		/*if (e.type === 'mousedown') {
-			preventClick(e);
-		}*/
-
 		// Activate
 		activate(element, a);
 	},
@@ -259,7 +256,7 @@ events('click', document).each(delegate({
 			// Activate
 			activate(element, button);
 		}
-	},
+	}
 }));
 
 
