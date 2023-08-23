@@ -82,6 +82,16 @@ export function activate(element, button) {
 	const ok = trigger({ type: 'dom-activate', relatedTarget: button }, element);
 	if (!ok) { return; }
 
+	let selector;
+	for (selector in behaviours) {
+		const node = element.matches(selector);
+		if (node) {
+			typeof behaviours[selector] === 'function' ?
+				behaviours[selector]({ target: element }) :
+				(behaviours[selector].activate && behaviours[selector].activate(element)) ;
+		}
+	}
+
 	const buttons = selectButtons(element.id);
 	element.classList.add(config.activeClass);
 	buttons.forEach(addOnClass);
@@ -107,7 +117,20 @@ export function activate(element, button) {
 
 export function deactivate(element, button) {
 	const ok = trigger({ type: 'dom-deactivate', relatedTarget: button }, element);
-	if (!ok) { return; }
+	if (!ok) {
+		if (window.DEBUG) { log('deactivate cancelled', element, []); }
+		return;
+	}
+
+	let selector;
+	for (selector in behaviours) {
+		const node = element.matches(selector);
+		if (node) {
+			typeof behaviours[selector] === 'function' ?
+				null :
+				(behaviours[selector].deactivate && behaviours[selector].deactivate(element)) ;
+		}
+	}
 
 	const buttons = selectButtons(element.id);
 	element.classList.remove(config.activeClass);
@@ -175,8 +198,9 @@ events('click', document).each(delegate({
 
 	// Clicks on buttons named activate trigger activate on their value target
 	'[name="activate"]': function(button, e) {
-		const element = elementFromButton(button);
+		if (isIgnorable(e)) { return; }
 
+		const element = elementFromButton(button);
 		if (!element) {
 			throw new Error('Button action name="activate" target value="' + button.value + '" not found');
 		}
@@ -195,6 +219,8 @@ events('click', document).each(delegate({
 
 	// Clicks on buttons named deactivate trigger deactivate on their value target
 	'[name="deactivate"]': function(button, e) {
+		if (isIgnorable(e)) { return; }
+
 		const element = elementFromButton(button);
 
 		if (!element) {
@@ -319,7 +345,7 @@ events('load', window).each(function() {
 		console.warn('dom: Cannot activate ' + id, e.message);
 	}
 });
-
+/*
 events('dom-activate', document).each((e) => {
 	let selector;
 	for (selector in behaviours) {
@@ -329,3 +355,4 @@ events('dom-activate', document).each((e) => {
 		}
 	}
 });
+*/
