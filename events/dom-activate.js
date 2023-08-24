@@ -97,13 +97,10 @@ export function activate(element, button) {
 	element.classList.add(config.activeClass);
 	buttons.forEach(addOnClass);
 
-	if (window.DEBUG) {
-		log('activate', element, buttons);
-	}
-
 	// Focus the first element with class .active-focus
-	/*const focusNode = element.querySelector('.active-focus');
+	const focusNode = element.querySelector('.active-focus');
 	if (focusNode) {
+		console.log('dom-activate: active-focus class found, focusing...');
 		// The click that activated this target is not over yet, wait two frames
 		// to focus the element. Don't know why we need two.
 		requestAnimationFrame(() =>
@@ -111,7 +108,11 @@ export function activate(element, button) {
 				focusNode.focus()
 			)
 		);
-	}*/
+	}
+
+	if (window.DEBUG) {
+		log('activate', element, buttons);
+	}
 
 	return true;
 }

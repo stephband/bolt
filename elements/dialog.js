@@ -49,12 +49,16 @@ export function open(element) {
     disableDocumentScroll();
 
     // Move focus inside the dialog
-    if (!element.contains(document.activeElement)) {
-        // The click that activated this target is not over yet, wait two frames
-        // to focus the element. Don't know why we need two.
+    if (element !== document.activeElement && !element.contains(document.activeElement)) {
+        // The click that activated this target is not over yet, wait three frames
+        // to focus the element. Don't know why we need three. Two is enough in
+        // Safari, Chrome seems to like three, to be reliable. Not sure what we
+        // are waiting for here.
         requestAnimationFrame(() =>
             requestAnimationFrame(() =>
-                focusInside(element)
+                requestAnimationFrame(() =>
+                    focusInside(element)
+                )
             )
         );
     }
