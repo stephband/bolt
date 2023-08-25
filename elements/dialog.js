@@ -62,7 +62,7 @@ console.log('close', element.style.marginTop);
         // The click that activated this target is not over yet, wait three frames
         // to focus the element. Don't know why we need three. Two is enough in
         // Safari, Chrome seems to like three, to be reliable. Not sure what we
-        // are waiting for here.
+        // are waiting for here. No sir, I don't like it.
         requestAnimationFrame(() =>
             requestAnimationFrame(() =>
                 requestAnimationFrame(() =>
