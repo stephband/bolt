@@ -102,6 +102,11 @@ var types = {
 	valueMissing:    'required'
 };
 
+	//             /spaces
+const rspaces    = /\s+/;
+    //                  @prefix-  nx  |xn  |ny  |yn
+const rgridclass = /^(?:@\S+-)?(?:\d+x|x\d+|\d+y|y\d+)$/;
+
 export const config = {
     // Class added to labels displaying errors
 	errorLabelClass: 'error-label',
@@ -140,7 +145,7 @@ function negate(fn) {
 function isShowingMessage(input) {
     var node = config.selectNode(input);
 	return node.nextElementSibling
-		&& matches('.' + config.errorLabelClass.trim().split(/\s+/).join('.'), node.nextElementSibling);
+		&& matches('.' + config.errorLabelClass.trim().split(rspaces).join('.'), node.nextElementSibling);
 }
 
 function toError(node) {
@@ -164,18 +169,26 @@ function toError(node) {
 }
 
 function renderError(error) {
-	var input = error.node;
-    var node  = config.selectNode(input);
+	const input = error.node;
+    const node  = config.selectNode(input);
 
 	// Find the last error
-	while (node.nextElementSibling && matches('.' + config.errorLabelClass.trim().split(/\s+/).join('.'), node.nextElementSibling)) {
+	while (node.nextElementSibling && matches('.' + config.errorLabelClass.trim().split(rspaces).join('.'), node.nextElementSibling)) {
 		node = node.nextElementSibling;
 	}
 
-	var label = create('label', {
+	// Give error-labels the same grid classes as their inputs
+	const classattr = input.getAttribute('class');
+	const classes   = classattr &&
+		classattr
+		.split(rspaces)
+		.filter((string) => rgridclass.test(string))
+		.join(' ') ;
+
+	const label = create('label', {
 		textContent: error.text,
 		for:         input.id,
-		class:       config.errorLabelClass
+		class:       config.errorLabelClass + (classes ? ' ' + classes : '')
 	});
 
 	after(node, label);
@@ -198,7 +211,7 @@ function addValidatedClass(input) {
 function removeMessages(input) {
 	var node = config.selectNode(input);
 
-	while ((node = next(node)) && matches('.' + config.errorLabelClass.trim().split(/\s+/).join('.'), node)) {
+	while ((node = next(node)) && matches('.' + config.errorLabelClass.trim().split(rspaces).join('.'), node)) {
 		remove(node);
 	}
 }

@@ -98,8 +98,9 @@ export function close(element) {
     element.close();
 }
 
-events('click', document).each(delegate({
-    // Clicks on a dialog[data-closeable] backdrop close the dialog
+events('pointerdown', document)
+.each(delegate({
+    // Clicks on a dialog[data-popable] backdrop close the dialog
     'dialog[data-popable]': function(dialog, e) {
         // Ignore clicks not on the dialog itself
         if (dialog !== e.target) {
