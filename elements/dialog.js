@@ -48,10 +48,11 @@ export function open(element) {
     events('close', element)
     .slice(0, 1)
     .each((e) => {
-        const computed = getComputedStyle(element);
-        element.style.marginTop = computed.marginTop;
-console.log('close', element.style.marginTop);
         deactivate(element);
+
+        // Notify deactivation. Dialogs do have a 'close' event that fires here,
+        // but the powers that be have decided that it should not bubble.
+        enableDocumentScroll();
     });
 
     // Disable scrolling on the document.
@@ -92,7 +93,7 @@ export function close(element) {
 
     // Notify deactivation. Dialogs do have a 'close' event that fires here,
     // but the powers that be have decided that it should not bubble.
-    enableDocumentScroll();
+    //enableDocumentScroll();
 }
 
 events('click', document).each(delegate({

@@ -80,11 +80,6 @@ function removeOnClass(element) {
 }
 
 export function activate(element, button) {
-	// Is element already active?
-	if (element.open || element.classList.contains('active')) {
-		return;
-	}
-
 	const ok = trigger({ type: 'dom-activate', relatedTarget: button }, element);
 	if (!ok) { return; }
 
@@ -123,11 +118,6 @@ export function activate(element, button) {
 }
 
 export function deactivate(element, button) {
-	// Is element already inactive?
-	if (!element.open && !element.classList.contains('active')) {
-		return;
-	}
-
 	const ok = trigger({ type: 'dom-deactivate', relatedTarget: button }, element);
 	if (!ok) {
 		if (window.DEBUG) { log('deactivate cancelled', element, []); }
@@ -187,10 +177,10 @@ events('click', document).each(delegate({
 		if (!element) { return; }
 
 		// Is the node inactive?
-		/*if (element.classList.contains('active')) {
+		if (element.open || element.classList.contains('active')) {
 			e.preventDefault();
 			return;
-		}*/
+		}
 
 		// Is the node activateable?
 		if (!Object.keys(behaviours).find((selector) => element.matches(selector))) {
@@ -216,6 +206,11 @@ events('click', document).each(delegate({
 		// Flag click as handled
 		e.preventDefault();
 
+		// Is element already active?
+		if (element.open || element.classList.contains('active')) {
+			return;
+		}
+
 		// Activate
 		activate(element, button);
 	},
@@ -232,6 +227,11 @@ events('click', document).each(delegate({
 
 		// Flag click as handled
 		e.preventDefault();
+
+		// Is element already inactive?
+		if (!element.open && !element.classList.contains('active')) {
+			return;
+		}
 
 		// Deactivate
 		deactivate(element, button);
