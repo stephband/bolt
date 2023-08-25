@@ -42,18 +42,10 @@ export function open(element) {
     // Is the element closed?
     if (element.open) { return; }
 
+    const focused = document.activeElement;
+
     // Then open it
     element.showModal();
-
-    events('close', element)
-    .slice(0, 1)
-    .each((e) => {
-        deactivate(element);
-
-        // Notify deactivation. Dialogs do have a 'close' event that fires here,
-        // but the powers that be have decided that it should not bubble.
-        enableDocumentScroll();
-    });
 
     // Disable scrolling on the document.
     disableDocumentScroll();
@@ -72,6 +64,20 @@ export function open(element) {
             )
         );
     }
+
+    // Just remember the close event does not bubble
+    events('close', element)
+    .slice(0, 1)
+    .each((e) => {
+        deactivate(element);
+
+        // Notify deactivation. Dialogs do have a 'close' event that fires here,
+        // but the powers that be have decided that it should not bubble.
+        enableDocumentScroll();
+
+        // Return focus to wherever it was before
+        focused.focus();
+    });
 }
 
 export function close(element) {
@@ -90,10 +96,6 @@ export function close(element) {
 
     // Close
     element.close();
-
-    // Notify deactivation. Dialogs do have a 'close' event that fires here,
-    // but the powers that be have decided that it should not bubble.
-    //enableDocumentScroll();
 }
 
 events('click', document).each(delegate({
