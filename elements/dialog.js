@@ -45,6 +45,15 @@ export function open(element) {
     // Then open it
     element.showModal();
 
+    events('close', element)
+    .slice(0, 1)
+    .each((e) => {
+        const computed = getComputedStyle(element);
+        element.style.marginTop = computed.marginTop;
+console.log('close', element.style.marginTop);
+        deactivate(element);
+    });
+
     // Disable scrolling on the document.
     disableDocumentScroll();
 
