@@ -65,14 +65,12 @@ export function open(element) {
         );
     }
 
-    // Just remember the close event does not bubble
+    // Dialogs do have a 'close' event, just remember the powers that be have
+    // decided that it should not bubble.
     events('close', element)
     .slice(0, 1)
     .each((e) => {
         deactivate(element);
-
-        // Notify deactivation. Dialogs do have a 'close' event that fires here,
-        // but the powers that be have decided that it should not bubble.
         enableDocumentScroll();
 
         // Return focus to wherever it was before
