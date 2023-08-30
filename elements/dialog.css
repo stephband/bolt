@@ -23,6 +23,7 @@ dialog:not([open]) {
 
 dialog {
     max-height: calc(100vh - 2rem);
+    max-width: calc(100vw - 2rem);
     border-width: 0;
     visibility: visible;
     opacity: 1;
