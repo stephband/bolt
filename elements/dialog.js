@@ -2,6 +2,7 @@
 import events          from '../../dom/modules/events.js';
 import delegate        from '../../dom/modules/delegate.js';
 import { focusInside } from '../../dom/modules/focus.js';
+import isPrimaryButton from '../../dom/modules/is-primary-button.js';
 import isTargetEvent   from '../../dom/modules/is-target-event.js';
 import rect            from '../../dom/modules/rect.js';
 import { disableScroll, enableScroll } from '../../dom/modules/scroll.js';
@@ -97,8 +98,9 @@ export function close(element) {
 }
 
 events('pointerdown', document)
+.filter(isPrimaryButton)
 .each(delegate({
-    // Clicks on a dialog[data-popable] backdrop close the dialog
+    // Touches on a dialog[data-popable] backdrop close the dialog
     'dialog[data-popable]': function(dialog, e) {
         // Ignore clicks not on the dialog itself
         if (dialog !== e.target) {
