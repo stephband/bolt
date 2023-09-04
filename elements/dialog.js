@@ -41,7 +41,7 @@ function enableDocumentScroll() {
 
 export function open(element) {
     // Is the element closed?
-    if (element.open) { return; }
+    //if (element.open) { return; }
 
     const focused = document.activeElement;
 
