@@ -4,6 +4,10 @@ Forms.
 **/
 
 :root {
+   /** --focus-bg
+    Background of focused inputs, selects and textareas **/
+    --focus-bg: var(--input-background);
+
     /** --input-font-size
     Font size of inputs, selects and textareas **/
     --input-font-size: inherit;

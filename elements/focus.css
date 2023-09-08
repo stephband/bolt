@@ -4,10 +4,6 @@
     Border colour of focused inputs, selects and textareas **/
     --focus-fg: #2c9bd3;
 
-    /** --focus-bg
-    Background of focused inputs, selects and textareas **/
-    --focus-bg: var(--input-background);
-
     /** --focus-shadow
     Box shadow of focused links, inputs, selects, textareas, etc. **/
     --focus-shadow:
@@ -23,11 +19,19 @@
     z-index: 1;
 }
 
+a:not(:focus-visible) {
+    text-decoration: none;
+}
+
 @supports not selector(:focus-visible) {
     *:focus {
         outline-width: 0;
         box-shadow: var(--focus-shadow) !important;
         border-color: var(--focus-fg) !important;
         z-index: 1;
+    }
+
+    a:not(:focus) {
+        text-decoration: none;
     }
 }
