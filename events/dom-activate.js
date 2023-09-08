@@ -177,7 +177,7 @@ events('click', document).each(delegate({
 		if (!element) { return; }
 
 		// Is the node inactive?
-		if (element.classList.contains('active')) {
+		if (element.open || element.classList.contains('active')) {
 			e.preventDefault();
 			return;
 		}
@@ -207,7 +207,7 @@ events('click', document).each(delegate({
 		e.preventDefault();
 
 		// Is element already active?
-		if (element.classList.contains('active')) {
+		if (element.open || element.classList.contains('active')) {
 			return;
 		}
 
@@ -229,7 +229,7 @@ events('click', document).each(delegate({
 		e.preventDefault();
 
 		// Is element already inactive?
-		if (!element.classList.contains('active')) {
+		if (!element.open && !element.classList.contains('active')) {
 			return;
 		}
 
@@ -249,7 +249,7 @@ events('click', document).each(delegate({
 		e.preventDefault();
 
 		// Is element already active?
-		if (element.classList.contains('active')) {
+		if (element.open || element.classList.contains('active')) {
 			// Deactivate
 			deactivate(element, button);
 		}
@@ -302,10 +302,20 @@ function pushAddedActives(added, mutation) {
 // Document setup
 events('DOMContentLoaded', document).each(function() {
 	// Setup all things that should start out active
-	const actives = select('.' + config.activeClass, document);
+	const actives = select('.' + config.activeClass + '', document);
     if (actives.length) {
-		actives.forEach((element) => activate(element, window));
+		actives.forEach((element) => {
+			activate(element, window)
+		});
     }
+
+	const opens = select('dialog[open]', document);
+	if (opens.length) {
+		opens.forEach((element) => {
+			element.open = false;
+			activate(element, window)
+		});
+	}
 
     // Create an observer instance linked to the callback function
     const observer = new MutationObserver((mutations, observer) => {

@@ -2,6 +2,7 @@
 import events          from '../../dom/modules/events.js';
 import delegate        from '../../dom/modules/delegate.js';
 import { focusInside } from '../../dom/modules/focus.js';
+import isPrimaryButton from '../../dom/modules/is-primary-button.js';
 import isTargetEvent   from '../../dom/modules/is-target-event.js';
 import rect            from '../../dom/modules/rect.js';
 import { disableScroll, enableScroll } from '../../dom/modules/scroll.js';
@@ -42,6 +43,8 @@ export function open(element) {
     // Is the element closed?
     if (element.open) { return; }
 
+    const focused = document.activeElement;
+
     // Then open it
     element.showModal();
 
@@ -62,6 +65,18 @@ export function open(element) {
             )
         );
     }
+
+    // Dialogs do have a 'close' event, just remember the powers that be have
+    // decided that it should not bubble.
+    events('close', element)
+    .slice(0, 1)
+    .each((e) => {
+        deactivate(element);
+        enableDocumentScroll();
+
+        // Return focus to wherever it was before
+        focused.focus();
+    });
 }
 
 export function close(element) {
@@ -80,14 +95,12 @@ export function close(element) {
 
     // Close
     element.close();
-
-    // Notify deactivation. Dialogs do have a 'close' event that fires here,
-    // but the powers that be have decided that it should not bubble.
-    enableDocumentScroll();
 }
 
-events('click', document).each(delegate({
-    // Clicks on a dialog[data-closeable] backdrop close the dialog
+events('pointerdown', document)
+.filter(isPrimaryButton)
+.each(delegate({
+    // Touches on a dialog[data-popable] backdrop close the dialog
     'dialog[data-popable]': function(dialog, e) {
         // Ignore clicks not on the dialog itself
         if (dialog !== e.target) {
