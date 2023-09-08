@@ -1,9 +1,33 @@
 
-*:focus {
-     outline-width: 0;
+:root {
+    /** --focus-fg
+    Border colour of focused inputs, selects and textareas **/
+    --focus-fg: #2c9bd3;
+
+    /** --focus-bg
+    Background of focused inputs, selects and textareas **/
+    --focus-bg: var(--input-background);
+
+    /** --focus-shadow
+    Box shadow of focused links, inputs, selects, textareas, etc. **/
+    --focus-shadow:
+        0 0 5px 2px hsla(200,56%,49%,0.8),
+        inset 0 0 0 1px hsl(200,56%,49%),
+        inset 0 0 0.5rem hsla(200,65%,60%,0.6);
 }
 
 *:focus-visible {
-    box-shadow: var(--focus-shadow);
+    outline-width: 0;
+    box-shadow: var(--focus-shadow) !important;
+    border-color: var(--focus-fg) !important;
     z-index: 1;
+}
+
+@supports not selector(:focus-visible) {
+    *:focus {
+        outline-width: 0;
+        box-shadow: var(--focus-shadow) !important;
+        border-color: var(--focus-fg) !important;
+        z-index: 1;
+    }
 }

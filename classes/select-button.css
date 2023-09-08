@@ -53,6 +53,8 @@
     /* Inherit style form button rather than anything set on raw select */
     font-size: inherit;
     line-height: inherit;
+    letter-spacing: inherit;
+    text-align: inherit;
     text-transform: inherit;
 
     /* This is the native select, we're making everything but the text invisible
