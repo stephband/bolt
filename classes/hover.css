@@ -19,10 +19,17 @@ Show an element only when focused
 Show an element when it or its parent is hovered or focus-visibled.
 **/
 
-.hover-shown:not(:hover):not(:focus-visible),
-*:not(:hover):not(:focus-visible) > .hover-shown {
+.hover-shown {
 	display: none !important;
 }
+
+.hover-shown:hover,
+.hover-shown:focus-visible,
+*:hover         > .hover-shown,
+*:focus-visible > .hover-shown {
+	display: block !important;
+}
+
 
 /**
 .hover-hidden
