@@ -16,22 +16,22 @@ Show an element only when focused
 
 /**
 .hover-showm
-Show an element when it or one of its ancestors are hovered or focus-visibled.
+Show an element when it or its parent is hovered or focus-visibled.
 **/
 
 .hover-shown:not(:hover):not(:focus-visible),
-*:not(:hover):not(:focus-visible) .hover-shown {
+*:not(:hover):not(:focus-visible) > .hover-shown {
 	display: none !important;
 }
 
 /**
 .hover-hidden
-Hide an element when it or one of its ancestors are hovered or focus-visibled.
+Hide an element when it or its parent is hovered or focus-visibled.
 **/
 
 .hover-hidden:hover,
 .hover-hidden:focus-visible,
-*:hover .hover-hidden,
-*:focus-visible .hover-hidden  {
+*:hover > .hover-hidden,
+*:focus-visible > .hover-hidden  {
 	display: none !important;
 }
