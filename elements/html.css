@@ -67,6 +67,9 @@ progress, meter,
 
 	/* Default to backgrounds that don't repeat. */
 	background-repeat: no-repeat;
+
+	/* Don't stretch images by default, make them cover */
+	background-size: cover;
 }
 
 html,
