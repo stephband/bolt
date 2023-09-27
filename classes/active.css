@@ -75,3 +75,24 @@ Show an element when its parent has class <code>on</code>.
 :not([open]) > .open-shown:not([open]) {
 	display: none !important;
 }
+
+
+/**
+.active-visible
+**/
+
+.active-visible {
+	opacity: 0;
+	visibility: hidden;
+	transition:
+		opacity 0.4s linear,
+		visibility 0.4s linear;
+}
+
+.active-visible.active {
+	opacity: 1;
+	visibility: visible;
+	transition:
+		opacity 0.2s linear,
+		visibility 0.2s linear;
+}

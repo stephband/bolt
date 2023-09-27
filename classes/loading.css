@@ -40,7 +40,7 @@ Add <code>::after</code> content representing a loading animation.
 
 /*
 .loading-hidden
-Hide an element when its parent has class <code>loading</code>.
+Hide an element when it or its parent has class <code>loading</code>.
 */
 
 .loading-hidden.loading,
@@ -50,7 +50,7 @@ Hide an element when its parent has class <code>loading</code>.
 
 /*
 .loading-shown
-Show an element when its parent has class <code>loading</code>.
+Show an element when it or its parent has class <code>loading</code>.
 */
 
 :not(.loading) > .loading-shown:not(.loading) {
