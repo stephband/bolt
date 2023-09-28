@@ -154,11 +154,6 @@ a {
 	-webkit-text-decoration-skip: objects;
 }
 
-:focus {
-	/* Outline displays oddly in Chrome */
-	outline: thin dotted;
-}
-
 /* Superseded by classes/device.js, where we add classes .mouse or .keyboard
    to the root to style focus. */
 /*a:hover,
