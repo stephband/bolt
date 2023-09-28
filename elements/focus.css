@@ -17,7 +17,6 @@
 }
 
 *:focus-visible {
-    outline-width: 0;
     box-shadow: var(--focus-shadow) !important;
     border-color: var(--focus-fg) !important;
     border-radius: 0.1875rem;
