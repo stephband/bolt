@@ -1,0 +1,25 @@
+
+/*
+.focus-shown
+Show an element only when its parent is focused.
+*/
+
+:not(:focus-visible) > .focus-shown {
+    display: none !important;
+}
+
+/*.focus-shown:focus-visible,*/
+*:focus-visible > .focus-shown {
+    display: block !important;
+}
+
+
+/**
+.focus-hidden
+Hide an element when its parent is focused.
+**/
+
+/*.focus-hidden:focus-visible,*/
+*:focus-visible > .focus-hidden  {
+    display: none !important;
+}

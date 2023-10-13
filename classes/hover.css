@@ -1,19 +1,4 @@
 
-/*
-.focus-shown
-Show an element only when focused
-*/
-
-.focus-shown:not(:focus) {
-	opacity: 0 !important;
-	/*visibility: hidden !important;*/
-	position: absolute !important;
-	top: 0 !important;
-	left: 0 !important;
-	width: 1px !important;
-	height: 1px important;
-}
-
 /**
 .hover-showm
 Show an element when it or its parent is hovered or focus-visibled.
@@ -23,11 +8,11 @@ Show an element when it or its parent is hovered or focus-visibled.
 	display: none !important;
 }
 
-.hover-shown:hover,
-.hover-shown:focus-visible,
-*:hover         > .hover-shown,
-*:focus-visible > .hover-shown {
-	display: block !important;
+@media (hover: hover) {
+	.hover-shown:hover,
+	*:hover > .hover-shown {
+		display: block !important;
+	}
 }
 
 
@@ -36,9 +21,9 @@ Show an element when it or its parent is hovered or focus-visibled.
 Hide an element when it or its parent is hovered or focus-visibled.
 **/
 
-.hover-hidden:hover,
-.hover-hidden:focus-visible,
-*:hover > .hover-hidden,
-*:focus-visible > .hover-hidden  {
-	display: none !important;
+@media (hover: hover) {
+	.hover-hidden:hover,
+	*:hover > .hover-hidden  {
+		display: none !important;
+	}
 }
