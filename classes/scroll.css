@@ -94,6 +94,11 @@ sed souvent suckum in internet explorum.
     display: none;
 }
 
+.hidden-scroll::-webkit-scrollbar-thumb:vertical,
+.hidden-scroll::-webkit-scrollbar-thumb:horizontal {
+    display: none;
+}
+
 /*
 .x-scroll
 
