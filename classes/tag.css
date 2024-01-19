@@ -16,9 +16,12 @@
     font-size: 0.625rem;
     background-color: #bbbbbb;
     border-radius: 0.625rem;
+    padding-top: 0;
+    padding-bottom: 0;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     line-height: 1.125rem;
+    min-height: 1.125rem;
 }
 
 :checked + .tag {

@@ -349,21 +349,21 @@ textarea {
 input,
 select,
 textarea {
-    --font-size:            var(--input-font-size, inherit);
-    --size:                 var(--input-height, 2.8125rem);
-    --line-height:          var(--input-line-height, 1.5rem);
-    --padding-left:         var(--input-padding-left, 0.5625rem);
-    --padding-right:        var(--input-padding-right, 0.5625rem);
-    --border-width:         var(--input-border-width, 1px);
-    --border-radius:        var(--input-border-radius, 0.3125rem);
+    --font-size:     var(--input-font-size, inherit);
+    --size:          var(--input-height, 2.8125rem);
+    --line-height:   var(--input-line-height, 1.5rem);
+    --padding-left:  var(--input-padding-left, 0.5625rem);
+    --padding-right: var(--input-padding-right, 0.5625rem);
+    --border-width:  var(--input-border-width, 1px);
+    --border-radius: var(--input-border-radius, 0.3125rem);
 
-    --bg:           var(--input-background);
-    --valid-bg:     var(--bg);
-    --invalid-bg:   var(--bg);
+    --bg:            var(--input-background);
+    --valid-bg:      var(--bg);
+    --invalid-bg:    var(--bg);
 
-    --fg:         var(--input-border-color, #bbbbbb);
-    --valid-fg:   var(--fg);
-    --invalid-fg: var(--fg);
+    --fg:            var(--input-border-color, #bbbbbb);
+    --valid-fg:      var(--fg);
+    --invalid-fg:    var(--fg);
 
     /* iOS has padding in the UA stylesheet. */
     padding-top: 0px;
