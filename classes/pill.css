@@ -17,3 +17,8 @@
     border: var(--border-width) solid currentcolor;
     border-radius: calc(0.5 * var(--size));
 }
+
+.invisible:checked + .pill {
+    color: white;
+    background-color: #a22d08;
+}

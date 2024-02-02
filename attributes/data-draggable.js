@@ -11,17 +11,17 @@ attribute, which defines data to be carried by a drag action:
 </div>
 ```
 
-<small>* Note that `draggable` must be `"true"`. It is not strictly a boolean 
+<small>* Note that `draggable` must be `"true"`. It is not strictly a boolean
 attribute.</small>
 **/
 
 import { capture } from '../../fn/modules/capture.js';
-
 import attribute from '../../dom/modules/attribute.js';
 import classes, { removeClass } from '../../dom/modules/classes.js';
 import delegate  from '../../dom/modules/delegate.js';
 import identify  from '../../dom/modules/identify.js';
 import select    from '../../dom/modules/select.js';
+import { setDataTransfer } from '../../dom/modules/data-transfer.js';
 import remove    from '../../dom/modules/remove.js';
 import events    from '../../dom/modules/events.js';
 
@@ -36,11 +36,9 @@ function lastIndex(data) {
 	return data.index + data[0].length;
 }
 
-function dragstartButton(target, e) {
-	var data = attribute('data-draggable', target);
-
-	if (data) {
-		data = capture(rmimetype, {
+function toMimetypeData(data) {
+	return data ?
+		capture(rmimetype, {
 			1: function handleMime(data, results) {
 				data[results[1]] = results[2];
 				if ((lastIndex(results) + 2) < results.input.length) {
@@ -48,37 +46,32 @@ function dragstartButton(target, e) {
 				}
 				return data;
 			}
-		}, {}, data);
-	}
-	else {
+		}, {}, data) :
+		data ;
+	/*
 		// Todo: needed for Neho - factor out
-		data = {
+		{
 			"Text":       identify(target),
 			"text/plain": identify(target)
 			//"application/json": JSON.stringify({})
-		};
-	}
+		} ;
+	*/
+}
 
-	var mimetype;
+function dragstartButton(target, e) {
+	var data = toMimetypeData(attribute('data-draggable', target));
 
-	for (mimetype in data){
-		// IE only accepts the types "URL" and "Text". Other types throw errors.
-		try {
-			e.dataTransfer.setData(mimetype, data[mimetype]);
-			e.dataTransfer.dropEffect = "none";
-			e.dataTransfer.effectAllowed = "all";
+	setDataTransfer(e.dataTransfer, data, {
+		dropEffect:    "none",
+		effectAllowed: "all"
+	});
 
-			// Wait for the next frame before setting the dragging class. It's
-			// for style, and if it is styled immediately the dragging ghost
-			// also gets the new style, which we don't want.
-			window.requestAnimationFrame(function() {
-				classes(target).add('dragging');
-			});
-		}
-		catch(e) {
-			if (debug) { console.warn('[drag data] mimetype: ' + mimetype + ' Can\'t be set.'); }
-		}
-	}
+	// Wait for the next frame before setting the dragging class. It's
+	// for style, and if it is styled immediately the dragging ghost
+	// also gets the new style, which we don't want.
+	window.requestAnimationFrame(function() {
+		classes(target).add('dragging');
+	});
 }
 
 var dragstart = delegate({ '[draggable], [data-draggable]': dragstartButton });

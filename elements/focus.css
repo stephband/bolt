@@ -7,15 +7,21 @@
     /** --focus-shadow
     Box shadow of focused links, inputs, selects, textareas, etc. **/
     --focus-shadow:
-        0 0 5px 2px hsla(200,56%,49%,0.8),
-        inset 0 0 0 1px hsl(200,56%,49%),
-        inset 0 0 0.5rem hsla(200,65%,60%,0.6);
+        0 0 0.25rem 0.25rem hsla(200,56%,49%,1),
+        0 0 0 1px hsl(200,56%,49%),
+        inset 0 0 0.1875rem 0.125rem hsla(200,56%,49%,1);
+}
+
+*:focus {
+    outline-width: 0;
 }
 
 *:focus-visible {
-    outline-width: 0;
     box-shadow: var(--focus-shadow) !important;
     border-color: var(--focus-fg) !important;
+    border-radius: 0.1875rem;
+    /* Encourage focus shadow to appear over the top of siblings.
+       Not foolproof. */
     z-index: 1;
 }
 
@@ -25,9 +31,11 @@ a:not(:focus-visible) {
 
 @supports not selector(:focus-visible) {
     *:focus {
-        outline-width: 0;
         box-shadow: var(--focus-shadow) !important;
         border-color: var(--focus-fg) !important;
+        border-radius: 0.1875rem;
+        /* Encourage focus shadow to appear over the top of siblings.
+           Not foolproof. */
         z-index: 1;
     }
 

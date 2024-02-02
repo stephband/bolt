@@ -3,6 +3,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -33,6 +34,13 @@ dialog {
         opacity 0.3s linear,
         transform 0.3s ease-out;
     z-index: 1000;
+}
+
+dialog:focus-visible {
+    /* Rid ourselves of focus ring on dialog (defined in focus.css).
+       TODO: Review this. Probably a bad idea. */
+    box-shadow: none !important;
+    border-color: var(--focus-fg) !important;
 }
 
 dialog::backdrop {

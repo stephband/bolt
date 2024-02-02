@@ -18,6 +18,8 @@ import get     from '../../fn/modules/get.js';
 import matches from '../../dom/modules/matches.js';
 import request from '../../dom/modules/request.js';
 import events  from '../../dom/modules/events.js';
+import trigger from '../../dom/modules/trigger.js';
+
 
 // Define
 
@@ -38,14 +40,6 @@ events('submit', document)
 	const formData = new FormData(form);
 
 	request(method, url, formData, mimetype)
-	.then(function(data) {
-		events.trigger(form, 'dom-submitted', {
-			detail: data
-		});
-	})
-	.catch(function(error) {
-		events.trigger(form, 'dom-submit-error', {
-			detail: error
-		});
-	});
+	.then((data)   => trigger({ type: 'dom-submitted', detail: data }, form))
+	.catch((error) => trigger({ type: 'dom-submit-error', detail: error }, form));
 });

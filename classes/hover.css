@@ -1,0 +1,29 @@
+
+/**
+.hover-showm
+Show an element when it or its parent is hovered or focus-visibled.
+**/
+
+.hover-shown {
+	display: none !important;
+}
+
+@media (hover: hover) {
+	.hover-shown:hover,
+	*:hover > .hover-shown {
+		display: block !important;
+	}
+}
+
+
+/**
+.hover-hidden
+Hide an element when it or its parent is hovered or focus-visibled.
+**/
+
+@media (hover: hover) {
+	.hover-hidden:hover,
+	*:hover > .hover-hidden  {
+		display: none !important;
+	}
+}
