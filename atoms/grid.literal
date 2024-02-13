@@ -1,7 +1,12 @@
+${
+    this.xGapUnit = /[a-z]+$/.exec(data['column-gap']),
+    this.yGapUnit = /[a-z]+$/.exec(data['row-gap']),
+    ''
+}
 
 .${ data.prefix }grid {
-    ${ data['column-gap'] ? '--x-gap: ' + rem(data['column-gap']) + 'rem;' : '' }
-    ${ data['row-gap']    ? '--y-gap: ' + rem(data['row-gap'])    + 'rem;' : '' }
+    ${ data['column-gap'] ? '--x-gap: ' + (!this.xGapUnit || this.xGapUnit[0] === 'em' ? data['column-gap'] : rem(data['column-gap']) + 'rem') + ';' : '' }
+    ${ data['row-gap']    ? '--y-gap: ' + (!this.yGapUnit || this.yGapUnit[0] === 'em' ? data['column-gap'] : rem(data['row-gap'])   + 'rem') + ';' : '' }
 
     display: grid !important;
 
