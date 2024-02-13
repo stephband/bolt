@@ -1,6 +1,6 @@
 
 [href=""],
-img:not([alt]),
+:not(figure) > img:not([alt]),
 p:empty,  p.empty-warning,
 h1:empty, h1.empty-warning,
 h2:empty, h2.empty-warning,
