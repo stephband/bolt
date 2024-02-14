@@ -85,7 +85,8 @@ body {
 	margin: 0;
 }
 
-button {
+button,
+blockquote {
 	margin: 0;
 }
 

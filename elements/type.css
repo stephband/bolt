@@ -184,17 +184,21 @@ q::after           { content: ''; content: none; }
 
 del               { opacity: 0.5; text-decoration: line-through; }
 
+
 /* Tables */
 
 table             { width: 100%; }
 tfoot             { font-style: italic; }
 caption           { background-color: inherit; }
+th,
+td,
+caption           { padding: 4px 10px 4px 5px; } /* TODO: review. Should be 0, added back in with a class */
 
 
+/* Lists */
 
-
-
-
+ul,
+ol                { margin-left: 0; }
 
 dd                { margin: 0; }
 * + ul,
@@ -205,26 +209,12 @@ li                { margin-bottom: 0;}
 
 blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }
 
+
 /* Inline elements */
 
 sup,
 sub               { font-size: 0.6em; line-height: 0; }
-
 abbr              { letter-spacing: 0.03125em; }
-
-/* Tables */
-
-th,
-td,
-caption           { padding: 4px 10px 4px 5px; }
-
-/* Indentation */
-
-ul,
-ol                { margin-left: 0; }
-
-blockquote        { margin-left: 2.6667em; }
-
 
 
 /* Classes */
