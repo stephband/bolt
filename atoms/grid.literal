@@ -8,7 +8,7 @@ ${
     ${ data['column-gap'] ? '--x-gap: ' + (!this.xGapUnit || this.xGapUnit[0] === 'em' ? data['column-gap'] : rem(data['column-gap']) + 'rem') + ';' : '' }
     ${ data['row-gap']    ? '--y-gap: ' + (!this.yGapUnit || this.yGapUnit[0] === 'em' ? data['column-gap'] : rem(data['row-gap'])   + 'rem') + ';' : '' }
 
-    display: grid !important;
+    display: grid;
 
     /* Horizontal layout */
     grid-auto-flow: row;
@@ -27,11 +27,6 @@ a.${ data.prefix }grid,
 a.${ data.prefix }grid:hover,
 a.${ data.prefix }grid:focus {
     text-decoration: none;
-}
-
-.${ data.prefix }grid[hidden] {
-    /* Override display grid !important declaration with hidden attribute */
-    display: none !important;
 }
 
 .${ data.prefix }grid > * {
