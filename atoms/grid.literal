@@ -4,10 +4,13 @@ ${
     ''
 }
 
+.grid,
 .${ data.prefix }grid {
     ${ data['column-gap'] ? '--x-gap: ' + (!this.xGapUnit || this.xGapUnit[0] === 'em' ? data['column-gap'] : rem(data['column-gap']) + 'rem') + ';' : '' }
-    ${ data['row-gap']    ? '--y-gap: ' + (!this.yGapUnit || this.yGapUnit[0] === 'em' ? data['column-gap'] : rem(data['row-gap'])   + 'rem') + ';' : '' }
+    ${ data['row-gap']    ? '--y-gap: ' + (!this.yGapUnit || this.yGapUnit[0] === 'em' ? data['row-gap']    : rem(data['row-gap'])    + 'rem') + ';' : '' }
+}
 
+.${ data.prefix }grid {
     display: grid;
 
     /* Horizontal layout */
@@ -73,6 +76,7 @@ ${ Array.from({ length: data.columns || 12 }).map((nowt, i) => i + 1).map((n) =>
 ${ Array.from({ length: data.columns || 12 }).map((nowt, i) => i + 1).map((n) => `
 .${ data.prefix ? data.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }x { grid-column-end: span ${ n } !important; }`).join('')
 }
+.${ data.prefix }nx { grid-column-end: -1 !important; }
 
 .${ data.prefix }x-end {
     justify-self: end !important;
@@ -176,6 +180,7 @@ ${ Array.from({ length: data.rows || 12 }).map((nowt, i) => i + 1).map((n) => `
 .${ data.prefix ? data.prefix + 'y' + n : 'y' + n } { grid-row-start: ${ n } !important; }`).join('') }
 ${ Array.from({ length: data.rows || 12 }).map((nowt, i) => i + 1).map((n) => `
 .${ data.prefix ? data.prefix + n : '\\3' + (n + '')[0] + ' ' + (n + '').slice(1) }y { grid-row-end: span ${ n } !important; }`).join('') }
+.${ data.prefix }ny { grid-row-end: -1 !important; }
 
 .${ data.prefix }y-end {
     align-self:    end !important;
