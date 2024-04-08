@@ -7,6 +7,14 @@
 	position: fixed !important;
 }
 
+/**
+.relative
+**/
+
+.${ data.prefix }relative {
+	position: relative !important;
+	top: auto;
+}
 
 /**
 .sticky
