@@ -26,6 +26,7 @@ button,
        preferably >40x40 for finger touches to register reliably) */
     min-width: 2rem;
     min-height: 2rem;
+    cursor: pointer;
 }
 
 button,
