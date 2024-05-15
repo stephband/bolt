@@ -959,26 +959,6 @@ select:focus-visible {
 
 
 /* Placeholders. */
-::-webkit-input-placeholder {
-    font-style: italic;
-    line-height: inherit;
-}
-
-::-moz-placeholder {
-    font-style: italic;
-    line-height: inherit;
-}
-
-:-ms-input-placeholder {
-    font-style: italic;
-    line-height: inherit;
-}
-
-::-ms-input-placeholder {
-    font-style: italic;
-    line-height: inherit;
-}
-
 ::placeholder {
     font-style: italic;
     line-height: inherit;
