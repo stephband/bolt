@@ -486,7 +486,7 @@ a.grid:focus {
 }
 
 .y-stretch {
-    justify-self:  stretch !important;
+    align-self:  stretch !important;
     margin-top:    0;
     margin-bottom: 0;
     max-height:    100%;
@@ -494,7 +494,7 @@ a.grid:focus {
 }
 
 .y-bleed {
-    justify-self:  stretch !important;
+    align-self:  stretch !important;
     margin-top:    calc(var(--y-gap) / -2);
     margin-bottom: calc(var(--y-gap) / -2);
     max-height:    calc(100% + var(--y-gap));
@@ -502,7 +502,7 @@ a.grid:focus {
 }
 
 .y-flood {
-    justify-self:  stretch !important;
+    align-self:  stretch !important;
     margin-top:    calc(-1 * var(--y-gap));
     margin-bottom: calc(-1 * var(--y-gap));
     max-height:    calc(100% + 2 * var(--y-gap));
