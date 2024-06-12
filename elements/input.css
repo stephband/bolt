@@ -485,6 +485,18 @@ textarea,
     padding-bottom: 0px;
 }
 
+[type="date"] {
+    /* Safari fails to respect height: auto on date inputs, force height */
+    height: calc(var(--input-height));
+    /* For some reason Safari text-indents by about 4x the px value. Not clever.
+       TODO: fix. */
+}
+
+.safari [type="date"] {
+    /* For some reason Safari text-indents by about 4x the px value. Not clever. */
+    text-indent: calc(0.2 * (var(--input-padding-left) - var(--input-border-width, 1px)));
+}
+
 input[type='date'],
 input[type='time'],
 input[type='week'],
