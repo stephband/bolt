@@ -132,7 +132,7 @@ Forms.
 
 
     /** --disabled-filter **/
-    --disabled-filter: opacity(0.4);
+    --disabled-filter: opacity(0.5);
 
     /** --error-font-size **/
     --error-font-size: 0.875rem;
@@ -862,12 +862,6 @@ select:focus {
     outline-offset: -3px;
 }
 
-:disabled,
-[aria-disabled="true"] {
-	opacity: 0.4;
-}
-
-
 /* Submit, reset and button inputs.
 
    Use pure attribute selectors because they are weak, and classes
@@ -882,6 +876,11 @@ select:focus {
     vertical-align: baseline;
     padding-top: 0;
     padding-bottom: 0;
+}
+
+:disabled,
+[aria-disabled="true"] {
+    filter: var(--disabled-filter);
 }
 
 
