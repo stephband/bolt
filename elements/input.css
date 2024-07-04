@@ -609,6 +609,11 @@ input[type="submit"] {
     -webkit-appearance: button;
 }
 
+[type="submit"] {
+    /* Safari iOS gives submit white on blue by default */
+    color: inherit;
+}
+
 input[type="checkbox"],
 input[type="radio"] {
     margin-top: 0;
