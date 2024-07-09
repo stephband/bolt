@@ -170,7 +170,7 @@ function toError(node) {
 
 function renderError(error) {
 	const input = error.node;
-    const node  = config.selectNode(input);
+    let node  = config.selectNode(input);
 
 	// Find the last error
 	while (node.nextElementSibling && matches('.' + config.errorLabelClass.trim().split(rspaces).join('.'), node.nextElementSibling)) {

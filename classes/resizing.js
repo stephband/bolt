@@ -4,10 +4,17 @@ import Stream from '../../fn/modules/stream.js';
 import events from '../../dom/modules/events.js';
 
 const classes =  document.documentElement.classList;
+let timer;
 
 events('resize', window)
-.batch(0.333333333)
-.each((batch) => {
-    classes.add('resizing');
-    batch.done(() => classes.remove('resizing'));
+.each((e) => {
+    if (timer) {
+        classes.add('resizing');
+        clearTimeout(timer);
+    }
+
+    timer = setTimeout(() => {
+        classes.remove('resizing');
+        timer = undefined;
+    }, 333);
 });

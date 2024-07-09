@@ -1,0 +1,58 @@
+
+/**
+.loading
+Add <code>::after</code> content representing a loading animation.
+
+```html
+<div class="requested" style="height: 7.5rem;">
+```
+**/
+
+@-webkit-keyframes rotation {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(359deg);}
+}
+
+@keyframes rotation {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(359deg);}
+}
+
+.js .loading::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -0.9375rem;
+    margin-top: -0.9375rem;
+    height: 1.875rem;
+    width: 1.875rem;
+    opacity: 1;
+
+    -webkit-animation: rotation 1000ms infinite linear;
+            animation: rotation 1000ms infinite linear;
+
+    border:     0.3125rem solid rgba(63, 63, 63, 0.15);
+    border-top: 0.3125rem solid rgba(63, 63, 63, 1);
+    border-radius: 100%;
+    z-index: 100;
+}
+
+/*
+.loading-hidden
+Hide an element when it or its parent has class <code>loading</code>.
+*/
+
+.loading-hidden.loading,
+.loading > .loading-hidden {
+    display: none !important;
+}
+
+/*
+.loading-shown
+Show an element when it or its parent has class <code>loading</code>.
+*/
+
+:not(.loading) > .loading-shown:not(.loading) {
+    display: none !important;
+}

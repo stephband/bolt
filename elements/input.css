@@ -4,6 +4,10 @@ Forms.
 **/
 
 :root {
+   /** --focus-bg
+    Background of focused inputs, selects and textareas **/
+    --focus-bg: var(--input-background);
+
     /** --input-font-size
     Font size of inputs, selects and textareas **/
     --input-font-size: inherit;
@@ -95,21 +99,6 @@ Forms.
 
     /** --fieldset-input-margin **/
     --fieldset-input-margin: 2rem;
-
-    /** --focus-fg
-    Border colour of focused inputs, selects and textareas **/
-    --focus-fg: #2c9bd3;
-
-    /** --focus-bg
-    Background of focused inputs, selects and textareas **/
-    --focus-bg: var(--input-background);
-
-    /** --focus-shadow
-    Box shadow of focused links, inputs, selects and textareas **/
-    --focus-shadow:
-        0 0 5px 2px hsla(200,56%,49%,0.8),
-        inset 0 0 0 1px hsl(200,56%,49%),
-        inset 0 0 0.5rem hsla(200,65%,60%,0.6);
 
     /** --valid-bg
     Background of input after validation. **/
@@ -360,21 +349,21 @@ textarea {
 input,
 select,
 textarea {
-    --font-size:            var(--input-font-size, inherit);
-    --size:                 var(--input-height, 2.8125rem);
-    --line-height:          var(--input-line-height, 1.5rem);
-    --padding-left:         var(--input-padding-left, 0.5625rem);
-    --padding-right:        var(--input-padding-right, 0.5625rem);
-    --border-width:         var(--input-border-width, 1px);
-    --border-radius:        var(--input-border-radius, 0.3125rem);
+    --font-size:     var(--input-font-size, inherit);
+    --size:          var(--input-height, 2.8125rem);
+    --line-height:   var(--input-line-height, 1.5rem);
+    --padding-left:  var(--input-padding-left, 0.5625rem);
+    --padding-right: var(--input-padding-right, 0.5625rem);
+    --border-width:  var(--input-border-width, 1px);
+    --border-radius: var(--input-border-radius, 0.3125rem);
 
-    --bg:           var(--input-background);
-    --valid-bg:     var(--bg);
-    --invalid-bg:   var(--bg);
+    --bg:            var(--input-background);
+    --valid-bg:      var(--bg);
+    --invalid-bg:    var(--bg);
 
-    --fg:         var(--input-border-color, #bbbbbb);
-    --valid-fg:   var(--fg);
-    --invalid-fg: var(--fg);
+    --fg:            var(--input-border-color, #bbbbbb);
+    --valid-fg:      var(--fg);
+    --invalid-fg:    var(--fg);
 
     /* iOS has padding in the UA stylesheet. */
     padding-top: 0px;
@@ -618,6 +607,11 @@ input[type="reset"],
 input[type="submit"] {
     /* Corrects inability to style clickable 'input' types in iOS */
     -webkit-appearance: button;
+}
+
+[type="submit"] {
+    /* Safari iOS gives submit white on blue by default */
+    color: inherit;
 }
 
 input[type="checkbox"],
@@ -876,7 +870,10 @@ select.validated:focus-visible,
 textarea.validated:focus-visible,
 .masked:focus-visible + .focus-label:before,
 .masked:focus-visible + .check-label:before,
-.masked:focus-visible + .radio-label:before {
+.masked:focus-visible + .radio-label:before,
+.invisible:focus-visible + .focus-label:before,
+.invisible:focus-visible + .check-label:before,
+.invisible:focus-visible + .radio-label:before {
     /* In Webkit, outline doesn't fit the border curves, and in FF outline
        is ugly. Lets recreate it with box-shadow */
     box-shadow: var(--focus-shadow);
@@ -970,26 +967,6 @@ select:focus-visible {
 
 
 /* Placeholders. */
-::-webkit-input-placeholder {
-    font-style: italic;
-    line-height: inherit;
-}
-
-::-moz-placeholder {
-    font-style: italic;
-    line-height: inherit;
-}
-
-:-ms-input-placeholder {
-    font-style: italic;
-    line-height: inherit;
-}
-
-::-ms-input-placeholder {
-    font-style: italic;
-    line-height: inherit;
-}
-
 ::placeholder {
     font-style: italic;
     line-height: inherit;

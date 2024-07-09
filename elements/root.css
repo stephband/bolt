@@ -4,7 +4,7 @@
 
     /* Setting a background on <html> means that a background
        on <body> does not get set on <html>. Win. */
-    color: #000000;
+    color: black;
     background-color: white;
 
     /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */

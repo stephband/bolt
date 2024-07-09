@@ -1,5 +1,16 @@
 
-.${ data.prefix }flex           { display: flex !important; }
+.flex,
+.${ data.prefix }flex {
+    ${ data['column-gap'] ? '--x-gap: ' + (!this.xGapUnit || this.xGapUnit[0] === 'em' ? data['column-gap'] : rem(data['column-gap']) + 'rem') + ';' : '' }
+    ${ data['row-gap']    ? '--y-gap: ' + (!this.yGapUnit || this.yGapUnit[0] === 'em' ? data['row-gap']    : rem(data['row-gap'])    + 'rem') + ';' : '' }
+}
+
+.${ data.prefix }flex {
+    display: flex;
+    column-gap: var(--x-gap);
+    row-gap:    var(--y-gap);
+}
+
 .${ data.prefix }flex > *       { flex: 0 0 auto; margin: 0; }
 .${ data.prefix }flex > li      { display: block; }
 

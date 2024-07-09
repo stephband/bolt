@@ -1,0 +1,11 @@
+
+/**
+.print-hidden
+Hide an element on printed page.
+**/
+
+@media print {
+    .print-hidden {
+        display: none !important;
+    }
+}

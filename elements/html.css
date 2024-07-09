@@ -67,6 +67,9 @@ progress, meter,
 
 	/* Default to backgrounds that don't repeat. */
 	background-repeat: no-repeat;
+
+	/* Don't stretch images by default, make them cover */
+	background-size: cover;
 }
 
 html,
@@ -82,14 +85,14 @@ body {
 	margin: 0;
 }
 
-button {
+button,
+blockquote {
 	margin: 0;
 }
 
 article,
 aside,
 details,
-dialog,
 figcaption,
 figure,
 footer,
@@ -149,11 +152,6 @@ a {
 
 	/* Remove gaps in links underline in iOS 8+ and Safari 8+ */
 	-webkit-text-decoration-skip: objects;
-}
-
-:focus {
-	/* Outline displays oddly in Chrome */
-	outline: thin dotted;
 }
 
 /* Superseded by classes/device.js, where we add classes .mouse or .keyboard

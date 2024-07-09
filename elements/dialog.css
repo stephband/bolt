@@ -1,8 +1,14 @@
 
+/*
+MDN dialog documentation
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
+*/
+
 @keyframes backdrop-fade {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -22,6 +28,7 @@ dialog:not([open]) {
 }
 
 dialog {
+    display: block;
     max-height: calc(100vh - 2rem);
     max-width: calc(100vw - 2rem);
     border-width: 0;
@@ -33,6 +40,13 @@ dialog {
         opacity 0.3s linear,
         transform 0.3s ease-out;
     z-index: 1000;
+}
+
+dialog:focus-visible {
+    /* Rid ourselves of focus ring on dialog (defined in focus.css).
+       TODO: Review this. Probably a bad idea. */
+    box-shadow: none !important;
+    border-color: var(--focus-fg) !important;
 }
 
 dialog::backdrop {

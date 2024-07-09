@@ -302,10 +302,20 @@ function pushAddedActives(added, mutation) {
 // Document setup
 events('DOMContentLoaded', document).each(function() {
 	// Setup all things that should start out active
-	const actives = select('.' + config.activeClass, document);
+	const actives = select('.' + config.activeClass + '', document);
     if (actives.length) {
-		actives.forEach((element) => activate(element, window));
+		actives.forEach((element) => {
+			activate(element, window)
+		});
     }
+
+	const opens = select('dialog[open]', document);
+	if (opens.length) {
+		opens.forEach((element) => {
+			element.open = false;
+			activate(element, window)
+		});
+	}
 
     // Create an observer instance linked to the callback function
     const observer = new MutationObserver((mutations, observer) => {

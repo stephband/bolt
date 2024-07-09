@@ -170,7 +170,7 @@
 /* [type="range"] classes */
 
 [type="range"].y-input {
-    -webkit-appearance: slider-vertical !important;
+    /*-webkit-appearance: slider-vertical !important;*/
 
     width: 0.75rem;
     height: 100%;
@@ -188,7 +188,7 @@
 }
 
 [type="range"].y-input::-webkit-slider-thumb {
-    -webkit-appearance: sliderthumb-vertical !important;
+    /*-webkit-appearance: sliderthumb-vertical !important;*/
     margin-left: -1px;
 }
 

@@ -2,8 +2,8 @@
 /**
 data-droppable
 
-The `droppable` attribute turns an element into a drop target for drag-and-drop 
-actions, and is given the class `dragover` while data of an accepted mimetype is 
+The `droppable` attribute turns an element into a drop target for drag-and-drop
+actions, and is given the class `dragover` while data of an accepted mimetype is
 being dragged over it.
 
 Define the mimetypes of data to accept in a `data-droppable`
@@ -16,17 +16,17 @@ attribute:
 ```
 */
 
-import choose         from '../../fn/modules/choose.js';
-import id             from '../../fn/modules/id.js';
-import intersect      from '../../fn/modules/intersect.js';
-import nothing        from '../../fn/modules/nothing.js';
-import prepend        from '../../fn/modules/prepend.js';
-import attribute      from '../../dom/modules/attribute.js';
-import classes        from '../../dom/modules/classes.js';
-import closest        from '../../dom/modules/closest.js';
-import events, { on } from '../../dom/modules/events.js';
+import choose    from '../../fn/modules/choose.js';
+import id        from '../../fn/modules/id.js';
+import intersect from '../../fn/modules/intersect.js';
+import nothing   from '../../fn/modules/nothing.js';
+import prepend   from '../../fn/modules/prepend.js';
+import attribute from '../../dom/modules/attribute.js';
+import classes   from '../../dom/modules/classes.js';
+import closest   from '../../dom/modules/closest.js';
+import events    from '../../dom/modules/events.js';
+import trigger   from '../../dom/modules/trigger.js';
 
-const trigger = events.trigger;
 
 let overnode;
 let overclasses;
@@ -134,13 +134,12 @@ function drop(e) {
     trigger(droppable, 'dom-drop', { detail: data });
 }
 
-
-on('dragenter', dragenter, document);
-on('dragover', dragover, document);
-on('drop', drop, document);
+events('dragenter', document).each(dragenter);
+events('dragover', document).each(dragover);
+events('drop', document).each(drop);
 
 if (window.console) {
-    on('dom-drop', function(e) {
+    events('dom-drop', dcoument).each(function(e) {
         console.log('Dropped data:', e.detail);
-    }, document);
+    });
 }
