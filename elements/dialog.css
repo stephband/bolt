@@ -4,20 +4,24 @@ MDN dialog documentation
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
 */
 
-@keyframes backdrop-fade {
-    from {
-        opacity: 0;
-    }
+@keyframes backdrop-fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
 
-    to {
-        opacity: 1;
-    }
+@keyframes backdrop-fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
 }
 
 dialog:not([open]) {
     position: fixed;
     top: 0;
     margin-top: 1rem;
+}
+
+dialog:not([open]),
+dialog.closing {
     visibility: hidden;
     opacity: 0;
     transform: translate3d(0, 1.5rem, 0);
@@ -49,14 +53,16 @@ dialog:focus-visible {
     border-color: var(--focus-fg) !important;
 }
 
-dialog::backdrop {
+dialog::backdrop,
+dialog.closing[open]::backdrop {
+    opacity: 0;
     background-color: rgba(25,25,25,0.4);
-    animation: backdrop-fade 1.8s ease-out forwards;
-    animation-direction: reverse;
+    animation: backdrop-fadeout 0.6s ease-out forwards;
 }
 
 dialog[open]::backdrop {
-    animation: backdrop-fade 0.9s ease-out forwards;
+    opacity: 1;
+    animation: backdrop-fadein 0.9s linear forwards;
 }
 
 dialog > img,

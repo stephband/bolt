@@ -4,13 +4,14 @@ import delegate        from '../../dom/modules/delegate.js';
 import { focusInside } from '../../dom/modules/focus.js';
 import isPrimaryButton from '../../dom/modules/is-primary-button.js';
 import isTargetEvent   from '../../dom/modules/is-target-event.js';
+import style           from '../../dom/modules/style.js';
 import rect            from '../../dom/modules/rect.js';
 import { disableScroll, enableScroll } from '../../dom/modules/scroll.js';
 import { behaviours, activate, deactivate } from '../events/dom-activate.js';
 
 // As it is possible to have multiple dialogs open, we must enumerate them
 let n = 0;
-let timer
+let timer;
 
 function disableDocumentScroll() {
     if (n === 0) {
@@ -57,6 +58,8 @@ export function open(element) {
         // to focus the element. Don't know why we need three. Two is enough in
         // Safari, Chrome seems to like three, to be reliable. Not sure what we
         // are waiting for here. No sir, I don't like it.
+        //
+        // TODO: We should proabably insist on using the autofocus attribute instead.
         requestAnimationFrame(() =>
             requestAnimationFrame(() =>
                 requestAnimationFrame(() =>
@@ -78,7 +81,7 @@ export function open(element) {
         focused.focus();
     });
 }
-
+/*
 export function close(element) {
     // Is the element open?
     if ('open' in element && !element.open) { return; }
@@ -96,6 +99,41 @@ export function close(element) {
     // Close
     element.close();
 }
+*/
+
+export function close(element) {
+    // Is the element open?
+    if ('open' in element && !element.open) { return; }
+
+    // Attach the current margin-top, otherwise the dialog jumps
+    //const computed = getComputedStyle(element);
+    //element.style.marginTop = computed.marginTop;
+
+    // And take it off when the closing transition is over
+    const ends = events('transitionend', element)
+    .filter(isTargetEvent)
+    .slice(0, 1)
+    .each((e) => {
+console.log('CLOSE');
+        element.close();
+        element.classList.remove('closing');
+    });
+    //.each((e) => element.style.marginTop = '');
+
+    element.classList.add('closing');
+    const duration = parseFloat(style('transition-duration', element));
+
+console.log('transition', duration);
+
+    if (duration) return;
+
+    // If there is no transition applied close immediately
+console.log('CLOSE IMMEDIATE');
+    ends.stop();
+    element.close();
+    element.classList.remove('closing');
+}
+
 
 events('pointerdown', document)
 .filter(isPrimaryButton)
