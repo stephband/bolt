@@ -25,8 +25,11 @@ export const behaviours = {};
 const triggerActivate = trigger('dom-activate');
 
 
-function log(type, element, buttons) {
-	console.log('%c' + type + ' %c' + (element.id ? '#' + element.id : '<' + element.tagName.toLowerCase() + '>') + ', ' +  buttons.length + ' button' + (buttons.length === 1 ? '' : 's') + '%c',
+export function log(type, element, buttons) {
+	console.log('%c' + type
+		+ ' %c' + (element.id ? '#' + element.id : '<' + element.tagName.toLowerCase() + '>')
+		+ (buttons ? ', ' + buttons.length + ' button' + (buttons.length === 1 ? '' : 's') : '')
+		+ '%c',
 		'color: #3a8ab0; font-weight: 600;',
 		'color: #888888; font-weight: 400;',
 		'color: inherit; font-weight: 400;'
@@ -138,9 +141,7 @@ export function deactivate(element, button) {
 	element.classList.remove(config.activeClass);
 	buttons.forEach(removeOnClass);
 
-	if (window.DEBUG) {
-		log('deactivate', element, buttons);
-	}
+	if (window.DEBUG) log('deactivate', element, buttons);
 
 	return true;
 }

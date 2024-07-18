@@ -7,7 +7,7 @@ import isTargetEvent   from '../../dom/modules/is-target-event.js';
 import style           from '../../dom/modules/style.js';
 import rect            from '../../dom/modules/rect.js';
 import { disableScroll, enableScroll } from '../../dom/modules/scroll.js';
-import { behaviours, activate, deactivate } from '../events/dom-activate.js';
+import { log, behaviours, activate, deactivate } from '../events/dom-activate.js';
 
 // As it is possible to have multiple dialogs open, we must enumerate them
 let n = 0;
@@ -71,11 +71,15 @@ export function open(element) {
 
     // Dialogs do have a 'close' event, just remember the powers that be have
     // decided that it should not bubble.
+    events('dom-deactivate close', element)
+    .slice(0, 1)
+    .each(enableDocumentScroll);
+
     events('close', element)
     .slice(0, 1)
     .each((e) => {
-        deactivate(element);
-        enableDocumentScroll();
+        // ? But it's already deactivated. What do we do when it's not?
+        //deactivate(element);
 
         // Return focus to wherever it was before
         focused.focus();
@@ -114,8 +118,7 @@ export function close(element) {
     .filter(isTargetEvent)
     .slice(0, 1)
     .each((e) => {
-console.log('CLOSE');
-
+        if (window.DEBUG) log('close', element);
         element.close();
         element.classList.remove('closing');
     });
@@ -123,14 +126,9 @@ console.log('CLOSE');
 
     element.classList.add('closing');
     const duration = parseFloat(style('transition-duration', element));
-
-console.log('transition', duration);
-
     if (duration) return;
 
     // If there is no transition applied close immediately
-console.log('CLOSE IMMEDIATE');
-
     ends.stop();
     element.close();
     element.classList.remove('closing');
