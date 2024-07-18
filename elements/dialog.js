@@ -115,6 +115,7 @@ export function close(element) {
     .slice(0, 1)
     .each((e) => {
 console.log('CLOSE');
+
         element.close();
         element.classList.remove('closing');
     });
@@ -129,6 +130,7 @@ console.log('transition', duration);
 
     // If there is no transition applied close immediately
 console.log('CLOSE IMMEDIATE');
+
     ends.stop();
     element.close();
     element.classList.remove('closing');
