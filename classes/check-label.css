@@ -45,14 +45,14 @@
 
 .check-label::before,
 .check-label::after {
-    top: calc(0.5 * (var(--size) - var(--check-size)));
+    top: calc(0.5 * (var(--size, 1.5rem) - var(--check-size)));
     width: var(--check-size);
     height: var(--check-size);
     border-radius: var(--check-border-radius);
 }
 
 .radio-label::before {
-    top: calc(0.5 * (var(--size) - var(--radio-size)));
+    top: calc(0.5 * (var(--size, 1.5rem) - var(--radio-size)));
     width: var(--radio-size);
     height: var(--radio-size);
 }
@@ -84,7 +84,7 @@
 }
 
 .radio-label::after {
-    top: calc(0.5 * (var(--size) - var(--mark-size)));
+    top: calc(0.5 * (var(--size, 1.5rem) - var(--mark-size)));
     left: calc(0.5 * (var(--radio-size) - var(--mark-size)));
     width: var(--mark-size);
     height: var(--mark-size);
