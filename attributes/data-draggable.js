@@ -25,7 +25,7 @@ import { setDataTransfer } from '../../dom/modules/data-transfer.js';
 import remove    from '../../dom/modules/remove.js';
 import events    from '../../dom/modules/events.js';
 
-import { register } from '../../sparky/module.js';
+//import { register } from '../../sparky/module.js';
 
 var debug = true;
 
@@ -89,6 +89,7 @@ function dragendButton(e) {
 	select('.dragover', document).forEach(removeClass('dragover'));
 }
 
+/*
 register('data-on-drag', function(node, params) {
 	var dragstart = delegate({ '[draggable], [data-draggable]': dragstartButton });
 	var dragend   = delegate({ '[draggable], [data-draggable]': dragendButton });
@@ -103,3 +104,4 @@ register('data-on-drag', function(node, params) {
 		dragends.stop();
 	});
 });
+*/

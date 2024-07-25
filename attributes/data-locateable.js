@@ -29,7 +29,7 @@ you have a scrolling navigation:
 import '../../dom/scripts/scroll-behavior.js';
 
 import by       from '../../fn/modules/by.js';
-import observe  from '../../fn/observer/observe.js';
+//import observe  from '../../fn/observer/observe.js';
 import create   from '../../dom/modules/create.js';
 import features from '../../dom/modules/features.js';
 import get      from '../../fn/modules/get.js';
@@ -229,6 +229,13 @@ window.addEventListener('hashchange', function hashchange(e) {
 Location
 */
 
+
+// TODO!!!! new location observe thingy
+
+
+
+
+/*
 observe('identifier', location)
 .each(reducer(function(previous, identifier) {
     if (!identifier) {
@@ -246,11 +253,16 @@ observe('identifier', location)
         animateScrollTime = change.time + config.minScrollAnimationDuration;
     }
     */
-
+/*
     unlocate(previous);
     locate(identifier);
     return identifier;
 }, {}));
+*/
+
+
+
+
 /*
 location.on(reducer(function(previous, change) {
     const identifier = change.identifier;
