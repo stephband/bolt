@@ -2,13 +2,3 @@
 abbr[title] {
     text-decoration: none;
 }
-
-
-@media (hover: hover) {
-    abbr[title] {
-        /* No thanks. I'm finding this needs to be overridden all the time. */
-        /*text-decoration: underline dotted;
-        text-decoration-skip-ink: none;*/
-        cursor: help;
-    }
-}
