@@ -3,7 +3,8 @@
 
 [href=""],
 [href="#"],
-[alt=""] {
+[alt=""],
+.masked + label {
     position: relative;
     box-shadow: inset 0 0 0px 1px rgba(255,0,74,0.75) !important;
     border-color: rgb(255, 0, 74) !important;
@@ -11,7 +12,8 @@
 
 [href=""]::before,
 [href="#"]::before,
-[alt=""]::before {
+[alt=""]::before,
+.masked + label::before {
     /* Do not position it with top, left, etc. We cannot give the parent
        position: relative */
     position: absolute;
@@ -28,9 +30,10 @@
     z-index: 2147483647;
 }
 
-[href=""]::before  { content: 'href=""'; }
-[href="#"]::before { content: 'href="#"'; }
-[alt=""]::before   { content: 'alt=""'; }
+[href=""]::before       { content: 'href=""'; }
+[href="#"]::before      { content: 'href="#"'; }
+[alt=""]::before        { content: 'alt=""'; }
+.masked + label::before { content: '.masked ▶ .invisible'; }
 
 
 /* Buttons must have a type attribute lest they behave as submit buttons. */
