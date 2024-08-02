@@ -275,7 +275,7 @@ Signal.observe(Signal.from(() => location.identifier), (id) => {
 
 
 
-/* Safari's not the messiah, he's a very naughty boy. */
+/* TODO: still necessary? Safari's not the messiah, he's a very naughty boy. */
 if (!features.scrollBehavior) {
     console.log('Partial fill for scroll-padding');
     /* Safari does not respect scroll-padding unless scroll-snap is switched on,
