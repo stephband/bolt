@@ -2,14 +2,13 @@
 /**
 locateable
 
-An element with a `data-locateable` (or `locateable`) attribute updates the
-browser location hash with its `id` when scrolled into view.
+An element with a `data-locateable` attribute updates the browser location hash
+with its `id` when scrolled into view.
 
 When the location identifier changes to be equal to a `locateable`'s id links
-that reference that locateable via their `href` attribute get the class `"target-on"`.
-
-Build a list of links that reference locateables and with a little style
-you have a scrolling navigation:
+that reference that locateable via their `href` attribute get the class
+`"target-on"`. Build a list of links that reference locateables and with a
+little style you have a scrolling navigation:
 
 ```html
 <style>
@@ -29,10 +28,10 @@ you have a scrolling navigation:
 import '../../dom/scripts/scroll-behavior.js';
 
 import by       from '../../fn/modules/by.js';
-//import observe  from '../../fn/observer/observe.js';
+import get      from '../../fn/modules/get.js';
+import Signal   from '../../fn/modules/signal.js';
 import create   from '../../dom/modules/create.js';
 import features from '../../dom/modules/features.js';
-import get      from '../../fn/modules/get.js';
 import location from '../../dom/modules/location.js';
 import rect     from '../../dom/modules/rect.js';
 import select   from '../../dom/modules/select.js';
@@ -84,7 +83,6 @@ function removeOn(node) {
 }
 
 function locate(id) {
-    console.log('locate', id);
     if (!id) { return; }
     selectLinks(id).forEach(addOn);
 }
@@ -93,6 +91,25 @@ function unlocate(id) {
     if (!id) { return; }
     selectLinks(id).forEach(removeOn);
 }
+
+
+
+
+/* ORIGINALLY IN data-locateable */
+
+function updateTarget(url) {
+    const href = window.location.href;
+
+    // Replace the current location with the new one
+    window.history.replaceState(window.history.state, document.title, url);
+
+    // Move forward to the old url and back to the current location, causing
+    // :target selector to update and a popstate event.
+    window.history.pushState(window.history.state, document.title, href);
+    window.history.back();
+}
+
+
 
 
 /*
@@ -177,7 +194,7 @@ function update(/*element*/) {
     times.length = 0;
 
     if (location.identifier !== id) {
-        location.identifier = id;
+        updateTarget('#' + id);
     }
 
     //console.log('scrollTop', document.scrollingElement.scrollTop, 'maxScrollEventInterval', config.maxScrollEventInterval.toFixed(3));
@@ -190,7 +207,7 @@ function update(/*element*/) {
 
 // Capture scroll events in capture phase, as scroll events from elements
 // other than document do not bubble.
-var hashtime;
+var hashtime = 0;
 
 window.addEventListener('scroll', function scroll(e) {
     // Ignore the first scroll event following a hashchange. The browser sends a
@@ -232,16 +249,12 @@ Location
 
 // TODO!!!! new location observe thingy
 
+let previousId;
 
-
-
-/*
-observe('identifier', location)
-.each(reducer(function(previous, identifier) {
-    if (!identifier) {
-        unlocate(previous);
-        return;
-    }
+Signal.observe(Signal.from(() => location.identifier), (id) => {
+    //if (id === undefined) {
+    //    return previous;
+    //}
 
     //const time = change.time;
 
@@ -253,43 +266,18 @@ observe('identifier', location)
         animateScrollTime = change.time + config.minScrollAnimationDuration;
     }
     */
-/*
-    unlocate(previous);
-    locate(identifier);
-    return identifier;
-}, {}));
-*/
+
+    unlocate(previousId);
+    locate(id);
+    previousId = id;
+});
 
 
 
-
-/*
-location.on(reducer(function(previous, change) {
-    const identifier = change.identifier;
-
-    if (identifier === undefined) {
-        return previous;
-    }
-
-    //const time = change.time;
-
-    // Dodgy heuristics
-    /*
-    if (time - userScrollTime > config.maxScrollEventInterval) {
-        // If we were not already scrolling we want to ignore scroll
-        // updates for a short time until the automatic scroll settles
-        animateScrollTime = change.time + config.minScrollAnimationDuration;
-    }
-    */
-/*
-    unlocate(previous.identifier);
-    locate(identifier);
-    return assign(previous, change);
-}, {}));
-*/
 
 /* Safari's not the messiah, he's a very naughty boy. */
 if (!features.scrollBehavior) {
+    console.log('Partial fill for scroll-padding');
     /* Safari does not respect scroll-padding unless scroll-snap is switched on,
        which is difficult on the :root or <body>. Instead, let's duplicate the
        elements with id and move them up relatively by one header height. */

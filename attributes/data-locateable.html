@@ -7,6 +7,13 @@
 
     <title>targetable</title>
 
+    <script type="importmap">{
+      "imports": {
+        "dom/":  "../../dom/modules/",
+        "fn/":   "../../fn/modules/"
+      }
+    }</script>
+
     <script>
     document.documentElement.className = 'js content-loading loading';
     window.addEventListener('DOMContentLoaded', () => document.documentElement.classList.remove('content-loading'));
@@ -15,7 +22,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <link rel="stylesheet" href="../css/html.css" />
+    <link rel="stylesheet" href="../elements/html.css" />
 
     <style>
         :root {
@@ -209,9 +216,9 @@
     <script type="module">
         import '../attributes/data-locateable.js';
 
-        setTimeout(function() {
+        /*setTimeout(function() {
             location.hash = '1000';
-        }, 3000);
+        }, 3000);*/
 
         document.getElementById('scrollBehavior').textContent = 'scrollBehavior' in document.documentElement.style ;
 
