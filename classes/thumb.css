@@ -45,7 +45,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
     background-position: 50% 40%;
     background-repeat: no-repeat;
     background-color: transparent;
-    border-width: var(--border-width, 0);
+    border: var(--border-width, 0) solid currentcolor;
     border-radius: 0;
     text-decoration: none;
     color: inherit;
