@@ -24,10 +24,9 @@ overflow, and only the `background-image`, centered and 'cropped' via
     padding-right: 0;
 
     /* Hide overflowing text by pushing it out of the overflow with left padding.
-       This technique keeps it on the same baseline (better than using
-       text-indent because IE7 moves the background image with the text-indent). */
+       This technique keeps it on the same baseline. */
     min-width: 0;
-    padding-left: var(--size, 2.8125em);
+    padding-left: calc(var(--size, 2.8125em) - 2 * var(--border-width, 0));
     height:       var(--size, 2.8125em);
     min-height: 0;
     width: 0;
@@ -46,7 +45,7 @@ overflow, and only the `background-image`, centered and 'cropped' via
     background-position: 50% 40%;
     background-repeat: no-repeat;
     background-color: transparent;
-    border-width: 0;
+    border: var(--border-width, 0) solid currentcolor;
     border-radius: 0;
     text-decoration: none;
     color: inherit;
