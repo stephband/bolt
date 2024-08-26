@@ -95,7 +95,6 @@ function unlocate(id) {
 
 
 
-/* ORIGINALLY IN data-locateable */
 
 function updateTarget(url) {
     const href = window.location.href;
@@ -251,26 +250,52 @@ Location
 
 let previousId;
 
-Signal.observe(Signal.from(() => location.identifier), (id) => {
-    //if (id === undefined) {
-    //    return previous;
-    //}
+function hashchange(id) {
+    if (id === undefined) return previous;
 
-    //const time = change.time;
+    const time = window.performance.now();
 
     // Dodgy heuristics
-    /*
     if (time - userScrollTime > config.maxScrollEventInterval) {
         // If we were not already scrolling we want to ignore scroll
         // updates for a short time until the automatic scroll settles
-        animateScrollTime = change.time + config.minScrollAnimationDuration;
+        animateScrollTime = time + config.minScrollAnimationDuration;
     }
-    */
 
     unlocate(previousId);
     locate(id);
     previousId = id;
-});
+}
+
+function urlchange(id) {
+    if (id === undefined) return previous;
+
+    const time = window.performance.now();
+
+    // Dodgy heuristics
+    if (time - userScrollTime > config.maxScrollEventInterval) {
+        // If we were not already scrolling we want to ignore scroll
+        // updates for a short time until the automatic scroll settles
+        animateScrollTime = time + config.minScrollAnimationDuration;
+    }
+
+    unlocate(previousId);
+    locate(id);
+    previousId = id;
+}
+
+
+
+
+
+
+
+window.addEventListener('popstate', urlchange);
+window.addEventListener('DOMContentLoaded', urlchange);
+window.addEventListener('hashchange', urlchange);
+
+
+
 
 
 
