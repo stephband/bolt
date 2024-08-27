@@ -48,13 +48,12 @@ dialog {
     display: block;
     position: fixed;
 
-    /* Vertical centering */
-    top: 50%;
-    transform: translate3d(0,-50%,0);
+    /* Vertical position top */
+    top: 0;
     max-height: calc(100vh - 2rem);
 
     /* Override any margins added by text classes or their ilk */
-    margin: 0 auto auto auto !important;
+    margin: 0 auto auto;
     max-width: calc(100vw - 2rem);
 
     /* Zero out browser default border */
@@ -68,7 +67,7 @@ dialog,
 dialog[open].closing {
     opacity: 0;
     visibility: hidden;
-    transform: translate3d(0, calc(1rem - 50%), 0);
+    transform: translate3d(0, -100%, 0);
     transition:
         opacity 0.9s linear,
         visibility 0.9s linear,
@@ -78,12 +77,24 @@ dialog[open].closing {
 dialog[open] {
     opacity: 1;
     visibility: visible;
-    transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, 0, 0);
     transition:
         opacity 0.3s linear,
         visibility 0.3s linear,
         transform 0.3s ease-out;
 }
+
+dialog[mode],
+dialog[mode][open].closing {
+    /* Vertical position center */
+    top: 50%;
+    transform: translate3d(0, calc(1rem - 50%), 0);
+}
+
+dialog[mode][open] {
+    transform: translate3d(0, -50%, 0);
+}
+
 
 dialog:focus-visible {
     /* Rid ourselves of focus ring on dialog (defined in focus.css).

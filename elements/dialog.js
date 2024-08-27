@@ -70,7 +70,7 @@ export function open(element) {
     else if (mode === 'float') {
         element.show();
         disableDocumentScroll();
-        trapFocus();
+        trapFocus(element);
 
         // Dialogs do have a 'close' event, just remember the powers that be have
         // decided that it should not bubble.
@@ -159,6 +159,15 @@ events('pointerdown', document)
     }
 }));
 */
+
+events({ type: 'click', select: '[name="close"]' }, document)
+.each((e) => {
+    const href = e.target.closest('[name="close"]').value;
+    if (!href) return;
+    const element = document.querySelector(href);
+    close(element);
+});
+
 
 behaviours['dialog'] = {
     activate:   open,

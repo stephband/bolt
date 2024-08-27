@@ -1,8 +1,14 @@
 
+${
+    this.xGapUnit = /[a-z]+$/.exec(data['column-gap']),
+    this.yGapUnit = /[a-z]+$/.exec(data['row-gap']),
+    ''
+}
+
 .flex,
 .${ data.prefix }flex {
-    ${ data['column-gap'] ? '--x-gap: ' + (!this.xGapUnit || this.xGapUnit[0] === 'em' ? data['column-gap'] : rem(data['column-gap']) + 'rem') + ';' : '' }
-    ${ data['row-gap']    ? '--y-gap: ' + (!this.yGapUnit || this.yGapUnit[0] === 'em' ? data['row-gap']    : rem(data['row-gap'])    + 'rem') + ';' : '' }
+    ${ data['column-gap'] ? '--x-gap: ' + (this.xGapUnit ? data['column-gap'] : rem(data['column-gap']) + 'rem') + ';' : '' }
+    ${ data['row-gap']    ? '--y-gap: ' + (this.yGapUnit ? data['row-gap']    : rem(data['row-gap'])    + 'rem') + ';' : '' }
 }
 
 .${ data.prefix }flex {
