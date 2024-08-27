@@ -36,6 +36,7 @@
     padding: 0 !important;
 
     /* Compensate for border */
+    height: var(--size);
     line-height: calc(var(--size) - 2 * var(--border-width));
 
     color: var(--input-color);
