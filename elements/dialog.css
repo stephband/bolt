@@ -1,49 +1,88 @@
 
 /*
-MDN dialog documentation
+MDN dialog documentation:
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
 */
 
-@keyframes backdrop-fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
+/*
+Backdrop
+Non-modal dialogs do not get a ::backdrop, so if we want want one, and we
+most certainly do, we must implement our own. */
 
-@keyframes backdrop-fadeout {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-}
-
-dialog:not([open]) {
+body:has(dialog[mode="float"])::after {
+    content: '';
     position: fixed;
     top: 0;
-    margin-top: 1rem;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(25,25,25,0.4);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
 }
 
-dialog:not([open]),
-dialog.closing {
-    visibility: hidden;
+body:has(dialog[mode="float"])::after,
+body:has(dialog[mode="float"][open].closing)::after {
     opacity: 0;
-    transform: translate3d(0, 1.5rem, 0);
+    visibility: hidden;
     transition:
-        visibility 0.9s linear,
         opacity 0.9s linear,
-        transform 0.9s ease-in;
+        visibility 0.9s linear;
 }
+
+body:has(dialog[mode="float"][open])::after {
+    opacity: 1;
+    visibility: visible;
+    transition:
+        opacity 0.3s linear,
+        visibility 0.3s linear;
+}
+
+
+/* Dialog */
 
 dialog {
+    /* Dialogs are display none by default which makes transitions and
+       animations to display anything nigh-on impossible */
     display: block;
+    position: fixed;
+
+    /* Vertical centering */
+    top: 50%;
+    transform: translate3d(0,-50%,0);
     max-height: calc(100vh - 2rem);
+
+    /* Override any margins added by text classes or their ilk */
+    margin: 0 auto auto auto !important;
     max-width: calc(100vw - 2rem);
+
+    /* Zero out browser default border */
     border-width: 0;
-    visibility: visible;
-    opacity: 1;
-    transform: translate3d(0,0,0);
+
+    /* Non-modal dialogs do not automatically appear in the top-layer */
+    z-index: 1001;
+}
+
+dialog,
+dialog[open].closing {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(0, calc(1rem - 50%), 0);
     transition:
-        visibility 0.3s linear,
+        opacity 0.9s linear,
+        visibility 0.9s linear,
+        transform 0.9s ease-out;
+}
+
+dialog[open] {
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(0, -50%, 0);
+    transition:
         opacity 0.3s linear,
+        visibility 0.3s linear,
         transform 0.3s ease-out;
-    z-index: 1000;
 }
 
 dialog:focus-visible {

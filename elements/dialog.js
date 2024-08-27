@@ -7,6 +7,7 @@ import isTargetEvent   from '../../dom/modules/is-target-event.js';
 import style           from '../../dom/modules/style.js';
 import rect            from '../../dom/modules/rect.js';
 import { disableScroll, enableScroll } from '../../dom/modules/scroll.js';
+import { trapFocus, untrapFocus }      from '../../dom/modules/focus.js';
 import { log, behaviours, activate, deactivate } from '../events/dom-activate.js';
 
 // As it is possible to have multiple dialogs open, we must enumerate them
@@ -44,13 +45,47 @@ export function open(element) {
     // Is the element closed?
     if (element.open) { return; }
 
-    const focused = document.activeElement;
+    // Implement our own modal attribute. We do this rather than use .showModal()
+    // because it is impossible to show, for example, non-modal message dialogs
+    // on top of .showModal() dialogs
+    const mode = element.getAttribute('mode');
 
-    // Then open it
-    element.showModal();
+    if (mode === 'modal') {
+        const focused = document.activeElement;
 
-    // Disable scrolling on the document.
-    disableDocumentScroll();
+        element.showModal();
+        disableDocumentScroll();
+
+        // Dialogs do have a 'close' event, just remember the powers that be have
+        // decided that it should not bubble.
+        events('dom-deactivate close', element)
+        .slice(0, 1)
+        .each(enableDocumentScroll);
+
+        // Return focus to wherever it was before
+        events('close', element)
+        .slice(0, 1)
+        .each((e) => focused.focus());
+    }
+    else if (mode === 'float') {
+        element.show();
+        disableDocumentScroll();
+        trapFocus();
+
+        // Dialogs do have a 'close' event, just remember the powers that be have
+        // decided that it should not bubble.
+        events('dom-deactivate close', element)
+        .slice(0, 1)
+        .each(enableDocumentScroll);
+
+        // Return focus to wherever it was before
+        events('close', element)
+        .slice(0, 1)
+        .each(untrapFocus);
+    }
+    else {
+        element.show();
+    }
 
     // Move focus inside the dialog
     if (element !== document.activeElement && !element.contains(document.activeElement)) {
@@ -68,42 +103,7 @@ export function open(element) {
             )
         );
     }
-
-    // Dialogs do have a 'close' event, just remember the powers that be have
-    // decided that it should not bubble.
-    events('dom-deactivate close', element)
-    .slice(0, 1)
-    .each(enableDocumentScroll);
-
-    events('close', element)
-    .slice(0, 1)
-    .each((e) => {
-        // ? But it's already deactivated. What do we do when it's not?
-        //deactivate(element);
-
-        // Return focus to wherever it was before
-        focused.focus();
-    });
 }
-/*
-export function close(element) {
-    // Is the element open?
-    if ('open' in element && !element.open) { return; }
-
-    // Attach the current margin-top, otherwise the dialog jumps
-    const computed = getComputedStyle(element);
-    element.style.marginTop = computed.marginTop;
-
-    // And take it off when the closing transition is over
-    events('transitionend', element)
-    .filter(isTargetEvent)
-    .slice(0, 1)
-    .each((e) => element.style.marginTop = '');
-
-    // Close
-    element.close();
-}
-*/
 
 export function close(element) {
     // Is the element open?
@@ -134,11 +134,11 @@ export function close(element) {
     element.classList.remove('closing');
 }
 
-
+// Touches on a dialog[data-popable] backdrop close the dialog
+/*
 events('pointerdown', document)
 .filter(isPrimaryButton)
 .each(delegate({
-    // Touches on a dialog[data-popable] backdrop close the dialog
     'dialog[data-popable]': function(dialog, e) {
         // Ignore clicks not on the dialog itself
         if (dialog !== e.target) {
@@ -158,6 +158,7 @@ events('pointerdown', document)
         }
     }
 }));
+*/
 
 behaviours['dialog'] = {
     activate:   open,
