@@ -50,10 +50,12 @@ dialog {
 
     /* Vertical position top */
     top: 0;
+    height: auto;
     max-height: calc(100vh - 2rem);
 
     /* Override any margins added by text classes or their ilk */
     margin: 0 auto auto;
+    width: auto;
     max-width: calc(100vw - 2rem);
 
     /* Zero out browser default border */
