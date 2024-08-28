@@ -27,15 +27,15 @@ little style you have a scrolling navigation:
 
 import '../../dom/scripts/scroll-behavior.js';
 
-import by       from '../../fn/modules/by.js';
-import get      from '../../fn/modules/get.js';
-import Signal   from '../../fn/modules/signal.js';
-import create   from '../../dom/modules/create.js';
-import features from '../../dom/modules/features.js';
-import location from '../../dom/modules/location.js';
-import rect     from '../../dom/modules/rect.js';
-import select   from '../../dom/modules/select.js';
-import { isDocumentLink } from '../../dom/modules/node.js';
+import by       from 'fn/by.js';
+import get      from 'fn/get.js';
+import Signal   from 'fn/signal.js';
+import create   from 'dom/create.js';
+import features from 'dom/features.js';
+import location from 'dom/location.js';
+import rect     from 'dom/rect.js';
+import select   from 'dom/select.js';
+import { isDocumentLink } from 'dom/node.js';
 
 
 /*
