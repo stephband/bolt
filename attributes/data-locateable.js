@@ -25,7 +25,8 @@ little style you have a scrolling navigation:
 ```
 **/
 
-import '../../dom/scripts/scroll-behavior.js';
+// Old polyfill for Safari
+//import '../../dom/scripts/scroll-behavior.js';
 
 import by       from 'fn/by.js';
 import get      from 'fn/get.js';
@@ -47,31 +48,11 @@ export const config = {
     maxScrollEventInterval: 0.25
 };
 
-const captureOptions = {
-    capture: true,
-    passive: true
-};
-
-/*
-Features
-*/
-
-const supportsScrollBehavior = 'scrollBehavior' in document.documentElement.style;
+const origin         = { left: 0, top: 0 };
 
 
 /*
-Utils
-*/
-
-function reducer(fn, value) {
-    return function () {
-        return (value = fn(value, ...arguments));
-    };
-}
-
-
-/*
-Links
+Locateables
 */
 
 function selectLinks(hash) {
@@ -97,61 +78,30 @@ function unlocate(hash) {
     selectLinks(hash).forEach(removeOn);
 }
 
-
-
-
-/*
-function updateTarget(url) {
-    const href = window.location.href;
-
-    // Replace the current location with the new one
-    window.history.replaceState(window.history.state, document.title, url);
-
-// SAFARI is jumping around because of this
-    // Move forward to the old url and back to the current location, causing
-    // :target selector to update and a popstate event.
-//    window.history.pushState(window.history.state, document.title, href);
-//    window.history.back();
-}
-*/
-
-
-
-/*
-Scroll
-*/
-
-const origin = { left: 0, top: 0 };
-
 function toData(element) {
     const box = rect(element);
-    return {
-        element: element,
-        left:    box.left,
-        top:     box.top,
-        width:   box.width,
-        height:  box.height
-    };
+    box.element = element;
+    return box;
 }
 
-function getLocateable() {
-    const body        = document.body;
-    const element     = document.scrollingElement;
-    const locateables = select(config.selector, body);
-
+function getBoxes(element) {
+    const locateables = select(config.selector, document.body);
     if (!locateables.length) return;
-
-    // Default to 0 for browsers without support
-    //const scrollPaddingLeft = parseFloat(getComputedStyle(element).scrollPaddingLeft) || 0;
-    const scrollPaddingTop  = parseFloat(getComputedStyle(element).scrollPaddingTop)  || 0;
 
     //const box = element === document.body || element === document.documentElement ?
     //    origin :
     //    rect(element) ;
 
-    const boxes = locateables
+    return locateables
         .map(toData)
         .sort(by(get('top')));
+}
+
+function getLocateable() {
+    const element = document.scrollingElement;
+    //const scrollPaddingLeft = parseFloat(getComputedStyle(element).scrollPaddingLeft) || 0;
+    const scrollPaddingTop = parseFloat(getComputedStyle(element).scrollPaddingTop) || 0;
+    const boxes = getBoxes(element);
 
     let  n = -1;
     let target;
@@ -160,7 +110,9 @@ function getLocateable() {
         boxes[++n]
         //&& (boxes[n].left - box.left) < (scrollPaddingLeft + 1)
         //&& (boxes[n].top  - box.top)  < (scrollPaddingTop + 1)
-        && (boxes[n].top - origin.top) < (scrollPaddingTop + 1)
+        // Check whether scrollTop is negative - if it is the element is in
+        // elastic overscroll and we compensate for that
+        && (boxes[n].top - origin.top) < (scrollPaddingTop + 1 - (element.scrollTop < 0 ? element.scrollTop : 0))
     ) {
         target = boxes[n].element;
     }
@@ -168,52 +120,46 @@ function getLocateable() {
     return target;
 }
 
-const times = [];
 
+/*
+Scroll
+*/
 
-// Any call to replaceState or pushState in iOS opens the URL bar -
-// disturbing at the best of times, nevermind mid-scroll. So probably
-// best not update on scrolling on small iOS screens
+let hashtime;
+window.addEventListener('hashchange', (e) => hashtime = e.timeStamp / 1000);
 
 // Capture scroll events in capture phase, as scroll events from elements
 // other than document do not bubble.
-var hashtime = 0;
-
-window.addEventListener('hashchange', (e) => hashtime = e.timeStamp / 1000);
-
+const captureOptions = { capture: true, passive: true };
+let scrolltime;
 window.addEventListener('scroll', (e) => {
-    // Ignore the first scroll event following a hashchange. The browser sends a
-    // scroll event even where a target cannot be scrolled to, such as a
-    // navigation with position: fixed, for example. This can cause locateable
-    // to recalculate again, and shift the target back to one fo the locateables,
-    // where it should stay on the navigation element.
-    const time = e.timeStamp / 1000;
+    scrolltime = e.timeStamp / 1000;
 
-    // Make sure this check only happens once after a hashchange
+    // Where hashtime is a number this scroll may be part of the automatic
+    // scroll that follows a hashchange.
     if (hashtime !== undefined) {
-        // If we are not mid-scroll, and the latest hashchange was less than
-        // 0.1s ago, ignore
-        if (hashtime > time - 0.1) {
-            hashtime = undefined;
+        if (scrolltime - hashtime < config.maxScrollEventInterval) {
+            // It is. Keep hashtime up to date with the latest scrolltime
+            // associated with it.
+            hashtime = scrolltime;
+
+            // Don't perform locate by box position, as the active locateable
+            // was already updated on observing the hashchange.
             return;
         }
 
+        // This scroll is not related to a hashchange.
         hashtime = undefined;
     }
 
-    // Record scroll times
-    times.push(time);
-
     // Dynamically adjust maxScrollEventInterval to tighten it up,
     // imposing a baseline of 60ms (0.0375s * 1.6)
-    let n = times.length, interval = 0;
+    /*let n = times.length, interval = 0.0375;
     while (--n) {
         const t = times[n] - times[n - 1];
         interval = t > interval ? t : interval;
     }
-
-    interval = interval < 0.0375 ? 0.0375 : interval ;
-    config.maxScrollEventInterval = 1.6 * interval;
+    config.maxScrollEventInterval = 1.6 * interval;*/
 
     // Changing the location object updates the current history entry
     const target = getLocateable();
@@ -223,9 +169,8 @@ window.addEventListener('scroll', (e) => {
 }, captureOptions);
 
 
-
 /*
-Location
+React to location changes
 */
 
 let previousHash;
@@ -238,22 +183,8 @@ Signal.observe(Signal.fromProperty('hash', location), (hash) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* TODO: still necessary? Safari's not the messiah, he's a very naughty boy. */
-if (!supportsScrollBehavior) {
+if (!('scrollBehavior' in document.documentElement.style)) {
     console.log('Partial fill for scroll-padding');
     /* Safari does not respect scroll-padding unless scroll-snap is switched on,
        which is difficult on the :root or <body>. Instead, let's duplicate the
