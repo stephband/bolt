@@ -133,7 +133,16 @@ window.addEventListener('hashchange', (e) => hashtime = e.timeStamp / 1000);
 const captureOptions = { capture: true, passive: true };
 let scrolltime;
 window.addEventListener('scroll', (e) => {
-    scrolltime = e.timeStamp / 1000;
+    const time     = e.timeStamp / 1000;
+    const interval = time - scrolltime;
+
+    // Dynamically adjust maxScrollEventInterval to tighten it up,
+    // imposing a baseline of 80ms (0.05s * 1.6)
+    if (interval < config.maxScrollEventInterval) {
+        config.maxScrollEventInterval = 1.6 * Math.max(interval, 0.05);
+    }
+
+    scrolltime = time;
 
     // Where hashtime is a number this scroll may be part of the automatic
     // scroll that follows a hashchange.
@@ -151,15 +160,6 @@ window.addEventListener('scroll', (e) => {
         // This scroll is not related to a hashchange.
         hashtime = undefined;
     }
-
-    // Dynamically adjust maxScrollEventInterval to tighten it up,
-    // imposing a baseline of 60ms (0.0375s * 1.6)
-    /*let n = times.length, interval = 0.0375;
-    while (--n) {
-        const t = times[n] - times[n - 1];
-        interval = t > interval ? t : interval;
-    }
-    config.maxScrollEventInterval = 1.6 * interval;*/
 
     // Changing the location object updates the current history entry
     const target = getLocateable();
