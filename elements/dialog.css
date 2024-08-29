@@ -7,7 +7,19 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
 /*
 Backdrop
 Non-modal dialogs do not get a ::backdrop, so if we want want one, and we
-most certainly do, we must implement our own. */
+most certainly do, we must implement our own. Here we use body::after content.
+And we use animation rather than transition because it has implicit handling of
+display none. */
+
+@keyframes backdrop-fadein {
+    from { display: none;  opacity: 0; }
+    to   { display: block; opacity: 1; }
+}
+
+@keyframes backdrop-fadeout {
+    from { display: block; opacity: 1; }
+    to   { display: none;  opacity: 0; }
+}
 
 body:has(dialog[mode="overlay"])::after {
     content: '';
@@ -17,30 +29,35 @@ body:has(dialog[mode="overlay"])::after {
     width: 100%;
     height: 100%;
 
+    display: none;
     opacity: 0;
-    visibility: hidden;
     z-index: 1000;
+}
 
+dialog::backdrop,
+body:has(dialog[mode="overlay"])::after {
     background-color: rgba(0,0,0,0.4);
     -webkit-backdrop-filter: blur(0.5rem);
             backdrop-filter: blur(0.5rem);
 }
 
+dialog::backdrop,
+dialog[open].closing::backdrop,
 body:has(dialog[mode="overlay"])::after,
 body:has(dialog[mode="overlay"][open].closing)::after {
     opacity: 0;
-    visibility: hidden;
-    transition:
-        opacity 0.9s linear,
-        visibility 0.9s linear;
+    animation: backdrop-fadeout 0.6s ease-in forwards;
 }
 
+dialog[open]::backdrop,
 body:has(dialog[mode="overlay"][open])::after {
+    display: block;
     opacity: 1;
-    visibility: visible;
-    transition:
-        opacity 0.3s linear,
-        visibility 0.3s linear;
+    animation: backdrop-fadein 0.6s ease-in forwards;
+}
+
+.loading body::after {
+    display: none !important;
 }
 
 
@@ -93,37 +110,6 @@ dialog:focus-visible {
        TODO: Review this. Maybe a bad idea? */
     box-shadow: none !important;
     border-color: var(--focus-fg) !important;
-}
-
-
-/* Standard backdrop for modal dialogs. We use animation rather than transition
-   because it has implicit handling of display none. */
-
-@keyframes backdrop-fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-@keyframes backdrop-fadeout {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-}
-
-dialog::backdrop {
-    background-color: rgba(0,0,0,0.4);
-    -webkit-backdrop-filter: blur(0.5rem);
-            backdrop-filter: blur(0.5rem);
-}
-
-dialog::backdrop,
-dialog[open].closing::backdrop {
-    opacity: 0;
-    animation: backdrop-fadeout 0.6s ease-in forwards;
-}
-
-dialog[open]::backdrop {
-    opacity: 1;
-    animation: backdrop-fadein 0.6s ease-out forwards;
 }
 
 
