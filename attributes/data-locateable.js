@@ -31,10 +31,9 @@ import by       from 'fn/by.js';
 import get      from 'fn/get.js';
 import Signal   from 'fn/signal.js';
 import create   from 'dom/create.js';
-import features from 'dom/features.js';
-import location from 'dom/location.js';
 import rect     from 'dom/rect.js';
 import select   from 'dom/select.js';
+import location from 'dom/location.js';
 import { isDocumentLink } from 'dom/node.js';
 
 
@@ -53,6 +52,12 @@ const captureOptions = {
     passive: true
 };
 
+/*
+Features
+*/
+
+const supportsScrollBehavior = 'scrollBehavior' in document.documentElement.style;
+
 
 /*
 Utils
@@ -69,8 +74,8 @@ function reducer(fn, value) {
 Links
 */
 
-function selectLinks(id) {
-    return select('a[href$="#' + id + '"]', document.body)
+function selectLinks(hash) {
+    return select('a[href$="' + hash + '"]', document.body)
     .filter(isDocumentLink);
 }
 
@@ -82,32 +87,33 @@ function removeOn(node) {
     node.classList.remove('target-on');
 }
 
-function locate(id) {
-    if (!id) { return; }
-    selectLinks(id).forEach(addOn);
+function locate(hash) {
+    if (!hash || hash === '#') return;
+    selectLinks(hash).forEach(addOn);
 }
 
-function unlocate(id) {
-    if (!id) { return; }
-    selectLinks(id).forEach(removeOn);
+function unlocate(hash) {
+    if (!hash || hash === '#') return;
+    selectLinks(hash).forEach(removeOn);
 }
 
 
 
 
-
+/*
 function updateTarget(url) {
     const href = window.location.href;
 
     // Replace the current location with the new one
     window.history.replaceState(window.history.state, document.title, url);
 
+// SAFARI is jumping around because of this
     // Move forward to the old url and back to the current location, causing
     // :target selector to update and a popstate event.
-    window.history.pushState(window.history.state, document.title, href);
-    window.history.back();
+//    window.history.pushState(window.history.state, document.title, href);
+//    window.history.back();
 }
-
+*/
 
 
 
@@ -128,14 +134,12 @@ function toData(element) {
     };
 }
 
-function getLocateable(/*element*/) {
+function getLocateable() {
     const body        = document.body;
     const element     = document.scrollingElement;
     const locateables = select(config.selector, body);
 
-    if (!locateables.length) {
-        return;
-    }
+    if (!locateables.length) return;
 
     // Default to 0 for browsers without support
     //const scrollPaddingLeft = parseFloat(getComputedStyle(element).scrollPaddingLeft) || 0;
@@ -156,7 +160,7 @@ function getLocateable(/*element*/) {
         boxes[++n]
         //&& (boxes[n].left - box.left) < (scrollPaddingLeft + 1)
         //&& (boxes[n].top  - box.top)  < (scrollPaddingTop + 1)
-        && (boxes[n].top  - origin.top) < (scrollPaddingTop + 1)
+        && (boxes[n].top - origin.top) < (scrollPaddingTop + 1)
     ) {
         target = boxes[n].element;
     }
@@ -165,39 +169,6 @@ function getLocateable(/*element*/) {
 }
 
 const times = [];
-let timer;
-
-function update(/*element*/) {
-    timer = undefined;
-
-    if (times.length < 2) {
-        times.length = 0;
-        return;
-    }
-
-    // Dynamically adjust maxScrollEventInterval to tighten it up,
-    // imposing a baseline of 60ms (0.0375s * 1.6)
-    let n = times.length, interval = 0;
-    while (--n) {
-        const t = times[n] - times[n - 1];
-        interval = t > interval ? t : interval;
-    }
-    interval = interval < 0.0375 ? 0.0375 : interval ;
-    config.maxScrollEventInterval = 1.6 * interval;
-
-    const target = getLocateable(/*element.scrollingElement || element*/);
-    const id = target && target.id || '';
-
-    // We use times.length elsewhere as an ignore flag. Make sure times.length
-    // is set to 0 length before changing the hash.
-    times.length = 0;
-
-    if (location.identifier !== id) {
-        updateTarget('#' + id);
-    }
-
-    //console.log('scrollTop', document.scrollingElement.scrollTop, 'maxScrollEventInterval', config.maxScrollEventInterval.toFixed(3));
-}
 
 
 // Any call to replaceState or pushState in iOS opens the URL bar -
@@ -208,7 +179,9 @@ function update(/*element*/) {
 // other than document do not bubble.
 var hashtime = 0;
 
-window.addEventListener('scroll', function scroll(e) {
+window.addEventListener('hashchange', (e) => hashtime = e.timeStamp / 1000);
+
+window.addEventListener('scroll', (e) => {
     // Ignore the first scroll event following a hashchange. The browser sends a
     // scroll event even where a target cannot be scrolled to, such as a
     // navigation with position: fixed, for example. This can cause locateable
@@ -216,12 +189,11 @@ window.addEventListener('scroll', function scroll(e) {
     // where it should stay on the navigation element.
     const time = e.timeStamp / 1000;
 
-    // Make sure this only happens once after a hashchange
+    // Make sure this check only happens once after a hashchange
     if (hashtime !== undefined) {
         // If we are not mid-scroll, and the latest hashchange was less than
         // 0.1s ago, ignore
-        if (!times.length && hashtime > time - 0.1) {
-            //console.log('scroll', 'ignored');
+        if (hashtime > time - 0.1) {
             hashtime = undefined;
             return;
         }
@@ -229,60 +201,41 @@ window.addEventListener('scroll', function scroll(e) {
         hashtime = undefined;
     }
 
+    // Record scroll times
     times.push(time);
 
-    // Update only when there is a maxScrollEventInterval second pause in scrolling
-    clearTimeout(timer);
-    timer = setTimeout(update, config.maxScrollEventInterval * 1000/*, e.target */);
+    // Dynamically adjust maxScrollEventInterval to tighten it up,
+    // imposing a baseline of 60ms (0.0375s * 1.6)
+    let n = times.length, interval = 0;
+    while (--n) {
+        const t = times[n] - times[n - 1];
+        interval = t > interval ? t : interval;
+    }
+
+    interval = interval < 0.0375 ? 0.0375 : interval ;
+    config.maxScrollEventInterval = 1.6 * interval;
+
+    // Changing the location object updates the current history entry
+    const target = getLocateable();
+    location.hash = target && target.id ?
+        '#' + target.id :
+        '' ;
 }, captureOptions);
 
-window.addEventListener('hashchange', function hashchange(e) {
-    hashtime = e.timeStamp / 1000;
-});
 
 
 /*
 Location
 */
 
+let previousHash;
 
-// TODO!!!! new location observe thingy
-
-let previousId;
-
-function hashchange(id) {
-    if (id === undefined) return previous;
-
-    const time = window.performance.now();
-
-    // Dodgy heuristics
-    if (time - userScrollTime > config.maxScrollEventInterval) {
-        // If we were not already scrolling we want to ignore scroll
-        // updates for a short time until the automatic scroll settles
-        animateScrollTime = time + config.minScrollAnimationDuration;
-    }
-
-    unlocate(previousId);
-    locate(id);
-    previousId = id;
-}
-
-function urlchange(id) {
-    if (id === undefined) return previous;
-
-    const time = window.performance.now();
-
-    // Dodgy heuristics
-    if (time - userScrollTime > config.maxScrollEventInterval) {
-        // If we were not already scrolling we want to ignore scroll
-        // updates for a short time until the automatic scroll settles
-        animateScrollTime = time + config.minScrollAnimationDuration;
-    }
-
-    unlocate(previousId);
-    locate(id);
-    previousId = id;
-}
+Signal.observe(Signal.fromProperty('hash', location), (hash) => {
+    unlocate(previousHash);
+    previousHash = hash;
+    if (!hash || hash === '#') return;
+    locate(hash);
+});
 
 
 
@@ -290,9 +243,8 @@ function urlchange(id) {
 
 
 
-window.addEventListener('popstate', urlchange);
-window.addEventListener('DOMContentLoaded', urlchange);
-window.addEventListener('hashchange', urlchange);
+
+
 
 
 
@@ -301,7 +253,7 @@ window.addEventListener('hashchange', urlchange);
 
 
 /* TODO: still necessary? Safari's not the messiah, he's a very naughty boy. */
-if (!features.scrollBehavior) {
+if (!supportsScrollBehavior) {
     console.log('Partial fill for scroll-padding');
     /* Safari does not respect scroll-padding unless scroll-snap is switched on,
        which is difficult on the :root or <body>. Instead, let's duplicate the
