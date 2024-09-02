@@ -92,7 +92,7 @@ export function activate(element, button) {
 		if (node) {
 			typeof behaviours[selector] === 'function' ?
 				behaviours[selector]({ target: element }) :
-				(behaviours[selector].activate && behaviours[selector].activate(element)) ;
+				(behaviours[selector].activate && behaviours[selector].activate(element, button)) ;
 		}
 	}
 
@@ -133,7 +133,7 @@ export function deactivate(element, button) {
 		if (node) {
 			typeof behaviours[selector] === 'function' ?
 				null :
-				(behaviours[selector].deactivate && behaviours[selector].deactivate(element)) ;
+				(behaviours[selector].deactivate && behaviours[selector].deactivate(element, button)) ;
 		}
 	}
 

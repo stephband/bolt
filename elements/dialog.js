@@ -1,4 +1,9 @@
 
+/*
+dialog.js
+Augments the <dialog> element.
+*/
+
 import events          from '../../dom/modules/events.js';
 import delegate        from '../../dom/modules/delegate.js';
 import { focusInside } from '../../dom/modules/focus.js';
@@ -6,6 +11,7 @@ import isPrimaryButton from '../../dom/modules/is-primary-button.js';
 import isTargetEvent   from '../../dom/modules/is-target-event.js';
 import style           from '../../dom/modules/style.js';
 import rect            from '../../dom/modules/rect.js';
+import trigger         from '../../dom/modules/trigger.js';
 import { disableScroll, enableScroll } from '../../dom/modules/scroll.js';
 import { trapFocus, untrapFocus }      from '../../dom/modules/focus.js';
 import { log, behaviours, activate, deactivate } from '../events/dom-activate.js';
@@ -41,7 +47,7 @@ function enableDocumentScroll() {
     }
 }
 
-export function open(element) {
+export function open(element, relatedTarget) {
     // Is the element closed?
     if (element.open) { return; }
 
@@ -58,7 +64,7 @@ export function open(element) {
 
         // Dialogs do have a 'close' event, just remember the powers that be have
         // decided that it should not bubble.
-        events('dom-deactivate close', element)
+        events('close', element)
         .slice(0, 1)
         .each(enableDocumentScroll);
 
@@ -74,18 +80,22 @@ export function open(element) {
 
         // Dialogs do have a 'close' event, just remember the powers that be have
         // decided that it should not bubble.
-        events('dom-deactivate close', element)
-        .slice(0, 1)
-        .each(enableDocumentScroll);
-
-        // Return focus to wherever it was before
         events('close', element)
         .slice(0, 1)
-        .each(untrapFocus);
+        .each(() => {
+            // Reenable document scroll
+            enableDocumentScroll();
+            // Return focus to wherever it was before
+            untrapFocus();
+        });
     }
     else {
+        // Default unaugmented behaviour
         element.show();
     }
+
+    // Give the dialog an "open" event
+    trigger({ type: 'open', relatedTarget }, element)
 
     // Move focus inside the dialog
     if (element !== document.activeElement && !element.contains(document.activeElement)) {
