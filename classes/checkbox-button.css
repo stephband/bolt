@@ -1,10 +1,10 @@
 
 /**
-.check-button
+.checkbox-button
 
 ```html
-<input class="invisible" type="checkbox" value="something" id="check-button-input" />
-<label class="check-button button" for="check-button-input">Turn me on</label>
+<input class="invisible" type="checkbox" value="something" id="checkbox-button-input" />
+<label class="checkbox-button button" for="checkbox-button-input">Turn me on</label>
 ```
 **/
 
@@ -19,7 +19,7 @@
 ```
 **/
 
-.check-button,
+.checkbox-button,
 .radio-button {
     --font-size:     var(--input-font-size, inherit);
     --size:          var(--input-height, 2.8125rem);
@@ -40,8 +40,8 @@
     background-color: #eeeeee;
 }
 
-.check-button::before,
-.check-button::after,
+.checkbox-button::before,
+.checkbox-button::after,
 .radio-button::before,
 .radio-button::after {
     content: '';
@@ -50,8 +50,8 @@
     box-sizing: border-box;
 }
 
-.check-button::before,
-.check-button::after {
+.checkbox-button::before,
+.checkbox-button::after {
     left: var(--input-padding-left);
     right: auto;
     margin-top: calc(-0.5 * var(--check-size));
@@ -59,13 +59,13 @@
     height: var(--check-size);
 }
 
-.check-button::before,
+.checkbox-button::before,
 .radio-button::before {
     background: var(--check-background);
     border: var(--check-border-width) solid var(--check-border-color);
 }
 
-.check-button::before {
+.checkbox-button::before {
     border-radius: var(--check-border-radius);
 }
 
@@ -78,7 +78,7 @@
     border-radius: calc(0.5 * var(--radio-size));
 }
 
-.check-button::after {
+.checkbox-button::after {
     display: none;
     content: var(--check-content);
     background: var(--check-content-background);
@@ -100,21 +100,21 @@
     border-radius: calc(0.5 * var(--mark-size));
 }
 
-.invisible + .check-button,
+.invisible + .checkbox-button,
 .invisible + .radio-button {
     margin-top: 0;
 }
 
-:checked + .check-button::after,
+:checked + .checkbox-button::after,
 :checked + .radio-button::after {
     display: block;
 }
 
-:disabled + .check-button {
+:disabled + .checkbox-button {
     opacity: 0.4;
 }
 
-:focus + .check-button,
+:focus + .checkbox-button,
 :focus + .radio-button {
     box-shadow: var(--focus-shadow);
     border-color: var(--focus-fg);
@@ -122,12 +122,12 @@
     z-index: 1;
 }
 
-:disabled + .check-button,
+:disabled + .checkbox-button,
 :disabled + .radio-button {
     filter: var(--disabled-filter);
 }
 
-* + .invisible + .check-button,
+* + .invisible + .checkbox-button,
 * + .invisible + .radio-button {
     margin-top: var(--input-margin);
 }
@@ -137,11 +137,11 @@
 
 
 /**
-.right-check-button
+.right-checkbox-button
 
 ```html
 <input class="invisible" type="checkbox" value="something" id="right-button-input" />
-<label class="right-check-button check-button button" for="right-button-input">Turn me on</label>
+<label class="right-checkbox-button checkbox-button button" for="right-button-input">Turn me on</label>
 ```
 **/
 
@@ -157,14 +157,14 @@
 ```
 **/
 
-.right-check-button,
+.right-checkbox-button,
 .right-radio-button {
     padding-left: var(--input-padding-left);
     padding-right: 3.33333333em;
 }
 
-.right-check-button::before,
-.right-check-button::after,
+.right-checkbox-button::before,
+.right-checkbox-button::after,
 .right-radio-button::before {
     left: auto;
     right: var(--input-padding-right);

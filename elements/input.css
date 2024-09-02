@@ -869,10 +869,10 @@ input.validated:focus-visible,
 select.validated:focus-visible,
 textarea.validated:focus-visible,
 .masked:focus-visible + .focus-label:before,
-.masked:focus-visible + .check-label:before,
+.masked:focus-visible + .checkbox-label:before,
 .masked:focus-visible + .radio-label:before,
 .invisible:focus-visible + .focus-label:before,
-.invisible:focus-visible + .check-label:before,
+.invisible:focus-visible + .checkbox-label:before,
 .invisible:focus-visible + .radio-label:before {
     /* In Webkit, outline doesn't fit the border curves, and in FF outline
        is ugly. Lets recreate it with box-shadow */

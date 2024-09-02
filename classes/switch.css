@@ -137,7 +137,7 @@ import './components/switch-label.js';
 
 .radio-label  + .invisible + .switch-label,
 .switch-label + .invisible + .switch-label
-.check-label  + .invisible + .switch-label {
+.checkbox-label  + .invisible + .switch-label {
     margin-top: var(--input-margin, 0.33333333rem);
 }
 

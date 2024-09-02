@@ -1,10 +1,10 @@
 
 /**
-.check-label
+.checkbox-label
 
 ```html
 <input type="checkbox" class="invisible" id="checkbox-1" />
-<label class="check-label" for="checkbox-1">Choose me</label>
+<label class="checkbox-label" for="checkbox-1">Choose me</label>
 ```
 **/
 
@@ -18,7 +18,7 @@
 **/
 
 .radio-label,
-.check-label {
+.checkbox-label {
     --bg:         var(--input-background, white);
     --valid-bg:   var(--bg);
     --invalid-bg: var(--bg);
@@ -34,8 +34,8 @@
 
 .radio-label::before,
 .radio-label::after,
-.check-label::before,
-.check-label::after {
+.checkbox-label::before,
+.checkbox-label::after {
     content: '';
     position: absolute;
     left: 0;
@@ -43,8 +43,8 @@
     box-sizing: border-box;
 }
 
-.check-label::before,
-.check-label::after {
+.checkbox-label::before,
+.checkbox-label::after {
     top: calc(0.5 * (var(--size, 1.5rem) - var(--check-size)));
     width: var(--check-size);
     height: var(--check-size);
@@ -64,7 +64,7 @@
 }
 
 .radio-label::before,
-.check-label::before {
+.checkbox-label::before {
     background: var(--bg) no-repeat;
     border: var(--check-border-width) solid var(--fg);
 }
@@ -74,12 +74,12 @@
 }
 
 .radio-label::after,
-.check-label::after {
+.checkbox-label::after {
     display: none;
 }
 
 .invisible:checked + .radio-label::after,
-.invisible:checked + .check-label::after {
+.invisible:checked + .checkbox-label::after {
     display: block;
 }
 
@@ -92,7 +92,7 @@
     border-radius: calc(0.5 * var(--mark-size));
 }
 
-.check-label::after {
+.checkbox-label::after {
     content: var(--check-content, '');
     text-align: center;
     line-height: var(--check-size);
@@ -102,33 +102,33 @@
     background-position: 50% 50%;
 }
 
-.invisible + .check-label,
+.invisible + .checkbox-label,
 .invisible + .radio-label {
     margin-top: 0;
 }
 
 label + .invisible + .radio-label,
-label + .invisible + .check-label {
+label + .invisible + .checkbox-label {
     margin-top: var(--label-input-margin);
 }
 
 input + .invisible + .radio-label,
-.button + .invisible + .check-label {
+.button + .invisible + .checkbox-label {
     margin-top: var(--input-margin);
 }
 
-.invisible:disabled + .check-label,
+.invisible:disabled + .checkbox-label,
 .invisible:disabled + .radio-label {
     filter: var(--disabled-filter);
 }
 
 
 /**
-.right-check-label
+.right-checkbox-label
 
 ```html
 <input type="checkbox" class="invisible" id="checkbox-2" />
-<label class="right-check-label check-label" for="checkbox-2">Choose me</label>
+<label class="right-checkbox-label checkbox-label" for="checkbox-2">Choose me</label>
 ```
 */
 
@@ -142,15 +142,15 @@ input + .invisible + .radio-label,
 */
 
 .right-radio-label,
-.right-check-label {
+.right-checkbox-label {
     padding-left: 0;
     padding-right: 2.5em;
 }
 
 .right-radio-label::before,
 .right-radio-label::after,
-.right-check-label::before,
-.right-check-label::after {
+.right-checkbox-label::before,
+.right-checkbox-label::after {
     left: auto;
     right: 0;
 }
