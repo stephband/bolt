@@ -38,6 +38,7 @@
     /* Compensate for border */
     height: var(--size);
     line-height: calc(var(--size) - 2 * var(--border-width));
+    text-align: left;
 
     color: var(--input-color);
     background: var(--bg) no-repeat;
