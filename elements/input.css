@@ -113,12 +113,13 @@ Forms.
     --valid-shadow: var(--input-box-shadow);
 
     /** --invalid-fg
-    Border colour of invalid inputs, selects and textareas **/
+    Border colour of invalid inputs, selects and textareas. **/
     --invalid-fg: rgb(214,23,41);
 
     /** --invalid-bg
-    Background of invalid inputs, selects and textareas **/
-    --invalid-bg: var(--input-background);
+    Background of invalid inputs, selects and textareas. Undefined by default so
+    that default background persists in invalid state. **/
+    /*--invalid-bg: var();*/
 
     /** --invalid-shadow
     Box shadow of invalid inputs, selects and textareas **/
@@ -359,10 +360,12 @@ textarea {
 
     --bg:            var(--input-background);
     --valid-bg:      var(--bg);
-    --invalid-bg:    var(--bg);
+    /* Deliberately left out so that default background persists. */
+    /* --invalid-bg:    var(); */
 
     --fg:            var(--input-border-color, #bbbbbb);
     --valid-fg:      var(--fg);
+
     --invalid-fg:    var(--fg);
 
     /* iOS has padding in the UA stylesheet. */
