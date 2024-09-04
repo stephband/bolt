@@ -73,7 +73,7 @@ export function open(element, relatedTarget) {
         .slice(0, 1)
         .each((e) => focused.focus());
     }
-    else if (mode === 'float') {
+    else if (mode === 'overlay') {
         element.show();
         disableDocumentScroll();
         trapFocus(element);
@@ -119,9 +119,15 @@ export function close(element) {
     // Is the element open?
     if ('open' in element && !element.open) { return; }
 
-    // Attach the current margin-top, otherwise the dialog jumps
-    //const computed = getComputedStyle(element);
-    //element.style.marginTop = computed.marginTop;
+    // Immediately (optimistically?) reenable document scroll and reset focus
+    const mode = element.getAttribute('mode');
+    if (mode === 'modal') {
+        enableDocumentScroll();
+    }
+    else if (mode === 'overlay') {
+        enableDocumentScroll();
+        untrapFocus();
+    }
 
     // And take it off when the closing transition is over
     const ends = events('transitionend', element)
