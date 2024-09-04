@@ -44,7 +44,7 @@ label > .info-thumb {
     right: 0;
 }
 
-* + label {`
+* + label {
     margin-top: var(--label-margin);
 }
 
