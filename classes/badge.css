@@ -15,15 +15,13 @@ absolutely, where it can be used as, say, a notifications count.
 
 .badge {
     --size: 1.5rem;
-    --font-size: calc(0.625 * var(--size));
-    --line-height: calc(1.2 * var(--font-size));
 
     display: inline-block;
-    font-size: var(--font-size, inherit);
-    line-height: var(--line-height, inherit);
+    font-size: calc(0.625 * var(--size));
+    line-height: 1.2em;
     min-width: var(--size);
-    padding-top: calc(0.5 * (var(--size) - var(--line-height)));
-    padding-bottom: calc(0.5 * (var(--size) - var(--line-height)));
+    padding-top: calc(0.5 * (var(--size) - 1lh));
+    padding-bottom: calc(0.5 * (var(--size) - 1lh));
     padding-left: 0.25em;
     padding-right: 0.25em;
     text-align: center;

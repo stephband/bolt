@@ -23,6 +23,9 @@ will scale the element to fill the available width.
 
     /* Force img, video, svg to scale. */
     height: auto;
+    min-height:     var(--size, 0px);
+    padding-top:    calc(0.5 * (var(--size, 0px) - 1lh) - var(--border-width, 0px));
+    padding-bottom: calc(0.5 * (var(--size, 0px) - 1lh) - var(--border-width, 0px));
 
     /* Set them up to play nice as inline-blocks. */
     vertical-align: top;

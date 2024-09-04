@@ -17,9 +17,7 @@
 .select-button {
     /* Note that iOS Safari will zoom-in the site layout if the select's text
        is less than 16px */
-    --font-size:     var(--input-font-size, inherit);
     --size:          var(--input-height, 2.8125rem);
-    --line-height:   var(--input-line-height, 1.5rem);
 
     --padding-left:  var(--input-padding-left, 0.5625rem);
     --padding-right: var(--input-padding-right, 0.5625rem);
@@ -31,12 +29,13 @@
     --bg:            var(--input-background);
 
     display: block;
-    /* There should never be padding on select-button, it's padding is
+    /* There should never be padding on select-button, its padding is
        managed on the select within. */
     padding: 0 !important;
-
-    /* Compensate for border */
     height: var(--size);
+
+    font-size: var(--input-font-size, inherit);
+    /* Compensate for border */
     line-height: calc(var(--size) - 2 * var(--border-width));
     text-align: left;
 
@@ -46,18 +45,20 @@
 }
 
 .select-button > select {
-    /* Override default --size set on select */
-    --size: inherit;
+    /* Override properties set on select */
+    --size:          inherit;
+    --padding-left:  inherit;
+    --padding-right: inherit;
+    --border-width:  inherit;
+
+    font-size:      inherit;
+    line-height:    inherit;
+    letter-spacing: inherit;
+    text-align:     inherit;
+    text-transform: inherit;
 
     display: block;
     max-width: none;
-
-    /* Inherit style form button rather than anything set on raw select */
-    font-size: inherit;
-    line-height: inherit;
-    letter-spacing: inherit;
-    text-align: inherit;
-    text-transform: inherit;
 
     /* This is the native select, we're making everything but the text invisible
        so we can see the button styles in the wrapper. */

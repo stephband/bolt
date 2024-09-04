@@ -21,9 +21,7 @@
 
 .checkbox-button,
 .radio-button {
-    --font-size:     var(--input-font-size, inherit);
     --size:          var(--input-height, 2.8125rem);
-    --line-height:   var(--input-line-height, 1.5rem);
     --padding-left:  var(--input-padding-left, 0.5625rem);
     --padding-right: var(--input-padding-right, 0.5625rem);
     --fg:            var(--input-border-color, #bbbbbb);
@@ -32,6 +30,8 @@
 
     display: block;
     text-align: left;
+    font-size:   var(--input-font-size, inherit);
+    line-height: 1.5rem;
 
     /* Make space for the simulated check or radio */
     padding-left: 3.33333333em;

@@ -1,15 +1,14 @@
 
 .pill {
     --size: 1.5em;
-    --line-height: 1.2em;
     --border-width: 0px;
 
     display: inline-block;
     vertical-align: middle;
     font-size: 0.625em;
-    line-height: var(--line-height);
-    padding-top: calc(0.6 * (var(--size) - var(--line-height) - 2 * var(--border-width)));
-    padding-bottom: calc(0.4 * (var(--size) - var(--line-height) - 2 * var(--border-width)));
+    line-height: 1.2em;
+    padding-top: calc(0.6 * (var(--size) - 1lh - 2 * var(--border-width)));
+    padding-bottom: calc(0.4 * (var(--size) - 1lh - 2 * var(--border-width)));
     padding-left: 0.3em;
     padding-right: 0.3em;
     color: white;

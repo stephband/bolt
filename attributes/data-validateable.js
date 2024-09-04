@@ -102,10 +102,10 @@ var types = {
 	valueMissing:    'required'
 };
 
-	//             /spaces
+// Spaces           spaces
 const rspaces    = /\s+/;
-    //                  @prefix-  nx  |xn  |ny  |yn
-const rgridclass = /^(?:@\S+-)?(?:\d+x|x\d+|\d+y|y\d+)$/;
+// Grid or size class   @prefix-  nx  |xn  |ny  |yn  |size-n
+const rgridclass = /^(?:@\S+-)?(?:\d+x|x\d+|\d+y|y\d+|size-\d+)$/;
 
 export const config = {
     // Class added to labels displaying errors

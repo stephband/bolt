@@ -350,9 +350,9 @@ textarea {
 input,
 select,
 textarea {
-    --font-size:     var(--input-font-size, inherit);
+    font-size:       var(--input-font-size, inherit);
+
     --size:          var(--input-height, 2.8125rem);
-    --line-height:   var(--input-line-height, 1.5rem);
     --padding-left:  var(--input-padding-left, 0.5625rem);
     --padding-right: var(--input-padding-right, 0.5625rem);
     --border-width:  var(--input-border-width, 1px);
@@ -479,7 +479,7 @@ textarea,
 [type="number"],
 [type="search"],
 [type="password"] {
-    font-size: var(--font-size);
+    font-size: inherit;
 }
 
 [type="tel"],
@@ -542,13 +542,13 @@ input[type='month'] {
 }
 
 textarea {
-    min-height: calc(var(--size) + 4 * var(--line-height));
-    line-height: var(--line-height);
+    min-height: calc(var(--size) + 4 * 1lh);
+    line-height: inherit;
     padding-left: calc(var(--padding-left) - var(--border-width, 1px));
     padding-right: calc(var(--padding-left) - var(--border-width, 1px));
     /* Nudged up by 1px to make it look more even. */
-    padding-top: calc(0.5 * (var(--size) - var(--line-height) - 2 * var(--border-width, 1px)) - 1px);
-    padding-bottom: calc(0.5 * (var(--size) - var(--line-height) - 2 * var(--border-width, 1px)) + 1px);
+    padding-top: calc(0.5 * (var(--size) - 1lh - 2 * var(--border-width, 1px)) - 1px);
+    padding-bottom: calc(0.5 * (var(--size) - 1lh - 2 * var(--border-width, 1px)) + 1px);
 
     /* IE is set to overflow: scroll by default */
     overflow: auto;
@@ -703,12 +703,12 @@ select {
 
     /* iOS Safari will zoom-in the site layout if the select's text is less
        than 16px */
-    font-size:      var(--font-size);
-    line-height:    var(--line-height);
+    font-size:      inherit;
+    line-height:    inherit;
     padding-left:   calc(var(--padding-left)  - var(--border-width, 1px));
     padding-right:  calc(var(--padding-right) - var(--border-width, 1px));
-    padding-top:    calc(0.5 * (var(--size) - var(--line-height) - 2 * var(--border-width, 1px)) - 1px);
-    padding-bottom: calc(0.5 * (var(--size) - var(--line-height) - 2 * var(--border-width, 1px)) + 1px);
+    padding-top:    calc(0.5 * (var(--size) - 1lh - 2 * var(--border-width, 1px)) - 1px);
+    padding-bottom: calc(0.5 * (var(--size) - 1lh - 2 * var(--border-width, 1px)) + 1px);
 
     width: 100%;
 	 max-width: 100%;
