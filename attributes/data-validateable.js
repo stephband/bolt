@@ -178,7 +178,7 @@ function renderError(error) {
 	}
 
 	// Give error-labels the same grid classes as their inputs
-	const classattr = input.getAttribute('class');
+	const classattr = node.getAttribute('class');
 	const classes   = classattr &&
 		classattr
 		.split(rspaces)

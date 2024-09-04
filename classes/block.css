@@ -23,9 +23,6 @@ will scale the element to fill the available width.
 
     /* Force img, video, svg to scale. */
     height: auto;
-    min-height:     var(--size, 0px);
-    padding-top:    calc(0.5 * (var(--size, 0px) - 1lh) - var(--border-width, 0px));
-    padding-bottom: calc(0.5 * (var(--size, 0px) - 1lh) - var(--border-width, 0px));
 
     /* Set them up to play nice as inline-blocks. */
     vertical-align: top;
@@ -45,6 +42,7 @@ will scale the element to fill the available width.
 a.block,
 a.block:hover,
 a.block:focus {
+    /* A link that is a block of content does not want to be underlined */
     text-decoration: none;
 }
 

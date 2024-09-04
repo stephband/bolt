@@ -114,7 +114,7 @@ Forms.
 
     /** --invalid-fg
     Border colour of invalid inputs, selects and textareas. **/
-    --invalid-fg: rgb(214,23,41);
+    --invalid-fg: var(--error);
 
     /** --invalid-bg
     Background of invalid inputs, selects and textareas. Undefined by default so
@@ -124,9 +124,8 @@ Forms.
     /** --invalid-shadow
     Box shadow of invalid inputs, selects and textareas **/
     --invalid-shadow:
-        0 0 1px 2px rgba(214,23,41,0.875),
-        inset 0 0 1px rgba(214,23,41,0.875);
-
+        0 0 0.1875rem 0.125rem var(--error),
+        inset 0 0 0.125rem 0.0625rem var(--error);
 
     /** --disabled-filter **/
     --disabled-filter: opacity(0.4);
