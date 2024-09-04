@@ -15,7 +15,7 @@ attribute, which defines data to be carried by a drag action:
 attribute.</small>
 **/
 
-import { capture } from '../../fn/modules/capture.js';
+import { capture } from 'fn/capture.js';
 import attribute from '../../dom/modules/attribute.js';
 import classes, { removeClass } from '../../dom/modules/classes.js';
 import delegate  from '../../dom/modules/delegate.js';

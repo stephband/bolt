@@ -78,8 +78,8 @@ validation messages are shown.</p>
 // Inputs inside or with .validateable are given .validated after they are
 // first validated, enabling pre- as well as post- validation styles.
 
-import get       from '../../fn/modules/get.js';
-import id        from '../../fn/modules/id.js';
+import get       from 'fn/get.js';
+import id        from 'fn/id.js';
 import create    from '../../dom/modules/create.js';
 import events    from '../../dom/modules/events.js';
 import matches   from '../../dom/modules/matches.js';

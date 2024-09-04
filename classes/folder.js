@@ -5,11 +5,11 @@ Enable folder-block transitions of max-height to go to and from height: auto
 for smoother opening and closing animations.
 */
 
-import choose      from '../../fn/modules/choose.js';
-import get         from '../../fn/modules/get.js';
-import last        from '../../fn/modules/lists/last.js';
-import parseInt    from '../../fn/modules/parse-int.js';
-import toCamelCase from '../../fn/modules/to-camel-case.js';
+import choose      from 'fn/choose.js';
+import get         from 'fn/get.js';
+import last        from 'fn/lists/last.js';
+import parseInt    from 'fn/parse-int.js';
+import toCamelCase from 'fn/to-camel-case.js';
 import events      from '../../dom/modules/events.js';
 import matches     from '../../dom/modules/matches.js';
 

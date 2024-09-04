@@ -20,7 +20,7 @@ accordions and so on.
 ```
 **/
 
-import { remove }      from '../../fn/modules/remove.js';
+import { remove }      from 'fn/remove.js';
 import get             from '../../dom/modules/get.js';
 import closest         from '../../dom/modules/closest.js';
 import identify        from '../../dom/modules/identify.js';

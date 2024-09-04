@@ -1,8 +1,8 @@
 
-import get            from '../../fn/modules/get.js';
-import isDefined       from '../../fn/modules/is-defined.js';
-import noop            from '../../fn/modules/noop.js';
-import pattern         from '../../fn/modules/pattern.js';
+import get            from 'fn/get.js';
+import isDefined       from 'fn/is-defined.js';
+import noop            from 'fn/noop.js';
+import pattern         from 'fn/pattern.js';
 import delegate        from '../../dom/modules/delegate.js';
 import events          from '../../dom/modules/events.js';
 import isPrimaryButton from '../../dom/modules/is-primary-button.js';

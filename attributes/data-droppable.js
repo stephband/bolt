@@ -16,11 +16,11 @@ attribute:
 ```
 */
 
-import choose    from '../../fn/modules/choose.js';
-import id        from '../../fn/modules/id.js';
-import intersect from '../../fn/modules/intersect.js';
-import nothing   from '../../fn/modules/nothing.js';
-import prepend   from '../../fn/modules/prepend.js';
+import choose    from 'fn/choose.js';
+import id        from 'fn/id.js';
+import intersect from 'fn/intersect.js';
+import nothing   from 'fn/nothing.js';
+import prepend   from 'fn/prepend.js';
 import attribute from '../../dom/modules/attribute.js';
 import classes   from '../../dom/modules/classes.js';
 import closest   from '../../dom/modules/closest.js';
