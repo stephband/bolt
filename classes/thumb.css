@@ -13,6 +13,8 @@ overflow, and only the `background-image`, centered and 'cropped' via
 **/
 
 .thumb {
+    --border-width: 0px;
+
     display: inline-block;
     vertical-align: top;
     overflow: hidden;
