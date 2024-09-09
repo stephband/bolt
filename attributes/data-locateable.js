@@ -26,7 +26,7 @@ little style you have a scrolling navigation:
 **/
 
 // Old polyfill for Safari
-//import '../../dom/scripts/scroll-behavior.js';
+//import 'dom/scripts/scroll-behavior.js';
 
 import by       from 'fn/by.js';
 import get      from 'fn/get.js';
