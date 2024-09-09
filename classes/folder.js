@@ -10,8 +10,8 @@ import get         from 'fn/get.js';
 import last        from 'fn/lists/last.js';
 import parseInt    from 'fn/parse-int.js';
 import toCamelCase from 'fn/to-camel-case.js';
-import events      from '../../dom/modules/events.js';
-import matches     from '../../dom/modules/matches.js';
+import events      from 'dom/events.js';
+import matches     from 'dom/matches.js';
 
 function isVisible(element) {
     return element.offsetParent !== null;

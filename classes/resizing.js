@@ -1,7 +1,7 @@
 
 // .batch() only exists on Stream when full module imported, import it first
 import Stream from 'fn/stream.js';
-import events from '../../dom/modules/events.js';
+import events from 'dom/events.js';
 
 const classes =  document.documentElement.classList;
 let timer;

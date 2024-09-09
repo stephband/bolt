@@ -32,8 +32,8 @@ and `.tab-block` classes.
 ```
 **/
 
-import matches  from '../../dom/modules/matches.js';
-import children from '../../dom/modules/children.js';
+import matches  from 'dom/matches.js';
+import children from 'dom/children.js';
 import { behaviours, deactivate } from '../events/dom-activate.js';
 
 

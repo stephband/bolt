@@ -3,12 +3,12 @@ import get            from 'fn/get.js';
 import isDefined       from 'fn/is-defined.js';
 import noop            from 'fn/noop.js';
 import pattern         from 'fn/pattern.js';
-import delegate        from '../../dom/modules/delegate.js';
-import events          from '../../dom/modules/events.js';
-import isPrimaryButton from '../../dom/modules/is-primary-button.js';
-import { isElementNode, isInternalLink } from '../../dom/modules/node.js';
-import trigger         from '../../dom/modules/trigger.js';
-import select          from '../../dom/modules/select.js';
+import delegate        from 'dom/delegate.js';
+import events          from 'dom/events.js';
+import isPrimaryButton from 'dom/is-primary-button.js';
+import { isElementNode, isInternalLink } from 'dom/node.js';
+import trigger         from 'dom/trigger.js';
+import select          from 'dom/select.js';
 
 const A         = Array.prototype;
 const location  = window.location;

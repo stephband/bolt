@@ -16,14 +16,14 @@ attribute.</small>
 **/
 
 import { capture } from 'fn/capture.js';
-import attribute from '../../dom/modules/attribute.js';
-import classes, { removeClass } from '../../dom/modules/classes.js';
-import delegate  from '../../dom/modules/delegate.js';
-import identify  from '../../dom/modules/identify.js';
-import select    from '../../dom/modules/select.js';
-import { setDataTransfer } from '../../dom/modules/data-transfer.js';
-import remove    from '../../dom/modules/remove.js';
-import events    from '../../dom/modules/events.js';
+import attribute from 'dom/attribute.js';
+import classes, { removeClass } from 'dom/classes.js';
+import delegate  from 'dom/delegate.js';
+import identify  from 'dom/identify.js';
+import select    from 'dom/select.js';
+import { setDataTransfer } from 'dom/data-transfer.js';
+import remove    from 'dom/remove.js';
+import events    from 'dom/events.js';
 
 //import { register } from '../../sparky/module.js';
 

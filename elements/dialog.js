@@ -4,16 +4,16 @@ dialog.js
 Augments the <dialog> element.
 */
 
-import events          from '../../dom/modules/events.js';
-import delegate        from '../../dom/modules/delegate.js';
-import { focusInside } from '../../dom/modules/focus.js';
-import isPrimaryButton from '../../dom/modules/is-primary-button.js';
-import isTargetEvent   from '../../dom/modules/is-target-event.js';
-import style           from '../../dom/modules/style.js';
-import rect            from '../../dom/modules/rect.js';
-import trigger         from '../../dom/modules/trigger.js';
-import { disableScroll, enableScroll } from '../../dom/modules/scroll.js';
-import { trapFocus, untrapFocus }      from '../../dom/modules/focus.js';
+import events          from 'dom/events.js';
+import delegate        from 'dom/delegate.js';
+import { focusInside } from 'dom/focus.js';
+import isPrimaryButton from 'dom/is-primary-button.js';
+import isTargetEvent   from 'dom/is-target-event.js';
+import style           from 'dom/style.js';
+import rect            from 'dom/rect.js';
+import trigger         from 'dom/trigger.js';
+import { disableScroll, enableScroll } from 'dom/scroll.js';
+import { trapFocus, untrapFocus }      from 'dom/focus.js';
 import { log, behaviours, activate, deactivate } from '../events/dom-activate.js';
 
 // As it is possible to have multiple dialogs open, we must enumerate them

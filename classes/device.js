@@ -4,7 +4,7 @@
 // input responible for them. Hopefully. Not foolproof, but better than getting
 // rid of focus outlines altogether.
 
-import classes from '../../dom/modules/classes.js';
+import classes from 'dom/classes.js';
 
 export const config = {
     simulatedEventDelay: 0.08,

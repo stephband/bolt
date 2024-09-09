@@ -21,11 +21,11 @@ import id        from 'fn/id.js';
 import intersect from 'fn/intersect.js';
 import nothing   from 'fn/nothing.js';
 import prepend   from 'fn/prepend.js';
-import attribute from '../../dom/modules/attribute.js';
-import classes   from '../../dom/modules/classes.js';
-import closest   from '../../dom/modules/closest.js';
-import events    from '../../dom/modules/events.js';
-import trigger   from '../../dom/modules/trigger.js';
+import attribute from 'dom/attribute.js';
+import classes   from 'dom/classes.js';
+import closest   from 'dom/closest.js';
+import events    from 'dom/events.js';
+import trigger   from 'dom/trigger.js';
 
 
 let overnode;

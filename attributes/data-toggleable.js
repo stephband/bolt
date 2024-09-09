@@ -21,12 +21,12 @@ accordions and so on.
 **/
 
 import { remove }      from 'fn/remove.js';
-import get             from '../../dom/modules/get.js';
-import closest         from '../../dom/modules/closest.js';
-import identify        from '../../dom/modules/identify.js';
-import events          from '../../dom/modules/events.js';
-import isPrimaryButton from '../../dom/modules/is-primary-button.js';
-import { isInternalLink } from '../../dom/modules/node.js';
+import get             from 'dom/get.js';
+import closest         from 'dom/closest.js';
+import identify        from 'dom/identify.js';
+import events          from 'dom/events.js';
+import isPrimaryButton from 'dom/is-primary-button.js';
+import { isInternalLink } from 'dom/node.js';
 import { behaviours, deactivate } from '../events/dom-activate.js';
 
 
@@ -63,7 +63,7 @@ events('click', document.documentElement).each((e) => {
 behaviours['[data-toggleable]'] = (e) => actives.push(identify(e.target));
 
 
-import matches         from '../../dom/modules/matches.js';
+import matches         from 'dom/matches.js';
 var match = matches('[data-toggleable]');
 events('dom-deactivate', document).each((e) => {
 	var target = e.target;

@@ -1,9 +1,9 @@
 
-import events   from '../../dom/modules/events.js';
-import delegate from '../../dom/modules/delegate.js';
-import trigger  from '../../dom/modules/trigger.js';
-import { disableScroll, enableScroll } from '../../dom/modules/scroll.js';
-import { fullscreenEnabled, getFullscreenElement, enterFullscreen, exitFullscreen } from '../../dom/modules/fullscreen.js';
+import events   from 'dom/events.js';
+import delegate from 'dom/delegate.js';
+import trigger  from 'dom/trigger.js';
+import { disableScroll, enableScroll } from 'dom/scroll.js';
+import { fullscreenEnabled, getFullscreenElement, enterFullscreen, exitFullscreen } from 'dom/fullscreen.js';
 
 if (fullscreenEnabled) {
     // This should really be accessible to CSS via an @supports query or some

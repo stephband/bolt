@@ -15,10 +15,10 @@ it by permitting the value `"application/json"` as well as the standard
 
 import compose from 'fn/compose.js';
 import get     from 'fn/get.js';
-import matches from '../../dom/modules/matches.js';
-import request from '../../dom/modules/request.js';
-import events  from '../../dom/modules/events.js';
-import trigger from '../../dom/modules/trigger.js';
+import matches from 'dom/matches.js';
+import request from 'dom/request.js';
+import events  from 'dom/events.js';
+import trigger from 'dom/trigger.js';
 
 
 // Define

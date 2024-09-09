@@ -1,6 +1,7 @@
 {
-  "imports": {
-    "fn/":  "http://localhost/fn/modules/",
-    "dom/":  "http://localhost/dom/modules/"
-  }
+    "imports": {
+        "dom/":     "https://cdn.jsdelivr.net/gh/stephband/dom@master/modules/",
+        "fn/":      "https://cdn.jsdelivr.net/gh/stephband/fn@master/modules/",
+        "literal/": "https://cdn.jsdelivr.net/gh/stephband/literal@main/"
+    }
 }

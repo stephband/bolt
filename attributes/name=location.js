@@ -2,10 +2,10 @@
 import get      from 'fn/get.js';
 import set      from 'fn/set.js';
 import overload from 'fn/overload.js';
-import { default as getById } from '../../dom/modules/get.js';
-import events   from '../../dom/modules/events.js';
-import matches  from '../../dom/modules/matches.js';
-import trigger  from '../../dom/modules/trigger.js';
+import { default as getById } from 'dom/get.js';
+import events   from 'dom/events.js';
+import matches  from 'dom/matches.js';
+import trigger  from 'dom/trigger.js';
 
 const selector = '[name="location"]';
 

@@ -18,8 +18,8 @@ With a little hide/show style, a popable can be used to make menus, tooltips,
 bubbles, accordions and so on.
 */
 
-import events          from '../../dom/modules/events.js';
-import isPrimaryButton from '../../dom/modules/is-primary-button.js';
+import events          from 'dom/events.js';
+import isPrimaryButton from 'dom/is-primary-button.js';
 import { behaviours, deactivate } from '../events/dom-activate.js';
 
 behaviours['[data-popable]'] = function activate(e) {

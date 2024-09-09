@@ -80,15 +80,15 @@ validation messages are shown.</p>
 
 import get       from 'fn/get.js';
 import id        from 'fn/id.js';
-import create    from '../../dom/modules/create.js';
-import events    from '../../dom/modules/events.js';
-import matches   from '../../dom/modules/matches.js';
-import { next }  from '../../dom/modules/traverse.js';
-import remove    from '../../dom/modules/remove.js';
-import validate  from '../../dom/modules/validate.js';
-import isValid   from '../../dom/modules/is-valid.js';
-import classes   from '../../dom/modules/classes.js';
-import { after } from '../../dom/modules/mutate.js';
+import create    from 'dom/create.js';
+import events    from 'dom/events.js';
+import matches   from 'dom/matches.js';
+import { next }  from 'dom/traverse.js';
+import remove    from 'dom/remove.js';
+import validate  from 'dom/validate.js';
+import isValid   from 'dom/is-valid.js';
+import classes   from 'dom/classes.js';
+import { after } from 'dom/mutate.js';
 
 var isValidateable = matches('[validateable], [validateable] input, [validateable] textarea, [validateable] select, [data-validateable], [data-validateable] input, [data-validateable] textarea, [data-validateable] select');
 

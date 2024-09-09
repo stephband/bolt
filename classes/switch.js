@@ -3,11 +3,11 @@
 
 import { clamp }   from 'fn/clamp.js';
 import overload    from 'fn/overload.js';
-import attribute   from '../../dom/modules/attribute.js';
-import closest     from '../../dom/modules/closest.js';
-import gestures    from '../../dom/modules/gestures.js';
-import { trigger } from '../../dom/modules/trigger.js';
-import { px }      from '../../dom/modules/parse-length.js';
+import attribute   from 'dom/attribute.js';
+import closest     from 'dom/closest.js';
+import gestures    from 'dom/gestures.js';
+import { trigger } from 'dom/trigger.js';
+import { px }      from 'dom/parse-length.js';
 
 
 const selector = '.switch-label';

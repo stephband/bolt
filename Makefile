@@ -5,4 +5,4 @@ DEBUG=
 
 # Must format with tabs not spaces
 literal:
-	deno run --allow-read --allow-env --allow-net --allow-write --allow-run --unstable --no-check ../literal/deno/make-literal.js ./ debug
+	deno run --allow-read --allow-env --allow-net --allow-write --allow-run --unstable --no-check https://cdn.jsdelivr.net/gh/stephband/literal@main/deno/make-literal.js ./ debug

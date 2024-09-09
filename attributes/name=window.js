@@ -1,6 +1,6 @@
 
 import get      from 'fn/get.js';
-import events   from '../../dom/modules/events.js';
+import events   from 'dom/events.js';
 
 // Support <select name="window"> (or indeed radio or checkbox or text) and
 // the class .location-select for legacy reasons
