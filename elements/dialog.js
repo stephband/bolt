@@ -12,6 +12,7 @@ import isTargetEvent   from 'dom/is-target-event.js';
 import style           from 'dom/style.js';
 import rect            from 'dom/rect.js';
 import trigger         from 'dom/trigger.js';
+import isPrimaryButton from 'dom/is-primary-button.js';
 import { disableScroll, enableScroll } from 'dom/scroll.js';
 import { trapFocus, untrapFocus }      from 'dom/focus.js';
 import { log, behaviours, activate, deactivate } from '../events/dom-activate.js';
@@ -66,12 +67,10 @@ export function open(element, relatedTarget) {
         // decided that it should not bubble.
         events('close', element)
         .slice(0, 1)
-        .each(enableDocumentScroll);
-
-        // Return focus to wherever it was before
-        events('close', element)
-        .slice(0, 1)
-        .each((e) => focused.focus());
+        .each((e) => {
+            enableDocumentScroll();
+            focused.focus();
+        });
     }
     else if (mode === 'overlay') {
         element.show();
@@ -150,42 +149,85 @@ export function close(element) {
     element.classList.remove('closing');
 }
 
-// Touches on a dialog[data-popable] backdrop close the dialog
-/*
-events('pointerdown', document)
-.filter(isPrimaryButton)
-.each(delegate({
-    'dialog[data-popable]': function(dialog, e) {
-        // Ignore clicks not on the dialog itself
-        if (dialog !== e.target) {
-            return;
+
+
+function isIgnorable(e) {
+    // Default is prevented indicates that this link has already
+    // been handled. Save ourselves the overhead of further handling.
+    if (e.defaultPrevented) { return true; }
+
+    // Ignore mousedowns on any button other than the left (or primary)
+    // mouse button, or when a modifier key is pressed.
+    if (!isPrimaryButton(e)) { return true; }
+
+    // Ignore key presses other than the enter key
+    if ((e.type === 'keydown' || e.type === 'keyup') && e.keyCode !== 13) { return true; }
+}
+
+events('click', document)
+.each(delegate(
+    '[name="open"]': (button, e) => {
+        if (isIgnorable(e)) { return; }
+
+        const element = element.value ?
+            document.querySelector(element.value) :
+            element.closest('dialog') ;
+
+        if (!element) {
+            throw new Error('Button name="' + button.name + '" value="' + button.value + '" target dialog not found');
         }
 
-        const box = rect(dialog);
-        const isInDialog = (
-            box.top <= e.clientY
-            && e.clientY <= box.top + box.height
-            && box.left <= e.clientX
-            && e.clientX <= box.left + box.width
-        );
+        // Flag click as handled
+        e.preventDefault();
 
-        if (!isInDialog) {
-            deactivate(dialog);
+        // If closed, open
+        if (!element.open) open(element, button);
+    },
+
+    '[name="close"]': (button, e) => {
+        if (isIgnorable(e)) { return; }
+
+        const element = element.value ?
+            document.querySelector(element.value) :
+            element.closest('dialog') ;
+
+        if (!element) {
+            throw new Error('Button name="' + button.name + '" value="' + button.value + '" target dialog not found');
         }
-    }
-}));
-*/
 
-events({ type: 'click', select: '[name="close"]' }, document)
-.each((e) => {
-    const href = e.target.closest('[name="close"]').value;
-    if (!href) return;
-    const element = document.querySelector(href);
-    close(element);
-});
+        // Flag click as handled
+        e.preventDefault();
 
+        // If open, close it
+        if (element.open) close(element, button);
+    },
 
-behaviours['dialog'] = {
-    activate:   open,
-    deactivate: close
-};
+    '[name="toggle"]': (button, e) => {
+        if (isIgnorable(e)) { return; }
+
+        const element = element.value ?
+            document.querySelector(element.value) :
+            element.closest('dialog') ;
+
+        if (!element) {
+            throw new Error('Button name="' + button.name + '" value="' + button.value + '" target dialog not found');
+        }
+
+        // Flag click as handled
+        e.preventDefault();
+
+        // Is element already inactive?
+        if (element.open) {
+            close(element, button)
+        }
+        else {
+            open(element, button);
+        }
+    },
+
+    // Clicks inside dialogs
+    'dialog': noop,
+
+    // Clicks outside dialogs
+    '*': (e) => document.querySelector('dialog[open]').forEach(close)
+);
