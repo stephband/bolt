@@ -4,6 +4,7 @@ dialog.js
 Augments the <dialog> element.
 */
 
+import noop            from 'fn/noop.js';
 import events          from 'dom/events.js';
 import delegate        from 'dom/delegate.js';
 import { focusInside } from 'dom/focus.js';
@@ -163,15 +164,18 @@ function isIgnorable(e) {
     if ((e.type === 'keydown' || e.type === 'keyup') && e.keyCode !== 13) { return true; }
 }
 
+function toggleableFromButton(button) {
+    return button.value ?
+        document.querySelector(button.value) :
+        button.closest('dialog') ;
+}
+
 events('click', document)
-.each(delegate(
+.each(delegate({
     '[name="open"]': (button, e) => {
         if (isIgnorable(e)) { return; }
 
-        const element = element.value ?
-            document.querySelector(element.value) :
-            element.closest('dialog') ;
-
+        const element = toggleableFromButton(button);
         if (!element) {
             throw new Error('Button name="' + button.name + '" value="' + button.value + '" target dialog not found');
         }
@@ -186,10 +190,7 @@ events('click', document)
     '[name="close"]': (button, e) => {
         if (isIgnorable(e)) { return; }
 
-        const element = element.value ?
-            document.querySelector(element.value) :
-            element.closest('dialog') ;
-
+        const element = toggleableFromButton(button);
         if (!element) {
             throw new Error('Button name="' + button.name + '" value="' + button.value + '" target dialog not found');
         }
@@ -204,10 +205,7 @@ events('click', document)
     '[name="toggle"]': (button, e) => {
         if (isIgnorable(e)) { return; }
 
-        const element = element.value ?
-            document.querySelector(element.value) :
-            element.closest('dialog') ;
-
+        const element = toggleableFromButton(button);
         if (!element) {
             throw new Error('Button name="' + button.name + '" value="' + button.value + '" target dialog not found');
         }
@@ -229,4 +227,4 @@ events('click', document)
 
     // Clicks outside dialogs
     '*': (e) => document.querySelector('dialog[open]').forEach(close)
-);
+}));
