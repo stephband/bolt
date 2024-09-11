@@ -223,5 +223,5 @@ events('click', document)
     'dialog': noop,
 
     // Clicks outside dialogs
-    '*': (e) => document.querySelector('dialog[open]').forEach(close)
+    '*': (e) => document.querySelectorAll('dialog[open]').forEach(close)
 }));
