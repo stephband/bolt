@@ -42,20 +42,24 @@ function getButtons(id) {
         .concat(select('[value="#' + id + '"]', document));
 }
 
-const elements = {};
+const map = new WeakMap();
 
-export function actions(selector, actions) {
-    elements[selector] = actions;
+function getElements(root) {
+    if (!map.has(root)) map.set(root, {});
+    return map.get(root);
 }
 
 function getActions(element) {
+    const root     = element.getRootNode();
+    const elements = getElements(root);
+
     let selector;
     for (selector in elements) {
         if (element.matches(selector)) return elements[selector];
     }
 }
 
-events('click', document).each(delegate({
+const handle = delegate({
     'a[href^="#"]': (a, e) => {
         // Ignore right-clicks, option-clicks
         if (isIgnorable(e)) return;
@@ -126,7 +130,15 @@ events('click', document).each(delegate({
     'dialog': noop,
 
     // Clicks outside dialogs
-    '*': (e) => {
-        document.querySelectorAll('dialog[open]').forEach((element) => elements.dialog.close(element));
+    '*': (target, e) => {
+        const root     = target.getRootNode();
+        const elements = getElements(root);
+        root.querySelectorAll('dialog[open]').forEach((element) => elements.dialog.close(element));
     }
-}));
+});
+
+export function actions(selector, actions, root=document) {
+    const elements = getElements(root);
+    elements[selector] = actions;
+    events('click', root).each(handle);
+}
