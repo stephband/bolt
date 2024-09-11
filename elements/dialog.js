@@ -15,7 +15,6 @@ import rect            from 'dom/rect.js';
 import trigger         from 'dom/trigger.js';
 import { disableScroll, enableScroll } from 'dom/scroll.js';
 import { trapFocus, untrapFocus }      from 'dom/focus.js';
-import { log, behaviours, activate, deactivate } from '../events/dom-activate.js';
 
 // As it is possible to have multiple dialogs open, we must enumerate them
 let n = 0;
@@ -133,7 +132,7 @@ export function close(element) {
     .filter(isTargetEvent)
     .slice(0, 1)
     .each((e) => {
-        if (window.DEBUG) log('close', element);
+        if (window.DEBUG) console.log('close', element);
         element.close();
         element.classList.remove('closing');
     });
