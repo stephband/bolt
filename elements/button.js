@@ -63,6 +63,27 @@ function getActions(element) {
     }
 }
 
+export function open(element, button) {
+    const actions = getActions(element);
+    if (!actions) return;
+    actions.open(element, button);
+    return true;
+}
+
+export function close(element, button) {
+    const actions = getActions(element);
+    if (!actions) return;
+    actions.close(element, button);
+    return true;
+}
+
+export function toggle(element, button) {
+    const actions = getActions(element);
+    if (!actions) return;
+    actions.toggle(element, button);
+    return true;
+}
+
 const handle = delegate({
     'a[href^="#"]': (a, e) => {
         // Ignore right-clicks, option-clicks
@@ -75,12 +96,8 @@ const handle = delegate({
         const element = toggleableFromLink(a);
         if (!element) return;
 
-        const actions = getActions(element);
-        if (!actions) return;
-
         // Perform action and flag click as handled
-        actions.toggle(element, a);
-        e.preventDefault();
+        if (toggle(element, button)) e.preventDefault();
     },
 
     '[name="toggle"]': (button, e) => {
@@ -93,12 +110,8 @@ const handle = delegate({
             return;
         }
 
-        const actions = getActions(element);
-        if (!actions) return;
-
         // Perform action and flag click as handled
-        actions.toggle(element, button);
-        e.preventDefault();
+        if (toggle(element, button)) e.preventDefault();
     },
 
     '[name="open"]': (button, e) => {
@@ -111,12 +124,8 @@ const handle = delegate({
             return;
         }
 
-        const actions = getActions(element);
-        if (!actions) return;
-
         // Perform action and flag click as handled
-        actions.open(element, button);
-        e.preventDefault();
+        if (open(element, button)) e.preventDefault();
     },
 
     '[name="close"]': (button, e) => {
@@ -129,12 +138,8 @@ const handle = delegate({
             return;
         }
 
-        const actions = getActions(element);
-        if (!actions) return;
-
         // Perform action and flag click as handled
-        actions.close(element, button);
-        e.preventDefault();
+        if (close(element, button)) e.preventDefault();
     },
 
     // TODO!!!
