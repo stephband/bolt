@@ -152,16 +152,13 @@ export function close(element) {
 
 
 function isIgnorable(e) {
-    // Default is prevented indicates that this link has already
+    // Default is prevented indicates that this click has already
     // been handled. Save ourselves the overhead of further handling.
     if (e.defaultPrevented) { return true; }
 
     // Ignore mousedowns on any button other than the left (or primary)
     // mouse button, or when a modifier key is pressed.
     if (!isPrimaryButton(e)) { return true; }
-
-    // Ignore key presses other than the enter key
-    if ((e.type === 'keydown' || e.type === 'keyup') && e.keyCode !== 13) { return true; }
 }
 
 function toggleableFromButton(button) {
