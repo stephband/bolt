@@ -45,7 +45,11 @@ function getButtons(id, root) {
 const map = new WeakMap();
 
 function getElements(root) {
-    if (!map.has(root)) map.set(root, {});
+    if (!map.has(root)) {
+        map.set(root, {});
+        events('click', root).each(handle);
+    }
+
     return map.get(root);
 }
 
@@ -149,5 +153,7 @@ const handle = delegate({
 export function actions(selector, actions, root=document) {
     const elements = getElements(root);
     elements[selector] = actions;
-    events('click', root).each(handle);
+
+    window.console &&
+    window.console.log('%c<button>%c actions for selector "' + selector + '"', 'color:#3a8ab0;font-weight:600;', 'color:#888888;font-weight:400;');
 }

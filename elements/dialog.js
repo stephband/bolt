@@ -131,7 +131,6 @@ export function close(element) {
     .filter(isTargetEvent)
     .slice(0, 1)
     .each((e) => {
-        if (window.DEBUG) console.log('close', element);
         element.close();
         element.classList.remove('closing');
     });
