@@ -4,17 +4,16 @@ dialog.js
 Augments the <dialog> element.
 */
 
-import noop            from 'fn/noop.js';
 import events          from 'dom/events.js';
 import delegate        from 'dom/delegate.js';
 import { focusInside } from 'dom/focus.js';
-import isPrimaryButton from 'dom/is-primary-button.js';
 import isTargetEvent   from 'dom/is-target-event.js';
 import style           from 'dom/style.js';
 import rect            from 'dom/rect.js';
 import trigger         from 'dom/trigger.js';
 import { disableScroll, enableScroll } from 'dom/scroll.js';
 import { trapFocus, untrapFocus }      from 'dom/focus.js';
+import { actions }     from './button.js';
 
 // As it is possible to have multiple dialogs open, we must enumerate them
 let n = 0;
@@ -136,7 +135,6 @@ export function close(element) {
         element.close();
         element.classList.remove('closing');
     });
-    //.each((e) => element.style.marginTop = '');
 
     element.classList.add('closing');
     const duration = parseFloat(style('transition-duration', element));
@@ -148,79 +146,10 @@ export function close(element) {
     element.classList.remove('closing');
 }
 
-
-
-function isIgnorable(e) {
-    // Default is prevented indicates that this click has already
-    // been handled. Save ourselves the overhead of further handling.
-    if (e.defaultPrevented) { return true; }
-
-    // Ignore mousedowns on any button other than the left (or primary)
-    // mouse button, or when a modifier key is pressed.
-    if (!isPrimaryButton(e)) { return true; }
-}
-
-function toggleableFromButton(button) {
-    return button.value ?
-        document.querySelector(button.value) :
-        button.closest('dialog') ;
-}
-
-events('click', document)
-.each(delegate({
-    '[name="open"]': (button, e) => {
-        if (isIgnorable(e)) { return; }
-
-        const element = toggleableFromButton(button);
-        if (!element) {
-            throw new Error('Button name="' + button.name + '" value="' + button.value + '" target dialog not found');
-        }
-
-        // Flag click as handled
-        e.preventDefault();
-
-        // If closed, open
-        if (!element.open) open(element, button);
-    },
-
-    '[name="close"]': (button, e) => {
-        if (isIgnorable(e)) { return; }
-
-        const element = toggleableFromButton(button);
-        if (!element) {
-            throw new Error('Button name="' + button.name + '" value="' + button.value + '" target dialog not found');
-        }
-
-        // Flag click as handled
-        e.preventDefault();
-
-        // If open, close it
-        if (element.open) close(element, button);
-    },
-
-    '[name="toggle"]': (button, e) => {
-        if (isIgnorable(e)) { return; }
-
-        const element = toggleableFromButton(button);
-        if (!element) {
-            throw new Error('Button name="' + button.name + '" value="' + button.value + '" target dialog not found');
-        }
-
-        // Flag click as handled
-        e.preventDefault();
-
-        // Is element already inactive?
-        if (element.open) {
-            close(element, button)
-        }
-        else {
-            open(element, button);
-        }
-    },
-
-    // Clicks inside dialogs
-    'dialog': noop,
-
-    // Clicks outside dialogs
-    '*': (e) => document.querySelectorAll('dialog[open]').forEach(close)
-}));
+actions('dialog', {
+    open:   open,
+    close:  close,
+    toggle: (element, button) => element.open ?
+        close(element, button) :
+        open(element, button)
+});
