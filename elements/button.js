@@ -35,13 +35,13 @@ function toggleableFromButton(button) {
         root.querySelector(button.value) :
         button.closest('dialog') ;
 }
-
-function getButtons(id) {
-    return select('[href$="#' + id + '"]', document.body)
+/*
+function getButtons(id, root) {
+    return select('[href$="#' + id + '"]', root)
         .filter(isInternalLink)
         .concat(select('[value="#' + id + '"]', document));
 }
-
+*/
 const map = new WeakMap();
 
 function getElements(root) {
