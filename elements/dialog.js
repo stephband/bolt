@@ -12,7 +12,6 @@ import isTargetEvent   from 'dom/is-target-event.js';
 import style           from 'dom/style.js';
 import rect            from 'dom/rect.js';
 import trigger         from 'dom/trigger.js';
-import isPrimaryButton from 'dom/is-primary-button.js';
 import { disableScroll, enableScroll } from 'dom/scroll.js';
 import { trapFocus, untrapFocus }      from 'dom/focus.js';
 import { log, behaviours, activate, deactivate } from '../events/dom-activate.js';
