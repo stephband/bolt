@@ -120,6 +120,7 @@ input + .invisible + .radio-label,
 .invisible:disabled + .checkbox-label,
 .invisible:disabled + .radio-label {
     filter: var(--disabled-filter);
+    cursor: auto;
 }
 
 
