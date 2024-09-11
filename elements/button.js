@@ -84,7 +84,10 @@ const handle = delegate({
         if (isIgnorable(e)) return;
 
         const element = toggleableFromButton(button);
-        if (!element) throw new Error('Button name="' + button.name + '" value="' + button.value + '" target dialog not found');
+        if (!element) {
+            if (window.DEBUG) console.error('Button name="' + button.name + '" value="' + button.value + '" element not found');
+            return;
+        }
 
         const actions = getActions(element);
         if (!actions) return;
@@ -99,7 +102,10 @@ const handle = delegate({
         if (isIgnorable(e)) return;
 
         const element = toggleableFromButton(button);
-        if (!element) throw new Error('Button name="' + button.name + '" value="' + button.value + '" target dialog not found');
+        if (!element) {
+            if (window.DEBUG) console.error('Button name="' + button.name + '" value="' + button.value + '" element not found');
+            return;
+        }
 
         const actions = getActions(element);
         if (!actions) return;
@@ -114,7 +120,10 @@ const handle = delegate({
         if (isIgnorable(e)) return;
 
         const element = toggleableFromButton(button);
-        if (!element) throw new Error('Button name="' + button.name + '" value="' + button.value + '" target dialog not found');
+        if (!element) {
+            if (window.DEBUG) console.error('Button name="' + button.name + '" value="' + button.value + '" element not found');
+            return;
+        }
 
         const actions = getActions(element);
         if (!actions) return;
