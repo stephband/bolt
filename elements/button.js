@@ -97,7 +97,7 @@ const handle = delegate({
         if (!element) return;
 
         // Perform action and flag click as handled
-        if (toggle(element, button)) e.preventDefault();
+        if (toggle(element, a)) e.preventDefault();
     },
 
     '[name="toggle"]': (button, e) => {
