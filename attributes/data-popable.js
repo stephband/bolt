@@ -16,7 +16,7 @@ It is also activated when the page loads with its fragment identifier in the URL
 
 With a little hide/show style, a popable can be used to make menus, tooltips,
 bubbles, accordions and so on.
-*/
+**/
 
 import events          from 'dom/events.js';
 import isPrimaryButton from 'dom/is-primary-button.js';
