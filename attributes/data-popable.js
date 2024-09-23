@@ -23,45 +23,45 @@ import isPrimaryButton from 'dom/is-primary-button.js';
 import { actions }     from '../elements/button.js';
 
 const focusableSelector = 'input, textarea, select, [autofocus], [tabindex]';
+const popables = new WeakMap();
 
 let mousedowns, focusins, focusouts, escapes;
 
+function stop(stream) {
+    stream.stop();
+}
+
 export function open(element, target, buttons) {
-    console.log('OPEN');
+    if (popables.has(element)) return true;
 
-    // This should never happen
-    if (mousedowns) console.warn('For some reason mousedowns/focusins/escapes streams are still a thing. They should not be.');
-    if (mousedowns) mousedowns.stop();
-    if (focusins)   focusins.stop();
-    if (focusouts)  focusouts.stop();
-    if (escapes)    escapes.stop();
+    popables.set(element, [
+        events('mousedown', document)
+        .filter(isPrimaryButton)
+        .each((e) => {
+            // If target is, or is in, element, ignore
+            if (element === e.target || element.contains(e.target)) return;
 
-    mousedowns = events('mousedown', document)
-    .filter(isPrimaryButton)
-    .each((e) => {
-        // If target is, or is in, element, ignore
-        if (element === e.target || element.contains(e.target)) return;
+            // If target is, or is in, one of the buttons, ignore
+            if (buttons.find((button) => (button === e.target || button.contains(e.target)))) return;
 
-        // If target is, or is in, one of the buttons, ignore
-        if (buttons.find((button) => (button === e.target || button.contains(e.target)))) return;
+            close(element, e.target);
+        }),
 
-        close(element, e.target);
-    });
+        events('focusin', document).each((e) => {
+            // If focus moves outside data-popable, close it
+            if (!element.contains(e.target)) close(element, e.target);
+        }),
 
-    focusins = events('focusin', document).each((e) => {
-        // If focus moves outside data-popable, close it
-        if (!element.contains(e.target)) close(element, e.target);
-    });
+        events('focusout', element).each((e) => {
+            // If focus moves outside data-popable, close it
+            if (e.relatedTarget && !element.contains(e.relatedTarget)) close(element, e.target);
+        }),
 
-    focusouts = events('focusout', element).each((e) => {
-        // If focus moves outside data-popable, close it
-        if (e.relatedTarget && !element.contains(e.relatedTarget)) close(element, e.target);
-    });
-
-    escapes = events('keydown', document).each(() => {
-        // Escape key is pressed, close data-popable
-        if (e.key === "Escape") close(element, null)
-    });
+        events('keydown', document).each(() => {
+            // Escape key is pressed, close data-popable
+            if (e.key === "Escape") close(element, null)
+        })
+    ]);
 
     // Set data-popaable's .open property if it has one
     if ('open' in element) element.open = true;
@@ -81,15 +81,11 @@ export function open(element, target, buttons) {
 }
 
 export function close(element) {
-    if (mousedowns) mousedowns.stop();
-    if (focusins)   focusins.stop();
-    if (focusouts)  focusouts.stop();
-    if (escapes)    escapes.stop();
+    const streams = popables.get(element);
+    if (!streams) return false;
 
-    mousedowns = undefined;
-    focusins   = undefined;
-    focusouts  = undefined;
-    escapes    = undefined;
+    streams.forEach(stop);
+    popables.delete(element);
 
     // Set data-popaable's .open property if it has one
     if ('open' in element) element.open = false;
@@ -103,7 +99,7 @@ export function close(element) {
 actions('[data-popable]', {
     open,
     close,
-    toggle: (element, target, buttons) => (element.open || element.getAttribute('open') !== null) ?
+    toggle: (element, target, buttons) => popables.has(element) ?
         close(element) :
         open(element, target, buttons)
 });
