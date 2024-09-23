@@ -20,35 +20,94 @@ bubbles, accordions and so on.
 
 import events          from 'dom/events.js';
 import isPrimaryButton from 'dom/is-primary-button.js';
-import { behaviours, deactivate } from '../events/dom-activate.js';
+import { actions }     from '../elements/button.js';
 
-behaviours['[data-popable]'] = function activate(e) {
-    const element = e.target;
+let mousedowns, focusins, focusouts, escapes;
 
-    // Make user actions outside element deactivate it
-    const mousedowns = events('mousedown', document)
-        .filter(isPrimaryButton)
-        .filter((e) => !element.contains(e.target) && element !== e.target)
-        .each((e) => {
-            deactivate(element);
-
-            // If we just mousedowned on a button that points to this popable
-            const button = e.target.closest(`[href$="#${ element.id }"], [name="activate"][value="#${ element.id }"], [name="activate-deactivate"][value="#${ element.id }"]`);
-
-            if (button) {
-                // We do not want the following click to reactivate popable
-                const clicks = events('click', document.body)
-                .each((e) => {
-                    clicks.stop();
-                    e.preventDefault();
-                });
-            }
-        });
-
-    const deactivates = events('dom-deactivate', element)
-        .filter((e) => e.target === e.currentTarget)
-        .each((e) => {
-            mousedowns.stop();
-            deactivates.stop();
-        });
+function addOnClass(element) {
+    element.classList.add('on');
 }
+
+function removeOnClass(element) {
+    element.classList.remove('on');
+}
+
+export function open(element, buttons, target) {
+    // This should never happen
+    if (mousedowns) console.warn('For some reason mousedowns/focusins/escapes streams are still a thing. They should not be.');
+    if (mousedowns) mousedowns.stop();
+    if (focusins)   focusins.stop();
+    if (focusouts)  focusouts.stop();
+    if (escapes)    escapes.stop();
+
+    mousedowns = events('mousedown', document)
+    .filter(isPrimaryButton)
+    .each((e) => {
+        // If target is, or is in, element, ignore
+        if (element === e.target || element.contains(e.target)) return;
+
+        // If target is, or is in, one of the buttons, ignore
+        if (buttons.find((button) => (button === e.target || button.contains(e.target)))) return;
+
+        close(element, e.target, buttons);
+    });
+
+    focusins = events('focusin', document).each((e) => {
+        // If focus moves outside data-popable, close it
+        if (!element.contains(e.target)) close(element, e.target, buttons);
+    });
+
+    focusouts = events('focusout', element).each((e) => {
+        // If focus moves outside data-popable, close it
+        if (e.relatedTarget && !element.contains(e.relatedTarget)) close(element, e.target, buttons);
+    });
+
+    escapes = events('keydown', document).each(() => {
+        // Escape key is pressed, close data-popable
+        if (e.key === "Escape") close(element, null, buttons)
+    });
+
+    // Set data-popaable's .open property if it has one
+    if ('open' in element) element.open = true;
+    // or give data-popable an open attribute
+    else element.setAttribute('open', '');
+
+    // Add .on class to buttons
+    buttons.forEach(addOnClass);
+
+    // Focus the first element with class .active-focus
+    const focusable = element.matches(focusableSelector) || element.querySelector(focusableSelector);
+    if (focusable) {
+        // The click that activated this target is not over yet, wait two frames
+        // to focus the element. I don't know why we need two. Such is browser life.
+        requestAnimationFrame(() => requestAnimationFrame(() => focusable.focus()));
+    }
+}
+
+export function close(element, buttons, target) {
+    if (mousedowns) mousedowns.stop();
+    if (focusins)   focusins.stop();
+    if (focusouts)  focusouts.stop();
+    if (escapes)    escapes.stop();
+
+    mousedowns = undefined;
+    focusins   = undefined;
+    focusouts  = undefined;
+    escapes    = undefined;
+
+    // Set data-popaable's .open property if it has one
+    if ('open' in element) element.open = false;
+    // or remove data-popable open attribute
+    else element.removeAttribute('open');
+
+    // Add .on class to buttons
+    buttons.forEach(removeOnClass);
+}
+
+actions('[data-popable]', {
+    open:   open,
+    close:  close,
+    toggle: (element, buttons, target) => (element.open || element.getAttribute('open') !== null) ?
+        close(element, buttons, target) :
+        open(element, buttons, target)
+});

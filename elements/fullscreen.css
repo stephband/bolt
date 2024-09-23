@@ -5,25 +5,17 @@ not have the APIs.
 */
 
 *:-webkit-full-screen {
-    /*display: block;*/
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-*:-moz-full-screen {
-    /*display: block;*/
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-*:-ms-fullscreen {
-    /*display: block;*/
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
     opacity: 1 !important;
     visibility: visible !important;
 }
 
 *:fullscreen {
-    /*display: block;*/
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
     opacity: 1 !important;
     visibility: visible !important;
 }
@@ -58,16 +50,6 @@ Hide an element when inside an element in fullscreen mode.
     display: none !important;
 }
 
-.fullscreen-hidden:-moz-full-screen,
-:-moz-full-screen .fullscreen-hidden {
-    display: none !important;
-}
-
-.fullscreen-hidden:-ms-fullscreen,
-:-ms-fullscreen .fullscreen-hidden {
-    display: none !important;
-}
-
 .fullscreen-hidden:fullscreen,
 :fullscreen .fullscreen-hidden {
     display: none !important;
@@ -85,14 +67,6 @@ Hide an element when not in fullscreen mode.
 **/
 
 :not(:-webkit-full-screen):not(.fullscreen) > .fullscreen-shown:not(:-webkit-full-screen):not(.fullscreen) {
-    display: none !important;
-}
-
-:not(:-moz-full-screen) > .fullscreen-shown:not(:-moz-full-screen) {
-    display: none !important;
-}
-
-:not(:-ms-fullscreen) > .fullscreen-shown:not(:-ms-fullscreen) {
     display: none !important;
 }
 

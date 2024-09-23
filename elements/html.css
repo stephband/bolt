@@ -13,41 +13,7 @@
    most normalisation for typography can be found in type.css.
 */
 
-/* Hide templates in browsers where they are not natively supported. This is
-   important, and there is no time when we don't want this to be true, so
-   give it the strongest possible selector. */
-:root > body template {
-	display: none !important;
-}
-
-/* Make fullscreen elements fill the screen */
-
-:-webkit-full-screen {
-	width: 100vw !important;
-	height: 100vh !important;
-	margin: 0 !important;
-}
-
-:-moz-full-screen {
-	width: 100vw !important;
-	height: 100vh !important;
-	margin: 0 !important;
-}
-
-:-ms-fullscreen {
-	width: 100vw !important;
-	height: 100vh !important;
-	margin: 0 !important;
-}
-
-:fullscreen {
-	width: 100vw !important;
-	height: 100vh !important;
-	margin: 0 !important;
-}
-
 /* Normalise elements */
-
 html, body, div, span,
 object, iframe, canvas, img, svg, audio, video, track, math,
 h1, h2, h3, h4, h5, h6, hr, p, blockquote, pre,
@@ -72,7 +38,6 @@ progress, meter,
 	background-size: cover;
 }
 
-html,
 :root {
 	/* Prevents iOS text size adjust after orientation change, without disabling user zoom
 	   www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
@@ -170,6 +135,8 @@ address {
 abbr[title] {
 	/* Remove the bottom border in FF 39- */
 	border-bottom: none;
+    /* Remove the default underline */
+    text-decoration: none;
 }
 
 mark {

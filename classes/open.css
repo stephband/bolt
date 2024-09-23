@@ -1,0 +1,39 @@
+
+/**
+.open-hidden
+Hide an element when its parent has the attribute <code>open</code>.
+**/
+
+[open] > .open-hidden {
+	display: none !important;
+}
+
+
+/**
+.open-shown
+Show an element when its parent has the attribute <code>open</code>.
+**/
+
+:not([open]) > .open-shown {
+	display: none !important;
+}
+
+/**
+.open-visible
+**/
+
+.open-visible {
+	opacity: 0;
+	visibility: hidden;
+	transition:
+		opacity 0.4s linear,
+		visibility 0.4s linear;
+}
+
+.open-visible[open] {
+	opacity: 1;
+	visibility: visible;
+	transition:
+		opacity 0.2s linear,
+		visibility 0.2s linear;
+}

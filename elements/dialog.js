@@ -46,7 +46,7 @@ function enableDocumentScroll() {
     }
 }
 
-export function open(element, relatedTarget) {
+export function open(element, buttons, target) {
     // Is the element closed?
     if (element.open) { return; }
 
@@ -92,7 +92,7 @@ export function open(element, relatedTarget) {
     }
 
     // Give the dialog an "open" event
-    trigger({ type: 'open', relatedTarget }, element)
+    trigger({ type: 'open', relatedTarget: target }, element)
 
     // Move focus inside the dialog
     if (element !== document.activeElement && !element.contains(document.activeElement)) {
@@ -112,7 +112,7 @@ export function open(element, relatedTarget) {
     }
 }
 
-export function close(element) {
+export function close(element, buttons, target) {
     // Is the element open?
     if ('open' in element && !element.open) { return; }
 
@@ -148,7 +148,7 @@ export function close(element) {
 actions('dialog', {
     open:   open,
     close:  close,
-    toggle: (element, button) => element.open ?
-        close(element, button) :
-        open(element, button)
+    toggle: (element, buttons, target) => element.open ?
+        close(element, buttons, target) :
+        open(element, buttons, target)
 });

@@ -245,7 +245,7 @@ Crunchum Ipsum.
     transition-timing-function: ease-in;
 }
 
-.js .bubble.active {
+.js .bubble[open] {
     opacity: 1;
     visibility: visible;
 }
@@ -254,7 +254,7 @@ Crunchum Ipsum.
     transform: translate3d(0, calc(-100% - 1.5rem), 0);
 }
 
-.js .top-bubble.active {
+.js .top-bubble[open] {
     transform: translate3d(0, calc(-100% - 1.75rem), 0);
 }
 
@@ -262,7 +262,7 @@ Crunchum Ipsum.
     transform: translate3d(0, 1.5rem, 0);
 }
 
-.js .bottom-bubble.active {
+.js .bottom-bubble[open] {
     transform: translate3d(0, 1.75rem, 0);
 }
 
@@ -291,7 +291,7 @@ Crunchum Ipsum.
         transform: translate3d(-50%, calc(-100% - 1.5rem), 0);
     }
 
-    .js .top-bubble.active {
+    .js .top-bubble[open] {
         transform: translate3d(-50%, calc(-100% - 1.75rem), 0);
     }
 
@@ -299,7 +299,7 @@ Crunchum Ipsum.
         transform: translate3d(-16.6667%, calc(-100% - 1.5rem), 0);
     }
 
-    .js .right-top-bubble.active {
+    .js .right-top-bubble[open] {
         transform: translate3d(-16.6667%, calc(-100% - 1.75rem), 0);
     }
 
@@ -307,7 +307,7 @@ Crunchum Ipsum.
         transform: translate3d(-83.3333%, calc(-100% - 1.5rem), 0);
     }
 
-    .js .left-top-bubble.active {
+    .js .left-top-bubble[open] {
         transform: translate3d(-83.3333%, calc(-100% - 1.75rem), 0);
     }
 
@@ -315,7 +315,7 @@ Crunchum Ipsum.
         transform: translate3d(-50%, 1.5rem, 0);
     }
 
-    .js .bottom-bubble.active {
+    .js .bottom-bubble[open] {
         transform: translate3d(-50%, 1.75rem, 0);
     }
 
@@ -323,7 +323,7 @@ Crunchum Ipsum.
         transform: translate3d(-83.3333%, 1.5rem, 0);
     }
 
-    .js .left-bottom-bubble.active {
+    .js .left-bottom-bubble[open] {
         transform: translate3d(-83.3333%, 1.75rem, 0);
     }
 
@@ -331,7 +331,7 @@ Crunchum Ipsum.
         transform: translate3d(-16.6667%, 1.5rem, 0);
     }
 
-    .js .right-bottom-bubble.active {
+    .js .right-bottom-bubble[open] {
         transform: translate3d(-16.6667%, 1.75rem, 0);
     }
 
@@ -339,7 +339,7 @@ Crunchum Ipsum.
         transform: translate3d(-100%, -50%, 0);
     }
 
-    .js .left-bubble.active {
+    .js .left-bubble[open] {
         transform: translate3d(calc(-100% - 0.25rem), -50%, 0);
     }
 
@@ -348,7 +348,7 @@ Crunchum Ipsum.
         transform: translate3d(0.9375rem, -50%, 0);
     }
 
-    .js .right-bubble.active {
+    .js .right-bubble[open] {
         transform: translate3d(1.25rem, -50%, 0);
     }
 
@@ -356,7 +356,7 @@ Crunchum Ipsum.
         transform: translate3d(-100%, calc(-1 * var(--pointer-y)), 0);
     }
 
-    .js .bottom-left-bubble.active {
+    .js .bottom-left-bubble[open] {
         transform: translate3d(calc(-100% - 0.25rem), calc(-1 * var(--pointer-y)), 0);
     }
 
@@ -364,7 +364,7 @@ Crunchum Ipsum.
         transform: translate3d(0.9375rem, calc(-1 * var(--pointer-y)), 0);
     }
 
-    .js .bottom-right-bubble.active {
+    .js .bottom-right-bubble[open] {
         transform: translate3d(1.25rem, calc(-1 * var(--pointer-y)), 0);
     }
 }

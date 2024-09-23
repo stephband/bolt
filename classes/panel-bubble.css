@@ -29,7 +29,7 @@
             transform 0.72s ease-out;
     }
 
-    .js .panel-bubble.active {
+    .js .panel-bubble[open] {
         transform: translate3d(0,0,0);
         transition:
             visibility 0.24s linear,

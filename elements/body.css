@@ -7,10 +7,10 @@ body {
     min-height: 100%;
 }
 
-@media screen and (min-aspect-ratio: 3/1) {
-    /* Enforce an aspect ratio of max 3:1 (which should comfortably
+@media screen and (min-aspect-ratio: 4/1) {
+    /* Enforce an aspect ratio of max 4:1 (which should comfortably
        accomodate 16:9 screens minus URL and status bars) */
     body {
-        min-height: 33.3333vw;
+        min-height: 25vw;
     }
 }
