@@ -3,9 +3,11 @@ import noop               from 'fn/noop.js';
 import delegate           from 'dom/delegate.js';
 import events             from 'dom/events.js';
 import identify           from 'dom/identify.js';
+import isElement          from 'dom/is-element.js';
+import isFragment         from 'dom/is-fragment.js';
 import isPrimaryButton    from 'dom/is-primary-button.js';
 import isTargetEvent      from 'dom/is-target-event.js';
-import { isInternalLink, isElementNode } from 'dom/node.js';
+import { isInternalLink } from 'dom/node.js';
 import select             from 'dom/select.js';
 
 
@@ -70,9 +72,9 @@ function getElements(root) {
 }
 
 function getActions(element) {
-    const root     = element.getRootNode();
+    const root = element.getRootNode();
+    if (isFragment(root)) throw new Error('Attempt to toggle an element that is not in the DOM');
     const elements = getElements(root);
-
     let selector;
     for (selector in elements) {
         if (element.matches(selector)) return elements[selector];
@@ -197,7 +199,7 @@ function locate(root) {
 events('load', window).each((e) => locate(document));
 
 function pushElements(elements, mutation) {
-    elements.push.apply(elements, A.filter.call(mutation.addedNodes, isElementNode));
+    elements.push.apply(elements, A.filter.call(mutation.addedNodes, isElement));
     return elements;
 }
 

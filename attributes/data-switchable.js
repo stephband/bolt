@@ -34,15 +34,18 @@ and `.tab-block` classes.
 **/
 
 
-import events      from 'dom/events.js';
-import children    from 'dom/children.js';
+import children           from 'dom/children.js';
+import events             from 'dom/events.js';
+import focus              from 'dom/focus.js';
+import trigger            from 'dom/trigger.js';
 import { actions, close } from './name=toggle.js';
 
-const focusableSelector = 'input, textarea, select, button, [tabindex]:not([tabindex="-1"])';
 
 function closeSwitchable(element) {
     element.classList.remove('active');
     close(element);
+    // Give the switchable a 'close' event
+    trigger('close', element);
 }
 
 function open(element) {
@@ -56,12 +59,18 @@ function open(element) {
     elements.forEach((switchable) => closeSwitchable(switchable));
     element.classList.add('active');
 
-    // Focus the first focusable element
-    const focusable = element.matches(focusableSelector) || element.querySelector(focusableSelector);
-    if (focusable) {
+    // Give the switchable an 'open' event
+    trigger('open', element);
+
+    // Focus the first focusable element, if element does not already contain focus
+    if (element !== document.activeElement && !element.contains(document.activeElement)) {
         // The click that activated this target is not over yet, wait two frames
-        // to focus the element. I don't know why we need two. Such is browser life.
-        requestAnimationFrame(() => requestAnimationFrame(() => focusable.focus()));
+        // to focus the element. I don't know why we need three. Two is enough
+        // in Safari, Chrome seems to like three, to be reliable. Not sure what
+        // we are waiting for here. No sir, I don't like it.
+        requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() =>
+            focus(element)
+        )));
     }
 
     // Return state of element

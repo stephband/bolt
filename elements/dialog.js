@@ -6,7 +6,7 @@ Augments the <dialog> element.
 
 import events          from 'dom/events.js';
 import delegate        from 'dom/delegate.js';
-import { focusInside } from 'dom/focus.js';
+import focus           from 'dom/focus.js';
 import isTargetEvent   from 'dom/is-target-event.js';
 import style           from 'dom/style.js';
 import rect            from 'dom/rect.js';
@@ -46,6 +46,19 @@ function enableDocumentScroll() {
     }
 }
 
+function focusElement(element) {
+    // Focus the first focusable element, if element does not already contain focus
+    if (element !== document.activeElement && !element.contains(document.activeElement)) {
+        // The click that activated this target is not over yet, wait two frames
+        // to focus the element. I don't know why we need three. Two is enough
+        // in Safari, Chrome seems to like three, to be reliable. Not sure what
+        // we are waiting for here. No sir, I don't like it.
+        requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() =>
+            focus(element)
+        )));
+    }
+}
+
 export function open(element, target) {
     // Is the element closed?
     if (element.open) { return; }
@@ -58,6 +71,7 @@ export function open(element, target) {
     if (mode === 'modal') {
         const focused = document.activeElement;
 
+        // A modal dialog automatically has focus trapped in the top layer
         element.showModal();
         disableDocumentScroll();
 
@@ -75,8 +89,7 @@ export function open(element, target) {
         disableDocumentScroll();
         trapFocus(element);
 
-        // Dialogs do have a 'close' event, just remember the powers that be have
-        // decided that it should not bubble.
+        // Dialogs do have a 'close' event, it does not bubble.
         events('close', element)
         .slice(0, 1)
         .each(() => {
@@ -93,23 +106,6 @@ export function open(element, target) {
 
     // Give the dialog an "open" event
     trigger({ type: 'open', relatedTarget: target }, element)
-
-    // Move focus inside the dialog
-    if (element !== document.activeElement && !element.contains(document.activeElement)) {
-        // The click that activated this target is not over yet, wait three frames
-        // to focus the element. Don't know why we need three. Two is enough in
-        // Safari, Chrome seems to like three, to be reliable. Not sure what we
-        // are waiting for here. No sir, I don't like it.
-        //
-        // TODO: We should proabably insist on using the autofocus attribute instead.
-        requestAnimationFrame(() =>
-            requestAnimationFrame(() =>
-                requestAnimationFrame(() =>
-                    focusInside(element)
-                )
-            )
-        );
-    }
 
     // Return state of dialog
     return true;

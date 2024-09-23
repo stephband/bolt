@@ -19,7 +19,9 @@ bubbles, accordions and so on.
 **/
 
 import events          from 'dom/events.js';
+import focus           from 'dom/focus.js';
 import isPrimaryButton from 'dom/is-primary-button.js';
+import trigger         from 'dom/trigger.js';
 import { actions }     from './name=toggle.js';
 
 const focusableSelector = 'input, textarea, select, [autofocus], [tabindex]';
@@ -68,12 +70,18 @@ export function open(element, target, buttons) {
     // or give data-popable an open attribute
     else element.setAttribute('open', '');
 
-    // Focus the first element with class .active-focus
-    const focusable = element.matches(focusableSelector) || element.querySelector(focusableSelector);
-    if (focusable) {
+    // Give the popable an 'open' event
+    trigger('open', element);
+
+    // Focus the first focusable element, if element does not already contain focus
+    if (element !== document.activeElement && !element.contains(document.activeElement)) {
         // The click that activated this target is not over yet, wait two frames
-        // to focus the element. I don't know why we need two. Such is browser life.
-        requestAnimationFrame(() => requestAnimationFrame(() => focusable.focus()));
+        // to focus the element. I don't know why we need three. Two is enough
+        // in Safari, Chrome seems to like three, to be reliable. Not sure what
+        // we are waiting for here. No sir, I don't like it.
+        requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() =>
+            focus(element)
+        )));
     }
 
     // Return state of element
@@ -91,6 +99,9 @@ export function close(element) {
     if ('open' in element) element.open = false;
     // or remove data-popable open attribute
     else element.removeAttribute('open');
+
+    // Give the popable an 'close' event
+    trigger('close', element);
 
     // Return state of element
     return false;
