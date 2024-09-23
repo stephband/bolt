@@ -36,7 +36,7 @@ and `.tab-block` classes.
 
 import events      from 'dom/events.js';
 import children    from 'dom/children.js';
-import { actions, close } from '../elements/button.js';
+import { actions, close } from './name=toggle.js';
 
 const focusableSelector = 'input, textarea, select, button, [tabindex]:not([tabindex="-1"])';
 

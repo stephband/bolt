@@ -13,7 +13,7 @@ import rect            from 'dom/rect.js';
 import trigger         from 'dom/trigger.js';
 import { disableScroll, enableScroll } from 'dom/scroll.js';
 import { trapFocus, untrapFocus }      from 'dom/focus.js';
-import { actions }     from './button.js';
+import { actions }     from '../attributes/name=toggle.js';
 
 // As it is possible to have multiple dialogs open, we must enumerate them
 let n = 0;

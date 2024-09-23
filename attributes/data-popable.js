@@ -20,7 +20,7 @@ bubbles, accordions and so on.
 
 import events          from 'dom/events.js';
 import isPrimaryButton from 'dom/is-primary-button.js';
-import { actions }     from '../elements/button.js';
+import { actions }     from './name=toggle.js';
 
 const focusableSelector = 'input, textarea, select, [autofocus], [tabindex]';
 const popables = new WeakMap();
