@@ -5,8 +5,12 @@ import events             from 'dom/events.js';
 import identify           from 'dom/identify.js';
 import isPrimaryButton    from 'dom/is-primary-button.js';
 import isTargetEvent      from 'dom/is-target-event.js';
-import { isInternalLink } from 'dom/node.js';
+import { isInternalLink, isElementNode } from 'dom/node.js';
 import select             from 'dom/select.js';
+
+
+const A = Array.prototype;
+
 
 function isIgnorable(e) {
     // Default is prevented indicates that this click has already
@@ -140,10 +144,10 @@ function handleButton(button, e, fn) {
 }
 
 const handle = delegate({
-    'a[href^="#"]':    (a, e)      => handleLink(a, e, toggle),
-    '[name="toggle"]': (button, e) => handleButton(button, e, toggle),
+    'a[href^="#"]':    (link, e)   => handleLink(link, e, toggle),
     '[name="open"]':   (button, e) => handleButton(button, e, open),
     '[name="close"]':  (button, e) => handleButton(button, e, close),
+    '[name="toggle"]': (button, e) => handleButton(button, e, toggle),
 
     // TODO!!!
     // Clicks inside dialogs
@@ -218,7 +222,7 @@ events('DOMContentLoaded', document).each(function() {
         const hash = window.location.hash;
 
         mutations
-        .reduce(pushElements, []);
+        .reduce(pushElements, [])
         .forEach((element) => {
             let selector;
             for (selector in elements) {

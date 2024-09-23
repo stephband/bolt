@@ -27,6 +27,8 @@ const focusableSelector = 'input, textarea, select, [autofocus], [tabindex]';
 let mousedowns, focusins, focusouts, escapes;
 
 export function open(element, target, buttons) {
+    console.log('OPEN');
+
     // This should never happen
     if (mousedowns) console.warn('For some reason mousedowns/focusins/escapes streams are still a thing. They should not be.');
     if (mousedowns) mousedowns.stop();

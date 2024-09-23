@@ -45,29 +45,34 @@ function closeSwitchable(element) {
     close(element);
 }
 
+function open(element) {
+    const root     = element.getRootNode();
+    const group    = element.getAttribute('[data-switchable]');
+    const elements = group ?
+        root.querySelectorAll('.active[data-switchable="' + group + '"]') :
+        children(element.parentNode)
+        .filter((child) => child !== element && child.matches('.active[data-switchable=""]')) ;
+
+    elements.forEach((switchable) => closeSwitchable(switchable));
+    element.classList.add('active');
+
+    // Focus the first focusable element
+    const focusable = element.matches(focusableSelector) || element.querySelector(focusableSelector);
+    if (focusable) {
+        // The click that activated this target is not over yet, wait two frames
+        // to focus the element. I don't know why we need two. Such is browser life.
+        requestAnimationFrame(() => requestAnimationFrame(() => focusable.focus()));
+    }
+
+    // Return state of element
+    return true;
+}
+
 actions('[data-switchable]', {
-    open: (element) => {
-        const root     = element.getRootNode();
-        const group    = element.getAttribute('[data-switchable]');
-        const elements = group ?
-            root.querySelectorAll('.active[data-switchable="' + group + '"]') :
-            children(element.parentNode)
-            .filter((child) => child !== element && child.matches('.active[data-switchable=""]')) ;
+    open: open,
 
-        elements.forEach((switchable) => closeSwitchable(switchable));
-        element.classList.add('active');
-
-        // Focus the first focusable element
-        const focusable = element.matches(focusableSelector) || element.querySelector(focusableSelector);
-        if (focusable) {
-            // The click that activated this target is not over yet, wait two frames
-            // to focus the element. I don't know why we need two. Such is browser life.
-            requestAnimationFrame(() => requestAnimationFrame(() => focusable.focus()));
-        }
-
-        // Return state of element
-        return true;
-    },
+    // We have to do this because links use toggle! ARRRGH. Arrgh aRRGH aaRAArgh.
+    toggle: open,
 
     /* TODO: this is a bit naff, and we should be able to factor it out. Surely. */
     load: (element) => {
