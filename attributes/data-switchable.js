@@ -1,9 +1,10 @@
 /**
 data-switchable
 
-A `data-switchable` is given the class `"active"` when a link to it is click-hijacked,
-and all links to it are given the class `"on"`. In any group of siblings with
-the `data-switchable` attribute, exactly one is always active.
+A `data-switchable` is given the class `"active"` when a link to it, or a button
+with `name="open"` and value of the its #id, is clicked. All links and buttons
+that reference it are given the class `"on"`. In any group of siblings with
+the `data-switchable` attribute exactly one is always active.
 
 A switchable is also activated if the page loads with its fragment identifier in
 the URL.
@@ -32,27 +33,45 @@ and `.tab-block` classes.
 ```
 **/
 
-import matches  from 'dom/matches.js';
-import children from 'dom/children.js';
-import { behaviours, deactivate } from '../events/dom-activate.js';
 
+import events      from 'dom/events.js';
+import children    from 'dom/children.js';
+import { actions, close } from '../elements/button.js';
 
-// Define
+const focusableSelector = 'input, textarea, select, button, [tabindex]:not([tabindex="-1"])';
 
-function match(element) {
-    return element.matches('[data-switchable]');
+function closeSwitchable(element) {
+    element.classList.remove('active');
+    close(element);
 }
 
-function activate(e) {
-	var target = e.target;
-	var nodes = children(target.parentNode).filter(match);
-	var i = nodes.indexOf(target);
+actions('[data-switchable]', {
+    open: (element) => {
+        const root     = element.getRootNode();
+        const group    = element.getAttribute('[data-switchable]');
+        const elements = group ?
+            root.querySelectorAll('.active[data-switchable="' + group + '"]') :
+            children(element.parentNode)
+            .filter((child) => child !== element && child.matches('.active[data-switchable=""]')) ;
 
-	nodes.splice(i, 1);
+        elements.forEach((switchable) => closeSwitchable(switchable));
+        element.classList.add('active');
 
-    nodes
-    .filter(matches('.active'))
-    .forEach((active) => deactivate(active, target));
-}
+        // Focus the first focusable element
+        const focusable = element.matches(focusableSelector) || element.querySelector(focusableSelector);
+        if (focusable) {
+            // The click that activated this target is not over yet, wait two frames
+            // to focus the element. I don't know why we need two. Such is browser life.
+            requestAnimationFrame(() => requestAnimationFrame(() => focusable.focus()));
+        }
 
-behaviours['[data-switchable]'] = activate;
+        // Return state of element
+        return true;
+    },
+
+    /* TODO: this is a bit naff, and we should be able to factor it out. Surely. */
+    load: (element) => {
+        /* load() only has to return true/false */
+        return element.matches('.active');
+    }
+});

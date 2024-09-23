@@ -46,7 +46,7 @@ function enableDocumentScroll() {
     }
 }
 
-export function open(element, buttons, target) {
+export function open(element, target) {
     // Is the element closed?
     if (element.open) { return; }
 
@@ -110,9 +110,12 @@ export function open(element, buttons, target) {
             )
         );
     }
+
+    // Return state of dialog
+    return true;
 }
 
-export function close(element, buttons, target) {
+export function close(element, target) {
     // Is the element open?
     if ('open' in element && !element.open) { return; }
 
@@ -143,12 +146,15 @@ export function close(element, buttons, target) {
     ends.stop();
     element.close();
     element.classList.remove('closing');
+
+    // Return state of dialog
+    return false;
 }
 
 actions('dialog', {
     open:   open,
     close:  close,
-    toggle: (element, buttons, target) => element.open ?
-        close(element, buttons, target) :
-        open(element, buttons, target)
+    toggle: (element, target) => element.open ?
+        close(element, target) :
+        open(element, target)
 });

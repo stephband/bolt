@@ -4,7 +4,7 @@ A `data-removeable` is removed from the DOM after `dom-deactivate`.
 */
 
 import events from 'dom/events.js';
-import { behaviours } from '../events/dom-activate.js';
+import { behaviours } from '../events/_dom-activate.js';
 
 // Max duration of deactivation transition in seconds
 const maxDuration = 1;

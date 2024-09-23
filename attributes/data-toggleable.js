@@ -27,7 +27,7 @@ import identify        from 'dom/identify.js';
 import events          from 'dom/events.js';
 import isPrimaryButton from 'dom/is-primary-button.js';
 import { isInternalLink } from 'dom/node.js';
-import { behaviours, deactivate } from '../events/dom-activate.js';
+import { behaviours, deactivate } from '../events/_dom-activate.js';
 
 
 

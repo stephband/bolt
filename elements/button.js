@@ -45,6 +45,14 @@ function buttonsFromElement(element) {
         .concat(select('[value="#' + id + '"]', root));
 }
 
+function addOnClass(button) {
+    button.classList.add('on');
+}
+
+function removeOnClass(button) {
+    button.classList.remove('on');
+}
+
 
 const map = new WeakMap();
 
@@ -68,24 +76,36 @@ function getActions(element) {
 }
 
 
-export function open(element, buttons, target) {
+export function open(element, target) {
     const actions = getActions(element);
     if (!actions) return;
-    actions.open(element, buttons, target);
+    const buttons = buttonsFromElement(element);
+    const state = actions.open ?
+        actions.open(element, target, buttons) :
+        true ;
+    if (state) buttons.forEach(addOnClass);
     return true;
 }
 
-export function close(element, buttons, target) {
+export function close(element, target) {
     const actions = getActions(element);
     if (!actions) return;
-    actions.close(element, buttons, target);
+    const buttons = buttonsFromElement(element);
+    const state = actions.close ?
+        actions.close(element, target, buttons) :
+        false ;
+    if (!state) buttons.forEach(removeOnClass);
     return true;
 }
 
-export function toggle(element, buttons, target) {
+export function toggle(element, target) {
     const actions = getActions(element);
     if (!actions) return;
-    actions.toggle(element, buttons, target);
+    if (!actions.toggle) return;
+    const buttons = buttonsFromElement(element);
+    const state = actions.toggle(element, target, buttons);
+    if (state) buttons.forEach(addOnClass);
+    else buttons.forEach(removeOnClass);
     return true;
 }
 
@@ -102,8 +122,7 @@ function handleLink(a, e, fn) {
     if (!element) return;
 
     // Perform action and flag click as handled
-    const buttons = buttonsFromElement(element);
-    if (fn(element, buttons, a)) e.preventDefault();
+    if (fn(element, a)) e.preventDefault();
 }
 
 function handleButton(button, e, fn) {
@@ -117,8 +136,7 @@ function handleButton(button, e, fn) {
     }
 
     // Perform action and flag click as handled
-    const buttons = buttonsFromElement(element);
-    if (fn(element, buttons, button)) e.preventDefault();
+    if (fn(element, button)) e.preventDefault();
 }
 
 const handle = delegate({
@@ -139,8 +157,7 @@ const handle = delegate({
     }
 });
 
-
-/* Register a selector for open/close/toggle actions */
+/* Register a selector for open/close/toggle/load actions */
 
 export function actions(selector, actions, root = document) {
     const elements = getElements(root);
@@ -149,3 +166,81 @@ export function actions(selector, actions, root = document) {
     window.console &&
     window.console.log('%c<button>%c actions for selector "' + selector + '"', 'color:#3a8ab0;font-weight:600;', 'color:#888888;font-weight:400;');
 }
+
+
+
+/* Setup on document load and on document mutation */
+
+function locate(root) {
+    const hash = window.location.hash;
+
+    // Open the node that corresponds to location.hash, checking if it's an
+    // alphanumeric id selector (not a hash bang, which google abuses for paths
+    // in old apps)
+    if (!hash || !(/^#\S+$/.test(hash))) return;
+
+    // Catch errors, as id may nonetheless be an invalid selector
+    try {
+        const element = root.querySelector(hash);
+        if (!element) return;
+        open(element, null);
+    }
+    catch(e) {
+        console.warn('Cannot open ' + hash, e.message);
+    }
+}
+
+events('load', window).each((e) => locate(document));
+
+function pushElements(elements, mutation) {
+    elements.push.apply(elements, A.filter.call(mutation.addedNodes, isElementNode));
+    return elements;
+}
+
+events('DOMContentLoaded', document).each(function() {
+    const elements = getElements(document);
+
+    let selector;
+    for (selector in elements) {
+        if (elements[selector].load) {
+            document
+            .querySelectorAll(selector)
+            .forEach((element) => {
+                if (elements[selector].load(element)) {
+                    open(element);
+                }
+            });
+        }
+    }
+
+    // Create an observer instance linked to the callback function
+    const observer = new MutationObserver((mutations, observer) => {
+        const hash = window.location.hash;
+
+        mutations
+        .reduce(pushElements, []);
+        .forEach((element) => {
+            let selector;
+            for (selector in elements) {
+                if (elements[selector].load) {
+                    if (element.matches(selector) && elements[selector].load(element)) {
+                        open(element);
+                    }
+
+                    elements[selector].load(element);
+                    element.querySelectorAll(selector).forEach((element) => {
+                        if (elements[selector].load(element)) {
+                            open(element);
+                        }
+                    });
+                }
+            }
+
+            // If added content matches document hash
+            locate(element);
+        });
+    });
+
+    // Start observing body for mutations
+    observer.observe(document.body, { childList: true, subtree: true });
+});

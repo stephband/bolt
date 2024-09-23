@@ -22,17 +22,11 @@ import events          from 'dom/events.js';
 import isPrimaryButton from 'dom/is-primary-button.js';
 import { actions }     from '../elements/button.js';
 
+const focusableSelector = 'input, textarea, select, [autofocus], [tabindex]';
+
 let mousedowns, focusins, focusouts, escapes;
 
-function addOnClass(element) {
-    element.classList.add('on');
-}
-
-function removeOnClass(element) {
-    element.classList.remove('on');
-}
-
-export function open(element, buttons, target) {
+export function open(element, target, buttons) {
     // This should never happen
     if (mousedowns) console.warn('For some reason mousedowns/focusins/escapes streams are still a thing. They should not be.');
     if (mousedowns) mousedowns.stop();
@@ -49,31 +43,28 @@ export function open(element, buttons, target) {
         // If target is, or is in, one of the buttons, ignore
         if (buttons.find((button) => (button === e.target || button.contains(e.target)))) return;
 
-        close(element, e.target, buttons);
+        close(element, e.target);
     });
 
     focusins = events('focusin', document).each((e) => {
         // If focus moves outside data-popable, close it
-        if (!element.contains(e.target)) close(element, e.target, buttons);
+        if (!element.contains(e.target)) close(element, e.target);
     });
 
     focusouts = events('focusout', element).each((e) => {
         // If focus moves outside data-popable, close it
-        if (e.relatedTarget && !element.contains(e.relatedTarget)) close(element, e.target, buttons);
+        if (e.relatedTarget && !element.contains(e.relatedTarget)) close(element, e.target);
     });
 
     escapes = events('keydown', document).each(() => {
         // Escape key is pressed, close data-popable
-        if (e.key === "Escape") close(element, null, buttons)
+        if (e.key === "Escape") close(element, null)
     });
 
     // Set data-popaable's .open property if it has one
     if ('open' in element) element.open = true;
     // or give data-popable an open attribute
     else element.setAttribute('open', '');
-
-    // Add .on class to buttons
-    buttons.forEach(addOnClass);
 
     // Focus the first element with class .active-focus
     const focusable = element.matches(focusableSelector) || element.querySelector(focusableSelector);
@@ -82,9 +73,12 @@ export function open(element, buttons, target) {
         // to focus the element. I don't know why we need two. Such is browser life.
         requestAnimationFrame(() => requestAnimationFrame(() => focusable.focus()));
     }
+
+    // Return state of element
+    return true;
 }
 
-export function close(element, buttons, target) {
+export function close(element) {
     if (mousedowns) mousedowns.stop();
     if (focusins)   focusins.stop();
     if (focusouts)  focusouts.stop();
@@ -100,14 +94,14 @@ export function close(element, buttons, target) {
     // or remove data-popable open attribute
     else element.removeAttribute('open');
 
-    // Add .on class to buttons
-    buttons.forEach(removeOnClass);
+    // Return state of element
+    return false;
 }
 
 actions('[data-popable]', {
-    open:   open,
-    close:  close,
-    toggle: (element, buttons, target) => (element.open || element.getAttribute('open') !== null) ?
-        close(element, buttons, target) :
-        open(element, buttons, target)
+    open,
+    close,
+    toggle: (element, target, buttons) => (element.open || element.getAttribute('open') !== null) ?
+        close(element) :
+        open(element, target, buttons)
 });
