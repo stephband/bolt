@@ -155,6 +155,9 @@ function handleLinkClick(a, e, fn) {
     const element = toggleableFromLink(a);
     if (!element) return;
 
+    // e.detail tells us whether click came from keyboard [RETURN] key
+    //const isKeyboardClick = e.detail === 0;
+
     // Perform action and flag click as handled
     if (fn(element, a)) e.preventDefault();
 }
@@ -168,6 +171,9 @@ function handleButtonClick(button, e, fn) {
         if (window.DEBUG) console.error('Button name="' + button.name + '" value="' + button.value + '" element not found');
         return;
     }
+
+    // e.detail tells us whether click came from keyboard [RETURN] key
+    //const isKeyboardClick = e.detail === 0;
 
     // Perform action and flag click as handled
     if (fn(element, button)) e.preventDefault();

@@ -27,7 +27,6 @@ import style           from 'dom/style.js';
 import { actions }     from './name=toggle.js';
 
 const focusableSelector = 'input, textarea, select, [autofocus], [tabindex]';
-const popables = new WeakMap();
 
 let mousedowns, focusins, focusouts, escapes;
 
@@ -36,37 +35,55 @@ function stop(stream) {
 }
 
 export function open(element, button, buttons) {
-    if (popables.has(element)) return true;
+    if (element.open || element.hasAttribute('open')) return true;
+
+    //const root = element.getRootNode() || document;
 
     function handleClose(e) {
-        // Focus is, or is inside, element, ignore
+        // Mousedown or focus is, or is inside, element, ignore
         if (element === e.target || element.contains(e.target)) return;
-
-        // Focus is, or is inside, one of the buttons, ignore
+        // Mousedown or focus is, or is inside, one of the buttons, ignore
         if (buttons.find((button) => (button === e.target || button.contains(e.target)))) return;
-
-        // Focus has moved outside element, close it
-        close(element, e.target);
+        // Mousedown or focus has moved outside element, close it
+        close(element, e.target, buttons);
     }
 
-    popables.set(element, [
-        events('mousedown', document).filter(isPrimaryButton).each(handleClose),
-        events('focusin', document).each(handleClose),
-        events('keydown', document).each((e) => {
+    const streams = [
+        events('mousedown', document)
+        .filter(isPrimaryButton)
+        .each(handleClose),
+
+        events('focusin', document)
+        .each(handleClose),
+
+        events('keydown', document)
+        .each((e) => {
             // Not escape key, ignore
             if (e.key !== "Escape") return;
-
             // Close data-popable
-            close(element, null);
+            close(element, null, buttons);
+        }),
+
+        events('close', element)
+        .filter(isTargetEvent)
+        .each((e) => {
+            // Stap event streams
+            streams.forEach(stop);
+            // If close was not caused by a button, or if the button is inside
+            // closed element, return focus to opening button
+            if (!e.relatedTarget || element.contains(e.relatedTarget)) focus(button);
         })
-    ]);
+    ];
+
+    // Fails to block keyboard focus entering element. Unreliable. Don't use.
+    //element.removeAttribute('aria-hidden');
 
     // Set data-popaable's .open property if it has one
     if ('open' in element) element.open = true;
     // or give data-popable an open attribute
     else element.setAttribute('open', '');
 
-    // Give the popable an 'open' event
+    // Give the data-popable an 'open' event
     trigger({ type: 'open', relatedTarget: button }, element);
 
     // If button exists open() has been called as the result of a user interaction,
@@ -86,20 +103,19 @@ export function open(element, button, buttons) {
     return true;
 }
 
-export function close(element) {
-    const streams = popables.get(element);
-    if (!streams) return false;
-
-    streams.forEach(stop);
-    popables.delete(element);
+export function close(element, button, buttons) {
+    if (!element.open && !element.hasAttribute('open')) { return false; }
 
     // Set data-popaable's .open property if it has one
     if ('open' in element) element.open = false;
     // or remove data-popable open attribute
     else element.removeAttribute('open');
 
-    // Give the popable an 'close' event
-    trigger('close', element);
+    // Fails to block keyboard focus entering element. Unreliable. Don't use.
+    //element.setAttribute('aria-hidden', 'true');
+
+    // Give the data-popable a 'close' event
+    trigger({ type: 'close', relatedTarget: button }, element);
 
     // Return state of element
     return false;
@@ -109,7 +125,7 @@ actions('[data-popable]', {
     locate: open,
     open:   open,
     close:  close,
-    toggle: (element, button, buttons) => popables.has(element) ?
-        close(element) :
+    toggle: (element, button, buttons) => element.open || element.hasAttribute('open') ?
+        close(element, button, buttons) :
         open(element, button, buttons)
 });
