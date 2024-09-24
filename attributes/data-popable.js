@@ -38,32 +38,26 @@ function stop(stream) {
 export function open(element, button, buttons) {
     if (popables.has(element)) return true;
 
+    function handleClose(e) {
+        // Focus is, or is inside, element, ignore
+        if (element === e.target || element.contains(e.target)) return;
+
+        // Focus is, or is inside, one of the buttons, ignore
+        if (buttons.find((button) => (button === e.target || button.contains(e.target)))) return;
+
+        // Focus has moved outside element, close it
+        close(element, e.target);
+    }
+
     popables.set(element, [
-        events('mousedown', document)
-        .filter(isPrimaryButton)
-        .each((e) => {
-            // If target is, or is in, element, ignore
-            if (element === e.target || element.contains(e.target)) return;
-
-            // If target is, or is in, one of the buttons, ignore
-            if (buttons.find((button) => (button === e.target || button.contains(e.target)))) return;
-
-            close(element, e.target);
-        }),
-
-        events('focusin', document).each((e) => {
-            // If focus moves outside data-popable, close it
-            if (!element.contains(e.target)) close(element, e.target);
-        }),
-
-        events('focusout', element).each((e) => {
-            // If focus moves outside data-popable, close it
-            if (e.relatedTarget && !element.contains(e.relatedTarget)) close(element, e.target);
-        }),
-
+        events('mousedown', document).filter(isPrimaryButton).each(handleClose),
+        events('focusin', document).each(handleClose),
         events('keydown', document).each((e) => {
-            // Escape key is pressed, close data-popable
-            if (e.key === "Escape") close(element, null)
+            // Not escape key, ignore
+            if (e.key !== "Escape") return;
+
+            // Close data-popable
+            close(element, null);
         })
     ]);
 
@@ -79,24 +73,13 @@ export function open(element, button, buttons) {
     // and if element does not already contain focus and there is something
     // focusable about it we want to move focus inside it
     if (button && element !== document.activeElement && !element.contains(document.activeElement)) {
-        const duration = parseFloat(style('transition-duration', element));
-        // Is there a transition happening?
-        if (duration) {
-            // Wait for transition end to move focus
-            events('transitionend', element)
-            .filter(isTargetEvent)
-            .slice(0, 1)
-            .each((e) => focus(element));
-        }
-        else {
-            // The click that activated this target is not over yet, wait three frames
-            // to focus the element. I don't know why we need three. Two is enough
-            // in Safari, Chrome seems to like three, to be reliable. Not sure what
-            // we are waiting for here. No sir, I don't like it.
-            requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() =>
-                focus(element)
-            )));
-        }
+        // The click that activated this target is not over yet, wait three frames
+        // to focus the element. I don't know why we need three. Two is enough
+        // in Safari, Chrome seems to like three, to be reliable. Not sure what
+        // we are waiting for here. No sir, I don't like it.
+        requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() =>
+            focus(element)
+        )));
     }
 
     // Return state of element
