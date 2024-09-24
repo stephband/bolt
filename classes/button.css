@@ -134,9 +134,9 @@ button > svg,
 }
 
 button:hover,
-button:focus,
+button:focus-visible,
 .button:hover,
-.button:focus {
+.button:focus-visible {
     /* If button is link, it may have hover styles. */
     text-decoration: none;
 

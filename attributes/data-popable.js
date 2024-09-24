@@ -21,7 +21,9 @@ bubbles, accordions and so on.
 import events          from 'dom/events.js';
 import focus           from 'dom/focus.js';
 import isPrimaryButton from 'dom/is-primary-button.js';
+import isTargetEvent   from 'dom/is-target-event.js';
 import trigger         from 'dom/trigger.js';
+import style           from 'dom/style.js';
 import { actions }     from './name=toggle.js';
 
 const focusableSelector = 'input, textarea, select, [autofocus], [tabindex]';
@@ -33,7 +35,7 @@ function stop(stream) {
     stream.stop();
 }
 
-export function open(element, target, buttons) {
+export function open(element, button, buttons) {
     if (popables.has(element)) return true;
 
     popables.set(element, [
@@ -59,7 +61,7 @@ export function open(element, target, buttons) {
             if (e.relatedTarget && !element.contains(e.relatedTarget)) close(element, e.target);
         }),
 
-        events('keydown', document).each(() => {
+        events('keydown', document).each((e) => {
             // Escape key is pressed, close data-popable
             if (e.key === "Escape") close(element, null)
         })
@@ -71,17 +73,30 @@ export function open(element, target, buttons) {
     else element.setAttribute('open', '');
 
     // Give the popable an 'open' event
-    trigger('open', element);
+    trigger({ type: 'open', relatedTarget: button }, element);
 
-    // Focus the first focusable element, if element does not already contain focus
-    if (element !== document.activeElement && !element.contains(document.activeElement)) {
-        // The click that activated this target is not over yet, wait two frames
-        // to focus the element. I don't know why we need three. Two is enough
-        // in Safari, Chrome seems to like three, to be reliable. Not sure what
-        // we are waiting for here. No sir, I don't like it.
-        requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() =>
-            focus(element)
-        )));
+    // If button exists open() has been called as the result of a user interaction,
+    // and if element does not already contain focus and there is something
+    // focusable about it we want to move focus inside it
+    if (button && element !== document.activeElement && !element.contains(document.activeElement)) {
+        const duration = parseFloat(style('transition-duration', element));
+        // Is there a transition happening?
+        if (duration) {
+            // Wait for transition end to move focus
+            events('transitionend', element)
+            .filter(isTargetEvent)
+            .slice(0, 1)
+            .each((e) => focus(element));
+        }
+        else {
+            // The click that activated this target is not over yet, wait three frames
+            // to focus the element. I don't know why we need three. Two is enough
+            // in Safari, Chrome seems to like three, to be reliable. Not sure what
+            // we are waiting for here. No sir, I don't like it.
+            requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() =>
+                focus(element)
+            )));
+        }
     }
 
     // Return state of element
@@ -108,9 +123,10 @@ export function close(element) {
 }
 
 actions('[data-popable]', {
-    open,
-    close,
-    toggle: (element, target, buttons) => popables.has(element) ?
+    locate: open,
+    open:   open,
+    close:  close,
+    toggle: (element, button, buttons) => popables.has(element) ?
         close(element) :
-        open(element, target, buttons)
+        open(element, button, buttons)
 });

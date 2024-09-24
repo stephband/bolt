@@ -37,6 +37,7 @@ and `.tab-block` classes.
 import children           from 'dom/children.js';
 import events             from 'dom/events.js';
 import focus              from 'dom/focus.js';
+import style              from 'dom/style.js';
 import trigger            from 'dom/trigger.js';
 import { actions, close } from './name=toggle.js';
 
@@ -45,10 +46,10 @@ function closeSwitchable(element) {
     element.classList.remove('active');
     close(element);
     // Give the switchable a 'close' event
-    trigger('close', element);
+    trigger({ type: 'close' }, element);
 }
 
-function open(element) {
+function open(element, button) {
     const root     = element.getRootNode();
     const group    = element.getAttribute('[data-switchable]');
     const elements = group ?
@@ -60,18 +61,7 @@ function open(element) {
     element.classList.add('active');
 
     // Give the switchable an 'open' event
-    trigger('open', element);
-
-    // Focus the first focusable element, if element does not already contain focus
-    if (element !== document.activeElement && !element.contains(document.activeElement)) {
-        // The click that activated this target is not over yet, wait two frames
-        // to focus the element. I don't know why we need three. Two is enough
-        // in Safari, Chrome seems to like three, to be reliable. Not sure what
-        // we are waiting for here. No sir, I don't like it.
-        requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() =>
-            focus(element)
-        )));
-    }
+    trigger({ type: 'open', relatedTarget: button }, element);
 
     // Return state of element
     return true;

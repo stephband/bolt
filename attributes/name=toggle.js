@@ -65,7 +65,11 @@ const map = new WeakMap();
 function getElements(root) {
     if (!map.has(root)) {
         map.set(root, {});
-        events('click', root).each(handle);
+        events('click', root).each(handleClick);
+        events('load hashchange', window).each((e) => handleHash(root, e, locate));
+        events('focusin', root).each((e) => {
+            console.log('TODO: focus moved to', e.target);
+        });
     }
 
     return map.get(root);
@@ -115,8 +119,32 @@ export function toggle(element, target) {
     return true;
 }
 
+export function locate(element) {
+    const actions = getActions(element);
+    if (!actions) return;
+    if (!actions.locate) return;
+    const buttons = buttonsFromElement(element);
+    const state = actions.locate(element, null, buttons);
+    if (state) buttons.forEach(addOnClass);
+    else buttons.forEach(removeOnClass);
+    return true;
+}
 
-function handleLink(a, e, fn) {
+
+function handleHash(root, e, fn) {
+    const hash = window.location.hash;
+
+    // Open the node that corresponds to location.hash, checking if it's an
+    // alphanumeric id selector (not a hash bang, which google abuses for paths
+    // in old apps)
+    if (!hash || !(/^#\S+$/.test(hash))) return;
+
+    // Hash may nonetheless be an invalid selector, this may error, that's ok
+    const element = root.querySelector(hash);
+    if (element) fn(element);
+}
+
+function handleLinkClick(a, e, fn) {
     // Ignore right-clicks, option-clicks
     if (isIgnorable(e)) return;
 
@@ -131,7 +159,7 @@ function handleLink(a, e, fn) {
     if (fn(element, a)) e.preventDefault();
 }
 
-function handleButton(button, e, fn) {
+function handleButtonClick(button, e, fn) {
     // Ignore right-clicks, option-clicks
     if (isIgnorable(e)) return;
 
@@ -145,11 +173,11 @@ function handleButton(button, e, fn) {
     if (fn(element, button)) e.preventDefault();
 }
 
-const handle = delegate({
-    'a[href^="#"]':    (link, e)   => handleLink(link, e, toggle),
-    '[name="open"]':   (button, e) => handleButton(button, e, open),
-    '[name="close"]':  (button, e) => handleButton(button, e, close),
-    '[name="toggle"]': (button, e) => handleButton(button, e, toggle),
+const handleClick = delegate({
+    'a[href^="#"]':    (link, e)   => handleLinkClick(link, e, toggle),
+    '[name="open"]':   (button, e) => handleButtonClick(button, e, open),
+    '[name="close"]':  (button, e) => handleButtonClick(button, e, close),
+    '[name="toggle"]': (button, e) => handleButtonClick(button, e, toggle),
 
     // TODO!!!
     // Clicks inside dialogs
@@ -163,6 +191,8 @@ const handle = delegate({
     }
 });
 
+
+
 /* Register a selector for open/close/toggle/load actions */
 
 export function actions(selector, actions, root = document) {
@@ -175,29 +205,14 @@ export function actions(selector, actions, root = document) {
 
 
 
-/* Setup on document load and on document mutation */
+/* Setup on document mutation */
 
-function locate(root) {
-    const hash = window.location.hash;
+//events('load', window).each(() => console.log('load ACTIVE', document.activeElement));
+//events('hashchange', window).each(() => console.log('hashchange ACTIVE', window.location.hash, document.activeElement));
+//events('DOMContentLoaded', window).each(() => console.log('DOMContentLoaded ACTIVE', document.activeElement));
 
-    // Open the node that corresponds to location.hash, checking if it's an
-    // alphanumeric id selector (not a hash bang, which google abuses for paths
-    // in old apps)
-    if (!hash || !(/^#\S+$/.test(hash))) return;
 
-    // Catch errors, as id may nonetheless be an invalid selector
-    try {
-        const element = root.querySelector(hash);
-        if (!element) return;
-        open(element, null);
-    }
-    catch(e) {
-        console.warn('Cannot open ' + hash, e.message);
-    }
-}
-
-events('load', window).each((e) => locate(document));
-
+/*
 function pushElements(elements, mutation) {
     elements.push.apply(elements, A.filter.call(mutation.addedNodes, isElement));
     return elements;
@@ -250,3 +265,4 @@ events('DOMContentLoaded', document).each(function() {
     // Start observing body for mutations
     observer.observe(document.body, { childList: true, subtree: true });
 });
+*/
