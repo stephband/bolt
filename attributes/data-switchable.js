@@ -68,14 +68,8 @@ function open(element, button) {
 }
 
 actions('[data-switchable]', {
-    open: open,
-
+    locate: open,
+    open:   open,
     // We have to do this because links use toggle! ARRRGH. Arrgh aRRGH aaRAArgh.
-    toggle: open,
-
-    /* TODO: this is a bit naff, and we should be able to factor it out. Surely. */
-    load: (element) => {
-        /* load() only has to return true/false */
-        return element.matches('.active');
-    }
+    toggle: open
 });
