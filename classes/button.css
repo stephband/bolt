@@ -42,25 +42,10 @@ button,
     */
     --color: black;
 
-    /*
-    --bg
-    */
-    /*--bg: white;*/
-
-    /*
-    --fg
-    */
-    --fg: transparent;
-
     /**
     --border-width
     **/
     --border-width: 0rem;
-
-    /*
-    --border-radius
-    */
-    --border-radius: 0.3125rem;
 
     /*
     --padding-left
@@ -115,8 +100,6 @@ button,
     background-origin: border-box;
     border-style: solid;
     border-width:  var(--border-width);
-    border-color:  var(--fg);
-    border-radius: var(--border-radius);
     transition:
         border-color 120ms linear,
         background-color 120ms linear,

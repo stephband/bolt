@@ -66,10 +66,11 @@ function getElements(root) {
     if (!map.has(root)) {
         map.set(root, {});
         events('click', root).each(handleClick);
-        events('load hashchange', window).each((e) => handleHash(root, e, locate));
-        events('focusin', root).each((e) => {
-            console.log('TODO: focus moved to', e.target);
-        });
+        events('focusin', root).each(handleFocus);
+
+        // Only listen to hashchange to trigger things things in the top level
+        // DOM (the light DOM, no shadow DOMs)
+        if (root === document) events('load hashchange', window).each(handleHash);
     }
 
     return map.get(root);
@@ -130,8 +131,17 @@ export function locate(element) {
     return true;
 }
 
+function recurseFocus(element) {
+    if (!element) return;
+    recurseFocus(element.parentElement);
+    open(element);
+}
 
-function handleHash(root, e, fn) {
+function handleFocus(e) {
+    recurseFocus(e.target);
+}
+
+function handleHash(e) {
     const hash = window.location.hash;
 
     // Open the node that corresponds to location.hash, checking if it's an
@@ -140,8 +150,8 @@ function handleHash(root, e, fn) {
     if (!hash || !(/^#\S+$/.test(hash))) return;
 
     // Hash may nonetheless be an invalid selector, this may error, that's ok
-    const element = root.querySelector(hash);
-    if (element) fn(element);
+    const element = document.querySelector(hash);
+    if (element) locate(element);
 }
 
 function handleLinkClick(a, e, fn) {
@@ -196,7 +206,6 @@ const handleClick = delegate({
         root.querySelectorAll('dialog[open]').forEach((element) => elements.dialog.close(element));
     }
 });
-
 
 
 /* Register a selector for open/close/toggle/load actions */
