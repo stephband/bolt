@@ -3,7 +3,8 @@
 Forms.
 **/
 
-:root {
+:root,
+:host {
    /** --focus-bg
     Background of focused inputs, selects and textareas **/
     --focus-bg: var(--input-background);
@@ -137,49 +138,20 @@ Forms.
     --help-font-size: 0.875rem;
 }
 
-
-/* IE/Edge fails to update styles for changed disabled properties. This rule
-   targetting the attribute rather than the pseudo-selector keeps the
-   pseudo-selectors up-to-date.
-   https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11295231/
-*/
-[disabled] ~ _ {}
-
-
-/*
-:enabled
-:disabled
-:required
-:optional
-:checked
-:valid
-:invalid
-
-Slightly less support:
-
-:in-range
-:out-of-range
-*/
-
-
 form,
 fieldset,
+label,
 legend,
 input,
 output,
 button,
 select,
 textarea {
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-        -ms-box-sizing: border-box;
-            box-sizing: border-box;
-}
+    /* Use the only sensible box model */
+    box-sizing: border-box;
 
-form,
-fieldset {
-    /* Act as position parent */
-    position: relative;
+    /* Remove default margins in favour of better control in authored CSS */
+    margin: 0;
 }
 
 fieldset {
@@ -187,6 +159,10 @@ fieldset {
     padding: 0;
     margin: auto;
     border: 0;
+}
+
+* + fieldset {
+    margin-top: var(--fieldset-margin);
 }
 
 legend {
@@ -197,14 +173,6 @@ legend {
 
     font-weight: bold;
     font-size: 1.1667em;
-}
-
-option {
-    /* In Firefox options are partially styleable. Make sure they don't
-       become unreadable by inheriting colors. */
-    color: black;
-    background: white;
-    padding: 0.3125rem 0.9375rem;
 }
 
 
@@ -324,18 +292,18 @@ button,
 select,
 textarea {
     display: inline-block;
+
+    /* Font size is not automatically inherited in all browsers. */
+    font-family: inherit;
+    font-size:   inherit;
+    font-weight: inherit;
+
     /* Vertical align middle to stop extra line space creeping into the vertical
        rhythm when inputs stack up. It also has the effect of removing the
        annoying extra margin-bottom that textareas have in webkit. */
     vertical-align: middle;
-    margin: 0;
 
-    /* Font size is not automaticlly inherited in all browsers. */
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-
-    /* FF and WebKit ignore line-height on inputs, automatically centring the
+    /* FF and WebKit ignore line-height on inputs, automatically centering the
        text, but IE8 needs it. */
     line-height: inherit;
 
@@ -345,6 +313,51 @@ textarea {
     /*z-index: 2;
     position: relative;*/
 }
+
+
+label {
+    --size:          var(--label-height, 2.8125rem);
+    --padding-left:  var(--label-padding-left, 0rem);
+    --padding-right: var(--label-padding-right, 0rem);
+    --border-radius: var(--label-border-radius, 0.3125rem);
+
+    display:        block;
+    width:          auto;
+    max-width:      100%;
+
+    height:         auto;
+    min-height:     var(--size);
+    padding-left:   var(--padding-left);
+    padding-right:  var(--padding-right);
+    padding-top:    calc(0.5 * (var(--size) - 1lh));
+    padding-bottom: calc(0.5 * (var(--size) - 1lh));
+
+    border-width:   0;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+label[for] {
+    /* Clickable labels get a pointer cursor... */
+    cursor: pointer;
+}
+
+label > [type="checkbox"],
+label > [type="radio"] {
+    /* checkboxes nested inside labels */
+    margin-right: 0.5em;
+    line-height: inherit;
+}
+
+* + label {
+    margin-top: var(--label-margin);
+}
+
+[hidden] + label {
+    margin-top: 0;
+}
+
+
 
 input,
 select,
@@ -390,6 +403,12 @@ textarea {
 * + select,
 * + textarea {
     margin-top: var(--input-margin);
+}
+
+fieldset + input,
+fieldset + select,
+fieldset + textarea {
+    margin-top: var(--fieldset-input-margin);
 }
 
 label + input,
@@ -515,6 +534,41 @@ input[type="password"] {
     line-height: calc(var(--size) - 2 * var(--border-width, 1px));
 }
 
+
+/* Checkbox and radio inputs */
+
+input[type="checkbox"],
+input[type="radio"] {
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: 1px;
+    padding-left: 0;
+    padding-right: 0;
+    width: auto;
+    height: auto;
+    /* WebKit clips radio buttons edges slightly when not fully opaque. */
+    opacity: 1;
+}
+
+/* Color inputs */
+
+[type="color"] {
+    padding: 0;
+    /* Make color swatches square. */
+    width: 2.5rem;
+}
+
+[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+[type="color"]::-webkit-color-swatch {
+    border: none;
+}
+
+
+/* Date and time inputs. */
+
 input[type='date'],
 input[type='time'],
 input[type='week'],
@@ -522,9 +576,62 @@ input[type='month'] {
     max-width: 12em;
 
     /* Safari does not respect line-height + border width as auto height for
-       these fields, be explicit */
+       these fields, set explicit height */
     height: var(--size);
 }
+
+::-webkit-datetime-edit-text {
+    /* Space the separators and make them lighter. */
+    opacity: 0.333333;
+    padding-left: 0.0625rem;
+    padding-right: 0.0625rem;
+}
+
+[type="date"]::-webkit-inner-spin-button {
+    /* Hide the increment/decrement control. */
+    display: none;
+}
+
+/*
+::-webkit-datetime-edit { padding: 0; }
+::-webkit-datetime-edit-fields-wrapper { background: transparent; }
+::-webkit-datetime-edit-month-field { color: ; }
+::-webkit-datetime-edit-day-field { color: ; }
+::-webkit-datetime-edit-year-field { color: ; }
+::-webkit-inner-spin-button { display: none; }
+::-webkit-calendar-picker-indicator { }
+*/
+
+
+/* File inputs.
+   You're on your own. Good luck. The best way to handle these, frankly, is to
+   make them opacity 0, and overlay a label. You don't get to display the
+   filename, but at least you get some freedom to style them. */
+
+input[type='file'] {
+    color: inherit;
+    background: none;
+}
+
+@-moz-document url-prefix() {
+    /* File inputs are especially problematic in FF. They
+       require a wrapper to get rid of their system border. */
+
+    .file_wrap {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .file_wrap input[type='file'] {
+        position: relative;
+        top: -2px;
+        left: -1px;
+        margin-bottom: -3px;
+    }
+}
+
+/* Search inputs */
 
 /* Make search fields appear as other inputs in WebKit. */
 @media (-webkit-min-device-pixel-ratio: 0) {
@@ -534,15 +641,17 @@ input[type='month'] {
     }
 }
 
-/* Position the 'x' cancel button */
 [type="search"]::-webkit-search-cancel-button {
+    /* Position the 'x' cancel button */
     position: relative;
     right: 0.5em;
 }
 
+
+/* Textareas */
+
 textarea {
     min-height: calc(var(--size) + 4 * 1lh);
-    line-height: inherit;
     padding-left: calc(var(--padding-left) - var(--border-width, 1px));
     padding-right: calc(var(--padding-left) - var(--border-width, 1px));
     /* Nudged up by 1px to make it look more even. */
@@ -585,13 +694,28 @@ input + [type="password"] {
 
 button,
 select,
-input[type="file"],
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+[type="file"],
+[type="button"],
+[type="reset"],
+[type="submit"] {
     /* Clickable stuff gets a pointer cursor... */
     cursor: pointer;
 }
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    /* Correct inability to style clickable 'input' types in iOS */
+    -webkit-appearance: button;
+}
+
+[type="submit"] {
+    /* Safari iOS gives submit white on blue by default */
+    color: inherit;
+}
+
+
 
 button:disabled,
 select:disabled,
@@ -603,31 +727,8 @@ input[type="submit"]:disabled {
     cursor: default;
 }
 
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-    /* Corrects inability to style clickable 'input' types in iOS */
-    -webkit-appearance: button;
-}
 
-[type="submit"] {
-    /* Safari iOS gives submit white on blue by default */
-    color: inherit;
-}
 
-input[type="checkbox"],
-input[type="radio"] {
-    margin-top: 0;
-    margin-bottom: 0;
-    vertical-align: 1px;
-    padding-left: 0;
-    padding-right: 0;
-    width: auto;
-    height: auto;
-    /* WebKit clips radio buttons edges slightly when not fully opaque. */
-    opacity: 1;
-}
 
 [type="range"],
 input[type="image"] {
@@ -648,45 +749,19 @@ input::-moz-focus-inner {
     padding: 0;
 }
 
-/* File inputs. You're on your own. Good luck. The best way to handle
-   these, frankly, is to make them opacity 0, and overlay a label. You
-   don't get to display the filename, but at least you get some style. */
-input[type='file'] {
-    color: inherit;
-    background: none;
+
+/* Submit, reset and button inputs */
+
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    width: auto;
+    opacity: 1;
+    text-indent: 0;
+    vertical-align: baseline;
+    padding-top: 0;
+    padding-bottom: 0;
 }
-
-/* File inputs are especially problematic in FF. They
-   require a wrapper to get rid of their system border. */
-@-moz-document url-prefix() {
-    .file_wrap {
-        position: relative;
-        overflow: hidden;
-        width: 100%;
-    }
-
-    .file_wrap input[type='file'] {
-        position: relative;
-        top: -2px;
-        left: -1px;
-        margin-bottom: -3px;
-    }
-}
-
-[type="color"] {
-    padding: 0;
-    /* Make color swatches square. */
-    width: 2.5rem;
-}
-
-[type="color"]::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-
-[type="color"]::-webkit-color-swatch {
-    border: none;
-}
-
 
 
 /* select
@@ -702,19 +777,18 @@ select {
 
     /* iOS Safari will zoom-in the site layout if the select's text is less
        than 16px */
-    font-size:      inherit;
-    line-height:    inherit;
+    font-size:      max(16px, 1em);
+
     padding-left:   calc(var(--padding-left)  - var(--border-width, 1px));
     padding-right:  calc(var(--padding-right) - var(--border-width, 1px));
     padding-top:    calc(0.5 * (var(--size) - 1lh - 2 * var(--border-width, 1px)) - 1px);
     padding-bottom: calc(0.5 * (var(--size) - 1lh - 2 * var(--border-width, 1px)) + 1px);
 
     width: 100%;
-	 max-width: 100%;
+    max-width: 100%;
 
     height: auto;
     min-height: var(--size);
-	 /*box-shadow: 0 1px 0 1px rgba(0,0,0,.04);*/
 
     background-image:
         /* Arrow icon */
@@ -728,19 +802,15 @@ select {
 	background-color: transparent;
 }
 
-select::-ms-expand {
-    /* Instruct IE11 and IE10 to hide the menu icon pseudo element, so the custom icon behind
-       it can appear*/
-	display: none;
-}
-
-select:hover {
-	/* border-color: #888; */
-}
-
-select option {
+option {
     /* Keep options from inheriting the weight of the select */
-	font-weight: normal;
+    font-weight: normal;
+
+    /* In Firefox options are partially styleable. Make sure they don't
+       become unreadable by inheriting colors. */
+    color: black;
+    background: white;
+    padding: 0.3125rem 0.9375rem;
 }
 
 *[dir="rtl"] select,
@@ -765,34 +835,30 @@ select[aria-disabled="true"] {
 }
 
 
+/*
+:enabled
+:disabled
+:required
+:optional
+:checked
+:valid
+:invalid
 
+Slightly less support:
 
+:in-range
+:out-of-range
+*/
+
+:disabled,
+[aria-disabled="true"] {
+    opacity: 0.4;
+}
 
 
 /*
-.masked
+.invisible
 */
-
-.masked {
-    display: block !important;
-    opacity: 0 !important;
-
-    /* Width and height 0 cause browser validation bubbles to dissappear. */
-    width: 1px !important;
-    height: 1px !important;
-
-    /* Position it so that the validation message appears in the correct place */
-    position: relative;
-    top: calc(var(--input-margin) + var(--size), 2.5rem);
-    /*margin-top: 0 !important;*/
-    margin-bottom: -1px !important;
-    margin-left: var(--padding-left, 0.75rem) !important;
-
-    /* Firefox: force no rendering or it'll inherit the default widget
-      height of 18px not matter what. */;
-    -moz-appearance: none;
-
-}
 
 .invisible {
     /* Keep content accessible but not visible. */
@@ -809,6 +875,76 @@ select[aria-disabled="true"] {
     border-width: 0;
 }
 
+.required-label::after {
+    content: '*';
+    margin-left: 0.1875em;
+    color: var(--error);
+}
+
+.error-label {
+    color: var(--error);
+}
+
+* + .error-label {
+    margin-top: 0.375em;
+}
+
+* + .help-label {
+    margin-top: 0.375em;
+}
+
+/*
+.x1 + .error-label,  .x1 + .help-label  { grid-column-start: 1; }
+.x2 + .error-label,  .x2 + .help-label  { grid-column-start: 2; }
+.x3 + .error-label,  .x3 + .help-label  { grid-column-start: 3; }
+.x4 + .error-label,  .x4 + .help-label  { grid-column-start: 4; }
+.x5 + .error-label,  .x5 + .help-label  { grid-column-start: 5; }
+.x6 + .error-label,  .x6 + .help-label  { grid-column-start: 6; }
+.x7 + .error-label,  .x7 + .help-label  { grid-column-start: 7; }
+.x8 + .error-label,  .x8 + .help-label  { grid-column-start: 8; }
+.x9 + .error-label,  .x9 + .help-label  { grid-column-start: 9; }
+.x10 + .error-label, .x10 + .help-label { grid-column-start: 10; }
+.x11 + .error-label, .x11 + .help-label { grid-column-start: 11; }
+.x12 + .error-label, .x12 + .help-label { grid-column-start: 12; }
+
+.1x + .error-label,  .1x + .help-label  { grid-column-end: span 1; }
+.2x + .error-label,  .2x + .help-label  { grid-column-end: span 2; }
+.3x + .error-label,  .3x + .help-label  { grid-column-end: span 3; }
+.4x + .error-label,  .4x + .help-label  { grid-column-end: span 4; }
+.5x + .error-label,  .5x + .help-label  { grid-column-end: span 5; }
+.6x + .error-label,  .6x + .help-label  { grid-column-end: span 6; }
+.7x + .error-label,  .7x + .help-label  { grid-column-end: span 7; }
+.8x + .error-label,  .8x + .help-label  { grid-column-end: span 8; }
+.9x + .error-label,  .9x + .help-label  { grid-column-end: span 9; }
+.10x + .error-label, .10x + .help-label { grid-column-end: span 10; }
+.11x + .error-label, .11x + .help-label { grid-column-end: span 11; }
+.12x + .error-label, .12x + .help-label { grid-column-end: span 12; }
+
+.y1  + .error-label, .y1  + .help-label { grid-row-start: 1; }
+.y2  + .error-label, .y2  + .help-label { grid-row-start: 2; }
+.y3  + .error-label, .y3  + .help-label { grid-row-start: 3; }
+.y4  + .error-label, .y4  + .help-label { grid-row-start: 4; }
+.y5  + .error-label, .y5  + .help-label { grid-row-start: 5; }
+.y6  + .error-label, .y6  + .help-label { grid-row-start: 6; }
+.y7  + .error-label, .y7  + .help-label { grid-row-start: 7; }
+.y8  + .error-label, .y8  + .help-label { grid-row-start: 8; }
+.y9  + .error-label, .y9  + .help-label { grid-row-start: 9; }
+.y10 + .error-label, .y10 + .help-label { grid-row-start: 10; }
+.y11 + .error-label, .y11 + .help-label { grid-row-start: 11; }
+.y12 + .error-label, .y12 + .help-label { grid-row-start: 12; }
+.y13 + .error-label, .y13 + .help-label { grid-row-start: 13; }
+.y14 + .error-label, .y14 + .help-label { grid-row-start: 14; }
+.y15 + .error-label, .y15 + .help-label { grid-row-start: 15; }
+.y16 + .error-label, .y16 + .help-label { grid-row-start: 16; }
+.y17 + .error-label, .y17 + .help-label { grid-row-start: 17; }
+.y18 + .error-label, .y18 + .help-label { grid-row-start: 18; }
+*/
+
+.error-label + .help-label {
+    /* Hide help while there are errors. Errors disappear when you start
+       typing anyway, so help is still available. */
+    display: none;
+}
 
 
 /* Focus and error styles */
@@ -870,10 +1006,6 @@ textarea:focus-visible,
 input.validated:focus-visible,
 select.validated:focus-visible,
 textarea.validated:focus-visible,
-.masked:focus-visible + .focus-label:before,
-.masked:focus-visible + .checkbox-label:before,
-.masked:focus-visible + .radio-label:before,
-.invisible:focus-visible + .focus-label:before,
 .invisible:focus-visible + .checkbox-label:before,
 .invisible:focus-visible + .radio-label:before {
     /* In Webkit, outline doesn't fit the border curves, and in FF outline
@@ -886,7 +1018,7 @@ textarea.validated:focus-visible,
     /* Hack to apply border color but avoid IE, which hates
        having border-color applied to select boxes. Unfortunately
        this hack also ignores Safari. But that's ok. */
-    select:focus-visible
+    select:focus-visible,
     select.error:focus-visible {
         border-color: #5086c5 !important;
     }
@@ -906,70 +1038,23 @@ select:focus-visible {
     outline-offset: -3px;
 }
 
-:disabled,
-[aria-disabled="true"] {
-	opacity: 0.4;
-}
 
+/* Placeholders */
 
-/* Submit, reset and button inputs.
-
-   Use pure attribute selectors because they are weak, and classes
-   are able to override them. Pure attribute selectors are a known
-   performance drag, so keep them to a minimum. */
-[type="button"],
-[type="reset"],
-[type="submit"] {
-    width: auto;
-    opacity: 1;
-    text-indent: 0;
-    vertical-align: baseline;
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-
-/* Legacy */
-.error [type="button"],
-.error [type="reset"],
-.error [type="submit"] {
-    /* Negate error styles applied to inputs. */
-    -webkit-box-shadow: none;
-       -moz-box-shadow: none;
-            box-shadow: none;
-}
-/* ------ */
-
-
-
-/* Date and time inputs. */
-
-::-webkit-datetime-edit-text {
-    /* Space the separators and make them lighter. */
-    opacity: 0.333333;
-    padding-left: 0.0625rem;
-    padding-right: 0.0625rem;
-}
-
-[type="date"]::-webkit-inner-spin-button {
-    /* Hide the increment/decrement control. */
-    display: none;
-}
-
-/*
-::-webkit-datetime-edit { padding: 0; }
-::-webkit-datetime-edit-fields-wrapper { background: transparent; }
-::-webkit-datetime-edit-month-field { color: ; }
-::-webkit-datetime-edit-day-field { color: ; }
-::-webkit-datetime-edit-year-field { color: ; }
-::-webkit-inner-spin-button { display: none; }
-::-webkit-calendar-picker-indicator { }
-*/
-
-
-
-/* Placeholders. */
 ::placeholder {
     font-style: italic;
     line-height: inherit;
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+    /* Get rid of persistent placeholders in webkit, where the placeholder
+       hangs around like an old fart. More here:
+       http://adactio.com/journal/6147/
+    */
+    color: transparent;
+}
+
+[placeholder]:focus::-moz-placeholder {
+    /* Get rid of persistent placeholders in Firefox. */
+    color: transparent;
 }

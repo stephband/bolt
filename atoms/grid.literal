@@ -142,6 +142,18 @@ ${ Array.from({ length: data.columns || 12 }).map((nowt, i) => i + 1).map((n) =>
     width:        calc(100% + var(--x-gap));
 }
 
+.${ data.prefix }x-bleed > * > tr > th:first-child,
+.${ data.prefix }x-bleed > * > tr > td:first-child {
+    /* Make bled tables cell content align with grid column start */
+    padding-left: calc(0.5 * var(--x-gap));
+}
+
+.${ data.prefix }x-bleed > * > tr > th:last-child,
+.${ data.prefix }x-bleed > * > tr > td:last-child {
+    /* Make bled tables cell content align with grid column end */
+    padding-right: calc(0.5 * var(--x-gap));
+}
+
 .${ data.prefix }x-floodl {
     justify-self: stretch !important;
     margin-left:  calc(-1 * var(--x-gap));

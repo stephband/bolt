@@ -1,9 +1,9 @@
-@import './elements/html.css';
-@import './elements/type.css';
-@import './elements/focus.css';
-@import './elements/fullscreen.css';
 
-@import './elements/root.css';
+@import './elements/html.css';
 @import './elements/body.css';
+@import './elements/type.css';
 @import './elements/a.css';
 @import './elements/svg.css';
+@import './elements/table.css';
+@import './elements/focus.css';
+@import './elements/fullscreen.css';

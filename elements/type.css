@@ -1,5 +1,10 @@
 
-html {
+/*
+Some ideas purloined from TODS:
+https://clagnut.com/blog/2433/#h-reset
+*/
+
+:root {
     font-size: 100%; /* 16px, normally */
 }
 
@@ -10,15 +15,45 @@ button {
     text-rendering: geometricPrecision;
 }
 
+body {
+    /* Stop short words being hyphenated, prevent ladders of hyphens, and reduce
+       overall hyphenation a bit */
+    -webkit-hyphens: auto;
+    -webkit-hyphenate-limit-before: 4;
+    -webkit-hyphenate-limit-after: 3;
+    -webkit-hyphenate-limit-lines: 2;
+
+    hyphens: auto;
+    hyphenate-limit-chars: 7 4 3;
+    hyphenate-limit-lines: 2;
+    hyphenate-limit-zone: 8%;
+    hyphenate-limit-last: always;
+}
+
+p,
+li,
+dd {
+    /* Paragraphs of text should not end with single orphan */
+    text-wrap: pretty;
+
+    /* Old style numerals for flow text */
+    font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
 pre,
 code,
 kbd,
 output,
+var,
 samp {
     /* Corrects font family set oddly in IE6, S4/5, Chrome
        en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
     font-family: monospace, serif;
     font-family: Monaco, 'Lucida Console', monospace;
+
+    /* Turn off hyphens */
+    -webkit-hyphens: manual;
+            hyphens: manual;
 }
 
 code,
@@ -74,10 +109,16 @@ h4,
 h5,
 h6 {
     font-weight: normal;
+
+    /* Turn off hyphens */
     -webkit-hyphens: manual;
-       -moz-hyphens: manual;
-        -ms-hyphens: manual;
             hyphens: manual;
+
+    /* Use lining numerals in headings, especially when using Title Case */
+    font-variant-numeric: lining-nums;
+
+    /* Balance title wrapping */
+    text-wrap: balance;
 }
 
 hr {
@@ -112,7 +153,7 @@ dl > dt {
     max-width: 40vw;
 }
 */
-blockquote        { font-style: italic; font-family: Georgia, serif; }
+blockquote         { font-style: italic; font-family: Georgia, serif; }
 blockquote::before { content: "\201C"; font-size: 3em; color: #484848; float: left; margin-left: -0.6em; line-height: 0.92em; }
 
 p:empty,
@@ -129,10 +170,9 @@ li:empty,
 dt:empty,
 dd:empty,
 blockquote:empty {
-    /* Hide any typographic block that is empty. This is a bit
-       contraversial, but helps correct style errors in blocks
-       of user input where the HTML has ended up being dodgy -
-       perhaps thanks to a CMS editor, for example. */
+    /* Hide any typographic block that is empty. This is a bit controversial,
+       but helps correct style errors in blocks of user input where the HTML has
+       ended up being dodgy - perhaps thanks to a CMS editor, for example. */
     display: none;
 }
 
@@ -166,6 +206,7 @@ dd > iframe {
 b,
 strong,
 dfn               { font-weight: bold; }
+
 em,
 dfn               { font-style: italic; }
 
@@ -176,22 +217,14 @@ sub               { line-height: 0; font-size: 0.8333em; position: relative; ver
 sup               { top: -0.5em; }
 sub               { bottom: -0.25em; }
 
-q                 { quotes: none; }
-q::before,
-q::after           { content: ''; content: none; }
+:lang(en) > *     { quotes: '“' '”' '‘' '’'; }               /* “Generic English ‘style’” */
+:lang(en-GB) > *  { quotes: '‘' '’' '“' '”' ; }              /* ‘British “style”’ */
+:lang(fr) > *     { quotes: '«\00202F' '\00202F»' '“' '”'; } /* «French “style”» */
+
+q::before { content: open-quote }
+q::after  { content: close-quote }
 
 del               { opacity: 0.5; text-decoration: line-through; }
-
-
-/* Tables */
-
-table             { width: 100%; }
-tfoot             { font-style: italic; }
-caption           { background-color: inherit; }
-th,
-td,
-caption           { padding: 4px 10px 4px 5px; } /* TODO: review. Should be 0, added back in with a class */
-
 
 /* Lists */
 
@@ -202,7 +235,7 @@ dd                { margin: 0; }
 * + ul,
 * + ol,
 * + dl,
-* + blockquote    { margin-top: 1.25rem; }
+* + blockquote    { margin-top: 1lh; }
 li                { margin-bottom: 0;}
 
 blockquote::before { font-size: 3em; line-height: 0.84em; margin-left: -0.6em; }

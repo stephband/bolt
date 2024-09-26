@@ -14,6 +14,7 @@
 */
 
 /* Normalise elements */
+:root, :host,
 html, body, div, span,
 object, iframe, canvas, img, svg, audio, video, track, math,
 h1, h2, h3, h4, h5, h6, hr, p, blockquote, pre,
@@ -36,23 +37,21 @@ progress, meter,
 
 	/* Don't stretch images by default, make them cover */
 	background-size: cover;
+
+    /* Remove default margins in favour of better control in authored CSS */
+    margin: 0;
 }
 
 :root {
 	/* Prevents iOS text size adjust after orientation change, without disabling user zoom
 	   www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
-	-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+    text-size-adjust: none;
 }
 
 body {
 	padding: 0;
-	margin: 0;
-}
-
-button,
-blockquote {
-	margin: 0;
 }
 
 article,
@@ -75,33 +74,21 @@ video {
 	display: inline-block;
 }
 
-p,
-dl,
-input,
-menu,
-ol,
-ul,
-dd,
-pre {
-	/* margins set differently in IE6/7, Chrome */
-	margin: auto;
-}
-
-hr {
-    /* Things collapse to 0 width when they are children of grids. Margin 0
-       avoids this. */
-    margin: 0;
-}
-
 code,
 kbd,
 samp,
 pre {
 	/* Correct the inheritance and scaling of font size */
-	font-family: monospace, monospace;
+	font-family: monospace;
 
 	/* Correct the odd `em` font sizing */
 	font-size: 1em;
+}
+
+math,
+time[datetime*=":"] {
+    /* Use tabular numerals in maths and times */
+    font-variant-numeric: tabular-nums lining-nums slashed-zero;
 }
 
 menu,
@@ -143,14 +130,6 @@ mark {
 	/* styling not present in IE6/7/8/9 */
 	background: #ff0;
 	color: #000;
-}
-
-button,
-html [type="button"],
-[type="reset"],
-[type="submit"] {
-	-webkit-appearance: button;
-	cursor: pointer;
 }
 
 img,
@@ -200,31 +179,8 @@ figure > img,
 figure > svg,
 figure > canvas,
 figure > video {
+    display: block;
     width: 100%;
-}
-
-table {
-	border-spacing: 0;
-	/* Tables don't get border-radius if they are set to
-	   border-collapse: collapse; */
-	border-collapse: separate;
-
-	/* Remove most spacing between table cells. They still need
-	   'cellspacing="0"' in the markup. */
-	/*border-collapse: collapse;*/
-}
-
-caption,
-th,
-td {
-	text-align: left;
-	font-weight: normal;
-}
-
-table,
-td,
-th {
-	vertical-align: top;
 }
 
 [hidden] {
@@ -238,19 +194,6 @@ th {
 ::-ms-clear {
 	width: 0;
 	height: 0;
-}
-
-[placeholder]:focus::-webkit-input-placeholder {
-	/* Get rid of persistent placeholders in webkit, where the placeholder
-	   hangs around like an old fart. More here:
-	   http://adactio.com/journal/6147/
-	*/
-	color: transparent;
-}
-
-[placeholder]:focus::-moz-placeholder {
-	/* Get rid of persistent placeholders in Firefox. */
-	color: transparent;
 }
 
 [draggable] {
