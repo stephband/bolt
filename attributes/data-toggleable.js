@@ -30,7 +30,6 @@ import { isInternalLink } from 'dom/node.js';
 import { behaviours, deactivate } from '../events/_dom-activate.js';
 
 
-
 // Functions
 
 var actives = [];
