@@ -1,5 +1,6 @@
 
-:root {
+:root,
+:host {
     /** --focus-fg
     Border colour of focused inputs, selects and textareas **/
     --focus-fg: #2c9bd3;
@@ -12,7 +13,7 @@
 }
 
 *:focus {
-    outline-width: 0;
+    outline: 0px solid transparent;
 }
 
 *:focus-visible {

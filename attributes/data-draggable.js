@@ -30,7 +30,7 @@ import events    from 'dom/events.js';
 var debug = true;
 
 //                 xxxxx: wef;
-var rmimetype = /^([^:\s]+)\s*:\s*([^;\s]+);\s*/;
+var rmimetype = /^([^:\s]+)\s*:\s*([^;\s]+)[;\s]*/;
 
 function lastIndex(data) {
 	return data.index + data[0].length;
@@ -59,7 +59,13 @@ function toMimetypeData(data) {
 }
 
 function dragstartButton(target, e) {
-	var data = toMimetypeData(attribute('data-draggable', target));
+    if (e.defaultPrevented) return;
+
+    // Allow draggable="true" nested in shadow DOMs by ignoring dragstarts where
+    // data has already been set
+    if (e.dataTransfer.types && e.dataTransfer.types.length) return;
+
+	var data = toMimetypeData(target.dataset.draggable);
 
 	setDataTransfer(e.dataTransfer, data, {
 		dropEffect:    "none",
@@ -74,22 +80,23 @@ function dragstartButton(target, e) {
 	});
 }
 
-var dragstart = delegate({ '[draggable], [data-draggable]': dragstartButton });
+/* Export main handlers so they may be used inside shadow DOMs */
 
-function dragend(e) {
+export const dragstart = delegate({ '[draggable="true"], [data-draggable]': dragstartButton });
+
+export function dragend(e) {
 	classes(e.target).remove('dragging');
 }
 
 events('dragstart', document).each(dragstart);
 events('dragend', document).each(dragend);
 
-
+/*
 function dragendButton(e) {
-	select('.dropzone', document).forEach(remove);
-	select('.dragover', document).forEach(removeClass('dragover'));
+	select('.dropzone', e.currentTarget).forEach(remove);
+	select('.dragover', e.currentTarget).forEach(removeClass('dragover'));
 }
 
-/*
 register('data-on-drag', function(node, params) {
 	var dragstart = delegate({ '[draggable], [data-draggable]': dragstartButton });
 	var dragend   = delegate({ '[draggable], [data-draggable]': dragendButton });

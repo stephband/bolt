@@ -2,9 +2,9 @@
 /**
 data-droppable
 
-The `droppable` attribute turns an element into a drop target for drag-and-drop
-actions, and is given the class `dragover` while data of an accepted mimetype is
-being dragged over it.
+The `data-droppable` attribute turns an element into a drop target
+for drag-and-drop actions, and is given the class `dragover` while data of an
+accepted mimetype is being dragged over it.
 
 Define the mimetypes of data to accept in a `data-droppable`
 attribute:
@@ -18,7 +18,6 @@ attribute:
 
 import choose    from 'fn/choose.js';
 import id        from 'fn/id.js';
-import intersect from 'fn/intersect.js';
 import nothing   from 'fn/nothing.js';
 import prepend   from 'fn/prepend.js';
 import attribute from 'dom/attribute.js';
@@ -44,7 +43,7 @@ function onOvernode(node, types) {
 }
 
 function offOvernode() {
-    if (!overnode) { return; }
+    if (!overnode) return;
     const list = classes(overnode);
     overclasses.forEach(function(value) {
         list.remove(value);
@@ -59,42 +58,42 @@ function getDroptypes(node) {
     return mimetypes && mimetypes.trim().split(/\s+/);
 }
 
-function dragenter(e) {
-    if (overnode && (overnode === e.target || overnode.contains(e.target))) { return; }
+export function dragenter(e) {
+    // Has dragenter already been handled? Do nothing.
+    if (e.defaultPrevented) return;
+
+    if (overnode && (overnode === e.target || overnode.contains(e.target))) return;
     offOvernode();
 
-    var droppable  = closest('[droppable], [data-droppable]', e.target);
-    if (!droppable) { return; }
+    var droppable  = closest('[data-droppable]', e.target);
+    if (!droppable) return;
 
     var dragtypes = e.dataTransfer.types;
-    if (!dragtypes.length) { return; }
+    if (!dragtypes.length) return;
 
     var droptypes = getDroptypes(droppable);
-    if (!droptypes) {
-        // Where data-droppable is not defined, assume the droppable won't
-        // exclude any types. Strange assumption, perhaps?
-        e.preventDefault();
-        e.dataTransfer.dropEffect = "copy";
-        onOvernode(droppable, nothing);
-        return;
+    if (droptypes && droptypes.length) {
+        // Check that dragged data has a mimetype in droptypes
+        var types = dragtypes.filter(x => droptypes.includes(x));
+        if (!types.length) {
+            e.dataTransfer.dropEffect = "none";
+            return;
+        }
     }
 
-    var types = intersect(dragtypes, droptypes);
-
-    if (!types.length) {
-        e.dataTransfer.dropEffect = "none";
-        return;
-    }
-
-    e.preventDefault();
     e.dataTransfer.dropEffect = "copy";
+    e.preventDefault();
     onOvernode(droppable, types);
 }
 
-function dragover(e) {
-    var droppable = closest('.droppable, [droppable]', e.target);
-    if (!droppable) { return; }
-    e.preventDefault()
+export function dragover(e) {
+    // Has dragover already been handled? Do nothing.
+    if (e.defaultPrevented) return;
+
+    var droppable = closest('[data-droppable]', e.target);
+    if (!droppable) return;
+
+    e.preventDefault();
 }
 
 var parseData = choose({
@@ -102,36 +101,44 @@ var parseData = choose({
     default: id
 });
 
-function drop(e) {
+export function drop(e) {
+    // Has drop already been handled? Do nothing.
+    if (e.defaultPrevented) return;
+
     offOvernode();
 
-    var droppable = closest('.droppable, [droppable]', e.target);
-    if (!droppable) { return; }
+    var droppable = closest('[data-droppable]', e.target);
+    if (!droppable) return;
 
     // Stop the browser from doing something defaulty like trying to
     // display the dragged thing in a new window.
     e.preventDefault();
 
     var droptypes = getDroptypes(droppable);
-    if (!droptypes) { return; }
+    if (!droptypes) return;
 
     var dragtypes = e.dataTransfer.types;
-    if (!dragtypes.length) { return; }
+    if (!dragtypes.length) return;
 
-    var types = intersect(dragtypes, droptypes);
-    if (!types.length) { return; }
+    var types = dragtypes.filter(x => droptypes.includes(x));
+    if (!types.length) return;
 
-    var data = types.map(function(mimetype) {
-        var data = e.dataTransfer.getData(mimetype);
-        return data && {
-            mimetype: mimetype,
-            data: parseData(mimetype, e.dataTransfer.getData(mimetype))
-        } || undefined ;
-    });
+    // Mimetypes should be declared in order of preference. Here we take data
+    // from the first mimetype that matches with some data
+    let n = -1, mimetype, data;
+    while (mimetype = types[++n]) {
+        const string = e.dataTransfer.getData(mimetype);
+        if (!string) continue;
+        data = parseData(mimetype, string);
+        break;
+    }
 
     // We need a mechanism to do something useful with this data...
     // Emit another event.
-    trigger(droppable, 'dom-drop', { detail: data });
+    if (data !== undefined) {
+        console.log('Dropped', data);
+        trigger({ type: 'dropped', detail: data }, droppable);
+    }
 }
 
 events('dragenter', document).each(dragenter);
@@ -139,7 +146,7 @@ events('dragover', document).each(dragover);
 events('drop', document).each(drop);
 
 if (window.console) {
-    events('dom-drop', dcoument).each(function(e) {
+    events('dropped', document).each(function(e) {
         console.log('Dropped data:', e.detail);
     });
 }
