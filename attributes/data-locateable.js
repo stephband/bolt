@@ -175,7 +175,8 @@ React to location changes
 
 let previousHash;
 
-Signal.observe(Signal.fromProperty('hash', location), (hash) => {
+Signal.tick(() => {
+    const hash = location.hash;
     unlocate(previousHash);
     previousHash = hash;
     if (!hash || hash === '#') return;
