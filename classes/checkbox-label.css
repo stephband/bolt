@@ -194,9 +194,9 @@ input + .invisible + .radio-label,
     /**
     --check-content
     Defines the :after content of the check mark, the actual character used as
-    the check. This is not defined by default, and where not defined it defaults
-    to a Unicode Heavy Check mark. You could replace the character with SVG data,
-    thusly:
+    the check. This custom property is _not_ defined by default, and where not
+    defined it defaults to a Unicode Heavy Check mark. You could replace the
+    character with SVG data, thusly:
 
     ```css
     --check-content: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">\
