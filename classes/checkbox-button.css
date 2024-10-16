@@ -80,7 +80,7 @@
 
 .checkbox-button::after {
     display: none;
-    content: var(--check-content);
+    content: var(--check-content, '✔');
     background: var(--check-content-background);
     text-align: center;
     line-height: var(--check-size);

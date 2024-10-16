@@ -93,7 +93,7 @@
 }
 
 .checkbox-label::after {
-    content: var(--check-content, '');
+    content: var(--check-content, '✔');
     text-align: center;
     line-height: var(--check-size);
     color: var(--mark-color);
@@ -191,12 +191,20 @@ input + .invisible + .radio-label,
     **/
     --check-background: var(--input-background);
 
-    /** --check-content
-    The actual check mark **/
+    /**
+    --check-content
+    Defines the :after content of the check mark, the actual character used as
+    the check. This is not defined by default, and where not defined it defaults
+    to a Unicode Heavy Check mark. You could replace the character with SVG data,
+    thusly:
+
+    ```css
     --check-content: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">\
             <style>path{stroke:%2346789a;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;fill:none;}</style>\
             <path d="M5 8 L7 11 L11 5"></path>\
         </svg>');
+    ```
+    **/
 
     /**
     --check-content-background
