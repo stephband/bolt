@@ -3,6 +3,8 @@
 @import './elements/body.css';
 @import './elements/type.css';
 @import './elements/a.css';
+@import './elements/form.css';
+@import './elements/input-range.css';
 @import './elements/svg.css';
 @import './elements/table.css';
 @import './elements/focus.css';

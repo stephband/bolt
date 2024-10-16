@@ -855,26 +855,6 @@ Slightly less support:
     opacity: 0.4;
 }
 
-
-/*
-.invisible
-*/
-
-.invisible {
-    /* Keep content accessible but not visible. */
-    position: absolute;
-    clip: rect(0 0 0 0);
-    -webkit-clip-path: inset(50%);
-            clip-path: inset(50%);
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: 0 -1px -1px 0;
-    overflow: hidden;
-    white-space: nowrap;
-    border-width: 0;
-}
-
 .required-label::after {
     content: '*';
     margin-left: 0.1875em;

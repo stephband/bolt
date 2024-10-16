@@ -1,18 +1,7 @@
 
 /**
-.a
+a
 **/
-
-a,
-.a {
-    text-decoration: none;
-}
-
-a,
-.a:hover,
-.a:focus {
-    text-decoration: underline;
-}
 
 a[draggable="false"] {
     /* Firefox changes to pointer text selection, strangely. */

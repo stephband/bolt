@@ -25,12 +25,6 @@
     z-index: 1;
 }
 
-/*
-a:not(:focus-visible) {
-    text-decoration: none;
-}
-*/
-
 @supports not selector(:focus-visible) {
     *:focus {
         box-shadow: var(--focus-shadow) !important;
@@ -40,10 +34,4 @@ a:not(:focus-visible) {
            Not foolproof. */
         z-index: 1;
     }
-
-    /*
-    a:not(:focus) {
-        text-decoration: none;
-    }
-    */
 }
