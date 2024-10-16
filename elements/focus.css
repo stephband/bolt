@@ -25,9 +25,11 @@
     z-index: 1;
 }
 
+/*
 a:not(:focus-visible) {
     text-decoration: none;
 }
+*/
 
 @supports not selector(:focus-visible) {
     *:focus {
@@ -39,7 +41,9 @@ a:not(:focus-visible) {
         z-index: 1;
     }
 
+    /*
     a:not(:focus) {
         text-decoration: none;
     }
+    */
 }

@@ -1,4 +1,5 @@
 
 input.invisible {
-    display: contents;
+    /* We cannot do this, the input is no longer focusable */
+    /*display: contents;*/
 }
