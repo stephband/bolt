@@ -2,6 +2,11 @@
 /*
 MDN dialog documentation:
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
+
+TODO: There's a problem where, due to Safari's page caching, if you navigate
+away from a page with an open dialog[mode="overlay"] then go back to it, the
+dialog still has an open attribute but also a closing class, so is not visible,
+and the generated backdrop is added makign the page uninteractive. Bad.
 */
 
 /*
