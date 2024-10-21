@@ -4,6 +4,8 @@ dialog.js
 Augments the <dialog> element.
 */
 
+import clamp           from 'fn/clamp.js';
+import create          from 'dom/create.js';
 import events          from 'dom/events.js';
 import delegate        from 'dom/delegate.js';
 import focus           from 'dom/focus.js';
@@ -19,6 +21,10 @@ import { actions }     from '../attributes/name=toggle.js';
 let n = 0;
 let timer;
 
+// Track last hashchange time
+let hashtime = -1000;
+events('hashchange', (e) => hashtime = e.timeStamp);
+
 function disableDocumentScroll() {
     if (n === 0) {
         // In Linux Chrome (at least), disabling scroll interrupts scrolling
@@ -26,7 +32,8 @@ function disableDocumentScroll() {
         // so we must delay it. I wish we could ask for scroll events and wait
         // until they are finished, but we cannot listen to scroll events inside
         // of a shadow DOM, so we are forced to use setTimeout.
-        timer = setTimeout(disableScroll, 900);
+        const delay = clamp(0, 1000, window.performance.now() - hashtime);
+        timer = setTimeout(disableScroll, delay);
     }
 
     // As it is possible to have multiple dialogs open, we must enumerate them
@@ -34,10 +41,8 @@ function disableDocumentScroll() {
 }
 
 function enableDocumentScroll() {
-    --n;
-
-    // This shouldn't happen, but if there's an error somewhere it's possible
-    if (n < 0) { n = 0; }
+    // n shouldn't drop below 0, but if there's an error somewhere it's possible
+    n = clamp(0, Infinity, n - 1);
 
     // Enable scrolling on document element
     if (n === 0) {
@@ -88,6 +93,15 @@ export function open(element, target) {
         element.show();
         disableDocumentScroll();
         trapFocus(element);
+
+        // Add backdrop to the body
+        const backdrop = document.body.querySelector('.dialog-backdrop') || create('div', {
+            ariaHidden: 'true',
+            class: 'dialog-backdrop'
+        });
+
+        // Make sure the backdrop stays at the end of the document
+        document.body.append(backdrop);
 
         // Dialogs do have a 'close' event, it does not bubble.
         events('close', element)
