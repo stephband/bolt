@@ -24,6 +24,9 @@ ${
     /* Stretch by default */
     justify-items: stretch;
     align-items: stretch;
+
+    /* Make grids behave as centered wraps by default. */
+    margin: 0 auto;
 }
 
 a.${ data.prefix }grid,

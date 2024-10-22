@@ -220,7 +220,7 @@ Define the vertical grid gap (with units).
 .columns {
     display: block !important;
     column-gap: var(--x-gap);
-    
+
 }
 
 
@@ -254,8 +254,6 @@ Define the vertical grid gap (with units).
     grid-auto-columns: minmax(0, 1fr);
     column-gap: var(--x-gap, 0);
     row-gap:    var(--y-gap, 0);
-    
-    
 }
 
 a.grid,
