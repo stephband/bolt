@@ -4,7 +4,7 @@ This repository contains source code and documentation for Bolt:
 
 <a href="https:/stephen.band/bolt">stephen.band/bolt</a>
 
-
+<!--
 ## Set up
 
 To develop this project you must first have <a href="https://git-scm.com/">git</a> and <a href="https://nodejs.org">Node.js</a> (>15.1, to support ES6 imports) installed.
@@ -72,4 +72,4 @@ npm run build-html
 ```
 
 Builds documentation from `*.html.bold` to `*.html` files.
-
+-->
