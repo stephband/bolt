@@ -1,3 +1,9 @@
+THIS REPO IS DEPRECATED.
+
+Note that the branch `bolt` is a copy of `stephband/bolt-2` enabling that repo to be published at `bolt/`.
+
+
+
 # Bolt
 
 This repository contains source code and documentation for Bolt:
