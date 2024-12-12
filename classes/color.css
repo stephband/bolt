@@ -52,10 +52,10 @@ and variables are available to set colors in CSS:
 ```
 **/
 
-:root       { --black: black; }
-.black-fg   { color: var(--black); stroke: var(--black); }
-.black-bg   { background-color: var(--black); fill: var(--black); }
-.black-bd   { border-color: var(--black); }
+:root, :host { --black: black; }
+.black-fg    { color: var(--black); stroke: var(--black); }
+.black-bg    { background-color: var(--black); fill: var(--black); }
+.black-bd    { border-color: var(--black); }
 
 
 /**
@@ -68,10 +68,10 @@ and variables are available to set colors in CSS:
 ```
 **/
 
-:root       { --white: white; }
-.white-fg   { color: var(--white); stroke: var(--white); }
-.white-bg   { background-color: var(--white); fill: var(--white); }
-.white-bd   { border-color: var(--white); }
+:root, :host { --white: white; }
+.white-fg    { color: var(--white); stroke: var(--white); }
+.white-bg    { background-color: var(--white); fill: var(--white); }
+.white-bd    { border-color: var(--white); }
 
 
 /**
@@ -84,10 +84,10 @@ and variables are available to set colors in CSS:
 ```
 **/
 
-:root       { --info: #46789a; }
-.info-fg    { color: var(--info); stroke: var(--info); }
-.info-bg    { background-color: var(--info); fill: var(--info); }
-.info-bd    { border-color: var(--info); }
+:root, :host { --info: #46789a; }
+.info-fg     { color: var(--info); stroke: var(--info); }
+.info-bg     { background-color: var(--info); fill: var(--info); }
+.info-bd     { border-color: var(--info); }
 
 
 /**
@@ -100,10 +100,10 @@ and variables are available to set colors in CSS:
 ```
 **/
 
-:root       { --success: #8aa231; }
-.success-fg { color: var(--success); stroke: var(--success); }
-.success-bg { background-color: var(--success); fill: var(--success); }
-.success-bd { border-color: var(--success); }
+:root, :host { --success: #8aa231; }
+.success-fg  { color: var(--success); stroke: var(--success); }
+.success-bg  { background-color: var(--success); fill: var(--success); }
+.success-bd  { border-color: var(--success); }
 
 
 /**
@@ -116,10 +116,10 @@ and variables are available to set colors in CSS:
 ```
 **/
 
-:root       { --warn: #e6ba1a; }
-.warn-fg    { color: var(--warn); stroke: var(--warn); }
-.warn-bg    { background-color: var(--warn); fill: var(--warn); }
-.warn-bd    { border-color: var(--warn); }
+:root, :host { --warn: #e6ba1a; }
+.warn-fg     { color: var(--warn); stroke: var(--warn); }
+.warn-bg     { background-color: var(--warn); fill: var(--warn); }
+.warn-bd     { border-color: var(--warn); }
 
 
 /**
@@ -132,7 +132,7 @@ and variables are available to set colors in CSS:
 ```
 **/
 
-:root       { --error: #dc0f0e; }
-.error-fg   { color: var(--error); stroke: var(--error); }
-.error-bg   { background-color: var(--error); fill: var(--error); }
-.error-bd   { border-color: var(--error); }
+:root, :host { --error: #dc0f0e; }
+.error-fg    { color: var(--error); stroke: var(--error); }
+.error-bg    { background-color: var(--error); fill: var(--error); }
+.error-bd    { border-color: var(--error); }
